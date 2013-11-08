@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+
+<html onContextMenu="return false">
+<head>
+    <meta charset="utf-8">
+    <title>children of Ur</title>
+
+<!-- Import Fonts -->
+<link href='https://fonts.googleapis.com/css?family=Nunito:400,700,300' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Asap:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Lily+Script+One' rel='stylesheet' type='text/css'>
+<!-- Import Fonts -->
+
+<!-- Import Stylesheets -->
+    <link rel="stylesheet" href="./css/base.css">
+<!-- Import Stylesheets -->
+
+</head>
+<body>
+
+<!-- Footer -->
+<div id="Footer">Copyright CoU Development Team, Children of Ur is not endorsed by or affiliated with <a href="http://tinyspeck.com/">Tiny Speck, Inc.</a>(The makers of Glitch) in any way.</div>   
+
+
+<!-- The initial splash Screen when the game is opened-->
+<div id="LoadingScreen">
+    <div class="LoadingH1">COU</div>
+    <div class="LoadingH2">Children of Ur</div>
+  <p>A GAME OF GIANT IMAGINATION</p><br><br><br><br>
+    <span class="green btn large" id="PlayButton">Enter the World</span><br><br>
+</div>
+
+<!-- The 'You won the game' screen that pops up on close-->
+<div id="YouWon" hidden="true">
+<br><br><br><br><br>
+WAIT! You were just about to win the game!
+</div>
+
+
+<!--The content window for gameplay -->
+<canvas id="GameScreen"></canvas>
+
+
+<!--Contains all the ui elements on the top left-->
+  <img src="./assets/system/energymeter.svg" width="124px" height="128px" id="EnergyIndicator">
+  <img src="./assets/system/energymeterred.svg" width="124px" height="128px" id="EnergyIndicatorRed">
+   <img src="./assets/system/leftcorner.svg" width="124px" height="128px" id="TopLeftCorner">
+   <img src="./assets/system/energybolt.svg" id="EnergyEmblem">
+     <canvas id="PlayerPortrait"></canvas>
+   <div id="PlayerName">null</div>
+      <div id="EnergyText">
+        <span id="CurrEnergy" class="big white"></span>
+        <span class="small white">/</span>
+        <span id="MaxEnergy" class="small white"></span>
+        <div class="small white">Energy</div>
+   </div>
+
+  <!--Contains all the ui elements on the top right-->
+   <div id="TopRight">
+   <i id="ConsoleGlyph" class="icon-rocket glyph icon-large"> </i>
+     <a href="https://github.com/ChildrenOfUr/cou-sdk/issues" target="_blank">
+       <i id="BugGlyph" class="icon-bug glyph icon-large"> </i></a>
+     <a href="https://github.com/ChildrenOfUr/cou-sdk/issues" target="_blank">  
+   <i id="QuestionGlyph" class="icon-question-sign glyph icon-large"> </i></a>
+   <i id="AudioGlyph" class="icon-volume-up glyph icon-large"> </i>
+
+   <i id="FullscreenGlyph" class="icon-fullscreen glyph icon-large"> </i>
+   <i id="FullscreenResetGlyph" class="icon-resize-small glyph icon-large"> </i>
+   <div>
+   </div>
+   <span id="CurrDay"></span>
+   <span id="CurrTime"></span>
+   <span id="CurrDate"></span>   
+   </div>
+   
+
+<!-- Inventory Bar -->
+<div id="InventoryBag">
+    <span class="InventoryBox" id="bagItem1"></span>
+    <span class="InventoryBox" id="bagItem2"></span>
+    <span class="InventoryBox" id="bagItem3"></span>
+    <span class="InventoryBox" id="bagItem4"></span>
+    <span class="InventoryBox" id="bagItem5"></span>
+    <span class="InventoryBox" id="bagItem6"></span>
+    <span class="InventoryBox" id="bagItem7"></span>
+    <span class="InventoryBox" id="bagItem8"></span>
+    <span class="InventoryBox" id="bagItem9"></span>
+    <span class="InventoryBox" id="bagItem10"></span>
+    <span class="InventoryBox" id="bagItem11"></span>
+    <span class="InventoryBox" id="bagItem12"></span>
+    <span class="InventoryBox" id="bagItem13"></span>
+    <span class="InventoryBox" id="bagItem14"></span>
+    <span class="InventoryBox" id="bagItem15"></span>
+    <span class="InventoryBox" id="bagItem16"></span>
+</div>
+<div id="InventoryBar">
+    <span class="InventoryBox" id="Item1"></span>
+    <span class="InventoryBox" id="Item2"></span>
+    <span class="InventoryBox" id="Item3"></span>
+    <span class="InventoryBox" id="Item4"></span>
+    <span class="InventoryBox" id="Item5"></span>
+    <span class="InventoryBox" id="Item6"></span>
+    <span class="InventoryBox" id="Item7"></span>
+    <span class="InventoryBox" id="Item8"></span>
+    <span class="InventoryBox" id="Item9"></span>
+    <span class="InventoryBox" id="Item10"></span>
+    <span class="InventoryBox" id="Item11"></span>
+    <span class="InventoryBox" id="Item12"></span>
+    <span class="InventoryBox" id="Item13"></span>
+    <span class="InventoryBox" id="Item14"></span>
+    <span class="InventoryBox" id="Item15"></span>
+    <span class="InventoryBox" id="Item16"></span>
+</div>   
+
+
+   
+<!-- Bottom-left currant display -->
+      <div id="CurrantBack"></div>
+      <img src="./assets/system/currant.svg" id="CurrantEmblem" width="30px" height="30px">
+      <div id="CurrantText">
+        <span id="CurrCurrants" class="big white"></span>  
+        <div class="small white">Currants</div>
+      </div>
+
+
+<!-- Development Console -->
+      <div class="PopWindow" id="DevConsole" hidden="true">
+        <div class="PopWindowHeader handle">
+          <i class="icon-code icon-large"></i> 
+          Console</div>
+           <div class="PopWindowBody">
+            <div class="Console">
+              <ol class="log"></ol>
+            </div>
+            <textarea class="ConsoleInput"></textarea>
+            </div>
+        </div>
+
+
+<!-- Right-Click Menu -->
+      <div id="RightClickMenu">  
+      <div class="InfoButton">Info</div>
+      <span id="ClickTitle">A Chicken</span><br>
+        <span id="ClickDesc" class="soft">
+          Obtain wheat. Costs 2 energy
+        </span>
+        <div id="RCActionList">
+            <div class="RCItem">Sample</div>
+        </div>
+      </div>
+
+<!-- Start the Game up. -->
+    <script type="application/dart" src="main.dart"></script> 
+    <script src="packages/browser/dart.js"></script>
+    <script src="packages/browser/interop.js"></script>
+    
+</body>
+</html>
