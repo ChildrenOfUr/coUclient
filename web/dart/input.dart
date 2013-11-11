@@ -3,18 +3,19 @@ part of coUclient;
 //Starts listening to user imput.
   initializeInput() {
   
-  // Disable the default functionality of game_loop
+// Disable the default functionality of game_loop
   loop.pointerLock.lockOnClick = false;
 
-  // Handle the console opener
-  query('#ConsoleGlyph').onClick.listen((a){
+// Handle the console opener
+  querySelector('#ConsoleGlyph').onClick.listen((a){
   showConsole();
   });  
-    // Handle the fullscreen Requests
-  query('#FullscreenGlyph').onClick.listen((a){
+  
+// Handle the fullscreen Requests
+  querySelector('#FullscreenGlyph').onClick.listen((a){
   document.documentElement.requestFullscreen();
   });  
-  query('#FullscreenResetGlyph').onClick.listen((a){
+  querySelector('#FullscreenResetGlyph').onClick.listen((a){
   document.exitFullscreen();
   });  
   document.onFullscreenChange.listen((_)
@@ -22,21 +23,68 @@ part of coUclient;
         if (document.fullscreenEnabled)
         {
           printConsole('System: FullScreen = true');
-          query('#FullscreenGlyph').style.display = 'none';
-          query('#FullscreenResetGlyph').style.display = 'inline';
+          querySelector('#FullscreenGlyph').style.display = 'none';
+          querySelector('#FullscreenResetGlyph').style.display = 'inline';
           
         }
         else
         {
           printConsole('System: FullScreen = false');
-          query('#FullscreenGlyph').style.display = 'inline';
-          query('#FullscreenResetGlyph').style.display = 'none';
+          querySelector('#FullscreenGlyph').style.display = 'inline';
+          querySelector('#FullscreenResetGlyph').style.display = 'none';
         }
       });
+  
+    
+// Right-click menu functions
+  
+  hideClickMenu() {
+    if (querySelector('#RightClickMenu') != null)
+      querySelector('#RightClickMenu').remove();
+  } 
+  showClickMenu(MouseEvent Click, String title, String description, List<List> options){
+    hideClickMenu();
+    TemplateElement t = querySelector('#rc_template');
+    Node menu = document.body.append(t.content.clone(true));
+    int x,y;
+    if (Click.page.y > window.innerHeight/2)
+      y = Click.page.y - 55 - (options.length * 30);
+    else
+      y = Click.page.y - 10;
+    if (Click.page.x > window.innerWidth/2)
+      x = Click.page.x - 120;
+    else
+      x = Click.page.x - 10;
+  querySelector('#ClickTitle').text = title;
+  querySelector('#ClickDesc').text = description;
+  List <Element> newOptions = new List();
+  for (List option in options)
+    {
+      DivElement menuitem = new DivElement()
+            ..classes.add('RCItem')
+            ..text = option[0]
+            ..onClick.listen((_){doThisForMe(option[2]);});
+    newOptions.add(menuitem);
+    }
+  querySelector('#RCActionList').children.addAll(newOptions);
+  querySelector('#RightClickMenu').style
+  ..opacity = '1.0'
+  ..position = 'absolute'
+  ..top  = '$y' 'px'
+  ..left = '$x' 'px';
+  
+  printConsole('Spawned rc window called "' + title + '".');
+  
+  document.onClick.listen((_){
+    hideClickMenu();});
+ }
+   
 
-  //Handle player keypress input
+
+//Handle player keypress input
   //TODO setup general keypress input functions.
   
-  
+  //demo right-clicking
+  document.body.onContextMenu.listen((e) => showClickMenu(e,'Testing Right Click', 'this is a demo',[]));
   
 }

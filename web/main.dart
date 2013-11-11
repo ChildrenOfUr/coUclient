@@ -17,7 +17,6 @@ part './dart/ui/meters.dart';
 part './dart/resize.dart';
 part './dart/input.dart';
 part './dart/loader.dart';
-part './dart/ui/rightclickmenu.dart';
 
 
 // Define our game_loop loop(s)
@@ -26,7 +25,7 @@ GameLoopHtml loop = new GameLoopHtml(query('#GameScreen'));
 // Define our Dartemis World
 dartemis.World world = new dartemis.World();
 
-// Start the Game
+// Start the Game, see 'cou.dart' for 'game()'
 main() {
   game();
 }

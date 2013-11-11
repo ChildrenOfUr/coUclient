@@ -12,10 +12,11 @@ void loadAssets(){
   // When done loading, 'hideLoader()'
    hideLoader();
    
+   
+  //Start listening for the game's exit and display "You Won!"
    window.onBeforeUnload.listen((_)
        {
      query('#YouWon').hidden = false;    
-     // We need to delay the page's closing somehow.
     });
   
 }
