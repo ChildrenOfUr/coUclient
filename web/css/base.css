@@ -250,7 +250,7 @@ textarea{resize: none;}
 }
 /*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 /*Elements in the top, left corner*/
-#PlayerPortrait {
+#PlayerPortraitDiv {
     position:absolute;
     top: 23px;
     left:24px;
@@ -262,12 +262,52 @@ textarea{resize: none;}
     border-radius: 50%;
    background: #eee;
    color: #717171;
-   -webkit-box-shadow: inset 0px 2px 5px #aaa, 0px 1px 0 #B5B5B5;
-   -moz-box-shadow: inset 0px 2px 5px #aaa, 0px 1px 0 #B5B5B5;
-   -o-box-shadow: inset 0px 2px 5px #aaa, 0px 1px 0 #B5B5B5;
-   -khtml-box-shadow: inset 0px 2px 5px #aaa, 0px 1px 0 #B5B5B5;
-   box-shadow: inset 0px 2px 3px #aaa, 0px 1px 0 #B5B5B5;
+
 }
+.MoodCircle {
+    position:absolute;
+    top: -2px;
+    left:-2px;
+    overflow:hidden;
+    width: 87px;
+    height: 87px;
+    
+    transition-property: opacity;
+    transition-duration: 0.2s;
+    transition-timing-function: linear;
+    transition-delay: 0.5s;
+    -webkit-transition-property:opacity;
+    -webkit-transition-duration:0.2s;
+    -webkit-transition-timing-function:linear;
+    -webkit-transition-delay:0.5s;
+}
+#MoodText {
+    position:absolute;
+    top: 26px;
+    width: 83px;
+    margin: 0px auto;
+    text-align: center;
+    line-height:15px;
+    color:#555;
+    text-shadow: 0px 1px rgba(255,255,255,0.5);
+    opacity:0; 
+    transition-property: opacity;
+    transition-duration: 0.2s;
+    transition-timing-function: linear;
+    transition-delay: 0.0s;
+    -webkit-transition-property:opacity;
+    -webkit-transition-duration:0.2s;
+    -webkit-transition-timing-function:linear;
+    -webkit-transition-delay:0.0s;
+}
+#MoodText:hover, #MoodText.changed {
+    opacity:0.9;
+}
+#MoodPercent {
+    font-size:30px;
+    text-shadow: 0px 1px rgba(0,0,0,0.5);
+}
+
 #PlayerName {
     position:absolute;
     top:3px;
@@ -513,7 +553,7 @@ textarea{resize: none;}
    color: #005c73;
    width: 25px;
    height: 10px;
-   border: 2px solid #fff;
+   border: 1px solid #fff;
 }
 .InfoButton:hover {
   cursor: pointer; color: #d79035;

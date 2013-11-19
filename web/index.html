@@ -46,7 +46,19 @@ WAIT! You were just about to win the game!
   <img src="./assets/system/energymeterred.svg" width="124px" height="128px" id="EnergyIndicatorRed">
    <img src="./assets/system/leftcorner.svg" width="124px" height="128px" id="TopLeftCorner">
    <img src="./assets/system/energybolt.svg" id="EnergyEmblem">
-     <canvas id="PlayerPortrait"></canvas>
+     <div id="PlayerPortraitDiv">
+       <img src="./assets/system/moodmeter.svg" class="MoodCircle">
+       <img src="./assets/system/moodmeterred.svg" class="MoodCircle" id="MoodCircleRed">
+       <img src="./assets/system/moodmeternone.svg" class="MoodCircle" id="MoodCircleEmpty">
+       <div id="MoodText" class="changed">
+        <span id="MoodPercent" class="big white">50</span><span class="big white">%</span>
+          <div>
+        <span id="CurrMood" class="small">50</span>
+        <span class="small">/</span>
+        <span id="MaxMood" class="small">100</span>
+          </div>
+       </div>
+     </div>
    <div id="PlayerName">null</div>
       <div id="EnergyText">
         <span id="CurrEnergy" class="big white"></span>

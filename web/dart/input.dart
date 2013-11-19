@@ -1,17 +1,18 @@
 part of coUclient;
 
-//Starts listening to user imput.
+  //Starts listening to user imput.
   initializeInput() {
   
-// Disable the default functionality of game_loop
-  loop.pointerLock.lockOnClick = false;
-
-// Handle the console opener
+  // disable default game_loop pointerlock
+   gameLoop.pointerLock.lockOnClick = false;
+    
+    
+  // Handle the console opener
   querySelector('#ConsoleGlyph').onClick.listen((a){
   showConsole();
   });  
   
-// Handle the fullscreen Requests
+  // Handle the fullscreen Requests
   querySelector('#FullscreenGlyph').onClick.listen((a){
   document.documentElement.requestFullscreen();
   });  
@@ -36,7 +37,7 @@ part of coUclient;
       });
   
     
-// Right-click menu functions
+  // Right-click menu functions
   
   hideClickMenu() {
     if (querySelector('#RightClickMenu') != null)
@@ -81,7 +82,7 @@ part of coUclient;
    
 
 
-//Handle player keypress input
+  //Handle player keypress input
   //TODO setup general keypress input functions.
   
   //demo right-clicking

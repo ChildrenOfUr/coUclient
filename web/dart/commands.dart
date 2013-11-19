@@ -33,7 +33,7 @@ doThisForMe(String consoleCommand){
 
 
 updateConsole(){
-  Element container = query('#DevConsole').query('.Console');
+  Element container = querySelector('#DevConsole').querySelector('.Console');
   container.children.clear();
   for (String item in ConsoleText){
    DivElement n = new DivElement()
@@ -48,14 +48,14 @@ updateConsole(){
 
 StreamSubscription consolelistener;// the eventlistener for entering console commands.
 showConsole(){
-  query('#DevConsole').hidden = false;
-  consolelistener = query('.ConsoleInput').onKeyUp.listen
+  querySelector('#DevConsole').hidden = false;
+  consolelistener = querySelector('.ConsoleInput').onKeyUp.listen
   ((key){
        if (key.keyCode == 13)
          runConsoleCommand();
 });}
 hideConsole(var nothing){
-  query('#DevConsole').hidden = true;
+  querySelector('#DevConsole').hidden = true;
   consolelistener.cancel();
 }
 
@@ -68,7 +68,7 @@ printConsole(String message){
 
 
 runConsoleCommand(){
-  TextAreaElement input = query('.ConsoleInput');
+  TextAreaElement input = querySelector('.ConsoleInput');
   String value = input.value;
   printConsole('> $value');
   doThisForMe(value);

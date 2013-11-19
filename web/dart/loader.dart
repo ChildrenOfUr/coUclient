@@ -3,30 +3,47 @@ part of coUclient;
 void loadAssets(){
   // Play the loading music.
   AudioElement Loading = new AudioElement('./assets/sounds/loading.ogg');
-  query('#LoadingScreen').append(Loading);
+  querySelector('#LoadingScreen').append(Loading);
   Loading.play();
   
+  // initialize ResourceManager and load images and sounds
+  resourceManager = new xl.ResourceManager()
+  
+  // images
   
   
   
+  // sounds
+  
+  
+  
+  ;
+
   // When done loading, 'hideLoader()'
-   hideLoader();
-   
-   
+  resourceManager.load()
+    .then((_) => hideLoader())
+    .catchError((e) => print(e));
+  
   //Start listening for the game's exit and display "You Won!"
    window.onBeforeUnload.listen((_)
        {
-     query('#YouWon').hidden = false;    
+     querySelector('#YouWon').hidden = false;    
     });
   
 }
 
 
 void hideLoader() {
-  query('#LoadingScreen').style.opacity = '0.0';
-  Timer t = new Timer(new Duration(seconds:1), query('#LoadingScreen').remove);
   
+  // Connect our stagexl canvas to our displayContainer
+  // see display.dart
+  stage.addChild(new displayContainer());
   
+  // Peacefully fade out the loading screen.
+  querySelector('#LoadingScreen').style.opacity = '0.0';
+  Timer t = new Timer(new Duration(seconds:1), querySelector('#LoadingScreen').remove);
+  
+  // Play the 'doneloading' sound
   AudioElement doneLoading = new AudioElement('./assets/sounds/game_loaded.ogg');
   document.body.append(doneLoading);
   doneLoading.play();

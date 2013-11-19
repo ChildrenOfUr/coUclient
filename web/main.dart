@@ -3,6 +3,7 @@ library coUclient;
 import 'dart:html';
 import 'dart:async';
 import 'package:dartemis/dartemis.dart' as dartemis;
+import 'package:stagexl/stagexl.dart' as xl;
 import 'package:game_loop/game_loop_html.dart';
 
 // Import our private libraries.
@@ -17,17 +18,28 @@ part './dart/ui/meters.dart';
 part './dart/resize.dart';
 part './dart/input.dart';
 part './dart/loader.dart';
+part './dart/display.dart';
 
+// setup the Stage and RenderLoop 
+xl.Stage stage = new xl.Stage('gamescreen', querySelector('#GameScreen'));
+xl.RenderLoop renderLoop = new xl.RenderLoop()
+    ..addStage(stage);
 
-// Define our game_loop loop(s)
-GameLoopHtml loop = new GameLoopHtml(query('#GameScreen'));
+// Define our ResourceManager
+xl.ResourceManager resourceManager;
 
 // Define our Dartemis World
 dartemis.World world = new dartemis.World();
 
+// Define our game_loop
+GameLoopHtml gameLoop = new GameLoopHtml(querySelector('#GameScreen'))
+  ..onUpdate = ((gameLoop) {loop();})
+  ..onRender = ((gameLoop) {render();});
+
 // Start the Game, see 'cou.dart' for 'game()'
 main() {
   game();
+
 }
 
 

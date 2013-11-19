@@ -3,19 +3,33 @@ part of coUclient;
 
 // Define each meter
 RotatingMeter energyMeter;
-SpanElement currantMeter = query('#CurrCurrants');
+FadingMeter moodMeter;
+SpanElement currantMeter = querySelector('#CurrCurrants');
 
 // Start each meter,
 initializeMeters(){
   //Set up the energy Meter
-    energyMeter = new RotatingMeter(query('#EnergyIndicator'),
-        query('#EnergyIndicatorRed'),
-        query('#CurrEnergy'),
-        query('#MaxEnergy'),120,1000);
+    energyMeter = new RotatingMeter(querySelector('#EnergyIndicator'),
+        querySelector('#EnergyIndicatorRed'),
+        querySelector('#CurrEnergy'),
+        querySelector('#MaxEnergy'),120,1000);
     energyMeter.setValue(1000);
     Commands
     ..add(['setEnergy','"setEnergy <value>" Changes the energy meter',setEnergy])
     ..add(['setMaxEnergy','"setMaxEnergy <value>" Changes the energy meters max value',setMaxEnergy]);
+    
+//Set up the mood Meter
+    moodMeter = new FadingMeter(
+        querySelector('#MoodCircleRed'),
+        querySelector('#MoodCircleEmpty'),        
+        querySelector('#CurrMood'),
+        querySelector('#MaxMood'),
+        querySelector('#MoodPercent')
+        ,100);
+    moodMeter.setValue(100);
+    Commands
+    ..add(['setMood','"setMood <value>" Changes the mood meter',setMood])
+    ..add(['setMaxMood','"setMaxMood <value>" Changes the mood meters max value',setMaxMood]);
 
   //Set up the Currant Display
     setCurrants('0');
@@ -41,6 +55,22 @@ setMaxEnergy(String value){
   printConsole('Setting the maximum energy value to $value');}
 }
 
+// Mood Meter
+setMood(String value){
+  int intvalue = int.parse(value,onError:null);
+  if (intvalue != null){
+  moodMeter.setValue(intvalue);
+  printConsole('Setting mood value to $value');}
+}
+setMaxMood(String value){
+  int intvalue = int.parse(value,onError:null);
+  if (intvalue != null){
+  moodMeter.maxValue = intvalue;
+  moodMeter.setValue(moodMeter.currValue);
+  moodMeter.maxMeterText.text = value;
+  printConsole('Setting the maximum mood value to $value');}
+}
+
 setCurrants(String value){
   // Force an int
   int intvalue = int.parse(value,onError:null);
@@ -54,9 +84,9 @@ setCurrants(String value){
 // Manages the elements that display the date and time.
 refreshClock(){
   List data = getDate();
-  query('#CurrDay').innerHtml = data[3].toString();
-  query('#CurrTime').innerHtml = data[4].toString();
-  query('#CurrDate').innerHtml = data[2].toString() + ' of ' + data[1].toString();
+  querySelector('#CurrDay').innerHtml = data[3].toString();
+  querySelector('#CurrTime').innerHtml = data[4].toString();
+  querySelector('#CurrDate').innerHtml = data[2].toString() + ' of ' + data[1].toString();
 }
 
 
@@ -70,10 +100,33 @@ refreshClock(){
 
 
 
+class FadingMeter {
+ Element meterImageLow;
+ Element meterImageEmpty;
+ int currValue = 0;
+ int maxValue;
+ Element currMeterText;
+ Element maxMeterText;
+ Element meterPercent;
+ 
+ FadingMeter(this.meterImageLow,this.meterImageEmpty,this.currMeterText,this.maxMeterText, this.meterPercent, this.maxValue) {
+   maxMeterText.innerHtml = maxValue.toString();
+ }
+ setValue(int newValue)
+ {
+   currValue = newValue;
+   currMeterText.parent.classes.toggle('changed', true);
+   Timer t = new Timer(new Duration(seconds:1),() => currMeterText.parent.classes.toggle('changed'));
+   currMeterText.text=currValue.toString();
+   meterPercent.text=((100*((currValue/maxValue))).toInt()).toString();
+   meterImageLow.style.opacity = ((0.7-(currValue/maxValue))).toString();
+   if (currValue <= 0)
+     meterImageEmpty.style.opacity = 1.toString();
+   else
+     meterImageEmpty.style.opacity = 0.toString();
+ }
 
-
-
-
+}
 
 
 //Class for handling rotating meters.
@@ -97,8 +150,8 @@ class RotatingMeter{
   setValue(int newValue)
   {
     currValue = newValue;
-    currMeterText.parent.classes.toggle('changed');
-    Timer t = new Timer(new Duration(seconds:1),() => currMeterText.parent.classes.toggle('changed'));
+    currMeterText.parent.parent.classes.toggle('changed',true);
+    Timer t = new Timer(new Duration(seconds:1),() => currMeterText.parent.parent.classes.toggle('changed'));
        
     currMeterText.text=currValue.toString();
     String angle = ((angleRange - (currValue/maxValue)*angleRange).toInt()).toString();
