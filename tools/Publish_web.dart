@@ -36,19 +36,25 @@ main() {
   
   print(Platform.executable);
   print('Running dart2js + minify...');
-  Process.run(PATH_TO_DART2JS,['../web/main.dart','--out=../web/index.js','--minify'])
+  Process.run(PATH_TO_DART2JS,['../web/main.dart','--out=../web/game.js','--minify'])
   .then((_) => print('Cleaning Output Directory...'))
+  .then((_) 
+      {
+        if (new Directory('../out').existsSync() == false)
+          new Directory('../out').createSync(recursive: true);
+    
+      })
   .then((_) => new Directory('../out').deleteSync(recursive: true))
   .then((_) => new Directory('../out/web').createSync(recursive: true))
   
   // Places our js in the output folder
-  .then((_) => new File('../out/web/index.js').writeAsStringSync(
-      new File('../web/index.js').readAsStringSync()))
+  .then((_) => new File('../out/web/game.js').writeAsStringSync(
+      new File('../web/game.js').readAsStringSync()))
   
   // Places our html in the output folder
-  .then((_) => new File('../out/web/index.html').writeAsStringSync(
+  .then((_) => new File('../out/web/game.html').writeAsStringSync(
       minifyHtml(
-          new File('../web/index.html').readAsLinesSync())))
+          new File('../web/game.html').readAsLinesSync())))
   
       
   // Create css and font folders
@@ -76,10 +82,10 @@ main() {
    
 // Deletes the unneeded files made when we used dart2js
   .then((_) => print('Cleaning Workspace...'))  
-  .then((_) => new File('../web/index.js').deleteSync())
-  .then((_) => new File('../web/index.js.deps').deleteSync())
-  .then((_) => new File('../web/index.js.map').deleteSync())
-  .then((_) => new File('../web/index.precompiled.js').deleteSync())
+  .then((_) => new File('../web/game.js').deleteSync())
+  .then((_) => new File('../web/game.js.deps').deleteSync())
+  .then((_) => new File('../web/game.js.map').deleteSync())
+  .then((_) => new File('../web/game.precompiled.js').deleteSync())
   .then((_) => print('...Done'))
   .catchError(print);
 }
@@ -91,7 +97,7 @@ List <String> modeJS(List<String> fileLines){
   for (String line in fileLines)
   {
     line = line.replaceAll('<script type="application/dart" src="main.dart"></script>', '');
-    line = line.replaceAll('packages/browser/dart.js', 'index.js');
+    line = line.replaceAll('packages/browser/dart.js', 'game.js');
     // Add other html replacement lines here.
 
     newHTML.add(line);
@@ -128,7 +134,7 @@ String minifyHtml(List<String> input){
    for (String line in input)
    {
     line = line.replaceAll('<script type="application/dart" src="main.dart"></script>', '');
-    line = line.replaceAll('packages/browser/dart.js', 'index.js');
+    line = line.replaceAll('packages/browser/dart.js', 'game.js');
     // Add other html replacement lines here.
 
     fileLines.add(line);
