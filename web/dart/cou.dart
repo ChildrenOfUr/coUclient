@@ -1,18 +1,15 @@
 part of coUclient;
 
 game(){
-  
-  querySelector('#PlayButton').onClick.listen((_)
-      {
     // The player has requested that the game is to begin.
-    querySelector('#PlayButton').remove();
     
     // Begin loading assets
     loadAssets();
     printConsole('System: Loading Assets..');
     
     // Set the meters to their current values.
-    initializeMeters();
+    ui.init();
+    
     printConsole('System: Initializing..');
     
     // Start listening for page resizes
@@ -28,9 +25,10 @@ game(){
       printConsole('For a list of commands type "help"');
 
       gameLoop.start();
-});
-  
+
 }
+  
+
 
 loop() {
   

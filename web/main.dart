@@ -14,7 +14,7 @@ part './dart/cou.dart';
 
 // Point to external dart files
 part './dart/commands.dart';
-part './dart/ui/meters.dart';
+part './dart/user_interface.dart';
 part './dart/resize.dart';
 part './dart/input.dart';
 part './dart/loader.dart';

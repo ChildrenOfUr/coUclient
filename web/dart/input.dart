@@ -45,7 +45,7 @@ part of coUclient;
   } 
   showClickMenu(MouseEvent Click, String title, String description, List<List> options){
     hideClickMenu();
-    TemplateElement t = querySelector('#rc_template');
+    TemplateElement t = querySelector('#RC_Template');
     Node menu = document.body.append(t.content.clone(true));
     int x,y;
     if (Click.page.y > window.innerHeight/2)
