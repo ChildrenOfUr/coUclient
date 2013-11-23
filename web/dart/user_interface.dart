@@ -5,6 +5,10 @@ part of coUclient;
 // Also, perhaps we can turn this into a library, no sense cluttering up our gamey sorce with this stuff. 
 // We'll make a nice interface.
 
+
+
+
+
 UserInterface ui = new UserInterface();
 
 class UserInterface {
@@ -13,6 +17,9 @@ class UserInterface {
   
   // Currant Meter Variables
   SpanElement currantMeter = querySelector('#CurrCurrants');
+  
+  // Img Meter Variables
+  SpanElement imgMeter = querySelector('#CurrImagination');
   
   // Energy Meter Variables
   Element _energymeterImage = querySelector('#EnergyIndicator');
@@ -50,6 +57,7 @@ class UserInterface {
     ..add(['setmaxmood','"setmaxmood <value>" Changes the mood meters max value',setMaxMood])
     
     ..add(['setcurrants','"setcurrants <value>" Changes the currant meters value',setCurrants])
+    ..add(['setimg','"setimg <value>" Changes the img meters value',setImg])
     
     ..add(['setname','"setname <value>" Changes the players displayed name',setName]);
     
@@ -89,6 +97,11 @@ class UserInterface {
   _setCurrants(int newValue){
     currantMeter.text = newValue.toString();    
     //TODO: write a little bit of code to add commas into our currant string.
+  }
+  
+  _setImg(int newValue){
+    imgMeter.text = newValue.toString();    
+    //TODO: write a little bit of code to add commas into our string.
   }
   
   _setName(String newValue){
@@ -141,6 +154,15 @@ setCurrants(String value){
   if (intvalue != null){
   ui._setCurrants(intvalue);
   printConsole('Setting currants to $value');}  
+}
+
+// Img Meter
+setImg(String value){
+  // Force an int
+  int intvalue = int.parse(value,onError:null);
+  if (intvalue != null){
+  ui._setImg(intvalue);
+  printConsole('Setting Img to $value');}  
 }
 
 // Name Meter

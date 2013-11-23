@@ -6,7 +6,7 @@ import 'package:dartemis/dartemis.dart' as dartemis;
 import 'package:stagexl/stagexl.dart' as xl;
 import 'package:game_loop/game_loop_html.dart';
 
-// Import our private libraries.
+// Import our coU libraries.
 import 'package:coUlib/glitch-time.dart';// The script that spits out time!
 
 // main game entry
@@ -37,10 +37,7 @@ GameLoopHtml gameLoop = new GameLoopHtml(querySelector('#GameScreen'))
   ..onRender = ((gameLoop) {render();});
 
 // Start the Game, see 'cou.dart' for 'game()'
-main() {
-  game();
-
-}
+main() {game();}
 
 
 

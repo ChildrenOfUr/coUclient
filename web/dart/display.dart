@@ -1,6 +1,6 @@
 part of coUclient;
 
-
+// This file will handle the drawing of sprites on the canvas.
 
 
 render() {
@@ -8,7 +8,6 @@ render() {
   refreshClock();
   
 }
-
 
 class displayContainer extends xl.DisplayObjectContainer {
   displayContainer() {
