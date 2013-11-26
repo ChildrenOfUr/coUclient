@@ -24,6 +24,8 @@ game(){
       printConsole('COU DEVELOPMENT CONSOLE V0.4');
       printConsole('For a list of commands type "help"');
 
+
+      
       gameLoop.start();
 
 }
@@ -31,6 +33,8 @@ game(){
 
 
 loop() {
+  prepStage();
+  
   
   
   

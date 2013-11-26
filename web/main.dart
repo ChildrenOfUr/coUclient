@@ -22,7 +22,7 @@ part './dart/display.dart';
 part './dart/maprender.dart';
 
 // setup the Stage and RenderLoop 
-xl.Stage stage = new xl.Stage('gamescreen', querySelector('#GameScreen'));
+xl.Stage stage = new xl.Stage('gamescreen', querySelector('#middleground'));
 xl.RenderLoop renderLoop = new xl.RenderLoop()
     ..addStage(stage);
 
@@ -33,7 +33,7 @@ xl.ResourceManager resourceManager;
 dartemis.World world = new dartemis.World();
 
 // Define our game_loop
-GameLoopHtml gameLoop = new GameLoopHtml(querySelector('#GameScreen'))
+GameLoopHtml gameLoop = new GameLoopHtml(querySelector('#middleground'))
   ..onUpdate = ((gameLoop) {loop();})
   ..onRender = ((gameLoop) {render();});
 
