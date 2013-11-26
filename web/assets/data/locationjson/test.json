@@ -1,0 +1,2225 @@
+{
+    "tsid": "GA9IHQQSCF820VN",
+    "label": "Melalu Mile",
+    "gradient": {
+        "top": "5FA3D4",
+        "bottom": "FFC252"
+    },
+    "dynamic": {
+        "l": -3000,
+        "r": 3000,
+        "t": -1000,
+        "b": 0,
+        "ground_y": -186,
+        "rookable_type": 0,
+        "layers": {
+            "T_1312396383703": {
+                "name": "mtn",
+                "w": 4440,
+                "h": 960,
+                "z": -4,
+                "filters": {
+                    "saturation": -40,
+                    "brightness": 30,
+                    "contrast": -40
+                },
+                "decos": [
+                    {
+                        "filename": "mountain_trees_darker_1",
+                        "w": 1236,
+                        "r": -4,
+                        "x": 2735,
+                        "y": 642,
+                        "h": 332,
+                        "z": 1
+                    },
+                    {
+                        "filename": "mountain_trees_darker_1",
+                        "w": 1086,
+                        "r": 5,
+                        "x": 1532,
+                        "y": 570,
+                        "h": 258,
+                        "z": 0
+                    },
+                    {
+                        "filename": "mountain_trees_darker_1",
+                        "w": 1086,
+                        "r": 1,
+                        "x": 2088,
+                        "y": 601,
+                        "h": 258,
+                        "z": 2
+                    }
+                ],
+                "signposts": []
+            },
+            "middleground": {
+                "name": "middleground",
+                "w": 6000,
+                "h": 1000,
+                "z": 0,
+                "filters": {
+                    "brightness": -5,
+                    "saturation": -10,
+                    "tintAmount": 0,
+                    "contrast": -10,
+                    "tintColor": 0
+                },
+                "decos": [
+                    {
+                        "filename": "gravel_2",
+                        "w": 25,
+                        "x": 513,
+                        "y": -170,
+                        "h": 14,
+                        "z": 63
+                    },
+                    {
+                        "filename": "evenground_platform_long",
+                        "w": 1165,
+                        "x": 1340,
+                        "y": -24,
+                        "h": 73,
+                        "z": 7
+                    },
+                    {
+                        "filename": "evenground_horizon",
+                        "w": 1289,
+                        "x": -191,
+                        "y": -85,
+                        "h": 112,
+                        "z": 3,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "groddle_bush1",
+                        "w": 196,
+                        "r": -2,
+                        "x": 168,
+                        "y": -179,
+                        "h": 77,
+                        "z": 31
+                    },
+                    {
+                        "filename": "patch_mossy_1",
+                        "w": 161,
+                        "x": -2647,
+                        "y": -148,
+                        "h": 38,
+                        "z": 97
+                    },
+                    {
+                        "filename": "groddle_grass_1",
+                        "w": 106,
+                        "x": 560,
+                        "y": -170,
+                        "h": 51,
+                        "z": 66
+                    },
+                    {
+                        "filename": "groddle_bush1",
+                        "w": 196,
+                        "r": 4,
+                        "x": -2821,
+                        "y": -183,
+                        "h": 97,
+                        "z": 13
+                    },
+                    {
+                        "filename": "groddle_grass_2",
+                        "w": 125,
+                        "x": 1460,
+                        "y": -158,
+                        "h": 101,
+                        "z": 69
+                    },
+                    {
+                        "filename": "evenground_horizon",
+                        "w": 1534,
+                        "x": -1166,
+                        "y": -97,
+                        "h": 110,
+                        "z": 4,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "evenground_platform_long",
+                        "w": 1165,
+                        "x": -2916,
+                        "y": -34,
+                        "h": 73,
+                        "z": 11
+                    },
+                    {
+                        "filename": "groddle_grass_1",
+                        "w": 106,
+                        "x": 2505,
+                        "y": -187,
+                        "h": 51,
+                        "z": 83
+                    },
+                    {
+                        "filename": "groddle_grass_2",
+                        "w": 94,
+                        "x": 1407,
+                        "y": -160,
+                        "h": 76,
+                        "z": 70
+                    },
+                    {
+                        "filename": "crosssection_short_3",
+                        "w": 713,
+                        "r": 1,
+                        "x": 757,
+                        "y": 62,
+                        "h": 111,
+                        "z": 39
+                    },
+                    {
+                        "filename": "gravel_2",
+                        "w": 47,
+                        "x": 218,
+                        "y": -176,
+                        "h": 26,
+                        "z": 36,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "groddle_grass_2",
+                        "w": 85,
+                        "x": 599,
+                        "y": -174,
+                        "h": 68,
+                        "z": 64
+                    },
+                    {
+                        "filename": "groddle_grass_1",
+                        "w": 106,
+                        "x": -2515,
+                        "y": -164,
+                        "h": 51,
+                        "z": 93
+                    },
+                    {
+                        "filename": "dirt_platform_short",
+                        "w": 364,
+                        "x": -2468,
+                        "y": -62,
+                        "h": 70,
+                        "z": 92
+                    },
+                    {
+                        "filename": "groddle_bush4",
+                        "w": 149,
+                        "x": -1633,
+                        "y": -170,
+                        "h": 71,
+                        "z": 45,
+                        "r": -3,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "crosssection_short_3",
+                        "w": 713,
+                        "r": 1,
+                        "x": -2746,
+                        "y": 53,
+                        "h": 111,
+                        "z": 60
+                    },
+                    {
+                        "filename": "groddle_grass_2",
+                        "w": 98,
+                        "x": 1975,
+                        "y": -169,
+                        "h": 79,
+                        "z": 78
+                    },
+                    {
+                        "filename": "crosssection_short_3",
+                        "w": 713,
+                        "r": 1,
+                        "x": 53,
+                        "y": 60,
+                        "h": 111,
+                        "z": 40
+                    },
+                    {
+                        "filename": "groddle_fern_1",
+                        "w": 190,
+                        "x": 2949,
+                        "y": -174,
+                        "h": 113,
+                        "z": 86
+                    },
+                    {
+                        "filename": "crosssection_short_3",
+                        "w": 713,
+                        "x": 2165,
+                        "y": 67,
+                        "h": 111,
+                        "z": 42
+                    },
+                    {
+                        "filename": "groddle_bush4",
+                        "w": 149,
+                        "x": -2957,
+                        "y": -186,
+                        "h": 71,
+                        "z": 14,
+                        "r": -3,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "dirt_platform_short",
+                        "w": 364,
+                        "x": -2653,
+                        "y": -111,
+                        "h": 70,
+                        "z": 89
+                    },
+                    {
+                        "filename": "evenground_horizon",
+                        "w": 1289,
+                        "x": 711,
+                        "y": -87,
+                        "h": 112,
+                        "z": 2
+                    },
+                    {
+                        "filename": "tree_dead_2",
+                        "w": 438,
+                        "x": -2684,
+                        "y": -148,
+                        "h": 140,
+                        "z": 23
+                    },
+                    {
+                        "filename": "groddle_bush4",
+                        "w": 149,
+                        "r": 5,
+                        "x": -2195,
+                        "y": -169,
+                        "h": 71,
+                        "z": 17
+                    },
+                    {
+                        "filename": "tree_base_root_1",
+                        "w": 164,
+                        "x": -645,
+                        "y": -114,
+                        "h": 96,
+                        "z": 56,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "groddle_grass_2",
+                        "w": 85,
+                        "x": 599,
+                        "y": -174,
+                        "h": 68,
+                        "z": 64
+                    },
+                    {
+                        "filename": "groddle_grass_1",
+                        "w": 84,
+                        "x": 2483,
+                        "y": -184,
+                        "h": 40,
+                        "z": 84
+                    },
+                    {
+                        "filename": "evenground_platform_long",
+                        "w": 1165,
+                        "x": 2466,
+                        "y": -35,
+                        "h": 73,
+                        "z": 6
+                    },
+                    {
+                        "filename": "groddle_bush1",
+                        "w": 196,
+                        "x": -483,
+                        "y": -162,
+                        "h": 97,
+                        "z": 49,
+                        "r": -3,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "dirt_platform_short",
+                        "w": 364,
+                        "x": -2901,
+                        "y": -117,
+                        "h": 70,
+                        "z": 88
+                    },
+                    {
+                        "filename": "groddle_grass_1",
+                        "w": 106,
+                        "x": 491,
+                        "y": -176,
+                        "h": 51,
+                        "z": 61
+                    },
+                    {
+                        "filename": "groddle_grass_1",
+                        "w": 106,
+                        "x": 381,
+                        "y": -180,
+                        "h": 51,
+                        "z": 37
+                    },
+                    {
+                        "filename": "groddle_bush4",
+                        "w": 156,
+                        "r": -1,
+                        "x": 1679,
+                        "y": -165,
+                        "h": 74,
+                        "z": 68
+                    },
+                    {
+                        "filename": "groddle_grass_2",
+                        "w": 101,
+                        "x": -371,
+                        "y": -174,
+                        "h": 81,
+                        "z": 48
+                    },
+                    {
+                        "filename": "groddle_grass_2",
+                        "w": 103,
+                        "x": 2779,
+                        "y": -171,
+                        "h": 83,
+                        "z": 74
+                    },
+                    {
+                        "filename": "crosssection_short_3",
+                        "w": 713,
+                        "r": 1,
+                        "x": -1344,
+                        "y": 55,
+                        "h": 111,
+                        "z": 58
+                    },
+                    {
+                        "filename": "groddle_bush1",
+                        "w": 196,
+                        "x": -605,
+                        "y": -163,
+                        "h": 97,
+                        "z": 51,
+                        "r": 7,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "groddle_grass_2",
+                        "w": 103,
+                        "x": 73,
+                        "y": -169,
+                        "h": 83,
+                        "z": 34
+                    },
+                    {
+                        "filename": "groddle_grass_1",
+                        "w": 83,
+                        "x": -390,
+                        "y": -164,
+                        "h": 46,
+                        "z": 50
+                    },
+                    {
+                        "filename": "groddle_bush1",
+                        "w": 196,
+                        "r": -2,
+                        "x": 168,
+                        "y": -179,
+                        "h": 77,
+                        "z": 31
+                    },
+                    {
+                        "filename": "grass_transition_1",
+                        "w": 227,
+                        "x": -2320,
+                        "y": -61,
+                        "h": 106,
+                        "z": 95,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "groddle_bush4",
+                        "w": 156,
+                        "r": 4,
+                        "x": 423,
+                        "y": -180,
+                        "h": 74,
+                        "z": 30
+                    },
+                    {
+                        "filename": "tree_coniferous_fg_2",
+                        "w": 763,
+                        "r": -3,
+                        "x": -1425,
+                        "y": -101,
+                        "h": 1572,
+                        "z": 81
+                    },
+                    {
+                        "filename": "groddle_bush1",
+                        "w": 196,
+                        "r": 7,
+                        "x": -1784,
+                        "y": -165,
+                        "h": 97,
+                        "z": 46
+                    },
+                    {
+                        "filename": "groddle_bush4",
+                        "w": 156,
+                        "r": -1,
+                        "x": 1860,
+                        "y": -158,
+                        "h": 74,
+                        "z": 77
+                    },
+                    {
+                        "filename": "groddle_grass_1",
+                        "w": 106,
+                        "x": 1202,
+                        "y": -172,
+                        "h": 51,
+                        "z": 29
+                    },
+                    {
+                        "filename": "groddle_grass_2",
+                        "w": 72,
+                        "x": -2319,
+                        "y": -174,
+                        "h": 59,
+                        "z": 22
+                    },
+                    {
+                        "filename": "groddle_bush4",
+                        "w": 149,
+                        "x": -2139,
+                        "y": -171,
+                        "h": 71,
+                        "z": 16
+                    },
+                    {
+                        "filename": "crosssection_short_3",
+                        "w": 713,
+                        "r": 1,
+                        "x": -2046,
+                        "y": 54,
+                        "h": 111,
+                        "z": 59
+                    },
+                    {
+                        "filename": "groddle_grass_1",
+                        "w": 83,
+                        "x": -2912,
+                        "y": -185,
+                        "h": 40,
+                        "z": 20
+                    },
+                    {
+                        "filename": "groddle_bush4",
+                        "w": 156,
+                        "r": -1,
+                        "x": 1178,
+                        "y": -175,
+                        "h": 74,
+                        "z": 28
+                    },
+                    {
+                        "filename": "groddle_bush1",
+                        "w": 196,
+                        "r": 3,
+                        "x": 984,
+                        "y": -177,
+                        "h": 87,
+                        "z": 26
+                    },
+                    {
+                        "filename": "groddle_bush1",
+                        "w": 196,
+                        "r": 3,
+                        "x": 306,
+                        "y": -180,
+                        "h": 87,
+                        "z": 35
+                    },
+                    {
+                        "filename": "patch_mossy_1",
+                        "w": 161,
+                        "x": -2950,
+                        "y": -153,
+                        "h": 38,
+                        "z": 96
+                    },
+                    {
+                        "filename": "groddle_grass_2",
+                        "w": 103,
+                        "x": -2705,
+                        "y": -194,
+                        "h": 83,
+                        "z": 18
+                    },
+                    {
+                        "filename": "tree_coniferous_fg_3",
+                        "w": 569,
+                        "x": -727,
+                        "y": -120,
+                        "h": 1296,
+                        "z": 55,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "evenground_horizon",
+                        "w": 1541,
+                        "x": -2450,
+                        "y": -89,
+                        "h": 114,
+                        "z": 5,
+                        "r": 1,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "groddle_grass_1",
+                        "w": 106,
+                        "x": 1506,
+                        "y": -141,
+                        "h": 51,
+                        "z": 82
+                    },
+                    {
+                        "filename": "evenground_platform_long",
+                        "w": 1165,
+                        "x": 2438,
+                        "y": 17,
+                        "h": 73,
+                        "z": 12
+                    },
+                    {
+                        "filename": "tree_base_root_3",
+                        "w": 150,
+                        "x": -825,
+                        "y": -113,
+                        "h": 90,
+                        "z": 57,
+                        "r": 4,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "groddle_grass_2",
+                        "w": 119,
+                        "x": -843,
+                        "y": -171,
+                        "h": 96,
+                        "z": 53
+                    },
+                    {
+                        "filename": "evenground_platform_long",
+                        "w": 1165,
+                        "x": -1931,
+                        "y": -38,
+                        "h": 73,
+                        "z": 10
+                    },
+                    {
+                        "filename": "gravel_2",
+                        "w": 32,
+                        "x": 2934,
+                        "y": -170,
+                        "h": 18,
+                        "z": 87
+                    },
+                    {
+                        "filename": "groddle_grass_2",
+                        "w": 103,
+                        "x": 1102,
+                        "y": -184,
+                        "h": 83,
+                        "z": 27
+                    },
+                    {
+                        "filename": "bush_3",
+                        "w": 408,
+                        "x": 2892,
+                        "y": -164,
+                        "h": 143,
+                        "z": 73
+                    },
+                    {
+                        "filename": "crosssection_short_3",
+                        "w": 713,
+                        "x": 2814,
+                        "y": 56,
+                        "h": 111,
+                        "z": 43
+                    },
+                    {
+                        "filename": "crosssection_short_3",
+                        "w": 713,
+                        "r": 1,
+                        "x": 1460,
+                        "y": 68,
+                        "h": 111,
+                        "z": 38
+                    },
+                    {
+                        "filename": "ug_rock_1",
+                        "w": 45,
+                        "x": 585,
+                        "y": -170,
+                        "h": 30,
+                        "z": 65
+                    },
+                    {
+                        "filename": "patch_mossy_1",
+                        "w": 161,
+                        "x": -2595,
+                        "y": -130,
+                        "h": 38,
+                        "z": 98
+                    },
+                    {
+                        "filename": "groddle_grass_1",
+                        "w": 84,
+                        "x": 1975,
+                        "y": -158,
+                        "h": 40,
+                        "z": 80
+                    },
+                    {
+                        "filename": "evenground_horizon",
+                        "w": 1216,
+                        "x": 1633,
+                        "y": -85,
+                        "h": 109,
+                        "z": 1
+                    },
+                    {
+                        "filename": "groddle_grass_1",
+                        "w": 106,
+                        "x": -2206,
+                        "y": -170,
+                        "h": 51,
+                        "z": 24
+                    },
+                    {
+                        "filename": "groddle_grass_1",
+                        "w": 106,
+                        "x": -1704,
+                        "y": -160,
+                        "h": 51,
+                        "z": 67
+                    },
+                    {
+                        "filename": "evenground_platform_long",
+                        "w": 1165,
+                        "x": -825,
+                        "y": -38,
+                        "h": 73,
+                        "z": 9
+                    },
+                    {
+                        "filename": "groddle_grass_2",
+                        "w": 103,
+                        "x": -2287,
+                        "y": -174,
+                        "h": 83,
+                        "z": 21
+                    },
+                    {
+                        "filename": "groddle_grass_2",
+                        "w": 101,
+                        "x": -877,
+                        "y": -161,
+                        "h": 81,
+                        "z": 54
+                    },
+                    {
+                        "filename": "groddle_grass_2",
+                        "w": 89,
+                        "x": 1784,
+                        "y": -171,
+                        "h": 72,
+                        "z": 75
+                    },
+                    {
+                        "filename": "ug_rock_1",
+                        "w": 78,
+                        "x": 2982,
+                        "y": -176,
+                        "h": 46,
+                        "z": 85
+                    },
+                    {
+                        "filename": "gravel_2",
+                        "w": 53,
+                        "x": 1949,
+                        "y": -160,
+                        "h": 30,
+                        "z": 79
+                    },
+                    {
+                        "filename": "groddle_grass_1",
+                        "w": 83,
+                        "x": -1862,
+                        "y": -173,
+                        "h": 46,
+                        "z": 47
+                    },
+                    {
+                        "filename": "dirt_platform_short",
+                        "w": 364,
+                        "r": 5,
+                        "x": -2443,
+                        "y": -99,
+                        "h": 70,
+                        "z": 90
+                    },
+                    {
+                        "filename": "groddle_plant_1",
+                        "w": 117,
+                        "x": 89,
+                        "y": -176,
+                        "h": 123,
+                        "z": 33
+                    },
+                    {
+                        "filename": "groddle_grass_1",
+                        "w": 106,
+                        "x": 35,
+                        "y": -172,
+                        "h": 51,
+                        "z": 32
+                    },
+                    {
+                        "filename": "dirt_platform_short",
+                        "w": 364,
+                        "x": -2944,
+                        "y": -69,
+                        "h": 70,
+                        "z": 91
+                    },
+                    {
+                        "filename": "groddle_bush4",
+                        "w": 149,
+                        "r": 1,
+                        "x": -1361,
+                        "y": -177,
+                        "h": 71,
+                        "z": 44
+                    },
+                    {
+                        "filename": "gravel_2",
+                        "w": 25,
+                        "x": -2273,
+                        "y": -172,
+                        "h": 14,
+                        "z": 25,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "tree_coniferous_fg_2",
+                        "w": 672,
+                        "x": 1513,
+                        "y": -86,
+                        "h": 1572,
+                        "z": 71,
+                        "r": 3,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "groddle_grass_1",
+                        "w": 106,
+                        "x": 1761,
+                        "y": -166,
+                        "h": 51,
+                        "z": 76
+                    },
+                    {
+                        "filename": "groddle_bush4",
+                        "w": 149,
+                        "x": -2139,
+                        "y": -171,
+                        "h": 71,
+                        "z": 16
+                    },
+                    {
+                        "filename": "crosssection_short_3",
+                        "w": 713,
+                        "r": 1,
+                        "x": -644,
+                        "y": 58,
+                        "h": 111,
+                        "z": 41
+                    },
+                    {
+                        "filename": "groddle_bush4",
+                        "w": 149,
+                        "r": 1,
+                        "x": -542,
+                        "y": -132,
+                        "h": 71,
+                        "z": 52
+                    },
+                    {
+                        "filename": "groddle_grass_2",
+                        "w": 103,
+                        "x": -2066,
+                        "y": -181,
+                        "h": 83,
+                        "z": 15
+                    },
+                    {
+                        "filename": "evenground_platform_long",
+                        "w": 1208,
+                        "x": 237,
+                        "y": -26,
+                        "h": 73,
+                        "z": 8
+                    },
+                    {
+                        "filename": "groddle_grass_1",
+                        "w": 86,
+                        "x": -2487,
+                        "y": -158,
+                        "h": 42,
+                        "z": 94
+                    },
+                    {
+                        "filename": "groddle_grass_1",
+                        "w": 106,
+                        "x": -2671,
+                        "y": -192,
+                        "h": 51,
+                        "z": 19
+                    },
+                    {
+                        "filename": "evenground_horizon",
+                        "w": 1216,
+                        "x": 2547,
+                        "y": -98,
+                        "h": 109,
+                        "z": 0,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "bush_2",
+                        "w": 350,
+                        "r": -1,
+                        "x": 2642,
+                        "y": -159,
+                        "h": 141,
+                        "z": 72
+                    },
+                    {
+                        "filename": "patch_mossy_1",
+                        "w": 237,
+                        "x": -2908,
+                        "y": -102,
+                        "h": 56,
+                        "z": 99
+                    },
+                    {
+                        "filename": "groddle_plant_1",
+                        "w": 117,
+                        "x": 89,
+                        "y": -176,
+                        "h": 123,
+                        "z": 33
+                    },
+                    {
+                        "filename": "groddle_grass_2",
+                        "w": 103,
+                        "x": 526,
+                        "y": -172,
+                        "h": 83,
+                        "z": 62
+                    }
+                ],
+                "signposts": [
+                    {
+                        "name": "signpost_1",
+                        "y": -150,
+                        "h": 200,
+                        "w": 100,
+                        "x": -2800,
+                        "connects": [
+                            {
+                                "x": 2573,
+                                "y": -137,
+                                "hub_id": "97",
+                                "mote_id": "9",
+                                "label": "Takeno Tides",
+                                "tsid": "LA996D5KMF82E41"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "signpost_2",
+                        "y": -125,
+                        "h": 200,
+                        "w": 100,
+                        "x": 2800,
+                        "connects": [
+                            {
+                                "x": -2700,
+                                "y": -167,
+                                "hub_id": "97",
+                                "mote_id": "9",
+                                "label": "Hakusan Heaps",
+                                "tsid": "LA9A9CGB9F824PK"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "T_1309388549233": {
+                "name": "bg_1",
+                "w": 5520,
+                "h": 990,
+                "z": -1,
+                "filters": {
+                    "brightness": -20,
+                    "saturation": -20,
+                    "tintAmount": 0,
+                    "contrast": -25,
+                    "tintColor": 0
+                },
+                "decos": [
+                    {
+                        "filename": "pinecluster_mask_1",
+                        "w": 387,
+                        "r": 4,
+                        "x": 3978,
+                        "y": 776,
+                        "h": 150,
+                        "z": 30
+                    },
+                    {
+                        "filename": "evenground_horizon",
+                        "w": 1102,
+                        "x": 5095,
+                        "y": 841,
+                        "h": 68,
+                        "z": 14,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "groddle_bush1",
+                        "w": 113,
+                        "r": -5,
+                        "x": 4847,
+                        "y": 769,
+                        "h": 57,
+                        "z": 20
+                    },
+                    {
+                        "filename": "alakol_grass_top_2",
+                        "w": 620,
+                        "x": 2659,
+                        "y": 670,
+                        "h": 90,
+                        "z": 55
+                    },
+                    {
+                        "filename": "cliff_cover_3",
+                        "w": 528,
+                        "r": -5,
+                        "x": 3010,
+                        "y": 848,
+                        "h": 224,
+                        "z": 54
+                    },
+                    {
+                        "filename": "groddle_bush1",
+                        "w": 102,
+                        "x": 1534,
+                        "y": 780,
+                        "h": 60,
+                        "z": 35
+                    },
+                    {
+                        "filename": "evenground_horizon",
+                        "w": 886,
+                        "x": 2593,
+                        "y": 852,
+                        "h": 67,
+                        "z": 7,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "bush_3",
+                        "w": 205,
+                        "r": 7,
+                        "x": 4212,
+                        "y": 773,
+                        "h": 72,
+                        "z": 29
+                    },
+                    {
+                        "filename": "pinecluster_mask_1",
+                        "w": 387,
+                        "x": 2811,
+                        "y": 618,
+                        "h": 150,
+                        "z": 59
+                    },
+                    {
+                        "filename": "bush_2",
+                        "w": 194,
+                        "x": 756,
+                        "y": 803,
+                        "h": 64,
+                        "z": 48,
+                        "r": 5,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "tree_coniferous_fg_2",
+                        "w": 495,
+                        "x": 4959,
+                        "y": 786,
+                        "h": 1020,
+                        "z": 18,
+                        "r": 2,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "cliff_cover_5",
+                        "w": 460,
+                        "r": -7,
+                        "x": 5289,
+                        "y": 799,
+                        "h": 156,
+                        "z": 22
+                    },
+                    {
+                        "filename": "bush_3",
+                        "w": 205,
+                        "x": 4316,
+                        "y": 789,
+                        "h": 72,
+                        "z": 36
+                    },
+                    {
+                        "filename": "bush_2",
+                        "w": 194,
+                        "r": -5,
+                        "x": 864,
+                        "y": 789,
+                        "h": 64,
+                        "z": 47
+                    },
+                    {
+                        "filename": "bush_3",
+                        "w": 205,
+                        "x": 3344,
+                        "y": 619,
+                        "h": 72,
+                        "z": 69,
+                        "r": 5,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "pinecluster_mask_1",
+                        "w": 387,
+                        "r": 4,
+                        "x": 3709,
+                        "y": 768,
+                        "h": 150,
+                        "z": 32
+                    },
+                    {
+                        "filename": "bush_3",
+                        "w": 205,
+                        "r": 8,
+                        "x": 1371,
+                        "y": 818,
+                        "h": 72,
+                        "z": 51
+                    },
+                    {
+                        "filename": "bush_3",
+                        "w": 238,
+                        "x": 4720,
+                        "y": 795,
+                        "h": 84,
+                        "z": 21
+                    },
+                    {
+                        "filename": "groddle_grass_1",
+                        "w": 60,
+                        "x": 2919,
+                        "y": 616,
+                        "h": 29,
+                        "z": 63
+                    },
+                    {
+                        "filename": "evenground_horizon",
+                        "w": 886,
+                        "r": 1,
+                        "x": 4363,
+                        "y": 817,
+                        "h": 67,
+                        "z": 0
+                    },
+                    {
+                        "filename": "groddle_bush1",
+                        "w": 113,
+                        "r": -3,
+                        "x": 4593,
+                        "y": 792,
+                        "h": 57,
+                        "z": 16
+                    },
+                    {
+                        "filename": "groddle_bush1",
+                        "w": 112,
+                        "r": 5,
+                        "x": 1694,
+                        "y": 778,
+                        "h": 42,
+                        "z": 27
+                    },
+                    {
+                        "filename": "groddle_grass_2",
+                        "w": 41,
+                        "x": 3051,
+                        "y": 645,
+                        "h": 24,
+                        "z": 66
+                    },
+                    {
+                        "filename": "cliff_cover_3",
+                        "w": 438,
+                        "x": 2458,
+                        "y": 791,
+                        "h": 183,
+                        "z": 25
+                    },
+                    {
+                        "filename": "bush_2",
+                        "w": 194,
+                        "r": -8,
+                        "x": 3843,
+                        "y": 781,
+                        "h": 64,
+                        "z": 33
+                    },
+                    {
+                        "filename": "tree_coniferous_fg_3",
+                        "w": 393,
+                        "x": 128,
+                        "y": 792,
+                        "h": 895,
+                        "z": 41,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "groddle_grass_2",
+                        "w": 44,
+                        "x": 3032,
+                        "y": 643,
+                        "h": 35,
+                        "z": 65
+                    },
+                    {
+                        "filename": "pinecluster_mask_1",
+                        "w": 334,
+                        "x": 1058,
+                        "y": 794,
+                        "h": 147,
+                        "z": 46
+                    },
+                    {
+                        "filename": "evenground_horizon",
+                        "w": 886,
+                        "r": -1,
+                        "x": 3681,
+                        "y": 805,
+                        "h": 67,
+                        "z": 2
+                    },
+                    {
+                        "filename": "groddle_bush1",
+                        "w": 102,
+                        "x": 1605,
+                        "y": 776,
+                        "h": 51,
+                        "z": 26,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "evenground_horizon",
+                        "w": 886,
+                        "x": 1804,
+                        "y": 832,
+                        "h": 67,
+                        "z": 6,
+                        "r": -1,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "groddle_grass_2",
+                        "w": 44,
+                        "x": 3032,
+                        "y": 643,
+                        "h": 35,
+                        "z": 65
+                    },
+                    {
+                        "filename": "evenground_horizon",
+                        "w": 1002,
+                        "x": 507,
+                        "y": 826,
+                        "h": 67,
+                        "z": 10,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "tree_coniferous_fg_2",
+                        "w": 341,
+                        "x": 2692,
+                        "y": 639,
+                        "h": 886,
+                        "z": 68,
+                        "r": 2,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "evenground_horizon",
+                        "w": 886,
+                        "x": 1739,
+                        "y": 885,
+                        "h": 67,
+                        "z": 8,
+                        "r": -2,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "tree_base_root_3",
+                        "w": 92,
+                        "x": 4458,
+                        "y": 827,
+                        "h": 55,
+                        "z": 39
+                    },
+                    {
+                        "filename": "alakol_grass_top_2",
+                        "w": 623,
+                        "x": 3182,
+                        "y": 664,
+                        "h": 87,
+                        "z": 56
+                    },
+                    {
+                        "filename": "cliff_cover_5",
+                        "w": 539,
+                        "x": 3457,
+                        "y": 817,
+                        "h": 205,
+                        "z": 53,
+                        "r": 8,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "bush_2",
+                        "w": 194,
+                        "r": -6,
+                        "x": 3104,
+                        "y": 610,
+                        "h": 64,
+                        "z": 58
+                    },
+                    {
+                        "filename": "bush_3",
+                        "w": 205,
+                        "r": -4,
+                        "x": 2636,
+                        "y": 610,
+                        "h": 72,
+                        "z": 60
+                    },
+                    {
+                        "filename": "evenground_horizon",
+                        "w": 886,
+                        "x": 1177,
+                        "y": 830,
+                        "h": 67,
+                        "z": 9,
+                        "r": 2,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "tree_coniferous_fg_1",
+                        "w": 492,
+                        "x": 390,
+                        "y": 826,
+                        "h": 962,
+                        "z": 44,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "evenground_horizon",
+                        "w": 1102,
+                        "x": 5037,
+                        "y": 795,
+                        "h": 68,
+                        "z": 13,
+                        "r": -2,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "groddle_plant_1",
+                        "w": 40,
+                        "x": 2688,
+                        "y": 608,
+                        "h": 42,
+                        "z": 70
+                    },
+                    {
+                        "filename": "bush_3",
+                        "w": 205,
+                        "x": 3238,
+                        "y": 608,
+                        "h": 72,
+                        "z": 57
+                    },
+                    {
+                        "filename": "evenground_horizon",
+                        "w": 886,
+                        "r": -1,
+                        "x": 3322,
+                        "y": 853,
+                        "h": 67,
+                        "z": 4
+                    },
+                    {
+                        "filename": "tree_base_root_3",
+                        "w": 76,
+                        "x": 2940,
+                        "y": 640,
+                        "h": 46,
+                        "z": 64,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "evenground_horizon",
+                        "w": 886,
+                        "x": 273,
+                        "y": 877,
+                        "h": 67,
+                        "z": 11,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "cliff_cover_1",
+                        "w": 396,
+                        "x": 2688,
+                        "y": 836,
+                        "h": 222,
+                        "z": 52
+                    },
+                    {
+                        "filename": "tree_base_root_3",
+                        "w": 83,
+                        "x": 3071,
+                        "y": 643,
+                        "h": 50,
+                        "z": 62
+                    },
+                    {
+                        "filename": "bush_2",
+                        "w": 194,
+                        "r": -4,
+                        "x": 2515,
+                        "y": 619,
+                        "h": 64,
+                        "z": 67
+                    },
+                    {
+                        "filename": "bush_2",
+                        "w": 194,
+                        "r": 4,
+                        "x": 4405,
+                        "y": 796,
+                        "h": 64,
+                        "z": 37
+                    },
+                    {
+                        "filename": "pinecluster_mask_1",
+                        "w": 334,
+                        "r": -9,
+                        "x": 220,
+                        "y": 799,
+                        "h": 147,
+                        "z": 43
+                    },
+                    {
+                        "filename": "evenground_horizon",
+                        "w": 886,
+                        "x": 985,
+                        "y": 878,
+                        "h": 67,
+                        "z": 12,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "pinecluster_mask_1",
+                        "w": 334,
+                        "x": 570,
+                        "y": 798,
+                        "h": 147,
+                        "z": 42
+                    },
+                    {
+                        "filename": "bush_2",
+                        "w": 194,
+                        "r": -5,
+                        "x": 1950,
+                        "y": 791,
+                        "h": 64,
+                        "z": 34
+                    },
+                    {
+                        "filename": "groddle_bush1",
+                        "w": 113,
+                        "x": 4917,
+                        "y": 760,
+                        "h": 57,
+                        "z": 19
+                    },
+                    {
+                        "filename": "pinecluster_mask_1",
+                        "w": 334,
+                        "r": -5,
+                        "x": 2148,
+                        "y": 770,
+                        "h": 147,
+                        "z": 24
+                    },
+                    {
+                        "filename": "cliff_cover_5",
+                        "w": 442,
+                        "r": -12,
+                        "x": 5420,
+                        "y": 832,
+                        "h": 237,
+                        "z": 23
+                    },
+                    {
+                        "filename": "groddle_grass_1",
+                        "w": 53,
+                        "x": 2691,
+                        "y": 614,
+                        "h": 24,
+                        "z": 71
+                    },
+                    {
+                        "filename": "evenground_horizon",
+                        "w": 886,
+                        "r": -1,
+                        "x": 3107,
+                        "y": 806,
+                        "h": 67,
+                        "z": 3
+                    },
+                    {
+                        "filename": "bush_3",
+                        "w": 205,
+                        "x": 1818,
+                        "y": 792,
+                        "h": 72,
+                        "z": 28
+                    },
+                    {
+                        "filename": "evenground_horizon",
+                        "w": 886,
+                        "r": 1,
+                        "x": 4133,
+                        "y": 853,
+                        "h": 67,
+                        "z": 1
+                    },
+                    {
+                        "filename": "groddle_grass_1",
+                        "w": 53,
+                        "x": 2691,
+                        "y": 614,
+                        "h": 24,
+                        "z": 71
+                    },
+                    {
+                        "filename": "bush_3",
+                        "w": 205,
+                        "r": -2,
+                        "x": 1466,
+                        "y": 802,
+                        "h": 72,
+                        "z": 50
+                    },
+                    {
+                        "filename": "tree_coniferous_fg_3",
+                        "w": 393,
+                        "x": 3006,
+                        "y": 640,
+                        "h": 895,
+                        "z": 61,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "tree_coniferous_fg_4",
+                        "w": 429,
+                        "x": 1245,
+                        "y": 794,
+                        "h": 855,
+                        "z": 45
+                    },
+                    {
+                        "filename": "bush_3",
+                        "w": 205,
+                        "x": 5106,
+                        "y": 749,
+                        "h": 72,
+                        "z": 17,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "tree_base_root_1",
+                        "w": 101,
+                        "x": 4327,
+                        "y": 823,
+                        "h": 59,
+                        "z": 40
+                    },
+                    {
+                        "filename": "groddle_bush1",
+                        "w": 113,
+                        "r": 5,
+                        "x": 4506,
+                        "y": 789,
+                        "h": 57,
+                        "z": 15
+                    },
+                    {
+                        "filename": "tree_coniferous_fg_4",
+                        "w": 466,
+                        "x": 4380,
+                        "y": 818,
+                        "h": 929,
+                        "z": 38
+                    },
+                    {
+                        "filename": "bush_3",
+                        "w": 205,
+                        "r": 3,
+                        "x": 1269,
+                        "y": 808,
+                        "h": 72,
+                        "z": 49
+                    },
+                    {
+                        "filename": "evenground_horizon",
+                        "w": 886,
+                        "x": 2353,
+                        "y": 800,
+                        "h": 67,
+                        "z": 5,
+                        "r": -2,
+                        "h_flip": true
+                    }
+                ],
+                "signposts": []
+            },
+            "T_1311386031998": {
+                "name": "middleplus",
+                "w": 6000,
+                "h": 1000,
+                "z": 1,
+                "filters": {
+                    "saturation": -10,
+                    "brightness": -5,
+                    "contrast": -10
+                },
+                "decos": [
+                    {
+                        "filename": "groddle_grass_2",
+                        "w": 84,
+                        "x": 3988,
+                        "y": 953,
+                        "h": 68,
+                        "z": 19
+                    },
+                    {
+                        "filename": "groddle_bush4",
+                        "w": 156,
+                        "x": 5064,
+                        "y": 950,
+                        "h": 74,
+                        "z": 5,
+                        "r": -7,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "gravel_2",
+                        "w": 39,
+                        "x": 3880,
+                        "y": 954,
+                        "h": 22,
+                        "z": 18
+                    },
+                    {
+                        "filename": "groddle_bush1",
+                        "w": 196,
+                        "r": 6,
+                        "x": 323,
+                        "y": 941,
+                        "h": 97,
+                        "z": 8
+                    },
+                    {
+                        "filename": "groddle_bush1",
+                        "w": 196,
+                        "r": 2,
+                        "x": 1815,
+                        "y": 939,
+                        "h": 97,
+                        "z": 28
+                    },
+                    {
+                        "filename": "tree_dead_1",
+                        "w": 716,
+                        "x": 3799,
+                        "y": 955,
+                        "h": 95,
+                        "z": 2
+                    },
+                    {
+                        "filename": "groddle_fern_1",
+                        "w": 190,
+                        "x": 1915,
+                        "y": 941,
+                        "h": 113,
+                        "z": 29
+                    },
+                    {
+                        "filename": "groddle_fern_1",
+                        "w": 154,
+                        "x": 1711,
+                        "y": 932,
+                        "h": 92,
+                        "z": 0,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "gravel_2",
+                        "w": 28,
+                        "x": 5179,
+                        "y": 946,
+                        "h": 16,
+                        "z": 14,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "tree_coniferous_fg_1",
+                        "w": 763,
+                        "x": 5180,
+                        "y": 991,
+                        "h": 1694,
+                        "z": 6
+                    },
+                    {
+                        "filename": "groddle_grass_1",
+                        "w": 110,
+                        "x": 3485,
+                        "y": 938,
+                        "h": 53,
+                        "z": 1
+                    },
+                    {
+                        "filename": "groddle_bush4",
+                        "w": 156,
+                        "r": -1,
+                        "x": 2901,
+                        "y": 941,
+                        "h": 74,
+                        "z": 23
+                    },
+                    {
+                        "filename": "groddle_grass_1",
+                        "w": 87,
+                        "x": 3613,
+                        "y": 953,
+                        "h": 44,
+                        "z": 21
+                    },
+                    {
+                        "filename": "groddle_bush4",
+                        "w": 156,
+                        "r": -1,
+                        "x": 2833,
+                        "y": 954,
+                        "h": 74,
+                        "z": 25
+                    },
+                    {
+                        "filename": "groddle_grass_2",
+                        "w": 103,
+                        "x": 3868,
+                        "y": 950,
+                        "h": 83,
+                        "z": 16
+                    },
+                    {
+                        "filename": "groddle_grass_1",
+                        "w": 106,
+                        "x": 233,
+                        "y": 928,
+                        "h": 51,
+                        "z": 7
+                    },
+                    {
+                        "filename": "groddle_grass_1",
+                        "w": 106,
+                        "x": 431,
+                        "y": 937,
+                        "h": 51,
+                        "z": 10
+                    },
+                    {
+                        "filename": "groddle_grass_1",
+                        "w": 83,
+                        "x": 2749,
+                        "y": 953,
+                        "h": 46,
+                        "z": 26
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "w": 498,
+                        "x": 747,
+                        "y": 1077,
+                        "h": 189,
+                        "z": 38
+                    },
+                    {
+                        "filename": "groddle_grass_1",
+                        "w": 106,
+                        "x": 5224,
+                        "y": 944,
+                        "h": 51,
+                        "z": 12
+                    },
+                    {
+                        "filename": "groddle_bush4",
+                        "w": 156,
+                        "r": -1,
+                        "x": 5379,
+                        "y": 958,
+                        "h": 74,
+                        "z": 4
+                    },
+                    {
+                        "filename": "ug_rock_1",
+                        "w": 73,
+                        "x": 3906,
+                        "y": 953,
+                        "h": 49,
+                        "z": 17
+                    },
+                    {
+                        "filename": "groddle_cover_clover2",
+                        "w": 126,
+                        "x": 24,
+                        "y": 902,
+                        "h": 47,
+                        "z": 34
+                    },
+                    {
+                        "filename": "groddle_bush4",
+                        "w": 156,
+                        "x": 2735,
+                        "y": 950,
+                        "h": 74,
+                        "z": 22,
+                        "r": -1,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "groddle_bush4",
+                        "w": 156,
+                        "r": -1,
+                        "x": 5379,
+                        "y": 958,
+                        "h": 74,
+                        "z": 4
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "w": 498,
+                        "x": 464,
+                        "y": 1109,
+                        "h": 189,
+                        "z": 37
+                    },
+                    {
+                        "filename": "groddle_grass_2",
+                        "w": 89,
+                        "x": 5166,
+                        "y": 945,
+                        "h": 72,
+                        "z": 13
+                    },
+                    {
+                        "filename": "groddle_bush1",
+                        "w": 196,
+                        "x": 5256,
+                        "y": 935,
+                        "h": 97,
+                        "z": 3,
+                        "r": 16,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "groddle_bush1",
+                        "w": 196,
+                        "r": 6,
+                        "x": 531,
+                        "y": 933,
+                        "h": 97,
+                        "z": 9
+                    },
+                    {
+                        "filename": "groddle_cover_clover2",
+                        "w": 126,
+                        "x": 145,
+                        "y": 949,
+                        "h": 47,
+                        "z": 33
+                    },
+                    {
+                        "filename": "ug_rock_1",
+                        "w": 44,
+                        "x": 2768,
+                        "y": 957,
+                        "h": 30,
+                        "z": 27
+                    },
+                    {
+                        "filename": "gravel_2",
+                        "w": 57,
+                        "x": 1889,
+                        "y": 944,
+                        "h": 31,
+                        "z": 30
+                    },
+                    {
+                        "filename": "groddle_grass_1",
+                        "w": 106,
+                        "x": 3950,
+                        "y": 955,
+                        "h": 51,
+                        "z": 20
+                    },
+                    {
+                        "filename": "groddle_cover_clover2",
+                        "w": 126,
+                        "x": 31,
+                        "y": 942,
+                        "h": 47,
+                        "z": 32
+                    },
+                    {
+                        "filename": "groddle_grass_1",
+                        "w": 106,
+                        "x": 5224,
+                        "y": 944,
+                        "h": 51,
+                        "z": 12
+                    },
+                    {
+                        "filename": "gravel_2",
+                        "w": 29,
+                        "x": 1917,
+                        "y": 945,
+                        "h": 16,
+                        "z": 31,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "groddle_grass_2",
+                        "w": 84,
+                        "x": 3988,
+                        "y": 953,
+                        "h": 68,
+                        "z": 19
+                    },
+                    {
+                        "filename": "groddle_fern_1",
+                        "w": 190,
+                        "x": 1915,
+                        "y": 941,
+                        "h": 113,
+                        "z": 29
+                    },
+                    {
+                        "filename": "groddle_cover_clover2",
+                        "w": 126,
+                        "x": 650,
+                        "y": 952,
+                        "h": 47,
+                        "z": 35
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "w": 498,
+                        "x": 125,
+                        "y": 1084,
+                        "h": 189,
+                        "z": 36
+                    },
+                    {
+                        "filename": "ug_rock_1",
+                        "w": 57,
+                        "x": 413,
+                        "y": 943,
+                        "h": 38,
+                        "z": 11
+                    },
+                    {
+                        "filename": "groddle_grass_1",
+                        "w": 106,
+                        "x": 5143,
+                        "y": 950,
+                        "h": 51,
+                        "z": 15
+                    },
+                    {
+                        "filename": "groddle_bush1",
+                        "w": 196,
+                        "x": 5256,
+                        "y": 935,
+                        "h": 97,
+                        "z": 3,
+                        "r": 16,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "groddle_grass_2",
+                        "w": 101,
+                        "x": 2963,
+                        "y": 947,
+                        "h": 81,
+                        "z": 24
+                    }
+                ],
+                "signposts": []
+            },
+            "T_1309388549234": {
+                "name": "bg_2",
+                "w": 5040,
+                "h": 980,
+                "z": -2,
+                "filters": {
+                    "saturation": -30,
+                    "brightness": -20,
+                    "contrast": -30
+                },
+                "decos": [
+                    {
+                        "filename": "tree_coniferous_fg_1",
+                        "w": 332,
+                        "x": 3470,
+                        "y": 849,
+                        "h": 737,
+                        "z": 6
+                    },
+                    {
+                        "filename": "tree_wallpaper_1a",
+                        "w": 1880,
+                        "x": 4355,
+                        "y": 850,
+                        "h": 785,
+                        "z": 0
+                    },
+                    {
+                        "filename": "tree_coniferous_1",
+                        "w": 270,
+                        "x": 1041,
+                        "y": 782,
+                        "h": 659,
+                        "z": 9,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "tree_group_bg2_1",
+                        "w": 532,
+                        "r": -1,
+                        "x": 229,
+                        "y": 814,
+                        "h": 695,
+                        "z": 7
+                    },
+                    {
+                        "filename": "pinecluster_2",
+                        "w": 369,
+                        "x": 2225,
+                        "y": 755,
+                        "h": 152,
+                        "z": 3
+                    },
+                    {
+                        "filename": "tree_coniferous_fg_1",
+                        "w": 332,
+                        "x": 863,
+                        "y": 865,
+                        "h": 737,
+                        "z": 10
+                    },
+                    {
+                        "filename": "tree_group_bg2_1",
+                        "w": 584,
+                        "x": 4983,
+                        "y": 810,
+                        "h": 763,
+                        "z": 11
+                    },
+                    {
+                        "filename": "tree_coniferous_fg_1",
+                        "w": 332,
+                        "x": 1738,
+                        "y": 877,
+                        "h": 737,
+                        "z": 13
+                    },
+                    {
+                        "filename": "pinecluster_2",
+                        "w": 362,
+                        "x": 3029,
+                        "y": 761,
+                        "h": 179,
+                        "z": 2
+                    },
+                    {
+                        "filename": "tree_group_bg2_1",
+                        "w": 532,
+                        "r": -1,
+                        "x": 1304,
+                        "y": 817,
+                        "h": 695,
+                        "z": 8
+                    },
+                    {
+                        "filename": "pinecluster_2",
+                        "w": 362,
+                        "x": 3306,
+                        "y": 750,
+                        "h": 211,
+                        "z": 1
+                    },
+                    {
+                        "filename": "tree_coniferous_fg_3",
+                        "w": 251,
+                        "r": 5,
+                        "x": 4807,
+                        "y": 706,
+                        "h": 572,
+                        "z": 12
+                    },
+                    {
+                        "filename": "tree_wallpaper_1a",
+                        "w": 2046,
+                        "x": 952,
+                        "y": 900,
+                        "h": 822,
+                        "z": 4
+                    },
+                    {
+                        "filename": "tree_coniferous_1",
+                        "w": 270,
+                        "x": 4415,
+                        "y": 776,
+                        "h": 659,
+                        "z": 5,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "pinecluster_2",
+                        "w": 362,
+                        "x": 1961,
+                        "y": 766,
+                        "h": 211,
+                        "z": 14
+                    }
+                ],
+                "signposts": []
+            },
+            "T_1312396383680": {
+                "name": "bg_3",
+                "w": 4800,
+                "h": 960,
+                "z": -3,
+                "filters": {
+                    "saturation": -30,
+                    "brightness": 10,
+                    "contrast": -30
+                },
+                "decos": [
+                    {
+                        "filename": "pinehills_2",
+                        "w": 878,
+                        "x": 2660,
+                        "y": 742,
+                        "h": 265,
+                        "z": 1
+                    },
+                    {
+                        "filename": "pinehills_2",
+                        "w": 878,
+                        "r": -5,
+                        "x": 3214,
+                        "y": 704,
+                        "h": 265,
+                        "z": 3
+                    },
+                    {
+                        "filename": "pinehills_2",
+                        "w": 878,
+                        "r": 5,
+                        "x": 1915,
+                        "y": 710,
+                        "h": 265,
+                        "z": 4
+                    },
+                    {
+                        "filename": "pinehills_2",
+                        "w": 878,
+                        "x": 2254,
+                        "y": 737,
+                        "h": 265,
+                        "z": 0
+                    },
+                    {
+                        "filename": "pinehills_2",
+                        "w": 878,
+                        "r": 5,
+                        "x": 2891,
+                        "y": 751,
+                        "h": 265,
+                        "z": 2
+                    }
+                ],
+                "signposts": []
+            }
+        }
+    }
+}

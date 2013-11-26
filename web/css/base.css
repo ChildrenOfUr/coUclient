@@ -427,6 +427,7 @@ textarea{resize: none;}
 /*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 /*Elements that appear in the top right*/
 #ChatPane {
+  color: #005c73;
   background-color: #fff;
   position:absolute;
   width:250px;
@@ -435,14 +436,22 @@ textarea{resize: none;}
   right:40px;
   -moz-border-radius: 7px;
   border-radius: 7px;
-  
-  -webkit-box-shadow: 0px 0px 3px 3px #000;
-  -moz-box-shadow: 0px 0px 3px 3px r#000; 
-  -o-box-shadow: 0px 0px 3px 3px #000; 
-  -khtml-box-shadow: 0px 0px 3px 3px #000;
+  padding:5px;
+  -webkit-box-shadow: -1px 1px 3px 0px #4d8c8b;
+  -moz-box-shadow: -1px 1px 3px 0px #4d8c8b;
+  -o-box-shadow: -1px 1px 3px 0px #4d8c8b;
+  -khtml-box-shadow: -1px 1px 3px 0px #4d8c8b;
   box-shadow: -1px 1px 3px 0px #4d8c8b;
-  
-  
+}
+#ChatList {
+  color: #005c73;
+  background-color: #e9f0f0;
+  position:absolute;
+  width:250px;
+  top:40px; 
+  bottom:60px; 
+  right:40px;  
+  padding:5px;
 }
 
 /*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/

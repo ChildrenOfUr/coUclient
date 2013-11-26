@@ -19,6 +19,7 @@ part './dart/resize.dart';
 part './dart/input.dart';
 part './dart/loader.dart';
 part './dart/display.dart';
+part './dart/maprender.dart';
 
 // setup the Stage and RenderLoop 
 xl.Stage stage = new xl.Stage('gamescreen', querySelector('#GameScreen'));
