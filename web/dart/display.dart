@@ -6,6 +6,11 @@ part of coUclient;
 render() {
   // Update clock
   refreshClock();
+
+  CurrentStreet.render();
+
+  
+  
   
 }
 

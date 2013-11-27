@@ -1,6 +1,6 @@
 part of coUclient;
 
-void loadAssets(){
+Future loadAssets(){
   // Play the loading music.
   AudioElement Loading = new AudioElement('./assets/sounds/loading.ogg');
   querySelector('#LoadingScreen').append(Loading);
@@ -17,24 +17,21 @@ void loadAssets(){
   
   
   
+  // streets
+  ..addTextFile('test', './assets/data/location/' + 'test' + '.json')
+  
+  
   ;
 
   // When done loading, 'hideLoader()'
-  resourceManager.load()
+  return resourceManager.load()
     .then((_) => hideLoader())
+    .then((_){})
     .catchError((e) => print(e));
-  
-  //Start listening for the game's exit and display "You Won!"
-   window.onBeforeUnload.listen((_)
-       {
-     querySelector('#YouWon').hidden = false;    
-    });
-  
 }
 
 
 void hideLoader() {
-  
   // Connect our stagexl canvas to our displayContainer
   // see display.dart
   stage.addChild(new displayContainer());
@@ -47,7 +44,16 @@ void hideLoader() {
   AudioElement doneLoading = new AudioElement('./assets/sounds/game_loaded.ogg');
   document.body.append(doneLoading);
   doneLoading.play();
+  listenForLeave(); 
 }
 
+
+listenForLeave(){
+  //Start listening for the game's exit and display "You Won!"
+  window.onBeforeUnload.listen((_)
+      {
+    querySelector('#YouWon').hidden = false;    
+      });
+}
 
 

@@ -1,0 +1,3196 @@
+{
+    "tsid": "GA5AAB0VNKR2VRN",
+    "label": "Teobocci Shasha",
+    "gradient": {
+        "top": "6E9182",
+        "bottom": "E8FCFC"
+    },
+    "dynamic": {
+        "l": -3000,
+        "r": 3000,
+        "t": -1000,
+        "b": 0,
+        "ground_y": -308,
+        "rookable_type": 0,
+        "layers": {
+            "T_1331341122141": {
+                "name": "foreground",
+                "h": 1000,
+                "z": 2,
+                "w": 6186,
+                "filters": {
+                    "blur": 2,
+                    "brightness": -9,
+                    "saturation": -27
+                },
+                "decos": [
+                    {
+                        "filename": "groddle_bush7",
+                        "x": 5914,
+                        "h": 157,
+                        "y": 1047,
+                        "w": 663,
+                        "z": 6,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "tree_deciduous1",
+                        "x": 2598,
+                        "h": 632,
+                        "y": 1461,
+                        "z": 8,
+                        "w": 562
+                    },
+                    {
+                        "filename": "groddle_plant_1",
+                        "x": 886,
+                        "h": 173,
+                        "y": 1018,
+                        "z": 7,
+                        "w": 163
+                    },
+                    {
+                        "filename": "groddle_bush1",
+                        "x": 3086,
+                        "h": 107,
+                        "y": 1000,
+                        "w": 208,
+                        "z": 2,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "groddle_bush1",
+                        "x": 3200,
+                        "h": 107,
+                        "y": 1022,
+                        "w": 208,
+                        "z": 15,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "groddle_bush7",
+                        "x": 5416,
+                        "h": 157,
+                        "y": 1061,
+                        "w": 663,
+                        "z": 5,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "groddle_plant_2",
+                        "x": 5385,
+                        "h": 117,
+                        "y": 1033,
+                        "z": 13,
+                        "w": 51,
+                        "r": -4
+                    },
+                    {
+                        "filename": "groddle_plant_1",
+                        "x": 3028,
+                        "h": 173,
+                        "y": 1021,
+                        "z": 11,
+                        "w": 163,
+                        "r": 5
+                    },
+                    {
+                        "filename": "groddle_bush7",
+                        "x": 5066,
+                        "h": 157,
+                        "y": 1027,
+                        "w": 663,
+                        "z": 4,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "groddle_plant_1",
+                        "x": 3142,
+                        "h": 173,
+                        "y": 1043,
+                        "z": 16,
+                        "w": 163,
+                        "r": 5
+                    },
+                    {
+                        "filename": "groddle_bush7",
+                        "x": 156,
+                        "h": 157,
+                        "y": 1015,
+                        "z": 3,
+                        "w": 663
+                    },
+                    {
+                        "filename": "tree_deciduous1",
+                        "x": 2269,
+                        "h": 632,
+                        "y": 1446,
+                        "z": 10,
+                        "w": 562
+                    },
+                    {
+                        "filename": "groddle_bush1",
+                        "x": 3162,
+                        "h": 107,
+                        "y": 981,
+                        "w": 208,
+                        "z": 0,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "groddle_fern_1",
+                        "x": 6079,
+                        "h": 110,
+                        "y": 1013,
+                        "z": 12,
+                        "w": 184
+                    },
+                    {
+                        "filename": "groddle_plant_1",
+                        "x": 3104,
+                        "h": 173,
+                        "y": 1002,
+                        "z": 1,
+                        "w": 163,
+                        "r": 5
+                    },
+                    {
+                        "filename": "tree_deciduous1",
+                        "x": -39,
+                        "h": 632,
+                        "y": 1359,
+                        "z": 14,
+                        "w": 562
+                    },
+                    {
+                        "filename": "tree_deciduous1",
+                        "x": 1946,
+                        "h": 632,
+                        "y": 1472,
+                        "z": 9,
+                        "w": 562
+                    }
+                ],
+                "signposts": []
+            },
+            "middleground": {
+                "name": "middleground",
+                "z": 0,
+                "h": 1000,
+                "w": 6000,
+                "filters": {
+                    "contrast": -8,
+                    "brightness": -31,
+                    "saturation": -30
+                },
+                "decos": [
+                    {
+                        "filename": "bush_3",
+                        "r": -4,
+                        "x": -1540,
+                        "h": 78,
+                        "y": -275,
+                        "w": 225,
+                        "z": 75,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "groddle_fern_1",
+                        "x": -2353,
+                        "h": 85,
+                        "y": -284,
+                        "z": 205,
+                        "w": 143
+                    },
+                    {
+                        "filename": "dirt_crosssection_short_3",
+                        "x": 1892,
+                        "h": 118,
+                        "y": 33,
+                        "z": 143,
+                        "w": 519
+                    },
+                    {
+                        "filename": "patch_dirt_2a",
+                        "x": 590,
+                        "h": 61,
+                        "y": -135,
+                        "w": 313,
+                        "z": 165,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "bling_wildmushrooms_1",
+                        "x": 1829,
+                        "h": 48,
+                        "y": -253,
+                        "z": 226,
+                        "w": 169
+                    },
+                    {
+                        "filename": "dirt_platform_long",
+                        "x": 1251,
+                        "h": 92,
+                        "y": -69,
+                        "z": 115,
+                        "w": 1226,
+                        "r": -1
+                    },
+                    {
+                        "filename": "dirt_platform_long",
+                        "x": 911,
+                        "h": 51,
+                        "y": -253,
+                        "z": 42,
+                        "w": 1079
+                    },
+                    {
+                        "filename": "groddle_bush7",
+                        "x": -190,
+                        "h": 124,
+                        "y": -275,
+                        "z": 24,
+                        "w": 524
+                    },
+                    {
+                        "filename": "groddle_cover_clover2",
+                        "x": 1073,
+                        "h": 42,
+                        "y": -237,
+                        "z": 243,
+                        "w": 103
+                    },
+                    {
+                        "filename": "mound_dirt_4",
+                        "x": -725,
+                        "h": 189,
+                        "y": -211,
+                        "z": 20,
+                        "w": 498
+                    },
+                    {
+                        "filename": "groddle_fern_1",
+                        "x": -1365,
+                        "h": 85,
+                        "y": -281,
+                        "z": 199,
+                        "w": 143
+                    },
+                    {
+                        "filename": "dirt_platform_short",
+                        "x": 1338,
+                        "h": 94,
+                        "y": -216,
+                        "z": 131,
+                        "w": 364,
+                        "r": -179
+                    },
+                    {
+                        "filename": "patch_dirt_2a",
+                        "x": 1796,
+                        "h": 54,
+                        "y": -94,
+                        "z": 180,
+                        "w": 316
+                    },
+                    {
+                        "filename": "groddle_cover_clover2",
+                        "x": 992,
+                        "h": 42,
+                        "y": -256,
+                        "z": 233,
+                        "w": 103
+                    },
+                    {
+                        "filename": "dirt_platform_long",
+                        "x": -2130,
+                        "h": 92,
+                        "y": -76,
+                        "z": 128,
+                        "w": 1226,
+                        "r": 1
+                    },
+                    {
+                        "filename": "groddle_plant_1",
+                        "x": 104,
+                        "h": 131,
+                        "y": -294,
+                        "z": 3,
+                        "w": 134
+                    },
+                    {
+                        "filename": "dirt_platform_long",
+                        "x": -1384,
+                        "h": 92,
+                        "y": -131,
+                        "z": 122,
+                        "w": 1226
+                    },
+                    {
+                        "filename": "groddle_fern_1",
+                        "x": 2197,
+                        "h": 85,
+                        "y": -266,
+                        "z": 213,
+                        "w": 143
+                    },
+                    {
+                        "filename": "patch_dirt_2a",
+                        "x": -89,
+                        "h": 61,
+                        "y": -121,
+                        "w": 313,
+                        "z": 170,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "patch_dirt_2a",
+                        "x": -1402,
+                        "h": 58,
+                        "y": -129,
+                        "w": 339,
+                        "z": 162,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "dirt_crosssection_short_3",
+                        "x": -1325,
+                        "h": 118,
+                        "y": 40,
+                        "z": 18,
+                        "w": 519,
+                        "r": 2
+                    },
+                    {
+                        "filename": "bush_3",
+                        "x": -230,
+                        "h": 78,
+                        "y": -278,
+                        "z": 77,
+                        "w": 225,
+                        "r": -2
+                    },
+                    {
+                        "filename": "patch_dirt_2a",
+                        "x": 2242,
+                        "h": 54,
+                        "y": -106,
+                        "w": 316,
+                        "z": 182,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "groddle_cover_clover2",
+                        "x": -1408,
+                        "h": 42,
+                        "y": -264,
+                        "z": 200,
+                        "w": 103
+                    },
+                    {
+                        "filename": "dirt_crosssection_short_3",
+                        "x": 285,
+                        "h": 118,
+                        "y": 28,
+                        "w": 519,
+                        "z": 139,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "dirt_crosssection_short_1",
+                        "x": -1065,
+                        "h": 105,
+                        "y": 44,
+                        "w": 329,
+                        "z": 133,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "groddle_cover_clover2",
+                        "x": 2468,
+                        "h": 42,
+                        "y": -237,
+                        "z": 220,
+                        "w": 103
+                    },
+                    {
+                        "filename": "groddle_fern_1",
+                        "x": -465,
+                        "h": 85,
+                        "y": -320,
+                        "z": 190,
+                        "w": 143
+                    },
+                    {
+                        "filename": "bush_2",
+                        "x": -1923,
+                        "h": 62,
+                        "y": -280,
+                        "z": 89,
+                        "w": 182,
+                        "r": -5
+                    },
+                    {
+                        "filename": "dirt_platform_long",
+                        "x": -292,
+                        "h": 92,
+                        "y": -154,
+                        "z": 124,
+                        "w": 1226,
+                        "r": -2
+                    },
+                    {
+                        "filename": "patch_dirt_2a",
+                        "x": -397,
+                        "h": 58,
+                        "y": -158,
+                        "w": 339,
+                        "z": 147,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "groddle_fern_1",
+                        "x": -2887,
+                        "h": 85,
+                        "y": -369,
+                        "z": 38,
+                        "w": 143
+                    },
+                    {
+                        "filename": "bush_3",
+                        "x": -2637,
+                        "h": 78,
+                        "y": -319,
+                        "z": 74,
+                        "w": 225,
+                        "r": 1
+                    },
+                    {
+                        "filename": "patch_dirt_2a",
+                        "x": 2792,
+                        "h": 40,
+                        "y": -253,
+                        "w": 261,
+                        "z": 55,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "dirt_crosssection_short_3",
+                        "x": -197,
+                        "h": 118,
+                        "y": 28,
+                        "z": 135,
+                        "w": 519
+                    },
+                    {
+                        "filename": "patch_dirt_2a",
+                        "x": 1834,
+                        "h": 49,
+                        "y": -252,
+                        "w": 286,
+                        "z": 67,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "groddle_fern_1",
+                        "x": -2762,
+                        "h": 85,
+                        "y": -281,
+                        "z": 211,
+                        "w": 143
+                    },
+                    {
+                        "filename": "groddle_bush7",
+                        "x": -2516,
+                        "h": 124,
+                        "y": -285,
+                        "z": 35,
+                        "w": 524
+                    },
+                    {
+                        "filename": "groddle_fern_1",
+                        "x": -387,
+                        "h": 85,
+                        "y": -320,
+                        "z": 192,
+                        "w": 143
+                    },
+                    {
+                        "filename": "groddle_cover_clover2",
+                        "x": -2930,
+                        "h": 42,
+                        "y": -352,
+                        "z": 39,
+                        "w": 103
+                    },
+                    {
+                        "filename": "dirt_platform_short",
+                        "x": -1738,
+                        "h": 94,
+                        "y": -232,
+                        "z": 130,
+                        "w": 364,
+                        "r": -177
+                    },
+                    {
+                        "filename": "groddle_bush7",
+                        "x": 485,
+                        "h": 124,
+                        "y": -277,
+                        "z": 8,
+                        "w": 524
+                    },
+                    {
+                        "filename": "groddle_plant_1",
+                        "x": -2316,
+                        "h": 135,
+                        "y": -288,
+                        "z": 206,
+                        "w": 127
+                    },
+                    {
+                        "filename": "bush_3",
+                        "x": 2347,
+                        "h": 78,
+                        "y": -275,
+                        "z": 79,
+                        "w": 225,
+                        "r": 3
+                    },
+                    {
+                        "filename": "tree_coniferous_fg_2",
+                        "x": -2330,
+                        "h": 1334,
+                        "y": -213,
+                        "w": 511,
+                        "z": 2,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "patch_mossy_1",
+                        "x": 2522,
+                        "h": 34,
+                        "y": -108,
+                        "z": 176,
+                        "w": 144
+                    },
+                    {
+                        "filename": "dirt_platform_long",
+                        "x": 210,
+                        "h": 69,
+                        "y": -202,
+                        "z": 48,
+                        "w": 1102
+                    },
+                    {
+                        "filename": "bush_1",
+                        "x": 1536,
+                        "h": 83,
+                        "y": -283,
+                        "z": 99,
+                        "w": 104
+                    },
+                    {
+                        "filename": "groddle_cover_clover2",
+                        "x": 2291,
+                        "h": 42,
+                        "y": -227,
+                        "z": 224,
+                        "w": 103
+                    },
+                    {
+                        "filename": "bush_3",
+                        "x": 2104,
+                        "h": 78,
+                        "y": -281,
+                        "z": 152,
+                        "w": 225,
+                        "r": 3
+                    },
+                    {
+                        "filename": "dirt_crosssection_short_1",
+                        "x": 1523,
+                        "h": 105,
+                        "y": 37,
+                        "w": 329,
+                        "z": 142,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "groddle_plant_1",
+                        "x": -1406,
+                        "h": 135,
+                        "y": -285,
+                        "z": 198,
+                        "w": 127
+                    },
+                    {
+                        "filename": "dirt_platform_short",
+                        "x": -1960,
+                        "h": 94,
+                        "y": -245,
+                        "z": 136,
+                        "w": 364,
+                        "r": -176
+                    },
+                    {
+                        "filename": "bush_1",
+                        "x": -354,
+                        "h": 67,
+                        "y": -279,
+                        "z": 109,
+                        "w": 92
+                    },
+                    {
+                        "filename": "groddle_plant_1",
+                        "x": 199,
+                        "h": 131,
+                        "y": -270,
+                        "z": 4,
+                        "w": 134
+                    },
+                    {
+                        "filename": "patch_dirt_2a",
+                        "x": -851,
+                        "h": 58,
+                        "y": -201,
+                        "w": 339,
+                        "z": 241,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "groddle_plant_1",
+                        "x": 607,
+                        "h": 131,
+                        "y": -268,
+                        "z": 10,
+                        "w": 134
+                    },
+                    {
+                        "filename": "patch_mossy_1",
+                        "x": 2748,
+                        "h": 34,
+                        "y": -215,
+                        "z": 177,
+                        "w": 144
+                    },
+                    {
+                        "filename": "groddle_cover_clover2",
+                        "x": -660,
+                        "h": 42,
+                        "y": -256,
+                        "z": 234,
+                        "w": 103
+                    },
+                    {
+                        "filename": "dirt_horizon",
+                        "x": -1888,
+                        "h": 109,
+                        "y": -201,
+                        "z": 34,
+                        "w": 1215
+                    },
+                    {
+                        "filename": "patch_dirt_2a",
+                        "x": -1640,
+                        "h": 58,
+                        "y": -147,
+                        "w": 339,
+                        "z": 242,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "dirt_platform_long",
+                        "x": 2551,
+                        "h": 69,
+                        "y": -222,
+                        "z": 50,
+                        "w": 1102
+                    },
+                    {
+                        "filename": "patch_mossy_1",
+                        "x": -2801,
+                        "h": 19,
+                        "y": -300,
+                        "z": 72,
+                        "w": 100,
+                        "r": -6
+                    },
+                    {
+                        "filename": "groddle_plant_1",
+                        "x": -96,
+                        "h": 131,
+                        "y": -249,
+                        "z": 25,
+                        "w": 134
+                    },
+                    {
+                        "filename": "groddle_plant_1",
+                        "x": 799,
+                        "h": 131,
+                        "y": -247,
+                        "z": 12,
+                        "w": 134
+                    },
+                    {
+                        "filename": "groddle_plant_1",
+                        "x": -428,
+                        "h": 135,
+                        "y": -324,
+                        "z": 191,
+                        "w": 127
+                    },
+                    {
+                        "filename": "groddle_bush1",
+                        "x": 1762,
+                        "h": 65,
+                        "y": -285,
+                        "z": 85,
+                        "w": 125
+                    },
+                    {
+                        "filename": "dirt_platform_long",
+                        "x": -1010,
+                        "h": 51,
+                        "y": -252,
+                        "z": 40,
+                        "w": 1079
+                    },
+                    {
+                        "filename": "groddle_plant_1",
+                        "x": 2470,
+                        "h": 135,
+                        "y": -258,
+                        "z": 218,
+                        "w": 127
+                    },
+                    {
+                        "filename": "forest_ground_twigs_03",
+                        "x": -842,
+                        "h": 46,
+                        "y": -155,
+                        "z": 150,
+                        "w": 162
+                    },
+                    {
+                        "filename": "bush_3",
+                        "x": -1168,
+                        "h": 73,
+                        "y": -283,
+                        "z": 97,
+                        "w": 205,
+                        "r": 2
+                    },
+                    {
+                        "filename": "groddle_cover_clover2",
+                        "x": -2318,
+                        "h": 42,
+                        "y": -267,
+                        "z": 208,
+                        "w": 103
+                    },
+                    {
+                        "filename": "patch_dirt_2a",
+                        "x": -1779,
+                        "h": 49,
+                        "y": -245,
+                        "w": 286,
+                        "z": 53,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "groddle_fern_1",
+                        "x": 2433,
+                        "h": 85,
+                        "y": -254,
+                        "z": 217,
+                        "w": 143
+                    },
+                    {
+                        "filename": "groddle_bush7",
+                        "x": 684,
+                        "h": 124,
+                        "y": -284,
+                        "z": 9,
+                        "w": 524
+                    },
+                    {
+                        "filename": "bush_3",
+                        "x": -450,
+                        "h": 65,
+                        "y": -274,
+                        "z": 106,
+                        "w": 181
+                    },
+                    {
+                        "filename": "dirt_platform_long",
+                        "x": -2572,
+                        "h": 92,
+                        "y": -34,
+                        "z": 129,
+                        "w": 1226,
+                        "r": 1
+                    },
+                    {
+                        "filename": "patch_dirt_2a",
+                        "x": -2683,
+                        "h": 49,
+                        "y": -291,
+                        "w": 286,
+                        "z": 54,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "groddle_cover_clover2",
+                        "x": 2232,
+                        "h": 42,
+                        "y": -249,
+                        "z": 216,
+                        "w": 103
+                    },
+                    {
+                        "filename": "bush_3",
+                        "x": 1881,
+                        "h": 78,
+                        "y": -275,
+                        "z": 153,
+                        "w": 225
+                    },
+                    {
+                        "filename": "patch_dirt_2a",
+                        "x": 2074,
+                        "h": 49,
+                        "y": -250,
+                        "w": 286,
+                        "z": 69,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "bling_wildmushrooms_1",
+                        "x": -2536,
+                        "h": 42,
+                        "y": -311,
+                        "z": 103,
+                        "w": 181
+                    },
+                    {
+                        "filename": "bush_1",
+                        "x": -1268,
+                        "h": 83,
+                        "y": -282,
+                        "z": 98,
+                        "w": 104
+                    },
+                    {
+                        "filename": "bling_wildmushrooms_1",
+                        "x": 1689,
+                        "h": 48,
+                        "y": -267,
+                        "z": 225,
+                        "w": 169
+                    },
+                    {
+                        "filename": "dirt_crosssection_short_3",
+                        "x": -842,
+                        "h": 118,
+                        "y": -38,
+                        "z": 188,
+                        "w": 519,
+                        "r": 2
+                    },
+                    {
+                        "filename": "groddle_cover_clover2",
+                        "x": 1087,
+                        "h": 42,
+                        "y": -268,
+                        "z": 230,
+                        "w": 103
+                    },
+                    {
+                        "filename": "groddle_fern_1",
+                        "x": -2275,
+                        "h": 85,
+                        "y": -284,
+                        "z": 207,
+                        "w": 143
+                    },
+                    {
+                        "filename": "groddle_fern_1",
+                        "x": 2740,
+                        "h": 58,
+                        "y": -283,
+                        "z": 157,
+                        "w": 98
+                    },
+                    {
+                        "filename": "groddle_plant_1",
+                        "x": 1064,
+                        "h": 131,
+                        "y": -298,
+                        "z": 228,
+                        "w": 134
+                    },
+                    {
+                        "filename": "patch_dirt_2a",
+                        "x": 1489,
+                        "h": 54,
+                        "y": -85,
+                        "w": 316,
+                        "z": 181,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "patch_dirt_2a",
+                        "x": 1418,
+                        "h": 49,
+                        "y": -235,
+                        "w": 286,
+                        "z": 70,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "patch_dirt_2a",
+                        "x": 1322,
+                        "h": 49,
+                        "y": -242,
+                        "w": 286,
+                        "z": 71,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "bush_1",
+                        "x": 2007,
+                        "h": 83,
+                        "y": -280,
+                        "z": 155,
+                        "w": 104
+                    },
+                    {
+                        "filename": "dirt_platform_short",
+                        "x": 1480,
+                        "h": 94,
+                        "y": -217,
+                        "z": 110,
+                        "w": 364,
+                        "r": -181
+                    },
+                    {
+                        "filename": "groddle_plant_1",
+                        "x": -569,
+                        "h": 118,
+                        "y": -270,
+                        "z": 194,
+                        "w": 109
+                    },
+                    {
+                        "filename": "bling_wildmushrooms_1",
+                        "x": -2679,
+                        "h": 31,
+                        "y": -307,
+                        "z": 104,
+                        "w": 133
+                    },
+                    {
+                        "filename": "groddle_cover_clover2",
+                        "x": -2209,
+                        "h": 28,
+                        "y": -283,
+                        "z": 94,
+                        "w": 69
+                    },
+                    {
+                        "filename": "bush_1",
+                        "x": 1209,
+                        "h": 67,
+                        "y": -287,
+                        "z": 58,
+                        "w": 108
+                    },
+                    {
+                        "filename": "pinecluster_mask_1",
+                        "x": 2572,
+                        "h": 136,
+                        "y": -266,
+                        "z": 73,
+                        "w": 351
+                    },
+                    {
+                        "filename": "groddle_grass_2",
+                        "x": 1662,
+                        "h": 65,
+                        "y": -285,
+                        "z": 175,
+                        "w": 81
+                    },
+                    {
+                        "filename": "dirt_platform_long",
+                        "x": 1324,
+                        "h": 92,
+                        "y": -4,
+                        "z": 117,
+                        "w": 1226,
+                        "r": -1
+                    },
+                    {
+                        "filename": "groddle_bush7",
+                        "x": 191,
+                        "h": 124,
+                        "y": -279,
+                        "z": 1,
+                        "w": 524
+                    },
+                    {
+                        "filename": "dirt_crosssection_short_3",
+                        "x": -2777,
+                        "h": 118,
+                        "y": 51,
+                        "z": 137,
+                        "w": 519
+                    },
+                    {
+                        "filename": "patch_dirt_2a",
+                        "x": -1653,
+                        "h": 58,
+                        "y": -197,
+                        "w": 339,
+                        "z": 239,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "heights_mound_2",
+                        "x": -1580,
+                        "h": 206,
+                        "y": -158,
+                        "z": 21,
+                        "w": 294
+                    },
+                    {
+                        "filename": "groddle_plant_1",
+                        "x": 10,
+                        "h": 131,
+                        "y": -249,
+                        "z": 13,
+                        "w": 134
+                    },
+                    {
+                        "filename": "pinecluster_mask_1",
+                        "x": 1128,
+                        "h": 111,
+                        "y": -279,
+                        "z": 65,
+                        "w": 286
+                    },
+                    {
+                        "filename": "heights_bush_3",
+                        "x": 2896,
+                        "h": 171,
+                        "y": -258,
+                        "w": 437,
+                        "z": 61,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "dirt_crosssection_short_3",
+                        "x": -1819,
+                        "h": 118,
+                        "y": 18,
+                        "z": 186,
+                        "w": 519,
+                        "r": -5
+                    },
+                    {
+                        "filename": "dirt_platform_long",
+                        "x": -1004,
+                        "h": 92,
+                        "y": -81,
+                        "z": 123,
+                        "w": 1226,
+                        "r": -1
+                    },
+                    {
+                        "filename": "patch_dirt_2a",
+                        "x": -2130,
+                        "h": 58,
+                        "y": -160,
+                        "z": 161,
+                        "w": 339
+                    },
+                    {
+                        "filename": "patch_dirt_2a",
+                        "x": 1618,
+                        "h": 54,
+                        "y": -85,
+                        "z": 179,
+                        "w": 316
+                    },
+                    {
+                        "filename": "bush_3",
+                        "x": 1785,
+                        "h": 78,
+                        "y": -305,
+                        "z": 0,
+                        "w": 225
+                    },
+                    {
+                        "filename": "dirt_platform_long",
+                        "x": -1579,
+                        "h": 92,
+                        "y": -44,
+                        "z": 30,
+                        "w": 1226
+                    },
+                    {
+                        "filename": "dirt_platform_long",
+                        "x": -2555,
+                        "h": 92,
+                        "y": -96,
+                        "z": 31,
+                        "w": 1226,
+                        "r": -1
+                    },
+                    {
+                        "filename": "patch_mossy_1",
+                        "x": -151,
+                        "h": 34,
+                        "y": -230,
+                        "w": 144,
+                        "z": 238,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "tree_coniferous_fg_2",
+                        "x": 733,
+                        "h": 1432,
+                        "y": -221,
+                        "z": 156,
+                        "w": 664
+                    },
+                    {
+                        "filename": "dirt_platform_long",
+                        "x": 795,
+                        "h": 92,
+                        "y": -145,
+                        "z": 120,
+                        "w": 1226,
+                        "r": 3
+                    },
+                    {
+                        "filename": "dirt_platform_short",
+                        "x": 134,
+                        "h": 77,
+                        "y": -260,
+                        "z": 15,
+                        "w": 367,
+                        "r": -5
+                    },
+                    {
+                        "filename": "patch_dirt_2a",
+                        "x": 875,
+                        "h": 41,
+                        "y": -253,
+                        "z": 80,
+                        "w": 242
+                    },
+                    {
+                        "filename": "dirt_platform_long",
+                        "x": 1591,
+                        "h": 69,
+                        "y": -197,
+                        "z": 59,
+                        "w": 1102,
+                        "r": -3
+                    },
+                    {
+                        "filename": "bush_3",
+                        "x": 1419,
+                        "h": 84,
+                        "y": -272,
+                        "z": 82,
+                        "w": 243
+                    },
+                    {
+                        "filename": "forest_ground_twigs_03",
+                        "x": -2523,
+                        "h": 46,
+                        "y": -153,
+                        "z": 151,
+                        "w": 162
+                    },
+                    {
+                        "filename": "groddle_cover_clover2",
+                        "x": -1060,
+                        "h": 42,
+                        "y": -261,
+                        "z": 204,
+                        "w": 103
+                    },
+                    {
+                        "filename": "groddle_fern_1",
+                        "x": 2333,
+                        "h": 85,
+                        "y": -253,
+                        "z": 221,
+                        "w": 143
+                    },
+                    {
+                        "filename": "dirt_crosssection_short_3",
+                        "x": -348,
+                        "h": 118,
+                        "y": -15,
+                        "z": 189,
+                        "w": 519,
+                        "r": 5
+                    },
+                    {
+                        "filename": "groddle_plant_3",
+                        "x": 2906,
+                        "h": 54,
+                        "y": -276,
+                        "z": 163,
+                        "w": 112
+                    },
+                    {
+                        "filename": "dirt_crosssection_short_3",
+                        "x": -1338,
+                        "h": 118,
+                        "y": -26,
+                        "z": 187,
+                        "w": 519,
+                        "r": -3
+                    },
+                    {
+                        "filename": "groddle_fern_1",
+                        "x": -1017,
+                        "h": 85,
+                        "y": -278,
+                        "z": 203,
+                        "w": 143
+                    },
+                    {
+                        "filename": "bush_2",
+                        "r": 5,
+                        "x": -1372,
+                        "h": 62,
+                        "y": -285,
+                        "w": 182,
+                        "z": 90,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "patch_mossy_3",
+                        "x": 928,
+                        "h": 37,
+                        "y": -134,
+                        "z": 184,
+                        "w": 195
+                    },
+                    {
+                        "filename": "bush_3",
+                        "x": -2071,
+                        "h": 77,
+                        "y": -274,
+                        "z": 88,
+                        "w": 209,
+                        "r": 4
+                    },
+                    {
+                        "filename": "crosssection_underside_short_3",
+                        "x": 28,
+                        "h": 79,
+                        "y": -20,
+                        "z": 33,
+                        "w": 302
+                    },
+                    {
+                        "filename": "dirt_platform_long",
+                        "x": -830,
+                        "h": 92,
+                        "y": -35,
+                        "z": 22,
+                        "w": 1226
+                    },
+                    {
+                        "filename": "groddle_cover_clover2",
+                        "x": -800,
+                        "h": 42,
+                        "y": -265,
+                        "z": 93,
+                        "w": 103
+                    },
+                    {
+                        "filename": "flower_bush_7",
+                        "x": -477,
+                        "h": 99,
+                        "y": -250,
+                        "z": 195,
+                        "w": 157,
+                        "r": 2
+                    },
+                    {
+                        "filename": "groddle_plant_1",
+                        "x": -2803,
+                        "h": 135,
+                        "y": -285,
+                        "z": 210,
+                        "w": 127
+                    },
+                    {
+                        "filename": "dirt_platform_short",
+                        "x": 386,
+                        "h": 77,
+                        "y": -263,
+                        "z": 16,
+                        "w": 367,
+                        "r": 2
+                    },
+                    {
+                        "filename": "groddle_fern_1",
+                        "x": -1829,
+                        "h": 75,
+                        "y": -278,
+                        "z": 91,
+                        "w": 126
+                    },
+                    {
+                        "filename": "bush_2",
+                        "x": -2871,
+                        "h": 62,
+                        "y": -297,
+                        "z": 86,
+                        "w": 182,
+                        "r": -5
+                    },
+                    {
+                        "filename": "dirt_crosssection_short_3",
+                        "x": -686,
+                        "h": 118,
+                        "y": 37,
+                        "z": 134,
+                        "w": 519
+                    },
+                    {
+                        "filename": "groddle_cover_clover2",
+                        "x": -2158,
+                        "h": 28,
+                        "y": -279,
+                        "z": 95,
+                        "w": 69
+                    },
+                    {
+                        "filename": "heights_bush_4",
+                        "x": -2861,
+                        "h": 101,
+                        "y": -307,
+                        "z": 46,
+                        "w": 428,
+                        "r": -6
+                    },
+                    {
+                        "filename": "groddle_plant_1",
+                        "x": 711,
+                        "h": 131,
+                        "y": -253,
+                        "z": 11,
+                        "w": 134
+                    },
+                    {
+                        "filename": "dirt_mound_1",
+                        "x": -2602,
+                        "h": 121,
+                        "y": -222,
+                        "z": 45,
+                        "w": 958
+                    },
+                    {
+                        "filename": "bush_3",
+                        "x": 1088,
+                        "h": 78,
+                        "y": -296,
+                        "z": 5,
+                        "w": 225
+                    },
+                    {
+                        "filename": "groddle_cover_clover2",
+                        "x": -2202,
+                        "h": 28,
+                        "y": -270,
+                        "w": 69,
+                        "z": 96,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "patch_mossy_1",
+                        "x": -755,
+                        "h": 34,
+                        "y": -185,
+                        "w": 144,
+                        "z": 148,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "bush_2",
+                        "x": 1112,
+                        "h": 62,
+                        "y": -280,
+                        "z": 29,
+                        "w": 182,
+                        "r": -3
+                    },
+                    {
+                        "filename": "flower_bush_7",
+                        "x": -345,
+                        "h": 99,
+                        "y": -244,
+                        "z": 196,
+                        "w": 157,
+                        "r": 2
+                    },
+                    {
+                        "filename": "groddle_fern_1",
+                        "x": -2965,
+                        "h": 85,
+                        "y": -369,
+                        "z": 36,
+                        "w": 143
+                    },
+                    {
+                        "filename": "groddle_plant_1",
+                        "x": -1322,
+                        "h": 91,
+                        "y": -286,
+                        "z": 164,
+                        "w": 86
+                    },
+                    {
+                        "filename": "groddle_plant_1",
+                        "x": 1042,
+                        "h": 131,
+                        "y": -284,
+                        "z": 229,
+                        "w": 134
+                    },
+                    {
+                        "filename": "groddle_fern_1",
+                        "x": -2840,
+                        "h": 85,
+                        "y": -281,
+                        "z": 209,
+                        "w": 143
+                    },
+                    {
+                        "filename": "groddle_plant_1",
+                        "x": 969,
+                        "h": 131,
+                        "y": -286,
+                        "z": 231,
+                        "w": 134
+                    },
+                    {
+                        "filename": "dirt_crosssection_long",
+                        "x": 2555,
+                        "h": 106,
+                        "y": 29,
+                        "z": 144,
+                        "w": 935
+                    },
+                    {
+                        "filename": "dirt_platform_long",
+                        "x": 2410,
+                        "h": 92,
+                        "y": -87,
+                        "z": 114,
+                        "w": 1226
+                    },
+                    {
+                        "filename": "groddle_plant_1",
+                        "x": -2928,
+                        "h": 135,
+                        "y": -373,
+                        "z": 37,
+                        "w": 127
+                    },
+                    {
+                        "filename": "groddle_plant_1",
+                        "x": -271,
+                        "h": 131,
+                        "y": -264,
+                        "z": 26,
+                        "w": 134
+                    },
+                    {
+                        "filename": "groddle_fern_1",
+                        "x": 2288,
+                        "h": 85,
+                        "y": -249,
+                        "z": 223,
+                        "w": 143
+                    },
+                    {
+                        "filename": "dirt_platform_long",
+                        "x": 1476,
+                        "h": 92,
+                        "y": -122,
+                        "z": 112,
+                        "w": 1226,
+                        "r": -3
+                    },
+                    {
+                        "filename": "groddle_fern_1",
+                        "x": 2511,
+                        "h": 85,
+                        "y": -254,
+                        "z": 219,
+                        "w": 143
+                    },
+                    {
+                        "filename": "patch_dirt_2a",
+                        "x": -648,
+                        "h": 58,
+                        "y": -146,
+                        "w": 339,
+                        "z": 146,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "patch_dirt_2a",
+                        "x": 400,
+                        "h": 61,
+                        "y": -159,
+                        "w": 313,
+                        "z": 168,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "patch_mossy_1",
+                        "x": 847,
+                        "h": 34,
+                        "y": -120,
+                        "z": 185,
+                        "w": 144
+                    },
+                    {
+                        "filename": "patch_mossy_1",
+                        "x": 2897,
+                        "h": 34,
+                        "y": -258,
+                        "z": 60,
+                        "w": 144
+                    },
+                    {
+                        "filename": "patch_dirt_2a",
+                        "x": 2172,
+                        "h": 54,
+                        "y": -124,
+                        "w": 316,
+                        "z": 178,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "patch_dirt_2a",
+                        "x": -2904,
+                        "h": 58,
+                        "y": -132,
+                        "w": 339,
+                        "z": 158,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "patch_dirt_2a",
+                        "x": 12,
+                        "h": 61,
+                        "y": -140,
+                        "z": 166,
+                        "w": 313
+                    },
+                    {
+                        "filename": "groddle_bush7",
+                        "x": 2172,
+                        "h": 124,
+                        "y": -267,
+                        "z": 27,
+                        "w": 524
+                    },
+                    {
+                        "filename": "dirt_platform_long",
+                        "x": 130,
+                        "h": 92,
+                        "y": -87,
+                        "z": 126,
+                        "w": 1226,
+                        "r": 1
+                    },
+                    {
+                        "filename": "bush_3",
+                        "x": 1957,
+                        "h": 78,
+                        "y": -305,
+                        "z": 83,
+                        "w": 225
+                    },
+                    {
+                        "filename": "patch_dirt_2a",
+                        "x": -2403,
+                        "h": 49,
+                        "y": -285,
+                        "w": 286,
+                        "z": 57,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "groddle_fern_1",
+                        "x": -1095,
+                        "h": 85,
+                        "y": -278,
+                        "z": 201,
+                        "w": 143
+                    },
+                    {
+                        "filename": "dirt_platform_long",
+                        "x": 349,
+                        "h": 92,
+                        "y": -160,
+                        "z": 119,
+                        "w": 1226
+                    },
+                    {
+                        "filename": "patch_dirt_2a",
+                        "x": -211,
+                        "h": 61,
+                        "y": -184,
+                        "w": 313,
+                        "z": 169,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "dirt_platform_short",
+                        "x": -2841,
+                        "h": 77,
+                        "y": -366,
+                        "z": 14,
+                        "w": 367,
+                        "r": 14
+                    },
+                    {
+                        "filename": "dirt_horizon",
+                        "x": -2526,
+                        "h": 136,
+                        "y": -131,
+                        "z": 121,
+                        "w": 1287
+                    },
+                    {
+                        "filename": "dirt_platform_short",
+                        "x": 1205,
+                        "h": 94,
+                        "y": -222,
+                        "z": 127,
+                        "w": 364,
+                        "r": -177
+                    },
+                    {
+                        "filename": "groddle_bush1",
+                        "x": 2233,
+                        "h": 65,
+                        "y": -282,
+                        "z": 154,
+                        "w": 125
+                    },
+                    {
+                        "filename": "groddle_bush1",
+                        "x": -2757,
+                        "h": 65,
+                        "y": -313,
+                        "z": 84,
+                        "w": 125
+                    },
+                    {
+                        "filename": "flower_bush_5",
+                        "x": 433,
+                        "h": 107,
+                        "y": -292,
+                        "z": 227,
+                        "w": 251
+                    },
+                    {
+                        "filename": "groddle_cover_clover2",
+                        "x": -1984,
+                        "h": 28,
+                        "y": -270,
+                        "z": 92,
+                        "w": 69
+                    },
+                    {
+                        "filename": "crosssection_underside_short_3",
+                        "x": 2915,
+                        "h": 79,
+                        "y": -5,
+                        "z": 32,
+                        "w": 302
+                    },
+                    {
+                        "filename": "patch_dirt_2a",
+                        "x": 307,
+                        "h": 49,
+                        "y": -201,
+                        "z": 140,
+                        "w": 286
+                    },
+                    {
+                        "filename": "patch_dirt_2a",
+                        "x": -2539,
+                        "h": 58,
+                        "y": -73,
+                        "w": 339,
+                        "z": 160,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "dirt_platform_long",
+                        "x": 154,
+                        "h": 92,
+                        "y": -32,
+                        "z": 23,
+                        "w": 1226,
+                        "r": 1
+                    },
+                    {
+                        "filename": "patch_dirt_2a",
+                        "x": -2713,
+                        "h": 58,
+                        "y": -142,
+                        "w": 339,
+                        "z": 159,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "groddle_plant_2",
+                        "x": -956,
+                        "h": 67,
+                        "y": -298,
+                        "z": 100,
+                        "w": 34
+                    },
+                    {
+                        "filename": "patch_dirt_2a",
+                        "x": 1924,
+                        "h": 49,
+                        "y": -224,
+                        "w": 286,
+                        "z": 68,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "tree_deciduous1",
+                        "x": -1019,
+                        "h": 632,
+                        "y": 52,
+                        "z": 6,
+                        "w": 562
+                    },
+                    {
+                        "filename": "patch_dirt_2a",
+                        "x": 2564,
+                        "h": 54,
+                        "y": -109,
+                        "z": 173,
+                        "w": 316
+                    },
+                    {
+                        "filename": "dirt_crosssection_short_3",
+                        "x": -1715,
+                        "h": 118,
+                        "y": 20,
+                        "z": 19,
+                        "w": 519,
+                        "r": 2
+                    },
+                    {
+                        "filename": "patch_dirt_2a",
+                        "x": 2933,
+                        "h": 54,
+                        "y": -225,
+                        "w": 316,
+                        "z": 125,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "patch_dirt_2a",
+                        "x": 2528,
+                        "h": 49,
+                        "y": -250,
+                        "z": 66,
+                        "w": 286
+                    },
+                    {
+                        "filename": "dirt_platform_long",
+                        "x": 802,
+                        "h": 92,
+                        "y": -99,
+                        "z": 118,
+                        "w": 1226,
+                        "r": 2
+                    },
+                    {
+                        "filename": "patch_dirt_2a",
+                        "x": 941,
+                        "h": 54,
+                        "y": -104,
+                        "z": 183,
+                        "w": 316
+                    },
+                    {
+                        "filename": "groddle_plant_1",
+                        "x": 2311,
+                        "h": 135,
+                        "y": -267,
+                        "z": 222,
+                        "w": 127
+                    },
+                    {
+                        "filename": "dirt_crosssection_long_curvy",
+                        "x": 954,
+                        "h": 116,
+                        "y": 46,
+                        "w": 877,
+                        "z": 141,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "patch_dirt_2a",
+                        "x": -922,
+                        "h": 41,
+                        "y": -258,
+                        "w": 242,
+                        "z": 62,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "groddle_plant_1",
+                        "x": 1002,
+                        "h": 131,
+                        "y": -278,
+                        "z": 232,
+                        "w": 134
+                    },
+                    {
+                        "filename": "patch_dirt_2a",
+                        "x": 1080,
+                        "h": 39,
+                        "y": -268,
+                        "w": 241,
+                        "z": 64,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "patch_mossy_1",
+                        "x": -1090,
+                        "h": 34,
+                        "y": -221,
+                        "w": 144,
+                        "z": 149,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "dirt_platform_long",
+                        "x": 1162,
+                        "h": 69,
+                        "y": -198,
+                        "z": 49,
+                        "w": 1102
+                    },
+                    {
+                        "filename": "patch_dirt_2a",
+                        "x": 42,
+                        "h": 61,
+                        "y": -101,
+                        "w": 313,
+                        "z": 171,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "patch_dirt_2a",
+                        "x": -2555,
+                        "h": 49,
+                        "y": -293,
+                        "w": 286,
+                        "z": 56,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "pinecluster_mask_1",
+                        "x": -1752,
+                        "h": 111,
+                        "y": -279,
+                        "z": 63,
+                        "w": 286
+                    },
+                    {
+                        "filename": "patch_dirt_2a",
+                        "x": 2832,
+                        "h": 54,
+                        "y": -94,
+                        "w": 316,
+                        "z": 172,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "dirt_platform_long",
+                        "x": -871,
+                        "h": 69,
+                        "y": -217,
+                        "z": 47,
+                        "w": 1102
+                    },
+                    {
+                        "filename": "dirt_platform_long",
+                        "x": 2580,
+                        "h": 92,
+                        "y": -144,
+                        "z": 113,
+                        "w": 1226
+                    },
+                    {
+                        "filename": "dirt_platform_short",
+                        "x": 1254,
+                        "h": 94,
+                        "y": -213,
+                        "z": 132,
+                        "w": 364,
+                        "r": -175
+                    },
+                    {
+                        "filename": "groddle_plant_1",
+                        "x": 2234,
+                        "h": 135,
+                        "y": -270,
+                        "z": 214,
+                        "w": 127
+                    },
+                    {
+                        "filename": "dirt_platform_long",
+                        "x": 1812,
+                        "h": 51,
+                        "y": -252,
+                        "z": 43,
+                        "w": 1079
+                    },
+                    {
+                        "filename": "groddle_cover_clover2",
+                        "x": -2805,
+                        "h": 42,
+                        "y": -264,
+                        "z": 212,
+                        "w": 103
+                    },
+                    {
+                        "filename": "patch_dirt_2a",
+                        "x": -1097,
+                        "h": 49,
+                        "y": -249,
+                        "w": 286,
+                        "z": 52,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "groddle_plant_1",
+                        "x": -1058,
+                        "h": 135,
+                        "y": -282,
+                        "z": 202,
+                        "w": 127
+                    },
+                    {
+                        "filename": "tree_deciduous1",
+                        "x": -1893,
+                        "h": 632,
+                        "y": 151,
+                        "z": 7,
+                        "w": 562
+                    },
+                    {
+                        "filename": "groddle_cover_clover2",
+                        "x": -430,
+                        "h": 42,
+                        "y": -303,
+                        "z": 193,
+                        "w": 103
+                    },
+                    {
+                        "filename": "patch_mossy_1",
+                        "x": -393,
+                        "h": 19,
+                        "y": -273,
+                        "z": 105,
+                        "w": 100
+                    },
+                    {
+                        "filename": "bling_mushroom_king_bolete_1",
+                        "x": 1566,
+                        "h": 53,
+                        "y": -271,
+                        "w": 57,
+                        "z": 174,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "dirt_platform_long",
+                        "x": -44,
+                        "h": 51,
+                        "y": -252,
+                        "z": 41,
+                        "w": 1079
+                    },
+                    {
+                        "filename": "patch_dirt_2a",
+                        "x": -2350,
+                        "h": 58,
+                        "y": -182,
+                        "w": 339,
+                        "z": 240,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "dirt_platform_short",
+                        "x": 582,
+                        "h": 77,
+                        "y": -257,
+                        "z": 17,
+                        "w": 367,
+                        "r": 3
+                    },
+                    {
+                        "filename": "bush_3",
+                        "x": 1633,
+                        "h": 78,
+                        "y": -284,
+                        "z": 78,
+                        "w": 225,
+                        "r": 3
+                    },
+                    {
+                        "filename": "groddle_fern_1",
+                        "x": -919,
+                        "h": 54,
+                        "y": -288,
+                        "z": 102,
+                        "w": 85
+                    },
+                    {
+                        "filename": "dirt_platform_long",
+                        "x": 2441,
+                        "h": 92,
+                        "y": -37,
+                        "z": 116,
+                        "w": 1226,
+                        "r": -1
+                    },
+                    {
+                        "filename": "tree_coniferous_fg_3",
+                        "x": 2720,
+                        "h": 993,
+                        "y": -275,
+                        "z": 28,
+                        "w": 436
+                    },
+                    {
+                        "filename": "bling_wildmushrooms_1",
+                        "x": 1313,
+                        "h": 48,
+                        "y": -233,
+                        "z": 237,
+                        "w": 169
+                    },
+                    {
+                        "filename": "patch_dirt_2a",
+                        "x": 722,
+                        "h": 61,
+                        "y": -103,
+                        "w": 313,
+                        "z": 167,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "patch_dirt_2a",
+                        "x": -787,
+                        "h": 58,
+                        "y": -156,
+                        "w": 339,
+                        "z": 145,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "groddle_bush1",
+                        "x": -559,
+                        "h": 87,
+                        "y": -274,
+                        "w": 168,
+                        "z": 107,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "dirt_crosssection_short_3",
+                        "x": -2293,
+                        "h": 118,
+                        "y": 50,
+                        "w": 519,
+                        "z": 138,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "bush_3",
+                        "x": 912,
+                        "h": 78,
+                        "y": -275,
+                        "z": 81,
+                        "w": 225
+                    },
+                    {
+                        "filename": "bling_wildmushrooms_1",
+                        "x": 1455,
+                        "h": 48,
+                        "y": -246,
+                        "z": 236,
+                        "w": 169
+                    },
+                    {
+                        "filename": "patch_dirt_2a",
+                        "x": 44,
+                        "h": 49,
+                        "y": -256,
+                        "w": 286,
+                        "z": 51,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "groddle_bush1",
+                        "r": -3,
+                        "x": 1296,
+                        "h": 62,
+                        "y": -283,
+                        "w": 120,
+                        "z": 108,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "patch_dirt_2a",
+                        "x": 1624,
+                        "h": 54,
+                        "y": -261,
+                        "z": 76,
+                        "w": 316
+                    },
+                    {
+                        "filename": "groddle_fern_1",
+                        "x": 2275,
+                        "h": 85,
+                        "y": -266,
+                        "z": 215,
+                        "w": 143
+                    },
+                    {
+                        "filename": "dirt_platform_long",
+                        "x": 2770,
+                        "h": 51,
+                        "y": -251,
+                        "z": 44,
+                        "w": 1079
+                    },
+                    {
+                        "filename": "bush_1",
+                        "x": -2970,
+                        "h": 83,
+                        "y": -261,
+                        "z": 101,
+                        "w": 104
+                    },
+                    {
+                        "filename": "bling_wildmushrooms_1",
+                        "x": 1315,
+                        "h": 48,
+                        "y": -260,
+                        "z": 235,
+                        "w": 169
+                    },
+                    {
+                        "filename": "groddle_fern_1",
+                        "x": -1443,
+                        "h": 85,
+                        "y": -281,
+                        "z": 197,
+                        "w": 143
+                    },
+                    {
+                        "filename": "dirt_platform_short",
+                        "x": 1036,
+                        "h": 94,
+                        "y": -235,
+                        "z": 111,
+                        "w": 364,
+                        "r": -175
+                    },
+                    {
+                        "filename": "groddle_bush1",
+                        "x": -2201,
+                        "h": 68,
+                        "y": -293,
+                        "z": 87,
+                        "w": 146,
+                        "r": 5
+                    }
+                ],
+                "signposts": [
+                    {
+                        "name": "signpost_1",
+                        "x": -2700,
+                        "h": 200,
+                        "y": -242,
+                        "w": 100,
+                        "connects": [
+                            {
+                                "x": 2450,
+                                "y": -115,
+                                "hub_id": "121",
+                                "mote_id": "9",
+                                "label": "Jarjai Binq",
+                                "tsid": "LA54O13ELKR29I9"
+                            },
+                            {
+                                "x": 2545,
+                                "y": -200,
+                                "hub_id": "121",
+                                "mote_id": "9",
+                                "label": "Ramyeon Kon",
+                                "tsid": "LA5215DAMMR2G95"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "signpost_2",
+                        "x": 2750,
+                        "h": 200,
+                        "y": -215,
+                        "w": 100,
+                        "connects": [
+                            {
+                                "x": -2570,
+                                "y": -230,
+                                "hub_id": "121",
+                                "mote_id": "9",
+                                "label": "Gimbap Bop",
+                                "tsid": "LA54VETILKR26N1"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "signpost_4",
+                        "x": 1304,
+                        "y": -228,
+                        "h": 200,
+                        "w": 100,
+                        "connects": [
+                            {
+                                "x": -2627,
+                                "y": -223,
+                                "hub_id": "121",
+                                "mote_id": "9",
+                                "label": "Calta Habitat",
+                                "tsid": "LA5NV05NFJS2NIF"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "signpost_3",
+                        "x": -1277,
+                        "y": -228,
+                        "h": 200,
+                        "w": 100,
+                        "connects": [
+                            {
+                                "x": 2365,
+                                "y": -202,
+                                "hub_id": "121",
+                                "mote_id": "9",
+                                "label": "Gosari Habitat",
+                                "tsid": "LA5R11F6C9S2HA9"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "T_1331341122118": {
+                "name": "middleplus",
+                "h": 1000,
+                "z": 1,
+                "w": 6000,
+                "filters": {
+                    "saturation": -26,
+                    "brightness": -24
+                },
+                "decos": [
+                    {
+                        "filename": "bubble_test",
+                        "r": -41,
+                        "x": 3352,
+                        "h": 105,
+                        "y": 719,
+                        "w": 137,
+                        "z": 24,
+                        "animated": true,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "bling_wildmushrooms_1",
+                        "x": 5233,
+                        "h": 48,
+                        "y": 838,
+                        "z": 18,
+                        "w": 169
+                    },
+                    {
+                        "filename": "groddle_fern_1",
+                        "x": 2634,
+                        "h": 75,
+                        "y": 795,
+                        "z": 7,
+                        "w": 126
+                    },
+                    {
+                        "filename": "patch_mossy_1",
+                        "x": 2608,
+                        "h": 34,
+                        "y": 818,
+                        "w": 144,
+                        "z": 6,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "groddle_cover_clover2",
+                        "x": 3269,
+                        "h": 38,
+                        "y": 804,
+                        "z": 10,
+                        "w": 112
+                    },
+                    {
+                        "filename": "groddle_cover_clover2",
+                        "x": 4699,
+                        "h": 38,
+                        "y": 901,
+                        "z": 14,
+                        "w": 104
+                    },
+                    {
+                        "filename": "flower_bush_5",
+                        "x": 3902,
+                        "h": 107,
+                        "y": 849,
+                        "z": 19,
+                        "w": 251
+                    },
+                    {
+                        "filename": "groddle_plant_1",
+                        "x": 4709,
+                        "h": 113,
+                        "y": 888,
+                        "z": 13,
+                        "w": 107
+                    },
+                    {
+                        "filename": "bush_3",
+                        "x": 4687,
+                        "h": 119,
+                        "y": 900,
+                        "z": 12,
+                        "w": 338
+                    },
+                    {
+                        "filename": "bush_3",
+                        "r": -2,
+                        "x": 3141,
+                        "h": 100,
+                        "y": 868,
+                        "w": 283,
+                        "z": 20,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "groddle_cover_clover2",
+                        "x": 3381,
+                        "h": 38,
+                        "y": 846,
+                        "z": 16,
+                        "w": 112
+                    },
+                    {
+                        "filename": "patch_mossy_1",
+                        "x": 3356,
+                        "h": 34,
+                        "y": 828,
+                        "w": 144,
+                        "z": 0,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "groddle_fern_1",
+                        "x": 3073,
+                        "h": 75,
+                        "y": 872,
+                        "z": 23,
+                        "w": 126
+                    },
+                    {
+                        "filename": "groddle_cover_clover2",
+                        "x": 3332,
+                        "h": 40,
+                        "y": 869,
+                        "z": 22,
+                        "w": 122,
+                        "r": 3
+                    },
+                    {
+                        "filename": "groddle_fern_1",
+                        "x": 2242,
+                        "h": 75,
+                        "y": 822,
+                        "z": 9,
+                        "w": 126
+                    },
+                    {
+                        "filename": "groddle_plant_3",
+                        "x": 822,
+                        "h": 57,
+                        "y": 794,
+                        "z": 3,
+                        "w": 119,
+                        "r": 7
+                    },
+                    {
+                        "filename": "patch_mossy_1",
+                        "r": -5,
+                        "x": 3250,
+                        "h": 34,
+                        "y": 831,
+                        "w": 144,
+                        "z": 1,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "groddle_fern_1",
+                        "x": 3340,
+                        "h": 75,
+                        "y": 848,
+                        "z": 21,
+                        "w": 126
+                    },
+                    {
+                        "filename": "bling_wildmushrooms_1",
+                        "x": 1973,
+                        "h": 37,
+                        "y": 804,
+                        "z": 8,
+                        "w": 132
+                    },
+                    {
+                        "filename": "bush_3",
+                        "x": 973,
+                        "h": 100,
+                        "y": 839,
+                        "z": 2,
+                        "w": 283,
+                        "r": -6
+                    },
+                    {
+                        "filename": "groddle_cover_clover2",
+                        "x": 3494,
+                        "h": 38,
+                        "y": 849,
+                        "z": 11,
+                        "w": 112
+                    },
+                    {
+                        "filename": "platform_branch_a04",
+                        "x": 944,
+                        "h": 104,
+                        "y": 151,
+                        "w": 365,
+                        "z": 4,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "tree_coniferous_fg_1",
+                        "x": 1038,
+                        "h": 1650,
+                        "y": 904,
+                        "z": 5,
+                        "w": 743
+                    },
+                    {
+                        "filename": "bush_2",
+                        "x": 4530,
+                        "h": 99,
+                        "y": 913,
+                        "z": 15,
+                        "w": 257
+                    },
+                    {
+                        "filename": "bling_wildmushrooms_1",
+                        "x": 5093,
+                        "h": 48,
+                        "y": 824,
+                        "z": 17,
+                        "w": 169
+                    }
+                ],
+                "signposts": []
+            },
+            "T_1331344663944": {
+                "name": "bg1",
+                "h": 1000,
+                "z": -2,
+                "w": 5400,
+                "filters": {
+                    "blur": 2,
+                    "brightness": -18,
+                    "saturation": -40
+                },
+                "decos": [
+                    {
+                        "filename": "tree_coniferous_fg_3",
+                        "x": 4809,
+                        "h": 749,
+                        "y": 666,
+                        "w": 329,
+                        "z": 9,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "tree_deciduous1",
+                        "x": 5256,
+                        "h": 471,
+                        "y": 1000,
+                        "z": 23,
+                        "w": 419
+                    },
+                    {
+                        "filename": "mound_dirt_4",
+                        "x": 1428,
+                        "h": 149,
+                        "y": 743,
+                        "z": 17,
+                        "w": 393,
+                        "r": 15
+                    },
+                    {
+                        "filename": "groddle_bush7",
+                        "x": 872,
+                        "h": 124,
+                        "y": 736,
+                        "z": 12,
+                        "w": 524
+                    },
+                    {
+                        "filename": "groddle_bush7",
+                        "x": 1335,
+                        "h": 124,
+                        "y": 745,
+                        "z": 13,
+                        "w": 524
+                    },
+                    {
+                        "filename": "groddle_bush7",
+                        "x": 3607,
+                        "h": 124,
+                        "y": 734,
+                        "z": 14,
+                        "w": 524
+                    },
+                    {
+                        "filename": "tree_deciduous1",
+                        "x": 3436,
+                        "h": 471,
+                        "y": 968,
+                        "z": 20,
+                        "w": 419
+                    },
+                    {
+                        "filename": "tree_deciduous1",
+                        "x": 462,
+                        "h": 471,
+                        "y": 943,
+                        "z": 27,
+                        "w": 419
+                    },
+                    {
+                        "filename": "tree_deciduous3",
+                        "x": 2111,
+                        "h": 651,
+                        "y": 799,
+                        "z": 5,
+                        "w": 497
+                    },
+                    {
+                        "filename": "groddle_bush7",
+                        "x": 5155,
+                        "h": 124,
+                        "y": 731,
+                        "w": 524,
+                        "z": 15,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "tree_deciduous1",
+                        "x": 892,
+                        "h": 471,
+                        "y": 1007,
+                        "z": 26,
+                        "w": 419
+                    },
+                    {
+                        "filename": "heights_bush_3",
+                        "x": 3128,
+                        "h": 171,
+                        "y": 724,
+                        "w": 437,
+                        "z": 30,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "tree_deciduous1",
+                        "x": 4748,
+                        "h": 471,
+                        "y": 1036,
+                        "z": 24,
+                        "w": 419
+                    },
+                    {
+                        "filename": "tree_deciduous3",
+                        "x": 3981,
+                        "h": 651,
+                        "y": 722,
+                        "z": 6,
+                        "w": 497
+                    },
+                    {
+                        "filename": "tree_deciduous1",
+                        "x": 3759,
+                        "h": 471,
+                        "y": 945,
+                        "z": 21,
+                        "w": 419
+                    },
+                    {
+                        "filename": "tree_deciduous1",
+                        "x": 54,
+                        "h": 471,
+                        "y": 938,
+                        "z": 28,
+                        "w": 419
+                    },
+                    {
+                        "filename": "tree_deciduous1",
+                        "x": 1362,
+                        "h": 471,
+                        "y": 989,
+                        "z": 25,
+                        "w": 419
+                    },
+                    {
+                        "filename": "groddle_bush7",
+                        "x": 1678,
+                        "h": 124,
+                        "y": 730,
+                        "w": 524,
+                        "z": 11,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "tree_deciduous1",
+                        "x": 2438,
+                        "h": 471,
+                        "y": 917,
+                        "z": 19,
+                        "w": 419
+                    },
+                    {
+                        "filename": "tree_deciduous1",
+                        "x": 2782,
+                        "h": 471,
+                        "y": 970,
+                        "z": 18,
+                        "w": 419
+                    },
+                    {
+                        "filename": "groddle_bush7",
+                        "x": 228,
+                        "h": 124,
+                        "y": 716,
+                        "z": 3,
+                        "w": 524
+                    },
+                    {
+                        "filename": "heights_bush_3",
+                        "x": 4106,
+                        "h": 171,
+                        "y": 742,
+                        "w": 437,
+                        "z": 29,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "tree_coniferous_fg_2",
+                        "x": 1344,
+                        "h": 1334,
+                        "y": 833,
+                        "z": 1,
+                        "w": 511
+                    },
+                    {
+                        "filename": "tree_deciduous3",
+                        "x": 272,
+                        "h": 651,
+                        "y": 685,
+                        "z": 4,
+                        "w": 497
+                    },
+                    {
+                        "filename": "groddle_bush7",
+                        "x": 1017,
+                        "h": 124,
+                        "y": 760,
+                        "z": 0,
+                        "w": 524
+                    },
+                    {
+                        "filename": "tree_deciduous3",
+                        "x": 1565,
+                        "h": 651,
+                        "y": 729,
+                        "z": 7,
+                        "w": 497
+                    },
+                    {
+                        "filename": "tree_deciduous1",
+                        "x": 3035,
+                        "h": 471,
+                        "y": 975,
+                        "z": 22,
+                        "w": 419
+                    },
+                    {
+                        "filename": "tree_coniferous_bare_1",
+                        "x": 4665,
+                        "h": 823,
+                        "y": 753,
+                        "z": 16,
+                        "w": 401
+                    },
+                    {
+                        "filename": "tree_coniferous_fg_1",
+                        "x": 1284,
+                        "h": 908,
+                        "y": 789,
+                        "w": 409,
+                        "z": 8,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "heights_bush_4",
+                        "r": -1,
+                        "x": 3845,
+                        "h": 101,
+                        "y": 718,
+                        "w": 428,
+                        "z": 10,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "groddle_bush7",
+                        "x": 556,
+                        "h": 124,
+                        "y": 746,
+                        "z": 2,
+                        "w": 524
+                    }
+                ],
+                "signposts": []
+            },
+            "T_1331344663982": {
+                "name": "bg2",
+                "h": 1000,
+                "z": -3,
+                "w": 4800,
+                "filters": {
+                    "contrast": 0,
+                    "blur": 3,
+                    "brightness": -18,
+                    "saturation": -41
+                },
+                "decos": [
+                    {
+                        "filename": "bush_patch_2",
+                        "x": 3908,
+                        "h": 102,
+                        "y": 652,
+                        "z": 1,
+                        "w": 659
+                    },
+                    {
+                        "filename": "heights_bush_3",
+                        "x": 2116,
+                        "h": 171,
+                        "y": 702,
+                        "w": 437,
+                        "z": 33,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "tree_deciduous1",
+                        "x": 2594,
+                        "h": 471,
+                        "y": 912,
+                        "z": 25,
+                        "w": 419
+                    },
+                    {
+                        "filename": "groddle_bush7",
+                        "x": 2750,
+                        "h": 124,
+                        "y": 624,
+                        "z": 26,
+                        "w": 524
+                    },
+                    {
+                        "filename": "tree_deciduous1",
+                        "x": 2868,
+                        "h": 364,
+                        "y": 807,
+                        "z": 24,
+                        "w": 324
+                    },
+                    {
+                        "filename": "tree_group_bg2_1",
+                        "x": 1696,
+                        "h": 771,
+                        "y": 790,
+                        "z": 4,
+                        "w": 551
+                    },
+                    {
+                        "filename": "tree_group_bg2_1",
+                        "x": 1112,
+                        "h": 771,
+                        "y": 805,
+                        "z": 3,
+                        "w": 551
+                    },
+                    {
+                        "filename": "tree_coniferous_fg_2",
+                        "x": 4766,
+                        "h": 820,
+                        "y": 700,
+                        "z": 20,
+                        "w": 314
+                    },
+                    {
+                        "filename": "tree_deciduous1",
+                        "x": 3527,
+                        "h": 471,
+                        "y": 934,
+                        "z": 30,
+                        "w": 419
+                    },
+                    {
+                        "filename": "tree_coniferous_bare_1",
+                        "r": 8,
+                        "x": 2605,
+                        "h": 593,
+                        "y": 707,
+                        "w": 289,
+                        "z": 21,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "tree_coniferous_bare_1",
+                        "x": 3325,
+                        "h": 593,
+                        "y": 699,
+                        "w": 289,
+                        "z": 8,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "tree_deciduous1",
+                        "x": 4354,
+                        "h": 471,
+                        "y": 1005,
+                        "z": 23,
+                        "w": 419
+                    },
+                    {
+                        "filename": "bush_patch_2",
+                        "x": 3257,
+                        "h": 102,
+                        "y": 601,
+                        "z": 0,
+                        "w": 659
+                    },
+                    {
+                        "filename": "tree_group_bg2_1",
+                        "x": 2871,
+                        "h": 771,
+                        "y": 789,
+                        "z": 9,
+                        "w": 551
+                    },
+                    {
+                        "filename": "tree_coniferous_fg_1",
+                        "x": 2780,
+                        "h": 746,
+                        "y": 760,
+                        "z": 28,
+                        "w": 336
+                    },
+                    {
+                        "filename": "tree_coniferous_fg_1",
+                        "x": 2281,
+                        "h": 746,
+                        "y": 706,
+                        "z": 13,
+                        "w": 336,
+                        "r": -1
+                    },
+                    {
+                        "filename": "tree_coniferous_bare_1",
+                        "x": 1796,
+                        "h": 593,
+                        "y": 696,
+                        "w": 289,
+                        "z": 6,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "tree_coniferous_fg_2",
+                        "x": 4031,
+                        "h": 820,
+                        "y": 719,
+                        "w": 314,
+                        "z": 19,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "tree_deciduous1",
+                        "x": 3727,
+                        "h": 471,
+                        "y": 1021,
+                        "z": 22,
+                        "w": 419
+                    },
+                    {
+                        "filename": "tree_coniferous_fg_2",
+                        "x": 2951,
+                        "h": 820,
+                        "y": 671,
+                        "z": 29,
+                        "w": 314
+                    },
+                    {
+                        "filename": "tree_group_bg2_1",
+                        "x": 4352,
+                        "h": 771,
+                        "y": 773,
+                        "z": 10,
+                        "w": 551
+                    },
+                    {
+                        "filename": "tree_coniferous_fg_2",
+                        "x": 2409,
+                        "h": 820,
+                        "y": 639,
+                        "z": 17,
+                        "w": 314
+                    },
+                    {
+                        "filename": "bush_patch_2",
+                        "x": 756,
+                        "h": 102,
+                        "y": 634,
+                        "z": 31,
+                        "w": 659
+                    },
+                    {
+                        "filename": "tree_group_bg2_1",
+                        "x": 348,
+                        "h": 771,
+                        "y": 758,
+                        "z": 2,
+                        "w": 551
+                    },
+                    {
+                        "filename": "tree_coniferous_fg_2",
+                        "x": 1589,
+                        "h": 820,
+                        "y": 747,
+                        "w": 314,
+                        "z": 15,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "tree_coniferous_bare_1",
+                        "x": 4717,
+                        "h": 593,
+                        "y": 679,
+                        "w": 289,
+                        "z": 7,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "tree_coniferous_fg_1",
+                        "x": 981,
+                        "h": 746,
+                        "y": 761,
+                        "z": 12,
+                        "w": 336
+                    },
+                    {
+                        "filename": "tree_coniferous_fg_2",
+                        "x": 2639,
+                        "h": 820,
+                        "y": 578,
+                        "w": 314,
+                        "z": 18,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "tree_coniferous_fg_1",
+                        "x": 3124,
+                        "h": 746,
+                        "y": 732,
+                        "z": 14,
+                        "w": 336
+                    },
+                    {
+                        "filename": "heights_bush_3",
+                        "x": 1788,
+                        "h": 171,
+                        "y": 714,
+                        "w": 437,
+                        "z": 32,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "tree_group_bg2_1",
+                        "x": 2160,
+                        "h": 771,
+                        "y": 837,
+                        "z": 5,
+                        "w": 551
+                    },
+                    {
+                        "filename": "tree_group_bg2_1",
+                        "x": 3716,
+                        "h": 771,
+                        "y": 799,
+                        "z": 11,
+                        "w": 551
+                    },
+                    {
+                        "filename": "tree_coniferous_fg_2",
+                        "x": 4415,
+                        "h": 820,
+                        "y": 748,
+                        "z": 16,
+                        "w": 314
+                    },
+                    {
+                        "filename": "groddle_bush7",
+                        "x": 2266,
+                        "h": 124,
+                        "y": 599,
+                        "z": 27,
+                        "w": 524
+                    }
+                ],
+                "signposts": []
+            },
+            "T_1331344663989": {
+                "name": "bg3",
+                "h": 1000,
+                "z": -4,
+                "w": 4200,
+                "filters": {
+                    "contrast": -6,
+                    "blur": 5,
+                    "brightness": -24,
+                    "saturation": -48
+                },
+                "decos": [
+                    {
+                        "filename": "tree_wallpaper_1a",
+                        "x": 3792,
+                        "h": 793,
+                        "y": 772,
+                        "z": 2,
+                        "w": 1915
+                    },
+                    {
+                        "filename": "tree_wallpaper_1a",
+                        "x": 2262,
+                        "h": 793,
+                        "y": 786,
+                        "z": 1,
+                        "w": 1915
+                    },
+                    {
+                        "filename": "tree_coniferous_2",
+                        "x": 3690,
+                        "h": 486,
+                        "y": 761,
+                        "z": 6,
+                        "w": 272
+                    },
+                    {
+                        "filename": "tree_deciduous3",
+                        "x": 4037,
+                        "h": 523,
+                        "y": 678,
+                        "z": 3,
+                        "w": 399
+                    },
+                    {
+                        "filename": "tree_coniferous_2",
+                        "x": 3593,
+                        "h": 486,
+                        "y": 845,
+                        "z": 7,
+                        "w": 272
+                    },
+                    {
+                        "filename": "tree_coniferous_2",
+                        "x": 2305,
+                        "h": 486,
+                        "y": 789,
+                        "z": 4,
+                        "w": 272
+                    },
+                    {
+                        "filename": "tree_wallpaper_1a",
+                        "x": 710,
+                        "h": 793,
+                        "y": 786,
+                        "z": 0,
+                        "w": 1915
+                    },
+                    {
+                        "filename": "tree_coniferous_2",
+                        "x": 3484,
+                        "h": 486,
+                        "y": 896,
+                        "z": 5,
+                        "w": 272
+                    }
+                ],
+                "signposts": []
+            }
+        }
+    }
+}

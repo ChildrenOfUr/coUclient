@@ -238,7 +238,6 @@ textarea{resize: none;}
 /*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 /*The displayed canvas that depicts gameplay*/
 #GameScreen {
-    background-color: #800080;
     position:absolute;
     width:900px;
     height:600px;
@@ -248,6 +247,17 @@ textarea{resize: none;}
     border-radius: 10px;
     z-index:-2; 
     overflow: hidden;
+}
+.streetcanvas {
+    transition-property: top right;
+    transition-duration: 0.5s;
+    transition-timing-function: linear;
+    transition-delay: 0s;
+    -webkit-transition-property: top right;
+    -webkit-transition-duration:0.5s;
+    -webkit-transition-timing-function:linear;
+    -webkit-transition-delay:0s;    
+  
 }
 /*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 /*Elements in the top, left corner*/

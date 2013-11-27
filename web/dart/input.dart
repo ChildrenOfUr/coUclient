@@ -85,6 +85,22 @@ part of coUclient;
   //Handle player keypress input
   //TODO setup general keypress input functions.
   
+  document.body.onKeyPress.listen((KeyboardEvent k)
+      {
+        if (k.keyCode == 119)// w
+          camera['y']-=20;
+        if (k.keyCode == 115)// s
+          camera['y']+=20;
+        if (k.keyCode == 97)// a
+          camera['x']-=20;
+        if (k.keyCode == 100)// d
+          camera['x']+=20;
+      });
+  
+  
+  
+  
+  
   //demo right-clicking
   document.body.onContextMenu.listen((e) => showClickMenu(e,'Testing Right Click', 'this is a demo',[]));
   

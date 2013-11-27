@@ -2,6 +2,8 @@ library coUclient;
 // Import deps
 import 'dart:html';
 import 'dart:async';
+import 'dart:convert';
+import 'dart:math' as math;
 import 'package:dartemis/dartemis.dart' as dartemis;
 import 'package:stagexl/stagexl.dart' as xl;
 import 'package:game_loop/game_loop_html.dart';
@@ -21,8 +23,11 @@ part './dart/loader.dart';
 part './dart/display.dart';
 part './dart/maprender.dart';
 
+
+Street CurrentStreet;
+
 // setup the Stage and RenderLoop 
-xl.Stage stage = new xl.Stage('gamescreen', querySelector('#middleground'));
+xl.Stage stage = new xl.Stage('gamescreen', gradientCanvas);
 xl.RenderLoop renderLoop = new xl.RenderLoop()
     ..addStage(stage);
 
@@ -33,7 +38,7 @@ xl.ResourceManager resourceManager;
 dartemis.World world = new dartemis.World();
 
 // Define our game_loop
-GameLoopHtml gameLoop = new GameLoopHtml(querySelector('#middleground'))
+GameLoopHtml gameLoop = new GameLoopHtml(gradientCanvas)
   ..onUpdate = ((gameLoop) {loop();})
   ..onRender = ((gameLoop) {render();});
 

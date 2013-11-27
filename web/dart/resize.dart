@@ -10,6 +10,7 @@ startResizeListener() {
 resize(){
   Element chatPane = querySelector('#ChatPane');
   Element gameScreen = querySelector('#GameScreen');
+  Element gameStage = querySelector('#GameStage');
   
   int width = window.innerWidth - 80 - 40 - chatPane.clientWidth;
   int height = window.innerHeight - 180;
@@ -22,13 +23,6 @@ resize(){
   gameScreen.style.height = height.toString()+'px';
   
   chatPane.style.height = (height + 50).toString()+'px';
-  
-  for (Element child in gameScreen.children)
-  {
-    child.style.width = gameScreen.style.width;
-    child.style.height = gameScreen.style.height;
-  }
-   
   
   
   
