@@ -1,0 +1,3731 @@
+{
+    "tsid": "GUVTKR868NF27QG",
+    "label": "Aavani Avenue",
+    "gradient": {
+        "top": "657885",
+        "bottom": "C0D1D1"
+    },
+    "dynamic": {
+        "l": -3000,
+        "r": 3000,
+        "t": -1000,
+        "b": 0,
+        "ground_y": -180,
+        "rookable_type": 0,
+        "layers": {
+            "T_1319586348688": {
+                "name": "sky tint",
+                "w": 3600,
+                "h": 1000,
+                "z": -4,
+                "filters": {
+                    "blur": 4,
+                    "tintAmount": 23,
+                    "tintColor": 12421195,
+                    "saturation": -36
+                },
+                "decos": [
+                    {
+                        "filename": "cliffside_1a_al1",
+                        "y": 821,
+                        "h": 251,
+                        "z": 3,
+                        "w": 382,
+                        "x": 3302
+                    },
+                    {
+                        "filename": "cliffside_1a_al1",
+                        "y": 708,
+                        "h": 251,
+                        "z": 6,
+                        "w": 382,
+                        "x": 2209
+                    },
+                    {
+                        "filename": "cliffside_1a_al1",
+                        "y": 674,
+                        "h": 251,
+                        "z": 4,
+                        "w": 382,
+                        "x": 2717
+                    },
+                    {
+                        "filename": "cliffside_1a_al1",
+                        "y": 801,
+                        "h": 251,
+                        "z": 2,
+                        "w": 382,
+                        "x": 3203
+                    },
+                    {
+                        "filename": "cliffside_1a_al1",
+                        "y": 772,
+                        "h": 251,
+                        "z": 1,
+                        "w": 382,
+                        "x": 3040
+                    },
+                    {
+                        "filename": "cliffside_1a_al1",
+                        "y": 673,
+                        "h": 251,
+                        "z": 8,
+                        "w": 382,
+                        "x": 1709
+                    },
+                    {
+                        "filename": "cliffside_1a_al1",
+                        "y": 724,
+                        "h": 251,
+                        "z": 9,
+                        "w": 382,
+                        "x": 1567
+                    },
+                    {
+                        "filename": "mountain_blue_1",
+                        "y": 557,
+                        "h": 118,
+                        "z": 11,
+                        "w": 1013,
+                        "x": -21
+                    },
+                    {
+                        "filename": "cliffside_1a_al1",
+                        "y": 726,
+                        "h": 251,
+                        "z": 0,
+                        "w": 382,
+                        "x": 2899
+                    },
+                    {
+                        "filename": "cliffside_1a_al1",
+                        "y": 705,
+                        "h": 251,
+                        "z": 7,
+                        "w": 382,
+                        "x": 1905
+                    },
+                    {
+                        "filename": "cliffside_1a_al1",
+                        "y": 717,
+                        "h": 251,
+                        "z": 10,
+                        "w": 382,
+                        "x": 1301
+                    },
+                    {
+                        "filename": "cliffside_1a_al1",
+                        "y": 697,
+                        "h": 251,
+                        "z": 5,
+                        "w": 382,
+                        "x": 2483
+                    }
+                ],
+                "signposts": []
+            },
+            "middleground": {
+                "name": "middleground",
+                "w": 6000,
+                "h": 1000,
+                "z": 0,
+                "filters": {
+                    "brightness": 12,
+                    "tintAmount": 0,
+                    "contrast": -3,
+                    "tintColor": 16448092,
+                    "saturation": -31
+                },
+                "decos": [
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -86,
+                        "h": 69,
+                        "z": 75,
+                        "w": 269,
+                        "x": -1826
+                    },
+                    {
+                        "filename": "heights_topper_2",
+                        "y": -111,
+                        "h": 61,
+                        "z": 157,
+                        "w": 145,
+                        "x": 1840
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -72,
+                        "h": 69,
+                        "z": 64,
+                        "w": 269,
+                        "x": -2738,
+                        "r": 4
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -141,
+                        "h": 69,
+                        "z": 100,
+                        "w": 269,
+                        "x": 777
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": -93,
+                        "h": 155,
+                        "z": 19,
+                        "w": 407,
+                        "x": -1579,
+                        "r": 13
+                    },
+                    {
+                        "filename": "heights_moss_2",
+                        "y": -110,
+                        "h": 41,
+                        "z": 225,
+                        "w": 200,
+                        "x": 1783
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": 14,
+                        "h": 190,
+                        "z": 49,
+                        "w": 499,
+                        "x": -176
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": -119,
+                        "h": 219,
+                        "z": 12,
+                        "w": 574,
+                        "x": -247
+                    },
+                    {
+                        "filename": "alakol_beach_1",
+                        "y": -148,
+                        "h": 75,
+                        "z": 263,
+                        "w": 636,
+                        "x": -717,
+                        "r": -6
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": -183,
+                        "h": 166,
+                        "z": 8,
+                        "w": 437,
+                        "x": 729,
+                        "r": 5
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -92,
+                        "h": 69,
+                        "z": 136,
+                        "w": 269,
+                        "x": 2900
+                    },
+                    {
+                        "filename": "alakol_beach_1",
+                        "y": -293,
+                        "h": 75,
+                        "z": 303,
+                        "w": 636,
+                        "x": 2084
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": 28,
+                        "h": 190,
+                        "z": 57,
+                        "w": 499,
+                        "x": 1586
+                    },
+                    {
+                        "filename": "heights_face_rock_2",
+                        "y": 82,
+                        "h": 200,
+                        "z": 271,
+                        "w": 706,
+                        "x": -2398
+                    },
+                    {
+                        "filename": "heights_moss_2",
+                        "y": -142,
+                        "h": 44,
+                        "z": 235,
+                        "w": 200,
+                        "x": 2806
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": -343,
+                        "h": 201,
+                        "z": 6,
+                        "w": 526,
+                        "x": 132,
+                        "r": 6
+                    },
+                    {
+                        "filename": "heights_topper_2",
+                        "y": -279,
+                        "h": 60,
+                        "z": 280,
+                        "w": 145,
+                        "x": 1940
+                    },
+                    {
+                        "filename": "heights_topper_stone_1",
+                        "y": -222,
+                        "h": 38,
+                        "z": 295,
+                        "w": 160,
+                        "x": 533,
+                        "r": 2
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -98,
+                        "h": 69,
+                        "z": 108,
+                        "w": 269,
+                        "x": 1218,
+                        "r": 6
+                    },
+                    {
+                        "filename": "alakol_beach_1",
+                        "y": -147,
+                        "h": 75,
+                        "z": 128,
+                        "w": 636,
+                        "x": 2645,
+                        "r": 2
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -466,
+                        "h": 54,
+                        "z": 208,
+                        "w": 269,
+                        "x": 217,
+                        "r": -2,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "heights_topper_2",
+                        "y": -294,
+                        "h": 60,
+                        "z": 282,
+                        "w": 145,
+                        "x": 2257
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": 78,
+                        "h": 190,
+                        "z": 42,
+                        "w": 499,
+                        "x": -2244
+                    },
+                    {
+                        "filename": "heights_topper_2",
+                        "y": -251,
+                        "h": 60,
+                        "z": 279,
+                        "w": 145,
+                        "x": 1862
+                    },
+                    {
+                        "filename": "heights_topper_2",
+                        "y": -432,
+                        "h": 60,
+                        "z": 277,
+                        "w": 145,
+                        "x": 347
+                    },
+                    {
+                        "filename": "heights_topper_2",
+                        "y": -195,
+                        "h": 61,
+                        "z": 238,
+                        "w": 145,
+                        "x": 1682,
+                        "r": 3
+                    },
+                    {
+                        "filename": "heights_topper_2",
+                        "y": -158,
+                        "h": 52,
+                        "z": 182,
+                        "w": 151,
+                        "x": -2296
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": 68,
+                        "h": 190,
+                        "z": 47,
+                        "w": 499,
+                        "x": -708
+                    },
+                    {
+                        "filename": "heights_topper_stone_1",
+                        "y": -277,
+                        "h": 38,
+                        "z": 305,
+                        "w": 160,
+                        "x": 1878,
+                        "r": -8
+                    },
+                    {
+                        "filename": "heights_moss_2",
+                        "y": -197,
+                        "h": 44,
+                        "z": 244,
+                        "w": 200,
+                        "x": -2413
+                    },
+                    {
+                        "filename": "heights_topper_2",
+                        "y": -292,
+                        "h": 60,
+                        "z": 274,
+                        "w": 145,
+                        "x": 426
+                    },
+                    {
+                        "filename": "heights_face_rock_2",
+                        "y": 85,
+                        "h": 222,
+                        "z": 52,
+                        "w": 781,
+                        "x": -509
+                    },
+                    {
+                        "filename": "gravel_2",
+                        "y": -193,
+                        "h": 43,
+                        "z": 269,
+                        "w": 76,
+                        "x": -405,
+                        "r": -4
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -98,
+                        "h": 69,
+                        "z": 65,
+                        "w": 269,
+                        "x": -2778
+                    },
+                    {
+                        "filename": "heights_topper_2",
+                        "y": -249,
+                        "h": 60,
+                        "z": 288,
+                        "w": 145,
+                        "x": 2139
+                    },
+                    {
+                        "filename": "heights_moss_2",
+                        "y": -293,
+                        "h": 44,
+                        "z": 234,
+                        "w": 200,
+                        "x": 1349
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": -116,
+                        "h": 190,
+                        "z": 15,
+                        "w": 499,
+                        "x": -2835,
+                        "r": -6
+                    },
+                    {
+                        "filename": "heights_topper_stone_1",
+                        "y": -193,
+                        "h": 38,
+                        "z": 257,
+                        "w": 160,
+                        "x": -1932
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -76,
+                        "h": 69,
+                        "z": 109,
+                        "w": 269,
+                        "x": 1208,
+                        "r": 14
+                    },
+                    {
+                        "filename": "gravel_1",
+                        "y": -113,
+                        "h": 52,
+                        "z": 160,
+                        "w": 281,
+                        "x": 2118
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -290,
+                        "h": 54,
+                        "z": 194,
+                        "w": 269,
+                        "x": 1037,
+                        "r": 3
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -257,
+                        "h": 69,
+                        "z": 231,
+                        "w": 269,
+                        "x": 1851,
+                        "r": -4,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "patch_dirt_2a",
+                        "y": -495,
+                        "h": 49,
+                        "z": 309,
+                        "w": 286,
+                        "x": 265
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": -143,
+                        "h": 155,
+                        "z": 18,
+                        "w": 407,
+                        "x": -1829
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -52,
+                        "h": 69,
+                        "z": 120,
+                        "w": 269,
+                        "x": 1782,
+                        "r": 7
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -106,
+                        "h": 69,
+                        "z": 89,
+                        "w": 269,
+                        "x": -530
+                    },
+                    {
+                        "filename": "heights_topper_stone_1",
+                        "y": -359,
+                        "h": 38,
+                        "z": 292,
+                        "w": 160,
+                        "x": 120,
+                        "r": 2
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -407,
+                        "h": 54,
+                        "z": 201,
+                        "w": 269,
+                        "x": -112,
+                        "r": -2,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -207,
+                        "h": 69,
+                        "z": 176,
+                        "w": 269,
+                        "x": 1579,
+                        "r": -4,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "heights_moss_2",
+                        "y": -108,
+                        "h": 44,
+                        "z": 149,
+                        "w": 200,
+                        "x": -2790,
+                        "r": -5
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -78,
+                        "h": 69,
+                        "z": 80,
+                        "w": 269,
+                        "x": -1332,
+                        "r": 7
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": 16,
+                        "h": 190,
+                        "z": 44,
+                        "w": 499,
+                        "x": -1600
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -62,
+                        "h": 69,
+                        "z": 125,
+                        "w": 269,
+                        "x": 2286
+                    },
+                    {
+                        "filename": "heights_moss_2",
+                        "y": -132,
+                        "h": 44,
+                        "z": 236,
+                        "w": 200,
+                        "x": 2934
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": 32,
+                        "h": 190,
+                        "z": 48,
+                        "w": 499,
+                        "x": -442
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": 48,
+                        "h": 190,
+                        "z": 45,
+                        "w": 499,
+                        "x": -1336
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -76,
+                        "h": 69,
+                        "z": 133,
+                        "w": 269,
+                        "x": 2614
+                    },
+                    {
+                        "filename": "alakol_beach_1",
+                        "y": -132,
+                        "h": 75,
+                        "z": 297,
+                        "w": 636,
+                        "x": 1053,
+                        "r": 3
+                    },
+                    {
+                        "filename": "heights_moss_1",
+                        "y": -45,
+                        "h": 89,
+                        "z": 223,
+                        "w": 163,
+                        "x": -2960
+                    },
+                    {
+                        "filename": "heights_moss_2",
+                        "y": -140,
+                        "h": 44,
+                        "z": 155,
+                        "w": 200,
+                        "x": -2248
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": -124,
+                        "h": 219,
+                        "z": 14,
+                        "w": 574,
+                        "x": 589
+                    },
+                    {
+                        "filename": "heights_topper_2",
+                        "y": -228,
+                        "h": 61,
+                        "z": 190,
+                        "w": 145,
+                        "x": 1330
+                    },
+                    {
+                        "filename": "heights_topper_2",
+                        "y": -280,
+                        "h": 60,
+                        "z": 291,
+                        "w": 145,
+                        "x": -1098
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -86,
+                        "h": 69,
+                        "z": 116,
+                        "w": 269,
+                        "x": 1794
+                    },
+                    {
+                        "filename": "heights_mound_2",
+                        "y": -95,
+                        "h": 206,
+                        "z": 29,
+                        "w": 294,
+                        "x": -80
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": -94,
+                        "h": 246,
+                        "z": 2,
+                        "w": 646,
+                        "x": 2334
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -180,
+                        "h": 69,
+                        "z": 96,
+                        "w": 269,
+                        "x": 184,
+                        "r": 9
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -108,
+                        "h": 69,
+                        "z": 118,
+                        "w": 269,
+                        "x": 2022
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": 40,
+                        "h": 190,
+                        "z": 43,
+                        "w": 499,
+                        "x": -1924
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -184,
+                        "h": 69,
+                        "z": 92,
+                        "w": 269,
+                        "x": -208,
+                        "r": -3
+                    },
+                    {
+                        "filename": "heights_moss_2",
+                        "y": -261,
+                        "h": 44,
+                        "z": 232,
+                        "w": 200,
+                        "x": -799
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -54,
+                        "h": 69,
+                        "z": 81,
+                        "w": 269,
+                        "x": -1248,
+                        "r": 13
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -144,
+                        "h": 69,
+                        "z": 91,
+                        "w": 269,
+                        "x": -432
+                    },
+                    {
+                        "filename": "heights_moss_2",
+                        "y": -136,
+                        "h": 44,
+                        "z": 253,
+                        "w": 200,
+                        "x": 2668
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -134,
+                        "h": 69,
+                        "z": 70,
+                        "w": 269,
+                        "x": -2303
+                    },
+                    {
+                        "filename": "heights_topper_2",
+                        "y": -121,
+                        "h": 52,
+                        "z": 177,
+                        "w": 149,
+                        "x": 2083
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -138,
+                        "h": 69,
+                        "z": 73,
+                        "w": 269,
+                        "x": -2021
+                    },
+                    {
+                        "filename": "heights_topper_2",
+                        "y": -190,
+                        "h": 43,
+                        "z": 169,
+                        "w": 145,
+                        "x": 522
+                    },
+                    {
+                        "filename": "heights_topper_2",
+                        "y": -188,
+                        "h": 60,
+                        "z": 258,
+                        "w": 215,
+                        "x": -2097
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": -71,
+                        "h": 190,
+                        "z": 1,
+                        "w": 499,
+                        "x": 2092
+                    },
+                    {
+                        "filename": "heights_topper_2",
+                        "y": -136,
+                        "h": 50,
+                        "z": 229,
+                        "w": 161,
+                        "x": 2872
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": -147,
+                        "h": 219,
+                        "z": 3,
+                        "w": 574,
+                        "x": -1022
+                    },
+                    {
+                        "filename": "heights_moss_2",
+                        "y": -112,
+                        "h": 44,
+                        "z": 165,
+                        "w": 200,
+                        "x": -1244,
+                        "r": 4
+                    },
+                    {
+                        "filename": "gravel_2",
+                        "y": -250,
+                        "h": 22,
+                        "z": 220,
+                        "w": 39,
+                        "x": 290
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -170,
+                        "h": 69,
+                        "z": 98,
+                        "w": 269,
+                        "x": 396
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -128,
+                        "h": 69,
+                        "z": 69,
+                        "w": 269,
+                        "x": -2434,
+                        "r": 13
+                    },
+                    {
+                        "filename": "heights_topper_2",
+                        "y": -274,
+                        "h": 46,
+                        "z": 216,
+                        "w": 145,
+                        "x": 1467
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -225,
+                        "h": 69,
+                        "z": 226,
+                        "w": 269,
+                        "x": 1576,
+                        "r": -4,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": -345,
+                        "h": 201,
+                        "z": 5,
+                        "w": 526,
+                        "x": -374,
+                        "r": -9
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -322,
+                        "h": 54,
+                        "z": 196,
+                        "w": 269,
+                        "x": 300,
+                        "r": 3
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": -36,
+                        "h": 190,
+                        "z": 31,
+                        "w": 499,
+                        "x": 584
+                    },
+                    {
+                        "filename": "heights_topper_2",
+                        "y": -126,
+                        "h": 60,
+                        "z": 256,
+                        "w": 215,
+                        "x": -1990
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": -48,
+                        "h": 245,
+                        "z": 21,
+                        "w": 644,
+                        "x": 2645
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -116,
+                        "h": 69,
+                        "z": 134,
+                        "w": 269,
+                        "x": 2748
+                    },
+                    {
+                        "filename": "heights_topper_2",
+                        "y": -290,
+                        "h": 60,
+                        "z": 290,
+                        "w": 145,
+                        "x": -1156
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -92,
+                        "h": 69,
+                        "z": 121,
+                        "w": 269,
+                        "x": 2102
+                    },
+                    {
+                        "filename": "heights_moss_3",
+                        "y": -16,
+                        "h": 135,
+                        "z": 260,
+                        "w": 358,
+                        "x": 2422
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": -199,
+                        "h": 188,
+                        "z": 13,
+                        "w": 492,
+                        "x": 262,
+                        "r": 4
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -98,
+                        "h": 69,
+                        "z": 90,
+                        "w": 269,
+                        "x": -448,
+                        "r": 2
+                    },
+                    {
+                        "filename": "heights_topper_2",
+                        "y": -84,
+                        "h": 61,
+                        "z": 153,
+                        "w": 145,
+                        "x": -905
+                    },
+                    {
+                        "filename": "heights_topper_2",
+                        "y": -113,
+                        "h": 60,
+                        "z": 272,
+                        "w": 145,
+                        "x": -2218
+                    },
+                    {
+                        "filename": "heights_bandaid_corner_shadow_1",
+                        "y": 133,
+                        "h": 190,
+                        "z": 148,
+                        "w": 90,
+                        "x": -1555
+                    },
+                    {
+                        "filename": "heights_moss_3",
+                        "y": -120,
+                        "h": 135,
+                        "z": 240,
+                        "w": 358,
+                        "x": -1,
+                        "r": -9
+                    },
+                    {
+                        "filename": "heights_topper_2",
+                        "y": -112,
+                        "h": 60,
+                        "z": 273,
+                        "w": 145,
+                        "x": -2104
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -152,
+                        "h": 69,
+                        "z": 94,
+                        "w": 269,
+                        "x": -198,
+                        "r": -2
+                    },
+                    {
+                        "filename": "heights_topper_2",
+                        "y": -256,
+                        "h": 61,
+                        "z": 215,
+                        "w": 145,
+                        "x": 1378
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": -16,
+                        "h": 190,
+                        "z": 36,
+                        "w": 499,
+                        "x": -1227
+                    },
+                    {
+                        "filename": "heights_moss_1",
+                        "y": -38,
+                        "h": 89,
+                        "z": 239,
+                        "w": 163,
+                        "x": 2069,
+                        "r": 5
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -84,
+                        "h": 69,
+                        "z": 79,
+                        "w": 269,
+                        "x": -1488,
+                        "r": 4
+                    },
+                    {
+                        "filename": "alakol_beach_1",
+                        "y": -139,
+                        "h": 75,
+                        "z": 130,
+                        "w": 636,
+                        "x": 2328,
+                        "r": 3
+                    },
+                    {
+                        "filename": "heights_topper_2",
+                        "y": -123,
+                        "h": 52,
+                        "z": 179,
+                        "w": 149,
+                        "x": 2288
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -62,
+                        "h": 69,
+                        "z": 84,
+                        "w": 269,
+                        "x": -964,
+                        "r": 17
+                    },
+                    {
+                        "filename": "heights_face_rock_2",
+                        "y": 61,
+                        "h": 200,
+                        "z": 270,
+                        "w": 706,
+                        "x": -2150
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": 14,
+                        "h": 190,
+                        "z": 60,
+                        "w": 499,
+                        "x": 2504
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -94,
+                        "h": 69,
+                        "z": 114,
+                        "w": 269,
+                        "x": 1664,
+                        "r": 5
+                    },
+                    {
+                        "filename": "heights_topper_2",
+                        "y": -292,
+                        "h": 48,
+                        "z": 221,
+                        "w": 157,
+                        "x": 1194
+                    },
+                    {
+                        "filename": "gravel_2",
+                        "y": -135,
+                        "h": 29,
+                        "z": 161,
+                        "w": 53,
+                        "x": 1347
+                    },
+                    {
+                        "filename": "heights_moss_1",
+                        "y": -55,
+                        "h": 89,
+                        "z": 163,
+                        "w": 163,
+                        "x": 936
+                    },
+                    {
+                        "filename": "heights_topper_stone_1",
+                        "y": -422,
+                        "h": 38,
+                        "z": 307,
+                        "w": 160,
+                        "x": -286,
+                        "r": 7
+                    },
+                    {
+                        "filename": "heights_topper_2",
+                        "y": -98,
+                        "h": 61,
+                        "z": 158,
+                        "w": 145,
+                        "x": 1891
+                    },
+                    {
+                        "filename": "heights_moss_3",
+                        "y": -20,
+                        "h": 135,
+                        "z": 151,
+                        "w": 358,
+                        "x": -1584,
+                        "r": 3
+                    },
+                    {
+                        "filename": "heights_topper_stone_1",
+                        "y": -164,
+                        "h": 38,
+                        "z": 248,
+                        "w": 160,
+                        "x": -1767
+                    },
+                    {
+                        "filename": "heights_moss_1",
+                        "y": -38,
+                        "h": 106,
+                        "z": 268,
+                        "w": 196,
+                        "x": -774,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -94,
+                        "h": 69,
+                        "z": 126,
+                        "w": 269,
+                        "x": 2406
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -41,
+                        "h": 69,
+                        "z": 142,
+                        "w": 269,
+                        "x": -912,
+                        "r": 11
+                    },
+                    {
+                        "filename": "heights_topper_2",
+                        "y": -138,
+                        "h": 61,
+                        "z": 154,
+                        "w": 145,
+                        "x": -356
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -299,
+                        "h": 54,
+                        "z": 193,
+                        "w": 269,
+                        "x": 1178,
+                        "r": 3
+                    },
+                    {
+                        "filename": "heights_topper_2",
+                        "y": -212,
+                        "h": 61,
+                        "z": 237,
+                        "w": 145,
+                        "x": 1668,
+                        "r": 3
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -425,
+                        "h": 54,
+                        "z": 199,
+                        "w": 269,
+                        "x": -136,
+                        "r": -2
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -178,
+                        "h": 69,
+                        "z": 95,
+                        "w": 269,
+                        "x": -66,
+                        "r": 6
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -100,
+                        "h": 69,
+                        "z": 103,
+                        "w": 269,
+                        "x": 684,
+                        "r": 11
+                    },
+                    {
+                        "filename": "heights_topper_stone_1",
+                        "y": -255,
+                        "h": 35,
+                        "z": 304,
+                        "w": 160,
+                        "x": 1942,
+                        "r": -3
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": -148,
+                        "h": 190,
+                        "z": 0,
+                        "w": 499,
+                        "x": 1892
+                    },
+                    {
+                        "filename": "heights_topper_2",
+                        "y": -168,
+                        "h": 44,
+                        "z": 181,
+                        "w": 159,
+                        "x": -2369
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -261,
+                        "h": 69,
+                        "z": 192,
+                        "w": 269,
+                        "x": 1050
+                    },
+                    {
+                        "filename": "heights_topper_2",
+                        "y": -304,
+                        "h": 60,
+                        "z": 289,
+                        "w": 145,
+                        "x": -1059
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -102,
+                        "h": 69,
+                        "z": 86,
+                        "w": 269,
+                        "x": -802
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -104,
+                        "h": 69,
+                        "z": 76,
+                        "w": 269,
+                        "x": -1734,
+                        "r": 4
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -252,
+                        "h": 69,
+                        "z": 212,
+                        "w": 269,
+                        "x": 1146
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -496,
+                        "h": 54,
+                        "z": 205,
+                        "w": 269,
+                        "x": 148,
+                        "r": 2,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "heights_moss_3",
+                        "y": -66,
+                        "h": 135,
+                        "z": 308,
+                        "w": 358,
+                        "x": 640,
+                        "r": 7
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -305,
+                        "h": 54,
+                        "z": 197,
+                        "w": 269,
+                        "x": 383,
+                        "r": 8
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": -288,
+                        "h": 201,
+                        "z": 7,
+                        "w": 526,
+                        "x": 392,
+                        "r": 6
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -30,
+                        "h": 69,
+                        "z": 85,
+                        "w": 269,
+                        "x": -972,
+                        "r": 3
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -165,
+                        "h": 69,
+                        "z": 72,
+                        "w": 269,
+                        "x": -2036
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -138,
+                        "h": 69,
+                        "z": 138,
+                        "w": 269,
+                        "x": -2127
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -142,
+                        "h": 69,
+                        "z": 171,
+                        "w": 269,
+                        "x": 586
+                    },
+                    {
+                        "filename": "heights_topper_2",
+                        "y": -190,
+                        "h": 61,
+                        "z": 156,
+                        "w": 145,
+                        "x": 468
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -428,
+                        "h": 54,
+                        "z": 200,
+                        "w": 269,
+                        "x": -56,
+                        "r": -2,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -118,
+                        "h": 69,
+                        "z": 71,
+                        "w": 269,
+                        "x": -2234
+                    },
+                    {
+                        "filename": "heights_moss_2",
+                        "y": -251,
+                        "h": 44,
+                        "z": 166,
+                        "w": 200,
+                        "x": -95
+                    },
+                    {
+                        "filename": "heights_topper_2",
+                        "y": -258,
+                        "h": 60,
+                        "z": 283,
+                        "w": 145,
+                        "x": 2276
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -76,
+                        "h": 69,
+                        "z": 143,
+                        "w": 269,
+                        "x": -718
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -78,
+                        "h": 69,
+                        "z": 131,
+                        "w": 269,
+                        "x": 2426,
+                        "r": 7
+                    },
+                    {
+                        "filename": "heights_topper_2",
+                        "y": -221,
+                        "h": 60,
+                        "z": 287,
+                        "w": 145,
+                        "x": 2061
+                    },
+                    {
+                        "filename": "heights_moss_2",
+                        "y": -133,
+                        "h": 44,
+                        "z": 150,
+                        "w": 200,
+                        "x": -1685
+                    },
+                    {
+                        "filename": "heights_topper_stone_1",
+                        "y": -355,
+                        "h": 38,
+                        "z": 293,
+                        "w": 160,
+                        "x": 213,
+                        "r": 2
+                    },
+                    {
+                        "filename": "heights_topper_2",
+                        "y": -121,
+                        "h": 52,
+                        "z": 178,
+                        "w": 149,
+                        "x": 2173
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -111,
+                        "h": 54,
+                        "z": 67,
+                        "w": 269,
+                        "x": -2503,
+                        "r": -2,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -58,
+                        "h": 69,
+                        "z": 115,
+                        "w": 269,
+                        "x": 1660,
+                        "r": 10
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": -58,
+                        "h": 190,
+                        "z": 23,
+                        "w": 499,
+                        "x": -827
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -98,
+                        "h": 69,
+                        "z": 105,
+                        "w": 269,
+                        "x": 896,
+                        "r": 2
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": -63,
+                        "h": 217,
+                        "z": 17,
+                        "w": 571,
+                        "x": -2149
+                    },
+                    {
+                        "filename": "heights_topper_stone_1",
+                        "y": -163,
+                        "h": 38,
+                        "z": 249,
+                        "w": 160,
+                        "x": -1675,
+                        "r": 2
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -480,
+                        "h": 54,
+                        "z": 210,
+                        "w": 269,
+                        "x": 332,
+                        "r": -2,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": -93,
+                        "h": 190,
+                        "z": 26,
+                        "w": 499,
+                        "x": -2577
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -110,
+                        "h": 69,
+                        "z": 102,
+                        "w": 269,
+                        "x": 742
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": 59,
+                        "h": 190,
+                        "z": 41,
+                        "w": 499,
+                        "x": -2561
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -241,
+                        "h": 69,
+                        "z": 145,
+                        "w": 269,
+                        "x": 76,
+                        "r": 11
+                    },
+                    {
+                        "filename": "heights_topper_stone_1",
+                        "y": -137,
+                        "h": 38,
+                        "z": 301,
+                        "w": 160,
+                        "x": 1240,
+                        "r": 7
+                    },
+                    {
+                        "filename": "heights_topper_2",
+                        "y": -286,
+                        "h": 60,
+                        "z": 284,
+                        "w": 145,
+                        "x": 2354
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": 14,
+                        "h": 190,
+                        "z": 61,
+                        "w": 499,
+                        "x": 2816
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -218,
+                        "h": 69,
+                        "z": 186,
+                        "w": 269,
+                        "x": -888
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -130,
+                        "h": 69,
+                        "z": 101,
+                        "w": 269,
+                        "x": 644
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": 44,
+                        "h": 190,
+                        "z": 56,
+                        "w": 499,
+                        "x": 1308
+                    },
+                    {
+                        "filename": "heights_topper_2",
+                        "y": -257,
+                        "h": 60,
+                        "z": 286,
+                        "w": 145,
+                        "x": 2042
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": -91,
+                        "h": 190,
+                        "z": 37,
+                        "w": 499,
+                        "x": -2213
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": -106,
+                        "h": 219,
+                        "z": 11,
+                        "w": 574,
+                        "x": -575
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -248,
+                        "h": 69,
+                        "z": 191,
+                        "w": 269,
+                        "x": 920
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": 36,
+                        "h": 190,
+                        "z": 58,
+                        "w": 499,
+                        "x": 1894
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -142,
+                        "h": 69,
+                        "z": 144,
+                        "w": 269,
+                        "x": 456
+                    },
+                    {
+                        "filename": "heights_topper_stone_1",
+                        "y": -290,
+                        "h": 38,
+                        "z": 306,
+                        "w": 160,
+                        "x": 1805
+                    },
+                    {
+                        "filename": "alakol_beach_1",
+                        "y": -161,
+                        "h": 75,
+                        "z": 34,
+                        "w": 636,
+                        "x": 996,
+                        "r": 3
+                    },
+                    {
+                        "filename": "heights_moss_1",
+                        "y": -11,
+                        "h": 89,
+                        "z": 147,
+                        "w": 163,
+                        "x": -1282
+                    },
+                    {
+                        "filename": "heights_topper_2",
+                        "y": -248,
+                        "h": 61,
+                        "z": 213,
+                        "w": 145,
+                        "x": 1228,
+                        "r": 12
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": 20,
+                        "h": 190,
+                        "z": 53,
+                        "w": 499,
+                        "x": 772
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -139,
+                        "h": 58,
+                        "z": 251,
+                        "w": 265,
+                        "x": -726
+                    },
+                    {
+                        "filename": "heights_moss_2",
+                        "y": -231,
+                        "h": 44,
+                        "z": 227,
+                        "w": 200,
+                        "x": -190
+                    },
+                    {
+                        "filename": "heights_mound_2",
+                        "y": 0,
+                        "h": 206,
+                        "z": 38,
+                        "w": 294,
+                        "x": -884
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": -68,
+                        "h": 190,
+                        "z": 22,
+                        "w": 499,
+                        "x": 296
+                    },
+                    {
+                        "filename": "heights_topper_2",
+                        "y": -406,
+                        "h": 60,
+                        "z": 276,
+                        "w": 145,
+                        "x": 519
+                    },
+                    {
+                        "filename": "heights_moss_2",
+                        "y": -53,
+                        "h": 44,
+                        "z": 162,
+                        "w": 200,
+                        "x": -1050
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": -205,
+                        "h": 201,
+                        "z": 10,
+                        "w": 526,
+                        "x": -428,
+                        "r": 11
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -158,
+                        "h": 69,
+                        "z": 99,
+                        "w": 269,
+                        "x": 618
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": 134,
+                        "h": 190,
+                        "z": 55,
+                        "w": 499,
+                        "x": 1064
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -64,
+                        "h": 69,
+                        "z": 113,
+                        "w": 269,
+                        "x": 1574
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -227,
+                        "h": 69,
+                        "z": 285,
+                        "w": 269,
+                        "x": 2050,
+                        "r": -4,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -52,
+                        "h": 69,
+                        "z": 122,
+                        "w": 269,
+                        "x": 1978,
+                        "r": 3
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": -120,
+                        "h": 190,
+                        "z": 33,
+                        "w": 499,
+                        "x": 1174
+                    },
+                    {
+                        "filename": "heights_moss_2",
+                        "y": -118,
+                        "h": 44,
+                        "z": 174,
+                        "w": 200,
+                        "x": 1574
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -108,
+                        "h": 69,
+                        "z": 78,
+                        "w": 269,
+                        "x": -1562,
+                        "r": 9
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -428,
+                        "h": 54,
+                        "z": 198,
+                        "w": 269,
+                        "x": -224,
+                        "r": 3
+                    },
+                    {
+                        "filename": "alakol_beach_1",
+                        "y": -118,
+                        "h": 75,
+                        "z": 265,
+                        "w": 636,
+                        "x": -622,
+                        "r": -6
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -74,
+                        "h": 69,
+                        "z": 137,
+                        "w": 269,
+                        "x": 2918,
+                        "r": 10
+                    },
+                    {
+                        "filename": "heights_moss_2",
+                        "y": -144,
+                        "h": 44,
+                        "z": 252,
+                        "w": 200,
+                        "x": 2550
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -127,
+                        "h": 69,
+                        "z": 68,
+                        "w": 269,
+                        "x": -2549,
+                        "r": 13
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -74,
+                        "h": 69,
+                        "z": 123,
+                        "w": 269,
+                        "x": 2192
+                    },
+                    {
+                        "filename": "heights_topper_2",
+                        "y": -268,
+                        "h": 61,
+                        "z": 214,
+                        "w": 145,
+                        "x": 1300
+                    },
+                    {
+                        "filename": "wildflowers_blue_2",
+                        "y": -102,
+                        "h": 23,
+                        "z": 39,
+                        "w": 100,
+                        "x": -2504
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -350,
+                        "h": 54,
+                        "z": 202,
+                        "w": 269,
+                        "x": -510,
+                        "r": -2,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -264,
+                        "h": 69,
+                        "z": 281,
+                        "w": 269,
+                        "x": 2265,
+                        "r": -4,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -211,
+                        "h": 69,
+                        "z": 93,
+                        "w": 269,
+                        "x": -54,
+                        "r": 11
+                    },
+                    {
+                        "filename": "alakol_beach_1",
+                        "y": -175,
+                        "h": 75,
+                        "z": 35,
+                        "w": 636,
+                        "x": 760,
+                        "r": 3
+                    },
+                    {
+                        "filename": "heights_topper_2",
+                        "y": -168,
+                        "h": 61,
+                        "z": 183,
+                        "w": 145,
+                        "x": -2202
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -132,
+                        "h": 69,
+                        "z": 88,
+                        "w": 269,
+                        "x": -630
+                    },
+                    {
+                        "filename": "heights_topper_stone_1",
+                        "y": -185,
+                        "h": 38,
+                        "z": 246,
+                        "w": 160,
+                        "x": -1823
+                    },
+                    {
+                        "filename": "heights_topper_stone_1",
+                        "y": -239,
+                        "h": 38,
+                        "z": 296,
+                        "w": 160,
+                        "x": 496,
+                        "r": 7
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": 4,
+                        "h": 190,
+                        "z": 54,
+                        "w": 499,
+                        "x": 1032
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -104,
+                        "h": 69,
+                        "z": 112,
+                        "w": 269,
+                        "x": 1570
+                    },
+                    {
+                        "filename": "heights_moss_3",
+                        "y": -125,
+                        "h": 135,
+                        "z": 262,
+                        "w": 358,
+                        "x": 185,
+                        "r": -3
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -339,
+                        "h": 54,
+                        "z": 203,
+                        "w": 269,
+                        "x": -595,
+                        "r": -5
+                    },
+                    {
+                        "filename": "heights_moss_2",
+                        "y": -231,
+                        "h": 44,
+                        "z": 241,
+                        "w": 200,
+                        "x": 160
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": -137,
+                        "h": 149,
+                        "z": 173,
+                        "w": 467,
+                        "x": 1549,
+                        "r": 2
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -126,
+                        "h": 69,
+                        "z": 66,
+                        "w": 269,
+                        "x": -2598
+                    },
+                    {
+                        "filename": "heights_topper_2",
+                        "y": -196,
+                        "h": 51,
+                        "z": 184,
+                        "w": 159,
+                        "x": -908
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -334,
+                        "h": 54,
+                        "z": 204,
+                        "w": 269,
+                        "x": -513,
+                        "r": -5
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -234,
+                        "h": 69,
+                        "z": 175,
+                        "w": 269,
+                        "x": 1498
+                    },
+                    {
+                        "filename": "gravel_1",
+                        "y": -136,
+                        "h": 52,
+                        "z": 159,
+                        "w": 281,
+                        "x": 985
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": -282,
+                        "h": 222,
+                        "z": 9,
+                        "w": 581,
+                        "x": -131,
+                        "r": 2
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": -98,
+                        "h": 190,
+                        "z": 30,
+                        "w": 499,
+                        "x": 913
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -80,
+                        "h": 69,
+                        "z": 63,
+                        "w": 269,
+                        "x": -2852
+                    },
+                    {
+                        "filename": "heights_moss_3",
+                        "y": -15,
+                        "h": 135,
+                        "z": 261,
+                        "w": 358,
+                        "x": 1957,
+                        "r": -5
+                    },
+                    {
+                        "filename": "heights_moss_2",
+                        "y": -198,
+                        "h": 44,
+                        "z": 172,
+                        "w": 200,
+                        "x": 400,
+                        "r": -4
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": 40,
+                        "h": 190,
+                        "z": 51,
+                        "w": 499,
+                        "x": 512
+                    },
+                    {
+                        "filename": "heights_moss_2",
+                        "y": -132,
+                        "h": 36,
+                        "z": 255,
+                        "w": 163,
+                        "x": 2567
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -126,
+                        "h": 69,
+                        "z": 104,
+                        "w": 269,
+                        "x": 920,
+                        "r": 3
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": -140,
+                        "h": 144,
+                        "z": 25,
+                        "w": 378,
+                        "x": 2864
+                    },
+                    {
+                        "filename": "heights_moss_2",
+                        "y": -217,
+                        "h": 44,
+                        "z": 242,
+                        "w": 200,
+                        "x": 380
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -108,
+                        "h": 69,
+                        "z": 106,
+                        "w": 269,
+                        "x": 1104,
+                        "r": 14
+                    },
+                    {
+                        "filename": "heights_topper_stone_1",
+                        "y": -165,
+                        "h": 38,
+                        "z": 302,
+                        "w": 160,
+                        "x": 1224,
+                        "r": 7
+                    },
+                    {
+                        "filename": "heights_moss_2",
+                        "y": -192,
+                        "h": 44,
+                        "z": 243,
+                        "w": 200,
+                        "x": -276,
+                        "r": -4
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": -95,
+                        "h": 155,
+                        "z": 20,
+                        "w": 407,
+                        "x": -1373,
+                        "r": 13
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -212,
+                        "h": 69,
+                        "z": 146,
+                        "w": 269,
+                        "x": 237,
+                        "r": 18
+                    },
+                    {
+                        "filename": "gravel_1",
+                        "y": -130,
+                        "h": 52,
+                        "z": 266,
+                        "w": 281,
+                        "x": -765
+                    },
+                    {
+                        "filename": "heights_moss_1",
+                        "y": -162,
+                        "h": 89,
+                        "z": 189,
+                        "w": 163,
+                        "x": -920
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -49,
+                        "h": 69,
+                        "z": 87,
+                        "w": 269,
+                        "x": -826,
+                        "r": 2
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -84,
+                        "h": 69,
+                        "z": 135,
+                        "w": 269,
+                        "x": 2790
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -94,
+                        "h": 69,
+                        "z": 62,
+                        "w": 269,
+                        "x": -2970
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -154,
+                        "h": 69,
+                        "z": 180,
+                        "w": 269,
+                        "x": -2479,
+                        "r": 13
+                    },
+                    {
+                        "filename": "heights_topper_stone_1",
+                        "y": -156,
+                        "h": 38,
+                        "z": 300,
+                        "w": 160,
+                        "x": 1154,
+                        "r": 7
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -42,
+                        "h": 69,
+                        "z": 83,
+                        "w": 269,
+                        "x": -1062
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": -142,
+                        "h": 190,
+                        "z": 16,
+                        "w": 499,
+                        "x": -2426,
+                        "r": -2
+                    },
+                    {
+                        "filename": "alakol_beach_1",
+                        "y": -143,
+                        "h": 75,
+                        "z": 298,
+                        "w": 636,
+                        "x": 767,
+                        "r": 3
+                    },
+                    {
+                        "filename": "alakol_beach_1",
+                        "y": -140,
+                        "h": 75,
+                        "z": 129,
+                        "w": 636,
+                        "x": 2868,
+                        "r": 2
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -108,
+                        "h": 69,
+                        "z": 230,
+                        "w": 269,
+                        "x": 2382,
+                        "r": -4,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -440,
+                        "h": 54,
+                        "z": 211,
+                        "w": 269,
+                        "x": 365,
+                        "r": -2,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": 22,
+                        "h": 237,
+                        "z": 50,
+                        "w": 623,
+                        "x": 128
+                    },
+                    {
+                        "filename": "heights_topper_2",
+                        "y": -186,
+                        "h": 61,
+                        "z": 167,
+                        "w": 145,
+                        "x": 582
+                    },
+                    {
+                        "filename": "heights_moss_3",
+                        "y": -108,
+                        "h": 135,
+                        "z": 267,
+                        "w": 358,
+                        "x": 355,
+                        "r": 3
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -118,
+                        "h": 69,
+                        "z": 127,
+                        "w": 269,
+                        "x": 2404,
+                        "r": 7
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -118,
+                        "h": 58,
+                        "z": 250,
+                        "w": 265,
+                        "x": -845
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -84,
+                        "h": 69,
+                        "z": 77,
+                        "w": 269,
+                        "x": -1706,
+                        "r": 6
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -40,
+                        "h": 69,
+                        "z": 140,
+                        "w": 269,
+                        "x": -1298,
+                        "r": 11
+                    },
+                    {
+                        "filename": "gravel_2",
+                        "y": -206,
+                        "h": 22,
+                        "z": 218,
+                        "w": 39,
+                        "x": 628
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": 28,
+                        "h": 190,
+                        "z": 59,
+                        "w": 499,
+                        "x": 2210
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": 22,
+                        "h": 190,
+                        "z": 40,
+                        "w": 499,
+                        "x": -2912
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -110,
+                        "h": 69,
+                        "z": 132,
+                        "w": 269,
+                        "x": 2572,
+                        "r": 11
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -62,
+                        "h": 69,
+                        "z": 111,
+                        "w": 269,
+                        "x": 1400,
+                        "r": 3
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -189,
+                        "h": 69,
+                        "z": 97,
+                        "w": 269,
+                        "x": 341,
+                        "r": 20
+                    },
+                    {
+                        "filename": "heights_topper_stone_1",
+                        "y": -205,
+                        "h": 38,
+                        "z": 299,
+                        "w": 160,
+                        "x": 565,
+                        "r": 7
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": -194,
+                        "h": 201,
+                        "z": 4,
+                        "w": 526,
+                        "x": -642,
+                        "r": -24
+                    },
+                    {
+                        "filename": "heights_moss_1",
+                        "y": -212,
+                        "h": 89,
+                        "z": 222,
+                        "w": 163,
+                        "x": 1185
+                    },
+                    {
+                        "filename": "heights_topper_2",
+                        "y": -98,
+                        "h": 61,
+                        "z": 152,
+                        "w": 145,
+                        "x": -965
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": 56,
+                        "h": 190,
+                        "z": 46,
+                        "w": 499,
+                        "x": -1042
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -332,
+                        "h": 54,
+                        "z": 195,
+                        "w": 269,
+                        "x": 201,
+                        "r": 3
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -61,
+                        "h": 69,
+                        "z": 139,
+                        "w": 269,
+                        "x": -1481,
+                        "r": 14
+                    },
+                    {
+                        "filename": "heights_moss_2",
+                        "y": -269,
+                        "h": 44,
+                        "z": 164,
+                        "w": 200,
+                        "x": -23
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -86,
+                        "h": 69,
+                        "z": 110,
+                        "w": 269,
+                        "x": 1382
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -504,
+                        "h": 54,
+                        "z": 209,
+                        "w": 269,
+                        "x": 232,
+                        "r": -2,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -60,
+                        "h": 69,
+                        "z": 119,
+                        "w": 269,
+                        "x": 1958
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -74,
+                        "h": 69,
+                        "z": 117,
+                        "w": 269,
+                        "x": 1886
+                    },
+                    {
+                        "filename": "alakol_beach_1",
+                        "y": -95,
+                        "h": 75,
+                        "z": 264,
+                        "w": 636,
+                        "x": -981,
+                        "r": -6
+                    },
+                    {
+                        "filename": "patch_dirt_2a",
+                        "y": -440,
+                        "h": 49,
+                        "z": 310,
+                        "w": 286,
+                        "x": -165
+                    },
+                    {
+                        "filename": "heights_topper_2",
+                        "y": -414,
+                        "h": 60,
+                        "z": 275,
+                        "w": 145,
+                        "x": 471
+                    },
+                    {
+                        "filename": "heights_moss_2",
+                        "y": -136,
+                        "h": 29,
+                        "z": 224,
+                        "w": 200,
+                        "x": 1850
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -104,
+                        "h": 69,
+                        "z": 74,
+                        "w": 269,
+                        "x": -1916
+                    },
+                    {
+                        "filename": "heights_moss_2",
+                        "y": -307,
+                        "h": 44,
+                        "z": 233,
+                        "w": 200,
+                        "x": 1248
+                    },
+                    {
+                        "filename": "heights_topper_2",
+                        "y": -287,
+                        "h": 60,
+                        "z": 278,
+                        "w": 145,
+                        "x": 1843
+                    },
+                    {
+                        "filename": "heights_topper_2",
+                        "y": -275,
+                        "h": 39,
+                        "z": 217,
+                        "w": 145,
+                        "x": 1558
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -53,
+                        "h": 69,
+                        "z": 141,
+                        "w": 269,
+                        "x": -1021,
+                        "r": 11
+                    },
+                    {
+                        "filename": "heights_topper_2",
+                        "y": -229,
+                        "h": 48,
+                        "z": 228,
+                        "w": 145,
+                        "x": 89
+                    },
+                    {
+                        "filename": "heights_moss_3",
+                        "y": -100,
+                        "h": 135,
+                        "z": 168,
+                        "w": 358,
+                        "x": -190,
+                        "r": -6
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -64,
+                        "h": 69,
+                        "z": 82,
+                        "w": 269,
+                        "x": -1148
+                    },
+                    {
+                        "filename": "heights_topper_stone_1",
+                        "y": -198,
+                        "h": 44,
+                        "z": 245,
+                        "w": 158,
+                        "x": -2271
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -212,
+                        "h": 49,
+                        "z": 187,
+                        "w": 76,
+                        "x": -992
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -201,
+                        "h": 69,
+                        "z": 188,
+                        "w": 269,
+                        "x": -894
+                    },
+                    {
+                        "filename": "heights_topper_stone_1",
+                        "y": -170,
+                        "h": 38,
+                        "z": 247,
+                        "w": 160,
+                        "x": -1871
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": -40,
+                        "h": 190,
+                        "z": 32,
+                        "w": 499,
+                        "x": 1433
+                    },
+                    {
+                        "filename": "heights_face_rock_2",
+                        "y": -96,
+                        "h": 155,
+                        "z": 27,
+                        "w": 547,
+                        "x": -2838
+                    },
+                    {
+                        "filename": "heights_topper_stone_1",
+                        "y": -241,
+                        "h": 38,
+                        "z": 294,
+                        "w": 160,
+                        "x": 429,
+                        "r": 2
+                    },
+                    {
+                        "filename": "gravel_1",
+                        "y": -141,
+                        "h": 52,
+                        "z": 219,
+                        "w": 281,
+                        "x": 937
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -78,
+                        "h": 69,
+                        "z": 107,
+                        "w": 269,
+                        "x": 1040,
+                        "r": 13
+                    },
+                    {
+                        "filename": "heights_moss_2",
+                        "y": -152,
+                        "h": 44,
+                        "z": 254,
+                        "w": 200,
+                        "x": 2080
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": -62,
+                        "h": 190,
+                        "z": 24,
+                        "w": 499,
+                        "x": -714
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -104,
+                        "h": 69,
+                        "z": 124,
+                        "w": 269,
+                        "x": 2306
+                    },
+                    {
+                        "filename": "heights_topper_2",
+                        "y": -222,
+                        "h": 43,
+                        "z": 170,
+                        "w": 157,
+                        "x": 352
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -482,
+                        "h": 54,
+                        "z": 206,
+                        "w": 269,
+                        "x": 290,
+                        "r": 2,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "heights_topper_stone_1",
+                        "y": -213,
+                        "h": 44,
+                        "z": 259,
+                        "w": 158,
+                        "x": -2156
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -448,
+                        "h": 54,
+                        "z": 207,
+                        "w": 269,
+                        "x": 421,
+                        "r": 2,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "heights_mound_2",
+                        "y": -56,
+                        "h": 206,
+                        "z": 28,
+                        "w": 294,
+                        "x": 87
+                    },
+                    {
+                        "filename": "heights_topper_1",
+                        "y": -224,
+                        "h": 69,
+                        "z": 185,
+                        "w": 269,
+                        "x": -786,
+                        "h_flip": true
+                    }
+                ],
+                "signposts": [
+                    {
+                        "name": "signpost_3",
+                        "w": 100,
+                        "y": -200,
+                        "h": 200,
+                        "x": 2700,
+                        "connects": [
+                            {
+                                "y": -220,
+                                "x": 120,
+                                "hub_id": "109",
+                                "mote_id": "9",
+                                "label": "Margazhi Gazzi",
+                                "tsid": "LUV7MEQ2P5F2LOG"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "signpost_2",
+                        "h": 200,
+                        "w": 100,
+                        "y": -140,
+                        "x": -2878,
+                        "connects": [
+                            {
+                                "y": -145,
+                                "x": 2740,
+                                "hub_id": "109",
+                                "mote_id": "9",
+                                "label": "Yugadi Yearns",
+                                "tsid": "LUV1V6AR27G26QO"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "signpost_1",
+                        "h": 200,
+                        "w": 100,
+                        "y": -147,
+                        "x": -1534,
+                        "connects": [
+                            {
+                                "y": -152,
+                                "x": -2660,
+                                "hub_id": "109",
+                                "mote_id": "9",
+                                "label": "Vaisakha Sack",
+                                "tsid": "LUVTHO9HPSF2GJA"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "bg_1": {
+                "name": "bg_1",
+                "w": 5040,
+                "h": 1000,
+                "z": -1,
+                "filters": {
+                    "brightness": 32,
+                    "blur": 1,
+                    "tintAmount": 0,
+                    "contrast": -7,
+                    "tintColor": 16578882,
+                    "saturation": -29
+                },
+                "decos": [
+                    {
+                        "filename": "heights_mound_2",
+                        "y": 787,
+                        "h": 206,
+                        "z": 22,
+                        "w": 294,
+                        "x": 2484
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": 737,
+                        "h": 190,
+                        "z": 0,
+                        "w": 499,
+                        "x": 3126
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": 491,
+                        "h": 190,
+                        "z": 19,
+                        "w": 499,
+                        "x": 5444
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": 793,
+                        "h": 190,
+                        "z": 18,
+                        "w": 499,
+                        "x": 4396
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": 820,
+                        "h": 190,
+                        "z": 14,
+                        "w": 499,
+                        "x": 3832
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": 771,
+                        "h": 190,
+                        "z": 11,
+                        "w": 499,
+                        "x": 3282
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": 717,
+                        "h": 190,
+                        "z": 8,
+                        "w": 499,
+                        "x": 2184
+                    },
+                    {
+                        "filename": "alakol_beach_1",
+                        "y": 732,
+                        "h": 89,
+                        "z": 26,
+                        "w": 693,
+                        "x": 1141,
+                        "r": -3
+                    },
+                    {
+                        "filename": "alakol_beach_1",
+                        "y": 680,
+                        "h": 64,
+                        "z": 25,
+                        "w": 693,
+                        "x": 1459,
+                        "r": -3
+                    },
+                    {
+                        "filename": "alakol_beach_1",
+                        "y": 699,
+                        "h": 89,
+                        "z": 30,
+                        "w": 693,
+                        "x": 3902,
+                        "r": -3
+                    },
+                    {
+                        "filename": "heights_mound_2",
+                        "y": 816,
+                        "h": 206,
+                        "z": 1,
+                        "w": 294,
+                        "x": 215
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": 709,
+                        "h": 190,
+                        "z": 7,
+                        "w": 499,
+                        "x": 1871
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": 727,
+                        "h": 190,
+                        "z": 5,
+                        "w": 499,
+                        "x": 1202
+                    },
+                    {
+                        "filename": "heights_tree_bare_1",
+                        "y": 954,
+                        "h": 631,
+                        "z": 33,
+                        "w": 222,
+                        "x": 1132
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": 717,
+                        "h": 190,
+                        "z": 9,
+                        "w": 499,
+                        "x": 2526
+                    },
+                    {
+                        "filename": "alakol_beach_1",
+                        "y": 788,
+                        "h": 89,
+                        "z": 28,
+                        "w": 693,
+                        "x": 1240,
+                        "r": -3
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": 806,
+                        "h": 190,
+                        "z": 16,
+                        "w": 499,
+                        "x": 5174
+                    },
+                    {
+                        "filename": "alakol_beach_1",
+                        "y": 743,
+                        "h": 89,
+                        "z": 27,
+                        "w": 693,
+                        "x": 1613,
+                        "r": -3
+                    },
+                    {
+                        "filename": "heights_face_1",
+                        "y": 1149,
+                        "h": 537,
+                        "z": 23,
+                        "w": 775,
+                        "x": 1643
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": 822,
+                        "h": 190,
+                        "z": 20,
+                        "w": 499,
+                        "x": 4787
+                    },
+                    {
+                        "filename": "alakol_beach_1",
+                        "y": 754,
+                        "h": 89,
+                        "z": 29,
+                        "w": 693,
+                        "x": 549,
+                        "r": -3
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": 845,
+                        "h": 190,
+                        "z": 2,
+                        "w": 499,
+                        "x": 22
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": 719,
+                        "h": 190,
+                        "z": 13,
+                        "w": 499,
+                        "x": 3736,
+                        "r": -10
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": 773,
+                        "h": 190,
+                        "z": 12,
+                        "w": 499,
+                        "x": 2996
+                    },
+                    {
+                        "filename": "alakol_beach_1",
+                        "y": 723,
+                        "h": 89,
+                        "z": 31,
+                        "w": 693,
+                        "x": 4264,
+                        "r": -3
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": 806,
+                        "h": 190,
+                        "z": 15,
+                        "w": 499,
+                        "x": 4994
+                    },
+                    {
+                        "filename": "heights_face_1",
+                        "y": 1130,
+                        "h": 542,
+                        "z": 24,
+                        "w": 757,
+                        "x": 1086
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": 609,
+                        "h": 238,
+                        "z": 21,
+                        "w": 627,
+                        "x": 5440
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": 730,
+                        "h": 190,
+                        "z": 10,
+                        "w": 499,
+                        "x": 2842
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": 714,
+                        "h": 190,
+                        "z": 6,
+                        "w": 499,
+                        "x": 1573
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": 721,
+                        "h": 190,
+                        "z": 4,
+                        "w": 499,
+                        "x": 924
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": 764,
+                        "h": 230,
+                        "z": 17,
+                        "w": 605,
+                        "x": 4116
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": 707,
+                        "h": 190,
+                        "z": 3,
+                        "w": 499,
+                        "x": 532
+                    },
+                    {
+                        "filename": "alakol_beach_1",
+                        "y": 741,
+                        "h": 89,
+                        "z": 32,
+                        "w": 693,
+                        "x": 3853,
+                        "r": -3
+                    }
+                ],
+                "signposts": []
+            },
+            "foreground": {
+                "name": "foreground",
+                "w": 6500,
+                "h": 1025,
+                "z": 2,
+                "filters": {
+                    "brightness": 7,
+                    "blur": 0,
+                    "tintAmount": 0,
+                    "contrast": -3,
+                    "tintColor": 16752499,
+                    "saturation": -38
+                },
+                "decos": [
+                    {
+                        "filename": "heights_mound_3",
+                        "y": 1075,
+                        "h": 190,
+                        "z": 1,
+                        "w": 499,
+                        "x": 5048
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": 1094,
+                        "h": 190,
+                        "z": 0,
+                        "w": 499,
+                        "x": 4818
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": 1101,
+                        "h": 190,
+                        "z": 6,
+                        "w": 499,
+                        "x": 2398
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": 1137,
+                        "h": 190,
+                        "z": 7,
+                        "w": 499,
+                        "x": 2620
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": 1120,
+                        "h": 190,
+                        "z": 5,
+                        "w": 499,
+                        "x": 2168
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": 1105,
+                        "h": 190,
+                        "z": 4,
+                        "w": 499,
+                        "x": 5880
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": 1111,
+                        "h": 190,
+                        "z": 2,
+                        "w": 499,
+                        "x": 5270
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": 1113,
+                        "h": 190,
+                        "z": 3,
+                        "w": 499,
+                        "x": 5554
+                    }
+                ],
+                "signposts": []
+            },
+            "middleplus": {
+                "name": "middleplus",
+                "w": 6000,
+                "h": 1000,
+                "z": 1,
+                "filters": {
+                    "brightness": 31,
+                    "tintAmount": 53,
+                    "contrast": 61,
+                    "tintColor": 16744770,
+                    "saturation": -100
+                },
+                "decos": [],
+                "signposts": []
+            },
+            "sky": {
+                "name": "sky",
+                "w": 3882,
+                "h": 1000,
+                "z": -3,
+                "filters": {
+                    "brightness": 36,
+                    "blur": 0,
+                    "tintAmount": 3,
+                    "contrast": 0,
+                    "tintColor": 4013373,
+                    "saturation": -16
+                },
+                "decos": [
+                    {
+                        "filename": "cloud_fluffy_2",
+                        "y": 646,
+                        "h": 304,
+                        "z": 0,
+                        "w": 776,
+                        "x": 1848
+                    }
+                ],
+                "signposts": []
+            },
+            "bg_2": {
+                "name": "bg_2",
+                "w": 4440,
+                "h": 1000,
+                "z": -2,
+                "filters": {
+                    "brightness": 36,
+                    "blur": 3,
+                    "tintAmount": 0,
+                    "contrast": -9,
+                    "tintColor": 16775214,
+                    "saturation": -36
+                },
+                "decos": [
+                    {
+                        "filename": "heights_moss_3",
+                        "y": 541,
+                        "h": 78,
+                        "z": 33,
+                        "w": 216,
+                        "x": -1332,
+                        "r": 3
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": 680,
+                        "h": 136,
+                        "z": 31,
+                        "w": 358,
+                        "x": 162
+                    },
+                    {
+                        "filename": "alakol_beach_1",
+                        "y": 481,
+                        "h": 50,
+                        "z": 52,
+                        "w": 425,
+                        "x": 653
+                    },
+                    {
+                        "filename": "alakol_beach_1",
+                        "y": 527,
+                        "h": 71,
+                        "z": 50,
+                        "w": 805,
+                        "x": 1314,
+                        "r": -3
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": 648,
+                        "h": 190,
+                        "z": 27,
+                        "w": 499,
+                        "x": 977
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": 619,
+                        "h": 137,
+                        "z": 48,
+                        "w": 361,
+                        "x": 1057
+                    },
+                    {
+                        "filename": "heights_face_rock_2",
+                        "y": 577,
+                        "h": 99,
+                        "z": 29,
+                        "w": 303,
+                        "x": 618,
+                        "r": -3
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": 569,
+                        "h": 137,
+                        "z": 7,
+                        "w": 361,
+                        "x": 199,
+                        "r": -11
+                    },
+                    {
+                        "filename": "alakol_beach_1",
+                        "y": 519,
+                        "h": 50,
+                        "z": 36,
+                        "w": 425,
+                        "x": -1645
+                    },
+                    {
+                        "filename": "alakol_beach_1",
+                        "y": 494,
+                        "h": 50,
+                        "z": 53,
+                        "w": 425,
+                        "x": 884
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": 719,
+                        "h": 154,
+                        "z": 19,
+                        "w": 404,
+                        "x": 3568
+                    },
+                    {
+                        "filename": "alakol_beach_1",
+                        "y": 441,
+                        "h": 50,
+                        "z": 38,
+                        "w": 425,
+                        "x": 718,
+                        "r": -2
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": 503,
+                        "h": 137,
+                        "z": 5,
+                        "w": 361,
+                        "x": 364,
+                        "r": -11
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": 513,
+                        "h": 137,
+                        "z": 13,
+                        "w": 361,
+                        "x": 937
+                    },
+                    {
+                        "filename": "alakol_beach_1",
+                        "y": 452,
+                        "h": 50,
+                        "z": 41,
+                        "w": 425,
+                        "x": 469
+                    },
+                    {
+                        "filename": "alakol_beach_1",
+                        "y": 504,
+                        "h": 50,
+                        "z": 35,
+                        "w": 425,
+                        "x": -1430
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": 625,
+                        "h": 137,
+                        "z": 54,
+                        "w": 361,
+                        "x": 1716
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": 635,
+                        "h": 190,
+                        "z": 26,
+                        "w": 499,
+                        "x": 739
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": 651,
+                        "h": 136,
+                        "z": 24,
+                        "w": 358,
+                        "x": 269
+                    },
+                    {
+                        "filename": "alakol_beach_1",
+                        "y": 684,
+                        "h": 80,
+                        "z": 56,
+                        "w": 692,
+                        "x": -40
+                    },
+                    {
+                        "filename": "alakol_beach_1",
+                        "y": 605,
+                        "h": 80,
+                        "z": 44,
+                        "w": 692,
+                        "x": 52
+                    },
+                    {
+                        "filename": "alakol_beach_1",
+                        "y": 553,
+                        "h": 50,
+                        "z": 43,
+                        "w": 425,
+                        "x": 69
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": 545,
+                        "h": 137,
+                        "z": 8,
+                        "w": 361,
+                        "x": 1180,
+                        "r": 11
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": 634,
+                        "h": 137,
+                        "z": 1,
+                        "w": 361,
+                        "x": 1180
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": 546,
+                        "h": 137,
+                        "z": 10,
+                        "w": 361,
+                        "x": 402
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": 690,
+                        "h": 190,
+                        "z": 23,
+                        "w": 499,
+                        "x": -796
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": 593,
+                        "h": 154,
+                        "z": 14,
+                        "w": 404,
+                        "x": 2631
+                    },
+                    {
+                        "filename": "alakol_beach_1",
+                        "y": 594,
+                        "h": 71,
+                        "z": 46,
+                        "w": 805,
+                        "x": 3070,
+                        "r": -3
+                    },
+                    {
+                        "filename": "alakol_beach_1",
+                        "y": 533,
+                        "h": 50,
+                        "z": 42,
+                        "w": 425,
+                        "x": 285
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": 646,
+                        "h": 154,
+                        "z": 15,
+                        "w": 404,
+                        "x": 2866
+                    },
+                    {
+                        "filename": "alakol_beach_1",
+                        "y": 445,
+                        "h": 50,
+                        "z": 4,
+                        "w": 425,
+                        "x": 1098
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": 658,
+                        "h": 190,
+                        "z": 22,
+                        "w": 499,
+                        "x": -1034
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": 622,
+                        "h": 163,
+                        "z": 21,
+                        "w": 428,
+                        "x": -1381
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": 710,
+                        "h": 154,
+                        "z": 18,
+                        "w": 404,
+                        "x": 3408
+                    },
+                    {
+                        "filename": "alakol_beach_1",
+                        "y": 484,
+                        "h": 50,
+                        "z": 34,
+                        "w": 425,
+                        "x": -1725
+                    },
+                    {
+                        "filename": "heights_moss_3",
+                        "y": 601,
+                        "h": 64,
+                        "z": 32,
+                        "w": 176,
+                        "x": 150,
+                        "r": -3
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": 541,
+                        "h": 137,
+                        "z": 11,
+                        "w": 361,
+                        "x": 607
+                    },
+                    {
+                        "filename": "alakol_beach_1",
+                        "y": 454,
+                        "h": 50,
+                        "z": 37,
+                        "w": 425,
+                        "x": 937,
+                        "r": -1
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": 625,
+                        "h": 137,
+                        "z": 49,
+                        "w": 361,
+                        "x": 1276
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": 624,
+                        "h": 137,
+                        "z": 25,
+                        "w": 361,
+                        "x": 401
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": 516,
+                        "h": 137,
+                        "z": 0,
+                        "w": 361,
+                        "x": 1354
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": 559,
+                        "h": 137,
+                        "z": 9,
+                        "w": 361,
+                        "x": 1513
+                    },
+                    {
+                        "filename": "alakol_beach_1",
+                        "y": 599,
+                        "h": 71,
+                        "z": 47,
+                        "w": 805,
+                        "x": 3314,
+                        "r": -3
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": 698,
+                        "h": 154,
+                        "z": 17,
+                        "w": 404,
+                        "x": 3115
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": 484,
+                        "h": 137,
+                        "z": 12,
+                        "w": 361,
+                        "x": 784
+                    },
+                    {
+                        "filename": "alakol_beach_1",
+                        "y": 627,
+                        "h": 50,
+                        "z": 45,
+                        "w": 425,
+                        "x": 53
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": 690,
+                        "h": 156,
+                        "z": 55,
+                        "w": 483,
+                        "x": 479
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": 671,
+                        "h": 136,
+                        "z": 30,
+                        "w": 358,
+                        "x": 381
+                    },
+                    {
+                        "filename": "alakol_beach_1",
+                        "y": 552,
+                        "h": 71,
+                        "z": 51,
+                        "w": 805,
+                        "x": 1653,
+                        "r": -3
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": 456,
+                        "h": 137,
+                        "z": 6,
+                        "w": 361,
+                        "x": 563,
+                        "r": -9
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": 620,
+                        "h": 178,
+                        "z": 20,
+                        "w": 467,
+                        "x": -1657
+                    },
+                    {
+                        "filename": "alakol_beach_1",
+                        "y": 469,
+                        "h": 50,
+                        "z": 39,
+                        "w": 425,
+                        "x": 851,
+                        "r": -2
+                    },
+                    {
+                        "filename": "heights_face_rock_2",
+                        "y": 581,
+                        "h": 99,
+                        "z": 28,
+                        "w": 303,
+                        "x": 719,
+                        "r": -3
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": 653,
+                        "h": 137,
+                        "z": 2,
+                        "w": 361,
+                        "x": 1895
+                    },
+                    {
+                        "filename": "alakol_beach_1",
+                        "y": 484,
+                        "h": 61,
+                        "z": 40,
+                        "w": 425,
+                        "x": 1163
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": 712,
+                        "h": 154,
+                        "z": 16,
+                        "w": 404,
+                        "x": 2845
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "y": 641,
+                        "h": 137,
+                        "z": 3,
+                        "w": 361,
+                        "x": 2012
+                    }
+                ],
+                "signposts": []
+            }
+        }
+    }
+}

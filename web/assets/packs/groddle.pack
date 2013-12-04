@@ -1,0 +1,13 @@
+{"street":{
+  "loadArguments":{},
+  "url":"../locations/test.json",
+  "type":"json",
+  "importArguments":{}
+  },
+ "testimage":{
+  "loadArguments":{},
+  "url":"../sprites/test.svg",
+  "type":"image",
+  "importArguments":{}
+  }
+}

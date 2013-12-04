@@ -3,48 +3,54 @@ library coUclient;
 import 'dart:html';
 import 'dart:async';
 import 'dart:convert';
-import 'dart:math' as math;
-import 'package:dartemis/dartemis.dart' as dartemis;
-import 'package:stagexl/stagexl.dart' as xl;
 import 'package:game_loop/game_loop_html.dart';
+import 'package:asset_pack/asset_pack.dart';
 
 // Import our coU libraries.
 import 'package:coUlib/glitch-time.dart';// The script that spits out time!
 
 // main game entry
-part './dart/cou.dart';
+part './dart/initialize.dart';
 
 // Point to external dart files
 part './dart/commands.dart';
 part './dart/user_interface.dart';
-part './dart/resize.dart';
 part './dart/input.dart';
-part './dart/loader.dart';
-part './dart/display.dart';
-part './dart/maprender.dart';
+part './dart/render.dart';
 
-
-Street CurrentStreet;
-
-// setup the Stage and RenderLoop 
-xl.Stage stage = new xl.Stage('gamescreen', gradientCanvas);
-xl.RenderLoop renderLoop = new xl.RenderLoop()
-    ..addStage(stage);
-
-// Define our ResourceManager
-xl.ResourceManager resourceManager;
-
-// Define our Dartemis World
-dartemis.World world = new dartemis.World();
-
+// TODO: It may be a good idea to write our own simpler game_loop at some point.
 // Define our game_loop
-GameLoopHtml gameLoop = new GameLoopHtml(gradientCanvas)
+GameLoopHtml game = new GameLoopHtml(middleCanvas)
   ..onUpdate = ((gameLoop) {loop();})
   ..onRender = ((gameLoop) {render();});
 
-// Start the Game, see 'cou.dart' for 'game()'
-main() {game();}
+// Declare our asset manager.
+AssetManager assets = new AssetManager();
 
+
+
+// Initialize and begin the game.
+main() {
+  init();
+  game.start();
+}
+
+// Our gameloop
+loop() {
+  
+  
+}
+
+// Our renderloop
+render() {
+// Update clock
+refreshClock();
+
+// Update Street
+if (CurrentStreet is Street)
+CurrentStreet.render();
+
+}
 
 
 

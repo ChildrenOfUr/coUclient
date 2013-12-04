@@ -238,6 +238,7 @@ textarea{resize: none;}
 /*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 /*The displayed canvas that depicts gameplay*/
 #GameScreen {
+    background-color:#000;
     position:absolute;
     width:900px;
     height:600px;
@@ -257,7 +258,6 @@ textarea{resize: none;}
     -webkit-transition-duration:0.5s;
     -webkit-transition-timing-function:linear;
     -webkit-transition-delay:0s;    
-  
 }
 /*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 /*Elements in the top, left corner*/

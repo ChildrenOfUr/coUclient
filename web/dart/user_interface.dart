@@ -1,7 +1,6 @@
 part of coUclient;
 
-// TODO: When the mirrors api becomes rockin' stable we'll rewrite this file to be more efficient.
-// OOOOH maybe streams, I love me a good stream!
+// TODO: OOOOH maybe streams, I love a stream!
 // Also, perhaps we can turn this into a library, no sense cluttering up our gamey sorce with this stuff. 
 // We'll make a nice interface.
 
@@ -45,6 +44,12 @@ class UserInterface {
     _maxEnergyText.innerHtml = _maxenergy.toString();}
   
   init(){
+    //Start listening for the game's exit and display "You Won!"
+    window.onBeforeUnload.listen((_)
+    {
+      querySelector('#YouWon').hidden = false;    
+    });
+    
     //Set up the Currant Display
     setCurrants('0');
     

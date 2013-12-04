@@ -4,6 +4,7 @@ author: coU Development Team
 description: The sourcecode/tools needed to hack/compile the Children of Ur client
 homepage: ChildrenOfUr.github.io
 dependencies:
+  asset_pack: any
   box2d: any
   browser: any
   coUlib:
@@ -12,4 +13,3 @@ dependencies:
       url: https://github.com/ChildrenOfUr/coUlib.git
   dartemis: any
   game_loop: any
-  stagexl: any

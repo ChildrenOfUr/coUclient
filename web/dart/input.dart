@@ -4,7 +4,7 @@ part of coUclient;
   initializeInput() {
   
   // disable default game_loop pointerlock
-   gameLoop.pointerLock.lockOnClick = false;
+   game.pointerLock.lockOnClick = false;
     
     
   // Handle the console opener
@@ -95,6 +95,9 @@ part of coUclient;
           camera['x']-=20;
         if (k.keyCode == 100)// d
           camera['x']+=20;
+      
+      print(camera['x'].toString() + ' ' + camera['y'].toString());
+      
       });
   
   

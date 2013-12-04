@@ -6,7 +6,6 @@ Map camera = new Map()
   ..['x'] = 0
   ..['y'] = 0;
 
-
 // The various canvases.
 CanvasElement gradientCanvas = querySelector('#gradientCanvas');
 CanvasElement skyCanvas = querySelector('#skyCanvas');
@@ -16,12 +15,14 @@ CanvasElement middleCanvas = querySelector('#middleCanvas');
 CanvasElement middleplusCanvas = querySelector('#middleplusCanvas');
 
 
-
+Street CurrentStreet;
 
 class Street {
   String ID;
+  Map _data;
   
   String label;
+  
   
   int width;
   int height;
@@ -33,78 +34,82 @@ class Street {
   List scenery = new List();
   
   Street(this.ID){
-        
-        String json = resourceManager.getTextFile(ID);
+        if (assets[ID] == null)
+       throw('Error: Asset not loaded!');
+        else {
       
-        Map data = JSON.decode(json);
+        _data = assets[ID];
         
         // sets the label for the street
-        label = data['label'];
+        label = _data['label'];
         
         // pulls the gradient from our json
-        gradientTop = '#' + data['gradient']['top'];
-        gradientBottom = '#' +  data['gradient']['bottom'];
+        gradientTop = '#' + _data['gradient']['top'];
+        gradientBottom = '#' +  _data['gradient']['bottom'];
         
-        width = (data['dynamic']['l'].abs() + data['dynamic']['r'].abs());
-        height = (data['dynamic']['t'].abs());
-  
-        Point origin = new Point(data['dynamic']['l'].abs(),data['dynamic']['t'].abs());
+        width = (_data['dynamic']['l'].abs() + _data['dynamic']['r'].abs());
+        height = (_data['dynamic']['t'].abs());
         
-        for (Map deco in data['dynamic']['layers']['middleground']['decos'])
-        {
-          
-          
-          
-          int x = deco['x'];
-          int y = deco['y'];
-          int w = deco['w'];
-          int h = deco['h'];
-
-          
-          
-        } 
-  
-  
-  
+        
+        }
   }
     
   load(){
     // Sets the size of our canvases.
-    gradientCanvas.style.width = width.toString() + 'px';
-    gradientCanvas.style.height = height.toString() + 'px';
+    gradientCanvas.width = width;
+    gradientCanvas.height = height;
     
-    skyCanvas.style.width = width.toString() + 'px';
-    skyCanvas.style.height = height.toString() + 'px';
+    skyCanvas.width = width;
+    skyCanvas.height = height;
     
-    bg2Canvas.style.width = width.toString() + 'px';
-    bg2Canvas.style.height = height.toString() + 'px';
+    bg2Canvas.width = width;
+    bg2Canvas.height = height;
     
-    bg1Canvas.style.width = width.toString() + 'px';
-    bg1Canvas.style.height = height.toString() + 'px';
+    bg1Canvas.width = width;
+    bg1Canvas.height = height;
     
-    middleCanvas.style.width = width.toString() + 'px';
-    middleCanvas.style.height = height.toString() + 'px';
+    middleCanvas.width = width;
+    middleCanvas.height = height;
     
-    middleplusCanvas.style.width = width.toString() + 'px';
-    middleplusCanvas.style.height = height.toString() + 'px';
+    middleplusCanvas.width = width;
+    middleplusCanvas.height = height;
     
     
     // sets the gradient background (This never changes, so we only do it once)
     // TODO, we could change this in relation to the time making days actually feel like days. :P
+    // TODO, this gradient often appears 'banded' we should do something about that later.
     var g = gradientCanvas.context2D.createLinearGradient(0,0,0,height);
     g.addColorStop(0,gradientTop);
     g.addColorStop(1,gradientBottom);
     gradientCanvas.context2D.fillStyle = g;
     gradientCanvas.context2D.fillRect(0,0,width,height);
 
+   
+    
+    
+  
+    // draws the middleground decorations
+    for (Map deco in _data['dynamic']['layers']['middleground']['decos'])
+    {
+      origin = new Point(_data['dynamic']['l'].abs(),_data['dynamic']['t'].abs());
+      int x = deco['x'] + origin.x;
+      int y = deco['y'] + origin.y;
+      int w = deco['w'];
+      int h = deco['h'];
+      
+      middleCanvas.context2D.imageSmoothingEnabled = false;
+      middleCanvas.context2D.fillStyle = '#fff';
+      middleCanvas.context2D.fillRect(x, y,w,h);
+    } 
+    
+    
+
     
     
     
-    
-    
-    
-  }  
-  // stitch together our canvases and render onto our main one.
+    CurrentStreet = this;
+}  
+  // render loop
   render(){
     gradientCanvas.style.position = 'absolute';
     gradientCanvas.style.left = (-camera['x']).toString() + 'px';
@@ -134,5 +139,42 @@ class Street {
     middleplusCanvas.style.left = (-camera['x']).toString() + 'px';
     middleplusCanvas.style.top =  (-camera['y']).toString() + 'px';
     
+
+    
+    
+    
   }  
 }
+
+
+resize(){
+  Element chatPane = querySelector('#ChatPane');
+  Element gameScreen = querySelector('#GameScreen');
+  Element gameStage = querySelector('#GameStage');
+  
+  int width = window.innerWidth - 80 - 40 - chatPane.clientWidth;
+  int height = window.innerHeight - 180;
+  
+  
+  chatPane.style.right;
+  chatPane.clientWidth;
+  
+  gameScreen.style.width = width.toString()+'px';
+  gameScreen.style.height = height.toString()+'px';
+  
+  chatPane.style.height = (height + 50).toString()+'px';
+  
+  
+  
+  
+  //TODO When the window becomes too small, we should spawn an overlay that tells the user this fact.
+}
+
+
+
+
+
+
+
+
+
