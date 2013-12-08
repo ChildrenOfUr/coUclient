@@ -21,7 +21,7 @@ part of coUclient;
   });  
   document.onFullscreenChange.listen((_)
       {
-        if (document.fullscreenEnabled)
+        if (document.fullscreenElement != null)
         {
           printConsole('System: FullScreen = true');
           querySelector('#FullscreenGlyph').style.display = 'none';
