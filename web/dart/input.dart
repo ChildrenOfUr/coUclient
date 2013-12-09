@@ -85,7 +85,7 @@ part of coUclient;
   //Handle player keypress input
   //TODO setup general keypress input functions.
   
-  document.body.onKeyPress.listen((KeyboardEvent k)
+  document.onKeyPress.listen((KeyboardEvent k)
       {
         if (k.keyCode == 119)// w
           camera['y']-=20;
@@ -96,7 +96,7 @@ part of coUclient;
         if (k.keyCode == 100)// d
           camera['x']+=20;
       
-      print(camera['x'].toString() + ' ' + camera['y'].toString());
+      printConsole(k.keyCode.toString());
       
       });
   
