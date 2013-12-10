@@ -87,20 +87,34 @@ part of coUclient;
   
   document.onKeyPress.listen((KeyboardEvent k)
       {
-        if (k.keyCode == 119)// w
+        if (k.keyCode == 119 || k.keyCode == 38)// w
           camera['y']-=20;
-        if (k.keyCode == 115)// s
+        if (k.keyCode == 115|| k.keyCode == 40)// s
           camera['y']+=20;
-        if (k.keyCode == 97)// a
+        if (k.keyCode == 97|| k.keyCode == 37)// a
           camera['x']-=20;
-        if (k.keyCode == 100)// d
+        if (k.keyCode == 100|| k.keyCode == 39)// d
           camera['x']+=20;
       
       printConsole(k.keyCode.toString());
       
       });
   
-  
+  //arrow keys work for KeyDown, but not KeyPress
+  document.onKeyDown.listen((KeyboardEvent k)
+      {
+        if (k.keyCode == 38)//up arrow
+          camera['y']-=20;
+        if (k.keyCode == 40)//down arrow
+          camera['y']+=20;
+        if (k.keyCode == 37)//left arrow
+          camera['x']-=20;
+        if (k.keyCode == 39)//right arrow
+          camera['x']+=20;
+      
+      printConsole(k.keyCode.toString());
+      
+      });
   
   
   
