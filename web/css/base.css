@@ -1,11 +1,11 @@
 /*Import FontAwesome */
 @import url("font-awesome.min.css");
+@font-face{font-family:'RockoFLFBold';src:url('./font/rockoflf-bold-webfont.eot');src:url('./font/rockoflf-bold-webfont.eot?#iefix') format('embedded-opentype'),url('./font/rockoflf-bold-webfont.woff') format('woff'),url('./font/rockoflf-bold-webfont.ttf') format('truetype'),url('./font/rockoflf-bold-webfont.svg#RockoFLFBold') format('svg');font-weight:normal;font-style:normal}
 
 /*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 /*The default styles, basic buttons*/
 * {
-   font-family: 'Nunito', sans-serif;
-   letter-spacing:-0.4px;
+   font-family: 'RockoFLFBold', sans-serif;
    cursor: default;
    font-weight: bold;
   -webkit-touch-callout: none;
@@ -45,18 +45,17 @@ a{color: purple;text-decoration: none;}
 .blu {color: #4d8c8b;}
 .red {color: #ba381a;}
 .white{color: #fff;}
-.bigwhite {font-size:15px;}
-.small {font-size:12px;}
+.big {font-size:22px;}
+.small {font-size:15px;}
 .soft {
    list-style-type: none;
    color: gray;
-   font-family: 'Asap', sans-serif;
-   letter-spacing:0px;
+   font-family: 'RockoFLFBold', sans-serif;
    font-size:12px;
    font-weight: 200;
 }
 .btn {
-    font-family: 'Asap', sans-serif;
+    font-family: 'RockoFLFBold', sans-serif;
    display: -moz-inline-box;
    -moz-box-orient: vertical;
    line-height: 21px;
@@ -168,13 +167,13 @@ textarea{resize: none;}
   margin-left:auto;
   margin-right:auto;
   width:2em;
-  letter-spacing:-25px;
+  letter-spacing:-10px;
   font-size:190px;}
 .LoadingH2 {
   margin-left:auto;
   margin-right:auto;
   width:7em;
-  letter-spacing:0px;   font-size:40px;    font-family: 'Asap', sans-serif;}
+  letter-spacing:0px;   font-size:40px;    font-family: 'RockoFLFBold', sans-serif;}
 #LoadingBackImg{
     position:absolute;
     opacity: 0;
@@ -192,7 +191,7 @@ textarea{resize: none;}
 /*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 /*The default styling of the 'You Won' Screen*/
 #YouWon {
-    font-family: 'Asap', sans-serif;
+    font-family: 'RockoFLFBold', sans-serif;
     font-size:1.5em;
     text-align: center;
     overflow:hidden;
@@ -315,7 +314,7 @@ textarea{resize: none;}
     opacity:0.9;
 }
 #MoodPercent {
-    font-size:30px;
+    font-size:35px;
     text-shadow: 0px 1px rgba(0,0,0,0.5);
 }
 
@@ -329,7 +328,7 @@ textarea{resize: none;}
 
 #ImaginationText {
     position:absolute;
-    top:20px;
+    top:22px;
     left:150px;
     color: rgba(0,0,0,0.6);
 }
@@ -342,21 +341,24 @@ textarea{resize: none;}
     position:absolute;
     width:170px;
     height:170px;
-    top:-6px;
+    top:-7px;
     left:-8px;
     margin: auto;
-    border: 0
+    border: 0;
 }
 #EnergyIndicator, #EnergyIndicatorRed{
     position:absolute;
-    top:4px;
-    left:3px;
+    top:3px;
+    left:3.5px;
     border: 0;
-    transition: -webkit-transform 1s ease-in-out, 
-                -moz-transform 1s ease-in-out,
-                -o-transform 1s ease-in-out,
-                -ms-transform 1s ease-in-out,
-                transform 1s ease-in-out;
+    transition-property: transform, opacity;
+    transition-duration: 1s;
+    transition-timing-function: ease-in-out;
+    transition-delay: 0s;
+    -webkit-transition-property: -webkit-transform, opacity;
+    -webkit-transition-duration:1s;
+    -webkit-transition-timing-function:ease-in-out;
+    -webkit-transition-delay:0s;  
 }
 #EnergyIndicatorRed{opacity:0;}
 #EnergyText {
@@ -498,7 +500,7 @@ textarea{resize: none;}
     color: #ba381a;
 }
 .PopWindowBody {
-   font-family: 'Asap', sans-serif;
+   font-family: 'RockoFLFBold', sans-serif;
    overflow:auto;
    font-size:12px;
    font-weight: normal;
@@ -592,9 +594,9 @@ textarea{resize: none;}
    margin-left: auto;
    margin-right: auto;
    width: 10em;
-   font-family: 'Asap', sans-serif;
+   font-family: 'RockoFLFBold', sans-serif;
    letter-spacing:0px;
-   font-size:10px;
+   font-size:12px;
    font-weight: 600;
    position:absolute;
    vertical-align: middle;
@@ -617,10 +619,9 @@ textarea{resize: none;}
    list-style-type: none;
 }
 .RCItem {
-  font-family: 'Asap', sans-serif;
-  font-size:13px;
+  font-family: 'RockoFLFBold', sans-serif;
+  font-size:15px;
   color: #005c73;
-  letter-spacing:0px;
   width: 95%;
   -moz-border-radius: 3px;
   border-radius: 3px;
@@ -646,15 +647,15 @@ textarea{resize: none;}
 .glyph:active {color: #d79035;}
 
 #CurrDay{
-  font-size:11px;
+  font-size:13px;
   color: #005c73;
   opacity:0.5;
   position:absolute;
-  top:-10px;  
+  top:-12px;  
   left:140px;  
 }
 #CurrTime{
-  font-size:13px;
+  font-size:15px;
   color: #005c73;
   position:absolute;
   top:1px;  
@@ -663,9 +664,9 @@ textarea{resize: none;}
 #CurrDate{
   color: #005c73;
   opacity:0.5;
-  font-size:11px;
+  font-size:13px;
   position:absolute;
-  top:14px;  
+  top:16px;  
   left:140px; 
 }
 /*The inventory bar at the bottom of the screen*/
@@ -723,7 +724,7 @@ textarea{resize: none;}
 /*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 /*The copyright footer*/
 #Footer{
-  font-family: 'Asap', sans-serif;
+  font-family: 'RockoFLFBold', sans-serif;
   font-size: 12px;
   position: absolute;
   opacity:0.6;
