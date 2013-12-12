@@ -16,6 +16,7 @@ part './dart/commands.dart';
 part './dart/user_interface.dart';
 part './dart/input.dart';
 part './dart/render.dart';
+part './dart/music.dart';
 
 // TODO: It may be a good idea to write our own simpler game_loop at some point.
 // Define our game_loop
@@ -25,7 +26,6 @@ GameLoopHtml game = new GameLoopHtml(middleCanvas)
 
 // Declare our asset manager.
 AssetManager assets = new AssetManager();
-
 
 
 // Initialize and begin the game.

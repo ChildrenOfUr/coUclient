@@ -20,6 +20,11 @@ class UserInterface {
   // Img Meter Variables
   SpanElement imgMeter = querySelector('#CurrImagination');
   
+  // Music Meter Variables
+  SpanElement titleMeter = querySelector('#TrackTitle');
+  SpanElement artistMeter = querySelector('#TrackArtist');
+  
+  
   // Energy Meter Variables
   Element _energymeterImage = querySelector('#EnergyIndicator');
   Element _energymeterImageLow = querySelector('#EnergyIndicatorRed');
@@ -114,6 +119,11 @@ class UserInterface {
       newValue = newValue.substring(0, 15) + '...';
     nameMeter.text = newValue;
   }
+  
+  _setSong(String artist, String song){
+   titleMeter.text = song;
+   artistMeter.text = artist;    
+  }  
   
 }
 

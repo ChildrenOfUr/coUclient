@@ -4,7 +4,8 @@ author: coU Development Team
 description: The sourcecode/tools needed to hack/compile the Children of Ur client
 homepage: ChildrenOfUr.github.io
 dependencies:
-  asset_pack: any
+  asset_pack:
+    git: https://github.com/johnmccutchan/asset_pack.git
   box2d: any
   browser: any
   coUlib:

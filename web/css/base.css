@@ -669,6 +669,22 @@ textarea{resize: none;}
   top:16px;  
   left:140px; 
 }
+
+
+/*The soundcloud widget that appears when songs play*/
+#SoundCloudWidget {
+   font-family: 'RockoFLFBold', sans-serif;
+   font-size:12px;
+   font-weight: normal;
+   padding:2px;
+   position:absolute;
+   right: 40px;
+   bottom:10px;
+   height:30px;
+   width:250px;
+}
+
+
 /*The inventory bar at the bottom of the screen*/
 #InventoryBar, #InventoryBag{
   padding: 2px;

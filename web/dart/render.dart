@@ -85,7 +85,7 @@ class Street {
     gradientCanvas.context2D.fillRect(0,0,width,height);
 
    
-    
+
     
   
     // draws the middleground decorations

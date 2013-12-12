@@ -8,8 +8,11 @@ init(){
   AudioElement Loading = new AudioElement('./assets/sounds/loading.ogg');
   querySelector('#LoadingScreen').append(Loading);
   Loading.play();
-    
-  assets.loadPack('groddle', 'assets/packs/groddle.pack').then((_)
+  
+  assets.loadPack('music', 'assets/music.pack')
+    .then((_) =>
+  assets.loadPack('streets', 'assets/streets.pack'))
+    .then((_)
         {
 
 // Peacefully fade out the loading screen.
@@ -17,9 +20,10 @@ init(){
     Timer t = new Timer(new Duration(seconds:1), querySelector('#LoadingScreen').remove);
     
     // Play the 'doneloading' sound
-    AudioElement doneLoading = new AudioElement('./assets/sounds/game_loaded.ogg');
+    AudioElement doneLoading = new AudioElement('./assets/system/game_loaded.ogg');
     document.body.append(doneLoading);
     doneLoading.play();
+    doneLoading.onEnded.listen((_) => doneLoading.remove());
     
 
     // Set the meters to their current values.
@@ -41,7 +45,9 @@ init(){
     printConsole('For a list of commands type "help"');
     
     
-    Street s = new Street('groddle.street');
+    playMusic('firebog');
+    
+    Street s = new Street('streets.street');
     s.load();
 
     

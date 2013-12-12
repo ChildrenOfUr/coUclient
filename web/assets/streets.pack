@@ -1,0 +1,7 @@
+{"street":{
+  "loadArguments":{},
+  "url":"./locations/test.json",
+  "type":"json",
+  "importArguments":{}
+  }
+}
