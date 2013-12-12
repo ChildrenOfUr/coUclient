@@ -23,7 +23,7 @@ class UserInterface {
   // Music Meter Variables
   SpanElement titleMeter = querySelector('#TrackTitle');
   SpanElement artistMeter = querySelector('#TrackArtist');
-  
+  AudioElement musicBox = querySelector('#MusicBox');
   
   // Energy Meter Variables
   Element _energymeterImage = querySelector('#EnergyIndicator');
@@ -69,8 +69,9 @@ class UserInterface {
     ..add(['setcurrants','"setcurrants <value>" Changes the currant meters value',setCurrants])
     ..add(['setimg','"setimg <value>" Changes the img meters value',setImg])
     
-    ..add(['setname','"setname <value>" Changes the players displayed name',setName]);
+    ..add(['setname','"setname <value>" Changes the players displayed name',setName])
     
+    ..add(['setsong','"setsong <value>" Changes the currently playing song',setSong]);
     
     // This should actually pull from an online source..
     setEnergy('100');
@@ -186,6 +187,20 @@ setName(String value){
   printConsole('Setting name to "$value"');  
 }
 
+setSong(String value){
+  // Changes the ui
+  value = value.replaceAll(' ', '');
+  if (assets['music.' + value] == null)
+  {printConsole('Error: Song not found!');}
+  else{  
+  String title = assets['music.' + value]['title'];
+  String artist = assets['music.' + value]['user']['username'];
+  ui._setSong(artist, title);
+  ui.musicBox.src = assets['music.' + value]['stream_url'] + '?client_id=7d2a07867f8a3d47d4f059b600b250b1';
+  ui.musicBox.play();
+  ui.musicBox.onEnded.listen((_) => ui.musicBox.play());
+  }
+}
 
 // Manages the elements that display the date and time.
 refreshClock(){

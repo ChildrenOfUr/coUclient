@@ -49,6 +49,7 @@ updateConsole(){
 StreamSubscription consolelistener;// the eventlistener for entering console commands.
 showConsole(){
   querySelector('#DevConsole').hidden = false;
+  querySelector('.ConsoleInput').focus();
   consolelistener = querySelector('.ConsoleInput').onKeyUp.listen
   ((key){
        if (key.keyCode == 13)

@@ -96,7 +96,6 @@ part of coUclient;
         if (k.keyCode == 100|| k.keyCode == 39)// d
           camera['x']+=20;
       
-      printConsole(k.keyCode.toString());
       
       });
   
@@ -112,7 +111,7 @@ part of coUclient;
         if (k.keyCode == 39)//right arrow
           camera['x']+=20;
       
-      printConsole(k.keyCode.toString());
+      
       
       });
   

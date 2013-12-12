@@ -45,7 +45,7 @@ a{color: purple;text-decoration: none;}
 .blu {color: #4d8c8b;}
 .red {color: #ba381a;}
 .white{color: #fff;}
-.big {font-size:22px;}
+.big {font-size:20px;}
 .small {font-size:15px;}
 .soft {
    list-style-type: none;
@@ -679,7 +679,7 @@ textarea{resize: none;}
    padding:2px;
    position:absolute;
    right: 40px;
-   bottom:10px;
+   bottom:20px;
    height:30px;
    width:250px;
 }

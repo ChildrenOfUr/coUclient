@@ -45,7 +45,7 @@ init(){
     printConsole('For a list of commands type "help"');
     
     
-    playMusic('firebog');
+    setSong('firebog');
     
     Street s = new Street('streets.street');
     s.load();
