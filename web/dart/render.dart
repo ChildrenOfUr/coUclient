@@ -84,9 +84,7 @@ class Street {
     gradientCanvas.context2D.fillStyle = g;
     gradientCanvas.context2D.fillRect(0,0,width,height);
 
-   
 
-    
   
     // draws the middleground decorations
     for (Map deco in _data['dynamic']['layers']['middleground']['decos'])
@@ -98,8 +96,16 @@ class Street {
       int h = deco['h'];
       
       middleCanvas.context2D.imageSmoothingEnabled = false;
-      middleCanvas.context2D.fillStyle = '#fff';
-      middleCanvas.context2D.fillRect(x, y,w,h);
+      
+      // for now we'll piggyback off of revdancatt's work. :P
+      ImageElement source = new ImageElement()
+      ..src = 'http://revdancatt.github.io/CAT422-glitch-location-viewer/img/scenery/' + deco['filename'] + '.png'
+      ..style.position = 'absolute'
+      ..style.left = '-9999999px';
+      
+      document.body.children.add(source);
+      
+      middleCanvas.context2D.drawImageScaled(source, x, y, w, h);
     } 
     
     
