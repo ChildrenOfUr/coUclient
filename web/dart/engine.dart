@@ -24,6 +24,9 @@ class UserInterface {
   SpanElement titleMeter = querySelector('#TrackTitle');
   SpanElement artistMeter = querySelector('#TrackArtist');
   AudioElement musicBox = querySelector('#MusicBox');
+  bool songRepeat = true;
+ 
+  
   
   // Energy Meter Variables
   Element _energymeterImage = querySelector('#EnergyIndicator');
@@ -71,7 +74,8 @@ class UserInterface {
     
     ..add(['setname','"setname <value>" Changes the players displayed name',setName])
     
-    ..add(['setsong','"setsong <value>" Changes the currently playing song',setSong]);
+    ..add(['setsong','"setsong <value>" Changes the currently playing song',setSong])
+    ..add(['setvolume','"setvolume <1-100>" Changes the volume of the current song',setVolume]);
     
     // This should actually pull from an online source..
     setEnergy('100');
@@ -198,9 +202,23 @@ setSong(String value){
   ui._setSong(artist, title);
   ui.musicBox.src = assets['music.' + value]['stream_url'] + '?client_id=7d2a07867f8a3d47d4f059b600b250b1';
   ui.musicBox.play();
-  ui.musicBox.onEnded.listen((_) => ui.musicBox.play());
+  ui.musicBox.onEnded.listen((_) 
+      {
+      if (ui.songRepeat == true)
+      ui.musicBox.play();
+      });
   }
 }
+
+setVolume(String value){
+  // Force an int
+  int intvalue = int.parse(value,onError:null);
+  if (intvalue != null){
+  ui.musicBox.volume = intvalue / 100;
+  printConsole('Setting volume to $value');}  
+}
+
+
 
 // Manages the elements that display the date and time.
 refreshClock(){

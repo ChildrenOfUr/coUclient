@@ -7,7 +7,6 @@
 * {
    font-family: 'RockoFLFBold', sans-serif;
    cursor: default;
-   font-weight: bold;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -khtml-user-select: none;
@@ -682,6 +681,28 @@ textarea{resize: none;}
    bottom:20px;
    height:30px;
    width:250px;
+   align:right;
+}
+#VolumeBall {
+  position:absolute;
+  width:15px;
+  height:15px;
+  background-color:#005c73;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+}
+
+#VolumeSlider {
+  position:absolute;
+  width:25px;
+  height:100px;
+  left:67px;
+  top:20px;
+  background-color: #e9f0f0;
+  z-index:10;
+  -moz-border-radius: 6px;
+  border-radius: 6px;
+  border: 1px solid #fff;
 }
 
 
