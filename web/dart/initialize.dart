@@ -5,7 +5,7 @@ init(){
     // The player has requested that the game is to begin.
   
   // Play the loading music.
-  AudioElement Loading = new AudioElement('./assets/sounds/loading.ogg');
+  AudioElement Loading = new AudioElement('./assets/system/loading.ogg');
   querySelector('#LoadingScreen').append(Loading);
   Loading.play();
   
@@ -15,7 +15,7 @@ init(){
     .then((_)
         {
 
-// Peacefully fade out the loading screen.
+    // Peacefully fade out the loading screen.
     querySelector('#LoadingScreen').style.opacity = '0.0';
     Timer t = new Timer(new Duration(seconds:1), querySelector('#LoadingScreen').remove);
     
@@ -23,7 +23,7 @@ init(){
     AudioElement doneLoading = new AudioElement('./assets/system/game_loaded.ogg');
     document.body.append(doneLoading);
     doneLoading.play();
-    doneLoading.onEnded.listen((_) => doneLoading.remove());
+    //doneLoading.onEnded.listen((_) => doneLoading.remove());
     
 
     // Set the meters to their current values.
