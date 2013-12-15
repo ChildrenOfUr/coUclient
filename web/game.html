@@ -45,12 +45,11 @@ WAIT! You were just about to win the game!
 
 <!--The content window for gameplay -->
 <div id="GameScreen">
-<canvas id="gradientCanvas" class="streetcanvas"></canvas>
-<canvas id="skyCanvas" class="streetcanvas"></canvas>
-<canvas id="bg2Canvas" class="streetcanvas"></canvas>
-<canvas id="bg1Canvas" class="streetcanvas"></canvas>
-<canvas id="middleCanvas" class="streetcanvas"></canvas>
-<canvas id="middleplusCanvas" class="streetcanvas"></canvas>
+<canvas id="gradientCanvas" class="streetcanvas" z-index="-2"></canvas>
+<canvas id="backgroundCanvas" class="streetcanvas" z-index="-1"></canvas>
+<canvas id="middleCanvas" class="streetcanvas" z-index="0"></canvas>
+<canvas id="foregroundCanvas" class="streetcanvas" z-index="1"></canvas>
+<canvas id="overlayCanvas" class="streetcanvas" z-index="2"></canvas>
 
 </div>
 

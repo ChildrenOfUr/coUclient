@@ -3,7 +3,7 @@ part of coUclient;
 
 init(){
     // The player has requested that the game is to begin.
-  
+
   // Play the loading music.
   AudioElement Loading = new AudioElement('./assets/sounds/loading.ogg');
   querySelector('#LoadingScreen').append(Loading);
@@ -36,7 +36,8 @@ init(){
     window.onResize.listen((_) => resize());
     
     // Start listening for clicks and key presses
-    initializeInput();
+    playerInput = new Input();
+    playerInput.initialize(); //->constructor?
     
     printConsole('System: Initialization Finished.');
     printConsole('');
@@ -44,13 +45,14 @@ init(){
     printConsole('COU DEVELOPMENT CONSOLE V0.4');
     printConsole('For a list of commands type "help"');
     
-    
     setSong('firebog');
     
     Street s = new Street('streets.street');
-    s.load();
-
+    s.load(); //-->should be in constructor?
     
+    Player mysteryman = new Player();
+    
+    CurrentCamera = new Camera();
         }
     );
 }
