@@ -49,6 +49,8 @@ init(){
     
     Street s = new Street('streets.street');
     s.load(); //-->should be in constructor?
+              // Dont' think so, the 'load' here is to get it actually set up to draw on the screen,
+              // We want to be able to 'create' more than one street and 'load' them at different times after. -Paul
     
     Player mysteryman = new Player();
     
