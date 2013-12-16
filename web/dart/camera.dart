@@ -1,6 +1,5 @@
 part of coUclient;
 Camera CurrentCamera;
-//TODO: Change to init
 
 //Replaces Map Camera. Necessary for handling camera as an object
 //Repositions itself incrementally to match player's position, as in Glitch
