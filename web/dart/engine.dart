@@ -137,14 +137,14 @@ class UserInterface {
     if(isMuted != null && isMuted == '1') //set to muted
     {
       (querySelector('#VolumeSlider') as InputElement).disabled = true;
-      audioGlyph.innerHtml = '<img src="./assets/system/mute.png" class="centered-icon">'; //hack to have mute icon be centered
+      audioGlyph.innerHtml = '<img src="./assets/system/mute.png" class="centered-icon glyph">'; //hack to have mute icon be centered
       setVolume('0');
       localStorage['isMuted'] = '1';
     }
     else //set to unmuted
     {
       (querySelector('#VolumeSlider') as InputElement).disabled = false;
-      audioGlyph.innerHtml = '<i id="VolumeGlyph" class="icon-volume-up icon-large"></i>';
+      audioGlyph.innerHtml = '<i id="VolumeGlyph" class="icon-volume-up glyph icon-large"></i>';
       setVolume(localStorage['prevVolume']);
       localStorage['isMuted'] = '0';
     }
