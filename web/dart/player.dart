@@ -16,7 +16,7 @@ class Player{
     avatar = new ImageElement(src: "assets/sprites/avatar.png");
     //TODO: Remove hard-coded values used for testing
     posX = 0;
-    posY = 400;
+    posY = 550;
     width = 100;
     height = 172;
     

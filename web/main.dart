@@ -15,7 +15,7 @@ part './dart/initialize.dart';
 part './dart/commands.dart';
 part './dart/engine.dart';
 part './dart/input.dart';
-part './dart/render.dart';
+part './dart/street.dart';
 part './dart/player.dart';
 part './dart/camera.dart';
 
