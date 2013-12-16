@@ -103,7 +103,7 @@ class Street {
       ..style.position = 'absolute'
       ..style.left = '-9999999px';
       
-      document.body.children.add(source);
+      //document.body.children.add(source);
       
       middleCanvas.context2D.drawImageScaled(source, x, y, w, h);
     } 
