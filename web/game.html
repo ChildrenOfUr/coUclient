@@ -22,16 +22,16 @@
 
 <script src="https://connect.soundcloud.com/sdk.js"></script>
 
-
-
-
 </head>
 <body>
-
 
 <!-- Footer -->
 <div id="Footer">Copyright CoU Development Team, Children of Ur is not endorsed by or affiliated with <a href="http://tinyspeck.com/">Tiny Speck, Inc.</a>(The makers of Glitch) in any way.</div>   
 
+
+
+
+<!--Most everything from here, down should be in the dart code -->
 
 <!-- The initial splash Screen when the game is opened-->
 <div id="LoadingScreen">
@@ -49,13 +49,6 @@ WAIT! You were just about to win the game!
 
 <!--The content window for gameplay -->
 <div id="GameScreen">
-<canvas id="gradientCanvas" class="streetcanvas"></canvas>
-<canvas id="skyCanvas" class="streetcanvas"></canvas>
-<canvas id="bg2Canvas" class="streetcanvas"></canvas>
-<canvas id="bg1Canvas" class="streetcanvas"></canvas>
-<canvas id="middleCanvas" class="streetcanvas"></canvas>
-<canvas id="middleplusCanvas" class="streetcanvas"></canvas>
-
 </div>
 
 <!--Contains all the ui elements on the top left-->
@@ -95,13 +88,14 @@ WAIT! You were just about to win the game!
      <a href="https://plus.google.com/communities/103304995470607753666" target="_blank">  
    <i id="QuestionGlyph" class="icon-question-sign glyph icon-large"> </i></a>
    
+
    <span id="AudioSettings">
-      <i id="SliderParent">
+   	  <span id="AudioGlyph">
+          <i id="VolumeGlyph" class="icon-volume-up glyph icon-large"></i>
+      </span>
+      <span id="SliderParent">
           <input type="range" id="VolumeSlider" min="0" max="100" step="1" value="50" oninput="rangevalue.value=value" onchange="rangevalue.value=value"> 
           <output id="rangevalue">50</output>
-      </i>
-      <span id="AudioGlyph">
-          <i id="VolumeGlyph" class="icon-volume-up glyph icon-large"></i>
       </span>
    </span>
    <i id="FullscreenGlyph" class="icon-fullscreen glyph icon-large"> </i>
@@ -113,7 +107,6 @@ WAIT! You were just about to win the game!
    <span id="CurrDate"></span>   
    </div>
    
-
 <!-- Inventory Bar -->
 <div id="InventoryBag">
     <span class="InventoryBox" id="bagItem1"></span>
@@ -158,10 +151,9 @@ WAIT! You were just about to win the game!
 </ol>
 <div id="ChatPane">
 ChatPane
+<input type="text" id="ChatInput"/>
 </div>
 
-
-   
 <!-- Bottom-left currant display -->
       <div id="CurrantBack"></div>
       <img src="./assets/system/currant.svg" id="CurrantEmblem" width="30px" height="30px">
@@ -169,7 +161,6 @@ ChatPane
         <span id="CurrCurrants" class="big white"></span>  
         <div class="small white">Currants</div>
       </div>
-
 
 <!-- Development Console -->
       <div class="PopWindow" id="DevConsole" hidden="true">
@@ -190,7 +181,6 @@ ChatPane
     <audio id="MusicBox"></audio>
     <img src="./assets/system/soundcloud.png"></img>
   </div>
-
 
 <!-- Right-Click Menu template -->
     <template id="RC_Template">
