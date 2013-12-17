@@ -15,3 +15,4 @@ deploy:
       - lukevivier/gh-pages:
           token: $token
           repo: $repo
+          basedir: ./out/web
