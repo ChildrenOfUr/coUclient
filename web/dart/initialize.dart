@@ -25,12 +25,7 @@ init(){
     localStorage['isMuted'] = '0';
   }
   ui._setMute(isMuted);
-
-  // Play the loading music.
-  AudioElement Loading = new AudioElement('./assets/sounds/loading.ogg');
-  querySelector('#LoadingScreen').append(Loading);
-  Loading.play();
-  
+ 
   if(int.parse(prevVolume) > 0 && isMuted == '0')
   {
     // Play the loading music.
@@ -57,7 +52,7 @@ init(){
       doneLoading.volume = int.parse(prevVolume)/100;
       document.body.append(doneLoading);
       doneLoading.play();
-      //doneLoading.onEnded.listen((_) => doneLoading.remove()); 
+      doneLoading.onEnded.listen((_) => doneLoading.remove()); 
     }
     
 
