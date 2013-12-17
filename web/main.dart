@@ -16,6 +16,7 @@ part './dart/commands.dart';
 part './dart/engine.dart';
 part './dart/input.dart';
 part './dart/render.dart';
+part './dart/chat.dart';
 
 // TODO: It may be a good idea to write our own simpler game_loop at some point.
 // Define our game_loop

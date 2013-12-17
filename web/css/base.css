@@ -444,7 +444,7 @@ textarea{resize: none;}
   background-color: #fff;
   position:absolute;
   width:250px;
-  height:300px;
+  height: calc(100% - 120px);
   top:60px;  
   right:40px;
   -moz-border-radius: 7px;
@@ -456,10 +456,61 @@ textarea{resize: none;}
   -khtml-box-shadow: -1px 1px 3px 0px #4d8c8b;
   box-shadow: -1px 1px 3px 0px #4d8c8b;
 }
-#ChatInput {
-  	position: absolute;
-	right: 6px;
-	bottom: 5px;
+.ChatWindow {
+	height: 50%;
+}
+.ChatHistory {
+	border-top: 1px solid;
+	border-color: #a7a7a7;
+	height: calc(100% - 3em - 5px);
+	overflow-y: scroll;
+	overflow-x: hidden;
+	margin-bottom: 5px;
+	margin-left: 5px;
+}
+
+/* here lies hacky bits to style the scrollbar in webkit based browsers
+   this WILL NOT WORK in Firefox or IE.  Only a loss of style will result however.*/
+.ChatHistory::-webkit-scrollbar {
+	width: 16px;
+	background-color: #CDDCDD;
+	border-radius: 5px;
+}
+.ChatHistory::-webkit-scrollbar-track {
+      background-color: #ECF0F1;
+      border-radius: 5px;
+	  border: 1px solid;
+	  border-color: #D6DADB;
+}
+.ChatHistory::-webkit-scrollbar-thumb {
+      background-color: #CDDCDD;
+      border: 2px solid;
+      border-color: #C3CCCE;
+      border-radius: 5px;
+}
+.ChatHistory::-webkit-scrollbar-button:start {
+    display: none;
+}
+.ChatHistory::-webkit-scrollbar-button:end {
+    display: block;
+}
+.ChatHistory::-webkit-scrollbar-button:vertical:decrement {
+    background-image: url('../assets/system/up.png');
+}
+.ChatHistory::-webkit-scrollbar-button:vertical:decrement:active {
+    background-image: url('../assets/system/up_active.png');
+}
+.ChatHistory::-webkit-scrollbar-button:vertical:increment {
+    background-image: url('../assets/system/down.png');
+    border-radius: 5px;
+}
+.ChatHistory::-webkit-scrollbar-button:vertical:increment:active {
+    background-image: url('../assets/system/down_active.png');
+    border-radius: 5px;
+}
+/* End hacky bits */
+
+.ChatInput {
 	-moz-border-radius: 5px;
 	border-radius: 5px;
 	width: 235px;
@@ -468,6 +519,9 @@ textarea{resize: none;}
 	cursor: auto;
 	padding-left: 5px;
 	padding-right: 5px;
+}
+.ChatInput:focus {
+	background-color: #F5F5CF
 }
 #ChatList {
   color: #005c73;
