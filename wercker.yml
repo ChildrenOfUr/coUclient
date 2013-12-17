@@ -2,6 +2,9 @@ box: wercker/dart
 build:
   steps:
       - script:
+          name: dart2js
+          code: dart2js ../web/main.dart --out=../web/game.js --minify
+      - script:
           name: run Publish_web.dart
           code: dart ./tools/Publish_wercker.dart
 deploy:
