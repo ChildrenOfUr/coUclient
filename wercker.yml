@@ -1,0 +1,11 @@
+box: wercker/dart
+build:
+  steps:
+      - script:
+          name: run Publish_web.dart
+          code: dart ./tools/Publish_web.dart
+deploy:
+  steps:
+      - lukevivier/gh-pages:
+          token: $token
+          repo: $repo
