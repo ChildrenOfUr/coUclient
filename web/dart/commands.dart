@@ -42,8 +42,6 @@ updateConsole(){
    container.append(n);
    n.scrollIntoView(ScrollAlignment.BOTTOM);
   }
-  
-  
 }
 
 StreamSubscription consolelistener;// the eventlistener for entering console commands.
@@ -55,18 +53,17 @@ showConsole(){
        if (key.keyCode == 13)
          runConsoleCommand();
 });}
+
 hideConsole(var nothing){
   querySelector('#DevConsole').hidden = true;
   consolelistener.cancel();
 }
-
 
 // To print to the in-game console
 printConsole(String message){
   ConsoleText.add(message);
   updateConsole();
 }
-
 
 runConsoleCommand(){
   TextAreaElement input = querySelector('.ConsoleInput');
@@ -80,8 +77,8 @@ printHelp(var nothing){
   printConsole('List of Commands:');
   for (List command in Commands)
     printConsole(command[0] + ' : ' + command[1]);
-  
 }
+
 printClear(var nothing){
  ConsoleText.clear();
  updateConsole();
@@ -89,4 +86,3 @@ printClear(var nothing){
 
 // A blank action.
 doNothing(var nothing){}
-

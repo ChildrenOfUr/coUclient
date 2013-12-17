@@ -19,15 +19,16 @@
     <link rel="stylesheet" href="./css/base.css">
 <!-- Import Stylesheets -->
 
-
-
 </head>
 <body>
-
 
 <!-- Footer -->
 <div id="Footer">Copyright CoU Development Team, Children of Ur is not endorsed by or affiliated with <a href="http://tinyspeck.com/">Tiny Speck, Inc.</a>(The makers of Glitch) in any way.</div>   
 
+
+
+
+<!--Most everything from here, down should be in the dart code -->
 
 <!-- The initial splash Screen when the game is opened-->
 <div id="LoadingScreen">
@@ -45,12 +46,6 @@ WAIT! You were just about to win the game!
 
 <!--The content window for gameplay -->
 <div id="GameScreen">
-<canvas id="gradientCanvas" class="streetcanvas" z-index="-2"></canvas>
-<canvas id="backgroundCanvas" class="streetcanvas" z-index="-1"></canvas>
-<canvas id="middleCanvas" class="streetcanvas" z-index="0"></canvas>
-<canvas id="foregroundCanvas" class="streetcanvas" z-index="1"></canvas>
-<canvas id="overlayCanvas" class="streetcanvas" z-index="2"></canvas>
-
 </div>
 
 <!--Contains all the ui elements on the top left-->
@@ -90,8 +85,6 @@ WAIT! You were just about to win the game!
      <a href="https://plus.google.com/communities/103304995470607753666" target="_blank">  
    <i id="QuestionGlyph" class="icon-question-sign glyph icon-large"> </i></a>
    
-   
-   
    <i id="AudioGlyph" class="icon-volume-up volumeicon icon-large">
       <span id="VolumeSlider">
       <span id="VolumeBall"></span>
@@ -107,7 +100,6 @@ WAIT! You were just about to win the game!
    <span id="CurrDate"></span>   
    </div>
    
-
 <!-- Inventory Bar -->
 <div id="InventoryBag">
     <span class="InventoryBox" id="bagItem1"></span>
@@ -154,8 +146,6 @@ WAIT! You were just about to win the game!
 ChatPane
 </div>
 
-
-   
 <!-- Bottom-left currant display -->
       <div id="CurrantBack"></div>
       <img src="./assets/system/currant.svg" id="CurrantEmblem" width="30px" height="30px">
@@ -163,7 +153,6 @@ ChatPane
         <span id="CurrCurrants" class="big white"></span>  
         <div class="small white">Currants</div>
       </div>
-
 
 <!-- Development Console -->
       <div class="PopWindow" id="DevConsole" hidden="true">
@@ -184,7 +173,6 @@ ChatPane
     <audio id="MusicBox"></audio>
     <img src="./assets/system/soundcloud.png"></img>
   </div>
-
 
 <!-- Right-Click Menu template -->
     <template id="RC_Template">

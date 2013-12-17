@@ -15,7 +15,7 @@ init(){
     .then((_)
         {
 
-// Peacefully fade out the loading screen.
+    // Peacefully fade out the loading screen.
     querySelector('#LoadingScreen').style.opacity = '0.0';
     Timer t = new Timer(new Duration(seconds:1), querySelector('#LoadingScreen').remove);
     
@@ -37,7 +37,7 @@ init(){
     
     // Start listening for clicks and key presses
     playerInput = new Input();
-    playerInput.initialize(); //->constructor?
+    playerInput.initialize();
     
     printConsole('System: Initialization Finished.');
     printConsole('');
@@ -50,9 +50,22 @@ init(){
     Street s = new Street('streets.street');
     s.load();
     
-    Player mysteryman = new Player();
+    document.body.children.add(gameCanvas);
+    
+    gameScreen.append(gameCanvas);
+    
+    gameCanvas.style.zIndex = ('0');
+    gameCanvas.width = CurrentStreet.width;
+    gameCanvas.height = CurrentStreet.height;
+    
+    gameCanvas.style.position = 'absolute';
+    gameCanvas.style.left = '0 px';
+    gameCanvas.style.top =  '0 px';   
+    
+    Player CurrentPlayer = new Player();
     
     CurrentCamera = new Camera();
+    
         }
     );
 }

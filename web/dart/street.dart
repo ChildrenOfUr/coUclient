@@ -1,14 +1,20 @@
 part of coUclient;
 
 //Major change - for each layer on the street, make a new canvas
-//About half done, still need to move canvases and create parallaxing effect
 
+//All environmental layers are created in load()
+//gradientCanvas only contains the street's gradient and only repositions with camera.y changes
+//decorative canvases are created for each layer (bg_1, bg_2, etc.)
+//These are added to #GameScreen, and repositioned in render
+
+//Separately, gameCanvas contains all moving elements, because the canvas must be cleared periodically
+//It is instatiated in main.dart, its values specified in init()
+
+
+//If we wanted to, we could create the #GameScreen in dart
 DivElement gameScreen = querySelector('#GameScreen');
-CanvasElement gradientCanvas = querySelector('#gradientCanvas');
-CanvasElement backgroundCanvas = querySelector('#backgroundCanvas');
-CanvasElement middleCanvas = querySelector('#middleCanvas');
-CanvasElement foregroundCanvas = querySelector('#foregroundCanvas');
-CanvasElement overlayCanvas = querySelector('#overlayCanvas');
+int gameScreenWidth;
+int gameScreenHeight;
 
 Street CurrentStreet;
 
@@ -30,194 +36,183 @@ class Street {
   String gradientTop;
   String gradientBottom;
   
-  Point origin;
-  
-  List scenery = new List();
-  
-  CanvasElement TestCanvas;
+  double currentPercentX; 
+  double currentPercentY;
   
   Street(this.ID){
-        if (assets[ID] == null)
-       throw('Error: Asset not loaded!');
-        else {
+    if (assets[ID] == null)
+      throw('Error: Asset not loaded!');
+    else {
       
-        _data = assets[ID];
+      _data = assets[ID];
         
-        // sets the label for the street
-        label = _data['label'];
+      // sets the label for the street
+      label = _data['label'];
         
-        // pulls the gradient from our json
-        gradientTop = '#' + _data['gradient']['top'];
-        gradientBottom = '#' +  _data['gradient']['bottom'];
+      // pulls the gradient from our json
+      gradientTop = '#' + _data['gradient']['top'];
+      gradientBottom = '#' +  _data['gradient']['bottom'];
         
-        //This class should have a or inherit from Rectangle
-        top = _data['dynamic']['t'];
-        bottom = _data['dynamic']['b'];
-        left = _data['dynamic']['l'];
-        right = _data['dynamic']['r'];
+      //This class could have a or inherit from a Rectangle
+      top = _data['dynamic']['t'];
+      bottom = _data['dynamic']['b'];
+      left = _data['dynamic']['l'];
+      right = _data['dynamic']['r'];
         
-        width = (_data['dynamic']['l'].abs() + _data['dynamic']['r'].abs());
-        height = (_data['dynamic']['t'].abs());
-    
-        }
+      width = (_data['dynamic']['l'].abs() + _data['dynamic']['r'].abs());
+      height = (_data['dynamic']['t'].abs());
+    }
   }
     
   load(){
-    //Creating canvases outside of this code is impractical
+
     //Canvases are created here for each layer, because
     //there are a variable number of layers in each lvl,
     //some are empty, and all are different sizes.
-    
-    // Sets the size of our canvases.
-    gradientCanvas.width = width;
-    gradientCanvas.height = height;
-    
-    backgroundCanvas.width = width;
-    backgroundCanvas.height = height;
-    
-    middleCanvas.width = width;
-    middleCanvas.height = height;
-    
-    foregroundCanvas.width = width;
-    foregroundCanvas.height = height;
         
-    //TODO: make ui class, overlaycanvas size of gamescreen
+    //TODO: make ui class, overlaycanvas; dynamic in size
     /*
     overlayCanvas.width = width;
     overlayCanvas.height = height;
     */
     
-    // sets the gradient background (This never changes, so we only do it once)
-    // TODO, we could change this in relation to the time making days actually feel like days. :P
-    // TODO, this gradient often appears 'banded' we should do something about that later.
+    /* //// Gradient Canvas //// */
 
+    // TODO, we could change this in relation to the time making days actually feel like days. :P
+    // CB - +1 this idea ^ (but maybe hold off on new features until old features all work)
+    // TODO, this gradient often appears 'banded' we should do something about that later.
+    
+    CanvasElement gradientCanvas = new CanvasElement();
+    gradientCanvas.id = 'gradient';
+    gameScreen.append(gradientCanvas);
+    gradientCanvas.style.zIndex = (-100).toString();
+    gradientCanvas.width = width;
+    gradientCanvas.height = height;
+
+    gradientCanvas.style.position = 'absolute';
+    gradientCanvas.style.left = '0 px';
+    gradientCanvas.style.top =  '0 px'; 
+    
     var g = gradientCanvas.context2D.createLinearGradient(0,0,0,height);
     g.addColorStop(0,gradientTop);
     g.addColorStop(1,gradientBottom);
     gradientCanvas.context2D.fillStyle = g;
     gradientCanvas.context2D.fillRect(0,0,width,height);
     
-    //TODO: Better variable names
-
-    List layersOrdered = []; 
-    List layers = [];
+    /* //// Scenery Canvases //// */
     
-    for (var x = 0; x < _data['dynamic']['layers'].length; x++) {
-      layersOrdered.add(_data['dynamic']['layers']);
-      layersOrdered[x].forEach((p, y) => layers.add(p.toString()));
-    }
+    //For each layer on the street, add its name to a List, and sort by z
+    List layersOrdered = [];
+    _data['dynamic']['layers'].forEach((p, y) => layersOrdered.add(p.toString()));
+    layersOrdered.sort((x,y) => _data['dynamic']['layers'][x]['z'].compareTo(_data['dynamic']['layers'][y]['z']));
 
-    for (var e = 0; e < _data['dynamic']['layers'].length; e++){
+    //For each layer on the street . . .
+    for (var e = 0; e < 6; e++){
       
+      //Create a list of the decorations . . .
       List decos = [];
+      List canvasesOrdered = [];
       
-      for (Map deco in _data['dynamic']['layers'][layers[e]]['decos']){
+      for (Map deco in _data['dynamic']['layers'][layersOrdered[e]]['decos']){
         decos.add(deco);
         }
       
+      //Then sort them by z-layer, low to high.
       decos.sort((x, y) => x['z'].compareTo(y['z']));
 
-      int width = _data['dynamic']['layers'][layers[e]]['w'];
-      int height = _data['dynamic']['layers'][layers[e]]['h'];
-      int zlayer = _data['dynamic']['layers'][layers[e]]['z'];
-
-      CanvasElement tempCanvas = new CanvasElement();
-      document.body.children.add(tempCanvas);
-
-      tempCanvas.style.zIndex = zlayer.toString();
-      tempCanvas.width = width;
-      tempCanvas.height = height;
+      //Create a new canvas with the layer's attributes
+      int width = _data['dynamic']['layers'][layersOrdered[e]]['w'];
+      int height = _data['dynamic']['layers'][layersOrdered[e]]['h'];
+      int zIndex = _data['dynamic']['layers'][layersOrdered[e]]['z'];
+      String id = _data['dynamic']['layers'][layersOrdered[e]]['name'];
+      
+      CanvasElement decoCanvas = new CanvasElement();
+      decoCanvas.id = id;
+      
+      gameScreen.append(decoCanvas);
+      decoCanvas.style.zIndex = zIndex.toString();
+      decoCanvas.width = width;
+      decoCanvas.height = height;
         
-      tempCanvas.style.position = 'absolute';
-      tempCanvas.style.left = '0 px';
-      tempCanvas.style.top =  '0 px';        
-        
+      decoCanvas.style.position = 'absolute';
+      decoCanvas.style.left = '0 px';
+      decoCanvas.style.top =  '0 px';        
+      
+      //For each decoration in the layer, give its attributes and draw
+      
+      //TODO: FIX THIS
+      //Parallax and such is working, BUT
+      //Not all images are drawing at the correct y values.
+      //It seems this int.y makes foreground and background work, but not middleground???
       for (Map deco in decos){
             
-          origin = new Point(_data['dynamic']['l'].abs(),_data['dynamic']['t'].abs());
-          int x = deco['x'] + origin.x;
-          int y = deco['y'] + origin.y -300;
+          int x = deco['x'] + width~/(gameScreenWidth) ;
+          int y = deco['y'] - deco['h'] + _data['dynamic']['ground_y'];
           int w = deco['w'];
           int h = deco['h'];
           int z = deco['z'];
-          middleCanvas.context2D.imageSmoothingEnabled = false;
+
+          decoCanvas.context2D.imageSmoothingEnabled = false;
           
-          // for now we'll piggyback off of revdancatt's work. :P
           ImageElement source = new ImageElement()
             ..src = 'http://revdancatt.github.io/CAT422-glitch-location-viewer/img/scenery/' + deco['filename'] + '.png'
             ..style.position = 'absolute'
-            ..style.left = '-9999999px';
+            ..style.left = '-9999999px'
+            ..style.zIndex = z.toString();
             
             //keeping this in makes the app run weird, will add efficiency back in later
             //document.body.children.add(source);
 
-            if(z>0)
-            tempCanvas.context2D.drawImageScaled(source, x, y, w, h);
-            
+          decoCanvas.context2D.drawImageScaled(source, x, y, w, h);
           }
         }
-      
     CurrentStreet = this;
-    
   }  
   
-  // render loop
-  //Will need to change
+  //Parallaxing: Adjust the position of each canvas in #GameScreen
+  //based on the camera position and relative size of canvas to Street
   render(){
+    
+    currentPercentX = CurrentCamera.x / (width - gameScreenWidth);
+    currentPercentY = CurrentCamera.y / (height - gameScreenHeight);
 
+    //modify left and top for parallaxing
+    for (CanvasElement temp in gameScreen.children){
+      
+      //Don't need to worry about gradientCanvas x changes
+      if (temp.id == 'gradient'){
+      temp.style.top =  ((temp.height - gameScreenHeight) * -currentPercentY).toString() + 'px';
+      }
+      
+      else{
+      double offSetX = (temp.width - gameScreenWidth) * -currentPercentX;
+      double offSetY = (temp.height - gameScreenHeight) * -currentPercentY;
 
-
-    
-    //Currently, everything is drawn on these canvases in the load
-    //then the canvases move around to match the camera's position
-    //may change in future commits
-    
-    gradientCanvas.style.position = 'absolute';
-    gradientCanvas.style.left = (-CurrentCamera.x).toString() + 'px';
-    gradientCanvas.style.top =  (-CurrentCamera.y).toString() + 'px';
-    
-    backgroundCanvas.style.position = 'absolute';
-    backgroundCanvas.style.left = (-CurrentCamera.x).toString() + 'px';
-    backgroundCanvas.style.top =  (-CurrentCamera.y).toString() + 'px';
-    
-    
-    middleCanvas.style.position = 'absolute';
-    middleCanvas.style.left = (-CurrentCamera.x).toString() + 'px';
-    middleCanvas.style.top =  (-CurrentCamera.y).toString() + 'px';
-    
-    foregroundCanvas.style.position = 'absolute';
-    foregroundCanvas.style.left = (-CurrentCamera.x).toString() + 'px';
-    foregroundCanvas.style.top =  (-CurrentCamera.y).toString() + 'px';
-
+      temp.style.position = 'absolute';
+      temp.style.left = (offSetX.toString()) + 'px';
+      temp.style.top =  (offSetY.toString()) + 'px';
+      }
+    }
   }  
 }
 
-//TODO: change to UI class
+//TODO: change to UI class?
 resize(){
   Element chatPane = querySelector('#ChatPane');
   Element gameScreen = querySelector('#GameScreen');
-  Element gameStage = querySelector('#GameStage');
+  //Element gameStage = querySelector('#GameStage');
   
-  int width = window.innerWidth - 80 - 40 - chatPane.clientWidth;
-  int height = window.innerHeight - 180;
+  gameScreenWidth = window.innerWidth - 80 - 40 - chatPane.clientWidth;
+  gameScreenHeight = window.innerHeight - 180;
   
   chatPane.style.right;
   chatPane.clientWidth;
   
-  gameScreen.style.width = width.toString()+'px';
-  gameScreen.style.height = height.toString()+'px';
-  
-  chatPane.style.height = (height + 50).toString()+'px';
+  gameScreen.style.width = gameScreenWidth.toString()+'px';
+  gameScreen.style.height = gameScreenHeight.toString()+'px';
+
+  chatPane.style.height = (gameScreenHeight + 50).toString()+'px';
   
   //TODO When the window becomes too small, we should spawn an overlay that tells the user this fact.
   //This should go in UserInterface
 }
-
-
-
-
-
-
-
-
-
