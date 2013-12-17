@@ -234,7 +234,7 @@ textarea{resize: none;}
 }.splash:active {opacity:0.9;}
 
 /*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
-/*The displayed canvas that depicts gameplay*/
+/*The display div that depicts gameplay*/
 #GameScreen {
     background-color:#000;
     position:absolute;
@@ -244,7 +244,7 @@ textarea{resize: none;}
     left:40px;
     -moz-border-radius: 10px;
     border-radius: 10px;
-    z-index:-2; 
+    z-index:0; 
     overflow: hidden;
 }
 .streetcanvas {

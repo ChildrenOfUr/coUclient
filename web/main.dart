@@ -15,12 +15,16 @@ part './dart/initialize.dart';
 part './dart/commands.dart';
 part './dart/engine.dart';
 part './dart/input.dart';
-part './dart/render.dart';
 part './dart/chat.dart';
+part './dart/street.dart';
+part './dart/player.dart';
+part './dart/camera.dart';
 
 // TODO: It may be a good idea to write our own simpler game_loop at some point.
 // Define our game_loop
-GameLoopHtml game = new GameLoopHtml(middleCanvas)
+CanvasElement gameCanvas = new CanvasElement();
+
+GameLoopHtml game = new GameLoopHtml(gameCanvas)
   ..onUpdate = ((gameLoop) {loop();})
   ..onRender = ((gameLoop) {render();});
 
@@ -36,20 +40,42 @@ main() {
 
 // Our gameloop
 loop() {
-  
-  
+
 }
 
 // Our renderloop
+
 render() {
-// Update clock
-refreshClock();
 
-// Update Street
-if (CurrentStreet is Street)
-CurrentStreet.render();
+  // Update clock
+  refreshClock();
+  //Update Camera (to follow)
+  
+  if (CurrentCamera is Camera)
+    CurrentCamera.update();
 
+  //Update Player (positon, input)
+  if (CurrentPlayer is Player)
+    CurrentPlayer.update();
+  
+  //Draw Street
+  if (CurrentStreet is Street)
+  CurrentStreet.render();
+  
+  //Clear canvas (very expensive)
+  //Minimizes clearing for now
+  if (CurrentCamera is Camera)
+    gameCanvas.context2D.clearRect(CurrentPlayer.posX-CurrentPlayer.width, CurrentPlayer.posY-CurrentPlayer.height, CurrentPlayer.posX+CurrentPlayer.width, CurrentPlayer.posY+CurrentPlayer.height);
+  
+  //Draw Player
+  if (CurrentPlayer is Player)
+    CurrentPlayer.render();
 }
 
-
-
+//TODO: IMPORTANT
+/*Coding experience could start going much smoother if
+ * inheritance was used.
+ * Dart already makes base objects, BUT
+ * Objects like Camera and Player (and later items)
+ * should inherit from a base class that has position,
+ * movement, image, draw and update methods, animations etc */

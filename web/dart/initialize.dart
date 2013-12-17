@@ -25,7 +25,7 @@ init(){
     localStorage['isMuted'] = '0';
   }
   ui._setMute(isMuted);
-  
+ 
   if(int.parse(prevVolume) > 0 && isMuted == '0')
   {
     // Play the loading music.
@@ -35,9 +35,9 @@ init(){
     Loading.play();
   }
   
-  assets.loadPack('music', 'assets/music.pack')
+  assets.loadPack('music', './assets/music.pack')
     .then((_) =>
-  assets.loadPack('streets', 'assets/streets.pack'))
+  assets.loadPack('streets', './assets/streets.pack'))
     .then((_)
         {
 
@@ -52,7 +52,7 @@ init(){
       doneLoading.volume = int.parse(prevVolume)/100;
       document.body.append(doneLoading);
       doneLoading.play();
-      //doneLoading.onEnded.listen((_) => doneLoading.remove()); 
+      doneLoading.onEnded.listen((_) => doneLoading.remove()); 
     }
     
 
@@ -66,7 +66,8 @@ init(){
     window.onResize.listen((_) => resize());
     
     // Start listening for clicks and key presses
-    initializeInput();
+    playerInput = new Input();
+    playerInput.initialize();
     
     printConsole('System: Initialization Finished.');
     printConsole('');
@@ -74,12 +75,26 @@ init(){
     printConsole('COU DEVELOPMENT CONSOLE V0.4');
     printConsole('For a list of commands type "help"');
     
-    
     setSong('firebog');
     
     Street s = new Street('streets.street');
     s.load();
-
+    
+    document.body.children.add(gameCanvas);
+    
+    gameScreen.append(gameCanvas);
+    
+    gameCanvas.style.zIndex = ('0');
+    gameCanvas.width = CurrentStreet.width;
+    gameCanvas.height = CurrentStreet.height;
+    
+    gameCanvas.style.position = 'absolute';
+    gameCanvas.style.left = '0 px';
+    gameCanvas.style.top =  '0 px';   
+    
+    Player CurrentPlayer = new Player();
+    
+    CurrentCamera = new Camera();
     
         }
     );
