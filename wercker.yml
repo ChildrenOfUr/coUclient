@@ -3,7 +3,7 @@ build:
   steps:
       - script:
           name: run Publish_web.dart
-          code: dart ./tools/Publish_web.dart
+          code: dart ./tools/Publish_wercker.dart
 deploy:
   steps:
       - lukevivier/gh-pages:
