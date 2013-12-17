@@ -36,8 +36,18 @@ main() {
   
   print(Platform.executable);
   print('Running dart2js + minify...');
+  print('dart2js path: $PATH_TO_DART2JS');
   Process.run(PATH_TO_DART2JS,['../web/main.dart','--out=../web/game.js','--minify'])
   .then((_) => print('Cleaning Output Directory...'))
+  
+  // Deletes the unneeded files made when we used dart2js
+  .then((_) => print('Cleaning Workspace...'))  
+
+  .then((_) => new File('../web/game.js.deps').deleteSync())
+  .then((_) => new File('../web/game.js.map').deleteSync())
+  .then((_) => new File('../web/game.precompiled.js').deleteSync())
+
+  
   .then((_) 
       {
         if (new Directory('../out').existsSync() == false)
@@ -51,41 +61,58 @@ main() {
   .then((_) => new File('../out/web/game.js').writeAsStringSync(
       new File('../web/game.js').readAsStringSync()))
   
+  // Don't need this anymore
+  .then((_) => new File('../web/game.js').deleteSync())
+      
   // Places our html in the output folder
   .then((_) => new File('../out/web/game.html').writeAsStringSync(
       minifyHtml(
           new File('../web/game.html').readAsLinesSync())))
-  
-      
-  // Create css and font folders
-  .then((_) => new Directory('../out/web/css/font').createSync(recursive: true))
-      
-  // Places our css in the output folder
-  .then((_) => new File('../out/web/css/base.css').writeAsStringSync(
-      minifyCss(
-        new File('../web/css/base.css').readAsLinesSync()
-          )))
+          
+  .then((_) {
+    
+    
+    for (FileSystemEntity ass in new Directory('../web/assets').listSync(recursive: true, followLinks: false))
+    {
+      if (ass is Directory)
+      {
+        print('Moving Directory:' + ass.path.replaceAll('/web/css', '/out/web/css'));
+        new Directory(ass.path.replaceAll('/web/assets', '/out/web/assets')).createSync(recursive: true);
+      }
+    }
+    
+    for (FileSystemEntity ass in new Directory('../web/assets').listSync(recursive: true, followLinks: false))
+    {
+      if (ass is File)
+      {
+        print('Moving File:' + ass.path.replaceAll('/web/css', '/out/web/css'));
+        new File(ass.path.replaceAll('/web/assets', '/out/web/assets')).writeAsBytesSync(
+            new File(ass.path).readAsBytesSync());
+      }
+    }
+    
+    for (FileSystemEntity css in new Directory('../web/css').listSync(recursive: true, followLinks: false))
+    {
+      if (css is Directory)
+      {
+        print('Moving Directory:' + css.path.replaceAll('/web/css', '/out/web/css'));
+        new Directory(css.path.replaceAll('/web/css', '/out/web/css')).createSync(recursive: true);
+      }
+    }
+
+    for (FileSystemEntity css in new Directory('../web/css').listSync(recursive: true, followLinks: false))
+    {
+    if (css is File)
+    {
+      print('Moving File:' + css.path.replaceAll('/web/css', '/out/web/css'));
+      new File(css.path.replaceAll('/web/css', '/out/web/css')).writeAsBytesSync(
+          new File(css.path).readAsBytesSync());
+    }
+    }
+    
+    
+  })
    
-  // Copies FontAwesome to the output folder
-  .then((_) => new File('../out/web/css/font-awesome.min.css').writeAsBytesSync(
-        new File('../web/css/font-awesome.min.css').readAsBytesSync()))
-  .then((_) => new File('../out/web/css/font/fontawesome-webfont.eot').writeAsBytesSync(
-        new File('../web/css/font/fontawesome-webfont.eot').readAsBytesSync()))
-  .then((_) => new File('../out/web/css/font/fontawesome-webfont.svg').writeAsBytesSync(
-        new File('../web/css/font/fontawesome-webfont.svg').readAsBytesSync()))
-  .then((_) => new File('../out/web/css/font/fontawesome-webfont.ttf').writeAsBytesSync(
-        new File('../web/css/font/fontawesome-webfont.ttf').readAsBytesSync()))
-  .then((_) => new File('../out/web/css/font/fontawesome-webfont.woff').writeAsBytesSync(
-        new File('../web/css/font/fontawesome-webfont.woff').readAsBytesSync()))
-  .then((_) => new File('../out/web/css/font/FontAwesome.otf').writeAsBytesSync(
-        new File('../web/css/font/FontAwesome.otf').readAsBytesSync()))
-   
-// Deletes the unneeded files made when we used dart2js
-  .then((_) => print('Cleaning Workspace...'))  
-  .then((_) => new File('../web/game.js').deleteSync())
-  .then((_) => new File('../web/game.js.deps').deleteSync())
-  .then((_) => new File('../web/game.js.map').deleteSync())
-  .then((_) => new File('../web/game.precompiled.js').deleteSync())
   .then((_) => print('...Done'))
   .catchError(print);
 }

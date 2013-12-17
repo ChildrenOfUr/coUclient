@@ -41,6 +41,28 @@ Input playerInput;
     });  
     document.onFullscreenChange.listen((_)
         {
+          printConsole('System: FullScreen = false');
+          querySelector('#FullscreenGlyph').style.display = 'inline';
+          querySelector('#FullscreenResetGlyph').style.display = 'none';
+        }
+      );
+  
+  //Toggle mute and previous volume when volume button clicked
+  Storage localStorage = window.localStorage;
+  querySelector('#AudioGlyph').onClick.listen((_)
+      {
+        String mute = '0';
+        if(localStorage['isMuted'] == '0')
+          mute = '1';
+        ui._setMute(mute);
+      });
+  //Handle volume slider changes
+  InputElement volumeSlider = querySelector('#VolumeSlider');
+  volumeSlider.onChange.listen((_)
+      {
+        setVolume(volumeSlider.value);
+        localStorage['prevVolume'] = volumeSlider.value;
+      });
           if (document.fullscreenElement != null)
           {
             printConsole('System: FullScreen = true');
@@ -54,8 +76,8 @@ Input playerInput;
             querySelector('#FullscreenGlyph').style.display = 'inline';
             querySelector('#FullscreenResetGlyph').style.display = 'none';
           }
-        });
-    
+        
+   
       
     // Right-click menu functions
     

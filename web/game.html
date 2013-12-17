@@ -19,6 +19,9 @@
     <link rel="stylesheet" href="./css/base.css">
 <!-- Import Stylesheets -->
 
+
+<script src="https://connect.soundcloud.com/sdk.js"></script>
+
 </head>
 <body>
 
@@ -85,12 +88,16 @@ WAIT! You were just about to win the game!
      <a href="https://plus.google.com/communities/103304995470607753666" target="_blank">  
    <i id="QuestionGlyph" class="icon-question-sign glyph icon-large"> </i></a>
    
-   <i id="AudioGlyph" class="icon-volume-up volumeicon icon-large">
-      <span id="VolumeSlider">
-      <span id="VolumeBall"></span>
-      
+
+   <span id="AudioSettings">
+      <i id="SliderParent">
+          <input type="range" id="VolumeSlider" min="0" max="100" step="1" value="50" oninput="rangevalue.value=value" onchange="rangevalue.value=value"> 
+          <output id="rangevalue">50</output>
+      </i>
+      <span id="AudioGlyph">
+          <i id="VolumeGlyph" class="icon-volume-up glyph icon-large"></i>
       </span>
-   </i>
+   </span>
    <i id="FullscreenGlyph" class="icon-fullscreen glyph icon-large"> </i>
    <i id="FullscreenResetGlyph" class="icon-resize-small glyph icon-large"> </i>
    <div>
