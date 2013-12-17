@@ -39,7 +39,7 @@ main() {
           new File('./web/game.html').readAsLinesSync()));
   
 
-  for (FileSystemEntity ass in new Directory('../web/assets').listSync(recursive: true, followLinks: false))
+  for (FileSystemEntity ass in new Directory('./web/assets').listSync(recursive: true, followLinks: false))
   {
     if (ass is Directory)
     {
@@ -48,7 +48,7 @@ main() {
     }
   }
   
-  for (FileSystemEntity ass in new Directory('../web/assets').listSync(recursive: true, followLinks: false))
+  for (FileSystemEntity ass in new Directory('./web/assets').listSync(recursive: true, followLinks: false))
   {
     if (ass is File)
     {
@@ -58,7 +58,7 @@ main() {
     }
   }
   
-  for (FileSystemEntity css in new Directory('../web/css').listSync(recursive: true, followLinks: false))
+  for (FileSystemEntity css in new Directory('./web/css').listSync(recursive: true, followLinks: false))
   {
     if (css is Directory)
     {
@@ -67,7 +67,7 @@ main() {
     }
   }
 
-  for (FileSystemEntity css in new Directory('../web/css').listSync(recursive: true, followLinks: false))
+  for (FileSystemEntity css in new Directory('./web/css').listSync(recursive: true, followLinks: false))
   {
   if (css is File)
   {
