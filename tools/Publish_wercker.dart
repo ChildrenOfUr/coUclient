@@ -38,55 +38,45 @@ main() {
       minifyHtml(
           new File('./web/game.html').readAsLinesSync()));
   
-      
-  // Create css and font folders
-  new Directory('./out/web/css/font').createSync(recursive: true);
-      
-  // Places our css in the output folder
-  new File('./out/web/css/base.css').writeAsStringSync(
-      minifyCss(
-        new File('./web/css/base.css').readAsLinesSync()
-          ));
-   
-  // Copies FontAwesome to the output folder
-  new File('./out/web/css/font-awesome.min.css').writeAsBytesSync(
-        new File('./web/css/font-awesome.min.css').readAsBytesSync());
-  new File('./out/web/css/font/fontawesome-webfont.eot').writeAsBytesSync(
-        new File('./web/css/font/fontawesome-webfont.eot').readAsBytesSync());
-  new File('./out/web/css/font/fontawesome-webfont.svg').writeAsBytesSync(
-        new File('./web/css/font/fontawesome-webfont.svg').readAsBytesSync());
-  new File('./out/web/css/font/fontawesome-webfont.ttf').writeAsBytesSync(
-        new File('./web/css/font/fontawesome-webfont.ttf').readAsBytesSync());
-  new File('./out/web/css/font/fontawesome-webfont.woff').writeAsBytesSync(
-        new File('./web/css/font/fontawesome-webfont.woff').readAsBytesSync());
-  new File('./out/web/css/font/FontAwesome.otf').writeAsBytesSync(
-        new File('./web/css/font/FontAwesome.otf').readAsBytesSync());
 
-  for (FileSystemEntity ent in new Directory('./web/assets').listSync(recursive: true, followLinks: false))
+  for (FileSystemEntity ass in new Directory('../web/assets').listSync(recursive: true, followLinks: false))
   {
-    if (ent is Directory)
+    if (ass is Directory)
     {
-      new Directory(ent.path.replaceAll('./web/assets', './out/web/assets')).createSync(recursive: true);
-    }
-    if (ent is File)
-    {
-      new File(ent.path.replaceAll('./web/assets', './out/web/assets')).writeAsBytesSync(
-          new File(ent.path).readAsBytesSync());
+      print('Moving Directory:' + ass.path.replaceAll('/web/css', '/out/web/css'));
+      new Directory(ass.path.replaceAll('/web/assets', '/out/web/assets')).createSync(recursive: true);
     }
   }
   
-  for (FileSystemEntity ent in new Directory('./web/css').listSync(recursive: true, followLinks: false))
+  for (FileSystemEntity ass in new Directory('../web/assets').listSync(recursive: true, followLinks: false))
   {
-    if (ent is Directory)
+    if (ass is File)
     {
-      new Directory(ent.path.replaceAll('./web/css', './out/web/css')).createSync(recursive: true);
-    }
-    if (ent is File)
-    {
-      new File(ent.path.replaceAll('./web/css', './out/web/css')).writeAsBytesSync(
-          new File(ent.path).readAsBytesSync());
+      print('Moving File:' + ass.path.replaceAll('/web/css', '/out/web/css'));
+      new File(ass.path.replaceAll('/web/assets', '/out/web/assets')).writeAsBytesSync(
+          new File(ass.path).readAsBytesSync());
     }
   }
+  
+  for (FileSystemEntity css in new Directory('../web/css').listSync(recursive: true, followLinks: false))
+  {
+    if (css is Directory)
+    {
+      print('Moving Directory:' + css.path.replaceAll('/web/css', '/out/web/css'));
+      new Directory(css.path.replaceAll('/web/css', '/out/web/css')).createSync(recursive: true);
+    }
+  }
+
+  for (FileSystemEntity css in new Directory('../web/css').listSync(recursive: true, followLinks: false))
+  {
+  if (css is File)
+  {
+    print('Moving File:' + css.path.replaceAll('/web/css', '/out/web/css'));
+    new File(css.path.replaceAll('/web/css', '/out/web/css')).writeAsBytesSync(
+        new File(css.path).readAsBytesSync());
+  }
+  }
+
 
   
   

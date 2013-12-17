@@ -8,7 +8,7 @@ build:
           name: dart2js
           code: dart2js ./web/main.dart --out=./web/game.js --minify
       - script:
-          name: run Publish_web.dart
+          name: run Publish_wercker.dart
           code: dart ./tools/Publish_wercker.dart
 deploy:
   steps:
