@@ -36,6 +36,7 @@ main() {
   
   print(Platform.executable);
   print('Running dart2js + minify...');
+  print('dart2js path: $PATH_TO_DART2JS');
   Process.run(PATH_TO_DART2JS,['../web/main.dart','--out=../web/game.js','--minify'])
   .then((_) => print('Cleaning Output Directory...'))
   .then((_) 
