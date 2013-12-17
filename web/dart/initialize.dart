@@ -72,7 +72,7 @@ init(){
     
     // Start listening for clicks and key presses
     playerInput = new Input();
-    playerInput.initialize(); //->constructor?
+    playerInput.initialize();
     
     printConsole('System: Initialization Finished.');
     printConsole('');
@@ -83,13 +83,24 @@ init(){
     setSong('firebog');
     
     Street s = new Street('streets.street');
-    s.load(); //-->should be in constructor?
-              // Dont' think so, the 'load' here is to get it actually set up to draw on the screen,
-              // We want to be able to 'create' more than one street and 'load' them at different times after. -Paul
+    s.load();
     
-    Player mysteryman = new Player();
+    document.body.children.add(gameCanvas);
+    
+    gameScreen.append(gameCanvas);
+    
+    gameCanvas.style.zIndex = ('0');
+    gameCanvas.width = CurrentStreet.width;
+    gameCanvas.height = CurrentStreet.height;
+    
+    gameCanvas.style.position = 'absolute';
+    gameCanvas.style.left = '0 px';
+    gameCanvas.style.top =  '0 px';   
+    
+    Player CurrentPlayer = new Player();
     
     CurrentCamera = new Camera();
+    
         }
     );
 }
