@@ -80,6 +80,34 @@ main() {
         new File('../web/css/font/fontawesome-webfont.woff').readAsBytesSync()))
   .then((_) => new File('../out/web/css/font/FontAwesome.otf').writeAsBytesSync(
         new File('../web/css/font/FontAwesome.otf').readAsBytesSync()))
+        
+  .then((_) {
+    for (FileSystemEntity ent in new Directory('../web/assets').listSync(recursive: true, followLinks: false))
+    {
+      if (ent is Directory)
+      {
+        new Directory(ent.path.replaceAll('../web/assets', '../out/web/assets')).createSync(recursive: true);
+      }
+      if (ent is File)
+      {
+        new File(ent.path.replaceAll('../web/assets', '../out/web/assets')).writeAsBytesSync(
+            new File(ent.path).readAsBytesSync());
+      }
+    }
+    
+    for (FileSystemEntity ent in new Directory('../web/css').listSync(recursive: true, followLinks: false))
+    {
+      if (ent is Directory)
+      {
+        new Directory(ent.path.replaceAll('../web/css', '../out/web/css')).createSync(recursive: true);
+      }
+      if (ent is File)
+      {
+        new File(ent.path.replaceAll('../web/css', '../out/web/css')).writeAsBytesSync(
+            new File(ent.path).readAsBytesSync());
+      }
+    }
+  })
    
 // Deletes the unneeded files made when we used dart2js
   .then((_) => print('Cleaning Workspace...'))  

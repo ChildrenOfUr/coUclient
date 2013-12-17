@@ -35,9 +35,9 @@ init(){
     Loading.play();
   }
   
-  assets.loadPack('music', 'assets/music.pack')
+  assets.loadPack('music', './assets/music.pack')
     .then((_) =>
-  assets.loadPack('streets', 'assets/streets.pack'))
+  assets.loadPack('streets', './assets/streets.pack'))
     .then((_)
         {
 
