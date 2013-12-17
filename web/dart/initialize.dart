@@ -25,6 +25,11 @@ init(){
     localStorage['isMuted'] = '0';
   }
   ui._setMute(isMuted);
+
+  // Play the loading music.
+  AudioElement Loading = new AudioElement('./assets/sounds/loading.ogg');
+  querySelector('#LoadingScreen').append(Loading);
+  Loading.play();
   
   if(int.parse(prevVolume) > 0 && isMuted == '0')
   {
@@ -66,7 +71,8 @@ init(){
     window.onResize.listen((_) => resize());
     
     // Start listening for clicks and key presses
-    initializeInput();
+    playerInput = new Input();
+    playerInput.initialize(); //->constructor?
     
     printConsole('System: Initialization Finished.');
     printConsole('');
@@ -74,13 +80,16 @@ init(){
     printConsole('COU DEVELOPMENT CONSOLE V0.4');
     printConsole('For a list of commands type "help"');
     
-    
     setSong('firebog');
     
     Street s = new Street('streets.street');
-    s.load();
-
+    s.load(); //-->should be in constructor?
+              // Dont' think so, the 'load' here is to get it actually set up to draw on the screen,
+              // We want to be able to 'create' more than one street and 'load' them at different times after. -Paul
     
+    Player mysteryman = new Player();
+    
+    CurrentCamera = new Camera();
         }
     );
 }
