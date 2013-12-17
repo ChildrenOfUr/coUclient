@@ -404,7 +404,7 @@ textarea{resize: none;}
 /*Elements in the bottom left corner*/
 #CurrantBack {
     position:absolute;
-    bottom: 196px;
+    bottom: 140px;
     left:14px;
     overflow:hidden;
     width: 38px;
@@ -417,12 +417,12 @@ textarea{resize: none;}
 }
 #CurrantEmblem {
     position:absolute;
-    bottom:200px;
+    bottom:144px;
     left:20px;
 }
 #CurrantText {
     position:absolute;
-    bottom:195px;
+    bottom:139px;
     left:55px;
     opacity:0.4;
     transition-property: opacity;
@@ -455,6 +455,19 @@ textarea{resize: none;}
   -o-box-shadow: -1px 1px 3px 0px #4d8c8b;
   -khtml-box-shadow: -1px 1px 3px 0px #4d8c8b;
   box-shadow: -1px 1px 3px 0px #4d8c8b;
+}
+#ChatInput {
+  	position: absolute;
+	right: 6px;
+	bottom: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	width: 235px;
+	background-color: #e9f0f0;
+	outline: none;
+	cursor: auto;
+	padding-left: 5px;
+	padding-right: 5px;
 }
 #ChatList {
   color: #005c73;
@@ -684,10 +697,11 @@ textarea{resize: none;}
    align:right;
 }
 
-#VolumeSlider {
+#AudioSettings > #SliderParent > #VolumeSlider {
     -webkit-appearance: none;
-    opacity: 0;
+    visibility: hidden;
     position:absolute;
+    padding-right: 2px;
     left: 26px;
     top: 55px;
     width:100px;
@@ -772,8 +786,9 @@ textarea{resize: none;}
 	border-width: 11px;
 	margin-top: -11px;
 }
-#AudioSettings:hover #VolumeSlider, #rangeValue {
-  opacity: 1;
+#AudioSettings > #AudioGlyph:hover + #SliderParent > #VolumeSlider,
+#AudioSettings > #SliderParent > #VolumeSlider:hover {
+	visibility: visible;
 }
 
 /*The inventory bar at the bottom of the screen*/

@@ -90,12 +90,12 @@ WAIT! You were just about to win the game!
    
 
    <span id="AudioSettings">
-      <i id="SliderParent">
+   	  <span id="AudioGlyph">
+          <i id="VolumeGlyph" class="icon-volume-up glyph icon-large"></i>
+      </span>
+      <span id="SliderParent">
           <input type="range" id="VolumeSlider" min="0" max="100" step="1" value="50" oninput="rangevalue.value=value" onchange="rangevalue.value=value"> 
           <output id="rangevalue">50</output>
-      </i>
-      <span id="AudioGlyph">
-          <i id="VolumeGlyph" class="icon-volume-up glyph icon-large"></i>
       </span>
    </span>
    <i id="FullscreenGlyph" class="icon-fullscreen glyph icon-large"> </i>
@@ -151,6 +151,7 @@ WAIT! You were just about to win the game!
 </ol>
 <div id="ChatPane">
 ChatPane
+<input type="text" id="ChatInput"/>
 </div>
 
 <!-- Bottom-left currant display -->
