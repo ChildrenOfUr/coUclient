@@ -60,7 +60,7 @@ Input playerInput;
   InputElement volumeSlider = querySelector('#VolumeSlider');
   volumeSlider.onChange.listen((_)
       {
-        setVolume(volumeSlider.value);
+        setSoundVolume(volumeSlider.value);
         localStorage['prevVolume'] = volumeSlider.value;
       });
           if (document.fullscreenElement != null)

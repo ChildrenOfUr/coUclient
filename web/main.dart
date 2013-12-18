@@ -7,6 +7,7 @@ import 'package:asset_pack/asset_pack.dart';
 
 // Import our coU libraries.
 import 'package:coUlib/glitch-time.dart';// The script that spits out time!
+import 'package:scproxy/scproxy.dart';
 
 // main game entry
 part './dart/initialize.dart';

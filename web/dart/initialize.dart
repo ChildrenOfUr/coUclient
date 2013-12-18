@@ -10,7 +10,7 @@ init(){
   String isMuted = localStorage['isMuted'];
   if(prevVolume != null)
   {
-    setVolume(prevVolume);
+    setSoundVolume(prevVolume);
     (querySelector('#VolumeSlider') as InputElement).value = prevVolume;
     querySelector('#rangevalue').innerHtml = prevVolume;
   }
@@ -35,11 +35,24 @@ init(){
     Loading.play();
   }
   
-  assets.loadPack('music', './assets/music.pack')
-    .then((_) =>
-  assets.loadPack('streets', './assets/streets.pack'))
+  assets.loadPack('sounds', './assets/sounds.pack')// These will just be non-music sounds.
+    .then((AssetPack sounds) 
+        {
+      // Load all our SoundCloud songs and store the resulting SCsongs in the jukebox
+      // Someday we may want to do this individually when a street loads, rather than all at once.
+      List songsToLoad = new List();
+      for (String song in sounds['music'].keys)
+      {
+         Future future = ui.SC.load(sounds['music'][song]['scid']).then((scSong) => ui.jukebox[song] = scSong);
+         songsToLoad.add(future);
+      }
+      return Future.wait(songsToLoad);
+        })
+    .then((_) => assets.loadPack('streets', './assets/streets.pack'))
     .then((_)
         {
+      
+      
 
     // Peacefully fade out the loading screen.
     querySelector('#LoadingScreen').style.opacity = '0.0';
@@ -75,10 +88,10 @@ init(){
     printConsole('COU DEVELOPMENT CONSOLE V0.4');
     printConsole('For a list of commands type "help"');
     
-    setSong('firebog');
     
     Street s = new Street('streets.street');
     s.load();
+    setSong('firebog');
     
     document.body.children.add(gameCanvas);
     
