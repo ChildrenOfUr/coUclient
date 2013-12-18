@@ -5,50 +5,57 @@ handleChat()
 //TODO: refactor into a method to add a chat panel (so that the user can add any chat they like)
 //TODO: get/post chat text from a server (IRC?)
 
-	SpanElement globalSpan = new SpanElement()
-		..text = "Global Chat";
-	SpanElement localSpan = new SpanElement()
-		..text = "Local Chat";
-	DivElement globalDiv = new DivElement()
-		..className = "ChatWindow";
-	DivElement localDiv = new DivElement()
-		..className = "ChatWindow";
-	DivElement globalChatHistory = new DivElement()
-		..className = "ChatHistory";
-	DivElement localChatHistory = new DivElement()
-		..className = "ChatHistory";
-	TextInputElement globalInput = new TextInputElement()
-		..className = "ChatInput";
-	TextInputElement localInput = new TextInputElement()
-		..className = "ChatInput";
+	addChatTab("Global Chat", true);
+	addChatTab("Other Chat", false);
+	querySelector("#ChatPane").children.add(makeTabContent("Local Chat",true));
 	
-	globalDiv.children
-		..add(globalSpan)
-		..add(globalChatHistory)
-		..add(globalInput);
-	localDiv.children
-		..add(localSpan)
-		..add(localChatHistory)
-		..add(localInput);
-	Element chatPane = querySelector("#ChatPane");
-	chatPane.children
-		..add(globalDiv)
-		..add(localDiv);
+}
+
+void addChatTab(String channelName, bool checked)
+{
+	DivElement content = makeTabContent(channelName,false)
+		..className = "content";
+	DivElement tab = new DivElement()
+		..className = "tab";
+	RadioButtonInputElement radioButton = new RadioButtonInputElement()
+		..id = "tab-"+channelName
+		..name = "tabgroup" //only allow one to be selected at a time
+		..checked = checked;
+	LabelElement label = new LabelElement()
+		..attributes['for'] = "tab-"+channelName
+		..text = channelName;
+	tab.children
+		..add(radioButton)
+		..add(label)
+		..add(content);
+	querySelector("#ChatTabs").children.add(tab);
+}
+
+DivElement makeTabContent(String channelName, bool useSpanForTitle)
+{
+	DivElement chatDiv = new DivElement()
+		..className = "ChatWindow";
+	SpanElement span = new SpanElement()
+		..text = channelName;
+	DivElement chatHistory = new DivElement()
+		..className = "ChatHistory";
+	TextInputElement input = new TextInputElement()
+		..className = "ChatInput";
+
+	if(useSpanForTitle)
+		chatDiv.children.add(span);
+	chatDiv.children
+		..add(chatHistory)
+		..add(input);
 	
-	globalInput.onChange.listen((_) //press enter
+	input.onChange.listen((_)
 	{
 		DivElement chatString = new DivElement()
-			..text = globalInput.value;
-		globalChatHistory.children.add(chatString);
-		globalChatHistory.scrollTop = globalChatHistory.scrollHeight; //autoscroll to bottom when you add a message
-		globalInput.value = '';
+			..text = input.value;
+		chatHistory.children.add(chatString);
+		chatHistory.scrollTop = chatHistory.scrollHeight;
+		input.value = '';
 	});
-	localInput.onChange.listen((_)
-	{
-		DivElement chatString = new DivElement()
-			..text = localInput.value;
-		localChatHistory.children.add(chatString);
-		localChatHistory.scrollTop = localChatHistory.scrollHeight;
-		localInput.value = '';
-	});
+	
+	return chatDiv;
 }

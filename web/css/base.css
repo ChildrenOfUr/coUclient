@@ -462,14 +462,14 @@ textarea{resize: none;}
 .ChatHistory {
 	border-top: 1px solid;
 	border-color: #a7a7a7;
-	height: calc(100% - 3em - 5px);
+	height: calc(100% - 3em);
 	overflow-y: scroll;
 	overflow-x: hidden;
 	margin-bottom: 5px;
-	margin-left: 5px;
+	background: whilte;
 }
 
-/* here lies hacky bits to style the scrollbar in webkit based browsers
+/* Here lies hacky bits to style the scrollbar in webkit based browsers
    this WILL NOT WORK in Firefox or IE.  Only a loss of style will result however.*/
 .ChatHistory::-webkit-scrollbar {
 	width: 16px;
@@ -532,6 +532,38 @@ textarea{resize: none;}
   bottom:60px; 
   right:40px;  
   padding:5px;
+}
+.tabs {
+  position: relative;
+}
+.tab {
+  float: left;
+}
+.tab label {
+  background: #eee; 
+  padding: 4px; 
+  border: 1px solid #ccc; 
+  margin-left: -1px; 
+  position: relative;
+  left: 1px; 
+}
+.tab [type=radio] {
+  display: none;   
+}
+.content {
+  position: absolute;
+  height: calc(100% - 10px);
+  top: 28px;
+  left: 0;
+  right: 0;
+}
+[type=radio]:checked ~ label {
+  background: white;
+  border-bottom: 1px solid white;
+  z-index: 2;
+}
+[type=radio]:checked ~ label ~ .content {
+  z-index: 1;
 }
 
 /*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
@@ -791,9 +823,7 @@ textarea{resize: none;}
   border-radius: 50%;
 }
 #VolumeSlider:hover ~ #rangevalue, #VolumeSlider:active ~ #rangevalue {
-    -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
-    filter: alpha(opacity=100);
-    opacity: 1;
+    visibility: visible;
 }
 /* Tool Tip for Volume*/
  #rangevalue {
@@ -812,10 +842,7 @@ textarea{resize: none;}
     background: #222931;
     border-radius: 5px;
     width: 18px;
-    -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
-    filter: alpha(opacity=0);
-    opacity: 0;
-    transition: all 0.5s ease;
+    visibility: hidden;
 }
 #rangevalue:after, #rangevalue:before {
 	right: 100%;
