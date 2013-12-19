@@ -5,10 +5,10 @@ String username = "testUser"; //TODO: get actual username of logged in user;
 
 handleChat()
 {
+	Random rand = new Random();
+	username += rand.nextInt(10000).toString();
 	addChatTab("Global Chat", true);
 	addChatTab("Other Chat", false);
-	addChatTab("Other Chat2", false);
-	addChatTab("Other Chat3", false);
 	querySelector("#ChatPane").children.add(makeTabContent("Local Chat",true));
 }
 
