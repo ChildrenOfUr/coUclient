@@ -75,7 +75,8 @@ class UserInterface {
     setMaxEnergy('100');
     setMood('100');
     setMaxMood('100');
-    
+		
+	handleChat();   
   }
   
   _setEnergy(int newValue){

@@ -81,31 +81,29 @@ WAIT! You were just about to win the game!
    </div>
 
   <!--Contains all the ui elements on the top right-->
-   <div id="TopRight">
-   <i id="ConsoleGlyph" class="icon-rocket glyph icon-large"> </i>
-     <a href="https://github.com/ChildrenOfUr/coUclient/issues" target="_blank">
-       <i id="BugGlyph" class="icon-bug glyph icon-large"> </i></a>
-     <a href="https://plus.google.com/communities/103304995470607753666" target="_blank">  
-   <i id="QuestionGlyph" class="icon-question-sign glyph icon-large"> </i></a>
-   
-
-   <span id="AudioSettings">
-   	  <span id="AudioGlyph">
-          <i id="VolumeGlyph" class="icon-volume-up glyph icon-large"></i>
-      </span>
-      <span id="SliderParent">
-          <input type="range" id="VolumeSlider" min="0" max="100" step="1" value="50" oninput="rangevalue.value=value" onchange="rangevalue.value=value"> 
-          <output id="rangevalue">50</output>
-      </span>
-   </span>
-   <i id="FullscreenGlyph" class="icon-fullscreen glyph icon-large"> </i>
-   <i id="FullscreenResetGlyph" class="icon-resize-small glyph icon-large"> </i>
-   <div>
-   </div>
-   <span id="CurrDay"></span>
-   <span id="CurrTime"></span>
-   <span id="CurrDate"></span>   
-   </div>
+	<div id="TopRight">
+		<i id="ConsoleGlyph" class="icon-rocket glyph icon-large"> </i>
+			<a href="https://github.com/ChildrenOfUr/coUclient/issues" target="_blank">
+				<i id="BugGlyph" class="icon-bug glyph icon-large"> </i></a>
+			<a href="https://plus.google.com/communities/103304995470607753666" target="_blank">  
+		<i id="QuestionGlyph" class="icon-question-sign glyph icon-large"> </i></a>
+	   
+	
+		<span id="AudioSettings">
+			<span id="AudioGlyph">
+				<i id="VolumeGlyph" class="icon-volume-up glyph icon-large"></i>
+			</span>
+			<span id="SliderParent">
+				<input type="range" id="VolumeSlider" min="0" max="100" step="1" value="50" oninput="rangevalue.value=value" onchange="rangevalue.value=value"> 
+				<output id="rangevalue">50</output>
+			</span>
+		</span>
+		<i id="FullscreenGlyph" class="icon-fullscreen glyph icon-large"> </i>
+		<i id="FullscreenResetGlyph" class="icon-resize-small glyph icon-large"> </i>
+		<span id="CurrDay"></span>
+		<span id="CurrTime"></span>
+		<span id="CurrDate"></span>
+	</div>
    
 <!-- Inventory Bar -->
 <div id="InventoryBag">
@@ -146,12 +144,9 @@ WAIT! You were just about to win the game!
 </div>   
 
 <!-- Contains the Chat windows -->
-<ol id="ChatList">
-<li>PlAyEr NaMe</li>
-</ol>
 <div id="ChatPane">
-ChatPane
-<input type="text" id="ChatInput"/>
+<div id="ChatTabs" class="tabs ChatWindow">    
+</div>
 </div>
 
 <!-- Bottom-left currant display -->
