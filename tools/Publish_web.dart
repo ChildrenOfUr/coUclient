@@ -49,13 +49,13 @@ main() {
   .then((_) => print('Running dart2js + minify...'))
   .then((_) => print('dart2js path: $PATH_TO_DART2JS'))
   .then((_) => Process.run(PATH_TO_DART2JS,['../web/main.dart','--out=../out/web/game.js', '--minify']))
-  .then((_) => Process.run(PATH_TO_DART2JS,['../web/main.dart','--out=../out/web/game.dart', '--output-type=dart', '--minify']))
+  //.then((_) => Process.run(PATH_TO_DART2JS,['../web/main.dart','--out=../out/web/game.dart', '--output-type=dart']))
   .then((_) => print('Cleaning Output Directory...'))
   
   // Deletes the unneeded files made when we used dart2js
   .then((_) => print('Cleaning Workspace...'))  
 
-  .then((_) => new File('../out/web/game.dart.deps').deleteSync())
+  //.then((_) => new File('../out/web/game.dart.deps').deleteSync())
   .then((_) => new File('../out/web/game.js.deps').deleteSync())
   .then((_) => new File('../out/web/game.js.map').deleteSync())
   .then((_) => new File('../out/web/game.precompiled.js').deleteSync())
@@ -141,8 +141,8 @@ String minifyHtml(List<String> input){
    List<String> fileLines = new List();
    for (String line in input)
    {
-    line = line.replaceAll('main.dart', 'game.dart');
-    //line = line.replaceAll('type="application/dart" ', '');
+    line = line.replaceAll('main.dart', 'game.js');
+    line = line.replaceAll('type="application/dart" ', '');
     line = line.replaceAll('packages/browser/interop.js', 'interop.js');
     line = line.replaceAll('packages/browser/dart.js', 'dart.js');
     // Add other html replacement lines here.
