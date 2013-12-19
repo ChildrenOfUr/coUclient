@@ -39,13 +39,21 @@ Input playerInput;
     querySelector('#FullscreenResetGlyph').onClick.listen((a){
     document.exitFullscreen();
     });  
-    document.onFullscreenChange.listen((_)
-        {
-          printConsole('System: FullScreen = false');
-          querySelector('#FullscreenGlyph').style.display = 'inline';
-          querySelector('#FullscreenResetGlyph').style.display = 'none';
-        }
-      );
+	document.onFullscreenChange.listen((_)
+	{
+		if (document.fullscreenElement != null)
+	    {
+		    printConsole('System: FullScreen = true');
+		    querySelector('#FullscreenGlyph').style.display = 'none';
+		    querySelector('#FullscreenResetGlyph').style.display = 'inline';
+	    }
+	    else
+	    {
+		    printConsole('System: FullScreen = false');
+		    querySelector('#FullscreenGlyph').style.display = 'inline';
+		    querySelector('#FullscreenResetGlyph').style.display = 'none';
+	    }
+	});
   
   //Toggle mute and previous volume when volume button clicked
   Storage localStorage = window.localStorage;

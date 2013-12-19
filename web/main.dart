@@ -2,6 +2,7 @@ library coUclient;
 // Import deps
 import 'dart:html';
 import 'dart:async';
+import 'dart:convert';
 import 'package:game_loop/game_loop_html.dart';
 import 'package:asset_pack/asset_pack.dart';
 
