@@ -6,6 +6,9 @@ String username = "testUser"; //TODO: get actual username of logged in user;
 handleChat()
 {
 	addChatTab("Global Chat", true);
+	addChatTab("Other Chat", false);
+	addChatTab("Other Chat2", false);
+	addChatTab("Other Chat3", false);
 	querySelector("#ChatPane").children.add(makeTabContent("Local Chat",true));
 }
 

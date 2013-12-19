@@ -537,12 +537,15 @@ textarea{resize: none;}
   float: left;
 }
 .tab label {
-  background: #eee; 
-  padding: 4px; 
-  border: 1px solid #ccc; 
-  margin-left: -1px; 
-  position: relative;
-  left: 1px; 
+	background: #eee; 
+	padding: 4px; 
+	border: 1px solid #ccc; 
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	margin-left: -1px;
+	position: relative;
+	left: 1px;
+	top: 5px;
 }
 .tab [type=radio] {
   display: none;   
