@@ -8,8 +8,6 @@ import 'dart:io';
 /*
  * This script compiles a web-publishable version of the client
  * 
- * TODO when compiling a production ready app, we need to transfer the asset and css folder still. This should be automated.
- * 
  */
 
 

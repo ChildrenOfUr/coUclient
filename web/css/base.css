@@ -238,7 +238,7 @@ textarea{resize: none;}
 #GameScreen {
     background-color:#000;
     position:absolute;
-    width:900px;
+    width:73%;
     height:600px;
     top:60px;  
     left:40px;
@@ -443,10 +443,10 @@ textarea{resize: none;}
   color: #005c73;
   background-color: #fff;
   position:absolute;
-  width:250px;
+  width:290px;
   height: calc(100% - 120px);
   top:60px;  
-  right:40px;
+  right:18px;
   -moz-border-radius: 7px;
   border-radius: 7px;
   padding:5px;
@@ -460,16 +460,17 @@ textarea{resize: none;}
 	height: 50%;
 }
 .ChatHistory {
+	font-size: small;
 	border-top: 1px solid;
 	border-color: #a7a7a7;
-	height: calc(100% - 3em - 5px);
+	height: calc(100% - 50px);
 	overflow-y: scroll;
 	overflow-x: hidden;
 	margin-bottom: 5px;
-	margin-left: 5px;
+	background-color: white;
 }
 
-/* here lies hacky bits to style the scrollbar in webkit based browsers
+/* Here lies hacky bits to style the scrollbar in webkit based browsers
    this WILL NOT WORK in Firefox or IE.  Only a loss of style will result however.*/
 .ChatHistory::-webkit-scrollbar {
 	width: 16px;
@@ -513,7 +514,7 @@ textarea{resize: none;}
 .ChatInput {
 	-moz-border-radius: 5px;
 	border-radius: 5px;
-	width: 235px;
+	width: calc(100% - 15px);
 	background-color: #e9f0f0;
 	outline: none;
 	cursor: auto;
@@ -523,15 +524,46 @@ textarea{resize: none;}
 .ChatInput:focus {
 	background-color: #F5F5CF
 }
-#ChatList {
-  color: #005c73;
-  background-color: #e9f0f0;
-  position:absolute;
-  width:250px;
-  top:40px; 
-  bottom:60px; 
-  right:40px;  
-  padding:5px;
+.MessageBody {
+	font-family: 'Tahoma', 'Geneva', 'sans-serif';
+	padding-left: 1.5em;
+    text-indent:-1.5em;
+    display: inline-block;
+}
+.tabs {
+  position: relative;
+}
+.tab {
+  float: left;
+}
+.tab label {
+	background: #eee; 
+	padding: 4px; 
+	border: 1px solid #ccc; 
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	margin-left: -1px;
+	position: relative;
+	left: 1px;
+	top: 5px;
+}
+.tab [type=radio] {
+  display: none;   
+}
+.content {
+  position: absolute;
+  height: calc(100% - 10px);
+  top: 28px;
+  left: 0;
+  right: 0;
+}
+[type=radio]:checked ~ label {
+  background: white;
+  border-bottom: 1px solid white;
+  z-index: 2;
+}
+[type=radio]:checked ~ label ~ .content {
+  z-index: 1;
 }
 
 /*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
@@ -791,9 +823,7 @@ textarea{resize: none;}
   border-radius: 50%;
 }
 #VolumeSlider:hover ~ #rangevalue, #VolumeSlider:active ~ #rangevalue {
-    -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
-    filter: alpha(opacity=100);
-    opacity: 1;
+    visibility: visible;
 }
 /* Tool Tip for Volume*/
  #rangevalue {
@@ -812,10 +842,7 @@ textarea{resize: none;}
     background: #222931;
     border-radius: 5px;
     width: 18px;
-    -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
-    filter: alpha(opacity=0);
-    opacity: 0;
-    transition: all 0.5s ease;
+    visibility: hidden;
 }
 #rangevalue:after, #rangevalue:before {
 	right: 100%;
@@ -851,6 +878,7 @@ textarea{resize: none;}
   position: absolute;
   background-color: #e9f0f0;
   height: 61px;
+  width: 73%;
   bottom: 50px;
   left:40px;
   right:300px;
@@ -904,7 +932,8 @@ textarea{resize: none;}
   font-size: 12px;
   position: absolute;
   opacity:0.6;
-  bottom: 0;
+  left: 2px;
+  bottom: 2px;
   z-index:99;
 }
 
