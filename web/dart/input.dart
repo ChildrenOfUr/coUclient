@@ -39,7 +39,8 @@ Input playerInput;
     querySelector('#FullscreenResetGlyph').onClick.listen((a){
     document.exitFullscreen();
     });  
-	document.onFullscreenChange.listen((_)
+
+    document.onFullscreenChange.listen((_)
 	{
 		if (document.fullscreenElement != null)
 	    {
