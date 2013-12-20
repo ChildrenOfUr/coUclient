@@ -78,7 +78,7 @@ DivElement makeTabContent(String channelName, bool useSpanForTitle)
 	}
 	//TODO: end section
 	
-	WebSocket webSocket = new WebSocket("ws://localhost:8080");
+	WebSocket webSocket = new WebSocket("ws://couchatserver.herokuapp.com");
 	webSocket.onOpen.listen((_)
 	{
 		Map map = new Map();
@@ -109,15 +109,9 @@ DivElement makeTabContent(String channelName, bool useSpanForTitle)
 		else if(map["channel"] == channelName)
 			_addmessage(chatHistory, map);
 	});
-	webSocket.onClose.listen((_)
+	webSocket.onError.listen((_)
 	{
-		Map map = new Map();
-		map["username"] = username;
-		map["message"] = "left";
-		map["channel"] = channelName;
-		if(channelName == "Local Chat")
-			map["street"] = CurrentStreet.label;
-		webSocket.send(JSON.encode(map));
+		//attempt to reconnect and display a message to the user stating so
 	});
 	
 	input.onKeyUp.listen((key)
