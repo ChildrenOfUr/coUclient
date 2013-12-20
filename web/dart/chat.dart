@@ -71,7 +71,7 @@ DivElement makeTabContent(String channelName, bool useSpanForTitle)
 	}
 	//TODO: end section
 	
-	WebSocket webSocket = new WebSocket("ws://localhost:8080");
+	WebSocket webSocket = new WebSocket("ws://couchatserver.herokuapp.com");
 	webSocket.onOpen.listen((_)
 	{
 		Map map = new Map();
