@@ -1,7 +1,6 @@
 part of coUclient;
 
 Input playerInput;
-bool consoleShowing = false;
 
   class Input{
     bool leftKey;
