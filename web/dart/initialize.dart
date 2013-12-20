@@ -10,7 +10,7 @@ init(){
   String isMuted = localStorage['isMuted'];
   if(prevVolume != null)
   {
-    setSoundVolume(prevVolume);
+    setVolume(prevVolume);
     (querySelector('#VolumeSlider') as InputElement).value = prevVolume;
     querySelector('#rangevalue').innerHtml = prevVolume;
   }
@@ -41,13 +41,12 @@ init(){
       // Load all our SoundCloud songs and store the resulting SCsongs in the jukebox
       // Someday we may want to do this individually when a street loads, rather than all at once.
       List songsToLoad = new List();
-      for (String song in sounds['music'].keys)
-      {
-         Future future = ui.SC.load(sounds['music'][song]['scid']).then((scSong) => ui.jukebox[song] = scSong);
-         songsToLoad.add(future);
+      for (String song in sounds['music'].keys){
+        Future future = ui.sc.load(sounds['music'][song]['scid']).then((s)=>ui.jukebox[song] = s);
+        songsToLoad.add(future);
       }
-      return Future.wait(songsToLoad);
-        })
+      Future.wait(songsToLoad);
+      })
     .then((_) => assets.loadPack('streets', './assets/streets.pack'))
     .then((_)
         {
@@ -91,7 +90,7 @@ init(){
     
     Street s = new Street('streets.street');
     s.load();
-    setSong('firebog');
+
     
     document.body.children.add(gameCanvas);
     
@@ -109,6 +108,7 @@ init(){
     
     CurrentCamera = new Camera();
     
+    setSong('firebog');
         }
     );
 }

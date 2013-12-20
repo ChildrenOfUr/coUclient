@@ -16,9 +16,9 @@ class UserInterface {
   // Music Meter Variables
   SpanElement titleMeter = querySelector('#TrackTitle');
   SpanElement artistMeter = querySelector('#TrackArtist');
-  SCproxy SC = new SCproxy('7d2a07867f8a3d47d4f059b600b250b1');
+  SC sc = new SC('7d2a07867f8a3d47d4f059b600b250b1');
   Map jukebox = new Map();
-  SCsound currentSong;
+  Scound currentSong;
   
   
   // Energy Meter Variables
@@ -68,7 +68,7 @@ class UserInterface {
     ..add(['setname','"setname <value>" Changes the players displayed name',setName])
     
     ..add(['setsong','"setsong <value>" Changes the currently playing song',setSong])
-    ..add(['setvolume','"setvolume <1-100>" Changes the volume of the current song',setSoundVolume]);
+    ..add(['setvolume','"setvolume <1-100>" Changes the volume of the current song',setVolume]);
     
     // This should actually pull from an online source..
     setEnergy('100');
@@ -132,14 +132,14 @@ class UserInterface {
     {
       (querySelector('#VolumeSlider') as InputElement).disabled = true;
       audioGlyph.innerHtml = '<img src="./assets/system/mute.png" class="centered-icon glyph">'; //hack to have mute icon be centered
-      setSoundVolume('0');
+      setVolume('0');
       localStorage['isMuted'] = '1';
     }
     else //set to unmuted
     {
       (querySelector('#VolumeSlider') as InputElement).disabled = false;
       audioGlyph.innerHtml = '<i id="VolumeGlyph" class="icon-volume-up glyph icon-large"></i>';
-      setSoundVolume(localStorage['prevVolume']);
+      setVolume(localStorage['prevVolume']);
       localStorage['isMuted'] = '0';
     }
   }
@@ -209,19 +209,19 @@ setSong(String value){
   // Changes the ui
   value = value.replaceAll(' ', '');
   if (ui.currentSong != null)
-  ui.currentSong.stop();
+  ui.currentSong.pause();
   ui.currentSong = ui.jukebox[value];
   ui.currentSong.play();
-  ui.currentSong.repeat = true;
+  ui.currentSong.loop(true);
   //TODO remove this when it stops being a problem, it's a bug in the SCproxy library.
-  printConsole('SoundCloud: audio skipping is caused by buffering!, be patient.');
+  printConsole('SoundCloud: If you cant hear this, its probably because your browser doesnt like mp3s');
   String title = ui.currentSong.meta['title'];
   String artist = ui.currentSong.meta['user']['username'];
   ui._setSong(artist,title);
   
 }
 
-setSoundVolume(String value){
+setVolume(String value){
   // Force an int
   int intvalue = int.parse(value,onError:null);
   if (intvalue != null){

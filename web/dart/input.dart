@@ -20,9 +20,6 @@ Input playerInput;
   //Starts listening to user imput.
   initialize() {
   
-    //TODO: Remove ui elements that use css transitions where possible
-    //Recreate them on overlay canvas through UserInterface class
-    
     // disable default game_loop pointerlock
      game.pointerLock.lockOnClick = false;
       
@@ -69,7 +66,7 @@ Input playerInput;
   InputElement volumeSlider = querySelector('#VolumeSlider');
   volumeSlider.onChange.listen((_)
       {
-        setSoundVolume(volumeSlider.value);
+        setVolume(volumeSlider.value);
         localStorage['prevVolume'] = volumeSlider.value;
       });
           if (document.fullscreenElement != null)

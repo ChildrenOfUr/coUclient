@@ -143,8 +143,8 @@ String minifyHtml(List<String> input){
    {
     line = line.replaceAll('main.dart', 'game.js');
     line = line.replaceAll('type="application/dart" ', '');
-    line = line.replaceAll('packages/browser/interop.js', 'interop.js');
-    line = line.replaceAll('packages/browser/dart.js', 'dart.js');
+    //line = line.replaceAll('packages/browser/interop.js', 'interop.js');
+    line = line.replaceAll('<script src="packages/browser/dart.js"></script>', '');
     // Add other html replacement lines here.
 
     fileLines.add(line + '\n');
