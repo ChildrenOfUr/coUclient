@@ -6,7 +6,7 @@
 /*The default styles, basic buttons*/
 * {
    font-family: 'RockoFLFBold', sans-serif;
-   cursor: default;
+   cursor: auto;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -khtml-user-select: none;
@@ -526,6 +526,12 @@ textarea{resize: none;}
 	background-color: #F5F5CF
 }
 .MessageBody {
+	cursor: auto;
+	-webkit-user-select: text;
+    -khtml-user-select: text; 
+    -moz-user-select: text;
+    -ms-user-select: text;
+    user-select: text; 
 	font-family: 'Tahoma', 'Geneva', 'sans-serif';
 	padding-left: 1.5em;
     text-indent:-1.5em;
