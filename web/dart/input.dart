@@ -1,6 +1,7 @@
 part of coUclient;
 
 Input playerInput;
+bool consoleShowing = false;
 
   class Input{
     bool leftKey;
@@ -27,10 +28,18 @@ Input playerInput;
      game.pointerLock.lockOnClick = false;
       
       
-    // Handle the console opener
-    querySelector('#ConsoleGlyph').onClick.listen((a){
-    showConsole();
-    });  
+    // Handle the console opener/closer
+    querySelector('#ConsoleGlyph').onClick.listen((a)
+	{
+		if(querySelector('#DevConsole').hidden)
+			showConsole();
+		else
+    		hideConsole(1);
+    });
+	querySelector("#CloseConsole").onClick.listen((_)
+	{
+		hideConsole(1);
+	});
     
     // Handle the fullscreen Requests
     querySelector('#FullscreenGlyph').onClick.listen((a){

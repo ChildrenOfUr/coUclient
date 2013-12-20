@@ -655,6 +655,9 @@ textarea{resize: none;}
   position:relative;
   left:3px;
 }
+#CloseConsole {
+	float: right;
+}
 
 .WebView {
    -moz-border-radius: 5px 5px 0px 0px;
