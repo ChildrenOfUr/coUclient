@@ -1,12 +1,23 @@
 part of coUclient;
+//TODO: should we limit chat history so that it doesn't go on forever?
+//TODO: should links be clickable?
+
+//TODO: make text selectable
+//TODO: make text wrapping work better
 
 List<String> colors = ["aqua", "blue", "fuchsia", "gray", "green", "lime", "maroon", "navy", "olive", "orange", "purple", "red", "teal"];
 String username = "testUser"; //TODO: get actual username of logged in user;
+Storage localStorage = window.localStorage;
 
 handleChat()
 {
-	Random rand = new Random();
-	username += rand.nextInt(10000).toString();
+	if(localStorage["username"] != null)
+		username = localStorage["username"];
+	else
+	{
+		Random rand = new Random();
+		username += rand.nextInt(10000).toString();
+	}
 	addChatTab("Global Chat", true);
 	addChatTab("Other Chat", false);
 	querySelector("#ChatPane").children.add(makeTabContent("Local Chat",true));
@@ -60,7 +71,7 @@ DivElement makeTabContent(String channelName, bool useSpanForTitle)
 	}
 	//TODO: end section
 	
-	WebSocket webSocket = new WebSocket("ws://couchatserver.herokuapp.com");
+	WebSocket webSocket = new WebSocket("ws://localhost:8080");
 	webSocket.onOpen.listen((_)
 	{
 		Map map = new Map();
@@ -104,15 +115,16 @@ DivElement makeTabContent(String channelName, bool useSpanForTitle)
 	
 	input.onChange.listen((_)
 	{
+		if(input.value.trim().length == 0) //don't allow for blank messages
+			return;
+		
 		Map map = new Map();
 		if(input.value.split(" ")[0] == "/setname")
 		{
 			String prevName = username;
-			username = input.value.split(" ")[1];
 			map["statusMessage"] = "changeName";
-			map["message"] = "is now known as";
 			map["username"] = prevName;
-			map["newUsername"] = username;
+			map["newUsername"] = input.value.split(" ")[1];
 			map["channel"] = channelName;
 		}
 		else
@@ -132,18 +144,19 @@ DivElement makeTabContent(String channelName, bool useSpanForTitle)
 
 void addMessage(DivElement chatHistory, Map map)
 {
-	SpanElement username = new SpanElement();
+	print("got message: " + JSON.encode(map));
+	SpanElement userElement = new SpanElement();
 	SpanElement text = new SpanElement();
 	DivElement chatString = new DivElement();
 	if(map["statusMessage"] == null)
 	{
-		username.text = map["username"] + ": ";
-		username.style.color = getColor(map["username"]); //hashes the username so as to get a random color but the same each time for a specific user
+		userElement.text = map["username"] + ": ";
+		userElement.style.color = getColor(map["username"]); //hashes the username so as to get a random color but the same each time for a specific user
 		text.text = map["message"];
 		text.className = "MessageBody";
 		
 		chatString.children
-		..add(username)
+		..add(userElement)
 		..add(text);
 	}
 	//TODO: remove after real usernames happen
@@ -156,21 +169,35 @@ void addMessage(DivElement chatHistory, Map map)
 	}
 	if(map["statusMessage"] == "changeName")
 	{
-		SpanElement oldUsername = new SpanElement()
-			..text = map["username"]
-			..style.color = getColor(map["username"])
-			..style.paddingRight = "4px";
-		SpanElement newUsername = new SpanElement()
-			..text = map["newUsername"]
-			..style.color = getColor(map["newUsername"]);
 		text.text = map["message"];
 		text.className = "MessageBody";
 		text.style.paddingRight = "4px";
 		
-		chatString.children
-		..add(oldUsername)
-		..add(text)
-		..add(newUsername);
+		if(map["success"] == "true")
+		{
+			SpanElement oldUsername = new SpanElement()
+			..text = map["username"]
+			..style.color = getColor(map["username"])
+			..style.paddingRight = "4px";
+			SpanElement newUsername = new SpanElement()
+				..text = map["newUsername"]
+				..style.color = getColor(map["newUsername"]);
+			
+			chatString.children
+			..add(oldUsername)
+			..add(text)
+			..add(newUsername);
+			
+			if(map["username"] == username) //although this message is broadcast to everyone, only change usernames if we were the one to type /setname
+			{
+				username = map["newUsername"];
+				localStorage["username"] = username;
+			}
+		}
+		else
+		{
+			chatString.children.add(text);
+		}
 	}
 	//TODO: end remove
 	
