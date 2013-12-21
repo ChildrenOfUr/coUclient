@@ -1,12 +1,5 @@
 part of coUclient;
 
-// TODO: OOOOH maybe streams, I love a stream!
-// Also, perhaps we can turn this into a library, no sense cluttering up our gamey sorce with this stuff. 
-// We'll make a nice interface.
-
-
-
-
 
 UserInterface ui = new UserInterface();
 
@@ -23,9 +16,9 @@ class UserInterface {
   // Music Meter Variables
   SpanElement titleMeter = querySelector('#TrackTitle');
   SpanElement artistMeter = querySelector('#TrackArtist');
-  AudioElement musicBox = querySelector('#MusicBox');
-  bool songRepeat = true;
- 
+  SC sc = new SC('7d2a07867f8a3d47d4f059b600b250b1');
+  Map jukebox = new Map();
+  Scound currentSong;
   
   
   // Energy Meter Variables
@@ -215,27 +208,26 @@ setName(String value){
 setSong(String value){
   // Changes the ui
   value = value.replaceAll(' ', '');
-  if (assets['music.' + value] == null)
-  {printConsole('Error: Song not found!');}
-  else{  
-  String title = assets['music.' + value]['title'];
-  String artist = assets['music.' + value]['user']['username'];
-  ui._setSong(artist, title);
-  ui.musicBox.src = assets['music.' + value]['stream_url'] + '?client_id=7d2a07867f8a3d47d4f059b600b250b1';
-  ui.musicBox.play();
-  ui.musicBox.onEnded.listen((_) 
-      {
-      if (ui.songRepeat == true)
-      ui.musicBox.play();
-      });
-  }
+  if (ui.currentSong != null)
+  ui.currentSong.pause();
+  ui.currentSong = ui.jukebox[value];
+  ui.currentSong.play();
+  ui.currentSong.loop(true);
+  if (new AudioElement().canPlayType('mp3') == false)
+  printConsole('SoundCloud: Your browser doesnt like mp3s :(');
+  String title = ui.currentSong.meta['title'];
+  String artist = ui.currentSong.meta['user']['username'];
+  ui._setSong(artist,title);
+  AnchorElement link = querySelector('#SCLink');
+  link.href = ui.currentSong.meta['permalink_url'];
 }
 
 setVolume(String value){
   // Force an int
   int intvalue = int.parse(value,onError:null);
   if (intvalue != null){
-  ui.musicBox.volume = intvalue / 100;
+    if (ui.currentSong != null)
+      ui.currentSong.volume(intvalue);
   printConsole('Setting volume to $value');}  
 }
 

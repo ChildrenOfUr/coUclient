@@ -89,21 +89,6 @@ main() {
   print('.Done');
 }
 
-// Sets up the outputted html file to use JS instead of Dart, Plus optimizing media paths.
-List <String> modeJS(List<String> fileLines){
-  print('Converting HTML file to use JavaScript.');
-  List<String> newHTML = new List();
-  for (String line in fileLines)
-  {
-    line = line.replaceAll('<script type="application/dart" src="main.dart"></script>', '');
-    line = line.replaceAll('packages/browser/dart.js', 'game.js');
-    // Add other html replacement lines here.
-
-    newHTML.add(line);
-  }
-  return newHTML;
-}
-
 
 String minifyCss(List<String> fileLines){
   print('Minifying CSS.');  
@@ -133,7 +118,7 @@ String minifyHtml(List<String> input){
    for (String line in input)
    {
     line = line.replaceAll('<script type="application/dart" src="main.dart"></script>', '');
-    line = line.replaceAll('packages/browser/dart.js', 'game.js');
+    line = line.replaceAll('packages/browser/interop.js', 'game.js');
     // Add other html replacement lines here.
 
     fileLines.add(line);
