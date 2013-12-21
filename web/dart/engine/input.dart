@@ -18,7 +18,7 @@ Input playerInput;
     }
 
   //Starts listening to user imput.
-  initialize() {
+  init() {
   
     // disable default game_loop pointerlock
      game.pointerLock.lockOnClick = false;

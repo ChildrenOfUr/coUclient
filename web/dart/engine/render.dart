@@ -1,4 +1,29 @@
 part of coUclient;
+
+//TODO: comment the begining of files with brief descriptions as to what they do.
+
+
+
+// Our renderloop
+render() {
+  // Update clock
+  refreshClock();
+    
+  //Draw Street
+  if (CurrentStreet is Street)
+  CurrentStreet.render();
+  
+  //Clear canvas (very expensive)
+  //Minimizes clearing for now
+  if (CurrentCamera is Camera)
+    gameCanvas.width = gameCanvas.width;
+  
+  //Draw Player
+  if (CurrentPlayer is Player)
+    CurrentPlayer.render();
+}
+
+
 Camera CurrentCamera;
 
 //Replaces Map Camera. Necessary for handling camera as an object
@@ -31,3 +56,6 @@ class Camera{
       y = CurrentStreet.height-gameScreen.clientHeight;
   }
 }
+
+
+

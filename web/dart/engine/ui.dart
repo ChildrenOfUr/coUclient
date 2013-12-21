@@ -51,6 +51,11 @@ class UserInterface {
       querySelector('#YouWon').hidden = false;    
     });
     
+    //Start listening for page resizes.
+    resize();
+    window.onResize.listen((_) => resize());
+    
+    
     //Set up the Currant Display
     setCurrants('0');
     
@@ -230,6 +235,27 @@ setVolume(String value){
       ui.currentSong.volume(intvalue);
   printConsole('Setting volume to $value');}  
 }
+
+resize(){
+  Element chatPane = querySelector('#ChatPane');
+  Element gameScreen = querySelector('#GameScreen');
+  //Element gameStage = querySelector('#GameStage');
+  
+  gameScreenWidth = window.innerWidth - 80 - 40 - chatPane.clientWidth;
+  gameScreenHeight = window.innerHeight - 180;
+  
+  chatPane.style.right;
+  chatPane.clientWidth;
+  
+  gameScreen.style.width = gameScreenWidth.toString()+'px';
+  gameScreen.style.height = gameScreenHeight.toString()+'px';
+
+  chatPane.style.height = (gameScreenHeight + 50).toString()+'px';
+  
+  //TODO When the window becomes too small, we should spawn an overlay that tells the user this fact.
+  //This should go in UserInterface
+}
+
 
 
 
