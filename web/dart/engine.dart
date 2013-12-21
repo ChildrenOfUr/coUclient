@@ -213,12 +213,13 @@ setSong(String value){
   ui.currentSong = ui.jukebox[value];
   ui.currentSong.play();
   ui.currentSong.loop(true);
-  //TODO remove this when it stops being a problem, it's a bug in the SCproxy library.
-  printConsole('SoundCloud: If you cant hear this, its probably because your browser doesnt like mp3s');
+  if (new AudioElement().canPlayType('mp3') == false)
+  printConsole('SoundCloud: Your browser doesnt like mp3s :(');
   String title = ui.currentSong.meta['title'];
   String artist = ui.currentSong.meta['user']['username'];
   ui._setSong(artist,title);
-  
+  AnchorElement link = querySelector('#SCLink');
+  link.href = ui.currentSong.meta['permalink_url'];
 }
 
 setVolume(String value){
