@@ -20,8 +20,6 @@
 <!-- Import Stylesheets -->
 
 
-<script src="https://connect.soundcloud.com/sdk.js"></script>
-
 </head>
 <body>
 
@@ -29,9 +27,6 @@
 <div id="Footer">Copyright CoU Development Team, Children of Ur is not endorsed by or affiliated with <a href="http://tinyspeck.com/">Tiny Speck, Inc.</a>(The makers of Glitch) in any way.</div>   
 
 
-
-
-<!--Most everything from here, down should be in the dart code -->
 
 <!-- The initial splash Screen when the game is opened-->
 <div id="LoadingScreen">
@@ -174,9 +169,9 @@ WAIT! You were just about to win the game!
 
 <!-- Mini Soundcloud widget -->
   <div id="SoundCloudWidget">
-    <div class="blu"><span id="TrackTitle">Groddle Forest Junction</span><br> By <span id="TrackArtist">Montgomery Labs</span></div>
+    <div class="blu"><a id="SCLink" target="_blank"><span id="TrackTitle">-</span><br> By <span id="TrackArtist">-</span></a></div>
     <audio id="MusicBox"></audio>
-    <img src="./assets/system/soundcloud.png"></img>
+    <a href="http://www.soundcloud.com" target="_blank"><img src="./assets/system/soundcloud.png"></img></a>
   </div>
 
 <!-- Right-Click Menu template -->
@@ -193,9 +188,11 @@ WAIT! You were just about to win the game!
       </div>
     </template>
 
+<!-- This MUST be before our main dart script. -->
+  <script src="packages/browser/dart.js"></script>
 <!-- Start the Game up. -->
-    <script type="application/dart" src="main.dart"></script> 
-    <script src="packages/browser/dart.js"></script>
+  <script type="application/dart" src="main.dart"></script> 
+    
     
 </body>
 </html>

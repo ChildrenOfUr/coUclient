@@ -1,78 +1,49 @@
 { "piano":{
-  "loadArguments":{},
-  "url":"http://api.soundcloud.com/tracks/124082144.json?client_id=7d2a07867f8a3d47d4f059b600b250b1",
-  "type":"json",
-  "importArguments":{}
-  },
-  "horns":{
-  "loadArguments":{},
-  "url":"http://api.soundcloud.com/tracks/124082151.json?client_id=7d2a07867f8a3d47d4f059b600b250b1",
-  "type":"json",
-  "importArguments":{}
-  },
-  "ilmenkskie":{
-  "loadArguments":{},
-  "url":"http://api.soundcloud.com/tracks/111477464.json?client_id=7d2a07867f8a3d47d4f059b600b250b1",
-  "type":"json",
-  "importArguments":{}
-  },
-  "firebog":{
-  "loadArguments":{},
-  "url":"http://api.soundcloud.com/tracks/101753925.json?client_id=7d2a07867f8a3d47d4f059b600b250b1",
-  "type":"json",
-  "importArguments":{}
-  },
-  "ancestral":{
-  "loadArguments":{},
-  "url":"http://api.soundcloud.com/tracks/90493224.json?client_id=7d2a07867f8a3d47d4f059b600b250b1",
-  "type":"json",
-  "importArguments":{}
-  },
-  "ancient":{
-  "loadArguments":{},
-  "url":"http://api.soundcloud.com/tracks/111473069.json?client_id=7d2a07867f8a3d47d4f059b600b250b1",
-  "type":"json",
-  "importArguments":{}
-  },
-  "highlands":{
-  "loadArguments":{},
-  "url":"http://api.soundcloud.com/tracks/85357859.json?client_id=7d2a07867f8a3d47d4f059b600b250b1",
-  "type":"json",
-  "importArguments":{}
-  },
-  "rube":{
-  "loadArguments":{},
-  "url":"http://api.soundcloud.com/tracks/81820505.json?client_id=7d2a07867f8a3d47d4f059b600b250b1",
-  "type":"json",
-  "importArguments":{}
-  },
-  "uralia2":{
-  "loadArguments":{},
-  "url":"http://api.soundcloud.com/tracks/81815347.json?client_id=7d2a07867f8a3d47d4f059b600b250b1",
-  "type":"json",
-  "importArguments":{}
-  },
-  "uralia3":{
-  "loadArguments":{},
-  "url":"http://api.soundcloud.com/tracks/81815209.json?client_id=7d2a07867f8a3d47d4f059b600b250b1",
-  "type":"json",
-  "importArguments":{}
-  },
-  "kloroandhaoma":{
-  "loadArguments":{},
-  "url":"http://api.soundcloud.com/tracks/59351776.json?client_id=7d2a07867f8a3d47d4f059b600b250b1",
-  "type":"json",
-  "importArguments":{}
+  "scid":"/tracks/124082144"
   },
   
+  "horns":{
+  "scid":"/tracks/124082151"
+  },
+  
+  "ilmenkskie":{
+  "scid":"/tracks/111477464"
+  },
+  
+  "firebog":{
+  "scid":"/tracks/101753925"
+  },
+  
+  "ancestral":{
+  "scid":"/tracks/90493224"
+  },
+  
+  "ancient":{
+  "scid":"/tracks/111473069"
+  },
+  
+  "highlands":{
+  "scid":"/tracks/85357859"
+  },
+  
+  "rube":{
+  "scid":"/tracks/81820505"
+  },
+  
+  "uralia2":{
+  "scid":"/tracks/81815347"
+  },
+  
+  "uralia3":{
+  "scid":"/tracks/81815209"
+  },
+  
+  "kloroandhaoma":{
+  "scid":"/tracks/59351776"
+  },
   
   "lullaby":{
-  "loadArguments":{},
-  "url":"http://api.soundcloud.com/tracks/70618898.json?client_id=7d2a07867f8a3d47d4f059b600b250b1",
-  "type":"json",
-  "importArguments":{}
+  "scid":"/tracks/70618898"
   }
-  
-  
-  
+
 }

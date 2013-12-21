@@ -41,7 +41,7 @@ html, body {
   -webkit-user-drag: none;
   user-drag: none;} 
 a{color: purple;text-decoration: none;}
-.blu {color: #4d8c8b;}
+.blu, #SCLink {color: #4d8c8b;}
 .red {color: #ba381a;}
 .white{color: #fff;}
 .big {font-size:20px;}
@@ -512,6 +512,7 @@ textarea{resize: none;}
 /* End hacky bits */
 
 .ChatInput {
+	font-family: 'Tahoma', 'Geneva', 'sans-serif';
 	-moz-border-radius: 5px;
 	border-radius: 5px;
 	width: calc(100% - 15px);
@@ -784,6 +785,10 @@ textarea{resize: none;}
    height:30px;
    width:250px;
    align:right;
+}
+#SCLink {
+  
+  
 }
 
 #AudioSettings > #SliderParent > #VolumeSlider {

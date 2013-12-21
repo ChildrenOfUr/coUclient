@@ -4,6 +4,14 @@ part of coUclient;
 
 //TODO: make text selectable
 //TODO: make text wrapping work better
+//TODO: make non-focused tab flash if message? or show counter?
+//TODO: get list of people in chat
+//TODO: allow names to have spaces? or give error message
+//TODO: @ mentions
+//TODO: setting to turn off joined messages
+//TODO: right margin on the text could be wider (farther away from the scoll bar)
+//TODO: only scroll down if you are the one to add a message
+//TODO: reconnect if the connection drops
 
 List<String> colors = ["aqua", "blue", "fuchsia", "gray", "green", "lime", "maroon", "navy", "olive", "orange", "purple", "red", "teal"];
 String username = "testUser"; //TODO: get actual username of logged in user;
@@ -113,8 +121,11 @@ DivElement makeTabContent(String channelName, bool useSpanForTitle)
 		webSocket.send(JSON.encode(map));
 	});
 	
-	input.onChange.listen((_)
+	input.onKeyUp.listen((key)
 	{
+  		if (key.keyCode != 13) //listen for enter key
+			return;
+			
 		if(input.value.trim().length == 0) //don't allow for blank messages
 			return;
 		
