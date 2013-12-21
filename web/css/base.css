@@ -514,6 +514,7 @@ textarea{resize: none;}
 .ChatInput {
 	font-family: 'Tahoma', 'Geneva', 'sans-serif';
 	-moz-border-radius: 5px;
+	-o-border-radius: 5px;
 	border-radius: 5px;
 	width: calc(100% - 15px);
 	background-color: #e9f0f0;
@@ -526,6 +527,13 @@ textarea{resize: none;}
 	background-color: #F5F5CF
 }
 .MessageBody {
+	cursor: auto;
+	-webkit-user-select: text;
+    -khtml-user-select: text; 
+    -moz-user-select: text;
+    -ms-user-select: text;
+    -o-user-select: text;
+    user-select: text; 
 	font-family: 'Tahoma', 'Geneva', 'sans-serif';
 	padding-left: 1.5em;
     text-indent:-1.5em;

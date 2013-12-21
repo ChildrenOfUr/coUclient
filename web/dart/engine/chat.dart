@@ -1,6 +1,5 @@
 part of coUclient;
 //TODO: should we limit chat history so that it doesn't go on forever?
-//TODO: should links be clickable?
 
 //TODO: make text selectable
 //TODO: make text wrapping work better
@@ -10,12 +9,13 @@ part of coUclient;
 //TODO: @ mentions
 //TODO: setting to turn off joined messages
 //TODO: right margin on the text could be wider (farther away from the scoll bar)
-//TODO: only scroll down if you are the one to add a message
 //TODO: reconnect if the connection drops
 
 List<String> colors = ["aqua", "blue", "fuchsia", "gray", "green", "lime", "maroon", "navy", "olive", "orange", "purple", "red", "teal"];
 String username = "testUser"; //TODO: get actual username of logged in user;
+final chatServerUrl = "ws://couchatserver.herokuapp.com";
 Storage localStorage = window.localStorage;
+bool showJoinMessages = false;
 
 handleChat()
 {
@@ -75,11 +75,11 @@ DivElement makeTabContent(String channelName, bool useSpanForTitle)
 		Map map = new Map();
 		map["statusMessage"] = "hint";
 		map["message"] = "Hint :\nYou can set your chat name by typing '/setname <name>'";
-		addMessage(chatHistory,map);
+		_addmessage(chatHistory,map);
 	}
 	//TODO: end section
 	
-	WebSocket webSocket = new WebSocket("ws://couchatserver.herokuapp.com");
+	WebSocket webSocket = new WebSocket(chatServerUrl);
 	webSocket.onOpen.listen((_)
 	{
 		Map map = new Map();
@@ -95,30 +95,34 @@ DivElement makeTabContent(String channelName, bool useSpanForTitle)
 		if(map["message"] == "ping") //only used to keep the connection alive, ignore
 			return;
 		
+		if(!showJoinMessages && map["message"] == " joined.") //ignore join messages unless the user turns them on
+			return;
+		
 		if(map["channel"] == "all") //support for global messages (god mode messages)
 		{
-			addMessage(chatHistory, map);
+			_addmessage(chatHistory, map);
 		}
 		//if we're talking in local, only talk to one street at a time
 		else if(map["channel"] == "Local Chat" && map["channel"] == channelName)
 		{
 			if(map["statusMessage"] != null)
-				addMessage(chatHistory, map);
+				_addmessage(chatHistory, map);
 			else if(map["street"] == CurrentStreet.label)
-				addMessage(chatHistory, map);
+				_addmessage(chatHistory, map);
 		}
 		else if(map["channel"] == channelName)
-			addMessage(chatHistory, map);
+			_addmessage(chatHistory, map);
 	});
-	webSocket.onClose.listen((_)
+	webSocket.onError.listen((_)
 	{
+		//attempt to reconnect and display a message to the user stating so
 		Map map = new Map();
-		map["username"] = username;
-		map["message"] = "left";
-		map["channel"] = channelName;
-		if(channelName == "Local Chat")
-			map["street"] = CurrentStreet.label;
-		webSocket.send(JSON.encode(map));
+		map["statusMessage"] = "hint";
+		map["message"] = "Disconnected from Chat, attempting to reconnect...";
+		_addmessage(chatHistory,map);
+		input.disabled = true;
+		
+		
 	});
 	
 	input.onKeyUp.listen((key)
@@ -153,18 +157,23 @@ DivElement makeTabContent(String channelName, bool useSpanForTitle)
 	return chatDiv;
 }
 
-void addMessage(DivElement chatHistory, Map map)
+void _addmessage(DivElement chatHistory, Map map)
 {
-	print("got message: " + JSON.encode(map));
+	print("got message: " + JSON.encode(map)); //debugging purposes only
+	
 	SpanElement userElement = new SpanElement();
-	SpanElement text = new SpanElement();
+	DivElement text = new DivElement()
+		..setInnerHtml(_parseForUrls(map["message"]), 
+		validator: new NodeValidatorBuilder()
+  			..allowHtml5()
+        	..allowElement('a', attributes: ['href'])
+    )
+		..className = "MessageBody";
 	DivElement chatString = new DivElement();
 	if(map["statusMessage"] == null)
 	{
 		userElement.text = map["username"] + ": ";
-		userElement.style.color = getColor(map["username"]); //hashes the username so as to get a random color but the same each time for a specific user
-		text.text = map["message"];
-		text.className = "MessageBody";
+		userElement.style.color = _getColor(map["username"]); //hashes the username so as to get a random color but the same each time for a specific user
 		
 		chatString.children
 		..add(userElement)
@@ -173,26 +182,21 @@ void addMessage(DivElement chatHistory, Map map)
 	//TODO: remove after real usernames happen
 	if(map["statusMessage"] == "hint")
 	{
-		text.text = map["message"];
-		text.className = "MessageBody";
-		
 		chatString.children.add(text);
 	}
 	if(map["statusMessage"] == "changeName")
 	{
-		text.text = map["message"];
-		text.className = "MessageBody";
 		text.style.paddingRight = "4px";
 		
 		if(map["success"] == "true")
 		{
 			SpanElement oldUsername = new SpanElement()
 			..text = map["username"]
-			..style.color = getColor(map["username"])
+			..style.color = _getColor(map["username"])
 			..style.paddingRight = "4px";
 			SpanElement newUsername = new SpanElement()
 				..text = map["newUsername"]
-				..style.color = getColor(map["newUsername"]);
+				..style.color = _getColor(map["newUsername"]);
 			
 			chatString.children
 			..add(oldUsername)
@@ -213,10 +217,38 @@ void addMessage(DivElement chatHistory, Map map)
 	//TODO: end remove
 	
 	chatHistory.children.add(chatString);
-	chatHistory.scrollTop = chatHistory.scrollHeight;
+	if((map["username"] || map["newUsername"]) == username) //only scroll the chat if we wrote the message
+		chatHistory.scrollTop = chatHistory.scrollHeight;
 }
 
-String getColor(String username)
+String _parseForUrls(String message)
+{
+	/*
+	(https?:\/\/)?                    : the http or https schemes (optional)
+	[\w-]+(\.[\w-]+)+\.?              : domain name with at least two components;
+	                                    allows a trailing dot
+	(:\d+)?                           : the port (optional)
+	(\/\S*)?                          : the path (optional)
+	*/
+	String regexString = r"((https?:\/\/)?[\w-]+(\.[\w-]+)+\.?(:\d+)?(\/\S*)?)"; 
+	//the r before the string makes dart interpret it as a raw string so that you don't have to escape characters like \
+	
+	String returnString = "";
+	RegExp regex = new RegExp(regexString);
+	message.splitMapJoin(regex, 
+	onMatch: (Match m)
+	{
+		String url = m[0];
+		if(!url.contains("http://"))
+			url = "http://" + url;
+		returnString += '<a href="${url}" target="_blank">${m[0]}</a>';
+	},
+	onNonMatch: (String s) => returnString += s);
+	
+	return returnString;
+}
+
+String _getColor(String username)
 {
 	int index = 0;
 	for(int i=0; i<username.length; i++)
@@ -226,4 +258,4 @@ String getColor(String username)
 	return colors[index%(colors.length-1)];
 }
 
-String timeStamp() => new DateTime.now().toString().substring(11,16);
+String _timeStamp() => new DateTime.now().toString().substring(11,16);
