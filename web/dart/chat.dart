@@ -9,12 +9,13 @@ part of coUclient;
 //TODO: @ mentions
 //TODO: setting to turn off joined messages
 //TODO: right margin on the text could be wider (farther away from the scoll bar)
-//TODO: only scroll down if you are the one to add a message
 //TODO: reconnect if the connection drops
 
 List<String> colors = ["aqua", "blue", "fuchsia", "gray", "green", "lime", "maroon", "navy", "olive", "orange", "purple", "red", "teal"];
 String username = "testUser"; //TODO: get actual username of logged in user;
+final chatServerUrl = "ws://couchatserver.herokuapp.com";
 Storage localStorage = window.localStorage;
+bool showJoinMessages = false;
 
 handleChat()
 {
@@ -78,7 +79,7 @@ DivElement makeTabContent(String channelName, bool useSpanForTitle)
 	}
 	//TODO: end section
 	
-	WebSocket webSocket = new WebSocket("ws://couchatserver.herokuapp.com");
+	WebSocket webSocket = new WebSocket(chatServerUrl);
 	webSocket.onOpen.listen((_)
 	{
 		Map map = new Map();
@@ -92,6 +93,9 @@ DivElement makeTabContent(String channelName, bool useSpanForTitle)
 	{
 		Map map = JSON.decode(messageEvent.data);
 		if(map["message"] == "ping") //only used to keep the connection alive, ignore
+			return;
+		
+		if(!showJoinMessages && map["message"] == " joined.") //ignore join messages unless the user turns them on
 			return;
 		
 		if(map["channel"] == "all") //support for global messages (god mode messages)
@@ -112,6 +116,13 @@ DivElement makeTabContent(String channelName, bool useSpanForTitle)
 	webSocket.onError.listen((_)
 	{
 		//attempt to reconnect and display a message to the user stating so
+		Map map = new Map();
+		map["statusMessage"] = "hint";
+		map["message"] = "Disconnected from Chat, attempting to reconnect...";
+		_addmessage(chatHistory,map);
+		input.disabled = true;
+		
+		
 	});
 	
 	input.onKeyUp.listen((key)
@@ -148,7 +159,8 @@ DivElement makeTabContent(String channelName, bool useSpanForTitle)
 
 void _addmessage(DivElement chatHistory, Map map)
 {
-	print("got message: " + JSON.encode(map));
+	print("got message: " + JSON.encode(map)); //debugging purposes only
+	
 	SpanElement userElement = new SpanElement();
 	DivElement text = new DivElement()
 		..setInnerHtml(_parseForUrls(map["message"]), 
@@ -205,7 +217,8 @@ void _addmessage(DivElement chatHistory, Map map)
 	//TODO: end remove
 	
 	chatHistory.children.add(chatString);
-	chatHistory.scrollTop = chatHistory.scrollHeight;
+	if((map["username"] || map["newUsername"]) == username) //only scroll the chat if we wrote the message
+		chatHistory.scrollTop = chatHistory.scrollHeight;
 }
 
 String _parseForUrls(String message)
@@ -228,7 +241,7 @@ String _parseForUrls(String message)
 		String url = m[0];
 		if(!url.contains("http://"))
 			url = "http://" + url;
-		returnString += '<a href="${url}" target="_blank">${url}</a>';
+		returnString += '<a href="${url}" target="_blank">${m[0]}</a>';
 	},
 	onNonMatch: (String s) => returnString += s);
 	

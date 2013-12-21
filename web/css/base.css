@@ -6,7 +6,7 @@
 /*The default styles, basic buttons*/
 * {
    font-family: 'RockoFLFBold', sans-serif;
-   cursor: auto;
+   cursor: default;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -khtml-user-select: none;
@@ -514,6 +514,7 @@ textarea{resize: none;}
 .ChatInput {
 	font-family: 'Tahoma', 'Geneva', 'sans-serif';
 	-moz-border-radius: 5px;
+	-o-border-radius: 5px;
 	border-radius: 5px;
 	width: calc(100% - 15px);
 	background-color: #e9f0f0;
@@ -531,6 +532,7 @@ textarea{resize: none;}
     -khtml-user-select: text; 
     -moz-user-select: text;
     -ms-user-select: text;
+    -o-user-select: text;
     user-select: text; 
 	font-family: 'Tahoma', 'Geneva', 'sans-serif';
 	padding-left: 1.5em;
