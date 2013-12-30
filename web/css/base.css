@@ -439,6 +439,32 @@ textarea{resize: none;}
 }
 /*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 /*Elements that appear in the top right*/
+#ChatSettingsIcon {
+	position: absolute;
+	right: 25px;
+	top: 65px;
+	z-index: 3;
+}
+#ChatSettingsMenu {
+	position: absolute;
+	top: 87px;
+	right: 22px;
+	background-color: #fff;
+	border: 1px solid;
+	z-index: 3;
+}
+.ChatSettingsCheckbox {
+	cursor: pointer;
+	vertical-align: middle;
+}
+.ChatSettingsOption {
+	border-top: 1px solid;
+	cursor: pointer;
+	padding-right: 3px;
+}
+.ChatSettingsOption:hover {
+	background-color: #E9F0F0
+}
 #ChatPane {
   color: #005c73;
   background-color: #fff;
@@ -468,8 +494,11 @@ textarea{resize: none;}
 	overflow-x: hidden;
 	margin-bottom: 5px;
 	background-color: white;
+	padding: 1px;
 }
-
+.RowSpacer {
+	height: .5em;
+}
 /* Here lies hacky bits to style the scrollbar in webkit based browsers
    this WILL NOT WORK in Firefox or IE.  Only a loss of style will result however.*/
 .ChatHistory::-webkit-scrollbar {
@@ -535,15 +564,22 @@ textarea{resize: none;}
     -o-user-select: text;
     user-select: text; 
 	font-family: 'Tahoma', 'Geneva', 'sans-serif';
-	padding-left: 1.5em;
-    text-indent:-1.5em;
-    display: inline-block;
+}
+.MessageLink {
+	cursor: auto;
+	-webkit-user-select: text;
+    -khtml-user-select: text; 
+    -moz-user-select: text;
+    -ms-user-select: text;
+    -o-user-select: text;
+    user-select: text; 
 }
 .tabs {
   position: relative;
 }
 .tab {
   float: left;
+  cursor: pointer;
 }
 .tab label {
 	background: #eee; 

@@ -19,7 +19,6 @@
     <link rel="stylesheet" href="./css/base.css">
 <!-- Import Stylesheets -->
 
-
 </head>
 <body>
 
@@ -139,8 +138,12 @@ WAIT! You were just about to win the game!
 </div>   
 
 <!-- Contains the Chat windows -->
+
+<i id="ChatSettingsIcon" class="icon-cog glyph icon-large"></i>
+<div id="ChatSettingsMenu" hidden="true">
+	<label class="ChatSettingsOption"><input id="ShowJoinMessages" type="checkbox" class="ChatSettingsCheckbox" checked="false">Show Join Messages</label>
+</div>
 <div id="ChatPane">
-<i id="ChatSettings" class="icon-cog"></i>
 <div id="ChatTabs" class="tabs ChatWindow">    
 </div>
 </div>
@@ -192,8 +195,7 @@ WAIT! You were just about to win the game!
 <!-- This MUST be before our main dart script. -->
   <script src="packages/browser/dart.js"></script>
 <!-- Start the Game up. -->
-  <script type="application/dart" src="main.dart"></script> 
-    
-    
+  <script type="application/dart" src="main.dart"></script>
+      
 </body>
 </html>

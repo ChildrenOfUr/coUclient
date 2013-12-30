@@ -1,7 +1,7 @@
 part of coUclient;
 
-
 UserInterface ui = new UserInterface();
+Chat chat = new Chat();
 
 class UserInterface {
   // Name Meter Variables
@@ -81,7 +81,7 @@ class UserInterface {
     setMood('100');
     setMaxMood('100');
 		
-	handleChat();   
+	chat.init();
   }
   
   _setEnergy(int newValue){

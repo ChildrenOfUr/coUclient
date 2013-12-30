@@ -28,6 +28,9 @@ part 'dart/engine/chat.dart';
 part 'dart/street.dart';
 part 'dart/player.dart';
 
+//localStorage to use throughout app
+Storage localStorage = window.localStorage;
+
 // Declare our game_loop
 CanvasElement gameCanvas = new CanvasElement();
 GameLoopHtml game = new GameLoopHtml(gameCanvas)
