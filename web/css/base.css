@@ -610,6 +610,14 @@ textarea{resize: none;}
 [type=radio]:checked ~ label ~ .content {
   z-index: 1;
 }
+.Counter
+{
+    padding: 3px;
+	border-radius: .5em;
+	font-weight: bold;
+    background: #005C73;
+    color: #E9F0F0;
+}
 
 /*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 /*Popup elements*/

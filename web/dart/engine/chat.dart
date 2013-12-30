@@ -1,8 +1,6 @@
 part of coUclient;
 //TODO: should we limit chat history so that it doesn't go on forever?
 
-//TODO: make text wrapping work better
-//TODO: make non-focused tab flash if message? or show counter?
 //TODO: get list of people in chat
 //TODO: allow names to have spaces? or give error message
 //TODO: @ mentions - beep or blink or something?
@@ -69,16 +67,19 @@ class Chat
 	
 	void addChatTab(String channelName, bool checked)
 	{
-		DivElement content = new TabContent(channelName,false).getDiv()
+		TabContent tabContent = new TabContent(channelName,false);
+		DivElement content = tabContent.getDiv()
 			..className = "content";
 		DivElement tab = new DivElement()
 			..className = "tab";
 		RadioButtonInputElement radioButton = new RadioButtonInputElement()
-			..id = "tab-"+channelName
+			..id = "tab-"+channelName.replaceAll(" ", "_")
 			..name = "tabgroup" //only allow one to be selected at a time
-			..checked = checked;
+			..checked = checked
+			..onClick.listen(tabContent.resetMessages);
 		LabelElement label = new LabelElement()
-			..attributes['for'] = "tab-"+channelName
+			..attributes['for'] = "tab-"+channelName.replaceAll(" ", "_")
+			..id = "label-"+channelName.replaceAll(" ", "_")
 			..text = channelName
 			..style.cursor = "pointer";
 		tab.children
@@ -96,6 +97,8 @@ class TabContent
 	String channelName;
 	bool useSpanForTitle;
 	WebSocket webSocket;
+	DivElement chatDiv;
+	int unreadMessages = 0;
 	final _chatServerUrl = "ws://couchatserver.herokuapp.com";
 	
 	TabContent(this.channelName, this.useSpanForTitle)
@@ -109,9 +112,16 @@ class TabContent
 		}
 	}
 	
+	void resetMessages(MouseEvent event)
+	{
+		unreadMessages = 0;
+		String selector = "#label-"+channelName.replaceAll(" ", "_");
+		querySelector(selector).text = channelName;
+	}
+	
 	DivElement getDiv()
 	{
-		DivElement chatDiv = new DivElement()
+		chatDiv = new DivElement()
 			..className = "ChatWindow";
 		SpanElement span = new SpanElement()
 			..text = channelName;
@@ -204,7 +214,18 @@ class TabContent
 					_addmessage(chatHistory, map);
 			}
 			else if(map["channel"] == channelName)
+			{
+				String selector = "#tab-"+channelName.replaceAll(" ", "_"); //need to replace spaces to make CSS selector work
+				RadioButtonInputElement tab = (querySelector("#tab-"+channelName) as RadioButtonInputElement);
+				if(!(querySelector(selector) as RadioButtonInputElement).checked)
+				{
+					unreadMessages++;
+					//find label related to this channel's tab and add the unread count to it
+					String selector = "#label-"+channelName.replaceAll(" ", "_");
+					querySelector(selector).innerHtml = '<span class="Counter">'+unreadMessages.toString()+'</span>' + " " + channelName;
+				}
 				_addmessage(chatHistory, map);
+			}
 		});
 		webSocket.onClose.listen((_)
 		{
