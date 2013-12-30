@@ -2,7 +2,6 @@ part of coUclient;
 //TODO: should we limit chat history so that it doesn't go on forever?
 
 //TODO: get list of people in chat
-//TODO: allow names to have spaces? or give error message
 //TODO: @ mentions - beep or blink or something?
 
 class Chat

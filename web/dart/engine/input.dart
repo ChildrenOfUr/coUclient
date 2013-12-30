@@ -98,56 +98,30 @@ class Input
 	    //keyCode's could be configurable in the future
 	    document.onKeyDown.listen((KeyboardEvent k)
 		{
-			if(ignoreKeys) //we're typing
-				return;
-			
-			if (k.keyCode == 38 || k.keyCode == 87) //up arrow or w
-			{
+			if ((k.keyCode == 38 || k.keyCode == 87) && !ignoreKeys) //up arrow or w and not typing
 				upKey = true;
-			}
-			if (k.keyCode == 40 || k.keyCode == 83) //down arrow or s
-			{
+			if ((k.keyCode == 40 || k.keyCode == 83) && !ignoreKeys) //down arrow or s and not typing
 				downKey = true;
-			}
-			if (k.keyCode == 37 || k.keyCode == 65) //left arrow or a
-			{
+			if ((k.keyCode == 37 || k.keyCode == 65) && !ignoreKeys) //left arrow or a and not typing
 				leftKey = true;
-			}
-			if (k.keyCode == 39 || k.keyCode == 68) //right arrow or d
-			{
+			if ((k.keyCode == 39 || k.keyCode == 68) && !ignoreKeys) //right arrow or d and not typing
 				rightKey = true;
-			}
-			if (k.keyCode == 32) //spacebar
-			{
+			if (k.keyCode == 32 && !ignoreKeys) //spacebar and not typing
 				spaceKey = true;
-			}
 	    });
 	    
 	    document.onKeyUp.listen((KeyboardEvent k)
 		{
-			if(ignoreKeys) //we're typing
-				return;
-			
-			if (k.keyCode == 38 || k.keyCode == 87) //up arrow or w
-			{
+			if ((k.keyCode == 38 || k.keyCode == 87) && !ignoreKeys) //up arrow or w and not typing
 				upKey = false;
-			}
-			if (k.keyCode == 40 || k.keyCode == 83) //down arrow or s
-			{
+			if ((k.keyCode == 40 || k.keyCode == 83) && !ignoreKeys) //down arrow or s and not typing
 				downKey = false;
-			}
-			if (k.keyCode == 37 || k.keyCode == 65) //left arrow or a
-			{
+			if ((k.keyCode == 37 || k.keyCode == 65) && !ignoreKeys) //left arrow or a and not typing
 				leftKey = false;
-			}
-			if (k.keyCode == 39 || k.keyCode == 68) //right arrow or d
-			{
+			if ((k.keyCode == 39 || k.keyCode == 68) && !ignoreKeys) //right arrow or d and not typing
 				rightKey = false;
-			}
-			if (k.keyCode == 32) //spacebar
-			{
+			if (k.keyCode == 32 && !ignoreKeys) //spacebar and not typing
 				spaceKey = false;
-			}
 	    });
 	    
 		//demo right-clicking
