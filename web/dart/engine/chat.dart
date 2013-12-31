@@ -106,7 +106,7 @@ class Chat
 
 class TabContent
 {
-	List<String> _colors = ["aqua", "blue", "fuchsia", "gray", "green", "lime", "maroon", "navy", "olive", "orange", "purple", "red", "teal"];
+	static List<String> _COLORS = ["aqua", "blue", "fuchsia", "gray", "green", "lime", "maroon", "navy", "olive", "orange", "purple", "red", "teal"];
 	List<String> connectedUsers = new List();
 	String _username = "testUser"; //TODO: get actual username of logged in user;
 	String channelName, lastWord = "";
@@ -143,7 +143,8 @@ class TabContent
 		DivElement chatHistory = new DivElement()
 			..className = "ChatHistory";
 		TextInputElement input = new TextInputElement()
-			..className = "ChatInput";
+			..classes.add("ChatInput")
+			..classes.add("Typing");
 	
 		if(useSpanForTitle)
 			chatDiv.children.add(span);
@@ -438,7 +439,7 @@ class TabContent
 		{
 			index += username.codeUnitAt(i);
 		}
-		return _colors[index%(_colors.length-1)];
+		return _COLORS[index%(_COLORS.length-1)];
 	}
 	
 	String _timeStamp() => new DateTime.now().toString().substring(11,16);

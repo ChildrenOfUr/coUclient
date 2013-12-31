@@ -145,8 +145,7 @@ WAIT! You were just about to win the game!
 	<label class="ChatSettingsOption"><input id="PlayMentionSound" type="checkbox" class="ChatSettingsCheckbox" checked="false">Play Mention Sound</label>
 </div>
 <div id="ChatPane">
-<div id="ChatTabs" class="tabs ChatWindow">    
-</div>
+	<div id="ChatTabs" class="tabs ChatWindow"></div>
 </div>
 
 <!-- Bottom-left currant display -->
@@ -158,19 +157,19 @@ WAIT! You were just about to win the game!
       </div>
 
 <!-- Development Console -->
-      <div class="PopWindow" id="DevConsole" hidden="true">
-        <div class="PopWindowHeader handle">
-          <i class="icon-code icon-large"></i> 
-          Console
-          <i id="CloseConsole" class="icon-remove glyph icon-large"></i>
-        </div>
-           <div class="PopWindowBody">
-            <div class="Console">
-              <ol class="log"></ol>
-            </div>
-            <textarea class="ConsoleInput" spellcheck="false"></textarea>
-            </div>
-        </div>
+<div class="PopWindow" id="DevConsole" hidden="true">
+	<div class="PopWindowHeader handle">
+		<i class="icon-code icon-large"></i> 
+  		Console
+  		<i id="CloseConsole" class="icon-remove glyph icon-large"></i>
+	</div>
+	<div class="PopWindowBody">
+    	<div id="CommandConsole">
+			<ol class="log"></ol>
+    	</div>
+    	<textarea class="ConsoleInput Typing" spellcheck="false"></textarea>
+    </div>
+</div>
 
 <!-- Mini Soundcloud widget -->
   <div id="SoundCloudWidget">

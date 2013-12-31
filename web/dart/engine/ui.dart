@@ -64,22 +64,6 @@ class UserInterface
 		//Set up the Currant Display
 		setCurrants('0');
 		
-		// Add all the user interface commands
-		Commands
-			..add(['setenergy','"setenergy <value>" Changes the energy meter',setEnergy])
-			..add(['setmaxenergy','"setmaxenergy <value>" Changes the energy meters max value',setMaxEnergy])
-			
-			..add(['setmood','"setmood <value>" Changes the mood meter',setMood])
-			..add(['setmaxmood','"setmaxmood <value>" Changes the mood meters max value',setMaxMood])
-			
-			..add(['setcurrants','"setcurrants <value>" Changes the currant meters value',setCurrants])
-			..add(['setimg','"setimg <value>" Changes the img meters value',setImg])
-			
-			..add(['setname','"setname <value>" Changes the players displayed name',setName])
-			
-			..add(['setsong','"setsong <value>" Changes the currently playing song',setSong])
-			..add(['setvolume','"setvolume <1-100>" Changes the volume of the current song',setVolume]);
-		
 		// This should actually pull from an online source..
 		setEnergy('100');
 		setMaxEnergy('100');
@@ -158,114 +142,6 @@ class UserInterface
 			localStorage['isMuted'] = '0';
 		}
 	}
-}
-	
-// Console commands to manipulate Meters
-// Energy Meter
-setEnergy(String value)
-{
-	int intvalue = int.parse(value,onError:null);
-	if (intvalue != null)
-	{
-		ui._setEnergy(intvalue);
-		printConsole('Setting energy value to $value');
-	}
-}
-
-setMaxEnergy(String value)
-{
-	int intvalue = int.parse(value,onError:null);
-	if (intvalue != null)
-	{
-		ui._maxenergy = intvalue;
-		ui._setEnergy(ui._maxenergy);
-		ui._maxEnergyText.text = value;
-		printConsole('Setting the maximum energy value to $value');
-	}
-}
-
-// Mood Meter
-setMood(String value)
-{
-	int intvalue = int.parse(value,onError:null);
-	if (intvalue != null)
-	{
-		ui._setMood(intvalue);
-		printConsole('Setting mood value to $value');
-	}
-}
-
-setMaxMood(String value)
-{
-	int intvalue = int.parse(value,onError:null);
-	if (intvalue != null)
-	{
-		ui._mood = intvalue;
-		ui._setMood(ui._mood);
-		ui._maxMoodText.text = value;
-		printConsole('Setting the maximum mood value to $value');
-	}
-}
-
-// Currants Meter
-setCurrants(String value)
-{
-	// Force an int
-	int intvalue = int.parse(value,onError:null);
-	if (intvalue != null)
-	{
-		ui._setCurrants(intvalue);
-		printConsole('Setting currants to $value');
-	}  
-}
-
-// Img Meter
-setImg(String value)
-{
-	// Force an int
-	int intvalue = int.parse(value,onError:null);
-	if (intvalue != null)
-	{
-		ui._setImg(intvalue);
-		printConsole('Setting Img to $value');
-	}  
-}
-
-// Name Meter
-setName(String value)
-{
-	ui._setName(value);
-	printConsole('Setting name to "$value"');  
-}
-
-setSong(String value)
-{
-	// Changes the ui
-	value = value.replaceAll(' ', '');
-	if (ui.currentSong != null)
-	ui.currentSong.pause();
-	ui.currentSong = ui.jukebox[value];
-	ui.currentSong.play();
-	ui.currentSong.loop(true);
-	if (new AudioElement().canPlayType('mp3') == false)
-	printConsole('SoundCloud: Your browser doesnt like mp3s :(');
-	String title = ui.currentSong.meta['title'];
-	String artist = ui.currentSong.meta['user']['username'];
-	ui._setSong(artist,title);
-	AnchorElement link = querySelector('#SCLink');
-	link.href = ui.currentSong.meta['permalink_url'];
-}
-
-setVolume(String value)
-{
-	// Force an int
-	int intvalue = int.parse(value,onError:null);
-	if (intvalue != null)
-	{
-		if (ui.currentSong != null)
-	    	ui.currentSong.volume(intvalue);
-		printConsole('Setting volume to $value');
-	}  
 }
 
 resize()

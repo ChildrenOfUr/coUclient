@@ -71,7 +71,7 @@ class Input
 		{
 			String mute = '0';
 			if(localStorage['isMuted'] == '0')
-			mute = '1';
+				mute = '1';
 			ui._setMute(mute);
 		});
 		//Handle volume slider changes
@@ -79,11 +79,10 @@ class Input
 		volumeSlider.onChange.listen((_)
 		{
 			setVolume(volumeSlider.value);
-			localStorage['prevVolume'] = volumeSlider.value;
 		});   
 	      
 		//handle chat input getting focused/unfocused so that the character doesn't move while typing
-		ElementList chatInputs = querySelectorAll('.ChatInput');
+		ElementList chatInputs = querySelectorAll('.Typing');
 		chatInputs.onFocus.listen((_)
 		{
 			ignoreKeys = true;
@@ -158,7 +157,7 @@ class Input
 			DivElement menuitem = new DivElement()
 				..classes.add('RCItem')
 				..text = option[0]
-				..onClick.listen((_){doThisForMe(option[2]);});
+				..onClick.listen((_){runCommand(option[2]);});
 			newOptions.add(menuitem);
 		}
 		querySelector('#RCActionList').children.addAll(newOptions);
