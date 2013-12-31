@@ -6,7 +6,7 @@ part of coUclient;
 
 class Chat
 {
-	bool _showJoinMessages = false;
+	bool _showJoinMessages = false, _playMentionSound = true;
 	
 	/**
 	 * Determines if messages like "<user> has joined" are shown to the player.
@@ -22,10 +22,15 @@ class Chat
 	/**
 	 * Returns the visibility of messages like "<user> has joined"
 	 */
-	bool getJoinMessagesVisibility()
+	bool getJoinMessagesVisibility() => _showJoinMessages;
+	
+	void setPlayMentionSound(bool enabled)
 	{
-		return _showJoinMessages;
+		_playMentionSound = enabled;
+		localStorage["playMentionSound"] = enabled.toString();
 	}
+	
+	bool getPlayMentionSound() => _playMentionSound;
 	
 	init()
 	{
@@ -92,12 +97,13 @@ class Chat
 class TabContent
 {
 	List<String> _colors = ["aqua", "blue", "fuchsia", "gray", "green", "lime", "maroon", "navy", "olive", "orange", "purple", "red", "teal"];
+	List<String> connectedUsers = new List();
 	String _username = "testUser"; //TODO: get actual username of logged in user;
-	String channelName;
-	bool useSpanForTitle;
+	String channelName, lastWord = "";
+	bool useSpanForTitle, tabInserted = false;
 	WebSocket webSocket;
 	DivElement chatDiv;
-	int unreadMessages = 0;
+	int unreadMessages = 0, tabSearchIndex = 0;
 	final _chatServerUrl = "ws://couchatserver.herokuapp.com";
 	
 	TabContent(this.channelName, this.useSpanForTitle)
@@ -140,16 +146,45 @@ class TabContent
 		{
 			Map map = new Map();
 			map["statusMessage"] = "hint";
-			map["message"] = "Hint :\nYou can set your chat name by typing '/setname <name>'";
+			map["message"] = "Hint :\nYou can set your chat name by typing '/setname [name]'<br>You can get a list of people in this chat room by typing '/list'";
 			_addmessage(chatHistory,map);
 		}
 		//TODO: end section
 		
 		setupWebSocket(chatHistory,channelName);
 		
-		input.onKeyUp.listen((key)
+		input.onKeyDown.listen((KeyboardEvent key) //onKeyUp seems to be too late to prevent TAB's default behavior
 		{
-	  		if (key.keyCode != 13) //listen for enter key
+			if(key.keyCode == 9) //tab key, try to complete a user's name
+			{
+				key.preventDefault();
+				int startIndex = input.value.lastIndexOf(" ") == -1 ? 0 : input.value.lastIndexOf(" ")+1;
+				if(!tabInserted)
+					lastWord = input.value.substring(startIndex);
+				for(; tabSearchIndex < connectedUsers.length; tabSearchIndex++)
+				{
+					String username = connectedUsers.elementAt(tabSearchIndex);
+					if(username.toLowerCase().contains(lastWord.toLowerCase()))
+					{
+						input.value = input.value.substring(0, input.value.lastIndexOf(" ")+1) + username;
+						tabInserted = true;
+						tabSearchIndex++;
+						break;
+					}
+				}
+				
+				if(tabSearchIndex == connectedUsers.length) //wrap around for next time
+					tabSearchIndex = 0;
+				
+				return;
+			}
+		});
+		input.onKeyUp.listen((KeyboardEvent key)
+		{
+			if(key.keyCode != 9)
+				tabInserted = false;
+			
+			if (key.keyCode != 13) //listen for enter key
 				return;
 				
 			if(input.value.trim().length == 0) //don't allow for blank messages
@@ -162,6 +197,12 @@ class TabContent
 				map["statusMessage"] = "changeName";
 				map["username"] = prevName;
 				map["newUsername"] = input.value.substring(9);
+				map["channel"] = channelName;
+			}
+			else if(input.value == "/list")
+			{
+				map["username"] = _username;
+				map["statusMessage"] = "list";
 				map["channel"] = channelName;
 			}
 			else
@@ -184,11 +225,20 @@ class TabContent
 		webSocket = new WebSocket(_chatServerUrl);
 		webSocket.onOpen.listen((_)
 		{
+			//let server know that we connected
 			Map map = new Map();
 			map["message"] = 'userName='+_username;
 			map["channel"] = channelName;
 			if(channelName == "Local Chat")
 				map["street"] = CurrentStreet.label;
+			webSocket.send(JSON.encode(map));
+			
+			//get list of all users connected
+			map = new Map();
+			map["hide"] = "true";
+			map["username"] = _username;
+			map["statusMessage"] = "list";
+			map["channel"] = channelName;
 			webSocket.send(JSON.encode(map));
 		});
 		webSocket.onMessage.listen((MessageEvent messageEvent)
@@ -214,14 +264,17 @@ class TabContent
 			}
 			else if(map["channel"] == channelName)
 			{
-				String selector = "#tab-"+channelName.replaceAll(" ", "_"); //need to replace spaces to make CSS selector work
-				RadioButtonInputElement tab = (querySelector("#tab-"+channelName) as RadioButtonInputElement);
-				if(!(querySelector(selector) as RadioButtonInputElement).checked)
+				if(map["statusMessage"] == null)
 				{
-					unreadMessages++;
-					//find label related to this channel's tab and add the unread count to it
-					String selector = "#label-"+channelName.replaceAll(" ", "_");
-					querySelector(selector).innerHtml = '<span class="Counter">'+unreadMessages.toString()+'</span>' + " " + channelName;
+					String selector = "#tab-"+channelName.replaceAll(" ", "_"); //need to replace spaces to make CSS selector work
+					RadioButtonInputElement tab = (querySelector("#tab-"+channelName) as RadioButtonInputElement);
+					if(!(querySelector(selector) as RadioButtonInputElement).checked)
+					{
+						unreadMessages++;
+						//find label related to this channel's tab and add the unread count to it
+						String selector = "#label-"+channelName.replaceAll(" ", "_");
+						querySelector(selector).innerHtml = '<span class="Counter">'+unreadMessages.toString()+'</span>' + " " + channelName;
+					}
 				}
 				_addmessage(chatHistory, map);
 			}
@@ -248,8 +301,14 @@ class TabContent
 	void _addmessage(DivElement chatHistory, Map map)
 	{
 		bool atTheBottom = (chatHistory.scrollTop == chatHistory.scrollHeight);
-		print("got message: " + JSON.encode(map)); //debugging purposes only
+		print("got message: " + JSON.encode(map)); //TODO: debugging purposes only
 		
+		if(chat.getPlayMentionSound() && map["message"].toLowerCase().contains(_username.toLowerCase()) && int.parse(prevVolume) > 0 && isMuted == '0')
+		{
+			AudioElement mentionSound = new AudioElement('./assets/system/mention.ogg');
+		    mentionSound.volume = int.parse(prevVolume)/100;
+		    mentionSound.play();
+		}
 		SpanElement userElement = new SpanElement();
 		SpanElement text = new SpanElement()
 			..setInnerHtml(_parseForUrls(map["message"]), 
@@ -304,6 +363,27 @@ class TabContent
 			}
 		}
 		//TODO: end remove
+		if(map["statusMessage"] == "list")
+		{
+			if(map["hide"] == "true") //for filling user list, do not show
+			{
+				connectedUsers = map["users"];
+				return;
+			}
+			
+			text.style.paddingRight = "4px";
+			chatString.children.add(text);
+			
+			List users = map["users"];
+			users.forEach((String username)
+			{
+				SpanElement user = new SpanElement()
+				..text = username
+				..style.color = _getColor(username)
+				..style.paddingRight = "4px";
+				chatString.children.add(user);
+			});
+		}
 		
 		DivElement rowSpacer = new DivElement()
 			..className = "RowSpacer";
