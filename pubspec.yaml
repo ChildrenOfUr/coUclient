@@ -15,3 +15,4 @@ dependencies:
   dartemis: any
   game_loop: any
   scproxy: any
+  intl: any
