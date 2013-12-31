@@ -1,8 +1,7 @@
 part of coUclient;
 //TODO: should we limit chat history so that it doesn't go on forever?
 
-//TODO: get list of people in chat
-//TODO: @ mentions - beep or blink or something?
+//TODO: change error message to be an overlay over the chat pane
 
 class Chat
 {
@@ -50,6 +49,8 @@ class Chat
 			CheckboxInputElement checkbox = event.target as CheckboxInputElement;
 			if(checkbox.id == "ShowJoinMessages")
 				setJoinMessagesVisibility(checkbox.checked);
+			if(checkbox.id == "PlayMentionSound")
+				setPlayMentionSound(checkbox.checked);
 		});
 	
 		//setup saved variables
@@ -62,6 +63,15 @@ class Chat
 				setJoinMessagesVisibility(false);
 			
 			(querySelector("#ShowJoinMessages") as CheckboxInputElement).checked = getJoinMessagesVisibility();
+		}
+		if(localStorage["playMentionSound"] != null)
+		{
+			if(localStorage["playMentionSound"] == "true")
+				setPlayMentionSound(true);
+			else
+				setPlayMentionSound(false);
+			
+			(querySelector("#PlayMentionSound") as CheckboxInputElement).checked = getPlayMentionSound();
 		}
 		
 		addChatTab("Global Chat", true);
