@@ -174,7 +174,7 @@ class TabContent
 				for(; tabSearchIndex < connectedUsers.length; tabSearchIndex++)
 				{
 					String username = connectedUsers.elementAt(tabSearchIndex);
-					if(username.toLowerCase().contains(lastWord.toLowerCase()))
+					if(username.toLowerCase().startsWith(lastWord.toLowerCase()))
 					{
 						input.value = input.value.substring(0, input.value.lastIndexOf(" ")+1) + username;
 						tabInserted = true;
