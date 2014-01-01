@@ -65,13 +65,7 @@ main(){
     
     
     //Player CurrentPlayer = new Player();
-    
 
-
-
-
-    
-    
       }
     );
     

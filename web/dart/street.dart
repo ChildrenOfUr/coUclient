@@ -10,8 +10,6 @@ part of coUclient;
 //Separately, gameCanvas contains all moving elements, because the canvas must be cleared periodically
 //It is instatiated in main.dart, its values specified in init()
 
-
-//If we wanted to, we could create the #GameScreen in dart
 DivElement gameScreen = querySelector('#GameScreen');
 int gameScreenWidth;
 int gameScreenHeight;
@@ -24,21 +22,35 @@ loadStreet(String ID){
   if (assets[ID] == null)
     throw('Error: Asset not loaded!');
   else {
-    Map _data = assets[ID];
+    Map data = assets[ID];
   CurrentStreet = world.createEntity()
       ..addComponent(
           new StreetVars
           (
-              _data['label'],
-              _data['dynamic']['l'].abs() + _data['dynamic']['r'].abs(),
-              _data['dynamic']['t'].abs(),
-              _data['dynamic']['t'],
-              _data['dynamic']['b'],
-              _data['dynamic']['l'],
-              _data['dynamic']['r'],
-              '#' + _data['gradient']['top'],
-              '#' +  _data['gradient']['bottom']
+              data['label'],
+              data['dynamic']['l'].abs() + data['dynamic']['r'].abs(),
+              data['dynamic']['t'].abs(),
+              data['dynamic']['t'],
+              data['dynamic']['b'],
+              data['dynamic']['l'],
+              data['dynamic']['r'],
+              '#' + data['gradient']['top'],
+              '#' +  data['gradient']['bottom']
           ));
+    Map layers = data['dynamic']['layers'];
+    
+    List allDecos = [];
+  
+    for (Map layer in layers.values)
+    {
+      for (Map deco in layer['decos'])
+      {
+        if(allDecos.contains(deco['filename']) == false)
+          allDecos.add(deco['filename']);
+      }
+    }
+    // allDecos should have one filename per file, we need to preload them now.
+    print(allDecos);
   }
 }
 
