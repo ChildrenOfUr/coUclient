@@ -391,7 +391,8 @@ class TabContent
 				SpanElement user = new SpanElement()
 				..text = username
 				..style.color = _getColor(username)
-				..style.paddingRight = "4px";
+				..style.paddingRight = "4px"
+				..style.display = "inline-block";
 				chatString.children.add(user);
 			});
 		}
