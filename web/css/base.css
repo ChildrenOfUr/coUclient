@@ -237,9 +237,63 @@ textarea{resize: none;}
 	text-align: center;
 }
 /*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+/*Loading a street*/
+#MapLoadingScreen {
+   background-color: #829363;
+   position:absolute;
+   top:0px;  
+   left:0px;
+   right:0px;
+   bottom:0px;
+   opacity:1.0;
+    
+    transition-property: opacity;
+    transition-duration: 0.2s;
+    transition-timing-function: linear;
+    transition-delay: 0.5s;
+    -webkit-transition-property:opacity;
+    -webkit-transition-duration:0.2s;
+    -webkit-transition-timing-function:linear;
+    -webkit-transition-delay:0.5s;
+}
+.LoadingGroove{
+  background-color: #e6ecee;
+   position:absolute;
+   left:5%;
+   right:5%;
+   bottom:10%;
+   overflow: hidden;
+   font-size:13px;
+   color:rgba(0,0,0,0.7);
+   border: 2px solid #fff;
+   -moz-border-radius: 5px;
+   border-radius: 5px;
+   
+}
+.LoadingBar{
+   background-color: #c5dc81;
+   position:absolute;
+   left:-2px;
+   top:-2px;
+   bottom:-2px;
+   width:0%;
+   border: 1px solid #fff;
+   -moz-border-radius: 5px;
+   border-radius: 5px;
+    transition-property: width;
+    transition-duration: 0.2s;
+    transition-timing-function: linear;
+    transition-delay: 0.5s;
+    -webkit-transition-property:width;
+    -webkit-transition-duration:0.2s;
+    -webkit-transition-timing-function:linear;
+    -webkit-transition-delay:0.5s;
+}
+
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 /*The display div that depicts gameplay*/
 #GameScreen {
-    background-color:#000;
+    background-color:#fff;
     position:absolute;
     width:73%;
     height:600px;
@@ -250,6 +304,7 @@ textarea{resize: none;}
     z-index:0; 
     overflow: hidden;
 }
+
 .streetcanvas {
     transition-property: top right;
     transition-duration: 0.5s;
@@ -372,6 +427,7 @@ textarea{resize: none;}
     transition-duration: 0.1s;
     transition-timing-function: linear;
     transition-delay: 0s;
+    text-shadow: 0px 1px rgba(0,0,0,0.5);
     -webkit-transition-property: opacity;
     -webkit-transition-duration:0.1s;
     -webkit-transition-timing-function:linear;
@@ -432,6 +488,7 @@ textarea{resize: none;}
     transition-duration: 0.1s;
     transition-timing-function: linear;
     transition-delay: 0s;
+    text-shadow: 0px 1px rgba(0,0,0,0.5);
     -webkit-transition-property: opacity;
     -webkit-transition-duration:0.1s;
     -webkit-transition-timing-function:linear;

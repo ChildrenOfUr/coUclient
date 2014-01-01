@@ -222,7 +222,7 @@ class TabContent
 				map["message"] = input.value;
 				map["channel"] = channelName;
 				if(channelName == "Local Chat")
-					map["street"] = CurrentStreet.label;
+					map["street"] = streetVarsMapper.get(CurrentStreet).label;
 			}
 			webSocket.send(JSON.encode(map));
 			input.value = '';
@@ -241,7 +241,7 @@ class TabContent
 			map["message"] = 'userName='+_username;
 			map["channel"] = channelName;
 			if(channelName == "Local Chat")
-				map["street"] = CurrentStreet.label;
+				map["street"] = streetVarsMapper.get(CurrentStreet).label;
 			webSocket.send(JSON.encode(map));
 			
 			//get list of all users connected
@@ -270,7 +270,7 @@ class TabContent
 			{
 				if(map["statusMessage"] != null)
 					_addmessage(chatHistory, map);
-				else if(map["street"] == CurrentStreet.label)
+				else if(map["street"] == streetVarsMapper.get(CurrentStreet).label)
 					_addmessage(chatHistory, map);
 			}
 			else if(map["channel"] == channelName)

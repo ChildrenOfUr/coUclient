@@ -16,7 +16,54 @@ DivElement gameScreen = querySelector('#GameScreen');
 int gameScreenWidth;
 int gameScreenHeight;
 
-Street CurrentStreet;
+
+
+Entity CurrentStreet;
+ComponentMapper streetVarsMapper = new ComponentMapper(StreetVars,world);
+loadStreet(String ID){
+  if (assets[ID] == null)
+    throw('Error: Asset not loaded!');
+  else {
+    Map _data = assets[ID];
+  CurrentStreet = world.createEntity()
+      ..addComponent(
+          new StreetVars
+          (
+              _data['label'],
+              _data['dynamic']['l'].abs() + _data['dynamic']['r'].abs(),
+              _data['dynamic']['t'].abs(),
+              _data['dynamic']['t'],
+              _data['dynamic']['b'],
+              _data['dynamic']['l'],
+              _data['dynamic']['r'],
+              '#' + _data['gradient']['top'],
+              '#' +  _data['gradient']['bottom']
+          ));
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 class Street {
   String ID;
@@ -66,6 +113,8 @@ class Street {
     
   load(){
 
+    
+    
     //Canvases are created here for each layer, because
     //there are a variable number of layers in each lvl,
     //some are empty, and all are different sizes.
@@ -78,8 +127,6 @@ class Street {
     
     /* //// Gradient Canvas //// */
 
-    // TODO, we could change this in relation to the time making days actually feel like days. :P
-    // CB - +1 this idea ^ (but maybe hold off on new features until old features all work)
     // TODO, this gradient often appears 'banded' we should do something about that later.
     
     CanvasElement gradientCanvas = new CanvasElement();
@@ -107,7 +154,7 @@ class Street {
     layersOrdered.sort((x,y) => _data['dynamic']['layers'][x]['z'].compareTo(_data['dynamic']['layers'][y]['z']));
 
     //For each layer on the street . . .
-    for (var e = 0; e < 6; e++){
+    for (var e = 0; e < _data['dynamic']['layers'].length; e++){
       
       //Create a list of the decorations . . .
       List decos = [];
@@ -166,15 +213,29 @@ class Street {
           decoCanvas.context2D.drawImageScaled(source, x, y, w, h);
           }
         }
-    CurrentStreet = this;
+
+    //CurrentStreet = this;
+
+    document.body.children.add(gameCanvas);
+    
+    gameScreen.append(gameCanvas);
+    
+    gameCanvas.style.zIndex = ('0');
+    //gameCanvas.width = CurrentStreet.width;
+    //gameCanvas.height = CurrentStreet.height;
+    
+    gameCanvas.style.position = 'absolute';
+    gameCanvas.style.left = '0 px';
+    gameCanvas.style.top =  '0 px';  
+    
   }  
   
   //Parallaxing: Adjust the position of each canvas in #GameScreen
   //based on the camera position and relative size of canvas to Street
   render(){
     
-    currentPercentX = CurrentCamera.x / (width - gameScreenWidth);
-    currentPercentY = CurrentCamera.y / (height - gameScreenHeight);
+    currentPercentX = cameraPositionMapper.get(camera).x / (width - gameScreenWidth);
+    currentPercentY = cameraPositionMapper.get(camera).y / (height - gameScreenHeight);
 
     //modify left and top for parallaxing
     for (CanvasElement temp in gameScreen.children){

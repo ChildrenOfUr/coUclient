@@ -2,7 +2,7 @@ part of coUclient;
 
 
 main(){
-    // The player has requested that the game is to begin.
+  // The player has requested that the game is to begin.
   
   // run all audio initialization tasks  
   init_audio();
@@ -57,27 +57,32 @@ main(){
     }
     // This AudioElement is Destroyed when it's done playing.
 //////////////////////////////////////////////////////////////////////////////////////
-
     // Load a demo street
-    new Street('streets.street')
-    ..load();
+    //new Street('streets.street')
+    //..load();
+    loadStreet('streets.street');
     
-    document.body.children.add(gameCanvas);
     
-    gameScreen.append(gameCanvas);
     
-    gameCanvas.style.zIndex = ('0');
-    gameCanvas.width = CurrentStreet.width;
-    gameCanvas.height = CurrentStreet.height;
+    //Player CurrentPlayer = new Player();
     
-    gameCanvas.style.position = 'absolute';
-    gameCanvas.style.left = '0 px';
-    gameCanvas.style.top =  '0 px';   
+
+
+
+
     
-    Player CurrentPlayer = new Player();
-    CurrentCamera = new Camera();
-        }
+    
+      }
     );
+    
+    
+    // Prepare the various Systems
+    world.addSystem(new CameraSystem());
+    
+    
+    
+    world.initialize();
+    
     
     // Begin the GAME!!!
     game.start();
