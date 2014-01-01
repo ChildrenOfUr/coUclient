@@ -168,6 +168,12 @@ resize()
 		querySelector('#SizeWarning').hidden = false;
 	else
 		querySelector('#SizeWarning').hidden = true;
+	//according to Paul, we should be able to see at least a few lines of chat in each box - this means
+	//minimum height is about 325px
+	if(window.innerHeight < 325)
+		querySelector('#SizeWarning').hidden = false;
+	else
+		querySelector('#SizeWarning').hidden = true;
 	//This should go in UserInterface
 }
 	
