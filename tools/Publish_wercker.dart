@@ -113,15 +113,17 @@ String minifyCss(List<String> fileLines){
 
 String minifyHtml(List<String> input){
   
-   print('Converting HTML file to use JavaScript.');
-   List<String> fileLines = new List();
-   for (String line in input)
-   {
-    line = line.replaceAll('<script type="application/dart" src="main.dart"></script>', '');
-    line = line.replaceAll('packages/browser/interop.js', 'game.js');
+  print('Converting HTML file to use JavaScript...');
+  List<String> fileLines = new List();
+  for (String line in input)
+  {
+    line = line.replaceAll('main.dart', 'game.js');
+    line = line.replaceAll('type="application/dart" ', '');
+    //line = line.replaceAll('packages/browser/interop.js', 'interop.js');
+    line = line.replaceAll('<script src="packages/browser/dart.js"></script>', '');
     // Add other html replacement lines here.
 
-    fileLines.add(line);
+    fileLines.add(line + '\n');
    }
 
   

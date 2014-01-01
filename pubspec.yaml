@@ -14,5 +14,8 @@ dependencies:
       url: https://github.com/ChildrenOfUr/coUlib.git
   dartemis: any
   game_loop: any
-  scproxy: any
   intl: any
+  scproxy:
+    git:
+      ref: master
+      url: https://github.com/darkkiero/scproxy.git
