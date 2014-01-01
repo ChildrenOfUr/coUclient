@@ -122,7 +122,28 @@ class Input
 			if (k.keyCode == 32 && !ignoreKeys) //spacebar and not typing
 				spaceKey = false;
 	    });
-	    
+		
+		//only for mobile version
+		DivElement knob = querySelector('#Knob');
+		knob.onTouchStart.listen((TouchEvent event)
+		{
+			print("touch start");
+			//do stuff
+		});
+		knob.onTouchMove.listen((TouchEvent event)
+		{
+			int x = event.touches.first.client.x;
+			int y = event.touches.first.client.y;
+			print("touch move, x:$x, y:$y");
+			event.preventDefault(); //prevent page from scrolling/zooming
+			//do stuff
+		});
+		knob.onTouchEnd.listen((TouchEvent event)
+		{
+			print("touch end");
+			//do stuff
+		});
+		
 		//demo right-clicking
 		document.body.onContextMenu.listen((e) => showClickMenu(e,'Testing Right Click', 'this is a demo',[]));
 		playerInput = this;

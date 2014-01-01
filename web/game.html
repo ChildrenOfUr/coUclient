@@ -16,10 +16,8 @@
 <!-- Import Fonts -->
 
 <!-- Import Stylesheets -->
-	<link rel="stylesheet" media="(max-device-width: 1307px) and (orientation: landscape)" href="./css/mobile.css">
-	<link rel="stylesheet" media="(max-device-height: 324px) and (orientation: portrait)" href="./css/mobile.css">
-    <link rel="stylesheet" media="(min-device-width: 1308px) and (min-device-height: 325px)" href="./css/base.css">
-<!-- Import Stylesheets -->
+	<link rel="stylesheet" href="./css/base.css">
+<!--Import Stylesheets -->
 
 </head>
 <body>
@@ -197,6 +195,17 @@ WAIT! You were just about to win the game!
         </div>
       </div>
     </template>
+    
+<!-- mobile specific components -->
+<div id="Joystick">
+	<div id="Knob"></div>
+</div>
+<div id="ChatBubble">
+	<span class="icon-stack">
+	     <i class="icon-comment icon-stack-base"></i>
+	     <span id="MissedMessages" class="icon-fixed-width icon-light char-overlay">3</span>
+	</span>
+</div>
 
 <!-- Start the Game up. -->
   <script type="application/dart" src="main.dart"></script>

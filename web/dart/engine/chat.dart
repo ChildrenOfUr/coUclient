@@ -312,7 +312,6 @@ class TabContent
 	void _addmessage(DivElement chatHistory, Map map)
 	{
 		bool atTheBottom = (chatHistory.scrollTop == chatHistory.scrollHeight);
-		print("got message: " + JSON.encode(map)); //TODO: debugging purposes only
 		
 		if(chat.getPlayMentionSound() && map["message"].toLowerCase().contains(_username.toLowerCase()) && int.parse(prevVolume) > 0 && isMuted == '0')
 		{
@@ -391,7 +390,8 @@ class TabContent
 				SpanElement user = new SpanElement()
 				..text = username
 				..style.color = _getColor(username)
-				..style.paddingRight = "4px";
+				..style.paddingRight = "4px"
+				..style.display = "inline-block";
 				chatString.children.add(user);
 			});
 		}
