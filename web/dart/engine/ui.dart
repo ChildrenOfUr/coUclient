@@ -162,19 +162,13 @@ resize()
 	
 	chatPane.style.height = (gameScreenHeight + 50).toString()+'px';
 	
-	//TODO When the window becomes too small, we should spawn an overlay that tells the user this fact.
 	//approx 1308px wide is the minimum width for the window to show everything well
-	if(window.innerWidth < 1308)
-		querySelector('#SizeWarning').hidden = false;
-	else
-		querySelector('#SizeWarning').hidden = true;
 	//according to Paul, we should be able to see at least a few lines of chat in each box - this means
 	//minimum height is about 325px
-	if(window.innerHeight < 325)
+	if(window.innerWidth < 1308 || window.innerHeight < 325)
 		querySelector('#SizeWarning').hidden = false;
 	else
 		querySelector('#SizeWarning').hidden = true;
-	//This should go in UserInterface
 }
 	
 // Manages the elements that display the date and time.
