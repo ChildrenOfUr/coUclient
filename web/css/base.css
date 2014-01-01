@@ -233,6 +233,10 @@ textarea{resize: none;}
     -webkit-transition-delay:0.5s;
 }.splash:active {opacity:0.9;}
 
+#SizeWarning {
+	position: absolute;
+	text-align: center;
+}
 /*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 /*The display div that depicts gameplay*/
 #GameScreen {

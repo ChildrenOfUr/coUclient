@@ -150,7 +150,8 @@ resize()
 	Element gameScreen = querySelector('#GameScreen');
 	//Element gameStage = querySelector('#GameStage');
 	
-	gameScreenWidth = window.innerWidth - 80 - 40 - chatPane.clientWidth;
+	//40px from left, chat is 18px from right, 10px inbetween chat and canvas
+	gameScreenWidth = window.innerWidth - 40 - 18 - 10 - chatPane.clientWidth;
 	gameScreenHeight = window.innerHeight - 180;
 	
 	chatPane.style.right;
@@ -162,6 +163,11 @@ resize()
 	chatPane.style.height = (gameScreenHeight + 50).toString()+'px';
 	
 	//TODO When the window becomes too small, we should spawn an overlay that tells the user this fact.
+	//approx 1308px wide is the minimum width for the window to show everything well
+	if(window.innerWidth < 1308)
+		querySelector('#SizeWarning').hidden = false;
+	else
+		querySelector('#SizeWarning').hidden = true;
 	//This should go in UserInterface
 }
 	
