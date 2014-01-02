@@ -1,8 +1,6 @@
 part of coUclient;
 //TODO: should we limit chat history so that it doesn't go on forever?
 
-//TODO: change error message to be an overlay over the chat pane
-
 class Chat
 {
 	bool _showJoinMessages = false, _playMentionSound = true;
@@ -251,6 +249,8 @@ class TabContent
 		webSocket = new WebSocket(_chatServerUrl);
 		webSocket.onOpen.listen((_)
 		{
+			querySelector("#ChatDisconnected").hidden = true; //hide if visible
+		
 			//let server know that we connected
 			Map map = new Map();
 			map["message"] = 'userName='+_username;
@@ -320,19 +320,12 @@ class TabContent
 		webSocket.onClose.listen((_)
 		{
 			//attempt to reconnect and display a message to the user stating so
-			Map map = new Map();
-			map["statusMessage"] = "hint";
-			map["message"] = "Disconnected from Chat, attempting to reconnect...";
-			_addmessage(chatHistory,map);
-			setupWebSocket(chatHistory,channelName);
-		});
-		webSocket.onError.listen((_)
-		{
-			//attempt to reconnect and display a message to the user stating so
-			Map map = new Map();
-			map["statusMessage"] = "hint";
-			map["message"] = "[Error] The chat server appears to be offline";
-			_addmessage(chatHistory,map);
+			querySelector("#ChatDisconnected").hidden = false;
+			querySelector("#ChatErrorText").text = "Disconnected from Chat, attempting to reconnect...";
+			new Timer(new Duration(seconds:5),() //wait 5 seconds and try to reconnect
+			{
+				setupWebSocket(chatHistory,channelName);
+			});
 		});
 	}
 	
