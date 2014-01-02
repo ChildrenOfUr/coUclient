@@ -154,7 +154,7 @@ class TabContent
 		{
 			Map map = new Map();
 			map["statusMessage"] = "hint";
-			map["message"] = "Hint :\nYou can set your chat name by typing '/setname [name]'<br>You can get a list of people in this chat room by typing '/list'";
+			map["message"] = "Hint :\nYou can set your chat name by typing '/setname [name]'<br><br>You can get a list of people in this chat room by typing '/list'";
 			_addmessage(chatHistory,map);
 		}
 		//TODO: end section
@@ -235,6 +235,7 @@ class TabContent
 				map["channel"] = channelName;
 				if(channelName == "Local Chat")
 					map["street"] = CurrentStreet.label;
+				_addmessage(chatHistory,map);
 			}
 			webSocket.send(JSON.encode(map));
 			input.value = '';
@@ -296,7 +297,7 @@ class TabContent
 			{
 				if(map["statusMessage"] != null)
 					_addmessage(chatHistory, map);
-				else if(map["street"] == CurrentStreet.label)
+				else if(map["username"] != _username && map["street"] == CurrentStreet.label)
 					_addmessage(chatHistory, map);
 			}
 			else if(map["channel"] == channelName)
@@ -312,15 +313,19 @@ class TabContent
 						String selector = "#label-"+channelName.replaceAll(" ", "_");
 						querySelector(selector).innerHtml = '<span class="Counter">'+unreadMessages.toString()+'</span>' + " " + channelName;
 					}
+					if(map["username"] != _username)
+						_addmessage(chatHistory,map);
 				}
-				_addmessage(chatHistory, map);
+				else
+					_addmessage(chatHistory, map);
 			}
 		});
 		webSocket.onClose.listen((_)
 		{
 			//attempt to reconnect and display a message to the user stating so
-			querySelector("#ChatDisconnected").hidden = false;
-			querySelector("#ChatErrorText").text = "Disconnected from Chat, attempting to reconnect...";
+			querySelector("#ChatDisconnected")
+				..hidden = false
+				..text = "Disconnected from Chat, attempting to reconnect...";
 			new Timer(new Duration(seconds:5),() //wait 5 seconds and try to reconnect
 			{
 				setupWebSocket(chatHistory,channelName);
@@ -356,7 +361,7 @@ class TabContent
 	    )
 			..className = "MessageBody";
 		DivElement chatString = new DivElement();
-		if(map["statusMessage"] == null)
+		if(map["statusMessage"] == null || map["message"] == " joined.")
 		{
 			userElement.text = map["username"] + ": ";
 			userElement.style.color = _getColor(map["username"]); //hashes the username so as to get a random color but the same each time for a specific user
