@@ -151,8 +151,8 @@ resize()
 	//Element gameStage = querySelector('#GameStage');
 	
 	//40px from left, chat is 18px from right, 10px inbetween chat and canvas
-	gameScreenWidth = window.innerWidth - 40 - 18 - 10 - chatPane.clientWidth;
-	gameScreenHeight = window.innerHeight - 180;
+	int gameScreenWidth = window.innerWidth - 40 - 18 - 10 - chatPane.clientWidth;
+	int gameScreenHeight = window.innerHeight - 180;
 	
 	chatPane.style.right;
 	chatPane.clientWidth;

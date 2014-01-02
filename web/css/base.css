@@ -248,11 +248,11 @@ textarea{resize: none;}
    opacity:1.0;
     
     transition-property: opacity;
-    transition-duration: 0.2s;
+    transition-duration: 1s;
     transition-timing-function: linear;
     transition-delay: 0.5s;
     -webkit-transition-property:opacity;
-    -webkit-transition-duration:0.2s;
+    -webkit-transition-duration:1s;
     -webkit-transition-timing-function:linear;
     -webkit-transition-delay:0.5s;
 }

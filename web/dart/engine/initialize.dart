@@ -19,7 +19,7 @@ main(){
   // This AudioElement is destroyed with the loading screen.
 //////////////////////////////////////////////////////////////////////////////////////
   
-  // On-game-started loading tasts  
+  // On-game-started loading tasks  
   
     load_audio()
     .then((_) => assets.loadPack('streets', './assets/streets.pack'))
@@ -45,6 +45,7 @@ main(){
     printConsole('For a list of commands type "help"');
     
     
+    
 //////////////////////////////////////////////////////////////////////////////////////
   // Play the 'doneloading' sound
     AudioElement doneLoading = new AudioElement('./assets/system/game_loaded.ogg');
@@ -57,30 +58,19 @@ main(){
     }
     // This AudioElement is Destroyed when it's done playing.
 //////////////////////////////////////////////////////////////////////////////////////
-    // Load a demo street
-    //new Street('streets.street')
-    //..load();
-    loadStreet('streets.street');
-    
-    
-    
-    //Player CurrentPlayer = new Player();
-
-      }
-    );
+    new Street('streets.street')
+    ..load();
     
     
     // Prepare the various Systems
     world.addSystem(new CameraSystem());
-    
-    
-    
     world.initialize();
     
     
     // Begin the GAME!!!
     game.start();
-    
+   });
+      
 }
 
 
