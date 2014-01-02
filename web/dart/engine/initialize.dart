@@ -60,13 +60,7 @@ main(){
 //////////////////////////////////////////////////////////////////////////////////////
     new Street('streets.street')
     ..load();
-    
-    
-    // Prepare the various Systems
-    world.addSystem(new CameraSystem());
-    world.initialize();
-    
-    
+   
     // Begin the GAME!!!
     game.start();
    });
