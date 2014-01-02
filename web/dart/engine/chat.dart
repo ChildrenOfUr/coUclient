@@ -237,7 +237,7 @@ class TabContent
 				map["message"] = input.value;
 				map["channel"] = channelName;
 				if(channelName == "Local Chat")
-					map["street"] = CurrentStreet.label;
+					map["street"] = currentStreet.label;
 			}
 			webSocket.send(JSON.encode(map));
 			input.value = '';
@@ -256,7 +256,7 @@ class TabContent
 			map["message"] = 'userName='+_username;
 			map["channel"] = channelName;
 			if(channelName == "Local Chat")
-				map["street"] = CurrentStreet.label;
+				map["street"] = currentStreet.label;
 			webSocket.send(JSON.encode(map));
 			
 			//get list of all users connected
@@ -297,7 +297,7 @@ class TabContent
 			{
 				if(map["statusMessage"] != null)
 					_addmessage(chatHistory, map);
-				else if(map["street"] == CurrentStreet.label)
+				else if(map["street"] == currentStreet.label)
 					_addmessage(chatHistory, map);
 			}
 			else if(map["channel"] == channelName)
@@ -339,7 +339,7 @@ class TabContent
 	void _addmessage(DivElement chatHistory, Map map)
 	{
 		bool atTheBottom = (chatHistory.scrollTop == chatHistory.scrollHeight);
-		print("got message: " + JSON.encode(map)); //TODO: debugging purposes only
+		//print("got message: " + JSON.encode(map)); //TODO: debugging purposes only
 		
 		if(chat.getPlayMentionSound() && map["message"].toLowerCase().contains(_username.toLowerCase()) && int.parse(prevVolume) > 0 && isMuted == '0')
 		{

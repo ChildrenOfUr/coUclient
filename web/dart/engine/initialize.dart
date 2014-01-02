@@ -2,7 +2,7 @@ part of coUclient;
 
 
 main(){
-    // The player has requested that the game is to begin.
+  // The player has requested that the game is to begin.
   
   // run all audio initialization tasks  
   init_audio();
@@ -19,7 +19,7 @@ main(){
   // This AudioElement is destroyed with the loading screen.
 //////////////////////////////////////////////////////////////////////////////////////
   
-  // On-game-started loading tasts  
+  // On-game-started loading tasks  
   
     load_audio()
     .then((_) => assets.loadPack('streets', './assets/streets.pack'))
@@ -45,6 +45,7 @@ main(){
     printConsole('For a list of commands type "help"');
     
     
+    
 //////////////////////////////////////////////////////////////////////////////////////
   // Play the 'doneloading' sound
     AudioElement doneLoading = new AudioElement('./assets/system/game_loaded.ogg');
@@ -57,31 +58,19 @@ main(){
     }
     // This AudioElement is Destroyed when it's done playing.
 //////////////////////////////////////////////////////////////////////////////////////
-
-    // Load a demo street
     new Street('streets.street')
     ..load();
     
-    document.body.children.add(gameCanvas);
     
-    gameScreen.append(gameCanvas);
+    // Prepare the various Systems
+    world.addSystem(new CameraSystem());
+    world.initialize();
     
-    gameCanvas.style.zIndex = ('0');
-    gameCanvas.width = CurrentStreet.width;
-    gameCanvas.height = CurrentStreet.height;
-    
-    gameCanvas.style.position = 'absolute';
-    gameCanvas.style.left = '0 px';
-    gameCanvas.style.top =  '0 px';   
-    
-    Player CurrentPlayer = new Player();
-    CurrentCamera = new Camera();
-        }
-    );
     
     // Begin the GAME!!!
     game.start();
-    
+   });
+      
 }
 
 
