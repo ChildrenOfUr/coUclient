@@ -1,7 +1,4 @@
 part of coUclient;
-//TODO: should we limit chat history so that it doesn't go on forever?
-
-//TODO: change error message to be an overlay over the chat pane
 
 class Chat
 {
@@ -113,7 +110,7 @@ class TabContent
 	bool useSpanForTitle, tabInserted = false;
 	WebSocket webSocket;
 	DivElement chatDiv;
-	int unreadMessages = 0, tabSearchIndex = 0;
+	int unreadMessages = 0, tabSearchIndex = 0, numMessages = 0;
 	final _chatServerUrl = "ws://couchatserver.herokuapp.com";
 	
 	TabContent(this.channelName, this.useSpanForTitle)
@@ -157,7 +154,7 @@ class TabContent
 		{
 			Map map = new Map();
 			map["statusMessage"] = "hint";
-			map["message"] = "Hint :\nYou can set your chat name by typing '/setname [name]'<br>You can get a list of people in this chat room by typing '/list'";
+			map["message"] = "Hint :\nYou can set your chat name by typing '/setname [name]'<br><br>You can get a list of people in this chat room by typing '/list'";
 			_addmessage(chatHistory,map);
 		}
 		//TODO: end section
@@ -238,6 +235,8 @@ class TabContent
 				map["channel"] = channelName;
 				if(channelName == "Local Chat")
 					map["street"] = currentStreet.label;
+
+				_addmessage(chatHistory,map);
 			}
 			webSocket.send(JSON.encode(map));
 			input.value = '';
@@ -251,6 +250,8 @@ class TabContent
 		webSocket = new WebSocket(_chatServerUrl);
 		webSocket.onOpen.listen((_)
 		{
+			querySelector("#ChatDisconnected").hidden = true; //hide if visible
+		
 			//let server know that we connected
 			Map map = new Map();
 			map["message"] = 'userName='+_username;
@@ -313,31 +314,36 @@ class TabContent
 						String selector = "#label-"+channelName.replaceAll(" ", "_");
 						querySelector(selector).innerHtml = '<span class="Counter">'+unreadMessages.toString()+'</span>' + " " + channelName;
 					}
+					if(map["username"] != _username)
+						_addmessage(chatHistory,map);
 				}
-				_addmessage(chatHistory, map);
+				else
+					_addmessage(chatHistory, map);
 			}
 		});
 		webSocket.onClose.listen((_)
 		{
 			//attempt to reconnect and display a message to the user stating so
-			Map map = new Map();
-			map["statusMessage"] = "hint";
-			map["message"] = "Disconnected from Chat, attempting to reconnect...";
-			_addmessage(chatHistory,map);
-			setupWebSocket(chatHistory,channelName);
-		});
-		webSocket.onError.listen((_)
-		{
-			//attempt to reconnect and display a message to the user stating so
-			Map map = new Map();
-			map["statusMessage"] = "hint";
-			map["message"] = "[Error] The chat server appears to be offline";
-			_addmessage(chatHistory,map);
+			querySelector("#ChatDisconnected")
+				..hidden = false
+				..text = "Disconnected from Chat, attempting to reconnect...";
+			new Timer(new Duration(seconds:5),() //wait 5 seconds and try to reconnect
+			{
+				setupWebSocket(chatHistory,channelName);
+			});
 		});
 	}
 	
 	void _addmessage(DivElement chatHistory, Map map)
 	{
+		numMessages++;
+		if(numMessages > 100) //limit chat history (each pane is seperate) to 100 messages
+		{
+			chatHistory.children.removeAt(0);
+			if(chatHistory.children.first.className == "RowSpacer") //if the top is a row spacer, remove that too
+				chatHistory.children.removeAt(0);
+		}
+		
 		bool atTheBottom = (chatHistory.scrollTop == chatHistory.scrollHeight);
 		//print("got message: " + JSON.encode(map)); //TODO: debugging purposes only
 		
@@ -356,7 +362,7 @@ class TabContent
 	    )
 			..className = "MessageBody";
 		DivElement chatString = new DivElement();
-		if(map["statusMessage"] == null)
+		if(map["statusMessage"] == null || map["message"] == " joined.")
 		{
 			userElement.text = map["username"] + ": ";
 			userElement.style.color = _getColor(map["username"]); //hashes the username so as to get a random color but the same each time for a specific user
