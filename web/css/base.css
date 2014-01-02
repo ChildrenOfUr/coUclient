@@ -523,40 +523,40 @@ textarea{resize: none;}
 }
 /* Here lies hacky bits to style the scrollbar in webkit based browsers
    this WILL NOT WORK in Firefox or IE.  Only a loss of style will result however.*/
-.ChatHistory::-webkit-scrollbar {
+::-webkit-scrollbar {
 	width: 16px;
 	background-color: #CDDCDD;
 	border-radius: 5px;
 }
-.ChatHistory::-webkit-scrollbar-track {
+::-webkit-scrollbar-track {
       background-color: #ECF0F1;
       border-radius: 5px;
 	  border: 1px solid;
 	  border-color: #D6DADB;
 }
-.ChatHistory::-webkit-scrollbar-thumb {
+::-webkit-scrollbar-thumb {
       background-color: #CDDCDD;
       border: 2px solid;
       border-color: #C3CCCE;
       border-radius: 5px;
 }
-.ChatHistory::-webkit-scrollbar-button:start {
+::-webkit-scrollbar-button:start {
     display: none;
 }
-.ChatHistory::-webkit-scrollbar-button:end {
+::-webkit-scrollbar-button:end {
     display: block;
 }
-.ChatHistory::-webkit-scrollbar-button:vertical:decrement {
+::-webkit-scrollbar-button:vertical:decrement {
     background-image: url('../assets/system/up.png');
 }
-.ChatHistory::-webkit-scrollbar-button:vertical:decrement:active {
+::-webkit-scrollbar-button:vertical:decrement:active {
     background-image: url('../assets/system/up_active.png');
 }
-.ChatHistory::-webkit-scrollbar-button:vertical:increment {
+::-webkit-scrollbar-button:vertical:increment {
     background-image: url('../assets/system/down.png');
     border-radius: 5px;
 }
-.ChatHistory::-webkit-scrollbar-button:vertical:increment:active {
+::-webkit-scrollbar-button:vertical:increment:active {
     background-image: url('../assets/system/down_active.png');
     border-radius: 5px;
 }
@@ -1000,6 +1000,111 @@ textarea{resize: none;}
 
 /*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 /*Mobile specific stuff*/
+.bubbleRow {
+	width: 100%;
+	float: left; /*left or right doesn't matter, but this makes the lines fall below the last one*/
+}
+.bubble {
+    background-color: #F2F2F2;
+    border-radius: 5px;
+    box-shadow: 0 0 6px #B2B2B2;
+    display: inline-block;
+    padding: 10px 18px;
+    position: relative;
+    vertical-align: top;
+}
+
+.bubble::before {
+    background-color: #F2F2F2;
+    content: "\00a0";
+    display: block;
+    height: 16px;
+    position: absolute;
+    top: 11px;
+    transform:             rotate( 29deg ) skew( -35deg );
+        -moz-transform:    rotate( 29deg ) skew( -35deg );
+        -ms-transform:     rotate( 29deg ) skew( -35deg );
+        -o-transform:      rotate( 29deg ) skew( -35deg );
+        -webkit-transform: rotate( 29deg ) skew( -35deg );
+    width:  20px;
+}
+
+.you {
+    float: left;   
+    margin: 5px 45px 5px 20px;         
+}
+
+.you::before {
+    box-shadow: -2px 2px 2px 0 rgba( 178, 178, 178, .4 );
+    left: -9px;           
+}
+
+.me {
+    float: right;    
+    margin: 5px 20px 5px 45px;         
+}
+
+.me::before {
+    box-shadow: 2px -2px 2px 0 rgba( 178, 178, 178, .4 );
+    right: -9px;    
+}
+
+.ActionBar {
+	border: 1px solid;
+	text-align: center;
+	overflow: auto;
+}
+.BottomBar {
+	display: table;
+    width: calc(100% - 5px);
+}
+.BackButton {
+	margin: 3px;
+	border: 1px solid;
+	display: inline-block;
+	border-radius: 5px;
+	background-color: white;
+	color: #005c73;
+	font-size: 2em;
+	float: left;
+}
+#SendButton {
+	border: 1px solid;
+	border-radius: 5px;
+	background-color: white;
+	color: #005c73;
+	display: table-cell;
+    margin-right: 10px;
+}
+#ChatScreen {
+	height: 100vh;
+	background: white;
+}
+#ConversationStack {
+	height: calc(100% - 6em);
+}
+.Conversation {
+	position: absolute;
+	width: 100%;
+	height: calc(100% - 5em - 5px);
+	overflow-y: scroll;
+	background: white;
+	z-index: 0;
+}
+#InputContainer {
+	display: table-cell;
+	width: 100%;
+	padding-right: 20px;
+	padding-left: 5px;
+}
+#MobileChatInput {
+	width: 100%;
+}
+#ChatChannelName {
+	margin-top: 3px;
+	font-size: 2em;
+}
+
 @media (max-device-width: 1307px) and (orientation: landscape) /* mobile device in landscape */
 {
 	#Joystick {
@@ -1041,9 +1146,8 @@ textarea{resize: none;}
 		padding: 2px;
 		position: absolute;
 		background-color: #e9f0f0;
-		height: 61px;
 		width: 73%;
-		bottom: 50px;
+		bottom: 40px;
 		right: 5px;
 		white-space: nowrap;
 		overflow-y: hidden;
@@ -1053,8 +1157,32 @@ textarea{resize: none;}
 	}
 	#ChatBubble {
 		position: absolute;
-		right: 250px;
-		top: 50px;
+		left: 860px;
+		top: 45px;
+	}
+	#AButton {
+		display: block;
+		text-align: center;
+		line-height: 50px; /*same as width and height */
+		width: 50px;
+		height: 50px;
+		border: 1px solid;
+		border-radius: 50%;
+		position: absolute;
+		left: 90%;
+		top: 50%;
+	}
+	#BButton {
+		display: block;
+		text-align: center;
+		line-height: 50px; /*same as width and height */
+		width: 50px;
+		height: 50px;
+		border: 1px solid;
+		border-radius: 50%;
+		position: absolute;
+		left: 80%;
+		top: 60%;
 	}
 }
 
@@ -1068,8 +1196,18 @@ textarea{resize: none;}
 	#Joystick {
 		display: none;
 	}		
+	#AButton {
+		display: none;
+	}
+	#BButton {
+		display: none;
+	}
 	#ChatBubble {
 		display: none;
+	}
+	#ChatScreen {
+		background: #fff;
+		height: 100vh;
 	}
 	/*The inventory bar at the bottom of the screen*/
 	#InventoryBar, #InventoryBag{

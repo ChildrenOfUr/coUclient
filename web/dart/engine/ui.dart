@@ -125,7 +125,6 @@ class UserInterface
 	
 	_setMute(String isMuted)
 	{
-		Storage localStorage = window.localStorage;
 		Element audioGlyph = querySelector('#AudioGlyph');
 		if(isMuted != null && isMuted == '1') //set to muted
 		{
