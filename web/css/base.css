@@ -525,6 +525,29 @@ textarea{resize: none;}
 .ChatSettingsOption:hover {
 	background-color: #E9F0F0
 }
+#ChatDisconnected {
+	text-align: center;
+	color: #005c73;
+	background-color: #fff;
+	position:absolute;
+	width:290px;
+	height: calc(100% - 120px);
+	top:60px;  
+	right:18px;
+	-moz-border-radius: 7px;
+	border-radius: 7px;
+	padding:5px;
+	-webkit-box-shadow: -1px 1px 3px 0px #4d8c8b;
+	-moz-box-shadow: -1px 1px 3px 0px #4d8c8b;
+	-o-box-shadow: -1px 1px 3px 0px #4d8c8b;
+	-khtml-box-shadow: -1px 1px 3px 0px #4d8c8b;
+	box-shadow: -1px 1px 3px 0px #4d8c8b;
+	z-index: 3;
+}
+#ChatErrorText {
+	position: absolute;
+	top: 50%;
+}
 #ChatPane {
   color: #005c73;
   background-color: #fff;

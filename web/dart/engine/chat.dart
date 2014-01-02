@@ -1,7 +1,4 @@
 part of coUclient;
-//TODO: should we limit chat history so that it doesn't go on forever?
-
-//TODO: change error message to be an overlay over the chat pane
 
 class Chat
 {
@@ -113,7 +110,7 @@ class TabContent
 	bool useSpanForTitle, tabInserted = false;
 	WebSocket webSocket;
 	DivElement chatDiv;
-	int unreadMessages = 0, tabSearchIndex = 0;
+	int unreadMessages = 0, tabSearchIndex = 0, numMessages = 0;
 	final _chatServerUrl = "ws://couchatserver.herokuapp.com";
 	
 	TabContent(this.channelName, this.useSpanForTitle)
@@ -183,6 +180,22 @@ class TabContent
 						break;
 					}
 				}
+				//if we didn't find it yet and the tabSearchIndex was not 0, let's look at the beginning of the array as well
+				//otherwise the user will have to press the tab key again
+				if(!tabInserted)
+				{
+					for(int index = 0; index < tabSearchIndex; index++)
+					{
+						String username = connectedUsers.elementAt(index);
+						if(username.toLowerCase().startsWith(lastWord.toLowerCase()))
+						{
+							input.value = input.value.substring(0, input.value.lastIndexOf(" ")+1) + username;
+							tabInserted = true;
+							tabSearchIndex = index + 1;
+							break;
+						}
+					}
+				}
 				
 				if(tabSearchIndex == connectedUsers.length) //wrap around for next time
 					tabSearchIndex = 0;
@@ -204,9 +217,8 @@ class TabContent
 			Map map = new Map();
 			if(input.value.split(" ")[0] == "/setname")
 			{
-				String prevName = _username;
 				map["statusMessage"] = "changeName";
-				map["username"] = prevName;
+				map["username"] = _username;
 				map["newUsername"] = input.value.substring(9);
 				map["channel"] = channelName;
 			}
@@ -236,6 +248,8 @@ class TabContent
 		webSocket = new WebSocket(_chatServerUrl);
 		webSocket.onOpen.listen((_)
 		{
+			querySelector("#ChatDisconnected").hidden = true; //hide if visible
+		
 			//let server know that we connected
 			Map map = new Map();
 			map["message"] = 'userName='+_username;
@@ -258,10 +272,22 @@ class TabContent
 			if(map["message"] == "ping") //only used to keep the connection alive, ignore
 				return;
 			
-			if(!chat.getJoinMessagesVisibility() && map["message"] == " joined.") //ignore join messages unless the user turns them on
-				return;
+			if(map["message"] == " joined.")
+			{
+				if(!connectedUsers.contains(map["username"]))
+					connectedUsers.add(map["username"]);
+				if(!chat.getJoinMessagesVisibility()) //ignore join messages unless the user turns them on
+					return;
+			}
 			
-			if(map["channel"] == "all") //support for global messages (god mode messages)
+			if(map["message"] == " left.")
+			{
+				connectedUsers.remove(map["username"]);
+				if(!chat.getJoinMessagesVisibility()) //ignore left messages unless the user turns them on
+					return;
+			}
+			
+			if(map["channel"] == "all")
 			{
 				_addmessage(chatHistory, map);
 			}
@@ -293,24 +319,25 @@ class TabContent
 		webSocket.onClose.listen((_)
 		{
 			//attempt to reconnect and display a message to the user stating so
-			Map map = new Map();
-			map["statusMessage"] = "hint";
-			map["message"] = "Disconnected from Chat, attempting to reconnect...";
-			_addmessage(chatHistory,map);
-			setupWebSocket(chatHistory,channelName);
-		});
-		webSocket.onError.listen((_)
-		{
-			//attempt to reconnect and display a message to the user stating so
-			Map map = new Map();
-			map["statusMessage"] = "hint";
-			map["message"] = "[Error] The chat server appears to be offline";
-			_addmessage(chatHistory,map);
+			querySelector("#ChatDisconnected").hidden = false;
+			querySelector("#ChatErrorText").text = "Disconnected from Chat, attempting to reconnect...";
+			new Timer(new Duration(seconds:5),() //wait 5 seconds and try to reconnect
+			{
+				setupWebSocket(chatHistory,channelName);
+			});
 		});
 	}
 	
 	void _addmessage(DivElement chatHistory, Map map)
 	{
+		numMessages++;
+		if(numMessages > 100) //limit chat history (each pane is seperate) to 100 messages
+		{
+			chatHistory.children.removeAt(0);
+			if(chatHistory.children.first.className == "RowSpacer") //if the top is a row spacer, remove that too
+				chatHistory.children.removeAt(0);
+		}
+		
 		bool atTheBottom = (chatHistory.scrollTop == chatHistory.scrollHeight);
 		//print("got message: " + JSON.encode(map)); //TODO: debugging purposes only
 		
@@ -367,6 +394,9 @@ class TabContent
 					_username = map["newUsername"];
 					localStorage["username"] = _username;
 				}
+				
+				connectedUsers.remove(map["username"]);
+				connectedUsers.add(map["newUsername"]);
 			}
 			else
 			{
