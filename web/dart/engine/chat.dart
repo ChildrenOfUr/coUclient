@@ -183,6 +183,22 @@ class TabContent
 						break;
 					}
 				}
+				//if we didn't find it yet and the tabSearchIndex was not 0, let's look at the beginning of the array as well
+				//otherwise the user will have to press the tab key again
+				if(!tabInserted)
+				{
+					for(int index = 0; index < tabSearchIndex; index++)
+					{
+						String username = connectedUsers.elementAt(index);
+						if(username.toLowerCase().startsWith(lastWord.toLowerCase()))
+						{
+							input.value = input.value.substring(0, input.value.lastIndexOf(" ")+1) + username;
+							tabInserted = true;
+							tabSearchIndex = index + 1;
+							break;
+						}
+					}
+				}
 				
 				if(tabSearchIndex == connectedUsers.length) //wrap around for next time
 					tabSearchIndex = 0;
@@ -204,9 +220,8 @@ class TabContent
 			Map map = new Map();
 			if(input.value.split(" ")[0] == "/setname")
 			{
-				String prevName = _username;
 				map["statusMessage"] = "changeName";
-				map["username"] = prevName;
+				map["username"] = _username;
 				map["newUsername"] = input.value.substring(9);
 				map["channel"] = channelName;
 			}
@@ -258,10 +273,22 @@ class TabContent
 			if(map["message"] == "ping") //only used to keep the connection alive, ignore
 				return;
 			
-			if(!chat.getJoinMessagesVisibility() && map["message"] == " joined.") //ignore join messages unless the user turns them on
-				return;
+			if(map["message"] == " joined.")
+			{
+				if(!connectedUsers.contains(map["username"]))
+					connectedUsers.add(map["username"]);
+				if(!chat.getJoinMessagesVisibility()) //ignore join messages unless the user turns them on
+					return;
+			}
 			
-			if(map["channel"] == "all") //support for global messages (god mode messages)
+			if(map["message"] == " left.")
+			{
+				connectedUsers.remove(map["username"]);
+				if(!chat.getJoinMessagesVisibility()) //ignore left messages unless the user turns them on
+					return;
+			}
+			
+			if(map["channel"] == "all")
 			{
 				_addmessage(chatHistory, map);
 			}
@@ -367,6 +394,9 @@ class TabContent
 					_username = map["newUsername"];
 					localStorage["username"] = _username;
 				}
+				
+				connectedUsers.remove(map["username"]);
+				connectedUsers.add(map["newUsername"]);
 			}
 			else
 			{
