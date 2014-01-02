@@ -981,7 +981,7 @@ textarea{resize: none;}
 
 /*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 /*Mobile specific stuff*/
-@media (max-width: 1307px) and (orientation: landscape) /* mobile device in landscape */
+@media (max-device-width: 1307px) and (orientation: landscape) /* mobile device in landscape */
 {
 	#Joystick {
 		display: block;
@@ -1032,14 +1032,19 @@ textarea{resize: none;}
 		-moz-border-radius: 4px;
 		border-radius: 4px;
 	}
+	#ChatBubble {
+		position: absolute;
+		right: 250px;
+		top: 50px;
+	}
 }
 
-@media (max-height: 324px) and (orientation: portrait) /* mobile device in portrait */
+@media (max-device-height: 324px) and (orientation: portrait) /* mobile device in portrait */
 {
 				
 }
 
-@media (min-width: 1308px) and (min-device-height: 325px) /* desktop device*/
+@media (min-device-width: 1308px) and (min-device-height: 325px) /* desktop device*/
 {
 	#Joystick {
 		display: none;

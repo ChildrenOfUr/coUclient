@@ -124,24 +124,21 @@ class Input
 	    });
 		
 		//only for mobile version
-		DivElement knob = querySelector('#Knob');
-		knob.onTouchStart.listen((TouchEvent event)
+		Joystick joystick = new Joystick(querySelector('#Joystick'),querySelector('#Knob'));
+		joystick.onMove.listen((_)
 		{
-			print("touch start");
-			//do stuff
+			if(joystick.UP) upKey = true;
+			else upKey = false;
+			if(joystick.DOWN) downKey = true;
+			else downKey = false;
+			if(joystick.LEFT) leftKey = true;
+			else leftKey = false;
+			if(joystick.RIGHT) rightKey = true;
+			else rightKey = false;
 		});
-		knob.onTouchMove.listen((TouchEvent event)
+		joystick.onRelease.listen((_)
 		{
-			int x = event.touches.first.client.x;
-			int y = event.touches.first.client.y;
-			print("touch move, x:$x, y:$y");
-			event.preventDefault(); //prevent page from scrolling/zooming
-			//do stuff
-		});
-		knob.onTouchEnd.listen((TouchEvent event)
-		{
-			print("touch end");
-			//do stuff
+			upKey = false; downKey = false; rightKey = false; leftKey = false;
 		});
 		
 		//demo right-clicking

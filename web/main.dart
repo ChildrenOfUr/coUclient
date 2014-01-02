@@ -24,6 +24,7 @@ part 'dart/engine/commands.dart';
 part 'dart/engine/ui.dart';
 part 'dart/engine/input.dart';
 part 'dart/engine/chat.dart';
+part 'dart/engine/joystick.dart';
 
 // Point to external dart files
 part 'dart/street.dart';
