@@ -1,5 +1,4 @@
 part of coUclient;
-//TODO: should we limit chat history so that it doesn't go on forever?
 
 class Chat
 {
@@ -111,7 +110,7 @@ class TabContent
 	bool useSpanForTitle, tabInserted = false;
 	WebSocket webSocket;
 	DivElement chatDiv;
-	int unreadMessages = 0, tabSearchIndex = 0;
+	int unreadMessages = 0, tabSearchIndex = 0, numMessages = 0;
 	final _chatServerUrl = "ws://couchatserver.herokuapp.com";
 	
 	TabContent(this.channelName, this.useSpanForTitle)
@@ -331,6 +330,14 @@ class TabContent
 	
 	void _addmessage(DivElement chatHistory, Map map)
 	{
+		numMessages++;
+		if(numMessages > 100) //limit chat history (each pane is seperate) to 100 messages
+		{
+			chatHistory.children.removeAt(0);
+			if(chatHistory.children.first.className == "RowSpacer") //if the top is a row spacer, remove that too
+				chatHistory.children.removeAt(0);
+		}
+		
 		bool atTheBottom = (chatHistory.scrollTop == chatHistory.scrollHeight);
 		print("got message: " + JSON.encode(map)); //TODO: debugging purposes only
 		
