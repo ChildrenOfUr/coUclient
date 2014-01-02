@@ -122,7 +122,25 @@ class Input
 			if (k.keyCode == 32 && !ignoreKeys) //spacebar and not typing
 				spaceKey = false;
 	    });
-	    
+		
+		//only for mobile version
+		Joystick joystick = new Joystick(querySelector('#Joystick'),querySelector('#Knob'));
+		joystick.onMove.listen((_)
+		{
+			if(joystick.UP) upKey = true;
+			else upKey = false;
+			if(joystick.DOWN) downKey = true;
+			else downKey = false;
+			if(joystick.LEFT) leftKey = true;
+			else leftKey = false;
+			if(joystick.RIGHT) rightKey = true;
+			else rightKey = false;
+		});
+		joystick.onRelease.listen((_)
+		{
+			upKey = false; downKey = false; rightKey = false; leftKey = false;
+		});
+		
 		//demo right-clicking
 		document.body.onContextMenu.listen((e) => showClickMenu(e,'Testing Right Click', 'this is a demo',[]));
 		playerInput = this;

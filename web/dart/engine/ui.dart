@@ -146,10 +146,10 @@ class UserInterface
 
 resize()
 {
-	Element chatPane = querySelector('#ChatPane');
 	Element gameScreen = querySelector('#GameScreen');
-	//Element gameStage = querySelector('#GameStage');
+	Element chatPane = querySelector('#ChatPane');
 	
+
 	//40px from left, chat is 18px from right, 10px inbetween chat and canvas
 	int gameScreenWidth = window.innerWidth - 40 - 18 - 10 - chatPane.clientWidth;
 	int gameScreenHeight = window.innerHeight - 180;
@@ -161,6 +161,10 @@ resize()
 	gameScreen.style.height = gameScreenHeight.toString()+'px';
 	
 	chatPane.style.height = (gameScreenHeight + 50).toString()+'px';
+
+	//width and height calculations done here are now done in CSS
+	gameScreenWidth = gameScreen.clientWidth;
+	gameScreenHeight = gameScreen.clientHeight;
 	
 	//approx 1308px wide is the minimum width for the window to show everything well
 	//according to Paul, we should be able to see at least a few lines of chat in each box - this means

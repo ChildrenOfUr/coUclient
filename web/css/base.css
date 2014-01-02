@@ -296,8 +296,8 @@ textarea{resize: none;}
 #GameScreen {
     background-color:#fff;
     position:absolute;
-    width:73%;
-    height:600px;
+    width:calc(100% - 290px - 40px - 18px - 20px);
+    height:calc(100% - 180px);
     top:60px;  
     left:40px;
     -moz-border-radius: 10px;
@@ -554,7 +554,7 @@ textarea{resize: none;}
   background-color: #fff;
   position:absolute;
   width:290px;
-  height: calc(100% - 120px);
+  height: calc(100% - 130px);
   top:60px;  
   right:18px;
   -moz-border-radius: 7px;
@@ -1014,29 +1014,6 @@ textarea{resize: none;}
 	visibility: visible;
 }
 
-/*The inventory bar at the bottom of the screen*/
-#InventoryBar, #InventoryBag{
-  padding: 2px;
-  position: absolute;
-  background-color: #e9f0f0;
-  height: 61px;
-  width: 73%;
-  bottom: 50px;
-  left:40px;
-  right:300px;
-  overflow:hidden;
-  overflow-y:auto;
-  transition-property: bottom opacity;
-  transition-duration: 0.2s;
-  transition-timing-function: linear;
-  transition-delay: 0s;
-  -webkit-transition-property:bottom opacity;
-  -webkit-transition-duration:0.2s;
-  -webkit-transition-timing-function:linear;
-  -webkit-transition-delay:0s;  
-  -moz-border-radius: 4px;
-  border-radius: 4px;
-}
 #InventoryBag{
   background-color: #c6d2d3;
   border: 1px solid #b2bfc0;
@@ -1083,4 +1060,92 @@ textarea{resize: none;}
   vertical-align: middle;
 }
 
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+/*Mobile specific stuff*/
+@media (max-device-width: 1307px) and (orientation: landscape) /* mobile device in landscape */
+{
+	#Joystick {
+		display: block;
+		width: 90px;
+		height: 90px;
+		border: 1px solid;
+		border-radius: 50%;
+		position: absolute;
+		bottom: 20px;
+		left: 20px;
+	}
+	#Knob {
+		position: absolute;
+		top: 35px;
+		left: 35px;
+		width: 20px;
+		height: 20px;
+		border: 1px solid;
+		border-radius: 50%;
+		background: #fff;
+	}
+	#TopRight {
+		display: none;
+	}
+	#SizeWarning {
+		display: none;
+	}
+	#SoundCloudWidget {
+		display: none;
+	}
+	#ChatPane {
+		display: none;
+	}
+	#ChatSettingsIcon {
+		display: none;
+	}
+	#InventoryBar, #InventoryBag{
+		padding: 2px;
+		position: absolute;
+		background-color: #e9f0f0;
+		height: 61px;
+		width: 73%;
+		bottom: 50px;
+		right: 5px;
+		white-space: nowrap;
+		overflow-y: hidden;
+		overflow-x: scroll;
+		-moz-border-radius: 4px;
+		border-radius: 4px;
+	}
+	#ChatBubble {
+		position: absolute;
+		right: 250px;
+		top: 50px;
+	}
+}
 
+@media (max-device-height: 324px) and (orientation: portrait) /* mobile device in portrait */
+{
+				
+}
+
+@media (min-device-width: 1308px) and (min-device-height: 325px) /* desktop device*/
+{
+	#Joystick {
+		display: none;
+	}		
+	#ChatBubble {
+		display: none;
+	}
+	/*The inventory bar at the bottom of the screen*/
+	#InventoryBar, #InventoryBag{
+		  padding: 2px;
+		  position: absolute;
+		  background-color: #e9f0f0;
+		  height: 61px;
+		  width: 73%;
+		  bottom: 50px;
+		  left:40px;
+		  right:300px;
+		  overflow:hidden;
+		  overflow-y:auto;
+		  -moz-border-radius: 4px;
+		  border-radius: 4px;
+	}
+}
