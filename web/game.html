@@ -42,11 +42,18 @@ WAIT! You were just about to win the game!
 
 <!-- overlay to warn that window is too small-->
 <div id="SizeWarning" hidden="true">
-	<span class="red">Warning, the window is too small to display the game well.</span>
+	<span>Warning, the window is too small to display the game well.</span>
 </div>
 
 <!--The content window for gameplay -->
 <div id="GameScreen">
+<div id="MapLoadingScreen">
+  <div class="LoadingGroove">&nbsp;
+  <span class="LoadingBar" id="MapLoadingBar">
+  <span id="StreetLoadingStatus"></span></span>
+  </div>
+
+</div>
 </div>
 
 <!--Contains all the ui elements on the top left-->
@@ -187,12 +194,11 @@ WAIT! You were just about to win the game!
     <template id="RC_Template">
       <div id="RightClickMenu">  
       <div class="InfoButton">Info</div>
-      <span id="ClickTitle">A Chicken</span><br>
+      <span id="ClickTitle"></span><br>
         <span id="ClickDesc" class="soft">
-          Obtain wheat. Costs 2 energy
         </span>
         <div id="RCActionList">
-            <div class="RCItem">Sample</div>
+            <div class="RCItem"></div>
         </div>
       </div>
     </template>

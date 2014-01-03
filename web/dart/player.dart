@@ -68,6 +68,6 @@ class Player{
   
   render(){
     //Need scaling; some levels change player's apparent size
-    gameCanvas.context2D.drawImageScaled(avatar, posX, posY, width, height);
+    //gameCanvas.context2D.drawImageScaled(avatar, posX, posY, width, height);
   }
 }
