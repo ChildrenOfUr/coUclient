@@ -9,7 +9,7 @@ import 'package:game_loop/game_loop_html.dart';// TODO: It may be a good idea to
 import 'package:asset_pack/asset_pack.dart';
 
 // Import our coU libraries.
-import 'package:coUlib/glitch-time.dart';// The script that spits out time!
+import 'package:glitchTime/glitch-time.dart';// The script that spits out time!
 import 'package:scproxy/scproxy.dart'; // Paul's soundcloud bootstrap
 import 'package:intl/intl.dart'; //used for NumberFormat
 
