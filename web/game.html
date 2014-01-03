@@ -22,159 +22,210 @@
 </head>
 <body>
 
-<!-- Footer -->
-<div id="Footer">Copyright CoU Development Team, Children of Ur is not endorsed by or affiliated with <a href="http://tinyspeck.com/">Tiny Speck, Inc.</a>(The makers of Glitch) in any way.</div>   
 
 
+ 
 
-<!-- The initial splash Screen when the game is opened-->
-<div id="LoadingScreen">
-    <div class="LoadingH1">COU</div>
-    <div class="LoadingH2">Children of Ur</div>
-  <p>A GAME OF GIANT IMAGINATION</p><br><br><br><br>
-</div>
+<div id="MainScreen"> <!--MainScreen is for mobile and desktop clients-->
+	<!-- Footer -->
+	<div id="Footer">Copyright CoU Development Team, Children of Ur is not endorsed by or affiliated with <a href="http://tinyspeck.com/">Tiny Speck, Inc.</a>(The makers of Glitch) in any way.</div>
 
-<!-- The 'You won the game' screen that pops up on close-->
-<div id="YouWon" hidden="true">
-<br><br><br><br><br>
-WAIT! You were just about to win the game!
-</div>
-
-<!-- overlay to warn that window is too small-->
-<div id="SizeWarning" hidden="true">
-	<span>Warning, the window is too small to display the game well.</span>
-</div>
-
-<!--The content window for gameplay -->
-<div id="GameScreen">
-<div id="MapLoadingScreen">
+	
+	<!-- The initial splash Screen when the game is opened-->
+	<div id="LoadingScreen">
+	    <div class="LoadingH1">COU</div>
+	    <div class="LoadingH2">Children of Ur</div>
+	  <p>A GAME OF GIANT IMAGINATION</p><br><br><br><br>
+	</div>
+	
+	<!-- The 'You won the game' screen that pops up on close-->
+	<div id="YouWon" hidden="true">
+	<br><br><br><br><br>
+	WAIT! You were just about to win the game!
+	</div>
+	
+	<!-- overlay to warn that window is too small-->
+	<div id="SizeWarning" hidden="true">
+		<span class="red">Warning, the window is too small to display the game well.</span>
+	</div>
+	
+	<!--The content window for gameplay -->
+	<div id="GameScreen">
+  <div id="MapLoadingScreen">
   <div class="LoadingGroove">&nbsp;
   <span class="LoadingBar" id="MapLoadingBar">
   <span id="StreetLoadingStatus"></span></span>
-  </div>
-
-</div>
-</div>
-
-<!--Contains all the ui elements on the top left-->
-  <img src="./assets/system/energymeter.svg" width="124px" height="128px" id="EnergyIndicator">
-  <img src="./assets/system/energymeterred.svg" width="124px" height="128px" id="EnergyIndicatorRed">
-   <img src="./assets/system/leftcorner.svg" width="124px" height="128px" id="TopLeftCorner">
-   <img src="./assets/system/energybolt.svg" id="EnergyEmblem">
-     <div id="PlayerPortraitDiv">
-       <img src="./assets/system/moodmeter.svg" class="MoodCircle">
-       <img src="./assets/system/moodmeterred.svg" class="MoodCircle" id="MoodCircleRed">
-       <img src="./assets/system/moodmeternone.svg" class="MoodCircle" id="MoodCircleEmpty">
-       <div id="MoodText" class="changed">
-        <span id="MoodPercent" class="big white">50</span><span class="big white">%</span>
-          <div>
-        <span id="CurrMood" class="small">50</span>
-        <span class="small">/</span>
-        <span id="MaxMood" class="small">100</span>
-          </div>
-       </div>
-     </div>
-   <div id="PlayerName">null</div>
-   <div id="ImaginationText">
-   <span id="CurrImagination" class="large">0</span><span id="SmallI" class="small">i</span>
-   </div>
-      <div id="EnergyText">
-        <span id="CurrEnergy" class="big white"></span>
-        <span class="small white">/</span>
-        <span id="MaxEnergy" class="small white"></span>
-        <div class="small white">Energy</div>
-   </div>
-
-  <!--Contains all the ui elements on the top right-->
-	<div id="TopRight">
-		<i id="ConsoleGlyph" class="icon-rocket glyph icon-large"> </i>
-			<a href="https://github.com/ChildrenOfUr/coUclient/issues" target="_blank">
-				<i id="BugGlyph" class="icon-bug glyph icon-large"> </i></a>
-			<a href="https://plus.google.com/communities/103304995470607753666" target="_blank">  
-		<i id="QuestionGlyph" class="icon-question-sign glyph icon-large"> </i></a>
-	   
+  </div></div>
+	</div>
 	
-		<span id="AudioSettings">
-			<span id="AudioGlyph">
-				<i id="VolumeGlyph" class="icon-volume-up glyph icon-large"></i>
+	<!--Contains all the ui elements on the top left-->
+	  <img src="./assets/system/energymeter.svg" width="124px" height="128px" id="EnergyIndicator">
+	  <img src="./assets/system/energymeterred.svg" width="124px" height="128px" id="EnergyIndicatorRed">
+	   <img src="./assets/system/leftcorner.svg" width="124px" height="128px" id="TopLeftCorner">
+	   <img src="./assets/system/energybolt.svg" id="EnergyEmblem">
+	     <div id="PlayerPortraitDiv">
+	       <img src="./assets/system/moodmeter.svg" class="MoodCircle">
+	       <img src="./assets/system/moodmeterred.svg" class="MoodCircle" id="MoodCircleRed">
+	       <img src="./assets/system/moodmeternone.svg" class="MoodCircle" id="MoodCircleEmpty">
+	       <div id="MoodText" class="changed">
+	        <span id="MoodPercent" class="big white">50</span><span class="big white">%</span>
+	          <div>
+	        <span id="CurrMood" class="small">50</span>
+	        <span class="small">/</span>
+	        <span id="MaxMood" class="small">100</span>
+	          </div>
+	       </div>
+	     </div>
+	   <div id="PlayerName">null</div>
+	   <div id="ImaginationText">
+	   <span id="CurrImagination" class="large">0</span><span id="SmallI" class="small">i</span>
+	   </div>
+	      <div id="EnergyText">
+	        <span id="CurrEnergy" class="big white"></span>
+	        <span class="small white">/</span>
+	        <span id="MaxEnergy" class="small white"></span>
+	        <div class="small white">Energy</div>
+	   </div>
+	
+	  <!--Contains all the ui elements on the top right-->
+		<div id="TopRight">
+			<i id="ConsoleGlyph" class="icon-rocket glyph icon-large"> </i>
+				<a href="https://github.com/ChildrenOfUr/coUclient/issues" target="_blank">
+					<i id="BugGlyph" class="icon-bug glyph icon-large"> </i></a>
+				<a href="https://plus.google.com/communities/103304995470607753666" target="_blank">  
+			<i id="QuestionGlyph" class="icon-question-sign glyph icon-large"> </i></a>
+		   
+		
+			<span id="AudioSettings">
+				<span id="AudioGlyph">
+					<i id="VolumeGlyph" class="icon-volume-up glyph icon-large"></i>
+				</span>
+				<span id="SliderParent">
+					<input type="range" id="VolumeSlider" min="0" max="100" step="1" value="50" oninput="rangevalue.value=value" onchange="rangevalue.value=value"> 
+					<output id="rangevalue">50</output>
+				</span>
 			</span>
-			<span id="SliderParent">
-				<input type="range" id="VolumeSlider" min="0" max="100" step="1" value="50" oninput="rangevalue.value=value" onchange="rangevalue.value=value"> 
-				<output id="rangevalue">50</output>
-			</span>
-		</span>
-		<i id="FullscreenGlyph" class="icon-fullscreen glyph icon-large"> </i>
-		<i id="FullscreenResetGlyph" class="icon-resize-small glyph icon-large"> </i>
-		<span id="CurrDay"></span>
-		<span id="CurrTime"></span>
-		<span id="CurrDate"></span>
+			<i id="FullscreenGlyph" class="icon-fullscreen glyph icon-large"> </i>
+			<i id="FullscreenResetGlyph" class="icon-resize-small glyph icon-large"> </i>
+			<span id="CurrDay"></span>
+			<span id="CurrTime"></span>
+			<span id="CurrDate"></span>
+		</div>
+	   
+	<!-- Inventory Bar -->
+	<div id="InventoryBag">
+	    <span class="InventoryBox" id="bagItem1"></span>
+	    <span class="InventoryBox" id="bagItem2"></span>
+	    <span class="InventoryBox" id="bagItem3"></span>
+	    <span class="InventoryBox" id="bagItem4"></span>
+	    <span class="InventoryBox" id="bagItem5"></span>
+	    <span class="InventoryBox" id="bagItem6"></span>
+	    <span class="InventoryBox" id="bagItem7"></span>
+	    <span class="InventoryBox" id="bagItem8"></span>
+	    <span class="InventoryBox" id="bagItem9"></span>
+	    <span class="InventoryBox" id="bagItem10"></span>
+	    <span class="InventoryBox" id="bagItem11"></span>
+	    <span class="InventoryBox" id="bagItem12"></span>
+	    <span class="InventoryBox" id="bagItem13"></span>
+	    <span class="InventoryBox" id="bagItem14"></span>
+	    <span class="InventoryBox" id="bagItem15"></span>
+	    <span class="InventoryBox" id="bagItem16"></span>
 	</div>
-   
-<!-- Inventory Bar -->
-<div id="InventoryBag">
-    <span class="InventoryBox" id="bagItem1"></span>
-    <span class="InventoryBox" id="bagItem2"></span>
-    <span class="InventoryBox" id="bagItem3"></span>
-    <span class="InventoryBox" id="bagItem4"></span>
-    <span class="InventoryBox" id="bagItem5"></span>
-    <span class="InventoryBox" id="bagItem6"></span>
-    <span class="InventoryBox" id="bagItem7"></span>
-    <span class="InventoryBox" id="bagItem8"></span>
-    <span class="InventoryBox" id="bagItem9"></span>
-    <span class="InventoryBox" id="bagItem10"></span>
-    <span class="InventoryBox" id="bagItem11"></span>
-    <span class="InventoryBox" id="bagItem12"></span>
-    <span class="InventoryBox" id="bagItem13"></span>
-    <span class="InventoryBox" id="bagItem14"></span>
-    <span class="InventoryBox" id="bagItem15"></span>
-    <span class="InventoryBox" id="bagItem16"></span>
-</div>
-<div id="InventoryBar">
-    <span class="InventoryBox" id="Item1"></span>
-    <span class="InventoryBox" id="Item2"></span>
-    <span class="InventoryBox" id="Item3"></span>
-    <span class="InventoryBox" id="Item4"></span>
-    <span class="InventoryBox" id="Item5"></span>
-    <span class="InventoryBox" id="Item6"></span>
-    <span class="InventoryBox" id="Item7"></span>
-    <span class="InventoryBox" id="Item8"></span>
-    <span class="InventoryBox" id="Item9"></span>
-    <span class="InventoryBox" id="Item10"></span>
-    <span class="InventoryBox" id="Item11"></span>
-    <span class="InventoryBox" id="Item12"></span>
-    <span class="InventoryBox" id="Item13"></span>
-    <span class="InventoryBox" id="Item14"></span>
-    <span class="InventoryBox" id="Item15"></span>
-    <span class="InventoryBox" id="Item16"></span>
-</div>   
-
-<!-- Contains the Chat windows -->
-
-<i id="ChatSettingsIcon" class="icon-cog glyph icon-large"></i>
-<div id="ChatSettingsMenu" hidden="true">
-	<label class="ChatSettingsOption"><input id="ShowJoinMessages" type="checkbox" class="ChatSettingsCheckbox" checked="false">Show Join Messages</label>
-	<label class="ChatSettingsOption"><input id="PlayMentionSound" type="checkbox" class="ChatSettingsCheckbox" checked="false">Play Mention Sound</label>
-</div>
-<div id="ChatPane">
-	<div id="ChatTabs" class="tabs ChatWindow"></div>
-</div>
-<div id="ChatDisconnected" hidden="true"></div>
-
-<!-- Bottom-left currant display -->
-      <div id="CurrantBack"></div>
-      <img src="./assets/system/currant.svg" id="CurrantEmblem" width="30px" height="30px">
-      <div id="CurrantText">
-        <span id="CurrCurrants" class="big white"></span>  
-        <div class="small white">Currants</div>
-      </div>
-
-<!-- Development Console -->
-<div class="PopWindow" id="DevConsole" hidden="true">
-	<div class="PopWindowHeader handle">
-		<i class="icon-code icon-large"></i> 
-  		Console
-  		<i id="CloseConsole" class="icon-remove glyph icon-large"></i>
+	<div id="InventoryBar">
+	    <span class="InventoryBox" id="Item1"></span>
+	    <span class="InventoryBox" id="Item2"></span>
+	    <span class="InventoryBox" id="Item3"></span>
+	    <span class="InventoryBox" id="Item4"></span>
+	    <span class="InventoryBox" id="Item5"></span>
+	    <span class="InventoryBox" id="Item6"></span>
+	    <span class="InventoryBox" id="Item7"></span>
+	    <span class="InventoryBox" id="Item8"></span>
+	    <span class="InventoryBox" id="Item9"></span>
+	    <span class="InventoryBox" id="Item10"></span>
+	    <span class="InventoryBox" id="Item11"></span>
+	    <span class="InventoryBox" id="Item12"></span>
+	    <span class="InventoryBox" id="Item13"></span>
+	    <span class="InventoryBox" id="Item14"></span>
+	    <span class="InventoryBox" id="Item15"></span>
+	    <span class="InventoryBox" id="Item16"></span>
+	</div>   
+	
+	<!-- Contains the Chat windows -->
+	
+	<i id="ChatSettingsIcon" class="icon-cog glyph icon-large"></i>
+	<div id="ChatSettingsMenu" hidden="true">
+		<label class="ChatSettingsOption"><input id="ShowJoinMessages" type="checkbox" class="ChatSettingsCheckbox" checked="false">Show Join Messages</label>
+		<label class="ChatSettingsOption"><input id="PlayMentionSound" type="checkbox" class="ChatSettingsCheckbox" checked="false">Play Mention Sound</label>
 	</div>
+	<div id="ChatPane">
+		<div id="ChatTabs" class="tabs ChatWindow"></div>
+	</div>
+	<div id="ChatDisconnected" hidden="true"></div>
+	
+	<!-- Bottom-left currant display -->
+	      <div id="CurrantBack"></div>
+	      <img src="./assets/system/currant.svg" id="CurrantEmblem" width="30px" height="30px">
+	      <div id="CurrantText">
+	        <span id="CurrCurrants" class="big white"></span>  
+	        <div class="small white">Currants</div>
+	      </div>
+	
+	<!-- Development Console -->
+	<div class="PopWindow" id="DevConsole" hidden="true">
+		<div class="PopWindowHeader handle">
+			<i class="icon-code icon-large"></i> 
+	  		Console
+	  		<i id="CloseConsole" class="icon-remove glyph icon-large"></i>
+		</div>
+		<div class="PopWindowBody">
+	    	<div id="CommandConsole">
+				<ol class="log"></ol>
+	    	</div>
+	    	<textarea class="ConsoleInput Typing" spellcheck="false"></textarea>
+	    </div>
+	</div>
+	
+	<!-- Mini Soundcloud widget -->
+	  <div id="SoundCloudWidget">
+	    <div class="blu"><a id="SCLink" target="_blank"><span id="TrackTitle">-</span><br> By <span id="TrackArtist">-</span></a></div>
+	    <audio id="MusicBox"></audio>
+	    <a href="http://www.soundcloud.com" target="_blank"><img src="./assets/system/soundcloud.png"></img></a>
+	  </div>
+	
+	<!-- Right-Click Menu template -->
+	    <template id="RC_Template">
+	      <div id="RightClickMenu">  
+	      <div class="InfoButton">Info</div>
+	      <span id="ClickTitle">A Chicken</span><br>
+	        <span id="ClickDesc" class="soft">
+	          Obtain wheat. Costs 2 energy
+	        </span>
+	        <div id="RCActionList">
+	            <div class="RCItem">Sample</div>
+	        </div>
+	      </div>
+	    </template>
+	    
+	<!-- mobile specific components -->
+	<div id="Joystick">
+		<div id="Knob"></div>
+	</div>
+	<div id="AButton">A</div>
+	<div id="BButton">B</div>
+	<div id="ChatBubble" class="bubble you">3</div>
+</div> 
+
+<div id="ChatScreen" hidden="true"> <!--ChatScreen is only for mobile clients-->
+	<div class="ActionBar">
+		<div id="BackFromChat" class="BackButton">Back</div>
+		<div id="ChatChannelName"></div>
+	</div>
+	<div id="ConversationStack"></div>
+	<div class="BottomBar">
+		<span id="InputContainer"><input type="text" id="MobileChatInput" class="ChatInput Typing"></span>
+		<div id="SendButton">Send</div>
+	</div>
+
 	<div class="PopWindowBody">
     	<div id="CommandConsole">
 			<ol class="log"></ol>

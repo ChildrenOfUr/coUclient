@@ -139,6 +139,34 @@ class Input
 		{
 			upKey = false; downKey = false; rightKey = false; leftKey = false;
 		});
+		querySelector('#AButton').onTouchStart.listen((_)
+		{
+			spaceKey = true;
+		});
+		querySelector('#AButton').onTouchEnd.listen((_)
+		{
+			spaceKey = false;
+		});
+		
+		querySelector('#ChatBubble').onClick.listen((_)
+		{
+			querySelector('#ChatScreen').hidden = false;
+			querySelector('#MainScreen').hidden = true;
+			//TODO: show channel chooser screen
+			String channelName = "Global Chat"; //TODO: get from user choice
+			querySelector('#conversation-'+channelName.replaceAll(" ", "_")).style.zIndex = "1";
+			querySelector('#ChatChannelName').text = channelName;
+			
+			TextInputElement input = querySelector('#MobileChatInput') as TextInputElement;
+			DivElement sendButton = querySelector('#SendButton') as DivElement;
+			chat.tabContentMap[channelName].processInput(input,sendButton);
+		});
+		querySelector('#BackFromChat').onClick.listen((_)
+		{
+			querySelector('#ChatScreen').hidden = true;
+			querySelector('#MainScreen').hidden = false;
+		});
+		//end mobile specific stuff
 		
 		//demo right-clicking
 		document.body.onContextMenu.listen((e) => showClickMenu(e,'Testing Right Click', 'this is a demo',[]));
