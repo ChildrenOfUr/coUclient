@@ -40,11 +40,11 @@ class Input
 		});
 	    
 	    // Handle the fullscreen Requests
-	    querySelector('#FullscreenGlyph').onClick.listen((a)
+	    querySelectorAll('.FullscreenGlyph').onClick.listen((a)
 		{
 	    	document.documentElement.requestFullscreen();
 	    });  
-	    querySelector('#FullscreenResetGlyph').onClick.listen((a)
+	    querySelectorAll('.FullscreenResetGlyph').onClick.listen((a)
 		{
 	    	document.exitFullscreen();
 	    });  
@@ -54,14 +54,14 @@ class Input
 			if (document.fullscreenElement != null)
 		    {
 			    printConsole('System: FullScreen = true');
-			    querySelector('#FullscreenGlyph').style.display = 'none';
-			    querySelector('#FullscreenResetGlyph').style.display = 'inline';
+			    querySelectorAll('.FullscreenGlyph').style.display = 'none';
+			    querySelectorAll('.FullscreenResetGlyph').style.display = 'inline';
 		    }
 		    else
 		    {
 			    printConsole('System: FullScreen = false');
-			    querySelector('#FullscreenGlyph').style.display = 'inline';
-			    querySelector('#FullscreenResetGlyph').style.display = 'none';
+			    querySelectorAll('.FullscreenGlyph').style.display = 'inline';
+			    querySelectorAll('.FullscreenResetGlyph').style.display = 'none';
 		    }
 		});
 	  

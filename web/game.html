@@ -3,6 +3,9 @@
 <html onContextMenu="return false">
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes"> <!--iOS-->
+    <meta name="mobile-web-app-capable" content="yes"> <!--Chrome for android-->
     <title>children of Ur</title>
 
 <link rel="icon" 
@@ -95,8 +98,8 @@
 					<output id="rangevalue">50</output>
 				</span>
 			</span>
-			<i id="FullscreenGlyph" class="icon-fullscreen glyph icon-large"> </i>
-			<i id="FullscreenResetGlyph" class="icon-resize-small glyph icon-large"> </i>
+			<i id="FullscreenGlyph" class="FullscreenGlyph icon-fullscreen glyph icon-large"> </i>
+			<i id="FullscreenResetGlyph" class="FullscreenResetGlyph icon-resize-small glyph icon-large"> </i>
 			<span id="CurrDay"></span>
 			<span id="CurrTime"></span>
 			<span id="CurrDate"></span>
@@ -197,6 +200,8 @@
 	    </template>
 	    
 	<!-- mobile specific components -->
+	<i id="MobileFullscreen" class="FullscreenGlyph icon-fullscreen glyph icon-large"> </i>
+	<i id="MobileFullscreenReset" class="FullscreenResetGlyph icon-resize-small glyph icon-large"> </i>
 	<div id="Joystick">
 		<div id="Knob"></div>
 	</div>

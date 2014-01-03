@@ -235,11 +235,66 @@ textarea{resize: none;}
 
 #SizeWarning {
 	text-align: center;
+	color: red;
 }
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+/*Loading a street*/
+#MapLoadingScreen {
+   background-color: #829363;
+   position:absolute;
+   top:0px;  
+   left:0px;
+   right:0px;
+   bottom:0px;
+   opacity:1.0;
+    
+    transition-property: opacity;
+    transition-duration: 1s;
+    transition-timing-function: linear;
+    transition-delay: 0.5s;
+    -webkit-transition-property:opacity;
+    -webkit-transition-duration:1s;
+    -webkit-transition-timing-function:linear;
+    -webkit-transition-delay:0.5s;
+}
+.LoadingGroove{
+  background-color: #e6ecee;
+   position:absolute;
+   left:5%;
+   right:5%;
+   bottom:10%;
+   overflow: hidden;
+   font-size:13px;
+   color:rgba(0,0,0,0.7);
+   border: 2px solid #fff;
+   -moz-border-radius: 5px;
+   border-radius: 5px;
+   
+}
+.LoadingBar{
+   background-color: #c5dc81;
+   position:absolute;
+   left:-2px;
+   top:-2px;
+   bottom:-2px;
+   width:0%;
+   border: 1px solid #fff;
+   -moz-border-radius: 5px;
+   border-radius: 5px;
+    transition-property: width;
+    transition-duration: 0.2s;
+    transition-timing-function: linear;
+    transition-delay: 0.5s;
+    -webkit-transition-property:width;
+    -webkit-transition-duration:0.2s;
+    -webkit-transition-timing-function:linear;
+    -webkit-transition-delay:0.5s;
+}
+
 /*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 /*The display div that depicts gameplay*/
 #GameScreen {
-    background-color:#000;
+    background-color:#fff;
     position:absolute;
     width:calc(100% - 290px - 40px - 18px - 20px);
     height:calc(100% - 180px);
@@ -250,6 +305,7 @@ textarea{resize: none;}
     z-index:0; 
     overflow: hidden;
 }
+
 .streetcanvas {
     transition-property: top right;
     transition-duration: 0.5s;
@@ -372,6 +428,7 @@ textarea{resize: none;}
     transition-duration: 0.1s;
     transition-timing-function: linear;
     transition-delay: 0s;
+    text-shadow: 0px 1px rgba(0,0,0,0.5);
     -webkit-transition-property: opacity;
     -webkit-transition-duration:0.1s;
     -webkit-transition-timing-function:linear;
@@ -432,6 +489,7 @@ textarea{resize: none;}
     transition-duration: 0.1s;
     transition-timing-function: linear;
     transition-delay: 0s;
+    text-shadow: 0px 1px rgba(0,0,0,0.5);
     -webkit-transition-property: opacity;
     -webkit-transition-duration:0.1s;
     -webkit-transition-timing-function:linear;
@@ -1183,7 +1241,7 @@ textarea{resize: none;}
 	#ChatBubble {
 		position: absolute;
 		right: 0px;
-		top: 45px;
+		top: 35px;
 	}
 	#AButton {
 		display: block;
@@ -1209,6 +1267,18 @@ textarea{resize: none;}
 		right: 100px;
 		bottom: 30px;
 	}
+	#MobileFullscreen {
+		position: absolute;
+		display: inline;
+		top: 10px;
+		right: 20px;
+	}
+	#MobileFullscreenReset {
+		position: absolute;
+		display: none;
+		top: 10px;
+		right: 20px;
+	}
 }
 
 @media (max-device-height: 324px) and (orientation: portrait) /* mobile device in portrait */
@@ -1233,6 +1303,18 @@ textarea{resize: none;}
 	#ChatScreen {
 		background: #fff;
 		height: 100vh;
+	}
+	#MobileFullscreen {
+		position: absolute; /*hide behind game canvas*/
+		top: 150px;
+		left: 100px;
+		z-index: -1;
+	}
+	#MobileFullscreenReset {
+		position: absolute;
+		top: 150px;
+		left: 100px;
+		z-index: -1;
 	}
 	/*The inventory bar at the bottom of the screen*/
 	#InventoryBar, #InventoryBag{
