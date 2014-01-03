@@ -139,6 +139,14 @@ class Input
 		{
 			upKey = false; downKey = false; rightKey = false; leftKey = false;
 		});
+		querySelector('#AButton').onTouchStart.listen((_)
+		{
+			spaceKey = true;
+		});
+		querySelector('#AButton').onTouchEnd.listen((_)
+		{
+			spaceKey = false;
+		});
 		
 		querySelector('#ChatBubble').onClick.listen((_)
 		{

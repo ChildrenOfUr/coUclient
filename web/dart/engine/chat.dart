@@ -240,6 +240,9 @@ class TabContent
 		{
 			sendButton.onClick.listen((_)
 			{
+				if(input.value.trim().length == 0) //don't allow for blank messages
+					return;
+				
 				parseInput(input.value);
 				input.value = '';
 			});
