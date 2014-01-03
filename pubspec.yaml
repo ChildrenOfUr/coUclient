@@ -8,12 +8,12 @@ dependencies:
     git: https://github.com/johnmccutchan/asset_pack.git
   box2d: any
   browser: any
-  coUlib:
-    git:
-      ref: master
-      url: https://github.com/ChildrenOfUr/coUlib.git
   dartemis: any
   game_loop: any
+  glitchTime:
+    git:
+      ref: master
+      url: https://github.com/ChildrenOfUr/glitch-time.dart.git
   intl: any
   scproxy:
     git:
