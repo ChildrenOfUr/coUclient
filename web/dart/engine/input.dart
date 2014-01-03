@@ -66,7 +66,6 @@ class Input
 		});
 	  
 		//Toggle mute and previous volume when volume button clicked
-		Storage localStorage = window.localStorage;
 		querySelector('#AudioGlyph').onClick.listen((_)
 		{
 			String mute = '0';

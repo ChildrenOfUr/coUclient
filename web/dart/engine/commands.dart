@@ -276,9 +276,10 @@ setVolume(String value)
 	int intvalue = int.parse(value,onError:null);
 	if (intvalue != null)
 	{
-		(querySelector('#VolumeSlider') as InputElement).value = value.trim();
+		InputElement volumeSlider = (querySelector('#VolumeSlider') as InputElement);
+		localStorage['prevVolume'] = volumeSlider.value;
+		volumeSlider.value = value.trim();
 		(querySelector('#rangevalue') as OutputElement).value = value.trim();
-		localStorage['prevVolume'] = value;
 		if (ui.currentSong != null)
 	    	ui.currentSong.volume(intvalue);
 		printConsole('Setting volume to $value');
