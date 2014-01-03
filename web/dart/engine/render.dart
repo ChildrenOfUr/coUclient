@@ -16,9 +16,3 @@ render() {
 }
 
 
-
-Entity camera = world.createEntity()
-..addComponent(new CameraPosition(200,200))
-..addToWorld();
-
-

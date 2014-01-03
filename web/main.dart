@@ -16,12 +16,9 @@ import 'package:intl/intl.dart'; //used for NumberFormat
 // main game entry
 part 'dart/engine/initialize.dart'; // home of the 'main()'
 
-// Dartemis
-part 'dart/components.dart';
-part 'dart/systems.dart';
-
 // Engine parts
 part 'dart/engine/render.dart'; // render loop
+part 'dart/engine/loop.dart';   // game loop
 part 'dart/engine/audio.dart';
 part 'dart/engine/commands.dart';
 part 'dart/engine/ui.dart';
@@ -31,7 +28,6 @@ part 'dart/engine/joystick.dart';
 
 // Point to external dart files
 part 'dart/street.dart';
-//part 'dart/player.dart';
 
 //localStorage to use throughout app
 Storage localStorage = window.localStorage;
@@ -39,12 +35,9 @@ Storage localStorage = window.localStorage;
 // Declare our game_loop
 CanvasElement gameCanvas = new CanvasElement();
 GameLoopHtml game = new GameLoopHtml(gameCanvas)
-  ..onUpdate = ((gameLoop) {world.process();})
+  ..onUpdate = ((gameLoop) {loop();})
   ..onRender = ((gameLoop) {render();});
 
 // Declare our asset manager.
 AssetManager assets = new AssetManager();
-
-// Create a world
-World world = new World();
 
