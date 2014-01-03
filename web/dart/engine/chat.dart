@@ -132,6 +132,12 @@ class TabContent
 			..className = "Conversation"
 			..id = "conversation-"+channelName.replaceAll(" ", "_");
 		conversationStack.children.add(conversation);
+		
+		DivElement channelList = querySelector("#ChannelList");
+		DivElement channel = new DivElement()
+			..className = "ChannelName"
+			..text = channelName;
+		channelList.children.add(channel);
 	}
 	
 	void resetMessages(MouseEvent event)

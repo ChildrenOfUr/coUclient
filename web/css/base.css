@@ -1100,29 +1100,54 @@ textarea{resize: none;}
 #MobileChatInput {
 	width: 100%;
 }
-#ChatChannelName {
+#ChatChannelTitle {
 	margin-top: 3px;
+	font-size: 2em;
+}
+.ChannelName {
 	font-size: 2em;
 }
 
 @media (max-device-width: 1307px) and (orientation: landscape) /* mobile device in landscape */
 {
+	#PlayerPortraitDiv {
+		top: 13px;
+	}
+	#PlayerName {
+		left: 150px;
+	}
+	#EnergyText {
+		top: 50px;
+	}
+	#EnergyIndicator, #EnergyIndicatorRed {
+		top: -7px;
+	}
+	#EnergyEmblem {
+		top: 98px;
+	}
+	#TopLeftCorner {
+		top: -17px;
+	}
+	#GameScreen {
+		top: 50px;
+		width: calc(100% - 110px);
+	}
 	#Joystick {
 		display: block;
-		width: 90px;
-		height: 90px;
+		width: 100px;
+		height: 100px;
 		border: 1px solid;
 		border-radius: 50%;
 		position: absolute;
 		bottom: 20px;
-		left: 20px;
+		left: 40px;
 	}
 	#Knob {
 		position: absolute;
 		top: 35px;
 		left: 35px;
-		width: 20px;
-		height: 20px;
+		width: 30px;
+		height: 30px;
 		border: 1px solid;
 		border-radius: 50%;
 		background: #fff;
@@ -1146,9 +1171,9 @@ textarea{resize: none;}
 		padding: 2px;
 		position: absolute;
 		background-color: #e9f0f0;
-		width: 73%;
 		bottom: 40px;
-		right: 5px;
+		right: 200px;
+		left: 200px;
 		white-space: nowrap;
 		overflow-y: hidden;
 		overflow-x: scroll;
@@ -1157,32 +1182,32 @@ textarea{resize: none;}
 	}
 	#ChatBubble {
 		position: absolute;
-		left: 860px;
+		right: 0px;
 		top: 45px;
 	}
 	#AButton {
 		display: block;
 		text-align: center;
-		line-height: 50px; /*same as width and height */
-		width: 50px;
-		height: 50px;
+		line-height: 60px;
+		width: 60px;
+		height: 60px;
 		border: 1px solid;
 		border-radius: 50%;
 		position: absolute;
-		left: 90%;
-		top: 50%;
+		right: 20px;
+		bottom: 70px;
 	}
 	#BButton {
 		display: block;
 		text-align: center;
-		line-height: 50px; /*same as width and height */
-		width: 50px;
-		height: 50px;
+		line-height: 60px;
+		width: 60px;
+		height: 60px;
 		border: 1px solid;
 		border-radius: 50%;
 		position: absolute;
-		left: 80%;
-		top: 60%;
+		right: 100px;
+		bottom: 30px;
 	}
 }
 

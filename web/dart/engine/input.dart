@@ -150,21 +150,39 @@ class Input
 		
 		querySelector('#ChatBubble').onClick.listen((_)
 		{
-			querySelector('#ChatScreen').hidden = false;
+			querySelector('#ChannelSelectorScreen').hidden = false;
 			querySelector('#MainScreen').hidden = true;
-			//TODO: show channel chooser screen
-			String channelName = "Global Chat"; //TODO: get from user choice
-			querySelector('#conversation-'+channelName.replaceAll(" ", "_")).style.zIndex = "1";
-			querySelector('#ChatChannelName').text = channelName;
-			
-			TextInputElement input = querySelector('#MobileChatInput') as TextInputElement;
-			DivElement sendButton = querySelector('#SendButton') as DivElement;
-			chat.tabContentMap[channelName].processInput(input,sendButton);
+		});
+		querySelector('#BackFromChannelSelector').onClick.listen((_)
+		{
+			querySelector('#ChannelSelectorScreen').hidden = true;
+			querySelector('#MainScreen').hidden = false;
 		});
 		querySelector('#BackFromChat').onClick.listen((_)
 		{
 			querySelector('#ChatScreen').hidden = true;
-			querySelector('#MainScreen').hidden = false;
+			querySelector('#ChannelSelectorScreen').hidden = false;
+		});
+		querySelectorAll('.ChannelName').forEach((Element element)
+		{
+			element.onClick.listen((_)
+			{
+				//bring up the right screen
+				querySelector('#ChatScreen').hidden = false;
+				querySelector('#ChannelSelectorScreen').hidden = true;
+				
+				//get channel name depending on which element was clicked
+				String channelName = element.text;
+				querySelector('#ChatChannelTitle').text = channelName;
+				
+				//send all conversations to z-index=0 except the one we want to see
+				querySelectorAll('.Conversation').style.zIndex = "0";
+				querySelector('#conversation-'+channelName.replaceAll(" ", "_")).style.zIndex = "1";
+				
+				TextInputElement input = querySelector('#MobileChatInput') as TextInputElement;
+				DivElement sendButton = querySelector('#SendButton') as DivElement;
+				chat.tabContentMap[channelName].processInput(input,sendButton);
+			});
 		});
 		//end mobile specific stuff
 		

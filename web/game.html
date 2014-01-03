@@ -203,12 +203,19 @@
 	<div id="AButton">A</div>
 	<div id="BButton">B</div>
 	<div id="ChatBubble" class="bubble you">3</div>
-</div> 
+</div>
 
-<div id="ChatScreen" hidden="true"> <!--ChatScreen is only for mobile clients-->
+<div id="ChannelSelectorScreen" hidden="true"> <!--Only for mobile clients-->
+	<div class="ActionBar">
+		<div id="BackFromChannelSelector" class="BackButton">Back</div>
+	</div>
+	<div id="ChannelList"></div>
+</div>
+
+<div id="ChatScreen" hidden="true"> <!--Only for mobile clients-->
 	<div class="ActionBar">
 		<div id="BackFromChat" class="BackButton">Back</div>
-		<div id="ChatChannelName"></div>
+		<div id="ChatChannelTitle"></div>
 	</div>
 	<div id="ConversationStack"></div>
 	<div class="BottomBar">
