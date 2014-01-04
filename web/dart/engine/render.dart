@@ -7,7 +7,6 @@ part of coUclient;
 render() {
   // Update clock
   refreshClock();
-    
   //Draw Street
   //if (CurrentStreet is Street)
   //CurrentStreet.render();

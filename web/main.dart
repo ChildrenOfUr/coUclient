@@ -4,14 +4,15 @@ import 'dart:html';
 import 'dart:async';
 import 'dart:convert';
 import 'dart:math';
-import 'package:dartemis/dartemis.dart';
+import 'package:intl/intl.dart'; //used for NumberFormat
+
+// Import our non-standard libraries.
 import 'package:game_loop/game_loop_html.dart';// TODO: It may be a good idea to write our own simpler game_loop at some point.
-import 'package:asset_pack/asset_pack.dart';
 
 // Import our coU libraries.
 import 'package:glitchTime/glitch-time.dart';// The script that spits out time!
 import 'package:scproxy/scproxy.dart'; // Paul's soundcloud bootstrap
-import 'package:intl/intl.dart'; //used for NumberFormat
+import 'package:loadie/loadie.dart'; // Nice and simple asset loading.
 
 // main game entry
 part 'dart/engine/initialize.dart'; // home of the 'main()'
@@ -26,7 +27,7 @@ part 'dart/engine/input.dart';
 part 'dart/engine/chat.dart';
 part 'dart/engine/joystick.dart';
 
-// Point to external dart files
+// Game parts
 part 'dart/street.dart';
 
 //localStorage to use throughout app
@@ -37,7 +38,3 @@ CanvasElement gameCanvas = new CanvasElement();
 GameLoopHtml game = new GameLoopHtml(gameCanvas)
   ..onUpdate = ((gameLoop) {loop();})
   ..onRender = ((gameLoop) {render();});
-
-// Declare our asset manager.
-AssetManager assets = new AssetManager();
-

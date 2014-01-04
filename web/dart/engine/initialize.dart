@@ -9,22 +9,27 @@ main(){
 
 //////////////////////////////////////////////////////////////////////////////////////
   // Play the loading music.
-  AudioElement Loading = new AudioElement('./assets/system/loading.ogg');
-  if(int.parse(prevVolume) > 0 && isMuted == '0')
-  {
-    Loading.volume = int.parse(prevVolume)/100;
-    querySelector('#LoadingScreen').append(Loading);
-    Loading.play();
-  }
-  // This AudioElement is destroyed with the loading screen.
+  new Asset('./assets/system/loading.ogg')
+  .load().then
+  ((Asset Loading)
+      {
+    if(int.parse(prevVolume) > 0 && isMuted == '0')
+    {
+      Loading.get().volume = int.parse(prevVolume)/100;
+      querySelector('#LoadingScreen').append(Loading.get());
+      Loading.get().play();
+    }
+      })
 //////////////////////////////////////////////////////////////////////////////////////
   
   // On-game-started loading tasks  
-  
-    load_audio()
-    .then((_) => assets.loadPack('streets', './assets/streets.pack'))
-    .then((_)
-        {
+  .then((_) =>
+    load_audio())
+  .then((_) =>
+    load_streets()) 
+  .then((_) {    
+    // Finally finished loading. Clean up.
+
     // Peacefully fade out the loading screen.
     querySelector('#LoadingScreen').style.opacity = '0.0';
     Timer t = new Timer(new Duration(seconds:1), querySelector('#LoadingScreen').remove);
@@ -48,23 +53,21 @@ main(){
     
 //////////////////////////////////////////////////////////////////////////////////////
   // Play the 'doneloading' sound
-    AudioElement doneLoading = new AudioElement('./assets/system/game_loaded.ogg');
+    AudioElement doneLoading = ui_sounds.assets['game_loaded'];
     if(int.parse(prevVolume) > 0 && isMuted == '0')
     {
       doneLoading.volume = int.parse(prevVolume)/100;
-      document.body.append(doneLoading);
       doneLoading.play();
-      doneLoading.onEnded.listen((_) => doneLoading.remove()); 
     }
-    // This AudioElement is Destroyed when it's done playing.
 //////////////////////////////////////////////////////////////////////////////////////
-    new Street('streets.street')
-    ..load();
-   
+   })
+   .then((_) =>
+   new Street('groddle')
+   .load());
+    
     // Begin the GAME!!!
     game.start();
-   });
-      
+    
 }
 
 

@@ -1,7 +1,0 @@
-{"street":{
-  "loadArguments":{},
-  "url":"./locations/groddle.json",
-  "type":"json",
-  "importArguments":{}
-  }
-}

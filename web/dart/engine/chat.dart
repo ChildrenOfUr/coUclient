@@ -399,7 +399,7 @@ class TabContent
 		
 		if(chat.getPlayMentionSound() && map["message"].toLowerCase().contains(_username.toLowerCase()) && int.parse(prevVolume) > 0 && isMuted == '0')
 		{
-			AudioElement mentionSound = new AudioElement('./assets/system/mention.ogg');
+			AudioElement mentionSound = ui_sounds.assets['mention'];
 		    mentionSound.volume = int.parse(prevVolume)/100;
 		    mentionSound.play();
 		}
