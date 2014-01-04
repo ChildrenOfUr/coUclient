@@ -289,7 +289,7 @@ class TabContent
 			map["message"] = input;
 			map["channel"] = channelName;
 			if(channelName == "Local Chat")
-				map["street"] = currentStreet.label;
+				map["street"] = "Groddle Forest Junction"; //TODO: update to currentStreet.label hopefully after new street.dart is complete
 			_addmessage(map);
 		}
 		
@@ -308,7 +308,7 @@ class TabContent
 			map["message"] = 'userName='+_username;
 			map["channel"] = channelName;
 			if(channelName == "Local Chat")
-				map["street"] = currentStreet.label;
+				map["street"] = "Groddle Forest Junction"; //TODO: update to currentStreet.label hopefully after new street.dart is complete
 			webSocket.send(JSON.encode(map));
 			
 			//get list of all users connected
@@ -349,7 +349,7 @@ class TabContent
 			{
 				if(map["statusMessage"] != null)
 					_addmessage(map);
-				else if(map["username"] != _username && map["street"] == currentStreet.label)
+				else if(map["username"] != _username && map["street"] == "Groddle Forest Junction")//TODO: update to currentStreet.label hopefully after new street.dart is complete)
 					_addmessage(map);
 			}
 			else if(map["channel"] == channelName)

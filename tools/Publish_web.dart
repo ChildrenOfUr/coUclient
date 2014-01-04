@@ -46,7 +46,7 @@ main() {
   
   .then((_) => print('Running dart2js + minify...'))
   .then((_) => print('dart2js path: $PATH_TO_DART2JS'))
-  .then((_) => Process.run(PATH_TO_DART2JS,['../web/main.dart','--out=../out/web/game.js', '--minify']))
+  .then((_) => Process.run(PATH_TO_DART2JS,['../web/main.dart','--out=../out/web/game.js']))
   //.then((_) => Process.run(PATH_TO_DART2JS,['../web/main.dart','--out=../out/web/game.dart', '--output-type=dart']))
   .then((_) => print('Cleaning Output Directory...'))
   
@@ -139,7 +139,7 @@ String minifyHtml(List<String> input){
    List<String> fileLines = new List();
    for (String line in input)
    {
-    line = line.replaceAll('main.dart', 'game.js');
+    line = line.replaceAll('main.dart', 'game.js<?php echo time(); ?>');
     line = line.replaceAll('type="application/dart" ', '');
     //line = line.replaceAll('packages/browser/interop.js', 'interop.js');
     line = line.replaceAll('<script src="packages/browser/dart.js"></script>', '');
