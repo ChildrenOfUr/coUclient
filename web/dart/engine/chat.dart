@@ -3,6 +3,7 @@ part of coUclient;
 class Chat
 {
 	bool _showJoinMessages = false, _playMentionSound = true;
+	String username = "testUser"; //TODO: get actual username of logged in user;
 	
 	/**
 	 * Determines if messages like "<user> has joined" are shown to the player.
@@ -30,6 +31,15 @@ class Chat
 	
 	init()
 	{
+		//assign temporary chat handle
+		if(localStorage["username"] != null)
+			username = localStorage["username"];
+		else
+		{
+			Random rand = new Random();
+			username += rand.nextInt(10000).toString();
+		}
+	
 		//handle chat settings menu
 		Element chatMenu = querySelector("#ChatSettingsMenu");
 		querySelector('#ChatSettingsIcon').onClick.listen((MouseEvent click)
@@ -117,7 +127,6 @@ class TabContent
 {
 	static List<String> _COLORS = ["aqua", "blue", "fuchsia", "gray", "green", "lime", "maroon", "navy", "olive", "orange", "purple", "red", "teal"];
 	List<String> connectedUsers = new List();
-	String _username = "testUser"; //TODO: get actual username of logged in user;
 	String channelName, lastWord = "";
 	bool useSpanForTitle, tabInserted = false;
 	WebSocket webSocket;
@@ -127,13 +136,6 @@ class TabContent
 	
 	TabContent(this.channelName, this.useSpanForTitle)
 	{
-		if(localStorage["username"] != null)
-			_username = localStorage["username"];
-		else
-		{
-			Random rand = new Random();
-			_username += rand.nextInt(10000).toString();
-		}
 	}
 	
 	void resetMessages(MouseEvent event)
@@ -230,19 +232,19 @@ class TabContent
 			if(input.value.split(" ")[0] == "/setname")
 			{
 				map["statusMessage"] = "changeName";
-				map["username"] = _username;
+				map["username"] = chat.username;
 				map["newUsername"] = input.value.substring(9);
 				map["channel"] = channelName;
 			}
 			else if(input.value == "/list")
 			{
-				map["username"] = _username;
+				map["username"] = chat.username;
 				map["statusMessage"] = "list";
 				map["channel"] = channelName;
 			}
 			else
 			{
-				map["username"] = _username;
+				map["username"] = chat.username;
 				map["message"] = input.value;
 				map["channel"] = channelName;
 				if(channelName == "Local Chat")
@@ -266,7 +268,7 @@ class TabContent
 		
 			//let server know that we connected
 			Map map = new Map();
-			map["message"] = 'userName='+_username;
+			map["message"] = 'userName='+chat.username;
 			map["channel"] = channelName;
 			if(channelName == "Local Chat")
 				map["street"] = currentStreet.label;
@@ -275,7 +277,7 @@ class TabContent
 			//get list of all users connected
 			map = new Map();
 			map["hide"] = "true";
-			map["username"] = _username;
+			map["username"] = chat.username;
 			map["statusMessage"] = "list";
 			map["channel"] = channelName;
 			webSocket.send(JSON.encode(map));
@@ -326,7 +328,7 @@ class TabContent
 						String selector = "#label-"+channelName.replaceAll(" ", "_");
 						querySelector(selector).innerHtml = '<span class="Counter">'+unreadMessages.toString()+'</span>' + " " + channelName;
 					}
-					if(map["username"] != _username)
+					if(map["username"] != chat.username)
 						_addmessage(chatHistory,map);
 				}
 				else
@@ -359,7 +361,7 @@ class TabContent
 		bool atTheBottom = (chatHistory.scrollTop == chatHistory.scrollHeight);
 		//print("got message: " + JSON.encode(map)); //TODO: debugging purposes only
 		
-		if(chat.getPlayMentionSound() && map["message"].toLowerCase().contains(_username.toLowerCase()) && int.parse(prevVolume) > 0 && isMuted == '0')
+		if(chat.getPlayMentionSound() && map["message"].toLowerCase().contains(chat.username.toLowerCase()) && int.parse(prevVolume) > 0 && isMuted == '0')
 		{
 			AudioElement mentionSound = new AudioElement('./assets/system/mention.ogg');
 		    mentionSound.volume = int.parse(prevVolume)/100;
@@ -407,10 +409,10 @@ class TabContent
 				..add(text)
 				..add(newUsername);
 				
-				if(map["username"] == _username) //although this message is broadcast to everyone, only change usernames if we were the one to type /setname
+				if(map["username"] == chat.username) //although this message is broadcast to everyone, only change usernames if we were the one to type /setname
 				{
-					_username = map["newUsername"];
-					localStorage["username"] = _username;
+					chat.username = map["newUsername"];
+					localStorage["username"] = chat.username;
 				}
 				
 				connectedUsers.remove(map["username"]);
