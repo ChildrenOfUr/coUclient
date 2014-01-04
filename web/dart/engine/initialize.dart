@@ -2,29 +2,34 @@ part of coUclient;
 
 
 main(){
-    // The player has requested that the game is to begin.
+  // The player has requested that the game is to begin.
   
   // run all audio initialization tasks  
   init_audio();
 
 //////////////////////////////////////////////////////////////////////////////////////
   // Play the loading music.
-  AudioElement Loading = new AudioElement('./assets/system/loading.ogg');
-  if(int.parse(prevVolume) > 0 && isMuted == '0')
-  {
-    Loading.volume = int.parse(prevVolume)/100;
-    querySelector('#LoadingScreen').append(Loading);
-    Loading.play();
-  }
-  // This AudioElement is destroyed with the loading screen.
+  new Asset('./assets/system/loading.ogg')
+  .load().then
+  ((Asset Loading)
+      {
+    if(int.parse(prevVolume) > 0 && isMuted == '0')
+    {
+      Loading.get().volume = int.parse(prevVolume)/100;
+      querySelector('#LoadingScreen').append(Loading.get());
+      Loading.get().play();
+    }
+      })
 //////////////////////////////////////////////////////////////////////////////////////
   
-  // On-game-started loading tasts  
-  
-    load_audio()
-    .then((_) => assets.loadPack('streets', './assets/streets.pack'))
-    .then((_)
-        {
+  // On-game-started loading tasks  
+  .then((_) =>
+    load_audio())
+  .then((_) =>
+    load_streets()) 
+  .then((_) {    
+    // Finally finished loading. Clean up.
+
     // Peacefully fade out the loading screen.
     querySelector('#LoadingScreen').style.opacity = '0.0';
     Timer t = new Timer(new Duration(seconds:1), querySelector('#LoadingScreen').remove);
@@ -45,39 +50,20 @@ main(){
     printConsole('For a list of commands type "help"');
     
     
+    
 //////////////////////////////////////////////////////////////////////////////////////
   // Play the 'doneloading' sound
-    AudioElement doneLoading = new AudioElement('./assets/system/game_loaded.ogg');
+    AudioElement doneLoading = ui_sounds.assets['game_loaded'];
     if(int.parse(prevVolume) > 0 && isMuted == '0')
     {
       doneLoading.volume = int.parse(prevVolume)/100;
-      document.body.append(doneLoading);
       doneLoading.play();
-      doneLoading.onEnded.listen((_) => doneLoading.remove()); 
     }
-    // This AudioElement is Destroyed when it's done playing.
 //////////////////////////////////////////////////////////////////////////////////////
-
-    // Load a demo street
-    new Street('streets.street')
-    ..load();
-    
-    document.body.children.add(gameCanvas);
-    
-    gameScreen.append(gameCanvas);
-    
-    gameCanvas.style.zIndex = ('0');
-    gameCanvas.width = CurrentStreet.width;
-    gameCanvas.height = CurrentStreet.height;
-    
-    gameCanvas.style.position = 'absolute';
-    gameCanvas.style.left = '0 px';
-    gameCanvas.style.top =  '0 px';   
-    
-    Player CurrentPlayer = new Player();
-    CurrentCamera = new Camera();
-        }
-    );
+   })
+   .then((_) =>
+   new Street('groddle')
+   .load());
     
     // Begin the GAME!!!
     game.start();

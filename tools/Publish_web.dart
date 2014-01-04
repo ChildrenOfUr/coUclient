@@ -6,7 +6,7 @@ import 'dart:io';
 
 
 /*
- * This script compiles a web-publishable version of the client
+ * This script compiles a web-publishable, JavaScript, version of the client
  * 
  */
 

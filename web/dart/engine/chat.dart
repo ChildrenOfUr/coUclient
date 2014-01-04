@@ -62,6 +62,12 @@ class Chat
 			
 			(querySelector("#ShowJoinMessages") as CheckboxInputElement).checked = getJoinMessagesVisibility();
 		}
+		else
+		{
+			localStorage["showJoinMessages"] = "false";
+			setJoinMessagesVisibility(false);
+			(querySelector("#ShowJoinMessages") as CheckboxInputElement).checked = getJoinMessagesVisibility();
+		}
 		if(localStorage["playMentionSound"] != null)
 		{
 			if(localStorage["playMentionSound"] == "true")
@@ -70,6 +76,12 @@ class Chat
 				setPlayMentionSound(false);
 			
 			(querySelector("#PlayMentionSound") as CheckboxInputElement).checked = getPlayMentionSound();
+		}
+		else
+		{
+			localStorage["playMentionSound"] = "true";
+			setJoinMessagesVisibility(true);
+			(querySelector("#ShowJoinMessages") as CheckboxInputElement).checked = getJoinMessagesVisibility();
 		}
 		
 		addChatTab("Global Chat", true);
@@ -277,7 +289,7 @@ class TabContent
 			map["message"] = input;
 			map["channel"] = channelName;
 			if(channelName == "Local Chat")
-				map["street"] = CurrentStreet.label;
+				map["street"] = currentStreet.label;
 			_addmessage(map);
 		}
 		
@@ -296,7 +308,7 @@ class TabContent
 			map["message"] = 'userName='+_username;
 			map["channel"] = channelName;
 			if(channelName == "Local Chat")
-				map["street"] = CurrentStreet.label;
+				map["street"] = currentStreet.label;
 			webSocket.send(JSON.encode(map));
 			
 			//get list of all users connected
@@ -337,7 +349,7 @@ class TabContent
 			{
 				if(map["statusMessage"] != null)
 					_addmessage(map);
-				else if(map["username"] != _username && map["street"] == CurrentStreet.label)
+				else if(map["username"] != _username && map["street"] == currentStreet.label)
 					_addmessage(map);
 			}
 			else if(map["channel"] == channelName)
@@ -389,10 +401,11 @@ class TabContent
 		}
 		
 		bool atTheBottom = (chatHistory.scrollTop == chatHistory.scrollHeight);
+		//print("got message: " + JSON.encode(map)); //TODO: debugging purposes only
 		
 		if(chat.getPlayMentionSound() && map["message"].toLowerCase().contains(_username.toLowerCase()) && int.parse(prevVolume) > 0 && isMuted == '0')
 		{
-			AudioElement mentionSound = new AudioElement('./assets/system/mention.ogg');
+			AudioElement mentionSound = ui_sounds.assets['mention'];
 		    mentionSound.volume = int.parse(prevVolume)/100;
 		    mentionSound.play();
 		}

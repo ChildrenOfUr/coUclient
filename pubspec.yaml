@@ -5,16 +5,21 @@ description: The sourcecode/tools needed to hack/compile the Children of Ur clie
 homepage: ChildrenOfUr.github.io
 dependencies:
   asset_pack:
-    git: https://github.com/johnmccutchan/asset_pack.git
-  box2d: any
-  browser: any
-  coUlib:
     git:
       ref: master
-      url: https://github.com/ChildrenOfUr/coUlib.git
-  dartemis: any
+      url: https://github.com/johnmccutchan/asset_pack.git
+  box2d: any
+  browser: any
   game_loop: any
+  glitchTime:
+    git:
+      ref: master
+      url: https://github.com/ChildrenOfUr/glitch-time.dart.git
   intl: any
+  loadie:
+    git:
+      ref: master
+      url: https://github.com/ChildrenOfUr/loadie.git
   scproxy:
     git:
       ref: master

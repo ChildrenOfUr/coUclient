@@ -5,6 +5,10 @@ part of coUclient;
 String prevVolume = localStorage['prevVolume'];
 String isMuted = localStorage['isMuted'];
 
+// Stores all the loaded user interface sounds.
+Batch ui_sounds;
+
+
 init_audio()
 {
 	if(prevVolume != null)
@@ -29,19 +33,31 @@ init_audio()
 Future load_audio()
 {
   final c = new Completer();
+  
   // Load all our user interface sounds.
-  assets.loadPack('sounds', './assets/sounds.pack')// These will just be non-music sounds.
-  	.then((AssetPack sounds) 
+
+  ui_sounds = new Batch
+      ([
+        new Asset('./assets/system/mention.ogg'),
+        new Asset('./assets/system/game_loaded.ogg')
+        ])
+  ..load(print).then((_) 
 	{
+	
 		// Load all our SoundCloud songs and store the resulting SCsongs in the jukebox
 		//TODO: Someday we may want to do this individually when a street loads, rather than all at once.
-		List songsToLoad = new List();
-		for (String song in sounds['music'].keys)
-		{
-			Future future = ui.sc.load(sounds['music'][song]['scid']).then((s)=>ui.jukebox[song] = s);
-			songsToLoad.add(future);
-		}
-		c.complete(Future.wait(songsToLoad));
+    
+    Asset soundCloudSongs = new Asset('./assets/music.json')
+    ..load().then((Asset sc_list)
+        {
+      List songsToLoad = new List();
+      for (String song in sc_list.get().keys)
+      {
+        Future future = ui.sc.load(sc_list.get()[song]['scid']).then((s)=>ui.jukebox[song] = s);
+        songsToLoad.add(future);
+      }
+      c.complete(Future.wait(songsToLoad));
+        });
 	});
-	return c.future;
+    return c.future;
 }

@@ -1,5 +1,4 @@
 {
-    "tsid": "GLI3272LOTD1B1F",
     "label": "Groddle Forest Junction",
     "gradient": {
         "top": "D1F4FF",
@@ -11,7 +10,6 @@
         "t": -1200,
         "b": 0,
         "ground_y": -150,
-        "rookable_type": 0,
         "layers": {
             "bg_1": {
                 "name": "bg_1",
@@ -3758,8 +3756,7 @@
                         "h": 118,
                         "z": 10
                     }
-                ],
-                "signposts": []
+                ]
             }
         }
     }
