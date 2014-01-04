@@ -62,6 +62,12 @@ class Chat
 			
 			(querySelector("#ShowJoinMessages") as CheckboxInputElement).checked = getJoinMessagesVisibility();
 		}
+		else
+		{
+			localStorage["showJoinMessages"] = "false";
+			setJoinMessagesVisibility(false);
+			(querySelector("#ShowJoinMessages") as CheckboxInputElement).checked = getJoinMessagesVisibility();
+		}
 		if(localStorage["playMentionSound"] != null)
 		{
 			if(localStorage["playMentionSound"] == "true")
@@ -70,6 +76,12 @@ class Chat
 				setPlayMentionSound(false);
 			
 			(querySelector("#PlayMentionSound") as CheckboxInputElement).checked = getPlayMentionSound();
+		}
+		else
+		{
+			localStorage["playMentionSound"] = "true";
+			setJoinMessagesVisibility(true);
+			(querySelector("#ShowJoinMessages") as CheckboxInputElement).checked = getJoinMessagesVisibility();
 		}
 		
 		addChatTab("Global Chat", true);
