@@ -58,9 +58,14 @@ main()
 			}
 		//////////////////////////////////////////////////////////////////////////////////////
 		})
-		.then((_) => new Street('groddle').load());
+		.then((_) => new Street('groddle').load())
+		.then((_) =>
+		    
+		    // Begin the GAME!!!
+		    game.start()
+		    
+		    );
     
-		// Begin the GAME!!!
-		game.start();
+
 	}); 
 }

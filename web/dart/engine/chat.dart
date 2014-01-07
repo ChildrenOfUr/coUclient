@@ -441,7 +441,7 @@ class TabContent
                 
                 if(chat.getPlayMentionSound() && map["message"].toLowerCase().contains(chat.username.toLowerCase()) && int.parse(prevVolume) > 0 && isMuted == '0')
                 {
-                        AudioElement mentionSound = ui_sounds.assets['mention'];
+                        AudioElement mentionSound = ASSET['mention'].get();
                     mentionSound.volume = int.parse(prevVolume)/100;
                     mentionSound.play();
                 }
