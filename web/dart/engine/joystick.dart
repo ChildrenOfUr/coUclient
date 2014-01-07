@@ -15,16 +15,19 @@ class Joystick
 		
 		_knob.onTouchStart.listen((TouchEvent event)
 		{
-			_initialTouchX = event.touches.first.client.x;
-			_initialTouchY = event.touches.first.client.y;
+			print('onTouchStart');
+			event.preventDefault();
+			event.stopPropagation();
+			_initialTouchX = event.changedTouches.first.client.x;
+			_initialTouchY = event.changedTouches.first.client.y;
 			_moveController.add(new JoystickEvent());
 		});
 		_knob.onTouchMove.listen((TouchEvent event)
 		{
+			print('onTouchMove');
 			event.preventDefault(); //prevent page from scrolling/zooming
-
-			int x = _neutralX + (event.touches.first.client.x - _initialTouchX);
-			int y = _neutralY + (event.touches.first.client.y - _initialTouchY);
+			int x = _neutralX + (event.changedTouches.first.client.x - _initialTouchX);
+			int y = _neutralY + (event.changedTouches.first.client.y - _initialTouchY);
 			
 			//keep within containing joystick circle
 			int radius = _joystick.clientWidth~/2;
@@ -57,6 +60,7 @@ class Joystick
 		});
 		_knob.onTouchEnd.listen((TouchEvent event)
 		{
+			event.preventDefault();
 			_knob.style.left = _neutralX.toString()+"px";
 			_knob.style.top = _neutralY.toString()+"px";
 			UP = false; DOWN = false; LEFT = false; RIGHT = false; //reset

@@ -40,11 +40,11 @@ class Input
 		});
 	    
 	    // Handle the fullscreen Requests
-	    querySelector('#FullscreenGlyph').onClick.listen((a)
+	    querySelectorAll('.FullscreenGlyph').onClick.listen((a)
 		{
 	    	document.documentElement.requestFullscreen();
 	    });  
-	    querySelector('#FullscreenResetGlyph').onClick.listen((a)
+	    querySelectorAll('.FullscreenResetGlyph').onClick.listen((a)
 		{
 	    	document.exitFullscreen();
 	    });  
@@ -54,14 +54,14 @@ class Input
 			if (document.fullscreenElement != null)
 		    {
 			    printConsole('System: FullScreen = true');
-			    querySelector('#FullscreenGlyph').style.display = 'none';
-			    querySelector('#FullscreenResetGlyph').style.display = 'inline';
+			    querySelectorAll('.FullscreenGlyph').style.display = 'none';
+			    querySelectorAll('.FullscreenResetGlyph').style.display = 'inline';
 		    }
 		    else
 		    {
 			    printConsole('System: FullScreen = false');
-			    querySelector('#FullscreenGlyph').style.display = 'inline';
-			    querySelector('#FullscreenResetGlyph').style.display = 'none';
+			    querySelectorAll('.FullscreenGlyph').style.display = 'inline';
+			    querySelectorAll('.FullscreenResetGlyph').style.display = 'none';
 		    }
 		});
 	  
@@ -139,8 +139,16 @@ class Input
 		{
 			upKey = false; downKey = false; rightKey = false; leftKey = false;
 		});
-		querySelector('#AButton').onTouchStart.listen((_)
+		querySelector('#AButton').onTouchStart.listen((TouchEvent event)
 		{
+			event.preventDefault();
+			print('AButton touch');
+			spaceKey = true;
+		});
+		querySelector('#AButton').onMouseDown.listen((MouseEvent event)
+		{
+			event.preventDefault();
+			print('AButton mouse');
 			spaceKey = true;
 		});
 		querySelector('#AButton').onTouchEnd.listen((_)
@@ -150,21 +158,57 @@ class Input
 		
 		querySelector('#ChatBubble').onClick.listen((_)
 		{
-			querySelector('#ChatScreen').hidden = false;
-			querySelector('#MainScreen').hidden = true;
-			//TODO: show channel chooser screen
-			String channelName = "Global Chat"; //TODO: get from user choice
-			querySelector('#conversation-'+channelName.replaceAll(" ", "_")).style.zIndex = "1";
-			querySelector('#ChatChannelName').text = channelName;
+			//if chat is reconnecting, don't do anything
+			if(querySelector('#ChatBubbleDisconnect').style.display == "inline-block")
+				return;
 			
-			TextInputElement input = querySelector('#MobileChatInput') as TextInputElement;
-			DivElement sendButton = querySelector('#SendButton') as DivElement;
-			chat.tabContentMap[channelName].processInput(input,sendButton);
+			querySelector('#ChannelSelectorScreen').hidden = false;
+			querySelector('#MainScreen').hidden = true;
+		});
+		querySelector('#BackFromChannelSelector').onClick.listen((_)
+		{
+			querySelector('#ChannelSelectorScreen').hidden = true;
+			querySelector('#MainScreen').hidden = false;
 		});
 		querySelector('#BackFromChat').onClick.listen((_)
 		{
 			querySelector('#ChatScreen').hidden = true;
-			querySelector('#MainScreen').hidden = false;
+			querySelector('#ChannelSelectorScreen').hidden = false;
+		});
+		querySelectorAll('.ChannelName').forEach((Element element)
+		{
+			element.onClick.listen((MouseEvent event)
+			{
+				//get channel name depending on which element was clicked
+				String channelName = element.id.substring(element.id.indexOf("-")+1).replaceAll("_", " ");
+				querySelector('#ChatChannelTitle').text = channelName;
+				
+				//reset unreadMessages
+				chat.tabContentMap[channelName].resetMessages(event);
+				element.text = channelName;
+			
+				//bring up the right screen
+				querySelector('#ChatScreen').hidden = false;
+				querySelector('#ChannelSelectorScreen').hidden = true;
+				
+				//send all conversations to z-index=0 except the one we want to see
+				querySelectorAll('.Conversation').style.zIndex = "0";
+				querySelector('#conversation-'+channelName.replaceAll(" ", "_")).style.zIndex = "1";
+				
+				TextInputElement input = querySelector('#MobileChatInput') as TextInputElement;
+				DivElement sendButton = querySelector('#SendButton') as DivElement;
+				chat.tabContentMap[channelName].processInput(input,sendButton);
+			});
+		});
+		new TouchScroller(querySelector('#MobileInventory'),TouchScroller.HORIZONTAL);
+		new TouchScroller(querySelector('#MobileInventoryBag'),TouchScroller.HORIZONTAL);
+		querySelector("#InventoryTitle").onClick.listen((_)
+		{
+			Element drawer = querySelector("#InventoryDrawer");
+			if(drawer.style.bottom == "0px")
+				drawer.style.bottom = "-75px";
+			else
+				drawer.style.bottom = "0px";
 		});
 		//end mobile specific stuff
 		
