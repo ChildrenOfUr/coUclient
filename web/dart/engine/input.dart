@@ -141,21 +141,20 @@ class Input
 		});
 		querySelector('#AButton').onTouchStart.listen((TouchEvent event)
 		{
-			event.preventDefault();
-			print('AButton touch');
-			spaceKey = true;
-		});
-		querySelector('#AButton').onMouseDown.listen((MouseEvent event)
-		{
-			event.preventDefault();
-			print('AButton mouse');
+			event.preventDefault(); //to disable long press calling the context menu
 			spaceKey = true;
 		});
 		querySelector('#AButton').onTouchEnd.listen((_)
 		{
 			spaceKey = false;
+		});	
+		querySelector('#BButton').onTouchStart.listen((TouchEvent event)
+		{
+			event.preventDefault(); //to disable long press calling the context menu
 		});
-		
+		querySelector('#BButton').onTouchEnd.listen((_)
+		{
+		});
 		querySelector('#ChatBubble').onClick.listen((_)
 		{
 			//if chat is reconnecting, don't do anything

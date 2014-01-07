@@ -383,14 +383,17 @@ class TabContent
 						querySelector(selector).innerHtml = '<span class="Counter">'+unreadMessages.toString()+'</span>' + " " + channelName;
 					}
 					//mobile
-					selector = "#channelName-"+channelName.replaceAll(" ", "_");
-					querySelector(selector).innerHtml = channelName + " " + '<span class="Counter">'+unreadMessages.toString()+'</span>';
-					int totalUnread = 0;
-					chat.tabContentMap.values.forEach((TabContent tabContent)
+					if(unreadMessages > 0)
 					{
-						totalUnread += tabContent.unreadMessages;
-					});
-					querySelector('#ChatBubbleText').text = totalUnread.toString();
+						selector = "#channelName-"+channelName.replaceAll(" ", "_");
+						querySelector(selector).innerHtml = channelName + " " + '<span class="Counter">'+unreadMessages.toString()+'</span>';
+						int totalUnread = 0;
+						chat.tabContentMap.values.forEach((TabContent tabContent)
+						{
+							totalUnread += tabContent.unreadMessages;
+						});
+						querySelector('#ChatBubbleText').text = totalUnread.toString();
+					}
 					
 					//don't add to history if the user said it
 					//we already added it before we sent it to the server
