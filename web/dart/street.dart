@@ -2,6 +2,20 @@ part of coUclient;
 
 Street currentStreet;
 
+class Camera{
+  num x,y;
+  Camera(this.x,this.y){
+    COMMANDS.add(['camera','',this.setCamera]);
+  }
+  setCamera(String xy){
+    this.x = int.parse(xy.split(',')[0]); this.y = int.parse(xy.split(',')[1]);}
+}
+
+
+Camera camera = new Camera(300,500);
+
+
+
 Future load_streets(){
   // allows us to load street files as though they are json files.
   jsonExtensions.add('street');
@@ -63,6 +77,16 @@ class Street {
   
  Future <List> load(){
    currentStreet = null; 
+   
+   setSong(_data['music']);
+    
+   for (Map deco in _data['dynamic']['layers']['middleground']['decos'])
+     deco['y'] += _data['dynamic']['t'].abs() + 100;
+   
+   
+   
+   
+   
    
     List decosToLoad = [];
     
@@ -181,26 +205,26 @@ class Street {
 
         });
   }  
-  
- /*
+   
+ 
   //Parallaxing: Adjust the position of each canvas in #GameScreen
   //based on the camera position and relative size of canvas to Street
   render(){
     
-    currentPercentX = cameraPositionMapper.get(camera).x / (width - gameScreenWidth);
-    currentPercentY = cameraPositionMapper.get(camera).y / (height - gameScreenHeight);
+    num currentPercentX = camera.x / (width - gameScreen.clientWidth);
+    num currentPercentY = camera.y / (height - gameScreen.clientHeight);
 
     //modify left and top for parallaxing
-    for (CanvasElement temp in gameScreen.children){
+    for (CanvasElement temp in gameScreen.querySelectorAll('canvas')){
       
       //Don't need to worry about gradientCanvas x changes
       if (temp.id == 'gradient'){
-      temp.style.top =  ((temp.height - gameScreenHeight) * -currentPercentY).toString() + 'px';
+      temp.style.top =  ((temp.height - gameScreen.clientHeight) * -currentPercentY).toString() + 'px';
       }
       
       else{
-      double offSetX = (temp.width - gameScreenWidth) * -currentPercentX;
-      double offSetY = (temp.height - gameScreenHeight) * -currentPercentY;
+      double offSetX = (temp.width - gameScreen.clientWidth) * -currentPercentX;
+      double offSetY = (temp.height - gameScreen.clientHeight) * -currentPercentY;
 
       temp.style.position = 'absolute';
       temp.style.left = (offSetX.toString()) + 'px';
@@ -208,7 +232,7 @@ class Street {
       }
     }
    }
-    */
+
   }
 
   
