@@ -4,6 +4,7 @@ class Chat
 {
 	bool _showJoinMessages = false, _playMentionSound = true;
 	Map<String, TabContent> tabContentMap = new Map();
+	String username = "testUser"; //TODO: get actual username of logged in user;
 	
 	/**
 	 * Determines if messages like "<user> has joined" are shown to the player.
@@ -31,6 +32,15 @@ class Chat
 	
 	init()
 	{
+		//assign temporary chat handle
+		if(localStorage["username"] != null)
+			username = localStorage["username"];
+		else
+		{
+			Random rand = new Random();
+			username += rand.nextInt(10000).toString();
+		}
+	
 		//handle chat settings menu
 		Element chatMenu = querySelector("#ChatSettingsMenu");
 		querySelector('#ChatSettingsIcon').onClick.listen((MouseEvent click)
@@ -87,6 +97,9 @@ class Chat
 		addChatTab("Global Chat", true);
 		addChatTab("Other Chat", false);
 		querySelector("#ChatPane").children.add(new TabContent("Local Chat",true).getDiv());
+		
+		//add touch scrolling to the channel list
+		new TouchScroller(querySelector("#ChannelList"),TouchScroller.VERTICAL);
 	}
 	
 	void addChatTab(String channelName, bool checked)
@@ -118,7 +131,6 @@ class TabContent
 {
 	static List<String> _COLORS = ["aqua", "blue", "fuchsia", "gray", "green", "lime", "maroon", "navy", "olive", "orange", "purple", "red", "teal"];
 	List<String> connectedUsers = new List();
-	String _username = "testUser"; //TODO: get actual username of logged in user;
 	String channelName, lastWord = "";
 	bool useSpanForTitle, tabInserted = false;
 	WebSocket webSocket;
@@ -130,25 +142,19 @@ class TabContent
 	{
 		chat.tabContentMap[channelName] = this;
 		
-		if(localStorage["username"] != null)
-			_username = localStorage["username"];
-		else
-		{
-			Random rand = new Random();
-			_username += rand.nextInt(10000).toString();
-		}
-		
 		//for mobile chat
 		DivElement conversationStack = querySelector("#ConversationStack");
 		DivElement conversation = new DivElement()
 			..className = "Conversation"
 			..id = "conversation-"+channelName.replaceAll(" ", "_");
+		new TouchScroller(conversation,TouchScroller.VERTICAL);
 		conversationStack.children.add(conversation);
 		
 		DivElement channelList = querySelector("#ChannelList");
 		DivElement channel = new DivElement()
 			..className = "ChannelName"
-			..text = channelName;
+			..text = channelName
+			..id = "channelName-"+channelName.replaceAll(" ", "_");
 		channelList.children.add(channel);
 	}
 	
@@ -157,6 +163,13 @@ class TabContent
 		unreadMessages = 0;
 		String selector = "#label-"+channelName.replaceAll(" ", "_");
 		querySelector(selector).text = channelName;
+		
+		int totalUnread = 0;
+		chat.tabContentMap.values.forEach((TabContent tabContent)
+		{
+			totalUnread += tabContent.unreadMessages;
+		});
+		querySelector('#ChatBubbleText').text = totalUnread.toString();
 	}
 	
 	DivElement getDiv()
@@ -273,19 +286,19 @@ class TabContent
 		if(input.split(" ")[0] == "/setname")
 		{
 			map["statusMessage"] = "changeName";
-			map["username"] = _username;
+			map["username"] = chat.username;
 			map["newUsername"] = input.substring(9);
 			map["channel"] = channelName;
 		}
 		else if(input == "/list")
 		{
-			map["username"] = _username;
+			map["username"] = chat.username;
 			map["statusMessage"] = "list";
 			map["channel"] = channelName;
 		}
 		else
 		{
-			map["username"] = _username;
+			map["username"] = chat.username;
 			map["message"] = input;
 			map["channel"] = channelName;
 			if(channelName == "Local Chat")
@@ -302,10 +315,14 @@ class TabContent
 		webSocket.onOpen.listen((_)
 		{
 			querySelector("#ChatDisconnected").hidden = true; //hide if visible
-		
+			querySelector("#ChatBubbleDisconnect").style.display = "none";
+			querySelector("#ChatBubbleText")
+				..text = "0"
+				..hidden = false;
+			
 			//let server know that we connected
 			Map map = new Map();
-			map["message"] = 'userName='+_username;
+			map["message"] = 'userName='+chat.username;
 			map["channel"] = channelName;
 			if(channelName == "Local Chat")
 				map["street"] = "Groddle Forest Junction"; //TODO: update to currentStreet.label hopefully after new street.dart is complete
@@ -314,7 +331,7 @@ class TabContent
 			//get list of all users connected
 			map = new Map();
 			map["hide"] = "true";
-			map["username"] = _username;
+			map["username"] = chat.username;
 			map["statusMessage"] = "list";
 			map["channel"] = channelName;
 			webSocket.send(JSON.encode(map));
@@ -349,15 +366,15 @@ class TabContent
 			{
 				if(map["statusMessage"] != null)
 					_addmessage(map);
-				else if(map["username"] != _username && map["street"] == "Groddle Forest Junction")//TODO: update to currentStreet.label hopefully after new street.dart is complete)
+				else if(map["username"] != chat.username && map["street"] == "Groddle Forest Junction")//TODO: update to currentStreet.label hopefully after new street.dart is complete)
 					_addmessage(map);
 			}
 			else if(map["channel"] == channelName)
 			{
 				if(map["statusMessage"] == null)
 				{
-					String selector = "#tab-"+channelName.replaceAll(" ", "_"); //need to replace spaces to make CSS selector work
-					RadioButtonInputElement tab = (querySelector("#tab-"+channelName) as RadioButtonInputElement);
+					//need to replace spaces to make CSS selector work
+					String selector = "#tab-"+channelName.replaceAll(" ", "_");
 					if(!(querySelector(selector) as RadioButtonInputElement).checked)
 					{
 						unreadMessages++;
@@ -365,7 +382,19 @@ class TabContent
 						String selector = "#label-"+channelName.replaceAll(" ", "_");
 						querySelector(selector).innerHtml = '<span class="Counter">'+unreadMessages.toString()+'</span>' + " " + channelName;
 					}
-					if(map["username"] != _username)
+					//mobile
+					selector = "#channelName-"+channelName.replaceAll(" ", "_");
+					querySelector(selector).innerHtml = channelName + " " + '<span class="Counter">'+unreadMessages.toString()+'</span>';
+					int totalUnread = 0;
+					chat.tabContentMap.values.forEach((TabContent tabContent)
+					{
+						totalUnread += tabContent.unreadMessages;
+					});
+					querySelector('#ChatBubbleText').text = totalUnread.toString();
+					
+					//don't add to history if the user said it
+					//we already added it before we sent it to the server
+					if(map["username"] != chat.username)
 						_addmessage(map);
 				}
 				else
@@ -378,7 +407,12 @@ class TabContent
 			querySelector("#ChatDisconnected")
 				..hidden = false
 				..text = "Disconnected from Chat, attempting to reconnect...";
-			new Timer(new Duration(seconds:5),() //wait 5 seconds and try to reconnect
+			//mobile
+			querySelector("#ChatBubbleDisconnect").style.display = "inline-block";
+			querySelector("#ChatBubbleText").hidden = true;
+			
+			//wait 5 seconds and try to reconnect
+			new Timer(new Duration(seconds:5),()
 			{
 				setupWebSocket(chatHistory,channelName);
 			});
@@ -398,12 +432,14 @@ class TabContent
 			chatHistory.children.removeAt(0);
 			if(chatHistory.children.first.className == "RowSpacer") //if the top is a row spacer, remove that too
 				chatHistory.children.removeAt(0);
+			
+			DivElement conversation = querySelector('#conversation-'+channelName.replaceAll(" ","_"));
+			conversation.children.removeAt(0);
+			
+			numMessages--;
 		}
 		
-		bool atTheBottom = (chatHistory.scrollTop == chatHistory.scrollHeight);
-		//print("got message: " + JSON.encode(map)); //TODO: debugging purposes only
-		
-		if(chat.getPlayMentionSound() && map["message"].toLowerCase().contains(_username.toLowerCase()) && int.parse(prevVolume) > 0 && isMuted == '0')
+		if(chat.getPlayMentionSound() && map["message"].toLowerCase().contains(chat.username.toLowerCase()) && int.parse(prevVolume) > 0 && isMuted == '0')
 		{
 			AudioElement mentionSound = ui_sounds.assets['mention'];
 		    mentionSound.volume = int.parse(prevVolume)/100;
@@ -447,10 +483,10 @@ class TabContent
 				..add(text)
 				..add(newUsername);
 				
-				if(map["username"] == _username) //although this message is broadcast to everyone, only change usernames if we were the one to type /setname
+				if(map["username"] == chat.username) //although this message is broadcast to everyone, only change usernames if we were the one to type /setname
 				{
-					_username = map["newUsername"];
-					localStorage["username"] = _username;
+					chat.username = map["newUsername"];
+					localStorage["username"] = chat.username;
 				}
 				
 				connectedUsers.remove(map["username"]);
@@ -491,14 +527,17 @@ class TabContent
 		
 		chatHistory.children.add(chatString);
 		chatHistory.children.add(rowSpacer);
-		chatHistory.scrollTop = chatHistory.scrollHeight;
+		
+		bool atTheBottom = (chatHistory.scrollTop == chatHistory.scrollHeight);
+		if(atTheBottom || (map['username'] == chat.username || map['newUsername'] == chat.username))
+			chatHistory.scrollTop = chatHistory.scrollHeight;
 		
 		//for mobile version
 		DivElement chatLine = new DivElement()
 			..className = "bubble"
 			..setInnerHtml(chatString.innerHtml, treeSanitizer: new NullTreeSanitizer());
 		
-		if(chatString.text.startsWith(_username))
+		if(chatString.text.startsWith(chat.username))
 			chatLine.classes.add("me");
 		else
 			chatLine.classes.add("you");
@@ -507,7 +546,11 @@ class TabContent
 			..className = "bubbleRow";
 		chatRow.children.add(chatLine);
 		
-		querySelector('#conversation-'+channelName.replaceAll(" ","_")).children.add(chatRow);
+		DivElement conversation = querySelector('#conversation-'+channelName.replaceAll(" ","_"));
+		atTheBottom = (conversation.scrollTop == conversation.scrollHeight);
+		if(atTheBottom || (map['username'] == chat.username || map['newUsername'] == chat.username))
+			conversation.scrollTop = conversation.scrollHeight;
+		conversation.children.add(chatRow);
 	}
 	
 	String _parseForUrls(String message)

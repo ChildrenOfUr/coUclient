@@ -139,8 +139,16 @@ class Input
 		{
 			upKey = false; downKey = false; rightKey = false; leftKey = false;
 		});
-		querySelector('#AButton').onTouchStart.listen((_)
+		querySelector('#AButton').onTouchStart.listen((TouchEvent event)
 		{
+			event.preventDefault();
+			print('AButton touch');
+			spaceKey = true;
+		});
+		querySelector('#AButton').onMouseDown.listen((MouseEvent event)
+		{
+			event.preventDefault();
+			print('AButton mouse');
 			spaceKey = true;
 		});
 		querySelector('#AButton').onTouchEnd.listen((_)
@@ -150,6 +158,10 @@ class Input
 		
 		querySelector('#ChatBubble').onClick.listen((_)
 		{
+			//if chat is reconnecting, don't do anything
+			if(querySelector('#ChatBubbleDisconnect').style.display == "inline-block")
+				return;
+			
 			querySelector('#ChannelSelectorScreen').hidden = false;
 			querySelector('#MainScreen').hidden = true;
 		});
@@ -165,15 +177,19 @@ class Input
 		});
 		querySelectorAll('.ChannelName').forEach((Element element)
 		{
-			element.onClick.listen((_)
+			element.onClick.listen((MouseEvent event)
 			{
+				//get channel name depending on which element was clicked
+				String channelName = element.id.substring(element.id.indexOf("-")+1).replaceAll("_", " ");
+				querySelector('#ChatChannelTitle').text = channelName;
+				
+				//reset unreadMessages
+				chat.tabContentMap[channelName].resetMessages(event);
+				element.text = channelName;
+			
 				//bring up the right screen
 				querySelector('#ChatScreen').hidden = false;
 				querySelector('#ChannelSelectorScreen').hidden = true;
-				
-				//get channel name depending on which element was clicked
-				String channelName = element.text;
-				querySelector('#ChatChannelTitle').text = channelName;
 				
 				//send all conversations to z-index=0 except the one we want to see
 				querySelectorAll('.Conversation').style.zIndex = "0";
@@ -183,6 +199,16 @@ class Input
 				DivElement sendButton = querySelector('#SendButton') as DivElement;
 				chat.tabContentMap[channelName].processInput(input,sendButton);
 			});
+		});
+		new TouchScroller(querySelector('#MobileInventory'),TouchScroller.HORIZONTAL);
+		new TouchScroller(querySelector('#MobileInventoryBag'),TouchScroller.HORIZONTAL);
+		querySelector("#InventoryTitle").onClick.listen((_)
+		{
+			Element drawer = querySelector("#InventoryDrawer");
+			if(drawer.style.bottom == "0px")
+				drawer.style.bottom = "-75px";
+			else
+				drawer.style.bottom = "0px";
 		});
 		//end mobile specific stuff
 		

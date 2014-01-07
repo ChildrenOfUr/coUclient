@@ -139,7 +139,7 @@ String minifyHtml(List<String> input){
    List<String> fileLines = new List();
    for (String line in input)
    {
-    line = line.replaceAll('main.dart', 'game.js<?php echo time(); ?>');
+    line = line.replaceAll('main.dart', 'game.js');
     line = line.replaceAll('type="application/dart" ', '');
     //line = line.replaceAll('packages/browser/interop.js', 'interop.js');
     line = line.replaceAll('<script src="packages/browser/dart.js"></script>', '');
