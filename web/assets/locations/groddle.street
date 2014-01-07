@@ -1,5 +1,6 @@
 {
     "label": "Groddle Forest Junction",
+    "music": "horns",
     "gradient": {
         "top": "D1F4FF",
         "bottom": "99FFFD"
