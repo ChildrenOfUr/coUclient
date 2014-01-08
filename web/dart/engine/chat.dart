@@ -42,9 +42,17 @@ class Chat
 		}
 	
 		//handle chat settings menu
-		Element chatMenu = querySelector("#ChatSettingsMenu");
 		querySelector('#ChatSettingsIcon').onClick.listen((MouseEvent click)
 		{
+			Element chatMenu = querySelector("#ChatSettingsMenu");
+			if(chatMenu.hidden)
+				chatMenu.hidden = false;
+			else
+				chatMenu.hidden = true;
+		});
+		querySelector('#MobileChatSettingsIcon').onClick.listen((MouseEvent click)
+		{
+			Element chatMenu = querySelector("#MobileChatSettingsMenu");
 			if(chatMenu.hidden)
 				chatMenu.hidden = false;
 			else
@@ -69,30 +77,33 @@ class Chat
 				setJoinMessagesVisibility(true);
 			else
 				setJoinMessagesVisibility(false);
-			
-			(querySelector("#ShowJoinMessages") as CheckboxInputElement).checked = getJoinMessagesVisibility();
 		}
 		else
 		{
 			localStorage["showJoinMessages"] = "false";
 			setJoinMessagesVisibility(false);
-			(querySelector("#ShowJoinMessages") as CheckboxInputElement).checked = getJoinMessagesVisibility();
 		}
+		querySelectorAll("#ShowJoinMessages").forEach((Element element)
+		{
+			(element as CheckboxInputElement).checked = getJoinMessagesVisibility();
+		});
+		
 		if(localStorage["playMentionSound"] != null)
 		{
 			if(localStorage["playMentionSound"] == "true")
 				setPlayMentionSound(true);
 			else
 				setPlayMentionSound(false);
-			
-			(querySelector("#PlayMentionSound") as CheckboxInputElement).checked = getPlayMentionSound();
 		}
 		else
 		{
 			localStorage["playMentionSound"] = "true";
 			setJoinMessagesVisibility(true);
-			(querySelector("#ShowJoinMessages") as CheckboxInputElement).checked = getJoinMessagesVisibility();
 		}
+		querySelectorAll("#PlayMentionSound").forEach((Element element)
+		{
+			(element as CheckboxInputElement).checked = getPlayMentionSound();
+		});
 		
 		addChatTab("Global Chat", true);
 		addChatTab("Other Chat", false);
@@ -161,7 +172,7 @@ class TabContent
 	void resetMessages(MouseEvent event)
 	{
 		unreadMessages = 0;
-		String selector = "#label-"+channelName.replaceAll(" ", "_");
+		String selector = "#channelName-"+channelName.replaceAll(" ", "_");
 		querySelector(selector).text = channelName;
 		
 		int totalUnread = 0;
@@ -207,7 +218,7 @@ class TabContent
 		return chatDiv;
 	}
 	
-	void processInput(TextInputElement input, [DivElement sendButton])
+	void processInput(TextInputElement input)
 	{
 		input.onKeyDown.listen((KeyboardEvent key) //onKeyUp seems to be too late to prevent TAB's default behavior
 		{
@@ -266,18 +277,6 @@ class TabContent
 			parseInput(input.value);
 			input.value = '';
 		});
-		
-		if(sendButton != null)
-		{
-			sendButton.onClick.listen((_)
-			{
-				if(input.value.trim().length == 0) //don't allow for blank messages
-					return;
-				
-				parseInput(input.value);
-				input.value = '';
-			});
-		}
 	}
 	
 	Map parseInput(String input)
@@ -357,6 +356,24 @@ class TabContent
 					return;
 			}
 			
+			//mobile
+			if(map["username"] != chat.username && map["channel"] == channelName)
+			{
+				//if the conversation is not showing to the user, add an unread message to it
+				if(querySelector("#conversation-"+channelName.replaceAll(" ", "_")).style.zIndex != "1")
+				{
+					unreadMessages++;
+					querySelector("#channelName-"+channelName.replaceAll(" ", "_")).innerHtml = channelName + " " + '<span class="Counter">'+unreadMessages.toString()+'</span>';
+				}
+				
+				int totalUnread = 0;
+				chat.tabContentMap.values.forEach((TabContent tabContent)
+				{
+					totalUnread += tabContent.unreadMessages;
+				});
+				querySelector('#ChatBubbleText').text = totalUnread.toString();
+			}
+			
 			if(map["channel"] == "all")
 			{
 				_addmessage(map);
@@ -381,18 +398,6 @@ class TabContent
 						//find label related to this channel's tab and add the unread count to it
 						String selector = "#label-"+channelName.replaceAll(" ", "_");
 						querySelector(selector).innerHtml = '<span class="Counter">'+unreadMessages.toString()+'</span>' + " " + channelName;
-					}
-					//mobile
-					if(unreadMessages > 0)
-					{
-						selector = "#channelName-"+channelName.replaceAll(" ", "_");
-						querySelector(selector).innerHtml = channelName + " " + '<span class="Counter">'+unreadMessages.toString()+'</span>';
-						int totalUnread = 0;
-						chat.tabContentMap.values.forEach((TabContent tabContent)
-						{
-							totalUnread += tabContent.unreadMessages;
-						});
-						querySelector('#ChatBubbleText').text = totalUnread.toString();
 					}
 					
 					//don't add to history if the user said it
@@ -436,6 +441,7 @@ class TabContent
 			if(chatHistory.children.first.className == "RowSpacer") //if the top is a row spacer, remove that too
 				chatHistory.children.removeAt(0);
 			
+			//mobile
 			DivElement conversation = querySelector('#conversation-'+channelName.replaceAll(" ","_"));
 			conversation.children.removeAt(0);
 			
@@ -444,7 +450,7 @@ class TabContent
 		
 		if(chat.getPlayMentionSound() && map["message"].toLowerCase().contains(chat.username.toLowerCase()) && int.parse(prevVolume) > 0 && isMuted == '0')
 		{
-			AudioElement mentionSound = ui_sounds.assets['mention'];
+			AudioElement mentionSound = ASSET['mention'].get();
 		    mentionSound.volume = int.parse(prevVolume)/100;
 		    mentionSound.play();
 		}
@@ -528,10 +534,12 @@ class TabContent
 			..className = "RowSpacer";
 		chatString.style.paddingRight = "2px";
 		
+		//if we're at the bottom before adding the incoming strings, scroll with them
+		bool atTheBottom = (chatHistory.scrollTop == (chatHistory.scrollHeight - chatHistory.offsetHeight));
+		
 		chatHistory.children.add(chatString);
 		chatHistory.children.add(rowSpacer);
 		
-		bool atTheBottom = (chatHistory.scrollTop == chatHistory.scrollHeight);
 		if(atTheBottom || (map['username'] == chat.username || map['newUsername'] == chat.username))
 			chatHistory.scrollTop = chatHistory.scrollHeight;
 		
@@ -550,10 +558,10 @@ class TabContent
 		chatRow.children.add(chatLine);
 		
 		DivElement conversation = querySelector('#conversation-'+channelName.replaceAll(" ","_"));
-		atTheBottom = (conversation.scrollTop == conversation.scrollHeight);
+		atTheBottom = ((conversation.scrollTop == (conversation.scrollHeight - conversation.offsetHeight)));
+		conversation.children.add(chatRow);
 		if(atTheBottom || (map['username'] == chat.username || map['newUsername'] == chat.username))
 			conversation.scrollTop = conversation.scrollHeight;
-		conversation.children.add(chatRow);
 	}
 	
 	String _parseForUrls(String message)

@@ -171,6 +171,8 @@ class Input
 		});
 		querySelector('#BackFromChat').onClick.listen((_)
 		{
+			//set all conversation's to z-index=0 to determine visibility later
+			querySelectorAll('.Conversation').style.zIndex = "0";
 			querySelector('#ChatScreen').hidden = true;
 			querySelector('#ChannelSelectorScreen').hidden = false;
 		});
@@ -184,7 +186,6 @@ class Input
 				
 				//reset unreadMessages
 				chat.tabContentMap[channelName].resetMessages(event);
-				element.text = channelName;
 			
 				//bring up the right screen
 				querySelector('#ChatScreen').hidden = false;
@@ -193,11 +194,21 @@ class Input
 				//send all conversations to z-index=0 except the one we want to see
 				querySelectorAll('.Conversation').style.zIndex = "0";
 				querySelector('#conversation-'+channelName.replaceAll(" ", "_")).style.zIndex = "1";
-				
-				TextInputElement input = querySelector('#MobileChatInput') as TextInputElement;
-				DivElement sendButton = querySelector('#SendButton') as DivElement;
-				chat.tabContentMap[channelName].processInput(input,sendButton);
 			});
+		});
+		querySelector('#SendButton').onClick.listen((_)
+		{
+			//get name of channel this text should be sent to
+			//then process the input using the associated TabContent object
+			String channelName = querySelector('#ChatChannelTitle').text;
+			TextInputElement input = querySelector('#MobileChatInput') as TextInputElement;
+			chat.tabContentMap[channelName].processInput(input);
+			
+			if(input.value.trim().length == 0) //don't allow for blank messages
+				return;
+			
+			chat.tabContentMap[channelName].parseInput(input.value);
+			input.value = '';
 		});
 		new TouchScroller(querySelector('#MobileInventory'),TouchScroller.HORIZONTAL);
 		new TouchScroller(querySelector('#MobileInventoryBag'),TouchScroller.HORIZONTAL);
