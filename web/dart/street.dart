@@ -12,7 +12,7 @@ class Camera{
 }
 
 
-Camera camera = new Camera(300,500);
+Camera camera = new Camera(300,0);
 
 
 
@@ -55,34 +55,31 @@ class Street {
      
 // sets the label for the street
      label = _data['label'];
-     
-     // pulls the gradient from our json
-;
-;
-     
-     
+      
      //This class could have a or inherit from a Rectangle
-     top = _data['t'];
-     bottom = _data['b'];
-     left = _data['l'];
-     right = _data['r'];
+     top = _data['dynamic']['t'];
+     bottom = _data['dynamic']['b'];
+     left = _data['dynamic']['l'];
+     right = _data['dynamic']['r'];
      
-     width = (_data['l'].abs() + _data['r'].abs());
-     height = (_data['t'].abs());
+     width = (_data['dynamic']['l'].abs() + _data['dynamic']['r'].abs());
+     height = (_data['dynamic']['t'].abs());
   }
   
   
  Future <List> load(){
    currentStreet = null; 
    
+   
    setSong(_data['music']);
     
-   for (Map deco in _data['layers']['middleground']['decos'])
+   // correction for the middleground issue
+   for (Map deco in _data['dynamic']['layers']['middleground']['decos'])
      deco['y'] += height;
    
     List decosToLoad = [];
     
-    for (Map layer in _data['layers'].values)
+    for (Map layer in _data['dynamic']['layers'].values)
     {
       for (Map deco in layer['decos'])
       {
@@ -153,7 +150,8 @@ class Street {
       int zIndex = _data['dynamic']['layers'][layersOrdered[e]]['z'];
       String id = _data['dynamic']['layers'][layersOrdered[e]]['name'];
       
-      CanvasElement decoCanvas = new CanvasElement();
+      CanvasElement decoCanvas = new CanvasElement()
+      ..classes.add('streetcanvas');
       decoCanvas.id = id;
       
       gameScreen.append(decoCanvas);
