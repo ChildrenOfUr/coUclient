@@ -19,12 +19,12 @@ Camera camera = new Camera(300,500);
 Future load_streets(){
   // allows us to load street files as though they are json files.
   jsonExtensions.add('street');
-  final c = new Completer();
-  // just loads the database file of street urls, nothing more.
+
+  // loads the master street json.
   new Asset('./assets/streets.json').load()
       .then((Asset streetList) {
         
-        // Load each street file into memory. They're just json so it's probably not a big deal.
+        // Load each street file into memory. If this gets too expensive we'll move this elsewhere.
         List toLoad = [];
         for (String url in streetList.get().values)
         toLoad.add(new Asset(url).load());
@@ -39,7 +39,6 @@ DivElement gameScreen = querySelector('#GameScreen');
 
 class Street {    
   String label;
-  
   Map _data;
   
   int width;
@@ -51,9 +50,6 @@ class Street {
   int left;
   int right;
   
-  String gradientTop;
-  String gradientBottom;
-
   Street(String streetName){
      _data = ASSET[streetName].get();
      
@@ -61,17 +57,18 @@ class Street {
      label = _data['label'];
      
      // pulls the gradient from our json
-     gradientTop = '#' + _data['gradient']['top'];
-     gradientBottom = '#' +  _data['gradient']['bottom'];
+;
+;
+     
      
      //This class could have a or inherit from a Rectangle
-     top = _data['dynamic']['t'];
-     bottom = _data['dynamic']['b'];
-     left = _data['dynamic']['l'];
-     right = _data['dynamic']['r'];
+     top = _data['t'];
+     bottom = _data['b'];
+     left = _data['l'];
+     right = _data['r'];
      
-     width = (_data['dynamic']['l'].abs() + _data['dynamic']['r'].abs());
-     height = (_data['dynamic']['t'].abs());
+     width = (_data['l'].abs() + _data['r'].abs());
+     height = (_data['t'].abs());
   }
   
   
@@ -80,17 +77,12 @@ class Street {
    
    setSong(_data['music']);
     
-   for (Map deco in _data['dynamic']['layers']['middleground']['decos'])
-     deco['y'] += _data['dynamic']['t'].abs() + 100;
-   
-   
-   
-   
-   
+   for (Map deco in _data['layers']['middleground']['decos'])
+     deco['y'] += height;
    
     List decosToLoad = [];
     
-    for (Map layer in _data['dynamic']['layers'].values)
+    for (Map layer in _data['layers'].values)
     {
       for (Map deco in layer['decos'])
       {
@@ -106,15 +98,20 @@ class Street {
          
     
     Batch decos = new Batch(assetsToLoad);
-    currentStreet = this;
     decos.load(setStreetLoadBar).then((_)
         {
+      
+      
+    currentStreet = this;
+      
+      
     /* //// Gradient Canvas //// */
     // TODO, this gradient often appears 'banded' we should do something about that later.
     
     CanvasElement gradientCanvas = new CanvasElement();
     gradientCanvas.id = 'gradient';
     gameScreen.append(gradientCanvas);
+    
     gradientCanvas.style.zIndex = (-100).toString();
     gradientCanvas.width = width;
     gradientCanvas.height = height;
@@ -124,8 +121,8 @@ class Street {
     gradientCanvas.style.top =  '0 px'; 
     
     var g = gradientCanvas.context2D.createLinearGradient(0,0,0,height);
-    g.addColorStop(0,gradientTop);
-    g.addColorStop(1,gradientBottom);
+    g.addColorStop(0,'#' + _data['gradient']['top']);
+    g.addColorStop(1,'#' +  _data['gradient']['bottom']);
     gradientCanvas.context2D.fillStyle = g;
     gradientCanvas.context2D.fillRect(0,0,width,height);
     

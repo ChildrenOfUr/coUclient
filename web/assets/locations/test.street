@@ -1,0 +1,35 @@
+{
+    "label": "Testing",
+    "music": "nottis",
+    "gradient": {
+        "top": "D1F4FF",
+        "bottom": "99FFFD"
+    },
+    "l": -3000,
+    "r": 3000,
+    "t": -1200,
+    "b": 0,
+    "ground_y": -150,
+    
+    "layers": {
+           "middleground": {
+                "w": 6000,
+                "h": 1200,
+                "z": 0,
+                "filters": {
+                    "brightness": -2
+                },
+                "decos": [
+                    {
+                        "filename": "dirt_platform_short",
+                        "w": 364,
+                        "r": -5,
+                        "x": 480,
+                        "y": -45,
+                        "h": 67,
+                        "z": 57
+                    }
+                  ]
+            }
+     }
+}
