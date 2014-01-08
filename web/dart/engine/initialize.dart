@@ -2,8 +2,12 @@ part of coUclient;
 
 main()
 {
+  
+  
+  
+  
+  
 	// The player has requested that the game is to begin.
-	
 	// run all audio initialization tasks  
 	init_audio();
 
@@ -58,9 +62,14 @@ main()
 			}
 		//////////////////////////////////////////////////////////////////////////////////////
 		})
-		.then((_) => new Street('groddle').load());
+		.then((_) => new Street('test').load())
+		.then((_) =>
+		    
+		    // Begin the GAME!!!
+		    game.start()
+		    
+		    );
     
-		// Begin the GAME!!!
-		game.start();
+
 	}); 
 }

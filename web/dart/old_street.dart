@@ -192,7 +192,7 @@ class Street {
       //It seems this int.y makes foreground and background work, but not middleground???
       for (Map deco in decos){
             
-          int x = deco['x'] + width~/(gameScreenWidth) ;
+          int x = deco['x'] + width~/(gameScreen.width()) ;
           int y = deco['y'] - deco['h'] + _data['dynamic']['ground_y'];
           int w = deco['w'];
           int h = deco['h'];

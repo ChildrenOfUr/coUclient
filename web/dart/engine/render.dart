@@ -8,8 +8,8 @@ render() {
   // Update clock
   refreshClock();
   //Draw Street
-  //if (CurrentStreet is Street)
-  //CurrentStreet.render();
+  if (currentStreet is Street)
+  currentStreet.render();
   
 
 }
