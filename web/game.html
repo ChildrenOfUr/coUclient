@@ -3,18 +3,11 @@
 <html onContextMenu="return false">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, height=device-height initial-scale=1.0, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes"> <!--iOS-->
     <meta name="mobile-web-app-capable" content="yes"> <!--Chrome for android-->
     
-    <!--don't cache for dev purposes at least-->
-    <meta http-equiv="cache-control" content="max-age=0" />
-	<meta http-equiv="cache-control" content="no-cache" />
-	<meta http-equiv="expires" content="0" />
-	<meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT" />
-	<meta http-equiv="pragma" content="no-cache" />
-
-    <title>children of Ur</title>
+    <title>Children of Ur</title>
 
 <link rel="icon" 
       type="image/png" 
@@ -30,7 +23,8 @@
 <div id="MainScreen"> <!--MainScreen is for mobile and desktop clients-->
 	<!-- Footer -->
 	<div id="Footer">Copyright CoU Development Team, Children of Ur is not endorsed by or affiliated with <a href="http://tinyspeck.com/">Tiny Speck, Inc.</a>(The makers of Glitch) in any way.</div>
-
+	
+	<div id="fps"></div>
 	
 	<!-- The initial splash Screen when the game is opened-->
 	<div id="LoadingScreen">
@@ -263,6 +257,11 @@
 <div id="ChannelSelectorScreen" hidden="true"> <!--Only for mobile clients-->
 	<div class="ActionBar">
 		<div id="BackFromChannelSelector" class="BackButton">Back</div>
+		<i id="MobileChatSettingsIcon" class="icon-cog glyph icon-2x"></i>
+		<div id="MobileChatSettingsMenu" hidden="true">
+			<label class="ChatSettingsOption"><input id="ShowJoinMessages" type="checkbox" class="ChatSettingsCheckbox" checked="false">Show Join Messages</label>
+			<label class="ChatSettingsOption"><input id="PlayMentionSound" type="checkbox" class="ChatSettingsCheckbox" checked="false">Play Mention Sound</label>
+		</div>
 	</div>
 	<div id="ChannelList"></div>
 </div>
@@ -277,13 +276,6 @@
 		<span id="InputContainer"><input type="text" id="MobileChatInput" class="ChatInput Typing"></span>
 		<div id="SendButton">Send</div>
 	</div>
-
-	<div class="PopWindowBody">
-    	<div id="CommandConsole">
-			<ol class="log"></ol>
-    	</div>
-    	<textarea class="ConsoleInput Typing" spellcheck="false"></textarea>
-    </div>
 </div>
     
 <!-- Start the Game up. -->

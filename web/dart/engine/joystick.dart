@@ -9,15 +9,13 @@ class Joystick
 	StreamController _releaseController = new StreamController.broadcast();
 	
 	Joystick(this._joystick, this._knob)
-	{
-		_neutralX = _knob.offsetLeft;
-		_neutralY = _knob.offsetTop;
-		
+	{		
 		_knob.onTouchStart.listen((TouchEvent event)
 		{
 			print('onTouchStart');
 			event.preventDefault();
-			event.stopPropagation();
+			_neutralX = _knob.offsetLeft;
+			_neutralY = _knob.offsetTop;
 			_initialTouchX = event.changedTouches.first.client.x;
 			_initialTouchY = event.changedTouches.first.client.y;
 			_moveController.add(new JoystickEvent());
@@ -61,8 +59,7 @@ class Joystick
 		_knob.onTouchEnd.listen((TouchEvent event)
 		{
 			event.preventDefault();
-			_knob.style.left = _neutralX.toString()+"px";
-			_knob.style.top = _neutralY.toString()+"px";
+			_knob.attributes.remove('style'); //in case the user rotates the screen
 			UP = false; DOWN = false; LEFT = false; RIGHT = false; //reset
 			
 			_releaseController.add(new JoystickEvent());

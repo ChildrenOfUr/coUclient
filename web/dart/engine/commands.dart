@@ -21,7 +21,9 @@ List<List> COMMANDS = new List<List>()
 	..add(['setname','"setname <value>" Changes the players displayed name',setName])
 	
 	..add(['setsong','"setsong <value>" Changes the currently playing song',setSong])
-	..add(['setvolume','"setvolume <1-100>" Changes the volume of the current song',setVolume]);
+	..add(['setvolume','"setvolume <1-100>" Changes the volume of the current song',setVolume])
+	
+	..add(['togglefps','show or hide the fps display"',toggleFps]);
 
 /**
  * Attempts to parse input from the user and run the appropriate command.
@@ -284,6 +286,17 @@ setVolume(String value)
 	    	ui.currentSong.volume(intvalue);
 		printConsole('Setting volume to $value');
 	}  
+}
+
+/**
+ * Toggles the display of the fps counter
+ */
+toggleFps(var nothing)
+{
+	if(showFps)
+		showFps = false;
+	else
+		showFps = true;
 }
 
 // A blank action.
