@@ -13,7 +13,9 @@ dependencies:
       url: https://github.com/ChildrenOfUr/glitch-time.dart.git
   intl: any
   loadie:
-    path: ../loadie
+    git:
+      ref: master
+      url: https://github.com/ChildrenOfUr/loadie.git
   scproxy:
     git:
       ref: master
