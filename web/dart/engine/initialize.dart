@@ -11,46 +11,44 @@ main()
 	init_audio();
 	
 	// On-game-started loading tasks  
-	load_audio().then((_)
+	load_audio()
+	.then((_) => load_streets()
+	.then((_) => new Street('test').load())
+	.then((_)
 	{
-		loadStatus.text = "Loading Streets";
-		load_streets().then((_) 
-		{
-			// Finally finished loading. Clean up.
+		// Finally finished loading. Clean up.
+
+	    // Peacefully fade out the loading screen.
+	    querySelector('#LoadingScreen').style.opacity = '0.0';
+	    Timer t = new Timer(new Duration(seconds:1), querySelector('#LoadingScreen').remove);
+	  
+	    // Set the meters to their current values.
+	    ui.init();      
 	
-		    // Peacefully fade out the loading screen.
-		    querySelector('#LoadingScreen').style.opacity = '0.0';
-		    Timer t = new Timer(new Duration(seconds:1), querySelector('#LoadingScreen').remove);
-		  
-		    // Set the meters to their current values.
-		    ui.init();      
-		
-		    printConsole('System: Initializing..');
-		    
-		    // Start listening for clicks and key presses
-		    playerInput = new Input()
-		    	..init();
-		    
-		    printConsole('System: Initialization Finished.');
-		    printConsole('');
-		    
-		    printConsole('COU DEVELOPMENT CONSOLE');
-		    printConsole('For a list of commands type "help"');    
+	    printConsole('System: Initializing..');
 	    
-			if(int.parse(prevVolume) > 0 && isMuted == '0')
-			{
-				AudioElement doneLoading = ASSET['game_loaded'].get();
-				doneLoading.volume = int.parse(prevVolume)/100;
-				doneLoading.play();
-			}
-			
-			new Street('test').load().then((_) 
-			{
-				chat.init();
-			    // Begin the GAME!!!
-			    game.start();
-			    
-			});
-		});
-	}); 
+	    // Start listening for clicks and key presses
+	    playerInput = new Input()
+	    	..init();
+	    
+	    printConsole('System: Initialization Finished.');
+	    printConsole('');
+	    
+	    printConsole('COU DEVELOPMENT CONSOLE');
+	    printConsole('For a list of commands type "help"');    
+    
+		if(int.parse(prevVolume) > 0 && isMuted == '0')
+		{
+			AudioElement doneLoading = ASSET['game_loaded'].get();
+			doneLoading.volume = int.parse(prevVolume)/100;
+			doneLoading.play();
+		}
+	})
+	.then((_) 
+	{	
+		chat.init();
+		// Begin the GAME!!!
+		game.start();
+  
+	}));
 }

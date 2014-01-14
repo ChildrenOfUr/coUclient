@@ -240,6 +240,20 @@ setName(String value)
  */
 setSong(String value)
 {
+	value = value.replaceAll(' ', '');
+	if(ui.jukebox[value] == null)
+	{
+		loadSong(value).then((_)
+		{
+			_playSong(value);
+		});
+	}
+	else
+		_playSong(value);
+}
+
+_playSong(String value)
+{
 	/*
 	 * canPlayType should return:
 	 * 		probably: if the specified type appears to be playable.
@@ -256,9 +270,8 @@ setSong(String value)
 		printConsole('SoundCloud: Your browser may or may not fully support mp3s');
 	
 	// Changes the ui
-	value = value.replaceAll(' ', '');
 	if (ui.currentSong != null)
-		ui.currentSong.pause();
+	ui.currentSong.pause();
 	ui.currentSong = ui.jukebox[value];
 	ui.currentSong.play();
 	ui.currentSong.loop(true);	

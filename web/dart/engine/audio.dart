@@ -53,20 +53,26 @@ Future load_audio()
 			loading.play();
 		}
 		
-		// Load all our SoundCloud songs and store the resulting SCsongs in the jukebox
-		//TODO: Someday we may want to do this individually when a street loads, rather than all at once.
+		// Load the names and track id's of the music.json file but save actually loading the media file
+		// until it is requested (whether by street load or by setsong command)
     
-		Asset soundCloudSongs = new Asset('./assets/music.json')
-		..load(querySelector("#LoadStatus2")).then((Asset sc_list)
-        {
-			List songsToLoad = new List();
-			for (String song in sc_list.get().keys)
-			{
-				Future future = ui.sc.load(sc_list.get()[song]['scid']).then((s)=>ui.jukebox[song] = s);
-				songsToLoad.add(future);
-			}
-			c.complete(Future.wait(songsToLoad));
-		});
+		Asset soundCloudSongs = new Asset('./assets/music.json');
+		soundCloudSongs.load(querySelector("#LoadStatus2"));
+		c.complete('');
 	});
     return c.future;
+}
+
+Future loadSong(String name)
+{
+	Completer c = new Completer();
+	
+	ui.sc.load(ASSET['music'].get()[name]['scid'])
+	.then((Scound s) 
+	{
+		ui.jukebox[name] = s;
+		c.complete();
+	});
+	
+	return c.future;
 }

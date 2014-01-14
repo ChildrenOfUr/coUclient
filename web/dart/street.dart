@@ -49,10 +49,9 @@ class Street
 		// clean up old street data
 		currentStreet = null; 
    
-		// set the song.
+		// set the song loading if necessary
 		if (_data['music'] != null)
 			setSong(_data['music']);
-   
    
 		// Collect the url's of each deco to load.
 		List decosToLoad = [];
@@ -143,9 +142,10 @@ class Street
 					gameScreen.append(decoCanvas);
 				}
 			}
+			
+			c.complete(this);
 		});
         // Done initializing street.
-		c.complete("");
 		return c.future;
 	}
  
@@ -178,6 +178,7 @@ class Street
 // Initialization, loads all the streets in our master file into memory.
 Future load_streets()
 {
+	querySelector("#LoadStatus").text = "Loading Streets";
 	// allows us to load street files as though they are json files.
 	jsonExtensions.add('street');
 	
@@ -189,7 +190,7 @@ Future load_streets()
 		// Load each street file into memory. If this gets too expensive we'll move this elsewhere.
 		List toLoad = [];
 		for (String url in streetList.get().values)
-			toLoad.add(new Asset(url).load());
+			toLoad.add(new Asset(url).load(querySelector("#LoadStatus2")));
 		
 		c.complete(Future.wait(toLoad));
 	});
