@@ -186,6 +186,9 @@ textarea{resize: none;}
     -webkit-transition-timing-function:linear;
     -webkit-transition-delay:1s; 
 }
+#LoadStatus {
+				
+}
 
 /*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 /*The default styling of the 'You Won' Screen*/
