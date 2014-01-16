@@ -38,15 +38,18 @@ Future load_audio()
 
 	ui_sounds = new Batch
 		([
-			new Asset('./assets/system/loading.ogg'),
-	        new Asset('./assets/system/mention.ogg'),
-	        new Asset('./assets/system/game_loaded.ogg')
+			//iOS/safari doesn't seem to like .ogg files
+			//and dartium doesn't seem to like .mp3 files
+			//here's a fix for dartium http://downloadsquad.switched.com/2010/06/24/play-embedded-mp3-audio-files-chromium/
+			new Asset('./assets/system/loading.mp3'),
+	        new Asset('./assets/system/mention.mp3'),
+	        new Asset('./assets/system/game_loaded.mp3')
         ])
-	..load(print).then((_)
+	..load(print,querySelector("#LoadStatus2")).then((_)
 	{
 		//start the loading music and attach it to the #LoadingScreen so that when that is removed the music stops
 		if(int.parse(prevVolume) > 0 && isMuted == '0')
-		{
+		{				
 			AudioElement loading = ASSET['loading'].get();
 			loading.volume = int.parse(prevVolume)/100;
 			querySelector('#LoadingScreen').append(loading);

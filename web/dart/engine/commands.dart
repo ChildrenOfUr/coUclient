@@ -264,7 +264,7 @@ _playSong(String value)
 	if (testResult == '')
 	{
 		printConsole('SoundCloud: Your browser doesnt like mp3s :(');
-		return;
+		//return;
 	}
 	else if(testResult == 'maybe') //give warning message but proceed anyway
 		printConsole('SoundCloud: Your browser may or may not fully support mp3s');

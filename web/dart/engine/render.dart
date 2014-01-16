@@ -7,7 +7,8 @@ NumberFormat twoDigit = new NumberFormat("#0");
 bool showFps = false;
 
 // Our renderloop
-render() {
+render() 
+{
 	if(showFps)
 	{
 		var now = new DateTime.now();
@@ -15,11 +16,9 @@ render() {
 		fpsDisplay.text = "fps:"+twoDigit.format(fps);
 		last = now;
 	}
-  // Update clock
-  refreshClock();
-  //Draw Street
-  if (currentStreet is Street)
-  currentStreet.render();
+	// Update clock
+	refreshClock();
+	//Draw Street
+	if (currentStreet is Street)
+	currentStreet.render();
 }
-
-

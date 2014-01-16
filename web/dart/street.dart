@@ -47,7 +47,7 @@ class Street
 	{
 		Completer c = new Completer();
 		// clean up old street data
-		currentStreet = null; 
+		currentStreet = null;
    
 		// set the song loading if necessary
 		if (_data['music'] != null)
