@@ -62,6 +62,8 @@ main() {
   .then((_) => new File('../out/web/game.html').writeAsStringSync(
       minifyHtml(
           new File('../web/game.html').readAsLinesSync())))
+	.then((_) => new File('../out/web/index.html').writeAsStringSync(minifyHtml(
+    new File('../web/game.html').readAsLinesSync())))
           
   .then((_) {
     

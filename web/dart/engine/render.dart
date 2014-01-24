@@ -20,5 +20,5 @@ render()
 	refreshClock();
 	//Draw Street
 	if (currentStreet is Street)
-	currentStreet.render();
+		currentStreet.render();
 }

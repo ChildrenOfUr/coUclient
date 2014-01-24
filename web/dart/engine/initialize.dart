@@ -11,9 +11,10 @@ main()
 	// On-game-started loading tasks
 	load_audio()
 	.then((_) => load_streets()
-	.then((_) => new Street('test').load())
+	.then((_) => new Street('test').load()
 	.then((_)
 	{
+		CurrentPlayer = new Player();
 		//initialize chat after street has been loaded and currentStreet.label is set
 		chat.init();
 		
@@ -33,7 +34,7 @@ main()
 				start();
 			});
 		}
-	}));
+	})));
 }
 
 start()
@@ -67,7 +68,7 @@ start()
 	
 	printConsole('COU DEVELOPMENT CONSOLE');
 	printConsole('For a list of commands type "help"');
-	
+	    	
 	// Begin the GAME!!!
 	game.start();
 }
