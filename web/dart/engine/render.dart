@@ -9,7 +9,7 @@ bool showFps = false;
 // Our renderloop
 render() 
 {
-	//if(showFps)
+	if(showFps)
 	{
 		var now = new DateTime.now();
 		var fps = 1/(now.difference(last).inMilliseconds/1000);
