@@ -12,7 +12,6 @@ class Joystick
 	{		
 		_knob.onTouchStart.listen((TouchEvent event)
 		{
-			print('onTouchStart');
 			event.preventDefault();
 			_neutralX = _knob.offsetLeft;
 			_neutralY = _knob.offsetTop;
@@ -22,7 +21,6 @@ class Joystick
 		});
 		_knob.onTouchMove.listen((TouchEvent event)
 		{
-			print('onTouchMove');
 			event.preventDefault(); //prevent page from scrolling/zooming
 			int x = _neutralX + (event.changedTouches.first.client.x - _initialTouchX);
 			int y = _neutralY + (event.changedTouches.first.client.y - _initialTouchY);

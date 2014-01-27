@@ -9,7 +9,7 @@ bool showFps = false;
 // Our renderloop
 render() 
 {
-	if(showFps)
+	//if(showFps)
 	{
 		var now = new DateTime.now();
 		var fps = 1/(now.difference(last).inMilliseconds/1000);
@@ -21,4 +21,7 @@ render()
 	//Draw Street
 	if (currentStreet is Street)
 		currentStreet.render();
+	//Draw Player
+	if(CurrentPlayer is Player)
+		CurrentPlayer.render();
 }

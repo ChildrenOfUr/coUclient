@@ -108,18 +108,19 @@ class Street
 			
 			// Append it to the screen*/
 			gameScreen.append(gradientCanvas);
-		     
+		    
 			/* //// Scenery Canvases //// */
 			//For each layer on the street . . .
 			for (Map layer in new Map.from(_data['dynamic']['layers']).values)
 			{
 				DivElement decoCanvas = new DivElement()
-				..classes.add('streetcanvas');
+					..classes.add('streetcanvas');
 				decoCanvas.id = layer['name'];
 				
 				decoCanvas.style.zIndex = layer['z'].toString();
 				decoCanvas.style.width = layer['w'].toString() + 'px';
-				decoCanvas.style.height =  layer['h'].toString() + 'px';
+				decoCanvas.style.height = layer['h'].toString() + 'px';
+				decoCanvas.style.position = 'absolute';
 		      
 				//For each decoration in the layer, give its attributes and draw
 				
@@ -181,12 +182,10 @@ class Street
 		//modify left and top for parallaxing
 		for (DivElement canvas in gameScreen.querySelectorAll('.streetcanvas'))
 		{
-			double offSetX = (canvas.clientWidth - gameScreen.clientWidth) * -currentPercentX;
-			double offSetY = (canvas.clientHeight - gameScreen.clientHeight) * -currentPercentY;
-			
-			canvas.style.position = 'absolute';
-			canvas.style.left = (offSetX.toString()) + 'px';
-			canvas.style.top =  (offSetY.toString()) + 'px';
+			double offsetX = (canvas.clientWidth - gameScreen.clientWidth) * currentPercentX;
+			double offsetY = (canvas.clientHeight - gameScreen.clientHeight) * currentPercentY;
+
+			canvas.style.transform = "translateZ(0) translateX("+(-offsetX).toString()+"px) translateY("+(-offsetY).toString()+"px)";
 		}
 	}
 }

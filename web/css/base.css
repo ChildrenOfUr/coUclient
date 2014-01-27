@@ -303,6 +303,7 @@ textarea{resize: none;}
 }
 
 .streetcanvas {
+				/*
     transition-property: top right;
     transition-duration: 0.5s;
     transition-timing-function: ease-in-out;
@@ -310,7 +311,7 @@ textarea{resize: none;}
     -webkit-transition-property: top right;
     -webkit-transition-duration:0.5s;
     -webkit-transition-timing-function:ease-in-out;
-    -webkit-transition-delay:0s;    
+    -webkit-transition-delay:0s;    */
 }
 /*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 /*Elements in the top, left corner*/
