@@ -1,218 +1,226 @@
 part of coUclient;
 
-//Major change - for each layer on the street, make a new canvas
+Street currentStreet;
 
-//All environmental layers are created in load()
-//gradientCanvas only contains the street's gradient and only repositions with camera.y changes
-//decorative canvases are created for each layer (bg_1, bg_2, etc.)
-//These are added to #GameScreen, and repositioned in render
-
-//Separately, gameCanvas contains all moving elements, because the canvas must be cleared periodically
-//It is instatiated in main.dart, its values specified in init()
-
-
-//If we wanted to, we could create the #GameScreen in dart
-DivElement gameScreen = querySelector('#GameScreen');
-int gameScreenWidth;
-int gameScreenHeight;
-
-Street CurrentStreet;
-
-class Street {
-  String ID;
-  Map _data;
-  
-  String label;
-  
-  int width;
-  int height;
-  
-  //the outer bounds of the street
-  int top;
-  int bottom;
-  int left;
-  int right;
-  
-  String gradientTop;
-  String gradientBottom;
-  
-  double currentPercentX; 
-  double currentPercentY;
-  
-  Street(this.ID){
-    if (assets[ID] == null)
-      throw('Error: Asset not loaded!');
-    else {
-      
-      _data = assets[ID];
-        
-      // sets the label for the street
-      label = _data['label'];
-        
-      // pulls the gradient from our json
-      gradientTop = '#' + _data['gradient']['top'];
-      gradientBottom = '#' +  _data['gradient']['bottom'];
-        
-      //This class could have a or inherit from a Rectangle
-      top = _data['dynamic']['t'];
-      bottom = _data['dynamic']['b'];
-      left = _data['dynamic']['l'];
-      right = _data['dynamic']['r'];
-        
-      width = (_data['dynamic']['l'].abs() + _data['dynamic']['r'].abs());
-      height = (_data['dynamic']['t'].abs());
-    }
-  }
-    
-  load(){
-
-    //Canvases are created here for each layer, because
-    //there are a variable number of layers in each lvl,
-    //some are empty, and all are different sizes.
-        
-    //TODO: make ui class, overlaycanvas; dynamic in size
-    /*
-    overlayCanvas.width = width;
-    overlayCanvas.height = height;
-    */
-    
-    /* //// Gradient Canvas //// */
-
-    // TODO, we could change this in relation to the time making days actually feel like days. :P
-    // CB - +1 this idea ^ (but maybe hold off on new features until old features all work)
-    // TODO, this gradient often appears 'banded' we should do something about that later.
-    
-    CanvasElement gradientCanvas = new CanvasElement();
-    gradientCanvas.id = 'gradient';
-    gameScreen.append(gradientCanvas);
-    gradientCanvas.style.zIndex = (-100).toString();
-    gradientCanvas.width = width;
-    gradientCanvas.height = height;
-
-    gradientCanvas.style.position = 'absolute';
-    gradientCanvas.style.left = '0 px';
-    gradientCanvas.style.top =  '0 px'; 
-    
-    var g = gradientCanvas.context2D.createLinearGradient(0,0,0,height);
-    g.addColorStop(0,gradientTop);
-    g.addColorStop(1,gradientBottom);
-    gradientCanvas.context2D.fillStyle = g;
-    gradientCanvas.context2D.fillRect(0,0,width,height);
-    
-    /* //// Scenery Canvases //// */
-    
-    //For each layer on the street, add its name to a List, and sort by z
-    List layersOrdered = [];
-    _data['dynamic']['layers'].forEach((p, y) => layersOrdered.add(p.toString()));
-    layersOrdered.sort((x,y) => _data['dynamic']['layers'][x]['z'].compareTo(_data['dynamic']['layers'][y]['z']));
-
-    //For each layer on the street . . .
-    for (var e = 0; e < 6; e++){
-      
-      //Create a list of the decorations . . .
-      List decos = [];
-      List canvasesOrdered = [];
-      
-      for (Map deco in _data['dynamic']['layers'][layersOrdered[e]]['decos']){
-        decos.add(deco);
-        }
-      
-      //Then sort them by z-layer, low to high.
-      decos.sort((x, y) => x['z'].compareTo(y['z']));
-
-      //Create a new canvas with the layer's attributes
-      int width = _data['dynamic']['layers'][layersOrdered[e]]['w'];
-      int height = _data['dynamic']['layers'][layersOrdered[e]]['h'];
-      int zIndex = _data['dynamic']['layers'][layersOrdered[e]]['z'];
-      String id = _data['dynamic']['layers'][layersOrdered[e]]['name'];
-      
-      CanvasElement decoCanvas = new CanvasElement();
-      decoCanvas.id = id;
-      
-      gameScreen.append(decoCanvas);
-      decoCanvas.style.zIndex = zIndex.toString();
-      decoCanvas.width = width;
-      decoCanvas.height = height;
-        
-      decoCanvas.style.position = 'absolute';
-      decoCanvas.style.left = '0 px';
-      decoCanvas.style.top =  '0 px';        
-      
-      //For each decoration in the layer, give its attributes and draw
-      
-      //TODO: FIX THIS
-      //Parallax and such is working, BUT
-      //Not all images are drawing at the correct y values.
-      //It seems this int.y makes foreground and background work, but not middleground???
-      for (Map deco in decos){
-            
-          int x = deco['x'] + width~/(gameScreenWidth) ;
-          int y = deco['y'] - deco['h'] + _data['dynamic']['ground_y'];
-          int w = deco['w'];
-          int h = deco['h'];
-          int z = deco['z'];
-
-          decoCanvas.context2D.imageSmoothingEnabled = false;
-          
-          ImageElement source = new ImageElement()
-            ..src = 'http://revdancatt.github.io/CAT422-glitch-location-viewer/img/scenery/' + deco['filename'] + '.png'
-            ..style.position = 'absolute'
-            ..style.left = '-9999999px'
-            ..style.zIndex = z.toString();
-            
-            //keeping this in makes the app run weird, will add efficiency back in later
-            //document.body.children.add(source);
-
-          decoCanvas.context2D.drawImageScaled(source, x, y, w, h);
-          }
-        }
-    CurrentStreet = this;
-  }  
-  
-  //Parallaxing: Adjust the position of each canvas in #GameScreen
-  //based on the camera position and relative size of canvas to Street
-  render(){
-    
-    currentPercentX = CurrentCamera.x / (width - gameScreenWidth);
-    currentPercentY = CurrentCamera.y / (height - gameScreenHeight);
-
-    //modify left and top for parallaxing
-    for (CanvasElement temp in gameScreen.children){
-      
-      //Don't need to worry about gradientCanvas x changes
-      if (temp.id == 'gradient'){
-      temp.style.top =  ((temp.height - gameScreenHeight) * -currentPercentY).toString() + 'px';
-      }
-      
-      else{
-      double offSetX = (temp.width - gameScreenWidth) * -currentPercentX;
-      double offSetY = (temp.height - gameScreenHeight) * -currentPercentY;
-
-      temp.style.position = 'absolute';
-      temp.style.left = (offSetX.toString()) + 'px';
-      temp.style.top =  (offSetY.toString()) + 'px';
-      }
-    }
-  }  
+Camera camera = new Camera(0,400);
+class Camera
+{
+	num x,y;
+	num zoom = 0; // for future eyeballery
+	Camera(this.x,this.y)
+	{
+    	COMMANDS.add(['camera','sets the cameras position "camera x,y"',this.setCamera]);
+	}
+	
+  	// we're using css transitions for smooth scrolling.
+	setCamera(String xy) //  format 'x,y'
+	{
+		try
+		{
+			this.x = int.parse(xy.split(',')[0]); 
+			this.y = int.parse(xy.split(',')[1]);
+		}
+		catch (exception, stacktrace)
+		{
+			printConsole("error: format must be camera [num],[num]");
+		}
+	}
 }
 
-//TODO: change to UI class?
-resize(){
-  Element chatPane = querySelector('#ChatPane');
-  Element gameScreen = querySelector('#GameScreen');
-  //Element gameStage = querySelector('#GameStage');
-  
-  gameScreenWidth = window.innerWidth - 80 - 40 - chatPane.clientWidth;
-  gameScreenHeight = window.innerHeight - 180;
-  
-  chatPane.style.right;
-  chatPane.clientWidth;
-  
-  gameScreen.style.width = gameScreenWidth.toString()+'px';
-  gameScreen.style.height = gameScreenHeight.toString()+'px';
+DivElement gameScreen = querySelector('#GameScreen');
 
-  chatPane.style.height = (gameScreenHeight + 50).toString()+'px';
+class Street 
+{    
+	String label;
+	Map _data;
+	CanvasElement belowPlayer = new CanvasElement();
+	CanvasElement abovePlayer = new CanvasElement();
+	
+	Rectangle bounds;
   
-  //TODO When the window becomes too small, we should spawn an overlay that tells the user this fact.
-  //This should go in UserInterface
+	Street(String streetName)
+	{
+		_data = ASSET[streetName].get();
+     
+		// sets the label for the street
+		label = _data['label'];
+          
+		bounds = new Rectangle(_data['dynamic']['l'],
+								_data['dynamic']['t'],
+								_data['dynamic']['l'].abs() + _data['dynamic']['r'].abs(),
+								_data['dynamic']['t'].abs());
+	}
+  
+	Future <List> load()
+	{
+		Completer c = new Completer();
+		// clean up old street data
+		currentStreet = null;
+   
+		// set the song loading if necessary
+		if (_data['music'] != null)
+			setSong(_data['music']);
+   
+		// Collect the url's of each deco to load.
+		List decosToLoad = [];
+		for (Map layer in _data['dynamic']['layers'].values)
+		{
+			for (Map deco in layer['decos'])
+			{
+				if (!decosToLoad.contains('http://revdancatt.github.io/CAT422-glitch-location-viewer/img/scenery/' + deco['filename'] + '.png'))
+        			decosToLoad.add('http://revdancatt.github.io/CAT422-glitch-location-viewer/img/scenery/' + deco['filename'] + '.png');
+			}
+		}
+		var end = new DateTime.now();
+    
+		// turn them into assets
+		List assetsToLoad = [];
+		for (String deco in decosToLoad)
+		{
+			assetsToLoad.add(new Asset(deco));
+		}
+		
+		// Load each of them, and then continue.
+		Batch decos = new Batch(assetsToLoad);
+		decos.load(setStreetLoadBar).then((_)
+        {
+			//Decos should all be loaded at this point//
+			
+			// set the street.
+			currentStreet = this;
+		      
+			/* //// Gradient Canvas //// */
+			DivElement gradientCanvas = new DivElement();
+			gradientCanvas.classes.add('streetcanvas');
+			gradientCanvas.id = 'gradient';
+			gradientCanvas.style.zIndex = (-100).toString();
+			gradientCanvas.style.width = bounds.width.toString() + "px";
+			gradientCanvas.style.height = bounds.height.toString() + "px";
+			gradientCanvas.style.position = 'absolute';
+			
+			// Color the gradientCanvas
+			String top = _data['gradient']['top'];
+			String bottom = _data['gradient']['bottom'];
+			gradientCanvas.style.background = "-webkit-linear-gradient(top, #$top, #$bottom)";
+			gradientCanvas.style.background = "-moz-linear-gradient(top, #$top, #$bottom)";
+			gradientCanvas.style.background = "-ms-linear-gradient(#$top, #$bottom)";
+			gradientCanvas.style.background = "-o-linear-gradient(#$top, #$bottom)";
+			
+			// Append it to the screen*/
+			gameScreen.append(gradientCanvas);
+		    
+			/* //// Scenery Canvases //// */
+			//For each layer on the street . . .
+			for (Map layer in new Map.from(_data['dynamic']['layers']).values)
+			{
+				DivElement decoCanvas = new DivElement()
+					..classes.add('streetcanvas');
+				decoCanvas.id = layer['name'];
+				
+				decoCanvas.style.zIndex = layer['z'].toString();
+				decoCanvas.style.width = layer['w'].toString() + 'px';
+				decoCanvas.style.height = layer['h'].toString() + 'px';
+				decoCanvas.style.position = 'absolute';
+		      
+				//For each decoration in the layer, give its attributes and draw
+				
+				//TODO: FIX THIS
+				//Parallax and such is working, BUT
+				//Not all images are drawing at the correct y values.
+				//It seems this int.y makes foreground and background work, but not middleground???
+				List<ImageElement> decos = new List<ImageElement>();
+				for (Map deco in layer['decos'])
+				{
+					int x = deco['x'] - deco['w']~/2;
+					int y = deco['y'] - deco['h'] + _data['dynamic']['ground_y'];
+					if(layer['name'] == 'middleground')
+					{
+						y += layer['h'];
+						x += layer['w']~/2;
+					}
+					int w = deco['w'];
+					int h = deco['h'];
+					int z = deco['z'];
+		        
+					// only draw if the image is loaded.
+					if (ASSET[deco['filename']] != null)
+					{
+						ImageElement d = ASSET[deco['filename']].get();
+						d.style.position = 'absolute';
+						d.style.left = x.toString() + 'px';
+						d.style.top = y.toString() + 'px';
+						d.style.width = w.toString() + 'px';
+						d.style.height = h.toString() + 'px';
+						d.style.zIndex = z.toString();
+						String transform = "";
+						if(deco['h_flip'] != null && deco['h_flip'] == true)
+							transform += "scale(-1,1)";
+						if(deco['r'] != null)
+							transform += " rotate("+(PI/180*deco['r']).toString()+"deg)";
+						d.style.transform = transform;
+						decoCanvas.append(d.clone(false));
+					}
+				}
+				
+				// Append the canvas to the screen
+				gameScreen.append(decoCanvas);
+			}
+			
+			c.complete(this);
+		});
+        // Done initializing street.
+		return c.future;
+	}
+ 
+	//Parallaxing: Adjust the position of each canvas in #GameScreen
+	//based on the camera position and relative size of canvas to Street
+	render()
+	{
+		num currentPercentX = camera.x / (bounds.width - gameScreen.clientWidth);
+		num currentPercentY = camera.y / (bounds.height - gameScreen.clientHeight);
+		
+		//modify left and top for parallaxing
+		for (DivElement canvas in gameScreen.querySelectorAll('.streetcanvas'))
+		{
+			double offsetX = (canvas.clientWidth - gameScreen.clientWidth) * currentPercentX;
+			double offsetY = (canvas.clientHeight - gameScreen.clientHeight) * currentPercentY;
+
+			canvas.style.transform = "translateZ(0) translateX("+(-offsetX).toString()+"px) translateY("+(-offsetY).toString()+"px)";
+		}
+	}
+}
+
+// Initialization, loads all the streets in our master file into memory.
+Future load_streets()
+{
+	querySelector("#LoadStatus").text = "Loading Streets";
+	// allows us to load street files as though they are json files.
+	jsonExtensions.add('street');
+	
+	Completer c = new Completer();
+
+	// loads the master street json.
+	new Asset('./assets/streets.json').load().then((Asset streetList) 
+	{
+		// Load each street file into memory. If this gets too expensive we'll move this elsewhere.
+		List toLoad = [];
+		for (String url in streetList.get().values)
+			toLoad.add(new Asset(url).load(querySelector("#LoadStatus2")));
+		
+		c.complete(Future.wait(toLoad));
+	});
+	
+	return c.future;
+}
+
+// the callback function for our deco loading 'Batch'
+setStreetLoadBar(int percent)
+{
+	querySelector('#StreetLoadingStatus').text = 'loading decos...';
+	querySelector('#MapLoadingBar').style.width = (percent + 1).toString() + '%';
+	if (percent >= 99)
+	{
+		querySelector('#StreetLoadingStatus').text = '...done';
+		querySelector('#MapLoadingScreen').style.opacity = '0.0';
+	}
 }

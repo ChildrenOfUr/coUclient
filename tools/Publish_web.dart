@@ -6,7 +6,7 @@ import 'dart:io';
 
 
 /*
- * This script compiles a web-publishable version of the client
+ * This script compiles a web-publishable, JavaScript, version of the client
  * 
  */
 
@@ -33,39 +33,37 @@ main() {
   
   
   print(Platform.executable);
-  print('Running dart2js + minify...');
-  print('dart2js path: $PATH_TO_DART2JS');
-  Process.run(PATH_TO_DART2JS,['../web/main.dart','--out=../web/game.js','--minify'])
+  
+
+  
+
+        if (new Directory('../out').existsSync() == false)
+          new Directory('../out').createSync(recursive: true);
+    
+  
+  new Directory('../out').delete(recursive: true)
+  .then((_) => new Directory('../out/web').create(recursive: true))
+  
+  .then((_) => print('Running dart2js + minify...'))
+  .then((_) => print('dart2js path: $PATH_TO_DART2JS'))
+  .then((_) => Process.run(PATH_TO_DART2JS,['../web/main.dart','--out=../out/web/game.js']))
+  //.then((_) => Process.run(PATH_TO_DART2JS,['../web/main.dart','--out=../out/web/game.dart', '--output-type=dart']))
   .then((_) => print('Cleaning Output Directory...'))
   
   // Deletes the unneeded files made when we used dart2js
   .then((_) => print('Cleaning Workspace...'))  
 
-  .then((_) => new File('../web/game.js.deps').deleteSync())
-  .then((_) => new File('../web/game.js.map').deleteSync())
-  .then((_) => new File('../web/game.precompiled.js').deleteSync())
-
+  //.then((_) => new File('../out/web/game.dart.deps').deleteSync())
+  .then((_) => new File('../out/web/game.js.deps').deleteSync())
+  .then((_) => new File('../out/web/game.js.map').deleteSync())
+  .then((_) => new File('../out/web/game.precompiled.js').deleteSync())
   
-  .then((_) 
-      {
-        if (new Directory('../out').existsSync() == false)
-          new Directory('../out').createSync(recursive: true);
-    
-      })
-  .then((_) => new Directory('../out').deleteSync(recursive: true))
-  .then((_) => new Directory('../out/web').createSync(recursive: true))
-  
-  // Places our js in the output folder
-  .then((_) => new File('../out/web/game.js').writeAsStringSync(
-      new File('../web/game.js').readAsStringSync()))
-  
-  // Don't need this anymore
-  .then((_) => new File('../web/game.js').deleteSync())
-      
   // Places our html in the output folder
   .then((_) => new File('../out/web/game.html').writeAsStringSync(
       minifyHtml(
           new File('../web/game.html').readAsLinesSync())))
+	.then((_) => new File('../out/web/index.html').writeAsStringSync(minifyHtml(
+    new File('../web/game.html').readAsLinesSync())))
           
   .then((_) {
     
@@ -115,21 +113,6 @@ main() {
   .catchError(print);
 }
 
-// Sets up the outputted html file to use JS instead of Dart, Plus optimizing media paths.
-List <String> modeJS(List<String> fileLines){
-  print('Converting HTML file to use JavaScript...');
-  List<String> newHTML = new List();
-  for (String line in fileLines)
-  {
-    line = line.replaceAll('<script type="application/dart" src="main.dart"></script>', '');
-    line = line.replaceAll('packages/browser/dart.js', 'game.js');
-    // Add other html replacement lines here.
-
-    newHTML.add(line);
-  }
-  return newHTML;
-}
-
 
 String minifyCss(List<String> fileLines){
   print('Minifying CSS...');  
@@ -158,11 +141,13 @@ String minifyHtml(List<String> input){
    List<String> fileLines = new List();
    for (String line in input)
    {
-    line = line.replaceAll('<script type="application/dart" src="main.dart"></script>', '');
-    line = line.replaceAll('packages/browser/dart.js', 'game.js');
+    line = line.replaceAll('main.dart', 'game.js');
+    line = line.replaceAll('type="application/dart" ', '');
+    //line = line.replaceAll('packages/browser/interop.js', 'interop.js');
+    line = line.replaceAll('<script src="packages/browser/dart.js"></script>', '');
     // Add other html replacement lines here.
 
-    fileLines.add(line);
+    fileLines.add(line + '\n');
    }
 
   

@@ -1,0 +1,53 @@
+{ "piano":{
+  "scid":"/tracks/124082151"
+  },
+  
+  "horns":{
+  "scid":"/tracks/124082144"
+  },
+  
+  "ilmenkskie":{
+  "scid":"/tracks/111477464"
+  },
+  
+  "firebog":{
+  "scid":"/tracks/101753925"
+  },
+  
+  "ancestral":{
+  "scid":"/tracks/90493224"
+  },
+  
+  "ancient":{
+  "scid":"/tracks/111473069"
+  },
+  
+  "highlands":{
+  "scid":"/tracks/85357859"
+  },
+  
+  "rube":{
+  "scid":"/tracks/81820505"
+  },
+  
+  "uralia2":{
+  "scid":"/tracks/81815347"
+  },
+  
+  "uralia3":{
+  "scid":"/tracks/81815209"
+  },
+  
+  "kloroandhaoma":{
+  "scid":"/tracks/59351776"
+  },
+  
+  "nottis":{
+  "scid":"/tracks/126281629"
+  },
+  
+  "lullaby":{
+  "scid":"/tracks/70618898"
+  }
+
+}
