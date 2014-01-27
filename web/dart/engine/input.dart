@@ -24,30 +24,7 @@ class Input
 	init() 
 	{
 		// disable default game_loop pointerlock
-		game.pointerLock.lockOnClick = false;
-      
-		// Handle the console opener/closer
-		querySelector('#ConsoleGlyph').onClick.listen((a)
-		{
-			if(querySelector('#DevConsole').hidden)
-				showConsole();
-			else
-		  		hideConsole(1);
-		});
-		querySelector("#CloseConsole").onClick.listen((_)
-		{
-			hideConsole(1);
-		});
-	    
-	    // Handle the fullscreen Requests
-	    querySelectorAll('.FullscreenGlyph').onClick.listen((a)
-		{
-	    	document.documentElement.requestFullscreen();
-	    });  
-	    querySelectorAll('.FullscreenResetGlyph').onClick.listen((a)
-		{
-	    	document.exitFullscreen();
-	    });  
+		game.pointerLock.lockOnClick = false;  
 	
 	    document.onFullscreenChange.listen((_)
 		{
@@ -65,14 +42,6 @@ class Input
 		    }
 		});
 	  
-		//Toggle mute and previous volume when volume button clicked
-		querySelector('#AudioGlyph').onClick.listen((_)
-		{
-			String mute = '0';
-			if(localStorage['isMuted'] == '0')
-				mute = '1';
-			ui._setMute(mute);
-		});
 		//Handle volume slider changes
 		InputElement volumeSlider = querySelector('#VolumeSlider');
 		volumeSlider.onChange.listen((_)
@@ -139,49 +108,97 @@ class Input
 		{
 			upKey = false; downKey = false; rightKey = false; leftKey = false;
 		});
-		querySelector('#AButton').onTouchStart.listen((TouchEvent event)
+		document.onTouchStart.listen((TouchEvent event)
 		{
-			event.preventDefault(); //to disable long press calling the context menu
-			spaceKey = true;
-		});
-		querySelector('#AButton').onTouchEnd.listen((_)
-		{
-			spaceKey = false;
-		});	
-		querySelector('#BButton').onTouchStart.listen((TouchEvent event)
-		{
-			event.preventDefault(); //to disable long press calling the context menu
-		});
-		querySelector('#BButton').onTouchEnd.listen((_)
-		{
-		});
-		querySelector('#ChatBubble').onClick.listen((_)
-		{
-			//if chat is reconnecting, don't do anything
-			if(querySelector('#ChatBubbleDisconnect').style.display == "inline-block")
-				return;
+			Element target = event.target;
 			
-			querySelector('#ChannelSelectorScreen').hidden = false;
-			querySelector('#MainScreen').hidden = true;
+			if(target.id == "AButton")
+			{
+				event.preventDefault(); //to disable long press calling the context menu
+				spaceKey = true;
+			}
+			
+			if(target.id == "BButton")
+			{
+				event.preventDefault(); //to disable long press calling the context menu
+			}
 		});
-		querySelector('#BackFromChannelSelector').onClick.listen((_)
+		document.onTouchEnd.listen((TouchEvent event)
 		{
-			querySelector('#ChannelSelectorScreen').hidden = true;
-			querySelector('#MainScreen').hidden = false;
+			Element target = event.target;
+			
+			if(target.id == "AButton")
+			{
+				spaceKey = false;
+			}
+			
+			if(target.id == "BButton")
+			{
+			
+			}
 		});
-		querySelector('#BackFromChat').onClick.listen((_)
+		
+		document.onClick.listen((MouseEvent event)
 		{
-			//set all conversation's to z-index=0 to determine visibility later
-			querySelectorAll('.Conversation').style.zIndex = "0";
-			querySelector('#ChatScreen').hidden = true;
-			querySelector('#ChannelSelectorScreen').hidden = false;
-		});
-		querySelectorAll('.ChannelName').forEach((Element element)
-		{
-			element.onClick.listen((MouseEvent event)
+			Element target = event.target;
+			
+			// Handle the console opener/closer
+			if(target.id == "ConsoleGlyph")
+			{
+				if(querySelector('#DevConsole').hidden)
+					showConsole();
+				else
+			  		hideConsole(1);
+			}
+			if(target.id == "CloseConsole")
+			{
+				hideConsole(1);
+			}
+			
+			// Handle the fullscreen Requests
+			if(target.className.contains("FullscreenGlyph"))
+			{
+				document.documentElement.requestFullscreen();
+			}
+			if(target.className.contains("FullscreenResetGlyph"))
+			{
+				document.exitFullscreen();
+			}
+			
+			//Toggle mute and previous volume when volume button clicked
+			if(target.parent.id == "AudioGlyph") //parent because it contains different elements depending on mute state
+			{
+				String mute = '0';
+				if(localStorage['isMuted'] == '0')
+					mute = '1';
+				ui._setMute(mute);
+			}
+			
+			//handle chat settings menu
+			if(target.id == "ChatSettingsIcon")
+			{
+				Element chatMenu = querySelector("#ChatSettingsMenu");
+				if(chatMenu.hidden)
+					chatMenu.hidden = false;
+				else
+					chatMenu.hidden = true;
+			}
+			if(target.id == "MobileChatSettingsIcon") //mobile version
+			{
+				Element chatMenu = querySelector("#MobileChatSettingsMenu");
+				if(chatMenu.hidden)
+					chatMenu.hidden = false;
+				else
+					chatMenu.hidden = true;
+			}
+			
+			//////////////////////////////////////////
+			///mobile specific click targets
+			//////////////////////////////////////////
+			if(target.className == "ChannelName")
 			{
 				//get channel name depending on which element was clicked
-				String channelName = element.id.substring(element.id.indexOf("-")+1).replaceAll("_", " ");
+				String channelName = target.id.substring(target.id.indexOf("-")+1).replaceAll("_", " ");
 				querySelector('#ChatChannelTitle').text = channelName;
 				
 				//reset unreadMessages
@@ -194,32 +211,58 @@ class Input
 				//send all conversations to z-index=0 except the one we want to see
 				querySelectorAll('.Conversation').style.zIndex = "0";
 				querySelector('#conversation-'+channelName.replaceAll(" ", "_")).style.zIndex = "1";
-			});
-		});
-		querySelector('#SendButton').onClick.listen((_)
-		{
-			//get name of channel this text should be sent to
-			//then process the input using the associated TabContent object
-			String channelName = querySelector('#ChatChannelTitle').text;
-			TextInputElement input = querySelector('#MobileChatInput') as TextInputElement;
-			chat.tabContentMap[channelName].processInput(input);
+			}
 			
-			if(input.value.trim().length == 0) //don't allow for blank messages
-				return;
+			if(target.id == "BackFromChat")
+			{
+				//set all conversation's to z-index=0 to determine visibility later
+				querySelectorAll('.Conversation').style.zIndex = "0";
+				querySelector('#ChatScreen').hidden = true;
+				querySelector('#ChannelSelectorScreen').hidden = false;
+			}
 			
-			chat.tabContentMap[channelName].parseInput(input.value);
-			input.value = '';
+			if(target.id == "BackFromChannelSelector")
+			{
+				querySelector('#ChannelSelectorScreen').hidden = true;
+				querySelector('#MainScreen').hidden = false;
+			}
+			
+			if(target.id == "ChatBubble")
+			{
+				//if chat is reconnecting, don't do anything
+				if(querySelector('#ChatBubbleDisconnect').style.display == "inline-block")
+					return;
+				
+				querySelector('#ChannelSelectorScreen').hidden = false;
+				querySelector('#MainScreen').hidden = true;
+			}
+			
+			if(target.id == "SendButton")
+			{
+				//get name of channel this text should be sent to
+				//then process the input using the associated TabContent object
+				String channelName = querySelector('#ChatChannelTitle').text;
+				TextInputElement input = querySelector('#MobileChatInput') as TextInputElement;
+				chat.tabContentMap[channelName].processInput(input);
+				
+				if(input.value.trim().length == 0) //don't allow for blank messages
+					return;
+				
+				chat.tabContentMap[channelName].parseInput(input.value);
+				input.value = '';
+			}
+			
+			if(target.id == "InventoryTitle")
+			{
+				Element drawer = querySelector("#InventoryDrawer");
+				if(drawer.style.bottom == "0px")
+					drawer.style.bottom = "-75px";
+				else
+					drawer.style.bottom = "0px";
+			}
 		});
 		new TouchScroller(querySelector('#MobileInventory'),TouchScroller.HORIZONTAL);
 		new TouchScroller(querySelector('#MobileInventoryBag'),TouchScroller.HORIZONTAL);
-		querySelector("#InventoryTitle").onClick.listen((_)
-		{
-			Element drawer = querySelector("#InventoryDrawer");
-			if(drawer.style.bottom == "0px")
-				drawer.style.bottom = "-75px";
-			else
-				drawer.style.bottom = "0px";
-		});
 		//end mobile specific stuff
 		
 		//demo right-clicking

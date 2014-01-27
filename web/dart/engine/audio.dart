@@ -8,7 +8,6 @@ String isMuted = localStorage['isMuted'];
 // Stores all the loaded user interface sounds.
 Batch ui_sounds;
 
-
 init_audio()
 {
 	if(prevVolume != null)
@@ -22,6 +21,7 @@ init_audio()
 		prevVolume = '50';
 		localStorage['prevVolume'] = '50';
 	}
+	
 	if(isMuted == null)
 	{
 		isMuted = '0';
@@ -32,32 +32,52 @@ init_audio()
 
 Future load_audio()
 {
-  final c = new Completer();
+	final c = new Completer();
   
-  // Load all our user interface sounds.
+	// Load all our user interface sounds.
 
-  ui_sounds = new Batch
-      ([
-        new Asset('./assets/system/mention.ogg'),
-        new Asset('./assets/system/game_loaded.ogg')
+	ui_sounds = new Batch
+		([
+			//iOS/safari doesn't seem to like .ogg files
+			//and dartium doesn't seem to like .mp3 files
+			//here's a fix for dartium http://downloadsquad.switched.com/2010/06/24/play-embedded-mp3-audio-files-chromium/
+			//also I updated the loadie library to attempt to find both a .mp3 file and a .ogg file at the specified location
+			//this should help with browser compatibility
+			new Asset('./assets/system/loading.mp3'),
+	        new Asset('./assets/system/mention.mp3'),
+	        new Asset('./assets/system/game_loaded.mp3')
         ])
-  ..load(print).then((_) 
+	..load(print,querySelector("#LoadStatus2")).then((_)
 	{
-	
-		// Load all our SoundCloud songs and store the resulting SCsongs in the jukebox
-		//TODO: Someday we may want to do this individually when a street loads, rather than all at once.
+		//start the loading music and attach it to the #LoadingScreen so that when that is removed the music stops
+		if(int.parse(prevVolume) > 0 && isMuted == '0')
+		{
+			AudioElement loading = ASSET['loading'].get();
+			loading.volume = int.parse(prevVolume)/100;
+			querySelector('#LoadingScreen').append(loading);
+			loading.play();
+		}
+		
+		// Load the names and track id's of the music.json file but save actually loading the media file
+		// until it is requested (whether by street load or by setsong command)
     
-    Asset soundCloudSongs = new Asset('./assets/music.json')
-    ..load().then((Asset sc_list)
-        {
-      List songsToLoad = new List();
-      for (String song in sc_list.get().keys)
-      {
-        Future future = ui.sc.load(sc_list.get()[song]['scid']).then((s)=>ui.jukebox[song] = s);
-        songsToLoad.add(future);
-      }
-      c.complete(Future.wait(songsToLoad));
-        });
+		Asset soundCloudSongs = new Asset('./assets/music.json');
+		soundCloudSongs.load(querySelector("#LoadStatus2"));
+		c.complete('');
 	});
     return c.future;
+}
+
+Future loadSong(String name)
+{
+	Completer c = new Completer();
+	
+	ui.sc.load(ASSET['music'].get()[name]['scid'])
+	.then((Scound s) 
+	{
+		ui.jukebox[name] = s;
+		c.complete();
+	});
+	
+	return c.future;
 }

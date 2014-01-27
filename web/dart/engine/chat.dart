@@ -40,24 +40,6 @@ class Chat
 			Random rand = new Random();
 			username += rand.nextInt(10000).toString();
 		}
-	
-		//handle chat settings menu
-		querySelector('#ChatSettingsIcon').onClick.listen((MouseEvent click)
-		{
-			Element chatMenu = querySelector("#ChatSettingsMenu");
-			if(chatMenu.hidden)
-				chatMenu.hidden = false;
-			else
-				chatMenu.hidden = true;
-		});
-		querySelector('#MobileChatSettingsIcon').onClick.listen((MouseEvent click)
-		{
-			Element chatMenu = querySelector("#MobileChatSettingsMenu");
-			if(chatMenu.hidden)
-				chatMenu.hidden = false;
-			else
-				chatMenu.hidden = true;
-		});
 		
 		//listen for onChange events so that clicking the label or the checkbox will call this method
 		querySelectorAll('.ChatSettingsCheckbox').onChange.listen((Event event)
@@ -169,7 +151,7 @@ class TabContent
 		channelList.children.add(channel);
 	}
 	
-	void resetMessages(MouseEvent event)
+	void resetMessages([MouseEvent event])
 	{
 		unreadMessages = 0;
 		String selector = "#channelName-"+channelName.replaceAll(" ", "_");

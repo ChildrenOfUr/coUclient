@@ -71,17 +71,9 @@ a{color: purple;text-decoration: none;}
    background-image: -webkit-gradient(linear,left bottom,left top,color-stop(1,#fff),color-stop(0,#d7e0e0));
    border: 1px solid #aac7ce;
    border-top-left-radius: 5px;
-   -moz-border-radius-topleft: 5px;
-   -webkit-border-top-left-radius: 5px;
    border-top-right-radius: 5px;
-   -moz-border-radius-topright: 5px;
-   -webkit-border-top-right-radius: 5px;
    border-bottom-left-radius: 5px;
-   -moz-border-radius-bottomleft: 5px;
-   -webkit-border-bottom-left-radius: 5px;
    border-bottom-right-radius: 5px;
-   -moz-border-radius-bottomright: 5px;
-   -webkit-border-bottom-right-radius: 5px;
    color: #005c73;
    font-size: 15px;
    font-weight: bold;
@@ -185,6 +177,9 @@ textarea{resize: none;}
     -webkit-transition-duration:3s;
     -webkit-transition-timing-function:linear;
     -webkit-transition-delay:1s; 
+}
+#LoadStatus {
+				
 }
 
 /*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
@@ -308,6 +303,7 @@ textarea{resize: none;}
 }
 
 .streetcanvas {
+				/*
     transition-property: top right;
     transition-duration: 0.5s;
     transition-timing-function: ease-in-out;
@@ -315,7 +311,7 @@ textarea{resize: none;}
     -webkit-transition-property: top right;
     -webkit-transition-duration:0.5s;
     -webkit-transition-timing-function:ease-in-out;
-    -webkit-transition-delay:0s;    
+    -webkit-transition-delay:0s;    */
 }
 /*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 /*Elements in the top, left corner*/
@@ -1236,7 +1232,7 @@ textarea{resize: none;}
   -o-transform: scale(2);
 }
 
-@media (max-device-width: 1307px) and (orientation: landscape) /* mobile device in landscape */
+@media (max-device-width: 1280px) and (orientation: landscape) /* mobile device in landscape */
 {
 	#PlayerPortraitDiv {
 		top: 3px;
@@ -1493,7 +1489,13 @@ textarea{resize: none;}
 		top: 10px;
 		right: 20px;
 	}
-				
+}
+#PlayButton {
+	font-size: 2em;
+	padding: 10px;
+	border: 5px solid;
+	border-radius: 10px;
+	display: none;
 }
 
 @media (min-device-width: 1308px) and (min-device-height: 325px) /* desktop device*/

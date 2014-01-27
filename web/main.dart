@@ -30,6 +30,7 @@ part 'dart/engine/touchscroller.dart';
 
 // Game parts
 part 'dart/street.dart';
+part 'dart/player.dart';
 
 //localStorage to use throughout app
 Storage localStorage = window.localStorage;
