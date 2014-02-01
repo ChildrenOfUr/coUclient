@@ -128,11 +128,13 @@ class Player
 			currentAnimation = animations['stillframe'];
 		
 		if(!avatar.style.backgroundImage.contains(currentAnimation.backgroundImage))
+		{
 			avatar.style.backgroundImage = 'url('+currentAnimation.backgroundImage+')';
-		avatar.style.width = currentAnimation.width.toString()+'px';
-		avatar.style.height = currentAnimation.height.toString()+'px';
-		avatar.style.animation = currentAnimation.animationStyleString;
-		canvasHeight = currentAnimation.height+50;
+			avatar.style.width = currentAnimation.width.toString()+'px';
+			avatar.style.height = currentAnimation.height.toString()+'px';
+			avatar.style.animation = currentAnimation.animationStyleString;
+			canvasHeight = currentAnimation.height+50;
+		}
 						
 		num translateX = posX, translateY = ui.gameScreenHeight - canvasHeight;
 		num camX = camera.getX(), camY = camera.getY();

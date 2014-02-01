@@ -208,6 +208,8 @@ class Street
 			}
 			
 			Element exitsElement = querySelector("#Exits");
+			exitsElement.children.clear();
+			exitsElement.text = " Exits";
 			exits.forEach((String label, String tsid)
 			{
 				tsid = tsid.replaceFirst("L", "G"); //not sure why, it's in RevDanCatt's code
