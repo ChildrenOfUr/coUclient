@@ -311,8 +311,11 @@ textarea{resize: none;}
     left:40px;
     -moz-border-radius: 10px;
     border-radius: 10px;
-    z-index:0; 
+	z-index:0; 
     overflow: hidden;
+     /* this fixes the overflow:hidden in Chrome not clipping it's contents to the border-radius
+     more information here: http://stackoverflow.com/questions/5736503/how-to-make-css3-rounded-corners-hide-overflow-in-chrome-opera*/
+	-webkit-mask-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC);
 }
 
 #Exits {
@@ -322,6 +325,16 @@ textarea{resize: none;}
 	background: rgba(255, 255, 255, 0.53);
 	padding: 5px;
 	z-index: 3;
+}
+
+.ExitsExpanded {
+	
+}
+
+.ExitsCollapsed {
+	height: 1em;
+	overflow: hidden;
+	cursor: pointer;
 }
 
 .ExitLabel {

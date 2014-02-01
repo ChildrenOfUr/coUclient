@@ -459,11 +459,7 @@ class TabContent
 			chatString.children.add(text);
 		}
 		if(map["statusMessage"] == "changeName")
-		{
-			//set name in upper left and above avatar
-			CurrentPlayer.playerName.text = map["newUsername"];
-			setName(map["newUsername"]);
-			
+		{			
 			text.style.paddingRight = "4px";
 			
 			if(map["success"] == "true")
@@ -485,6 +481,10 @@ class TabContent
 				{
 					chat.username = map["newUsername"];
 					localStorage["username"] = chat.username;
+					
+					//set name in upper left and above avatar
+					CurrentPlayer.playerName.text = map["newUsername"];
+					setName(map["newUsername"]);
 				}
 				
 				connectedUsers.remove(map["username"]);

@@ -239,10 +239,15 @@ setName(String value)
  * Sets the SoundCloud widget's song to [value].  Must be one of the available songs.
  * If [value] is already playing, this method has no effect.
  */
-setSong(String value)
+Future setSong(String value)
 {
+	Completer c = new Completer();
+	
 	if(value == ui.titleMeter.text)
-		return;
+	{
+		c.complete();
+		return c.future;
+	}
 	
 	value = value.replaceAll(' ', '');
 	if(ui.jukebox[value] == null)
@@ -250,10 +255,16 @@ setSong(String value)
 		loadSong(value).then((_)
 		{
 			_playSong(value);
+			c.complete();
 		});
 	}
 	else
+	{
 		_playSong(value);
+		c.complete();
+	}
+	
+	return c.future;
 }
 
 _playSong(String value)

@@ -239,6 +239,22 @@ class Input
 			document.body.append(loadStreet);
 		}
 		
+		if(target.id == "Exits")
+		{
+			if(target.classes.contains("ExitsExpanded"))
+			{
+				target.classes.clear();
+				target.classes.add("ExitsCollapsed");
+				target.classes.add("icon-expand-alt");
+			}
+			else
+			{
+				target.classes.clear();
+				target.classes.add("ExitsExpanded");
+				target.classes.add("icon-collapse-alt");
+			}
+		}
+		
 		//////////////////////////////////////////
 		///mobile specific click targets
 		//////////////////////////////////////////

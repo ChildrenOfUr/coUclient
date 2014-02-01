@@ -53,7 +53,7 @@ class Player
 		animations['idle'] = new Animation("assets/sprites/idle.png",'idle');
 		animations['base'] = new Animation("assets/sprites/base.png",'base');
 		animations['jump'] = new Animation("assets/sprites/jump.png",'jump');
-		animations['stillframe'] = new Animation("assets/sprites/base.png",'base');
+		animations['stillframe'] = new Animation("assets/sprites/base.png",'stillframe');
 		
 		List<Future> futures = new List();
 		animations.forEach((String name,Animation animation) => futures.add(animation.load()));

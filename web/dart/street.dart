@@ -42,8 +42,6 @@ class Street
 {    
 	String label;
 	Map _data;
-	CanvasElement belowPlayer = new CanvasElement();
-	CanvasElement abovePlayer = new CanvasElement();
 	Map<String,String> exits = new Map();
 	
 	Rectangle bounds;
@@ -210,7 +208,6 @@ class Street
 			}
 			
 			Element exitsElement = querySelector("#Exits");
-			exitsElement.text = "Exits";
 			exits.forEach((String label, String tsid)
 			{
 				tsid = tsid.replaceFirst("L", "G"); //not sure why, it's in RevDanCatt's code
