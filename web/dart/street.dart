@@ -5,29 +5,38 @@ Street currentStreet;
 Camera camera = new Camera(0,400);
 class Camera
 {
-	num x,y;
+	num _x,_y;
 	num zoom = 0; // for future eyeballery
-	Camera(this.x,this.y)
+	bool dirty = true;
+	Camera(this._x,this._y)
 	{
     	COMMANDS.add(['camera','sets the cameras position "camera x,y"',this.setCamera]);
 	}
 	
   	// we're using css transitions for smooth scrolling.
-	setCamera(String xy) //  format 'x,y'
+	void setCamera(String xy) //  format 'x,y'
 	{
 		try
 		{
-			this.x = int.parse(xy.split(',')[0]); 
-			this.y = int.parse(xy.split(',')[1]);
+			num newX = num.parse(xy.split(',')[0]);
+			num newY = num.parse(xy.split(',')[1]);
+			if(newX != _x || newY != _y)
+				dirty = true;
+			_x = newX;
+			_y = newY;
 		}
 		catch (exception, stacktrace)
 		{
 			printConsole("error: format must be camera [num],[num]");
 		}
 	}
+	
+	num getX() => _x;
+	num getY() => _y;
 }
 
 DivElement gameScreen = querySelector('#GameScreen');
+DivElement layers = querySelector('#Layers');
 
 class Street 
 {    
@@ -35,13 +44,14 @@ class Street
 	Map _data;
 	CanvasElement belowPlayer = new CanvasElement();
 	CanvasElement abovePlayer = new CanvasElement();
+	Map<String,String> exits = new Map();
 	
 	Rectangle bounds;
   
 	Street(String streetName)
 	{
 		_data = ASSET[streetName].get();
-     
+
 		// sets the label for the street
 		label = _data['label'];
           
@@ -55,7 +65,8 @@ class Street
 	{
 		Completer c = new Completer();
 		// clean up old street data
-		currentStreet = null;
+		//currentStreet = null;
+		layers.children.clear();
    
 		// set the song loading if necessary
 		if (_data['music'] != null)
@@ -71,7 +82,6 @@ class Street
         			decosToLoad.add('http://revdancatt.github.io/CAT422-glitch-location-viewer/img/scenery/' + deco['filename'] + '.png');
 			}
 		}
-		var end = new DateTime.now();
     
 		// turn them into assets
 		List assetsToLoad = [];
@@ -107,7 +117,7 @@ class Street
 			gradientCanvas.style.background = "-o-linear-gradient(#$top, #$bottom)";
 			
 			// Append it to the screen*/
-			gameScreen.append(gradientCanvas);
+			layers.append(gradientCanvas);
 		    
 			/* //// Scenery Canvases //// */
 			//For each layer on the street . . .
@@ -121,20 +131,45 @@ class Street
 				decoCanvas.style.width = layer['w'].toString() + 'px';
 				decoCanvas.style.height = layer['h'].toString() + 'px';
 				decoCanvas.style.position = 'absolute';
+				
+				List<String> filters = new List();
+				new Map.from(layer['filters']).forEach((String filterName, int value)
+				{
+					//blur is super expensive (seemed to cut my framerate in half)
+					//if(filterName == "blur")
+						//filters.add('blur('+value.toString()+'px)');
+					if(filterName == "brightness")
+					{
+						if(value < 0) 
+							filters.add('brightness(' + (1-(value/-100)).toString() +')');
+						if (value > 0)
+	                        filters.add('brightness(' + (1+(value/100)).toString() +')');
+					}
+					if(filterName == "contrast")
+					{
+						if (value < 0) 
+							filters.add('contrast(' + (1-(value/-100)).toString() +')');
+						if (value > 0)
+							filters.add('contrast(' + (1+(value/100)).toString() +')');
+					}
+					if(filterName == "saturation")
+					{
+						if (value < 0) 
+							filters.add('saturation(' + (1-(value/-100)).toString() +')');
+						if (value > 0)
+							filters.add('saturation(' + (1+(value/100)).toString() +')');
+					}
+				});
+				decoCanvas.style.filter = filters.join(' ');
 		      
 				//For each decoration in the layer, give its attributes and draw
-				
-				//TODO: FIX THIS
-				//Parallax and such is working, BUT
-				//Not all images are drawing at the correct y values.
-				//It seems this int.y makes foreground and background work, but not middleground???
-				List<ImageElement> decos = new List<ImageElement>();
 				for (Map deco in layer['decos'])
 				{
 					int x = deco['x'] - deco['w']~/2;
 					int y = deco['y'] - deco['h'] + _data['dynamic']['ground_y'];
 					if(layer['name'] == 'middleground')
 					{
+						//middleground has different layout needs
 						y += layer['h'];
 						x += layer['w']~/2;
 					}
@@ -162,10 +197,33 @@ class Street
 					}
 				}
 				
+				for (Map signpost in layer['signposts'])
+				{
+					((signpost['connects']) as List).forEach((Map<String,String> exit)
+					{
+						exits[exit['label']] = exit['tsid'];
+					});
+				}
+				
 				// Append the canvas to the screen
-				gameScreen.append(decoCanvas);
+				layers.append(decoCanvas);
 			}
 			
+			Element exitsElement = querySelector("#Exits");
+			exitsElement.text = "Exits";
+			exits.forEach((String label, String tsid)
+			{
+				tsid = tsid.replaceFirst("L", "G"); //not sure why, it's in RevDanCatt's code
+				SpanElement exitLabel = new SpanElement()
+					..className = "ExitLabel"
+					..text = label
+					..attributes['url'] = 'http://revdancatt.github.io/CAT422-glitch-location-viewer/locations/$tsid.callback.json'
+					..attributes['tsid'] = tsid;
+				exitsElement.append(exitLabel);
+			});
+			
+			//make sure to redraw the screen (in case of street switching)
+			camera.dirty = true;
 			c.complete(this);
 		});
         // Done initializing street.
@@ -176,16 +234,31 @@ class Street
 	//based on the camera position and relative size of canvas to Street
 	render()
 	{
-		num currentPercentX = camera.x / (bounds.width - gameScreen.clientWidth);
-		num currentPercentY = camera.y / (bounds.height - gameScreen.clientHeight);
-		
-		//modify left and top for parallaxing
-		for (DivElement canvas in gameScreen.querySelectorAll('.streetcanvas'))
+		//only update if camera x,y have changed since last render cycle
+		if(camera.dirty)
 		{
-			double offsetX = (canvas.clientWidth - gameScreen.clientWidth) * currentPercentX;
-			double offsetY = (canvas.clientHeight - gameScreen.clientHeight) * currentPercentY;
-
-			canvas.style.transform = "translateZ(0) translateX("+(-offsetX).toString()+"px) translateY("+(-offsetY).toString()+"px)";
+			num currentPercentX = camera.getX() / (bounds.width - ui.gameScreenWidth);
+			num currentPercentY = camera.getY() / (bounds.height - ui.gameScreenHeight);
+			
+			//modify left and top for parallaxing
+			Map<String,DivElement> transforms = new Map();
+			for(DivElement canvas in layers.querySelectorAll('.streetcanvas'))
+			{
+				num canvasWidth = num.parse(canvas.style.width.replaceAll('px', ''));
+				num canvasHeight = num.parse(canvas.style.height.replaceAll('px', ''));
+				double offsetX = (canvasWidth - ui.gameScreenWidth) * currentPercentX;
+				double offsetY = (canvasHeight - ui.gameScreenHeight) * currentPercentY;
+	
+				//translateZ(0) forces the gpu to render the transform
+				transforms[canvas.id+"translateZ(0) translateX("+(-offsetX).toString()+"px) translateY("+(-offsetY).toString()+"px)"] = canvas;
+			}
+			//try to bundle DOM writes together for performance.
+			transforms.forEach((String transform, DivElement canvas)
+			{
+				transform = transform.replaceAll(canvas.id, '');
+				canvas.style.transform = transform;
+			});
+			camera.dirty = false;
 		}
 	}
 }
@@ -221,6 +294,7 @@ setStreetLoadBar(int percent)
 	if (percent >= 99)
 	{
 		querySelector('#StreetLoadingStatus').text = '...done';
+		querySelector('#MapLoadingScreen').className = "MapLoadingScreen";
 		querySelector('#MapLoadingScreen').style.opacity = '0.0';
 	}
 }

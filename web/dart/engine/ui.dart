@@ -8,6 +8,10 @@ class UserInterface
 	//NumberFormat for having commas in the currants and iMG displays
 	NumberFormat commaFormatter = new NumberFormat("#,###");
 	
+	//store the gameScreen.clientWidth and height so that we don't have to query it at render time
+	//causing the DOM to be reflowed
+	num gameScreenWidth, gameScreenHeight;
+	
 	// Name Meter Variables
 	DivElement nameMeter = querySelector('#PlayerName');
 	
@@ -124,10 +128,12 @@ class UserInterface
 	_setMute(String isMuted)
 	{
 		Element audioGlyph = querySelector('#AudioGlyph');
+		Element mobileAudioGlyph = querySelector('#MobileAudioGlyph');
 		if(isMuted != null && isMuted == '1') //set to muted
 		{
 			(querySelector('#VolumeSlider') as InputElement).disabled = true;
 			audioGlyph.innerHtml = '<img src="./assets/system/mute.png" class="centered-icon glyph">'; //hack to have mute icon be centered
+			mobileAudioGlyph.innerHtml = '<img src="./assets/system/mute.png" class="centered-icon glyph">';
 			setVolume('0');
 			localStorage['isMuted'] = '1';
 		}
@@ -135,6 +141,7 @@ class UserInterface
 		{
 			(querySelector('#VolumeSlider') as InputElement).disabled = false;
 			audioGlyph.innerHtml = '<i id="VolumeGlyph" class="icon-volume-up glyph icon-large"></i>';
+			mobileAudioGlyph.innerHtml = '<i id="VolumeGlyph" class="icon-volume-up glyph icon-large"></i>';
 			setVolume(localStorage['prevVolume']);
 			localStorage['isMuted'] = '0';
 		}
@@ -146,8 +153,8 @@ resize()
 	Element gameScreen = querySelector('#GameScreen');
 	
 	//width and height calculations done here are now done in CSS
-	var gameScreenWidth = gameScreen.clientWidth;
-	var gameScreenHeight = gameScreen.clientHeight;
+	ui.gameScreenWidth = gameScreen.clientWidth;
+	ui.gameScreenHeight = gameScreen.clientHeight;
 	
 	//approx 1308px wide is the minimum width for the window to show everything well
 	//according to Paul, we should be able to see at least a few lines of chat in each box - this means

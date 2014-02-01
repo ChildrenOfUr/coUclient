@@ -41,6 +41,9 @@ class Chat
 			username += rand.nextInt(10000).toString();
 		}
 		
+		//TODO: change this when usernames are real
+		setName(username);
+		
 		//listen for onChange events so that clicking the label or the checkbox will call this method
 		querySelectorAll('.ChatSettingsCheckbox').onChange.listen((Event event)
 		{
@@ -457,6 +460,10 @@ class TabContent
 		}
 		if(map["statusMessage"] == "changeName")
 		{
+			//set name in upper left and above avatar
+			CurrentPlayer.playerName.text = map["newUsername"];
+			setName(map["newUsername"]);
+			
 			text.style.paddingRight = "4px";
 			
 			if(map["success"] == "true")

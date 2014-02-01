@@ -19,6 +19,7 @@ render()
 	// Update clock
 	refreshClock();
 	//Draw Street
+	var start = new DateTime.now();
 	if (currentStreet is Street)
 		currentStreet.render();
 	//Draw Player

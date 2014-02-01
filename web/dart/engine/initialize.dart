@@ -14,26 +14,33 @@ main()
 	.then((_) => new Street('test').load()
 	.then((_)
 	{
-		CurrentPlayer = new Player();
 		//initialize chat after street has been loaded and currentStreet.label is set
 		chat.init();
 		
-		//if the client is mobile, wait for user to press play button so that we can do audio tricks for mobile browsers
-		//else just start now
-		if(window.innerWidth > 1220 && window.innerHeight > 325)
-			start();
-		else
+		CurrentPlayer = new Player();
+		CurrentPlayer.loadAnimations()
+		.then((_)
 		{
-			querySelector("#LoadingFrame").style.display = "none";
-			Element playButton = querySelector("#PlayButton");
-			playButton.style.display = "inline-block";
-			playButton.onClick.listen((_)
-			{
-				if(ui.currentSong != null)
-					ui.currentSong.play();
+			CurrentPlayer.currentAnimation = CurrentPlayer.animations['idle'];
+			
+			//if the client is mobile, wait for user to press play button so that we can do audio tricks for mobile browsers
+			//else just start now
+			if(window.innerWidth > 1220 && window.innerHeight > 325)
 				start();
-			});
-		}
+			else
+			{
+				querySelector("#LoadingFrame").style.display = "none";
+				Element playButton = querySelector("#PlayButton");
+				playButton.text = "Play";
+				playButton.style.display = "inline-block";
+				playButton.onClick.first.then((_)
+				{
+					if(ui.currentSong != null)
+						ui.currentSong.play();
+					start();
+				});
+			}
+		});
 	})));
 }
 
@@ -46,13 +53,16 @@ start()
 	new Timer(new Duration(seconds:1), ()
 	{
 		querySelector('#LoadingScreen').remove();
-		if(int.parse(prevVolume) > 0 && isMuted == '0')
+	});
+	if(int.parse(prevVolume) > 0 && isMuted == '0')
+	{
+		if(ASSET['game_loaded'] != null)
 		{
 			AudioElement doneLoading = ASSET['game_loaded'].get();
 			doneLoading.volume = int.parse(prevVolume)/100;
 			doneLoading.play();
 		}
-	});
+	}
 	
 	// Set the meters to their current values.
 	ui.init();      

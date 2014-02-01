@@ -4,36 +4,61 @@ Player CurrentPlayer;
 
 class Player
 {
-	int posX, posY, width, height, speed;
+	int posX, posY, width, height, canvasHeight, speed;
 	num yVel, yAccel = -40;
-	bool jumping = false, facingRight = true;
-	ImageElement avatar;
-  
+	bool jumping = false, moving = false, facingRight = true;
+	Map<String,Animation> animations = new Map();
+	Animation currentAnimation;
+  		
 	//for testing purposes
 	//if false, player can move around with wasd and arrows, no falling
 	bool doPhysicsApply = true;
   
-	CanvasElement playerCanvas;
+	DivElement playerCanvas;
+	DivElement avatar;
+	DivElement playerName;
   
 	Player()
 	{
 		//TODO: Remove hard-coded values used for testing
-		width = 100;
-		height = 172;
+		width = 116;
+		height = 137;
 		speed = 5;
 		yVel = 0;
 		posX = 0;
-		posY = currentStreet.bounds.height - height;
+		posY = currentStreet.bounds.height - 170;
+				
+		playerCanvas = new DivElement()
+			..style.display = "inline-block"
+			..style.textAlign = "center";
+		playerName = new DivElement()
+			..text = chat.username;
 		
-		avatar = new ImageElement(src: "assets/sprites/avatar.png");
-		playerCanvas = new CanvasElement();
-		playerCanvas.id = "playerCanvas";
-		playerCanvas.style.position = "absolute";
-		playerCanvas.width = width;
-		playerCanvas.height = height;
+		avatar = new DivElement();
+		avatar.id = "playerCanvas";
+		
+		playerCanvas.append(playerName);
+		playerCanvas.append(avatar);
+		
 		gameScreen.append(playerCanvas);
 		
+		canvasHeight = playerCanvas.clientHeight;
+				
 		CurrentPlayer = this;
+	}
+	
+	Future<List<Animation>> loadAnimations()
+	{
+		//need to get background images from some server for each player based on name
+		animations['idle'] = new Animation("assets/sprites/idle.png",'idle');
+		animations['base'] = new Animation("assets/sprites/base.png",'base');
+		animations['jump'] = new Animation("assets/sprites/jump.png",'jump');
+		animations['stillframe'] = new Animation("assets/sprites/base.png",'base');
+		
+		List<Future> futures = new List();
+		animations.forEach((String name,Animation animation) => futures.add(animation.load()));
+		
+		return Future.wait(futures);
 	}
   
 	update(double dt)
@@ -43,12 +68,16 @@ class Player
 		{
 			posX += CurrentPlayer.speed;
 			facingRight = true;
+			moving = true;
 		}
-	    if (playerInput.leftKey == true)
+		else if (playerInput.leftKey == true)
 		{
 			posX -= CurrentPlayer.speed;
 			facingRight = false;
+			moving = true;
 		}
+		else
+			moving = false;
 			
 	    //primitive jumping
 	    if (playerInput.spaceKey == true && !jumping)
@@ -80,58 +109,82 @@ class Player
 			posX = 0;
 	    if (posX > currentStreet.bounds.width - width)
 			posX = currentStreet.bounds.width - width;
-	    if (posY > currentStreet.bounds.height - height)
+	    if (posY > currentStreet.bounds.height - canvasHeight)
 		{
-			posY = currentStreet.bounds.height - height;
+			posY = currentStreet.bounds.height - canvasHeight;
 			yVel = 0;
 			jumping = false;
 		}
 	    if (posY < 0)
 			posY = 0;
+			
+		if(!moving && !jumping)
+			currentAnimation = animations['idle'];
+		else if(moving && !jumping)
+			currentAnimation = animations['base'];
+		else if(jumping)
+			currentAnimation = animations['jump'];
+		else
+			currentAnimation = animations['stillframe'];
+		
+		if(!avatar.style.backgroundImage.contains(currentAnimation.backgroundImage))
+			avatar.style.backgroundImage = 'url('+currentAnimation.backgroundImage+')';
+		avatar.style.width = currentAnimation.width.toString()+'px';
+		avatar.style.height = currentAnimation.height.toString()+'px';
+		avatar.style.animation = currentAnimation.animationStyleString;
+		canvasHeight = currentAnimation.height+50;
 						
-		num translateX = posX, translateY = gameScreen.clientHeight - height;
-		if(posX > currentStreet.bounds.width - width/2 - gameScreen.clientWidth/2)
+		num translateX = posX, translateY = ui.gameScreenHeight - canvasHeight;
+		num camX = camera.getX(), camY = camera.getY();
+		if(posX > currentStreet.bounds.width - width/2 - ui.gameScreenWidth/2)
 		{
-			camera.x = currentStreet.bounds.width - gameScreen.clientWidth;
-			translateX = posX - currentStreet.bounds.width + gameScreen.clientWidth; //allow character to move to screen right
+			camX = currentStreet.bounds.width - ui.gameScreenWidth;
+			translateX = posX - currentStreet.bounds.width + ui.gameScreenWidth; //allow character to move to screen right
 		}
-		else if(posX + width/2 > gameScreen.clientWidth/2)
+		else if(posX + width/2 > ui.gameScreenWidth/2)
 		{
-			camera.x = posX + width/2 - gameScreen.clientWidth/2;
-			translateX = gameScreen.clientWidth/2 - width/2; //keep character in center of screen
+			camX = posX + width/2 - ui.gameScreenWidth/2;
+			translateX = ui.gameScreenWidth/2 - width/2; //keep character in center of screen
 		}
 		else
-			camera.x = 0;
+			camX = 0;
 		
-		if(posY + height/2 < gameScreen.clientHeight/2)
+		if(posY + canvasHeight/2 < ui.gameScreenHeight/2)
 		{
-			camera.y = 0;
+			camY = 0;
 			translateY = posY;
 		}
-		else if(posY < currentStreet.bounds.height - height/2 - gameScreen.clientHeight/2)
+		else if(posY < currentStreet.bounds.height - canvasHeight/2 - ui.gameScreenHeight/2)
 		{
-			num yDistanceFromBottom = currentStreet.bounds.height - posY - height/2;
-			camera.y = currentStreet.bounds.height - (yDistanceFromBottom + gameScreen.clientHeight/2);
-			translateY = gameScreen.clientHeight/2 - height/2;
+			num yDistanceFromBottom = currentStreet.bounds.height - posY - canvasHeight/2;
+			camY = currentStreet.bounds.height - (yDistanceFromBottom + ui.gameScreenHeight/2);
+			translateY = ui.gameScreenHeight/2 - canvasHeight/2;
 		}
 		else
 		{
-			camera.y = currentStreet.bounds.height - gameScreen.clientHeight;
-			translateY = gameScreen.clientHeight - (currentStreet.bounds.height - posY);
+			camY = currentStreet.bounds.height - ui.gameScreenHeight;
+			translateY = ui.gameScreenHeight - (currentStreet.bounds.height - posY);
 		}
 		
+		camera.setCamera(camX.toString()+','+camY.toString());
+		
 		//translateZ forces the whole operation to be gpu accelerated (which is very good)
-		String transform = 'translateX('+translateX.toString()+'px) translateY('+translateY.toString()+'px) translateZ(0)';
+		String transform = 'translateZ(0) translateX('+translateX.toString()+'px) translateY('+translateY.toString()+'px)';
 		if(!facingRight)
+		{
 			transform += ' scale(-1,1)';
+			playerName.style.transform = 'scale(-1,1)';
+		}
+		else
+			playerName.style.transform = 'scale(1,1)';
 		playerCanvas.style.transform = transform;
-
 	}
   
 	render()
 	{
 		//Need scaling; some levels change player's apparent size
-		CurrentPlayer.playerCanvas.context2D.clearRect(0, 0, width, height);
-		CurrentPlayer.playerCanvas.context2D.drawImageScaled(avatar, 0, 0, width, height);
+		//scaling should be done as needed, not in render cycle
+		//CurrentPlayer.playerCanvas.context2D.clearRect(0, 0, width, height);
+		//CurrentPlayer.playerCanvas.context2D.drawImage(avatar, 0, 0);
 	}
 }

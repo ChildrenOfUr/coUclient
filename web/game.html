@@ -3,7 +3,7 @@
 <html onContextMenu="return false">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, height=device-height initial-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes"> <!--iOS-->
     <meta name="mobile-web-app-capable" content="yes"> <!--Chrome for android-->
     
@@ -52,11 +52,14 @@
 	
 	<!--The content window for gameplay -->
 	<div id="GameScreen">
-  <div id="MapLoadingScreen">
-  <div class="LoadingGroove">&nbsp;
-  <span class="LoadingBar" id="MapLoadingBar">
-  <span id="StreetLoadingStatus"></span></span>
-  </div></div>
+		<div id="Exits"></div>
+		<div id="Layers"></div>
+		<div id="MapLoadingScreen" class="MapLoadingScreen">
+			<div class="LoadingGroove">&nbsp;
+				<span class="LoadingBar" id="MapLoadingBar">
+				<span id="StreetLoadingStatus"></span></span>
+			</div>
+		</div>
 	</div>
 	
 	<!--Contains all the ui elements on the top left-->
@@ -208,6 +211,9 @@
 	    </template>
 	    
 	<!-- mobile specific components -->
+	<span id="MobileAudioGlyph">
+		<i id="MobileVolumeGlyph" class="icon-volume-up glyph icon-large"></i>
+	</span>
 	<i id="MobileFullscreen" class="FullscreenGlyph icon-fullscreen glyph icon-large"> </i>
 	<i id="MobileFullscreenReset" class="FullscreenResetGlyph icon-resize-small glyph icon-large"> </i>
 	<div id="Joystick">
@@ -283,6 +289,13 @@
 		<div id="SendButton">Send</div>
 	</div>
 </div>
+
+<script type="text/javascript">
+function getRoom(dataJSON) 
+{
+	window.postMessage(JSON.stringify(dataJSON), '*');
+}
+</script>
     
 <!-- Start the Game up. -->
   <script type="application/dart" src="main.dart"></script>
