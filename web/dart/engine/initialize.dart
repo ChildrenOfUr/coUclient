@@ -35,7 +35,7 @@ main()
 				playButton.style.display = "inline-block";
 				playButton.onClick.first.then((_)
 				{
-					if(ui.currentSong != null)
+					if(ui.currentSong != null &&int.parse(prevVolume) > 0 && isMuted == '0')
 						ui.currentSong.play();
 					start();
 				});
