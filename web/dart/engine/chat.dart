@@ -157,7 +157,7 @@ class TabContent
 	void resetMessages([MouseEvent event])
 	{
 		unreadMessages = 0;
-		String selector = "#channelName-"+channelName.replaceAll(" ", "_");
+		String selector = "#label-"+channelName.replaceAll(" ", "_");
 		querySelector(selector).text = channelName;
 		
 		int totalUnread = 0;
@@ -341,14 +341,20 @@ class TabContent
 					return;
 			}
 			
+			int prevUnread = unreadMessages;
+			if(map["statusMessage"] == null && (map["message"] == " left." || map["message"] == " joined.") && chat.getJoinMessagesVisibility())
+				unreadMessages++;
+			else if(map["statusMessage"] == null && map["message"] != " left." && map["message"] != " joined.")
+				unreadMessages++;
+			
 			//mobile
 			if(map["username"] != chat.username && map["channel"] == channelName)
 			{
 				//if the conversation is not showing to the user, add an unread message to it
 				if(querySelector("#conversation-"+channelName.replaceAll(" ", "_")).style.zIndex != "1")
 				{
-					unreadMessages++;
-					querySelector("#channelName-"+channelName.replaceAll(" ", "_")).innerHtml = channelName + " " + '<span class="Counter">'+unreadMessages.toString()+'</span>';
+					if(prevUnread != unreadMessages)
+						querySelector("#channelName-"+channelName.replaceAll(" ", "_")).innerHtml = channelName + " " + '<span class="Counter">'+unreadMessages.toString()+'</span>';
 				}
 				
 				int totalUnread = 0;
@@ -378,11 +384,13 @@ class TabContent
 					//need to replace spaces to make CSS selector work
 					String selector = "#tab-"+channelName.replaceAll(" ", "_");
 					if(!(querySelector(selector) as RadioButtonInputElement).checked)
-					{
-						unreadMessages++;
-						//find label related to this channel's tab and add the unread count to it
-						String selector = "#label-"+channelName.replaceAll(" ", "_");
-						querySelector(selector).innerHtml = '<span class="Counter">'+unreadMessages.toString()+'</span>' + " " + channelName;
+					{						
+						if(prevUnread != unreadMessages)
+						{
+							//find label related to this channel's tab and add the unread count to it
+							String selector = "#label-"+channelName.replaceAll(" ", "_");
+							querySelector(selector).innerHtml = '<span class="Counter">'+unreadMessages.toString()+'</span>' + " " + channelName;
+						}
 					}
 					
 					//don't add to history if the user said it
