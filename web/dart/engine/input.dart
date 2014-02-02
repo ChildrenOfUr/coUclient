@@ -267,6 +267,10 @@ class Input
 			//reset unreadMessages
 			chat.tabContentMap[channelName].resetMessages(mouseEvent);
 			
+			//
+			TextInputElement input = querySelector('#MobileChatInput') as TextInputElement;
+			chat.tabContentMap[channelName].processInput(input);
+			
 			//bring up the right screen
 			querySelector('#ChatScreen').hidden = false;
 			querySelector('#ChannelSelectorScreen').hidden = true;
@@ -306,7 +310,6 @@ class Input
 			//then process the input using the associated TabContent object
 			String channelName = querySelector('#ChatChannelTitle').text;
 			TextInputElement input = querySelector('#MobileChatInput') as TextInputElement;
-			chat.tabContentMap[channelName].processInput(input);
 			
 			if(input.value.trim().length == 0) //don't allow for blank messages
 				return;

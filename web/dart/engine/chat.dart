@@ -157,8 +157,17 @@ class TabContent
 	void resetMessages([MouseEvent event])
 	{
 		unreadMessages = 0;
-		String selector = "#label-"+channelName.replaceAll(" ", "_");
+		
+		//mobile chat titles
+		String selector = "#channelName-"+channelName.replaceAll(" ", "_");
 		querySelector(selector).text = channelName;
+		
+		//desktop chat tab labels
+		if(channelName != "Local Chat") //there is no counter for local chat on desktop
+		{
+			selector = "#label-"+channelName.replaceAll(" ", "_");
+			querySelector(selector).text = channelName;
+		}
 		
 		int totalUnread = 0;
 		chat.tabContentMap.values.forEach((TabContent tabContent)
