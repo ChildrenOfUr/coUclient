@@ -107,24 +107,24 @@ class Animation
 				this.width = width~/33;
 				this.height = height;
 				
-				//there are 33 frames for the jump animation
+				int frame32 = width - this.width;
 				
 				CssStyleSheet styleSheet = document.styleSheets[0] as CssStyleSheet;
-				String jump = '@-webkit-keyframes jump { from { background-position: 0px;} to { background-position: -'+width.toString()+'px;}}';
+				String jump = '@-webkit-keyframes jump { from { background-position: 0px;} to { background-position: -'+frame32.toString()+'px;}}';
 				try
 				{
 					styleSheet.insertRule(jump,1); //inserting at 0 throws an error, 1 seems fine
 				}
 				catch(error){}
 				
-				jump =' @keyframes jump { from { background-position: 0px;} to { background-position: -'+width.toString()+'px;}}';
+				jump =' @keyframes jump { from { background-position: 0px;} to { background-position: -'+frame32.toString()+'px;}}';
 				try
 				{
 					styleSheet.insertRule(jump,1); //inserting at 0 throws an error, 1 seems fine
 				}
 				catch(error){}
 				
-				animationStyleString = 'jump 1s steps(33)';
+				animationStyleString = 'jump 1.1s steps(32) forwards';
 			}
 			
 			c.complete(this);

@@ -241,7 +241,7 @@ class Street
 			
 			//modify left and top for parallaxing
 			Map<String,DivElement> transforms = new Map();
-			for(DivElement canvas in layers.querySelectorAll('.streetcanvas'))
+			for(DivElement canvas in gameScreen.querySelectorAll('.streetcanvas'))
 			{
 				num canvasWidth = num.parse(canvas.style.width.replaceAll('px', ''));
 				num canvasHeight = num.parse(canvas.style.height.replaceAll('px', ''));

@@ -27,7 +27,7 @@ class Player
 		yVel = 0;
 		posX = 0;
 		posY = currentStreet.bounds.height - 170;
-				
+
 		playerCanvas = new DivElement()
 			..style.display = "inline-block"
 			..style.textAlign = "center";
