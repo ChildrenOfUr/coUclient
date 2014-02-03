@@ -136,7 +136,7 @@ class Player
 			canvasHeight = currentAnimation.height+50;
 		}
 						
-		num translateX = posX, translateY = ui.gameScreenHeight - canvasHeight;
+		int translateX = posX, translateY = ui.gameScreenHeight - canvasHeight;
 		int camX = camera.getX(), camY = camera.getY();
 		if(posX > currentStreet.bounds.width - width/2 - ui.gameScreenWidth/2)
 		{
@@ -146,7 +146,7 @@ class Player
 		else if(posX + width/2 > ui.gameScreenWidth/2)
 		{
 			camX = posX + width~/2 - ui.gameScreenWidth~/2;
-			translateX = ui.gameScreenWidth/2 - width/2; //keep character in center of screen
+			translateX = ui.gameScreenWidth~/2 - width~/2; //keep character in center of screen
 		}
 		else
 			camX = 0;
@@ -160,7 +160,7 @@ class Player
 		{
 			num yDistanceFromBottom = currentStreet.bounds.height - posY - canvasHeight/2;
 			camY = currentStreet.bounds.height - (yDistanceFromBottom + ui.gameScreenHeight/2);
-			translateY = ui.gameScreenHeight/2 - canvasHeight/2;
+			translateY = ui.gameScreenHeight~/2 - canvasHeight~/2;
 		}
 		else
 		{
