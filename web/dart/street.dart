@@ -16,6 +16,7 @@ class Camera
   	// we're using css transitions for smooth scrolling.
 	void setCamera(String xy) //  format 'x,y'
 	{
+		print("input string: $xy");
 		try
 		{
 			int newX = int.parse(xy.split(',')[0]);
@@ -25,9 +26,9 @@ class Camera
 			_x = newX;
 			_y = newY;
 		}
-		catch (exception, stacktrace)
+		catch (error)
 		{
-			printConsole("error: format must be camera [num],[num]");
+			printConsole("error: format must be camera [num],[num]: $error");
 		}
 	}
 	
