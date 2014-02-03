@@ -19,8 +19,8 @@ class Camera
 		print("input string: $xy");
 		try
 		{
-			int newX = num.parse(xy.split(',')[0])~/1;
-			int newY = num.parse(xy.split(',')[1])~/1;
+			int newX = int.parse(xy.split(',')[0]);
+			int newY = int.parse(xy.split(',')[1]);
 			if(newX != _x || newY != _y)
 				dirty = true;
 			_x = newX;

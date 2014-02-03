@@ -136,8 +136,8 @@ class Player
 			canvasHeight = currentAnimation.height+50;
 		}
 						
-		int translateX = posX, translateY = ui.gameScreenHeight - canvasHeight;
-		int camX = camera.getX(), camY = camera.getY();
+		num translateX = posX, translateY = ui.gameScreenHeight - canvasHeight;
+		num camX = camera.getX(), camY = camera.getY();
 		if(posX > currentStreet.bounds.width - width/2 - ui.gameScreenWidth/2)
 		{
 			camX = currentStreet.bounds.width - ui.gameScreenWidth;
@@ -145,8 +145,8 @@ class Player
 		}
 		else if(posX + width/2 > ui.gameScreenWidth/2)
 		{
-			camX = posX + width~/2 - ui.gameScreenWidth~/2;
-			translateX = ui.gameScreenWidth~/2 - width~/2; //keep character in center of screen
+			camX = posX + width/2 - ui.gameScreenWidth/2;
+			translateX = ui.gameScreenWidth/2 - width/2; //keep character in center of screen
 		}
 		else
 			camX = 0;
@@ -160,7 +160,7 @@ class Player
 		{
 			num yDistanceFromBottom = currentStreet.bounds.height - posY - canvasHeight/2;
 			camY = currentStreet.bounds.height - (yDistanceFromBottom + ui.gameScreenHeight/2);
-			translateY = ui.gameScreenHeight~/2 - canvasHeight~/2;
+			translateY = ui.gameScreenHeight/2 - canvasHeight/2;
 		}
 		else
 		{
@@ -168,7 +168,7 @@ class Player
 			translateY = ui.gameScreenHeight - (currentStreet.bounds.height - posY);
 		}
 		
-		camera.setCamera(camX.toString()+','+camY.toString());
+		camera.setCamera((camX~/1).toString()+','+(camY~/1).toString());
 		
 		//translateZ forces the whole operation to be gpu accelerated (which is very good)
 		String transform = 'translateZ(0) translateX('+translateX.toString()+'px) translateY('+translateY.toString()+'px)';
