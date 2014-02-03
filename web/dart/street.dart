@@ -243,8 +243,8 @@ class Street
 			Map<String,DivElement> transforms = new Map();
 			for(DivElement canvas in gameScreen.querySelectorAll('.streetcanvas'))
 			{
-				num canvasWidth = num.parse(canvas.style.width.replaceAll('px', ''));
-				num canvasHeight = num.parse(canvas.style.height.replaceAll('px', ''));
+				int canvasWidth = int.parse(canvas.style.width.replaceAll('px', ''));
+				int canvasHeight = int.parse(canvas.style.height.replaceAll('px', ''));
 				double offsetX = (canvasWidth - ui.gameScreenWidth) * currentPercentX;
 				double offsetY = (canvasHeight - ui.gameScreenHeight) * currentPercentY;
 	
