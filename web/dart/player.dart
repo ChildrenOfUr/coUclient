@@ -168,7 +168,7 @@ class Player
 			translateY = ui.gameScreenHeight - (currentStreet.bounds.height - posY);
 		}
 		
-		camera.setCamera(camX.toString()+','+camY.toString());
+		camera.setCamera((camX~/1).toString()+','+(camY~/1).toString());
 		
 		//translateZ forces the whole operation to be gpu accelerated (which is very good)
 		String transform = 'translateZ(0) translateX('+translateX.toString()+'px) translateY('+translateY.toString()+'px)';

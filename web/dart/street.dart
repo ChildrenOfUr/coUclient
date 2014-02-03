@@ -5,8 +5,8 @@ Street currentStreet;
 Camera camera = new Camera(0,400);
 class Camera
 {
-	num _x,_y;
-	num zoom = 0; // for future eyeballery
+	int _x,_y;
+	int zoom = 0; // for future eyeballery
 	bool dirty = true;
 	Camera(this._x,this._y)
 	{
@@ -16,23 +16,24 @@ class Camera
   	// we're using css transitions for smooth scrolling.
 	void setCamera(String xy) //  format 'x,y'
 	{
+		print("input string: $xy");
 		try
 		{
-			num newX = num.parse(xy.split(',')[0]);
-			num newY = num.parse(xy.split(',')[1]);
+			int newX = int.parse(xy.split(',')[0]);
+			int newY = int.parse(xy.split(',')[1]);
 			if(newX != _x || newY != _y)
 				dirty = true;
 			_x = newX;
 			_y = newY;
 		}
-		catch (exception, stacktrace)
+		catch (error)
 		{
-			printConsole("error: format must be camera [num],[num]");
+			printConsole("error: format must be camera [num],[num]: $error");
 		}
 	}
 	
-	num getX() => _x;
-	num getY() => _y;
+	int getX() => _x;
+	int getY() => _y;
 }
 
 DivElement gameScreen = querySelector('#GameScreen');
@@ -243,8 +244,8 @@ class Street
 			Map<String,DivElement> transforms = new Map();
 			for(DivElement canvas in gameScreen.querySelectorAll('.streetcanvas'))
 			{
-				num canvasWidth = num.parse(canvas.style.width.replaceAll('px', ''));
-				num canvasHeight = num.parse(canvas.style.height.replaceAll('px', ''));
+				int canvasWidth = int.parse(canvas.style.width.replaceAll('px', ''));
+				int canvasHeight = int.parse(canvas.style.height.replaceAll('px', ''));
 				double offsetX = (canvasWidth - ui.gameScreenWidth) * currentPercentX;
 				double offsetY = (canvasHeight - ui.gameScreenHeight) * currentPercentY;
 	
