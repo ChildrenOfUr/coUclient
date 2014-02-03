@@ -137,7 +137,7 @@ class Player
 		}
 						
 		num translateX = posX, translateY = ui.gameScreenHeight - canvasHeight;
-		num camX = camera.getX(), camY = camera.getY();
+		int camX = camera.getX(), camY = camera.getY();
 		if(posX > currentStreet.bounds.width - width/2 - ui.gameScreenWidth/2)
 		{
 			camX = currentStreet.bounds.width - ui.gameScreenWidth;
@@ -145,7 +145,7 @@ class Player
 		}
 		else if(posX + width/2 > ui.gameScreenWidth/2)
 		{
-			camX = posX + width/2 - ui.gameScreenWidth/2;
+			camX = posX + width~/2 - ui.gameScreenWidth~/2;
 			translateX = ui.gameScreenWidth/2 - width/2; //keep character in center of screen
 		}
 		else

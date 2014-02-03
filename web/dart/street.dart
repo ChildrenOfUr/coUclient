@@ -5,8 +5,8 @@ Street currentStreet;
 Camera camera = new Camera(0,400);
 class Camera
 {
-	num _x,_y;
-	num zoom = 0; // for future eyeballery
+	int _x,_y;
+	int zoom = 0; // for future eyeballery
 	bool dirty = true;
 	Camera(this._x,this._y)
 	{
@@ -18,8 +18,8 @@ class Camera
 	{
 		try
 		{
-			num newX = num.parse(xy.split(',')[0]);
-			num newY = num.parse(xy.split(',')[1]);
+			int newX = int.parse(xy.split(',')[0]);
+			int newY = int.parse(xy.split(',')[1]);
 			if(newX != _x || newY != _y)
 				dirty = true;
 			_x = newX;
@@ -31,8 +31,8 @@ class Camera
 		}
 	}
 	
-	num getX() => _x;
-	num getY() => _y;
+	int getX() => _x;
+	int getY() => _y;
 }
 
 DivElement gameScreen = querySelector('#GameScreen');
