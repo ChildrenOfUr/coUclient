@@ -4,7 +4,7 @@
 This repository contains the source code for Children of Ur's Dart-based browser client.
 The project is currently hosted at <a href="http://childrenofur.github.io/" target="_blank">childrenofur.github.io</a>.
 
-Children of Ur is based on Tiny Speck's browser-based game, Glitch©. The original game's elements have been released into the public domain.
+Children of Ur is based on Tiny Speck's browser-based game, Glitch™. The original game's elements have been released into the public domain.
 For more information on the original game and its licensing information, visit <a href="http://www.glitchthegame.com/" target="_blank">glitchthegame.com</a>.
 
 ##Getting Started##
