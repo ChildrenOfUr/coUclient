@@ -16,7 +16,6 @@ class Camera
   	// we're using css transitions for smooth scrolling.
 	void setCamera(String xy) //  format 'x,y'
 	{
-		print("input string: $xy");
 		try
 		{
 			int newX = int.parse(xy.split(',')[0]);
