@@ -351,9 +351,7 @@ class TabContent
 			}
 			
 			int prevUnread = unreadMessages;
-			if(map["statusMessage"] == null && (map["message"] == " left." || map["message"] == " joined.") && chat.getJoinMessagesVisibility())
-				unreadMessages++;
-			else if(map["statusMessage"] == null && map["message"] != " left." && map["message"] != " joined.")
+			if(map["statusMessage"] == null)
 				unreadMessages++;
 			
 			//mobile
@@ -540,8 +538,10 @@ class TabContent
 			..className = "RowSpacer";
 		chatString.style.paddingRight = "2px";
 		
+		bool atTheBottom = false;
 		//if we're at the bottom before adding the incoming strings, scroll with them
-		bool atTheBottom = (chatHistory.scrollTop == (chatHistory.scrollHeight - chatHistory.offsetHeight));
+		if((chatHistory.scrollHeight - chatHistory.offsetHeight - chatHistory.scrollTop).abs() < 5)
+			atTheBottom = true;
 		
 		chatHistory.children.add(chatString);
 		chatHistory.children.add(rowSpacer);
@@ -564,7 +564,9 @@ class TabContent
 		chatRow.children.add(chatLine);
 		
 		DivElement conversation = querySelector('#conversation-'+channelName.replaceAll(" ","_"));
-		atTheBottom = ((conversation.scrollTop == (conversation.scrollHeight - conversation.offsetHeight)));
+		atTheBottom = false;
+		if((conversation.scrollHeight - conversation.offsetHeight - conversation.scrollTop).abs() < 5)
+			atTheBottom = true;
 		conversation.children.add(chatRow);
 		if(atTheBottom || (map['username'] == chat.username || map['newUsername'] == chat.username))
 			conversation.scrollTop = conversation.scrollHeight;
