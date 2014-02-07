@@ -351,9 +351,7 @@ class TabContent
 			}
 			
 			int prevUnread = unreadMessages;
-			if(map["statusMessage"] == null && (map["message"] == " left." || map["message"] == " joined.") && chat.getJoinMessagesVisibility())
-				unreadMessages++;
-			else if(map["statusMessage"] == null && map["message"] != " left." && map["message"] != " joined.")
+			if(map["statusMessage"] == null)
 				unreadMessages++;
 			
 			//mobile
