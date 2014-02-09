@@ -1,5 +1,8 @@
 part of coUclient;
 
+WebSocket playerSocket;
+Map<String,Player> otherPlayers;
+
 main()
 {
 	// The player has requested that the game is to begin.
@@ -16,6 +19,33 @@ main()
 	{
 		//initialize chat after street has been loaded and currentStreet.label is set
 		chat.init();
+		
+		otherPlayers = new Map();
+		playerSocket = new WebSocket("ws://couserver.herokuapp.com/playerUpdate");
+		playerSocket.onMessage.listen((MessageEvent event)
+		{
+			Map map = JSON.decode(event.data);
+			if(map["changeStreet"] != null)
+			{
+				if(map["changeStreet"] != currentStreet.label) //someone left this street
+				{
+					otherPlayers.remove(map["username"]);
+					querySelector("player-"+map["username"]).remove();
+				}
+				else //someone joined
+				{
+					createOtherPlayer(map);
+				}
+			}
+			else if(otherPlayers[map["username"]] == null)
+			{
+				createOtherPlayer(map);
+			}
+			else //update a current otherPlayer
+			{
+				updateOtherPlayer(map,otherPlayers[map["username"]]);
+			}
+		});
 		
 		CurrentPlayer = new Player();
 		CurrentPlayer.loadAnimations()
@@ -81,4 +111,53 @@ start()
 	    	
 	// Begin the GAME!!!
 	game.start();
+}
+
+createOtherPlayer(Map map)
+{
+	Player otherPlayer = new Player(map["username"]);
+	
+	updateOtherPlayer(map,otherPlayer);
+	
+	otherPlayers[map["username"]] = otherPlayer;
+	querySelector("#PlayerHolder").append(otherPlayer.playerCanvas);
+}
+
+updateOtherPlayer(Map map, Player otherPlayer)
+{
+	otherPlayer.currentAnimation = CurrentPlayer.animations[map["animation"]];
+	otherPlayer.avatar.style.backgroundImage = 'url('+otherPlayer.currentAnimation.backgroundImage+')';
+	otherPlayer.avatar.style.width = otherPlayer.currentAnimation.width.toString()+'px';
+	otherPlayer.avatar.style.height = otherPlayer.currentAnimation.height.toString()+'px';
+	otherPlayer.avatar.style.animation = otherPlayer.currentAnimation.animationStyleString;
+	otherPlayer.canvasHeight = otherPlayer.currentAnimation.height+50;
+	
+	otherPlayer.playerCanvas.style.position = "absolute";
+	otherPlayer.playerCanvas.id = "player-"+map["username"];
+	
+	int x = int.parse(map["xy"].split(',')[0]);
+	int y = int.parse(map["xy"].split(',')[1]);
+	otherPlayer.posX = x;
+	otherPlayer.posY = y;
+	
+	bool facingRight = false;
+	if(map["facingRight"] == "true")
+		facingRight = true;
+	String transform = '';
+	if(!facingRight)
+	{
+		transform += ' scale(-1,1)';
+		otherPlayer.playerName.style.transform = 'scale(-1,1)';
+		
+		if(otherPlayer.chatBubble != null)
+			otherPlayer.chatBubble.textElement.style.transform = 'scale(-1,1)';
+	}
+	else
+	{
+		otherPlayer.playerName.style.transform = 'scale(1,1)';
+		
+		if(otherPlayer.chatBubble != null)
+			otherPlayer.chatBubble.textElement.style.transform = 'scale(1,1)';
+	}
+	otherPlayer.playerCanvas.style.transform = transform;
 }

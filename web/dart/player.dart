@@ -19,7 +19,7 @@ class Player
 	DivElement avatar;
 	DivElement playerName;
   
-	Player()
+	Player([String name])
 	{
 		//TODO: Remove hard-coded values used for testing
 		width = 116;
@@ -32,11 +32,11 @@ class Player
 		playerCanvas = new DivElement()
 			..style.display = "inline-block"
 			..style.textAlign = "center";
+		
 		playerName = new DivElement()
-			..text = chat.username;
+			..text = name != null? name : chat.username;
 		
 		avatar = new DivElement();
-		avatar.id = "playerCanvas";
 		
 		playerCanvas.append(playerName);
 		playerCanvas.append(avatar);
@@ -44,8 +44,6 @@ class Player
 		gameScreen.append(playerCanvas);
 		
 		canvasHeight = playerCanvas.clientHeight;
-				
-		CurrentPlayer = this;
 	}
 	
 	Future<List<Animation>> loadAnimations()

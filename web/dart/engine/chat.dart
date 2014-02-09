@@ -352,7 +352,7 @@ class TabContent
 			}
 			
 			int prevUnread = unreadMessages;
-			if(map["statusMessage"] == null)
+			if(map["statusMessage"] == null && map["channel"] == channelName)
 				unreadMessages++;
 			
 			//mobile
@@ -462,6 +462,8 @@ class TabContent
 		DivElement chatString = new DivElement();
 		if(map["statusMessage"] == null || map["message"] == " joined.")
 		{
+			if(map["username"] == null)
+				print(map); //TODO: remove when bug goes away
 			userElement.text = map["username"] + ": ";
 			userElement.style.color = _getColor(map["username"]); //hashes the username so as to get a random color but the same each time for a specific user
 			
