@@ -32,6 +32,7 @@ part 'dart/engine/animation.dart';
 // Game parts
 part 'dart/street.dart';
 part 'dart/player.dart';
+part 'dart/chat_bubble.dart';
 
 //localStorage to use throughout app
 Storage localStorage = window.localStorage;

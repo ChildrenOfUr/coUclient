@@ -570,6 +570,15 @@ class TabContent
 		conversation.children.add(chatRow);
 		if(atTheBottom || (map['username'] == chat.username || map['newUsername'] == chat.username))
 			conversation.scrollTop = conversation.scrollHeight;
+		
+		//display chat bubble if we're talking in local
+		if(map["channel"] == "Local Chat" && map["username"] == chat.username && map["statusMessage"] == null)
+		{
+			//remove any existing bubble
+			if(CurrentPlayer.chatBubble != null && CurrentPlayer.chatBubble.bubble != null)
+				CurrentPlayer.chatBubble.bubble.remove();
+			CurrentPlayer.chatBubble = new ChatBubble(map["message"]);
+		}
 	}
 	
 	String _parseForUrls(String message)

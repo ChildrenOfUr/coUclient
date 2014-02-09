@@ -1151,6 +1151,31 @@ textarea{resize: none;}
     right: -9px;    
 }
 
+.PlayerChatBubble {
+	background: white;
+	padding: 2px;
+	border-radius: 5px;
+	max-width: 250px;
+	max-height: 90px;
+	position: relative;
+	top: -110px;
+	left: 110px;
+}
+.PlayerChatBubble::before {
+	background: white;
+	content: "\00a0";
+	position: absolute;
+	bottom: 1px;
+	left: -6px;
+	z-index: -1;
+	transform: rotate( 29deg ) skew( -35deg );
+				-moz-transform: rotate( 29deg ) skew( -35deg );
+				-ms-transform: rotate( 29deg ) skew( -35deg );
+				-o-transform: rotate( 29deg ) skew( -35deg );
+				-webkit-transform: rotate( 29deg ) skew( -35deg );
+	width: 20px;
+}
+
 .ActionBar {
 	height: calc(2em + 15px);
 	border-bottom: 1px solid;
