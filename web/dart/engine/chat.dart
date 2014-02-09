@@ -288,6 +288,7 @@ class TabContent
 			map["username"] = chat.username;
 			map["statusMessage"] = "list";
 			map["channel"] = channelName;
+			map["street"] = currentStreet.label;
 		}
 		else
 		{
