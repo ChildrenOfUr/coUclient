@@ -105,6 +105,7 @@ class Street
 			gradientCanvas.style.width = bounds.width.toString() + "px";
 			gradientCanvas.style.height = bounds.height.toString() + "px";
 			gradientCanvas.style.position = 'absolute';
+			gradientCanvas.attributes['ground_y'] = "0";
 			
 			// Color the gradientCanvas
 			String top = _data['gradient']['top'];
@@ -129,6 +130,7 @@ class Street
 				decoCanvas.style.width = layer['w'].toString() + 'px';
 				decoCanvas.style.height = layer['h'].toString() + 'px';
 				decoCanvas.style.position = 'absolute';
+				decoCanvas.attributes['ground_y'] = _data['dynamic']['ground_y'].toString();
 				
 				List<String> filters = new List();
 				new Map.from(layer['filters']).forEach((String filterName, int value)
@@ -247,6 +249,9 @@ class Street
 				int canvasHeight = int.parse(canvas.style.height.replaceAll('px', ''));
 				double offsetX = (canvasWidth - ui.gameScreenWidth) * currentPercentX;
 				double offsetY = (canvasHeight - ui.gameScreenHeight) * currentPercentY;
+				
+				int groundY = int.parse(canvas.attributes['ground_y']);
+				offsetY += groundY;
 	
 				//translateZ(0) forces the gpu to render the transform
 				transforms[canvas.id+"translateZ(0) translateX("+(-offsetX).toString()+"px) translateY("+(-offsetY).toString()+"px)"] = canvas;
