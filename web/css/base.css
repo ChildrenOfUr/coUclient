@@ -900,6 +900,21 @@ textarea{resize: none;}
   cursor: pointer;  color: #d79035;
   border: 1px solid #d79035;
 }
+
+#CurrentLocation{
+  position:absolute;
+  right: 300px;
+  width:300px;
+  top:15px; 
+  color:mediumgrey;
+  font-size: 16px;
+}
+#Location{
+  color:#005c73;
+  font-size: 20px;
+}
+
+
 /*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 /*Elements that appear in the top right*/
 #TopRight{
@@ -907,7 +922,6 @@ textarea{resize: none;}
   right: 0px;
   width:300px;
   top:25px;  
-
 }
 #FullscreenGlyph {display: inline;}
 #FullscreenResetGlyph {display: none;}
