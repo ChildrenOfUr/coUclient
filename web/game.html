@@ -91,10 +91,13 @@
 	        <div class="small white">Energy</div>
 	   </div>
 	
-  
+        
         <div id="CurrentLocation">
-        Current Location:
-          <div id="Location">
+        <img src="./assets/system/map_icon.png" id="MapGlyph" width="36" height="36">
+          <div color="yellow">
+            Current Location:
+            <div id="Location">
+            </div>
           </div>
         </div>
 	  <!--Contains all the ui elements on the top right-->
@@ -180,20 +183,30 @@
 	        <div class="small white">Currants</div>
 	      </div>
 	
-	<!-- Development Console -->
-	<div class="PopWindow" id="DevConsole" hidden="true">
+	<!-- Map Window -->
+	<div class="PopWindow" id="MapWindow" hidden="true">
 		<div class="PopWindowHeader handle">
-			<i class="icon-code icon-large"></i> 
-	  		Console
-	  		<i id="CloseConsole" class="icon-remove glyph icon-large"></i>
+	  		Map <!-- hub , else "World Map" -->
+            <i id="CloseMap" class="icon-remove glyph icon-large" style="color:#C9385A"></i>
+            <textarea class="MapSearchInput" spellcheck="false" rows="1">Search</textarea>
+
 		</div>
-		<div class="PopWindowBody">
-	    	<div id="CommandConsole">
-				<ol class="log"></ol>
-	    	</div>
-	    	<textarea class="ConsoleInput Typing" spellcheck="false"></textarea>
-	    </div>
 	</div>
+  
+    <!-- Development Console -->
+  <div class="PopWindow" id="DevConsole" hidden="true">
+    <div class="PopWindowHeader handle">
+      <i class="icon-code icon-large"></i> 
+        Console
+        <i id="CloseConsole" class="icon-remove glyph icon-large"></i>
+    </div>
+    <div class="PopWindowBody">
+        <div id="CommandConsole">
+        <ol class="log"></ol>
+        </div>
+        <textarea class="ConsoleInput Typing" spellcheck="false"></textarea>
+      </div>
+  </div>
 	
 	<!-- Mini Soundcloud widget -->
 	  <div id="SoundCloudWidget">

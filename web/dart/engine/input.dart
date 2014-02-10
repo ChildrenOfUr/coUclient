@@ -255,6 +255,20 @@ class Input
 			}
 		}
 		
+		//show and hide map
+    if(target.id == "MapGlyph")
+    {
+      if(querySelector('#MapWindow').hidden)
+        showMap();
+      else
+        hideMap(1);
+    }
+    if(target.id == "CloseMap")
+    {
+      hideMap(1);
+    }
+		
+		
 		//////////////////////////////////////////
 		///mobile specific click targets
 		//////////////////////////////////////////

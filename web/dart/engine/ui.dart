@@ -49,6 +49,7 @@ class UserInterface
 	
 	//Location/Map Variables
 	DivElement currLocation =  querySelector('#Location');
+	DivElement map =  querySelector('#MapGlyph');
 	
 	UserInterface()
 	{
