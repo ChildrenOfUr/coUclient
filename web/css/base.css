@@ -779,6 +779,45 @@ textarea{resize: none;}
    height:320px;
 }
 
+//TODO: Dynamic position
+/*Styling for a 'console' type window*/
+#MapWindow {
+   padding: 2px;
+   -moz-border-radius: 7px;
+   border-radius:  7px;
+   letter-spacing:0.5px;
+   overflow-x:hidden;
+   font-size:12px;
+   color: #ccc;
+   font-weight: normal;
+   background-color: #FFF;
+   position:absolute;
+   left:3px;
+   top:100px;
+   right:300px;
+   height:293px;
+}
+.MapSearchInput {
+	padding: 2px;
+	height: 14px;
+	width: 120px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+	font-family: monospace;
+	letter-spacing: 0.5px;
+	overflow: hidden;
+	font-size: 12px;
+	color: #ccc;
+	font-weight: normal;
+	top: 3px;
+    float: right;
+}
+#CloseMap {
+	float: right;
+	top: 3px;
+	padding-left:20px;
+}
+
 /*Styling for a 'console' type window*/
 #CommandConsole {
    padding: 2px;
@@ -900,6 +939,24 @@ textarea{resize: none;}
   cursor: pointer;  color: #d79035;
   border: 1px solid #d79035;
 }
+
+#CurrentLocation{
+  position:absolute;
+  right: 250px;
+  width:300px;
+  top:15px; 
+  color:mediumgrey;
+  font-size: 14px;
+}
+#Location{
+  color:#005c73;
+  font-size: 18px;
+}
+#MapGlyph {
+  float:left;
+  padding-right:10px;
+}
+
 /*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 /*Elements that appear in the top right*/
 #TopRight{
@@ -907,7 +964,6 @@ textarea{resize: none;}
   right: 0px;
   width:300px;
   top:25px;  
-
 }
 #FullscreenGlyph {display: inline;}
 #FullscreenResetGlyph {display: none;}

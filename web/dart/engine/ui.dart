@@ -47,6 +47,9 @@ class UserInterface
 	Element _maxMoodText = querySelector('#MaxMood');
 	Element _moodPercent = querySelector('#MoodPercent');
 	
+	//Location/Map Variables
+	DivElement currLocation =  querySelector('#Location');
+	DivElement map =  querySelector('#MapGlyph');
 	
 	UserInterface()
 	{
@@ -73,6 +76,8 @@ class UserInterface
 		setMaxEnergy('100');
 		setMood('100');
 		setMaxMood('100');
+		
+		currLocation.text = currentStreet.label;
 	}
 	
 	_setEnergy(int newValue)
@@ -118,6 +123,11 @@ class UserInterface
 	    	newValue = newValue.substring(0, 15) + '...';
 	  	nameMeter.text = newValue;
 	}
+	
+	 _setLocation(String label)
+  {
+      currLocation.text = label;
+  }
 	
 	_setSong(String artist, String song)
 	{

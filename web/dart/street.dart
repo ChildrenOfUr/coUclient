@@ -231,6 +231,11 @@ class Street
 				exitsElement.append(exitLabel);
 			});
 			
+			//display current street name			
+	    Element currLocation = querySelector("#Location");
+	    currLocation.text = label;
+	    print(label);
+			
 			//make sure to redraw the screen (in case of street switching)
 			camera.dirty = true;
 			c.complete(this);

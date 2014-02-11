@@ -20,6 +20,8 @@ List<List> COMMANDS = new List<List>()
 	
 	..add(['setname','"setname <value>" Changes the players displayed name',setName])
 	
+	..add(['setlocation','"setlocation<tsid>" Changes the current street',setLocation])
+	
 	..add(['setsong','"setsong <value>" Changes the currently playing song',setSong])
 	..add(['setvolume','"setvolume <1-100>" Changes the volume of the current song',setVolume])
 	
@@ -236,6 +238,23 @@ setName(String value)
 }
 
 /**
+ * Sets the player's location to the street [value].
+ * Recognizes TSIDs as values
+ */
+setLocation(String value)
+{
+  //TODO: Fix space bug
+  //value.trim();
+  
+  //changes first letter to match revdancatt's code
+  value = value.replaceFirst("L", "G");
+  ScriptElement loadStreet = new ScriptElement();
+  loadStreet.src = "http://revdancatt.github.io/CAT422-glitch-location-viewer/locations/$value.callback.json";
+  document.body.append(loadStreet);
+  printConsole('Teleporting to $value');
+}
+
+/**
  * Sets the SoundCloud widget's song to [value].  Must be one of the available songs.
  * If [value] is already playing, this method has no effect.
  */
@@ -314,6 +333,24 @@ setVolume(String value)
 	    	ui.currentSong.volume(intvalue);
 		printConsole('Setting volume to $value');
 	}  
+}
+
+/**
+ * Shows the map.
+ * 
+ *
+ */
+showMap()
+{
+  querySelector('#MapWindow').hidden = false;
+  querySelector('.ConsoleInput').focus();
+}
+hideMap(var nothing)
+{
+  querySelector('#MapWindow').hidden = true;
+  /* V ???
+  consolelistener.cancel();
+  */
 }
 
 /**
