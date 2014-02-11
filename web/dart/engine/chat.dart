@@ -200,7 +200,7 @@ class TabContent
 		{
 			Map map = new Map();
 			map["statusMessage"] = "hint";
-			map["message"] = "Hint :\nYou can set your chat name by typing '/setname [name]'<br><br>You can get a list of people in this chat room by typing '/list'";
+			map["message"] = "Hint :\nYou can set your chat name by typing '/setname my_name'<br><br>You can get a list of people in this chat room by typing '/list'";
 			_addmessage(map);
 		}
 		//TODO: end section

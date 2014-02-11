@@ -20,7 +20,7 @@ List<List> COMMANDS = new List<List>()
 	
 	..add(['setname','"setname <value>" Changes the players displayed name',setName])
 	
-	..add(['setlocation','"setlocation<tsid>" Changes the current street',setLocation])
+	..add(['setlocation','"setlocation <tsid>" Changes the current street',setLocation])
 	
 	..add(['setsong','"setsong <value>" Changes the currently playing song',setSong])
 	..add(['setvolume','"setvolume <1-100>" Changes the volume of the current song',setVolume])
@@ -243,15 +243,12 @@ setName(String value)
  */
 setLocation(String value)
 {
-  //TODO: Fix space bug
-  //value.trim();
-  
-  //changes first letter to match revdancatt's code
-  value = value.replaceFirst("L", "G");
-  ScriptElement loadStreet = new ScriptElement();
-  loadStreet.src = "http://revdancatt.github.io/CAT422-glitch-location-viewer/locations/$value.callback.json";
-  document.body.append(loadStreet);
-  printConsole('Teleporting to $value');
+	//changes first letter to match revdancatt's code
+	value = value.replaceFirst("L", "G").trim();
+	ScriptElement loadStreet = new ScriptElement();
+	loadStreet.src = "http://revdancatt.github.io/CAT422-glitch-location-viewer/locations/$value.callback.json";
+	document.body.append(loadStreet);
+	printConsole('Teleporting to $value');
 }
 
 /**

@@ -124,10 +124,10 @@ class UserInterface
 	  	nameMeter.text = newValue;
 	}
 	
-	 _setLocation(String label)
-  {
-      currLocation.text = label;
-  }
+	_setLocation(String label)
+	{
+		currLocation.text = label;
+	}
 	
 	_setSong(String artist, String song)
 	{
