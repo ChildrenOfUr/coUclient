@@ -29,13 +29,16 @@ main()
 			{
 				if(map["changeStreet"] != currentStreet.label) //someone left this street
 				{
-					otherPlayers.remove(map["username"]);
-					querySelector("player-"+map["username"]).remove();
+					removeOtherPlayer(map);
 				}
 				else //someone joined
 				{
 					createOtherPlayer(map);
 				}
+			}
+			else if(map["disconnect"] != null)
+			{
+				removeOtherPlayer(map);
 			}
 			else if(otherPlayers[map["username"]] == null)
 			{
@@ -126,11 +129,14 @@ createOtherPlayer(Map map)
 updateOtherPlayer(Map map, Player otherPlayer)
 {
 	otherPlayer.currentAnimation = CurrentPlayer.animations[map["animation"]];
-	otherPlayer.avatar.style.backgroundImage = 'url('+otherPlayer.currentAnimation.backgroundImage+')';
-	otherPlayer.avatar.style.width = otherPlayer.currentAnimation.width.toString()+'px';
-	otherPlayer.avatar.style.height = otherPlayer.currentAnimation.height.toString()+'px';
-	otherPlayer.avatar.style.animation = otherPlayer.currentAnimation.animationStyleString;
-	otherPlayer.canvasHeight = otherPlayer.currentAnimation.height+50;
+	if(!otherPlayer.avatar.style.backgroundImage.contains(otherPlayer.currentAnimation.backgroundImage))
+	{
+		otherPlayer.avatar.style.backgroundImage = 'url('+otherPlayer.currentAnimation.backgroundImage+')';
+		otherPlayer.avatar.style.width = otherPlayer.currentAnimation.width.toString()+'px';
+		otherPlayer.avatar.style.height = otherPlayer.currentAnimation.height.toString()+'px';
+		otherPlayer.avatar.style.animation = otherPlayer.currentAnimation.animationStyleString;
+		otherPlayer.canvasHeight = otherPlayer.currentAnimation.height+50;
+	}
 	
 	otherPlayer.playerCanvas.style.position = "absolute";
 	otherPlayer.playerCanvas.id = "player-"+map["username"];
@@ -140,24 +146,26 @@ updateOtherPlayer(Map map, Player otherPlayer)
 	otherPlayer.posX = x;
 	otherPlayer.posY = y;
 	
+	if(map["bubbleText"] != null)
+	{
+		if(otherPlayer.chatBubble == null)
+			otherPlayer.chatBubble = new ChatBubble(map["bubbleText"]);
+		otherPlayer.playerCanvas.append(otherPlayer.chatBubble.bubble);
+	}
+	else if(otherPlayer.chatBubble != null)
+	{
+		otherPlayer.chatBubble.bubble.remove();
+		otherPlayer.chatBubble = null;
+	}
+	
 	bool facingRight = false;
 	if(map["facingRight"] == "true")
 		facingRight = true;
-	String transform = '';
-	if(!facingRight)
-	{
-		transform += ' scale(-1,1)';
-		otherPlayer.playerName.style.transform = 'scale(-1,1)';
-		
-		if(otherPlayer.chatBubble != null)
-			otherPlayer.chatBubble.textElement.style.transform = 'scale(-1,1)';
-	}
-	else
-	{
-		otherPlayer.playerName.style.transform = 'scale(1,1)';
-		
-		if(otherPlayer.chatBubble != null)
-			otherPlayer.chatBubble.textElement.style.transform = 'scale(1,1)';
-	}
-	otherPlayer.playerCanvas.style.transform = transform;
+	otherPlayer.facingRight = facingRight;
+}
+
+removeOtherPlayer(Map map)
+{
+	otherPlayers.remove(map["username"]);
+	querySelector("#player-"+map["username"]).remove();
 }
