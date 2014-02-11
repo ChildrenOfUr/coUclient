@@ -57,6 +57,14 @@ class Street
 								_data['dynamic']['t'],
 								_data['dynamic']['l'].abs() + _data['dynamic']['r'].abs(),
 								_data['dynamic']['t'].abs());
+		
+		Element playerHolder = querySelector("#PlayerHolder");
+		playerHolder.children.clear();
+		playerHolder.style.width = bounds.width.toString()+'px';
+		playerHolder.style.height = bounds.height.toString()+'px';
+		playerHolder.classes.add('streetcanvas');
+		playerHolder.style.position = "absolute";
+		playerHolder.attributes["ground_y"] = "0";
 	}
   
 	Future <List> load()
@@ -222,6 +230,10 @@ class Street
 					..attributes['tsid'] = tsid;
 				exitsElement.append(exitLabel);
 			});
+			
+			//display current street name			
+	    Element currLocation = querySelector("#Location");
+	    currLocation.text = label;
 			
 			//make sure to redraw the screen (in case of street switching)
 			camera.dirty = true;

@@ -9,6 +9,7 @@ class Player
 	bool jumping = false, moving = false, facingRight = true;
 	Map<String,Animation> animations = new Map();
 	Animation currentAnimation;
+	ChatBubble chatBubble = null;
   		
 	//for testing purposes
 	//if false, player can move around with wasd and arrows, no falling
@@ -18,7 +19,7 @@ class Player
 	DivElement avatar;
 	DivElement playerName;
   
-	Player()
+	Player([String name])
 	{
 		//TODO: Remove hard-coded values used for testing
 		width = 116;
@@ -31,11 +32,11 @@ class Player
 		playerCanvas = new DivElement()
 			..style.display = "inline-block"
 			..style.textAlign = "center";
+		
 		playerName = new DivElement()
-			..text = chat.username;
+			..text = name != null? name : chat.username;
 		
 		avatar = new DivElement();
-		avatar.id = "playerCanvas";
 		
 		playerCanvas.append(playerName);
 		playerCanvas.append(avatar);
@@ -43,8 +44,6 @@ class Player
 		gameScreen.append(playerCanvas);
 		
 		canvasHeight = playerCanvas.clientHeight;
-				
-		CurrentPlayer = this;
 	}
 	
 	Future<List<Animation>> loadAnimations()
@@ -63,6 +62,21 @@ class Player
   
 	update(double dt)
 	{
+		//show chat message if it exists and decrement it's timeToLive
+		if(chatBubble != null)
+		{
+			if(chatBubble.timeToLive <= 0)
+			{
+				chatBubble.bubble.remove();
+				chatBubble = null;
+			}
+			else
+			{
+				chatBubble.timeToLive -= dt;
+				playerCanvas.append(chatBubble.bubble);
+			}
+		}
+		
 		//should be more general value 'speed'
 		if (playerInput.rightKey == true)
 		{
@@ -176,9 +190,18 @@ class Player
 		{
 			transform += ' scale(-1,1)';
 			playerName.style.transform = 'scale(-1,1)';
+			
+			if(chatBubble != null)
+				chatBubble.textElement.style.transform = 'scale(-1,1)';
 		}
 		else
+		{
 			playerName.style.transform = 'scale(1,1)';
+			
+			if(chatBubble != null)
+				chatBubble.textElement.style.transform = 'scale(1,1)';
+		}
+		
 		playerCanvas.style.transform = transform;
 	}
   
