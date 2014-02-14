@@ -367,6 +367,10 @@ textarea{resize: none;}
     border-radius: 50%;
    background: #eee;
    color: #717171;
+   /* this fixes the overflow:hidden in Chrome not clipping it's contents to the border-radius
+   more information here: http://stackoverflow.com/questions/5736503/how-to-make-css3-rounded-corners-hide-overflow-in-chrome-opera*/
+   -webkit-mask-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC);
+   
 
 }
 .MoodCircle {
@@ -385,6 +389,7 @@ textarea{resize: none;}
     -webkit-transition-duration:0.2s;
     -webkit-transition-timing-function:linear;
     -webkit-transition-delay:0.5s;
+    
 }
 #MoodText {
     position:absolute;
