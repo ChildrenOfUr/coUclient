@@ -647,17 +647,17 @@ textarea{resize: none;}
     display: block;
 }
 ::-webkit-scrollbar-button:vertical:decrement {
-    background-image: url('../assets/system/up.png');
+    background-image: url('../assets/system/up.svg');
 }
 ::-webkit-scrollbar-button:vertical:decrement:active {
-    background-image: url('../assets/system/up_active.png');
+    background-image: url('../assets/system/up_active.svg');
 }
 ::-webkit-scrollbar-button:vertical:increment {
-    background-image: url('../assets/system/down.png');
+    background-image: url('../assets/system/down.svg');
     border-radius: 5px;
 }
 ::-webkit-scrollbar-button:vertical:increment:active {
-    background-image: url('../assets/system/down_active.png');
+    background-image: url('../assets/system/down_active.svg');
     border-radius: 5px;
 }
 /* End hacky bits */
@@ -1014,10 +1014,7 @@ textarea{resize: none;}
    width:250px;
    align:right;
 }
-#SCLink {
-  
-  
-}
+
 
 #AudioSettings > #SliderParent > #VolumeSlider {
     -webkit-appearance: none;
