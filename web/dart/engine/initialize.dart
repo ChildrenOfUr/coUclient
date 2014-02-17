@@ -98,7 +98,7 @@ start()
 	}
 	
 	// Set the meters to their current values.
-	ui.init();      
+	ui.init();  
 	
 	printConsole('System: Initializing..');
 	

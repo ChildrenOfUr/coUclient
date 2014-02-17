@@ -5,7 +5,9 @@ String lastXY = "";
 // Our gameloop
 loop() 
 {
+	print("inside loop");
 	CurrentPlayer.update(game.dt);
+	print("updated current player");
 	
 	otherPlayers.forEach((String username, Player otherPlayer)
 	{
@@ -30,6 +32,7 @@ loop()
 		}
 		otherPlayer.playerCanvas.style.transform = transform;
 	});
+	print("updated other players");
 	
 	//update the other clients with our position & street
 	timeLast += game.dt;
@@ -41,6 +44,7 @@ loop()
 		
 		sendPlayerInfo();
 	}
+	print("sent currentplayer info");
 }
 
 sendPlayerInfo()
