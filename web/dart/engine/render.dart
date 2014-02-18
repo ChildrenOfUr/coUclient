@@ -9,7 +9,6 @@ bool showFps = false;
 // Our renderloop
 render() 
 {
-	print("inside render");
 	if(showFps)
 	{
 		fpsDisplay.style.display = "block";
@@ -22,14 +21,11 @@ render()
 		fpsDisplay.style.display = "none";
 	// Update clock
 	refreshClock();
-	print("refreshed clock");
 	//Draw Street
 	var start = new DateTime.now();
 	if (currentStreet is Street)
 		currentStreet.render();
-	print("rendered street");
 	//Draw Player
 	if(CurrentPlayer is Player)
 		CurrentPlayer.render();
-	print("rendered player");
 }

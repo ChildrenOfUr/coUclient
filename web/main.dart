@@ -6,9 +6,6 @@ import 'dart:convert';
 import 'dart:math';
 import 'package:intl/intl.dart'; //used for NumberFormat
 
-// Import our non-standard libraries.
-import 'package:game_loop/game_loop_html.dart';// TODO: It may be a good idea to write our own simpler game_loop at some point.
-
 // Import our coU libraries.
 import 'package:glitchTime/glitch-time.dart';// The script that spits out time!
 import 'package:scproxy/scproxy.dart'; // Paul's soundcloud bootstrap
@@ -38,7 +35,12 @@ part 'dart/chat_bubble.dart';
 Storage localStorage = window.localStorage;
 
 // Declare our game_loop
-CanvasElement gameCanvas = new CanvasElement();
-GameLoopHtml game = new GameLoopHtml(gameCanvas)
-  ..onUpdate = ((gameLoop) {loop();})
-  ..onRender = ((gameLoop) {render();});
+double lastTime = 0.0;
+gameLoop(num delta)
+{
+	double dt = (delta-lastTime)/1000;
+	loop(dt);
+	render();
+	lastTime = delta;
+	window.animationFrame.then(gameLoop);
+}

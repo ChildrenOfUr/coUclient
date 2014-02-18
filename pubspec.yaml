@@ -4,9 +4,6 @@ author: coU Development Team
 description: The sourcecode/tools needed to hack/compile the Children of Ur client
 homepage: ChildrenOfUr.github.io
 dependencies:
-  box2d: any
-  browser: any
-  game_loop: any
   glitchTime:
     git:
       ref: master
