@@ -98,7 +98,7 @@ start()
 	}
 	
 	// Set the meters to their current values.
-	ui.init();      
+	ui.init();  
 	
 	printConsole('System: Initializing..');
 	
@@ -113,7 +113,7 @@ start()
 	printConsole('For a list of commands type "help"');
 	    	
 	// Begin the GAME!!!
-	game.start();
+	gameLoop(0.0);
 }
 
 createOtherPlayer(Map map)
@@ -141,8 +141,10 @@ updateOtherPlayer(Map map, Player otherPlayer)
 	otherPlayer.playerCanvas.style.position = "absolute";
 	otherPlayer.playerCanvas.id = "player-"+map["username"];
 	
-	int x = num.parse(map["xy"].split(',')[0]).floor();
-	int y = num.parse(map["xy"].split(',')[1]).floor();
+
+	double x = double.parse(map["xy"].split(',')[0]);
+	double y = double.parse(map["xy"].split(',')[1]);
+
 	otherPlayer.posX = x;
 	otherPlayer.posY = y;
 	
@@ -167,5 +169,7 @@ updateOtherPlayer(Map map, Player otherPlayer)
 removeOtherPlayer(Map map)
 {
 	otherPlayers.remove(map["username"]);
-	querySelector("#player-"+map["username"]).remove();
+	Element otherPlayer = querySelector("#player-"+map["username"]);
+	if(otherPlayer != null)
+		otherPlayer.remove();
 }

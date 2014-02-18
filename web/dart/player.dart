@@ -4,8 +4,9 @@ Player CurrentPlayer;
 
 class Player
 {
-	int posX, posY, width, height, canvasHeight, speed;
-	num yVel, yAccel = -40;
+	int width, height, canvasHeight, speed;
+	num posX, posY;
+	num yVel, yAccel = -2400;
 	bool jumping = false, moving = false, facingRight = true;
 	Map<String,Animation> animations = new Map();
 	Animation currentAnimation;
@@ -24,9 +25,9 @@ class Player
 		//TODO: Remove hard-coded values used for testing
 		width = 116;
 		height = 137;
-		speed = 5;
+		speed = 300; //pixels per second
 		yVel = 0;
-		posX = 0;
+		posX = 0.0;
 		posY = currentStreet.bounds.height - 170;
 
 		playerCanvas = new DivElement()
@@ -80,13 +81,13 @@ class Player
 		//should be more general value 'speed'
 		if (playerInput.rightKey == true)
 		{
-			posX += CurrentPlayer.speed;
+			posX += speed * dt;
 			facingRight = true;
 			moving = true;
 		}
 		else if (playerInput.leftKey == true)
 		{
-			posX -= CurrentPlayer.speed;
+			posX -= speed * dt;
 			facingRight = false;
 			moving = true;
 		}
@@ -94,13 +95,13 @@ class Player
 			moving = false;
 			
 	    //primitive jumping
-	    if (playerInput.spaceKey == true && !jumping)
+		if (playerInput.spaceKey == true && !jumping)
 		{
 			Random rand = new Random();
 			if(rand.nextInt(4) == 3)
-				yVel = -20;
+				yVel = -1200;
 			else
-				yVel = -15;
+				yVel = -900;
 			jumping = true;
 		}
 	    
@@ -108,19 +109,19 @@ class Player
 	    //for jumps/falling	    
 		if(doPhysicsApply)
 		{
-			yVel = yVel - yAccel * dt;
-			posY = (posY + yVel)~/1;
+			yVel -= yAccel * dt;
+			posY += yVel * dt;
 	    }
 		else
 		{
 			if (playerInput.downKey == true)
-				posY += CurrentPlayer.speed;
+				posY += speed * dt;
 			if (playerInput.upKey == true)
-				posY -= CurrentPlayer.speed;
+				posY -= speed * dt;
 	    }
 	    
 	    if (posX < 0)
-			posX = 0;
+			posX = 0.0;
 	    if (posX > currentStreet.bounds.width - width)
 			posX = currentStreet.bounds.width - width;
 	    if (posY > currentStreet.bounds.height - canvasHeight)
@@ -130,7 +131,7 @@ class Player
 			jumping = false;
 		}
 	    if (posY < 0)
-			posY = 0;
+			posY = 0.0;
 			
 		if(!moving && !jumping)
 			currentAnimation = animations['idle'];

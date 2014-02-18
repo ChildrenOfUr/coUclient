@@ -25,7 +25,8 @@ List<List> COMMANDS = new List<List>()
 	..add(['setsong','"setsong <value>" Changes the currently playing song',setSong])
 	..add(['setvolume','"setvolume <1-100>" Changes the volume of the current song',setVolume])
 	
-	..add(['togglefps','show or hide the fps display"',toggleFps]);
+	..add(['togglefps','show or hide the fps display"',toggleFps])
+	..add(['togglePhysics','enable or disable jumping and falling to the groud"',togglePhysics]);
 
 /**
  * Attempts to parse input from the user and run the appropriate command.
@@ -243,6 +244,9 @@ setName(String value)
  */
 setLocation(String value)
 {
+	Element loadingScreen = querySelector('#MapLoadingScreen');
+	loadingScreen.className = "MapLoadingScreenIn";
+	loadingScreen.style.opacity = "1.0";
 	//changes first letter to match revdancatt's code
 	value = value.replaceFirst("L", "G").trim();
 	ScriptElement loadStreet = new ScriptElement();
@@ -325,7 +329,7 @@ setVolume(String value)
 		InputElement volumeSlider = (querySelector('#VolumeSlider') as InputElement);
 		localStorage['prevVolume'] = volumeSlider.value;
 		volumeSlider.value = value.trim();
-		(querySelector('#rangevalue') as OutputElement).value = value.trim();
+		querySelector('#rangevalue').text = value.trim();
 		if (ui.currentSong != null)
 	    	ui.currentSong.volume(intvalue);
 		printConsole('Setting volume to $value');
@@ -359,6 +363,17 @@ toggleFps(var nothing)
 		showFps = false;
 	else
 		showFps = true;
+}
+
+/**
+ * Toggles physics on the current player
+ */
+togglePhysics(var nothing)
+{
+	if(CurrentPlayer.doPhysicsApply)
+		CurrentPlayer.doPhysicsApply = false;
+	else
+		CurrentPlayer.doPhysicsApply = true;
 }
 
 // A blank action.

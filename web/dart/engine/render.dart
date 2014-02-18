@@ -11,11 +11,14 @@ render()
 {
 	if(showFps)
 	{
+		fpsDisplay.style.display = "block";
 		var now = new DateTime.now();
 		var fps = 1/(now.difference(last).inMilliseconds/1000);
 		fpsDisplay.text = "fps:"+twoDigit.format(fps);
 		last = now;
 	}
+	else
+		fpsDisplay.style.display = "none";
 	// Update clock
 	refreshClock();
 	//Draw Street

@@ -20,7 +20,7 @@ class Input
 	init() 
 	{
 		// disable default game_loop pointerlock
-		game.pointerLock.lockOnClick = false;  
+		//game.pointerLock.lockOnClick = false;  
 	
 	    document.onFullscreenChange.listen((_)
 		{
