@@ -290,7 +290,7 @@ class TabContent
 			map["channel"] = channelName;
 			map["street"] = currentStreet.label;
 		}
-		else if(input.split(" ")[0] == "/setlocation")
+		else if(input.split(" ")[0] == "/setlocation" || input.split(" ")[0] == "/go")
 		{
 			setLocation(input.split(" ")[1]);
 			return;
