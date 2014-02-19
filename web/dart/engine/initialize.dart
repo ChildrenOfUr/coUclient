@@ -141,8 +141,10 @@ updateOtherPlayer(Map map, Player otherPlayer)
 	otherPlayer.playerCanvas.style.position = "absolute";
 	otherPlayer.playerCanvas.id = "player-"+map["username"];
 	
+
 	double x = double.parse(map["xy"].split(',')[0]);
 	double y = double.parse(map["xy"].split(',')[1]);
+
 	otherPlayer.posX = x;
 	otherPlayer.posY = y;
 	
