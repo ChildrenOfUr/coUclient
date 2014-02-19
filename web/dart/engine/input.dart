@@ -265,17 +265,32 @@ class Input
 		}
 		
 		//show and hide map
-    if(target.id == "MapGlyph")
-    {
-      if(querySelector('#MapWindow').hidden)
-        showMap();
-      else
-        hideMap(1);
-    }
-    if(target.id == "CloseMap")
-    {
-      hideMap(1);
-    }
+		if(target.id == "MapGlyph")
+		{
+			if(querySelector('#MapWindow').hidden)
+				showMap();
+			else
+				hideMap(1);
+		}
+		if(target.id == "CloseMap")
+		{
+				hideMap(1);
+		}
+		
+		//mobile css toggle
+		if(target.id == "ThemeSwitcher")
+		{
+			if(target.text.contains("Mobile"))
+			{
+				querySelector("#MobileStyle").attributes.remove("disabled");
+				target.text = "View as Desktop";
+			}
+			else
+			{
+				querySelector("#MobileStyle").attributes["disabled"] = "true";
+				target.text = "View as Mobile";
+			}
+		}
 		
 		
 		//////////////////////////////////////////
