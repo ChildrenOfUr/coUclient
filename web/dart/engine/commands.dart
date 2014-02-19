@@ -247,8 +247,9 @@ setLocation(String value)
 	Element loadingScreen = querySelector('#MapLoadingScreen');
 	loadingScreen.className = "MapLoadingScreenIn";
 	loadingScreen.style.opacity = "1.0";
-	//changes first letter to match revdancatt's code
-	value = value.replaceFirst("L", "G").trim();
+	//changes first letter to match revdancatt's code - only if it starts with an L
+	if(value.startsWith("L"))
+		value = value.replaceFirst("L", "G").trim();
 	ScriptElement loadStreet = new ScriptElement();
 	loadStreet.src = "http://revdancatt.github.io/CAT422-glitch-location-viewer/locations/$value.callback.json";
 	document.body.append(loadStreet);

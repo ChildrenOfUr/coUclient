@@ -273,7 +273,7 @@ class TabContent
 		});
 	}
 	
-	Map parseInput(String input)
+	parseInput(String input)
 	{
 		Map map = new Map();
 		if(input.split(" ")[0] == "/setname")
@@ -289,6 +289,11 @@ class TabContent
 			map["statusMessage"] = "list";
 			map["channel"] = channelName;
 			map["street"] = currentStreet.label;
+		}
+		else if(input.split(" ")[0] == "/setlocation")
+		{
+			setLocation(input.split(" ")[1]);
+			return;
 		}
 		else
 		{
