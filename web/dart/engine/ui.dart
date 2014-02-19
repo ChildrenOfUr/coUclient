@@ -71,7 +71,7 @@ class UserInterface
 		//Set up the Currant Display
 		setCurrants('0');
 		
-		// This should actually pull from an online source..
+		//TODO: This should actually pull from an online source..
 		setEnergy('100');
 		setMaxEnergy('100');
 		setMood('100');

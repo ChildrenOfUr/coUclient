@@ -947,8 +947,8 @@ textarea{resize: none;}
 
 #CurrentLocation{
   position:absolute;
-  right: 250px;
-  width:300px;
+  display: inline-flex;
+  right: 335px;
   top:15px; 
   color:mediumgrey;
   font-size: 14px;
@@ -1151,7 +1151,6 @@ textarea{resize: none;}
   opacity:0.6;
   left: 2px;
   bottom: 2px;
-  z-index:99;
 }
 
 .centered-icon {
@@ -1296,7 +1295,7 @@ textarea{resize: none;}
 	display: inline-block;
 	position: absolute;
 	bottom: 2px;
-	right: 400px;
+	right: 10px;
 	border: 3px solid;
 	border-radius: 10px;
 	padding: 3px;

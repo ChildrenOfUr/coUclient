@@ -38,7 +38,7 @@
 	position: absolute;
 	top: calc(2em + 19px);
 	width: 100%;
-	bottom: calc(2em + 16px);
+	bottom: calc(2em + 20px);
 	overflow-y: scroll;
 	background: white;
 }
@@ -121,6 +121,85 @@
   -webkit-transform: scale(2);
   -o-transform: scale(2);
 }
+#MobileFullscreen {
+	position: absolute;
+	display: inline;
+	top: 10px;
+	right: 20px;
+	left: auto;
+	z-index: 0;
+}
+#MobileFullscreenReset {
+	position: absolute;
+	display: none;
+	top: 10px;
+	right: 20px;
+	left: auto;
+	z-index: 0;
+}
+#MobileAudioGlyph {
+	position: absolute;
+	display: inline;
+	top:10px;
+	right: 50px;
+	left: auto;
+	z-index: 0;
+}
+#ThemeSwitcher {
+	display: inline-block;
+	position: absolute;
+	top: 5px;
+	bottom: auto;
+	right: auto;
+	left: 250px;
+	font-size: .5em;
+	border: 3px solid;
+	border-radius: 10px;
+	padding: 3px;
+	background: white;
+}
+#CurrentLocation {
+	position: absolute;
+	display: inline-flex;
+	max-width: 45%;
+	max-height: 40px;
+	overflow-y: hidden;
+	overflow-x: hidden;
+	right: 75px;
+	top: 1px;
+	font-size: 14px;
+}
+#MapGlyph {
+	padding-right: 5px;
+}
+
+#ChatDisconnected {
+	display: none;
+}
+#Footer {
+	display: none;
+}
+.PopWindowBody {
+	display: none;
+}
+#TopRight {
+	display: none;
+}
+#SizeWarning {
+	display: none;
+}
+#SoundCloudWidget {
+	display: none;
+}
+#ChatPane {
+	display: none;
+}
+#ChatSettingsIcon {
+	display: none;
+}
+#InventoryBar, #InventoryBag{
+	display: none;
+}
 
 @media (orientation: landscape) /* mobile device in landscape */
 {
@@ -129,6 +208,9 @@
 	}
 	#PlayerName {
 		left: 150px;
+	}
+	#ImaginationText {
+		left: 114px;
 	}
 	#EnergyText {
 		top: 40px;
@@ -179,33 +261,6 @@
 		border-radius: 50%;
 		background: #fff;
 	}
-	#ChatDisconnected {
-		display: none;
-	}
-	#Footer {
-		display: none;
-	}
-	.PopWindowBody {
-		display: none;
-	}
-	#TopRight {
-		display: none;
-	}
-	#SizeWarning {
-		display: none;
-	}
-	#SoundCloudWidget {
-		display: none;
-	}
-	#ChatPane {
-		display: none;
-	}
-	#ChatSettingsIcon {
-		display: none;
-	}
-	#InventoryBar, #InventoryBag{
-		display: none;
-	}
 	#ChatBubble {
 		display: block;
 		position: absolute;
@@ -236,23 +291,9 @@
 		right: 100px;
 		bottom: 5px;
 	}
-	#MobileFullscreen {
-		position: absolute;
-		display: inline;
-		top: 10px;
-		right: 20px;
-	}
-	#MobileFullscreenReset {
-		position: absolute;
-		display: none;
-		top: 10px;
-		right: 20px;
-	}
-	#MobileAudioGlyph {
-		position: absolute;
-		display: inline;
-		top:10px;
-		right: 50px;
+	#ThemeSwitcher {
+		top: 17px;
+		left: 150px;
 	}
 }
 
@@ -263,7 +304,12 @@
 		left: 4px;
 	}
 	#PlayerName {
-		left: 150px;
+		left: 5px;
+		top: 1px;
+	}
+	#ImaginationText {
+		top: 30px;
+		left: 94px;
 	}
 	#EnergyText {
 		top: 50px;
@@ -318,35 +364,9 @@
 		border-radius: 50%;
 		background: #fff;
 	}
-	#ChatDisconnected {
-		display: none;
-	}
-	#Footer {
-		display: none;
-	}
-	.PopWindowBody {
-		display: none;
-	}
-	#TopRight {
-		display: none;
-	}
-	#SizeWarning {
-		display: none;
-	}
-	#SoundCloudWidget {
-		display: none;
-	}
-	#ChatPane {
-		display: none;
-	}
-	#ChatSettingsIcon {
-		display: none;
-	}
-	#InventoryBar, #InventoryBag{
-		display: none;
-	}
 	#ChatBubble {
 		position: absolute;
+		display: block;
 		right: -40px;
 		top: 35px;
 	}
@@ -374,22 +394,11 @@
 		right: 70px;
 		bottom: 30px;
 	}
-	#MobileFullscreen {
-		position: absolute;
-		display: inline;
-		top: 10px;
-		right: 20px;
+	#CurrentLocation {
+		max-width: 38%;
 	}
-	#MobileFullscreenReset {
-		position: absolute;
-		display: none;
-		top: 10px;
-		right: 20px;
-	}
-	#MobileAudioGlyph {
-		position: absolute;
-		display: inline;
-		top:10px;
-		right: 50px;
+	#ThemeSwitcher {
+		top: 1px;
+		left: 100px;
 	}
 }
