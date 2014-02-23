@@ -5,6 +5,14 @@ Map<String,Player> otherPlayers;
 
 main()
 {
+	//disable the mobile stylesheet
+	//we do it here instead of in the html so that it loads
+	//also firefox ignores the disabled attribute in html
+	if(localStorage["interface"] == null || localStorage["interface"] == "desktop")
+		(querySelector("#MobileStyle") as LinkElement).disabled = true;
+	else
+		querySelector("#ThemeSwitcher").text = "Desktop View";
+
 	// The player has requested that the game is to begin.
 	// run all audio initialization tasks
 	//set status text on loading screen to show progress TODO: temporary until prettier thing arrives

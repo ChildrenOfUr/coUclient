@@ -165,25 +165,21 @@ class Input
 	
 	clickOrTouch(MouseEvent mouseEvent, TouchEvent touchEvent)
 	{
+		//don't handle too many touch events too fast
+		if(touched)
+			return;
+		touched = true;
+		new Timer.periodic(new Duration(milliseconds: 200), (Timer timer)
+		{
+			timer.cancel();
+			touched = false;
+		});
 		Element target;
 		
 		if(mouseEvent != null)
-		{
-			//if we handled this in the onTouchStart event, don't handle it here
-			if(touched)
-				return;
 			target = mouseEvent.target;
-		}
 		else
-		{
 			target = touchEvent.target;
-			touched = true;
-			new Timer.periodic(new Duration(milliseconds: 100), (Timer timer)
-			{
-				timer.cancel();
-				touched = false;
-			});
-		}
 		
 		// Handle the console opener/closer
 		if(target.id == "ConsoleGlyph")
@@ -265,17 +261,38 @@ class Input
 		}
 		
 		//show and hide map
-    if(target.id == "MapGlyph")
-    {
-      if(querySelector('#MapWindow').hidden)
-        showMap();
-      else
-        hideMap(1);
-    }
-    if(target.id == "CloseMap")
-    {
-      hideMap(1);
-    }
+		if(target.id == "MapGlyph")
+		{
+			if(querySelector('#MapWindow').hidden)
+				showMap();
+			else
+				hideMap(1);
+		}
+		if(target.id == "CloseMap")
+		{
+				hideMap(1);
+		}
+		
+		//mobile css toggle
+		if(target.id == "ThemeSwitcher")
+		{
+			if(target.text.contains("Mobile"))
+			{
+				(querySelector("#MobileStyle") as LinkElement).disabled = false;
+				target.text = "Desktop View";
+				localStorage["interface"] = "mobile";
+				//make sure that gameScreen is updated with the correct size
+				//so that rendering works
+				resize();
+			}
+			else
+			{
+				(querySelector("#MobileStyle") as LinkElement).disabled = true;
+				target.text = "Mobile View";
+				localStorage["interface"] = "desktop";
+				resize();
+			}
+		}
 		
 		
 		//////////////////////////////////////////
@@ -315,6 +332,7 @@ class Input
 		{
 			querySelector('#ChannelSelectorScreen').hidden = true;
 			querySelector('#MainScreen').hidden = false;
+			resize();
 		}
 		
 		if(target.id == "ChatBubble" || target.id == "ChatBubbleText")
