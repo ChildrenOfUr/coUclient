@@ -144,7 +144,7 @@ class UserInterface
 			(querySelector('#VolumeSlider') as InputElement).disabled = true;
 			audioGlyph.innerHtml = '<img src="./assets/system/mute.png" class="centered-icon glyph">'; //hack to have mute icon be centered
 			mobileAudioGlyph.innerHtml = '<img src="./assets/system/mute.png" class="centered-icon glyph">';
-			setVolume('0');
+			setVolume('0',true);
 			localStorage['isMuted'] = '1';
 		}
 		else //set to unmuted
@@ -152,7 +152,7 @@ class UserInterface
 			(querySelector('#VolumeSlider') as InputElement).disabled = false;
 			audioGlyph.innerHtml = '<i id="VolumeGlyph" class="icon-volume-up glyph icon-large"></i>';
 			mobileAudioGlyph.innerHtml = '<i id="VolumeGlyph" class="icon-volume-up glyph icon-large"></i>';
-			setVolume(localStorage['prevVolume']);
+			setVolume(localStorage['prevVolume'],false);
 			localStorage['isMuted'] = '0';
 		}
 	}

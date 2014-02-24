@@ -12,14 +12,15 @@ init_audio()
 {
 	if(prevVolume != null)
 	{
-		setVolume(prevVolume);
+		setVolume(prevVolume,false);
 		(querySelector('#VolumeSlider') as InputElement).value = prevVolume;
-		querySelector('#rangevalue').innerHtml = prevVolume;
+		querySelector('#rangevalue').text = prevVolume;
 	}
 	else
 	{
 		prevVolume = '50';
 		localStorage['prevVolume'] = '50';
+		setVolume(prevVolume,false);
 	}
 	
 	if(isMuted == null)

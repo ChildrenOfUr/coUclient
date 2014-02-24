@@ -311,25 +311,31 @@ _playSong(String value)
 		ui.currentSong.pause();
 	ui.currentSong = ui.jukebox[value];
 	ui.currentSong.play();
-	ui.currentSong.loop(true);	
+	ui.currentSong.loop(true);
 	String title = ui.currentSong.meta['title'];
 	String artist = ui.currentSong.meta['user']['username'];
 	ui._setSong(artist,title);
 	AnchorElement link = querySelector('#SCLink');
 	link.href = ui.currentSong.meta['permalink_url'];
+	
+	if(isMuted == '1')
+		setVolume('0',true);
+	else
+		setVolume(prevVolume,false);
 }
 
 /**
  * Sets the volume of anny sound that is played to [value].  Must be in the range [0,100]
  */
-setVolume(String value)
+setVolume(String value, bool mute)
 {
 	// Force an int
 	int intvalue = int.parse(value,onError:null);
-	if (intvalue != null)
+	if(intvalue != null)
 	{
 		InputElement volumeSlider = (querySelector('#VolumeSlider') as InputElement);
-		localStorage['prevVolume'] = volumeSlider.value;
+		if(!mute) //if we're not muting, set the volume, otherwise we will rely on the mute flag
+			localStorage['prevVolume'] = value;
 		volumeSlider.value = value.trim();
 		querySelector('#rangevalue').text = value.trim();
 		if (ui.currentSong != null)

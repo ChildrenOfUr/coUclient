@@ -42,7 +42,7 @@ class Input
 		InputElement volumeSlider = querySelector('#VolumeSlider');
 		volumeSlider.onChange.listen((_)
 		{
-			setVolume(volumeSlider.value);
+			setVolume(volumeSlider.value,false);
 		});   
 	      
 		//handle chat input getting focused/unfocused so that the character doesn't move while typing
