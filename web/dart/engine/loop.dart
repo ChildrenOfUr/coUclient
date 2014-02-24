@@ -36,8 +36,11 @@ loop(var dt)
 	if(timeLast > .03 && playerSocket != null && playerSocket.readyState == WebSocket.OPEN)
 	{
 		String xy = CurrentPlayer.posX.toString()+","+CurrentPlayer.posY.toString();
-		if(xy == lastXY) //don't send updates when the player doesn't move
-			return;
+		if(xy == lastXY) //don't send updates when the player doesn't move - except once every 5 seconds
+		{
+			if(timeLast < 5)
+				return;
+		}
 		
 		lastXY = xy;
 		sendPlayerInfo();
