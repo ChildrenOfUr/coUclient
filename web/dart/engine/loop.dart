@@ -39,6 +39,7 @@ loop(var dt)
 		if(xy == lastXY) //don't send updates when the player doesn't move
 			return;
 		
+		lastXY = xy;
 		sendPlayerInfo();
 	}
 }

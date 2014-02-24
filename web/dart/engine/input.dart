@@ -145,12 +145,14 @@ class Input
 		{
 			Map<String,String> street = JSON.decode(event.data);
 			String label = street['label'];
+			String tsid = street['tsid'];
 			
 			//send changeStreet to chat server
 			Map map = new Map();
 			map["statusMessage"] = "changeStreet";
 			map["username"] = chat.username;
-			map["newStreet"] = label;
+			map["newStreetLabel"] = label;
+			map["newStreetTsid"] = tsid;
 			map["oldStreet"] = currentStreet.label;
 			chat.tabContentMap["Local Chat"].webSocket.send(JSON.encode(map));
 			

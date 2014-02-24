@@ -696,6 +696,10 @@ textarea{resize: none;}
     -o-user-select: text;
     user-select: text; 
 }
+.ClickableStreetLink {
+	cursor: pointer;
+text-decoration: underline;
+}
 .tabs {
   position: relative;
 }

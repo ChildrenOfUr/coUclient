@@ -355,7 +355,7 @@ class TabContent
 				if(!chat.getJoinMessagesVisibility()) //ignore left messages unless the user turns them on
 					return;
 			}
-			
+						
 			int prevUnread = unreadMessages;
 			if(map["statusMessage"] == null && map["channel"] == channelName)
 				unreadMessages++;
@@ -473,9 +473,29 @@ class TabContent
 				userElement.style.color = _getColor(map["username"]); //hashes the username so as to get a random color but the same each time for a specific user
 				
 				chatString.children
-				..add(userElement)
-				..add(text);
+					..add(userElement)
+					..add(text);
 			}
+		}
+		if(map["statusMessage"] == "leftStreet")
+		{
+			//display "user has left for <street>" message with clickable street
+			userElement.text = map["username"];
+			userElement.style.color = _getColor(map["username"]);
+			
+			AnchorElement streetElement = new AnchorElement()
+			    ..text = map["streetName"]
+				..className = "ClickableStreetLink"
+				..onClick.listen((_)
+				{
+					setLocation(map["tsid"]);
+				});
+			chatString.children
+				..add(userElement)
+				..add(text)
+				..add(streetElement);
+			
+			removeOtherPlayer(map["username"]);
 		}
 		//TODO: remove after real usernames happen
 		if(map["statusMessage"] == "hint")

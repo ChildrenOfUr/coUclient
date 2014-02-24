@@ -37,7 +37,7 @@ main()
 			{
 				if(map["changeStreet"] != currentStreet.label) //someone left this street
 				{
-					removeOtherPlayer(map);
+					removeOtherPlayer(map["username"]);
 				}
 				else //someone joined
 				{
@@ -46,7 +46,7 @@ main()
 			}
 			else if(map["disconnect"] != null)
 			{
-				removeOtherPlayer(map);
+				removeOtherPlayer(map["username"]);
 			}
 			else if(otherPlayers[map["username"]] == null)
 			{
@@ -174,10 +174,12 @@ updateOtherPlayer(Map map, Player otherPlayer)
 	otherPlayer.facingRight = facingRight;
 }
 
-removeOtherPlayer(Map map)
+removeOtherPlayer(String username)
 {
-	otherPlayers.remove(map["username"]);
-	Element otherPlayer = querySelector("#player-"+map["username"]);
+	otherPlayers.remove(username);
+	Element otherPlayer = querySelector("#player-"+username);
 	if(otherPlayer != null)
 		otherPlayer.remove();
+	else
+		print("otherPlayer $username was not found");
 }
