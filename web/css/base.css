@@ -385,10 +385,37 @@ textarea{resize: none;}
     transition-duration: 0.2s;
     transition-timing-function: linear;
     transition-delay: 0.5s;
-    -webkit-transition-property:opacity;
-    -webkit-transition-duration:0.2s;
-    -webkit-transition-timing-function:linear;
-    -webkit-transition-delay:0.5s;
+    -webkit-animation: spin 15s infinite linear;
+    -moz-animation: spin 15s infinite linear;
+    animation: spin 15s infinite linear;
+    
+    @-webkit-keyframes spin {
+	from {
+		-webkit-transform: rotate(0deg);
+	}
+	to {
+		-webkit-transform: rotate(360deg);
+	}
+}
+
+@-moz-keyframes spin {
+	from {
+		-moz-transform: rotate(0deg);
+	}
+	to {
+		-moz-transform: rotate(360deg);
+	}
+}
+
+@keyframes spin {
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(360deg);
+	}
+}
+
     
 }
 #MoodText {
