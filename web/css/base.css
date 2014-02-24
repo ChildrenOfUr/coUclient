@@ -385,15 +385,36 @@ textarea{resize: none;}
     transition-duration: 0.2s;
     transition-timing-function: linear;
     transition-delay: 0.5s;
-    animation: spin 15s infinite linear;  
-}
-
-@keyframes spin {
-	from {
-		transform: rotate(0deg);
+	
+	-webkit-animation: spin 15s infinite linear;
+    -moz-animation: spin 15s infinite linear;
+    animation: spin 15s infinite linear;
+    
+    @-webkit-keyframes spin {
+		from {
+			-webkit-transform: rotate(0deg);
+		}
+		to {
+			-webkit-transform: rotate(360deg);
+		}
 	}
-	to {
-		transform: rotate(360deg);
+	
+	@-moz-keyframes spin {
+		from {
+			-moz-transform: rotate(0deg);
+		}
+		to {
+			-moz-transform: rotate(360deg);
+		}
+	}
+	
+	@keyframes spin {
+		from {
+			transform: rotate(0deg);
+		}
+		to {
+			transform: rotate(360deg);
+		}
 	}
 }
 
