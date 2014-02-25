@@ -632,7 +632,7 @@ class TabContent
 		onMatch: (Match m)
 		{
 			String url = m[0];
-			if(!url.contains("http://"))
+			if(!url.contains("http"))
 				url = "http://" + url;
 			returnString += '<a href="${url}" target="_blank" class="MessageLink">${m[0]}</a>';
 		},
