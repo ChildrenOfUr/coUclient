@@ -352,6 +352,7 @@ class TabContent
 			if(map["message"] == " left.")
 			{
 				connectedUsers.remove(map["username"]);
+				removeOtherPlayer(map["username"]);
 				if(!chat.getJoinMessagesVisibility()) //ignore left messages unless the user turns them on
 					return;
 			}

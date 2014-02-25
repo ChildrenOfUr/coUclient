@@ -48,6 +48,21 @@ _setupPlayerSocket()
 	});
 }
 
+sendPlayerInfo()
+{
+	String xy = CurrentPlayer.posX.toString()+","+CurrentPlayer.posY.toString();
+	timeLast = 0.0;
+	Map map = new Map();
+	map["username"] = chat.username;
+	map["xy"] = xy;
+	map["street"] = currentStreet.label;
+	map["facingRight"] = CurrentPlayer.facingRight.toString();
+	map["animation"] = CurrentPlayer.currentAnimation.animationName;
+	if(CurrentPlayer.chatBubble != null)
+		map["bubbleText"] = CurrentPlayer.chatBubble.text;
+	playerSocket.send(JSON.encode(map));
+}
+
 createOtherPlayer(Map map)
 {
 	Player otherPlayer = new Player(map["username"]);
@@ -104,6 +119,4 @@ removeOtherPlayer(String username)
 	Element otherPlayer = querySelector("#player-"+username);
 	if(otherPlayer != null)
 		otherPlayer.remove();
-	else
-		print("otherPlayer $username was not found");
 }
