@@ -115,6 +115,9 @@ updateOtherPlayer(Map map, Player otherPlayer)
 
 removeOtherPlayer(String username)
 {
+	if(username == null)
+		return;
+	
 	otherPlayers.remove(username);
 	Element otherPlayer = querySelector("#player-"+username);
 	if(otherPlayer != null)
