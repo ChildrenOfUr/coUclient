@@ -533,6 +533,9 @@ class TabContent
 				
 				connectedUsers.remove(map["username"]);
 				connectedUsers.add(map["newUsername"]);
+				
+				//warn multiplayer server that it will receive messages from a new name but it should be the same person
+				playerSocket.send(JSON.encode(map));
 			}
 			else
 			{
