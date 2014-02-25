@@ -36,25 +36,13 @@ loop(var dt)
 	if(timeLast > .03 && playerSocket != null && playerSocket.readyState == WebSocket.OPEN)
 	{
 		String xy = CurrentPlayer.posX.toString()+","+CurrentPlayer.posY.toString();
-		if(xy == lastXY) //don't send updates when the player doesn't move
-			return;
+		if(xy == lastXY) //don't send updates when the player doesn't move - except once every 5 seconds
+		{
+			if(timeLast < 5)
+				return;
+		}
 		
 		lastXY = xy;
 		sendPlayerInfo();
 	}
-}
-
-sendPlayerInfo()
-{
-	String xy = CurrentPlayer.posX.toString()+","+CurrentPlayer.posY.toString();
-	timeLast = 0.0;
-	Map map = new Map();
-	map["username"] = chat.username;
-	map["xy"] = xy;
-	map["street"] = currentStreet.label;
-	map["facingRight"] = CurrentPlayer.facingRight.toString();
-	map["animation"] = CurrentPlayer.currentAnimation.animationName;
-	if(CurrentPlayer.chatBubble != null)
-		map["bubbleText"] = CurrentPlayer.chatBubble.text;
-	playerSocket.send(JSON.encode(map));
 }

@@ -352,6 +352,7 @@ class TabContent
 			if(map["message"] == " left.")
 			{
 				connectedUsers.remove(map["username"]);
+				removeOtherPlayer(map["username"]);
 				if(!chat.getJoinMessagesVisibility()) //ignore left messages unless the user turns them on
 					return;
 			}
@@ -533,6 +534,9 @@ class TabContent
 				
 				connectedUsers.remove(map["username"]);
 				connectedUsers.add(map["newUsername"]);
+				
+				//warn multiplayer server that it will receive messages from a new name but it should be the same person
+				playerSocket.send(JSON.encode(map));
 			}
 			else
 			{
@@ -628,7 +632,7 @@ class TabContent
 		onMatch: (Match m)
 		{
 			String url = m[0];
-			if(!url.contains("http://"))
+			if(!url.contains("http"))
 				url = "http://" + url;
 			returnString += '<a href="${url}" target="_blank" class="MessageLink">${m[0]}</a>';
 		},
