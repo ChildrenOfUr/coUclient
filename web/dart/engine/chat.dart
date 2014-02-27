@@ -370,6 +370,8 @@ class TabContent
 					if(prevUnread != unreadMessages)
 						querySelector("#channelName-"+channelName.replaceAll(" ", "_")).innerHtml = channelName + " " + '<span class="Counter">'+unreadMessages.toString()+'</span>';
 				}
+				else
+					unreadMessages--; //if it is showing, this is a read message, un-increment counter
 				
 				int totalUnread = 0;
 				chat.tabContentMap.values.forEach((TabContent tabContent)
