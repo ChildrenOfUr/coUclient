@@ -17,4 +17,5 @@ class ChatBubble
 			..text = text;
 		bubble.append(textElement);
 	}
+
 }
