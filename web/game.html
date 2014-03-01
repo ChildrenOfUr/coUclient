@@ -6,11 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes"> <!--iOS-->
     <meta name="mobile-web-app-capable" content="yes"> <!--Chrome for android-->
-    
+
     <title>Children of Ur</title>
 
-<link rel="icon" 
-      type="image/png" 
+<link rel="icon"
+      type="image/png"
       href="./assets/system/favicon.ico">
 
 <!-- Import Stylesheets -->
@@ -23,14 +23,14 @@
 
 <div id="MainScreen"> <!--MainScreen is for mobile and desktop clients-->
 	<!-- Footer -->
-	<div id="Footer">Copyright CoU Development Team, Children of Ur is not endorsed by or affiliated with <a href="http://tinyspeck.com/">Tiny Speck, Inc.</a>(The makers of Glitch) in any way.</div>
-	
+	<div id="Footer"><blockquote>Copyright CoU Development Team, Children of Ur is not endorsed by or affiliated with <a href="http://tinyspeck.com/">Tiny Speck, Inc.</a>(The makers of <a href="http://glitchthegame.com">Glitch</a>) in any way.</blockquote></div>
+
 	<div id="fps"></div>
-	
+
 	<!-- The initial splash Screen when the game is opened-->
 	<div id="LoadingScreen">
   <div>
-	    <img src="./assets/system/logo.png" alt="Children of Ur logo"></div>  
+	    <img src="./assets/system/logo.png" alt="Children of Ur logo"></div>
     <p>A Game of Giant Imagination</p><br>
 	  <div id="LoadingFrame">
 		  <div id="LoadStatus"></div>
@@ -39,18 +39,18 @@
 	  </div>
 	  <div id="PlayButton">Play</div>
 	</div>
-	
+
 	<!-- The 'You won the game' screen that pops up on close-->
 	<div id="YouWon" hidden="true">
 	<br><br><br><br><br>
 	WAIT! You were just about to win the game!
 	</div>
-	
+
 	<!-- overlay to warn that window is too small-->
 	<div id="SizeWarning" hidden="true">
 		<span class="red">Warning, the window is too small to display the game well.</span>
 	</div>
-	
+
 	<!--The content window for gameplay -->
 	<div id="GameScreen">
 		<div id="Exits" class="ExitsCollapsed icon-expand-alt"> Exits</div>
@@ -63,7 +63,7 @@
 			</div>
 		</div>
 	</div>
-	
+
 	<!--Contains all the ui elements on the top left-->
 	  <img src="./assets/system/energymeter.svg" width="124px" height="128px" id="EnergyIndicator">
 	  <img src="./assets/system/energymeterred.svg" width="124px" height="128px" id="EnergyIndicatorRed">
@@ -92,8 +92,8 @@
 	        <span id="MaxEnergy" class="small white"></span>
 	        <div class="small white">Energy</div>
 	   </div>
-	
-        
+
+
         <div id="CurrentLocation">
         <img src="./assets/system/map_icon.svg" id="MapGlyph" width="38" height="38">
           <div>
@@ -107,16 +107,16 @@
 			<i id="ConsoleGlyph" class="icon-rocket glyph icon-large"> </i>
 				<a href="https://github.com/ChildrenOfUr/coUclient/issues" target="_blank">
 					<i id="BugGlyph" class="icon-bug glyph icon-large"> </i></a>
-				<a href="http://childrenofur.com" target="_blank">  
+				<a href="http://childrenofur.com" target="_blank">
 			<i id="QuestionGlyph" class="icon-home glyph icon-large"> </i></a>
-		   
-		
+
+
 			<span id="AudioSettings">
 				<span id="AudioGlyph">
 					<i id="VolumeGlyph" class="icon-volume-up glyph icon-large"></i>
 				</span>
 				<span id="SliderParent">
-					<input type="range" id="VolumeSlider" min="0" max="100" step="1" value="50" oninput="rangevalue.text=value" onchange="rangevalue.text=value"> 
+					<input type="range" id="VolumeSlider" min="0" max="100" step="1" value="50" oninput="rangevalue.text=value" onchange="rangevalue.text=value">
 					<output id="rangevalue">50</output>
 				</span>
 			</span>
@@ -126,7 +126,7 @@
 			<span id="CurrTime"></span>
 			<span id="CurrDate"></span>
 		</div>
-	   
+
 	<!-- Inventory Bar -->
 	<div id="InventoryBag">
 	    <span class="InventoryBox" id="bagItem1"></span>
@@ -163,10 +163,10 @@
 	    <span class="InventoryBox" id="Item14"></span>
 	    <span class="InventoryBox" id="Item15"></span>
 	    <span class="InventoryBox" id="Item16"></span>
-	</div>   
-	
+	</div>
+
 	<!-- Contains the Chat windows -->
-	
+
 	<i id="ChatSettingsIcon" class="icon-cog glyph icon-large"></i>
 	<div id="ChatSettingsMenu" hidden="true">
 		<label class="ChatSettingsOption"><input id="ShowJoinMessages" type="checkbox" class="ChatSettingsCheckbox" checked="false">Show Join Messages</label>
@@ -176,15 +176,15 @@
 		<div id="ChatTabs" class="tabs ChatWindow"></div>
 	</div>
 	<div id="ChatDisconnected" hidden="true"></div>
-	
+
 	<!-- Bottom-left currant display -->
 	      <div id="CurrantBack"></div>
 	      <img src="./assets/system/currant.svg" id="CurrantEmblem" width="30px" height="30px">
 	      <div id="CurrantText">
-	        <span id="CurrCurrants" class="big white"></span>  
+	        <span id="CurrCurrants" class="big white"></span>
 	        <div class="small white">Currants</div>
 	      </div>
-	
+
 	<!-- Map Window -->
 	<div class="PopWindow" id="MapWindow" hidden="true">
 		<div class="PopWindowHeader handle">
@@ -194,11 +194,11 @@
 
 		</div>
 	</div>
-  
+
     <!-- Development Console -->
   <div class="PopWindow" id="DevConsole" hidden="true">
     <div class="PopWindowHeader handle">
-      <i class="icon-code icon-large"></i> 
+      <i class="icon-code icon-large"></i>
         Console
         <i id="CloseConsole" class="icon-remove icon-large red"></i>
     </div>
@@ -209,17 +209,17 @@
         <textarea class="ConsoleInput Typing" spellcheck="false"></textarea>
       </div>
   </div>
-	
+
 	<!-- Mini Soundcloud widget -->
 	  <div id="SoundCloudWidget">
 	    <div class="blu"><a id="SCLink" target="_blank"><span id="TrackTitle">-</span><br> By <span id="TrackArtist">-</span></a></div>
 	    <audio id="MusicBox"></audio>
 	    <a href="http://www.soundcloud.com" target="_blank"><img src="./assets/system/soundcloud.png"></img></a>
 	  </div>
-	
+
 	<!-- Right-Click Menu template -->
 	    <template id="RC_Template">
-	      <div id="RightClickMenu">  
+	      <div id="RightClickMenu">
 	      <div class="InfoButton">Info</div>
 	      <span id="ClickTitle">A Chicken</span><br>
 	        <span id="ClickDesc" class="soft">
@@ -230,7 +230,7 @@
 	        </div>
 	      </div>
 	    </template>
-	    
+
 	<!-- mobile specific components -->
 	<span id="MobileAudioGlyph">
 		<i id="MobileVolumeGlyph" class="icon-volume-up glyph icon-large"></i>
@@ -314,15 +314,15 @@
 
 <!--Necessary to get around Cross-Domain stuff-->
 <script type="text/javascript">
-function getRoom(dataJSON) 
+function getRoom(dataJSON)
 {
 	window.postMessage(JSON.stringify(dataJSON), '*');
 }
 </script>
-    
+
 <!-- Start the Game up. -->
   <script type="application/dart" src="main.dart"></script>
   <script src="packages/browser/dart.js"></script>
-      
+
 </body>
 </html>
