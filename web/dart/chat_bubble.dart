@@ -6,10 +6,10 @@ class ChatBubble
 	num timeToLive;
 	DivElement bubble;
 	SpanElement textElement;
-	
+
 	ChatBubble(this.text)
 	{
-		timeToLive = 5; //5 seconds
+		timeToLive = text.length * 0.1 + 3;
 		bubble = new DivElement()
 			..classes.add("PlayerChatBubble");
 		textElement = new SpanElement()
