@@ -165,8 +165,8 @@
 	max-height: 40px;
 	overflow-y: hidden;
 	overflow-x: hidden;
-	right: 75px;
-	top: 1px;
+	right: 60px;
+	top: -39px;
 	font-size: 14px;
 }
 #MapGlyph {
@@ -224,7 +224,7 @@
 	#TopLeftCorner {
 		top: -27px;
 	}
-	#GameScreen {
+	#GameScreenParent {
 		top: 40px;
 		width: calc(100% - 80px);
 		height: calc(100% - 100px);
@@ -327,7 +327,7 @@
 		top: -17px;
 		left: -28px;
 	}
-	#GameScreen {
+	#GameScreenParent {
 		top: 50px;
 		width: calc(100% - 45px);
 		left: 25px;
@@ -395,7 +395,7 @@
 		bottom: 30px;
 	}
 	#CurrentLocation {
-		max-width: 38%;
+		max-width: 40%;
 	}
 	#ThemeSwitcher {
 		top: 1px;

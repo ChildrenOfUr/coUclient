@@ -52,18 +52,28 @@
 	</div>
 	
 	<!--The content window for gameplay -->
-	<div id="GameScreen">
-		<div id="Exits" class="ExitsCollapsed icon-expand-alt"> Exits</div>
-		<div id="Layers"></div>
-		<div id="PlayerHolder"></div>
-		<div id="MapLoadingScreen" class="MapLoadingScreen">
-			<div class="LoadingGroove">&nbsp;
-				<span class="LoadingBar" id="MapLoadingBar">
-				<span id="StreetLoadingStatus"></span></span>
+	<div id="GameScreenParent">
+		<div id="CurrentLocation">
+        	<img src="./assets/system/map_icon.svg" id="MapGlyph" width="38" height="38">
+          		<div>
+            		Current Location:
+            		<div id="Location">
+            		</div>
+          		</div>
+        </div>
+        <div id="GameScreen">
+			<div id="Exits" class="ExitsCollapsed icon-expand-alt"> Exits</div>
+			<div id="Layers"></div>
+			<div id="PlayerHolder"></div>
+			<div id="MapLoadingScreen" class="MapLoadingScreen">
+				<div class="LoadingGroove">&nbsp;
+					<span class="LoadingBar" id="MapLoadingBar">
+					<span id="StreetLoadingStatus"></span></span>
+				</div>
 			</div>
 		</div>
 	</div>
-	
+
 	<!--Contains all the ui elements on the top left-->
 	  <img src="./assets/system/energymeter.svg" width="124px" height="128px" id="EnergyIndicator">
 	  <img src="./assets/system/energymeterred.svg" width="124px" height="128px" id="EnergyIndicatorRed">
@@ -92,16 +102,7 @@
 	        <span id="MaxEnergy" class="small white"></span>
 	        <div class="small white">Energy</div>
 	   </div>
-	
-        
-        <div id="CurrentLocation">
-        <img src="./assets/system/map_icon.svg" id="MapGlyph" width="38" height="38">
-          <div color="yellow">
-            Current Location:
-            <div id="Location">
-            </div>
-          </div>
-        </div>
+
 	  <!--Contains all the ui elements on the top right-->
 		<div id="TopRight">
 			<i id="ConsoleGlyph" class="icon-rocket glyph icon-large"> </i>
