@@ -127,11 +127,12 @@ class TabContent
 {
 	static List<String> _COLORS = ["aqua", "blue", "fuchsia", "gray", "green", "lime", "maroon", "navy", "olive", "orange", "purple", "red", "teal"];
 	List<String> connectedUsers = new List();
+	List<String> inputHistory = new List();
 	String channelName, lastWord = "";
 	bool useSpanForTitle, tabInserted = false;
 	WebSocket webSocket;
 	DivElement chatDiv, chatHistory;
-	int unreadMessages = 0, tabSearchIndex = 0, numMessages = 0;
+	int unreadMessages = 0, tabSearchIndex = 0, numMessages = 0, inputHistoryPointer = 0;
 	final _chatServerUrl = "ws://couserver.herokuapp.com";
 	
 	TabContent(this.channelName, this.useSpanForTitle)
@@ -216,6 +217,22 @@ class TabContent
 	{
 		input.onKeyDown.listen((KeyboardEvent key) //onKeyUp seems to be too late to prevent TAB's default behavior
 		{
+			if(key.keyCode == 38 && inputHistoryPointer < inputHistory.length) //pressed up arrow
+			{
+				input.value = inputHistory.elementAt(inputHistoryPointer);
+				if(inputHistoryPointer < inputHistory.length-1)
+					inputHistoryPointer++;
+			}
+			if(key.keyCode == 40) //pressed down arrow
+			{
+				if(inputHistoryPointer > 0)
+				{
+					inputHistoryPointer--;
+					input.value = inputHistory.elementAt(inputHistoryPointer);
+				}
+				else
+					input.value = "";
+			}
 			if(key.keyCode == 9) //tab key, try to complete a user's name
 			{
 				key.preventDefault();
@@ -269,6 +286,12 @@ class TabContent
 				return;
 			
 			parseInput(input.value);
+			
+			inputHistory.insert(0, input.value); //add to beginning of list
+			inputHistoryPointer = 0; //point to beginning of list
+			if(inputHistory.length > 50) //don't allow the list to grow forever
+				inputHistory.removeLast();
+			
 			input.value = '';
 		});
 	}
