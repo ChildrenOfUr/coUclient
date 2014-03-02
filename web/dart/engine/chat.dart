@@ -126,6 +126,7 @@ class Chat
 class TabContent
 {
 	static List<String> _COLORS = ["aqua", "blue", "fuchsia", "gray", "green", "lime", "maroon", "navy", "olive", "orange", "purple", "red", "teal"];
+	static List<String> _EMOTICONS = ["beryl","piggy","guano","crab"];
 	List<String> connectedUsers = new List();
 	List<String> inputHistory = new List();
 	String channelName, lastWord = "";
@@ -299,21 +300,21 @@ class TabContent
 	parseInput(String input)
 	{
 		Map map = new Map();
-		if(input.split(" ")[0] == "/setname")
+		if(input.split(" ")[0].toLowerCase() == "/setname")
 		{
 			map["statusMessage"] = "changeName";
 			map["username"] = chat.username;
 			map["newUsername"] = input.substring(9);
 			map["channel"] = channelName;
 		}
-		else if(input == "/list")
+		else if(input.toLowerCase() == "/list")
 		{
 			map["username"] = chat.username;
 			map["statusMessage"] = "list";
 			map["channel"] = channelName;
 			map["street"] = currentStreet.label;
 		}
-		else if(input.split(" ")[0] == "/setlocation" || input.split(" ")[0] == "/go")
+		else if(input.split(" ")[0].toLowerCase() == "/setlocation" || input.split(" ")[0].toLowerCase() == "/go")
 		{
 			setLocation(input.split(" ")[1]);
 			return;
@@ -488,12 +489,12 @@ class TabContent
 		}
 		SpanElement userElement = new SpanElement();
 		SpanElement text = new SpanElement()
-			..setInnerHtml(_parseForUrls(map["message"]), validator:validator)
-			..className = "MessageBody";
+			..setInnerHtml(_parseForEmoticons(_parseForUrls(map["message"])), validator:validator)
+			..classes.add("MessageBody");
 		DivElement chatString = new DivElement();
 		if(map["statusMessage"] == null || map["message"] == " joined.")
 		{
-			if(map["username"] != null)
+			if(map["username"] != null && !(map["message"] as String).toLowerCase().startsWith("/me"))
 			{
 				userElement.text = map["username"] + ": ";
 				userElement.style.color = _getColor(map["username"]); //hashes the username so as to get a random color but the same each time for a specific user
@@ -501,6 +502,12 @@ class TabContent
 				chatString.children
 					..add(userElement)
 					..add(text);
+			}
+			if((map["message"] as String).toLowerCase().startsWith("/me"))
+			{
+				String message = (map["message"] as String).replaceFirst(new RegExp("\/me",caseSensitive:false), "");
+				text.setInnerHtml("<i>"+map["username"]+" "+message+"</i>");
+				chatString.children.add(text);
 			}
 		}
 		if(map["statusMessage"] == "leftStreet")
@@ -629,13 +636,14 @@ class TabContent
 		if(atTheBottom || (map['username'] == chat.username || map['newUsername'] == chat.username))
 			conversation.scrollTop = conversation.scrollHeight;
 		
-		//display chat bubble if we're talking in local
-		if(map["channel"] == "Local Chat" && map["username"] == chat.username && map["statusMessage"] == null)
+		//display chat bubble if we're talking in local (unless it's a /me message)
+		if(map["channel"] == "Local Chat" && map["username"] == chat.username && map["statusMessage"] == null
+				&& !(map["message"] as String).toLowerCase().startsWith("/me"))
 		{
 			//remove any existing bubble
 			if(CurrentPlayer.chatBubble != null && CurrentPlayer.chatBubble.bubble != null)
 				CurrentPlayer.chatBubble.bubble.remove();
-			CurrentPlayer.chatBubble = new ChatBubble(map["message"]);
+			CurrentPlayer.chatBubble = new ChatBubble(_parseForEmoticons(map["message"]));
 		}
 	}
 	
@@ -660,6 +668,24 @@ class TabContent
 			if(!url.contains("http"))
 				url = "http://" + url;
 			returnString += '<a href="${url}" target="_blank" class="MessageLink">${m[0]}</a>';
+		},
+		onNonMatch: (String s) => returnString += s);
+		
+		return returnString;
+	}
+	
+	String _parseForEmoticons(String message)
+	{
+		String returnString = "";
+		RegExp regex = new RegExp(":(.+?):");
+		message.splitMapJoin(regex, 
+		onMatch: (Match m)
+		{
+			String match = m[1];
+			if(_EMOTICONS.contains(match))
+				returnString += "<img class ='Emoticon' src='assets/emoticons/$match.svg'></img>";
+			else
+				returnString += m[0];
 		},
 		onNonMatch: (String s) => returnString += s);
 		

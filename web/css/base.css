@@ -727,6 +727,9 @@ textarea{resize: none;}
 	cursor: pointer;
 text-decoration: underline;
 }
+.Emoticon {
+	height: 1em;
+}
 .tabs {
   position: relative;
 }
