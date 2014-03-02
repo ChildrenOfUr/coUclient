@@ -952,6 +952,7 @@ textarea{resize: none;}
   top:15px; 
   color:mediumgrey;
   font-size: 14px;
+  white-space: nowrap;
 }
 #Location{
   color:#005c73;
