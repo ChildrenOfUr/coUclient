@@ -2,9 +2,14 @@ part of coUclient;
 
 class Chat
 {
+	static List<String> _COLORS = ["aqua", "blue", "fuchsia", "gray", "green", "lime", "maroon", "navy", "olive", "orange", "purple", "red", "teal"];
+    static List<String> _EMOTICONS;
 	bool _showJoinMessages = false, _playMentionSound = true;
 	Map<String, TabContent> tabContentMap = new Map();
 	String username = "testUser"; //TODO: get actual username of logged in user;
+	
+	List<String> get EMOTICONS => _EMOTICONS;
+	List<String> get COLORS => _COLORS;
 	
 	/**
 	 * Determines if messages like "<user> has joined" are shown to the player.
@@ -32,6 +37,9 @@ class Chat
 	
 	init()
 	{
+		//load emoticons
+		new Asset("assets/emoticons/emoticons.json").load().then((Asset asset) => _EMOTICONS = asset.get()["names"]);
+		
 		//assign temporary chat handle
 		if(localStorage["username"] != null)
 			username = localStorage["username"];
@@ -125,8 +133,6 @@ class Chat
 
 class TabContent
 {
-	static List<String> _COLORS = ["aqua", "blue", "fuchsia", "gray", "green", "lime", "maroon", "navy", "olive", "orange", "purple", "red", "teal"];
-	static List<String> _EMOTICONS = ["beryl","piggy","guano","crab"];
 	List<String> connectedUsers = new List();
 	List<String> inputHistory = new List();
 	String channelName, lastWord = "";
@@ -682,7 +688,7 @@ class TabContent
 		onMatch: (Match m)
 		{
 			String match = m[1];
-			if(_EMOTICONS.contains(match))
+			if(chat.EMOTICONS.contains(match))
 				returnString += "<img class ='Emoticon' src='assets/emoticons/$match.svg'></img>";
 			else
 				returnString += m[0];
@@ -699,7 +705,7 @@ class TabContent
 		{
 			index += username.codeUnitAt(i);
 		}
-		return _COLORS[index%(_COLORS.length-1)];
+		return chat.COLORS[index%(chat.COLORS.length-1)];
 	}
 	
 	String _timeStamp() => new DateTime.now().toString().substring(11,16);
