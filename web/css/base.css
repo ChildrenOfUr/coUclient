@@ -1298,11 +1298,13 @@ text-decoration: underline;
 	background: white;
 	padding: 2px;
 	border-radius: 5px;
-	max-width: 250px;
-	max-height: 90px;
 	position: relative;
 	top: -110px;
 	left: 110px;
+}
+.ChatBubbleMax {
+	max-width: 250px;
+	max-height: 90px;
 }
 .PlayerChatBubble::before {
 	background: white;
