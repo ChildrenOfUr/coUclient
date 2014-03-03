@@ -66,7 +66,6 @@ class Player
 		//show chat message if it exists and decrement it's timeToLive
 		if(chatBubble != null)
 		{
-			print("time to live: " + chatBubble.timeToLive.toString());
 			if(chatBubble.timeToLive <= 0)
 			{
 				chatBubble.bubble.remove();
