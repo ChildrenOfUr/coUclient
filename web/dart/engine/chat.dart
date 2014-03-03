@@ -139,7 +139,7 @@ class TabContent
 	bool useSpanForTitle, tabInserted = false;
 	WebSocket webSocket;
 	DivElement chatDiv, chatHistory;
-	int unreadMessages = 0, tabSearchIndex = 0, numMessages = 0, inputHistoryPointer = 0;
+	int unreadMessages = 0, tabSearchIndex = 0, numMessages = 0, inputHistoryPointer = 0, emoticonPointer = 0;
 	final _chatServerUrl = "ws://couserver.herokuapp.com";
 	
 	TabContent(this.channelName, this.useSpanForTitle)
@@ -240,9 +240,50 @@ class TabContent
 				else
 					input.value = "";
 			}
-			if(key.keyCode == 9) //tab key, try to complete a user's name
+			if(key.keyCode == 9) //tab key, try to complete a user's name or an emoticon
 			{
 				key.preventDefault();
+				
+				if(input.value.endsWith(":")) //look for an emoticon instead of a username
+				{
+					String value = input.value;
+					if(value.length > 1 && value.substring(value.lastIndexOf(":")-1).startsWith(" :")
+					   || value.length == 1 && value.startsWith(":")) //start of new emoticon
+					{
+						input.value = value.substring(0, value.lastIndexOf(":")+1) + chat.EMOTICONS.elementAt(emoticonPointer) + ":";
+						emoticonPointer++;
+						if(emoticonPointer == chat.EMOTICONS.length)
+							emoticonPointer = 0;
+					}
+					else if(value.length > 1 && !value.substring(value.lastIndexOf(":")-1).startsWith(" :")) //change existing emoticon choice
+					{
+						int lastColon = value.lastIndexOf(":"), count = 0;
+						bool setNext = false;
+						while(count < chat.EMOTICONS.length*2)
+						{
+							String name = chat.EMOTICONS.elementAt(count%chat.EMOTICONS.length);
+							if(setNext)
+							{
+								input.value = value.substring(0, lastColon-chat.EMOTICONS.elementAt(emoticonPointer).length) + name + ":";
+								emoticonPointer++;
+								if(emoticonPointer == chat.EMOTICONS.length)
+                                	emoticonPointer = 0;
+								break;
+							}
+							
+							if(value.substring(lastColon-name.length,lastColon) != -1
+								&& value.substring(lastColon-name.length,lastColon) == name)
+							{
+								setNext = true;
+								emoticonPointer = count%chat.EMOTICONS.length;
+							}
+							count++;
+						}
+					}
+					
+					return;
+				}
+				
 				int startIndex = input.value.lastIndexOf(" ") == -1 ? 0 : input.value.lastIndexOf(" ")+1;
 				if(!tabInserted)
 					lastWord = input.value.substring(startIndex);
