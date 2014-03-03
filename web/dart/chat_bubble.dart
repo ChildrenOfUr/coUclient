@@ -14,7 +14,6 @@ class ChatBubble
 		{
 			timeToLive = 15; //messages over 15s will only display for 15s
 		}
-		timeToLive = 5000;
 		bubble = new DivElement()
 			..classes.add("PlayerChatBubble")
 			..classes.add("ChatBubbleMax");
