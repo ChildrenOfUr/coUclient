@@ -74,6 +74,26 @@ updateConsole(String line)
 }
 
 /**
+ * Toggle the settings window.
+ * 
+ * This method will toggle the visiblity of the settings window
+ */
+toggleSettings()
+{
+	Element settings = querySelector('#Settings');
+	if(settings.hidden)
+	{
+		settings.hidden = false;
+		playerInput.ignoreKeys = true;
+	}
+	else
+	{
+		settings.hidden = true;
+		playerInput.ignoreKeys = false;
+	}
+}
+
+/**
  * Shows the debug console.
  * 
  * This method will set the debug console to be unhidden.  Additionally it will scroll the contents to the bottom.

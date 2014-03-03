@@ -26,6 +26,7 @@ part 'dart/engine/joystick.dart';
 part 'dart/engine/touchscroller.dart';
 part 'dart/engine/animation.dart';
 part 'dart/engine/multiplayer.dart';
+part 'dart/engine/keycodes.dart';
 
 // Game parts
 part 'dart/street.dart';

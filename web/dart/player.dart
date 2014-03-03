@@ -95,7 +95,7 @@ class Player
 			moving = false;
 			
 	    //primitive jumping
-		if (playerInput.spaceKey == true && !jumping)
+		if (playerInput.jumpKey == true && !jumping)
 		{
 			Random rand = new Random();
 			if(rand.nextInt(4) == 3)

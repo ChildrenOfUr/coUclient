@@ -4,7 +4,8 @@ Input playerInput;
 
 class Input
 {
-    bool leftKey, rightKey, upKey, downKey, spaceKey;
+    bool leftKey, rightKey, upKey, downKey, jumpKey;
+    Map<String,int> keys = {"LeftBindingPrimary":65,"LeftBindingAlt":37,"RightBindingPrimary":68,"RightBindingAlt":39,"UpBindingPrimary":87,"UpBindingAlt":38,"DownBindingPrimary":83,"DownBindingAlt":40,"JumpBindingPrimary":32,"JumpBindingAlt":32,};
 	bool ignoreKeys = false, touched = false;
   
     Input()
@@ -13,16 +14,24 @@ class Input
 		rightKey = false;
 		upKey = false;
 		downKey = false;
-		spaceKey = false;
+		jumpKey = false;
     }
 
 	//Starts listening to user imput.
-	init() 
+	init()
 	{
-		// disable default game_loop pointerlock
-		//game.pointerLock.lockOnClick = false;  
-	
-	    document.onFullscreenChange.listen((_)
+		//set up key bindings
+		keys.forEach((String action, int keyCode)
+		{
+			if(localStorage[action] != null)
+				keys[action] = int.parse(localStorage[action]);
+			else
+				localStorage[action] = keys[action].toString();
+			
+			querySelector("#$action").text = fromKeyCode(keys[action]);
+		});
+		
+		document.onFullscreenChange.listen((_)
 		{
 			if (document.fullscreenElement != null)
 		    {
@@ -61,30 +70,30 @@ class Input
 	    //keyCode's could be configurable in the future
 	    document.onKeyDown.listen((KeyboardEvent k)
 		{
-			if ((k.keyCode == 38 || k.keyCode == 87) && !ignoreKeys) //up arrow or w and not typing
+			if ((k.keyCode == keys["UpBindingPrimary"] || k.keyCode == keys["UpBindingAlt"]) && !ignoreKeys) //up arrow or w and not typing
 				upKey = true;
-			if ((k.keyCode == 40 || k.keyCode == 83) && !ignoreKeys) //down arrow or s and not typing
+			if ((k.keyCode == keys["DownBindingPrimary"] || k.keyCode == keys["DownBindingAlt"]) && !ignoreKeys) //down arrow or s and not typing
 				downKey = true;
-			if ((k.keyCode == 37 || k.keyCode == 65) && !ignoreKeys) //left arrow or a and not typing
+			if ((k.keyCode == keys["LeftBindingPrimary"] || k.keyCode == keys["LeftBindingAlt"]) && !ignoreKeys) //left arrow or a and not typing
 				leftKey = true;
-			if ((k.keyCode == 39 || k.keyCode == 68) && !ignoreKeys) //right arrow or d and not typing
+			if ((k.keyCode == keys["RightBindingPrimary"] || k.keyCode == keys["RightBindingAlt"]) && !ignoreKeys) //right arrow or d and not typing
 				rightKey = true;
-			if (k.keyCode == 32 && !ignoreKeys) //spacebar and not typing
-				spaceKey = true;
+			if ((k.keyCode == keys["JumpBindingPrimary"] || k.keyCode == keys["JumpBindingAlt"]) && !ignoreKeys) //spacebar and not typing
+				jumpKey = true;
 	    });
 	    
 	    document.onKeyUp.listen((KeyboardEvent k)
 		{
-			if ((k.keyCode == 38 || k.keyCode == 87) && !ignoreKeys) //up arrow or w and not typing
+			if ((k.keyCode == keys["UpBindingPrimary"] || k.keyCode == keys["UpBindingAlt"]) && !ignoreKeys) //up arrow or w and not typing
 				upKey = false;
-			if ((k.keyCode == 40 || k.keyCode == 83) && !ignoreKeys) //down arrow or s and not typing
+			if ((k.keyCode == keys["DownBindingPrimary"] || k.keyCode == keys["DownBindingAlt"]) && !ignoreKeys) //down arrow or s and not typing
 				downKey = false;
-			if ((k.keyCode == 37 || k.keyCode == 65) && !ignoreKeys) //left arrow or a and not typing
+			if ((k.keyCode == keys["LeftBindingPrimary"] || k.keyCode == keys["LeftBindingAlt"]) && !ignoreKeys) //left arrow or a and not typing
 				leftKey = false;
-			if ((k.keyCode == 39 || k.keyCode == 68) && !ignoreKeys) //right arrow or d and not typing
+			if ((k.keyCode == keys["RightBindingPrimary"] || k.keyCode == keys["RightBindingAlt"]) && !ignoreKeys) //right arrow or d and not typing
 				rightKey = false;
-			if (k.keyCode == 32 && !ignoreKeys) //spacebar and not typing
-				spaceKey = false;
+			if ((k.keyCode == keys["JumpBindingPrimary"] || k.keyCode == keys["JumpBindingAlt"]) && !ignoreKeys) //spacebar and not typing
+				jumpKey = false;
 	    });
 		
 		//only for mobile version
@@ -111,7 +120,7 @@ class Input
 			if(target.id == "AButton")
 			{
 				event.preventDefault(); //to disable long press calling the context menu
-				spaceKey = true;
+				jumpKey = true;
 			}
 			
 			if(target.id == "BButton")
@@ -125,7 +134,7 @@ class Input
 			
 			if(target.id == "AButton")
 			{
-				spaceKey = false;
+				jumpKey = false;
 			}
 			
 			if(target.id == "BButton")
@@ -214,6 +223,24 @@ class Input
 			if(localStorage['isMuted'] == '0')
 				mute = '1';
 			ui._setMute(mute);
+		}
+		
+		//handle settings menu
+		if(target.id == "SettingsGlyph" || target.id == "CloseSettings")
+		{
+			toggleSettings();
+		}
+		
+		//handle key re-binds
+		if(target.classes.contains("KeyBindingOption"))
+		{
+			target.text = "(press key to change)";
+			document.body.onKeyUp.first.then((KeyboardEvent event)
+			{
+				target.text = fromKeyCode(event.keyCode);
+				playerInput.keys[target.id] = event.keyCode; 
+				localStorage[target.id] = event.keyCode.toString();
+			});
 		}
 		
 		//handle chat settings menu

@@ -121,6 +121,7 @@
 					<output id="rangevalue">50</output>
 				</span>
 			</span>
+			<i id="SettingsGlyph" class="icon-cog glyph icon-large"></i>
 			<i id="FullscreenGlyph" class="FullscreenGlyph icon-fullscreen glyph icon-large"> </i>
 			<i id="FullscreenResetGlyph" class="FullscreenResetGlyph icon-resize-small glyph icon-large"> </i>
 			<span id="CurrDay"></span>
@@ -167,12 +168,6 @@
 	</div>
 
 	<!-- Contains the Chat windows -->
-
-	<i id="ChatSettingsIcon" class="icon-cog glyph icon-large"></i>
-	<div id="ChatSettingsMenu" hidden="true">
-		<label class="ChatSettingsOption"><input id="ShowJoinMessages" type="checkbox" class="ChatSettingsCheckbox" checked="false">Show Join Messages</label>
-		<label class="ChatSettingsOption"><input id="PlayMentionSound" type="checkbox" class="ChatSettingsCheckbox" checked="false">Play Mention Sound</label>
-	</div>
 	<div id="ChatPane">
 		<div id="ChatTabs" class="tabs ChatWindow"></div>
 	</div>
@@ -210,6 +205,54 @@
         <textarea class="ConsoleInput Typing" spellcheck="false"></textarea>
       </div>
   </div>
+  
+	<!-- Settings Menu -->
+	<div class="PopWindow" id="Settings" hidden="true">
+		<div class="PopWindowHeader handle">
+			<i class="icon-cog icon-large"></i>
+			Settings
+			<i id="CloseSettings" class="icon-remove icon-large red"></i>
+		</div>
+		<div class="PopWindowBody" style="padding: 10px;font-size: 1.2em;">
+	        <label class="ChatSettingsOption"><input id="ShowJoinMessages" type="checkbox" class="ChatSettingsCheckbox" checked="false">Show Join Messages</label>
+			<label class="ChatSettingsOption"><input id="PlayMentionSound" type="checkbox" class="ChatSettingsCheckbox" checked="false">Play Mention Sound</label>
+			<hr>
+			Key Bindings (Click To Change):<br><br>
+			<table style="text-align: center;">
+				<thead>
+					<th>Action</th>
+					<th>Primary Key</th>
+					<th>Secondary Key</th>
+				</thead>
+				<tr>
+					<td>Move Left:</td>
+					<!--Strech the colums by setting the first row to a specific width-->
+					<td><span class = "KeyBindingOption" id="LeftBindingPrimary" style="width: 200px;">A</span></td>
+					<td><span class = "KeyBindingOption" id="LeftBindingAlt" style="width: 200px;">left_arrow</span></td>
+				</tr>
+				<tr>
+					<td>Move Right:</td>
+					<td><span class = "KeyBindingOption" id="RightBindingPrimary">D</span></td>
+					<td><span class = "KeyBindingOption" id="RightBindingAlt">right_arrow</span></td>
+				</tr>
+				<tr>
+					<td>Move Up:</td>
+					<td><span class = "KeyBindingOption" id="UpBindingPrimary">W</span></td>
+					<td><span class = "KeyBindingOption" id="UpBindingAlt">up_arrow</span></td>
+				</tr>
+				<tr>
+					<td>Move Down:</td>
+					<td><span class = "KeyBindingOption" id="DownBindingPrimary">S</span></td>
+					<td><span class = "KeyBindingOption" id="DownBindingAlt">down_arrow</span></td>
+				</tr>
+				<tr>
+					<td>Jump:</td>
+					<td><span class = "KeyBindingOption" id="JumpBindingPrimary">space_bar</span></td>
+					<td><span class = "KeyBindingOption" id="JumpBindingAlt">space_bar</span></td>
+				</tr>
+			</table>
+		</div>
+	</div>
 
 	<!-- Mini Soundcloud widget -->
 	  <div id="SoundCloudWidget">

@@ -53,6 +53,11 @@ a{color: purple;text-decoration: none;}
    font-size:12px;
    font-weight: 200;
 }
+table{border-collapse: collapse;}
+td {
+	border: 1px solid;
+	padding: 5px;
+}
 .btn {
     font-family: 'RockoFLFBold', sans-serif;
    display: -moz-inline-box;
@@ -606,6 +611,14 @@ textarea{resize: none;}
 .ChatSettingsOption:hover {
 	background-color: #E9F0F0
 }
+.KeyBindingOption {
+	cursor: pointer;
+	padding-right: 3px;
+	display: block;
+}
+.KeyBindingOption:hover {
+	background-color: #E9F0F0
+}
 #ChatDisconnected {
 	text-align: center;
 	color: #005c73;
@@ -914,6 +927,9 @@ text-decoration: underline;
 #CloseConsole {
 	float: right;
 }
+#CloseSettings {
+	float: right;
+}
 
 .WebView {
    -moz-border-radius: 5px 5px 0px 0px;
@@ -1027,14 +1043,14 @@ text-decoration: underline;
   opacity:0.5;
   position:absolute;
   top:-12px;  
-  left:140px;  
+  left:150px;  
 }
 #CurrTime{
   font-size:15px;
   color: #005c73;
   position:absolute;
   top:1px;  
-  left:140px; 
+  left:150px; 
 }
 #CurrDate{
   color: #005c73;
@@ -1042,7 +1058,7 @@ text-decoration: underline;
   font-size:13px;
   position:absolute;
   top:16px;  
-  left:140px; 
+  left:150px; 
 }
 
 
