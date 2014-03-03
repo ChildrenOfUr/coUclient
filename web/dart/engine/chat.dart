@@ -2,9 +2,14 @@ part of coUclient;
 
 class Chat
 {
+	static List<String> _COLORS = ["aqua", "blue", "fuchsia", "gray", "green", "lime", "maroon", "navy", "olive", "orange", "purple", "red", "teal"];
+    static List<String> _EMOTICONS;
 	bool _showJoinMessages = false, _playMentionSound = true;
 	Map<String, TabContent> tabContentMap = new Map();
 	String username = "testUser"; //TODO: get actual username of logged in user;
+	
+	List<String> get EMOTICONS => _EMOTICONS;
+	List<String> get COLORS => _COLORS;
 	
 	/**
 	 * Determines if messages like "<user> has joined" are shown to the player.
@@ -32,6 +37,9 @@ class Chat
 	
 	init()
 	{
+		//load emoticons
+		new Asset("assets/emoticons/emoticons.json").load().then((Asset asset) => _EMOTICONS = asset.get()["names"]);
+		
 		//assign temporary chat handle
 		if(localStorage["username"] != null)
 			username = localStorage["username"];
@@ -125,13 +133,13 @@ class Chat
 
 class TabContent
 {
-	static List<String> _COLORS = ["aqua", "blue", "fuchsia", "gray", "green", "lime", "maroon", "navy", "olive", "orange", "purple", "red", "teal"];
 	List<String> connectedUsers = new List();
+	List<String> inputHistory = new List();
 	String channelName, lastWord = "";
 	bool useSpanForTitle, tabInserted = false;
 	WebSocket webSocket;
 	DivElement chatDiv, chatHistory;
-	int unreadMessages = 0, tabSearchIndex = 0, numMessages = 0;
+	int unreadMessages = 0, tabSearchIndex = 0, numMessages = 0, inputHistoryPointer = 0, emoticonPointer = 0;
 	final _chatServerUrl = "ws://couserver.herokuapp.com";
 	
 	TabContent(this.channelName, this.useSpanForTitle)
@@ -216,10 +224,76 @@ class TabContent
 	{
 		input.onKeyDown.listen((KeyboardEvent key) //onKeyUp seems to be too late to prevent TAB's default behavior
 		{
-			if(key.keyCode == 9) //tab key, try to complete a user's name
+			if(key.keyCode == 38 && inputHistoryPointer < inputHistory.length) //pressed up arrow
+			{
+				input.value = inputHistory.elementAt(inputHistoryPointer);
+				if(inputHistoryPointer < inputHistory.length-1)
+					inputHistoryPointer++;
+			}
+			if(key.keyCode == 40) //pressed down arrow
+			{
+				if(inputHistoryPointer > 0)
+				{
+					inputHistoryPointer--;
+					input.value = inputHistory.elementAt(inputHistoryPointer);
+				}
+				else
+					input.value = "";
+			}
+			if(key.keyCode == 9) //tab key, try to complete a user's name or an emoticon
 			{
 				key.preventDefault();
+				
+				if(input.value.endsWith(":")) //look for an emoticon instead of a username
+				{
+					String value = input.value;
+					if(value.length > 1 && value.substring(value.lastIndexOf(":")-1).startsWith(" :")
+					   || value.length == 1 && value.startsWith(":")) //start of new emoticon
+					{
+						input.value = value.substring(0, value.lastIndexOf(":")+1) + chat.EMOTICONS.elementAt(emoticonPointer) + ":";
+						emoticonPointer++;
+						if(emoticonPointer == chat.EMOTICONS.length)
+							emoticonPointer = 0;
+					}
+					else if(value.length > 1 && !value.substring(value.lastIndexOf(":")-1).startsWith(" :")) //change existing emoticon choice
+					{
+						int lastColon = value.lastIndexOf(":"), count = 0;
+						bool setNext = false;
+						while(count < chat.EMOTICONS.length*2)
+						{
+							String name = chat.EMOTICONS.elementAt(count%chat.EMOTICONS.length);
+							if(setNext)
+							{
+								input.value = value.substring(0, lastColon-chat.EMOTICONS.elementAt(emoticonPointer).length) + name + ":";
+								emoticonPointer++;
+								if(emoticonPointer == chat.EMOTICONS.length)
+                                	emoticonPointer = 0;
+								break;
+							}
+							
+							if(value.substring(lastColon-name.length,lastColon) != -1
+								&& value.substring(lastColon-name.length,lastColon) == name)
+							{
+								setNext = true;
+								emoticonPointer = count%chat.EMOTICONS.length;
+							}
+							count++;
+						}
+					}
+					
+					return;
+				}
+				
 				int startIndex = input.value.lastIndexOf(" ") == -1 ? 0 : input.value.lastIndexOf(" ")+1;
+				for(int i=0; i<connectedUsers.length; i++)
+				{
+					String name = connectedUsers.elementAt(i);
+					if(input.value.endsWith(name))
+					{
+						input.value = input.value.substring(0,input.value.lastIndexOf(name));
+						break;
+					}
+				}
 				if(!tabInserted)
 					lastWord = input.value.substring(startIndex);
 				for(; tabSearchIndex < connectedUsers.length; tabSearchIndex++)
@@ -269,6 +343,12 @@ class TabContent
 				return;
 			
 			parseInput(input.value);
+			
+			inputHistory.insert(0, input.value); //add to beginning of list
+			inputHistoryPointer = 0; //point to beginning of list
+			if(inputHistory.length > 50) //don't allow the list to grow forever
+				inputHistory.removeLast();
+			
 			input.value = '';
 		});
 	}
@@ -276,21 +356,21 @@ class TabContent
 	parseInput(String input)
 	{
 		Map map = new Map();
-		if(input.split(" ")[0] == "/setname")
+		if(input.split(" ")[0].toLowerCase() == "/setname")
 		{
 			map["statusMessage"] = "changeName";
 			map["username"] = chat.username;
 			map["newUsername"] = input.substring(9);
 			map["channel"] = channelName;
 		}
-		else if(input == "/list")
+		else if(input.toLowerCase() == "/list")
 		{
 			map["username"] = chat.username;
 			map["statusMessage"] = "list";
 			map["channel"] = channelName;
 			map["street"] = currentStreet.label;
 		}
-		else if(input.split(" ")[0] == "/setlocation" || input.split(" ")[0] == "/go")
+		else if(input.split(" ")[0].toLowerCase() == "/setlocation" || input.split(" ")[0].toLowerCase() == "/go")
 		{
 			setLocation(input.split(" ")[1]);
 			return;
@@ -465,12 +545,12 @@ class TabContent
 		}
 		SpanElement userElement = new SpanElement();
 		SpanElement text = new SpanElement()
-			..setInnerHtml(_parseForUrls(map["message"]), validator:validator)
-			..className = "MessageBody";
+			..setInnerHtml(_parseForEmoticons(_parseForUrls(map["message"])), validator:validator)
+			..classes.add("MessageBody");
 		DivElement chatString = new DivElement();
 		if(map["statusMessage"] == null || map["message"] == " joined.")
 		{
-			if(map["username"] != null)
+			if(map["username"] != null && !(map["message"] as String).toLowerCase().startsWith("/me"))
 			{
 				userElement.text = map["username"] + ": ";
 				userElement.style.color = _getColor(map["username"]); //hashes the username so as to get a random color but the same each time for a specific user
@@ -478,6 +558,12 @@ class TabContent
 				chatString.children
 					..add(userElement)
 					..add(text);
+			}
+			if((map["message"] as String).toLowerCase().startsWith("/me"))
+			{
+				String message = (map["message"] as String).replaceFirst(new RegExp("\/me",caseSensitive:false), "");
+				text.setInnerHtml("<i>"+map["username"]+" "+message+"</i>");
+				chatString.children.add(text);
 			}
 		}
 		if(map["statusMessage"] == "leftStreet")
@@ -606,13 +692,14 @@ class TabContent
 		if(atTheBottom || (map['username'] == chat.username || map['newUsername'] == chat.username))
 			conversation.scrollTop = conversation.scrollHeight;
 		
-		//display chat bubble if we're talking in local
-		if(map["channel"] == "Local Chat" && map["username"] == chat.username && map["statusMessage"] == null)
+		//display chat bubble if we're talking in local (unless it's a /me message)
+		if(map["channel"] == "Local Chat" && map["username"] == chat.username && map["statusMessage"] == null
+				&& !(map["message"] as String).toLowerCase().startsWith("/me"))
 		{
 			//remove any existing bubble
 			if(CurrentPlayer.chatBubble != null && CurrentPlayer.chatBubble.bubble != null)
 				CurrentPlayer.chatBubble.bubble.remove();
-			CurrentPlayer.chatBubble = new ChatBubble(map["message"]);
+			CurrentPlayer.chatBubble = new ChatBubble(_parseForEmoticons(map["message"]));
 		}
 	}
 	
@@ -643,6 +730,24 @@ class TabContent
 		return returnString;
 	}
 	
+	String _parseForEmoticons(String message)
+	{
+		String returnString = "";
+		RegExp regex = new RegExp(":(.+?):");
+		message.splitMapJoin(regex, 
+		onMatch: (Match m)
+		{
+			String match = m[1];
+			if(chat.EMOTICONS.contains(match))
+				returnString += "<img class ='Emoticon' src='assets/emoticons/$match.svg'></img>";
+			else
+				returnString += m[0];
+		},
+		onNonMatch: (String s) => returnString += s);
+		
+		return returnString;
+	}
+	
 	String _getColor(String username)
 	{
 		int index = 0;
@@ -650,7 +755,7 @@ class TabContent
 		{
 			index += username.codeUnitAt(i);
 		}
-		return _COLORS[index%(_COLORS.length-1)];
+		return chat.COLORS[index%(chat.COLORS.length-1)];
 	}
 	
 	String _timeStamp() => new DateTime.now().toString().substring(11,16);
