@@ -285,6 +285,15 @@ class TabContent
 				}
 				
 				int startIndex = input.value.lastIndexOf(" ") == -1 ? 0 : input.value.lastIndexOf(" ")+1;
+				for(int i=0; i<connectedUsers.length; i++)
+				{
+					String name = connectedUsers.elementAt(i);
+					if(input.value.endsWith(name))
+					{
+						input.value = input.value.substring(0,input.value.lastIndexOf(name));
+						break;
+					}
+				}
 				if(!tabInserted)
 					lastWord = input.value.substring(startIndex);
 				for(; tabSearchIndex < connectedUsers.length; tabSearchIndex++)
