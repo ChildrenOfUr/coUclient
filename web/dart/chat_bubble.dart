@@ -9,10 +9,10 @@ class ChatBubble
 
 	ChatBubble(this.text)
 	{
-		timeToLive = text.length * 0.1 + 3; //minimum 3s plus 0.1s per character
-		if(timeToLive > 15) //max 15s
+		timeToLive = text.length * 0.03 + 3; //minimum 3s plus 0.1s per character
+		if(timeToLive > 10) //max 10s
 		{
-			timeToLive = 15; //messages over 15s will only display for 15s
+			timeToLive = 10; //messages over 10s will only display for 10s
 		}
 		bubble = new DivElement()
 			..classes.add("PlayerChatBubble")
