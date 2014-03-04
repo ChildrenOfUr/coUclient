@@ -17,7 +17,7 @@ class Input
 		jumpKey = false;
     }
 
-	//Starts listening to user imput.
+	//Starts listening to user input.
 	init()
 	{
 		//set up key bindings
