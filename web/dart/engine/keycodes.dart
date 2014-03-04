@@ -2,7 +2,7 @@ part of coUclient;
 
 String fromKeyCode(int keyCode)
 {
-	String keyPressed;
+	String keyPressed = "";
 	if (keyCode == 8) keyPressed = "backspace"; //  backspace
 	if (keyCode == 9) keyPressed = "tab"; //  tab
 	if (keyCode == 13) keyPressed = "enter"; //  enter
@@ -23,42 +23,6 @@ String fromKeyCode(int keyCode)
 	if (keyCode == 40) keyPressed = "down arrow"; // down arrow
 	if (keyCode == 45) keyPressed = "insert"; // insert
 	if (keyCode == 46) keyPressed = "delete"; // delete
-	if (keyCode == 48) keyPressed = "0"; // 0
-	if (keyCode == 49) keyPressed = "1"; // 1
-	if (keyCode == 50) keyPressed = "2"; // 2
-	if (keyCode == 51) keyPressed = "3"; // 3
-	if (keyCode == 52) keyPressed = "4"; // 4
-	if (keyCode == 53) keyPressed = "5"; // 5
-	if (keyCode == 54) keyPressed = "6"; // 6
-	if (keyCode == 55) keyPressed = "7"; // 7
-	if (keyCode == 56) keyPressed = "8"; // 8
-	if (keyCode == 57) keyPressed = "9"; // 9
-	if (keyCode == 65) keyPressed = "A"; // A
-	if (keyCode == 66) keyPressed = "B"; // B
-	if (keyCode == 67) keyPressed = "C"; // C
-	if (keyCode == 68) keyPressed = "D"; // D
-	if (keyCode == 69) keyPressed = "E"; // E
-	if (keyCode == 70) keyPressed = "F"; // F
-	if (keyCode == 71) keyPressed = "G"; // G
-	if (keyCode == 72) keyPressed = "H"; // H
-	if (keyCode == 73) keyPressed = "I"; // I
-	if (keyCode == 74) keyPressed = "J"; // J
-	if (keyCode == 75) keyPressed = "K"; // K
-	if (keyCode == 76) keyPressed = "L"; // L
-	if (keyCode == 77) keyPressed = "M"; // M
-	if (keyCode == 78) keyPressed = "N"; // N
-	if (keyCode == 79) keyPressed = "O"; // O
-	if (keyCode == 80) keyPressed = "P"; // P
-	if (keyCode == 81) keyPressed = "Q"; // Q
-	if (keyCode == 82) keyPressed = "R"; // R
-	if (keyCode == 83) keyPressed = "S"; // S
-	if (keyCode == 84) keyPressed = "T"; // T
-	if (keyCode == 85) keyPressed = "U"; // U
-	if (keyCode == 86) keyPressed = "V"; // V
-	if (keyCode == 87) keyPressed = "W"; // W
-	if (keyCode == 88) keyPressed = "X"; // X
-	if (keyCode == 89) keyPressed = "Y"; // Y
-	if (keyCode == 90) keyPressed = "Z"; // Z
 	if (keyCode == 91) keyPressed = "left window"; // left window
 	if (keyCode == 92) keyPressed = "right window"; // right window
 	if (keyCode == 93) keyPressed = "select key"; // select key
@@ -91,17 +55,7 @@ String fromKeyCode(int keyCode)
 	if (keyCode == 123) keyPressed = "F12"; // F12
 	if (keyCode == 144) keyPressed = "num lock"; // num lock
 	if (keyCode == 145) keyPressed = "scroll lock"; // scroll lock
-	if (keyCode == 186) keyPressed = ";"; // semi-colon
-	if (keyCode == 187) keyPressed = "="; // equal-sign
-	if (keyCode == 188) keyPressed = ","; // comma
-	if (keyCode == 189) keyPressed = "-"; // dash
-	if (keyCode == 190) keyPressed = "."; // period
-	if (keyCode == 191) keyPressed = "/"; // forward slash
-	if (keyCode == 192) keyPressed = "`"; // grave accent
-	if (keyCode == 219) keyPressed = "["; // open bracket
-	if (keyCode == 220) keyPressed = "\\"; // back slash
-	if (keyCode == 221) keyPressed = "]"; // close bracket
-	if (keyCode == 222) keyPressed = "'"; // single quote  var lblCharCode = getObject('spnCode');
+	if (keyCode == 225) keyPressed = "alt"; //right alt
      
-     return keyPressed;
+	return keyPressed;
 }

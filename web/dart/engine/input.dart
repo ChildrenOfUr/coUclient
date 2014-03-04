@@ -28,7 +28,11 @@ class Input
 			else
 				localStorage[action] = keys[action].toString();
 			
-			querySelector("#$action").text = fromKeyCode(keys[action]);
+			String key = fromKeyCode(keys[action]);
+			if(key == "")
+				querySelector("#$action").text = new String.fromCharCode((keys[action]));
+			else
+				querySelector("#$action").text = key;
 		});
 		
 		document.onFullscreenChange.listen((_)
@@ -235,11 +239,25 @@ class Input
 		if(target.classes.contains("KeyBindingOption"))
 		{
 			target.text = "(press key to change)";
-			document.body.onKeyUp.first.then((KeyboardEvent event)
+			document.body.onKeyDown.first.then((KeyboardEvent event)
 			{
-				target.text = fromKeyCode(event.keyCode);
-				playerInput.keys[target.id] = event.keyCode; 
-				localStorage[target.id] = event.keyCode.toString();
+				String key = fromKeyCode(event.keyCode);
+				if(key == "") //it was not a special key
+				{
+					document.body.onKeyPress.first.then((KeyboardEvent event)
+	    			{
+	    				KeyEvent keyEvent = new KeyEvent.wrap(event);
+	    				target.text = new String.fromCharCode(keyEvent.charCode);
+	    				playerInput.keys[target.id] = event.keyCode; 
+	    				localStorage[target.id] = event.keyCode.toString();
+	    			});
+				}
+				else
+				{
+					target.text = key;
+					playerInput.keys[target.id] = event.keyCode; 
+					localStorage[target.id] = event.keyCode.toString();
+				}
 			});
 		}
 		
