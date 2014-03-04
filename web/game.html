@@ -213,45 +213,65 @@
 			Settings
 			<i id="CloseSettings" class="icon-remove icon-large red"></i>
 		</div>
-		<div class="PopWindowBody" style="padding: 10px;font-size: 1.2em;">
-	        <label class="ChatSettingsOption"><input id="ShowJoinMessages" type="checkbox" class="ChatSettingsCheckbox" checked="false">Show Join Messages</label>
-			<label class="ChatSettingsOption"><input id="PlayMentionSound" type="checkbox" class="ChatSettingsCheckbox" checked="false">Play Mention Sound</label>
-			<hr>
-			Key Bindings (Click To Change):<br><br>
-			<table style="text-align: center;">
-				<thead>
-					<th>Action</th>
-					<th>Primary Key</th>
-					<th>Secondary Key</th>
-				</thead>
-				<tr>
-					<td>Move Left:</td>
-					<!--Strech the colums by setting the first row to a specific width-->
-					<td><span class = "KeyBindingOption" id="LeftBindingPrimary" style="width: 200px;">A</span></td>
-					<td><span class = "KeyBindingOption" id="LeftBindingAlt" style="width: 200px;">left_arrow</span></td>
-				</tr>
-				<tr>
-					<td>Move Right:</td>
-					<td><span class = "KeyBindingOption" id="RightBindingPrimary">D</span></td>
-					<td><span class = "KeyBindingOption" id="RightBindingAlt">right_arrow</span></td>
-				</tr>
-				<tr>
-					<td>Move Up:</td>
-					<td><span class = "KeyBindingOption" id="UpBindingPrimary">W</span></td>
-					<td><span class = "KeyBindingOption" id="UpBindingAlt">up_arrow</span></td>
-				</tr>
-				<tr>
-					<td>Move Down:</td>
-					<td><span class = "KeyBindingOption" id="DownBindingPrimary">S</span></td>
-					<td><span class = "KeyBindingOption" id="DownBindingAlt">down_arrow</span></td>
-				</tr>
-				<tr>
-					<td>Jump:</td>
-					<td><span class = "KeyBindingOption" id="JumpBindingPrimary">space_bar</span></td>
-					<td><span class = "KeyBindingOption" id="JumpBindingAlt">space_bar</span></td>
-				</tr>
-			</table>
-		</div>
+		<div class="PopWindowBody SettingsWindowBody">
+			<div class="tabs">
+				<div class="tab">
+					<input type="radio" id="soundoptions" name="settingsgroup" checked="true">
+					<label class="tabLabel" for="soundoptions" style="cursor: pointer;">Sound</label>
+					<div class="content settingsContent">
+						<label class="ChatSettingsOption"><input id="ShowJoinMessages" type="checkbox" class="ChatSettingsCheckbox">Show Join Messages</label>
+						<label class="ChatSettingsOption"><input id="PlayMentionSound" type="checkbox" class="ChatSettingsCheckbox">Play Mention Sound</label>
+					</div>
+				</div>
+				<div class="tab">
+					<input type="radio" id="graphicsoptions" name="settingsgroup">
+					<label class="tabLabel" for="graphicsoptions" style="cursor: pointer;">Graphics</label>
+					<div class="content settingsContent">
+						<label class="ChatSettingsOption"><input id="GraphicsBlur" type="checkbox" class="ChatSettingsCheckbox">Enable Scenery Blur</label>
+					</div>
+				</div>
+				<div class="tab">
+					<input type="radio" id="keybindings" name="settingsgroup">
+					<label class="tabLabel" for="keybindings" style="cursor: pointer;">Keys</label>
+					<div class="content settingsContent">
+						Key Bindings (Click To Change):<br><br>
+						<table style="text-align: center;">
+							<tr>
+								<th>Action</th>
+								<th>Primary Key</th>
+								<th>Secondary Key</th>
+							</tr>
+							<tr>
+								<td>Move Left:</td>
+								<!--Strech the colums by setting the first row to a specific width-->
+								<td><span class = "KeyBindingOption" id="LeftBindingPrimary" style="width: 200px;">A</span></td>
+								<td><span class = "KeyBindingOption" id="LeftBindingAlt" style="width: 200px;">left_arrow</span></td>
+							</tr>
+							<tr>
+								<td>Move Right:</td>
+								<td><span class = "KeyBindingOption" id="RightBindingPrimary">D</span></td>
+								<td><span class = "KeyBindingOption" id="RightBindingAlt">right_arrow</span></td>
+							</tr>
+							<tr>
+								<td>Move Up:</td>
+								<td><span class = "KeyBindingOption" id="UpBindingPrimary">W</span></td>
+								<td><span class = "KeyBindingOption" id="UpBindingAlt">up_arrow</span></td>
+							</tr>
+							<tr>
+								<td>Move Down:</td>
+								<td><span class = "KeyBindingOption" id="DownBindingPrimary">S</span></td>
+								<td><span class = "KeyBindingOption" id="DownBindingAlt">down_arrow</span></td>
+							</tr>
+							<tr>
+								<td>Jump:</td>
+								<td><span class = "KeyBindingOption" id="JumpBindingPrimary">space_bar</span></td>
+								<td><span class = "KeyBindingOption" id="JumpBindingAlt">space_bar</span></td>
+							</tr>
+						</table>
+					</div>
+				</div>
+			</div>
+	    </div>
 	</div>
 
 	<!-- Mini Soundcloud widget -->

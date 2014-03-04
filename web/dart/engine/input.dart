@@ -6,7 +6,8 @@ class Input
 {
     bool leftKey, rightKey, upKey, downKey, jumpKey;
     Map<String,int> keys = {"LeftBindingPrimary":65,"LeftBindingAlt":37,"RightBindingPrimary":68,"RightBindingAlt":39,"UpBindingPrimary":87,"UpBindingAlt":38,"DownBindingPrimary":83,"DownBindingAlt":40,"JumpBindingPrimary":32,"JumpBindingAlt":32,};
-	bool ignoreKeys = false, touched = false;
+	bool ignoreKeys = false, touched = false, clickUsed = false;
+	StreamSubscription keyPressSub, keyDownSub;
   
     Input()
 	{
@@ -20,16 +21,7 @@ class Input
 	//Starts listening to user imput.
 	init()
 	{
-		//set up key bindings
-		keys.forEach((String action, int keyCode)
-		{
-			if(localStorage[action] != null)
-				keys[action] = int.parse(localStorage[action]);
-			else
-				localStorage[action] = keys[action].toString();
-			
-			querySelector("#$action").text = fromKeyCode(keys[action]);
-		});
+		setupKeyBindings();
 		
 		document.onFullscreenChange.listen((_)
 		{
@@ -52,7 +44,12 @@ class Input
 		volumeSlider.onChange.listen((_)
 		{
 			setVolume(volumeSlider.value,false);
-		});   
+		});
+		CheckboxInputElement graphicsBlur = querySelector("#GraphicsBlur") as CheckboxInputElement;
+		graphicsBlur.onChange.listen((_)
+		{
+			localStorage["GraphicsBlur"] = graphicsBlur.checked.toString();
+		});
 	      
 		//handle chat input getting focused/unfocused so that the character doesn't move while typing
 		ElementList chatInputs = querySelectorAll('.Typing');
@@ -174,6 +171,36 @@ class Input
 		playerInput = this;
     }
 	
+	setupKeyBindings()
+	{
+		//this prevents 2 keys from being set at once
+		if(keyPressSub != null)
+			keyPressSub.cancel();
+		if(keyDownSub != null)
+			keyDownSub.cancel();
+		
+		//set up key bindings
+		keys.forEach((String action, int keyCode)
+		{
+			List<String> storedValue = localStorage[action].split(".");
+			if(localStorage[action] != null)
+				keys[action] = int.parse(storedValue[0]);
+			else
+				localStorage[action] = keys[action].toString();
+			
+			String key = fromKeyCode(keys[action]);
+			if(key == "")
+			{
+				if(storedValue.length > 1)
+					querySelector("#$action").text = new String.fromCharCode(int.parse(storedValue[1])).toUpperCase();
+				else
+					querySelector("#$action").text = new String.fromCharCode((keys[action]));
+			}
+			else
+				querySelector("#$action").text = key;
+		});
+	}
+	
 	clickOrTouch(MouseEvent mouseEvent, TouchEvent touchEvent)
 	{
 		//don't handle too many touch events too fast
@@ -228,18 +255,51 @@ class Input
 		//handle settings menu
 		if(target.id == "SettingsGlyph" || target.id == "CloseSettings")
 		{
+			if(querySelector("#Settings").hidden)
+			{
+				//make sure we cancel any key reassignments left undone
+				if(keyPressSub != null)
+        			keyPressSub.cancel();
+        		if(keyDownSub != null)
+        			keyDownSub.cancel();
+			}
 			toggleSettings();
 		}
 		
 		//handle key re-binds
 		if(target.classes.contains("KeyBindingOption"))
 		{
+			if(!clickUsed)
+				setupKeyBindings();
+			
 			target.text = "(press key to change)";
-			document.body.onKeyUp.first.then((KeyboardEvent event)
+
+			//we need to use .listen instead of .first.then so that if the user does not press a key
+			//we can cancel the listener at a later time
+			keyDownSub = document.body.onKeyDown.listen((KeyboardEvent event)
 			{
-				target.text = fromKeyCode(event.keyCode);
-				playerInput.keys[target.id] = event.keyCode; 
-				localStorage[target.id] = event.keyCode.toString();
+				keyDownSub.cancel();
+				String key = fromKeyCode(event.keyCode);
+				int keyCode = event.keyCode;
+				if(key == "") //it was not a special key
+				{
+					keyPressSub = document.body.onKeyPress.listen((KeyboardEvent event)
+	    			{
+						keyPressSub.cancel();
+	    				KeyEvent keyEvent = new KeyEvent.wrap(event);
+	    				target.text = new String.fromCharCode(keyEvent.charCode).toUpperCase();
+	    				keys[target.id] = keyCode; 
+	    				//store keycode and charcode
+	    				localStorage[target.id] = keyCode.toString()+"."+keyEvent.charCode.toString();
+	    			});
+					
+				}
+				else
+				{
+					target.text = key;
+					keys[target.id] = event.keyCode;
+					localStorage[target.id] = event.keyCode.toString();
+				}
 			});
 		}
 		
