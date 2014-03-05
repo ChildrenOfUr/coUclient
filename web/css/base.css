@@ -1019,6 +1019,7 @@ text-decoration: underline;
 
 #CurrentLocation{
   position:absolute;
+  display: -webkit-inline-flex;
   display: inline-flex;
   right: 10px;
   top: -45px;

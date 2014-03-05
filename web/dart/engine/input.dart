@@ -182,16 +182,19 @@ class Input
 		//set up key bindings
 		keys.forEach((String action, int keyCode)
 		{
-			List<String> storedValue = localStorage[action].split(".");
+			List<String> storedValue = null;
 			if(localStorage[action] != null)
+			{
+				storedValue = localStorage[action].split(".");
 				keys[action] = int.parse(storedValue[0]);
+			}
 			else
 				localStorage[action] = keys[action].toString();
 			
 			String key = fromKeyCode(keys[action]);
 			if(key == "")
 			{
-				if(storedValue.length > 1)
+				if(storedValue != null && storedValue.length > 1)
 					querySelector("#$action").text = new String.fromCharCode(int.parse(storedValue[1])).toUpperCase();
 				else
 					querySelector("#$action").text = new String.fromCharCode((keys[action]));
