@@ -17,6 +17,7 @@ class UserInterface
 	
 	// Currant Meter Variables
 	SpanElement currantMeter = querySelector('#CurrCurrants');
+	int currants = 0;
 	
 	// Img Meter Variables
 	SpanElement imgMeter = querySelector('#CurrImagination');
@@ -68,14 +69,16 @@ class UserInterface
 		resize();
 		window.onResize.listen((_) => resize());
 		
-		//Set up the Currant Display
-		setCurrants('0');
-		
 		//TODO: This should actually pull from an online source..
 		setEnergy('100');
 		setMaxEnergy('100');
 		setMood('100');
 		setMaxMood('100');
+		if(localStorage["currants"] != null)
+        	currants = int.parse(localStorage["currants"]);
+		
+		//Set up the Currant Display
+		setCurrants(currants.toString());
 		
 		currLocation.text = currentStreet.label;
 	}
@@ -109,7 +112,13 @@ class UserInterface
 	
 	_setCurrants(int newValue)
 	{
+		currants = newValue;
 		currantMeter.text = commaFormatter.format(newValue);
+	}
+	
+	int _getCurrants()
+	{
+		return currants;
 	}
 	
 	_setImg(int newValue)

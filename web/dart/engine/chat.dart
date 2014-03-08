@@ -119,6 +119,7 @@ class Chat
 			..checked = checked
 			..onClick.listen(tabContent.resetMessages);
 		LabelElement label = new LabelElement()
+			..className = "tabLabel"
 			..attributes['for'] = "tab-"+channelName.replaceAll(" ", "_")
 			..id = "label-"+channelName.replaceAll(" ", "_")
 			..text = channelName

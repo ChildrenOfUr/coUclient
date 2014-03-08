@@ -30,6 +30,7 @@ main()
 		
 		//connect to the multiplayer server and start managing the other players on the screen
 		multiplayerInit();
+		streetSocketSetup(currentStreet.label);
 		
 		CurrentPlayer = new Player();
 		CurrentPlayer.loadAnimations()

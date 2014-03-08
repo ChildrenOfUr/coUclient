@@ -1,11 +1,77 @@
 part of coUclient;
 
 String multiplayerServer = "ws://couserver.herokuapp.com/playerUpdate";
+String streetEventServer = "ws://couserver.herokuapp.com/streetUpdate";
+WebSocket streetSocket;
 
 multiplayerInit()
 {
 	otherPlayers = new Map();
 	_setupPlayerSocket();
+}
+
+streetSocketSetup(String streetName)
+{
+	if(streetSocket != null && streetSocket.readyState == WebSocket.OPEN)
+	{
+		//send one final leaving message
+		Map map = new Map();
+		map["username"] = chat.username;
+		map["streetName"] = streetName;
+		map["message"] = "left";
+		streetSocket.send(JSON.encode(map));
+		streetSocket.close();
+	}
+	
+	streetSocket = new WebSocket(streetEventServer);
+	streetSocket.onOpen.listen((_)
+	{
+		if(streetSocket.readyState == WebSocket.OPEN)
+		{
+			Map map = new Map();
+			map["username"] = chat.username;
+			map["streetName"] = streetName;
+			map["message"] = "joined";
+			streetSocket.send(JSON.encode(map));
+		}
+	});
+	streetSocket.onMessage.listen((MessageEvent event)
+	{
+		Map map = JSON.decode(event.data);
+		
+		if(map["remove"] != null && querySelector("#${map["remove"]}") != null)
+			querySelector("#${map["remove"]}").style.display = "none"; //.remove() is very slow
+		else if(map["remove"] == null)
+		{
+			String id = map["id"];
+    		if(querySelector("#$id") == null)
+    		{
+    			CssStyleSheet styleSheet = document.styleSheets[0] as CssStyleSheet;
+    			try
+    			{
+    				//insert @-webkit-keyframes rule second so Firefox doesn't have a temper tantrum
+    				String keyframes = map["keyframes"];
+    				styleSheet.insertRule("@"+keyframes.substring(9),1);
+    				styleSheet.insertRule(keyframes,1);
+    			}
+                catch(error){print(error);}
+    			
+    			DivElement element = new DivElement();
+    			element.style.backgroundImage = "url("+map["url"]+")";
+    			element.id = id;
+    			element.className = map["type"];
+    			element.style.animation = map["animation"];
+    			element.style.position = "absolute";
+    			element.style.left = map["x"].toString()+"px";
+    			element.style.bottom = map["y"].toString()+"px";
+    			element.style.width = map["width"].toString()+"px";
+    			element.style.height = map["height"].toString()+"px";
+    			querySelector("#PlayerHolder").append(element);
+    		}
+    		else if(querySelector("#$id").style.display == "none")
+    			querySelector("#$id").style.display = "block";
+		}
+	});
 }
 
 _setupPlayerSocket()

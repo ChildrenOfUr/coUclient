@@ -46,6 +46,7 @@ Future load_audio()
 			//this should help with browser compatibility
 			new Asset('./assets/system/loading.mp3'),
 	        new Asset('./assets/system/mention.mp3'),
+	        new Asset('./assets/system/drop.mp3'),
 	        new Asset('./assets/system/game_loaded.mp3')
         ])
 	..load(print,querySelector("#LoadStatus2")).then((_)

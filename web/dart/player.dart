@@ -11,6 +11,7 @@ class Player
 	Map<String,Animation> animations = new Map();
 	Animation currentAnimation;
 	ChatBubble chatBubble = null;
+	Random rand = new Random();
   		
 	//for testing purposes
 	//if false, player can move around with wasd and arrows, no falling
@@ -204,6 +205,29 @@ class Player
 		}
 		
 		playerCanvas.style.transform = transform;
+		
+		//check for collision with quoins
+		Rectangle avatarRect = avatar.getBoundingClientRect();
+		querySelectorAll(".currant").forEach((Element element)
+		{
+			Rectangle currant = element.getBoundingClientRect();
+			if(streetSocket != null && streetSocket.readyState == WebSocket.OPEN && intersect(avatarRect,currant))
+			{
+				if(int.parse(prevVolume) > 0 && isMuted == '0')
+				{
+					AudioElement dropSound = ASSET['drop'].get();
+        		    dropSound.volume = int.parse(prevVolume)/100;
+        		    dropSound.play();
+				}
+				element.style.display = "none"; //.remove() is very slow
+				setCurrants((getCurrants()+rand.nextInt(4)+1).toString());
+				Map map = new Map();
+				map["remove"] = element.id;
+				map["type"] = "quoin";
+				map["streetName"] = currentStreet.label;
+				streetSocket.send(JSON.encode(map));
+			}
+		});
 	}
   
 	render()
@@ -213,4 +237,12 @@ class Player
 		//CurrentPlayer.playerCanvas.context2D.clearRect(0, 0, width, height);
 		//CurrentPlayer.playerCanvas.context2D.drawImage(avatar, 0, 0);
 	}
+	
+	bool intersect(Rectangle a, Rectangle b) 
+	{
+      return (a.left <= b.right &&
+              b.left <= a.right &&
+              a.top <= b.bottom &&
+              b.top <= a.bottom);
+    }
 }

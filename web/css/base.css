@@ -761,7 +761,7 @@ text-decoration: underline;
   float: left;
   cursor: pointer;
 }
-.tab label {
+.tab .tabLabel {
 	background: #eee; 
 	padding: 4px; 
 	border: 1px solid #ccc; 
@@ -781,6 +781,12 @@ text-decoration: underline;
   top: 28px;
   left: 0;
   right: 0;
+  display: none;
+}
+.settingsContent {
+	margin-top: 4px;
+	padding-top: 10px;
+	border-top: 1px solid;
 }
 [type=radio]:checked ~ label {
   background: white;
@@ -789,6 +795,7 @@ text-decoration: underline;
 }
 [type=radio]:checked ~ label ~ .content {
   z-index: 1;
+  display: block;
 }
 .Counter
 {
@@ -839,6 +846,11 @@ text-decoration: underline;
    top:65px;
    right:0px;
    height:320px;
+}
+.SettingsWindowBody {
+	padding: 10px;
+	font-size: 1.2em;
+	max-height: calc(100% - 92px);
 }
 
 //TODO: Dynamic position
@@ -1007,6 +1019,7 @@ text-decoration: underline;
 
 #CurrentLocation{
   position:absolute;
+  display: -webkit-inline-flex;
   display: inline-flex;
   right: 10px;
   top: -45px;

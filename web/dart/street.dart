@@ -52,6 +52,9 @@ class Street
 
 		// sets the label for the street
 		label = _data['label'];
+		
+		if(chat.username != null)
+			streetSocketSetup(label);
           
 		bounds = new Rectangle(_data['dynamic']['l'],
 								_data['dynamic']['t'],
@@ -144,8 +147,10 @@ class Street
 				new Map.from(layer['filters']).forEach((String filterName, int value)
 				{
 					//blur is super expensive (seemed to cut my framerate in half)
-					//if(filterName == "blur")
-						//filters.add('blur('+value.toString()+'px)');
+					if(localStorage["GraphicsBlur"] == "true" && filterName == "blur")
+					{
+						filters.add('blur('+value.toString()+'px)');
+					}
 					if(filterName == "brightness")
 					{
 						if(value < 0) 

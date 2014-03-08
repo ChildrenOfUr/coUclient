@@ -231,8 +231,14 @@ setCurrants(String value)
 	if (intvalue != null)
 	{
 		ui._setCurrants(intvalue);
+		localStorage["currants"] = value;
 		printConsole('Setting currants to $value');
 	}  
+}
+
+int getCurrants()
+{
+	return ui._getCurrants();
 }
 
 /**
