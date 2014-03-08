@@ -236,11 +236,6 @@ setCurrants(String value)
 	}  
 }
 
-int getCurrants()
-{
-	return ui._getCurrants();
-}
-
 /**
  * Sets the player's iMG to [value]
  */
@@ -251,8 +246,29 @@ setImg(String value)
 	if (intvalue != null)
 	{
 		ui._setImg(intvalue);
+		localStorage["img"] = value;
 		printConsole('Setting Img to $value');
 	}  
+}
+
+int getCurrants()
+{
+	return ui._getCurrants();
+}
+
+int getMood()
+{
+	return ui._getMood();
+}
+
+int getEnergy()
+{
+	return ui._getEnergy();
+}
+
+int getImg()
+{
+	return ui._getImg();
 }
 
 /**

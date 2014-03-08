@@ -3,6 +3,7 @@ part of coUclient;
 String multiplayerServer = "ws://couserver.herokuapp.com/playerUpdate";
 String streetEventServer = "ws://couserver.herokuapp.com/streetUpdate";
 WebSocket streetSocket;
+bool reconnect = true;
 
 multiplayerInit()
 {
@@ -20,6 +21,7 @@ streetSocketSetup(String streetName)
 		map["streetName"] = streetName;
 		map["message"] = "left";
 		streetSocket.send(JSON.encode(map));
+		reconnect = false;
 		streetSocket.close();
 	}
 	
@@ -46,21 +48,40 @@ streetSocketSetup(String streetName)
 			String id = map["id"];
     		if(querySelector("#$id") == null)
     		{
+    			//inserting rules can be messy - Firefox throws exceptions if you try to insert a @-webkit-keyframes rule
+    			//and chrome mobile (not desktop though) throws an exception the other way around
     			CssStyleSheet styleSheet = document.styleSheets[0] as CssStyleSheet;
+    			String keyframes = map["keyframes"];
     			try
     			{
-    				//insert @-webkit-keyframes rule second so Firefox doesn't have a temper tantrum
-    				String keyframes = map["keyframes"];
-    				styleSheet.insertRule("@"+keyframes.substring(9),1);
     				styleSheet.insertRule(keyframes,1);
     			}
-                catch(error){print(error);}
+                catch(error){}
+                try
+                {
+                	styleSheet.insertRule("@"+keyframes.substring(9),1);
+                }
+                catch(error){}
     			
     			addQuoin(map);
     		}
     		else if(querySelector("#$id").style.display == "none")
     			querySelector("#$id").style.display = "block";
 		}
+	});
+	streetSocket.onClose.listen((_)
+	{
+		if(!reconnect)
+		{
+			reconnect = true;
+			return;
+		}
+		
+		//wait 5 seconds and try to reconnect
+		new Timer(new Duration(seconds:5),()
+		{
+			streetSocketSetup(currentStreet.label);
+		});
 	});
 }
 
@@ -205,7 +226,7 @@ addQuoin(Map map)
 	
 	element.style.backgroundImage = "url("+map["url"]+")";
 	element.id = id;
-	element.className = map["type"];
+	element.className = map["type"] + " quoin";
 	element.style.animation = map["animation"];
 	element.style.position = "absolute";
 	element.style.left = map["x"].toString()+"px";

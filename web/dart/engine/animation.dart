@@ -33,8 +33,12 @@ class Animation
 				try
 				{
 					String stillframe = '@keyframes stillframe { from { background-position: '+endPos.toString()+'px;} to { background-position: -'+endPos.toString()+'px;}}';
-					styleSheet.insertRule(stillframe,1); //inserting at 0 throws an error, 1 seems fine
-					stillframe = '@-webkit-keyframes stillframe { from { background-position: '+endPos.toString()+'px;} to { background-position: -'+endPos.toString()+'px;}}';
+                    styleSheet.insertRule(stillframe,1); //inserting at 0 throws an error, 1 seems fine
+				}
+				catch(error){}
+				try
+				{
+					String stillframe = '@-webkit-keyframes stillframe { from { background-position: '+endPos.toString()+'px;} to { background-position: -'+endPos.toString()+'px;}}';
 					styleSheet.insertRule(stillframe, 1);
 				}
 				catch(error){}
@@ -52,11 +56,15 @@ class Animation
 				int endPos = width - (width~/15)*3;
 				CssStyleSheet styleSheet = document.styleSheets[0] as CssStyleSheet;
 				
-				String base = '@keyframes base { from { background-position: 0px;} to { background-position: -'+endPos.toString()+'px;}}';
 				try
 				{
+					String base = '@keyframes base { from { background-position: 0px;} to { background-position: -'+endPos.toString()+'px;}}';
 					styleSheet.insertRule(base,1); //inserting at 0 throws an error, 1 seems fine
-					base = '@-webkit-keyframes base { from { background-position: 0px;} to { background-position: -'+endPos.toString()+'px;}}';
+				}
+				catch(error){}
+				try
+				{
+					String base = '@-webkit-keyframes base { from { background-position: 0px;} to { background-position: -'+endPos.toString()+'px;}}';
 					styleSheet.insertRule(base, 1);
 				}
 				catch(error){}
@@ -76,11 +84,15 @@ class Animation
 			
 				CssStyleSheet styleSheet = document.styleSheets[0] as CssStyleSheet;
 				
-				String idle = '@keyframes idle {0%{background-position: 0px 0px;} 90%{background-position: 0px 0px;} 100%{background-position: -'+width.toString()+'px 0px;}}';
 				try
 				{
+					String idle = '@keyframes idle {0%{background-position: 0px 0px;} 90%{background-position: 0px 0px;} 100%{background-position: -'+width.toString()+'px 0px;}}';
 					styleSheet.insertRule(idle,1); //inserting at 0 throws an error, 1 seems fine
-					idle = '@-webkit-keyframes idle {0%{background-position: 0px 0px;} 90%{background-position: 0px 0px;} 100%{background-position: -'+width.toString()+'px 0px;}}';
+				}
+				catch(error){}
+				try
+				{
+					String idle = '@-webkit-keyframes idle {0%{background-position: 0px 0px;} 90%{background-position: 0px 0px;} 100%{background-position: -'+width.toString()+'px 0px;}}';
 					styleSheet.insertRule(idle, 1);
 				}
 				catch(error){}
@@ -98,11 +110,15 @@ class Animation
 				
 				CssStyleSheet styleSheet = document.styleSheets[0] as CssStyleSheet;
 				
-				String jump =' @keyframes jump { from { background-position: 0px;} to { background-position: -'+frame32.toString()+'px;}}';
 				try
 				{
+					String jump =' @keyframes jump { from { background-position: 0px;} to { background-position: -'+frame32.toString()+'px;}}';
 					styleSheet.insertRule(jump,1); //inserting at 0 throws an error, 1 seems fine
-					jump = '@-webkit-keyframes jump { from { background-position: 0px;} to { background-position: -'+frame32.toString()+'px;}}';
+				}
+				catch(error){}
+				try
+				{
+					String jump = '@-webkit-keyframes jump { from { background-position: 0px;} to { background-position: -'+frame32.toString()+'px;}}';
 					styleSheet.insertRule(jump, 1);
 				}
 				catch(error){}

@@ -17,7 +17,7 @@ class UserInterface
 	
 	// Currant Meter Variables
 	SpanElement currantMeter = querySelector('#CurrCurrants');
-	int currants = 0;
+	int _currants = 0;
 	
 	// Img Meter Variables
 	SpanElement imgMeter = querySelector('#CurrImagination');
@@ -48,6 +48,8 @@ class UserInterface
 	Element _maxMoodText = querySelector('#MaxMood');
 	Element _moodPercent = querySelector('#MoodPercent');
 	
+	int _img = 0;
+		
 	//Location/Map Variables
 	DivElement currLocation =  querySelector('#Location');
 	ImageElement map =  querySelector('#MapGlyph');
@@ -75,16 +77,22 @@ class UserInterface
 		setMood('100');
 		setMaxMood('100');
 		if(localStorage["currants"] != null)
-        	currants = int.parse(localStorage["currants"]);
+        	_currants = int.parse(localStorage["currants"]);
+		if(localStorage["img"] != null)
+			_img = int.parse(localStorage["img"]);
 		
 		//Set up the Currant Display
-		setCurrants(currants.toString());
+		setCurrants(_currants.toString());
+		setImg(_img.toString());
 		
 		currLocation.text = currentStreet.label;
 	}
 	
 	_setEnergy(int newValue)
 	{
+		if(newValue > _maxenergy)
+			return;
+		
 		_energy = newValue;
 		_currEnergyText.parent.parent.classes.toggle('changed',true);
 		Timer t = new Timer(new Duration(seconds:1),() => _currEnergyText.parent.parent.classes.toggle('changed'));
@@ -97,6 +105,9 @@ class UserInterface
 	 
 	_setMood(int newValue)
 	{
+		if(newValue > _maxmood)
+			return;
+		
 		_mood = newValue;
 		_currMoodText.parent.classes.toggle('changed', true);
 		Timer t = new Timer(new Duration(seconds:1),() => _currMoodText.parent.classes.toggle('changed'));
@@ -112,18 +123,34 @@ class UserInterface
 	
 	_setCurrants(int newValue)
 	{
-		currants = newValue;
+		_currants = newValue;
 		currantMeter.text = commaFormatter.format(newValue);
+	}	
+	
+	_setImg(int newValue)
+	{
+		_img = newValue;
+		imgMeter.text = commaFormatter.format(newValue);
 	}
 	
 	int _getCurrants()
 	{
-		return currants;
+		return _currants;
 	}
 	
-	_setImg(int newValue)
+	int _getEnergy()
 	{
-		imgMeter.text = commaFormatter.format(newValue);
+		return _energy;
+	}
+	
+	int _getMood()
+	{
+		return _mood;
+	}
+	
+	int _getImg()
+	{
+		return _img;
 	}
 	
 	_setName(String newValue)

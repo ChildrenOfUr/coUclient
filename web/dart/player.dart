@@ -208,7 +208,7 @@ class Player
 		
 		//check for collision with quoins
 		Rectangle avatarRect = avatar.getBoundingClientRect();
-		querySelectorAll(".currant").forEach((Element element)
+		querySelectorAll(".quoin").forEach((Element element)
 		{
 			Rectangle currant = element.getBoundingClientRect();
 			if(streetSocket != null && streetSocket.readyState == WebSocket.OPEN && intersect(avatarRect,currant))
@@ -220,13 +220,33 @@ class Player
         		    dropSound.play();
 				}
 				int amt = rand.nextInt(4)+1;
-				querySelector("#qq"+element.id+" .quoinString").text = "+" + amt.toString() + "\u20a1";
+				Element quoinText = querySelector("#qq"+element.id+" .quoinString");
+				if(element.classes.contains("currant"))
+				{
+					quoinText.text = "+" + amt.toString() + "\u20a1";
+					setCurrants((getCurrants()+amt).toString());
+				}
+				if(element.classes.contains("mood"))
+				{
+					quoinText.text = "+" + amt.toString() + " mood";
+					setMood((getMood()+amt).toString());
+				}
+				if(element.classes.contains("energy"))
+				{
+                	quoinText.text = "+" + amt.toString() + " energy";
+                	setEnergy((getEnergy()+amt).toString());
+				}
+				if(element.classes.contains("img"))
+				{
+                	quoinText.text = "+" + amt.toString() + " iMG";
+                	setImg((getImg()+amt).toString());
+				}
 				querySelector("#q"+element.id).classes.add("circleExpand");
 				querySelector("#qq"+element.id).classes.add("circleExpand");
 				new Timer(new Duration(seconds:2), () => querySelector("#qq"+element.id).classes.remove("circleExpand"));
 				new Timer(new Duration(milliseconds:800), () => querySelector("#q"+element.id).classes.remove("circleExpand"));
 				element.style.display = "none"; //.remove() is very slow
-				setCurrants((getCurrants()+amt).toString());
+				
 				Map map = new Map();
 				map["remove"] = element.id;
 				map["type"] = "quoin";
