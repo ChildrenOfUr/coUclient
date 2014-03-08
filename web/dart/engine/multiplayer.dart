@@ -56,17 +56,7 @@ streetSocketSetup(String streetName)
     			}
                 catch(error){print(error);}
     			
-    			DivElement element = new DivElement();
-    			element.style.backgroundImage = "url("+map["url"]+")";
-    			element.id = id;
-    			element.className = map["type"];
-    			element.style.animation = map["animation"];
-    			element.style.position = "absolute";
-    			element.style.left = map["x"].toString()+"px";
-    			element.style.bottom = map["y"].toString()+"px";
-    			element.style.width = map["width"].toString()+"px";
-    			element.style.height = map["height"].toString()+"px";
-    			querySelector("#PlayerHolder").append(element);
+    			addQuoin(map);
     		}
     		else if(querySelector("#$id").style.display == "none")
     			querySelector("#$id").style.display = "block";
@@ -188,4 +178,41 @@ removeOtherPlayer(String username)
 	Element otherPlayer = querySelector("#player-"+username);
 	if(otherPlayer != null)
 		otherPlayer.remove();
+}
+
+addQuoin(Map map)
+{
+	String id = map["id"];
+	DivElement element = new DivElement();
+	DivElement circle = new DivElement()
+		..id = "q"+id
+		..className = "circle"
+		..style.position = "absolute"
+		..style.left = map["x"].toString()+"px"
+		..style.bottom = map["y"].toString()+"px";
+	DivElement parent = new DivElement()
+		..id = "qq"+id
+		..className = "parent"
+		..style.position = "absolute"
+		..style.left = map["x"].toString()+"px"
+		..style.bottom = map["y"].toString()+"px";
+	DivElement inner = new DivElement();
+	inner.className = "inner";
+	DivElement content = new DivElement();
+	content.className = "quoinString";
+	parent.append(inner);
+	inner.append(content);
+	
+	element.style.backgroundImage = "url("+map["url"]+")";
+	element.id = id;
+	element.className = map["type"];
+	element.style.animation = map["animation"];
+	element.style.position = "absolute";
+	element.style.left = map["x"].toString()+"px";
+	element.style.bottom = map["y"].toString()+"px";
+	element.style.width = map["width"].toString()+"px";
+	element.style.height = map["height"].toString()+"px";
+	querySelector("#PlayerHolder").append(element);
+	querySelector("#PlayerHolder").append(circle);
+	querySelector("#PlayerHolder").append(parent);
 }

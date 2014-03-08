@@ -219,8 +219,14 @@ class Player
         		    dropSound.volume = int.parse(prevVolume)/100;
         		    dropSound.play();
 				}
+				int amt = rand.nextInt(4)+1;
+				querySelector("#qq"+element.id+" .quoinString").text = "+" + amt.toString() + "\u20a1";
+				querySelector("#q"+element.id).classes.add("circleExpand");
+				querySelector("#qq"+element.id).classes.add("circleExpand");
+				new Timer(new Duration(seconds:2), () => querySelector("#qq"+element.id).classes.remove("circleExpand"));
+				new Timer(new Duration(milliseconds:800), () => querySelector("#q"+element.id).classes.remove("circleExpand"));
 				element.style.display = "none"; //.remove() is very slow
-				setCurrants((getCurrants()+rand.nextInt(4)+1).toString());
+				setCurrants((getCurrants()+amt).toString());
 				Map map = new Map();
 				map["remove"] = element.id;
 				map["type"] = "quoin";
