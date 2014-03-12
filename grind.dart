@@ -4,6 +4,7 @@ import 'dart:io';
 
 // Important Files
 File gamehtml = new File('./web/game.html');
+File gamecss = new File('./web/base.css');
 File gameglos = new File('./web/glos/base.glos');
 File gamedart = new File('./web/main.dart');
 
@@ -20,7 +21,7 @@ void main([List<String> args]) {
   grinder.defineTask('init', taskFunction: init);
   grinder.defineTask('compileJS', taskFunction: compileJS, depends : ['init']);
   grinder.defineTask('compileCSS', taskFunction: compileCSS, depends : ['init']);
-  grinder.defineTask('build', taskFunction: build, depends : ['compileJS', 'compileCSS']);
+  grinder.defineTask('build', taskFunction: build, depends : ['compileJS']);
   grinder.defineTask('deploy', taskFunction: deploy, depends : ['build', 'compileCSS']);
   // Running from DartEditor? I'll assume you want to build.
   if (args.length == 0){
@@ -66,12 +67,14 @@ compileCSS(grinder.GrinderContext context) {
 
 
 
-
-
 build(grinder.GrinderContext context) {
   // copy over our game.html
   context.log('Creating copy of game.html');
   grinder.copyFile(gamehtml, outfolder);
+  
+  // copy over our base.css
+  context.log('Creating copy of base.css');
+  grinder.copyFile(gamecss, outfolder);
   
   // copy over our assets
   context.log('Copying assets');
@@ -82,16 +85,15 @@ build(grinder.GrinderContext context) {
   File newhtml = new File('./out/game.html');
   newhtml.writeAsStringSync( 
      newhtml.readAsStringSync()
-  .replaceAll('<link rel="stylesheet" href="./css/base.css">',
+  .replaceAll('<link rel="stylesheet" href="./base.css">',
       '<style>'+ new File('./out/base.css').readAsStringSync() + '</style>')
-  .replaceAll('<link id="MobileStyle" rel="stylesheet" href="./css/mobile.css">','')  
   );
   // Embed JS
   context.log('Embedding JS into page');  
   newhtml.writeAsStringSync( 
      newhtml.readAsStringSync()
   .replaceAll('<script type="application/dart" src="main.dart"></script>',
-      '<script>'+ new File('./out/main.js').readAsStringSync() + '<script>')
+      '<script>'+ new File('./out/main.js').readAsStringSync() + '</script>')
   .replaceAll('<script src="packages/browser/dart.js"></script>','')
   ); 
   // clean up our unneeded files
