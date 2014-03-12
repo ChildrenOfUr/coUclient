@@ -4,7 +4,8 @@ import 'dart:io';
 
 // Important Files
 File gamehtml = new File('./web/game.html');
-File gamecss = new File('./web/base.css');
+File gamecss = new File('./web/base.css'); // Temporary
+File mobilecss = new File('./web/mobile.css'); // Temporary
 File gameglos = new File('./web/glos/base.glos');
 File gamedart = new File('./web/main.dart');
 
@@ -75,6 +76,7 @@ build(grinder.GrinderContext context) {
   // copy over our base.css
   context.log('Creating copy of base.css');
   grinder.copyFile(gamecss, outfolder);
+  grinder.copyFile(mobilecss, outfolder);
   
   // copy over our assets
   context.log('Copying assets');
