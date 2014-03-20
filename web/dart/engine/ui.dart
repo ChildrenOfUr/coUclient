@@ -186,8 +186,8 @@ class UserInterface
 		else //set to unmuted
 		{
 			(querySelector('#VolumeSlider') as InputElement).disabled = false;
-			audioGlyph.innerHtml = '<i id="VolumeGlyph" class="icon-volume-up glyph icon-large"></i>';
-			mobileAudioGlyph.innerHtml = '<i id="VolumeGlyph" class="icon-volume-up glyph icon-large"></i>';
+			audioGlyph.innerHtml = '<i id="VolumeGlyph" class="fa fa-volume-up glyph fa-lg"></i>';
+			mobileAudioGlyph.innerHtml = '<i id="VolumeGlyph" class="fa fa-lg fa-volume-up"></i>';
 			setVolume(localStorage['prevVolume'],false);
 			localStorage['isMuted'] = '0';
 		}
