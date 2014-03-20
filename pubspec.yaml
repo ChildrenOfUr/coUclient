@@ -12,10 +12,10 @@ dependencies:
   gloss: any
   grinder: any
   intl: any
-  loadie:
+  libld:
     git:
       ref: master
-      url: https://github.com/ChildrenOfUr/loadie.git
+      url: https://github.com/ChildrenOfUr/libld.git
   scproxy:
     git:
       ref: master
