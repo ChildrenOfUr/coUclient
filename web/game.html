@@ -14,8 +14,9 @@
       href="./assets/system/favicon.ico">
 
 <!-- Import Stylesheets -->
-	<link rel="stylesheet" href="./css/base.css">
-	<link id="MobileStyle" rel="stylesheet" href="./css/mobile.css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="./base.css">
+	<link id="MobileStyle" rel="stylesheet" href="./mobile.css">
 <!--Import Stylesheets -->
 
 </head>
@@ -62,7 +63,7 @@
           		</div>
         </div>
         <div id="GameScreen">
-			<div id="Exits" class="ExitsCollapsed icon-expand-alt"> Exits</div>
+			<div id="Exits" class="fa fa-plus ExitsCollapsed"> Exits</div>
 			<div id="Layers"></div>
 			<div id="PlayerHolder"></div>
 			<div id="MapLoadingScreen" class="MapLoadingScreen">
@@ -105,25 +106,25 @@
 
 	  <!--Contains all the ui elements on the top right-->
 		<div id="TopRight">
-			<i id="ConsoleGlyph" class="icon-rocket glyph icon-large"> </i>
+			<i id="ConsoleGlyph" class="fa fa-rocket fa-lg glyph"> </i>
 				<a href="https://github.com/ChildrenOfUr/coUclient/issues" target="_blank">
-					<i id="BugGlyph" class="icon-bug glyph icon-large"> </i></a>
+					<i id="BugGlyph" class="fa fa-bug fa-lg glyph"> </i></a>
 				<a href="http://childrenofur.com" target="_blank">
-			<i id="QuestionGlyph" class="icon-home glyph icon-large"> </i></a>
+			<i id="QuestionGlyph" class="fa fa-home fa-lg glyph"> </i></a>
 
 
 			<span id="AudioSettings">
 				<span id="AudioGlyph">
-					<i id="VolumeGlyph" class="icon-volume-up glyph icon-large"></i>
+					<i id="VolumeGlyph" class="fa fa-lg fa-volume-up"></i>
 				</span>
 				<span id="SliderParent">
 					<input type="range" id="VolumeSlider" min="0" max="100" step="1" value="50" oninput="rangevalue.text=value" onchange="rangevalue.text=value">
 					<output id="rangevalue">50</output>
 				</span>
 			</span>
-			<i id="SettingsGlyph" class="icon-cog glyph icon-large"></i>
-			<i id="FullscreenGlyph" class="FullscreenGlyph icon-fullscreen glyph icon-large"> </i>
-			<i id="FullscreenResetGlyph" class="FullscreenResetGlyph icon-resize-small glyph icon-large"> </i>
+			<i id="SettingsGlyph" class="fa fa-cog fa-lg glyph"></i>
+			<i id="FullscreenGlyph" class="fa fa-arrows-alt fa-lg glyph FullscreenGlyph"> </i>
+			<i id="FullscreenResetGlyph" class="fa fa-compress fa-lg glyph FullscreenResetGlyph"> </i>
 			<span id="CurrDay"></span>
 			<span id="CurrTime"></span>
 			<span id="CurrDate"></span>
@@ -185,7 +186,7 @@
 	<div class="PopWindow" id="MapWindow" hidden="true">
 		<div class="PopWindowHeader handle">
 	  		Map <!-- hub , else "World Map" -->
-            <i id="CloseMap" class="icon-remove icon-large red"></i>
+            <i id="CloseMap" class="fa fa-times fa-lg red"></i>
             <textarea class="MapSearchInput" spellcheck="false" rows="1">Search</textarea>
 
 		</div>
@@ -194,9 +195,9 @@
     <!-- Development Console -->
   <div class="PopWindow" id="DevConsole" hidden="true">
     <div class="PopWindowHeader handle">
-      <i class="icon-code icon-large"></i>
+      <i class="fa fa-code fa-lg"></i>
         Console
-        <i id="CloseConsole" class="icon-remove icon-large red"></i>
+        <i id="CloseConsole" class="fa fa-times fa-lg red"></i>
     </div>
     <div class="PopWindowBody">
         <div id="CommandConsole">
@@ -209,9 +210,9 @@
 	<!-- Settings Menu -->
 	<div class="PopWindow" id="Settings" hidden="true">
 		<div class="PopWindowHeader handle">
-			<i class="icon-cog icon-large"></i>
+			<i class="fa fa-cog fa-lg"></i>
 			Settings
-			<i id="CloseSettings" class="icon-remove icon-large red"></i>
+			<i id="CloseSettings" class="fa fa-times fa-lg red"></i>
 		</div>
 		<div class="PopWindowBody SettingsWindowBody">
 			<div class="tabs">
@@ -297,10 +298,10 @@
 
 	<!-- mobile specific components -->
 	<span id="MobileAudioGlyph">
-		<i id="MobileVolumeGlyph" class="icon-volume-up glyph icon-large"></i>
+		<i id="MobileVolumeGlyph" class="fa fa-volume-up glyph fa-lg"></i>
 	</span>
-	<i id="MobileFullscreen" class="FullscreenGlyph icon-fullscreen glyph icon-large"> </i>
-	<i id="MobileFullscreenReset" class="FullscreenResetGlyph icon-resize-small glyph icon-large"> </i>
+	<i id="MobileFullscreen" class="fa FullscreenGlyph fa-fullscreen glyph fa-lg"> </i>
+	<i id="MobileFullscreenReset" class="fa FullscreenResetGlyph fa-resize-small fa-lg"> </i>
 	<div id="Joystick">
 		<div id="Knob"></div>
 	</div>
@@ -308,7 +309,7 @@
 	<div id="BButton">B</div>
 	<div id="ChatBubble" class="bubble you">
 		<span id="ChatBubbleText"></span>
-		<div id="ChatBubbleDisconnect" class="icon-spinner icon-spin" hidden="true"></div>
+		<div id="ChatBubbleDisconnect" class="fa fa-spinner fa-spin" hidden="true"></div>
 	</div>
 	<div id="InventoryDrawer">
 		<div id="InventoryTitle">Inventory</div>
@@ -355,7 +356,7 @@
 <div id="ChannelSelectorScreen" hidden="true"> <!--Only for mobile clients-->
 	<div class="ActionBar">
 		<div id="BackFromChannelSelector" class="BackButton">Back</div>
-		<i id="MobileChatSettingsIcon" class="icon-cog glyph icon-2x"></i>
+		<i id="MobileChatSettingsIcon" class="fa fa-cog glyph fa-lg"></i>
 		<div id="MobileChatSettingsMenu" hidden="true">
 			<label class="ChatSettingsOption"><input id="ShowJoinMessages" type="checkbox" class="ChatSettingsCheckbox" checked="false">Show Join Messages</label>
 			<label class="ChatSettingsOption"><input id="PlayMentionSound" type="checkbox" class="ChatSettingsCheckbox" checked="false">Play Mention Sound</label>

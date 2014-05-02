@@ -4,10 +4,13 @@ author: coU Development Team
 description: The sourcecode/tools needed to hack/compile the Children of Ur client
 homepage: ChildrenOfUr.github.io
 dependencies:
+  bootjack: any
   glitchTime:
     git:
       ref: master
       url: https://github.com/ChildrenOfUr/glitch-time.dart
+  gloss: any
+  grinder: any
   intl: any
   libld:
     git:
