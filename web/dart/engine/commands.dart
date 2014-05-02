@@ -294,7 +294,7 @@ setLocation(String value)
 	if(value.startsWith("L"))
 		value = value.replaceFirst("L", "G");
 	ScriptElement loadStreet = new ScriptElement();
-	loadStreet.src = "http://revdancatt.github.io/CAT422-glitch-location-viewer/locations/$value.callback.json";
+	loadStreet.src = "http://robertmcdermot.github.io/CAT422-glitch-location-viewer/locations/$value.callback.json";
 	document.body.append(loadStreet);
 	printConsole('Teleporting to $value');
 }

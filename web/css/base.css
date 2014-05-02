@@ -1038,11 +1038,14 @@ text-decoration: underline;
 
 /*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 /*Elements that appear in the top right*/
-#TopRight{
-  position:absolute;
-  right: 0px;
-  width:300px;
-  top:25px;  
+#TopRight {
+	position: absolute;
+	right: 0px;
+	width: 300px;
+	height: 50px;
+	top: 13px;
+	padding-top: 12px;
+	overflow: hidden;
 }
 #FullscreenGlyph {display: inline;}
 #FullscreenResetGlyph {display: none;}
@@ -1055,14 +1058,14 @@ text-decoration: underline;
   color: #005c73;
   opacity:0.5;
   position:absolute;
-  top:-12px;  
+  top:0px;  
   left:150px;  
 }
 #CurrTime{
   font-size:15px;
   color: #005c73;
   position:absolute;
-  top:1px;  
+  top:13px;  
   left:150px; 
 }
 #CurrDate{
@@ -1070,7 +1073,7 @@ text-decoration: underline;
   opacity:0.5;
   font-size:13px;
   position:absolute;
-  top:16px;  
+  top:29px;  
   left:150px; 
 }
 

@@ -154,13 +154,16 @@ class Input
 			String tsid = street['tsid'];
 			
 			//send changeStreet to chat server
-			Map map = new Map();
-			map["statusMessage"] = "changeStreet";
-			map["username"] = chat.username;
-			map["newStreetLabel"] = label;
-			map["newStreetTsid"] = tsid;
-			map["oldStreet"] = currentStreet.label;
-			chat.tabContentMap["Local Chat"].webSocket.send(JSON.encode(map));
+			if(chat.tabContentMap["Local Chat"].webSocket.readyState == WebSocket.OPEN)
+			{
+				Map map = new Map();
+				map["statusMessage"] = "changeStreet";
+				map["username"] = chat.username;
+				map["newStreetLabel"] = label;
+				map["newStreetTsid"] = tsid;
+				map["oldStreet"] = currentStreet.label;
+				chat.tabContentMap["Local Chat"].webSocket.send(JSON.encode(map));
+			}
 			
 			new Asset.fromMap(street,label);
 			new Street(label).load();

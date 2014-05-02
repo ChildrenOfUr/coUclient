@@ -31,6 +31,8 @@ loop(var dt)
 		otherPlayer.playerCanvas.style.transform = transform;
 	});
 	
+	npcs.forEach((String id, NPC npc) => npc.update(dt));
+	
 	//update the other clients with our position & street
 	timeLast += dt;
 	if(timeLast > .03 && playerSocket != null && playerSocket.readyState == WebSocket.OPEN)

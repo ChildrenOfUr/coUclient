@@ -1,1666 +1,3453 @@
 {
-    "tsid": "GA512T760J52JMS",
-    "label": "Loutish Ln B",
-    "music":"ancestral",
+    "tsid": "GA58KK7B9O522PC",
+    "label": "Mira Mesh",
     "gradient": {
-        "top": "678EB8",
-        "bottom": "FFCF54"
+        "top": "A7C8D9",
+        "bottom": "D9B166"
     },
     "dynamic": {
-        "l": -3000,
-        "r": 3000,
-        "t": -1000,
+        "l": -750,
+        "r": 750,
+        "t": -2400,
         "b": 0,
-        "ground_y": 0,
         "rookable_type": 0,
+        "ground_y": -385,
         "layers": {
-            "T_1307725023669": {
-                "name": "sky",
-                "w": 4800,
-                "h": 1000,
-                "z": -4,
-                "filters": {
-                    "saturation": -60,
-                    "tintColor": 16760576,
-                    "tintAmount": 81,
-                    "blur": 3,
-                    "brightness": 19,
-                    "contrast": 0
-                },
-                "decos": [
-                    {
-                        "filename": "groddle_light_pool",
-                        "w": 319,
-                        "z": 13,
-                        "x": 1510,
-                        "y": 785,
-                        "h": 82
-                    },
-                    {
-                        "filename": "cloud_fluffy_2",
-                        "w": 1231,
-                        "z": 3,
-                        "x": 3197,
-                        "y": 650,
-                        "h": 89
-                    },
-                    {
-                        "filename": "groddle_light_pool",
-                        "w": 319,
-                        "z": 15,
-                        "r": -65,
-                        "x": 1244,
-                        "y": 749,
-                        "h": 82
-                    },
-                    {
-                        "filename": "groddle_light_pool",
-                        "w": 141,
-                        "z": 12,
-                        "r": -180,
-                        "x": 1645,
-                        "y": 720,
-                        "h": 82
-                    },
-                    {
-                        "filename": "mountain_trees_darker_1",
-                        "w": 705,
-                        "z": 5,
-                        "r": 2,
-                        "x": 2899,
-                        "y": 741,
-                        "h": 69
-                    },
-                    {
-                        "filename": "groddle_light_pool",
-                        "w": 319,
-                        "z": 11,
-                        "r": -180,
-                        "x": 1437,
-                        "y": 722,
-                        "h": 82
-                    },
-                    {
-                        "filename": "cloud_fluffy_2",
-                        "w": 1231,
-                        "z": 0,
-                        "x": 2353,
-                        "y": 569,
-                        "h": 89
-                    },
-                    {
-                        "filename": "groddle_light_pool",
-                        "w": 319,
-                        "z": 8,
-                        "r": -110,
-                        "x": 1153,
-                        "y": 697,
-                        "h": 82
-                    },
-                    {
-                        "filename": "groddle_light_pool",
-                        "w": 319,
-                        "z": 9,
-                        "r": -180,
-                        "x": 1263,
-                        "y": 707,
-                        "h": 82
-                    },
-                    {
-                        "filename": "cloud_fluffy_1",
-                        "w": 1009,
-                        "z": 2,
-                        "x": 1042,
-                        "y": 706,
-                        "h": 95
-                    },
-                    {
-                        "filename": "groddle_light_pool",
-                        "w": 319,
-                        "z": 7,
-                        "r": -90,
-                        "x": 1183,
-                        "y": 801,
-                        "h": 82
-                    },
-                    {
-                        "filename": "groddle_light_pool",
-                        "w": 319,
-                        "z": 10,
-                        "r": -180,
-                        "x": 1004,
-                        "y": 694,
-                        "h": 82
-                    },
-                    {
-                        "filename": "groddle_light_pool",
-                        "w": 319,
-                        "z": 14,
-                        "x": 1764,
-                        "y": 767,
-                        "h": 82
-                    },
-                    {
-                        "filename": "groddle_light_pool",
-                        "w": 319,
-                        "z": 10,
-                        "r": -180,
-                        "x": 1004,
-                        "y": 694,
-                        "h": 82
-                    },
-                    {
-                        "filename": "groddle_light_pool",
-                        "w": 319,
-                        "z": 6,
-                        "r": -90,
-                        "x": 1211,
-                        "y": 760,
-                        "h": 82
-                    },
-                    {
-                        "filename": "cloud_fluffy_1",
-                        "w": 1009,
-                        "z": 4,
-                        "x": 1478,
-                        "y": 664,
-                        "h": 95
-                    },
-                    {
-                        "filename": "groddle_light_pool",
-                        "w": 319,
-                        "z": 16,
-                        "r": -70,
-                        "x": 1304,
-                        "y": 794,
-                        "h": 164
-                    },
-                    {
-                        "filename": "cloud_fluffy_2",
-                        "w": 758,
-                        "z": 1,
-                        "x": 1199,
-                        "y": 636,
-                        "h": 89
-                    }
-                ],
-                "signposts": []
-            },
-            "T_1307725023667": {
-                "name": "bg_1",
-                "w": 5700,
-                "h": 1000,
-                "z": -1,
-                "filters": {
-                    "brightness": 13,
-                    "saturation": 13,
-                    "tintColor": 0,
-                    "contrast": 0
-                },
-                "decos": [
-                    {
-                        "filename": "lens_grass_1",
-                        "w": 147,
-                        "z": 40,
-                        "x": 2441,
-                        "y": 803,
-                        "h": 29
-                    },
-                    {
-                        "filename": "pampas_2",
-                        "w": 33,
-                        "z": 46,
-                        "x": 5243,
-                        "y": 810,
-                        "h": 51
-                    },
-                    {
-                        "filename": "lens_grass_1",
-                        "w": 147,
-                        "z": 36,
-                        "x": 408,
-                        "y": 810,
-                        "h": 29
-                    },
-                    {
-                        "filename": "tree_acacia_2",
-                        "w": 485,
-                        "z": 10,
-                        "x": 4247,
-                        "y": 759,
-                        "h": 272
-                    },
-                    {
-                        "filename": "pampas_2",
-                        "w": 20,
-                        "z": 20,
-                        "x": 4265,
-                        "y": 762,
-                        "h": 31
-                    },
-                    {
-                        "filename": "lens_grass_2",
-                        "w": 1400,
-                        "z": 3,
-                        "x": 4145,
-                        "y": 838,
-                        "h": 102
-                    },
-                    {
-                        "filename": "pampas_2",
-                        "w": 43,
-                        "z": 51,
-                        "x": 5659,
-                        "y": 851,
-                        "h": 67
-                    },
-                    {
-                        "filename": "pampas_2",
-                        "w": 34,
-                        "z": 49,
-                        "x": 5227,
-                        "y": 792,
-                        "h": 53
-                    },
-                    {
-                        "filename": "lens_grass_1",
-                        "w": 98,
-                        "z": 16,
-                        "x": 4509,
-                        "y": 750,
-                        "h": 19
-                    },
-                    {
-                        "filename": "lens_grass_1",
-                        "w": 147,
-                        "z": 35,
-                        "x": 307,
-                        "y": 804,
-                        "h": 29
-                    },
-                    {
-                        "filename": "lens_grass_1",
-                        "w": 147,
-                        "z": 38,
-                        "x": 264,
-                        "y": 826,
-                        "h": 29
-                    },
-                    {
-                        "filename": "lens_grass_2",
-                        "w": 1400,
-                        "z": 9,
-                        "r": -1,
-                        "x": 1599,
-                        "y": 887,
-                        "h": 102
-                    },
-                    {
-                        "filename": "lens_grass_1",
-                        "w": 98,
-                        "z": 18,
-                        "x": 4558,
-                        "y": 764,
-                        "h": 19
-                    },
-                    {
-                        "filename": "lens_grass_1",
-                        "w": 147,
-                        "z": 34,
-                        "x": 222,
-                        "y": 816,
-                        "h": 29
-                    },
-                    {
-                        "filename": "alakol_cliff_2",
-                        "w": 590,
-                        "z": 45,
-                        "r": 1,
-                        "x": 5504,
-                        "y": 830,
-                        "h": 163
-                    },
-                    {
-                        "filename": "tree_acacia_2",
-                        "w": 690,
-                        "z": 22,
-                        "x": 1231,
-                        "y": 800,
-                        "h": 386
-                    },
-                    {
-                        "filename": "lens_grass_2",
-                        "w": 1400,
-                        "z": 2,
-                        "r": 2,
-                        "x": 4658,
-                        "y": 838,
-                        "h": 102
-                    },
-                    {
-                        "filename": "lens_grass_1",
-                        "w": 98,
-                        "z": 17,
-                        "x": 4563,
-                        "y": 755,
-                        "h": 19
-                    },
-                    {
-                        "filename": "lens_grass_2",
-                        "w": 1763,
-                        "z": 30,
-                        "r": 1,
-                        "x": 3525,
-                        "y": 952,
-                        "h": 178
-                    },
-                    {
-                        "filename": "alakol_water_rock_2",
-                        "w": 346,
-                        "z": 0,
-                        "x": 5653,
-                        "y": 803,
-                        "h": 220
-                    },
-                    {
-                        "filename": "lens_grass_1",
-                        "w": 107,
-                        "z": 12,
-                        "x": 1267,
-                        "y": 807,
-                        "h": 21
-                    },
-                    {
-                        "filename": "lens_grass_2",
-                        "w": 1763,
-                        "z": 28,
-                        "r": -1,
-                        "x": 2419,
-                        "y": 955,
-                        "h": 178
-                    },
-                    {
-                        "filename": "lens_grass_2",
-                        "w": 1763,
-                        "z": 27,
-                        "r": -1,
-                        "x": 1630,
-                        "y": 969,
-                        "h": 178
-                    },
-                    {
-                        "filename": "lens_grass_1",
-                        "w": 147,
-                        "z": 41,
-                        "x": 2386,
-                        "y": 812,
-                        "h": 29
-                    },
-                    {
-                        "filename": "pampas_1",
-                        "w": 43,
-                        "z": 39,
-                        "x": 162,
-                        "y": 810,
-                        "h": 62,
-                        "h_flip": true
-                    },
-                    {
-                        "filename": "lens_grass_1",
-                        "w": 107,
-                        "z": 14,
-                        "x": 1323,
-                        "y": 809,
-                        "h": 21
-                    },
-                    {
-                        "filename": "pampas_2",
-                        "w": 33,
-                        "z": 21,
-                        "x": 1263,
-                        "y": 796,
-                        "h": 51
-                    },
-                    {
-                        "filename": "lens_grass_2",
-                        "w": 1763,
-                        "z": 24,
-                        "x": 5178,
-                        "y": 948,
-                        "h": 178
-                    },
-                    {
-                        "filename": "lens_grass_1",
-                        "w": 98,
-                        "z": 15,
-                        "x": 4484,
-                        "y": 747,
-                        "h": 19
-                    },
-                    {
-                        "filename": "lens_grass_2",
-                        "w": 1400,
-                        "z": 1,
-                        "x": 5510,
-                        "y": 843,
-                        "h": 102
-                    },
-                    {
-                        "filename": "lens_grass_2",
-                        "w": 1763,
-                        "z": 31,
-                        "x": 3991,
-                        "y": 976,
-                        "h": 178
-                    },
-                    {
-                        "filename": "tree_acacia_4",
-                        "w": 358,
-                        "z": 44,
-                        "x": 370,
-                        "y": 771,
-                        "h": 275
-                    },
-                    {
-                        "filename": "pampas_2",
-                        "w": 35,
-                        "z": 48,
-                        "r": -10,
-                        "x": 5351,
-                        "y": 822,
-                        "h": 55
-                    },
-                    {
-                        "filename": "lens_grass_1",
-                        "w": 269,
-                        "z": 50,
-                        "x": 5632,
-                        "y": 854,
-                        "h": 53
-                    },
-                    {
-                        "filename": "lens_grass_1",
-                        "w": 98,
-                        "z": 19,
-                        "x": 4531,
-                        "y": 772,
-                        "h": 19
-                    },
-                    {
-                        "filename": "lens_grass_1",
-                        "w": 107,
-                        "z": 13,
-                        "x": 1192,
-                        "y": 812,
-                        "h": 21
-                    },
-                    {
-                        "filename": "lens_grass_1",
-                        "w": 147,
-                        "z": 43,
-                        "x": 2474,
-                        "y": 819,
-                        "h": 29
-                    },
-                    {
-                        "filename": "lens_grass_1",
-                        "w": 147,
-                        "z": 42,
-                        "x": 2291,
-                        "y": 819,
-                        "h": 29
-                    },
-                    {
-                        "filename": "lens_grass_2",
-                        "w": 1763,
-                        "z": 32,
-                        "r": -1,
-                        "x": 5735,
-                        "y": 953,
-                        "h": 178
-                    },
-                    {
-                        "filename": "lens_grass_2",
-                        "w": 1400,
-                        "z": 6,
-                        "r": -1,
-                        "x": 2800,
-                        "y": 864,
-                        "h": 102
-                    },
-                    {
-                        "filename": "lens_grass_2",
-                        "w": 1763,
-                        "z": 26,
-                        "r": 2,
-                        "x": 897,
-                        "y": 974,
-                        "h": 178
-                    },
-                    {
-                        "filename": "lens_grass_2",
-                        "w": 1400,
-                        "z": 5,
-                        "r": -1,
-                        "x": 2685,
-                        "y": 864,
-                        "h": 102
-                    },
-                    {
-                        "filename": "lens_grass_2",
-                        "w": 1400,
-                        "z": 4,
-                        "x": 3337,
-                        "y": 844,
-                        "h": 102
-                    },
-                    {
-                        "filename": "lens_grass_2",
-                        "w": 1400,
-                        "z": 7,
-                        "r": 2,
-                        "x": 388,
-                        "y": 853,
-                        "h": 102
-                    },
-                    {
-                        "filename": "lens_grass_1",
-                        "w": 147,
-                        "z": 37,
-                        "x": 292,
-                        "y": 815,
-                        "h": 29
-                    },
-                    {
-                        "filename": "lens_grass_2",
-                        "w": 1763,
-                        "z": 25,
-                        "x": 198,
-                        "y": 952,
-                        "h": 178
-                    },
-                    {
-                        "filename": "lens_grass_2",
-                        "w": 1763,
-                        "z": 29,
-                        "r": 1,
-                        "x": 2753,
-                        "y": 944,
-                        "h": 178
-                    },
-                    {
-                        "filename": "lens_grass_2",
-                        "w": 1400,
-                        "z": 8,
-                        "r": 3,
-                        "x": 1089,
-                        "y": 869,
-                        "h": 102
-                    },
-                    {
-                        "filename": "lens_grass_2",
-                        "w": 1763,
-                        "z": 23,
-                        "r": -1,
-                        "x": 4382,
-                        "y": 943,
-                        "h": 178
-                    },
-                    {
-                        "filename": "lens_grass_1",
-                        "w": 107,
-                        "z": 11,
-                        "x": 1338,
-                        "y": 801,
-                        "h": 21
-                    },
-                    {
-                        "filename": "lens_grass_1",
-                        "w": 147,
-                        "z": 33,
-                        "x": 178,
-                        "y": 804,
-                        "h": 29
-                    }
-                ],
-                "signposts": []
-            },
-            "T_1307725023670": {
-                "name": "bg_3",
-                "w": 5280,
-                "h": 1000,
-                "z": -3,
-                "filters": {
-                    "blur": 2,
-                    "brightness": 25,
-                    "saturation": 6,
-                    "tintColor": 0,
-                    "contrast": 0
-                },
-                "decos": [
-                    {
-                        "filename": "lens_grass_2",
-                        "w": 712,
-                        "z": 13,
-                        "x": 1442,
-                        "y": 736,
-                        "h": 29
-                    },
-                    {
-                        "filename": "pampas_2",
-                        "w": 13,
-                        "z": 42,
-                        "x": 1442,
-                        "y": 767,
-                        "h": 20
-                    },
-                    {
-                        "filename": "heights_bush_1",
-                        "w": 9,
-                        "z": 26,
-                        "x": 1346,
-                        "y": 731,
-                        "h": 5,
-                        "h_flip": true
-                    },
-                    {
-                        "filename": "heights_bush_4",
-                        "w": 599,
-                        "z": 6,
-                        "r": -1,
-                        "x": 574,
-                        "y": 731,
-                        "h": 22
-                    },
-                    {
-                        "filename": "lens_grass_2",
-                        "w": 1158,
-                        "z": 17,
-                        "r": -1,
-                        "x": 2361,
-                        "y": 756,
-                        "h": 47
-                    },
-                    {
-                        "filename": "pampas_2",
-                        "w": 13,
-                        "z": 39,
-                        "x": 1648,
-                        "y": 764,
-                        "h": 20
-                    },
-                    {
-                        "filename": "heights_bush_4",
-                        "w": 586,
-                        "z": 11,
-                        "r": -3,
-                        "x": 2,
-                        "y": 742,
-                        "h": 23
-                    },
-                    {
-                        "filename": "heights_bush_4",
-                        "w": 592,
-                        "z": 8,
-                        "x": 485,
-                        "y": 735,
-                        "h": 22
-                    },
-                    {
-                        "filename": "pampas_2",
-                        "w": 13,
-                        "z": 40,
-                        "x": 1468,
-                        "y": 771,
-                        "h": 20
-                    },
-                    {
-                        "filename": "lens_grass_2",
-                        "w": 546,
-                        "z": 16,
-                        "r": -1,
-                        "x": 958,
-                        "y": 742,
-                        "h": 22
-                    },
-                    {
-                        "filename": "tree_acacia_1",
-                        "w": 31,
-                        "z": 22,
-                        "x": 1792,
-                        "y": 718,
-                        "h": 20
-                    },
-                    {
-                        "filename": "lens_grass_2",
-                        "w": 162,
-                        "z": 32,
-                        "x": 1441,
-                        "y": 751,
-                        "h": 17,
-                        "h_flip": true
-                    },
-                    {
-                        "filename": "lens_grass_2",
-                        "w": 245,
-                        "z": 33,
-                        "x": 1676,
-                        "y": 764,
-                        "h": 43,
-                        "h_flip": true
-                    },
-                    {
-                        "filename": "heights_bush_2",
-                        "w": 14,
-                        "z": 28,
-                        "x": 1228,
-                        "y": 732,
-                        "h": 7
-                    },
-                    {
-                        "filename": "heights_bush_4",
-                        "w": 497,
-                        "z": 9,
-                        "r": 1,
-                        "x": 1663,
-                        "y": 718,
-                        "h": 23
-                    },
-                    {
-                        "filename": "tree_acacia_1",
-                        "w": 31,
-                        "z": 24,
-                        "x": 2411,
-                        "y": 708,
-                        "h": 19
-                    },
-                    {
-                        "filename": "lens_grass_2",
-                        "w": 1158,
-                        "z": 21,
-                        "x": 3991,
-                        "y": 753,
-                        "h": 47
-                    },
-                    {
-                        "filename": "lens_grass_2",
-                        "w": 1158,
-                        "z": 3,
-                        "r": 1,
-                        "x": 4660,
-                        "y": 748,
-                        "h": 47
-                    },
-                    {
-                        "filename": "lens_grass_2",
-                        "w": 855,
-                        "z": 19,
-                        "r": 1,
-                        "x": 73,
-                        "y": 765,
-                        "h": 35
-                    },
-                    {
-                        "filename": "heights_bush_4",
-                        "w": 527,
-                        "z": 10,
-                        "x": 1327,
-                        "y": 721,
-                        "h": 25,
-                        "h_flip": true
-                    },
-                    {
-                        "filename": "tree_acacia_2",
-                        "w": 88,
-                        "z": 31,
-                        "x": 1848,
-                        "y": 746,
-                        "h": 48
-                    },
-                    {
-                        "filename": "pampas_2",
-                        "w": 14,
-                        "z": 44,
-                        "x": 1561,
-                        "y": 772,
-                        "h": 21
-                    },
-                    {
-                        "filename": "heights_bush_1",
-                        "w": 24,
-                        "z": 37,
-                        "x": 1463,
-                        "y": 754,
-                        "h": 14
-                    },
-                    {
-                        "filename": "lens_grass_2",
-                        "w": 1158,
-                        "z": 12,
-                        "x": 2874,
-                        "y": 733,
-                        "h": 47
-                    },
-                    {
-                        "filename": "tree_acacia_1",
-                        "w": 31,
-                        "z": 23,
-                        "x": 4667,
-                        "y": 708,
-                        "h": 20
-                    },
-                    {
-                        "filename": "lens_grass_2",
-                        "w": 820,
-                        "z": 14,
-                        "r": -1,
-                        "x": 837,
-                        "y": 735,
-                        "h": 23
-                    },
-                    {
-                        "filename": "heights_bush_4",
-                        "w": 374,
-                        "z": 7,
-                        "r": -2,
-                        "x": 194,
-                        "y": 737,
-                        "h": 24
-                    },
-                    {
-                        "filename": "lens_grass_2",
-                        "w": 1158,
-                        "z": 4,
-                        "r": -1,
-                        "x": 5100,
-                        "y": 743,
-                        "h": 47
-                    },
-                    {
-                        "filename": "alakol_water_rock_1",
-                        "w": 17,
-                        "z": 5,
-                        "x": 1423,
-                        "y": 710,
-                        "h": 11
-                    },
-                    {
-                        "filename": "heights_bush_1",
-                        "w": 29,
-                        "z": 36,
-                        "x": 1546,
-                        "y": 762,
-                        "h": 17
-                    },
-                    {
-                        "filename": "lens_grass_2",
-                        "w": 855,
-                        "z": 18,
-                        "r": 1,
-                        "x": 418,
-                        "y": 757,
-                        "h": 35
-                    },
-                    {
-                        "filename": "lens_grass_2",
-                        "w": 1158,
-                        "z": 20,
-                        "r": 1,
-                        "x": 3535,
-                        "y": 748,
-                        "h": 47
-                    },
-                    {
-                        "filename": "heights_bush_4",
-                        "w": 472,
-                        "z": 2,
-                        "r": 4,
-                        "x": 4907,
-                        "y": 724,
-                        "h": 23,
-                        "h_flip": true
-                    },
-                    {
-                        "filename": "tree_acacia_4",
-                        "w": 122,
-                        "z": 41,
-                        "x": 1448,
-                        "y": 760,
-                        "h": 94
-                    },
-                    {
-                        "filename": "heights_bush_1",
-                        "w": 9,
-                        "z": 27,
-                        "x": 1352,
-                        "y": 733,
-                        "h": 5,
-                        "h_flip": true
-                    },
-                    {
-                        "filename": "tree_acacia_1",
-                        "w": 108,
-                        "z": 35,
-                        "x": 1640,
-                        "y": 757,
-                        "h": 67
-                    },
-                    {
-                        "filename": "heights_bush_4",
-                        "w": 472,
-                        "z": 0,
-                        "r": -1,
-                        "x": 4031,
-                        "y": 716,
-                        "h": 23,
-                        "h_flip": true
-                    },
-                    {
-                        "filename": "lens_grass_2",
-                        "w": 1376,
-                        "z": 15,
-                        "r": 1,
-                        "x": 1851,
-                        "y": 755,
-                        "h": 50
-                    },
-                    {
-                        "filename": "pampas_2",
-                        "w": 13,
-                        "z": 38,
-                        "x": 1552,
-                        "y": 773,
-                        "h": 20
-                    },
-                    {
-                        "filename": "tree_acacia_2",
-                        "w": 40,
-                        "z": 29,
-                        "x": 1209,
-                        "y": 731,
-                        "h": 22
-                    },
-                    {
-                        "filename": "pampas_2",
-                        "w": 14,
-                        "z": 43,
-                        "x": 1459,
-                        "y": 768,
-                        "h": 21
-                    },
-                    {
-                        "filename": "heights_bush_2",
-                        "w": 14,
-                        "z": 25,
-                        "x": 1388,
-                        "y": 741,
-                        "h": 7
-                    },
-                    {
-                        "filename": "tree_acacia_4",
-                        "w": 33,
-                        "z": 30,
-                        "x": 982,
-                        "y": 737,
-                        "h": 25
-                    },
-                    {
-                        "filename": "lens_grass_2",
-                        "w": 245,
-                        "z": 34,
-                        "x": 1536,
-                        "y": 774,
-                        "h": 43,
-                        "h_flip": true
-                    },
-                    {
-                        "filename": "heights_bush_4",
-                        "w": 472,
-                        "z": 1,
-                        "r": -1,
-                        "x": 4472,
-                        "y": 714,
-                        "h": 23,
-                        "h_flip": true
-                    }
-                ],
-                "signposts": []
-            },
             "middleground": {
                 "name": "middleground",
-                "w": 6000,
-                "h": 1000,
+                "w": 1500,
+                "h": 2400,
                 "z": 0,
                 "filters": {
-                    "brightness": 9,
-                    "saturation": 18,
-                    "tintColor": 0,
-                    "contrast": 0
+                    "brightness": -5,
+                    "saturation": -13,
+                    "tintColor": 12082176,
+                    "contrast": -13,
+                    "tintAmount": 14
+                },
+                "decos": [],
+                "signposts": [
+                    {
+                        "name": "signpost_1309822669600",
+                        "y": -2123,
+                        "h": 200,
+                        "w": 100,
+                        "x": -520,
+                        "connects": [
+                            {
+                                "x": -375,
+                                "y": -102,
+                                "mote_id": "9",
+                                "hub_id": "89",
+                                "label": "Manggai Mile",
+                                "tsid": "LA519RU9M462NJ1"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "signpost_1309822669601",
+                        "y": -75,
+                        "h": 200,
+                        "w": 100,
+                        "x": 566,
+                        "connects": [
+                            {
+                                "x": -2620,
+                                "y": -460,
+                                "mote_id": "9",
+                                "hub_id": "89",
+                                "label": "Jantik Jog",
+                                "tsid": "LA517MT2M262D0F"
+                            },
+                            {
+                                "x": 2688,
+                                "y": -520,
+                                "mote_id": "9",
+                                "hub_id": "89",
+                                "label": "Chego Chase",
+                                "tsid": "LA5I10NJDL52TKD"
+                            }
+                        ]
+                    }
+                ],
+                "platformLines": [
+                    {
+                        "id": "plat_1309822669549",
+                        "platform_item_perm": -1,
+                        "platform_pc_perm": -1,
+                        "endpoints": [
+                            {
+                                "name": "start",
+                                "y": -64,
+                                "x": 353
+                            },
+                            {
+                                "name": "end",
+                                "y": -65,
+                                "x": 479
+                            }
+                        ]
+                    },
+                    {
+                        "id": "plat_1310436562870",
+                        "platform_item_perm": -1,
+                        "platform_pc_perm": -1,
+                        "endpoints": [
+                            {
+                                "name": "start",
+                                "y": -1447,
+                                "x": 594
+                            },
+                            {
+                                "name": "end",
+                                "y": -1439,
+                                "x": 749
+                            }
+                        ]
+                    },
+                    {
+                        "id": "plat_1309822669556",
+                        "platform_item_perm": -1,
+                        "platform_pc_perm": -1,
+                        "endpoints": [
+                            {
+                                "name": "start",
+                                "y": -199,
+                                "x": -510
+                            },
+                            {
+                                "name": "end",
+                                "y": -191,
+                                "x": -439
+                            }
+                        ]
+                    },
+                    {
+                        "id": "plat_1309822669565",
+                        "platform_item_perm": -1,
+                        "platform_pc_perm": -1,
+                        "endpoints": [
+                            {
+                                "name": "start",
+                                "y": -627,
+                                "x": -538
+                            },
+                            {
+                                "name": "end",
+                                "y": -615,
+                                "x": -428
+                            }
+                        ]
+                    },
+                    {
+                        "id": "plat_1309822669586",
+                        "platform_item_perm": -1,
+                        "platform_pc_perm": -1,
+                        "endpoints": [
+                            {
+                                "name": "start",
+                                "y": -1809,
+                                "x": 393
+                            },
+                            {
+                                "name": "end",
+                                "y": -1816,
+                                "x": 574
+                            }
+                        ]
+                    },
+                    {
+                        "id": "plat_1309822669542",
+                        "platform_item_perm": -1,
+                        "platform_pc_perm": -1,
+                        "endpoints": [
+                            {
+                                "name": "start",
+                                "y": -207,
+                                "x": -750
+                            },
+                            {
+                                "name": "end",
+                                "y": -198,
+                                "x": -577
+                            }
+                        ]
+                    },
+                    {
+                        "id": "plat_1309822669570",
+                        "platform_item_perm": -1,
+                        "platform_pc_perm": -1,
+                        "endpoints": [
+                            {
+                                "name": "start",
+                                "y": -555,
+                                "x": 159
+                            },
+                            {
+                                "name": "end",
+                                "y": -524,
+                                "x": 325
+                            }
+                        ]
+                    },
+                    {
+                        "id": "plat_1309822669572",
+                        "platform_item_perm": -1,
+                        "platform_pc_perm": -1,
+                        "endpoints": [
+                            {
+                                "name": "start",
+                                "y": -514,
+                                "x": 446
+                            },
+                            {
+                                "name": "end",
+                                "y": -513,
+                                "x": 470
+                            }
+                        ]
+                    },
+                    {
+                        "id": "plat_1309822669594",
+                        "platform_item_perm": -1,
+                        "platform_pc_perm": -1,
+                        "endpoints": [
+                            {
+                                "name": "start",
+                                "y": -346,
+                                "x": 425
+                            },
+                            {
+                                "name": "end",
+                                "y": -365,
+                                "x": 615
+                            }
+                        ]
+                    },
+                    {
+                        "id": "plat_1309822669590",
+                        "platform_item_perm": -1,
+                        "platform_pc_perm": -1,
+                        "endpoints": [
+                            {
+                                "name": "start",
+                                "y": -2101,
+                                "x": -448
+                            },
+                            {
+                                "name": "end",
+                                "y": -2091,
+                                "x": -411
+                            }
+                        ]
+                    },
+                    {
+                        "id": "plat_1309822669579",
+                        "platform_item_perm": -1,
+                        "platform_pc_perm": -1,
+                        "endpoints": [
+                            {
+                                "name": "start",
+                                "y": -1480,
+                                "x": 466
+                            },
+                            {
+                                "name": "end",
+                                "y": -1464,
+                                "x": 550
+                            }
+                        ]
+                    },
+                    {
+                        "id": "plat_1309822669561",
+                        "platform_item_perm": -1,
+                        "platform_pc_perm": -1,
+                        "endpoints": [
+                            {
+                                "name": "start",
+                                "y": -289,
+                                "x": -30
+                            },
+                            {
+                                "name": "end",
+                                "y": -307,
+                                "x": 144
+                            }
+                        ]
+                    },
+                    {
+                        "id": "plat_1309822669568",
+                        "platform_item_perm": -1,
+                        "platform_pc_perm": -1,
+                        "endpoints": [
+                            {
+                                "name": "start",
+                                "y": -596,
+                                "x": -254
+                            },
+                            {
+                                "name": "end",
+                                "y": -593,
+                                "x": -83
+                            }
+                        ]
+                    },
+                    {
+                        "id": "plat_1309822669557",
+                        "platform_item_perm": -1,
+                        "platform_pc_perm": -1,
+                        "endpoints": [
+                            {
+                                "name": "start",
+                                "y": -138,
+                                "x": -348
+                            },
+                            {
+                                "name": "end",
+                                "y": -127,
+                                "x": -293
+                            }
+                        ]
+                    },
+                    {
+                        "id": "plat_1309822669558",
+                        "platform_item_perm": -1,
+                        "platform_pc_perm": -1,
+                        "endpoints": [
+                            {
+                                "name": "start",
+                                "y": -127,
+                                "x": -293
+                            },
+                            {
+                                "name": "end",
+                                "y": -112,
+                                "x": -221
+                            }
+                        ]
+                    },
+                    {
+                        "id": "plat_1309822669559",
+                        "platform_item_perm": -1,
+                        "platform_pc_perm": -1,
+                        "endpoints": [
+                            {
+                                "name": "start",
+                                "y": -285,
+                                "x": -303
+                            },
+                            {
+                                "name": "end",
+                                "y": -283,
+                                "x": -226
+                            }
+                        ]
+                    },
+                    {
+                        "id": "plat_1309822669588",
+                        "platform_item_perm": -1,
+                        "platform_pc_perm": -1,
+                        "endpoints": [
+                            {
+                                "name": "start",
+                                "y": -2087,
+                                "x": -700
+                            },
+                            {
+                                "name": "end",
+                                "y": -2092,
+                                "x": -612
+                            }
+                        ]
+                    },
+                    {
+                        "id": "plat_1309822669595",
+                        "platform_item_perm": -1,
+                        "platform_pc_perm": -1,
+                        "endpoints": [
+                            {
+                                "name": "start",
+                                "y": -191,
+                                "x": -439
+                            },
+                            {
+                                "name": "end",
+                                "y": -169,
+                                "x": -404
+                            }
+                        ]
+                    },
+                    {
+                        "id": "plat_1309822669598",
+                        "platform_item_perm": -1,
+                        "platform_pc_perm": -1,
+                        "endpoints": [
+                            {
+                                "name": "start",
+                                "y": -1134,
+                                "x": -424
+                            },
+                            {
+                                "name": "end",
+                                "y": -1119,
+                                "x": -345
+                            }
+                        ]
+                    },
+                    {
+                        "id": "plat_1309822669563",
+                        "platform_item_perm": -1,
+                        "platform_pc_perm": -1,
+                        "endpoints": [
+                            {
+                                "name": "start",
+                                "y": -365,
+                                "x": 615
+                            },
+                            {
+                                "name": "end",
+                                "y": -379,
+                                "x": 749
+                            }
+                        ]
+                    },
+                    {
+                        "id": "plat_1309822669553",
+                        "platform_item_perm": -1,
+                        "platform_pc_perm": -1,
+                        "endpoints": [
+                            {
+                                "name": "start",
+                                "y": -2122,
+                                "x": 314
+                            },
+                            {
+                                "name": "end",
+                                "y": -2116,
+                                "x": 580
+                            }
+                        ]
+                    },
+                    {
+                        "id": "plat_1309822669547",
+                        "platform_item_perm": -1,
+                        "platform_pc_perm": -1,
+                        "endpoints": [
+                            {
+                                "name": "start",
+                                "y": -112,
+                                "x": -221
+                            },
+                            {
+                                "name": "end",
+                                "y": -79,
+                                "x": -11
+                            }
+                        ]
+                    },
+                    {
+                        "id": "plat_1309822669589",
+                        "platform_item_perm": -1,
+                        "platform_pc_perm": -1,
+                        "endpoints": [
+                            {
+                                "name": "start",
+                                "y": -2092,
+                                "x": -612
+                            },
+                            {
+                                "name": "end",
+                                "y": -2101,
+                                "x": -448
+                            }
+                        ]
+                    },
+                    {
+                        "id": "plat_1310436562864",
+                        "platform_item_perm": -1,
+                        "platform_pc_perm": -1,
+                        "endpoints": [
+                            {
+                                "name": "start",
+                                "y": -1860,
+                                "x": -632
+                            },
+                            {
+                                "name": "end",
+                                "y": -1805,
+                                "x": -535
+                            }
+                        ]
+                    },
+                    {
+                        "id": "plat_1309822669555",
+                        "platform_item_perm": -1,
+                        "platform_pc_perm": -1,
+                        "endpoints": [
+                            {
+                                "name": "start",
+                                "y": -198,
+                                "x": -577
+                            },
+                            {
+                                "name": "end",
+                                "y": -199,
+                                "x": -510
+                            }
+                        ]
+                    },
+                    {
+                        "id": "plat_1309822669569",
+                        "platform_item_perm": -1,
+                        "platform_pc_perm": -1,
+                        "endpoints": [
+                            {
+                                "name": "start",
+                                "y": -593,
+                                "x": -83
+                            },
+                            {
+                                "name": "end",
+                                "y": -555,
+                                "x": 159
+                            }
+                        ]
+                    },
+                    {
+                        "id": "plat_1310436562876",
+                        "platform_item_perm": -1,
+                        "platform_pc_perm": -1,
+                        "endpoints": [
+                            {
+                                "name": "start",
+                                "y": -79,
+                                "x": 103
+                            },
+                            {
+                                "name": "end",
+                                "y": -70,
+                                "x": 243
+                            }
+                        ]
+                    },
+                    {
+                        "id": "plat_1309822669546",
+                        "platform_item_perm": -1,
+                        "platform_pc_perm": -1,
+                        "endpoints": [
+                            {
+                                "name": "start",
+                                "y": -169,
+                                "x": -404
+                            },
+                            {
+                                "name": "end",
+                                "y": -138,
+                                "x": -348
+                            }
+                        ]
+                    },
+                    {
+                        "id": "plat_1309822669584",
+                        "platform_item_perm": -1,
+                        "platform_pc_perm": -1,
+                        "endpoints": [
+                            {
+                                "name": "start",
+                                "y": -1808,
+                                "x": -184
+                            },
+                            {
+                                "name": "end",
+                                "y": -1820,
+                                "x": 32
+                            }
+                        ]
+                    },
+                    {
+                        "id": "plat_1309822669571",
+                        "platform_item_perm": -1,
+                        "platform_pc_perm": -1,
+                        "endpoints": [
+                            {
+                                "name": "start",
+                                "y": -524,
+                                "x": 325
+                            },
+                            {
+                                "name": "end",
+                                "y": -514,
+                                "x": 446
+                            }
+                        ]
+                    },
+                    {
+                        "id": "plat_1309822669552",
+                        "platform_item_perm": -1,
+                        "platform_pc_perm": -1,
+                        "endpoints": [
+                            {
+                                "name": "start",
+                                "y": -2133,
+                                "x": 237
+                            },
+                            {
+                                "name": "end",
+                                "y": -2122,
+                                "x": 314
+                            }
+                        ]
+                    },
+                    {
+                        "id": "plat_1309822669583",
+                        "platform_item_perm": -1,
+                        "platform_pc_perm": -1,
+                        "endpoints": [
+                            {
+                                "name": "start",
+                                "y": -1805,
+                                "x": -535
+                            },
+                            {
+                                "name": "end",
+                                "y": -1808,
+                                "x": -184
+                            }
+                        ]
+                    },
+                    {
+                        "id": "plat_1309822669554",
+                        "platform_item_perm": -1,
+                        "platform_pc_perm": -1,
+                        "endpoints": [
+                            {
+                                "name": "start",
+                                "y": -2116,
+                                "x": 580
+                            },
+                            {
+                                "name": "end",
+                                "y": -2121,
+                                "x": 749
+                            }
+                        ]
+                    },
+                    {
+                        "id": "plat_1309822669581",
+                        "platform_item_perm": -1,
+                        "platform_pc_perm": -1,
+                        "endpoints": [
+                            {
+                                "name": "start",
+                                "y": -1118,
+                                "x": -749
+                            },
+                            {
+                                "name": "end",
+                                "y": -1122,
+                                "x": -579
+                            }
+                        ]
+                    },
+                    {
+                        "id": "plat_1309822669575",
+                        "platform_item_perm": -1,
+                        "platform_pc_perm": -1,
+                        "endpoints": [
+                            {
+                                "name": "start",
+                                "y": -1056,
+                                "x": 189
+                            },
+                            {
+                                "name": "end",
+                                "y": -1056,
+                                "x": 442
+                            }
+                        ]
+                    },
+                    {
+                        "id": "plat_1309822669560",
+                        "platform_item_perm": -1,
+                        "platform_pc_perm": -1,
+                        "endpoints": [
+                            {
+                                "name": "start",
+                                "y": -283,
+                                "x": -226
+                            },
+                            {
+                                "name": "end",
+                                "y": -289,
+                                "x": -30
+                            }
+                        ]
+                    },
+                    {
+                        "id": "plat_1310436562865",
+                        "platform_item_perm": -1,
+                        "platform_pc_perm": -1,
+                        "endpoints": [
+                            {
+                                "name": "start",
+                                "y": -1844,
+                                "x": 311
+                            },
+                            {
+                                "name": "end",
+                                "y": -1809,
+                                "x": 393
+                            }
+                        ]
+                    },
+                    {
+                        "id": "plat_1310436562869",
+                        "platform_item_perm": -1,
+                        "platform_pc_perm": -1,
+                        "endpoints": [
+                            {
+                                "name": "start",
+                                "y": -1464,
+                                "x": 550
+                            },
+                            {
+                                "name": "end",
+                                "y": -1447,
+                                "x": 594
+                            }
+                        ]
+                    },
+                    {
+                        "id": "plat_1309822669574",
+                        "platform_item_perm": -1,
+                        "platform_pc_perm": -1,
+                        "endpoints": [
+                            {
+                                "name": "start",
+                                "y": -1087,
+                                "x": -18
+                            },
+                            {
+                                "name": "end",
+                                "y": -1061,
+                                "x": 113
+                            }
+                        ]
+                    },
+                    {
+                        "id": "plat_1309822669591",
+                        "platform_item_perm": -1,
+                        "platform_pc_perm": -1,
+                        "endpoints": [
+                            {
+                                "name": "start",
+                                "y": -1839,
+                                "x": 208
+                            },
+                            {
+                                "name": "end",
+                                "y": -1844,
+                                "x": 311
+                            }
+                        ]
+                    },
+                    {
+                        "id": "plat_1309822669582",
+                        "platform_item_perm": -1,
+                        "platform_pc_perm": -1,
+                        "endpoints": [
+                            {
+                                "name": "start",
+                                "y": -1873,
+                                "x": -749
+                            },
+                            {
+                                "name": "end",
+                                "y": -1860,
+                                "x": -632
+                            }
+                        ]
+                    },
+                    {
+                        "id": "plat_1309822669564",
+                        "platform_item_perm": -1,
+                        "platform_pc_perm": -1,
+                        "endpoints": [
+                            {
+                                "name": "start",
+                                "y": -630,
+                                "x": -749
+                            },
+                            {
+                                "name": "end",
+                                "y": -627,
+                                "x": -538
+                            }
+                        ]
+                    },
+                    {
+                        "id": "plat_1309822669562",
+                        "platform_item_perm": -1,
+                        "platform_pc_perm": -1,
+                        "endpoints": [
+                            {
+                                "name": "start",
+                                "y": -307,
+                                "x": 144
+                            },
+                            {
+                                "name": "end",
+                                "y": -321,
+                                "x": 315
+                            }
+                        ]
+                    },
+                    {
+                        "id": "plat_1309822669551",
+                        "platform_item_perm": -1,
+                        "platform_pc_perm": -1,
+                        "endpoints": [
+                            {
+                                "name": "start",
+                                "y": -54,
+                                "x": 624
+                            },
+                            {
+                                "name": "end",
+                                "y": -63,
+                                "x": 749
+                            }
+                        ]
+                    },
+                    {
+                        "id": "plat_1309822669596",
+                        "platform_item_perm": -1,
+                        "platform_pc_perm": -1,
+                        "endpoints": [
+                            {
+                                "name": "start",
+                                "y": -1122,
+                                "x": -579
+                            },
+                            {
+                                "name": "end",
+                                "y": -1133,
+                                "x": -523
+                            }
+                        ]
+                    },
+                    {
+                        "id": "plat_1310436562871",
+                        "platform_item_perm": -1,
+                        "platform_pc_perm": -1,
+                        "endpoints": [
+                            {
+                                "name": "start",
+                                "y": -1480,
+                                "x": 359
+                            },
+                            {
+                                "name": "end",
+                                "y": -1480,
+                                "x": 466
+                            }
+                        ]
+                    },
+                    {
+                        "id": "plat_1309822669585",
+                        "platform_item_perm": -1,
+                        "platform_pc_perm": -1,
+                        "endpoints": [
+                            {
+                                "name": "start",
+                                "y": -1820,
+                                "x": 32
+                            },
+                            {
+                                "name": "end",
+                                "y": -1839,
+                                "x": 208
+                            }
+                        ]
+                    },
+                    {
+                        "id": "plat_1309822669599",
+                        "platform_item_perm": -1,
+                        "platform_pc_perm": -1,
+                        "endpoints": [
+                            {
+                                "name": "start",
+                                "y": -1061,
+                                "x": 113
+                            },
+                            {
+                                "name": "end",
+                                "y": -1056,
+                                "x": 189
+                            }
+                        ]
+                    },
+                    {
+                        "id": "plat_1309822669567",
+                        "platform_item_perm": -1,
+                        "platform_pc_perm": -1,
+                        "endpoints": [
+                            {
+                                "name": "start",
+                                "y": -622,
+                                "x": -381
+                            },
+                            {
+                                "name": "end",
+                                "y": -596,
+                                "x": -254
+                            }
+                        ]
+                    },
+                    {
+                        "id": "plat_1309822669593",
+                        "platform_item_perm": -1,
+                        "platform_pc_perm": -1,
+                        "endpoints": [
+                            {
+                                "name": "start",
+                                "y": -321,
+                                "x": 315
+                            },
+                            {
+                                "name": "end",
+                                "y": -346,
+                                "x": 425
+                            }
+                        ]
+                    },
+                    {
+                        "id": "plat_1310436562872",
+                        "platform_item_perm": -1,
+                        "platform_pc_perm": -1,
+                        "endpoints": [
+                            {
+                                "name": "start",
+                                "y": -1475,
+                                "x": 141
+                            },
+                            {
+                                "name": "end",
+                                "y": -1480,
+                                "x": 359
+                            }
+                        ]
+                    },
+                    {
+                        "id": "plat_1310436562877",
+                        "platform_item_perm": -1,
+                        "platform_pc_perm": -1,
+                        "endpoints": [
+                            {
+                                "name": "start",
+                                "y": -48,
+                                "x": 591
+                            },
+                            {
+                                "name": "end",
+                                "y": -54,
+                                "x": 624
+                            }
+                        ]
+                    },
+                    {
+                        "id": "plat_1309822669577",
+                        "platform_item_perm": -1,
+                        "platform_pc_perm": -1,
+                        "endpoints": [
+                            {
+                                "name": "start",
+                                "y": -1478,
+                                "x": -38
+                            },
+                            {
+                                "name": "end",
+                                "y": -1485,
+                                "x": 13
+                            }
+                        ]
+                    },
+                    {
+                        "id": "plat_1309822669544",
+                        "platform_item_perm": -1,
+                        "platform_pc_perm": -1,
+                        "endpoints": [
+                            {
+                                "name": "start",
+                                "y": -70,
+                                "x": 243
+                            },
+                            {
+                                "name": "end",
+                                "y": -64,
+                                "x": 353
+                            }
+                        ]
+                    },
+                    {
+                        "id": "plat_1309822669597",
+                        "platform_item_perm": -1,
+                        "platform_pc_perm": -1,
+                        "endpoints": [
+                            {
+                                "name": "start",
+                                "y": -1133,
+                                "x": -523
+                            },
+                            {
+                                "name": "end",
+                                "y": -1134,
+                                "x": -424
+                            }
+                        ]
+                    },
+                    {
+                        "id": "plat_1309822669566",
+                        "platform_item_perm": -1,
+                        "platform_pc_perm": -1,
+                        "endpoints": [
+                            {
+                                "name": "start",
+                                "y": -615,
+                                "x": -428
+                            },
+                            {
+                                "name": "end",
+                                "y": -622,
+                                "x": -381
+                            }
+                        ]
+                    },
+                    {
+                        "id": "plat_1309822669573",
+                        "platform_item_perm": -1,
+                        "platform_pc_perm": -1,
+                        "endpoints": [
+                            {
+                                "name": "start",
+                                "y": -1088,
+                                "x": -77
+                            },
+                            {
+                                "name": "end",
+                                "y": -1087,
+                                "x": -18
+                            }
+                        ]
+                    },
+                    {
+                        "id": "plat_1310436562878",
+                        "platform_item_perm": -1,
+                        "platform_pc_perm": -1,
+                        "endpoints": [
+                            {
+                                "name": "start",
+                                "y": -51,
+                                "x": 518
+                            },
+                            {
+                                "name": "end",
+                                "y": -48,
+                                "x": 591
+                            }
+                        ]
+                    },
+                    {
+                        "id": "plat_1310436562875",
+                        "platform_item_perm": -1,
+                        "platform_pc_perm": -1,
+                        "endpoints": [
+                            {
+                                "name": "start",
+                                "y": -79,
+                                "x": -11
+                            },
+                            {
+                                "name": "end",
+                                "y": -58,
+                                "x": 63
+                            }
+                        ]
+                    },
+                    {
+                        "id": "plat_1310436562879",
+                        "platform_item_perm": -1,
+                        "platform_pc_perm": -1,
+                        "endpoints": [
+                            {
+                                "name": "start",
+                                "y": -65,
+                                "x": 479
+                            },
+                            {
+                                "name": "end",
+                                "y": -51,
+                                "x": 518
+                            }
+                        ]
+                    },
+                    {
+                        "id": "plat_1309822669576",
+                        "platform_item_perm": -1,
+                        "platform_pc_perm": -1,
+                        "endpoints": [
+                            {
+                                "name": "start",
+                                "y": -1056,
+                                "x": 442
+                            },
+                            {
+                                "name": "end",
+                                "y": -1065,
+                                "x": 574
+                            }
+                        ]
+                    },
+                    {
+                        "id": "plat_1310436562874",
+                        "platform_item_perm": -1,
+                        "platform_pc_perm": -1,
+                        "endpoints": [
+                            {
+                                "name": "start",
+                                "y": -58,
+                                "x": 63
+                            },
+                            {
+                                "name": "end",
+                                "y": -79,
+                                "x": 103
+                            }
+                        ]
+                    },
+                    {
+                        "id": "plat_1309822669578",
+                        "platform_item_perm": -1,
+                        "platform_pc_perm": -1,
+                        "endpoints": [
+                            {
+                                "name": "start",
+                                "y": -1485,
+                                "x": 13
+                            },
+                            {
+                                "name": "end",
+                                "y": -1475,
+                                "x": 141
+                            }
+                        ]
+                    },
+                    {
+                        "id": "plat_1309822669587",
+                        "platform_item_perm": -1,
+                        "platform_pc_perm": -1,
+                        "endpoints": [
+                            {
+                                "name": "start",
+                                "y": -2118,
+                                "x": -749
+                            },
+                            {
+                                "name": "end",
+                                "y": -2087,
+                                "x": -700
+                            }
+                        ]
+                    }
+                ],
+                "ladders": [
+                    {
+                        "id": "ladder_1309822669537",
+                        "y": -408,
+                        "w": 50,
+                        "h": 1045,
+                        "x": 639
+                    },
+                    {
+                        "id": "ladder_1309822669540",
+                        "y": -1894,
+                        "w": 50,
+                        "h": 205,
+                        "x": -659
+                    },
+                    {
+                        "id": "ladder_1309822669541",
+                        "y": -1163,
+                        "w": 50,
+                        "h": 649,
+                        "x": -496
+                    },
+                    {
+                        "id": "ladder_1309822669538",
+                        "y": -1502,
+                        "w": 50,
+                        "h": 318,
+                        "x": 427
+                    },
+                    {
+                        "id": "ladder_1309822669539",
+                        "y": -1868,
+                        "w": 50,
+                        "h": 270,
+                        "x": 273
+                    }
+                ],
+                "walls": []
+            },
+            "T_1309822669315": {
+                "name": "asset middleground",
+                "w": 1500,
+                "h": 2400,
+                "z": -1,
+                "filters": {
+                    "brightness": -14,
+                    "saturation": -24,
+                    "tintColor": 11757597,
+                    "contrast": 6,
+                    "tintAmount": 24
                 },
                 "decos": [
                     {
-                        "filename": "lens_grass_2",
-                        "w": 2168,
-                        "z": 5,
-                        "r": -1,
-                        "x": 1517,
-                        "y": 60,
-                        "h": 219
-                    },
-                    {
-                        "filename": "lens_grass_1",
-                        "w": 271,
-                        "z": 18,
-                        "x": 1474,
-                        "y": -148,
-                        "h": 35
-                    },
-                    {
-                        "filename": "lens_grass_1",
-                        "w": 269,
-                        "z": 14,
-                        "x": 35,
-                        "y": -110,
-                        "h": 53
-                    },
-                    {
-                        "filename": "lens_grass_1",
-                        "w": 329,
-                        "z": 8,
-                        "x": -1994,
-                        "y": -21,
-                        "h": 65
-                    },
-                    {
-                        "filename": "pampas_2",
-                        "w": 55,
-                        "z": 24,
-                        "x": -792,
-                        "y": -104,
-                        "h": 85
-                    },
-                    {
-                        "filename": "lens_grass_1",
-                        "w": 269,
-                        "z": 16,
-                        "x": 201,
-                        "y": 13,
-                        "h": 53
-                    },
-                    {
-                        "filename": "lens_grass_1",
-                        "w": 329,
-                        "z": 7,
-                        "x": -2108,
-                        "y": -40,
-                        "h": 65
-                    },
-                    {
-                        "filename": "lens_grass_1",
-                        "w": 223,
-                        "z": 11,
-                        "x": -1162,
-                        "y": -110,
-                        "h": 33
-                    },
-                    {
-                        "filename": "pampas_2",
-                        "w": 58,
-                        "z": 9,
-                        "r": 10,
-                        "x": 803,
-                        "y": -105,
-                        "h": 90
-                    },
-                    {
-                        "filename": "lens_grass_1",
-                        "w": 269,
-                        "z": 23,
-                        "x": 2592,
-                        "y": 5,
-                        "h": 53
-                    },
-                    {
-                        "filename": "lens_grass_2",
-                        "w": 2536,
-                        "z": 0,
-                        "x": -201,
-                        "y": 48,
-                        "h": 219
-                    },
-                    {
-                        "filename": "lens_grass_1",
-                        "w": 269,
-                        "z": 13,
-                        "x": -97,
-                        "y": -126,
-                        "h": 53
-                    },
-                    {
-                        "filename": "lens_grass_1",
-                        "w": 269,
-                        "z": 19,
-                        "x": 1185,
-                        "y": -9,
-                        "h": 53
-                    },
-                    {
-                        "filename": "lens_grass_2",
-                        "w": 2168,
-                        "z": 6,
-                        "r": -1,
-                        "x": 2462,
-                        "y": 78,
-                        "h": 219
-                    },
-                    {
-                        "filename": "lens_grass_1",
-                        "w": 269,
-                        "z": 15,
-                        "x": 345,
-                        "y": -10,
-                        "h": 53
-                    },
-                    {
-                        "filename": "lens_grass_2",
-                        "w": 2168,
-                        "z": 1,
-                        "x": -2486,
-                        "y": 56,
-                        "h": 219
-                    },
-                    {
-                        "filename": "pampas_2",
-                        "w": 55,
-                        "z": 26,
-                        "x": 2384,
-                        "y": -96,
-                        "h": 85
-                    },
-                    {
-                        "filename": "lens_grass_1",
-                        "w": 269,
-                        "z": 20,
-                        "x": 1610,
-                        "y": -131,
-                        "h": 53
-                    },
-                    {
-                        "filename": "lens_grass_1",
-                        "w": 269,
-                        "z": 21,
-                        "x": 1742,
-                        "y": -119,
-                        "h": 53
-                    },
-                    {
-                        "filename": "lens_grass_1",
-                        "w": 329,
-                        "z": 10,
-                        "x": -2025,
-                        "y": 1,
-                        "h": 65
-                    },
-                    {
-                        "filename": "lens_grass_2",
-                        "w": 2168,
-                        "z": 4,
-                        "r": -1,
-                        "x": 2582,
-                        "y": 60,
-                        "h": 219
-                    },
-                    {
-                        "filename": "lens_grass_1",
-                        "w": 269,
-                        "z": 12,
-                        "x": -738,
-                        "y": 14,
-                        "h": 53
-                    },
-                    {
-                        "filename": "lens_grass_1",
-                        "w": 269,
-                        "z": 22,
-                        "x": 2463,
-                        "y": -10,
-                        "h": 53
-                    },
-                    {
-                        "filename": "lens_grass_1",
-                        "w": 223,
-                        "z": 17,
-                        "x": -1061,
-                        "y": -95,
-                        "h": 44
-                    },
-                    {
-                        "filename": "lens_grass_2",
-                        "w": 2168,
-                        "z": 3,
-                        "x": 713,
-                        "y": 62,
-                        "h": 219
-                    },
-                    {
-                        "filename": "pampas_2",
-                        "w": 60,
-                        "z": 27,
-                        "x": 718,
-                        "y": -92,
+                        "filename": "alakol_beach_1",
+                        "w": 535,
+                        "z": 190,
+                        "x": 1005,
+                        "y": 1912,
                         "h": 93
                     },
                     {
-                        "filename": "lens_grass_2",
-                        "w": 2168,
-                        "z": 2,
-                        "x": -1362,
-                        "y": 72,
-                        "h": 219
+                        "filename": "patch_dirt_2a",
+                        "w": 286,
+                        "z": 210,
+                        "x": 473,
+                        "y": 592,
+                        "h": 49
                     },
                     {
-                        "filename": "tree_acacia_1",
-                        "w": 1443,
-                        "z": 25,
-                        "x": 763,
-                        "y": -84,
-                        "h": 903
-                    }
-                ],
-                "signposts": [
-                    {
-                        "name": "signpost_2",
-                        "y": -85,
-                        "h": 200,
-                        "w": 100,
-                        "x": 2801,
-                        "connects": [
-                            {
-                                "x": -2672,
-                                "y": -110,
-                                "mote_id": "9",
-                                "hub_id": "91",
-                                "label": "Loutish Ln C",
-                                "tsid": "LA513BTM0J524D4"
-                            },
-                            {
-                                "x": -2662,
-                                "y": -400,
-                                "mote_id": "9",
-                                "hub_id": "91",
-                                "label": "Yokel Yarn 5",
-                                "tsid": "LA514K0J3J52ID0"
-                            },
-                            {
-                                "x": 2663,
-                                "y": -115,
-                                "mote_id": "9",
-                                "hub_id": "91",
-                                "label": "Yokel Yarn 4",
-                                "tsid": "LA512SK50J52F8M"
-                            }
-                        ]
+                        "filename": "stalagmite_base_1",
+                        "w": 324,
+                        "z": 71,
+                        "x": 1348,
+                        "y": 2316,
+                        "h": 73
                     },
                     {
-                        "name": "signpost_1",
-                        "y": -91,
-                        "h": 200,
-                        "w": 100,
-                        "x": -2781,
-                        "connects": [
-                            {
-                                "x": 2665,
-                                "y": -105,
-                                "mote_id": "9",
-                                "hub_id": "91",
-                                "label": "Loutish Ln A",
-                                "tsid": "LA513A7M0J521F2"
-                            },
-                            {
-                                "x": -2655,
-                                "y": -115,
-                                "mote_id": "9",
-                                "hub_id": "91",
-                                "label": "Boor Bane E",
-                                "tsid": "LA513CDN0J52ND9"
-                            },
-                            {
-                                "x": 2678,
-                                "y": -100,
-                                "mote_id": "9",
-                                "hub_id": "91",
-                                "label": "Boor Bane D",
-                                "tsid": "LA5139FL0J52SP5"
-                            }
-                        ]
-                    }
-                ]
-            },
-            "T_1308610194792": {
-                "name": "Water",
-                "w": 4800,
-                "h": 1000,
-                "z": -5,
-                "filters": {
-                    "tintAmount": 100,
-                    "blur": 3,
-                    "tintColor": 4551372
-                },
-                "decos": [
-                    {
-                        "filename": "bureaucratic_hall_light_ray_1",
-                        "w": 1699,
-                        "z": 0,
-                        "r": 180,
-                        "x": 1414,
-                        "y": 703,
-                        "h": 90
-                    },
-                    {
-                        "filename": "bureaucratic_hall_light_ray_1",
-                        "w": 1699,
-                        "z": 1,
-                        "r": 180,
-                        "x": 1414,
-                        "y": 703,
-                        "h": 90
-                    },
-                    {
-                        "filename": "bureaucratic_hall_light_ray_1",
-                        "w": 1699,
-                        "z": 2,
-                        "r": -5,
-                        "x": 359,
-                        "y": 840,
-                        "h": 90
-                    }
-                ],
-                "signposts": []
-            },
-            "T_1307725023668": {
-                "name": "bg_2",
-                "w": 5520,
-                "h": 1000,
-                "z": -2,
-                "filters": {
-                    "brightness": 20,
-                    "saturation": 10,
-                    "contrast": 0
-                },
-                "decos": [
-                    {
-                        "filename": "lens_grass_2",
-                        "w": 888,
-                        "z": 28,
-                        "x": 1025,
-                        "y": 819,
-                        "h": 65
-                    },
-                    {
-                        "filename": "lens_grass_1",
-                        "w": 63,
-                        "z": 21,
-                        "x": 2718,
-                        "y": 726,
-                        "h": 12
-                    },
-                    {
-                        "filename": "lens_grass_1",
-                        "w": 63,
-                        "z": 23,
-                        "x": 3975,
-                        "y": 750,
-                        "h": 12
-                    },
-                    {
-                        "filename": "lens_grass_2",
-                        "w": 888,
-                        "z": 30,
-                        "r": -3,
-                        "x": 4905,
-                        "y": 783,
-                        "h": 65
-                    },
-                    {
-                        "filename": "lens_grass_2",
-                        "w": 888,
-                        "z": 12,
+                        "filename": "alakol_beach_1",
+                        "w": 662,
+                        "z": 109,
                         "r": 1,
-                        "x": 3594,
-                        "y": 783,
-                        "h": 65
+                        "x": 1005,
+                        "y": 1384,
+                        "h": 93
                     },
                     {
-                        "filename": "lens_grass_2",
-                        "w": 888,
+                        "filename": "groddle_cover_clover2",
+                        "w": 126,
+                        "z": 231,
+                        "x": 474,
+                        "y": 1729,
+                        "h": 47
+                    },
+                    {
+                        "filename": "stalagmite_base_1",
+                        "w": 324,
+                        "z": 38,
+                        "x": 518,
+                        "y": 2269,
+                        "h": 118
+                    },
+                    {
+                        "filename": "alakol_beach_1",
+                        "w": 817,
+                        "z": 75,
+                        "x": 1285,
+                        "y": 2067,
+                        "h": 79
+                    },
+                    {
+                        "filename": "groddle_cover_clover2",
+                        "w": 126,
+                        "z": 228,
+                        "x": 1264,
+                        "y": 2295,
+                        "h": 47
+                    },
+                    {
+                        "filename": "heights_face_rock_1",
+                        "w": 288,
+                        "z": 97,
+                        "x": 227,
+                        "y": 1910,
+                        "h": 91
+                    },
+                    {
+                        "filename": "heights_face_1",
+                        "w": 682,
                         "z": 8,
-                        "r": -1,
-                        "x": 725,
-                        "y": 795,
-                        "h": 41
+                        "x": 108,
+                        "y": 1267,
+                        "h": 467
                     },
                     {
-                        "filename": "lens_grass_1",
-                        "w": 63,
-                        "z": 18,
-                        "x": 2689,
-                        "y": 718,
-                        "h": 12
+                        "filename": "stalagmite_base_1",
+                        "w": 255,
+                        "z": 191,
+                        "r": 15,
+                        "x": 1113,
+                        "y": 1859,
+                        "h": 66
                     },
                     {
-                        "filename": "lens_grass_2",
-                        "w": 888,
-                        "z": 5,
-                        "r": -2,
-                        "x": 2280,
-                        "y": 797,
-                        "h": 65
+                        "filename": "crosssection_heights_underside",
+                        "w": 653,
+                        "z": 147,
+                        "r": -15,
+                        "x": 105,
+                        "y": 1550,
+                        "h": 126
                     },
                     {
-                        "filename": "lens_grass_1",
-                        "w": 63,
-                        "z": 22,
-                        "x": 3943,
-                        "y": 746,
-                        "h": 12
+                        "filename": "heights_bandaid_3",
+                        "w": 106,
+                        "z": 165,
+                        "x": 417,
+                        "y": 1556,
+                        "h": 192
                     },
                     {
-                        "filename": "pampas_2",
-                        "w": 20,
-                        "z": 2,
-                        "x": 979,
-                        "y": 767,
-                        "h": 30
+                        "filename": "stalagmite_base_1",
+                        "w": 229,
+                        "z": 156,
+                        "r": 1,
+                        "x": 1461,
+                        "y": 890,
+                        "h": 60
                     },
                     {
-                        "filename": "lens_grass_1",
-                        "w": 63,
-                        "z": 19,
-                        "x": 2749,
-                        "y": 717,
-                        "h": 12
+                        "filename": "crosssection_heights_underside",
+                        "w": 711,
+                        "z": 184,
+                        "x": 1172,
+                        "y": 883,
+                        "h": 116
                     },
                     {
-                        "filename": "tree_acacia_3",
-                        "w": 330,
-                        "z": 32,
-                        "x": 1996,
-                        "y": 771,
-                        "h": 151
+                        "filename": "heights_face_rock_1",
+                        "w": 291,
+                        "z": 23,
+                        "x": 324,
+                        "y": 2264,
+                        "h": 93
                     },
                     {
-                        "filename": "lens_grass_2",
-                        "w": 888,
-                        "z": 11,
-                        "r": -1,
-                        "x": 292,
-                        "y": 804,
-                        "h": 65
+                        "filename": "crosssection_heights_pillar_2",
+                        "w": 138,
+                        "z": 221,
+                        "r": -100,
+                        "x": 251,
+                        "y": -27,
+                        "h": 312
                     },
                     {
-                        "filename": "lens_grass_2",
-                        "w": 888,
-                        "z": 7,
-                        "r": -2,
-                        "x": 2730,
-                        "y": 814,
-                        "h": 87
+                        "filename": "alakol_beach_1",
+                        "w": 1035,
+                        "z": 35,
+                        "x": 1368,
+                        "y": 2453,
+                        "h": 124
                     },
                     {
-                        "filename": "lens_grass_2",
-                        "w": 888,
-                        "z": 9,
-                        "r": -1,
-                        "x": 648,
-                        "y": 798,
-                        "h": 65
+                        "filename": "heights_mound_3",
+                        "w": 498,
+                        "z": 74,
+                        "x": 1357,
+                        "y": 2289,
+                        "h": 189
                     },
                     {
-                        "filename": "pampas_2",
-                        "w": 14,
-                        "z": 0,
-                        "x": 911,
-                        "y": 756,
-                        "h": 21
+                        "filename": "groddle_cover_clover2",
+                        "w": 126,
+                        "z": 233,
+                        "x": 1047,
+                        "y": 1314,
+                        "h": 47
                     },
                     {
-                        "filename": "heights_bush_1",
-                        "w": 33,
+                        "filename": "groddle_cover_clover2",
+                        "w": 126,
+                        "z": 225,
+                        "x": 920,
+                        "y": 2291,
+                        "h": 47
+                    },
+                    {
+                        "filename": "patch_dirt_2a",
+                        "w": 286,
+                        "z": 209,
+                        "x": 686,
+                        "y": 567,
+                        "h": 49
+                    },
+                    {
+                        "filename": "stalagmite_base_1",
+                        "w": 324,
+                        "z": 46,
+                        "x": 706,
+                        "y": 2364,
+                        "h": 89
+                    },
+                    {
+                        "filename": "stalagmite_base_1",
+                        "w": 324,
+                        "z": 51,
+                        "x": 1428,
+                        "y": 2428,
+                        "h": 118
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "w": 390,
+                        "z": 139,
+                        "x": 838,
+                        "y": 2027,
+                        "h": 148
+                    },
+                    {
+                        "filename": "groddle_cover_clover2",
+                        "w": 126,
+                        "z": 227,
+                        "x": 1157,
+                        "y": 2279,
+                        "h": 47
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "w": 498,
                         "z": 17,
-                        "x": 861,
-                        "y": 756,
-                        "h": 19,
+                        "x": 1424,
+                        "y": 323,
+                        "h": 189
+                    },
+                    {
+                        "filename": "heights_face_1",
+                        "w": 682,
+                        "z": 28,
+                        "x": 1300,
+                        "y": 1074,
+                        "h": 467
+                    },
+                    {
+                        "filename": "stalagmite_base_1",
+                        "w": 324,
+                        "z": 143,
+                        "r": 5,
+                        "x": 914,
+                        "y": 1788,
+                        "h": 73
+                    },
+                    {
+                        "filename": "heights_bandaid_1",
+                        "w": 150,
+                        "z": 219,
+                        "r": 10,
+                        "x": 878,
+                        "y": 1766,
+                        "h": 92
+                    },
+                    {
+                        "filename": "stalagmite_base_1",
+                        "w": 324,
+                        "z": 142,
+                        "x": 796,
+                        "y": 1747,
+                        "h": 73
+                    },
+                    {
+                        "filename": "heights_face_rock_1",
+                        "w": 288,
+                        "z": 95,
+                        "x": 120,
+                        "y": 1958,
+                        "h": 91
+                    },
+                    {
+                        "filename": "trunk_ladder_1",
+                        "w": 89,
+                        "z": 176,
+                        "x": 1382,
+                        "y": 1972,
+                        "h": 102
+                    },
+                    {
+                        "filename": "heights_face_rock_2",
+                        "w": 491,
+                        "z": 26,
+                        "r": 10,
+                        "x": 1096,
+                        "y": 565,
+                        "h": 181
+                    },
+                    {
+                        "filename": "alakol_beach_1",
+                        "w": 443,
+                        "z": 59,
+                        "x": 1389,
+                        "y": 268,
+                        "h": 66
+                    },
+                    {
+                        "filename": "patch_dirt_2a",
+                        "w": 286,
+                        "z": 217,
+                        "x": 38,
+                        "y": 1313,
+                        "h": 49
+                    },
+                    {
+                        "filename": "groddle_cover_clover2",
+                        "w": 126,
+                        "z": 230,
+                        "x": 723,
+                        "y": 1776,
+                        "h": 47
+                    },
+                    {
+                        "filename": "stalagmite_base_1",
+                        "w": 324,
+                        "z": 76,
+                        "x": 1203,
+                        "y": 2036,
+                        "h": 73
+                    },
+                    {
+                        "filename": "trunk_ladder_1",
+                        "w": 112,
+                        "z": 180,
+                        "x": 1410,
+                        "y": 1432,
+                        "h": 128
+                    },
+                    {
+                        "filename": "heights_face_rock_1",
+                        "w": 288,
+                        "z": 123,
+                        "x": 61,
+                        "y": 690,
+                        "h": 91
+                    },
+                    {
+                        "filename": "stalagmite_base_1",
+                        "w": 229,
+                        "z": 157,
+                        "x": 989,
+                        "y": 1293,
+                        "h": 58
+                    },
+                    {
+                        "filename": "stalagmite_base_1",
+                        "w": 324,
+                        "z": 22,
+                        "x": 89,
+                        "y": 2235,
+                        "h": 96
+                    },
+                    {
+                        "filename": "heights_face_1",
+                        "w": 682,
+                        "z": 25,
+                        "x": 1241,
+                        "y": 709,
+                        "h": 467
+                    },
+                    {
+                        "filename": "stalagmite_base_1",
+                        "w": 324,
+                        "z": 49,
+                        "x": 1214,
+                        "y": 2409,
+                        "h": 118
+                    },
+                    {
+                        "filename": "trunk_ladder_1",
+                        "w": 112,
+                        "z": 178,
+                        "x": 1393,
+                        "y": 1720,
+                        "h": 128
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "w": 407,
+                        "z": 2,
+                        "x": 1016,
+                        "y": 477,
+                        "h": 154,
+                        "r": -60,
                         "h_flip": true
                     },
                     {
-                        "filename": "lens_grass_2",
-                        "w": 888,
-                        "z": 29,
-                        "r": 2,
-                        "x": 1737,
-                        "y": 842,
-                        "h": 65
+                        "filename": "heights_mound_3",
+                        "w": 411,
+                        "z": 1,
+                        "r": 25,
+                        "x": 8,
+                        "y": 315,
+                        "h": 183
                     },
                     {
-                        "filename": "lens_grass_1",
-                        "w": 63,
-                        "z": 25,
-                        "x": 4231,
-                        "y": 729,
-                        "h": 12
+                        "filename": "alakol_beach_1",
+                        "w": 481,
+                        "z": 103,
+                        "r": 4,
+                        "x": 889,
+                        "y": 1380,
+                        "h": 93
                     },
                     {
-                        "filename": "lens_grass_2",
-                        "w": 888,
-                        "z": 13,
-                        "r": -3,
-                        "x": 3950,
-                        "y": 783,
-                        "h": 65
+                        "filename": "alakol_beach_1",
+                        "w": 967,
+                        "z": 3,
+                        "x": 520,
+                        "y": 613,
+                        "h": 111
                     },
                     {
-                        "filename": "lens_grass_2",
-                        "w": 888,
-                        "z": 14,
-                        "r": 1,
-                        "x": 4330,
-                        "y": 783,
-                        "h": 65
+                        "filename": "patch_dirt_2a",
+                        "w": 286,
+                        "z": 206,
+                        "x": 1180,
+                        "y": 930,
+                        "h": 49
                     },
                     {
-                        "filename": "lens_grass_1",
-                        "w": 63,
-                        "z": 27,
-                        "x": 4261,
-                        "y": 738,
-                        "h": 12
+                        "filename": "stalagmite_base_1",
+                        "w": 324,
+                        "z": 48,
+                        "x": 1064,
+                        "y": 2398,
+                        "h": 118
                     },
                     {
-                        "filename": "lens_grass_2",
-                        "w": 888,
-                        "z": 6,
+                        "filename": "patch_dirt_2a",
+                        "w": 286,
+                        "z": 208,
+                        "x": 543,
+                        "y": 570,
+                        "h": 49
+                    },
+                    {
+                        "filename": "patch_dirt_2a",
+                        "w": 286,
+                        "z": 171,
+                        "x": 581,
+                        "y": 1787,
+                        "h": 49
+                    },
+                    {
+                        "filename": "heights_face_rock_1",
+                        "w": 288,
+                        "z": 136,
+                        "x": 1260,
+                        "y": 1053,
+                        "h": 91
+                    },
+                    {
+                        "filename": "alakol_beach_1",
+                        "w": 692,
+                        "z": 79,
+                        "x": 1432,
+                        "y": 2108,
+                        "h": 79
+                    },
+                    {
+                        "filename": "heights_bandaid_1",
+                        "w": 142,
+                        "z": 101,
+                        "r": 10,
+                        "x": 595,
+                        "y": 2030,
+                        "h": 128
+                    },
+                    {
+                        "filename": "stalagmite_base_1",
+                        "w": 324,
+                        "z": 78,
+                        "x": 988,
+                        "y": 2052,
+                        "h": 73
+                    },
+                    {
+                        "filename": "groddle_cover_clover2",
+                        "w": 126,
+                        "z": 229,
+                        "x": 1029,
+                        "y": 2071,
+                        "h": 47
+                    },
+                    {
+                        "filename": "alakol_beach_1",
+                        "w": 535,
+                        "z": 89,
+                        "x": 1656,
+                        "y": 2154,
+                        "h": 79
+                    },
+                    {
+                        "filename": "alakol_beach_1",
+                        "w": 1120,
+                        "z": 130,
+                        "x": 645,
+                        "y": 645,
+                        "h": 117
+                    },
+                    {
+                        "filename": "patch_dirt_2a",
+                        "w": 286,
+                        "z": 215,
+                        "x": 50,
+                        "y": 1288,
+                        "h": 49
+                    },
+                    {
+                        "filename": "heights_mound_1",
+                        "w": 165,
+                        "z": 236,
+                        "x": 36,
+                        "y": 607,
+                        "h": 57
+                    },
+                    {
+                        "filename": "alakol_beach_1",
+                        "w": 1035,
+                        "z": 34,
+                        "x": 956,
+                        "y": 2413,
+                        "h": 124
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "w": 411,
+                        "z": 15,
+                        "x": 881,
+                        "y": 986,
+                        "h": 183,
+                        "r": 255,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "heights_face_1",
+                        "w": 682,
+                        "z": 10,
+                        "x": 108,
+                        "y": 898,
+                        "h": 467
+                    },
+                    {
+                        "filename": "heights_face_rock_1",
+                        "w": 288,
+                        "z": 105,
+                        "r": -10,
+                        "x": 1238,
+                        "y": 1439,
+                        "h": 91
+                    },
+                    {
+                        "filename": "heights_face_rock_1",
+                        "w": 288,
+                        "z": 128,
+                        "x": 869,
+                        "y": 713,
+                        "h": 91
+                    },
+                    {
+                        "filename": "patch_dirt_2a",
+                        "w": 247,
+                        "z": 42,
+                        "x": 1029,
+                        "y": 2405,
+                        "h": 42
+                    },
+                    {
+                        "filename": "alakol_beach_1",
+                        "w": 443,
+                        "z": 58,
+                        "x": 1177,
+                        "y": 296,
+                        "h": 66
+                    },
+                    {
+                        "filename": "patch_dirt_2a",
+                        "w": 286,
+                        "z": 207,
+                        "x": 1089,
+                        "y": 948,
+                        "h": 49
+                    },
+                    {
+                        "filename": "heights_bandaid_2",
+                        "w": 121,
+                        "z": 187,
+                        "x": 1202,
+                        "y": 1275,
+                        "h": 126
+                    },
+                    {
+                        "filename": "trunk_ladder_1",
+                        "w": 112,
+                        "z": 193,
+                        "x": 1176,
+                        "y": 860,
+                        "h": 128
+                    },
+                    {
+                        "filename": "heights_bandaid_1",
+                        "w": 131,
+                        "z": 185,
+                        "x": 805,
+                        "y": 1284,
+                        "h": 143
+                    },
+                    {
+                        "filename": "heights_face_rock_1",
+                        "w": 288,
+                        "z": 118,
+                        "r": -20,
+                        "x": 349,
+                        "y": 1448,
+                        "h": 91
+                    },
+                    {
+                        "filename": "heights_bandaid_2",
+                        "w": 152,
+                        "z": 188,
+                        "x": 1280,
+                        "y": 869,
+                        "h": 185
+                    },
+                    {
+                        "filename": "trunk_ladder_1",
+                        "w": 112,
+                        "z": 200,
+                        "x": 250,
+                        "y": 763,
+                        "h": 128
+                    },
+                    {
+                        "filename": "alakol_beach_1",
+                        "w": 481,
+                        "z": 106,
                         "r": -2,
-                        "x": 2039,
-                        "y": 846,
-                        "h": 87
+                        "x": 1139,
+                        "y": 1374,
+                        "h": 124
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "w": 378,
+                        "z": 140,
+                        "r": -4,
+                        "x": 1124,
+                        "y": 2025,
+                        "h": 157
+                    },
+                    {
+                        "filename": "stalagmite_1",
+                        "w": 77,
+                        "z": 223,
+                        "r": 180,
+                        "x": 28,
+                        "y": -70,
+                        "h": 204
+                    },
+                    {
+                        "filename": "trunk_ladder_1",
+                        "w": 112,
+                        "z": 194,
+                        "x": 1012,
+                        "y": 422,
+                        "h": 128
+                    },
+                    {
+                        "filename": "lens_grass_1",
+                        "w": 568,
+                        "z": 54,
+                        "x": 25,
+                        "y": 2436,
+                        "h": 113
+                    },
+                    {
+                        "filename": "alakol_cliff_1",
+                        "w": 951,
+                        "z": 111,
+                        "x": 1141,
+                        "y": 1062,
+                        "h": 177
+                    },
+                    {
+                        "filename": "heights_face_rock_1",
+                        "w": 288,
+                        "z": 122,
+                        "x": 5,
+                        "y": 722,
+                        "h": 91
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "w": 498,
+                        "z": 72,
+                        "x": 667,
+                        "y": 2236,
+                        "h": 189
+                    },
+                    {
+                        "filename": "alakol_beach_1",
+                        "w": 559,
+                        "z": 37,
+                        "x": 502,
+                        "y": 2283,
+                        "h": 84
+                    },
+                    {
+                        "filename": "crosssection_heights_underside",
+                        "w": 580,
+                        "z": 112,
+                        "x": 949,
+                        "y": 1093,
+                        "h": 112
+                    },
+                    {
+                        "filename": "stalagmite_base_1",
+                        "w": 324,
+                        "z": 161,
+                        "x": 362,
+                        "y": 1712,
+                        "h": 73
+                    },
+                    {
+                        "filename": "crosssection_heights_underside",
+                        "w": 612,
+                        "z": 125,
+                        "r": -10,
+                        "x": 513,
+                        "y": 743,
+                        "h": 129
+                    },
+                    {
+                        "filename": "alakol_water_rock_1",
+                        "w": 205,
+                        "z": 189,
+                        "x": -7,
+                        "y": 1225,
+                        "h": 147
+                    },
+                    {
+                        "filename": "patch_dirt_2a",
+                        "w": 247,
+                        "z": 41,
+                        "x": 894,
+                        "y": 2398,
+                        "h": 42
+                    },
+                    {
+                        "filename": "heights_face_1",
+                        "w": 559,
+                        "z": 20,
+                        "r": -40,
+                        "x": 723,
+                        "y": 2014,
+                        "h": 383
+                    },
+                    {
+                        "filename": "stalagmite_1",
+                        "w": 77,
+                        "z": 222,
+                        "r": 180,
+                        "x": 143,
+                        "y": -23,
+                        "h": 204
+                    },
+                    {
+                        "filename": "heights_face_rock_1",
+                        "w": 291,
+                        "z": 83,
+                        "r": -6,
+                        "x": 826,
+                        "y": 2222,
+                        "h": 93
+                    },
+                    {
+                        "filename": "groddle_cover_clover2",
+                        "w": 126,
+                        "z": 226,
+                        "x": 1040,
+                        "y": 2285,
+                        "h": 47
+                    },
+                    {
+                        "filename": "heights_face_1",
+                        "w": 682,
+                        "z": 11,
+                        "x": 133,
+                        "y": 1650,
+                        "h": 467
+                    },
+                    {
+                        "filename": "heights_face_rock_1",
+                        "w": 291,
+                        "z": 132,
+                        "r": -6,
+                        "x": 1249,
+                        "y": 693,
+                        "h": 93
+                    },
+                    {
+                        "filename": "heights_face_1",
+                        "w": 682,
+                        "z": 32,
+                        "x": 1201,
+                        "y": 2074,
+                        "h": 467
+                    },
+                    {
+                        "filename": "stalagmite_base_1",
+                        "w": 324,
+                        "z": 183,
+                        "x": -37,
+                        "y": 1240,
+                        "h": 73
+                    },
+                    {
+                        "filename": "stalagmite_base_1",
+                        "w": 324,
+                        "z": 69,
+                        "x": 940,
+                        "y": 2290,
+                        "h": 73
+                    },
+                    {
+                        "filename": "stalagmite_base_1",
+                        "w": 324,
+                        "z": 141,
+                        "x": 656,
+                        "y": 1722,
+                        "h": 73
+                    },
+                    {
+                        "filename": "heights_face_1",
+                        "w": 559,
+                        "z": 21,
+                        "r": -40,
+                        "x": 1016,
+                        "y": 2029,
+                        "h": 383
+                    },
+                    {
+                        "filename": "patch_dirt_2a",
+                        "w": 247,
+                        "z": 39,
+                        "x": 764,
+                        "y": 2289,
+                        "h": 42
+                    },
+                    {
+                        "filename": "heights_face_1",
+                        "w": 682,
+                        "z": 24,
+                        "x": 609,
+                        "y": 2449,
+                        "h": 467
+                    },
+                    {
+                        "filename": "stalagmite_base_1",
+                        "w": 229,
+                        "z": 152,
+                        "r": -5,
+                        "x": 818,
+                        "y": 1297,
+                        "h": 60
+                    },
+                    {
+                        "filename": "trunk_ladder_1",
+                        "w": 112,
+                        "z": 199,
+                        "x": 253,
+                        "y": 892,
+                        "h": 128
+                    },
+                    {
+                        "filename": "stalagmite_base_1",
+                        "w": 324,
+                        "z": 43,
+                        "x": 890,
+                        "y": 2383,
+                        "h": 118
+                    },
+                    {
+                        "filename": "patch_dirt_2a",
+                        "w": 286,
+                        "z": 169,
+                        "x": 480,
+                        "y": 1759,
+                        "h": 49
+                    },
+                    {
+                        "filename": "heights_face_rock_1",
+                        "w": 288,
+                        "z": 96,
+                        "x": 20,
+                        "y": 1917,
+                        "h": 91
+                    },
+                    {
+                        "filename": "heights_face_rock_1",
+                        "w": 288,
+                        "z": 120,
+                        "x": 107,
+                        "y": 1400,
+                        "h": 91
+                    },
+                    {
+                        "filename": "alakol_beach_1",
+                        "w": 1120,
+                        "z": 121,
+                        "x": -109,
+                        "y": 1332,
+                        "h": 117,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "alakol_water_rock_2",
+                        "w": 243,
+                        "z": 204,
+                        "x": 320,
+                        "y": 525,
+                        "h": 94
+                    },
+                    {
+                        "filename": "heights_face_1",
+                        "w": 682,
+                        "z": 12,
+                        "x": 173,
+                        "y": 2029,
+                        "h": 467
+                    },
+                    {
+                        "filename": "alakol_beach_1",
+                        "w": 1054,
+                        "z": 90,
+                        "x": 342,
+                        "y": 1775,
+                        "h": 95
+                    },
+                    {
+                        "filename": "heights_face_rock_1",
+                        "w": 288,
+                        "z": 119,
+                        "x": 301,
+                        "y": 1379,
+                        "h": 91
+                    },
+                    {
+                        "filename": "heights_face_1",
+                        "w": 682,
+                        "z": 13,
+                        "x": 201,
+                        "y": 2329,
+                        "h": 467
+                    },
+                    {
+                        "filename": "alakol_cliff_1",
+                        "w": 741,
+                        "z": 100,
+                        "x": 943,
+                        "y": 2023,
+                        "h": 173
+                    },
+                    {
+                        "filename": "patch_dirt_2a",
+                        "w": 286,
+                        "z": 173,
+                        "x": 453,
+                        "y": 1789,
+                        "h": 49
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "w": 390,
+                        "z": 148,
+                        "x": 760,
+                        "y": 1698,
+                        "h": 148
+                    },
+                    {
+                        "filename": "trunk_ladder_1",
+                        "w": 93,
+                        "z": 196,
+                        "x": 1164,
+                        "y": 723,
+                        "h": 106
+                    },
+                    {
+                        "filename": "heights_face_rock_1",
+                        "w": 288,
+                        "z": 114,
+                        "x": 832,
+                        "y": 1012,
+                        "h": 91
+                    },
+                    {
+                        "filename": "patch_dirt_2a",
+                        "w": 286,
+                        "z": 212,
+                        "x": 593,
+                        "y": 596,
+                        "h": 49
+                    },
+                    {
+                        "filename": "heights_face_rock_1",
+                        "w": 288,
+                        "z": 94,
+                        "x": 558,
+                        "y": 1927,
+                        "h": 91
+                    },
+                    {
+                        "filename": "groddle_cover_clover2",
+                        "w": 126,
+                        "z": 232,
+                        "x": 44,
+                        "y": 2169,
+                        "h": 47
+                    },
+                    {
+                        "filename": "alakol_beach_1",
+                        "w": 535,
+                        "z": 99,
+                        "x": 77,
+                        "y": 1832,
+                        "h": 79
+                    },
+                    {
+                        "filename": "stalagmite_base_1",
+                        "w": 324,
+                        "z": 45,
+                        "x": 291,
+                        "y": 2370,
+                        "h": 118
+                    },
+                    {
+                        "filename": "stalagmite_base_1",
+                        "w": 229,
+                        "z": 158,
+                        "x": 1172,
+                        "y": 1293,
+                        "h": 59
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "w": 467,
+                        "z": 159,
+                        "r": -4,
+                        "x": 961,
+                        "y": 1273,
+                        "h": 177
+                    },
+                    {
+                        "filename": "heights_face_1",
+                        "w": 682,
+                        "z": 9,
+                        "x": 56,
+                        "y": 711,
+                        "h": 467
+                    },
+                    {
+                        "filename": "groddle_cover_clover2",
+                        "w": 126,
+                        "z": 235,
+                        "x": 1355,
+                        "y": 906,
+                        "h": 47
+                    },
+                    {
+                        "filename": "alakol_beach_1",
+                        "w": 718,
+                        "z": 137,
+                        "x": 1313,
+                        "y": 987,
+                        "h": 67
+                    },
+                    {
+                        "filename": "alakol_beach_1",
+                        "w": 1118,
+                        "z": 115,
+                        "x": 1238,
+                        "y": 966,
+                        "h": 100
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "w": 467,
+                        "z": 164,
+                        "x": 255,
+                        "y": 1683,
+                        "h": 177
+                    },
+                    {
+                        "filename": "trunk_ladder_1",
+                        "w": 112,
+                        "z": 181,
+                        "x": 1378,
+                        "y": 1284,
+                        "h": 128
+                    },
+                    {
+                        "filename": "stalagmite_base_1",
+                        "w": 324,
+                        "z": 162,
+                        "x": 58,
+                        "y": 1712,
+                        "h": 73
+                    },
+                    {
+                        "filename": "groddle_cover_clover2",
+                        "w": 126,
+                        "z": 224,
+                        "x": 771,
+                        "y": 2300,
+                        "h": 47
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "w": 498,
+                        "z": 73,
+                        "x": 978,
+                        "y": 2269,
+                        "h": 189
+                    },
+                    {
+                        "filename": "lens_grass_1",
+                        "w": 568,
+                        "z": 67,
+                        "x": 545,
+                        "y": 2418,
+                        "h": 113
+                    },
+                    {
+                        "filename": "stalagmite_base_1",
+                        "w": 324,
+                        "z": 145,
+                        "r": 15,
+                        "x": 1083,
+                        "y": 1839,
+                        "h": 73
+                    },
+                    {
+                        "filename": "groddle_cover_clover2",
+                        "w": 126,
+                        "z": 225,
+                        "x": 920,
+                        "y": 2291,
+                        "h": 47
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "w": 484,
+                        "z": 16,
+                        "x": 983,
+                        "y": 707,
+                        "h": 203,
+                        "r": 265,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "stalagmite_base_1",
+                        "w": 324,
+                        "z": 44,
+                        "x": 83,
+                        "y": 2350,
+                        "h": 107
+                    },
+                    {
+                        "filename": "trunk_ladder_1",
+                        "w": 134,
+                        "z": 198,
+                        "x": 245,
+                        "y": 1054,
+                        "h": 153
+                    },
+                    {
+                        "filename": "stalagmite_base_1",
+                        "w": 324,
+                        "z": 144,
+                        "r": 5,
+                        "x": 1029,
+                        "y": 1819,
+                        "h": 73
+                    },
+                    {
+                        "filename": "heights_bandaid_1",
+                        "w": 212,
+                        "z": 218,
+                        "r": 15,
+                        "x": 994,
+                        "y": 1798,
+                        "h": 100
+                    },
+                    {
+                        "filename": "patch_dirt_2a",
+                        "w": 247,
+                        "z": 40,
+                        "x": 753,
+                        "y": 2394,
+                        "h": 42
+                    },
+                    {
+                        "filename": "trunk_ladder_1",
+                        "w": 112,
+                        "z": 182,
+                        "x": 1371,
+                        "y": 1148,
+                        "h": 128
+                    },
+                    {
+                        "filename": "alakol_beach_1",
+                        "w": 559,
+                        "z": 57,
+                        "x": 477,
+                        "y": 2333,
+                        "h": 74
+                    },
+                    {
+                        "filename": "heights_face_rock_1",
+                        "w": 288,
+                        "z": 135,
+                        "x": 1090,
+                        "y": 1050,
+                        "h": 91
+                    },
+                    {
+                        "filename": "patch_dirt_2a",
+                        "w": 286,
+                        "z": 213,
+                        "x": 29,
+                        "y": 626,
+                        "h": 49
+                    },
+                    {
+                        "filename": "patch_dirt_2a",
+                        "w": 286,
+                        "z": 172,
+                        "x": 551,
+                        "y": 1771,
+                        "h": 49
+                    },
+                    {
+                        "filename": "heights_face_rock_1",
+                        "w": 291,
+                        "z": 87,
+                        "r": -1,
+                        "x": 1174,
+                        "y": 2213,
+                        "h": 93
+                    },
+                    {
+                        "filename": "alakol_beach_1",
+                        "w": 535,
+                        "z": 98,
+                        "x": 691,
+                        "y": 1871,
+                        "h": 79
+                    },
+                    {
+                        "filename": "heights_face_rock_1",
+                        "w": 291,
+                        "z": 81,
+                        "r": 4,
+                        "x": 630,
+                        "y": 2263,
+                        "h": 93
+                    },
+                    {
+                        "filename": "stalagmite_base_1",
+                        "w": 229,
+                        "z": 155,
+                        "r": 1,
+                        "x": 1276,
+                        "y": 889,
+                        "h": 60
+                    },
+                    {
+                        "filename": "heights_face_1",
+                        "w": 682,
+                        "z": 7,
+                        "x": 956,
+                        "y": 1751,
+                        "h": 467
+                    },
+                    {
+                        "filename": "stalagmite_base_1",
+                        "w": 324,
+                        "z": 47,
+                        "x": 524,
+                        "y": 2383,
+                        "h": 95
+                    },
+                    {
+                        "filename": "patch_dirt_2a",
+                        "w": 286,
+                        "z": 216,
+                        "x": 145,
+                        "y": 1292,
+                        "h": 49
+                    },
+                    {
+                        "filename": "alakol_beach_1",
+                        "w": 559,
+                        "z": 53,
+                        "x": 251,
+                        "y": 2310,
+                        "h": 84
+                    },
+                    {
+                        "filename": "patch_dirt_2a",
+                        "w": 286,
+                        "z": 174,
+                        "x": 1167,
+                        "y": 2083,
+                        "h": 49
+                    },
+                    {
+                        "filename": "heights_bandaid_1",
+                        "w": 169,
+                        "z": 220,
+                        "r": 20,
+                        "x": 1134,
+                        "y": 1837,
+                        "h": 153
+                    },
+                    {
+                        "filename": "alakol_beach_1",
+                        "w": 535,
+                        "z": 88,
+                        "x": 1197,
+                        "y": 2137,
+                        "h": 79
+                    },
+                    {
+                        "filename": "heights_face_rock_1",
+                        "w": 291,
+                        "z": 62,
+                        "r": 9,
+                        "x": 1408,
+                        "y": 403,
+                        "h": 93
+                    },
+                    {
+                        "filename": "heights_face_rock_1",
+                        "w": 288,
+                        "z": 108,
+                        "x": 942,
+                        "y": 1459,
+                        "h": 91
+                    },
+                    {
+                        "filename": "stalagmite_base_1",
+                        "w": 229,
+                        "z": 203,
+                        "r": 2,
+                        "x": 136,
+                        "y": 531,
+                        "h": 60
+                    },
+                    {
+                        "filename": "crosssection_heights_underside",
+                        "w": 580,
+                        "z": 6,
+                        "x": 616,
+                        "y": 672,
+                        "h": 112
+                    },
+                    {
+                        "filename": "alakol_beach_1",
+                        "w": 692,
+                        "z": 77,
+                        "x": 993,
+                        "y": 2096,
+                        "h": 79
+                    },
+                    {
+                        "filename": "patch_dirt_2a",
+                        "w": 286,
+                        "z": 205,
+                        "x": 991,
+                        "y": 935,
+                        "h": 49
+                    },
+                    {
+                        "filename": "heights_face_rock_1",
+                        "w": 291,
+                        "z": 104,
+                        "r": 4,
+                        "x": 793,
+                        "y": 1431,
+                        "h": 93
+                    },
+                    {
+                        "filename": "heights_face_rock_1",
+                        "w": 288,
+                        "z": 127,
+                        "x": 972,
+                        "y": 754,
+                        "h": 91
+                    },
+                    {
+                        "filename": "alakol_beach_1",
+                        "w": 705,
+                        "z": 63,
+                        "x": 1418,
+                        "y": 325,
+                        "h": 92
                     },
                     {
                         "filename": "tree_acacia_3",
-                        "w": 228,
-                        "z": 16,
-                        "x": 883,
-                        "y": 751,
-                        "h": 104
+                        "w": 810,
+                        "z": 175,
+                        "x": 345,
+                        "y": 1739,
+                        "h": 370
                     },
                     {
-                        "filename": "lens_grass_2",
-                        "w": 888,
-                        "z": 31,
-                        "r": -3,
-                        "x": 5346,
-                        "y": 774,
-                        "h": 65
+                        "filename": "alakol_beach_1",
+                        "w": 526,
+                        "z": 110,
+                        "x": 1092,
+                        "y": 1328,
+                        "h": 70
                     },
                     {
-                        "filename": "lens_grass_2",
-                        "w": 888,
-                        "z": 3,
-                        "r": 1,
-                        "x": 3157,
-                        "y": 773,
-                        "h": 65
+                        "filename": "crosssection_heights_underside",
+                        "w": 612,
+                        "z": 126,
+                        "r": 10,
+                        "x": 683,
+                        "y": 727,
+                        "h": 129
                     },
                     {
-                        "filename": "lens_grass_2",
-                        "w": 888,
+                        "filename": "heights_mound_3",
+                        "w": 390,
+                        "z": 149,
+                        "x": 900,
+                        "y": 1728,
+                        "h": 148
+                    },
+                    {
+                        "filename": "stalagmite_base_1",
+                        "w": 229,
+                        "z": 154,
+                        "x": 1072,
+                        "y": 890,
+                        "h": 60
+                    },
+                    {
+                        "filename": "heights_face_rock_1",
+                        "w": 291,
+                        "z": 60,
+                        "r": 9,
+                        "x": 1338,
+                        "y": 434,
+                        "h": 93
+                    },
+                    {
+                        "filename": "heights_face_rock_1",
+                        "w": 288,
+                        "z": 93,
+                        "x": 639,
+                        "y": 1971,
+                        "h": 91
+                    },
+                    {
+                        "filename": "heights_face_rock_1",
+                        "w": 291,
+                        "z": 86,
+                        "r": -1,
+                        "x": 1426,
+                        "y": 2224,
+                        "h": 93
+                    },
+                    {
+                        "filename": "heights_face_1",
+                        "w": 682,
+                        "z": 29,
+                        "x": 1086,
+                        "y": 1354,
+                        "h": 467
+                    },
+                    {
+                        "filename": "stalagmite_base_1",
+                        "w": 324,
+                        "z": 138,
+                        "x": 747,
+                        "y": 2062,
+                        "h": 73
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "w": 498,
+                        "z": 5,
+                        "x": 754,
+                        "y": 1534,
+                        "h": 189,
+                        "r": -70,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "w": 467,
+                        "z": 163,
+                        "x": -40,
+                        "y": 1681,
+                        "h": 177
+                    },
+                    {
+                        "filename": "stalagmite_base_1",
+                        "w": 324,
+                        "z": 68,
+                        "x": 712,
+                        "y": 2277,
+                        "h": 73
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "w": 498,
                         "z": 4,
-                        "x": 2743,
-                        "y": 773,
-                        "h": 65
+                        "x": 840,
+                        "y": 1195,
+                        "h": 189,
+                        "r": -105,
+                        "h_flip": true
                     },
                     {
-                        "filename": "lens_grass_2",
-                        "w": 888,
-                        "z": 10,
-                        "r": 1,
-                        "x": -158,
-                        "y": 808,
-                        "h": 65
+                        "filename": "patch_dirt_2a",
+                        "w": 286,
+                        "z": 170,
+                        "x": 408,
+                        "y": 1773,
+                        "h": 49
+                    },
+                    {
+                        "filename": "alakol_cliff_1",
+                        "w": 951,
+                        "z": 116,
+                        "x": 14,
+                        "y": 1423,
+                        "h": 177
+                    },
+                    {
+                        "filename": "alakol_beach_1",
+                        "w": 846,
+                        "z": 19,
+                        "x": 242,
+                        "y": 2301,
+                        "h": 127
+                    },
+                    {
+                        "filename": "alakol_beach_1",
+                        "w": 1035,
+                        "z": 36,
+                        "x": 429,
+                        "y": 2431,
+                        "h": 124
+                    },
+                    {
+                        "filename": "heights_bandaid_1",
+                        "w": 131,
+                        "z": 186,
+                        "x": 877,
+                        "y": 882,
+                        "h": 143
+                    },
+                    {
+                        "filename": "crosssection_heights_underside",
+                        "w": 580,
+                        "z": 113,
+                        "x": 1504,
+                        "y": 1104,
+                        "h": 112
+                    },
+                    {
+                        "filename": "heights_face_rock_1",
+                        "w": 288,
+                        "z": 117,
+                        "x": 256,
+                        "y": 1409,
+                        "h": 91
+                    },
+                    {
+                        "filename": "trunk_ladder_1",
+                        "w": 112,
+                        "z": 197,
+                        "x": 250,
+                        "y": 1198,
+                        "h": 128
+                    },
+                    {
+                        "filename": "trunk_ladder_1",
+                        "w": 89,
+                        "z": 177,
+                        "x": 1388,
+                        "y": 1843,
+                        "h": 102
+                    },
+                    {
+                        "filename": "heights_face_rock_1",
+                        "w": 291,
+                        "z": 85,
+                        "r": -1,
+                        "x": 1370,
+                        "y": 2253,
+                        "h": 93
+                    },
+                    {
+                        "filename": "heights_face_1",
+                        "w": 682,
+                        "z": 30,
+                        "x": 1565,
+                        "y": 1370,
+                        "h": 467
+                    },
+                    {
+                        "filename": "trunk_ladder_1",
+                        "w": 112,
+                        "z": 195,
+                        "x": 1010,
+                        "y": 510,
+                        "h": 128
+                    },
+                    {
+                        "filename": "alakol_beach_1",
+                        "w": 535,
+                        "z": 52,
+                        "x": 1600,
+                        "y": 2392,
+                        "h": 79
+                    },
+                    {
+                        "filename": "stalagmite_base_1",
+                        "w": 229,
+                        "z": 202,
+                        "r": 2,
+                        "x": 335,
+                        "y": 538,
+                        "h": 60
                     },
                     {
                         "filename": "lens_grass_1",
-                        "w": 63,
-                        "z": 24,
-                        "x": 4203,
-                        "y": 724,
-                        "h": 12
+                        "w": 568,
+                        "z": 65,
+                        "x": 104,
+                        "y": 2263,
+                        "h": 113
+                    },
+                    {
+                        "filename": "alakol_beach_1",
+                        "w": 453,
+                        "z": 56,
+                        "x": 602,
+                        "y": 2337,
+                        "h": 86
+                    },
+                    {
+                        "filename": "crosssection_heights_underside",
+                        "w": 580,
+                        "z": 146,
+                        "x": 162,
+                        "y": 1472,
+                        "h": 112
+                    },
+                    {
+                        "filename": "trunk_ladder_1",
+                        "w": 112,
+                        "z": 179,
+                        "x": 1376,
+                        "y": 1579,
+                        "h": 128
+                    },
+                    {
+                        "filename": "patch_dirt_2a",
+                        "w": 247,
+                        "z": 64,
+                        "x": 884,
+                        "y": 2416,
+                        "h": 42
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "w": 434,
+                        "z": 151,
+                        "r": 20,
+                        "x": 1069,
+                        "y": 1829,
+                        "h": 155
+                    },
+                    {
+                        "filename": "alakol_beach_1",
+                        "w": 614,
+                        "z": 84,
+                        "x": 740,
+                        "y": 2154,
+                        "h": 97
+                    },
+                    {
+                        "filename": "trunk_ladder_1",
+                        "w": 112,
+                        "z": 201,
+                        "x": 78,
+                        "y": 465,
+                        "h": 128
+                    },
+                    {
+                        "filename": "heights_face_rock_1",
+                        "w": 288,
+                        "z": 129,
+                        "x": 1018,
+                        "y": 701,
+                        "h": 91
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "w": 345,
+                        "z": 18,
+                        "x": 1003,
+                        "y": 672,
+                        "h": 96,
+                        "r": 200,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "heights_face_1",
+                        "w": 682,
+                        "z": 33,
+                        "x": 1182,
+                        "y": 2431,
+                        "h": 467
+                    },
+                    {
+                        "filename": "patch_dirt_2a",
+                        "w": 286,
+                        "z": 167,
+                        "x": 179,
+                        "y": 1743,
+                        "h": 49
+                    },
+                    {
+                        "filename": "alakol_beach_1",
+                        "w": 613,
+                        "z": 102,
+                        "x": 967,
+                        "y": 1349,
+                        "h": 87
+                    },
+                    {
+                        "filename": "patch_dirt_2a",
+                        "w": 286,
+                        "z": 214,
+                        "x": 134,
+                        "y": 1274,
+                        "h": 49
+                    },
+                    {
+                        "filename": "stalagmite_base_1",
+                        "w": 229,
+                        "z": 153,
+                        "r": -5,
+                        "x": 892,
+                        "y": 898,
+                        "h": 60
+                    },
+                    {
+                        "filename": "heights_bandaid_3",
+                        "w": 106,
+                        "z": 166,
+                        "x": 19,
+                        "y": 1522,
+                        "h": 192
+                    },
+                    {
+                        "filename": "heights_face_rock_1",
+                        "w": 288,
+                        "z": 134,
+                        "x": 1174,
+                        "y": 1100,
+                        "h": 91
                     },
                     {
                         "filename": "lens_grass_1",
-                        "w": 63,
-                        "z": 26,
-                        "x": 4232,
-                        "y": 736,
-                        "h": 12
+                        "w": 568,
+                        "z": 55,
+                        "x": 497,
+                        "y": 2458,
+                        "h": 113
                     },
                     {
-                        "filename": "pampas_2",
-                        "w": 14,
-                        "z": 1,
-                        "x": 927,
-                        "y": 756,
-                        "h": 21
+                        "filename": "stalagmite_1",
+                        "w": 93,
+                        "z": 0,
+                        "r": 180,
+                        "x": 683,
+                        "y": 656,
+                        "h": 246
+                    },
+                    {
+                        "filename": "patch_dirt_2a",
+                        "w": 286,
+                        "z": 168,
+                        "x": 283,
+                        "y": 1760,
+                        "h": 49
+                    },
+                    {
+                        "filename": "alakol_beach_1",
+                        "w": 840,
+                        "z": 133,
+                        "x": 976,
+                        "y": 625,
+                        "h": 111
+                    },
+                    {
+                        "filename": "alakol_beach_1",
+                        "w": 1120,
+                        "z": 124,
+                        "x": -100,
+                        "y": 625,
+                        "h": 117,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "heights_face_rock_1",
+                        "w": 291,
+                        "z": 82,
+                        "r": 4,
+                        "x": 569,
+                        "y": 2215,
+                        "h": 93
+                    },
+                    {
+                        "filename": "alakol_beach_1",
+                        "w": 999,
+                        "z": 91,
+                        "x": 598,
+                        "y": 1834,
+                        "h": 112
+                    },
+                    {
+                        "filename": "alakol_beach_1",
+                        "w": 595,
+                        "z": 131,
+                        "r": 5,
+                        "x": 86,
+                        "y": 327,
+                        "h": 102
                     },
                     {
                         "filename": "lens_grass_1",
-                        "w": 63,
-                        "z": 20,
-                        "x": 2713,
-                        "y": 721,
-                        "h": 12
+                        "w": 568,
+                        "z": 66,
+                        "x": -2,
+                        "y": 2317,
+                        "h": 113
+                    },
+                    {
+                        "filename": "heights_face_1",
+                        "w": 682,
+                        "z": 31,
+                        "x": 1221,
+                        "y": 1694,
+                        "h": 467
+                    },
+                    {
+                        "filename": "heights_face_rock_1",
+                        "w": 288,
+                        "z": 27,
+                        "r": 15,
+                        "x": 1219,
+                        "y": 444,
+                        "h": 91
+                    },
+                    {
+                        "filename": "alakol_beach_1",
+                        "w": 535,
+                        "z": 50,
+                        "x": 1106,
+                        "y": 2352,
+                        "h": 79
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "w": 467,
+                        "z": 150,
+                        "r": 6,
+                        "x": 1043,
+                        "y": 1780,
+                        "h": 177
+                    },
+                    {
+                        "filename": "heights_face_rock_1",
+                        "w": 288,
+                        "z": 107,
+                        "x": 1181,
+                        "y": 1445,
+                        "h": 91
+                    },
+                    {
+                        "filename": "lens_grass_1",
+                        "w": 568,
+                        "z": 192,
+                        "x": 77,
+                        "y": 1823,
+                        "h": 113
+                    },
+                    {
+                        "filename": "heights_face_rock_2",
+                        "w": 515,
+                        "z": 14,
+                        "x": 48,
+                        "y": 2178,
+                        "h": 146
+                    },
+                    {
+                        "filename": "alakol_beach_1",
+                        "w": 535,
+                        "z": 92,
+                        "x": 972,
+                        "y": 1867,
+                        "h": 79
+                    },
+                    {
+                        "filename": "alakol_beach_1",
+                        "w": 535,
+                        "z": 80,
+                        "x": 751,
+                        "y": 2111,
+                        "h": 79
+                    },
+                    {
+                        "filename": "stalagmite_base_1",
+                        "w": 324,
+                        "z": 70,
+                        "x": 1128,
+                        "y": 2302,
+                        "h": 73
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "w": 381,
+                        "z": 160,
+                        "x": 1068,
+                        "y": 1274,
+                        "h": 144
+                    },
+                    {
+                        "filename": "patch_dirt_2a",
+                        "w": 286,
+                        "z": 211,
+                        "x": 694,
+                        "y": 582,
+                        "h": 49
+                    },
+                    {
+                        "filename": "heights_face_rock_1",
+                        "w": 291,
+                        "z": 61,
+                        "r": 9,
+                        "x": 1197,
+                        "y": 395,
+                        "h": 93
                     }
                 ],
-                "signposts": []
+                "signposts": [],
+                "platformLines": [],
+                "ladders": [],
+                "walls": []
+            },
+            "T_1309380358068": {
+                "name": "bg2",
+                "w": 1395,
+                "h": 2304,
+                "z": -3,
+                "filters": {
+                    "brightness": -63,
+                    "saturation": -25,
+                    "tintColor": 0,
+                    "blur": 1,
+                    "contrast": -39
+                },
+                "decos": [
+                    {
+                        "filename": "heights_face_1",
+                        "w": 619,
+                        "z": 1,
+                        "x": 922,
+                        "y": 1281,
+                        "h": 424
+                    },
+                    {
+                        "filename": "tree_acacia_3",
+                        "w": 296,
+                        "z": 7,
+                        "x": 55,
+                        "y": 1659,
+                        "h": 135
+                    },
+                    {
+                        "filename": "stalagmite_1",
+                        "w": 66,
+                        "z": 12,
+                        "r": 180,
+                        "x": 592,
+                        "y": 688,
+                        "h": 175
+                    },
+                    {
+                        "filename": "crosssection_heights_underside",
+                        "w": 612,
+                        "z": 9,
+                        "x": 546,
+                        "y": 799,
+                        "h": 129
+                    },
+                    {
+                        "filename": "lens_grass_1",
+                        "w": 575,
+                        "z": 4,
+                        "x": 186,
+                        "y": 1828,
+                        "h": 114
+                    },
+                    {
+                        "filename": "lens_grass_1",
+                        "w": 575,
+                        "z": 2,
+                        "x": 101,
+                        "y": 1718,
+                        "h": 77
+                    },
+                    {
+                        "filename": "tree_acacia_3",
+                        "w": 389,
+                        "z": 0,
+                        "x": 681,
+                        "y": 1059,
+                        "h": 178
+                    },
+                    {
+                        "filename": "lens_grass_1",
+                        "w": 575,
+                        "z": 6,
+                        "x": -22,
+                        "y": 1902,
+                        "h": 114
+                    },
+                    {
+                        "filename": "heights_face_1",
+                        "w": 619,
+                        "z": 8,
+                        "x": 462,
+                        "y": 1646,
+                        "h": 424
+                    },
+                    {
+                        "filename": "stalagmite_1",
+                        "w": 66,
+                        "z": 11,
+                        "r": 180,
+                        "x": 425,
+                        "y": 747,
+                        "h": 175
+                    },
+                    {
+                        "filename": "lens_grass_1",
+                        "w": 575,
+                        "z": 3,
+                        "x": -27,
+                        "y": 1781,
+                        "h": 114
+                    },
+                    {
+                        "filename": "lens_grass_1",
+                        "w": 575,
+                        "z": 5,
+                        "x": -14,
+                        "y": 1862,
+                        "h": 114
+                    },
+                    {
+                        "filename": "heights_bandaid_1",
+                        "w": 173,
+                        "z": 10,
+                        "x": 643,
+                        "y": 1270,
+                        "h": 209
+                    }
+                ],
+                "signposts": [],
+                "platformLines": [],
+                "ladders": [],
+                "walls": []
+            },
+            "T_1309376088088": {
+                "name": "sky",
+                "w": 1290,
+                "h": 2280,
+                "z": -4,
+                "filters": {
+                    "brightness": -50,
+                    "saturation": -92,
+                    "tintColor": 0,
+                    "blur": 2,
+                    "contrast": -89
+                },
+                "decos": [
+                    {
+                        "filename": "tree_acacia_3",
+                        "w": 118,
+                        "z": 3,
+                        "x": 550,
+                        "y": 1141,
+                        "h": 54
+                    },
+                    {
+                        "filename": "cloud_fluffy_2",
+                        "w": 850,
+                        "z": 1,
+                        "x": 764,
+                        "y": 338,
+                        "h": 135
+                    },
+                    {
+                        "filename": "dirt_horizon",
+                        "w": 1215,
+                        "z": 2,
+                        "x": 402,
+                        "y": 1239,
+                        "h": 109
+                    },
+                    {
+                        "filename": "cloud_fluffy_2",
+                        "w": 850,
+                        "z": 0,
+                        "x": 335,
+                        "y": 872,
+                        "h": 135
+                    }
+                ],
+                "signposts": [],
+                "platformLines": [],
+                "ladders": [],
+                "walls": []
+            },
+            "T_1309376088089": {
+                "name": "bg1",
+                "w": 1455,
+                "h": 2328,
+                "z": -2,
+                "filters": {
+                    "brightness": -44,
+                    "saturation": -41,
+                    "tintColor": 8876800,
+                    "contrast": -18,
+                    "tintAmount": 41
+                },
+                "decos": [
+                    {
+                        "filename": "stalagmite_2",
+                        "w": 90,
+                        "z": 7,
+                        "r": 180,
+                        "x": 567,
+                        "y": 642,
+                        "h": 205
+                    },
+                    {
+                        "filename": "heights_face_1",
+                        "w": 572,
+                        "z": 2,
+                        "x": 224,
+                        "y": 1538,
+                        "h": 391
+                    },
+                    {
+                        "filename": "heights_mound_3",
+                        "w": 438,
+                        "z": 1,
+                        "r": 85,
+                        "x": 376,
+                        "y": 1273,
+                        "h": 166
+                    },
+                    {
+                        "filename": "heights_face_1",
+                        "w": 571,
+                        "z": 3,
+                        "x": 273,
+                        "y": 1864,
+                        "h": 391
+                    },
+                    {
+                        "filename": "stalagmite_2",
+                        "w": 128,
+                        "z": 8,
+                        "r": 180,
+                        "x": 470,
+                        "y": 653,
+                        "h": 292
+                    },
+                    {
+                        "filename": "heights_face_1",
+                        "w": 543,
+                        "z": 0,
+                        "r": -5,
+                        "x": 224,
+                        "y": 1249,
+                        "h": 372
+                    },
+                    {
+                        "filename": "heights_face_1",
+                        "w": 564,
+                        "z": 4,
+                        "r": -10,
+                        "x": 973,
+                        "y": 913,
+                        "h": 386
+                    },
+                    {
+                        "filename": "crosssection_heights_underside",
+                        "w": 612,
+                        "z": 6,
+                        "r": -10,
+                        "x": 488,
+                        "y": 749,
+                        "h": 129
+                    },
+                    {
+                        "filename": "crosssection_heights_underside",
+                        "w": 612,
+                        "z": 5,
+                        "r": -10,
+                        "x": 609,
+                        "y": 764,
+                        "h": 129
+                    }
+                ],
+                "signposts": [],
+                "platformLines": [],
+                "ladders": [],
+                "walls": []
             }
         }
     }

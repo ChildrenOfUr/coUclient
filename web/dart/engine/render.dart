@@ -1,31 +1,46 @@
 part of coUclient;
 
 //TODO: comment the begining of files with brief descriptions as to what they do.
-var last = new DateTime.now();
+
 Element fpsDisplay = querySelector('#fps');
 NumberFormat twoDigit = new NumberFormat("#0");
 bool showFps = false;
+
+num fps = 0.0;
+DateTime now, lastUpdate = new DateTime.now();
+
+// The higher this value, the less the FPS will be affected by quick changes
+// Setting this to 1 will show you the FPS of the last sampled frame only
+num fpsFilter = 50;
 
 // Our renderloop
 render() 
 {
 	if(showFps)
 	{
-		fpsDisplay.style.display = "block";
-		var now = new DateTime.now();
-		var fps = 1/(now.difference(last).inMilliseconds/1000);
-		fpsDisplay.text = "fps:"+twoDigit.format(fps);
-		last = now;
+		DateTime now = new DateTime.now();
+		if(now.compareTo(lastUpdate) != 0)
+		{
+			double thisFrameFPS = 1000 / now.difference(lastUpdate).inMilliseconds;
+    		fps += (thisFrameFPS - fps) / fpsFilter;
+    		lastUpdate = now;
+    		fpsDisplay.style.display = "block";
+    		fpsDisplay.text = "fps:"+twoDigit.format(fps);
+		}
 	}
 	else
 		fpsDisplay.style.display = "none";
+	
 	// Update clock
 	refreshClock();
+	
 	//Draw Street
-	var start = new DateTime.now();
 	if (currentStreet is Street)
 		currentStreet.render();
 	//Draw Player
 	if(CurrentPlayer is Player)
 		CurrentPlayer.render();
+	
+	//draw npcs
+	npcs.forEach((String id, NPC npc) => npc.render());
 }
