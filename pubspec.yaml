@@ -7,12 +7,12 @@ dependencies:
   glitchTime:
     git:
       ref: master
-      url: https://github.com/ChildrenOfUr/glitch-time.dart.git
+      url: https://github.com/ChildrenOfUr/glitch-time.dart
   intl: any
-  loadie:
+  libld:
     git:
       ref: master
-      url: https://github.com/ChildrenOfUr/loadie.git
+      url: https://github.com/ChildrenOfUr/libld.git
   scproxy:
     git:
       ref: master

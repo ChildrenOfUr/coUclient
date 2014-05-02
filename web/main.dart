@@ -9,7 +9,7 @@ import 'package:intl/intl.dart'; //used for NumberFormat
 // Import our coU libraries.
 import 'package:glitchTime/glitch-time.dart';// The script that spits out time!
 import 'package:scproxy/scproxy.dart'; // Paul's soundcloud bootstrap
-import 'package:loadie/loadie.dart'; // Nice and simple asset loading.
+import 'package:libld/libld.dart'; // Nice and simple asset loading.
 
 // main game entry
 part 'dart/engine/initialize.dart'; // home of the 'main()'
