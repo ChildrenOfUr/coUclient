@@ -191,7 +191,6 @@ class Player
 			num yInt = bestPlatform.start.y - slope*bestPlatform.start.x;
 			num lineY = slope*x+yInt;
 			
-			//print("platform: ${bestPlatform.toString()}, slope: $slope, yInt: $yInt, lineY: $lineY, cameFrom: $cameFrom, goingTo: $goingTo");
 			if(goingTo >= lineY)
 			{
 				posY = lineY-height-currentStreet._data['dynamic']['ground_y'];
