@@ -7,7 +7,7 @@ class Player
 	int width, height, canvasHeight, speed;
 	num posX, posY;
 	num yVel, yAccel = -2400;
-	bool jumping = false, moving = false, facingRight = true;
+	bool jumping = false, moving = false, climbingUp = false, climbingDown = false, facingRight = true;
 	Map<String,Animation> animations = new Map();
 	Animation currentAnimation;
 	ChatBubble chatBubble = null;
@@ -92,7 +92,46 @@ class Player
 		
 		if(playerInput.upKey == true)
 		{
-			
+			bool found = false;
+			Rectangle playerRect = new Rectangle(posX,posY+currentStreet._data['dynamic']['ground_y'],width,height-15);
+			for(Ladder ladder in currentStreet.ladders)
+			{
+				if(intersect(ladder.boundary,playerRect))
+				{
+					//if our feet are above the ladder, stop climbing
+					if(playerRect.top+playerRect.height < ladder.boundary.top)
+						break;
+					
+					posY -= speed/4 * dt;
+					climbingUp = true;
+					found = true;
+					break;
+				}
+			}
+			if(!found)
+				climbingUp = false;
+		}
+		
+		if(playerInput.downKey == true)
+		{
+			bool found = false;
+			Rectangle playerRect = new Rectangle(posX,posY+currentStreet._data['dynamic']['ground_y'],width,height);
+			for(Ladder ladder in currentStreet.ladders)
+			{
+				if(intersect(ladder.boundary,playerRect))
+				{
+					//if our feet are below the ladder, stop climbing
+					if(playerRect.top+playerRect.height > ladder.boundary.top+ladder.boundary.height)
+						break;
+					
+					posY += speed/4 * dt;
+					climbingDown = true;
+					found = true;
+					break;
+				}
+			}
+			if(!found)
+				climbingDown = false;
 		}
 		
 		if(playerInput.rightKey == true)
@@ -123,7 +162,7 @@ class Player
 	    
 	    //needs acceleration, some gravity const somewhere
 	    //for jumps/falling	    
-		if(doPhysicsApply)
+		if(doPhysicsApply && !climbingUp && !climbingDown)
 		{
 			yVel -= yAccel * dt;
 			posY += yVel * dt;
@@ -142,7 +181,7 @@ class Player
 			posX = currentStreet.bounds.width - width;
 	    
 	    //check for collisions with platforms
-	    if(yVel >= 0)
+	    if(!climbingDown && yVel >= 0)
 		{
 			num x = posX+width/2;
 			Platform bestPlatform = _getBestPlatform(cameFrom);

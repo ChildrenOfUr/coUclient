@@ -159,7 +159,7 @@ class Street
 		    
 			/* //// Scenery Canvases //// */
 			//For each layer on the street . . .
-			for (Map layer in new Map.from(_data['dynamic']['layers']).values)
+			for(Map layer in new Map.from(_data['dynamic']['layers']).values)
 			{
 				DivElement decoCanvas = new DivElement()
 					..classes.add('streetcanvas');
@@ -204,7 +204,7 @@ class Street
 				decoCanvas.style.filter = filters.join(' ');
 		      
 				//For each decoration in the layer, give its attributes and draw
-				for (Map deco in layer['decos'])
+				for(Map deco in layer['decos'])
 				{
 					int x = deco['x'] - deco['w']~/2;
 					int y = deco['y'] - deco['h'] + _data['dynamic']['ground_y'];
@@ -238,7 +238,7 @@ class Street
 					}
 				}
 				
-				for (Map platformLine in layer['platformLines'])
+				for(Map platformLine in layer['platformLines'])
   				{
 					Point start, end;
 					(platformLine['endpoints'] as List).forEach((Map endpoint)
@@ -262,7 +262,7 @@ class Street
 				platforms.sort((x,y) => x.compareTo(y));
 				
 				//debug only: draw platforms
-				platforms.forEach((Platform platform)
+				/*platforms.forEach((Platform platform)
 				{
 					Element rect = new DivElement();
 					rect.text = "(${platform.start.x},${platform.start.y}) - (${platform.end.x},${platform.end.y})";
@@ -274,17 +274,17 @@ class Street
 					rect.style.position = "absolute";
 					rect.style.zIndex = "100";
 					decoCanvas.append(rect);
-				});
+				});*/
 				
-				for (Map ladder in layer['ladders'])
+				for(Map ladder in layer['ladders'])
   				{
 					int x,y,width,height;
 					String id;
 					
-					x = ladder['x']+layer['w']~/2;
-					y = ladder['y']+layer['h']+_data['dynamic']['ground_y'];
 					width = ladder['w'];
-					height = ladder['h'];
+                    height = ladder['h'];
+					x = ladder['x']+layer['w']~/2-width~/2;
+					y = ladder['y']+layer['h']-height+_data['dynamic']['ground_y'];
 					id = ladder['id'];
 					
 					Rectangle box = new Rectangle(x,y,width,height);
@@ -292,7 +292,7 @@ class Street
   				}
 				
 				//debug only: draw ladders
-				for(Ladder ladder in ladders)
+				/*for(Ladder ladder in ladders)
 				{
 					Element rect = new DivElement();
 					rect.style.width = ladder.boundary.width.toString() + "px";
@@ -303,7 +303,7 @@ class Street
 					rect.style.position = "absolute";
 					rect.style.zIndex = "100";
 					decoCanvas.append(rect);
-				}
+				}*/
 				
 				for (Map signpost in layer['signposts'])
 				{
