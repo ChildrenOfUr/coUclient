@@ -1,15 +1,13 @@
 name: coUclient
 version: 0.0.0
 author: coU Development Team
-description: The sourcecode/tools needed to hack/compile the Children of Ur client
+description: Source + Tools for developing/compiling the Children of Ur WebClient
 homepage: ChildrenOfUr.github.io
 dependencies:
-  bootjack: any
   glitchTime:
     git:
       ref: master
       url: https://github.com/ChildrenOfUr/glitch-time.dart.git
-  gloss: any
   grinder: any
   intl: any
   libld:
