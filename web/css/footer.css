@@ -1,0 +1,8 @@
+footer {
+    padding:2px;
+    font-size:8pt;
+    color:#999;
+}
+footer a, footer a:hover {
+    color: #4b2e4c;
+}

@@ -1,12 +1,10 @@
 import 'package:grinder/grinder.dart' as grinder;
-import 'package:gloss/gloss.dart' as gloss;
 import 'dart:io';
 
 // Important Files
 File gamehtml = new File('./web/game.html');
-File gamecss = new File('./web/base.css'); // Temporary
-File mobilecss = new File('./web/mobile.css'); // Temporary
-File gameglos = new File('./web/glos/base.glos');
+File gamecss = new File('./web/base.css');
+File mobilecss = new File('./web/mobile.css');
 File gamedart = new File('./web/main.dart');
 
 // Important Directories
@@ -16,14 +14,13 @@ Directory toolsfolder = new Directory('./tools');
 
 // Compilers
 Function d2js = new grinder.Dart2jsTools().compile;
-Function gl2css = gloss.Gloss.parse;
 
 void main([List<String> args]) {
   grinder.defineTask('init', taskFunction: init);
   grinder.defineTask('compileJS', taskFunction: compileJS, depends : ['init']);
   grinder.defineTask('compileCSS', taskFunction: compileCSS, depends : ['init']);
-  grinder.defineTask('build', taskFunction: build, depends : ['compileJS']);
-  grinder.defineTask('deploy', taskFunction: deploy, depends : ['build', 'compileCSS']);
+  grinder.defineTask('build', taskFunction: build, depends : ['compileJS', 'compileCSS']);
+  grinder.defineTask('deploy', taskFunction: deploy, depends : ['build']);
   // Running from DartEditor? I'll assume you want to build.
   if (args.length == 0){
     print('Assuming you want to "build"..');
@@ -53,30 +50,34 @@ compileJS(grinder.GrinderContext context) {
   new File('./out/main.dart.js').renameSync('./out/main.js');
 }
 
-compileCSS(grinder.GrinderContext context) {
-  String css = '';
-  context.log('Compiling CSS from GLOSS');  
-  Iterable glosfiles = glosfolder.listSync(recursive: true, followLinks: false)
-      .where((FileSystemEntity entity) => entity is File && entity.path.endsWith('.glos'));
-  for (File glosfile in glosfiles) {
-    String gls = gl2css(glosfile.readAsStringSync());
-     css = css + gls;
-  }
-  css = gl2css(css);
-  new File('./out/base.css').writeAsStringSync(css);
-}
 
+compileCSS(grinder.GrinderContext context) {
+  context.log('Merging all CSS files');
+  
+  List css = new List.from(gamecss.readAsLinesSync(), growable:true);
+  List outcss = new List.from(css ,growable:true);
+  for (String line in css) {
+    if (line.contains('@import url("./')) {
+      String url = line
+      .replaceAll('@import url("./','')
+      .replaceAll('");', '')
+      .trim();
+      context.log('Replacing @import url("' + url + '");');
+      int index = outcss.indexOf(line);
+      outcss.replaceRange(index, index,
+          new File('./web/' + url).readAsLinesSync());
+    }
+  }
+  // fix the relative paths of fonts and stuff
+  new File('./out/base.css').writeAsStringSync(outcss.join().replaceAll('../','./'));
+  context.log('Saving processed CSS');
+}
 
 
 build(grinder.GrinderContext context) {
   // copy over our game.html
   context.log('Creating copy of game.html');
   grinder.copyFile(gamehtml, outfolder);
-  
-  // copy over our base.css
-  context.log('Creating copy of base.css');
-  grinder.copyFile(gamecss, outfolder);
-  grinder.copyFile(mobilecss, outfolder);
   
   // copy over our assets
   context.log('Copying assets');
@@ -97,7 +98,11 @@ build(grinder.GrinderContext context) {
   .replaceAll('<script type="application/dart" src="main.dart"></script>',
       '<script>'+ new File('./out/main.js').readAsStringSync() + '</script>')
   .replaceAll('<script src="packages/browser/dart.js"></script>','')
-  ); 
+  );
+  
+  // Shrink HTML a little
+  newhtml.writeAsStringSync(newhtml.readAsLinesSync().join());
+  
   // clean up our unneeded files
   context.log('cleaning up');
   new File('./out/base.css').deleteSync();
