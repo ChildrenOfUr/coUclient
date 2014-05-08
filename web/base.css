@@ -1,7 +1,6 @@
-/*
-Base CSS file for cou
-if you're adding a component to the ui, best put your css in another file and import it.
-*/
+/* Base CSS file for cou */
+/*if you're adding a component to the ui, put your css in another file and import it.*/
+
 
 /*Fonts*/
 @import url("./css/font-awesome.min.css");
@@ -9,9 +8,15 @@ if you're adding a component to the ui, best put your css in another file and im
 
 /*Resets*/
 @import url("./css/normalize.css");
-@import url("./css/cou_reset.css");
+@import url("./css/cou_defaults.css");
 
 /*Component Imports*/
-@import url("./css/container.css");
-
+@import url("./css/game.css");
+@import url("./css/mask.css");
+@import url("./css/mood.css");
+@import url("./css/energy.css");
+@import url("./css/currants.css");
+@import url("./css/timedate.css");
+@import url("./css/nav.css");
+@import url("./css/panel.css");
 @import url("./css/footer.css");

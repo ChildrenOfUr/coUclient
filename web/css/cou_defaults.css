@@ -1,0 +1,46 @@
+*:not(input){
+   font-family: 'RockoFLFBold', sans-serif;
+   cursor: default;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-user-drag: none;
+  -moz-user-drag: none;
+  -khtml-user-drag: none;
+  -webkit-user-drag: none;
+  user-drag: none;
+  color: #4b2e4c;
+}
+html {
+  background-color:#eee;
+}
+p, footer, input {
+  font-family: 'Tahoma', 'Geneva', 'sans-serif';
+  cursor: auto;
+  -webkit-user-select: text;
+  -khtml-user-select: text; 
+  -moz-user-select: text;
+  -ms-user-select: text;
+  -o-user-select: text;
+  user-select: text;
+  color: #000;
+}
+ a {
+ cursor: auto;
+ color: #4b2e4c;
+ text-decoration:none;
+}
+main {
+  display:box;
+  position:relative;
+  margin:0 auto;
+  width:100%;
+  max-width:1255px;
+  min-width:400px;
+  height:100vh;
+  max-height:800px;
+  min-height:400px;
+}

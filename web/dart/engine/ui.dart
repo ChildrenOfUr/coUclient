@@ -1,4 +1,4 @@
-part of coUclient;
+part of couclient;
 
 UserInterface ui = new UserInterface();
 Chat chat = new Chat();

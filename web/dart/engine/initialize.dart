@@ -1,4 +1,4 @@
-part of coUclient;
+part of couclient;
 
 WebSocket playerSocket;
 Map<String,Player> otherPlayers;

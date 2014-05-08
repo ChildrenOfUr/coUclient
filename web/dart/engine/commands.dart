@@ -1,4 +1,4 @@
-part of coUclient;
+part of couclient;
 
 StreamSubscription consolelistener;// the eventlistener for entering console commands.
 // To Create new console commands, add them to this list.

@@ -101,7 +101,7 @@ build(grinder.GrinderContext context) {
   );
   
   // Shrink HTML a little
-  newhtml.writeAsStringSync(newhtml.readAsLinesSync().join());
+  newhtml.writeAsStringSync(newhtml.readAsStringSync());
   
   // clean up our unneeded files
   context.log('cleaning up');

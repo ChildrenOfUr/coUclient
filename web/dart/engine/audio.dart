@@ -1,4 +1,4 @@
-part of coUclient;
+part of couclient;
 // Handles all the engine's audio needs
 
 //respect previous volume setting (if any)

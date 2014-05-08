@@ -1,4 +1,4 @@
-part of coUclient;
+part of couclient;
 
 String multiplayerServer = "ws://couserver.herokuapp.com/playerUpdate";
 String streetEventServer = "ws://couserver.herokuapp.com/streetUpdate";

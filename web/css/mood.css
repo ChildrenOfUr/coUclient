@@ -1,0 +1,200 @@
+#leftDisk{
+  position:absolute;
+  top:18px;
+  left:10px;
+  border-radius:50%;
+  overflow:hidden;
+  width: 75px;
+  height: 75px;
+  text-align: center;
+  line-height:12px;
+  background: -webkit-linear-gradient(#b3dcb6, #72dddf); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(#b3dcb6, #72dddf); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(#b3dcb6, #72dddf); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(#b3dcb6, #72dddf); /* Standard syntax */
+  transition-property: background;
+  transition-duration: 0.2s;
+  transition-timing-function: linear;
+  transition-delay: 0.5s;
+  z-index: 1;
+  /* this fixes the overflow:hidden in Chrome not clipping it's contents to the border-radius
+  more information here: http://stackoverflow.com/questions/5736503/how-to-make-css3-rounded-corners-hide-overflow-in-chrome-opera*/
+  -webkit-mask-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC);
+  
+}
+#portrait {
+  position:absolute;
+  top:0;
+  left:0;
+  height:100%;
+  width:100%;
+  opacity:1;
+  transition-property: opacity;
+  transition-duration: 0.2s;
+  transition-timing-function: linear;
+  transition-delay: 0.0s;
+}
+#moodMeter {
+  position:absolute;
+  top:0;
+  left:0;
+  height:100%;
+  width:100%;
+  opacity:0;
+  transition-property: opacity;
+  transition-duration: 0.2s;
+  transition-timing-function: linear;
+  transition-delay: 0.0s;
+}
+#moodMeter .percent {
+  position:absolute;
+  top:35%;
+  left:0;
+  text-align:center;
+  width:100%;
+  color:#fff;
+}
+#moodMeter .percent .number{
+  font-size:35px;
+  color:#fff;
+}
+#moodMeter .fraction {
+  position:absolute;
+  top:60%;
+  left:0;
+  color:#fff;
+  width:100%;
+  text-align:center;
+  font-size:11px;
+}
+#moodMeter .fraction .curr, #moodMeter .fraction .max {
+    color:#fff;
+}
+
+#leftDisk:hover #moodMeter{
+  opacity:1;
+}
+#leftDisk:hover #portrait{
+  opacity:0;
+}
+#leftDisk .hurt {
+  position:absolute;
+  top:0;
+  left:0;
+  height:100%;
+  width:100%;
+  background: -webkit-linear-gradient(#e16732, #ec3030); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(#e16732, #ec3030); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(#e16732, #ec3030); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(#e16732, #ec3030); /* Standard syntax */
+  opacity:0;
+}
+#leftDisk .dead {
+  position:absolute;
+  top:0;
+  left:0;
+  width: 100%;
+  height: 100%;
+  background: -webkit-linear-gradient(#e16732, #b8b8b8); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(#6d6d6d, #b8b8b8); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(#6d6d6d, #b8b8b8); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(#6d6d6d, #b8b8b8); /* Standard syntax */
+  opacity:0;
+}
+
+#moodAvatar {
+  position:absolute;
+  width:80px;
+  left:-10%;
+}
+
+
+#leftDisk .dead #rain {
+  position:absolute;
+  top:0;
+  left;0;
+  width: 100%;
+  height: 100%;
+    
+  background-image: url("../assets/system/raindrop.svg");
+  background-size: 20px;
+  background-repeat: repeat;
+
+  -webkit-animation: rain 0.5s infinite linear;
+  -moz-animation: rain 0.5s infinite linear;
+  animation: rain 0.5s infinite linear;
+}
+
+@-webkit-keyframes rain {
+  from {
+      background-position-x: 0px;
+      background-position-y: 0px;
+    }
+    to {
+      background-position-x: -20px;
+      background-position-y: 20px;
+    }
+}
+
+@-moz-keyframes rain {
+  from {
+      background-position-x: 0px;
+      background-position-y: 0px;
+    }
+    to {
+      background-position-x: -20px;
+      background-position-y: 20px;
+    }
+}
+
+@keyframes rain {
+  from {
+      background-position-x: 0px;
+      background-position-y: 0px;
+    }
+    to {
+      background-position-x: -20px;
+      background-position-y: 20px;
+    }
+}
+
+
+
+#rays {
+    position:absolute;
+    left:0;
+    top:0;
+    width: 100%;
+    height: 100%;
+    
+    -webkit-animation: spin 15s infinite linear;
+    -moz-animation: spin 15s infinite linear;
+    animation: spin 15s infinite linear;
+    
+   @-webkit-keyframes spin {
+    from {
+      -webkit-transform: rotate(0deg);
+    }
+    to {
+      -webkit-transform: rotate(360deg);
+    }
+  }
+  
+  @-moz-keyframes spin {
+    from {
+      -moz-transform: rotate(0deg);
+    }
+    to {
+      -moz-transform: rotate(360deg);
+    }
+  }
+  
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+}

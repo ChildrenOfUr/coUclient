@@ -1,8 +1,10 @@
 footer {
-    padding:2px;
-    font-size:8pt;
-    color:#999;
+  position:absolute;
+  bottom:0;
+  width: 100%;
+  font-size:8pt;
+  color:#999;
 }
-footer a, footer a:hover {
-    color: #4b2e4c;
+footer a {
+  color: #4b2e4c;
 }

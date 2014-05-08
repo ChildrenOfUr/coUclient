@@ -1,0 +1,26 @@
+#enbolt {
+  position:absolute;
+  top:95px;
+  left:13px;
+  z-index:1;
+}
+#energyDisks {
+  position:absolute;
+  top:51px;
+  left:22px;
+  background-color:#ccc;
+  border-bottom-right-radius: 83%;
+  width:87px;
+  height:66px;
+  z-index:1;
+  overflow:hidden;
+}
+#energyDisks .green, #energyDisks .red { /* These are script-rotated together */
+  position:absolute;
+  top:-54px;
+  left:-35px;
+  width:121px;
+  z-index:1;
+}
+
+

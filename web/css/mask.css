@@ -1,0 +1,8 @@
+#topLeftMask {
+  position:absolute;
+  z-index:1;
+  top:38px;
+  left:20px;
+  height:128px;
+  width:128px;
+}

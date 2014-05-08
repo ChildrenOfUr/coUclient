@@ -1,4 +1,4 @@
-part of coUclient;
+part of couclient;
 
 Input playerInput;
 

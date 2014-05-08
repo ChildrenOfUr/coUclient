@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html onContextMenu="return false"> <!--disable normal right-clicks-->
+<html> <!--disable normal right-clicks-->
   <head>
 
     <meta charset="utf-8">
@@ -14,14 +14,61 @@
   </head>
   <body>
     
-    <i class="fa fa-anchor"></i> fa-anchor
-    
-    <footer>Copyright CoU Development Team,
-     Children of Ur is not endorsed by or affiliated with
-      <a href="http://tinyspeck.com/">Tiny Speck, Inc.</a> (The makers of <a href="http://glitchthegame.com">Glitch</a>)
-       in any way.</footer>
-    
-    
+    <main>
+      
+      <div id="energyDisks">
+        <img class="red" src="./assets/system/energymeterred.svg">
+        <img class="green" src="./assets/system/energymeter.svg">
+      </div> 
+     
+      <img id="topLeftMask" src="./assets/system/leftcornerover.svg">
+      <img id="enbolt" src="./assets/system/energybolt.svg">
+      
+      <div id="leftDisk">
+        <div class="hurt"></div>
+        <img id="rays" src="./assets/system/rays.svg">
+        <div class="dead">
+          <div id="rain"></div>
+        </div>
+        <div id="portrait">
+          <img id="moodAvatar" src="./assets/sprites/avatar.png">
+        </div>
+        <div id="moodMeter">
+          <span class="percent">
+            <span class="number">n</span>%
+          </span>
+          <span class="fraction">
+            <span class="curr">n</span>
+            /
+            <span class="max">n</span>
+          </span>
+        </div>
+      </div>
+      
+      <nav>
+        <i id="consoleGlyph" class="fa fa-rocket"></i>
+        <a href="https://github.com/ChildrenOfUr/coUclient/issues" target="_blank">
+          <i id="bugGlyph" class="fa fa-bug"> </i>
+        </a>
+        <a href="http://childrenofur.com" target="_blank">
+          <i id="questionGlyph" class="fa fa-home"> </i>
+        </a>
+        <i id="volumeGlyph" class="fa fa-volume-up"></i>  
+        <i id="settingsGlyph" class="fa fa-cog"></i>
+      </nav>
+      
+      <span id="currDay">Weddingday</span>
+      <span id="currTime">1:00</span>
+      <span id="currDate">Primuary</span>
+
+      <div id="game"></div>      
+      
+      <footer>
+      Copyright CoU Development Team, Children of Ur is not endorsed by or affiliated with <a href="http://tinyspeck.com/">Tiny Speck, Inc.</a> (The makers of <a href="http://glitchthegame.com">Glitch</a>) in any way.
+      </footer>
+      
+    </main>
+   
     <!--Cross-Domain Asset Fix-->
     <script type="text/javascript">
       function getRoom(dataJSON){window.postMessage(JSON.stringify(dataJSON),'*');}
