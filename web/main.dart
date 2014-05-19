@@ -17,9 +17,6 @@ part 'dart/engine/initialize.dart'; // home of the 'main()'
 // Map of important elements on the page
 part 'dart/engine/elements.dart';
 
-// Map of keycodes
-part 'dart/engine/keycodes.dart';
-
 // Engine parts
 part 'dart/engine/render.dart'; // render loop
 part 'dart/engine/loop.dart';   // game loop
@@ -32,6 +29,10 @@ part 'dart/engine/joystick.dart';
 part 'dart/engine/touchscroller.dart';
 part 'dart/engine/animation.dart';
 part 'dart/engine/multiplayer.dart';
+
+// Definitions
+part 'dart/engine/def/keycodes.dart';
+part 'dart/engine/def/elements.dart';
 
 // Game parts
 part 'dart/street.dart';

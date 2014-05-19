@@ -58,19 +58,19 @@ runCommand(String commandToRun)
  */
 updateConsole(String line)
 {
-	Element container = querySelector('#CommandConsole');
+	
 	
 	if(line == null)
 	{
-		container.children.clear();
+		consoleContainer.children.clear();
 		return;
 	}
 	
 	DivElement lineDiv = new DivElement()
 	    ..classes.add('ConsoleEntry')
 	    ..text = line;
-	container.append(lineDiv);
-	container.scrollTop = container.scrollHeight; //scroll to the bottom
+	consoleContainer.append(lineDiv);
+	consoleContainer.scrollTop = consoleContainer.scrollHeight; //scroll to the bottom
 }
 
 /**
@@ -80,7 +80,6 @@ updateConsole(String line)
  */
 toggleSettings()
 {
-	Element settings = querySelector('#Settings');
 	if(settings.hidden)
 	{
 		settings.hidden = false;
@@ -100,25 +99,23 @@ toggleSettings()
  */
 showConsole()
 {
-	querySelector('#DevConsole').hidden = false;
-	querySelector('.ConsoleInput').focus();
-	consolelistener = querySelector('.ConsoleInput').onKeyUp.listen((key)
+	devConsole.hidden = false;
+	consoleInput.focus();
+	consolelistener = consoleInput.onKeyUp.listen((key)
 	{
     	if (key.keyCode == 13)
     		_runConsoleCommand();
 	});
-	Element container = querySelector('#CommandConsole');
-	container.scrollTop = container.scrollHeight; //scroll to the bottom
+	consoleContainer.scrollTop = consoleContainer.scrollHeight; //scroll to the bottom
 }
 
 //gets the input from the console and passes it on to be parsed, then resets the input control
 _runConsoleCommand()
 {
-	TextAreaElement input = querySelector('.ConsoleInput');
-	String value = input.value;
+	String value = consoleInput.value;
 	printConsole('> $value');
 	runCommand(value);
-	input.value = '';
+	consoleInput.value = '';
 }
 
 /**
@@ -128,7 +125,7 @@ _runConsoleCommand()
  */
 hideConsole(var nothing)
 {
-	querySelector('#DevConsole').hidden = true;
+	devConsole.hidden = true;
 	consolelistener.cancel();
 }
 
@@ -188,7 +185,7 @@ setMaxEnergy(String value)
 	{
 		ui._maxenergy = intvalue;
 		ui._setEnergy(ui._maxenergy);
-		ui._maxEnergyText.text = value;
+		maxEnergyText.text = value;
 		printConsole('Setting the maximum energy value to $value');
 	}
 }
@@ -216,7 +213,7 @@ setMaxMood(String value)
 	{
 		ui._mood = intvalue;
 		ui._setMood(ui._mood);
-		ui._maxMoodText.text = value;
+		maxMoodText.text = value;
 		printConsole('Setting the maximum mood value to $value');
 	}
 }
@@ -287,7 +284,6 @@ setName(String value)
 setLocation(String value)
 {
 	value = value.trim();
-	Element loadingScreen = querySelector('#MapLoadingScreen');
 	loadingScreen.className = "MapLoadingScreenIn";
 	loadingScreen.style.opacity = "1.0";
 	//changes first letter to match revdancatt's code - only if it starts with an L
@@ -307,7 +303,7 @@ Future setSong(String value)
 {
 	Completer c = new Completer();
 	
-	if(value == ui.titleMeter.text)
+	if(value == titleMeter.text)
 	{
 		c.complete();
 		return c.future;
@@ -357,8 +353,8 @@ _playSong(String value)
 	String title = ui.currentSong.meta['title'];
 	String artist = ui.currentSong.meta['user']['username'];
 	ui._setSong(artist,title);
-	AnchorElement link = querySelector('#SCLink');
-	link.href = ui.currentSong.meta['permalink_url'];
+
+	scLink.href = ui.currentSong.meta['permalink_url'];
 	
 	if(isMuted == '1')
 		setVolume('0',true);
@@ -375,11 +371,10 @@ setVolume(String value, bool mute)
 	int intvalue = int.parse(value,onError:null);
 	if(intvalue != null)
 	{
-		InputElement volumeSlider = (querySelector('#VolumeSlider') as InputElement);
 		if(!mute) //if we're not muting, set the volume, otherwise we will rely on the mute flag
 			localStorage['prevVolume'] = value;
 		volumeSlider.value = value.trim();
-		querySelector('#rangevalue').text = value.trim();
+		volumeRangeValue.text = value.trim();
 		if (ui.currentSong != null)
 	    	ui.currentSong.volume(intvalue);
 		printConsole('Setting volume to $value');
@@ -393,12 +388,12 @@ setVolume(String value, bool mute)
  */
 showMap()
 {
-  querySelector('#MapWindow').hidden = false;
-  querySelector('.ConsoleInput').focus();
+  mapWindow.hidden = false;
+  consoleInput.focus();
 }
 hideMap(var nothing)
 {
-  querySelector('#MapWindow').hidden = true;
+  mapWindow.hidden = true;
   /* V ???
   consolelistener.cancel();
   */
