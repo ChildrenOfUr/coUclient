@@ -364,28 +364,6 @@ class Input
 				hideMap(1);
 		}
 		
-		//mobile css toggle
-		if(target.id == "ThemeSwitcher")
-		{
-			if(target.text.contains("Mobile"))
-			{
-				(querySelector("#MobileStyle") as LinkElement).disabled = false;
-				target.text = "Desktop View";
-				localStorage["interface"] = "mobile";
-				//make sure that gameScreen is updated with the correct size
-				//so that rendering works
-				resize();
-			}
-			else
-			{
-				(querySelector("#MobileStyle") as LinkElement).disabled = true;
-				target.text = "Mobile View";
-				localStorage["interface"] = "desktop";
-				resize();
-			}
-		}
-		
-		
 		//////////////////////////////////////////
 		///mobile specific click targets
 		//////////////////////////////////////////
@@ -423,7 +401,6 @@ class Input
 		{
 			querySelector('#ChannelSelectorScreen').hidden = true;
 			querySelector('#MainScreen').hidden = false;
-			resize();
 		}
 		
 		if(target.id == "ChatBubble" || target.id == "ChatBubbleText")

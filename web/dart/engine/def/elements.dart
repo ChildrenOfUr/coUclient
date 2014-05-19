@@ -1,14 +1,13 @@
 part of couclient;
 
 // Game Screen
-Element gameScreen = querySelector('#GameScreen');
+Element gameScreen = querySelector('#game');
 DivElement layers = querySelector('#Layers');
 Element exitsElement = querySelector("#Exits");
 Element playerHolder = querySelector("#PlayerHolder");
-Element warningMessage = querySelector('#SizeWarning');
 
 // Name Meter Variables
-Element nameMeter = querySelector('#PlayerName');
+Element nameMeter = querySelector('#playerName');
 
 // Glyph Menu Variables
 Element audioGlyph = querySelector('#AudioGlyph');

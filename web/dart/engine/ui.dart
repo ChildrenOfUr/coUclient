@@ -48,10 +48,6 @@ class UserInterface
 			youWon.hidden = false;    
 		});
 		
-		//Start listening for page resizes.
-		resize();
-		window.onResize.listen((_) => resize());
-		
 		//TODO: This should actually pull from an online source..
 		setEnergy('100');
 		setMaxEnergy('100');
@@ -171,31 +167,6 @@ class UserInterface
 			localStorage['isMuted'] = '0';
 		}
 	}
-}
-
-resize()
-{
-	
-	
-	//width and height calculations done here are now done in CSS
-	ui.gameScreenWidth = gameScreen.clientWidth;
-	ui.gameScreenHeight = gameScreen.clientHeight;
-	
-	//approx 1308px wide is the minimum width for the window to show everything well
-	//according to Paul, we should be able to see at least a few lines of chat in each box - this means
-	//minimum height is about 325px
-
-	if(window.innerWidth < 1308 || window.innerHeight < 325)
-		warningMessage.hidden = false;
-	else
-		warningMessage.hidden = true;
-	
-	if(window.innerWidth < 1308)
-		warningMessage.text = "Warning, the window should be at least 1308px wide to display the game well.";
-	if(window.innerHeight < 325)
-		warningMessage.text = "Warning, the window should be at least 325px high to display the game well.";
-	if(window.innerWidth < 1308 && window.innerHeight < 325)
-		warningMessage.text = "Warning, the window should be at least 1308px wide and 325px high to display the game well.";
 }
 	
 // Manages the elements that display the date and time.
