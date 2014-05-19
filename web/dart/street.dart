@@ -35,8 +35,7 @@ class Camera
 	int getY() => _y;
 }
 
-DivElement gameScreen = querySelector('#GameScreen');
-DivElement layers = querySelector('#Layers');
+
 
 class Street 
 {    
@@ -61,7 +60,7 @@ class Street
 								_data['dynamic']['l'].abs() + _data['dynamic']['r'].abs(),
 								_data['dynamic']['t'].abs());
 		
-		Element playerHolder = querySelector("#PlayerHolder");
+		
 		playerHolder.children.clear();
 		playerHolder.style.width = bounds.width.toString()+'px';
 		playerHolder.style.height = bounds.height.toString()+'px';
@@ -222,7 +221,7 @@ class Street
 				layers.append(decoCanvas);
 			}
 			
-			Element exitsElement = querySelector("#Exits");
+			
 			exitsElement.children.clear();
 			exitsElement.text = " Exits";
 			exits.forEach((String label, String tsid)
@@ -237,7 +236,6 @@ class Street
 			});
 			
 			//display current street name			
-		    Element currLocation = querySelector("#Location");
 		    currLocation.text = label;
 			
 			//make sure to redraw the screen (in case of street switching)
@@ -287,7 +285,7 @@ class Street
 // Initialization, loads all the streets in our master file into memory.
 Future load_streets()
 {
-	querySelector("#LoadStatus").text = "Loading Streets";
+	loadStatus.text = "Loading Streets";
 	// allows us to load street files as though they are json files.
 	jsonExtensions.add('street');
 	
@@ -299,7 +297,7 @@ Future load_streets()
 		// Load each street file into memory. If this gets too expensive we'll move this elsewhere.
 		List toLoad = [];
 		for (String url in streetList.get().values)
-			toLoad.add(new Asset(url).load(querySelector("#LoadStatus2")));
+			toLoad.add(new Asset(url).load(loadStatus2));
 		
 		c.complete(Future.wait(toLoad));
 	});
@@ -310,12 +308,12 @@ Future load_streets()
 // the callback function for our deco loading 'Batch'
 setStreetLoadBar(int percent)
 {
-	querySelector('#StreetLoadingStatus').text = 'loading decos...';
-	querySelector('#MapLoadingBar').style.width = (percent + 1).toString() + '%';
+	streetLoadingStatus.text = 'loading decos...';
+	mapLoadingBar.style.width = (percent + 1).toString() + '%';
 	if (percent >= 99)
 	{
-		querySelector('#StreetLoadingStatus').text = '...done';
-		querySelector('#MapLoadingScreen').className = "MapLoadingScreen";
-		querySelector('#MapLoadingScreen').style.opacity = '0.0';
+		streetLoadingStatus.text = '...done';
+		mapLoadingScreen.className = "MapLoadingScreen";
+		mapLoadingScreen.style.opacity = '0.0';
 	}
 }
