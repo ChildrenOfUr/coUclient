@@ -67,4 +67,4 @@ Element mapLoadingScreen = querySelector('#MapLoadingScreen');
 Element settings = querySelector('#Settings');
 
 // You Won!
-Element youWon = querySelector('#YouWon');
+Element youWon = querySelector('#youWon');
