@@ -95,8 +95,8 @@ build(grinder.GrinderContext context) {
   context.log('Embedding JS into page');  
   newhtml.writeAsStringSync( 
      newhtml.readAsStringSync()
-  .replaceAll('<script type="application/dart" src="main.dart"></script>',
-      '<script>'+ new File('./out/main.js').readAsStringSync() + '</script>')
+  .replaceAll('<script type="application/dart" src="./main.dart">',
+      '<script>'+ new File('./out/main.js').readAsStringSync())
   .replaceAll('<script src="packages/browser/dart.js"></script>','')
   );
   

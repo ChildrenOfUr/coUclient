@@ -4,8 +4,6 @@ nav {
   top:calc(24px - 0.5em);
   font-size:1.2em;
 }
-
-nav *:hover{
-  opacity:0.6;
+nav * {
   cursor:pointer;
 }

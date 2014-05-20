@@ -1,0 +1,26 @@
+#inventory {
+  position:absolute;
+  top:calc(100% - 90px);
+  left:20px;
+  right:260px;
+  padding:5px;
+  height:55px;
+  width:calc(100% - 280px);
+  max-width:calc(100% - 40px);
+  min-width:calc(300px - 40px);
+  overflow-y:hidden;
+  overflow-x:auto;
+}
+
+#inventory .box {
+  background-color: #fff;
+  float:left;
+  -moz-border-radius: 8px;
+  border-radius: 8px;
+  width:50px;
+  height:50px;
+  margin:3px 1px;
+  border-left:1px solid rgba(0,0,0,0.1);
+  border-bottom:3px solid rgba(0,0,0,0.2);
+  z-index:1;
+}

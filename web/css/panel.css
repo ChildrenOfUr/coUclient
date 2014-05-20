@@ -3,9 +3,18 @@
   position:absolute;
   top:50px;
   right:10px;
-  width:250px;
-  height:calc(100% - 160px);
+  width:240px;
+  height:calc(100% - 140px);
   background-color:#eee;
+  transition-property: right;
+  transition-duration: 0.3s;
+  transition-timing-function: ease-in-out;
+  -webkit-transition-property:right;
+  -webkit-transition-duration:0.3s;
+  -webkit-transition-timing-function:ease-in-out; 
+  -moz-transition-property:right;
+  -moz-transition-duration:0.3s;
+  -moz-transition-timing-function:ease-in-out;
 }
 .toggleSide {
   position:absolute;
@@ -18,7 +27,10 @@
   height:70px;
   width:20px;
   top:calc(50% - 35px);
-  left:-15px;
+  left:-21px;
+}
+#rightSide:hover {
+  right:145px;
 }
 
 h3 {
@@ -40,6 +52,7 @@ h3 {
 }
 #rightSide ul li:hover {
   background-color:#fff;
+  cursor:pointer;
   border-radius:3px;
 }
 
@@ -59,7 +72,7 @@ h3 {
   top:50px;
   right:10px;
   width:243px;
-  height:calc(100% - 160px);
+  height:calc(100% - 140px);
   background-color:#fff;
   border-left:2px solid rgba(0,0,0,0.2);
   border-radius:10px;

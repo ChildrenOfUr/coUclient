@@ -136,7 +136,7 @@ hideConsole(var nothing)
  */
 printConsole(String message)
 {
-	updateConsole(message);
+	//updateConsole(message);
 }
 
 /**

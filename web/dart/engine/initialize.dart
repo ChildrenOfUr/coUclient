@@ -38,9 +38,7 @@ main()
 			else
 			{
 				querySelector("#LoadingFrame").style.display = "none";
-				Element playButton = querySelector("#PlayButton");
-				playButton.text = "Play";
-				playButton.style.display = "inline-block";
+				playButton.visible = true;
 				playButton.onClick.first.then((_)
 				{
 					if(ui.currentSong != null && int.parse(prevVolume) > 0 && isMuted == '0')
@@ -80,8 +78,8 @@ start()
 	printConsole('System: Initializing..');
 	
 	// Start listening for clicks and key presses
-	playerInput = new Input()
-	..init();
+	//playerInput = new Input()
+	//..init();
 	
 	printConsole('System: Initialization Finished.');
 	printConsole('');

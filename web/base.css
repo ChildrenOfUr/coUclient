@@ -12,14 +12,19 @@
 
 /*Component Imports*/
 @import url("./css/game.css");
+@import url("./css/loader.css");
+@import url("./css/inventory.css");
 @import url("./css/name.css");
 @import url("./css/mask.css");
 @import url("./css/mood.css");
+@import url("./css/imagination.css");
 @import url("./css/energy.css");
 @import url("./css/currants.css");
 @import url("./css/timedate.css");
 @import url("./css/nav.css");
 @import url("./css/panel.css");
+@import url("./css/window.css");
+@import url("./css/console.css");
 @import url("./css/footer.css");
 @import url("./css/youwon.css");
 @import url("./css/soundcloud.css");

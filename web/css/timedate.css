@@ -1,6 +1,6 @@
 #currDay{
     font-size:13px;
-    opacity:0.5;
+    opacity:0.7;
     position: absolute;
     width: 130px;
     top:0.3em;
@@ -14,7 +14,7 @@
     right:0;
 }
 #currDate{
-    opacity:0.5;
+    opacity:0.7;
     font-size:13px;
     position: absolute;
     width: 130px;

@@ -14,14 +14,35 @@
   </head>
   <body>
     
+    
     <main>
+    
+      <div id="loading" hidden>
+        <div class="splash">
+          <img src="./assets/system/logo.svg"><br>
+          Children of Ur<br>
+          <i class="fa fa-circle-o-notch fa-spin"></i><br>   
+          <button id="playButton" hidden>PLAY</button>    
+        </div>
+        <div id="loadstatus">Loading</div>
+        <br>
+        <div id="loadstatus2">This Stuff</div>
+      </div>
+    
+    
       <span id="playerName">
-      Name O' Player
+      null
       </span>
       
+      <div id="imaginationText">
+        <img id="thinkButton" src="./assets/system/think.svg">
+        <span id="currImagination">123,123,123</span><span class="smi">i</span>
+      </div>
+      
+      
       <div id="energyDisks">
-        <img class="red" src="./assets/system/energymeterred.svg">
         <img class="green" src="./assets/system/energymeter.svg">
+        <img class="red" src="./assets/system/energymeterred.svg">
       </div> 
      
       <img id="topLeftMask" src="./assets/system/leftcornerover.svg">
@@ -66,6 +87,27 @@
 
       <div id="game"></div>
       
+      <div id="inventory">
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+
+      
+      </div>
+      
       
       <div id="energyText">
           <span id="currEnergy">n</span>
@@ -82,8 +124,6 @@
         </div>
       </div>
       
-      
-      
       <div id="rightSide">
         <div class="toggleSide">
           <i class="fa fa-chevron-left"></i>
@@ -93,7 +133,7 @@
           <li> <i class="fa-li fa fa-question"></i>
             Live Help
           </li>
-          <li> <i class="fa-li fa fa-star"></i>
+          <li> <i class="fa-li fa fa-asterisk"></i>
             Global Chat
           </li>
         </ul>
@@ -127,23 +167,43 @@
 
       <div id="panel">
       </div>
-      
-
-      <div id="hide" hidden></div>
- 
  
       <div id="SCwidget">
-        <div><a id="SCLink" target="_blank"><span id="trackTitle">How I Did It</span><br> By <span id="trackArtist">Stephen Colbert</span></a></div>
+        <div><a id="SCLink" target="_blank"><span id="trackTitle">The Song</span><br> By <span id="trackArtist">The Artist</span></a></div>
           <audio id="musicBox"></audio>
         <a href="http://www.soundcloud.com" target="_blank">
           <i class="fa fa-soundcloud"></i> SOUNDCLOUD
         </a>
       </div>
- 
- 
- 
- 
+      
+      
+      <div id="windowHolder" hidden>
+        <div id="consoleWindow" class="window">
+          <i class="fa-li fa fa-times closeButton"></i>
+          <header>
+            <i class="fa-li fa fa-code"></i>
+            Console
+          </header>
+          <article class="console">
+          </article>
+        </div>
+      </div>
     </main>
+    
+    <template id="consoleWindowTemplate">
+        <div class="window">
+          <i class="fa-li fa fa-times closeButton"></i>
+          <header>
+            <i class="fa-li fa fa-code"></i>
+            Console
+          </header>
+          <article class="console">
+          Template Console
+          </article>
+        </div>
+    </template>
+
+    
     
     <footer>
     Copyright 2014 CoU Development Team, Children of Ur is not endorsed by or affiliated with <a href="http://tinyspeck.com/">Tiny Speck, Inc.</a> (The makers of <a href="http://glitchthegame.com">Glitch</a>) in any way.
@@ -159,7 +219,7 @@
     </script>
 
     <!-- Start the Game up. -->
-    <script type="application/dart" src="./dart/ui_v2.dart"></script>
+    <script type="application/dart" src="./main.dart"></script>
     <script src="packages/browser/dart.js"></script>
   </body>
 </html>

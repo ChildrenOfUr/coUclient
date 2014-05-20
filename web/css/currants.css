@@ -1,16 +1,17 @@
 #currantBack {
   position:absolute;
   bottom:160px;
-  width:37px;
-  height:37px;
+  left:-3px;
+  width:35px;
+  height:34px;
   border-radius:50%;
   background-color:#eee;
 }
 #currantEmblem {
-  width:30px;
+  width:27px;
   position:absolute;
   bottom:4px;
-  left:4px;
+  left:6px;
 }
 #currCurrants {
   color:#fff;
@@ -30,6 +31,7 @@
 #currantText {
   position:absolute;
   left:calc(100% + 3px);
+  top:-3px;
   opacity:0.5;
   width:100%;
   height:60px;

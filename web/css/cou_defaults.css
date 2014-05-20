@@ -15,8 +15,7 @@
   color: #4b2e4c;
 }
 html {
-  background-color:#eee;
-  overflow:hidden;
+  background-color:#eee
 }
 
 p, footer, input {
@@ -41,8 +40,8 @@ main {
   margin:auto;
   width:100%;
   max-width:1300px;
-  min-width:300px;
+  min-width:545px;
   height:calc(100vh - 12pt);
-  max-height:800px;
-  min-height:400px;
+  max-height:750px;
+  min-height:380px;
 }

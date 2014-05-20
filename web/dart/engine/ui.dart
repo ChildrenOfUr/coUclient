@@ -62,7 +62,7 @@ class UserInterface
 		setCurrants(_currants.toString());
 		setImg(_img.toString());
 		
-		currLocation.text = currentStreet.label;
+		//currLocation.text = currentStreet.label;
 	}
 	
 	_setEnergy(int newValue)
@@ -107,7 +107,7 @@ class UserInterface
 	_setImg(int newValue)
 	{
 		_img = newValue;
-		imgMeter.text = commaFormatter.format(newValue);
+		//imgMeter.text = commaFormatter.format(newValue);
 	}
 	
 	int _getCurrants()

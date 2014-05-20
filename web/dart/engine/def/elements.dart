@@ -50,14 +50,15 @@ Element currTime = querySelector('#currTime'); //done
 Element currDate = querySelector('#currDate'); //done
 
 // Console Elements
-Element devConsole = querySelector('#DevConsole');
+Element devConsole = querySelector('#consoleWindow article.console'); //done
 TextAreaElement consoleInput = querySelector('.ConsoleInput');
-Element consoleContainer = querySelector('#CommandConsole');
+Element consoleContainer = querySelector('#consoleWindow'); //done
 
 // Loading Elements
-Element loadingScreen = querySelector('#MapLoadingScreen');
-Element loadStatus = querySelector("#LoadStatus");
-Element loadStatus2 = querySelector("#LoadStatus2");
+Element loadStatus = querySelector("#loading #loadstatus"); //done
+Element loadStatus2 = querySelector("#loading #loadstatus2"); //done
+Element loadingScreen = querySelector('#loading'); //done
+Element playButton = querySelector("#playButton"); //done
 Element streetLoadingStatus = querySelector('#StreetLoadingStatus');
 Element mapLoadingBar = querySelector('#MapLoadingBar');
 Element mapLoadingScreen = querySelector('#MapLoadingScreen');

@@ -1,13 +1,19 @@
 #SCwidget {
   position:absolute;
-  width:230px;
-  bottom:52px;
-  right:10px;
+  width:236px;
+  height:43px;
+  bottom:25px;
+  right:5px;
   font-size:12px;
-  background-color:#4b2e4c;
-  border-radius:10px;
-  padding:6px;
+  line-height:15px;
+  -moz-border-radius: 8px;
+  border-radius: 8px;
+  background-color: #fff;
+  border-left:2px solid rgba(0,0,0,0.2);
+  border-bottom:2px solid rgba(0,0,0,0.2);
+  padding:3px;
+  margin:5px;
 }
 #SCwidget * {
-  color:#fff;
+  color:#555;
 }
