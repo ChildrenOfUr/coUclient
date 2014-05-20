@@ -12,6 +12,7 @@
 
 /*Component Imports*/
 @import url("./css/game.css");
+@import url("./css/name.css");
 @import url("./css/mask.css");
 @import url("./css/mood.css");
 @import url("./css/energy.css");
@@ -21,3 +22,4 @@
 @import url("./css/panel.css");
 @import url("./css/footer.css");
 @import url("./css/youwon.css");
+@import url("./css/soundcloud.css");

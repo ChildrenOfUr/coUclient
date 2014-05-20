@@ -1,0 +1,13 @@
+#SCwidget {
+  position:absolute;
+  width:230px;
+  bottom:52px;
+  right:10px;
+  font-size:12px;
+  background-color:#4b2e4c;
+  border-radius:10px;
+  padding:6px;
+}
+#SCwidget * {
+  color:#fff;
+}

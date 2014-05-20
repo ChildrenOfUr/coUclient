@@ -16,7 +16,9 @@
 }
 html {
   background-color:#eee;
+  overflow:hidden;
 }
+
 p, footer, input {
   font-family: 'Tahoma', 'Geneva', 'sans-serif';
   cursor: auto;
@@ -36,11 +38,11 @@ p, footer, input {
 main {
   display:box;
   position:relative;
-  margin:0 auto;
+  margin:auto;
   width:100%;
-  max-width:1255px;
+  max-width:1300px;
   min-width:300px;
-  height:100vh;
+  height:calc(100vh - 12pt);
   max-height:800px;
   min-height:400px;
 }

@@ -67,11 +67,12 @@
   </metadata>
   <g
      transform="translate(-4.3479354,-358.21596)"
-     id="layer1">
+     id="layer1"
+     style="fill:#000000;fill-opacity:0.21387287;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:0.09248556">
     <path
        d="M 9.9375,0.5 C 0.5059081,9.206085 0.5,9.09375 0.5,9.09375 l 4.46875,0.21875 -4,7.5 L 11.15625,7.09375 6.4375,6.78125 9.9375,0.5 z"
        transform="translate(4.3479354,358.21596)"
        id="path5351"
-       style="fill:#c4d2d7;fill-opacity:1;stroke:#000000;stroke-width:1.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:0.13901343;stroke-dasharray:none" />
+       style="fill:#000000;fill-opacity:0.21387287;stroke:#000000;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:0.09248556;stroke-dasharray:none" />
   </g>
 </svg>

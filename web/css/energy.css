@@ -23,4 +23,21 @@
   z-index:1;
 }
 
+#energyText * {
+  color:#fff;
+  text-shadow: 0px 1px rgba(0,0,0,0.5);
+  font-size:13px;
+}
 
+#energyText {
+  position:absolute;
+  top:50px;
+  left:120px;
+  opacity:0.8;
+}
+#currEnergy {
+  font-size:19px;
+}
+#maxEnergy {
+  font-size:15px;
+}

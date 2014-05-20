@@ -367,6 +367,7 @@ _playSong(String value)
  */
 setVolume(String value, bool mute)
 {
+  /*
 	// Force an int
 	int intvalue = int.parse(value,onError:null);
 	if(intvalue != null)
@@ -378,7 +379,8 @@ setVolume(String value, bool mute)
 		if (ui.currentSong != null)
 	    	ui.currentSong.volume(intvalue);
 		printConsole('Setting volume to $value');
-	}  
+	} 
+	*/ 
 }
 
 /**
