@@ -107,6 +107,10 @@ build(grinder.GrinderContext context) {
   context.log('cleaning up');
   new File('./out/base.css').deleteSync();
   new File('./out/main.js').deleteSync();
+  for (FileSystemEntity e in outfolder.listSync(recursive:true, followLinks:false)) {
+    if (e.path.split('/')[e.path.split('/').length - 1].contains('packages'))
+      e.deleteSync(recursive:true);
+  }    
 }
 
 deploy(grinder.GrinderContext context) {

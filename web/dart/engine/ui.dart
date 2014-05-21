@@ -1,179 +1,169 @@
 part of couclient;
 
-UserInterface ui = new UserInterface();
-Chat chat = new Chat();
+UserInterface display = new UserInterface();
+class UserInterface {
+  
+  //NumberFormat for having commas in the currants and iMG displays
+  NumberFormat commaFormatter = new NumberFormat("#,###");
+  
+  // If you need to change an element somewhere else, put the declaration in this class.
+  // You can then access it with 'ui.yourElement'. This way we keep everything in one spot
+  /////////////////////ELEMENTS//////////////////////////////////////////////
+  // you won! element
+  Element youWon = querySelector('#youWon');
 
-class UserInterface 
-{
-	//NumberFormat for having commas in the currants and iMG displays
-	NumberFormat commaFormatter = new NumberFormat("#,###");
-	
-	//store the gameScreen.clientWidth and height so that we don't have to query it at render time
-	//causing the DOM to be reflowed
-	num gameScreenWidth, gameScreenHeight;
+  // Initial play button
+  Element playButton = querySelector('#playButton');
+  
+  // Initial loading screen elements
+  Element loadStatus = querySelector("#loading #loadstatus"); //done
+  Element loadStatus2 = querySelector("#loading #loadstatus2"); //done
+  Element loadingScreen = querySelector('#loading'); //done
+  
+  // Name Meter Variables
+  Element nameElement = querySelector('#playerName'); //done
 
-	// Currant Variables
-	int _currants = 0;
-	
-	// Music Variables
-	SC sc = new SC('7d2a07867f8a3d47d4f059b600b250b1');
-	Map jukebox = new Map();
-	Scound currentSong;
-	
-	// Energy Variables
-	int _energy = 100;
-	int _maxenergy = 100;
-	int _emptyAngle = 10;
-	int _angleRange = 120;// Do not change!
-	
-	// Mood Variables
-	int _mood = 100;
-	int _maxmood = 100;
-	
-	// Img Variables
-	int _img = 0;
-		
-	
-	
-	UserInterface()
-	{
-		maxEnergyText.innerHtml = _maxenergy.toString();
-	}
-	
-	init()
-	{
-		//Start listening for the game's exit and display "You Won!"
-		window.onBeforeUnload.listen((_)
-		{
-			youWon.hidden = false;    
-		});
-		
-		//TODO: This should actually pull from an online source..
-		setEnergy('100');
-		setMaxEnergy('100');
-		setMood('100');
-		setMaxMood('100');
-		if(localStorage["currants"] != null)
-        	_currants = int.parse(localStorage["currants"]);
-		if(localStorage["img"] != null)
-			_img = int.parse(localStorage["img"]);
-		
-		//Set up the Currant Display
-		setCurrants(_currants.toString());
-		setImg(_img.toString());
-		
-		//currLocation.text = currentStreet.label;
-	}
-	
-	_setEnergy(int newValue)
-	{
-		if(newValue > _maxenergy)
-			return;
-		
-		_energy = newValue;
-		currEnergyText.parent.parent.classes.toggle('changed',true);
-		Timer t = new Timer(new Duration(seconds:1),() => currEnergyText.parent.parent.classes.toggle('changed'));
-		currEnergyText.text=_energy.toString();
-		String angle = ((_angleRange - (_energy/_maxenergy)*_angleRange).toInt()).toString();
-		energymeterImage.style.transform = 'rotate(' +angle+ 'deg)';
-		energymeterImageLow.style.transform = 'rotate(' +angle+ 'deg)';
-		energymeterImageLow.style.opacity = ((1-(_energy/_maxenergy))).toString();    
-	}
-	 
-	_setMood(int newValue)
-	{
-		if(newValue > _maxmood)
-			return;
-		
-		_mood = newValue;
-		currMoodText.parent.classes.toggle('changed', true);
-		Timer t = new Timer(new Duration(seconds:1),() => currMoodText.parent.classes.toggle('changed'));
-		currMoodText.text=_mood.toString();
-		moodPercent.text=((100*((_mood/_maxmood))).toInt()).toString();
-		moodmeterImageLow.style.opacity = ((0.7-(_mood/_maxmood))).toString();
-		
-		if (_mood <= 0)
-			moodmeterImageEmpty.style.opacity = 1.toString();
-		else
-			moodmeterImageEmpty.style.opacity = 0.toString();
-	}
-	
-	_setCurrants(int newValue)
-	{
-		_currants = newValue;
-		currantMeter.text = commaFormatter.format(newValue);
-	}	
-	
-	_setImg(int newValue)
-	{
-		_img = newValue;
-		//imgMeter.text = commaFormatter.format(newValue);
-	}
-	
-	int _getCurrants()
-	{
-		return _currants;
-	}
-	
-	int _getEnergy()
-	{
-		return _energy;
-	}
-	
-	int _getMood()
-	{
-		return _mood;
-	}
-	
-	int _getImg()
-	{
-		return _img;
-	}
-	
-	_setName(String newValue)
-	{
-		if (newValue.length >= 17)
-	    	newValue = newValue.substring(0, 15) + '...';
-	  	nameMeter.text = newValue;
-	}
-	
-	_setLocation(String label)
-	{
-		currLocation.text = label;
-	}
-	
-	_setSong(String artist, String song)
-	{
-		titleMeter.text = song;
-		artistMeter.text = artist;    
-	} 
-	
-	_setMute(String isMuted)
-	{
-		if(isMuted != null && isMuted == '1') //set to muted
-		{
-			volumeSlider.disabled = true;
-			audioGlyph.innerHtml = '<img src="./assets/system/mute.png" class="centered-icon glyph">'; //hack to have mute icon be centered
-			mobileAudioGlyph.innerHtml = '<img src="./assets/system/mute.png" class="centered-icon glyph">';
-			setVolume('0',true);
-			localStorage['isMuted'] = '1';
-		}
-		else //set to unmuted
-		{
-			volumeSlider.disabled = false;
-			audioGlyph.innerHtml = '<i id="VolumeGlyph" class="fa fa-volume-up glyph fa-lg"></i>';
-			mobileAudioGlyph.innerHtml = '<i id="VolumeGlyph" class="fa fa-lg fa-volume-up"></i>';
-			setVolume(localStorage['prevVolume'],false);
-			localStorage['isMuted'] = '0';
-		}
-	}
-}
-	
-// Manages the elements that display the date and time.
-refreshClock()
-{
-	List data = getDate();
-	currDay.innerHtml = data[3].toString();
-	currTime.innerHtml = data[4].toString();
-	currDate.innerHtml = data[2].toString() + ' of ' + data[1].toString();
+  // Time Meter Variables
+  Element currDay = querySelector('#currDay'); //done
+  Element currTime = querySelector('#currTime'); //done
+  Element currDate = querySelector('#currDate'); //done
+
+  // Currant Meter Variables
+  Element currantElement = querySelector('#currCurrants'); //done
+
+  // Img Meter Variables
+  Element imgElement = querySelector('#currImagination');
+
+  // Music Meter Variables
+  Element titleElement = querySelector('#trackTitle'); //done
+  Element artistElement = querySelector('#trackArtist'); //done
+  AnchorElement SClinkElement = querySelector('#SCLink'); //done
+  Element volumeGlyph = querySelector('#volumeGlyph');
+  
+
+  // Energy Meter Variables
+  Element energymeterImage = querySelector('#energyDisks .green'); //done
+  Element energymeterImageLow = querySelector('#energyDisks .red'); //done
+  Element currEnergyText = querySelector('#currEnergy'); //done
+  Element maxEnergyText = querySelector('#maxEnergy'); //done
+
+  // Mood Meter Variables
+  Element moodmeterImageLow =  querySelector('#leftDisk .hurt'); //done
+  Element moodmeterImageEmpty = querySelector('#leftDisk .dead'); //done
+  Element currMoodText = querySelector('#moodMeter .fraction .curr'); //done
+  Element maxMoodText = querySelector('#moodMeter .fraction .max'); //done
+  Element moodPercent = querySelector('#moodMeter .percent .number'); //done
+  /////////////////////ELEMENTS//////////////////////////////////////////////
+  
+  
+  // Declare/Set initial variables here
+  /////////////////////VARS//////////////////////////////////////////////////
+  String name = '';
+  
+  int energy = 100;
+  int maxenergy = 100;  
+  
+  int mood = 100;
+  int maxmood = 100;
+  
+  int currants = 0;  
+  
+  int img = 0;
+  
+  bool muted = false;
+  String SCsong = '-';
+  String SCartist = '-';
+  String SClink = '';
+  
+  /////////////////////VARS//////////////////////////////////////////////////
+  
+  // start listening for events
+  init(){
+    window.onBeforeUnload.listen((_) {
+      youWon.hidden = false;
+    });
+    
+    playButton.onClick.listen((_) {
+      loadingScreen.style.opacity = '0';
+      new Timer(new Duration(seconds:1),() => loadingScreen.remove());
+      playButton.remove();
+    });
+  }
+
+  // update the userinterface
+  update(){
+    // Update Clock
+    List data = getDate();
+    
+    if (data[4] != currTime.text) {
+      currDay.text = data[3].toString();
+      currTime.text = data[4];
+      currDate.text = data[2].toString() + ' of ' + data[1].toString();
+    }
+
+    // Update img display
+    if (commaFormatter.format(img) != imgElement.text)
+    imgElement.text = commaFormatter.format(img);
+    
+    
+    // Update currant display
+    if (commaFormatter.format(currants) != currantElement.text)
+    currantElement.text = commaFormatter.format(currants);
+    
+    // Update mood elements
+    if(maxmood <= 0) {
+      maxmood = 1;   }
+    if (mood.toString() != currMoodText.text || maxmood.toString() != maxMoodText.text) {
+      currMoodText.text=mood.toString();
+      maxMoodText.text=maxmood.toString();
+      moodPercent.text=((100*((mood/maxmood))).toInt()).toString();
+      moodmeterImageLow.style.opacity = ((0.7-(mood/maxmood))).toString();
+      if (mood <= 0)
+        moodmeterImageEmpty.style.opacity = 1.toString();
+      else
+        moodmeterImageEmpty.style.opacity = 0.toString();
+    }
+
+    // Update name display  
+    if (name.length >= 17)
+        name = name.substring(0, 15) + '...';
+    if (name != nameElement.text)
+      nameElement.text = name;
+    
+   
+    // Update energy elements
+    if(maxenergy <= 0) {
+      maxenergy = 1;   }
+    if (currEnergyText.text != energy.toString())
+    currEnergyText.text = energy.toString();
+    if (maxEnergyText.text != maxenergy.toString())
+    maxEnergyText.text = maxenergy.toString();
+    String angle = ( (120 - (energy/maxenergy)*120).toInt() ).toString();
+    energymeterImage.style.transform = 'rotate(' +angle+ 'deg)';
+    energymeterImageLow.style.transform = 'rotate(' +angle+ 'deg)';
+    energymeterImageLow.style.opacity = ((1-(energy/maxenergy))).toString();
+    
+    // Update the audio icon
+    if (muted == true && volumeGlyph.classes.contains('fa-volume-up')) {
+      volumeGlyph.classes
+        ..remove('fa-volume-up')
+        ..add('fa-volume-off');
+    }
+    if (muted == false && volumeGlyph.classes.contains('fa-volume-off')) {
+      volumeGlyph.classes
+        ..remove('fa-volume-off')
+        ..add('fa-volume-up');
+    }
+    
+    // Update the soundcloud widget
+    if (SCsong != titleElement.text)
+    titleElement.text = SCsong;
+    if (SCartist != artistElement.text)
+    artistElement.text = SCartist;   
+    if (SClink != SClinkElement.href)
+      SClinkElement.href = SClink;
+    
+  }
+
+  
 }

@@ -58,6 +58,7 @@
   -moz-transition-duration: 0.2s;
   -moz-transition-timing-function: linear;
   -moz-transition-delay: 0.0s;
+  text-shadow: 0px 0.05em rgba(0,0,0,0.3);
 }
 #moodMeter .percent {
   position:absolute;

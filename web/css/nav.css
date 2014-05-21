@@ -7,3 +7,6 @@ nav {
 nav * {
   cursor:pointer;
 }
+nav .fa {
+  width:17px;
+}
