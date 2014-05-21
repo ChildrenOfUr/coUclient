@@ -6,6 +6,8 @@ class UserInterface {
   //NumberFormat for having commas in the currants and iMG displays
   NumberFormat commaFormatter = new NumberFormat("#,###");
   
+  Storage session = window.sessionStorage;
+  
   // If you need to change an element somewhere else, put the declaration in this class.
   // You can then access it with 'ui.yourElement'. This way we keep everything in one spot
   /////////////////////ELEMENTS//////////////////////////////////////////////
@@ -39,6 +41,7 @@ class UserInterface {
   Element artistElement = querySelector('#trackArtist'); //done
   AnchorElement SClinkElement = querySelector('#SCLink'); //done
   Element volumeGlyph = querySelector('#volumeGlyph');
+  InputElement volumeSlider = querySelector('#volumeSlider *');
   
 
   // Energy Meter Variables
@@ -71,6 +74,7 @@ class UserInterface {
   int img = 0;
   
   bool muted = false;
+  int volume = 0;
   String SCsong = '-';
   String SCartist = '-';
   String SClink = '';
@@ -88,6 +92,21 @@ class UserInterface {
       new Timer(new Duration(seconds:1),() => loadingScreen.remove());
       playButton.remove();
     });
+    
+    session['volume'] = '10'; // initial value
+    volumeGlyph.onClick.listen((_) {
+      if (muted == true) {
+        volume = int.parse(session['volume']);
+        muted = false;
+        volumeSlider.value = volume.toString();
+      }
+      else if (muted == false) {
+        session['volume'] = volume.toString();
+        muted = true;
+        volumeSlider.value = '0';
+      }
+    });
+    
   }
 
   // update the userinterface
@@ -155,6 +174,14 @@ class UserInterface {
         ..add('fa-volume-up');
     }
     
+    // Update the volume slider
+    if (int.parse(volumeSlider.value) == 0)
+      muted = true;
+    else
+      muted = false;
+    if (volume != int.parse(volumeSlider.value))
+      volume = int.parse(volumeSlider.value);
+    
     // Update the soundcloud widget
     if (SCsong != titleElement.text)
     titleElement.text = SCsong;
@@ -162,7 +189,7 @@ class UserInterface {
     artistElement.text = SCartist;   
     if (SClink != SClinkElement.href)
       SClinkElement.href = SClink;
-    
+        
   }
 
   
