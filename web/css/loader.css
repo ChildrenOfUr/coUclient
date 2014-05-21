@@ -3,9 +3,24 @@
   top:0;
   left:0;
   width:100%;
-  height:calc(100% + 1em);
+  height:calc(100%);
   background-color:#eee;
   z-index:100;
+  font-size:20px;
+  
+  opacity:1;
+  
+  transition-property: opacity;
+  transition-duration: 0.3s;
+  transition-timing-function: ease-in-out;
+  -webkit-transition-property:opacity;
+  -webkit-transition-duration:0.3s;
+  -webkit-transition-timing-function:ease-in-out; 
+  -moz-transition-property:opacity;
+  -moz-transition-duration:0.3s;
+  -moz-transition-timing-function:ease-in-out;
+  
+  
 }
 #loading img {
     width:120px;
@@ -18,17 +33,9 @@
   width:125px;
 }
 #playButton {
-  font-size:24px;
-  margin:5px;
-  padding:15px;
-  border-radius:8px;
-  color:#fff;
-  background-color: #4b2e4c;
-  border:none;
-  opacity:0.9;
-}
-#playButton:hover {
-  opacity:1;
+  font-size:23px;
+  padding:12px;
+  margin-top:30px;
 }
 
 #loading #loadstatus {

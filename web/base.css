@@ -11,6 +11,7 @@
 @import url("./css/cou_defaults.css");
 
 /*Component Imports*/
+@import url("./css/buttons.css");
 @import url("./css/game.css");
 @import url("./css/loader.css");
 @import url("./css/inventory.css");

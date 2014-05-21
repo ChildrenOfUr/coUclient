@@ -3,14 +3,10 @@
    cursor: default;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
-  -khtml-user-select: none;
   -moz-user-select: none;
-  -ms-user-select: none;
   user-select: none;
   -webkit-user-drag: none;
   -moz-user-drag: none;
-  -khtml-user-drag: none;
-  -webkit-user-drag: none;
   user-drag: none;
   color: #4b2e4c;
 }
@@ -22,10 +18,7 @@ p, footer, input {
   font-family: 'Tahoma', 'Geneva', 'sans-serif';
   cursor: auto;
   -webkit-user-select: text;
-  -khtml-user-select: text; 
   -moz-user-select: text;
-  -ms-user-select: text;
-  -o-user-select: text;
   user-select: text;
   color: #000;
 }

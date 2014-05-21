@@ -17,10 +17,7 @@
   transition-timing-function: linear;
   transition-delay: 0.5s;
   z-index: 1;
-  /* this fixes the overflow:hidden in Chrome not clipping it's contents to the border-radius
-  more information here: http://stackoverflow.com/questions/5736503/how-to-make-css3-rounded-corners-hide-overflow-in-chrome-opera*/
-  -webkit-mask-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC);
-  
+  box-shadow: 0 0 15px 1px rgba(0,0,0,0.1);  
 }
 #portrait {
   position:absolute;
@@ -33,6 +30,14 @@
   transition-duration: 0.2s;
   transition-timing-function: linear;
   transition-delay: 0.0s;
+  -webkit-transition-property: opacity;
+  -webkit-transition-duration: 0.2s;
+  -webkit-transition-timing-function: linear;
+  -webkit-transition-delay: 0.0s;
+  -moz-transition-property: opacity;
+  -moz-transition-duration: 0.2s;
+  -moz-transition-timing-function: linear;
+  -moz-transition-delay: 0.0s;
 }
 #moodMeter {
   position:absolute;
@@ -45,6 +50,14 @@
   transition-duration: 0.2s;
   transition-timing-function: linear;
   transition-delay: 0.0s;
+  -webkit-transition-property: opacity;
+  -webkit-transition-duration: 0.2s;
+  -webkit-transition-timing-function: linear;
+  -webkit-transition-delay: 0.0s;
+  -moz-transition-property: opacity;
+  -moz-transition-duration: 0.2s;
+  -moz-transition-timing-function: linear;
+  -moz-transition-delay: 0.0s;
 }
 #moodMeter .percent {
   position:absolute;
@@ -95,15 +108,12 @@
   left:0;
   width: 100%;
   height: 100%;
-  background: -webkit-linear-gradient(#e16732, #b8b8b8); /* For Safari 5.1 to 6.0 */
-  background: -o-linear-gradient(#6d6d6d, #b8b8b8); /* For Opera 11.1 to 12.0 */
-  background: -moz-linear-gradient(#6d6d6d, #b8b8b8); /* For Firefox 3.6 to 15 */
-  background: linear-gradient(#6d6d6d, #b8b8b8); /* Standard syntax */
+  background: #6d6d6d; /* Standard syntax */
   opacity:0;
 }
 
 #moodAvatar {
-  position:absolute;
+  position:relative;
   width:80px;
   left:-10%;
 }
