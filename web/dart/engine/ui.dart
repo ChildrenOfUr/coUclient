@@ -18,50 +18,56 @@ class UserInterface {
   Element playButton = querySelector('#playButton');
   
   // Initial loading screen elements
-  Element loadStatus = querySelector("#loading #loadstatus"); //done
-  Element loadStatus2 = querySelector("#loading #loadstatus2"); //done
-  Element loadingScreen = querySelector('#loading'); //done
+  Element loadStatus = querySelector("#loading #loadstatus");
+  Element loadStatus2 = querySelector("#loading #loadstatus2");
+  Element loadingScreen = querySelector('#loading'); 
   
   // Name Meter Variables
-  Element nameElement = querySelector('#playerName'); //done
+  Element nameElement = querySelector('#playerName'); 
 
   // Time Meter Variables
-  Element currDay = querySelector('#currDay'); //done
-  Element currTime = querySelector('#currTime'); //done
-  Element currDate = querySelector('#currDate'); //done
+  Element currDay = querySelector('#currDay'); 
+  Element currTime = querySelector('#currTime'); 
+  Element currDate = querySelector('#currDate'); 
 
+  // Location and Map elements
+  Element currLocation = querySelector('#currLocation'); 
+  Element mapButton = querySelector('#mapButton');
+  
   // Currant Meter Variables
-  Element currantElement = querySelector('#currCurrants'); //done
+  Element currantElement = querySelector('#currCurrants'); 
 
   // Img Meter Variables
   Element imgElement = querySelector('#currImagination');
 
   // Music Meter Variables
-  Element titleElement = querySelector('#trackTitle'); //done
-  Element artistElement = querySelector('#trackArtist'); //done
-  AnchorElement SClinkElement = querySelector('#SCLink'); //done
+  Element titleElement = querySelector('#trackTitle'); 
+  Element artistElement = querySelector('#trackArtist'); 
+  AnchorElement SClinkElement = querySelector('#SCLink'); 
   Element volumeGlyph = querySelector('#volumeGlyph');
   InputElement volumeSlider = querySelector('#volumeSlider *');
   
 
   // Energy Meter Variables
-  Element energymeterImage = querySelector('#energyDisks .green'); //done
-  Element energymeterImageLow = querySelector('#energyDisks .red'); //done
-  Element currEnergyText = querySelector('#currEnergy'); //done
-  Element maxEnergyText = querySelector('#maxEnergy'); //done
+  Element energymeterImage = querySelector('#energyDisks .green'); 
+  Element energymeterImageLow = querySelector('#energyDisks .red'); 
+  Element currEnergyText = querySelector('#currEnergy'); 
+  Element maxEnergyText = querySelector('#maxEnergy'); 
 
   // Mood Meter Variables
-  Element moodmeterImageLow =  querySelector('#leftDisk .hurt'); //done
-  Element moodmeterImageEmpty = querySelector('#leftDisk .dead'); //done
-  Element currMoodText = querySelector('#moodMeter .fraction .curr'); //done
-  Element maxMoodText = querySelector('#moodMeter .fraction .max'); //done
-  Element moodPercent = querySelector('#moodMeter .percent .number'); //done
+  Element moodmeterImageLow =  querySelector('#leftDisk .hurt'); 
+  Element moodmeterImageEmpty = querySelector('#leftDisk .dead'); 
+  Element currMoodText = querySelector('#moodMeter .fraction .curr'); 
+  Element maxMoodText = querySelector('#moodMeter .fraction .max'); 
+  Element moodPercent = querySelector('#moodMeter .percent .number'); 
   /////////////////////ELEMENTS//////////////////////////////////////////////
   
   
   // Declare/Set initial variables here
   /////////////////////VARS//////////////////////////////////////////////////
-  String name = '';
+  String name = 'null';
+  
+  String location = 'null';
   
   int energy = 100;
   int maxenergy = 100;  
@@ -162,6 +168,13 @@ class UserInterface {
     energymeterImageLow.style.transform = 'rotate(' +angle+ 'deg)';
     energymeterImageLow.style.opacity = ((1-(energy/maxenergy))).toString();
     
+    // Update the location text
+    if (location.length >= 20)
+            location = location.substring(0, 17) + '...';
+    if (location != currLocation.text)
+          currLocation.text = location;
+    
+    
     // Update the audio icon
     if (muted == true && volumeGlyph.classes.contains('fa-volume-up')) {
       volumeGlyph.classes
@@ -190,6 +203,10 @@ class UserInterface {
     if (SClink != SClinkElement.href)
       SClinkElement.href = SClink;
         
+    
+    
+    
+    
   }
 
   

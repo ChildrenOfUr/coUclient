@@ -12,7 +12,9 @@
 }
 html {
   background-color:#eee;
+  overflow:hidden;
 }
+
 
 p, footer, input {
   font-family: 'Tahoma', 'Geneva', 'sans-serif';
@@ -33,7 +35,7 @@ main {
   margin:auto;
   width:100%;
   max-width:1300px;
-  min-width:545px;
+  min-width:658px;
   height:calc(100vh - 12pt);
   max-height:750px;
   min-height:380px;

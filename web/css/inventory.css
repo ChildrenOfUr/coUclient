@@ -23,4 +23,5 @@
   border-left:1px solid rgba(0,0,0,0.1);
   border-bottom:3px solid rgba(0,0,0,0.2);
   z-index:1;
+  box-shadow: 0 0 15px 1px rgba(0,0,0,0.05); 
 }
