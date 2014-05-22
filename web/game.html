@@ -30,9 +30,7 @@
       </div>
     
     
-      <span id="playerName">
-      null
-      </span>
+      <span id="playerName"></span>
       
       <div id="imaginationText">
         <img id="thinkButton" src="./assets/system/think.svg">
@@ -85,7 +83,7 @@
       
       
       <nav>
-        <i id="consoleGlyph" class="fa fa-rocket"></i>
+        <i id="signoutGlyph" class="fa fa-sign-out"></i>
         <a href="https://github.com/ChildrenOfUr/coUclient/issues" target="_blank">
           <i id="bugGlyph" class="fa fa-bug"> </i>
         </a>
@@ -103,7 +101,13 @@
       <span id="currTime">N:NN</span>
       <span id="currDate">Nth of N</span>
 
-      <div id="game"></div>
+      <div id="game">
+        <div id="overlayHolder" hidden>
+          <div id="pauseMenu" class="overlay">
+          
+          </div>
+        </div>
+      </div>
       
       <div id="inventory">
         <div class="box"></div>
@@ -148,6 +152,9 @@
         </div>
       
         <ul id="miscList" class="fa-ul">
+          <li> <i class="fa-li fa fa-rocket"></i>
+            Console
+          </li>
           <li> <i class="fa-li fa fa-question"></i>
             Live Help
           </li>
@@ -181,9 +188,28 @@
             Zille
           </li>
         </ul>
+
       </div>
 
       <div id="panel">
+      
+        <header class="top">
+        <i class="fa-li fa fa-code"></i>
+        Console
+        </header>
+        <div class="dialog top console">
+        >print('yo');<br>
+        yo
+        </div>
+        
+        <header class="bottom">
+        <i class="fa-li fa fa-chevron-down"></i>
+        Friendly
+        </header>
+        <div class="dialog bottom">
+        Friendly is not online.
+        </div>
+      
       </div>
  
       <div id="SCwidget">
@@ -195,31 +221,33 @@
       </div>
       
       
-      <div id="windowHolder" hidden>
-        <div id="consoleWindow" class="window">
-          <i class="fa-li fa fa-times closeButton"></i>
+      <div id="windowHolder">
+      
+        <div id="settingsWindow" class="window" hidden>
+          <i class="fa-li fa fa-times close"></i>
           <header>
-            <i class="fa-li fa fa-code"></i>
-            Console
+            <i class="fa-li fa fa-gears"></i>
+            Settings
           </header>
-          <article class="console">
+          <article>
+          Some settings stuff should go here.
           </article>
         </div>
+        
+        <div id="mapWindow" class="window" hidden>
+          <i class="fa-li fa fa-times close"></i>
+          <header>
+            <i class="fa-li fa fa-map-marker"></i>
+            Map
+          </header>
+          <article>
+          A map should go here.
+          </article>
+        </div>
+        
       </div>
+      
     </main>
-    
-    <template id="consoleWindowTemplate">
-        <div class="window">
-          <i class="fa-li fa fa-times closeButton"></i>
-          <header>
-            <i class="fa-li fa fa-code"></i>
-            Console
-          </header>
-          <article class="console">
-          Template Console
-          </article>
-        </div>
-    </template>
 
     
     

@@ -48,6 +48,10 @@ h3 {
   margin-left:24px;
 }
 
+#rightSide ul.devList {
+  float:bottom;
+}
+
 #rightSide ul * {
   font-size:12px;
   line-height:15px;
@@ -78,4 +82,74 @@ h3 {
   background-color:#fff;
   border-left:2px solid rgba(0,0,0,0.2);
   border-radius:10px;
+  overflow:hidden;
 }
+
+
+#panel .dialog {
+  position:absolute;
+  top:35px;
+  left:3px;
+  right:3px;
+  bottom:3px;
+  margin:0;
+  font-family: 'Tahoma', 'Geneva', 'sans-serif';
+  color:#000;
+  font-size:12px;
+  padding:5px;
+  border:2px solid #eee;
+  -moz-border-radius: 8px;
+  border-radius: 8px;
+}
+#panel header, #panel header.top {
+  position:absolute;
+  top:7px;
+  right:10px;
+  left:10px;
+  text-align:center;
+  font-size:21px;
+}
+#panel header.top .fa{
+  position:absolute;
+  top:-2px;
+  left:5px;
+  font-size:26px;
+  width:1em;
+}
+
+#panel header.bottom {
+  position:absolute;
+  top:50%;
+  right:10px;
+  left:10px;
+  text-align:center;
+  font-size:21px;
+}
+#panel header.bottom .fa{
+  position:absolute;
+  top:-5px;
+  left:5px;
+  font-size:26px;
+  width:1em;
+}
+
+#panel .dialog.top {
+  bottom:calc(50% + 10px);
+}
+#panel .dialog.bottom {
+  top:calc(50% + 30px);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

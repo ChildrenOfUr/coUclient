@@ -1,9 +1,9 @@
 #windowHolder .window{
   position: absolute; 
-  top:calc(50% - 250px);
-  left:calc(50% - 250px);
+  top:calc(50% - 150px);
+  left:calc(40% - 250px);
   padding: 21px;
-  width:450px;
+  width:500px;
   height:300px;
   -moz-border-radius: 8px;
   border-radius: 8px;
@@ -30,7 +30,7 @@
   position:absolute;
   top:45px;
   left:10px;
-  width:460px;
+  width:512px;
   height:270px;
   background-color:#fff;
   -moz-border-radius: 8px;
@@ -39,12 +39,11 @@
   overflow-x:hidden;
 }
 
-
-
-.closeButton {
+.fa-times.close {
   color:#ba381a;
   position:absolute;
   top:10px;
-  left:443px;
+  left:490px;
   font-size:24px;
+  cursor:pointer;
 }

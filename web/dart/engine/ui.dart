@@ -34,6 +34,9 @@ class UserInterface {
   Element currLocation = querySelector('#currLocation'); 
   Element mapButton = querySelector('#mapButton');
   
+  // Settings Glyph
+  Element settingsButton = querySelector('#settingsGlyph');
+  
   // Currant Meter Variables
   Element currantElement = querySelector('#currCurrants'); 
 
@@ -86,19 +89,39 @@ class UserInterface {
   String SClink = '';
   
   /////////////////////VARS//////////////////////////////////////////////////
-  
   // start listening for events
   init(){
+        
+    // The 'you won' splash
     window.onBeforeUnload.listen((_) {
       youWon.hidden = false;
     });
     
+    
+    // Close button listener, closes popup windows
+    querySelectorAll('.fa-times.close').onClick.listen((MouseEvent m){
+      m.toElement.parent.hidden = true;
+    });
+        
+    // Starts the game
     playButton.onClick.listen((_) {
       loadingScreen.style.opacity = '0';
       new Timer(new Duration(seconds:1),() => loadingScreen.remove());
       playButton.remove();
     });
     
+    // Listens for the map button
+    mapButton.onClick.listen((_) {
+      openWindow('map');
+    });    
+    
+    // Listens for the settings button
+    settingsButton.onClick.listen((_) {
+      openWindow('settings');
+    });   
+    
+    
+    // Controls the volume slider and glyph
     session['volume'] = '10'; // initial value
     volumeGlyph.onClick.listen((_) {
       if (muted == true) {
@@ -202,12 +225,14 @@ class UserInterface {
     artistElement.text = SCartist;   
     if (SClink != SClinkElement.href)
       SClinkElement.href = SClink;
-        
-    
-    
-    
-    
   }
 
+  openWindow(String title) {
+    for (Element window in querySelectorAll('.window')) {
+      window.hidden = true;
+      if (window.querySelector('header').text.toLowerCase().trim() == title)
+        window.hidden = false;
+    }
+  }
   
 }
