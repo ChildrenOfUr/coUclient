@@ -109,7 +109,10 @@ class Player
 				}
 			}
 			if(!found)
+			{
 				climbingUp = false;
+				climbingDown = false;
+			}
 		}
 		
 		if(playerInput.downKey == true)
@@ -131,7 +134,29 @@ class Player
 				}
 			}
 			if(!found)
+			{
 				climbingDown = false;
+				climbingUp = false;
+			}
+		}
+		
+		if(playerInput.downKey == false && playerInput.upKey == false)
+		{
+			bool found = false;
+			Rectangle playerRect = new Rectangle(posX,posY+currentStreet._data['dynamic']['ground_y'],width,height);
+			for(Ladder ladder in currentStreet.ladders)
+			{
+				if(intersect(ladder.boundary,playerRect))
+				{
+					found = true;
+					break;
+				}
+			}
+			if(!found)
+			{
+				climbingDown = false;
+				climbingUp = false;
+			}
 		}
 		
 		if(playerInput.rightKey == true)
@@ -150,7 +175,7 @@ class Player
 			moving = false;
 			
 	    //primitive jumping
-		if (playerInput.jumpKey == true && !jumping)
+		if (playerInput.jumpKey == true && !jumping && !climbingUp && !climbingDown)
 		{
 			Random rand = new Random();
 			if(rand.nextInt(4) == 3)
