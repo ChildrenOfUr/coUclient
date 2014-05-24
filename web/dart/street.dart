@@ -134,7 +134,7 @@ class Street
 			{
 				DivElement decoCanvas = new DivElement()
 					..classes.add('streetcanvas');
-				decoCanvas.id = layer['name'];
+				decoCanvas.id = (layer['name'] as String).replaceAll(" ", "_");
 				
 				decoCanvas.style.zIndex = layer['z'].toString();
 				decoCanvas.style.width = layer['w'].toString() + 'px';
