@@ -35,17 +35,22 @@ part 'dart/engine/def/elements.dart';
 part 'dart/street.dart';
 part 'dart/player.dart';
 part 'dart/chat_bubble.dart';
+part 'dart/npc.dart';
 
 //localStorage to use throughout app
 Storage localStorage = window.localStorage;
 
 // Declare our game_loop
 double lastTime = 0.0;
+DateTime startTime = new DateTime.now();
+
 gameLoop(num delta)
 {
 	double dt = (delta-lastTime)/1000;
 	loop(dt);
 	render();
 	lastTime = delta;
+	//uncomment next line and comment 2 lines from here for max fps
+	//Timer.run(() => gameLoop(new DateTime.now().difference(startTime).inMilliseconds.toDouble()));
 	window.animationFrame.then(gameLoop);
 }

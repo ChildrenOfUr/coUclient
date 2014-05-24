@@ -7,7 +7,7 @@ class Player
 	int width, height, canvasHeight, speed;
 	num posX, posY;
 	num yVel, yAccel = -2400;
-	bool jumping = false, moving = false, facingRight = true;
+	bool jumping = false, moving = false, climbingUp = false, climbingDown = false, facingRight = true;
 	Map<String,Animation> animations = new Map();
 	Animation currentAnimation;
 	ChatBubble chatBubble = null;
@@ -28,8 +28,13 @@ class Player
 		height = 137;
 		speed = 300; //pixels per second
 		yVel = 0;
-		posX = 0.0;
-		posY = currentStreet.bounds.height - 170;
+		posX = 1.0;
+		posY = 0;//currentStreet.bounds.height - 170;
+		for(Platform platform in currentStreet.platforms)
+		{
+			if(platform.start.x == 1)
+				posY = platform.start.y-height;
+		}
 
 		playerCanvas = new DivElement()
 			..style.display = "inline-block"
@@ -64,6 +69,12 @@ class Player
   
 	update(double dt)
 	{
+		//wait for dt to settle down (hopefully)
+		if(dt > .1)
+			return;
+				
+		num cameFrom = posY;
+		
 		//show chat message if it exists and decrement it's timeToLive
 		if(chatBubble != null)
 		{
@@ -79,14 +90,82 @@ class Player
 			}
 		}
 		
-		//should be more general value 'speed'
-		if (playerInput.rightKey == true)
+		if(playerInput.upKey == true)
+		{
+			bool found = false;
+			Rectangle playerRect = new Rectangle(posX,posY+currentStreet._data['dynamic']['ground_y'],width,height-15);
+			for(Ladder ladder in currentStreet.ladders)
+			{
+				if(intersect(ladder.boundary,playerRect))
+				{
+					//if our feet are above the ladder, stop climbing
+					if(playerRect.top+playerRect.height < ladder.boundary.top)
+						break;
+					
+					posY -= speed/4 * dt;
+					climbingUp = true;
+					found = true;
+					break;
+				}
+			}
+			if(!found)
+			{
+				climbingUp = false;
+				climbingDown = false;
+			}
+		}
+		
+		if(playerInput.downKey == true)
+		{
+			bool found = false;
+			Rectangle playerRect = new Rectangle(posX,posY+currentStreet._data['dynamic']['ground_y'],width,height);
+			for(Ladder ladder in currentStreet.ladders)
+			{
+				if(intersect(ladder.boundary,playerRect))
+				{
+					//if our feet are below the ladder, stop climbing
+					if(playerRect.top+playerRect.height > ladder.boundary.top+ladder.boundary.height)
+						break;
+					
+					posY += speed/4 * dt;
+					climbingDown = true;
+					found = true;
+					break;
+				}
+			}
+			if(!found)
+			{
+				climbingDown = false;
+				climbingUp = false;
+			}
+		}
+		
+		if(playerInput.downKey == false && playerInput.upKey == false)
+		{
+			bool found = false;
+			Rectangle playerRect = new Rectangle(posX,posY+currentStreet._data['dynamic']['ground_y'],width,height);
+			for(Ladder ladder in currentStreet.ladders)
+			{
+				if(intersect(ladder.boundary,playerRect))
+				{
+					found = true;
+					break;
+				}
+			}
+			if(!found)
+			{
+				climbingDown = false;
+				climbingUp = false;
+			}
+		}
+		
+		if(playerInput.rightKey == true)
 		{
 			posX += speed * dt;
 			facingRight = true;
 			moving = true;
 		}
-		else if (playerInput.leftKey == true)
+		else if(playerInput.leftKey == true)
 		{
 			posX -= speed * dt;
 			facingRight = false;
@@ -96,7 +175,7 @@ class Player
 			moving = false;
 			
 	    //primitive jumping
-		if (playerInput.jumpKey == true && !jumping)
+		if (playerInput.jumpKey == true && !jumping && !climbingUp && !climbingDown)
 		{
 			Random rand = new Random();
 			if(rand.nextInt(4) == 3)
@@ -108,31 +187,45 @@ class Player
 	    
 	    //needs acceleration, some gravity const somewhere
 	    //for jumps/falling	    
-		if(doPhysicsApply)
+		if(doPhysicsApply && !climbingUp && !climbingDown)
 		{
 			yVel -= yAccel * dt;
 			posY += yVel * dt;
 	    }
 		else
 		{
-			if (playerInput.downKey == true)
+			if(playerInput.downKey == true)
 				posY += speed * dt;
-			if (playerInput.upKey == true)
+			if(playerInput.upKey == true)
 				posY -= speed * dt;
 	    }
 	    
-	    if (posX < 0)
+	    if(posX < 0)
 			posX = 0.0;
-	    if (posX > currentStreet.bounds.width - width)
+	    if(posX > currentStreet.bounds.width - width)
 			posX = currentStreet.bounds.width - width;
-	    if (posY > currentStreet.bounds.height - canvasHeight)
+	    
+	    //check for collisions with platforms
+	    if(!climbingDown && yVel >= 0)
 		{
-			posY = currentStreet.bounds.height - canvasHeight;
-			yVel = 0;
-			jumping = false;
+			num x = posX+width/2;
+			Platform bestPlatform = _getBestPlatform(cameFrom);
+			
+			num goingTo = posY+height+currentStreet._data['dynamic']['ground_y'];
+			num slope = (bestPlatform.end.y-bestPlatform.start.y)/(bestPlatform.end.x-bestPlatform.start.x);
+			num yInt = bestPlatform.start.y - slope*bestPlatform.start.x;
+			num lineY = slope*x+yInt;
+			
+			if(goingTo >= lineY)
+			{
+				posY = lineY-height-currentStreet._data['dynamic']['ground_y'];
+				yVel = 0;
+				jumping = false;
+			}
 		}
-	    if (posY < 0)
-			posY = 0.0;
+	    
+	    if(posY < 0)
+			posY = 0.0;	    
 			
 		if(!moving && !jumping)
 			currentAnimation = animations['idle'];
@@ -210,48 +303,20 @@ class Player
 		Rectangle avatarRect = avatar.getBoundingClientRect();
 		querySelectorAll(".quoin").forEach((Element element)
 		{
-			Rectangle currant = element.getBoundingClientRect();
-			if(streetSocket != null && streetSocket.readyState == WebSocket.OPEN && intersect(avatarRect,currant))
+			checkCollision(avatarRect,element);
+		});
+		querySelectorAll(".npc").forEach((Element element)
+		{
+			Rectangle npcRect = element.getBoundingClientRect();
+			if(intersect(avatarRect,npcRect))
 			{
-				if(int.parse(prevVolume) > 0 && isMuted == '0')
-				{
-					AudioElement dropSound = ASSET['drop'].get();
-        		    dropSound.volume = int.parse(prevVolume)/100;
-        		    dropSound.play();
-				}
-				int amt = rand.nextInt(4)+1;
-				Element quoinText = querySelector("#qq"+element.id+" .quoinString");
-				if(element.classes.contains("currant"))
-				{
-					quoinText.text = "+" + amt.toString() + "\u20a1";
-					setCurrants((getCurrants()+amt).toString());
-				}
-				if(element.classes.contains("mood"))
-				{
-					quoinText.text = "+" + amt.toString() + " mood";
-					setMood((getMood()+amt).toString());
-				}
-				if(element.classes.contains("energy"))
-				{
-                	quoinText.text = "+" + amt.toString() + " energy";
-                	setEnergy((getEnergy()+amt).toString());
-				}
-				if(element.classes.contains("img"))
-				{
-                	quoinText.text = "+" + amt.toString() + " iMG";
-                	setImg((getImg()+amt).toString());
-				}
-				querySelector("#q"+element.id).classes.add("circleExpand");
-				querySelector("#qq"+element.id).classes.add("circleExpand");
-				new Timer(new Duration(seconds:2), () => querySelector("#qq"+element.id).classes.remove("circleExpand"));
-				new Timer(new Duration(milliseconds:800), () => querySelector("#q"+element.id).classes.remove("circleExpand"));
-				element.style.display = "none"; //.remove() is very slow
-				
-				Map map = new Map();
-				map["remove"] = element.id;
-				map["type"] = "quoin";
-				map["streetName"] = currentStreet.label;
-				streetSocket.send(JSON.encode(map));
+				if(npcs[element.id] != null)
+					npcs[element.id].glow = true;
+			}
+			else
+			{
+				if(npcs[element.id] != null)
+					npcs[element.id].glow = false;
 			}
 		});
 	}
@@ -264,11 +329,97 @@ class Player
 		//CurrentPlayer.playerCanvas.context2D.drawImage(avatar, 0, 0);
 	}
 	
+	void checkCollision(Rectangle avatarRect, Element element)
+	{
+		Rectangle quoinRect = element.getBoundingClientRect();
+		if(intersect(avatarRect,quoinRect))
+		{
+			if(ASSET['drop'] != null && int.parse(prevVolume) > 0 && isMuted == '0')
+			{
+				AudioElement dropSound = ASSET['drop'].get();
+    		    dropSound.volume = int.parse(prevVolume)/100;
+    		    dropSound.play();
+			}
+			int amt = rand.nextInt(4)+1;
+			Element quoinText = querySelector("#qq"+element.id+" .quoinString");
+			if(element.classes.contains("currant"))
+			{
+				quoinText.text = "+" + amt.toString() + "\u20a1";
+				setCurrants((getCurrants()+amt).toString());
+			}
+			else if(element.classes.contains("mood"))
+			{
+				quoinText.text = "+" + amt.toString() + " mood";
+				setMood((getMood()+amt).toString());
+			}
+			else if(element.classes.contains("energy"))
+			{
+            	quoinText.text = "+" + amt.toString() + " energy";
+            	setEnergy((getEnergy()+amt).toString());
+			}
+			else if(element.classes.contains("img"))
+			{
+            	quoinText.text = "+" + amt.toString() + " iMG";
+            	setImg((getImg()+amt).toString());
+			}
+			querySelector("#q"+element.id).classes.add("circleExpand");
+			querySelector("#qq"+element.id).classes.add("circleExpand");
+			new Timer(new Duration(seconds:2), () => _removeCircleExpand(querySelector("#qq"+element.id)));
+			new Timer(new Duration(milliseconds:800), () => _removeCircleExpand(querySelector("#q"+element.id)));
+			element.style.display = "none"; //.remove() is very slow
+			
+			if(streetSocket != null && streetSocket.readyState == WebSocket.OPEN)
+			{
+				Map map = new Map();
+    			map["remove"] = element.id;
+    			map["type"] = "quoin";
+    			map["streetName"] = currentStreet.label;
+    			streetSocket.send(JSON.encode(map));
+			}
+		}
+	}
+	
+	void _removeCircleExpand(Element element)
+	{
+		if(element != null)
+			element.classes.remove("circleExpand");
+	}
+	
 	bool intersect(Rectangle a, Rectangle b) 
 	{
-      return (a.left <= b.right &&
-              b.left <= a.right &&
-              a.top <= b.bottom &&
-              b.top <= a.bottom);
+		return (a.left <= b.right &&
+				b.left <= a.right &&
+				a.top <= b.bottom &&
+				b.top <= a.bottom);
     }
+	
+	//ONLY WORKS IF PLATFORMS ARE SORTED WITH
+	//THE HIGHEST (SMALLEST Y VALUE) FIRST IN THE LIST
+	Platform _getBestPlatform(num cameFrom)
+	{
+		Platform bestPlatform;
+		num x = posX+width/2;
+		num from = cameFrom+height+currentStreet._data['dynamic']['ground_y'];
+		
+		for(Platform platform in currentStreet.platforms)
+		{
+			if(x >= platform.start.x && x <= platform.end.x)
+			{
+				num slope = (platform.end.y-platform.start.y)/(platform.end.x-platform.start.x);
+    			num yInt = platform.start.y - slope*platform.start.x;
+    			num lineY = slope*x+yInt;
+    			    			    			
+    			if(bestPlatform == null)
+					bestPlatform = platform;
+				else
+				{
+					//+5 helps with upward slopes and not falling through things
+					if(lineY+5 >= from)
+						bestPlatform = platform;
+				}
+			}
+		}
+		
+		return bestPlatform;
+	}
 }
