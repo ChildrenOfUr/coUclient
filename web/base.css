@@ -253,7 +253,8 @@ textarea{resize: none;}
    right:0px;
    bottom:0px;
    opacity:1.0;
-   z-index:2;
+   z-index:3;
+   pointer-events: none;
     
     transition-property: opacity;
     transition-duration: 1s;
@@ -333,40 +334,23 @@ textarea{resize: none;}
 	-webkit-mask-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC);
 }
 
-#Exits {
-	position: absolute;
-	top: 10px;
-	right: 10px;
-	background: rgba(255, 255, 255, 0.53);
-	padding: 5px;
-	z-index: 3;
-}
-
-.ExitsExpanded {
-	cursor: pointer;
-}
-
-.ExitsCollapsed {
-	height: 1em;
-	overflow: hidden;
-	cursor: pointer;
-}
-
 .ExitLabel {
-	display: block;
+	padding: 12px;
+	color: rgb(243, 243, 243);
 	cursor: pointer;
+	background-image: url("http://childrenofur.com/locodarto/scenery/exit_sign.png");
+	background-size: 100%;
+	background-position-y: 30%;
+}
+.ExitLabel:hover {
+	-webkit-filter: drop-shadow(0px 0px 5px rgba(0,0,220,1));
+    filter: url("data:image/svg+xml;utf8,<svg height='0' xmlns='http://www.w3.org/2000/svg'><filter id='drop-shadow'><feGaussianBlur in='SourceAlpha' stdDeviation='4'/><feOffset dx='0' dy='0' result='offsetblur'/><feFlood flood-color='rgba(0,0,220,1)'/><feComposite in2='offsetblur' operator='in'/><feMerge><feMergeNode/><feMergeNode in='SourceGraphic'/></feMerge></filter></svg>#drop-shadow");
+    -ms-filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=0, OffY=0, Color='#dc')";
+    filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=0, OffY=0, Color='#dc')";
 }
 
 .streetcanvas {
-				/*
-    transition-property: top right;
-    transition-duration: 0.5s;
-    transition-timing-function: ease-in-out;
-    transition-delay: 0s;
-    -webkit-transition-property: top right;
-    -webkit-transition-duration:0.5s;
-    -webkit-transition-timing-function:ease-in-out;
-    -webkit-transition-delay:0s;    */
+	pointer-events: none;
 }
 /*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 /*Elements in the top, left corner*/
@@ -1527,4 +1511,6 @@ quoin graphic
 .circleExpand .quoinString {
     opacity: 1;
 }
-
+#PlayerHolder {
+	pointer-events: none;
+}

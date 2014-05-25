@@ -326,7 +326,7 @@ class Input
 				chatMenu.hidden = true;
 		}
 		
-		//handle changing streets via exit labels
+		//handle changing streets via exit signs
 		if(target.className == "ExitLabel")
 		{
 			//make sure loading screen is visible during load
@@ -335,23 +335,8 @@ class Input
 			loadingScreen.style.opacity = "1.0";
 			ScriptElement loadStreet = new ScriptElement();
 			loadStreet.src = target.attributes['url'];
+			playerTeleFrom = target.attributes['from'];
 			document.body.append(loadStreet);
-		}
-		
-		if(target.id == "Exits")
-		{
-			if(target.classes.contains("ExitsExpanded"))
-			{
-				target.classes.clear();
-				target.classes.add("ExitsCollapsed");
-				target.classes.add("icon-expand-alt");
-			}
-			else
-			{
-				target.classes.clear();
-				target.classes.add("ExitsExpanded");
-				target.classes.add("icon-collapse-alt");
-			}
 		}
 		
 		//show and hide map
