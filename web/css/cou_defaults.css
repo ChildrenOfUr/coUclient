@@ -35,8 +35,8 @@ main {
   margin:auto;
   width:100%;
   max-width:1300px;
-  min-width:658px;
+  min-width:805px;
   height:calc(100vh - 12pt);
   max-height:750px;
-  min-height:380px;
+  min-height:450px;
 }

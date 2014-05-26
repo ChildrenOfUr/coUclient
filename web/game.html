@@ -15,20 +15,25 @@
   <body>
     
     
-    <main>
     
-      <div id="loading">
+    
+    <div id="loading">
         <div class="splash">
           Children of<br>
           <img src="./assets/system/logo.svg"><br>
           <i class="fa fa-circle-o-notch fa-spin" hidden></i><br>   
-          <div id="playButton" class="button">PLAY</div>    
+          <div id="playButton" class="button">PLAY</div>
+          <div id="mobileButton" class="button">
+            <i class="fa fa-mobile"></i>
+          </div>        
         </div>
         <div id="loadstatus">Loading</div>
         <br>
         <div id="loadstatus2">This Stuff</div>
       </div>
     
+    
+    <main>
     
       <span id="playerName"></span>
       
@@ -71,9 +76,7 @@
       <div id="mapDisplay">
         <div class="label">
         Current Location:</div>
-        <div id="currLocation">
-          Super High Land
-        </div>
+        <div id="currLocation"></div>
         
         <div id="mapButton" class="button light">
           <i class="fa fa-map-marker"></i>
@@ -102,9 +105,22 @@
       <span id="currDate">Nth of N</span>
 
       <div id="game">
-        <div id="overlayHolder" hidden>
-          <div id="pauseMenu" class="overlay">
-          
+        <div id="overlayHolder">
+          <div id="pauseMenu" class="overlay" hidden>
+           <i class="fa-li fa fa-times close"></i>
+            
+            <div id="pauseSkills">
+              <h2>Skills</h2>
+            </div>
+
+            <div id="pauseQuests">
+              <h2>Quests</h2>
+            </div>
+            
+            <div id="pauseUpgrades">
+              <h2>Upgrades</h2>
+            </div>            
+
           </div>
         </div>
       </div>
@@ -122,12 +138,7 @@
         <div class="box"></div>
         <div class="box"></div>
         <div class="box"></div>
-        <div class="box"></div>
-        <div class="box"></div>
-        <div class="box"></div>
-        <div class="box"></div>
-
-      
+        <div class="box"></div>      
       </div>
       
       
@@ -251,7 +262,7 @@
 
     
     
-    <footer hidden>
+    <footer>
     Copyright 2014 CoU Development Team, Children of Ur is not endorsed by or affiliated with <a href="http://tinyspeck.com/">Tiny Speck, Inc.</a> (The makers of <a href="http://glitchthegame.com">Glitch</a>) in any way.
     </footer>
    

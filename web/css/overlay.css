@@ -1,14 +1,43 @@
+#overlayHolder {
+  width:100%;
+  height:100%;
+}
+
 .overlay {
-  position:fixed;
-  top:50px;
-  left:20px;
-  width:calc(100% - 280px);
-  max-width:calc(100% - 40px);
-  min-width:calc(300px - 40px);
-  height:calc(100% - 140px);
-  opacity:0.6;
+  position:absolute;
+  top:0%;
+  left:0%;
+  width:100%;
+  height:100%;
+}
+.overlay .close {
+  position:absolute;
+  top:10px;
+  font-size:1.5em;
+  left:calc(100% - 2em);
+  cursor: pointer;
 }
 
 #pauseMenu {
-  background-color:#000;
+  background-color:rgba(0,0,0,0.5);
+}
+#pauseMenu * {
+  color:#fff;
+}
+#pauseMenu #pauseSkills {
+  position:absolute;
+  left:calc(40% - 5em);
+  top:10%;
+}
+
+#pauseMenu #pauseQuests {
+  position:absolute;
+  right:calc(50% - 3em);
+  top:10%;
+}
+
+#pauseMenu #pauseUpgrades {
+  position:absolute;
+  right:calc(35% - 6em);
+  top:10%;
 }

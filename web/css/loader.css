@@ -3,7 +3,7 @@
   top:0;
   left:0;
   width:100%;
-  height:calc(100%);
+  height:100%;
   background-color:#eee;
   z-index:100;
   font-size:20px;
@@ -28,14 +28,25 @@
 #loading .splash {
   text-align:center;
   position:absolute;
-  left:calc(50% - 60px);
+  left:calc(50% - 94px);
   top:30%;
-  width:125px;
+  width:200px;
 }
 #playButton {
   font-size:23px;
   padding:12px;
   margin-top:30px;
+  height:30px;
+  width:95px;
+}
+
+#mobileButton {
+  font-size:23px;
+  padding:12px;
+  margin-top:-61px;
+  height:30px;
+  left:130px;
+  width:30px;
 }
 
 #loading #loadstatus {

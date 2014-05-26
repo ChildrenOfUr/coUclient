@@ -16,6 +16,8 @@
   position:absolute;
   width:30px;
   left:-45px;
+  z-index:2;
+  cursor: pointer;
 }
 #thinkButton:hover {
   opacity:0.5;

@@ -1,27 +1,28 @@
 #inventory {
   position:absolute;
-  top:calc(100% - 90px);
-  left:20px;
-  right:260px;
+  bottom:10px;
+  left:15px;
   padding:5px;
-  height:55px;
-  width:calc(100% - 280px);
+  height:70px;
+  width:calc(100% - 290px);
   max-width:calc(100% - 40px);
   min-width:calc(300px - 40px);
-  overflow-y:hidden;
-  overflow-x:auto;
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+  text-align:center;
 }
 
 #inventory .box {
   background-color: #fff;
-  float:left;
   -moz-border-radius: 8px;
   border-radius: 8px;
-  width:50px;
-  height:50px;
-  margin:3px 1px;
+  width:45px;
+  height:45px;
+  margin:3px 0px;
   border-left:1px solid rgba(0,0,0,0.1);
   border-bottom:3px solid rgba(0,0,0,0.2);
   z-index:1;
   box-shadow: 0 0 15px 1px rgba(0,0,0,0.05); 
+  display: inline-block;  
 }

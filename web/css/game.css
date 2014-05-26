@@ -8,7 +8,7 @@
   height:calc(100% - 140px);
   background-color:#5cb85c;
   border-radius:10px;
-  overflow:hidden;
+
   /* this fixes the overflow:hidden in Chrome not clipping it's contents to the border-radius
   more information here: http://stackoverflow.com/questions/5736503/how-to-make-css3-rounded-corners-hide-overflow-in-chrome-opera*/
   -webkit-mask-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC);

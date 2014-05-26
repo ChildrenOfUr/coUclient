@@ -1,8 +1,9 @@
 footer {
   position:absolute;
-  bottom:0;
+  top:calc(100% - 1.1em);
   font-size:8pt;
   color:#999;
+  z-index:-1;
 }
 footer a {
   color: #4b2e4c;

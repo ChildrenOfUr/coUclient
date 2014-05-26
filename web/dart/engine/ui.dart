@@ -43,6 +43,10 @@ class UserInterface {
   // Img Meter Variables
   Element imgElement = querySelector('#currImagination');
 
+  // Pause button
+  Element pauseButton = querySelector('#thinkButton');
+  Element pauseMenu = querySelector('#pauseMenu');
+  
   // Music Meter Variables
   Element titleElement = querySelector('#trackTitle'); 
   Element artistElement = querySelector('#trackArtist'); 
@@ -106,8 +110,10 @@ class UserInterface {
     // Starts the game
     playButton.onClick.listen((_) {
       loadingScreen.style.opacity = '0';
-      new Timer(new Duration(seconds:1),() => loadingScreen.remove());
-      playButton.remove();
+      new Timer(new Duration(seconds:1),() {
+        loadingScreen.remove();
+        }
+      );
     });
     
     // Listens for the map button
@@ -119,6 +125,11 @@ class UserInterface {
     settingsButton.onClick.listen((_) {
       openWindow('settings');
     });   
+    
+    // Listens for the pause button
+    pauseButton.onClick.listen((_) {
+      pauseMenu.hidden = false;
+    });  
     
     
     // Controls the volume slider and glyph
@@ -152,6 +163,7 @@ class UserInterface {
     // Update img display
     if (commaFormatter.format(img) != imgElement.text)
     imgElement.text = commaFormatter.format(img);
+    
     
     
     // Update currant display
