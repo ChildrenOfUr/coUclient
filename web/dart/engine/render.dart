@@ -31,9 +31,6 @@ render()
 	else
 		fpsDisplay.style.display = "none";
 	
-	// Update clock
-	refreshClock();
-	
 	//Draw Street
 	if (currentStreet is Street)
 		currentStreet.render();
