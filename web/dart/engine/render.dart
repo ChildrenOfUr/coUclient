@@ -40,4 +40,7 @@ render()
 	
 	//draw npcs
 	npcs.forEach((String id, NPC npc) => npc.render());
+	
+	//draw other players
+	otherPlayers.forEach((String name, Player player) => player.render());
 }

@@ -162,29 +162,21 @@ sendPlayerInfo()
 createOtherPlayer(Map map)
 {
 	Player otherPlayer = new Player(map["username"]);
-	
-	updateOtherPlayer(map,otherPlayer);
-	
-	otherPlayers[map["username"]] = otherPlayer;
-	querySelector("#PlayerHolder").append(otherPlayer.playerCanvas);
+	otherPlayer.loadAnimations().then((_)
+	{
+		updateOtherPlayer(map,otherPlayer);
+        	
+        otherPlayers[map["username"]] = otherPlayer;
+        querySelector("#PlayerHolder").append(otherPlayer.playerParentElement);
+	});
 }
 
 updateOtherPlayer(Map map, Player otherPlayer)
 {
-	otherPlayer.currentAnimation = CurrentPlayer.animations[map["animation"]];
-	if(!otherPlayer.avatar.style.backgroundImage.contains(otherPlayer.currentAnimation.backgroundImage))
-	{
-		otherPlayer.avatar.style.backgroundImage = 'url('+otherPlayer.currentAnimation.backgroundImage+')';
-		otherPlayer.avatar.style.width = otherPlayer.currentAnimation.width.toString()+'px';
-		otherPlayer.avatar.style.height = otherPlayer.currentAnimation.height.toString()+'px';
-		otherPlayer.avatar.style.animation = otherPlayer.currentAnimation.animationStyleString;
-		otherPlayer.canvasHeight = otherPlayer.currentAnimation.height+50;
-	}
+	otherPlayer.currentAnimation = otherPlayer.animations[map["animation"]];
+	otherPlayer.playerParentElement.id = "player-"+map["username"];
+	otherPlayer.playerParentElement.style.position = "absolute";
 	
-	otherPlayer.playerCanvas.style.position = "absolute";
-	otherPlayer.playerCanvas.id = "player-"+map["username"];
-	
-
 	double x = double.parse(map["xy"].split(',')[0]);
 	double y = double.parse(map["xy"].split(',')[1]);
 

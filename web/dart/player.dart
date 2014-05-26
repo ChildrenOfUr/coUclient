@@ -4,9 +4,9 @@ Player CurrentPlayer;
 
 class Player
 {
-	int width, height, canvasHeight, speed;
-	num posX, posY;
-	num yVel, yAccel = -2400;
+	int width = 116, height = 137, speed = 300;
+	num posX = 1.0, posY = 0.0;
+	num yVel = 0, yAccel = -2400;
 	bool jumping = false, moving = false, climbingUp = false, climbingDown = false, facingRight = true;
 	Map<String,Animation> animations = new Map();
 	Animation currentAnimation;
@@ -17,49 +17,40 @@ class Player
 	//if false, player can move around with wasd and arrows, no falling
 	bool doPhysicsApply = true;
   
-	DivElement playerCanvas;
-	DivElement avatar;
+	DivElement playerParentElement;
+	CanvasElement playerCanvas;
 	DivElement playerName;
   
 	Player([String name])
 	{
-		//TODO: Remove hard-coded values used for testing
-		width = 116;
-		height = 137;
-		speed = 300; //pixels per second
-		yVel = 0;
-		posX = 1.0;
-		posY = 0;//currentStreet.bounds.height - 170;
 		for(Platform platform in currentStreet.platforms)
 		{
 			if(platform.start.x == 1)
 				posY = platform.start.y-height;
 		}
 
-		playerCanvas = new DivElement()
-			..style.display = "inline-block"
-			..style.textAlign = "center";
+		playerCanvas = new CanvasElement();
 		
 		playerName = new DivElement()
-			..text = name != null? name : chat.username;
+			..text = name != null ? name : chat.username;
+				
+		playerParentElement = new DivElement()
+			..style.width = width.toString() + "px"
+			..style.height = height.toString() + "px"
+			..style.textAlign = "center"
+			..style.display = "inline-block";
 		
-		avatar = new DivElement();
-		
-		playerCanvas.append(playerName);
-		playerCanvas.append(avatar);
-		
-		gameScreen.append(playerCanvas);
-		
-		canvasHeight = playerCanvas.clientHeight;
+		playerParentElement.append(playerName);
+		playerParentElement.append(playerCanvas);
+		gameScreen.append(playerParentElement);
 	}
 	
 	Future<List<Animation>> loadAnimations()
 	{
 		//need to get background images from some server for each player based on name
-		animations['idle'] = new Animation("assets/sprites/idle.png",'idle');
-		animations['base'] = new Animation("assets/sprites/base.png",'base');
-		animations['jump'] = new Animation("assets/sprites/jump.png",'jump');
-		animations['stillframe'] = new Animation("assets/sprites/base.png",'stillframe');
+		animations['idle'] = new Animation("assets/sprites/idle.png",'idle',2,29,numFrames:57);
+		animations['base'] = new Animation("assets/sprites/base.png",'base',1,15,numFrames:12);
+		animations['jump'] = new Animation("assets/sprites/jump.png",'jump',1,33);
 		
 		List<Future> futures = new List();
 		animations.forEach((String name,Animation animation) => futures.add(animation.load()));
@@ -82,7 +73,7 @@ class Player
 			else
 			{
 				chatBubble.timeToLive -= dt;
-				playerCanvas.append(chatBubble.bubble);
+				playerParentElement.append(chatBubble.bubble);
 			}
 		}
 		
@@ -229,19 +220,10 @@ class Player
 			currentAnimation = animations['base'];
 		else if(jumping)
 			currentAnimation = animations['jump'];
-		else
-			currentAnimation = animations['stillframe'];
 		
-		if(!avatar.style.backgroundImage.contains(currentAnimation.backgroundImage))
-		{
-			avatar.style.backgroundImage = 'url('+currentAnimation.backgroundImage+')';
-			avatar.style.width = currentAnimation.width.toString()+'px';
-			avatar.style.height = currentAnimation.height.toString()+'px';
-			avatar.style.animation = currentAnimation.animationStyleString;
-			canvasHeight = currentAnimation.height+50;
-		}
+		currentAnimation.updateSourceRect(dt);
 						
-		num translateX = posX, translateY = ui.gameScreenHeight - canvasHeight;
+		num translateX = posX, translateY = ui.gameScreenHeight - height;
 		num camX = camera.getX(), camY = camera.getY();
 		if(posX > currentStreet.bounds.width - width/2 - ui.gameScreenWidth/2)
 		{
@@ -256,16 +238,16 @@ class Player
 		else
 			camX = 0;
 		
-		if(posY + canvasHeight/2 < ui.gameScreenHeight/2)
+		if(posY + height/2 < ui.gameScreenHeight/2)
 		{
 			camY = 0;
 			translateY = posY;
 		}
-		else if(posY < currentStreet.bounds.height - canvasHeight/2 - ui.gameScreenHeight/2)
+		else if(posY < currentStreet.bounds.height - height/2 - ui.gameScreenHeight/2)
 		{
-			num yDistanceFromBottom = currentStreet.bounds.height - posY - canvasHeight/2;
+			num yDistanceFromBottom = currentStreet.bounds.height - posY - height/2;
 			camY = currentStreet.bounds.height - (yDistanceFromBottom + ui.gameScreenHeight/2);
-			translateY = ui.gameScreenHeight/2 - canvasHeight/2;
+			translateY = ui.gameScreenHeight/2 - height/2;
 		}
 		else
 		{
@@ -293,10 +275,10 @@ class Player
 				chatBubble.textElement.style.transform = 'scale(1,1)';
 		}
 		
-		playerCanvas.style.transform = transform;
+		playerParentElement.style.transform = transform;
 		
 		//check for collision with quoins
-		Rectangle avatarRect = avatar.getBoundingClientRect();
+		Rectangle avatarRect = playerParentElement.getBoundingClientRect();
 		querySelectorAll(".quoin").forEach((Element element)
 		{
 			checkCollision(avatarRect,element);
@@ -319,10 +301,15 @@ class Player
   
 	render()
 	{
-		//Need scaling; some levels change player's apparent size
-		//scaling should be done as needed, not in render cycle
-		//CurrentPlayer.playerCanvas.context2D.clearRect(0, 0, width, height);
-		//CurrentPlayer.playerCanvas.context2D.drawImage(avatar, 0, 0);
+		if(currentAnimation != null && currentAnimation.dirty)
+		{
+			//it's not obvious, but setting the width and/or height erases the current canvas as well
+			playerCanvas.width = currentAnimation.width;
+			playerCanvas.height = currentAnimation.height;
+    		Rectangle destRect = new Rectangle(0,0,currentAnimation.width,currentAnimation.height);
+    		playerCanvas.context2D.drawImageToRect(currentAnimation.spritesheet, destRect, sourceRect: currentAnimation.sourceRect);
+    		currentAnimation.dirty = false;
+		}
 	}
 	
 	void checkCollision(Rectangle avatarRect, Element element)
