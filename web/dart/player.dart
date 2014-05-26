@@ -68,11 +68,7 @@ class Player
 	}
   
 	update(double dt)
-	{
-		//wait for dt to settle down (hopefully)
-		if(dt > .1)
-			return;
-				
+	{	
 		num cameFrom = posY;
 		
 		//show chat message if it exists and decrement it's timeToLive
