@@ -238,7 +238,7 @@ class Street
 						if(deco['r'] != null)
 						{
 							transform += "rotate("+deco['r'].toString()+"deg)";
-							d.style.transformOriginY = "bottom";
+							d.style.transformOrigin = "50% bottom 0";
 						}
 						if(deco['h_flip'] != null && deco['h_flip'] == true)
                         	transform += " scale(-1,1)";
