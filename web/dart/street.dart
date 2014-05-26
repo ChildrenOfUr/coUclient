@@ -235,13 +235,13 @@ class Street
 						d.style.height = h.toString() + 'px';
 						d.style.zIndex = z.toString();
 						String transform = "";
-						if(deco['h_flip'] != null && deco['h_flip'] == true)
-							transform += "scale(-1,1)";
 						if(deco['r'] != null)
 						{
-							transform += " rotate("+deco['r'].toString()+"deg)";
+							transform += "rotate("+deco['r'].toString()+"deg)";
 							d.style.transformOriginY = "bottom";
 						}
+						if(deco['h_flip'] != null && deco['h_flip'] == true)
+                        	transform += " scale(-1,1)";
 						d.style.transform = transform;
 						decoCanvas.append(d.clone(false));
 					}
