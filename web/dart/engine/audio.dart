@@ -1,35 +1,8 @@
 part of couclient;
 // Handles all the engine's audio needs
 
-//respect previous volume setting (if any)
-String prevVolume = localStorage['prevVolume'];
-String isMuted = localStorage['isMuted'];
-
 // Stores all the loaded user interface sounds.
 Batch ui_sounds;
-
-init_audio()
-{
-	if(prevVolume != null)
-	{
-		setVolume(prevVolume,false);
-		(querySelector('#VolumeSlider') as InputElement).value = prevVolume;
-		querySelector('#rangevalue').text = prevVolume;
-	}
-	else
-	{
-		prevVolume = '50';
-		localStorage['prevVolume'] = '50';
-		setVolume(prevVolume,false);
-	}
-	
-	if(isMuted == null)
-	{
-		isMuted = '0';
-		localStorage['isMuted'] = '0';
-	}
-	ui._setMute(isMuted);
-}
 
 Future load_audio()
 {
@@ -49,14 +22,14 @@ Future load_audio()
 	        new Asset('./assets/system/drop.mp3'),
 	        new Asset('./assets/system/game_loaded.mp3')
         ])
-	..load(print,querySelector("#LoadStatus2")).then((_)
+	..load(print,display.loadStatus2).then((_)
 	{
 		//start the loading music and attach it to the #LoadingScreen so that when that is removed the music stops
-		if(int.parse(prevVolume) > 0 && isMuted == '0')
+		if(display.volume > 0 && display.muted == false)
 		{
 			AudioElement loading = ASSET['loading'].get();
-			loading.volume = int.parse(prevVolume)/100;
-			querySelector('#LoadingScreen').append(loading);
+			loading.volume = display.volume/100;
+			display.loadingScreen.append(loading);
 			loading.play();
 		}
 		c.complete();
@@ -71,7 +44,7 @@ Future load_audio()
 		// Load the names and track id's of the music.json file but save actually loading the media file
 		// until it is requested (whether by street load or by setsong command)
 		Asset soundCloudSongs = new Asset('./assets/music.json');
-		soundCloudSongs.load(querySelector("#LoadStatus2"));
+		soundCloudSongs.load(display.loadStatus2);
 	});
     return c.future;
 }
@@ -80,10 +53,10 @@ Future loadSong(String name)
 {
 	Completer c = new Completer();
 	
-	ui.sc.load(ASSET['music'].get()[name]['scid'])
+	display.sc.load(ASSET['music'].get()[name]['scid'])
 	.then((Scound s) 
 	{
-		ui.jukebox[name] = s;
+		display.jukebox[name] = s;
 		c.complete();
 	});
 	

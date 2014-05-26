@@ -26,3 +26,34 @@
   box-shadow: 0 0 15px 1px rgba(0,0,0,0.05); 
   display: inline-block;  
 }
+.box .icon {
+  position:absolute;
+  width:35px;
+  height:35px;
+  top:calc(50% - 17.5px);
+  left:calc(50% - 17.5px);
+}
+
+
+
+#inventorySearch {
+  background-color:#eee;
+  width:35px;
+  height:35px;
+  border-radius:50%;
+  position:absolute;
+  bottom:70px;
+  left:0px;  
+  cursor:pointer;
+  z-index:0;
+}
+#inventorySearch * {
+  color:#bbb;
+  position:absolute;
+  top:calc(40% - 0.5em);
+  right:calc(40% - 0.5em);
+  cursor:pointer;
+}
+#inventorySearch:hover, #inventorySearch *:hover {
+  color:#999;
+}

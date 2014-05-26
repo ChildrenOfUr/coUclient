@@ -1,10 +1,10 @@
 #windowHolder .window{
   position: absolute; 
-  top:calc(40% - 150px);
-  left:calc(50% - 250px);
+  top:calc(40% - 170px);
+  left:calc(50% - 285px);
   padding: 21px;
-  width:500px;
-  height:300px;
+  width:550px;
+  height:350px;
   -moz-border-radius: 8px;
   border-radius: 8px;
   background-color: #eee;
@@ -26,24 +26,44 @@
   font-family: 'Tahoma', 'Geneva', 'sans-serif';
   color:#000;
   font-size:12px;
-  padding:5px;
+  padding:0;
   position:absolute;
   top:45px;
   left:10px;
-  width:512px;
-  height:270px;
+  width:560px;
+  height:320px;
   background-color:#fff;
   -moz-border-radius: 8px;
   border-radius: 8px;
-  overflow:auto;
-  overflow-x:hidden;
+  overflow:hidden;
 }
 
 .window .fa-times.close {
   color:#ba381a;
   position:absolute;
   top:10px;
-  left:490px;
+  left:545px;
   font-size:24px;
   cursor:pointer;
+}
+
+#bugWindow textarea {
+  margin:3%;
+  width:92%;
+  height:200px;
+  margin-bottom:5px;
+}
+#bugWindow .button {
+  float:right;
+  width:50px;
+  margin:3%;
+  margin-top:0;
+}
+
+
+#motdFrame {
+  border:none;
+  height:100%;
+  width:100%;
+  margin:0;
 }

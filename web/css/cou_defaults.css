@@ -16,13 +16,14 @@ html {
 }
 
 
-p, footer, input {
+p, footer, input, textarea {
   font-family: 'Tahoma', 'Geneva', 'sans-serif';
   cursor: auto;
   -webkit-user-select: text;
   -moz-user-select: text;
   user-select: text;
   color: #000;
+  resize: none;
 }
  a {
  cursor: auto;
@@ -35,8 +36,9 @@ main {
   margin:auto;
   width:100%;
   max-width:1300px;
-  min-width:805px;
+  min-width:800px;
   height:calc(100vh - 12pt);
   max-height:750px;
-  min-height:450px;
+  min-height:500px;
+  overflow:hidden;
 }

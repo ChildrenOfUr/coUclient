@@ -3,6 +3,11 @@ part of couclient;
 UserInterface display = new UserInterface();
 class UserInterface {
   
+  // Music Variables
+  SC sc = new SC('7d2a07867f8a3d47d4f059b600b250b1');
+  Map jukebox = new Map();
+  Scound currentSong;
+  
   //NumberFormat for having commas in the currants and iMG displays
   NumberFormat commaFormatter = new NumberFormat("#,###");
   
@@ -43,9 +48,17 @@ class UserInterface {
   // Img Meter Variables
   Element imgElement = querySelector('#currImagination');
 
+  // Inventory Management
+  Element inventorySearch = querySelector('#inventorySearch');
+  
   // Pause button
   Element pauseButton = querySelector('#thinkButton');
   Element pauseMenu = querySelector('#pauseMenu');
+
+  // bugreport button
+  Element bugButton = querySelector('#bugGlyph');
+  Element consoleText = querySelector('#panel .dialog.console');
+  
   
   // Music Meter Variables
   Element titleElement = querySelector('#trackTitle'); 
@@ -125,6 +138,33 @@ class UserInterface {
     settingsButton.onClick.listen((_) {
       openWindow('settings');
     });   
+    
+    // Listens for the bug report button
+    bugButton.onClick.listen((_) {
+      Element w = openWindow('bugs/suggestions');
+      w.querySelector('textarea').text = 'UserAgent:' + window.navigator.userAgent +
+          '\n////////////////////////////////\n Console Log: \n' + consoleText.text + '\n////////////////////////////////\n';
+    
+      // Submits the Bug
+      w.querySelector('.button').onClick.listen((_) {
+        Map message = new Map()
+          ..['text'] = w.querySelector('textarea').text;
+        String json = JSON.encoder.convert(message); 
+        Map m = new Map();
+        m['payload'] = json;
+        HttpRequest.postFormData('https://cou.slack.com/services/hooks/incoming-webhook?token=Ey3SlsfyOlJjw0sHl0N0UuMK',
+           m).then((HttpRequest request){
+             request.onReadyStateChange.listen((response) => print(response));
+         }).catchError((error) {
+             print(error.target.responseText);
+         });
+      });  
+    });  
+    
+    // Listens for the inventory search button
+    inventorySearch.onClick.listen((_) {
+      openWindow('bag');
+    });
     
     // Listens for the pause button
     pauseButton.onClick.listen((_) {
@@ -239,12 +279,36 @@ class UserInterface {
       SClinkElement.href = SClink;
   }
 
-  openWindow(String title) {
+  Element openWindow(String title) {
     for (Element window in querySelectorAll('.window')) {
       window.hidden = true;
-      if (window.querySelector('header').text.toLowerCase().trim() == title)
-        window.hidden = false;
     }
+    for (Element window in querySelectorAll('.window')) {
+      if (window.querySelector('header').text.toLowerCase().trim() == title) {
+        window.hidden = false;
+        return window;
+      }
+    }
+    return null;
   }
-  
 }
+
+
+playSong(String value)
+{
+  // Changes the ui
+  if (display.currentSong != null) {
+    display.currentSong.pause();
+  display.currentSong = display.jukebox[value];
+  display.currentSong.play();
+  display.currentSong.loop(true); }
+  
+  String title = display.currentSong.meta['title'];
+  String artist = display.currentSong.meta['user']['username'];
+  display.SCsong = title;
+  display.SCartist = artist;
+  display.SClink = display.currentSong.meta['permalink_url'];
+
+}
+
+

@@ -14,9 +14,6 @@
   </head>
   <body>
     
-    
-    
-    
     <div id="loading">
         <div class="splash">
           Children of<br>
@@ -87,9 +84,7 @@
       
       <nav>
         <i id="signoutGlyph" class="fa fa-sign-out"></i>
-        <a href="https://github.com/ChildrenOfUr/coUclient/issues" target="_blank">
-          <i id="bugGlyph" class="fa fa-bug"> </i>
-        </a>
+        <i id="bugGlyph" class="fa fa-bug"> </i>
         <a href="http://childrenofur.com" target="_blank">
           <i id="questionGlyph" class="fa fa-home"> </i>
         </a>
@@ -125,6 +120,10 @@
         </div>
       </div>
       
+      
+      <div id="inventorySearch">
+        <i class="fa fa-search"></i>
+      </div>
       <div id="inventory">
         <div class="box"></div>
         <div class="box"></div>
@@ -135,10 +134,7 @@
         <div class="box"></div>
         <div class="box"></div>
         <div class="box"></div>
-        <div class="box"></div>
-        <div class="box"></div>
-        <div class="box"></div>
-        <div class="box"></div>      
+        <div class="box"></div>  
       </div>
       
       
@@ -256,13 +252,51 @@
           </article>
         </div>
         
+        <div id="bagWindow" class="window" hidden>
+          <i class="fa-li fa fa-times close"></i>
+          <header>
+            <i class="fa-li fa fa-search"></i>
+            Bag
+          </header>
+          <article>
+          Inventory Stuff goes here
+          </article>
+        </div>
+        
+        <div id="bugWindow" class="window" hidden>
+          <i class="fa-li fa fa-times close"></i>
+          <header>
+            <i class="fa-li fa fa-bug"></i>
+            Bugs/Suggestions
+          </header>
+          <article>
+            <textarea>
+            </textarea>        
+            <div class="button">Submit</div> 
+          </article>
+        </div>
+        
+        <div id="motdWindow" class="window">
+          <i class="fa-li fa fa-times close"></i>
+          <header>
+            <i class="fa-li fa fa-gears"></i>
+            Message of the Day
+          </header>
+          <article>
+            <iframe id="motdFrame" src="">
+            </iframe>          
+          </article>
+        </div>
+        
+        
+        
       </div>
       
     </main>
 
     
     
-    <footer>
+    <footer hidden>
     Copyright 2014 CoU Development Team, Children of Ur is not endorsed by or affiliated with <a href="http://tinyspeck.com/">Tiny Speck, Inc.</a> (The makers of <a href="http://glitchthegame.com">Glitch</a>) in any way.
     </footer>
    
@@ -276,7 +310,7 @@
     </script>
 
     <!-- Start the Game up. -->
-    <script type="application/dart" src="./main.dart"></script>
+    <script type="application/dart" src="./game.dart"></script>
     <script src="packages/browser/dart.js"></script>
   </body>
 </html>
