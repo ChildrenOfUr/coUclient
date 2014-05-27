@@ -187,7 +187,7 @@ updateOtherPlayer(Map map, Player otherPlayer)
 	{
 		if(otherPlayer.chatBubble == null)
 			otherPlayer.chatBubble = new ChatBubble(map["bubbleText"]);
-		otherPlayer.playerCanvas.append(otherPlayer.chatBubble.bubble);
+		otherPlayer.playerParentElement.append(otherPlayer.chatBubble.bubble);
 	}
 	else if(otherPlayer.chatBubble != null)
 	{

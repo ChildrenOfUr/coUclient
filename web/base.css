@@ -1514,3 +1514,20 @@ quoin graphic
 #PlayerHolder {
 	pointer-events: none;
 }
+.playerParent {
+	text-align: center;
+	display: inline-block;
+}
+.playerName {
+	text-shadow: #ffffff 0 0 0.4em, #ffffff 0 0 0.4em,
+				 #ffffff 0 0 0.4em, #ffffff 0 0 0.4em;
+	color: #282827;
+	font-size: 12px;
+	letter-spacing: 0.5px;
+	position: absolute;
+	margin-left: auto;
+	margin-right: auto;
+	left: 0;
+	right: 0;
+	top: -34px;
+}

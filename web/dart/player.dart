@@ -32,13 +32,13 @@ class Player
 		playerCanvas = new CanvasElement();
 		
 		playerName = new DivElement()
+			..classes.add("playerName")
 			..text = name != null ? name : chat.username;
 				
 		playerParentElement = new DivElement()
+			..classes.add("playerParent")
 			..style.width = width.toString() + "px"
-			..style.height = height.toString() + "px"
-			..style.textAlign = "center"
-			..style.display = "inline-block";
+			..style.height = height.toString() + "px";
 		
 		playerParentElement.append(playerName);
 		playerParentElement.append(playerCanvas);
