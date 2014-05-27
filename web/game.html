@@ -7,7 +7,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes"> <!--iOS-->
     <meta name="mobile-web-app-capable" content="yes"> <!--Chrome for android-->
     <link rel="icon" type="image/png" href="./assets/system/favicon.ico">
-    <title>coU - children of Ur</title>
+    <title>CoU - children of Ur</title>
 
    <!--Import game css-->
    <link rel="stylesheet" href="./base.css">
@@ -90,7 +90,7 @@
         </a>
         <i id="volumeGlyph" class="fa fa-volume-up"></i>
         <span id="volumeSlider">
-          <input type="range" id="VolumeSlider" min="0" max="100" step="1" value="50">         
+          <input type="range" id="VolumeSlider" min="0" max="100" step="1">         
         </span>
         <i id="settingsGlyph" class="fa fa-cog"></i>
       </nav>
@@ -100,24 +100,35 @@
       <span id="currDate">Nth of N</span>
 
       <div id="game">
+      
         <div id="overlayHolder">
           <div id="pauseMenu" class="overlay" hidden>
            <i class="fa-li fa fa-times close"></i>
-            
             <div id="pauseSkills">
               <h2>Skills</h2>
             </div>
-
             <div id="pauseQuests">
               <h2>Quests</h2>
             </div>
-            
             <div id="pauseUpgrades">
               <h2>Upgrades</h2>
             </div>            
-
           </div>
         </div>
+      
+        <div id="layers"></div>
+      
+        <div id="streetLoading">
+          <br><br>
+          <h2>Now Entering:<br>
+          <span id="newLocation">Nu Place</span>
+          </h2>
+          
+          <div class="bar">
+          <div class="percent"></div>
+          </div>
+        </div>
+        
       </div>
       
       
@@ -204,10 +215,7 @@
         <i class="fa-li fa fa-code"></i>
         Console
         </header>
-        <div class="dialog top console">
-        >print('yo');<br>
-        yo
-        </div>
+        <div class="dialog top console"></div>
         
         <header class="bottom">
         <i class="fa-li fa fa-chevron-down"></i>
@@ -259,7 +267,21 @@
             Bag
           </header>
           <article>
-          Inventory Stuff goes here
+            <div class="box"></div>
+            <div class="box"></div>
+            <div class="box"></div>
+            <div class="box"></div>
+            <div class="box"></div><br>
+            <div class="box"></div>
+            <div class="box"></div>
+            <div class="box"></div>
+            <div class="box"></div>
+            <div class="box"></div><br>
+            <div class="box"></div>
+            <div class="box"></div>
+            <div class="box"></div>
+            <div class="box"></div>
+            <div class="box"></div>
           </article>
         </div>
         
@@ -270,8 +292,7 @@
             Bugs/Suggestions
           </header>
           <article>
-            <textarea>
-            </textarea>        
+            <textarea></textarea>     
             <div class="button">Submit</div> 
           </article>
         </div>
@@ -309,8 +330,8 @@
       function getRoom(dataJSON){window.postMessage(JSON.stringify(dataJSON),'*');}
     </script>
 
-    <!-- Start the Game up. -->
-    <script type="application/dart" src="./game.dart"></script>
-    <script src="packages/browser/dart.js"></script>
+    <!-- Start the Game up. --> 
+    <script type="application/dart" src="./main.dart"></script>
+    <script src="packages/browser/dart.js"></script> 
   </body>
 </html>

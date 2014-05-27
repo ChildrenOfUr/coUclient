@@ -12,6 +12,7 @@ class UserInterface {
   NumberFormat commaFormatter = new NumberFormat("#,###");
   
   Storage session = window.sessionStorage;
+  Storage local = window.localStorage;
   
   // If you need to change an element somewhere else, put the declaration in this class.
   // You can then access it with 'ui.yourElement'. This way we keep everything in one spot
@@ -108,7 +109,15 @@ class UserInterface {
   /////////////////////VARS//////////////////////////////////////////////////
   // start listening for events
   init(){
-        
+    
+    // Load saved volume level
+    if (local['volume'] != null) {
+      volume = int.parse(local['volume']);
+      volumeSlider.value = local['volume'];
+    }
+    else
+      volume = 10;
+    
     // The 'you won' splash
     window.onBeforeUnload.listen((_) {
       youWon.hidden = false;
@@ -123,6 +132,9 @@ class UserInterface {
     // Starts the game
     playButton.onClick.listen((_) {
       loadingScreen.style.opacity = '0';
+      AudioElement doneLoading = ASSET['game_loaded'].get();
+      doneLoading.volume = volume/100;
+      doneLoading.play();
       new Timer(new Duration(seconds:1),() {
         loadingScreen.remove();
         }
@@ -142,23 +154,25 @@ class UserInterface {
     // Listens for the bug report button
     bugButton.onClick.listen((_) {
       Element w = openWindow('bugs/suggestions');
-      w.querySelector('textarea').text = 'UserAgent:' + window.navigator.userAgent +
+      TextAreaElement input = w.querySelector('textarea');
+      input.value = 'UserAgent:' + window.navigator.userAgent +
           '\n////////////////////////////////\n Console Log: \n' + consoleText.text + '\n////////////////////////////////\n';
     
       // Submits the Bug
-      w.querySelector('.button').onClick.listen((_) {
+       w.querySelector('.button').onClick.listen((_) {
         Map message = new Map()
-          ..['text'] = w.querySelector('textarea').text;
+          ..['text'] = input.value.replaceAll(';', '\n');
         String json = JSON.encoder.convert(message); 
         Map m = new Map();
         m['payload'] = json;
         HttpRequest.postFormData('https://cou.slack.com/services/hooks/incoming-webhook?token=Ey3SlsfyOlJjw0sHl0N0UuMK',
            m).then((HttpRequest request){
-             request.onReadyStateChange.listen((response) => print(response));
+             request.onReadyStateChange.listen((response) => display.print(response.toString()));
          }).catchError((error) {
-             print(error.target.responseText);
+             display.print(error.target.responseText);
          });
-      });  
+        w.hidden = true;
+      });   
     });  
     
     // Listens for the inventory search button
@@ -173,7 +187,6 @@ class UserInterface {
     
     
     // Controls the volume slider and glyph
-    session['volume'] = '10'; // initial value
     volumeGlyph.onClick.listen((_) {
       if (muted == true) {
         volume = int.parse(session['volume']);
@@ -186,9 +199,13 @@ class UserInterface {
         volumeSlider.value = '0';
       }
     });
-    
   }
 
+  print(String message) {
+    display.consoleText.innerHtml += message + ';<br>';
+    display.consoleText.scrollByLines(100);
+  }
+  
   // update the userinterface
   update(){
     // Update Clock
@@ -267,8 +284,23 @@ class UserInterface {
       muted = true;
     else
       muted = false;
-    if (volume != int.parse(volumeSlider.value))
+    if (volume != int.parse(volumeSlider.value)) {
       volume = int.parse(volumeSlider.value);
+      print('volume:$volume');
+    }
+
+    
+    // Updates the stored volume level
+    if (volume.toString() != local['volume'] && muted == false)
+    local['volume'] = volume.toString();
+    
+    // Update all audioElements to the correct volume
+    for (AudioElement audio in querySelectorAll('audio')) {
+      if (audio.volume != display.volume/100)
+      audio.volume = display.volume/100;
+    
+    
+    
     
     // Update the soundcloud widget
     if (SCsong != titleElement.text)
@@ -277,6 +309,9 @@ class UserInterface {
     artistElement.text = SCartist;   
     if (SClink != SClinkElement.href)
       SClinkElement.href = SClink;
+
+    }
+    
   }
 
   Element openWindow(String title) {
@@ -294,21 +329,5 @@ class UserInterface {
 }
 
 
-playSong(String value)
-{
-  // Changes the ui
-  if (display.currentSong != null) {
-    display.currentSong.pause();
-  display.currentSong = display.jukebox[value];
-  display.currentSong.play();
-  display.currentSong.loop(true); }
-  
-  String title = display.currentSong.meta['title'];
-  String artist = display.currentSong.meta['user']['username'];
-  display.SCsong = title;
-  display.SCartist = artist;
-  display.SClink = display.currentSong.meta['permalink_url'];
-
-}
 
 

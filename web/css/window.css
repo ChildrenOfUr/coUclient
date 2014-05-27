@@ -32,7 +32,6 @@
   left:10px;
   width:560px;
   height:320px;
-  background-color:#fff;
   -moz-border-radius: 8px;
   border-radius: 8px;
   overflow:hidden;
@@ -47,11 +46,14 @@
   cursor:pointer;
 }
 
+#bagWindow article {
+  background-color:#eee;
+  text-align:center;
+}
 #bugWindow textarea {
   margin:3%;
   width:92%;
   height:200px;
-  margin-bottom:5px;
 }
 #bugWindow .button {
   float:right;

@@ -4,12 +4,11 @@ part of couclient;
 // Stores all the loaded user interface sounds.
 Batch ui_sounds;
 
-Future load_audio()
-{
-	final c = new Completer();
-  
-	// Load all our user interface sounds.
 
+
+// Load all our user interface sounds.
+Future loadSounds() {
+	final c = new Completer();
 	ui_sounds = new Batch
 		([
 			//iOS/safari/IE doesn't seem to like .ogg files
@@ -38,27 +37,6 @@ Future load_audio()
 	{
 		print(e);
 		c.complete(e);
-	})
-	.whenComplete(() //load SC songs no matter which
-	{
-		// Load the names and track id's of the music.json file but save actually loading the media file
-		// until it is requested (whether by street load or by setsong command)
-		Asset soundCloudSongs = new Asset('./assets/music.json');
-		soundCloudSongs.load(display.loadStatus2);
 	});
-    return c.future;
-}
-
-Future loadSong(String name)
-{
-	Completer c = new Completer();
-	
-	display.sc.load(ASSET['music'].get()[name]['scid'])
-	.then((Scound s) 
-	{
-		display.jukebox[name] = s;
-		c.complete();
-	});
-	
 	return c.future;
 }

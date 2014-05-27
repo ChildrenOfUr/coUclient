@@ -13,7 +13,7 @@
   text-align:center;
 }
 
-#inventory .box {
+#inventory .box, .window .box {
   background-color: #fff;
   -moz-border-radius: 8px;
   border-radius: 8px;
