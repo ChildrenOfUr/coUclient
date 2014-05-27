@@ -81,7 +81,7 @@ build(grinder.GrinderContext context) {
   
   // copy over our assets
   context.log('Copying assets');
-  grinder.copyDirectory(new Directory('./web/assets'), new Directory('./out/assets'));  
+  grinder.copyDirectory(new Directory('./web/lib'), new Directory('./out/lib'));  
   
   // Embed CSS
   context.log('Embedding CSS into page');  

@@ -16,11 +16,8 @@ part 'dart/engine/audio.dart';
 
 main()
 {
-  loadSounds()
-  .then(display.init())
-  .then(// Begin the GAME!!!
-    gameLoop(0.0));
-    
+  display.init();
+  gameLoop(0.0);  
 }
 
 // Declare our game_loop

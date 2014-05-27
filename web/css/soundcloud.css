@@ -1,6 +1,6 @@
 #SCwidget {
   position:absolute;
-  width:236px;
+  width:230px;
   height:43px;
   bottom:25px;
   right:5px;
@@ -9,8 +9,8 @@
   -moz-border-radius: 8px;
   border-radius: 8px;
   background-color: #fff;
-  border-left:2px solid rgba(0,0,0,0.2);
-  border-bottom:2px solid rgba(0,0,0,0.2);
+  border-left:1px solid rgba(0,0,0,0.1);
+  border-bottom:3px solid rgba(0,0,0,0.2);
   padding:3px;
   margin:5px;
 }

@@ -3,11 +3,6 @@ part of couclient;
 UserInterface display = new UserInterface();
 class UserInterface {
   
-  // Music Variables
-  SC sc = new SC('7d2a07867f8a3d47d4f059b600b250b1');
-  Map jukebox = new Map();
-  Scound currentSong;
-  
   //NumberFormat for having commas in the currants and iMG displays
   NumberFormat commaFormatter = new NumberFormat("#,###");
   
@@ -132,9 +127,7 @@ class UserInterface {
     // Starts the game
     playButton.onClick.listen((_) {
       loadingScreen.style.opacity = '0';
-      AudioElement doneLoading = ASSET['game_loaded'].get();
-      doneLoading.volume = volume/100;
-      doneLoading.play();
+      sound.play('game_loaded');
       new Timer(new Duration(seconds:1),() {
         loadingScreen.remove();
         }
@@ -188,6 +181,8 @@ class UserInterface {
     
     // Controls the volume slider and glyph
     volumeGlyph.onClick.listen((_) {
+      if (session['volume'] == null)
+        session['volume'] = '5';
       if (muted == true) {
         volume = int.parse(session['volume']);
         muted = false;
@@ -199,10 +194,18 @@ class UserInterface {
         volumeSlider.value = '0';
       }
     });
+    
+    // display buttons
+    
+    sound.init().then((_) {
+      for (Element button in loadingScreen.querySelectorAll('.button'))
+        button.hidden = false;
+      loadingScreen.querySelector('.fa').hidden = true;  
+    });
   }
 
-  print(String message) {
-    display.consoleText.innerHtml += message + ';<br>';
+  print(message) {
+    display.consoleText.innerHtml += message.toString() + ';<br>';
     display.consoleText.scrollByLines(100);
   }
   

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes"> <!--iOS-->
     <meta name="mobile-web-app-capable" content="yes"> <!--Chrome for android-->
-    <link rel="icon" type="image/png" href="./assets/system/favicon.ico">
+    <link rel="icon" type="image/png" href="./lib/system/favicon.ico">
     <title>CoU - children of Ur</title>
 
    <!--Import game css-->
@@ -17,10 +17,10 @@
     <div id="loading">
         <div class="splash">
           Children of<br>
-          <img src="./assets/system/logo.svg"><br>
-          <i class="fa fa-circle-o-notch fa-spin" hidden></i><br>   
-          <div id="playButton" class="button">PLAY</div>
-          <div id="mobileButton" class="button">
+          <img src="./lib/system/logo.svg"><br>
+          <i class="fa fa-circle-o-notch fa-spin"></i><br>   
+          <div id="playButton" class="button" hidden>PLAY</div>
+          <div id="mobileButton" class="button" hidden>
             <i class="fa fa-mobile"></i>
           </div>        
         </div>
@@ -35,27 +35,27 @@
       <span id="playerName"></span>
       
       <div id="imaginationText">
-        <img id="thinkButton" src="./assets/system/think.svg">
+        <img id="thinkButton" src="./lib/system/think.svg">
         <span id="currImagination">n</span><span class="smi">i</span>
       </div>
       
       
       <div id="energyDisks">
-        <img class="green" src="./assets/system/energymeter.svg">
-        <img class="red" src="./assets/system/energymeterred.svg">
+        <img class="green" src="./lib/system/energymeter.svg">
+        <img class="red" src="./lib/system/energymeterred.svg">
       </div> 
      
-      <img id="topLeftMask" src="./assets/system/leftcornerover.svg">
-      <img id="enbolt" src="./assets/system/energybolt.svg">
+      <img id="topLeftMask" src="./lib/system/leftcornerover.svg">
+      <img id="enbolt" src="./lib/system/energybolt.svg">
       
       <div id="leftDisk">
         <div class="hurt"></div>
-        <img id="rays" src="./assets/system/rays.svg">
+        <img id="rays" src="./lib/system/rays.svg">
         <div class="dead">
           <div id="rain"></div>
         </div>
         <div id="portrait">
-          <img id="moodAvatar" src="./assets/sprites/avatar.png" hidden>
+          <img id="moodAvatar" src="./lib/sprites/avatar.png" hidden>
         </div>
         <div id="moodMeter">
           <span class="percent">
@@ -157,7 +157,7 @@
       </div>
             
       <div id="currantBack">
-        <img src="./assets/system/currant.svg" id="currantEmblem">
+        <img src="./lib/system/currant.svg" id="currantEmblem">
         <div id="currantText">
           <div id="currCurrants">n</div>
           <div id="currantLabel">Currants</div>
@@ -211,19 +211,26 @@
 
       <div id="panel">
       
-        <header class="top">
-        <i class="fa-li fa fa-code"></i>
-        Console
-        </header>
-        <div class="dialog top console"></div>
-        
-        <header class="bottom">
-        <i class="fa-li fa fa-chevron-down"></i>
-        Friendly
-        </header>
-        <div class="dialog bottom">
-        Friendly is not online.
+        <div class="conversation top">
+          <header>
+            <i class="fa-li fa fa-code"></i>
+            Console
+          </header>
+          <div class="dialog console">
+          </div>
+          <textarea class="console"></textarea>
         </div>
+        
+        <div class="conversation">
+          <header class="bottom">
+            <i class="fa-li fa fa-chevron-down"></i>
+              Friendly
+          </header>
+          <div class="dialog">
+          </div>        
+          <textarea></textarea>
+        </div>
+        
       
       </div>
  
@@ -266,7 +273,10 @@
             <i class="fa-li fa fa-search"></i>
             Bag
           </header>
-          <article>
+          <article><br><br><br><br>
+            <div class="box"></div>
+            <div class="box"></div>
+            <div class="box"></div>
             <div class="box"></div>
             <div class="box"></div>
             <div class="box"></div>
@@ -275,8 +285,6 @@
             <div class="box"></div>
             <div class="box"></div>
             <div class="box"></div>
-            <div class="box"></div>
-            <div class="box"></div><br>
             <div class="box"></div>
             <div class="box"></div>
             <div class="box"></div>
@@ -297,7 +305,7 @@
           </article>
         </div>
         
-        <div id="motdWindow" class="window">
+        <div id="motdWindow" class="window" hidden>
           <i class="fa-li fa fa-times close"></i>
           <header>
             <i class="fa-li fa fa-gears"></i>
@@ -317,7 +325,7 @@
 
     
     
-    <footer hidden>
+    <footer>
     Copyright 2014 CoU Development Team, Children of Ur is not endorsed by or affiliated with <a href="http://tinyspeck.com/">Tiny Speck, Inc.</a> (The makers of <a href="http://glitchthegame.com">Glitch</a>) in any way.
     </footer>
    

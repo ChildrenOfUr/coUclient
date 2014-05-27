@@ -20,6 +20,12 @@
   -moz-transition-duration:0.3s;
   -moz-transition-timing-function:ease-in-out;
   
+  background: -webkit-radial-gradient(#fff, #ddd); /* Safari 5.1 to 6.0 */
+  background: -o-radial-gradient(#fff, #ddd); /* For Opera 11.6 to 12.0 */
+  background: -moz-radial-gradient(#fff, #ddd); /* For Firefox 3.6 to 15 */
+  background: radial-gradient(#fff, #ddd); /* Standard syntax */
+  
+  
   
 }
 #loading img {
@@ -41,8 +47,10 @@
 }
 
 #mobileButton {
-  font-size:23px;
+  font-size:40px;
   padding:12px;
+  padding-top:3px;
+  padding-bottom:20px;
   margin-top:-61px;
   height:30px;
   left:130px;

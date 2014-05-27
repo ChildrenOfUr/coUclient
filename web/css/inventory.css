@@ -1,10 +1,10 @@
 #inventory {
   position:absolute;
   bottom:10px;
-  left:15px;
-  padding:5px;
+  left:0px;
+  padding:1px;
   height:70px;
-  width:calc(100% - 290px);
+  width:calc(100% - 250px);
   max-width:calc(100% - 40px);
   min-width:calc(300px - 40px);
   overflow-x: auto;
@@ -17,9 +17,9 @@
   background-color: #fff;
   -moz-border-radius: 8px;
   border-radius: 8px;
-  width:45px;
-  height:45px;
-  margin:3px 0px;
+  width:50px;
+  height:50px;
+  margin:0px 0px;
   border-left:1px solid rgba(0,0,0,0.1);
   border-bottom:3px solid rgba(0,0,0,0.2);
   z-index:1;
