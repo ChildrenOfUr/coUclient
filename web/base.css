@@ -1524,7 +1524,7 @@ quoin graphic
 	color: #282827;
 	font-size: 12px;
 	letter-spacing: 0.5px;
-	position: absolute;
+	position: relative;
 	margin-left: auto;
 	margin-right: auto;
 	left: 0;

@@ -50,7 +50,7 @@ class Player
 		//need to get background images from some server for each player based on name
 		animations['idle'] = new Animation("assets/sprites/idle.png",'idle',2,29,numFrames:57);
 		animations['base'] = new Animation("assets/sprites/base.png",'base',1,15,numFrames:12);
-		animations['jump'] = new Animation("assets/sprites/jump.png",'jump',1,33);
+		animations['jump'] = new Animation("assets/sprites/jump.png",'jump',1,33,numFrames:16);
 		
 		List<Future> futures = new List();
 		animations.forEach((String name,Animation animation) => futures.add(animation.load()));
