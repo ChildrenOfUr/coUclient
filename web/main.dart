@@ -3,6 +3,8 @@ library couclient;
 import 'dart:html';
 import 'dart:async';
 import 'dart:convert';
+
+import 'package:okeyee/okeyee.dart'; // used for keyboard stuff.
 import 'package:intl/intl.dart'; //used for NumberFormat
 
 // Import our coU libraries.
@@ -13,10 +15,14 @@ import 'package:libld/libld.dart'; // Nice and simple asset loading.
 // Engine parts
 part 'dart/engine/ui.dart';
 part 'dart/engine/audio.dart';
+part 'dart/engine/input.dart';
+
+part 'dart/engine/inventory.dart';
 
 main()
 {
   display.init();
+  input.init();
   gameLoop(0.0);  
 }
 

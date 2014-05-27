@@ -1,8 +1,8 @@
-name: coUclient
+name: couclient
 version: 0.0.0
 author: coU Development Team
 description: Source + Tools for developing/compiling the Children of Ur WebClient
-homepage: ChildrenOfUr.github.io
+homepage: www.childrenofur.com
 dependencies:
   glitchTime:
     git:
@@ -14,6 +14,7 @@ dependencies:
     git:
       ref: master
       url: https://github.com/ChildrenOfUr/libld.git
+  okeyee: any
   scproxy:
     git:
       ref: master

@@ -53,8 +53,10 @@ class UserInterface {
 
   // bugreport button
   Element bugButton = querySelector('#bugGlyph');
-  Element consoleText = querySelector('#panel .dialog.console');
+  Element consoleText = querySelector('.dialog.console');
   
+  // world Element
+  Element worldElement = querySelector('#world');
   
   // Music Meter Variables
   Element titleElement = querySelector('#trackTitle'); 
@@ -103,7 +105,7 @@ class UserInterface {
   
   /////////////////////VARS//////////////////////////////////////////////////
   // start listening for events
-  init(){
+  init(){   
     
     // Load saved volume level
     if (local['volume'] != null) {
@@ -210,7 +212,7 @@ class UserInterface {
   }
   
   // update the userinterface
-  update(){
+  update(){    
     // Update Clock
     List data = getDate();
     
