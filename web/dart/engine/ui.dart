@@ -110,7 +110,6 @@ class UserInterface {
     // Load saved volume level
     if (local['volume'] != null) {
       volume = int.parse(local['volume']);
-      volumeSlider.value = local['volume'];
     }
     else
       volume = 10;
@@ -122,8 +121,9 @@ class UserInterface {
     
     
     // Close button listener, closes popup windows
-    querySelectorAll('.fa-times.close').onClick.listen((MouseEvent m){
-      m.toElement.parent.hidden = true;
+    for (Element e in querySelectorAll('.fa-times.close'))
+    e.onClick.listen((MouseEvent m){
+      e.parent.hidden = true;
     });
         
     // Starts the game
@@ -208,7 +208,6 @@ class UserInterface {
 
   print(message) {
     display.consoleText.innerHtml += message.toString() + ';<br>';
-    display.consoleText.scrollByLines(100);
   }
   
   // update the userinterface
