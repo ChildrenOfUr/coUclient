@@ -227,17 +227,22 @@ class Player
 			
 		if(!moving && !jumping)
 			currentAnimation = animations['idle'];
-		else if(moving && !jumping)
-			currentAnimation = animations['base'];
-		else if(jumping && yVel < 0)
+		else
 		{
-			currentAnimation = animations['jumpup'];
-			animations['falldown'].reset();
-		}
-		else if(jumping && yVel >= 0)
-		{
-			currentAnimation = animations['falldown'];
-			animations['jumpup'].reset();
+			animations['idle'].reset();
+			
+			if(moving && !jumping)
+				currentAnimation = animations['base'];
+			else if(jumping && yVel < 0)
+    		{
+    			currentAnimation = animations['jumpup'];
+    			animations['falldown'].reset();
+    		}
+    		else if(jumping && yVel >= 0)
+    		{
+    			currentAnimation = animations['falldown'];
+    			animations['jumpup'].reset();
+    		}
 		}
 		
 		currentAnimation.updateSourceRect(dt,holdAtLastFrame:jumping);
