@@ -48,9 +48,20 @@ class Player
 	Future<List<Animation>> loadAnimations()
 	{
 		//need to get background images from some server for each player based on name
-		animations['idle'] = new Animation("assets/sprites/idle.png",'idle',2,29,numFrames:57);
-		animations['base'] = new Animation("assets/sprites/base.png",'base',1,15,numFrames:12);
-		animations['jump'] = new Animation("assets/sprites/jump.png",'jump',1,33,numFrames:16);
+		List<int> idleFrames = [], baseFrames = [], jumpUpFrames = [], fallDownFrames = [], landFrames = [];
+		for(int i=0; i<57; i++)
+			idleFrames.add(i);
+		for(int i=0; i<12; i++)
+        	baseFrames.add(i);
+		for(int i=0; i<16; i++)
+            jumpUpFrames.add(i);
+		fallDownFrames = [16,17,18,19,20,21,22,23];
+		landFrames = [24,25,26,27,28,29,30,31,32];
+		animations['idle'] = new Animation("assets/sprites/idle.png","idle",2,29,idleFrames,loopDelay:new Duration(seconds:10),delayInitially:true);
+		animations['base'] = new Animation("assets/sprites/base.png","base",1,15,baseFrames);
+		animations['jumpup'] = new Animation("assets/sprites/jump.png","jumpup",1,33,jumpUpFrames);
+		animations['falldown'] = new Animation("assets/sprites/jump.png","falldown",1,33,fallDownFrames);
+		animations['land'] = new Animation("assets/sprites/jump.png","land",1,33,landFrames);
 		
 		List<Future> futures = new List();
 		animations.forEach((String name,Animation animation) => futures.add(animation.load()));
@@ -218,10 +229,18 @@ class Player
 			currentAnimation = animations['idle'];
 		else if(moving && !jumping)
 			currentAnimation = animations['base'];
-		else if(jumping)
-			currentAnimation = animations['jump'];
+		else if(jumping && yVel < 0)
+		{
+			currentAnimation = animations['jumpup'];
+			animations['falldown'].reset();
+		}
+		else if(jumping && yVel >= 0)
+		{
+			currentAnimation = animations['falldown'];
+			animations['jumpup'].reset();
+		}
 		
-		currentAnimation.updateSourceRect(dt);
+		currentAnimation.updateSourceRect(dt,holdAtLastFrame:jumping);
 						
 		num translateX = posX, translateY = ui.gameScreenHeight - height;
 		num camX = camera.getX(), camY = camera.getY();
