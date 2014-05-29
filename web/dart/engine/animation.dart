@@ -2,133 +2,81 @@ part of coUclient;
 
 class Animation
 {
-	String backgroundImage, animationName, animationStyleString;
-	int width, height;
+	String url, animationName, animationStyleString;
+	Duration loopDelay;
+	List<int> frameList;
+	int width, height, numRows, numColumns, fps;
+	int frameNum = 0;
+	ImageElement spritesheet;
+	double timeInMillis = 0.0, delayConsumed = 0.0;
+	Rectangle sourceRect;
+	bool dirty = true, delayInitially = false, paused = false;
 	
-	Animation(this.backgroundImage,this.animationName);
+	Animation(this.url,this.animationName,this.numRows,this.numColumns,this.frameList,{this.fps : 30, this.loopDelay : null, this.delayInitially : false});
 	
 	Future<Animation> load()
 	{
+		if(loopDelay == null)
+			loopDelay = new Duration(milliseconds:0);
+		
+		if(!delayInitially)
+			delayConsumed = loopDelay.inMilliseconds.toDouble();
+		
 		Completer c = new Completer();
 		
 		//need to get the avatar background image size dynamically
 		//because we cannot guarentee that every glitchen has the same dimensions
 		//additionally each animation sprite has different dimensions even for the same glitchen
-		ImageElement temp = new ImageElement(src: backgroundImage);
-		temp.onLoad.listen((_)
+		spritesheet = new ImageElement(src: url);
+		spritesheet.onLoad.listen((_)
 		{
-			int width = temp.width;
-			int height = temp.height;
+			width = spritesheet.width~/numColumns;
+			height = spritesheet.height~/numRows;
 			
-			//if unknown what animation to play, use the 15th frame of the walk cycle
-			if(animationName == 'stillframe')
-			{
-				this.width = width~/15;
-				this.height = height;
-				
-				//there are 12 frames in the walk cycle, the last 3 in the base.png image are not part of it
-				int endPos = width - (width~/15);
-				CssStyleSheet styleSheet = document.styleSheets[0] as CssStyleSheet;
-				
-				try
-				{
-					String stillframe = '@keyframes stillframe { from { background-position: '+endPos.toString()+'px;} to { background-position: -'+endPos.toString()+'px;}}';
-                    styleSheet.insertRule(stillframe,1); //inserting at 0 throws an error, 1 seems fine
-				}
-				catch(error){}
-				try
-				{
-					String stillframe = '@-webkit-keyframes stillframe { from { background-position: '+endPos.toString()+'px;} to { background-position: -'+endPos.toString()+'px;}}';
-					styleSheet.insertRule(stillframe, 1);
-				}
-				catch(error){}
-				
-				animationStyleString = 'stillframe .8s steps(1)';
-			}
-			
-			//if walk-cycle
-			if(animationName == 'base')
-			{
-				this.width = width~/15;
-				this.height = height;
-				
-				//there are 12 frames in the walk cycle, the last 3 in the base.png image are not part of it
-				int endPos = width - (width~/15)*3;
-				CssStyleSheet styleSheet = document.styleSheets[0] as CssStyleSheet;
-				
-				try
-				{
-					String base = '@keyframes base { from { background-position: 0px;} to { background-position: -'+endPos.toString()+'px;}}';
-					styleSheet.insertRule(base,1); //inserting at 0 throws an error, 1 seems fine
-				}
-				catch(error){}
-				try
-				{
-					String base = '@-webkit-keyframes base { from { background-position: 0px;} to { background-position: -'+endPos.toString()+'px;}}';
-					styleSheet.insertRule(base, 1);
-				}
-				catch(error){}
-				
-				animationStyleString = 'base .8s steps(12) infinite';
-			}
-			
-			//if idle animation
-			if(animationName == 'idle')
-			{
-				this.width = width~/29;
-				this.height = height~/2;
-				
-				//there are 57 total frames split over 2 rows (29 and 28)
-				//moving to the second row causes flicker so we will use the top row only
-				//and run it repeatedly
-			
-				CssStyleSheet styleSheet = document.styleSheets[0] as CssStyleSheet;
-				
-				try
-				{
-					String idle = '@keyframes idle {0%{background-position: 0px 0px;} 90%{background-position: 0px 0px;} 100%{background-position: -'+width.toString()+'px 0px;}}';
-					styleSheet.insertRule(idle,1); //inserting at 0 throws an error, 1 seems fine
-				}
-				catch(error){}
-				try
-				{
-					String idle = '@-webkit-keyframes idle {0%{background-position: 0px 0px;} 90%{background-position: 0px 0px;} 100%{background-position: -'+width.toString()+'px 0px;}}';
-					styleSheet.insertRule(idle, 1);
-				}
-				catch(error){}
-				
-				animationStyleString = 'idle 10s steps(29) infinite';
-			}
-			
-			//if jump animation
-			if(animationName == 'jump')
-			{
-				this.width = width~/33;
-				this.height = height;
-				
-				int frame32 = width - this.width;
-				
-				CssStyleSheet styleSheet = document.styleSheets[0] as CssStyleSheet;
-				
-				try
-				{
-					String jump =' @keyframes jump { from { background-position: 0px;} to { background-position: -'+frame32.toString()+'px;}}';
-					styleSheet.insertRule(jump,1); //inserting at 0 throws an error, 1 seems fine
-				}
-				catch(error){}
-				try
-				{
-					String jump = '@-webkit-keyframes jump { from { background-position: 0px;} to { background-position: -'+frame32.toString()+'px;}}';
-					styleSheet.insertRule(jump, 1);
-				}
-				catch(error){}
-				
-				animationStyleString = 'jump 1.1s steps(32) forwards';
-			}
-			
+			sourceRect = new Rectangle(0,0,width,height);
+						
 			c.complete(this);
 		});
 		
 		return c.future;
+	}
+	
+	reset()
+	{
+		timeInMillis = 0.0;
+		frameNum = 0;
+		delayConsumed = 0.0;
+		dirty = true; //will cause the first frame to be shown right away even if there is a delay of the rest of the animation (should be a good thing)
+		paused = false;
+	}
+	
+	updateSourceRect(double dt, {bool holdAtLastFrame: false})
+	{
+		if(paused)
+			return;
+		
+		timeInMillis += dt;
+		delayConsumed += dt*1000;
+		
+		if(timeInMillis > 1/fps && delayConsumed >= loopDelay.inMilliseconds)
+		{
+			//advance the frame cycling around if necessary
+			if(frameNum >= frameList.length -1 && holdAtLastFrame)
+				frameNum = frameList.length -1;
+			else
+			{
+				frameNum = (frameNum + timeInMillis~/(1/fps)) % frameList.length;
+                timeInMillis = 0.0;
+                dirty = true;
+                
+                if(frameNum >= frameList.length -1)
+                	delayConsumed = 0.0;
+			}
+		}
+		
+		int column = frameList[frameNum]%numColumns;
+		int row = frameList[frameNum]~/numColumns;
+		
+		sourceRect = new Rectangle(column*width,row*height,width,height);
 	}
 }

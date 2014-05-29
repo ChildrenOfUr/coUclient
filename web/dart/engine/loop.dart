@@ -3,12 +3,14 @@ part of coUclient;
 double timeLast = 0.0;
 String lastXY = "";
 // Our gameloop
-loop(var dt) 
+loop(double dt) 
 {
 	CurrentPlayer.update(dt);
 	
 	otherPlayers.forEach((String username, Player otherPlayer)
 	{
+		if(otherPlayer.currentAnimation != null)
+			otherPlayer.currentAnimation.updateSourceRect(dt);
 		double x = otherPlayer.posX;
 		double y = otherPlayer.posY;
 		String transform = "translateY(${y}px) translateX(${x}px) translateZ(0)";
@@ -28,8 +30,10 @@ loop(var dt)
 			if(otherPlayer.chatBubble != null)
 				otherPlayer.chatBubble.textElement.style.transform = 'scale(1,1)';
 		}
-		otherPlayer.playerCanvas.style.transform = transform;
+		otherPlayer.playerParentElement.style.transform = transform;
 	});
+	
+	npcs.forEach((String id, NPC npc) => npc.update(dt));
 	
 	//update the other clients with our position & street
 	timeLast += dt;

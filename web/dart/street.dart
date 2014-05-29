@@ -35,13 +35,39 @@ class Camera
 	int getY() => _y;
 }
 
+class Platform
+{
+	Point start, end;
+	String id;
+	bool itemPerm, pcPerm;
+	Platform(this.id,this.start,this.end,[this.itemPerm = false, this.pcPerm = false]);
+	
+	String toString()
+	{
+		return "(${start.x},${start.y})->(${end.x},${end.y})";
+	}
+	
+	int compareTo(Platform other)
+	{
+		return other.start.y - start.y;
+	}
+}
 
+class Ladder
+{
+	Rectangle boundary;
+	String id;
+	Ladder(this.id,this.boundary);
+}
+
+String playerTeleFrom = "";
 
 class Street 
 {    
 	String label;
 	Map _data;
-	Map<String,String> exits = new Map();
+	List<Platform> platforms = new List();
+	List<Ladder> ladders = new List();
 	
 	Rectangle bounds;
   
@@ -53,13 +79,12 @@ class Street
 		label = _data['label'];
 		
 		if(chat.username != null)
-			streetSocketSetup(label);
+			_setupStreetSocket(label);
           
 		bounds = new Rectangle(_data['dynamic']['l'],
 								_data['dynamic']['t'],
 								_data['dynamic']['l'].abs() + _data['dynamic']['r'].abs(),
 								_data['dynamic']['t'].abs());
-		
 		
 		playerHolder.children.clear();
 		playerHolder.style.width = bounds.width.toString()+'px';
@@ -70,11 +95,12 @@ class Street
 	}
   
 	Future <List> load()
-	{
+	{		
 		Completer c = new Completer();
 		// clean up old street data
 		//currentStreet = null;
 		layers.children.clear();
+		querySelector("#PlayerHolder").children.clear(); //clear previous street's quoins and stuff
    
 		// set the song loading if necessary
 		if (_data['music'] != null)
@@ -107,6 +133,15 @@ class Street
 			// set the street.
 			currentStreet = this;
 		      
+			DivElement interactionCanvas = new DivElement()
+				..classes.add('streetcanvas')
+				..style.pointerEvents = "auto"
+				..id = "interractions"
+				..style.width = bounds.width.toString() + "px"
+				..style.height = bounds.height.toString() + "px"
+				..style.position = 'absolute'
+				..attributes['ground_y'] = _data['dynamic']['ground_y'].toString();
+            				
 			/* //// Gradient Canvas //// */
 			DivElement gradientCanvas = new DivElement();
 			gradientCanvas.classes.add('streetcanvas');
@@ -130,7 +165,7 @@ class Street
 		    
 			/* //// Scenery Canvases //// */
 			//For each layer on the street . . .
-			for (Map layer in new Map.from(_data['dynamic']['layers']).values)
+			for(Map layer in new Map.from(_data['dynamic']['layers']).values)
 			{
 				DivElement decoCanvas = new DivElement()
 					..classes.add('streetcanvas');
@@ -175,7 +210,7 @@ class Street
 				decoCanvas.style.filter = filters.join(' ');
 		      
 				//For each decoration in the layer, give its attributes and draw
-				for (Map deco in layer['decos'])
+				for(Map deco in layer['decos'])
 				{
 					int x = deco['x'] - deco['w']~/2;
 					int y = deco['y'] - deco['h'] + _data['dynamic']['ground_y'];
@@ -200,43 +235,145 @@ class Street
 						d.style.height = h.toString() + 'px';
 						d.style.zIndex = z.toString();
 						String transform = "";
-						if(deco['h_flip'] != null && deco['h_flip'] == true)
-							transform += "scale(-1,1)";
 						if(deco['r'] != null)
 						{
-							transform += " rotate("+deco['r'].toString()+"deg)";
-							d.style.transformOriginY = "bottom";
+							transform += "rotate("+deco['r'].toString()+"deg)";
+							d.style.transformOrigin = "50% bottom 0";
 						}
+						if(deco['h_flip'] != null && deco['h_flip'] == true)
+                        	transform += " scale(-1,1)";
 						d.style.transform = transform;
 						decoCanvas.append(d.clone(false));
 					}
 				}
 				
+				for(Map platformLine in layer['platformLines'])
+  				{
+					Point start, end;
+					(platformLine['endpoints'] as List).forEach((Map endpoint)
+					{
+						if(endpoint["name"] == "start")
+						{
+							start = new Point(endpoint["x"],endpoint["y"]+_data['dynamic']['ground_y']);
+							if(layer['name'] == 'middleground')
+								start = new Point(endpoint["x"]+layer['w']~/2,endpoint["y"]+layer['h']+_data['dynamic']['ground_y']);
+						}
+						if(endpoint["name"] == "end")
+						{
+							end = new Point(endpoint["x"],endpoint["y"]+_data['dynamic']['ground_y']);
+							if(layer['name'] == 'middleground')
+								end = new Point(endpoint["x"]+layer['w']~/2,endpoint["y"]+layer['h']+_data['dynamic']['ground_y']);
+						}
+					});
+  					platforms.add(new Platform(platformLine['id'],start,end));
+  				}
+				
+				platforms.sort((x,y) => x.compareTo(y));
+				
+				//debug only: draw platforms
+				/*platforms.forEach((Platform platform)
+				{
+					Element rect = new DivElement();
+					rect.text = "(${platform.start.x},${platform.start.y}) - (${platform.end.x},${platform.end.y})";
+					rect.style.width = (platform.end.x-platform.start.x).toString() + "px";
+					rect.style.height = (platform.end.y-platform.start.y).toString() + "px";
+					rect.style.left = platform.start.x.toString()+"px";
+					rect.style.top = platform.start.y.toString()+"px";
+					rect.style.border = "1px black solid";
+					rect.style.position = "absolute";
+					rect.style.zIndex = "100";
+					decoCanvas.append(rect);
+				});*/
+				
+				for(Map ladder in layer['ladders'])
+  				{
+					int x,y,width,height;
+					String id;
+					
+					width = ladder['w'];
+                    height = ladder['h'];
+					x = ladder['x']+layer['w']~/2-width~/2;
+					y = ladder['y']+layer['h']-height+_data['dynamic']['ground_y'];
+					id = ladder['id'];
+					
+					Rectangle box = new Rectangle(x,y,width,height);
+					ladders.add(new Ladder(id,box));
+  				}
+				
+				//debug only: draw ladders
+				/*for(Ladder ladder in ladders)
+				{
+					Element rect = new DivElement();
+					rect.style.width = ladder.boundary.width.toString() + "px";
+					rect.style.height = ladder.boundary.height.toString() + "px";
+					rect.style.left = ladder.boundary.left.toString()+"px";
+					rect.style.top = ladder.boundary.top.toString()+"px";
+					rect.style.border = "1px black solid";
+					rect.style.position = "absolute";
+					rect.style.zIndex = "100";
+					decoCanvas.append(rect);
+				}*/
+				
 				for (Map signpost in layer['signposts'])
 				{
-					((signpost['connects']) as List).forEach((Map<String,String> exit)
+					int x = signpost['x'];
+					int y = signpost['y'] - signpost['h'] + _data['dynamic']['ground_y'];
+					if(layer['name'] == 'middleground')
 					{
-						exits[exit['label']] = exit['tsid'];
-					});
+						//middleground has different layout needs
+						y += layer['h'];
+						x += layer['w']~/2;
+					}
+					
+					DivElement pole = new DivElement()
+						..style.backgroundImage = "url('http://childrenofur.com/locodarto/scenery/sign_pole.png')"
+						..style.backgroundRepeat = "no-repeat"
+						..style.width = signpost['w'].toString() + "px"
+						..style.height = signpost['h'].toString() + "px"
+						..style.position = "absolute"
+						..style.top = y.toString() + "px"
+						..style.left = (x-48).toString() + "px";
+					interactionCanvas.append(pole);
+					
+					int i=0;
+					List signposts = signpost['connects'] as List;
+					for(Map<String,String> exit in signposts)
+					{
+						if(exit['label'] == playerTeleFrom)
+						{
+							CurrentPlayer.posX = x;
+							CurrentPlayer.posY = y;
+						}
+						
+						String tsid = exit['tsid'].replaceFirst("L", "G");
+						SpanElement span = new SpanElement()
+						        ..style.position = "absolute"
+    							..style.top = (y+i*25+10).toString() + "px"
+    							..style.left = x.toString() + "px"
+    							..text = exit["label"]
+    							..className = "ExitLabel"
+                                ..attributes['url'] = 'http://RobertMcDermot.github.io/CAT422-glitch-location-viewer/locations/$tsid.callback.json'
+                                ..attributes['tsid'] = tsid
+								..attributes['from'] = currentStreet.label
+                                ..style.transform = "rotate(-5deg)";
+						
+						if(i %2 != 0)
+						{
+							gradientCanvas.append(span);
+							span.style.left = (x-span.clientWidth).toString() + "px";
+							span.style.transform = "rotate(5deg)";
+						}
+
+						interactionCanvas.append(span);
+						i++;
+					}
 				}
 				
 				// Append the canvas to the screen
 				layers.append(decoCanvas);
 			}
 			
-			
-			exitsElement.children.clear();
-			exitsElement.text = " Exits";
-			exits.forEach((String label, String tsid)
-			{
-				tsid = tsid.replaceFirst("L", "G"); //not sure why, it's in RevDanCatt's code
-				SpanElement exitLabel = new SpanElement()
-					..className = "ExitLabel"
-					..text = label
-					..attributes['url'] = 'http://revdancatt.github.io/CAT422-glitch-location-viewer/locations/$tsid.callback.json'
-					..attributes['tsid'] = tsid;
-				exitsElement.append(exitLabel);
-			});
+			layers.append(interactionCanvas);
 			
 			//display current street name			
 		    currLocation.text = label;
@@ -279,7 +416,7 @@ class Street
 			{
 				transform = transform.replaceAll(canvas.id, '');
 				canvas.style.transform = transform;
-			});
+			});			
 			camera.dirty = false;
 		}
 	}

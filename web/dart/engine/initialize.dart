@@ -1,7 +1,6 @@
 part of coUclient;
 
 WebSocket playerSocket;
-Map<String,Player> otherPlayers;
 
 main()
 {
@@ -30,7 +29,6 @@ main()
 		
 		//connect to the multiplayer server and start managing the other players on the screen
 		multiplayerInit();
-		streetSocketSetup(currentStreet.label);
 		
 		CurrentPlayer = new Player();
 		CurrentPlayer.loadAnimations()
@@ -93,6 +91,14 @@ start()
 	
 	printConsole('COU DEVELOPMENT CONSOLE');
 	printConsole('For a list of commands type "help"');
+	
+	refreshClock();
+	//update the clock once every 10 seconds
+	new Timer.periodic(new Duration(seconds:10), (Timer timer)
+	{
+		// Update clock
+		refreshClock();
+	});
 	    	
 	// Begin the GAME!!!
 	gameLoop(0.0);
