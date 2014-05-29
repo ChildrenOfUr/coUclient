@@ -7,7 +7,7 @@ class Player
 	int width = 116, height = 137, speed = 300;
 	num posX = 1.0, posY = 0.0;
 	num yVel = 0, yAccel = -2400;
-	bool jumping = false, moving = false, climbingUp = false, climbingDown = false, facingRight = true;
+	bool jumping = false, moving = false, climbingUp = false, climbingDown = false, activeClimb = false, facingRight = true;
 	Map<String,Animation> animations = new Map();
 	Animation currentAnimation;
 	ChatBubble chatBubble = null;
@@ -48,13 +48,15 @@ class Player
 	Future<List<Animation>> loadAnimations()
 	{
 		//need to get background images from some server for each player based on name
-		List<int> idleFrames = [], baseFrames = [], jumpUpFrames = [], fallDownFrames = [], landFrames = [];
+		List<int> idleFrames=[], baseFrames=[], jumpUpFrames=[], fallDownFrames, landFrames, climbFrames=[];
 		for(int i=0; i<57; i++)
 			idleFrames.add(i);
 		for(int i=0; i<12; i++)
         	baseFrames.add(i);
 		for(int i=0; i<16; i++)
             jumpUpFrames.add(i);
+		for(int i=0; i<19; i++)
+			climbFrames.add(i);
 		fallDownFrames = [16,17,18,19,20,21,22,23];
 		landFrames = [24,25,26,27,28,29,30,31,32];
 		animations['idle'] = new Animation("assets/sprites/idle.png","idle",2,29,idleFrames,loopDelay:new Duration(seconds:10),delayInitially:true);
@@ -62,6 +64,7 @@ class Player
 		animations['jumpup'] = new Animation("assets/sprites/jump.png","jumpup",1,33,jumpUpFrames);
 		animations['falldown'] = new Animation("assets/sprites/jump.png","falldown",1,33,fallDownFrames);
 		animations['land'] = new Animation("assets/sprites/jump.png","land",1,33,landFrames);
+		animations['climb'] = new Animation("assets/sprites/climb.png","climb",1,19,climbFrames);
 		
 		List<Future> futures = new List();
 		animations.forEach((String name,Animation animation) => futures.add(animation.load()));
@@ -102,6 +105,7 @@ class Player
 					
 					posY -= speed/4 * dt;
 					climbingUp = true;
+					activeClimb = true;
 					found = true;
 					break;
 				}
@@ -110,6 +114,7 @@ class Player
 			{
 				climbingUp = false;
 				climbingDown = false;
+				activeClimb = false;
 			}
 		}
 		
@@ -127,6 +132,7 @@ class Player
 					
 					posY += speed/4 * dt;
 					climbingDown = true;
+					activeClimb = true;
 					found = true;
 					break;
 				}
@@ -135,6 +141,7 @@ class Player
 			{
 				climbingDown = false;
 				climbingUp = false;
+				activeClimb = false;
 			}
 		}
 		
@@ -155,6 +162,7 @@ class Player
 				climbingDown = false;
 				climbingUp = false;
 			}
+			activeClimb = false;
 		}
 		
 		if(playerInput.rightKey == true)
@@ -225,28 +233,82 @@ class Player
 	    if(posY < 0)
 			posY = 0.0;	    
 			
-		if(!moving && !jumping)
+	    updateAnimation(dt);
+						
+		updateTransform();
+		
+		//check for collision with quoins
+		Rectangle avatarRect = playerParentElement.getBoundingClientRect();
+		querySelectorAll(".quoin").forEach((Element element)
+		{
+			checkCollision(avatarRect,element);
+		});
+		querySelectorAll(".npc").forEach((Element element)
+		{
+			Rectangle npcRect = element.getBoundingClientRect();
+			if(intersect(avatarRect,npcRect))
+			{
+				if(npcs[element.id] != null)
+					npcs[element.id].glow = true;
+			}
+			else
+			{
+				if(npcs[element.id] != null)
+					npcs[element.id].glow = false;
+			}
+		});
+	}
+  
+	void render()
+	{
+		if(currentAnimation != null && currentAnimation.dirty)
+		{
+			//it's not obvious, but setting the width and/or height erases the current canvas as well
+			playerCanvas.width = currentAnimation.width;
+			playerCanvas.height = currentAnimation.height;
+    		Rectangle destRect = new Rectangle(0,0,currentAnimation.width,currentAnimation.height);
+    		playerCanvas.context2D.drawImageToRect(currentAnimation.spritesheet, destRect, sourceRect: currentAnimation.sourceRect);
+    		currentAnimation.dirty = false;
+		}
+	}
+	
+	void updateAnimation(double dt)
+	{
+		bool climbing = climbingUp || climbingDown;
+		if(!moving && !jumping && !climbing)
 			currentAnimation = animations['idle'];
 		else
 		{
+			//reset idle so that the 10 second delay starts over
 			animations['idle'].reset();
 			
-			if(moving && !jumping)
-				currentAnimation = animations['base'];
-			else if(jumping && yVel < 0)
-    		{
-    			currentAnimation = animations['jumpup'];
-    			animations['falldown'].reset();
-    		}
-    		else if(jumping && yVel >= 0)
-    		{
-    			currentAnimation = animations['falldown'];
-    			animations['jumpup'].reset();
-    		}
+			if(climbing)
+			{
+				currentAnimation = animations['climb'];
+				currentAnimation.paused = !activeClimb;
+			}
+			else
+			{				
+				if(moving && !jumping)
+    				currentAnimation = animations['base'];
+    			else if(jumping && yVel < 0)
+        		{
+        			currentAnimation = animations['jumpup'];
+        			animations['falldown'].reset();
+        		}
+        		else if(jumping && yVel >= 0)
+        		{
+        			currentAnimation = animations['falldown'];
+        			animations['jumpup'].reset();
+        		}
+			}
 		}
 		
 		currentAnimation.updateSourceRect(dt,holdAtLastFrame:jumping);
-						
+	}
+	
+	void updateTransform()
+	{
 		num translateX = posX, translateY = ui.gameScreenHeight - height;
 		num camX = camera.getX(), camY = camera.getY();
 		if(posX > currentStreet.bounds.width - width/2 - ui.gameScreenWidth/2)
@@ -300,40 +362,6 @@ class Player
 		}
 		
 		playerParentElement.style.transform = transform;
-		
-		//check for collision with quoins
-		Rectangle avatarRect = playerParentElement.getBoundingClientRect();
-		querySelectorAll(".quoin").forEach((Element element)
-		{
-			checkCollision(avatarRect,element);
-		});
-		querySelectorAll(".npc").forEach((Element element)
-		{
-			Rectangle npcRect = element.getBoundingClientRect();
-			if(intersect(avatarRect,npcRect))
-			{
-				if(npcs[element.id] != null)
-					npcs[element.id].glow = true;
-			}
-			else
-			{
-				if(npcs[element.id] != null)
-					npcs[element.id].glow = false;
-			}
-		});
-	}
-  
-	render()
-	{
-		if(currentAnimation != null && currentAnimation.dirty)
-		{
-			//it's not obvious, but setting the width and/or height erases the current canvas as well
-			playerCanvas.width = currentAnimation.width;
-			playerCanvas.height = currentAnimation.height;
-    		Rectangle destRect = new Rectangle(0,0,currentAnimation.width,currentAnimation.height);
-    		playerCanvas.context2D.drawImageToRect(currentAnimation.spritesheet, destRect, sourceRect: currentAnimation.sourceRect);
-    		currentAnimation.dirty = false;
-		}
 	}
 	
 	void checkCollision(Rectangle avatarRect, Element element)

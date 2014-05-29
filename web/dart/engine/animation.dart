@@ -10,7 +10,7 @@ class Animation
 	ImageElement spritesheet;
 	double timeInMillis = 0.0, delayConsumed = 0.0;
 	Rectangle sourceRect;
-	bool dirty = true, delayInitially = false;
+	bool dirty = true, delayInitially = false, paused = false;
 	
 	Animation(this.url,this.animationName,this.numRows,this.numColumns,this.frameList,{this.fps : 30, this.loopDelay : null, this.delayInitially : false});
 	
@@ -32,6 +32,8 @@ class Animation
 		{
 			width = spritesheet.width~/numColumns;
 			height = spritesheet.height~/numRows;
+			
+			sourceRect = new Rectangle(0,0,width,height);
 						
 			c.complete(this);
 		});
@@ -45,10 +47,14 @@ class Animation
 		frameNum = 0;
 		delayConsumed = 0.0;
 		dirty = true; //will cause the first frame to be shown right away even if there is a delay of the rest of the animation (should be a good thing)
+		paused = false;
 	}
 	
 	updateSourceRect(double dt, {bool holdAtLastFrame: false})
 	{
+		if(paused)
+			return;
+		
 		timeInMillis += dt;
 		delayConsumed += dt*1000;
 		

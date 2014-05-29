@@ -348,7 +348,7 @@ class Street
 						String tsid = exit['tsid'].replaceFirst("L", "G");
 						SpanElement span = new SpanElement()
 						        ..style.position = "absolute"
-    							..style.top = (y+i*25).toString() + "px"
+    							..style.top = (y+i*25+10).toString() + "px"
     							..style.left = x.toString() + "px"
     							..text = exit["label"]
     							..className = "ExitLabel"
