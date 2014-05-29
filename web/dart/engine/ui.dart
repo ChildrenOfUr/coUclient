@@ -155,17 +155,13 @@ class UserInterface {
     
       // Submits the Bug
        w.querySelector('.button').onClick.listen((_) {
-        Map message = new Map()
-          ..['text'] = input.value.replaceAll(';', '\n');
-        String json = JSON.encoder.convert(message); 
-        Map m = new Map();
-        m['payload'] = json;
-        HttpRequest.postFormData('https://cou.slack.com/services/hooks/incoming-webhook?token=Ey3SlsfyOlJjw0sHl0N0UuMK',
-           m).then((HttpRequest request){
-             request.onReadyStateChange.listen((response) => display.print(response.toString()));
-         }).catchError((error) {
-             display.print(error.target.responseText);
-         });
+        slack.Message m = new slack.Message()
+          ..username = display.name
+          ..text = input.value;
+        slack.team = 'cou';
+        slack.token = 'Ey3SlsfyOlJjw0sHl0N0UuMK';
+        slack.send(m);
+         
         w.hidden = true;
       });   
     });  

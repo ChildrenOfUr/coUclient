@@ -19,3 +19,7 @@ dependencies:
     git:
       ref: master
       url: https://github.com/darkkiero/scproxy.git
+  slack:
+    git:
+      ref: master
+      url: https://github.com/ChildrenOfUr/dart-slack.git

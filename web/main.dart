@@ -11,6 +11,7 @@ import 'package:intl/intl.dart'; //used for NumberFormat
 import 'package:glitchTime/glitch-time.dart';// The script that spits out time!
 import 'package:scproxy/scproxy.dart'; // Paul's soundcloud bootstrap
 import 'package:libld/libld.dart'; // Nice and simple asset loading.
+import 'package:slack/slack_html.dart' as slack; // Access to the slack webhook api
 
 // Engine parts
 part 'dart/engine/ui.dart';
@@ -23,6 +24,7 @@ main()
 {
   display.init();
   input.init();
+  display.name = 'Playername';
   gameLoop(0.0);  
 }
 
