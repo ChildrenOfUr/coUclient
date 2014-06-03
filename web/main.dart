@@ -9,6 +9,7 @@ import 'package:intl/intl.dart'; //used for NumberFormat
 
 // Import our coU libraries.
 import 'package:glitchTime/glitch-time.dart';// The script that spits out time!
+import 'package:streetlib/streetlib.dart'; // rendering streets
 import 'package:scproxy/scproxy.dart'; // Paul's soundcloud bootstrap
 import 'package:libld/libld.dart'; // Nice and simple asset loading.
 import 'package:slack/slack_html.dart' as slack; // Access to the slack webhook api
@@ -22,6 +23,17 @@ part 'dart/engine/inventory.dart';
 
 main()
 {
+  
+  
+  Element canvas = querySelector('#layers');
+
+  canvas.parent.style
+    ..overflow= 'scroll';
+  
+  Asset st = new Asset('./lib/locations/test.street');
+  Street s = new Street(st, canvas);   
+  
+  
   display.init();
   input.init();
   display.name = 'Playername';
