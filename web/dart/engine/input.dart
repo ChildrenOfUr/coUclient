@@ -29,10 +29,10 @@ class Input {
    
    
    // Movement Keys
-   game_input.register('w', (_) => display.print('MoveUp')); 
-   game_input.register('a', (_) => display.print('MoveLeft')); 
-   game_input.register('s', (_) => display.print('MoveDown')); 
-   game_input.register('d', (_) => display.print('MoveRight')); 
+   game_input.register('w', (_) => currStreet.camera.y-=10); 
+   game_input.register('a', (_) => currStreet.camera.x-=10); 
+   game_input.register('s', (_) => currStreet.camera.y+=10); 
+   game_input.register('d', (_) => currStreet.camera.x+=10); 
    
    game_input.register('up', (_) => display.print('MoveUp')); 
    game_input.register('left', (_) => display.print('MoveLeft')); 

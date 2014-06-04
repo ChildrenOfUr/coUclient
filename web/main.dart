@@ -3,6 +3,7 @@ library couclient;
 import 'dart:html';
 import 'dart:async';
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:okeyee/okeyee.dart'; // used for keyboard stuff.
 import 'package:intl/intl.dart'; //used for NumberFormat
@@ -21,23 +22,22 @@ part 'dart/engine/input.dart';
 
 part 'dart/engine/inventory.dart';
 
+Random r = new Random();
+Street currStreet;
+
 main()
 {
-  
-  
-  Element canvas = querySelector('#layers');
-
-  canvas.parent.style
-    ..overflow= 'scroll';
-  
-  Asset st = new Asset('./lib/locations/test.street');
-  Street s = new Street(st, canvas);   
-  
-  
   display.init();
   input.init();
   display.name = 'Playername';
-  gameLoop(0.0);  
+  
+  jsonExtensions.add('street');
+  new Asset('./lib/locations/test.street').load()
+    .then((Asset a) {
+    Street s = new Street(a.get());
+    currStreet = s;
+    gameLoop(0.0);  
+  });  
 }
 
 // Declare our game_loop
@@ -48,8 +48,7 @@ double dt = (delta-lastTime)/1000;
 lastTime = delta;
 
 // GAME LOOP
-
-
+currStreet.update();
 //RENDER LOOP
 display.update();
 
