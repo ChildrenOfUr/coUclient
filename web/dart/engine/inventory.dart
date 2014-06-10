@@ -3,11 +3,8 @@ part of couclient;
 
 
 class Inventory {
-  List box;  
+  List box;
   Inventory(Element parent) {
-    for (Element holder in parent.querySelectorAll('.box'))
-      box.add(holder);
-  } 
-  
-  
+    for (Element holder in parent.querySelectorAll('.box')) box.add(holder);
+  }
 }

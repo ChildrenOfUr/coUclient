@@ -27,9 +27,9 @@ Street currStreet;
 
 main()
 {
-  display.init();
+  app.init();
   input.init();
-  display.name = 'Playername';
+  app.name = 'Playername';
   
   jsonExtensions.add('street');
   new Asset('./lib/locations/test.street').load()
@@ -50,7 +50,7 @@ lastTime = delta;
 // GAME LOOP
 currStreet.update();
 //RENDER LOOP
-display.update();
+app.update();
 
 window.animationFrame.then(gameLoop);
 }
