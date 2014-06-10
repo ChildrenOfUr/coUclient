@@ -24,4 +24,4 @@ dependencies:
       ref: master
       url: https://github.com/ChildrenOfUr/dart-slack.git
   streetlib:
-    path: ../glitch-streetlib
+    git: https://github.com/ChildrenOfUr/glitch-streetlib.git
