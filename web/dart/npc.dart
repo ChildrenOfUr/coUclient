@@ -8,7 +8,7 @@ class NPC
 	double posX = 0.0, posY = 0.0;
 	Animation animation;
 	
-	NPC(Map map,{this.speed : 150})
+	NPC(Map map,{this.speed : 75})
 	{
 		List<int> frameList = [];
 		for(int i=0; i<map['numFrames']; i++)
