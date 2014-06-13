@@ -1,16 +1,18 @@
 part of coUclient;
 
-String multiplayerServer = "ws://couserver.herokuapp.com/playerUpdate";
-String streetEventServer = "ws://couserver.herokuapp.com/streetUpdate";
+String multiplayerServer = "ws://vps.robertmcdermot.com:8080/playerUpdate";//"ws://couserver.herokuapp.com/playerUpdate";
+String streetEventServer = "ws://vps.robertmcdermot.com:8080/streetUpdate";//"ws://couserver.herokuapp.com/streetUpdate";
 WebSocket streetSocket;
 bool reconnect = true;
 Map<String,Player> otherPlayers;
 Map<String,NPC> npcs;
+Map<String,Quoin> quoins;
 
 multiplayerInit()
 {
 	otherPlayers = new Map();
 	npcs = new Map();
+	quoins = new Map();
 	_setupPlayerSocket();
 	_setupStreetSocket(currentStreet.label);
 }
@@ -214,59 +216,10 @@ removeOtherPlayer(String username)
 
 addQuoin(Map map)
 {
-	//inserting rules can be messy - Firefox throws exceptions if you try to insert a @-webkit-keyframes rule
-	//and chrome mobile (not desktop though) throws an exception the other way around
-	CssStyleSheet styleSheet = document.styleSheets[0] as CssStyleSheet;
-	String keyframes = map["keyframes"];
-	try
-	{
-		styleSheet.insertRule(keyframes,1);
-	}
-	catch(error){}
-	try
-	{
-		styleSheet.insertRule("@"+keyframes.substring(9),1);
-	}
-	catch(error){}
-              
-	String id = map["id"];
-	DivElement element = new DivElement();
-	DivElement circle = new DivElement()
-		..id = "q"+id
-		..className = "circle"
-		..style.position = "absolute"
-		..style.left = map["x"].toString()+"px"
-		..style.bottom = map["y"].toString()+"px";
-	DivElement parent = new DivElement()
-		..id = "qq"+id
-		..className = "parent"
-		..style.position = "absolute"
-		..style.left = map["x"].toString()+"px"
-		..style.bottom = map["y"].toString()+"px";
-	DivElement inner = new DivElement();
-	inner.className = "inner";
-	DivElement content = new DivElement();
-	content.className = "quoinString";
-	parent.append(inner);
-	inner.append(content);
+	if(currentStreet == null)
+    	return;
 	
-	element.style.backgroundImage = "url("+map["url"]+")";
-	element.id = id;
-	element.className = map["type"] + " quoin";
-	element.style.animation = map["animation"];
-	element.style.position = "absolute";
-	element.style.left = map["x"].toString()+"px";
-	element.style.bottom = map["y"].toString()+"px";
-	element.style.width = map["width"].toString()+"px";
-	element.style.height = map["height"].toString()+"px";
-	
-	//this causes the browser to paint each quoin seperately which seems better than if it paints
-	//them all in one large block (8 70x75 < 1 2000x150 or whatever it turns out to be)
-	element.style.transform += " translateZ(0)";
-	
-	querySelector("#PlayerHolder").append(element);
-	querySelector("#PlayerHolder").append(circle);
-	querySelector("#PlayerHolder").append(parent);
+	quoins[map['id']] = new Quoin(map);
 }
 
 void addNPC(Map map)
@@ -280,10 +233,14 @@ void addNPC(Map map)
 	canvas.width = map["width"];
 	canvas.height = map["height"];
 	canvas.style.position = "absolute";
-	canvas.style.left = map["x"].toString()+"px";
-	canvas.style.top = (currentStreet.bounds.height - 170).toString()+"px";
 	ImageElement img = new ImageElement();
 	img.src = map["url"];
-	img.onLoad.listen((_) => npcs[map["id"]] = new NPC(canvas,img,map["numRows"],map["numColumns"],numFrames:map["numFrames"]));
+	img.onLoad.listen((_)
+	{
+		NPC npc = new NPC(canvas,img,map["numRows"],map["numColumns"],numFrames:map["numFrames"]);
+		npc.posX = map['x'].toDouble();
+		npc.posY = (currentStreet.bounds.height - 170).toDouble();
+		npcs[map["id"]] = npc;
+	});
 	querySelector("#PlayerHolder").append(canvas);
 }

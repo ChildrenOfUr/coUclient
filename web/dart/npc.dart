@@ -8,7 +8,7 @@ class NPC
 	CanvasElement canvas;
 	Rectangle destRect, sourceRect;
 	bool dirty = true, facingRight = true, glow = false;
-	double timeInMillis = 0.0;
+	double timeInMillis = 0.0, posX = 0.0, posY = 0.0;
 	
 	NPC(this.canvas,this.img,this.numRows,this.numColumns,{this.numFrames : -1,this.fps : 30,this.speed : 150})
 	{
@@ -61,23 +61,20 @@ class NPC
 			
 			if(img.src.contains("walk"))
 			{
-				double posX = double.parse(canvas.style.left.replaceAll("px", ""));
 				if(facingRight)
-					posX += speed*dt;
+					posX += speed*timeInMillis;
 				else
-					posX -= speed*dt;
-				
+					posX -= speed*timeInMillis;
+								
 				if(posX < 0)
 					posX = 0.0;
 				if(posX > currentStreet.bounds.width-canvas.width)
 					posX = (currentStreet.bounds.width-canvas.width).toDouble();
 				
-				canvas.style.left = posX.toString()+"px";
-				
 				if(facingRight)
-    				canvas.style.transform = "scale(1,1) translateZ(0)";
+    				canvas.style.transform = "translateX(${posX}px) translateY(${posY}px) translateZ(0) scale(1,1)";
     			else
-    				canvas.style.transform = "scale(-1,1) translateZ(0)";
+    				canvas.style.transform = "translateX(${posX}px) translateY(${posY}px) translateZ(0) scale(-1,1)";
 			}
 			sourceRect = new Rectangle(columnOffset*canvas.width,rowOffset*canvas.height,canvas.width,canvas.height);
 			dirty = true;

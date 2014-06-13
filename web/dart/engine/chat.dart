@@ -141,7 +141,7 @@ class TabContent
 	WebSocket webSocket;
 	DivElement chatDiv, chatHistory;
 	int unreadMessages = 0, tabSearchIndex = 0, numMessages = 0, inputHistoryPointer = 0, emoticonPointer = 0;
-	final _chatServerUrl = "ws://couserver.herokuapp.com";
+	final _chatServerUrl = "ws://vps.robertmcdermot.com:8080";//"ws://couserver.herokuapp.com";
 	
 	TabContent(this.channelName, this.useSpanForTitle)
 	{

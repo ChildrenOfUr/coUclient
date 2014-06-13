@@ -92,6 +92,14 @@ class Street
 		playerHolder.classes.add('streetcanvas');
 		playerHolder.style.position = "absolute";
 		playerHolder.attributes["ground_y"] = "0";
+		playerHolder.style.transform = "translateZ(0)";
+		
+		if(npcs != null)
+			npcs.clear();
+		if(quoins != null)
+			quoins.clear();
+		if(otherPlayers != null)
+			otherPlayers.clear();
 	}
   
 	Future <List> load()
