@@ -2,107 +2,67 @@ part of coUclient;
 
 class NPC
 {
-	static Random rand = new Random();
-	int numRows, numColumns, numFrames, columnOffset = 0, rowOffset = 0, fps, speed;
-	ImageElement img;
+	int speed;
 	CanvasElement canvas;
-	Rectangle destRect, sourceRect;
-	bool dirty = true, facingRight = true, glow = false;
-	double timeInMillis = 0.0, posX = 0.0, posY = 0.0;
+	bool ready = false, facingRight = true, glow = false;
+	double posX = 0.0, posY = 0.0;
+	Animation animation;
 	
-	NPC(this.canvas,this.img,this.numRows,this.numColumns,{this.numFrames : -1,this.fps : 30,this.speed : 150})
+	NPC(Map map,{this.speed : 150})
 	{
-		if(numFrames == -1)
-			numFrames = numRows * numColumns;
+		List<int> frameList = [];
+		for(int i=0; i<map['numFrames']; i++)
+			frameList.add(i);
 		
-		destRect = new Rectangle(0,0,canvas.width,canvas.height);
-		sourceRect = new Rectangle(columnOffset,rowOffset,canvas.width,canvas.height);
-	}
-	
-	resetImage(ImageElement i, Map map)
-	{
-		img = i;
-		numRows = map["numRows"];
-		numColumns = map["numColumns"];
-		numFrames = map["numFrames"];
-		rowOffset = 0;
-		columnOffset = 0;
-		facingRight = map["facingRight"];
+		animation = new Animation(map['url'],"npc",map['numRows'],map['numColumns'],frameList);
+		animation.load().then((_)
+		{
+			canvas = new CanvasElement();
+        	canvas.id = map["id"];
+        	canvas.classes.add("npc");
+        	canvas.width = map["width"];
+        	canvas.height = map["height"];
+        	canvas.style.position = "absolute";
+        	posX = map['x'].toDouble();
+    		posY = (currentStreet.bounds.height - 170).toDouble();
+        	querySelector("#PlayerHolder").append(canvas);
+        	ready = true;
+		});
 	}
 	
 	update(double dt)
 	{
-		timeInMillis += dt;
-		if(timeInMillis > 1/fps)
+		if(!ready)
+			return;
+		
+		animation.updateSourceRect(dt);
+		if(animation.spritesheet.src.contains("walk"))
 		{
-			if(numFrames < numColumns*numRows && rowOffset == numRows-1)
-			{
-				int deficit = numColumns*numRows - numFrames;
-				if(columnOffset == numColumns-deficit-1)
-				{
-					columnOffset = 0;
-					rowOffset = 0;
-				}
-				else
-					columnOffset++;
-			}
-			else if(columnOffset == numColumns-1 && rowOffset == numRows-1)
-			{
-				columnOffset = 0;
-				rowOffset = 0;
-			}
-			else if(columnOffset == numColumns-1)
-			{
-				columnOffset = 0;
-				rowOffset++;
-			}
-			else if(columnOffset < numColumns-1)
-				columnOffset++;
+			if(facingRight)
+				posX += speed*dt;
+			else
+				posX -= speed*dt;
+							
+			if(posX < 0)
+				posX = 0.0;
+			if(posX > currentStreet.bounds.width-canvas.width)
+				posX = (currentStreet.bounds.width-canvas.width).toDouble();
 			
-			if(img.src.contains("walk"))
-			{
-				if(facingRight)
-					posX += speed*timeInMillis;
-				else
-					posX -= speed*timeInMillis;
-								
-				if(posX < 0)
-					posX = 0.0;
-				if(posX > currentStreet.bounds.width-canvas.width)
-					posX = (currentStreet.bounds.width-canvas.width).toDouble();
-				
-				if(facingRight)
-    				canvas.style.transform = "translateX(${posX}px) translateY(${posY}px) translateZ(0) scale(1,1)";
-    			else
-    				canvas.style.transform = "translateX(${posX}px) translateY(${posY}px) translateZ(0) scale(-1,1)";
-			}
-			sourceRect = new Rectangle(columnOffset*canvas.width,rowOffset*canvas.height,canvas.width,canvas.height);
-			dirty = true;
-			timeInMillis = 0.0;
+			if(facingRight)
+				canvas.style.transform = "translateX(${posX}px) translateY(${posY}px) translateZ(0) scale(1,1)";
+			else
+				canvas.style.transform = "translateX(${posX}px) translateY(${posY}px) translateZ(0) scale(-1,1)";
 		}
 	}
 	
 	render()
 	{
-		if(dirty)
+		if(ready && animation.dirty)
 		{
-			canvas.context2D.clearRect(0, 0, canvas.width, canvas.height);
-			if(glow)
-			{
-				canvas.context2D.shadowColor = "rgba(0, 0, 255, 0.2)";
-				canvas.context2D.shadowBlur = 20;
-				canvas.context2D.shadowOffsetX = 0;
-				canvas.context2D.shadowOffsetY = -5;
-			}
-			else
-			{
-				canvas.context2D.shadowColor = "0";
-				canvas.context2D.shadowBlur = 0;
-				canvas.context2D.shadowOffsetX = 0;
-				canvas.context2D.shadowOffsetY = 0;
-			}
-			canvas.context2D.drawImageToRect(img, destRect, sourceRect: sourceRect);
-            dirty = false;
+			canvas.width = canvas.width;
+    		Rectangle destRect = new Rectangle(0,0,animation.width,animation.height);
+    		canvas.context2D.drawImageToRect(animation.spritesheet, destRect, sourceRect: animation.sourceRect);
+    		animation.dirty = false;
 		}
 	}
 }

@@ -79,7 +79,7 @@ class Street
 		label = _data['label'];
 		
 		if(chat.username != null)
-			_setupStreetSocket(label);
+			sendLeftMessage(label);
           
 		bounds = new Rectangle(_data['dynamic']['l'],
 								_data['dynamic']['t'],
@@ -389,6 +389,7 @@ class Street
 			//make sure to redraw the screen (in case of street switching)
 			camera.dirty = true;
 			c.complete(this);
+			sendJoinedMessage(label);
 		});
         // Done initializing street.
 		return c.future;

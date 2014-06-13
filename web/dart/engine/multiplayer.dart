@@ -2,93 +2,98 @@ part of coUclient;
 
 String multiplayerServer = "ws://vps.robertmcdermot.com:8080/playerUpdate";//"ws://couserver.herokuapp.com/playerUpdate";
 String streetEventServer = "ws://vps.robertmcdermot.com:8080/streetUpdate";//"ws://couserver.herokuapp.com/streetUpdate";
+String joined = "";
 WebSocket streetSocket;
 bool reconnect = true;
-Map<String,Player> otherPlayers;
-Map<String,NPC> npcs;
-Map<String,Quoin> quoins;
+Map<String,Player> otherPlayers = new Map();
+Map<String,NPC> npcs = new Map();
+Map<String,Quoin> quoins = new Map();
 
 multiplayerInit()
 {
-	otherPlayers = new Map();
-	npcs = new Map();
-	quoins = new Map();
 	_setupPlayerSocket();
 	_setupStreetSocket(currentStreet.label);
 }
 
-_setupStreetSocket(String streetName)
+void sendLeftMessage(String streetName)
 {
 	if(streetSocket != null && streetSocket.readyState == WebSocket.OPEN)
-	{
-		//send one final leaving message
+    {
 		Map map = new Map();
 		map["username"] = chat.username;
 		map["streetName"] = streetName;
 		map["message"] = "left";
 		streetSocket.send(JSON.encode(map));
-		reconnect = false;
-		streetSocket.close();
+    }
+}
+
+void sendJoinedMessage(String streetName)
+{
+	if(joined != streetName && streetSocket != null && streetSocket.readyState == WebSocket.OPEN)
+	{
+		Map map = new Map();
+		map["username"] = chat.username;
+		map["streetName"] = streetName;
+		map["message"] = "joined";
+		streetSocket.send(JSON.encode(map));
+		joined = streetName;
 	}
-	
+}
+
+_setupStreetSocket(String streetName)
+{
 	streetSocket = new WebSocket(streetEventServer);
+	
 	streetSocket.onOpen.listen((_)
 	{
-		if(streetSocket.readyState == WebSocket.OPEN)
-		{
-			Map map = new Map();
-			map["username"] = chat.username;
-			map["streetName"] = streetName;
-			map["message"] = "joined";
-			streetSocket.send(JSON.encode(map));
-		}
+		sendJoinedMessage(streetName);
 	});
 	streetSocket.onMessage.listen((MessageEvent event)
 	{
 		Map map = JSON.decode(event.data);
-		
-		if(map["remove"] != null && querySelector("#${map["remove"]}") != null)
-			querySelector("#${map["remove"]}").style.display = "none"; //.remove() is very slow
-		else if(map["remove"] == null)
+		(map["quoins"] as List).forEach((Map quoinMap)
 		{
-			String id = map["id"];
-			Element element = querySelector("#$id");
-			if(id.startsWith("q"))
+			if(quoinMap["remove"] == "true")
+    		{
+    			Element objectToRemove = querySelector("#${quoinMap["remove"]}");
+    			if(objectToRemove != null)
+    				objectToRemove.style.display = "none"; //.remove() is very slow
+    		}
+			else
 			{
-        		if(element == null)
-        		{
-        			addQuoin(map);
-        		}
-        		else if(element.style.display == "none")
-        		{
-        			element.style.display = "block";
-        		}
-			}
-			if(id.startsWith("n"))
-			{
-				NPC npc = null;
-				if(npcs != null)
-					npc = npcs[map["id"]];
+				String id = quoinMap["id"];
+				Element element = querySelector("#$id");
 				if(element == null)
-				{
-					addNPC(map);
-				}
-				else if(npc != null)
-				{
-					if(npc.img.src != map["url"]) //new animation
-					{
-						ImageElement img = new ImageElement();
-    					img.src = map["url"];
-    					img.onLoad.listen((_)
-    					{
-    						npcs[map["id"]].resetImage(img,map);
-    					});
-					}
-					
-					npc.facingRight = map["facingRight"];
-				}
+					addQuoin(quoinMap);
+				else if(element.style.display == "none")
+					element.style.display = "block";
 			}
-		}
+		});
+		(map["npcs"] as List).forEach((Map npcMap)
+		{
+			String id = npcMap["id"];
+            Element element = querySelector("#$id");
+            NPC npc = npcs[npcMap["id"]];
+			if(element == null)
+				addNPC(npcMap);
+			else if(npc != null)
+			{
+				if(npc.animation.url != npcMap["url"]) //new animation
+				{
+					npc.ready = false;
+					
+					List<int> frameList = [];
+            		for(int i=0; i<npcMap['numFrames']; i++)
+            			frameList.add(i);
+            		
+            		npc.animation = new Animation(npcMap['url'],"npc",npcMap['numRows'],npcMap['numColumns'],frameList);
+            		npc.animation.load().then((_) => npc.ready = true);
+					
+				}
+				
+				npc.facingRight = npcMap["facingRight"];
+			}
+		});
 	});
 	streetSocket.onClose.listen((_)
 	{
@@ -227,20 +232,5 @@ void addNPC(Map map)
 	if(currentStreet == null)
 		return;
 	
-	CanvasElement canvas = new CanvasElement();
-	canvas.id = map["id"];
-	canvas.classes.add("npc");
-	canvas.width = map["width"];
-	canvas.height = map["height"];
-	canvas.style.position = "absolute";
-	ImageElement img = new ImageElement();
-	img.src = map["url"];
-	img.onLoad.listen((_)
-	{
-		NPC npc = new NPC(canvas,img,map["numRows"],map["numColumns"],numFrames:map["numFrames"]);
-		npc.posX = map['x'].toDouble();
-		npc.posY = (currentStreet.bounds.height - 170).toDouble();
-		npcs[map["id"]] = npc;
-	});
-	querySelector("#PlayerHolder").append(canvas);
+	npcs[map['id']] = new NPC(map);
 }

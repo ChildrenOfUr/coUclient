@@ -5,15 +5,15 @@ class Quoins
 	final int _value;
 	final String _name;
 	const Quoins._internal(this._value,this._name);
-	toString() => 'Enum.$_name';
+	toString() => 'Quoin.$_name';
 	
 	static const IMG = const Quoins._internal(0,"img");
 	static const MOOD = const Quoins._internal(1,"mood");
 	static const ENERGY = const Quoins._internal(2,"energy");
 	static const CURRANT = const Quoins._internal(3,"currant");
-	static const QUESTION = const Quoins._internal(4,"question");
-	static const STAR = const Quoins._internal(5,"star");
-	static const CLOCK = const Quoins._internal(6,"clock");
+	static const MYSTERY = const Quoins._internal(4,"mystery");
+	static const FAVOR = const Quoins._internal(5,"favor");
+	static const TIME = const Quoins._internal(6,"time");
 	static const QUARAZY = const Quoins._internal(7,"quarazy");
 }
 
