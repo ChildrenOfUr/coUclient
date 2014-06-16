@@ -1,6 +1,8 @@
 part of couclient;
 
 UserInterface app = new UserInterface();
+Chat chat = new Chat();
+
 class UserInterface {
 
   //NumberFormat for having commas in the currants and iMG displays
@@ -57,7 +59,10 @@ class UserInterface {
 
   // world Element
   Element worldElement = querySelector('#world');
-
+  Element playerHolder = querySelector("#playerHolder");
+  Element layers = querySelector("#layers");
+  
+  
   // Music Meter Variables
   Element titleElement = querySelector('#trackTitle');
   Element artistElement = querySelector('#trackArtist');
@@ -185,6 +190,21 @@ class UserInterface {
         volumeSlider.value = '0';
       }
     });
+    
+    //update the clock once every 10 seconds
+    new Timer.periodic(new Duration(seconds:10), (Timer timer)
+    {
+      // Update Clock
+      List data = getDate();
+
+      if (data[4] != currTime.text) {
+        currDay.text = data[3].toString();
+        currTime.text = data[4];
+        currDate.text = data[2].toString() + ' of ' + data[1].toString();
+      }
+    });
+    
+    
 
     // display buttons
 
@@ -200,15 +220,6 @@ class UserInterface {
 
   // update the userinterface
   update() {
-    // Update Clock
-    List data = getDate();
-
-    if (data[4] != currTime.text) {
-      currDay.text = data[3].toString();
-      currTime.text = data[4];
-      currDate.text = data[2].toString() + ' of ' + data[1].toString();
-    }
-
     // Update img display
     if (commaFormatter.format(img) != imgElement.text) imgElement.text = commaFormatter.format(img);
 
