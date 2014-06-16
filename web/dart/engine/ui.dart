@@ -83,7 +83,7 @@ class UserInterface {
 
   // Declare/Set initial variables here
   /////////////////////VARS//////////////////////////////////////////////////
-  String name = 'null';
+  String username = 'null';
 
   String location = 'null';
 
@@ -151,7 +151,7 @@ class UserInterface {
       // Submits the Bug
       w.querySelector('.button').onClick.listen((_) {
         slack.Message m = new slack.Message()
-            ..username = app.name
+            ..username = app.username
             ..text = input.value;
         slack.team = 'cou';
         slack.token = 'Ey3SlsfyOlJjw0sHl0N0UuMK';
@@ -230,8 +230,8 @@ class UserInterface {
     }
 
     // Update name display
-    if (name.length >= 17) name = name.substring(0, 15) + '...';
-    if (name != nameElement.text) nameElement.text = name;
+    if (username.length >= 17) username = username.substring(0, 15) + '...';
+    if (username != nameElement.text) nameElement.text = username;
 
 
     // Update energy elements
@@ -289,6 +289,10 @@ class UserInterface {
 
   }
 
+  
+  // This opens a new Window, TODO make PopWindow a class, maybe,
+  // spawn in the element instead of having it hardcoded into the page.
+  /////////////////////WINDOWS//////////////////////////////////////////////
   Element openWindow(String title) {
     for (Element window in querySelectorAll('.window')) {
       window.hidden = true;
@@ -302,6 +306,44 @@ class UserInterface {
     return null;
   }
 }
+
+
+
+// This is Robert's touchscroller class for handling
+// touchscreen scroll compatability.
+/////////////////////TOUCHSCROLLER///////////////////////////////////////
+class TouchScroller
+{
+  static int HORIZONTAL = 0, VERTICAL = 1, BOTH = 2;
+  DivElement _scrollDiv;
+  int _startX, _startY, _lastX, _lastY, _direction;
+  
+  TouchScroller(this._scrollDiv, this._direction)
+  {
+    _scrollDiv.onTouchStart.listen((TouchEvent event)
+    {
+      event.stopPropagation();
+      _startX = event.changedTouches.first.client.x;
+      _startY = event.changedTouches.first.client.y;
+      _lastX = _startX;
+      _lastY = _startY;
+    });
+    _scrollDiv.onTouchMove.listen((TouchEvent event)
+    {
+      event.preventDefault();
+      int diffX = _lastX - event.changedTouches.single.client.x;
+      int diffY = _lastY - event.changedTouches.single.client.y;
+      _lastX = event.changedTouches.single.client.x;
+      _lastY = event.changedTouches.single.client.y;
+      if(_direction == HORIZONTAL || _direction == BOTH)
+        _scrollDiv.scrollLeft = _scrollDiv.scrollLeft + diffX;
+      if(_direction == VERTICAL || _direction == BOTH)
+        _scrollDiv.scrollTop = _scrollDiv.scrollTop + diffY;
+    });
+  }
+}
+
+
 
 
 
