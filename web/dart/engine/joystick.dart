@@ -2,31 +2,46 @@ part of coUclient;
 
 class Joystick
 {
-	Element _joystick, _knob;
-	int _neutralX, _neutralY, _initialTouchX, _initialTouchY;
+	Element joystick, knob;
+	int _neutralX, _neutralY, _initialTouchX, _initialTouchY, deadzoneInPixels;
+	double deadzoneInPercent;
 	bool UP = false, DOWN = false, LEFT = false, RIGHT = false;
 	StreamController _moveController = new StreamController.broadcast();
 	StreamController _releaseController = new StreamController.broadcast();
 	
-	Joystick(this._joystick, this._knob)
-	{		
-		_knob.onTouchStart.listen((TouchEvent event)
+	/**
+	 * deadzoneInPixels should be a number >= 0 that represents the number of pixels away
+	 * from the center of the joystick element that the knob must be dragged in order to 
+	 * trigger an UP/DOWN/LEFT/RIGHT action
+	 * 
+	 * deadzoneInPercent should be a number between 0.0 and 1.0 representing the percentage
+	 * of the width of the joystick element that should be considered the deadzone
+	 **/
+	Joystick(this.joystick, this.knob, {this.deadzoneInPixels : 0, this.deadzoneInPercent : 0.0})
+	{	
+		if(deadzoneInPercent != 0)
+		{
+			deadzoneInPixels = (joystick.clientWidth * deadzoneInPercent).toInt();
+			print("deadzone: ${deadzoneInPixels}px");
+		}
+		
+		knob.onTouchStart.listen((TouchEvent event)
 		{
 			event.preventDefault();
-			_neutralX = _knob.offsetLeft;
-			_neutralY = _knob.offsetTop;
+			_neutralX = knob.offsetLeft;
+			_neutralY = knob.offsetTop;
 			_initialTouchX = event.changedTouches.first.client.x;
 			_initialTouchY = event.changedTouches.first.client.y;
 			_moveController.add(new JoystickEvent());
 		});
-		_knob.onTouchMove.listen((TouchEvent event)
+		knob.onTouchMove.listen((TouchEvent event)
 		{
 			event.preventDefault(); //prevent page from scrolling/zooming
 			int x = _neutralX + (event.changedTouches.first.client.x - _initialTouchX);
 			int y = _neutralY + (event.changedTouches.first.client.y - _initialTouchY);
 			
 			//keep within containing joystick circle
-			int radius = _joystick.clientWidth~/2;
+			int radius = joystick.clientWidth~/2;
 			if(!inCircle(_neutralX,_neutralY,radius,x,y)) //stick to side of circle
 			{
 				double slope = (y-_neutralY)/(x-_neutralX);
@@ -40,24 +55,24 @@ class Joystick
 				y = yOnCircle;
 			}
 						
-			if(x < _neutralX) LEFT = true;
+			if(x < _neutralX-deadzoneInPixels) LEFT = true;
 			else LEFT = false;
-			if(x > _neutralX) RIGHT = true;
+			if(x > _neutralX+deadzoneInPixels) RIGHT = true;
 			else RIGHT = false;
-			if(y > _neutralY) DOWN = true;
+			if(y > _neutralY+deadzoneInPixels) DOWN = true;
 			else DOWN = false;
-			if(y < _neutralY) UP = true;
+			if(y < _neutralY-deadzoneInPixels) UP = true;
 			else UP = false;
 
-			_knob.style.left = x.toString()+"px";
-			_knob.style.top = y.toString()+"px";
+			knob.style.left = x.toString()+"px";
+			knob.style.top = y.toString()+"px";
 			
 			_moveController.add(new JoystickEvent());
 		});
-		_knob.onTouchEnd.listen((TouchEvent event)
+		knob.onTouchEnd.listen((TouchEvent event)
 		{
 			event.preventDefault();
-			_knob.attributes.remove('style'); //in case the user rotates the screen
+			knob.attributes.remove('style'); //in case the user rotates the screen
 			UP = false; DOWN = false; LEFT = false; RIGHT = false; //reset
 			
 			_releaseController.add(new JoystickEvent());

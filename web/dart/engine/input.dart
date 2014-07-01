@@ -94,7 +94,7 @@ class Input
 	    });
 		
 		//only for mobile version
-		Joystick joystick = new Joystick(querySelector('#Joystick'),querySelector('#Knob'));
+		Joystick joystick = new Joystick(querySelector('#Joystick'),querySelector('#Knob'),deadzoneInPercent:.2);
 		joystick.onMove.listen((_)
 		{
 			if(joystick.UP) upKey = true;
