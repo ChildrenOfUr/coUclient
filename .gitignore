@@ -3,3 +3,4 @@ out
 pubspec.lock
 .buildlog
 APIKEYS.dart
+web/*.js*
