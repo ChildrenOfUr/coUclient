@@ -1,0 +1,3539 @@
+{
+    "tsid": "GA512CSG4H42RKG",
+    "label": "Stake Claim Rd A",
+    "gradient": {
+        "top": "87A8C9",
+        "bottom": "FFC400"
+    },
+    "dynamic": {
+        "l": -3000,
+        "r": 3000,
+        "t": -1000,
+        "b": 0,
+        "rookable_type": 0,
+        "ground_y": 0,
+        "layers": {
+            "T_1307999415184": {
+                "name": "bg_2",
+                "w": 5340,
+                "h": 1000,
+                "z": -2,
+                "filters": {
+                    "saturation": 6,
+                    "tintColor": 0,
+                    "contrast": 0,
+                    "blur": 2,
+                    "brightness": 24
+                },
+                "decos": [
+                    {
+                        "filename": "lens_grass_1",
+                        "w": 142,
+                        "z": 19,
+                        "r": -1,
+                        "x": 730,
+                        "y": 515,
+                        "h": 22
+                    },
+                    {
+                        "filename": "lens_grass_1",
+                        "w": 69,
+                        "z": 69,
+                        "r": -1,
+                        "x": 3552,
+                        "y": 513,
+                        "h": 11
+                    },
+                    {
+                        "filename": "lens_grass_2",
+                        "w": 1288,
+                        "z": 4,
+                        "r": 1,
+                        "x": 164,
+                        "y": 504,
+                        "h": 46
+                    },
+                    {
+                        "filename": "lens_grass_1",
+                        "w": 69,
+                        "z": 74,
+                        "r": -1,
+                        "x": 3296,
+                        "y": 502,
+                        "h": 11
+                    },
+                    {
+                        "filename": "lens_grass_1",
+                        "w": 69,
+                        "z": 71,
+                        "r": -1,
+                        "x": 3158,
+                        "y": 506,
+                        "h": 11
+                    },
+                    {
+                        "filename": "lens_grass_2",
+                        "w": 1288,
+                        "z": 10,
+                        "x": 1612,
+                        "y": 530,
+                        "h": 46
+                    },
+                    {
+                        "filename": "tree_acacia_1",
+                        "w": 55,
+                        "z": 58,
+                        "x": 856,
+                        "y": 480,
+                        "h": 35
+                    },
+                    {
+                        "filename": "lens_grass_1",
+                        "w": 110,
+                        "z": 76,
+                        "r": -1,
+                        "x": 3489,
+                        "y": 529,
+                        "h": 18
+                    },
+                    {
+                        "filename": "lens_grass_1",
+                        "w": 112,
+                        "z": 23,
+                        "r": -1,
+                        "x": 2047,
+                        "y": 512,
+                        "h": 14
+                    },
+                    {
+                        "filename": "lens_grass_1",
+                        "w": 110,
+                        "z": 75,
+                        "r": -1,
+                        "x": 3436,
+                        "y": 526,
+                        "h": 18
+                    },
+                    {
+                        "filename": "lens_grass_1",
+                        "w": 142,
+                        "z": 42,
+                        "r": -1,
+                        "x": 1565,
+                        "y": 539,
+                        "h": 22
+                    },
+                    {
+                        "filename": "tree_acacia_1",
+                        "w": 55,
+                        "z": 54,
+                        "x": 2893,
+                        "y": 496,
+                        "h": 35
+                    },
+                    {
+                        "filename": "lens_grass_2",
+                        "w": 1288,
+                        "z": 12,
+                        "x": 4433,
+                        "y": 546,
+                        "h": 46
+                    },
+                    {
+                        "filename": "alakol_cliff_1",
+                        "w": 122,
+                        "z": 31,
+                        "x": 5122,
+                        "y": 494,
+                        "h": 8
+                    },
+                    {
+                        "filename": "alakol_cliff_1",
+                        "w": 122,
+                        "z": 62,
+                        "x": 4056,
+                        "y": 486,
+                        "h": 8
+                    },
+                    {
+                        "filename": "lens_grass_1",
+                        "w": 142,
+                        "z": 21,
+                        "r": -1,
+                        "x": 2496,
+                        "y": 523,
+                        "h": 22
+                    },
+                    {
+                        "filename": "lens_grass_2",
+                        "w": 1288,
+                        "z": 8,
+                        "r": 1,
+                        "x": 940,
+                        "y": 523,
+                        "h": 46
+                    },
+                    {
+                        "filename": "lens_grass_1",
+                        "w": 69,
+                        "z": 26,
+                        "r": -1,
+                        "x": 3592,
+                        "y": 503,
+                        "h": 11
+                    },
+                    {
+                        "filename": "tree_acacia_4",
+                        "w": 53,
+                        "z": 57,
+                        "x": 2225,
+                        "y": 489,
+                        "h": 40,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "heights_bush_1",
+                        "w": 18,
+                        "z": 78,
+                        "x": 4053,
+                        "y": 490,
+                        "h": 11
+                    },
+                    {
+                        "filename": "lens_grass_2",
+                        "w": 1288,
+                        "z": 2,
+                        "x": 4020,
+                        "y": 527,
+                        "h": 46
+                    },
+                    {
+                        "filename": "lens_grass_1",
+                        "w": 66,
+                        "z": 44,
+                        "r": -1,
+                        "x": 1879,
+                        "y": 500,
+                        "h": 10
+                    },
+                    {
+                        "filename": "lens_grass_1",
+                        "w": 142,
+                        "z": 50,
+                        "r": -1,
+                        "x": 3967,
+                        "y": 528,
+                        "h": 22
+                    },
+                    {
+                        "filename": "alakol_water_rock_1",
+                        "w": 36,
+                        "z": 30,
+                        "x": 5455,
+                        "y": 481,
+                        "h": 12
+                    },
+                    {
+                        "filename": "lens_grass_1",
+                        "w": 142,
+                        "z": 40,
+                        "r": -1,
+                        "x": 1558,
+                        "y": 527,
+                        "h": 22
+                    },
+                    {
+                        "filename": "lens_grass_2",
+                        "w": 1288,
+                        "z": 6,
+                        "x": 2487,
+                        "y": 528,
+                        "h": 46
+                    },
+                    {
+                        "filename": "alakol_water_rock_1",
+                        "w": 41,
+                        "z": 37,
+                        "x": 5080,
+                        "y": 498,
+                        "h": 5
+                    },
+                    {
+                        "filename": "lens_grass_1",
+                        "w": 142,
+                        "z": 17,
+                        "r": -1,
+                        "x": 580,
+                        "y": 509,
+                        "h": 22
+                    },
+                    {
+                        "filename": "alakol_water_rock_2",
+                        "w": 86,
+                        "z": 1,
+                        "r": 1,
+                        "x": 4075,
+                        "y": 484,
+                        "h": 12
+                    },
+                    {
+                        "filename": "heights_bush_2",
+                        "w": 20,
+                        "z": 77,
+                        "x": 5100,
+                        "y": 498,
+                        "h": 9
+                    },
+                    {
+                        "filename": "tree_acacia_3",
+                        "w": 77,
+                        "z": 59,
+                        "x": 1220,
+                        "y": 494,
+                        "h": 35
+                    },
+                    {
+                        "filename": "lens_grass_1",
+                        "w": 66,
+                        "z": 46,
+                        "r": -1,
+                        "x": 1887,
+                        "y": 504,
+                        "h": 10
+                    },
+                    {
+                        "filename": "alakol_water_rock_2",
+                        "w": 64,
+                        "z": 67,
+                        "r": 1,
+                        "x": 3919,
+                        "y": 485,
+                        "h": 10
+                    },
+                    {
+                        "filename": "lens_grass_1",
+                        "w": 142,
+                        "z": 41,
+                        "r": -1,
+                        "x": 1463,
+                        "y": 537,
+                        "h": 22
+                    },
+                    {
+                        "filename": "lens_grass_2",
+                        "w": 1288,
+                        "z": 15,
+                        "r": 1,
+                        "x": 2948,
+                        "y": 548,
+                        "h": 46
+                    },
+                    {
+                        "filename": "lens_grass_2",
+                        "w": 1288,
+                        "z": 9,
+                        "x": 5255,
+                        "y": 548,
+                        "h": 46
+                    },
+                    {
+                        "filename": "lens_grass_2",
+                        "w": 1288,
+                        "z": 14,
+                        "r": 1,
+                        "x": 3862,
+                        "y": 556,
+                        "h": 46
+                    },
+                    {
+                        "filename": "alakol_water_rock_1",
+                        "w": 41,
+                        "z": 64,
+                        "x": 4144,
+                        "y": 486,
+                        "h": 7
+                    },
+                    {
+                        "filename": "alakol_water_rock_1",
+                        "w": 23,
+                        "z": 66,
+                        "x": 3875,
+                        "y": 486,
+                        "h": 9
+                    },
+                    {
+                        "filename": "lens_grass_1",
+                        "w": 142,
+                        "z": 20,
+                        "r": -1,
+                        "x": 676,
+                        "y": 522,
+                        "h": 22
+                    },
+                    {
+                        "filename": "alakol_water_rock_2",
+                        "w": 98,
+                        "z": 29,
+                        "x": 5116,
+                        "y": 489,
+                        "h": 8
+                    },
+                    {
+                        "filename": "lens_grass_1",
+                        "w": 142,
+                        "z": 52,
+                        "r": -1,
+                        "x": 3779,
+                        "y": 548,
+                        "h": 22
+                    },
+                    {
+                        "filename": "lens_grass_1",
+                        "w": 142,
+                        "z": 18,
+                        "r": -1,
+                        "x": 655,
+                        "y": 512,
+                        "h": 22
+                    },
+                    {
+                        "filename": "alakol_water_rock_1",
+                        "w": 41,
+                        "z": 0,
+                        "x": 4028,
+                        "y": 484,
+                        "h": 12
+                    },
+                    {
+                        "filename": "lens_grass_1",
+                        "w": 69,
+                        "z": 73,
+                        "r": -1,
+                        "x": 3186,
+                        "y": 513,
+                        "h": 11
+                    },
+                    {
+                        "filename": "lens_grass_2",
+                        "w": 1288,
+                        "z": 5,
+                        "x": 5512,
+                        "y": 529,
+                        "h": 46
+                    },
+                    {
+                        "filename": "lens_grass_1",
+                        "w": 142,
+                        "z": 51,
+                        "r": -1,
+                        "x": 4025,
+                        "y": 531,
+                        "h": 22
+                    },
+                    {
+                        "filename": "lens_grass_1",
+                        "w": 69,
+                        "z": 72,
+                        "r": -1,
+                        "x": 3153,
+                        "y": 511,
+                        "h": 11
+                    },
+                    {
+                        "filename": "lens_grass_2",
+                        "w": 1288,
+                        "z": 11,
+                        "r": 1,
+                        "x": 1322,
+                        "y": 546,
+                        "h": 46
+                    },
+                    {
+                        "filename": "alakol_water_rock_1",
+                        "w": 41,
+                        "z": 38,
+                        "x": 5148,
+                        "y": 496,
+                        "h": 6
+                    },
+                    {
+                        "filename": "alakol_cliff_2",
+                        "w": 58,
+                        "z": 33,
+                        "x": 5467,
+                        "y": 487,
+                        "h": 11
+                    },
+                    {
+                        "filename": "alakol_cliff_2",
+                        "w": 58,
+                        "z": 68,
+                        "x": 4042,
+                        "y": 488,
+                        "h": 7
+                    },
+                    {
+                        "filename": "alakol_water_rock_1",
+                        "w": 17,
+                        "z": 35,
+                        "x": 3980,
+                        "y": 484,
+                        "h": 7
+                    },
+                    {
+                        "filename": "tree_acacia_1",
+                        "w": 55,
+                        "z": 61,
+                        "x": 2512,
+                        "y": 487,
+                        "h": 35
+                    },
+                    {
+                        "filename": "lens_grass_1",
+                        "w": 142,
+                        "z": 22,
+                        "r": -1,
+                        "x": 2558,
+                        "y": 525,
+                        "h": 22
+                    },
+                    {
+                        "filename": "tree_acacia_2",
+                        "w": 62,
+                        "z": 60,
+                        "x": 2198,
+                        "y": 491,
+                        "h": 35
+                    },
+                    {
+                        "filename": "lens_grass_2",
+                        "w": 1288,
+                        "z": 7,
+                        "x": 3270,
+                        "y": 538,
+                        "h": 46
+                    },
+                    {
+                        "filename": "alakol_water_rock_1",
+                        "w": 17,
+                        "z": 34,
+                        "x": 5196,
+                        "y": 493,
+                        "h": 8
+                    },
+                    {
+                        "filename": "lens_grass_1",
+                        "w": 142,
+                        "z": 43,
+                        "r": -1,
+                        "x": 1669,
+                        "y": 541,
+                        "h": 22
+                    },
+                    {
+                        "filename": "alakol_cliff_2",
+                        "w": 58,
+                        "z": 32,
+                        "x": 5070,
+                        "y": 496,
+                        "h": 6
+                    },
+                    {
+                        "filename": "tree_acacia_3",
+                        "w": 77,
+                        "z": 53,
+                        "x": 2858,
+                        "y": 494,
+                        "h": 35
+                    },
+                    {
+                        "filename": "heights_bush_1",
+                        "w": 18,
+                        "z": 79,
+                        "x": 4039,
+                        "y": 490,
+                        "h": 11
+                    },
+                    {
+                        "filename": "lens_grass_1",
+                        "w": 142,
+                        "z": 48,
+                        "r": -1,
+                        "x": 4041,
+                        "y": 522,
+                        "h": 22
+                    },
+                    {
+                        "filename": "lens_grass_1",
+                        "w": 66,
+                        "z": 45,
+                        "r": -1,
+                        "x": 1916,
+                        "y": 502,
+                        "h": 10
+                    },
+                    {
+                        "filename": "lens_grass_2",
+                        "w": 1288,
+                        "z": 3,
+                        "x": 4694,
+                        "y": 532,
+                        "h": 46
+                    },
+                    {
+                        "filename": "tree_acacia_4",
+                        "w": 53,
+                        "z": 55,
+                        "x": 1266,
+                        "y": 493,
+                        "h": 40
+                    },
+                    {
+                        "filename": "lens_grass_1",
+                        "w": 69,
+                        "z": 25,
+                        "r": -1,
+                        "x": 3611,
+                        "y": 500,
+                        "h": 11
+                    },
+                    {
+                        "filename": "lens_grass_1",
+                        "w": 66,
+                        "z": 47,
+                        "r": -1,
+                        "x": 1876,
+                        "y": 508,
+                        "h": 10
+                    },
+                    {
+                        "filename": "lens_grass_1",
+                        "w": 69,
+                        "z": 27,
+                        "r": -1,
+                        "x": 3583,
+                        "y": 507,
+                        "h": 11
+                    },
+                    {
+                        "filename": "heights_bush_1",
+                        "w": 18,
+                        "z": 80,
+                        "x": 3914,
+                        "y": 488,
+                        "h": 11
+                    },
+                    {
+                        "filename": "lens_grass_1",
+                        "w": 105,
+                        "z": 24,
+                        "r": -1,
+                        "x": 2110,
+                        "y": 515,
+                        "h": 16
+                    },
+                    {
+                        "filename": "alakol_water_rock_1",
+                        "w": 25,
+                        "z": 65,
+                        "x": 3904,
+                        "y": 483,
+                        "h": 15
+                    },
+                    {
+                        "filename": "alakol_water_rock_1",
+                        "w": 41,
+                        "z": 36,
+                        "x": 5490,
+                        "y": 490,
+                        "h": 10
+                    },
+                    {
+                        "filename": "lens_grass_2",
+                        "w": 1288,
+                        "z": 13,
+                        "r": 1,
+                        "x": 437,
+                        "y": 531,
+                        "h": 46
+                    },
+                    {
+                        "filename": "alakol_water_rock_1",
+                        "w": 41,
+                        "z": 63,
+                        "x": 4076,
+                        "y": 489,
+                        "h": 5
+                    },
+                    {
+                        "filename": "lens_grass_1",
+                        "w": 142,
+                        "z": 49,
+                        "r": -1,
+                        "x": 3895,
+                        "y": 523,
+                        "h": 22
+                    },
+                    {
+                        "filename": "lens_grass_2",
+                        "w": 1288,
+                        "z": 16,
+                        "x": 2020,
+                        "y": 544,
+                        "h": 46
+                    },
+                    {
+                        "filename": "tree_acacia_4",
+                        "w": 53,
+                        "z": 56,
+                        "x": 2158,
+                        "y": 490,
+                        "h": 40
+                    },
+                    {
+                        "filename": "lens_grass_1",
+                        "w": 69,
+                        "z": 28,
+                        "r": -1,
+                        "x": 3591,
+                        "y": 511,
+                        "h": 11
+                    },
+                    {
+                        "filename": "lens_grass_1",
+                        "w": 69,
+                        "z": 70,
+                        "r": -1,
+                        "x": 3131,
+                        "y": 505,
+                        "h": 11
+                    },
+                    {
+                        "filename": "alakol_water_rock_2",
+                        "w": 41,
+                        "z": 39,
+                        "r": -3,
+                        "x": 5036,
+                        "y": 498,
+                        "h": 8
+                    }
+                ],
+                "signposts": [],
+                "platformLines": []
+            },
+            "middleground": {
+                "name": "middleground",
+                "w": 6000,
+                "h": 1000,
+                "z": 0,
+                "filters": {
+                    "saturation": 18,
+                    "tintColor": 0,
+                    "contrast": 0,
+                    "brightness": 9
+                },
+                "decos": [
+                    {
+                        "filename": "trunk_ladder_1",
+                        "w": 75,
+                        "z": 46,
+                        "x": -2437,
+                        "y": -255,
+                        "h": 86
+                    },
+                    {
+                        "filename": "lens_grass_2",
+                        "w": 3214,
+                        "z": 6,
+                        "x": 2816,
+                        "y": -267,
+                        "h": 166
+                    },
+                    {
+                        "filename": "lens_grass_1",
+                        "w": 273,
+                        "z": 26,
+                        "r": 7,
+                        "x": 1396,
+                        "y": -266,
+                        "h": 58
+                    },
+                    {
+                        "filename": "lens_grass_1",
+                        "w": 162,
+                        "z": 63,
+                        "x": 2488,
+                        "y": -389,
+                        "h": 43
+                    },
+                    {
+                        "filename": "lens_grass_2",
+                        "w": 3214,
+                        "z": 3,
+                        "x": -555,
+                        "y": -273,
+                        "h": 166
+                    },
+                    {
+                        "filename": "roots_ug_1",
+                        "w": 39,
+                        "z": 68,
+                        "x": 1317,
+                        "y": -196,
+                        "h": 87
+                    },
+                    {
+                        "filename": "lens_grass_1",
+                        "w": 316,
+                        "z": 61,
+                        "r": 1,
+                        "x": -244,
+                        "y": -397,
+                        "h": 49
+                    },
+                    {
+                        "filename": "gravel_2",
+                        "w": 21,
+                        "z": 58,
+                        "x": -1346,
+                        "y": -435,
+                        "h": 13
+                    },
+                    {
+                        "filename": "tree_acacia_4",
+                        "w": 935,
+                        "z": 64,
+                        "x": 1219,
+                        "y": -372,
+                        "h": 707
+                    },
+                    {
+                        "filename": "ug_wall_heights",
+                        "w": 760,
+                        "z": 15,
+                        "r": 2,
+                        "x": 972,
+                        "y": -97,
+                        "h": 235
+                    },
+                    {
+                        "filename": "lens_grass_1",
+                        "w": 200,
+                        "z": 24,
+                        "r": -1,
+                        "x": 1504,
+                        "y": -291,
+                        "h": 39
+                    },
+                    {
+                        "filename": "stalagmite_base_2",
+                        "w": 76,
+                        "z": 36,
+                        "r": 2,
+                        "x": -2761,
+                        "y": -416,
+                        "h": 18
+                    },
+                    {
+                        "filename": "pampas_2",
+                        "w": 48,
+                        "z": 65,
+                        "x": -884,
+                        "y": -426,
+                        "h": 74
+                    },
+                    {
+                        "filename": "gravel_2",
+                        "w": 17,
+                        "z": 44,
+                        "x": -2786,
+                        "y": -418,
+                        "h": 10
+                    },
+                    {
+                        "filename": "lens_grass_1",
+                        "w": 367,
+                        "z": 32,
+                        "r": 1,
+                        "x": -2280,
+                        "y": -390,
+                        "h": 54
+                    },
+                    {
+                        "filename": "ug_ground_heights",
+                        "w": 577,
+                        "z": 1,
+                        "r": 3,
+                        "x": -1917,
+                        "y": -33,
+                        "h": 83
+                    },
+                    {
+                        "filename": "stalagmite_base_1",
+                        "w": 110,
+                        "z": 39,
+                        "x": -2303,
+                        "y": -319,
+                        "h": 24
+                    },
+                    {
+                        "filename": "roots_ug_5",
+                        "w": 24,
+                        "z": 69,
+                        "r": -15,
+                        "x": -1697,
+                        "y": -192,
+                        "h": 90,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "lens_grass_1",
+                        "w": 286,
+                        "z": 22,
+                        "r": -23,
+                        "x": 1915,
+                        "y": -188,
+                        "h": 82
+                    },
+                    {
+                        "filename": "ug_wall_heights",
+                        "w": 508,
+                        "z": 13,
+                        "r": -3,
+                        "x": -2405,
+                        "y": -105,
+                        "h": 198
+                    },
+                    {
+                        "filename": "lens_grass_2",
+                        "w": 3214,
+                        "z": 2,
+                        "x": 2275,
+                        "y": -272,
+                        "h": 166
+                    },
+                    {
+                        "filename": "lens_grass_1",
+                        "w": 340,
+                        "z": 50,
+                        "r": 5,
+                        "x": 1780,
+                        "y": -136,
+                        "h": 67
+                    },
+                    {
+                        "filename": "lens_grass_1",
+                        "w": 222,
+                        "z": 18,
+                        "r": -1,
+                        "x": 1101,
+                        "y": -399,
+                        "h": 32
+                    },
+                    {
+                        "filename": "lens_grass_1",
+                        "w": 200,
+                        "z": 28,
+                        "r": -1,
+                        "x": 2619,
+                        "y": -396,
+                        "h": 39
+                    },
+                    {
+                        "filename": "stalagmite_base_1",
+                        "w": 232,
+                        "z": 33,
+                        "x": -2476,
+                        "y": -329,
+                        "h": 34
+                    },
+                    {
+                        "filename": "lens_grass_1",
+                        "w": 388,
+                        "z": 21,
+                        "r": -6,
+                        "x": 1853,
+                        "y": -170,
+                        "h": 70
+                    },
+                    {
+                        "filename": "stalagmite_base_2",
+                        "w": 193,
+                        "z": 38,
+                        "r": 2,
+                        "x": -2391,
+                        "y": -317,
+                        "h": 42
+                    },
+                    {
+                        "filename": "ug_ground_heights",
+                        "w": 512,
+                        "z": 0,
+                        "x": -2419,
+                        "y": -54,
+                        "h": 69
+                    },
+                    {
+                        "filename": "stalagmite_base_2",
+                        "w": 185,
+                        "z": 54,
+                        "r": 2,
+                        "x": -1497,
+                        "y": -396,
+                        "h": 36
+                    },
+                    {
+                        "filename": "heights_hole_back",
+                        "w": 218,
+                        "z": 41,
+                        "x": -2427,
+                        "y": -303,
+                        "h": 39
+                    },
+                    {
+                        "filename": "stalagmite_base_3",
+                        "w": 56,
+                        "z": 56,
+                        "x": -1995,
+                        "y": -392,
+                        "h": 14
+                    },
+                    {
+                        "filename": "stalagmite_base_1",
+                        "w": 224,
+                        "z": 53,
+                        "x": -1379,
+                        "y": -408,
+                        "h": 55
+                    },
+                    {
+                        "filename": "roots_ug_4",
+                        "w": 35,
+                        "z": 67,
+                        "x": 1270,
+                        "y": -92,
+                        "h": 117,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "lens_grass_1",
+                        "w": 228,
+                        "z": 23,
+                        "x": 1585,
+                        "y": -298,
+                        "h": 43
+                    },
+                    {
+                        "filename": "stalagmite_base_2",
+                        "w": 121,
+                        "z": 42,
+                        "r": 7,
+                        "x": -2559,
+                        "y": -302,
+                        "h": 32
+                    },
+                    {
+                        "filename": "trunk_ladder_1",
+                        "w": 75,
+                        "z": 47,
+                        "x": -2435,
+                        "y": -171,
+                        "h": 86,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "roots_ug_5",
+                        "w": 33,
+                        "z": 70,
+                        "r": 15,
+                        "x": 1212,
+                        "y": -144,
+                        "h": 124
+                    },
+                    {
+                        "filename": "lens_grass_2",
+                        "w": 3214,
+                        "z": 7,
+                        "x": -2511,
+                        "y": -272,
+                        "h": 166
+                    },
+                    {
+                        "filename": "cliff_cover_4",
+                        "w": 287,
+                        "z": 49,
+                        "r": 3,
+                        "x": 1672,
+                        "y": -40,
+                        "h": 142
+                    },
+                    {
+                        "filename": "ug_wall_heights",
+                        "w": 640,
+                        "z": 12,
+                        "r": 3,
+                        "x": -1854,
+                        "y": -103,
+                        "h": 199
+                    },
+                    {
+                        "filename": "lens_grass_1",
+                        "w": 302,
+                        "z": 25,
+                        "r": 2,
+                        "x": 1850,
+                        "y": -273,
+                        "h": 68
+                    },
+                    {
+                        "filename": "lens_grass_1",
+                        "w": 171,
+                        "z": 51,
+                        "r": -1,
+                        "x": 1657,
+                        "y": -284,
+                        "h": 47
+                    },
+                    {
+                        "filename": "lens_grass_2",
+                        "w": 3214,
+                        "z": 5,
+                        "x": 1342,
+                        "y": -241,
+                        "h": 166
+                    },
+                    {
+                        "filename": "lens_grass_2",
+                        "w": 3214,
+                        "z": 4,
+                        "x": -1336,
+                        "y": -270,
+                        "h": 166
+                    },
+                    {
+                        "filename": "ug_ground_heights",
+                        "w": 652,
+                        "z": 16,
+                        "x": 1609,
+                        "y": -30,
+                        "h": 77
+                    },
+                    {
+                        "filename": "roots_ug_5",
+                        "w": 28,
+                        "z": 71,
+                        "r": 15,
+                        "x": 1287,
+                        "y": -175,
+                        "h": 80
+                    },
+                    {
+                        "filename": "stalagmite_base_1",
+                        "w": 126,
+                        "z": 43,
+                        "x": -2304,
+                        "y": -301,
+                        "h": 36
+                    },
+                    {
+                        "filename": "lens_grass_1",
+                        "w": 355,
+                        "z": 31,
+                        "r": 1,
+                        "x": -2531,
+                        "y": -412,
+                        "h": 37
+                    },
+                    {
+                        "filename": "lens_grass_1",
+                        "w": 200,
+                        "z": 27,
+                        "r": -1,
+                        "x": 2514,
+                        "y": -409,
+                        "h": 39
+                    },
+                    {
+                        "filename": "roots_ug_5",
+                        "w": 21,
+                        "z": 60,
+                        "x": -1756,
+                        "y": -205,
+                        "h": 78
+                    },
+                    {
+                        "filename": "lens_topper_1",
+                        "w": 113,
+                        "z": 52,
+                        "x": 1726,
+                        "y": -314,
+                        "h": 22
+                    },
+                    {
+                        "filename": "stalagmite_base_2",
+                        "w": 152,
+                        "z": 40,
+                        "r": 2,
+                        "x": -2554,
+                        "y": -316,
+                        "h": 36
+                    },
+                    {
+                        "filename": "lens_grass_2",
+                        "w": 3214,
+                        "z": 8,
+                        "x": 385,
+                        "y": -264,
+                        "h": 166
+                    },
+                    {
+                        "filename": "lens_grass_1",
+                        "w": 316,
+                        "z": 66,
+                        "r": 1,
+                        "x": -768,
+                        "y": -401,
+                        "h": 49
+                    },
+                    {
+                        "filename": "gravel_2",
+                        "w": 18,
+                        "z": 59,
+                        "x": -2010,
+                        "y": -391,
+                        "h": 11
+                    },
+                    {
+                        "filename": "lens_grass_1",
+                        "w": 259,
+                        "z": 62,
+                        "r": -3,
+                        "x": -31,
+                        "y": -390,
+                        "h": 46
+                    },
+                    {
+                        "filename": "stalagmite_base_3",
+                        "w": 112,
+                        "z": 55,
+                        "x": -1363,
+                        "y": -438,
+                        "h": 27
+                    },
+                    {
+                        "filename": "stalagmite_base_1",
+                        "w": 81,
+                        "z": 35,
+                        "x": -2246,
+                        "y": -381,
+                        "h": 20
+                    },
+                    {
+                        "filename": "lens_grass_1",
+                        "w": 291,
+                        "z": 29,
+                        "r": 1,
+                        "x": 2085,
+                        "y": -401,
+                        "h": 39
+                    },
+                    {
+                        "filename": "heights_topper_wide_1",
+                        "w": 382,
+                        "z": 11,
+                        "x": -1025,
+                        "y": -1021,
+                        "h": 81
+                    },
+                    {
+                        "filename": "ug_wall_heights",
+                        "w": 673,
+                        "z": 17,
+                        "x": 1595,
+                        "y": -91,
+                        "h": 223
+                    },
+                    {
+                        "filename": "ug_ground_heights",
+                        "w": 621,
+                        "z": 14,
+                        "x": 984,
+                        "y": -33,
+                        "h": 83
+                    },
+                    {
+                        "filename": "lens_grass_1",
+                        "w": 228,
+                        "z": 20,
+                        "r": -1,
+                        "x": 1723,
+                        "y": -301,
+                        "h": 49
+                    },
+                    {
+                        "filename": "lens_grass_1",
+                        "w": 291,
+                        "z": 30,
+                        "r": -1,
+                        "x": 2325,
+                        "y": -388,
+                        "h": 57
+                    },
+                    {
+                        "filename": "lens_grass_2",
+                        "w": 3214,
+                        "z": 10,
+                        "x": 1965,
+                        "y": -272,
+                        "h": 133
+                    },
+                    {
+                        "filename": "gravel_2",
+                        "w": 36,
+                        "z": 57,
+                        "x": -1432,
+                        "y": -398,
+                        "h": 22,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "stalagmite_base_1",
+                        "w": 152,
+                        "z": 34,
+                        "x": -2776,
+                        "y": -397,
+                        "h": 37
+                    },
+                    {
+                        "filename": "gravel_2",
+                        "w": 25,
+                        "z": 45,
+                        "x": -2745,
+                        "y": -394,
+                        "h": 15,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "trunk_ladder_1",
+                        "w": 75,
+                        "z": 48,
+                        "x": -2431,
+                        "y": -114,
+                        "h": 86,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "lens_grass_1",
+                        "w": 200,
+                        "z": 19,
+                        "r": -1,
+                        "x": 1234,
+                        "y": -387,
+                        "h": 39
+                    },
+                    {
+                        "filename": "lens_grass_2",
+                        "w": 3303,
+                        "z": 9,
+                        "x": -1156,
+                        "y": -229,
+                        "h": 192
+                    },
+                    {
+                        "filename": "stalagmite_base_2",
+                        "w": 76,
+                        "z": 37,
+                        "r": 2,
+                        "x": -2705,
+                        "y": -325,
+                        "h": 18
+                    }
+                ],
+                "signposts": [
+                    {
+                        "name": "signpost_1",
+                        "y": -368,
+                        "h": 200,
+                        "w": 100,
+                        "x": 2669,
+                        "connects": [
+                            {
+                                "y": -120,
+                                "x": -2630,
+                                "hub_id": "86",
+                                "mote_id": "9",
+                                "label": "Contour Rd W",
+                                "tsid": "LA5PV4JH5K42CIV"
+                            },
+                            {
+                                "y": -122,
+                                "x": 2410,
+                                "hub_id": "86",
+                                "mote_id": "9",
+                                "label": "Contour Rd NW",
+                                "tsid": "LA5T6PDF7K42SNM"
+                            },
+                            {
+                                "y": -120,
+                                "x": -2600,
+                                "hub_id": "86",
+                                "mote_id": "9",
+                                "label": "Stake Claim Rd B",
+                                "tsid": "LA5DNE9DVJ429P8"
+                            }
+                        ]
+                    }
+                ],
+                "platformLines": [
+                    {
+                        "id": "plat_1308157381930",
+                        "platform_pc_perm": -1,
+                        "platform_item_perm": -1,
+                        "endpoints": [
+                            {
+                                "name": "start",
+                                "y": -188,
+                                "x": 1708
+                            },
+                            {
+                                "name": "end",
+                                "y": -226,
+                                "x": 1857
+                            }
+                        ]
+                    },
+                    {
+                        "id": "plat_1308157381916",
+                        "platform_pc_perm": 1,
+                        "platform_item_perm": 1,
+                        "endpoints": [
+                            {
+                                "name": "start",
+                                "y": -295,
+                                "x": 685
+                            },
+                            {
+                                "name": "end",
+                                "y": -297,
+                                "x": 1081
+                            }
+                        ]
+                    },
+                    {
+                        "id": "plat_1308157381911",
+                        "platform_pc_perm": -1,
+                        "platform_item_perm": -1,
+                        "endpoints": [
+                            {
+                                "name": "start",
+                                "y": -322,
+                                "x": 1182
+                            },
+                            {
+                                "name": "end",
+                                "y": -298,
+                                "x": 1334
+                            }
+                        ]
+                    },
+                    {
+                        "id": "plat_1308157381920",
+                        "platform_pc_perm": -1,
+                        "platform_item_perm": -1,
+                        "endpoints": [
+                            {
+                                "name": "start",
+                                "y": -60,
+                                "x": 991
+                            },
+                            {
+                                "name": "end",
+                                "y": -74,
+                                "x": 1524
+                            }
+                        ]
+                    },
+                    {
+                        "id": "plat_1308157381881",
+                        "platform_pc_perm": 1,
+                        "platform_item_perm": 1,
+                        "endpoints": [
+                            {
+                                "name": "start",
+                                "y": -297,
+                                "x": -2366
+                            },
+                            {
+                                "name": "end",
+                                "y": -279,
+                                "x": -1630
+                            }
+                        ]
+                    },
+                    {
+                        "id": "plat_1308157381919",
+                        "platform_pc_perm": -1,
+                        "platform_item_perm": -1,
+                        "endpoints": [
+                            {
+                                "name": "start",
+                                "y": -78,
+                                "x": 798
+                            },
+                            {
+                                "name": "end",
+                                "y": -60,
+                                "x": 991
+                            }
+                        ]
+                    },
+                    {
+                        "id": "plat_1308157381931",
+                        "platform_pc_perm": -1,
+                        "platform_item_perm": -1,
+                        "endpoints": [
+                            {
+                                "name": "start",
+                                "y": -226,
+                                "x": 1857
+                            },
+                            {
+                                "name": "end",
+                                "y": -255,
+                                "x": 1917
+                            }
+                        ]
+                    },
+                    {
+                        "id": "plat_1308766443461",
+                        "platform_pc_perm": -1,
+                        "platform_item_perm": -1,
+                        "endpoints": [
+                            {
+                                "name": "start",
+                                "y": -83,
+                                "x": -2463
+                            },
+                            {
+                                "name": "end",
+                                "y": -83,
+                                "x": -2402
+                            }
+                        ]
+                    },
+                    {
+                        "id": "plat_1308157381910",
+                        "platform_pc_perm": -1,
+                        "platform_item_perm": -1,
+                        "endpoints": [
+                            {
+                                "name": "start",
+                                "y": -325,
+                                "x": 2099
+                            },
+                            {
+                                "name": "end",
+                                "y": -332,
+                                "x": 2342
+                            }
+                        ]
+                    },
+                    {
+                        "id": "plat_1308157381850",
+                        "platform_pc_perm": -1,
+                        "platform_item_perm": -1,
+                        "endpoints": [
+                            {
+                                "name": "start",
+                                "y": -358,
+                                "x": -2822
+                            },
+                            {
+                                "name": "end",
+                                "y": -345,
+                                "x": -2503
+                            }
+                        ]
+                    },
+                    {
+                        "id": "plat_1308157381942",
+                        "platform_pc_perm": -1,
+                        "platform_item_perm": -1,
+                        "endpoints": [
+                            {
+                                "name": "start",
+                                "y": -365,
+                                "x": 331
+                            },
+                            {
+                                "name": "end",
+                                "y": -386,
+                                "x": 586
+                            }
+                        ]
+                    },
+                    {
+                        "id": "plat_1308162143818",
+                        "platform_pc_perm": -1,
+                        "platform_item_perm": -1,
+                        "endpoints": [
+                            {
+                                "name": "start",
+                                "y": -356,
+                                "x": 2745
+                            },
+                            {
+                                "name": "end",
+                                "y": -361,
+                                "x": 2999
+                            }
+                        ]
+                    },
+                    {
+                        "id": "plat_1308157381914",
+                        "platform_pc_perm": 1,
+                        "platform_item_perm": 1,
+                        "endpoints": [
+                            {
+                                "name": "start",
+                                "y": -253,
+                                "x": 1321
+                            },
+                            {
+                                "name": "end",
+                                "y": -235,
+                                "x": 1523
+                            }
+                        ]
+                    },
+                    {
+                        "id": "plat_1308157381944",
+                        "platform_pc_perm": -1,
+                        "platform_item_perm": -1,
+                        "endpoints": [
+                            {
+                                "name": "start",
+                                "y": -399,
+                                "x": -548
+                            },
+                            {
+                                "name": "end",
+                                "y": -366,
+                                "x": -222
+                            }
+                        ]
+                    },
+                    {
+                        "id": "plat_1308157381946",
+                        "platform_pc_perm": -1,
+                        "platform_item_perm": -1,
+                        "endpoints": [
+                            {
+                                "name": "start",
+                                "y": -375,
+                                "x": -2075
+                            },
+                            {
+                                "name": "end",
+                                "y": -383,
+                                "x": -1335
+                            }
+                        ]
+                    },
+                    {
+                        "id": "plat_1308157381912",
+                        "platform_pc_perm": -1,
+                        "platform_item_perm": -1,
+                        "endpoints": [
+                            {
+                                "name": "start",
+                                "y": -298,
+                                "x": 1334
+                            },
+                            {
+                                "name": "end",
+                                "y": -284,
+                                "x": 1523
+                            }
+                        ]
+                    },
+                    {
+                        "id": "plat_1308157381866",
+                        "platform_pc_perm": -1,
+                        "platform_item_perm": -1,
+                        "endpoints": [
+                            {
+                                "name": "start",
+                                "y": -47,
+                                "x": -1719
+                            },
+                            {
+                                "name": "end",
+                                "y": -106,
+                                "x": -1630
+                            }
+                        ]
+                    },
+                    {
+                        "id": "plat_1308157381863",
+                        "platform_pc_perm": -1,
+                        "platform_item_perm": -1,
+                        "endpoints": [
+                            {
+                                "name": "start",
+                                "y": -88,
+                                "x": -2574
+                            },
+                            {
+                                "name": "end",
+                                "y": -83,
+                                "x": -2463
+                            }
+                        ]
+                    },
+                    {
+                        "id": "plat_1308157381943",
+                        "platform_pc_perm": -1,
+                        "platform_item_perm": -1,
+                        "endpoints": [
+                            {
+                                "name": "start",
+                                "y": -366,
+                                "x": -222
+                            },
+                            {
+                                "name": "end",
+                                "y": -365,
+                                "x": 331
+                            }
+                        ]
+                    },
+                    {
+                        "id": "plat_1308157381945",
+                        "platform_pc_perm": -1,
+                        "platform_item_perm": -1,
+                        "endpoints": [
+                            {
+                                "name": "start",
+                                "y": -383,
+                                "x": -1335
+                            },
+                            {
+                                "name": "end",
+                                "y": -399,
+                                "x": -548
+                            }
+                        ]
+                    },
+                    {
+                        "id": "plat_1308157381905",
+                        "platform_pc_perm": -1,
+                        "platform_item_perm": -1,
+                        "endpoints": [
+                            {
+                                "name": "start",
+                                "y": -179,
+                                "x": 1624
+                            },
+                            {
+                                "name": "end",
+                                "y": -188,
+                                "x": 1708
+                            }
+                        ]
+                    },
+                    {
+                        "id": "plat_1308157381915",
+                        "platform_pc_perm": 1,
+                        "platform_item_perm": 1,
+                        "endpoints": [
+                            {
+                                "name": "start",
+                                "y": -297,
+                                "x": 1081
+                            },
+                            {
+                                "name": "end",
+                                "y": -253,
+                                "x": 1321
+                            }
+                        ]
+                    },
+                    {
+                        "id": "plat_1308157381929",
+                        "platform_pc_perm": -1,
+                        "platform_item_perm": -1,
+                        "endpoints": [
+                            {
+                                "name": "start",
+                                "y": -74,
+                                "x": 1524
+                            },
+                            {
+                                "name": "end",
+                                "y": -67,
+                                "x": 1624
+                            }
+                        ]
+                    },
+                    {
+                        "id": "plat_1308157381933",
+                        "platform_pc_perm": -1,
+                        "platform_item_perm": -1,
+                        "endpoints": [
+                            {
+                                "name": "start",
+                                "y": -394,
+                                "x": 810
+                            },
+                            {
+                                "name": "end",
+                                "y": -375,
+                                "x": 1000
+                            }
+                        ]
+                    },
+                    {
+                        "id": "plat_1308157381934",
+                        "platform_pc_perm": -1,
+                        "platform_item_perm": -1,
+                        "endpoints": [
+                            {
+                                "name": "start",
+                                "y": -386,
+                                "x": 586
+                            },
+                            {
+                                "name": "end",
+                                "y": -394,
+                                "x": 810
+                            }
+                        ]
+                    },
+                    {
+                        "id": "plat_1308157381909",
+                        "platform_pc_perm": -1,
+                        "platform_item_perm": -1,
+                        "endpoints": [
+                            {
+                                "name": "start",
+                                "y": -255,
+                                "x": 1917
+                            },
+                            {
+                                "name": "end",
+                                "y": -325,
+                                "x": 2099
+                            }
+                        ]
+                    },
+                    {
+                        "id": "plat_1308162143817",
+                        "platform_pc_perm": -1,
+                        "platform_item_perm": -1,
+                        "endpoints": [
+                            {
+                                "name": "start",
+                                "y": -332,
+                                "x": 2342
+                            },
+                            {
+                                "name": "end",
+                                "y": -356,
+                                "x": 2745
+                            }
+                        ]
+                    },
+                    {
+                        "id": "plat_1308157381852",
+                        "platform_pc_perm": -1,
+                        "platform_item_perm": -1,
+                        "endpoints": [
+                            {
+                                "name": "start",
+                                "y": -345,
+                                "x": -2503
+                            },
+                            {
+                                "name": "end",
+                                "y": -345,
+                                "x": -2366
+                            }
+                        ]
+                    },
+                    {
+                        "id": "plat_1308157381932",
+                        "platform_pc_perm": -1,
+                        "platform_item_perm": -1,
+                        "endpoints": [
+                            {
+                                "name": "start",
+                                "y": -375,
+                                "x": 1000
+                            },
+                            {
+                                "name": "end",
+                                "y": -322,
+                                "x": 1182
+                            }
+                        ]
+                    },
+                    {
+                        "id": "plat_1308157381918",
+                        "platform_pc_perm": -1,
+                        "platform_item_perm": -1,
+                        "endpoints": [
+                            {
+                                "name": "start",
+                                "y": -133,
+                                "x": 684
+                            },
+                            {
+                                "name": "end",
+                                "y": -78,
+                                "x": 798
+                            }
+                        ]
+                    },
+                    {
+                        "id": "plat_1308157381849",
+                        "platform_pc_perm": -1,
+                        "platform_item_perm": -1,
+                        "endpoints": [
+                            {
+                                "name": "start",
+                                "y": -364,
+                                "x": -2999
+                            },
+                            {
+                                "name": "end",
+                                "y": -358,
+                                "x": -2822
+                            }
+                        ]
+                    },
+                    {
+                        "id": "plat_1308157381864",
+                        "platform_pc_perm": -1,
+                        "platform_item_perm": -1,
+                        "endpoints": [
+                            {
+                                "name": "start",
+                                "y": -68,
+                                "x": -2324
+                            },
+                            {
+                                "name": "end",
+                                "y": -68,
+                                "x": -2128
+                            }
+                        ]
+                    },
+                    {
+                        "id": "plat_1308766443460",
+                        "platform_pc_perm": -1,
+                        "platform_item_perm": -1,
+                        "endpoints": [
+                            {
+                                "name": "start",
+                                "y": -83,
+                                "x": -2402
+                            },
+                            {
+                                "name": "end",
+                                "y": -68,
+                                "x": -2324
+                            }
+                        ]
+                    },
+                    {
+                        "id": "plat_1308157381853",
+                        "platform_pc_perm": -1,
+                        "platform_item_perm": -1,
+                        "endpoints": [
+                            {
+                                "name": "start",
+                                "y": -345,
+                                "x": -2366
+                            },
+                            {
+                                "name": "end",
+                                "y": -352,
+                                "x": -2293
+                            }
+                        ]
+                    },
+                    {
+                        "id": "plat_1308157381861",
+                        "platform_pc_perm": 1,
+                        "platform_item_perm": 1,
+                        "endpoints": [
+                            {
+                                "name": "start",
+                                "y": -279,
+                                "x": -2574
+                            },
+                            {
+                                "name": "end",
+                                "y": -292,
+                                "x": -2503
+                            }
+                        ]
+                    },
+                    {
+                        "id": "plat_1308157381854",
+                        "platform_pc_perm": -1,
+                        "platform_item_perm": -1,
+                        "endpoints": [
+                            {
+                                "name": "start",
+                                "y": -352,
+                                "x": -2293
+                            },
+                            {
+                                "name": "end",
+                                "y": -375,
+                                "x": -2075
+                            }
+                        ]
+                    },
+                    {
+                        "id": "plat_1308157381865",
+                        "platform_pc_perm": -1,
+                        "platform_item_perm": -1,
+                        "endpoints": [
+                            {
+                                "name": "start",
+                                "y": -68,
+                                "x": -2128
+                            },
+                            {
+                                "name": "end",
+                                "y": -47,
+                                "x": -1719
+                            }
+                        ]
+                    }
+                ]
+            },
+            "T_1307999415183": {
+                "name": "bg_1",
+                "w": 5760,
+                "h": 1000,
+                "z": -1,
+                "filters": {
+                    "saturation": 11,
+                    "contrast": 0,
+                    "brightness": 17
+                },
+                "decos": [
+                    {
+                        "filename": "alakol_water_rock_1",
+                        "w": 122,
+                        "z": 38,
+                        "x": 4901,
+                        "y": 537,
+                        "h": 33
+                    },
+                    {
+                        "filename": "tree_acacia_1",
+                        "w": 531,
+                        "z": 34,
+                        "x": 2827,
+                        "y": 542,
+                        "h": 338
+                    },
+                    {
+                        "filename": "lens_grass_1",
+                        "w": 208,
+                        "z": 30,
+                        "r": 2,
+                        "x": 2266,
+                        "y": 572,
+                        "h": 32
+                    },
+                    {
+                        "filename": "lens_grass_1",
+                        "w": 204,
+                        "z": 9,
+                        "r": -1,
+                        "x": 5835,
+                        "y": 583,
+                        "h": 40
+                    },
+                    {
+                        "filename": "lens_grass_1",
+                        "w": 208,
+                        "z": 29,
+                        "r": 2,
+                        "x": 2157,
+                        "y": 559,
+                        "h": 32
+                    },
+                    {
+                        "filename": "heights_bush_2",
+                        "w": 76,
+                        "z": 37,
+                        "x": 4940,
+                        "y": 534,
+                        "h": 36
+                    },
+                    {
+                        "filename": "lens_grass_1",
+                        "w": 165,
+                        "z": 12,
+                        "r": 1,
+                        "x": 1817,
+                        "y": 545,
+                        "h": 23
+                    },
+                    {
+                        "filename": "pampas_1",
+                        "w": 31,
+                        "z": 32,
+                        "x": 350,
+                        "y": 528,
+                        "h": 45
+                    },
+                    {
+                        "filename": "lens_grass_1",
+                        "w": 184,
+                        "z": 26,
+                        "r": -1,
+                        "x": 92,
+                        "y": 562,
+                        "h": 29
+                    },
+                    {
+                        "filename": "lens_grass_1",
+                        "w": 208,
+                        "z": 21,
+                        "x": 3687,
+                        "y": 558,
+                        "h": 32
+                    },
+                    {
+                        "filename": "lens_grass_1",
+                        "w": 204,
+                        "z": 8,
+                        "r": -1,
+                        "x": 5755,
+                        "y": 569,
+                        "h": 40
+                    },
+                    {
+                        "filename": "alakol_water_rock_1",
+                        "w": 51,
+                        "z": 36,
+                        "x": 5026,
+                        "y": 532,
+                        "h": 41
+                    },
+                    {
+                        "filename": "lens_grass_1",
+                        "w": 204,
+                        "z": 7,
+                        "r": -1,
+                        "x": 5628,
+                        "y": 566,
+                        "h": 40
+                    },
+                    {
+                        "filename": "lens_grass_1",
+                        "w": 207,
+                        "z": 15,
+                        "r": 2,
+                        "x": 5163,
+                        "y": 566,
+                        "h": 34
+                    },
+                    {
+                        "filename": "lens_grass_1",
+                        "w": 208,
+                        "z": 23,
+                        "r": 2,
+                        "x": 3082,
+                        "y": 575,
+                        "h": 32
+                    },
+                    {
+                        "filename": "lens_grass_1",
+                        "w": 208,
+                        "z": 24,
+                        "r": 2,
+                        "x": 3325,
+                        "y": 583,
+                        "h": 32
+                    },
+                    {
+                        "filename": "alakol_water_rock_1",
+                        "w": 115,
+                        "z": 35,
+                        "x": 5112,
+                        "y": 544,
+                        "h": 80
+                    },
+                    {
+                        "filename": "lens_grass_1",
+                        "w": 208,
+                        "z": 18,
+                        "r": 2,
+                        "x": 4986,
+                        "y": 580,
+                        "h": 32
+                    },
+                    {
+                        "filename": "tree_acacia_2",
+                        "w": 619,
+                        "z": 31,
+                        "x": 331,
+                        "y": 529,
+                        "h": 346
+                    },
+                    {
+                        "filename": "lens_grass_1",
+                        "w": 208,
+                        "z": 20,
+                        "r": 2,
+                        "x": 3240,
+                        "y": 565,
+                        "h": 32
+                    },
+                    {
+                        "filename": "lens_grass_1",
+                        "w": 165,
+                        "z": 14,
+                        "r": 1,
+                        "x": 1785,
+                        "y": 560,
+                        "h": 23
+                    },
+                    {
+                        "filename": "lens_grass_2",
+                        "w": 1518,
+                        "z": 4,
+                        "x": 4752,
+                        "y": 592,
+                        "h": 70
+                    },
+                    {
+                        "filename": "lens_grass_1",
+                        "w": 184,
+                        "z": 10,
+                        "x": 1059,
+                        "y": 540,
+                        "h": 19
+                    },
+                    {
+                        "filename": "alakol_water_rock_2",
+                        "w": 196,
+                        "z": 40,
+                        "r": 1,
+                        "x": 5061,
+                        "y": 546,
+                        "h": 42
+                    },
+                    {
+                        "filename": "lens_grass_2",
+                        "w": 1488,
+                        "z": 5,
+                        "x": 3889,
+                        "y": 597,
+                        "h": 66
+                    },
+                    {
+                        "filename": "heights_bush_2",
+                        "w": 76,
+                        "z": 41,
+                        "x": 5213,
+                        "y": 548,
+                        "h": 36
+                    },
+                    {
+                        "filename": "lens_grass_2",
+                        "w": 1428,
+                        "z": 0,
+                        "x": 162,
+                        "y": 579,
+                        "h": 70
+                    },
+                    {
+                        "filename": "lens_grass_1",
+                        "w": 184,
+                        "z": 11,
+                        "x": 969,
+                        "y": 549,
+                        "h": 19
+                    },
+                    {
+                        "filename": "lens_grass_2",
+                        "w": 1362,
+                        "z": 6,
+                        "x": 5573,
+                        "y": 589,
+                        "h": 70
+                    },
+                    {
+                        "filename": "lens_grass_1",
+                        "w": 184,
+                        "z": 27,
+                        "r": -1,
+                        "x": -26,
+                        "y": 571,
+                        "h": 29
+                    },
+                    {
+                        "filename": "lens_grass_2",
+                        "w": 1671,
+                        "z": 2,
+                        "x": 2100,
+                        "y": 593,
+                        "h": 70
+                    },
+                    {
+                        "filename": "lens_grass_1",
+                        "w": 165,
+                        "z": 13,
+                        "r": 1,
+                        "x": 1718,
+                        "y": 550,
+                        "h": 23
+                    },
+                    {
+                        "filename": "heights_bush_1",
+                        "w": 76,
+                        "z": 42,
+                        "x": 5153,
+                        "y": 550,
+                        "h": 45
+                    },
+                    {
+                        "filename": "alakol_water_rock_2",
+                        "w": 233,
+                        "z": 39,
+                        "r": -2,
+                        "x": 5213,
+                        "y": 548,
+                        "h": 65
+                    },
+                    {
+                        "filename": "heights_bush_1",
+                        "w": 76,
+                        "z": 33,
+                        "x": 2788,
+                        "y": 530,
+                        "h": 45
+                    },
+                    {
+                        "filename": "lens_grass_1",
+                        "w": 208,
+                        "z": 19,
+                        "r": 2,
+                        "x": 3289,
+                        "y": 554,
+                        "h": 32
+                    },
+                    {
+                        "filename": "lens_grass_1",
+                        "w": 208,
+                        "z": 28,
+                        "r": 2,
+                        "x": 2391,
+                        "y": 572,
+                        "h": 32
+                    },
+                    {
+                        "filename": "lens_grass_1",
+                        "w": 184,
+                        "z": 25,
+                        "r": -1,
+                        "x": 22,
+                        "y": 555,
+                        "h": 29
+                    },
+                    {
+                        "filename": "lens_grass_2",
+                        "w": 1752,
+                        "z": 1,
+                        "x": 1181,
+                        "y": 590,
+                        "h": 70
+                    },
+                    {
+                        "filename": "lens_grass_2",
+                        "w": 1688,
+                        "z": 3,
+                        "x": 2998,
+                        "y": 593,
+                        "h": 70
+                    },
+                    {
+                        "filename": "lens_grass_1",
+                        "w": 207,
+                        "z": 16,
+                        "r": 2,
+                        "x": 5094,
+                        "y": 569,
+                        "h": 34
+                    },
+                    {
+                        "filename": "lens_grass_1",
+                        "w": 208,
+                        "z": 17,
+                        "r": 2,
+                        "x": 5117,
+                        "y": 575,
+                        "h": 32
+                    },
+                    {
+                        "filename": "lens_grass_1",
+                        "w": 208,
+                        "z": 22,
+                        "r": 2,
+                        "x": 3189,
+                        "y": 572,
+                        "h": 32
+                    }
+                ],
+                "signposts": [],
+                "platformLines": []
+            },
+            "T_1307999415182": {
+                "name": "middleplus",
+                "w": 6000,
+                "h": 1000,
+                "z": 1,
+                "filters": {
+                    "saturation": 18,
+                    "contrast": 0,
+                    "brightness": 9
+                },
+                "decos": [
+                    {
+                        "filename": "lens_topper_1",
+                        "w": 174,
+                        "z": 111,
+                        "r": 3,
+                        "x": 2000,
+                        "y": 679,
+                        "h": 24
+                    },
+                    {
+                        "filename": "lens_grass_1",
+                        "w": 224,
+                        "z": 87,
+                        "x": 1511,
+                        "y": 695,
+                        "h": 52
+                    },
+                    {
+                        "filename": "lens_grass_1",
+                        "w": 324,
+                        "z": 68,
+                        "r": 2,
+                        "x": 3871,
+                        "y": 680,
+                        "h": 55
+                    },
+                    {
+                        "filename": "groddle_shadow_spot_1",
+                        "w": 1226,
+                        "z": 2,
+                        "x": 4046,
+                        "y": 1034,
+                        "h": 363
+                    },
+                    {
+                        "filename": "stalagmite_base_1",
+                        "w": 79,
+                        "z": 99,
+                        "x": 589,
+                        "y": 712,
+                        "h": 24
+                    },
+                    {
+                        "filename": "lens_grass_1",
+                        "w": 136,
+                        "z": 114,
+                        "r": 4,
+                        "x": 505,
+                        "y": 724,
+                        "h": 25
+                    },
+                    {
+                        "filename": "stalagmite_base_2",
+                        "w": 71,
+                        "z": 100,
+                        "r": -1,
+                        "x": 549,
+                        "y": 717,
+                        "h": 22
+                    },
+                    {
+                        "filename": "lens_grass_1",
+                        "w": 554,
+                        "z": 80,
+                        "r": 2,
+                        "x": 5413,
+                        "y": 762,
+                        "h": 86
+                    },
+                    {
+                        "filename": "stalagmite_base_2",
+                        "w": 140,
+                        "z": 46,
+                        "r": 176,
+                        "x": 1264,
+                        "y": 686,
+                        "h": 50
+                    },
+                    {
+                        "filename": "cliff_cover_3",
+                        "w": 842,
+                        "z": 75,
+                        "x": 5080,
+                        "y": 1070,
+                        "h": 363
+                    },
+                    {
+                        "filename": "stalagmite_base_1",
+                        "w": 81,
+                        "z": 64,
+                        "r": 175,
+                        "x": 4499,
+                        "y": 720,
+                        "h": 27
+                    },
+                    {
+                        "filename": "stalagmite_base_1",
+                        "w": 118,
+                        "z": 57,
+                        "r": 40,
+                        "x": 3678,
+                        "y": 871,
+                        "h": 53
+                    },
+                    {
+                        "filename": "lens_topper_1",
+                        "w": 174,
+                        "z": 96,
+                        "r": 7,
+                        "x": 1037,
+                        "y": 676,
+                        "h": 24
+                    },
+                    {
+                        "filename": "lens_grass_1",
+                        "w": 162,
+                        "z": 94,
+                        "r": -4,
+                        "x": 321,
+                        "y": 737,
+                        "h": 40
+                    },
+                    {
+                        "filename": "cliff_cover_1",
+                        "w": 674,
+                        "z": 59,
+                        "x": 3563,
+                        "y": 1115,
+                        "h": 447,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "stalagmite_base_1",
+                        "w": 244,
+                        "z": 61,
+                        "r": 180,
+                        "x": 4346,
+                        "y": 718,
+                        "h": 40
+                    },
+                    {
+                        "filename": "stalagmite_base_1",
+                        "w": 293,
+                        "z": 27,
+                        "r": 4,
+                        "x": 563,
+                        "y": 1024,
+                        "h": 93
+                    },
+                    {
+                        "filename": "lens_grass_1",
+                        "w": 351,
+                        "z": 108,
+                        "x": 3262,
+                        "y": 741,
+                        "h": 85
+                    },
+                    {
+                        "filename": "stalagmite_base_2",
+                        "w": 185,
+                        "z": 45,
+                        "r": 176,
+                        "x": 832,
+                        "y": 683,
+                        "h": 46
+                    },
+                    {
+                        "filename": "lens_grass_1",
+                        "w": 554,
+                        "z": 78,
+                        "x": 5810,
+                        "y": 743,
+                        "h": 78
+                    },
+                    {
+                        "filename": "stalagmite_base_1",
+                        "w": 493,
+                        "z": 32,
+                        "x": 3996,
+                        "y": 1013,
+                        "h": 74
+                    },
+                    {
+                        "filename": "stalagmite_base_1",
+                        "w": 88,
+                        "z": 53,
+                        "r": 180,
+                        "x": 1197,
+                        "y": 695,
+                        "h": 44
+                    },
+                    {
+                        "filename": "stalagmite_base_2",
+                        "w": 116,
+                        "z": 20,
+                        "r": -1,
+                        "x": 499,
+                        "y": 716,
+                        "h": 26
+                    },
+                    {
+                        "filename": "lens_topper_1",
+                        "w": 51,
+                        "z": 116,
+                        "r": 14,
+                        "x": 470,
+                        "y": 707,
+                        "h": 13
+                    },
+                    {
+                        "filename": "pampas_2",
+                        "w": 70,
+                        "z": 16,
+                        "r": 1,
+                        "x": 4684,
+                        "y": 994,
+                        "h": 108,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "stalagmite_base_1",
+                        "w": 71,
+                        "z": 43,
+                        "x": 1028,
+                        "y": 953,
+                        "h": 23
+                    },
+                    {
+                        "filename": "stalagmite_base_2",
+                        "w": 133,
+                        "z": 24,
+                        "r": 65,
+                        "x": 390,
+                        "y": 880,
+                        "h": 56
+                    },
+                    {
+                        "filename": "stalagmite_base_2",
+                        "w": 103,
+                        "z": 21,
+                        "r": 174,
+                        "x": 424,
+                        "y": 688,
+                        "h": 37
+                    },
+                    {
+                        "filename": "roots_ug_5",
+                        "w": 50,
+                        "z": 7,
+                        "r": 15,
+                        "x": 4238,
+                        "y": 868,
+                        "h": 135,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "groddle_shadow_spot_1",
+                        "w": 348,
+                        "z": 0,
+                        "r": -22,
+                        "x": 4880,
+                        "y": 844,
+                        "h": 92
+                    },
+                    {
+                        "filename": "lens_topper_1",
+                        "w": 41,
+                        "z": 117,
+                        "r": 2,
+                        "x": 560,
+                        "y": 715,
+                        "h": 8
+                    },
+                    {
+                        "filename": "stalagmite_base_2",
+                        "w": 203,
+                        "z": 51,
+                        "r": 184,
+                        "x": 957,
+                        "y": 681,
+                        "h": 32
+                    },
+                    {
+                        "filename": "lens_grass_1",
+                        "w": 550,
+                        "z": 106,
+                        "r": -1,
+                        "x": 2996,
+                        "y": 720,
+                        "h": 66
+                    },
+                    {
+                        "filename": "lens_grass_1",
+                        "w": 510,
+                        "z": 74,
+                        "x": 105,
+                        "y": 749,
+                        "h": 82
+                    },
+                    {
+                        "filename": "stalagmite_base_1",
+                        "w": 96,
+                        "z": 55,
+                        "r": 175,
+                        "x": 3637,
+                        "y": 673,
+                        "h": 51
+                    },
+                    {
+                        "filename": "stalagmite_base_3",
+                        "w": 307,
+                        "z": 31,
+                        "x": 1202,
+                        "y": 1017,
+                        "h": 85
+                    },
+                    {
+                        "filename": "stalagmite_base_3",
+                        "w": 146,
+                        "z": 44,
+                        "x": 819,
+                        "y": 967,
+                        "h": 36
+                    },
+                    {
+                        "filename": "stalagmite_base_2",
+                        "w": 131,
+                        "z": 50,
+                        "r": 184,
+                        "x": 724,
+                        "y": 688,
+                        "h": 42
+                    },
+                    {
+                        "filename": "lens_grass_1",
+                        "w": 459,
+                        "z": 109,
+                        "r": 1,
+                        "x": 2177,
+                        "y": 742,
+                        "h": 91
+                    },
+                    {
+                        "filename": "cliff_cover_2",
+                        "w": 420,
+                        "z": 105,
+                        "r": 90,
+                        "x": 2683,
+                        "y": 911,
+                        "h": 455
+                    },
+                    {
+                        "filename": "lens_grass_1",
+                        "w": 224,
+                        "z": 89,
+                        "x": 1397,
+                        "y": 704,
+                        "h": 52
+                    },
+                    {
+                        "filename": "lens_grass_1",
+                        "w": 313,
+                        "z": 90,
+                        "x": 1561,
+                        "y": 748,
+                        "h": 85
+                    },
+                    {
+                        "filename": "cliff_cover_3",
+                        "w": 842,
+                        "z": 42,
+                        "x": 2126,
+                        "y": 1054,
+                        "h": 363
+                    },
+                    {
+                        "filename": "lens_grass_1",
+                        "w": 336,
+                        "z": 82,
+                        "r": -1,
+                        "x": 3515,
+                        "y": 716,
+                        "h": 73
+                    },
+                    {
+                        "filename": "stalagmite_base_1",
+                        "w": 282,
+                        "z": 26,
+                        "x": 707,
+                        "y": 1024,
+                        "h": 103
+                    },
+                    {
+                        "filename": "stalagmite_base_2",
+                        "w": 91,
+                        "z": 19,
+                        "r": 182,
+                        "x": 570,
+                        "y": 702,
+                        "h": 40
+                    },
+                    {
+                        "filename": "lens_topper_1",
+                        "w": 174,
+                        "z": 84,
+                        "x": 3826,
+                        "y": 663,
+                        "h": 24
+                    },
+                    {
+                        "filename": "stalagmite_base_2",
+                        "w": 191,
+                        "z": 28,
+                        "r": 15,
+                        "x": 486,
+                        "y": 989,
+                        "h": 52
+                    },
+                    {
+                        "filename": "lens_grass_1",
+                        "w": 325,
+                        "z": 79,
+                        "r": -8,
+                        "x": 5041,
+                        "y": 746,
+                        "h": 63
+                    },
+                    {
+                        "filename": "cliff_cover_3",
+                        "w": 842,
+                        "z": 77,
+                        "x": 5663,
+                        "y": 1067,
+                        "h": 363
+                    },
+                    {
+                        "filename": "lens_grass_1",
+                        "w": 149,
+                        "z": 93,
+                        "r": 1,
+                        "x": 404,
+                        "y": 718,
+                        "h": 36
+                    },
+                    {
+                        "filename": "stalagmite_base_1",
+                        "w": 318,
+                        "z": 33,
+                        "x": 4317,
+                        "y": 1011,
+                        "h": 75
+                    },
+                    {
+                        "filename": "lens_topper_1",
+                        "w": 228,
+                        "z": 85,
+                        "r": -4,
+                        "x": 3666,
+                        "y": 663,
+                        "h": 28
+                    },
+                    {
+                        "filename": "cliff_cover_4",
+                        "w": 575,
+                        "z": 29,
+                        "x": 234,
+                        "y": 1143,
+                        "h": 438,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "groddle_shadow_spot_1",
+                        "w": 846,
+                        "z": 3,
+                        "x": 1190,
+                        "y": 1009,
+                        "h": 338
+                    },
+                    {
+                        "filename": "stalagmite_base_1",
+                        "w": 493,
+                        "z": 30,
+                        "x": 989,
+                        "y": 1009,
+                        "h": 81
+                    },
+                    {
+                        "filename": "stalagmite_base_2",
+                        "w": 125,
+                        "z": 11,
+                        "r": 2,
+                        "x": 1099,
+                        "y": 654,
+                        "h": 37
+                    },
+                    {
+                        "filename": "lens_topper_1",
+                        "w": 99,
+                        "z": 115,
+                        "r": -16,
+                        "x": 681,
+                        "y": 701,
+                        "h": 20
+                    },
+                    {
+                        "filename": "pampas_1",
+                        "w": 55,
+                        "z": 12,
+                        "x": 1286,
+                        "y": 671,
+                        "h": 80
+                    },
+                    {
+                        "filename": "lens_grass_1",
+                        "w": 307,
+                        "z": 81,
+                        "r": 2,
+                        "x": 3798,
+                        "y": 699,
+                        "h": 46
+                    },
+                    {
+                        "filename": "stalagmite_base_2",
+                        "w": 111,
+                        "z": 48,
+                        "r": 176,
+                        "x": 1340,
+                        "y": 682,
+                        "h": 49
+                    },
+                    {
+                        "filename": "stalagmite_base_2",
+                        "w": 164,
+                        "z": 47,
+                        "r": 177,
+                        "x": 619,
+                        "y": 699,
+                        "h": 35
+                    },
+                    {
+                        "filename": "stalagmite_base_1",
+                        "w": 131,
+                        "z": 67,
+                        "r": 180,
+                        "x": 4217,
+                        "y": 714,
+                        "h": 40
+                    },
+                    {
+                        "filename": "stalagmite_base_2",
+                        "w": 114,
+                        "z": 49,
+                        "r": 4,
+                        "x": 637,
+                        "y": 714,
+                        "h": 30
+                    },
+                    {
+                        "filename": "lens_grass_1",
+                        "w": 502,
+                        "z": 88,
+                        "x": 1786,
+                        "y": 722,
+                        "h": 84
+                    },
+                    {
+                        "filename": "stalagmite_base_1",
+                        "w": 110,
+                        "z": 66,
+                        "r": 180,
+                        "x": 3879,
+                        "y": 680,
+                        "h": 43
+                    },
+                    {
+                        "filename": "lens_grass_1",
+                        "w": 231,
+                        "z": 92,
+                        "r": -4,
+                        "x": 770,
+                        "y": 709,
+                        "h": 50
+                    },
+                    {
+                        "filename": "stalagmite_base_1",
+                        "w": 188,
+                        "z": 54,
+                        "r": 185,
+                        "x": 3725,
+                        "y": 675,
+                        "h": 45
+                    },
+                    {
+                        "filename": "lens_topper_1",
+                        "w": 174,
+                        "z": 95,
+                        "r": -5,
+                        "x": 855,
+                        "y": 672,
+                        "h": 24
+                    },
+                    {
+                        "filename": "lens_grass_1",
+                        "w": 224,
+                        "z": 86,
+                        "x": 940,
+                        "y": 697,
+                        "h": 52
+                    },
+                    {
+                        "filename": "stalagmite_base_1",
+                        "w": 244,
+                        "z": 60,
+                        "r": 180,
+                        "x": 3990,
+                        "y": 678,
+                        "h": 40
+                    },
+                    {
+                        "filename": "stalagmite_base_1",
+                        "w": 139,
+                        "z": 40,
+                        "r": -155,
+                        "x": 1432,
+                        "y": 699,
+                        "h": 49
+                    },
+                    {
+                        "filename": "stalagmite_base_3",
+                        "w": 112,
+                        "z": 112,
+                        "x": 1773,
+                        "y": 631,
+                        "h": 27
+                    },
+                    {
+                        "filename": "groddle_shadow_spot_1",
+                        "w": 846,
+                        "z": 5,
+                        "x": 1213,
+                        "y": 1024,
+                        "h": 354
+                    },
+                    {
+                        "filename": "groddle_shadow_spot_1",
+                        "w": 1226,
+                        "z": 17,
+                        "x": 4701,
+                        "y": 1093,
+                        "h": 363
+                    },
+                    {
+                        "filename": "cliff_cover_1",
+                        "w": 674,
+                        "z": 104,
+                        "x": 3244,
+                        "y": 1129,
+                        "h": 447,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "roots_ug_3",
+                        "w": 94,
+                        "z": 9,
+                        "x": 4366,
+                        "y": 915,
+                        "h": 209
+                    },
+                    {
+                        "filename": "stalagmite_base_1",
+                        "w": 269,
+                        "z": 34,
+                        "x": 4612,
+                        "y": 1008,
+                        "h": 71
+                    },
+                    {
+                        "filename": "cliff_cover_3",
+                        "w": 769,
+                        "z": 41,
+                        "r": -5,
+                        "x": 1683,
+                        "y": 1054,
+                        "h": 363
+                    },
+                    {
+                        "filename": "stalagmite_base_1",
+                        "w": 117,
+                        "z": 76,
+                        "x": 4191,
+                        "y": 1007,
+                        "h": 56
+                    },
+                    {
+                        "filename": "stalagmite_base_1",
+                        "w": 191,
+                        "z": 58,
+                        "r": 30,
+                        "x": 3771,
+                        "y": 941,
+                        "h": 51
+                    },
+                    {
+                        "filename": "pampas_2",
+                        "w": 70,
+                        "z": 15,
+                        "r": 6,
+                        "x": 4720,
+                        "y": 970,
+                        "h": 108,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "gravel_2",
+                        "w": 25,
+                        "z": 102,
+                        "x": 68,
+                        "y": 663,
+                        "h": 15,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "stalagmite_base_1",
+                        "w": 117,
+                        "z": 62,
+                        "r": 175,
+                        "x": 4475,
+                        "y": 714,
+                        "h": 69
+                    },
+                    {
+                        "filename": "stalagmite_base_1",
+                        "w": 199,
+                        "z": 56,
+                        "r": 70,
+                        "x": 3620,
+                        "y": 782,
+                        "h": 46
+                    },
+                    {
+                        "filename": "groddle_shadow_spot_1",
+                        "w": 1226,
+                        "z": 1,
+                        "x": 4044,
+                        "y": 1036,
+                        "h": 363
+                    },
+                    {
+                        "filename": "stalagmite_base_2",
+                        "w": 193,
+                        "z": 18,
+                        "r": 182,
+                        "x": 509,
+                        "y": 695,
+                        "h": 43
+                    },
+                    {
+                        "filename": "stalagmite_base_3",
+                        "w": 116,
+                        "z": 101,
+                        "x": 29,
+                        "y": 664,
+                        "h": 32
+                    },
+                    {
+                        "filename": "lens_grass_1",
+                        "w": 312,
+                        "z": 73,
+                        "r": 9,
+                        "x": 4217,
+                        "y": 726,
+                        "h": 56
+                    },
+                    {
+                        "filename": "stalagmite_base_1",
+                        "w": 202,
+                        "z": 35,
+                        "x": 4477,
+                        "y": 1020,
+                        "h": 75
+                    },
+                    {
+                        "filename": "stalagmite_base_1",
+                        "w": 184,
+                        "z": 70,
+                        "r": 195,
+                        "x": 4118,
+                        "y": 686,
+                        "h": 40
+                    },
+                    {
+                        "filename": "lens_grass_1",
+                        "w": 504,
+                        "z": 107,
+                        "r": 3,
+                        "x": 2590,
+                        "y": 735,
+                        "h": 86
+                    },
+                    {
+                        "filename": "lens_topper_1",
+                        "w": 174,
+                        "z": 97,
+                        "r": 7,
+                        "x": 1583,
+                        "y": 678,
+                        "h": 24
+                    },
+                    {
+                        "filename": "lens_grass_1",
+                        "w": 225,
+                        "z": 69,
+                        "r": 5,
+                        "x": 4078,
+                        "y": 684,
+                        "h": 42
+                    },
+                    {
+                        "filename": "pampas_1",
+                        "w": 57,
+                        "z": 13,
+                        "x": 1245,
+                        "y": 665,
+                        "h": 83,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "lens_grass_1",
+                        "w": 178,
+                        "z": 113,
+                        "r": -6,
+                        "x": 633,
+                        "y": 721,
+                        "h": 25
+                    },
+                    {
+                        "filename": "stalagmite_base_3",
+                        "w": 101,
+                        "z": 39,
+                        "r": -75,
+                        "x": 1466,
+                        "y": 786,
+                        "h": 62
+                    },
+                    {
+                        "filename": "stalagmite_base_1",
+                        "w": 78,
+                        "z": 65,
+                        "r": 180,
+                        "x": 4452,
+                        "y": 722,
+                        "h": 44
+                    },
+                    {
+                        "filename": "stalagmite_base_1",
+                        "w": 148,
+                        "z": 36,
+                        "r": -21,
+                        "x": 1324,
+                        "y": 997,
+                        "h": 71
+                    },
+                    {
+                        "filename": "stalagmite_base_2",
+                        "w": 90,
+                        "z": 25,
+                        "r": 45,
+                        "x": 429,
+                        "y": 946,
+                        "h": 56
+                    },
+                    {
+                        "filename": "stalagmite_base_2",
+                        "w": 90,
+                        "z": 22,
+                        "r": 139,
+                        "x": 362,
+                        "y": 705,
+                        "h": 57
+                    },
+                    {
+                        "filename": "lens_topper_1",
+                        "w": 174,
+                        "z": 110,
+                        "r": 3,
+                        "x": 2364,
+                        "y": 682,
+                        "h": 24
+                    },
+                    {
+                        "filename": "lens_topper_1",
+                        "w": 174,
+                        "z": 83,
+                        "x": 3960,
+                        "y": 669,
+                        "h": 24
+                    },
+                    {
+                        "filename": "stalagmite_base_3",
+                        "w": 130,
+                        "z": 38,
+                        "r": -45,
+                        "x": 1413,
+                        "y": 849,
+                        "h": 42
+                    },
+                    {
+                        "filename": "stalagmite_base_3",
+                        "w": 104,
+                        "z": 37,
+                        "r": -55,
+                        "x": 1370,
+                        "y": 920,
+                        "h": 57
+                    },
+                    {
+                        "filename": "stalagmite_base_1",
+                        "w": 191,
+                        "z": 52,
+                        "r": 180,
+                        "x": 1109,
+                        "y": 684,
+                        "h": 53
+                    },
+                    {
+                        "filename": "pampas_2",
+                        "w": 54,
+                        "z": 14,
+                        "r": -11,
+                        "x": 4783,
+                        "y": 877,
+                        "h": 83,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "cliff_cover_3",
+                        "w": 842,
+                        "z": 103,
+                        "x": 2675,
+                        "y": 1065,
+                        "h": 363
+                    },
+                    {
+                        "filename": "roots_ug_3",
+                        "w": 49,
+                        "z": 10,
+                        "x": 1255,
+                        "y": 804,
+                        "h": 110
+                    },
+                    {
+                        "filename": "roots_ug_5",
+                        "w": 50,
+                        "z": 8,
+                        "r": 15,
+                        "x": 4320,
+                        "y": 867,
+                        "h": 135,
+                        "h_flip": true
+                    },
+                    {
+                        "filename": "stalagmite_base_1",
+                        "w": 78,
+                        "z": 63,
+                        "r": 180,
+                        "x": 3816,
+                        "y": 682,
+                        "h": 44
+                    },
+                    {
+                        "filename": "lens_grass_1",
+                        "w": 379,
+                        "z": 91,
+                        "r": 1,
+                        "x": 1185,
+                        "y": 716,
+                        "h": 62
+                    },
+                    {
+                        "filename": "groddle_shadow_spot_1",
+                        "w": 846,
+                        "z": 4,
+                        "x": 587,
+                        "y": 1048,
+                        "h": 338
+                    },
+                    {
+                        "filename": "lens_grass_1",
+                        "w": 231,
+                        "z": 71,
+                        "r": -2,
+                        "x": 3994,
+                        "y": 692,
+                        "h": 38
+                    },
+                    {
+                        "filename": "lens_grass_1",
+                        "w": 256,
+                        "z": 72,
+                        "r": 3,
+                        "x": 4413,
+                        "y": 738,
+                        "h": 37
+                    },
+                    {
+                        "filename": "stalagmite_base_2",
+                        "w": 164,
+                        "z": 23,
+                        "r": 68,
+                        "x": 363,
+                        "y": 784,
+                        "h": 38
+                    },
+                    {
+                        "filename": "lens_topper_1",
+                        "w": 174,
+                        "z": 98,
+                        "r": -3,
+                        "x": 323,
+                        "y": 705,
+                        "h": 24
+                    },
+                    {
+                        "filename": "groddle_shadow_spot_1",
+                        "w": 846,
+                        "z": 6,
+                        "x": 677,
+                        "y": 1022,
+                        "h": 348
+                    }
+                ],
+                "signposts": [],
+                "platformLines": []
+            },
+            "T_1307999415185": {
+                "name": "sky",
+                "w": 5160,
+                "h": 1000,
+                "z": -4,
+                "filters": {
+                    "contrast": -10,
+                    "blur": 3,
+                    "saturation": -62,
+                    "tintColor": 16763904,
+                    "tintAmount": 80,
+                    "brightness": 19
+                },
+                "decos": [
+                    {
+                        "filename": "cloud_fluffy_1",
+                        "w": 653,
+                        "z": 14,
+                        "x": 1372,
+                        "y": 366,
+                        "h": 99
+                    },
+                    {
+                        "filename": "heights_bush_4",
+                        "w": 459,
+                        "z": 5,
+                        "r": 1,
+                        "x": 2685,
+                        "y": 503,
+                        "h": 28
+                    },
+                    {
+                        "filename": "cloud_fluffy_2",
+                        "w": 985,
+                        "z": 13,
+                        "x": 653,
+                        "y": 438,
+                        "h": 95
+                    },
+                    {
+                        "filename": "heights_bush_4",
+                        "w": 459,
+                        "z": 10,
+                        "x": 2107,
+                        "y": 499,
+                        "h": 28
+                    },
+                    {
+                        "filename": "heights_bush_4",
+                        "w": 459,
+                        "z": 9,
+                        "x": 2371,
+                        "y": 495,
+                        "h": 28
+                    },
+                    {
+                        "filename": "cloud_fluffy_2",
+                        "w": 985,
+                        "z": 3,
+                        "x": 2753,
+                        "y": 443,
+                        "h": 95
+                    },
+                    {
+                        "filename": "heights_bush_4",
+                        "w": 459,
+                        "z": 11,
+                        "x": 868,
+                        "y": 488,
+                        "h": 28
+                    },
+                    {
+                        "filename": "cloud_fluffy_1",
+                        "w": 653,
+                        "z": 8,
+                        "x": 4341,
+                        "y": 489,
+                        "h": 99
+                    },
+                    {
+                        "filename": "heights_bush_4",
+                        "w": 459,
+                        "z": 12,
+                        "x": 1167,
+                        "y": 498,
+                        "h": 28
+                    }
+                ],
+                "signposts": [],
+                "platformLines": []
+            }
+        }
+    }
+}

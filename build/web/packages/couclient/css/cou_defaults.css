@@ -1,0 +1,46 @@
+*:not(input){
+   font-family: 'RockoFLFBold', sans-serif;
+   cursor: default;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  -webkit-user-drag: none;
+  -moz-user-drag: none;
+  user-drag: none;
+  color: #4b2e4c;
+}
+html, body {
+  background-color:#eee;
+  overflow:hidden;
+  height:100%;
+}
+
+
+p, footer, input, textarea {
+  font-family: 'Tahoma', 'Geneva', 'sans-serif';
+  cursor: auto;
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  user-select: text;
+  color: #000;
+  resize: none;
+}
+ a {
+ cursor: auto;
+ color: #4b2e4c;
+ text-decoration:none;
+}
+
+main {
+  display:box;
+  position:relative;
+  margin:auto;
+  width:100%;
+  max-width:1300px;
+  min-width:800px;
+  height:calc(100% - 12pt);
+  max-height:750px;
+  min-height:500px;
+  overflow:hidden;
+}

@@ -1,20 +1,16 @@
 name: couclient
-version: 0.0.1
-author: coU Development Team
-description: Source + Tools for developing/compiling the Children of Ur WebClient
-homepage: www.childrenofur.com
+description: A sample application
 dependencies:
-  glitchTime:
-    git:
-      ref: master
-      url: https://github.com/ChildrenOfUr/glitch-time.dart.git
-  grinder: any
+  browser: any
   intl: any
   libld:
     git:
       ref: master
       url: https://github.com/ChildrenOfUr/libld.git
-  okeyee: any
+  pump:
+    git:
+      ref: master
+      url: https://github.com/darkkiero/pump.git
   scproxy:
     git:
       ref: master
@@ -23,5 +19,3 @@ dependencies:
     git:
       ref: master
       url: https://github.com/ChildrenOfUr/dart-slack.git
-  streetlib:
-    git: https://github.com/ChildrenOfUr/glitch-streetlib.git
