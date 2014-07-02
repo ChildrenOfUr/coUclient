@@ -30,14 +30,15 @@ import 'package:libld/libld.dart'; // Nice and simple asset loading.
 // Event Bus
 import 'package:pump/pump.dart';
 
-// Glitchen Ur-Time Clock
-part 'package:couclient/src/model/clock.dart';
 
-// GAME MODULES //
+// MODULES //
+part 'package:couclient/src/model/clock.dart';
+part 'package:couclient/src/debug.dart';
+part 'package:couclient/src/game/game.dart';
 part 'package:couclient/src/events.dart';
-part 'package:couclient/src/view/ui.dart';
-part 'package:couclient/src/view/audio.dart';
-part 'package:couclient/src/model/chat.dart';
+part 'package:couclient/src/display/ui.dart';
+part 'package:couclient/src/display/audio.dart';
+part 'package:couclient/src/network/chat_man.dart';
 
 // API KEYS // for more infomation see '/doc/api.md'
 //part 'API_KEYS.dart';
