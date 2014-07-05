@@ -26,7 +26,9 @@ List<List> COMMANDS = new List<List>()
 	..add(['setvolume','"setvolume <1-100>" Changes the volume of the current song',setVolume])
 	
 	..add(['togglefps','show or hide the fps display"',toggleFps])
-	..add(['togglePhysics','enable or disable jumping and falling to the groud"',togglePhysics]);
+	..add(['togglePhysics','enable or disable jumping and falling to the groud"',togglePhysics])
+
+	..add(['sendAction','send action command to server', sendAction]);
 
 /**
  * Attempts to parse input from the user and run the appropriate command.
@@ -419,6 +421,16 @@ togglePhysics(var nothing)
 		CurrentPlayer.doPhysicsApply = false;
 	else
 		CurrentPlayer.doPhysicsApply = true;
+}
+
+sendAction(String action)
+{
+	Map map = {};
+	map['callMethod'] = action.trim();
+	map['id'] = CurrentPlayer.intersectingObject;
+	map['type'] = querySelector("#${CurrentPlayer.intersectingObject}").className;
+	map['streetName'] = currentStreet.label;
+	streetSocket.send(JSON.encode(map));
 }
 
 // A blank action.

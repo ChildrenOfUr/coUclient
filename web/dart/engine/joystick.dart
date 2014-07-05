@@ -22,7 +22,6 @@ class Joystick
 		if(deadzoneInPercent != 0)
 		{
 			deadzoneInPixels = (joystick.clientWidth * deadzoneInPercent).toInt();
-			print("deadzone: ${deadzoneInPixels}px");
 		}
 		
 		knob.onTouchStart.listen((TouchEvent event)

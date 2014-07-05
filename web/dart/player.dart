@@ -12,6 +12,7 @@ class Player
 	Animation currentAnimation;
 	ChatBubble chatBubble = null;
 	Random rand = new Random();
+	String intersectingObject = null;
   		
 	//for testing purposes
 	//if false, player can move around with wasd and arrows, no falling
@@ -243,6 +244,8 @@ class Player
 		{
 			checkCollision(avatarRect,element);
 		});
+		
+		intersectingObject = null;
 		querySelectorAll(".npc").forEach((Element element)
 		{
 			Rectangle npcRect = element.getBoundingClientRect();
@@ -250,6 +253,8 @@ class Player
 			{
 				if(npcs[element.id] != null)
 					npcs[element.id].glow = true;
+				
+				intersectingObject = element.id;
 			}
 			else
 			{
@@ -257,7 +262,22 @@ class Player
 					npcs[element.id].glow = false;
 			}
 		});
-	}
+		querySelectorAll(".plant").forEach((Element element)
+		{
+			Rectangle plantRect = element.getBoundingClientRect();
+			if(intersect(avatarRect,plantRect))
+			{
+				if(plants[element.id] != null)
+					plants[element.id].updateGlow(true);
+				
+				intersectingObject = element.id;
+			}
+			else
+			{
+				if(plants[element.id] != null)
+					plants[element.id].updateGlow(false);
+			}});
+		}
   
 	void render()
 	{

@@ -19,6 +19,7 @@ class NPC
 		{
 			canvas = new CanvasElement();
         	canvas.id = map["id"];
+        	canvas.attributes['type'] = map['type'];
         	canvas.classes.add("npc");
         	canvas.width = map["width"];
         	canvas.height = map["height"];
@@ -60,6 +61,20 @@ class NPC
 		if(ready && animation.dirty)
 		{
 			canvas.width = canvas.width;
+			if(glow)
+            {
+            	canvas.context2D.shadowColor = "rgba(0, 0, 255, 0.2)";
+             	canvas.context2D.shadowBlur = 20;
+             	canvas.context2D.shadowOffsetX = 0;
+             	canvas.context2D.shadowOffsetY = -5;
+            }
+            else
+            {
+            	canvas.context2D.shadowColor = "0";
+            	canvas.context2D.shadowBlur = 0;
+            	canvas.context2D.shadowOffsetX = 0;
+            	canvas.context2D.shadowOffsetY = 0;
+            }
     		Rectangle destRect = new Rectangle(0,0,animation.width,animation.height);
     		canvas.context2D.drawImageToRect(animation.spritesheet, destRect, sourceRect: animation.sourceRect);
     		animation.dirty = false;

@@ -37,6 +37,7 @@ part 'dart/player.dart';
 part 'dart/chat_bubble.dart';
 part 'dart/npc.dart';
 part 'dart/quoin.dart';
+part 'dart/plant.dart';
 
 //localStorage to use throughout app
 Storage localStorage = window.localStorage;

@@ -8,6 +8,7 @@ bool reconnect = true;
 Map<String,Player> otherPlayers = new Map();
 Map<String,NPC> npcs = new Map();
 Map<String,Quoin> quoins = new Map();
+Map<String,Plant> plants = new Map();
 
 multiplayerInit()
 {
@@ -94,6 +95,16 @@ _setupStreetSocket(String streetName)
 				npc.facingRight = npcMap["facingRight"];
 			}
 		});
+		(map["plants"] as List).forEach((Map plantMap)
+		{
+			String id = plantMap["id"];
+            Element element = querySelector("#$id");
+            Plant plant = plants[plantMap["id"]];
+			if(element == null)
+				addPlant(plantMap);
+			if(plant != null && plant.state != plantMap['state'])
+				plant.updateState(plantMap['state']);
+		});
 	});
 	streetSocket.onClose.listen((_)
 	{
@@ -166,7 +177,7 @@ sendPlayerInfo()
 	playerSocket.send(JSON.encode(map));
 }
 
-createOtherPlayer(Map map)
+void createOtherPlayer(Map map)
 {
 	Player otherPlayer = new Player(map["username"]);
 	otherPlayer.loadAnimations().then((_)
@@ -208,7 +219,7 @@ updateOtherPlayer(Map map, Player otherPlayer)
 	otherPlayer.facingRight = facingRight;
 }
 
-removeOtherPlayer(String username)
+void removeOtherPlayer(String username)
 {
 	if(username == null)
 		return;
@@ -219,18 +230,25 @@ removeOtherPlayer(String username)
 		otherPlayer.remove();
 }
 
-addQuoin(Map map)
+void addQuoin(Map map)
 {
 	if(currentStreet == null)
     	return;
 	
 	quoins[map['id']] = new Quoin(map);
 }
-
 void addNPC(Map map)
 {
 	if(currentStreet == null)
 		return;
 	
 	npcs[map['id']] = new NPC(map);
+}
+
+void addPlant(Map map)
+{
+	if(currentStreet == null)
+		return;
+	
+	plants[map['id']] = new Plant(map);
 }
