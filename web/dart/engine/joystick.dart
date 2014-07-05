@@ -8,6 +8,7 @@ class Joystick
 	bool UP = false, DOWN = false, LEFT = false, RIGHT = false;
 	StreamController _moveController = new StreamController.broadcast();
 	StreamController _releaseController = new StreamController.broadcast();
+	Timer repeatTimer;
 	
 	/**
 	 * deadzoneInPixels should be a number >= 0 that represents the number of pixels away
@@ -32,6 +33,14 @@ class Joystick
 			_initialTouchX = event.changedTouches.first.client.x;
 			_initialTouchY = event.changedTouches.first.client.y;
 			_moveController.add(new JoystickEvent());
+			
+			//add an event to the stream 20 times per second even if the user does not move
+			//the knob - this will, for instance, allow the joystick to be used as a selection
+			//device (think menus) even if the user holds the knob steady at the top.
+			repeatTimer = new Timer.periodic(new Duration(milliseconds:50), (_)
+			{
+				_moveController.add(new JoystickEvent());
+			});
 		});
 		knob.onTouchMove.listen((TouchEvent event)
 		{
@@ -75,6 +84,7 @@ class Joystick
 			UP = false; DOWN = false; LEFT = false; RIGHT = false; //reset
 			
 			_releaseController.add(new JoystickEvent());
+			repeatTimer.cancel();
 		});
 	}
 	

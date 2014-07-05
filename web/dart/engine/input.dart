@@ -7,7 +7,8 @@ class Input
     bool leftKey, rightKey, upKey, downKey, jumpKey, actionKey;
     Map<String,int> keys = {"LeftBindingPrimary":65,"LeftBindingAlt":37,"RightBindingPrimary":68,"RightBindingAlt":39,"UpBindingPrimary":87,"UpBindingAlt":38,"DownBindingPrimary":83,"DownBindingAlt":40,"JumpBindingPrimary":32,"JumpBindingAlt":32,"ActionBindingPrimary":13,"ActionBindingAlt":13};
 	bool ignoreKeys = false, touched = false, clickUsed = false;
-	StreamSubscription keyPressSub, keyDownSub;
+	StreamSubscription keyPressSub, keyDownSub, menuKeyListener;
+	DateTime lastSelect = new DateTime.now();
   
     Input()
 	{
@@ -80,20 +81,7 @@ class Input
 				jumpKey = true;
 			if ((k.keyCode == keys["ActionBindingPrimary"] || k.keyCode == keys["ActionBindingAlt"]) && !ignoreKeys) //spacebar and not typing
 			{
-				if(CurrentPlayer.intersectingObject != null && querySelector('#RightClickMenu') == null)
-				{
-					Element element = querySelector("#${CurrentPlayer.intersectingObject}");
-					List<List> actions = [];
-					if(element.attributes['actions'] != null)
-					{
-						List<String> actionNames = JSON.decode(element.attributes['actions']);
-						for(String action in actionNames)
-						{
-							actions.add([capitalizeFirstLetter(action),"","sendAction $action"]);
-						}
-					}
-					showClickMenu(null,element.attributes['type'],"Desc",actions);
-				}
+				doObjectInteraction();
 			}
 	    });
 	    
@@ -125,6 +113,18 @@ class Input
 			else leftKey = false;
 			if(joystick.RIGHT) rightKey = true;
 			else rightKey = false;
+			
+			if(querySelector("#RightClickMenu") != null)
+			{
+				//only select a new option once every 300ms
+				bool selectAgain = lastSelect.add(new Duration(milliseconds:300)).isBefore(new DateTime.now());
+				if(joystick.UP && selectAgain)
+					selectUp();
+				if(joystick.DOWN && selectAgain)
+					selectDown();
+				if(joystick.LEFT || joystick.RIGHT)
+					stopMenu();
+			}
 		});
 		joystick.onRelease.listen((_)
 		{
@@ -143,7 +143,10 @@ class Input
 			if(target.id == "BButton")
 			{
 				event.preventDefault(); //to disable long press calling the context menu
-				actionKey = true;
+				if(querySelector("#RightClickMenu") != null)
+					doAction();
+				else
+					doObjectInteraction();
 			}
 		});
 		document.onTouchEnd.listen((TouchEvent event)
@@ -189,6 +192,25 @@ class Input
 		document.body.onContextMenu.listen((e) => showClickMenu(e,'Testing Right Click', 'this is a demo',[["Sample"]]));
 		playerInput = this;
     }
+	
+	void doObjectInteraction()
+	{
+		if(CurrentPlayer.intersectingObject != null && querySelector('#RightClickMenu') == null)
+		{
+			print("doObjectInteraction");
+			Element element = querySelector("#${CurrentPlayer.intersectingObject}");
+			List<List> actions = [];
+			if(element.attributes['actions'] != null)
+			{
+				List<String> actionNames = JSON.decode(element.attributes['actions']);
+				for(String action in actionNames)
+				{
+					actions.add([capitalizeFirstLetter(action),"","sendAction $action"]);
+				}
+			}
+			showClickMenu(null,element.attributes['type'],"Desc",actions);
+		}
+	}
 	
 	String capitalizeFirstLetter(String string)
     {
@@ -472,8 +494,8 @@ class Input
 	// Right-click menu functions
 	hideClickMenu() 
 	{
-		if (querySelector('#RightClickMenu') != null)
-		querySelector('#RightClickMenu').remove();
+		if(querySelector('#RightClickMenu') != null)
+			querySelector('#RightClickMenu').remove();
 	}
 	
 	showClickMenu(MouseEvent Click, String title, String description, List<List> options)
@@ -534,67 +556,78 @@ class Input
 		
 		printConsole('Spawned rc window called "' + title + '".');
 		
+		menuKeyListener = document.onKeyDown.listen((KeyboardEvent k)
+		{
+			if((k.keyCode == keys["UpBindingPrimary"] || k.keyCode == keys["UpBindingAlt"]) && !ignoreKeys) //up arrow or w and not typing
+				selectUp();
+			if((k.keyCode == keys["DownBindingPrimary"] || k.keyCode == keys["DownBindingAlt"]) && !ignoreKeys) //down arrow or s and not typing
+				selectDown();
+			if((k.keyCode == keys["LeftBindingPrimary"] || k.keyCode == keys["LeftBindingAlt"]) && !ignoreKeys) //left arrow or a and not typing
+				stopMenu();
+			if((k.keyCode == keys["RightBindingPrimary"] || k.keyCode == keys["RightBindingAlt"]) && !ignoreKeys) //right arrow or d and not typing
+				stopMenu();
+			if((k.keyCode == keys["JumpBindingPrimary"] || k.keyCode == keys["JumpBindingAlt"]) && !ignoreKeys) //spacebar and not typing
+				stopMenu();
+			if((k.keyCode == keys["ActionBindingPrimary"] || k.keyCode == keys["ActionBindingAlt"]) && !ignoreKeys) //spacebar and not typing
+				doAction();
+		});
 		document.onClick.listen((_)
 		{
-			hideClickMenu();
+			stopMenu();
 		});
-		StreamSubscription<KeyboardEvent> keylistener;
-		keylistener = document.onKeyDown.listen((KeyboardEvent k)
+	}
+	
+	void selectUp()
+	{
+		List<Element> options = querySelector('#RCActionList').children;
+		int removed = 0;
+		for(int i=0; i<options.length; i++)
 		{
-			if ((k.keyCode == keys["UpBindingPrimary"] || k.keyCode == keys["UpBindingAlt"]) && !ignoreKeys) //up arrow or w and not typing
+			if(options[i].classes.remove("RCItemSelected"))
+				removed = i;
+		}
+		if(removed == 0)
+			options[options.length-1].classes.add("RCItemSelected");
+		else
+			options[removed-1].classes.add("RCItemSelected");
+		
+		lastSelect = new DateTime.now();
+	}
+	
+	void selectDown()
+	{
+		List<Element> options = querySelector('#RCActionList').children;
+		int removed = options.length-1;
+		for(int i=0; i<options.length; i++)
+		{
+			if(options[i].classes.remove("RCItemSelected"))
+				removed = i;
+		}
+		if(removed == options.length-1)
+			options[0].classes.add("RCItemSelected");
+		else
+			options[removed+1].classes.add("RCItemSelected");
+		
+		lastSelect = new DateTime.now();
+	}
+	
+	void stopMenu()
+	{
+		if(menuKeyListener != null)
+			menuKeyListener.cancel();
+        hideClickMenu();
+	}
+	
+	void doAction()
+	{
+		for(Element element in querySelector('#RCActionList').children)
+		{
+			if(element.classes.contains("RCItemSelected"))
 			{
-				int removed = 0;
-				for(int i=0; i<newOptions.length; i++)
-				{
-					if(newOptions[i].classes.remove("RCItemSelected"))
-						removed = i;
-				}
-				if(removed == 0)
-					newOptions[newOptions.length-1].classes.add("RCItemSelected");
-				else
-					newOptions[removed-1].classes.add("RCItemSelected");
+				element.click();
+				break;
 			}
-			if ((k.keyCode == keys["DownBindingPrimary"] || k.keyCode == keys["DownBindingAlt"]) && !ignoreKeys) //down arrow or s and not typing
-			{
-				int removed = newOptions.length-1;
-				for(int i=0; i<newOptions.length; i++)
-				{
-					if(newOptions[i].classes.remove("RCItemSelected"))
-						removed = i;
-				}
-				if(removed == newOptions.length-1)
-					newOptions[0].classes.add("RCItemSelected");
-				else
-					newOptions[removed+1].classes.add("RCItemSelected");
-			}
-			if ((k.keyCode == keys["LeftBindingPrimary"] || k.keyCode == keys["LeftBindingAlt"]) && !ignoreKeys) //left arrow or a and not typing
-			{
-				keylistener.cancel();
-				hideClickMenu();
-			}
-			if ((k.keyCode == keys["RightBindingPrimary"] || k.keyCode == keys["RightBindingAlt"]) && !ignoreKeys) //right arrow or d and not typing
-			{
-				keylistener.cancel();
-				hideClickMenu();
-			}
-			if ((k.keyCode == keys["JumpBindingPrimary"] || k.keyCode == keys["JumpBindingAlt"]) && !ignoreKeys) //spacebar and not typing
-			{
-				keylistener.cancel();
-				hideClickMenu();
-			}
-			if ((k.keyCode == keys["ActionBindingPrimary"] || k.keyCode == keys["ActionBindingAlt"]) && !ignoreKeys) //spacebar and not typing
-			{
-				for(Element element in newOptions)
-				{
-					if(element.classes.contains("RCItemSelected"))
-					{
-						element.click();
-						break;
-					}
-				}
-				hideClickMenu();
-                keylistener.cancel();
-			}
-		});
+		}
+		stopMenu();
 	}
 }

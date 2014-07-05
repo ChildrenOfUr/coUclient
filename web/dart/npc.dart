@@ -19,6 +19,7 @@ class NPC
 		{
 			canvas = new CanvasElement();
         	canvas.id = map["id"];
+        	canvas.attributes['actions'] = JSON.encode(map['actions']);
         	canvas.attributes['type'] = map['type'];
         	canvas.classes.add("npc");
         	canvas.width = map["width"];
