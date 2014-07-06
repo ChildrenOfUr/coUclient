@@ -425,10 +425,11 @@ togglePhysics(var nothing)
 
 sendAction(String action)
 {
+	List<String> actionParts = action.trim().split(' ');
 	Map map = {};
-	map['callMethod'] = action.trim();
-	map['id'] = CurrentPlayer.intersectingObject;
-	map['type'] = querySelector("#${CurrentPlayer.intersectingObject}").className;
+	map['callMethod'] = actionParts[0];
+	map['id'] = actionParts[1];
+	map['type'] = querySelector("#${actionParts[1]}").className;
 	map['streetName'] = currentStreet.label;
 	streetSocket.send(JSON.encode(map));
 }

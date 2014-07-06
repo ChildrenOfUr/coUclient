@@ -13,6 +13,7 @@ class Player
 	ChatBubble chatBubble = null;
 	Random rand = new Random();
 	String intersectingObject = null;
+	Rectangle boundingRect;
   		
 	//for testing purposes
 	//if false, player can move around with wasd and arrows, no falling
@@ -232,14 +233,14 @@ class Player
 		}
 	    
 	    if(posY < 0)
-			posY = 0.0;	    
-			
+			posY = 0.0;
+	    
 	    updateAnimation(dt);
 						
 		updateTransform();
 		
 		//check for collision with quoins
-		Rectangle avatarRect = playerParentElement.getBoundingClientRect();
+		Rectangle avatarRect = boundingRect == null ? playerCanvas.getBoundingClientRect() : boundingRect;
 		querySelectorAll(".quoin").forEach((Element element)
 		{
 			checkCollision(avatarRect,element);
@@ -286,7 +287,9 @@ class Player
 			//it's not obvious, but setting the width and/or height erases the current canvas as well
 			playerCanvas.width = currentAnimation.width;
 			playerCanvas.height = currentAnimation.height;
-    		Rectangle destRect = new Rectangle(0,0,currentAnimation.width,currentAnimation.height);
+			if(boundingRect == null)
+				boundingRect = playerCanvas.getBoundingClientRect();
+			Rectangle destRect = new Rectangle(0,0,currentAnimation.width,currentAnimation.height);
     		playerCanvas.context2D.drawImageToRect(currentAnimation.spritesheet, destRect, sourceRect: currentAnimation.sourceRect);
     		currentAnimation.dirty = false;
 		}
@@ -329,6 +332,18 @@ class Player
 	
 	void updateTransform()
 	{
+		String xattr = playerParentElement.attributes['translateX'];
+		String yattr = playerParentElement.attributes['translateY'];
+		num prevX, prevY, prevCamX = camera.getX(), prevCamY = camera.getY();
+		if(xattr != null)
+			prevX = num.parse(xattr);
+		else
+			prevX = 0;
+		if(yattr != null)
+			prevY = num.parse(yattr);
+		else
+			prevY = 0;
+				
 		num translateX = posX, translateY = ui.gameScreenHeight - height;
 		num camX = camera.getX(), camY = camera.getY();
 		if(posX > currentStreet.bounds.width - width/2 - ui.gameScreenWidth/2)
@@ -382,6 +397,11 @@ class Player
 		}
 		
 		playerParentElement.style.transform = transform;
+		playerParentElement.attributes['translateX'] = translateX.toString();
+		playerParentElement.attributes['translateY'] = translateY.toString();
+		num diffX = translateX-prevX, diffY = translateY-prevY;
+	    if(boundingRect != null)
+	    	boundingRect = new Rectangle(boundingRect.left+diffX, boundingRect.top+diffY, currentAnimation.width, currentAnimation.height);
 	}
 	
 	void checkCollision(Rectangle avatarRect, Element element)

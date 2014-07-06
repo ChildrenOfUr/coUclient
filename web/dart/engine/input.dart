@@ -197,7 +197,6 @@ class Input
 	{
 		if(CurrentPlayer.intersectingObject != null && querySelector('#RightClickMenu') == null)
 		{
-			print("doObjectInteraction");
 			Element element = querySelector("#${CurrentPlayer.intersectingObject}");
 			List<List> actions = [];
 			if(element.attributes['actions'] != null)
@@ -205,7 +204,7 @@ class Input
 				List<String> actionNames = JSON.decode(element.attributes['actions']);
 				for(String action in actionNames)
 				{
-					actions.add([capitalizeFirstLetter(action),"","sendAction $action"]);
+					actions.add([capitalizeFirstLetter(action),element.id,"sendAction $action ${element.id}"]);
 				}
 			}
 			showClickMenu(null,element.attributes['type'],"Desc",actions);
@@ -517,7 +516,7 @@ class Input
 		}
 		else
 		{
-			double posX = CurrentPlayer.posX, posY = CurrentPlayer.posY;
+			num posX = CurrentPlayer.posX, posY = CurrentPlayer.posY;
 			int width = CurrentPlayer.width, height = CurrentPlayer.height;
 			num translateX = posX, translateY = ui.gameScreenHeight - height;
     		if(posX > currentStreet.bounds.width - width/2 - ui.gameScreenWidth/2)
