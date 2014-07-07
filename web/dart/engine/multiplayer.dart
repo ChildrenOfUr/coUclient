@@ -52,6 +52,13 @@ _setupStreetSocket(String streetName)
 	streetSocket.onMessage.listen((MessageEvent event)
 	{
 		Map map = JSON.decode(event.data);
+		//check if we are receiving an item
+		if(map['giveItem'] != null)
+		{
+			modifyInventory(map);
+			return;
+		}
+		
 		(map["quoins"] as List).forEach((Map quoinMap)
 		{
 			if(quoinMap["remove"] == "true")
@@ -251,4 +258,66 @@ void addPlant(Map map)
 		return;
 	
 	plants[map['id']] = new Plant(map);
+}
+
+void modifyInventory(Map map)
+{	
+	String name = map['name'];
+	if(querySelector("#InventoryBar").querySelector(".item-$name") != null)
+	{
+		Element item = querySelector("#InventoryBar").querySelector(".item-$name");
+		int count = int.parse(item.attributes['count']);
+		count++;
+		int offset = count;
+		if(offset > 4)
+			offset = 4;
+		
+		num width = int.parse(item.style.width.replaceAll("px", ""));
+		item.style.backgroundPosition = "-${(offset-1)*width}px";
+		item.attributes['count'] = count.toString();
+		
+		Element itemCount = item.parent.querySelector(".itemCount");
+		if(itemCount != null)
+			itemCount.text = count.toString();
+		else
+		{
+			SpanElement itemCount = new SpanElement()
+				..text = count.toString()
+				..className = "itemCount";
+			item.parent.append(itemCount);
+		}
+	}
+	else
+    {
+		bool found = false;
+		//find first free item slot
+    	for(Element barSlot in querySelector("#InventoryBar").children)
+    	{
+    		if(barSlot.children.length == 0)
+    		{
+    			ImageElement img = new ImageElement(src:map['url']);
+    			img.onLoad.first.then((_)
+    			{
+    				DivElement item = new DivElement();
+    				item.style.width = barSlot.contentEdge.width.toString()+"px";
+    				item.style.height = (img.height).toString()+"px";
+    				item.style.backgroundImage = 'url(${map['url']})';
+    				item.style.backgroundRepeat = 'no-repeat';
+    				item.style.backgroundSize = "400% ${item.style.height}";
+    				item.className = 'item-'+map['name'];
+        			item.attributes['name'] = map['name'];
+        			item.attributes['count'] = "1";
+        			barSlot.append(item);
+    			});
+    			found = true;
+    			break;
+    		}
+    	}
+    	
+    	//there was no space in the player's pack, drop the item on the ground instead
+    	if(!found)
+    	{
+    		
+    	}
+    }
 }

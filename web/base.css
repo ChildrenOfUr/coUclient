@@ -1245,6 +1245,7 @@ text-decoration: underline;
   vertical-align: middle;
   -moz-border-radius: 5px;
   border-radius: 5px;
+  text-align: right;
 }
 .InventoryItem {
   cursor: pointer;
@@ -1253,6 +1254,11 @@ text-decoration: underline;
    top: 50%; 
    margin-left: -20px;
    margin-top: -25px;
+}
+.itemCount {
+	position: relative;
+	bottom: 3px;
+	right: 1px;
 }
 #fps {
 	position: absolute;
@@ -1521,4 +1527,28 @@ quoin graphic
 	left: 0;
 	right: 0;
 	top: -34px;
+}
+
+.fill {
+	-webkit-transition: width 3s linear;
+	transition: width 3s linear;
+	width: 0px;
+    position:absolute;
+    font-size: 36px;
+    color: orange;
+    overflow: hidden;
+    display: inline-block;
+}
+.border {
+    position:absolute;
+    font-size: 36px;
+    color: lightgrey;
+    opacity: .9;
+    text-shadow:
+	-1px -1px 0 #fff,  
+    1px -1px 0 #fff,
+    -1px 1px 0 #fff,
+	1px 1px 0 #fff;
+    -webkit-font-smoothing: antialiased;
+    display: inline-block;
 }

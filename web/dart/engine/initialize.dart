@@ -23,19 +23,7 @@ main()
 	.then((_) => load_streets()
 	.then((_) => new Street('test').load()
 	.then((_)
-	{
-		//initialize chat after street has been loaded and currentStreet.label is set
-		chat.init();
-		
-		//connect to the multiplayer server and start managing the other players on the screen
-		multiplayerInit();
-		
-		CurrentPlayer = new Player();
-		CurrentPlayer.loadAnimations()
-		.then((_)
-		{
-			CurrentPlayer.currentAnimation = CurrentPlayer.animations['idle'];
-			
+	{			
 			//if the client is mobile, wait for user to press play button so that we can do audio tricks for mobile browsers
 			//else just start now
 			if(window.innerWidth > 1220 && window.innerHeight > 325)
@@ -53,53 +41,64 @@ main()
 					start();
 				});
 			}
-		});
 	})));
 }
 
 start()
 {
-	// Finally finished loading. Clean up.
+	//initialize chat after street has been loaded and currentStreet.label is set
+	chat.init();
 	
-	// Peacefully fade out the loading screen.
-	querySelector('#LoadingScreen').style.opacity = '0.0';
-	new Timer(new Duration(seconds:1), ()
+	//connect to the multiplayer server and start managing the other players on the screen
+	multiplayerInit();
+	
+	CurrentPlayer = new Player();
+	CurrentPlayer.loadAnimations().then((_)
 	{
-		querySelector('#LoadingScreen').remove();
-	});
-	if(int.parse(prevVolume) > 0 && isMuted == '0')
-	{
-		if(ASSET['game_loaded'] != null)
+		CurrentPlayer.currentAnimation = CurrentPlayer.animations['idle'];
+		
+		// Finally finished loading. Clean up.
+		
+		// Peacefully fade out the loading screen.
+		querySelector('#LoadingScreen').style.opacity = '0.0';
+		new Timer(new Duration(seconds:1), ()
 		{
-			AudioElement doneLoading = ASSET['game_loaded'].get();
-			doneLoading.volume = int.parse(prevVolume)/100;
-			doneLoading.play();
+			querySelector('#LoadingScreen').remove();
+		});
+		if(int.parse(prevVolume) > 0 && isMuted == '0')
+		{
+			if(ASSET['game_loaded'] != null)
+			{
+				AudioElement doneLoading = ASSET['game_loaded'].get();
+				doneLoading.volume = int.parse(prevVolume)/100;
+				doneLoading.play();
+			}
 		}
-	}
-	
-	// Set the meters to their current values.
-	ui.init();  
-	
-	printConsole('System: Initializing..');
-	
-	// Start listening for clicks and key presses
-	playerInput = new Input()
-	..init();
-	
-	printConsole('System: Initialization Finished.');
-	printConsole('');
-	
-	printConsole('COU DEVELOPMENT CONSOLE');
-	printConsole('For a list of commands type "help"');
-	
-	refreshClock();
-	//update the clock once every 10 seconds
-	new Timer.periodic(new Duration(seconds:10), (Timer timer)
-	{
-		// Update clock
+		
+		// Set the meters to their current values.
+		ui.init();  
+		
+		printConsole('System: Initializing..');
+		
+		// Start listening for clicks and key presses
+		playerInput = new Input()
+		..init();
+		
+		printConsole('System: Initialization Finished.');
+		printConsole('');
+		
+		printConsole('COU DEVELOPMENT CONSOLE');
+		printConsole('For a list of commands type "help"');
+		
 		refreshClock();
+		//update the clock once every 10 seconds
+		new Timer.periodic(new Duration(seconds:10), (Timer timer)
+		{
+			// Update clock
+			refreshClock();
+		});
+		    	
+		// Begin the GAME!!!
+		gameLoop(0.0);
 	});
-	    	
-	// Begin the GAME!!!
-	gameLoop(0.0);
 }

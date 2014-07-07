@@ -201,11 +201,11 @@ class Input
 			List<List> actions = [];
 			if(element.attributes['actions'] != null)
 			{
-				List<String> actionNames = JSON.decode(element.attributes['actions']);
-				for(String action in actionNames)
+				Map<String,String> actionNames = JSON.decode(element.attributes['actions']);
+				actionNames.forEach((String action, String actionText)
 				{
-					actions.add([capitalizeFirstLetter(action),element.id,"sendAction $action ${element.id}"]);
-				}
+					actions.add([capitalizeFirstLetter(action)+","+actionText,element.id,"sendAction $action ${element.id}"]);
+				});
 			}
 			showClickMenu(null,element.attributes['type'],"Desc",actions);
 		}
@@ -539,8 +539,25 @@ class Input
 		{
 			DivElement menuitem = new DivElement()
 				..classes.add('RCItem')
-				..text = option[0]
-				..onClick.listen((_){runCommand(option[2]);});
+				..text = (option[0] as String).split(",")[0]
+				..onClick.listen((_)
+				{
+					runCommand(option[2]);
+					SpanElement outline = new SpanElement()
+						..text = (option[0] as String).split(",")[1]
+						..className = "border"
+						..style.top  = '$y' 'px'
+                        ..style.left = '$x' 'px';
+					SpanElement fill = new SpanElement()
+						..text = (option[0] as String).split(",")[1]
+						..className = "fill"
+						..style.top  = '$y' 'px'
+                        ..style.left = '$x' 'px';
+					document.body..append(outline)..append(fill);
+					//start the "fill animation"
+					fill.style.width = outline.clientWidth.toString()+"px";
+					new Timer(new Duration(milliseconds:3300), () {outline.remove();fill.remove();});
+				});
 			newOptions.add(menuitem);
 		}
 		if(newOptions.length > 0)
