@@ -162,8 +162,8 @@ class Input
 		document.onClick.listen((MouseEvent event) => clickOrTouch(event,null));
 		document.onTouchStart.listen((TouchEvent event) => clickOrTouch(null,event));
 		
-		new TouchScroller(querySelector('#MobileInventory'),TouchScroller.HORIZONTAL);
-		new TouchScroller(querySelector('#MobileInventoryBag'),TouchScroller.HORIZONTAL);
+		new TouchScroller(querySelector('#InventoryBar'),TouchScroller.HORIZONTAL);
+		new TouchScroller(querySelector('#InventoryBag'),TouchScroller.HORIZONTAL);
 		//end mobile specific stuff
 		
 		window.onMessage.listen((MessageEvent event)
@@ -402,6 +402,8 @@ class Input
 				(querySelector("#MobileStyle") as LinkElement).disabled = false;
 				target.text = "Desktop View";
 				localStorage["interface"] = "mobile";
+				querySelector("#InventoryDrawer").append(querySelector('#InventoryBar'));
+                querySelector("#InventoryDrawer").append(querySelector('#InventoryBag'));
 				//make sure that gameScreen is updated with the correct size
 				//so that rendering works
 				resize();
@@ -411,6 +413,8 @@ class Input
 				(querySelector("#MobileStyle") as LinkElement).disabled = true;
 				target.text = "Mobile View";
 				localStorage["interface"] = "desktop";
+				querySelector("#Inventory").append(querySelector('#InventoryBar'));
+				querySelector("#Inventory").append(querySelector('#InventoryBag'));
 				resize();
 			}
 		}

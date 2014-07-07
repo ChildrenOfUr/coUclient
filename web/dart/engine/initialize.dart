@@ -10,7 +10,11 @@ main()
 	if(localStorage["interface"] == null || localStorage["interface"] == "desktop")
 		(querySelector("#MobileStyle") as LinkElement).disabled = true;
 	else
+	{
 		querySelector("#ThemeSwitcher").text = "Desktop View";
+		querySelector("#InventoryDrawer").append(querySelector('#InventoryBar'));
+		querySelector("#InventoryDrawer").append(querySelector('#InventoryBag'));
+	}
 
 	// The player has requested that the game is to begin.
 	// run all audio initialization tasks
