@@ -219,16 +219,19 @@ class Player
 			num x = posX+width/2;
 			Platform bestPlatform = _getBestPlatform(cameFrom);
 			
-			num goingTo = posY+height+currentStreet._data['dynamic']['ground_y'];
-			num slope = (bestPlatform.end.y-bestPlatform.start.y)/(bestPlatform.end.x-bestPlatform.start.x);
-			num yInt = bestPlatform.start.y - slope*bestPlatform.start.x;
-			num lineY = slope*x+yInt;
-			
-			if(goingTo >= lineY)
+			if(bestPlatform != null)
 			{
-				posY = lineY-height-currentStreet._data['dynamic']['ground_y'];
-				yVel = 0;
-				jumping = false;
+				num goingTo = posY+height+currentStreet._data['dynamic']['ground_y'];
+    			num slope = (bestPlatform.end.y-bestPlatform.start.y)/(bestPlatform.end.x-bestPlatform.start.x);
+    			num yInt = bestPlatform.start.y - slope*bestPlatform.start.x;
+    			num lineY = slope*x+yInt;
+    			
+    			if(goingTo >= lineY)
+    			{
+    				posY = lineY-height-currentStreet._data['dynamic']['ground_y'];
+    				yVel = 0;
+    				jumping = false;
+    			}
 			}
 		}
 	    
