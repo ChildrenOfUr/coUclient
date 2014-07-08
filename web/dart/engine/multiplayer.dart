@@ -55,7 +55,7 @@ _setupStreetSocket(String streetName)
 		//check if we are receiving an item
 		if(map['giveItem'] != null)
 		{
-			modifyInventory(map);
+			addItemToInventory(map);
 			return;
 		}
 		
@@ -260,12 +260,67 @@ void addPlant(Map map)
 	plants[map['id']] = new Plant(map);
 }
 
-void modifyInventory(Map map)
+void addItemToInventory(Map map)
 {	
+	ImageElement img = new ImageElement(src:map['url']);
+	img.onLoad.first.then((_)
+	{
+		//do some fancy 'put in bag' animation that I can't figure out right now
+		//animate(img,map).then((_) => putInInventory(img,map));
+		
+		putInInventory(img,map);
+	});
+}
+
+Future animate(ImageElement i, Map map)
+{
+	Completer c = new Completer();
+	Element fromObject = querySelector("#${map['fromObject']}");
+	DivElement item = new DivElement();
+	
+	num fromX = num.parse(fromObject.attributes['translatex']) - camera.getX();
+	num fromY = num.parse(fromObject.attributes['translatey']) - camera.getY() - fromObject.clientHeight;
+	item.className = "item";
+	item.style.width = (i.naturalWidth/4).toString()+"px";
+	item.style.height = i.naturalHeight.toString()+"px";
+	item.style.transformOrigin = "50% 50%";
+	item.style.backgroundImage = 'url(${map['url']})';
+	item.style.transform = "translate(${fromX}px,${fromY}px)";
+	print("from: " + item.style.transform);
+	querySelector("#GameScreen").append(item);
+	
+	//animation seems to happen instantaneously if there isn't a delay
+	//between adding the element to the document and changing its properties
+	//even this 1 millisecond delay seems to fix that - strange
+	new Timer(new Duration(milliseconds:1), ()
+    {
+		Element playerParent = querySelector(".playerParent");
+		item.style.transform = "translate(${playerParent.attributes['translatex']}px,${playerParent.attributes['translatey']}px) scale(2)";
+		print("to: " + item.style.transform);
+    });
+	new Timer(new Duration(seconds:2), ()
+    {
+		item.style.transform = "translate(${CurrentPlayer.posX}px,${CurrentPlayer.posY}px) scale(.5)";
+		
+		//wait 1 second for animation to finish and then remove
+		new Timer(new Duration(seconds:1), ()
+    	{
+    		item.remove();
+    		c.complete();
+    	});
+    });
+	
+	return c.future;
+}
+
+void putInInventory(ImageElement img, Map map)
+{
 	String name = map['name'];
+	Element item;
+	
 	if(querySelector("#InventoryBar").querySelector(".item-$name") != null)
 	{
-		Element item = querySelector("#InventoryBar").querySelector(".item-$name");
+		item = querySelector("#InventoryBar").querySelector(".item-$name");
 		int count = int.parse(item.attributes['count']);
 		count++;
 		int offset = count;
@@ -295,20 +350,16 @@ void modifyInventory(Map map)
     	{
     		if(barSlot.children.length == 0)
     		{
-    			ImageElement img = new ImageElement(src:map['url']);
-    			img.onLoad.first.then((_)
-    			{
-    				DivElement item = new DivElement();
-    				item.style.width = barSlot.contentEdge.width.toString()+"px";
-    				item.style.height = (img.height).toString()+"px";
-    				item.style.backgroundImage = 'url(${map['url']})';
-    				item.style.backgroundRepeat = 'no-repeat';
-    				item.style.backgroundSize = "400% ${item.style.height}";
-    				item.className = 'item-'+map['name'];
-        			item.attributes['name'] = map['name'];
-        			item.attributes['count'] = "1";
-        			barSlot.append(item);
-    			});
+    			item = new DivElement();
+				item.style.width = barSlot.contentEdge.width.toString()+"px";
+				item.style.height = (img.height).toString()+"px";
+				item.style.backgroundImage = 'url(${map['url']})';
+				item.style.backgroundRepeat = 'no-repeat';
+				item.style.backgroundSize = "400% ${item.style.height}";
+				item.className = 'bounce item-'+map['name'];
+    			item.attributes['name'] = map['name'];
+    			item.attributes['count'] = "1";
+    			barSlot.append(item);
     			found = true;
     			break;
     		}

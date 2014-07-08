@@ -247,6 +247,24 @@ class Player
 		});
 		
 		intersectingObject = null;
+		//search for plants first and npcs second since plants are probably easier
+		//to overlap than small npcs are (think fruit tree size/box vs piggy size/box)
+		querySelectorAll(".plant").forEach((Element element)
+		{
+			Rectangle plantRect = element.getBoundingClientRect();
+			if(intersect(avatarRect,plantRect))
+			{
+				if(plants[element.id] != null)
+					plants[element.id].updateGlow(true);
+				
+				intersectingObject = element.id;
+			}
+			else
+			{
+				if(plants[element.id] != null)
+					plants[element.id].updateGlow(false);
+			}
+		});
 		querySelectorAll(".npc").forEach((Element element)
 		{
 			Rectangle npcRect = element.getBoundingClientRect();
@@ -263,22 +281,7 @@ class Player
 					npcs[element.id].glow = false;
 			}
 		});
-		querySelectorAll(".plant").forEach((Element element)
-		{
-			Rectangle plantRect = element.getBoundingClientRect();
-			if(intersect(avatarRect,plantRect))
-			{
-				if(plants[element.id] != null)
-					plants[element.id].updateGlow(true);
-				
-				intersectingObject = element.id;
-			}
-			else
-			{
-				if(plants[element.id] != null)
-					plants[element.id].updateGlow(false);
-			}});
-		}
+	}
   
 	void render()
 	{

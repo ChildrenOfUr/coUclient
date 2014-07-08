@@ -34,6 +34,8 @@ class Plant
         	canvas.height = height;
         	canvas.style.position = "absolute";
         	canvas.style.transform = "translateX(${x}px) translateY(${y}px) translateZ(0)";
+        	canvas.attributes['translatex'] = x.toString();
+        	canvas.attributes['translatey'] = y.toString();
     		state = map['state'];
         	querySelector("#PlayerHolder").append(canvas);
         	sourceRect = new Rectangle(0,0,width,height);

@@ -54,6 +54,9 @@ class NPC
 				canvas.style.transform = "translateX(${posX}px) translateY(${posY}px) translateZ(0) scale(1,1)";
 			else
 				canvas.style.transform = "translateX(${posX}px) translateY(${posY}px) translateZ(0) scale(-1,1)";
+		
+			canvas.attributes['translatex'] = posX.toString();
+			canvas.attributes['translatey'] = posY.toString();
 		}
 	}
 	
