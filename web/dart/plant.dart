@@ -70,7 +70,17 @@ class Plant
 	{
 		if(ready && dirty)
 		{
-			canvas.width = canvas.width;
+			num left = num.parse(canvas.attributes['translatex'].replaceAll("px", ""));
+    		num top = num.parse(canvas.attributes['translatey'].replaceAll("px", ""));
+    		Rectangle plantRect = new Rectangle(left,top,canvas.width,canvas.height);	
+                		
+    		if(!intersect(camera.visibleRect,plantRect))
+    			return;
+    		
+			//fastest way to clear a canvas (without using a solid color)
+			//source: http://jsperf.com/ctx-clearrect-vs-canvas-width-canvas-width/6
+			canvas.context2D.clearRect(0, 0, width, height);
+			
 			if(glow)
             {
             	canvas.context2D.shadowColor = "rgba(0, 0, 255, 0.2)";

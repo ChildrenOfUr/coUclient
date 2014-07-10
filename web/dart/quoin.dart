@@ -53,6 +53,7 @@ class Quoin
                 canvas.style.left = map['x'].toString()+"px";
                 canvas.style.bottom = map['y'].toString()+"px";
                 canvas.style.transform = "translateZ(0)";
+                canvas.attributes['collected'] = "false";
                 
             	DivElement element = new DivElement();
             	DivElement circle = new DivElement()
@@ -93,9 +94,19 @@ class Quoin
 	
 	render()
 	{
-		if(ready && animation.dirty)
+		if(ready && animation.dirty && canvas.attributes['collected'] == "false")
 		{
-			canvas.width = canvas.width;
+			//if the entity is not visible, don't render it
+			num left = num.parse(canvas.style.left.replaceAll("px", ""));
+    		num top = currentStreet.bounds.height - num.parse(canvas.style.bottom.replaceAll("px", "")) - canvas.height;
+    		Rectangle quoinRect = new Rectangle(left,top,canvas.width,canvas.height);
+			if(!intersect(camera.visibleRect,quoinRect))
+				return;
+			
+			//fastest way to clear a canvas (without using a solid color)
+			//source: http://jsperf.com/ctx-clearrect-vs-canvas-width-canvas-width/6
+			canvas.context2D.clearRect(0, 0, animation.width, animation.height);
+			
     		Rectangle destRect = new Rectangle(0,0,animation.width,animation.height);
     		canvas.context2D.drawImageToRect(animation.spritesheet, destRect, sourceRect: animation.sourceRect);
     		animation.dirty = false;

@@ -74,7 +74,10 @@ _setupStreetSocket(String streetName)
 				if(element == null)
 					addQuoin(quoinMap);
 				else if(element.style.display == "none")
+				{
 					element.style.display = "block";
+					element.attributes['collected'] = "false";
+				}
 			}
 		});
 		(map["npcs"] as List).forEach((Map npcMap)

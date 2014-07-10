@@ -5,11 +5,17 @@ part of coUclient;
 String prevVolume = localStorage['prevVolume'];
 String isMuted = localStorage['isMuted'];
 
+Map<String,Sound> gameSounds = {};
+Map<String,AudioChannel> audioChannels = {};
+
 // Stores all the loaded user interface sounds.
 Batch ui_sounds;
 
 init_audio()
 {
+	audioChannels['soundEffects'] = new AudioChannel("soundEffects")..gain = .5;
+	audioChannels['music'] = new AudioChannel("music")..gain = .5;
+	
 	if(prevVolume != null)
 	{
 		setVolume(prevVolume,false);
@@ -34,9 +40,24 @@ init_audio()
 Future load_audio()
 {
 	final c = new Completer();
+	
+	List<Future> futures = [];
+	
+	//load the loading music and play when ready
+	gameSounds['loadingMusic'] = new Sound(channel:audioChannels['music']);
+	futures.add(gameSounds['loadingMusic'].load("assets/system/loading.ogg"));
+    	
+	//load the sound effects
+	gameSounds['quoinSound'] = new Sound(channel:audioChannels['soundEffects']);
+	futures.add(gameSounds['quoinSound'].load("assets/system/drop.ogg"));
+	gameSounds['mention'] = new Sound(channel:audioChannels['soundEffects']);
+	futures.add(gameSounds['mention'].load("assets/system/mention.ogg"));
+	gameSounds['gameLoaded'] = new Sound(channel:audioChannels['soundEffects']);
+	futures.add(gameSounds['gameLoaded'].load("assets/system/game_loaded.ogg"));
+	
+	return Future.wait(futures);
   
-	// Load all our user interface sounds.
-
+	/*/ Load all our user interface sounds.
 	ui_sounds = new Batch
 		([
 			//iOS/safari/IE doesn't seem to like .ogg files
@@ -73,7 +94,7 @@ Future load_audio()
 		Asset soundCloudSongs = new Asset('./assets/music.json');
 		soundCloudSongs.load(querySelector("#LoadStatus2"));
 	});
-    return c.future;
+    return c.future;*/
 }
 
 Future loadSong(String name)

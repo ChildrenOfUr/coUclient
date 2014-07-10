@@ -13,7 +13,6 @@ class Player
 	ChatBubble chatBubble = null;
 	Random rand = new Random();
 	String intersectingObject = null;
-	Rectangle boundingRect;
   		
 	//for testing purposes
 	//if false, player can move around with wasd and arrows, no falling
@@ -243,10 +242,10 @@ class Player
 		updateTransform();
 		
 		//check for collision with quoins
-		Rectangle avatarRect = boundingRect == null ? playerCanvas.getBoundingClientRect() : boundingRect;
+		Rectangle avatarRect = new Rectangle(posX,posY,width,height);
 		querySelectorAll(".quoin").forEach((Element element)
 		{
-			checkCollision(avatarRect,element);
+			checkCollision(element);
 		});
 		
 		intersectingObject = null;
@@ -254,8 +253,12 @@ class Player
 		//to overlap than small npcs are (think fruit tree size/box vs piggy size/box)
 		querySelectorAll(".plant").forEach((Element element)
 		{
-			Rectangle plantRect = element.getBoundingClientRect();
-			if(intersect(avatarRect,plantRect))
+			CanvasElement canvas = element as CanvasElement;
+			num left = num.parse(element.attributes['translatex'].replaceAll("px", ""));
+    		num top = num.parse(element.attributes['translatey'].replaceAll("px", ""));
+    		Rectangle plantRect = new Rectangle(left,top,canvas.width,canvas.height);		
+			
+    		if(intersect(avatarRect,plantRect))
 			{
 				if(plants[element.id] != null)
 					plants[element.id].updateGlow(true);
@@ -270,7 +273,11 @@ class Player
 		});
 		querySelectorAll(".npc").forEach((Element element)
 		{
-			Rectangle npcRect = element.getBoundingClientRect();
+			CanvasElement canvas = element as CanvasElement;
+			num left = num.parse(element.attributes['translatex'].replaceAll("px", ""));
+    		num top = num.parse(element.attributes['translatey'].replaceAll("px", ""));
+    		Rectangle npcRect = new Rectangle(left,top,canvas.width,canvas.height);
+                		
 			if(intersect(avatarRect,npcRect))
 			{
 				if(npcs[element.id] != null)
@@ -290,11 +297,15 @@ class Player
 	{
 		if(currentAnimation != null && currentAnimation.dirty)
 		{
+			Rectangle avatarRect = new Rectangle(posX,posY,width,height);
+			if(!intersect(camera.visibleRect,avatarRect))
+				return;
+			
 			//it's not obvious, but setting the width and/or height erases the current canvas as well
+			//it is necessary to do this in order to prevent the player from moving within the frame
+			//because the aniation sizes are different (walk vs idle, etc.)
 			playerCanvas.width = currentAnimation.width;
 			playerCanvas.height = currentAnimation.height;
-			if(boundingRect == null)
-				boundingRect = playerCanvas.getBoundingClientRect();
 			Rectangle destRect = new Rectangle(0,0,currentAnimation.width,currentAnimation.height);
     		playerCanvas.context2D.drawImageToRect(currentAnimation.spritesheet, destRect, sourceRect: currentAnimation.sourceRect);
     		currentAnimation.dirty = false;
@@ -406,21 +417,32 @@ class Player
 		playerParentElement.attributes['translateX'] = translateX.toString();
 		playerParentElement.attributes['translateY'] = translateY.toString();
 		num diffX = translateX-prevX, diffY = translateY-prevY;
-	    if(boundingRect != null)
-	    	boundingRect = new Rectangle(boundingRect.left+diffX, boundingRect.top+diffY, currentAnimation.width, currentAnimation.height);
 	}
 	
-	void checkCollision(Rectangle avatarRect, Element element)
+	void checkCollision(Element element)
 	{
-		Rectangle quoinRect = element.getBoundingClientRect();
+		//if the main screen is hidden don't check for quoin collection
+		//this should avoid a bug where the player can pick up all the quoins
+		//on a street at once because the bounding boxes all squish together
+		if(querySelector('#MainScreen').hidden == true)
+			return;
+		
+		if(element.attributes['collected'] == "true")
+			return;
+		
+		CanvasElement canvas = element as CanvasElement;
+		num left = num.parse(canvas.style.left.replaceAll("px", ""));
+		num top = currentStreet.bounds.height - num.parse(canvas.style.bottom.replaceAll("px", "")) - canvas.height;
+		Rectangle quoinRect = new Rectangle(left,top,canvas.width,canvas.height);
+		
+		Rectangle avatarRect = new Rectangle(posX,posY,width,height);
+		
 		if(intersect(avatarRect,quoinRect))
 		{
-			if(ASSET['drop'] != null && int.parse(prevVolume) > 0 && isMuted == '0')
-			{
-				AudioElement dropSound = ASSET['drop'].get();
-    		    dropSound.volume = int.parse(prevVolume)/100;
-    		    dropSound.play();
-			}
+			gameSounds['quoinSound'].play();
+			
+			element.attributes['collected'] = "true";
+			
 			int amt = rand.nextInt(4)+1;
 			Element quoinText = querySelector("#qq"+element.id+" .quoinString");
 			if(element.classes.contains("currant"))
@@ -466,14 +488,6 @@ class Player
 			element.classes.remove("circleExpand");
 	}
 	
-	bool intersect(Rectangle a, Rectangle b) 
-	{
-		return (a.left <= b.right &&
-				b.left <= a.right &&
-				a.top <= b.bottom &&
-				b.top <= a.bottom);
-    }
-	
 	//ONLY WORKS IF PLATFORMS ARE SORTED WITH
 	//THE HIGHEST (SMALLEST Y VALUE) FIRST IN THE LIST
 	Platform _getBestPlatform(num cameFrom)
@@ -503,4 +517,12 @@ class Player
 		
 		return bestPlatform;
 	}
+}
+
+bool intersect(Rectangle a, Rectangle b) 
+{
+	return (a.left <= b.right &&
+			b.left <= a.right &&
+			a.top <= b.bottom &&
+			b.top <= a.bottom);
 }

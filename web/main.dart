@@ -10,6 +10,7 @@ import 'package:intl/intl.dart'; //used for NumberFormat
 import 'package:glitchTime/glitch-time.dart';// The script that spits out time!
 import 'package:scproxy/scproxy.dart'; // Paul's soundcloud bootstrap
 import 'package:libld/libld.dart'; // Nice and simple asset loading.
+import 'package:gorgon/gorgon.dart';
 
 // main game entry
 part 'dart/engine/initialize.dart'; // home of the 'main()'

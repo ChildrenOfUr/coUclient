@@ -8,6 +8,7 @@ class Camera
 	int _x,_y;
 	int zoom = 0; // for future eyeballery
 	bool dirty = true;
+	Rectangle visibleRect;
 	Camera(this._x,this._y)
 	{
     	COMMANDS.add(['camera','sets the cameras position "camera x,y"',this.setCamera]);
@@ -24,6 +25,7 @@ class Camera
 				dirty = true;
 			_x = newX;
 			_y = newY;
+			visibleRect = new Rectangle(_x,_y,ui.gameScreenWidth,ui.gameScreenHeight);
 		}
 		catch (error)
 		{
@@ -120,8 +122,8 @@ class Street
 		{
 			for (Map deco in layer['decos'])
 			{
-				if (!decosToLoad.contains('http://revdancatt.github.io/CAT422-glitch-location-viewer/img/scenery/' + deco['filename'] + '.png'))
-        			decosToLoad.add('http://revdancatt.github.io/CAT422-glitch-location-viewer/img/scenery/' + deco['filename'] + '.png');
+				if (!decosToLoad.contains('http://childrenofur.com/locodarto/scenery/' + deco['filename'] + '.png'))
+        			decosToLoad.add('http://childrenofur.com/locodarto/scenery/' + deco['filename'] + '.png');
 			}
 		}
     
@@ -134,7 +136,7 @@ class Street
 		
 		// Load each of them, and then continue.
 		Batch decos = new Batch(assetsToLoad);
-		decos.load(setStreetLoadBar).then((_)
+		decos.load(setStreetLoadBar,enableCrossOrigin:true).then((_)
         {
 			//Decos should all be loaded at this point//
 			
@@ -236,12 +238,24 @@ class Street
 					if (ASSET[deco['filename']] != null)
 					{
 						ImageElement d = ASSET[deco['filename']].get();
+						
+						//resize the image now so that it doesn't have to be done each time
+						//it comes into view by the browser's rendering engine
+						//TODO maybe uncomment someday - looks terrible
+						/*if(w != d.naturalWidth || h != d.naturalHeight)
+						{
+							print("need to resize ${deco['filename']} from ${d.naturalWidth}x${d.naturalHeight} to ${w}x${h}");
+                        	resizeImage(d,w,h);
+                        	print("new size is ${d.width}x${d.height}");
+						}*/
+						
 						d.style.position = 'absolute';
 						d.style.left = x.toString() + 'px';
 						d.style.top = y.toString() + 'px';
 						d.style.width = w.toString() + 'px';
 						d.style.height = h.toString() + 'px';
 						d.style.zIndex = z.toString();
+						
 						String transform = "";
 						if(deco['r'] != null)
 						{
@@ -394,6 +408,21 @@ class Street
         // Done initializing street.
 		return c.future;
 	}
+	
+	void resizeImage(ImageElement imageObject, int newWidth, int newHeight) 
+	{
+		// New canvas
+        CanvasElement canvas = new CanvasElement();
+        canvas.width = newWidth;
+        canvas.height = newHeight;
+
+        // Draw Image content in canvas
+        CanvasRenderingContext2D context = canvas.context2D;        
+        context.drawImageScaled(imageObject, 0, 0, newWidth, newHeight);
+
+        // Replace source of Image
+        imageObject.src = canvas.toDataUrl();
+    }
  
 	//Parallaxing: Adjust the position of each canvas in #GameScreen
 	//based on the camera position and relative size of canvas to Street
@@ -446,7 +475,7 @@ Future load_streets()
 		// Load each street file into memory. If this gets too expensive we'll move this elsewhere.
 		List toLoad = [];
 		for (String url in streetList.get().values)
-			toLoad.add(new Asset(url).load(loadStatus2));
+			toLoad.add(new Asset(url).load(statusElement:loadStatus2));
 		
 		c.complete(Future.wait(toLoad));
 	});

@@ -25,6 +25,8 @@ class NPC
         	canvas.width = map["width"];
         	canvas.height = map["height"];
         	canvas.style.position = "absolute";
+        	canvas.attributes['translatex'] = posX.toString();
+            canvas.attributes['translatey'] = posY.toString();
         	posX = map['x'].toDouble();
     		posY = (currentStreet.bounds.height - 170).toDouble();
         	querySelector("#PlayerHolder").append(canvas);
@@ -64,7 +66,15 @@ class NPC
 	{
 		if(ready && animation.dirty)
 		{
-			canvas.width = canvas.width;
+			//if the entity is not visible, don't render it
+			Rectangle npcRect = new Rectangle(posX,posY,canvas.width,canvas.height);
+			if(!intersect(camera.visibleRect,npcRect))
+				return;
+			
+			//fastest way to clear a canvas (without using a solid color)
+			//source: http://jsperf.com/ctx-clearrect-vs-canvas-width-canvas-width/6
+			canvas.context2D.clearRect(0, 0, animation.width, animation.height);
+			
 			if(glow)
             {
             	canvas.context2D.shadowColor = "rgba(0, 0, 255, 0.2)";
