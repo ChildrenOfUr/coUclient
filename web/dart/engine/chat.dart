@@ -359,6 +359,15 @@ class TabContent
 		Map map = new Map();
 		if(input.split(" ")[0].toLowerCase() == "/setname")
 		{
+			String newName = input.substring(9).replaceAll(" ", "_");
+			if(!new RegExp(r"^-?[_a-zA-Z]+[_a-zA-Z0-9-]*$").hasMatch(newName))
+			{
+				Map map = new Map();
+    			map["statusMessage"] = "hint";
+    			map["message"] = "Sorry, you can't use the following characters in your name<br>~ ! @ \$ % ^ & * ( ) + = , . / ' ; : \" ? > < [ ] \ { } | ` #";
+    			_addmessage(map);
+				return;
+			}
 			map["statusMessage"] = "changeName";
 			map["username"] = chat.username;
 			map["newUsername"] = input.substring(9);
