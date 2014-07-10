@@ -5,6 +5,7 @@ class Joystick
 	Element joystick, knob;
 	int _neutralX, _neutralY, _initialTouchX, _initialTouchY, deadzoneInPixels;
 	double deadzoneInPercent;
+	num offsetLeft, offsetTop;
 	bool UP = false, DOWN = false, LEFT = false, RIGHT = false;
 	StreamController _moveController = new StreamController.broadcast();
 	StreamController _releaseController = new StreamController.broadcast();
@@ -20,6 +21,9 @@ class Joystick
 	 **/
 	Joystick(this.joystick, this.knob, {this.deadzoneInPixels : 0, this.deadzoneInPercent : 0.0})
 	{	
+		offsetLeft = knob.offsetLeft;
+		offsetTop = knob.offsetTop;
+		
 		if(deadzoneInPercent != 0)
 		{
 			deadzoneInPixels = (joystick.clientWidth * deadzoneInPercent).toInt();
@@ -28,16 +32,16 @@ class Joystick
 		knob.onTouchStart.listen((TouchEvent event)
 		{
 			event.preventDefault();
-			_neutralX = knob.offsetLeft;
-			_neutralY = knob.offsetTop;
+			_neutralX = offsetLeft;
+			_neutralY = offsetTop;
 			_initialTouchX = event.changedTouches.first.client.x;
 			_initialTouchY = event.changedTouches.first.client.y;
 			_moveController.add(new JoystickEvent());
 			
-			//add an event to the stream 20 times per second even if the user does not move
+			//add an event to the stream 4 times per second even if the user does not move
 			//the knob - this will, for instance, allow the joystick to be used as a selection
 			//device (think menus) even if the user holds the knob steady at the top.
-			repeatTimer = new Timer.periodic(new Duration(milliseconds:50), (_)
+			repeatTimer = new Timer.periodic(new Duration(milliseconds:250), (_)
 			{
 				_moveController.add(new JoystickEvent());
 			});
@@ -72,8 +76,7 @@ class Joystick
 			if(y < _neutralY-deadzoneInPixels) UP = true;
 			else UP = false;
 
-			knob.style.left = x.toString()+"px";
-			knob.style.top = y.toString()+"px";
+			knob.style.transform = "translate3d(${x-offsetLeft}px,${y-offsetTop}px,0px)";
 			
 			_moveController.add(new JoystickEvent());
 		});

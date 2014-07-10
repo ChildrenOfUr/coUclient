@@ -660,8 +660,11 @@ class TabContent
 		
 		bool atTheBottom = false;
 		//if we're at the bottom before adding the incoming strings, scroll with them
-		if((chatHistory.scrollHeight - chatHistory.offsetHeight - chatHistory.scrollTop).abs() < 5)
-			atTheBottom = true;
+		if((querySelector("#MobileStyle") as LinkElement).disabled)
+		{
+			if((chatHistory.scrollHeight - chatHistory.offsetHeight - chatHistory.scrollTop).abs() < 5)
+            	atTheBottom = true;
+		}
 		
 		chatHistory.children.add(chatString);
 		chatHistory.children.add(rowSpacer);
@@ -685,8 +688,11 @@ class TabContent
 		
 		DivElement conversation = querySelector('#conversation-'+channelName.replaceAll(" ","_"));
 		atTheBottom = false;
-		if((conversation.scrollHeight - conversation.offsetHeight - conversation.scrollTop).abs() < 5)
-			atTheBottom = true;
+		if(!(querySelector("#MobileStyle") as LinkElement).disabled)
+		{
+			if((conversation.scrollHeight - conversation.offsetHeight - conversation.scrollTop).abs() < 5)
+            	atTheBottom = true;
+		}
 		conversation.children.add(chatRow);
 		if(atTheBottom || (map['username'] == chat.username || map['newUsername'] == chat.username))
 			conversation.scrollTop = conversation.scrollHeight;

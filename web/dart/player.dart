@@ -30,7 +30,8 @@ class Player
 				posY = platform.start.y-height;
 		}
 
-		playerCanvas = new CanvasElement();
+		playerCanvas = new CanvasElement()
+			..style.transform = "translateZ(0)";
 		
 		playerName = new DivElement()
 			..classes.add("playerName")
@@ -107,6 +108,7 @@ class Player
 					posY -= speed/4 * dt;
 					climbingUp = true;
 					activeClimb = true;
+					jumping = false;
 					found = true;
 					break;
 				}
@@ -134,6 +136,7 @@ class Player
 					posY += speed/4 * dt;
 					climbingDown = true;
 					activeClimb = true;
+					jumping = false;
 					found = true;
 					break;
 				}
@@ -297,15 +300,21 @@ class Player
 	{
 		if(currentAnimation != null && currentAnimation.dirty)
 		{
-			Rectangle avatarRect = new Rectangle(posX,posY,width,height);
+			Rectangle avatarRect = new Rectangle(posX,posY,currentAnimation.width,currentAnimation.height);
 			if(!intersect(camera.visibleRect,avatarRect))
 				return;
 			
 			//it's not obvious, but setting the width and/or height erases the current canvas as well
 			//it is necessary to do this in order to prevent the player from moving within the frame
 			//because the aniation sizes are different (walk vs idle, etc.)
-			playerCanvas.width = currentAnimation.width;
-			playerCanvas.height = currentAnimation.height;
+			if(playerCanvas.width != currentAnimation.width || playerCanvas.height != currentAnimation.height)
+			{
+				playerCanvas.width = currentAnimation.width;
+                playerCanvas.height = currentAnimation.height;
+			}
+			else
+				playerCanvas.context2D.clearRect(0, 0, currentAnimation.width, currentAnimation.height);
+			
 			Rectangle destRect = new Rectangle(0,0,currentAnimation.width,currentAnimation.height);
     		playerCanvas.context2D.drawImageToRect(currentAnimation.spritesheet, destRect, sourceRect: currentAnimation.sourceRect);
     		currentAnimation.dirty = false;
