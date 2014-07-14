@@ -19,7 +19,7 @@ class SoundManager {
       //also I updated the loadie library to attempt to find both a .mp3 file and a .ogg file at the specified location
       //this should help with browser compatibility
       new Asset('packages/couclient/system/loading.mp3'), new Asset('packages/couclient/system/mention.mp3'), new Asset('packages/couclient/system/drop.mp3'), new Asset('packages/couclient/system/game_loaded.mp3'), new Asset('packages/couclient/music.json') // soundcloud json
-    ])..load(app.print, app.loadStatus2).then((_) {
+    ])..load(app.print,statusElement: app.loadStatus2).then((_) {
           //start the loading music and attach it to the loadingScreen so that when that is removed the music stops
           play('loading', element: app.loadingScreen);
 
