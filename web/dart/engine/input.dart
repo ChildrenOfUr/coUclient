@@ -189,11 +189,11 @@ class Input
 		});
 		
 		//demo right-clicking
-		document.body.onContextMenu.listen((e) => showClickMenu(e,'Testing Right Click', 'this is a demo',[["Sample"]]));
+		document.body.onContextMenu.listen((MouseEvent e) => doObjectInteraction(e));
 		playerInput = this;
     }
 	
-	void doObjectInteraction()
+	void doObjectInteraction([MouseEvent e])
 	{
 		if(CurrentPlayer.intersectingObject != null && querySelector('#RightClickMenu') == null)
 		{
@@ -208,6 +208,14 @@ class Input
 				});
 			}
 			showClickMenu(null,element.attributes['type'],"Desc",actions);
+		}
+		else
+		{
+			if(e != null)
+			{
+				//TODO show a right click menu that is meaningful or don't show anything
+				//showClickMenu(e,'Testing Right Click', 'this is a demo',[["Sample"]]);
+			}
 		}
 	}
 	
