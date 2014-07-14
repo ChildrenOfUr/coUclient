@@ -1,0 +1,404 @@
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+/*Mobile specific stuff*/
+.ActionBar {
+	height: calc(2em + 15px);
+	border-bottom: 1px solid;
+	text-align: center;
+}
+.BottomBar {
+	position: absolute;
+	bottom: 5px;
+	width: calc(100% - 5px);
+}
+.BackButton {
+	position: absolute;
+	margin: 3px;
+	border: 1px solid;
+	border-radius: 5px;
+	background-color: white;
+	color: #005c73;
+	font-size: 2em;
+}
+#SendButton {
+	border: 1px solid;
+	border-radius: 5px;
+	background-color: white;
+	color: #005c73;
+	display: table-cell;
+    margin-right: 10px;
+    font-size: 1.5em;
+}
+#ChatScreen {
+	height: 100vh;
+	background: white;
+}
+#ConversationStack {
+}
+.Conversation {
+	position: absolute;
+	top: calc(2em + 19px);
+	width: 100%;
+	bottom: calc(2em + 20px);
+	overflow-y: scroll;
+	background: white;
+}
+#InputContainer {
+	display: table-cell;
+	width: 100%;
+	padding-right: 20px;
+	padding-left: 5px;
+}
+#MobileChatInput {
+	width: 100%;
+	font-size: 1.5em;
+}
+#ChatChannelTitle {
+	padding-top: 4px;
+	margin-top: 3px;
+	font-size: 2em;
+}
+.ChannelName {
+	font-size: 2em;
+}
+#ChannelList {
+	overflow-y: scroll;
+	height: 87vh;
+}
+#InventoryDrawer {
+	display: block;
+	text-align: center;
+	position: absolute;
+	width: 75%;
+	margin-left: auto;
+	margin-right: auto;
+	left: 0;
+	right: 0;
+	bottom: -75px;
+}
+#InventoryTitle {
+	font-size: 2em;
+	display: inline-block;
+	background: white;
+	padding: 1px 5px 5px 5px;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+}
+#MobileInventory {
+	background: white;
+	padding: 3px;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	white-space: nowrap;
+	overflow-x: scroll;
+}
+#MobileInventoryBag {
+	display: none;
+	background: white;
+	padding: 3px;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	white-space: nowrap;
+	overflow-x: scroll;
+}
+#MobileChatSettingsIcon {
+	position: absolute;
+	top: 5px;
+	right: 5px;
+}
+#MobileChatSettingsMenu {
+	text-align: left;
+	font-size: 1.5em;
+	position: absolute;
+	right: 5px;
+	top: 40px;
+	background-color: #fff;
+	border: 1px solid;
+	padding: 0px 5px;
+}
+#MobileChatSettingsMenu input[type=checkbox] {
+  -ms-transform: scale(2);
+  -moz-transform: scale(2);
+  -webkit-transform: scale(2);
+  -o-transform: scale(2);
+}
+#MobileFullscreen {
+	position: absolute;
+	display: inline;
+	top: 10px;
+	right: 20px;
+	left: auto;
+	z-index: 0;
+}
+#MobileFullscreenReset {
+	position: absolute;
+	display: none;
+	top: 10px;
+	right: 20px;
+	left: auto;
+	z-index: 0;
+}
+#MobileAudioGlyph {
+	position: absolute;
+	display: inline;
+	top:10px;
+	right: 50px;
+	left: auto;
+	z-index: 0;
+}
+#ThemeSwitcher {
+	display: inline-block;
+	position: absolute;
+	top: 5px;
+	bottom: auto;
+	right: auto;
+	left: 250px;
+	font-size: .5em;
+	border: 3px solid;
+	border-radius: 10px;
+	padding: 3px;
+	background: white;
+}
+#CurrentLocation {
+	position: absolute;
+	display: inline-flex;
+	max-width: 45%;
+	max-height: 40px;
+	overflow-y: hidden;
+	overflow-x: hidden;
+	right: 60px;
+	top: -39px;
+	font-size: 14px;
+}
+#MapGlyph {
+	padding-right: 5px;
+}
+
+#ChatDisconnected {
+	display: none;
+}
+#Footer {
+	display: none;
+}
+.PopWindowBody {
+	display: none;
+}
+#TopRight {
+	display: none;
+}
+#SizeWarning {
+	display: none;
+}
+#SoundCloudWidget {
+	display: none;
+}
+#ChatPane {
+	display: none;
+}
+#ChatSettingsIcon {
+	display: none;
+}
+#InventoryBar, #InventoryBag{
+	display: none;
+}
+
+@media (orientation: landscape) /* mobile device in landscape */
+{
+	#PlayerPortraitDiv {
+		top: 3px;
+	}
+	#PlayerName {
+		left: 150px;
+	}
+	#ImaginationText {
+		left: 114px;
+	}
+	#EnergyText {
+		top: 40px;
+	}
+	#EnergyIndicator, #EnergyIndicatorRed {
+		top: -17px;
+	}
+	#EnergyEmblem {
+		top: 88px;
+	}
+	#TopLeftCorner {
+		top: -27px;
+	}
+	#GameScreenParent {
+		top: 40px;
+		width: calc(100% - 80px);
+		height: calc(100% - 100px);
+	}
+	#CurrantBack {
+		left: 10px;
+		bottom: 76px;
+	}
+	#CurrantText {
+		left: 50px;
+		bottom: 80px;
+	}
+	#CurrantEmblem {
+		left: 16px;
+		bottom: 80px;
+	}
+	#Joystick {
+		display: block;
+		width: 50px;
+		height: 50px;
+		border: 1px solid;
+		border-radius: 50%;
+		position: absolute;
+		bottom: 5px;
+		left: 40px;
+	}
+	#Knob {
+		position: absolute;
+		top: 9px;
+		left: 9px;
+		width: 30px;
+		height: 30px;
+		border: 1px solid;
+		border-radius: 50%;
+		background: #fff;
+	}
+	#ChatBubble {
+		display: block;
+		position: absolute;
+		right: -30px;
+		top: 35px;
+	}
+	#AButton {
+		display: block;
+		text-align: center;
+		line-height: 50px;
+		width: 50px;
+		height: 50px;
+		border: 1px solid;
+		border-radius: 50%;
+		position: absolute;
+		right: 20px;
+		bottom: 5px;
+	}
+	#BButton {
+		display: block;
+		text-align: center;
+		line-height: 50px;
+		width: 50px;
+		height: 50px;
+		border: 1px solid;
+		border-radius: 50%;
+		position: absolute;
+		right: 100px;
+		bottom: 5px;
+	}
+	#ThemeSwitcher {
+		top: 17px;
+		left: 150px;
+	}
+}
+
+@media (orientation: portrait) /* mobile device in portrait */
+{
+	#PlayerPortraitDiv {
+		top: 13px;
+		left: 4px;
+	}
+	#PlayerName {
+		left: 5px;
+		top: 1px;
+	}
+	#ImaginationText {
+		top: 30px;
+		left: 94px;
+	}
+	#EnergyText {
+		top: 50px;
+		left: 120px;
+	}
+	#EnergyIndicator, #EnergyIndicatorRed {
+		top: -7px;
+		left: -18px;
+	}
+	#EnergyEmblem {
+		top: 98px;
+		left: 15px;
+	}
+	#TopLeftCorner {
+		top: -17px;
+		left: -28px;
+	}
+	#GameScreenParent {
+		top: 50px;
+		width: calc(100% - 45px);
+		left: 25px;
+	}
+	#CurrantBack {
+		left: 0px;
+		bottom: 151px;
+	}
+	#CurrantText {
+		left: 40px;
+		bottom: 155px;
+	}
+	#CurrantEmblem {
+		left: 6px;
+		bottom: 155px
+	}
+	#Joystick {
+		display: block;
+		width: 100px;
+		height: 100px;
+		border: 1px solid;
+		border-radius: 50%;
+		position: absolute;
+		bottom: 20px;
+		left: 15px;
+	}
+	#Knob {
+		position: absolute;
+		top: 35px;
+		left: 35px;
+		width: 30px;
+		height: 30px;
+		border: 1px solid;
+		border-radius: 50%;
+		background: #fff;
+	}
+	#ChatBubble {
+		position: absolute;
+		display: block;
+		right: -40px;
+		top: 35px;
+	}
+	#AButton {
+		display: block;
+		text-align: center;
+		line-height: 60px;
+		width: 60px;
+		height: 60px;
+		border: 1px solid;
+		border-radius: 50%;
+		position: absolute;
+		right:5px;
+		bottom: 65px;
+	}
+	#BButton {
+		display: block;
+		text-align: center;
+		line-height: 60px;
+		width: 60px;
+		height: 60px;
+		border: 1px solid;
+		border-radius: 50%;
+		position: absolute;
+		right: 70px;
+		bottom: 30px;
+	}
+	#CurrentLocation {
+		max-width: 40%;
+	}
+	#ThemeSwitcher {
+		top: 1px;
+		left: 100px;
+	}
+}
