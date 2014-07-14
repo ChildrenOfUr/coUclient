@@ -82,13 +82,30 @@ build(grinder.GrinderContext context)
 	newhtml.writeAsStringSync(
 		newhtml.readAsStringSync()
 			.replaceAll('<script type="application/dart" src="main.dart"></script>',
-			'<script>'+ new File('./out/main.js').readAsStringSync() + '</script>')
+			'<script type="text/javascript">'+ new File('./out/main.js').readAsStringSync() + '</script>')
 				.replaceAll('<script src="packages/browser/dart.js"></script>',''));
 	
 	// clean up our unneeded files
 	context.log('cleaning up');
 	new File('./out/base.css').deleteSync();
 	new File('./out/main.js').deleteSync();
+	
+	//the packages seem to like to copy themselves everywhere
+	deleteDirectory('./out/assets/packages');
+	deleteDirectory('./out/assets/emoticons/packages');
+	deleteDirectory('./out/assets/font/packages');
+	deleteDirectory('./out/assets/locations/packages');
+	deleteDirectory('./out/assets/sprites/packages');
+	deleteDirectory('./out/assets/system/packages');
+}
+
+deleteDirectory(String path)
+{
+	try
+	{
+		new Directory(path).deleteSync(recursive:true);
+	}
+	catch(e){}
 }
 
 deploy(grinder.GrinderContext context) 
