@@ -359,6 +359,15 @@ class TabContent
 		Map map = new Map();
 		if(input.split(" ")[0].toLowerCase() == "/setname")
 		{
+			String newName = input.substring(9).replaceAll(" ", "_");
+			if(!new RegExp(r"^-?[_a-zA-Z]+[_a-zA-Z0-9-]*$").hasMatch(newName))
+			{
+				Map map = new Map();
+    			map["statusMessage"] = "hint";
+    			map["message"] = "Sorry, you can't use the following characters in your name<br>~ ! @ \$ % ^ & * ( ) + = , . / ' ; : \" ? > < [ ] \ { } | ` #";
+    			_addmessage(map);
+				return;
+			}
 			map["statusMessage"] = "changeName";
 			map["username"] = chat.username;
 			map["newUsername"] = input.substring(9);
@@ -540,9 +549,7 @@ class TabContent
 		
 		if(chat.getPlayMentionSound() && map["message"].toLowerCase().contains(chat.username.toLowerCase()) && int.parse(prevVolume) > 0 && isMuted == '0')
 		{
-			AudioElement mentionSound = ASSET['mention'].get();
-		    mentionSound.volume = int.parse(prevVolume)/100;
-		    mentionSound.play();
+			playSound('mention');
 		}
 		SpanElement userElement = new SpanElement();
 		SpanElement text = new SpanElement()
@@ -662,8 +669,11 @@ class TabContent
 		
 		bool atTheBottom = false;
 		//if we're at the bottom before adding the incoming strings, scroll with them
-		if((chatHistory.scrollHeight - chatHistory.offsetHeight - chatHistory.scrollTop).abs() < 5)
-			atTheBottom = true;
+		if((querySelector("#MobileStyle") as LinkElement).disabled)
+		{
+			if((chatHistory.scrollHeight - chatHistory.offsetHeight - chatHistory.scrollTop).abs() < 5)
+            	atTheBottom = true;
+		}
 		
 		chatHistory.children.add(chatString);
 		chatHistory.children.add(rowSpacer);
@@ -687,8 +697,11 @@ class TabContent
 		
 		DivElement conversation = querySelector('#conversation-'+channelName.replaceAll(" ","_"));
 		atTheBottom = false;
-		if((conversation.scrollHeight - conversation.offsetHeight - conversation.scrollTop).abs() < 5)
-			atTheBottom = true;
+		if(!(querySelector("#MobileStyle") as LinkElement).disabled)
+		{
+			if((conversation.scrollHeight - conversation.offsetHeight - conversation.scrollTop).abs() < 5)
+            	atTheBottom = true;
+		}
 		conversation.children.add(chatRow);
 		if(atTheBottom || (map['username'] == chat.username || map['newUsername'] == chat.username))
 			conversation.scrollTop = conversation.scrollHeight;

@@ -8,6 +8,7 @@ class Camera
 	int _x,_y;
 	int zoom = 0; // for future eyeballery
 	bool dirty = true;
+	Rectangle visibleRect;
 	Camera(this._x,this._y)
 	{
     	COMMANDS.add(['camera','sets the cameras position "camera x,y"',this.setCamera]);
@@ -24,6 +25,7 @@ class Camera
 				dirty = true;
 			_x = newX;
 			_y = newY;
+			visibleRect = new Rectangle(_x,_y,ui.gameScreenWidth,ui.gameScreenHeight);
 		}
 		catch (error)
 		{
@@ -120,8 +122,8 @@ class Street
 		{
 			for (Map deco in layer['decos'])
 			{
-				if (!decosToLoad.contains('http://revdancatt.github.io/CAT422-glitch-location-viewer/img/scenery/' + deco['filename'] + '.png'))
-        			decosToLoad.add('http://revdancatt.github.io/CAT422-glitch-location-viewer/img/scenery/' + deco['filename'] + '.png');
+				if (!decosToLoad.contains('http://childrenofur.com/locodarto/scenery/' + deco['filename'] + '.png'))
+        			decosToLoad.add('http://childrenofur.com/locodarto/scenery/' + deco['filename'] + '.png');
 			}
 		}
     
@@ -140,6 +142,8 @@ class Street
 			
 			// set the street.
 			currentStreet = this;
+			
+			int groundY = -(_data['dynamic']['ground_y'] as num).abs();
 		      
 			DivElement interactionCanvas = new DivElement()
 				..classes.add('streetcanvas')
@@ -148,7 +152,7 @@ class Street
 				..style.width = bounds.width.toString() + "px"
 				..style.height = bounds.height.toString() + "px"
 				..style.position = 'absolute'
-				..attributes['ground_y'] = _data['dynamic']['ground_y'].toString();
+				..attributes['ground_y'] = groundY.toString();
             				
 			/* //// Gradient Canvas //// */
 			DivElement gradientCanvas = new DivElement();
@@ -183,7 +187,7 @@ class Street
 				decoCanvas.style.width = layer['w'].toString() + 'px';
 				decoCanvas.style.height = layer['h'].toString() + 'px';
 				decoCanvas.style.position = 'absolute';
-				decoCanvas.attributes['ground_y'] = _data['dynamic']['ground_y'].toString();
+				decoCanvas.attributes['ground_y'] = groundY.toString();
 				
 				List<String> filters = new List();
 				new Map.from(layer['filters']).forEach((String filterName, int value)
@@ -221,7 +225,7 @@ class Street
 				for(Map deco in layer['decos'])
 				{
 					int x = deco['x'] - deco['w']~/2;
-					int y = deco['y'] - deco['h'] + _data['dynamic']['ground_y'];
+					int y = deco['y'] - deco['h'] + groundY;
 					if(layer['name'] == 'middleground')
 					{
 						//middleground has different layout needs
@@ -236,12 +240,24 @@ class Street
 					if (ASSET[deco['filename']] != null)
 					{
 						ImageElement d = ASSET[deco['filename']].get();
+						
+						//resize the image now so that it doesn't have to be done each time
+						//it comes into view by the browser's rendering engine
+						//TODO maybe uncomment someday - looks terrible
+						/*if(w != d.naturalWidth || h != d.naturalHeight)
+						{
+							print("need to resize ${deco['filename']} from ${d.naturalWidth}x${d.naturalHeight} to ${w}x${h}");
+                        	resizeImage(d,w,h);
+                        	print("new size is ${d.width}x${d.height}");
+						}*/
+						
 						d.style.position = 'absolute';
 						d.style.left = x.toString() + 'px';
 						d.style.top = y.toString() + 'px';
 						d.style.width = w.toString() + 'px';
 						d.style.height = h.toString() + 'px';
 						d.style.zIndex = z.toString();
+						
 						String transform = "";
 						if(deco['r'] != null)
 						{
@@ -262,15 +278,15 @@ class Street
 					{
 						if(endpoint["name"] == "start")
 						{
-							start = new Point(endpoint["x"],endpoint["y"]+_data['dynamic']['ground_y']);
+							start = new Point(endpoint["x"],endpoint["y"]+groundY);
 							if(layer['name'] == 'middleground')
-								start = new Point(endpoint["x"]+layer['w']~/2,endpoint["y"]+layer['h']+_data['dynamic']['ground_y']);
+								start = new Point(endpoint["x"]+layer['w']~/2,endpoint["y"]+layer['h']+groundY);
 						}
 						if(endpoint["name"] == "end")
 						{
-							end = new Point(endpoint["x"],endpoint["y"]+_data['dynamic']['ground_y']);
+							end = new Point(endpoint["x"],endpoint["y"]+groundY);
 							if(layer['name'] == 'middleground')
-								end = new Point(endpoint["x"]+layer['w']~/2,endpoint["y"]+layer['h']+_data['dynamic']['ground_y']);
+								end = new Point(endpoint["x"]+layer['w']~/2,endpoint["y"]+layer['h']+groundY);
 						}
 					});
   					platforms.add(new Platform(platformLine['id'],start,end));
@@ -301,7 +317,7 @@ class Street
 					width = ladder['w'];
                     height = ladder['h'];
 					x = ladder['x']+layer['w']~/2-width~/2;
-					y = ladder['y']+layer['h']-height+_data['dynamic']['ground_y'];
+					y = ladder['y']+layer['h']-height+groundY;
 					id = ladder['id'];
 					
 					Rectangle box = new Rectangle(x,y,width,height);
@@ -325,7 +341,7 @@ class Street
 				for (Map signpost in layer['signposts'])
 				{
 					int x = signpost['x'];
-					int y = signpost['y'] - signpost['h'] + _data['dynamic']['ground_y'];
+					int y = signpost['y'] - signpost['h'] + groundY;
 					if(layer['name'] == 'middleground')
 					{
 						//middleground has different layout needs
@@ -347,8 +363,10 @@ class Street
 					List signposts = signpost['connects'] as List;
 					for(Map<String,String> exit in signposts)
 					{
-						if(exit['label'] == playerTeleFrom)
+						if(exit['label'] == playerTeleFrom || playerTeleFrom == "console")
 						{
+							if(playerTeleFrom == "console")
+								print("setting x: $x, y: $y");
 							CurrentPlayer.posX = x;
 							CurrentPlayer.posY = y;
 						}
@@ -394,6 +412,21 @@ class Street
         // Done initializing street.
 		return c.future;
 	}
+	
+	void resizeImage(ImageElement imageObject, int newWidth, int newHeight) 
+	{
+		// New canvas
+        CanvasElement canvas = new CanvasElement();
+        canvas.width = newWidth;
+        canvas.height = newHeight;
+
+        // Draw Image content in canvas
+        CanvasRenderingContext2D context = canvas.context2D;        
+        context.drawImageScaled(imageObject, 0, 0, newWidth, newHeight);
+
+        // Replace source of Image
+        imageObject.src = canvas.toDataUrl();
+    }
  
 	//Parallaxing: Adjust the position of each canvas in #GameScreen
 	//based on the camera position and relative size of canvas to Street
@@ -446,7 +479,7 @@ Future load_streets()
 		// Load each street file into memory. If this gets too expensive we'll move this elsewhere.
 		List toLoad = [];
 		for (String url in streetList.get().values)
-			toLoad.add(new Asset(url).load(loadStatus2));
+			toLoad.add(new Asset(url).load(statusElement:loadStatus2));
 		
 		c.complete(Future.wait(toLoad));
 	});

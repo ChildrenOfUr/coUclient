@@ -7,11 +7,13 @@ class Player
 	int width = 116, height = 137, speed = 300;
 	num posX = 1.0, posY = 0.0;
 	num yVel = 0, yAccel = -2400;
-	bool jumping = false, moving = false, climbingUp = false, climbingDown = false, activeClimb = false, facingRight = true;
+	bool jumping = false, moving = false, climbingUp = false, climbingDown = false;
+	bool activeClimb = false, facingRight = true, firstRender = true;
 	Map<String,Animation> animations = new Map();
 	Animation currentAnimation;
 	ChatBubble chatBubble = null;
 	Random rand = new Random();
+	String intersectingObject = null;
   		
 	//for testing purposes
 	//if false, player can move around with wasd and arrows, no falling
@@ -23,13 +25,26 @@ class Player
   
 	Player([String name])
 	{
+		bool found = false;
+		Platform leftmost = null;
+		
 		for(Platform platform in currentStreet.platforms)
 		{
+			if(leftmost == null || platform.start.x < leftmost.start.x)
+				leftmost = platform;
+			
 			if(platform.start.x == 1)
+			{
+				found = true;
 				posY = platform.start.y-height;
+			}
 		}
+		
+		if(!found)
+			posY = leftmost.start.y-height;
 
-		playerCanvas = new CanvasElement();
+		playerCanvas = new CanvasElement()
+			..style.transform = "translateZ(0)";
 		
 		playerName = new DivElement()
 			..classes.add("playerName")
@@ -59,13 +74,14 @@ class Player
 			climbFrames.add(i);
 		fallDownFrames = [16,17,18,19,20,21,22,23];
 		landFrames = [24,25,26,27,28,29,30,31,32];
-		animations['idle'] = new Animation("assets/sprites/idle.png","idle",2,29,idleFrames,loopDelay:new Duration(seconds:10),delayInitially:true);
-		animations['base'] = new Animation("assets/sprites/base.png","base",1,15,baseFrames);
-		animations['jumpup'] = new Animation("assets/sprites/jump.png","jumpup",1,33,jumpUpFrames);
-		animations['falldown'] = new Animation("assets/sprites/jump.png","falldown",1,33,fallDownFrames);
-		animations['land'] = new Animation("assets/sprites/jump.png","land",1,33,landFrames);
-		animations['climb'] = new Animation("assets/sprites/climb.png","climb",1,19,climbFrames);
-		
+				
+		animations['idle'] = new Animation("./assets/sprites/idle.png","idle",2,29,idleFrames,loopDelay:new Duration(seconds:10),delayInitially:true);
+		animations['base'] = new Animation("./assets/sprites/base.png","base",1,15,baseFrames);
+		animations['jumpup'] = new Animation("./assets/sprites/jump.png","jumpup",1,33,jumpUpFrames);
+		animations['falldown'] = new Animation("./assets/sprites/jump.png","falldown",1,33,fallDownFrames);
+		animations['land'] = new Animation("./assets/sprites/jump.png","land",1,33,landFrames);
+		animations['climb'] = new Animation("./assets/sprites/climb.png","climb",1,19,climbFrames);
+				
 		List<Future> futures = new List();
 		animations.forEach((String name,Animation animation) => futures.add(animation.load()));
 		
@@ -106,6 +122,7 @@ class Player
 					posY -= speed/4 * dt;
 					climbingUp = true;
 					activeClimb = true;
+					jumping = false;
 					found = true;
 					break;
 				}
@@ -133,6 +150,7 @@ class Player
 					posY += speed/4 * dt;
 					climbingDown = true;
 					activeClimb = true;
+					jumping = false;
 					found = true;
 					break;
 				}
@@ -217,39 +235,72 @@ class Player
 			num x = posX+width/2;
 			Platform bestPlatform = _getBestPlatform(cameFrom);
 			
-			num goingTo = posY+height+currentStreet._data['dynamic']['ground_y'];
-			num slope = (bestPlatform.end.y-bestPlatform.start.y)/(bestPlatform.end.x-bestPlatform.start.x);
-			num yInt = bestPlatform.start.y - slope*bestPlatform.start.x;
-			num lineY = slope*x+yInt;
-			
-			if(goingTo >= lineY)
+			if(bestPlatform != null)
 			{
-				posY = lineY-height-currentStreet._data['dynamic']['ground_y'];
-				yVel = 0;
-				jumping = false;
+				num goingTo = posY+height+currentStreet._data['dynamic']['ground_y'];
+    			num slope = (bestPlatform.end.y-bestPlatform.start.y)/(bestPlatform.end.x-bestPlatform.start.x);
+    			num yInt = bestPlatform.start.y - slope*bestPlatform.start.x;
+    			num lineY = slope*x+yInt;
+    			
+    			if(goingTo >= lineY)
+    			{
+    				posY = lineY-height-currentStreet._data['dynamic']['ground_y'];
+    				yVel = 0;
+    				jumping = false;
+    			}
 			}
 		}
 	    
 	    if(posY < 0)
-			posY = 0.0;	    
-			
+			posY = 0.0;
+	    
 	    updateAnimation(dt);
 						
 		updateTransform();
 		
 		//check for collision with quoins
-		Rectangle avatarRect = playerParentElement.getBoundingClientRect();
+		Rectangle avatarRect = new Rectangle(posX,posY,width,height);
 		querySelectorAll(".quoin").forEach((Element element)
 		{
-			checkCollision(avatarRect,element);
+			checkCollision(element);
+		});
+		
+		intersectingObject = null;
+		//search for plants first and npcs second since plants are probably easier
+		//to overlap than small npcs are (think fruit tree size/box vs piggy size/box)
+		querySelectorAll(".plant").forEach((Element element)
+		{
+			CanvasElement canvas = element as CanvasElement;
+			num left = num.parse(element.attributes['translatex'].replaceAll("px", ""));
+    		num top = num.parse(element.attributes['translatey'].replaceAll("px", ""));
+    		Rectangle plantRect = new Rectangle(left,top,canvas.width,canvas.height);		
+			
+    		if(intersect(avatarRect,plantRect))
+			{
+				if(plants[element.id] != null)
+					plants[element.id].updateGlow(true);
+				
+				intersectingObject = element.id;
+			}
+			else
+			{
+				if(plants[element.id] != null)
+					plants[element.id].updateGlow(false);
+			}
 		});
 		querySelectorAll(".npc").forEach((Element element)
 		{
-			Rectangle npcRect = element.getBoundingClientRect();
+			CanvasElement canvas = element as CanvasElement;
+			num left = num.parse(element.attributes['translatex'].replaceAll("px", ""));
+    		num top = num.parse(element.attributes['translatey'].replaceAll("px", ""));
+    		Rectangle npcRect = new Rectangle(left,top,canvas.width,canvas.height);
+                		
 			if(intersect(avatarRect,npcRect))
 			{
 				if(npcs[element.id] != null)
 					npcs[element.id].glow = true;
+				
+				intersectingObject = element.id;
 			}
 			else
 			{
@@ -263,10 +314,27 @@ class Player
 	{
 		if(currentAnimation != null && currentAnimation.dirty)
 		{
+			if(!firstRender)
+			{
+				Rectangle avatarRect = new Rectangle(posX,posY,currentAnimation.width,currentAnimation.height);
+    			if(!intersect(camera.visibleRect,avatarRect))
+    				return;
+			}
+			
+			firstRender = false;
+			
 			//it's not obvious, but setting the width and/or height erases the current canvas as well
-			playerCanvas.width = currentAnimation.width;
-			playerCanvas.height = currentAnimation.height;
-    		Rectangle destRect = new Rectangle(0,0,currentAnimation.width,currentAnimation.height);
+			//it is necessary to do this in order to prevent the player from moving within the frame
+			//because the aniation sizes are different (walk vs idle, etc.)
+			if(playerCanvas.width != currentAnimation.width || playerCanvas.height != currentAnimation.height)
+			{
+				playerCanvas.width = currentAnimation.width;
+                playerCanvas.height = currentAnimation.height;
+			}
+			else
+				playerCanvas.context2D.clearRect(0, 0, currentAnimation.width, currentAnimation.height);
+			
+			Rectangle destRect = new Rectangle(0,0,currentAnimation.width,currentAnimation.height);
     		playerCanvas.context2D.drawImageToRect(currentAnimation.spritesheet, destRect, sourceRect: currentAnimation.sourceRect);
     		currentAnimation.dirty = false;
 		}
@@ -309,6 +377,18 @@ class Player
 	
 	void updateTransform()
 	{
+		String xattr = playerParentElement.attributes['translateX'];
+		String yattr = playerParentElement.attributes['translateY'];
+		num prevX, prevY, prevCamX = camera.getX(), prevCamY = camera.getY();
+		if(xattr != null)
+			prevX = num.parse(xattr);
+		else
+			prevX = 0;
+		if(yattr != null)
+			prevY = num.parse(yattr);
+		else
+			prevY = 0;
+				
 		num translateX = posX, translateY = ui.gameScreenHeight - height;
 		num camX = camera.getX(), camY = camera.getY();
 		if(posX > currentStreet.bounds.width - width/2 - ui.gameScreenWidth/2)
@@ -362,19 +442,35 @@ class Player
 		}
 		
 		playerParentElement.style.transform = transform;
+		playerParentElement.attributes['translateX'] = translateX.toString();
+		playerParentElement.attributes['translateY'] = translateY.toString();
+		num diffX = translateX-prevX, diffY = translateY-prevY;
 	}
 	
-	void checkCollision(Rectangle avatarRect, Element element)
+	void checkCollision(Element element)
 	{
-		Rectangle quoinRect = element.getBoundingClientRect();
+		//if the main screen is hidden don't check for quoin collection
+		//this should avoid a bug where the player can pick up all the quoins
+		//on a street at once because the bounding boxes all squish together
+		if(querySelector('#MainScreen').hidden == true)
+			return;
+		
+		if(element.attributes['collected'] == "true")
+			return;
+		
+		CanvasElement canvas = element as CanvasElement;
+		num left = num.parse(canvas.style.left.replaceAll("px", ""));
+		num top = currentStreet.bounds.height - num.parse(canvas.style.bottom.replaceAll("px", "")) - canvas.height;
+		Rectangle quoinRect = new Rectangle(left,top,canvas.width,canvas.height);
+		
+		Rectangle avatarRect = new Rectangle(posX,posY,width,height);
+		
 		if(intersect(avatarRect,quoinRect))
 		{
-			if(ASSET['drop'] != null && int.parse(prevVolume) > 0 && isMuted == '0')
-			{
-				AudioElement dropSound = ASSET['drop'].get();
-    		    dropSound.volume = int.parse(prevVolume)/100;
-    		    dropSound.play();
-			}
+			playSound('quoinSound');
+			
+			element.attributes['collected'] = "true";
+			
 			int amt = rand.nextInt(4)+1;
 			Element quoinText = querySelector("#qq"+element.id+" .quoinString");
 			if(element.classes.contains("currant"))
@@ -420,14 +516,6 @@ class Player
 			element.classes.remove("circleExpand");
 	}
 	
-	bool intersect(Rectangle a, Rectangle b) 
-	{
-		return (a.left <= b.right &&
-				b.left <= a.right &&
-				a.top <= b.bottom &&
-				b.top <= a.bottom);
-    }
-	
 	//ONLY WORKS IF PLATFORMS ARE SORTED WITH
 	//THE HIGHEST (SMALLEST Y VALUE) FIRST IN THE LIST
 	Platform _getBestPlatform(num cameFrom)
@@ -457,4 +545,12 @@ class Player
 		
 		return bestPlatform;
 	}
+}
+
+bool intersect(Rectangle a, Rectangle b) 
+{
+	return (a.left <= b.right &&
+			b.left <= a.right &&
+			a.top <= b.bottom &&
+			b.top <= a.bottom);
 }

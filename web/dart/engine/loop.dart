@@ -35,6 +35,7 @@ loop(double dt)
 	
 	npcs.forEach((String id, NPC npc) => npc.update(dt));
 	quoins.forEach((String id, Quoin quoin) => quoin.update(dt));
+	plants.forEach((String id, Plant plant) => plant.update());
 	
 	//update the other clients with our position & street
 	timeLast += dt;

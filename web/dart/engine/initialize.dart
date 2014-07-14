@@ -1,6 +1,7 @@
 part of coUclient;
 
 WebSocket playerSocket;
+AudioInstance loadingMusic;
 
 main()
 {
@@ -10,7 +11,11 @@ main()
 	if(localStorage["interface"] == null || localStorage["interface"] == "desktop")
 		(querySelector("#MobileStyle") as LinkElement).disabled = true;
 	else
+	{
 		querySelector("#ThemeSwitcher").text = "Desktop View";
+		querySelector("#InventoryDrawer").append(querySelector('#InventoryBar'));
+		querySelector("#InventoryDrawer").append(querySelector('#InventoryBag'));
+	}
 
 	// The player has requested that the game is to begin.
 	// run all audio initialization tasks
@@ -20,41 +25,44 @@ main()
 	
 	// On-game-started loading tasks
 	load_audio()
-	.then((_) => load_streets()
-	.then((_) => new Street('test').load()
 	.then((_)
 	{
-		//initialize chat after street has been loaded and currentStreet.label is set
-		chat.init();
+		//play loading music while loading everything else
+		if(useWebAudio)
+			loadingMusic = playSound('loading',looping:true);
 		
-		//connect to the multiplayer server and start managing the other players on the screen
-		multiplayerInit();
-		
-		CurrentPlayer = new Player();
-		CurrentPlayer.loadAnimations()
-		.then((_)
-		{
-			CurrentPlayer.currentAnimation = CurrentPlayer.animations['idle'];
-			
-			//if the client is mobile, wait for user to press play button so that we can do audio tricks for mobile browsers
-			//else just start now
-			if(window.innerWidth > 1220 && window.innerHeight > 325)
-				start();
-			else
-			{
-				querySelector("#LoadingFrame").style.display = "none";
-				Element playButton = querySelector("#PlayButton");
-				playButton.text = "Play";
-				playButton.style.display = "inline-block";
-				playButton.onClick.first.then((_)
-				{
-					if(ui.currentSong != null && int.parse(prevVolume) > 0 && isMuted == '0')
-						ui.currentSong.play();
-					start();
-				});
-			}
-		});
-	})));
+		load_streets()
+		.then((_) => new Street('test').load()
+    	.then((_)
+    	{
+    		//initialize chat after street has been loaded and currentStreet.label is set
+    		chat.init();
+    		    		
+    		//connect to the multiplayer server and start managing the other players on the screen
+    		multiplayerInit();
+    		    		    		
+    		CurrentPlayer = new Player();
+    		    		
+    		CurrentPlayer.loadAnimations()
+    		.then((_)
+    		{    			
+    			CurrentPlayer.currentAnimation = CurrentPlayer.animations['idle'];
+
+    			//if the client is mobile, wait for user to press play button so that we can do audio tricks for mobile browsers
+    			//else just start now
+    			if(window.innerWidth > 1220 && window.innerHeight > 325)
+    				start();
+    			else
+    			{
+    				querySelector("#LoadingFrame").style.display = "none";
+    				Element playButton = querySelector("#PlayButton");
+    				playButton.text = "Play";
+    				playButton.style.display = "inline-block";
+    				playButton.onClick.first.then((_) => start());
+    			}
+    		});
+    	}));
+	});
 }
 
 start()
@@ -100,6 +108,9 @@ start()
 		refreshClock();
 	});
 	    	
+	stopSound(loadingMusic);
+	playSound('game_loaded');
+        					
 	// Begin the GAME!!!
 	gameLoop(0.0);
 }

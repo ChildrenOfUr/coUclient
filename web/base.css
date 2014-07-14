@@ -1027,25 +1027,16 @@ text-decoration: underline;
   -webkit-box-shadow: 0px 2px 0px 0px rgba(0,0,0,0.5);
   box-shadow:         0px 2px 0px 0px rgba(0,0,0,0.5);  
 }
-.InfoButton {   
-   margin-left: auto;
-   margin-right: auto;
-   width: 10em;
-   font-family: 'RockoFLFBold', sans-serif;
-   letter-spacing:0px;
+.InfoButton {
    font-size:12px;
-   font-weight: 600;
    position:absolute;
-   vertical-align: middle;
    top:  -9px;
-   left: 98px;
-   padding: 2px;
+   right: 6px;
+   padding: 1px 5px 1px 5px;
    -moz-border-radius: 10px;
    border-radius: 10px;
    background-color: #BCDBDC;
    color: #005c73;
-   width: 25px;
-   height: 10px;
    border: 1px solid #fff;
 }
 .InfoButton:hover {
@@ -1064,7 +1055,7 @@ text-decoration: underline;
   border-radius: 3px;
   border: 1px solid #fff;
 }
-.RCItem:hover {
+.RCItem:hover, .RCItemSelected {
   cursor: pointer;  color: #d79035;
   border: 1px solid #d79035;
 }
@@ -1254,6 +1245,7 @@ text-decoration: underline;
   vertical-align: middle;
   -moz-border-radius: 5px;
   border-radius: 5px;
+  text-align: right;
 }
 .InventoryItem {
   cursor: pointer;
@@ -1262,6 +1254,11 @@ text-decoration: underline;
    top: 50%; 
    margin-left: -20px;
    margin-top: -25px;
+}
+.itemCount {
+	position: relative;
+	bottom: 3px;
+	right: 1px;
 }
 #fps {
 	position: absolute;
@@ -1531,3 +1528,141 @@ quoin graphic
 	right: 0;
 	top: -34px;
 }
+
+.fill {
+	-webkit-transition: width 3s linear;
+	transition: width 3s linear;
+	width: 0px;
+    position:absolute;
+    font-size: 36px;
+    color: orange;
+    overflow: hidden;
+    display: inline-block;
+}
+.border {
+    position:absolute;
+    font-size: 36px;
+    color: lightgrey;
+    opacity: .9;
+    text-shadow:
+	-1px -1px 0 #fff,  
+    1px -1px 0 #fff,
+    -1px 1px 0 #fff,
+	1px 1px 0 #fff;
+    -webkit-font-smoothing: antialiased;
+    display: inline-block;
+}
+.item {
+	-webkit-transition: all 1s;
+	transition: all 1s;
+	background-repeat: no-repeat;
+	position: absolute;
+}
+
+.bounce {
+	-webkit-animation: bounce 800ms 1;
+	-moz-animation:    bounce 800ms 1;
+	-o-animation:      bounce 800ms 1;
+	animation:         bounce 800ms 1; 
+}
+@-webkit-keyframes bounce {
+  0% {
+	-webkit-transform:translateY(-100%);
+    opacity: 0;
+  }
+  5% {
+  	-webkit-transform:translateY(-100%);
+    opacity: 0;
+  }
+  15% {
+  	-webkit-transform:translateY(0);
+    padding-bottom: 5px;
+  }
+  30% {
+  	-webkit-transform:translateY(-50%);
+  }
+  40% {
+  	-webkit-transform:translateY(0%);
+    padding-bottom: 6px;
+  }
+  50% {
+  	-webkit-transform:translateY(-30%);
+  }
+  70% {
+  	-webkit-transform:translateY(0%);
+    padding-bottom: 7px;
+  }
+  80% {
+  	-webkit-transform:translateY(-15%);
+  }
+  90% {
+  	-webkit-transform:translateY(0%);
+  	padding-bottom: 8px;
+  }
+  95% {
+  	-webkit-transform:translateY(-10%);
+  }
+  97% {
+  	-webkit-transform:translateY(0%);
+  	padding-bottom: 9px;
+  }
+  99% {
+  	-webkit-transform:translateY(-5%);
+  }
+  100% {
+  	-webkit-transform:translateY(0);
+  	padding-bottom: 9px;
+    opacity: 1;
+  }
+}
+
+/* W3, Opera 12+, Firefox 16+ */
+@keyframes bounce {
+  0% {
+	transform:translateY(-100%);
+    opacity: 0;
+  }
+  5% {
+  	transform:translateY(-100%);
+    opacity: 0;
+  }
+  15% {
+  	transform:translateY(0);
+    padding-bottom: 5px;
+  }
+  30% {
+  	transform:translateY(-50%);
+  }
+  40% {
+  	transform:translateY(0%);
+    padding-bottom: 6px;
+  }
+  50% {
+  	transform:translateY(-30%);
+  }
+  70% {
+  	transform:translateY(0%);
+    padding-bottom: 7px;
+  }
+  80% {
+  	transform:translateY(-15%);
+  }
+  90% {
+  	transform:translateY(0%);
+  	padding-bottom: 8px;
+  }
+  95% {
+  	transform:translateY(-7%);
+  }
+  97% {
+  	transform:translateY(0%);
+  	padding-bottom: 9px;
+  }
+  99% {
+  	transform:translateY(-3%);
+  }
+  100% {
+  	transform:translateY(0);
+  	padding-bottom: 9px;
+    opacity: 1;
+  }

@@ -4,12 +4,10 @@ author: coU Development Team
 description: The sourcecode/tools needed to hack/compile the Children of Ur client
 homepage: ChildrenOfUr.github.io
 dependencies:
-  bootjack: any
   glitchTime:
     git:
       ref: master
-      url: https://github.com/ChildrenOfUr/glitch-time.dart
-  gloss: any
+      url: https://github.com/ChildrenOfUr/glitch-time
   grinder: any
   intl: any
   libld:
@@ -19,4 +17,5 @@ dependencies:
   scproxy:
     git:
       ref: master
-      url: https://github.com/darkkiero/scproxy.git
+      url: https://github.com/darkkiero/scproxy
+  gorgon: '>=0.13.3'

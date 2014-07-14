@@ -26,7 +26,9 @@ List<List> COMMANDS = new List<List>()
 	..add(['setvolume','"setvolume <1-100>" Changes the volume of the current song',setVolume])
 	
 	..add(['togglefps','show or hide the fps display"',toggleFps])
-	..add(['togglePhysics','enable or disable jumping and falling to the groud"',togglePhysics]);
+	..add(['togglePhysics','enable or disable jumping and falling to the groud"',togglePhysics])
+
+	..add(['sendAction','send action command to server', sendAction]);
 
 /**
  * Attempts to parse input from the user and run the appropriate command.
@@ -58,8 +60,6 @@ runCommand(String commandToRun)
  */
 updateConsole(String line)
 {
-	
-	
 	if(line == null)
 	{
 		consoleContainer.children.clear();
@@ -283,6 +283,7 @@ setName(String value)
  */
 setLocation(String value)
 {
+	playerTeleFrom="console";
 	value = value.trim();
 	loadingScreen.className = "MapLoadingScreenIn";
 	loadingScreen.style.opacity = "1.0";
@@ -344,12 +345,25 @@ _playSong(String value)
 	else if(testResult == 'maybe') //give warning message but proceed anyway
 		printConsole('SoundCloud: Your browser may or may not fully support mp3s');
 	
-	// Changes the ui
-	if (ui.currentSong != null)
+	//stop any current song
+	if(useWebAudio && ui.currentAudioInstance != null)
+		stopSound(ui.currentAudioInstance);
+	else if (ui.currentSong != null)
 		ui.currentSong.pause();
+	
+	//play a new song
 	ui.currentSong = ui.jukebox[value];
-	ui.currentSong.play();
-	ui.currentSong.loop(true);
+	if(useWebAudio)
+	{
+		playSound(ui.currentSong.streamingUrl,asset:false,looping:true);
+	}
+	else
+	{
+		ui.currentSong.play();
+		ui.currentSong.loop(true);	
+	}
+	
+	// Changes the ui
 	String title = ui.currentSong.meta['title'];
 	String artist = ui.currentSong.meta['user']['username'];
 	ui._setSong(artist,title);
@@ -419,6 +433,17 @@ togglePhysics(var nothing)
 		CurrentPlayer.doPhysicsApply = false;
 	else
 		CurrentPlayer.doPhysicsApply = true;
+}
+
+sendAction(String action)
+{
+	List<String> actionParts = action.trim().split(' ');
+	Map map = {};
+	map['callMethod'] = actionParts[0];
+	map['id'] = actionParts[1];
+	map['type'] = querySelector("#${actionParts[1]}").className;
+	map['streetName'] = currentStreet.label;
+	streetSocket.send(JSON.encode(map));
 }
 
 // A blank action.
