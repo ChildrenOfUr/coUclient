@@ -83,7 +83,12 @@
 	border-top-left-radius: 5px;
 	border-top-right-radius: 5px;
 }
-#MobileInventory {
+#InventoryBar {
+	/*override these from base.css*/
+	position: initial;
+	height: initial;
+	width: initial;
+	
 	background: white;
 	padding: 3px;
 	border-top-left-radius: 5px;
@@ -91,7 +96,7 @@
 	white-space: nowrap;
 	overflow-x: scroll;
 }
-#MobileInventoryBag {
+#InventoryBag {
 	display: none;
 	background: white;
 	padding: 3px;
@@ -195,9 +200,6 @@
 	display: none;
 }
 #ChatSettingsIcon {
-	display: none;
-}
-#InventoryBar, #InventoryBag{
 	display: none;
 }
 
