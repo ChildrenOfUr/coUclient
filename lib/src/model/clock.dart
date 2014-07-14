@@ -4,6 +4,7 @@ part of couclient;
 // Sends events to the bus
 class ClockManager extends Pump{
   ClockManager() {
+    // Take each of the 'clock's streams, and when there is an event, broadcast this to the manager's subscribers.
     clock.onUpdate.listen((List timedata) {
       this + ['TimeUpdateEvent', timedata];
     });    
@@ -13,6 +14,13 @@ class ClockManager extends Pump{
     EVENT_BUS < this;
   }
 }
+
+
+
+
+// Everything below this is for ^that^ //
+
+
 
 
 Clock clock = new Clock();
