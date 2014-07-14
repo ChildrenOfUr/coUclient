@@ -19,7 +19,7 @@ void main([List<String> args])
 	grinder.defineTask('init', taskFunction: init);
 	grinder.defineTask('compileJS', taskFunction: compileJS, depends : ['init']);
 	grinder.defineTask('build', taskFunction: build, depends : ['compileJS']);
-	grinder.defineTask('deploy', taskFunction: deploy, depends : ['build', 'compileCSS']);
+	grinder.defineTask('deploy', taskFunction: deploy, depends : ['build']);
 	
 	// Running from DartEditor? I'll assume you want to build.
 	if (args.length == 0)
