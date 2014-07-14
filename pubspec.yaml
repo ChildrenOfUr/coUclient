@@ -17,5 +17,5 @@ dependencies:
   scproxy:
     git:
       ref: master
-      url: https://github.com/RobertMcDermot/scproxy
+      url: https://github.com/darkkiero/scproxy
   gorgon: '>=0.13.3'

@@ -60,8 +60,6 @@ runCommand(String commandToRun)
  */
 updateConsole(String line)
 {
-	
-	
 	if(line == null)
 	{
 		consoleContainer.children.clear();
@@ -347,20 +345,25 @@ _playSong(String value)
 	else if(testResult == 'maybe') //give warning message but proceed anyway
 		printConsole('SoundCloud: Your browser may or may not fully support mp3s');
 	
-	// Changes the ui
-	if (ui.currentSong != null)
+	//stop any current song
+	if(useWebAudio && ui.currentAudioInstance != null)
+		stopSound(ui.currentAudioInstance);
+	else if (ui.currentSong != null)
 		ui.currentSong.pause();
+	
+	//play a new song
 	ui.currentSong = ui.jukebox[value];
 	if(useWebAudio)
 	{
-		Sound music = new Sound(channel:audioChannels['music']);
-		music.load(ui.currentSong.streamingUrl).then((Sound music) => music.play(looping:true));
+		playSound(ui.currentSong.streamingUrl,asset:false,looping:true);
 	}
 	else
 	{
 		ui.currentSong.play();
 		ui.currentSong.loop(true);	
 	}
+	
+	// Changes the ui
 	String title = ui.currentSong.meta['title'];
 	String artist = ui.currentSong.meta['user']['username'];
 	ui._setSong(artist,title);

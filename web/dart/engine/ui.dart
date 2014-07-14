@@ -19,6 +19,7 @@ class UserInterface
 	SC sc = new SC('7d2a07867f8a3d47d4f059b600b250b1');
 	Map jukebox = new Map();
 	Scound currentSong;
+	AudioInstance currentAudioInstance;
 	
 	// Energy Variables
 	int _energy = 100;

@@ -131,11 +131,20 @@ Future loadNonWebAudio(Completer c)
 	return c.future;
 }
 
-playSound(String name, {bool looping : false, Element parentElement : null})
+playSound(String name, {bool asset : true, bool looping : false, Element parentElement : null})
 {
 	if(useWebAudio)
 	{
-		return gameSounds[name].play(looping:looping);
+		if(asset)
+			return gameSounds[name].play(looping:looping);
+		else //if we say it's not an asset then load a new sound and play it as music
+		{
+			Sound music = new Sound(channel:audioChannels['music']);
+    		music.load(ui.currentSong.streamingUrl).then((Sound music)
+    		{
+    			ui.currentAudioInstance = music.play(looping:looping);
+    		});
+		}
 	}
 	else
 	{
