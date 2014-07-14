@@ -107,7 +107,7 @@ class Player
 			}
 		}
 		
-		if(playerInput.upKey == true)
+		if(doPhysicsApply && playerInput.upKey == true)
 		{
 			bool found = false;
 			Rectangle playerRect = new Rectangle(posX,posY+currentStreet._data['dynamic']['ground_y'],width,height-15);
@@ -135,7 +135,7 @@ class Player
 			}
 		}
 		
-		if(playerInput.downKey == true)
+		if(doPhysicsApply && playerInput.downKey == true)
 		{
 			bool found = false;
 			Rectangle playerRect = new Rectangle(posX,posY+currentStreet._data['dynamic']['ground_y'],width,height);
@@ -163,7 +163,7 @@ class Player
 			}
 		}
 		
-		if(playerInput.downKey == false && playerInput.upKey == false)
+		if(doPhysicsApply && playerInput.downKey == false && playerInput.upKey == false)
 		{
 			bool found = false;
 			Rectangle playerRect = new Rectangle(posX,posY+currentStreet._data['dynamic']['ground_y'],width,height);
@@ -230,7 +230,7 @@ class Player
 			posX = currentStreet.bounds.width - width;
 	    
 	    //check for collisions with platforms
-	    if(!climbingDown && yVel >= 0)
+	    if(doPhysicsApply && !climbingDown && yVel >= 0)
 		{
 			num x = posX+width/2;
 			Platform bestPlatform = _getBestPlatform(cameFrom);
