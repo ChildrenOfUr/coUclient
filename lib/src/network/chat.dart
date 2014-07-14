@@ -23,7 +23,7 @@ class ChatManager extends Pump {
               ..['channel'] = channelName]);
         })
         ..onMessage.listen((MessageEvent message) {
-          this + ['ChatEvent', JSON.decoder.convert(message.data)]; // Turns the data into a Map or List, processes it..
+          this +  JSON.decoder.convert(message.data); // Turns the data into a Map or List, processes it..
         })
         ..onClose.listen((_) {
           //wait 5 seconds and try to reconnect
@@ -37,11 +37,20 @@ class ChatManager extends Pump {
     EVENT_BUS & this;
   }
   @override 
-  process(List event) {// Only accepts 'ChatEvent.out's
-    if (event[0] == 'ChatEvent.out')
+  process(List event) {// Only accepts 'OutgoingChatEvent's
+    if (event is OutgoingChatEvent)
+      //TODO transmit those events
       return event;
   }
   post(var data) {
       _connection.sendString(JSON.encoder.convert(data[1]));
     }  
+}
+
+class OutgoingChatEvent extends Event {
+  OutgoingChatEvent(String payload) : super(payload);
+}
+
+class ChatEvent extends Event {
+  ChatEvent(String payload) : super(payload);
 }

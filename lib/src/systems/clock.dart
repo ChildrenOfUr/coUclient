@@ -6,22 +6,25 @@ class ClockManager extends Pump{
   ClockManager() {
     // Take each of the 'clock's streams, and when there is an event, broadcast this to the manager's subscribers.
     clock.onUpdate.listen((List timedata) {
-      this + ['TimeUpdateEvent', timedata];
+      this + new TimeUpdate(timedata);
     });    
     clock.onNewDay.listen((_) {
-      this + ['NewDayEvent']; // The fact the event fires is all that's important here. 
+      this + new NewDay(); // The fact the event fires is all that's important here. 
     });    
     EVENT_BUS < this;
   }
 }
 
-
+// CLOCK EVENTS //
+class TimeUpdate extends Event {
+  TimeUpdate(List payload) : super(payload);
+}
+class NewDay extends Event {
+  NewDay() : super(null);
+}
 
 
 // Everything below this is for ^that^ //
-
-
-
 
 Clock clock = new Clock();
 /// You can make a new clock, but one's already made. It's 'clock'

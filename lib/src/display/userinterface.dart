@@ -7,9 +7,6 @@ class UserInterface {
   //NumberFormat for having commas in the currants and iMG displays
   NumberFormat commaFormatter = new NumberFormat("#,###");
 
-  Storage session = window.sessionStorage;
-  Storage local = window.localStorage;
-
   // If you need to change an element somewhere else, put the declaration in this class.
   // You can then access it with 'ui.yourElement'. This way we keep everything in one spot
   /////////////////////ELEMENTS//////////////////////////////////////////////
@@ -60,8 +57,8 @@ class UserInterface {
   Element worldElement = querySelector('#world');
   Element playerHolder = querySelector("#playerHolder");
   Element layers = querySelector("#layers");
-  
-  
+
+
   // Music Meter Variables
   Element titleElement = querySelector('#trackTitle');
   Element artistElement = querySelector('#trackArtist');
@@ -157,8 +154,8 @@ class UserInterface {
         slack.Message m = new slack.Message()
             ..username = app.username
             ..text = input.value;
-        slack.team = 'cou';
-        slack.token = 'Ey3SlsfyOlJjw0sHl0N0UuMK';
+        slack.team = SLACK_TEAM;
+        slack.token = SLACK_TOKEN;
         slack.send(m);
 
         w.hidden = true;
@@ -189,15 +186,15 @@ class UserInterface {
         volumeSlider.value = '0';
       }
     });
-    
+
     //update the clock once every 10 seconds
-    EVENT_BUS.events.where((m) =>  m[0] == 'TimeUpdateEvent') .listen((event) {
-        currDay.text = clock.dayofweek;
-        currTime.text = clock.time;
-        currDate.text = clock.day + ' of ' + clock.month;
+    EVENT_BUS.events.where((m) => m[0] == 'TimeUpdateEvent').listen((event) {
+      currDay.text = clock.dayofweek;
+      currTime.text = clock.time;
+      currDate.text = clock.day + ' of ' + clock.month;
     });
-    
-    
+
+
 
     // display buttons
 
@@ -293,7 +290,7 @@ class UserInterface {
 
   }
 
-  
+
   // This opens a new Window, TODO make PopWindow a class, maybe,
   // spawn in the element instead of having it hardcoded into the page.
   /////////////////////WINDOWS//////////////////////////////////////////////
@@ -316,37 +313,32 @@ class UserInterface {
 // This is Robert's touchscroller class for handling
 // touchscreen scroll compatability.
 /////////////////////TOUCHSCROLLER///////////////////////////////////////
-class TouchScroller
-{
-  static int HORIZONTAL = 0, VERTICAL = 1, BOTH = 2;
+class TouchScroller {
+  static int HORIZONTAL = 0,
+      VERTICAL = 1,
+      BOTH = 2;
   DivElement _scrollDiv;
   int _startX, _startY, _lastX, _lastY, _direction;
-  
-  TouchScroller(this._scrollDiv, this._direction)
-  {
-    _scrollDiv.onTouchStart.listen((TouchEvent event)
-    {
+
+  TouchScroller(this._scrollDiv, this._direction) {
+    _scrollDiv.onTouchStart.listen((TouchEvent event) {
       event.stopPropagation();
       _startX = event.changedTouches.first.client.x;
       _startY = event.changedTouches.first.client.y;
       _lastX = _startX;
       _lastY = _startY;
     });
-    _scrollDiv.onTouchMove.listen((TouchEvent event)
-    {
+    _scrollDiv.onTouchMove.listen((TouchEvent event) {
       event.preventDefault();
       int diffX = _lastX - event.changedTouches.single.client.x;
       int diffY = _lastY - event.changedTouches.single.client.y;
       _lastX = event.changedTouches.single.client.x;
       _lastY = event.changedTouches.single.client.y;
-      if(_direction == HORIZONTAL || _direction == BOTH)
-        _scrollDiv.scrollLeft = _scrollDiv.scrollLeft + diffX;
-      if(_direction == VERTICAL || _direction == BOTH)
-        _scrollDiv.scrollTop = _scrollDiv.scrollTop + diffY;
+      if (_direction == HORIZONTAL || _direction == BOTH) _scrollDiv.scrollLeft = _scrollDiv.scrollLeft + diffX;
+      if (_direction == VERTICAL || _direction == BOTH) _scrollDiv.scrollTop = _scrollDiv.scrollTop + diffY;
     });
   }
 }
-
 
 
 

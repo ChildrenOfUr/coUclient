@@ -34,7 +34,7 @@ part 'package:couclient/src/network/chat.dart';
 part 'package:couclient/src/network/multiplayer.dart';
 
 // UI/UX MODULES
-part 'package:couclient/src/display/ui.dart';
+part 'package:couclient/src/display/userinterface.dart';
 part 'package:couclient/src/display/audio.dart';
 part 'package:couclient/src/display/chat_bubble.dart';
 
@@ -47,13 +47,19 @@ part 'package:couclient/src/game/quoin.dart';
 
 
 // API KEYS // for more infomation see '/doc/api.md'
-//part 'API_KEYS.dart';
+part 'package:couclient/API_KEYS.dart';
+
+// Globals //
+Storage session = window.sessionStorage;
+Storage local = window.localStorage;
+
+
 
 
 // GAME ENTRY //
 main() {
   app.init();
-  new ChatManager();
+  //new ChatManager();
   new ClockManager();
   new DebugManager();
   app.update();  

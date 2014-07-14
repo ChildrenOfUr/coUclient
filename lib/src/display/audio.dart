@@ -7,7 +7,7 @@ part of couclient;
 SoundManager sound = new SoundManager();
 class SoundManager {
   Batch ui_sounds;
-  SC sc = new SC('7d2a07867f8a3d47d4f059b600b250b1');
+  SC sc = new SC(SC_TOKEN);
   Map songs;
 
   Future init() {
