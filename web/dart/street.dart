@@ -136,12 +136,14 @@ class Street
 		
 		// Load each of them, and then continue.
 		Batch decos = new Batch(assetsToLoad);
-		decos.load(setStreetLoadBar,enableCrossOrigin:true).then((_)
+		decos.load(setStreetLoadBar).then((_)
         {
 			//Decos should all be loaded at this point//
 			
 			// set the street.
 			currentStreet = this;
+			
+			int groundY = -(_data['dynamic']['ground_y'] as num).abs();
 		      
 			DivElement interactionCanvas = new DivElement()
 				..classes.add('streetcanvas')
@@ -150,7 +152,7 @@ class Street
 				..style.width = bounds.width.toString() + "px"
 				..style.height = bounds.height.toString() + "px"
 				..style.position = 'absolute'
-				..attributes['ground_y'] = _data['dynamic']['ground_y'].toString();
+				..attributes['ground_y'] = groundY.toString();
             				
 			/* //// Gradient Canvas //// */
 			DivElement gradientCanvas = new DivElement();
@@ -185,7 +187,7 @@ class Street
 				decoCanvas.style.width = layer['w'].toString() + 'px';
 				decoCanvas.style.height = layer['h'].toString() + 'px';
 				decoCanvas.style.position = 'absolute';
-				decoCanvas.attributes['ground_y'] = _data['dynamic']['ground_y'].toString();
+				decoCanvas.attributes['ground_y'] = groundY.toString();
 				
 				List<String> filters = new List();
 				new Map.from(layer['filters']).forEach((String filterName, int value)
@@ -223,7 +225,7 @@ class Street
 				for(Map deco in layer['decos'])
 				{
 					int x = deco['x'] - deco['w']~/2;
-					int y = deco['y'] - deco['h'] + _data['dynamic']['ground_y'];
+					int y = deco['y'] - deco['h'] + groundY;
 					if(layer['name'] == 'middleground')
 					{
 						//middleground has different layout needs
@@ -276,15 +278,15 @@ class Street
 					{
 						if(endpoint["name"] == "start")
 						{
-							start = new Point(endpoint["x"],endpoint["y"]+_data['dynamic']['ground_y']);
+							start = new Point(endpoint["x"],endpoint["y"]+groundY);
 							if(layer['name'] == 'middleground')
-								start = new Point(endpoint["x"]+layer['w']~/2,endpoint["y"]+layer['h']+_data['dynamic']['ground_y']);
+								start = new Point(endpoint["x"]+layer['w']~/2,endpoint["y"]+layer['h']+groundY);
 						}
 						if(endpoint["name"] == "end")
 						{
-							end = new Point(endpoint["x"],endpoint["y"]+_data['dynamic']['ground_y']);
+							end = new Point(endpoint["x"],endpoint["y"]+groundY);
 							if(layer['name'] == 'middleground')
-								end = new Point(endpoint["x"]+layer['w']~/2,endpoint["y"]+layer['h']+_data['dynamic']['ground_y']);
+								end = new Point(endpoint["x"]+layer['w']~/2,endpoint["y"]+layer['h']+groundY);
 						}
 					});
   					platforms.add(new Platform(platformLine['id'],start,end));
@@ -315,7 +317,7 @@ class Street
 					width = ladder['w'];
                     height = ladder['h'];
 					x = ladder['x']+layer['w']~/2-width~/2;
-					y = ladder['y']+layer['h']-height+_data['dynamic']['ground_y'];
+					y = ladder['y']+layer['h']-height+groundY;
 					id = ladder['id'];
 					
 					Rectangle box = new Rectangle(x,y,width,height);
@@ -339,7 +341,7 @@ class Street
 				for (Map signpost in layer['signposts'])
 				{
 					int x = signpost['x'];
-					int y = signpost['y'] - signpost['h'] + _data['dynamic']['ground_y'];
+					int y = signpost['y'] - signpost['h'] + groundY;
 					if(layer['name'] == 'middleground')
 					{
 						//middleground has different layout needs
@@ -361,8 +363,10 @@ class Street
 					List signposts = signpost['connects'] as List;
 					for(Map<String,String> exit in signposts)
 					{
-						if(exit['label'] == playerTeleFrom)
+						if(exit['label'] == playerTeleFrom || playerTeleFrom == "console")
 						{
+							if(playerTeleFrom == "console")
+								print("setting x: $x, y: $y");
 							CurrentPlayer.posX = x;
 							CurrentPlayer.posY = y;
 						}

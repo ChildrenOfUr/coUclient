@@ -2,8 +2,6 @@ part of coUclient;
 
 class Animation
 {
-	static Map<String,ImageElement> imageCache = {};
-	
 	String url, animationName, animationStyleString;
 	Duration loopDelay;
 	List<int> frameList;
@@ -29,7 +27,7 @@ class Animation
 		//need to get the avatar background image size dynamically
 		//because we cannot guarentee that every glitchen has the same dimensions
 		//additionally each animation sprite has different dimensions even for the same glitchen
-		spritesheet = _getImageElement(url).clone(false);
+		spritesheet = new ImageElement(src: url);
 		spritesheet.onLoad.listen((_)
 		{
 			width = spritesheet.width~/numColumns;
@@ -41,19 +39,6 @@ class Animation
 		});
 		
 		return c.future;
-	}
-	
-	//store images in a cache because it's likely we'll need it again
-	//when the animation changes back
-	ImageElement _getImageElement(String url)
-	{
-		if(imageCache[url] != null)
-			return imageCache[url];
-		else
-		{
-			imageCache[url] = new ImageElement(src: url);
-			return imageCache[url];
-		}
 	}
 	
 	reset()

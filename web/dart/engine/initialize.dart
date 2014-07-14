@@ -28,23 +28,26 @@ main()
 	.then((_)
 	{
 		//play loading music while loading everything else
-		loadingMusic = gameSounds['loadingMusic'].play(looping:true);
+		if(useWebAudio)
+			loadingMusic = playSound('loading',looping:true);
+		
 		load_streets()
 		.then((_) => new Street('test').load()
     	.then((_)
     	{
     		//initialize chat after street has been loaded and currentStreet.label is set
     		chat.init();
-    		
+    		    		
     		//connect to the multiplayer server and start managing the other players on the screen
     		multiplayerInit();
-    		
+    		    		    		
     		CurrentPlayer = new Player();
+    		    		
     		CurrentPlayer.loadAnimations()
     		.then((_)
-    		{
+    		{    			
     			CurrentPlayer.currentAnimation = CurrentPlayer.animations['idle'];
-    			
+
     			//if the client is mobile, wait for user to press play button so that we can do audio tricks for mobile browsers
     			//else just start now
     			if(window.innerWidth > 1220 && window.innerHeight > 325)
@@ -55,12 +58,7 @@ main()
     				Element playButton = querySelector("#PlayButton");
     				playButton.text = "Play";
     				playButton.style.display = "inline-block";
-    				playButton.onClick.first.then((_)
-    				{
-    					//if(ui.currentSong != null && int.parse(prevVolume) > 0 && isMuted == '0')
-    						//ui.currentSong.play();
-    					start();
-    				});
+    				playButton.onClick.first.then((_) => start());
     			}
     		});
     	}));
@@ -110,8 +108,8 @@ start()
 		refreshClock();
 	});
 	    	
-	loadingMusic.stop();
-    gameSounds['gameLoaded'].play();
+	stopSound(loadingMusic);
+	playSound('game_loaded');
         					
 	// Begin the GAME!!!
 	gameLoop(0.0);

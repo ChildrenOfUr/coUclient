@@ -7,7 +7,8 @@ class Player
 	int width = 116, height = 137, speed = 300;
 	num posX = 1.0, posY = 0.0;
 	num yVel = 0, yAccel = -2400;
-	bool jumping = false, moving = false, climbingUp = false, climbingDown = false, activeClimb = false, facingRight = true;
+	bool jumping = false, moving = false, climbingUp = false, climbingDown = false;
+	bool activeClimb = false, facingRight = true, firstRender = true;
 	Map<String,Animation> animations = new Map();
 	Animation currentAnimation;
 	ChatBubble chatBubble = null;
@@ -24,11 +25,23 @@ class Player
   
 	Player([String name])
 	{
+		bool found = false;
+		Platform leftmost = null;
+		
 		for(Platform platform in currentStreet.platforms)
 		{
+			if(leftmost == null || platform.start.x < leftmost.start.x)
+				leftmost = platform;
+			
 			if(platform.start.x == 1)
+			{
+				found = true;
 				posY = platform.start.y-height;
+			}
 		}
+		
+		if(!found)
+			posY = leftmost.start.y-height;
 
 		playerCanvas = new CanvasElement()
 			..style.transform = "translateZ(0)";
@@ -61,13 +74,14 @@ class Player
 			climbFrames.add(i);
 		fallDownFrames = [16,17,18,19,20,21,22,23];
 		landFrames = [24,25,26,27,28,29,30,31,32];
-		animations['idle'] = new Animation("assets/sprites/idle.png","idle",2,29,idleFrames,loopDelay:new Duration(seconds:10),delayInitially:true);
-		animations['base'] = new Animation("assets/sprites/base.png","base",1,15,baseFrames);
-		animations['jumpup'] = new Animation("assets/sprites/jump.png","jumpup",1,33,jumpUpFrames);
-		animations['falldown'] = new Animation("assets/sprites/jump.png","falldown",1,33,fallDownFrames);
-		animations['land'] = new Animation("assets/sprites/jump.png","land",1,33,landFrames);
-		animations['climb'] = new Animation("assets/sprites/climb.png","climb",1,19,climbFrames);
-		
+				
+		animations['idle'] = new Animation("./assets/sprites/idle.png","idle",2,29,idleFrames,loopDelay:new Duration(seconds:10),delayInitially:true);
+		animations['base'] = new Animation("./assets/sprites/base.png","base",1,15,baseFrames);
+		animations['jumpup'] = new Animation("./assets/sprites/jump.png","jumpup",1,33,jumpUpFrames);
+		animations['falldown'] = new Animation("./assets/sprites/jump.png","falldown",1,33,fallDownFrames);
+		animations['land'] = new Animation("./assets/sprites/jump.png","land",1,33,landFrames);
+		animations['climb'] = new Animation("./assets/sprites/climb.png","climb",1,19,climbFrames);
+				
 		List<Future> futures = new List();
 		animations.forEach((String name,Animation animation) => futures.add(animation.load()));
 		
@@ -300,9 +314,14 @@ class Player
 	{
 		if(currentAnimation != null && currentAnimation.dirty)
 		{
-			Rectangle avatarRect = new Rectangle(posX,posY,currentAnimation.width,currentAnimation.height);
-			if(!intersect(camera.visibleRect,avatarRect))
-				return;
+			if(!firstRender)
+			{
+				Rectangle avatarRect = new Rectangle(posX,posY,currentAnimation.width,currentAnimation.height);
+    			if(!intersect(camera.visibleRect,avatarRect))
+    				return;
+			}
+			
+			firstRender = false;
 			
 			//it's not obvious, but setting the width and/or height erases the current canvas as well
 			//it is necessary to do this in order to prevent the player from moving within the frame
@@ -448,7 +467,7 @@ class Player
 		
 		if(intersect(avatarRect,quoinRect))
 		{
-			gameSounds['quoinSound'].play();
+			playSound('quoinSound');
 			
 			element.attributes['collected'] = "true";
 			

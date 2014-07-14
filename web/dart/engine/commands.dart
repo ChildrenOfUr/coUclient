@@ -285,6 +285,7 @@ setName(String value)
  */
 setLocation(String value)
 {
+	playerTeleFrom="console";
 	value = value.trim();
 	loadingScreen.className = "MapLoadingScreenIn";
 	loadingScreen.style.opacity = "1.0";
@@ -350,8 +351,16 @@ _playSong(String value)
 	if (ui.currentSong != null)
 		ui.currentSong.pause();
 	ui.currentSong = ui.jukebox[value];
-	ui.currentSong.play();
-	ui.currentSong.loop(true);
+	if(useWebAudio)
+	{
+		Sound music = new Sound(channel:audioChannels['music']);
+		music.load(ui.currentSong.streamingUrl).then((Sound music) => music.play(looping:true));
+	}
+	else
+	{
+		ui.currentSong.play();
+		ui.currentSong.loop(true);	
+	}
 	String title = ui.currentSong.meta['title'];
 	String artist = ui.currentSong.meta['user']['username'];
 	ui._setSong(artist,title);

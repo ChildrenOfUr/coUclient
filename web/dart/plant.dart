@@ -4,7 +4,7 @@ class Plant
 {
 	int state, x, y, width, height, numRows, numColumns;
 	CanvasElement canvas;
-	bool ready = false, dirty = true, glow = false;
+	bool ready = false, dirty = true, glow = false, firstRender = true;
 	ImageElement spritesheet;
 	Rectangle sourceRect;
 	
@@ -70,12 +70,17 @@ class Plant
 	{
 		if(ready && dirty)
 		{
-			num left = num.parse(canvas.attributes['translatex'].replaceAll("px", ""));
-    		num top = num.parse(canvas.attributes['translatey'].replaceAll("px", ""));
-    		Rectangle plantRect = new Rectangle(left,top,canvas.width,canvas.height);	
-                		
-    		if(!intersect(camera.visibleRect,plantRect))
-    			return;
+			if(!firstRender)
+			{
+				num left = num.parse(canvas.attributes['translatex'].replaceAll("px", ""));
+        		num top = num.parse(canvas.attributes['translatey'].replaceAll("px", ""));
+        		Rectangle plantRect = new Rectangle(left,top,canvas.width,canvas.height);	
+                    		
+        		if(!intersect(camera.visibleRect,plantRect))
+        			return;
+			}
+    		
+    		firstRender = false;
     		
 			//fastest way to clear a canvas (without using a solid color)
 			//source: http://jsperf.com/ctx-clearrect-vs-canvas-width-canvas-width/6

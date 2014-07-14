@@ -4,7 +4,7 @@ class NPC
 {
 	int speed;
 	CanvasElement canvas;
-	bool ready = false, facingRight = true, glow = false;
+	bool ready = false, facingRight = true, glow = false, firstRender = true;
 	double posX = 0.0, posY = 0.0;
 	Animation animation;
 	
@@ -66,10 +66,15 @@ class NPC
 	{
 		if(ready && animation.dirty)
 		{
-			//if the entity is not visible, don't render it
-			Rectangle npcRect = new Rectangle(posX,posY,canvas.width,canvas.height);
-			if(!intersect(camera.visibleRect,npcRect))
-				return;
+			if(!firstRender)
+			{
+				//if the entity is not visible, don't render it
+				Rectangle npcRect = new Rectangle(posX,posY,canvas.width,canvas.height);
+				if(!intersect(camera.visibleRect,npcRect))
+					return;
+			}
+			
+			firstRender = false;
 			
 			//fastest way to clear a canvas (without using a solid color)
 			//source: http://jsperf.com/ctx-clearrect-vs-canvas-width-canvas-width/6

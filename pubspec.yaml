@@ -8,7 +8,7 @@ dependencies:
   glitchTime:
     git:
       ref: master
-      url: https://github.com/ChildrenOfUr/glitch-time.dart
+      url: https://github.com/ChildrenOfUr/glitch-time
   gloss: any
   grinder: any
   intl: any
@@ -19,5 +19,5 @@ dependencies:
   scproxy:
     git:
       ref: master
-      url: https://github.com/darkkiero/scproxy.git
+      url: https://github.com/RobertMcDermot/scproxy
   gorgon: '>=0.13.3'

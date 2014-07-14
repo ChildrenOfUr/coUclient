@@ -20,7 +20,7 @@ class Quoins
 class Quoin
 {
 	Animation animation;
-	bool ready = false;
+	bool ready = false, firstRender = true;
 	CanvasElement canvas;
 	
 	Quoin(Map map)
@@ -96,12 +96,17 @@ class Quoin
 	{
 		if(ready && animation.dirty && canvas.attributes['collected'] == "false")
 		{
-			//if the entity is not visible, don't render it
-			num left = num.parse(canvas.style.left.replaceAll("px", ""));
-    		num top = currentStreet.bounds.height - num.parse(canvas.style.bottom.replaceAll("px", "")) - canvas.height;
-    		Rectangle quoinRect = new Rectangle(left,top,canvas.width,canvas.height);
-			if(!intersect(camera.visibleRect,quoinRect))
-				return;
+			if(!firstRender)
+			{
+				//if the entity is not visible, don't render it
+				num left = num.parse(canvas.style.left.replaceAll("px", ""));
+	  			num top = currentStreet.bounds.height - num.parse(canvas.style.bottom.replaceAll("px", "")) - canvas.height;
+	  			Rectangle quoinRect = new Rectangle(left,top,canvas.width,canvas.height);
+				if(!intersect(camera.visibleRect,quoinRect))
+					return;
+			}
+			
+			firstRender = false;
 			
 			//fastest way to clear a canvas (without using a solid color)
 			//source: http://jsperf.com/ctx-clearrect-vs-canvas-width-canvas-width/6

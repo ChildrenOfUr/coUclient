@@ -549,7 +549,7 @@ class TabContent
 		
 		if(chat.getPlayMentionSound() && map["message"].toLowerCase().contains(chat.username.toLowerCase()) && int.parse(prevVolume) > 0 && isMuted == '0')
 		{
-			gameSounds['mention'].play();
+			playSound('mention');
 		}
 		SpanElement userElement = new SpanElement();
 		SpanElement text = new SpanElement()
