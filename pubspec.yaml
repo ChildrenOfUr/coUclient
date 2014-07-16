@@ -1,7 +1,8 @@
 name: couclient
-description: A sample application
+description: 'Children of Ur :: Webclient'
 dependencies:
   browser: any
+  gorgon: any
   intl: any
   libld:
     git:

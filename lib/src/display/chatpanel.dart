@@ -260,6 +260,10 @@ class Chat {
         return;
       }
       */
+    else if (input.split(" ")[0].toLowerCase() == "/playsong") {
+      spawnEvent(new PlaySound(input.split(' ')[1]));
+      return;
+    }
     else {
       map["username"] = ui.username;
       map["message"] = input;
@@ -275,12 +279,14 @@ class ChatMessage {
   String player, message;
   ChatMessage(this.player, this.message);
   String toHtml() {
+    if (message is! String) return '';    
     String html;
+    
     message = parseUrl(message);
     message = parseEmoji(message);
 
     if (message.toLowerCase().contains(ui.username.toLowerCase())) {
-      sound.play('mention');
+      spawnEvent(new PlaySound('mention'));
     }
 
     if (player == null) {

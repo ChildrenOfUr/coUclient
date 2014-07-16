@@ -131,7 +131,7 @@ class UserInterface {
     // Starts the game
     playButton.onClick.listen((_) {
       loadingScreen.style.opacity = '0';
-      sound.play('game_loaded');
+      spawnEvent(new PlaySound('game_loaded'));
       new Timer(new Duration(seconds: 1), () {
         loadingScreen.remove();
       });
@@ -201,11 +201,8 @@ class UserInterface {
 
 
     // display buttons
-
-    sound.init().then((_) {
-      for (Element button in loadingScreen.querySelectorAll('.button')) button.hidden = false;
-      loadingScreen.querySelector('.fa').hidden = true;
-    });
+    for (Element button in loadingScreen.querySelectorAll('.button')) button.hidden = false;
+    loadingScreen.querySelector('.fa').hidden = true;
   
    
     this.update();

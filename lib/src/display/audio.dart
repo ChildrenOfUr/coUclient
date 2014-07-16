@@ -1,15 +1,15 @@
 part of couclient;
 // Handles all the engine's audio needs
 
-
-
-
-SoundManager sound = new SoundManager();
-class SoundManager {
+class SoundManager extends Pump{
   Batch ui_sounds;
   SC sc = new SC(SC_TOKEN);
   Map songs;
 
+  SoundManager(){
+    init().then((_) => EVENT_BUS & this);    
+  }
+  
   Future init() {
     ui.print('Loading Sounds..');
     final c = new Completer();
@@ -54,4 +54,15 @@ class SoundManager {
       });
     } else ui.print('$name is not a recognised sound.');
   }
+  @override
+  process(BusEvent event) {
+    if (event is PlaySound)
+      play(event.payload);
+  }  
 }
+  
+class PlaySound extends BusEvent {
+  PlaySound(payload) : super(payload);
+}
+
+

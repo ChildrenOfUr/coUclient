@@ -14,15 +14,20 @@ import 'dart:math' show Random;
 
 // LIBRARIES //
 // Used for NumberFormat
-import 'package:intl/intl.dart' show NumberFormat; 
+import 'package:intl/intl.dart' show NumberFormat;
 // Slack Webhook API
 import 'package:slack/slack_html.dart' as slack;
 // SoundCloud Helper
 import 'package:scproxy/scproxy.dart';
+// Audio and Graphics
+import 'package:gorgon/gorgon.dart';
 // Asset Loading
 import 'package:libld/libld.dart'; // Nice and simple asset loading.
 // Event Bus and Pumps // for more infomation see '/doc/pumps.md'
 import 'package:pump/pump.dart';
+
+// Locally hosted street rendering system
+//import 'package:couclient/src/display/render/streetlib.dart';
 
 // SYSTEMS MODULES //
 part 'package:couclient/src/systems/clock.dart';
@@ -41,7 +46,7 @@ part 'package:couclient/src/display/chatpanel.dart';
 part 'package:couclient/src/display/audio.dart';
 
 // RENDERING MODULES //
-part 'package:couclient/src/display/render/render.dart';
+part 'package:couclient/src/display/render.dart';
 part 'package:couclient/src/display/chat_bubble.dart';
 
 // GAME MODULES //
@@ -64,15 +69,19 @@ Random random = new Random();
 // GAME ENTRY //
 main() {
   ui.init();
-  
+
   ui.username = 'UIV2';
   
+  new SoundManager();
   new NetChatManager();
   new ChatManager();
   new ClockManager();
   new DebugManager();
-  
+
   spawnEvent(new StartChat('Global Chat'));
-  spawnEvent(new ChatEvent({'channel': 'Global Chat','message': 'Entering Global Chat!'}));
+  spawnEvent(new ChatEvent({
+    'channel': 'Global Chat',
+    'message': 'Entering Global Chat!'
+  }));
   
 }
