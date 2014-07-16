@@ -205,7 +205,7 @@ class UserInterface extends Pump{
   }
 
   process(var event) {
-    if (event.type == 'TimeUpdate'){
+    if (event.isType('TimeUpdate')){
       currDay.text = clock.dayofweek;
       currTime.text = clock.time;
       currDate.text = clock.day + ' of ' + clock.month;

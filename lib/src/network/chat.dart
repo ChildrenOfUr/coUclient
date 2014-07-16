@@ -11,17 +11,17 @@ class NetChatManager extends Pump {
           post(new Map()
               ..['message'] = 'userName=' + ui.username
               ..['channel'] = 'Global Chat');
-  
+
           // Get a List of the other players online
           post(new Map()
               ..['hide'] = 'true'
               ..['username'] = ui.username
               ..['statusMessage'] = 'list'
               ..['channel'] = 'Global Chat');
-        
+
         })
         ..onMessage.listen((MessageEvent message) {
-          new EventInstance('ChatEvent',JSON.decoder.convert(message.data));
+          new EventInstance('ChatEvent', JSON.decoder.convert(message.data), 'incoming Chat message');
         })
         ..onClose.listen((_) {
           //wait 5 seconds and try to reconnect
@@ -29,19 +29,19 @@ class NetChatManager extends Pump {
           });
         })
         ..onError.listen((message) {
-          this + ['ErrorEvent','Problem with Websocket, check console']; // Send the Error to the bus.
+          this + ['ErrorEvent', 'Problem with Websocket, check console']; // Send the Error to the bus.
         });
     EVENT_BUS & this;
   }
-  @override 
-  process(var event) {// Only accepts 'OutgoingChatEvent's
-    if (event.type == 'OutgoingChatEvent') {
+  @override
+  process(EventInstance<Map> event) {// Only accepts 'OutgoingChatEvent's
+    if (event.isType('OutgoingChatEvent')) {
       event.payload['username'] = ui.username;
       post(event.payload);
       return;
     }
   }
   post(Map data) {
-      _connection.sendString(JSON.encoder.convert(data));
-    }  
+    _connection.sendString(JSON.encoder.convert(data));
+  }
 }

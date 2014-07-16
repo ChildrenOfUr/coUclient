@@ -1,43 +1,98 @@
 part of couclient;
 
+// List of commandable functions
+Map<String, Function> COMMANDS = {};
 
-parseCommand(String command) {
-  Map map = new Map();
-  if (command.split(" ")[0].toLowerCase() == "/setname") {
-    String newName = command.substring(9).replaceAll(" ", "_");
-    if (!new RegExp(r"^-?[_a-zA-Z]+[_a-zA-Z0-9-]*$").hasMatch(newName)) {
-      new EventInstance('ChatEvent', {
-        'channel': 'Global Chat',
-        'message': "Sorry, you can't use the following characters in your name<br>~ ! @ \$ % ^ & * ( ) + = , . / ' ; : \" ? > < [ ] \ { } | ` #"
-      });
-      return;
-    }
-    map["statusMessage"] = "changeName";
-    map["username"] = ui.username;
-    map["newUsername"] = command.substring(9);
-    ui.username = command.substring(9);
-    map["channel"] = 'Global Chat';
+class CommandManager {
+  CommandManager() {
     
+    COMMANDS['playsound'] = (noun) {
+      new EventInstance('PlaySound', noun);
+    };
+
+    // Trigger arbitrary EventInstances
+    COMMANDS['event'] = (String noun) {
+      new EventInstance(noun.split(' ')[0], noun.split(' ')[1]);
+    };
+
+    COMMANDS
+      ..['setname'] = setnameCommand
+      ..['list'] = listplayersCommand;
+    
+  }
+}
+
+
+
+/////////////////////////////////// COMMAND FUNCTIONS /////////////////////////////////////////////
+
+
+bool parseCommand(String command) {
+  // Getting the important data
+  String verb = command.split(" ")[0].toLowerCase().replaceFirst('/', '');
+  String noun = command.split(' ').skip(1).join(' ');
+
+  if (COMMANDS.containsKey(verb)) {
+    COMMANDS[verb](noun);
+    return true;
+  } else {
+    return false;
+  }
+}
+
+
+// COMMAND FUNCTIONS BELOW  //
+
+setnameCommand(String noun) {
+  // Fix Name
+  String newName = noun.replaceAll(" ", "_");
+
+  // Is it appropriate?
+  if (!new RegExp(r"^-?[_a-zA-Z]+[_a-zA-Z0-9-]*$").hasMatch(newName)) {
     new EventInstance('ChatEvent', {
-        'channel': 'Global Chat',
-        'message': "Name changed to ${ui.username}"
+      'channel': 'Global Chat',
+      'message': "Sorry, you can't use the following characters in your name<br>~ ! @ \$ % ^ & * ( ) + = , . / ' ; : \" ? > < [ ] \ { } | ` #"
     });
-    
-  } else if (command.toLowerCase() == "/list") {
-    map["username"] = ui.username;
-    map["statusMessage"] = "list";
-    map["channel"] = 'Global Chat';
-    //map["street"] = currentStreet.label;
-  } /*
-        else if(command.split(" ")[0].toLowerCase() == "/setlocation" || command.split(" ")[0].toLowerCase() == "/go")
-        {
-          setLocation(command.split(" ")[1]);
-          return;
-        }
-        */
-  else if (command.split(" ")[0].toLowerCase() == "/playsong") {
-    new EventInstance('PlaySound', command.split(' ')[1]);
     return;
   }
-  new EventInstance('OutgoingChatEvent',map);
+
+  // Prepare Server Message
+  Map map = new Map();
+  map["statusMessage"] = "changeName";
+  map["username"] = ui.username;
+  map["newUsername"] = newName;
+  ui.username = newName;
+  map["channel"] = 'Global Chat';
+
+  // Send new name to server
+  new EventInstance('OutgoingChatEvent', map);
+
+  // Alert the Player
+  new EventInstance('ChatEvent', {
+    'channel': 'Global Chat',
+    'message': "Name changed to $newName"
+  });
+}
+
+listplayersCommand(String noun) {
+  Map map = new Map();
+  map["username"] = ui.username;
+  map["statusMessage"] = "list";
+  map["channel"] = 'Global Chat';
+  //map["street"] = currentStreet.label;
+
+  // Send message to server
+  new EventInstance('OutgoingChatEvent', map);
+}
+
+
+
+setlocationCommand(String noun) { // TODO implement after streets are usable.
+  /*
+  else if(command.split(" ")[0].toLowerCase() == "/setlocation" || command.split(" ")[0].toLowerCase() == "/go")
+  {
+  setLocation(command.split(" ")[1]);
+  return;
+  }
+*/
 }

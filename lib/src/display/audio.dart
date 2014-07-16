@@ -7,7 +7,12 @@ class SoundManager extends Pump{
   Map songs;
 
   SoundManager(){
-    init().then((_) => EVENT_BUS & this);    
+    init().then((_) => EVENT_BUS & this);
+    
+
+    
+    
+    
   }
   
   Future init() {
@@ -29,6 +34,7 @@ class SoundManager extends Pump{
 
           Map soundcloud = ASSET['music'].get();
           songs = new Map();
+
           for (String name in soundcloud.keys) songs[name] = sc.load(soundcloud[name]['scid']);
 
           c.complete();
@@ -60,7 +66,7 @@ class SoundManager extends Pump{
   }
   @override
   process(EventInstance event) {
-    if (event.type == 'PlaySound')
+    if (event.isType('PlaySound'))
       play(event.payload);
   }  
 }
