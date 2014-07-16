@@ -6,9 +6,8 @@ class DebugManager extends Pump {
     EVENT_BUS > this;
   }
   @override
-  process(event) {
-    print(event);
-    app.print(event);
+  process(BusEvent event) {
+    ui.print(event.payload);
     return event;
   }
 }

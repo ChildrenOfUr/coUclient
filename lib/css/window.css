@@ -31,7 +31,7 @@
   top:45px;
   left:10px;
   width:560px;
-  height:320px;
+  height:350px;
   -moz-border-radius: 8px;
   border-radius: 8px;
   overflow:hidden;
@@ -51,9 +51,9 @@
   text-align:center;
 }
 #bugWindow textarea {
-  margin:3%;
-  width:92%;
-  height:200px;
+  margin:5px;
+  width:548px;
+  height:270px;
 }
 #bugWindow .button {
   float:right;

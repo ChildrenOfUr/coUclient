@@ -18,7 +18,6 @@
         <div class="splash">
           Children of<br>
           <img src="packages/couclient/system/logo.svg"><br>
-          <i class="fa fa-circle-o-notch fa-spin"></i><br>   
           <div id="playButton" class="button" hidden>PLAY</div>
           <div id="mobileButton" class="button" hidden>
             <i class="fa fa-mobile"></i>
@@ -31,15 +30,12 @@
     
     
     <main>
-    
+     <!-- THE VARIOUS METERS AT THE TOP LEFT OF THE SCREEN -->
       <span id="playerName"></span>
-      
       <div id="imaginationText">
         <img id="thinkButton" src="packages/couclient/system/think.svg">
         <span id="currImagination">n</span><span class="smi">i</span>
       </div>
-      
-      <!-- THE VARIOUS METERS AT THE TOP LEFT OF THE SCREEN -->
       <div id="energyDisks">
         <img class="green" src="packages/couclient/system/energymeter.svg">
         <img class="red" src="packages/couclient/system/energymeterred.svg">
@@ -210,28 +206,25 @@
 
       </div>
 
-      <div id="panel">
+      <div id="panel">    
       
-        <div class="conversation top">
-          <header>
-            <i class="fa-li fa fa-code"></i>
-            Console
-          </header>
-          <div class="dialog console">
+      
+      
+        <div id="conversationTemplate" hidden>
+          <div class="conversation">
+            <header>
+              <i class="fa-li fa fa-chevron-down"></i>
+              <span class="title"></span>
+            </header>
+            <div class="dialog">
+            </div>
+            <input type="text"></input>
+            <span class="emojiButton">
+            <i class="fa-li fa  fa-smile-o"></i>
+            </span>
           </div>
         </div>
         
-        <div class="conversation">
-          <header class="bottom">
-            <i class="fa-li fa fa-chevron-down"></i>
-              Friendly
-          </header>
-          <div class="dialog">
-          </div>        
-          <textarea></textarea>
-        </div>
-        
-      
       </div>
  
       <div id="SCwidget">
@@ -347,27 +340,20 @@
           </article>
         </div>
         
-        <div id="motdWindow" class="window" hidden>
+        <div id="motdWindow" class="window">
           <i class="fa-li fa fa-times close"></i>
           <header>
             <i class="fa-li fa fa-gears"></i>
             Message of the Day
           </header>
           <article>
-            <iframe id="motdFrame" src="">
-            </iframe>          
+          Copyright 2014 CoU Development Team, Children of Ur is not endorsed by or affiliated with <a href="http://tinyspeck.com/">Tiny Speck, Inc.</a> (The makers of <a href="http://glitchthegame.com">Glitch</a>) in any way.     
           </article>
         </div>
 
       </div>
       
     </main>
-
-    
-    
-    <footer>
-    Copyright 2014 CoU Development Team, Children of Ur is not endorsed by or affiliated with <a href="http://tinyspeck.com/">Tiny Speck, Inc.</a> (The makers of <a href="http://glitchthegame.com">Glitch</a>) in any way.
-    </footer>
    
     <div id="youWon" hidden><br><br><br><br>
       WAIT! You were just about to win the game!

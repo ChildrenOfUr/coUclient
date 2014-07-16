@@ -1,34 +1,31 @@
 part of couclient;
 
-String channelName = 'Global Chat';// TODO temporary
 
 // TODO Add documentation to the doc folder that outlines the format outgoing chat messages must adhere to.
-class ChatManager extends Pump {
+class NetChatManager extends Pump {
   WebSocket _connection;
-  ChatManager() {
+  NetChatManager() {
     _connection = new WebSocket('ws://vps.robertmcdermot.com:8080')
         ..onOpen.listen((_) {
           // First event, tells the server who we are.
-          post([null,
-                new Map()
-              ..['message'] = 'userName=' + 'TestingPaul'
-              ..['channel'] = channelName]);
-
+          post(new Map()
+              ..['message'] = 'userName=' + ui.username
+              ..['channel'] = 'Global Chat');
+  
           // Get a List of the other players online
-          post([null,
-                new Map()
+          post(new Map()
               ..['hide'] = 'true'
-              ..['username'] = 'TestingPaul'
+              ..['username'] = ui.username
               ..['statusMessage'] = 'list'
-              ..['channel'] = channelName]);
+              ..['channel'] = 'Global Chat');
+        
         })
         ..onMessage.listen((MessageEvent message) {
-          this +  JSON.decoder.convert(message.data); // Turns the data into a Map or List, processes it..
+          this + new ChatEvent(JSON.decoder.convert(message.data)); // Turns the data into a Map or List, processes it..
         })
         ..onClose.listen((_) {
           //wait 5 seconds and try to reconnect
           new Timer(new Duration(seconds: 5), () {
-            ;
           });
         })
         ..onError.listen((message) {
@@ -37,20 +34,22 @@ class ChatManager extends Pump {
     EVENT_BUS & this;
   }
   @override 
-  process(List event) {// Only accepts 'OutgoingChatEvent's
-    if (event is OutgoingChatEvent)
-      //TODO transmit those events
-      return event;
+  process(var event) {// Only accepts 'OutgoingChatEvent's
+    if (event is OutgoingChatEvent) {
+      event.payload['username'] = ui.username;
+      post(event.payload);
+      return;
+    }
   }
-  post(var data) {
-      _connection.sendString(JSON.encoder.convert(data[1]));
+  post(Map data) {
+      _connection.sendString(JSON.encoder.convert(data));
     }  
 }
 
-class OutgoingChatEvent extends Event {
-  OutgoingChatEvent(String payload) : super(payload);
+class OutgoingChatEvent extends BusEvent {
+  OutgoingChatEvent(var payload) : super(payload);
 }
 
-class ChatEvent extends Event {
-  ChatEvent(String payload) : super(payload);
+class ChatEvent extends BusEvent {
+  ChatEvent(var payload) : super(payload);
 }

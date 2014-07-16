@@ -16,10 +16,10 @@ class ClockManager extends Pump{
 }
 
 // CLOCK EVENTS //
-class TimeUpdate extends Event {
+class TimeUpdate extends BusEvent {
   TimeUpdate(List payload) : super(payload);
 }
-class NewDay extends Event {
+class NewDay extends BusEvent {
   NewDay() : super(null);
 }
 

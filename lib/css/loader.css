@@ -78,7 +78,7 @@
   left:0;
   width:100%;
   height:100%;
-  background-color:#ccc;
+  background-color:#75992D;
   z-index:5;
 }
 #streetLoading h2 {
@@ -99,7 +99,7 @@
   bottom:30px;
   height:1em;
   border-radius:0.4em;
-  background-color:#bbb;
+  background-color:rgba(0,0,0,0.3);
   overflow:hidden;
 }
 #streetLoading .bar .percent {

@@ -14,10 +14,12 @@ html, body {
   background-color:#eee;
   overflow:hidden;
   height:100%;
+  margin:0;
+  padding:0;
 }
 
 
-p, footer, input, textarea {
+p, input, textarea{
   font-family: 'Tahoma', 'Geneva', 'sans-serif';
   cursor: auto;
   -webkit-user-select: text;
@@ -25,6 +27,7 @@ p, footer, input, textarea {
   user-select: text;
   color: #000;
   resize: none;
+  margin:0;
 }
  a {
  cursor: auto;
@@ -33,14 +36,15 @@ p, footer, input, textarea {
 }
 
 main {
-  display:box;
-  position:relative;
-  margin:auto;
   width:100%;
   max-width:1300px;
-  min-width:800px;
-  height:calc(100% - 12pt);
+  min-width:833px;
+  height:100%;
   max-height:750px;
   min-height:500px;
-  overflow:hidden;
+  
+  position:absolute;
+  left:0; right:0;
+  top:0; bottom:0;
+  margin:auto;
 }

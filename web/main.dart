@@ -10,6 +10,7 @@ library couclient;
 import 'dart:html';
 import 'dart:async';
 import 'dart:convert';
+import 'dart:math' show Random;
 
 // LIBRARIES //
 // Used for NumberFormat
@@ -28,14 +29,19 @@ part 'package:couclient/src/systems/clock.dart';
 part 'package:couclient/src/systems/debug.dart';
 part 'package:couclient/src/systems/events.dart';
 part 'package:couclient/src/systems/commands.dart';
+part 'package:couclient/src/systems/assets.dart';
 
 // NETWORKING MODULES //
 part 'package:couclient/src/network/chat.dart';
 part 'package:couclient/src/network/multiplayer.dart';
 
-// UI/UX MODULES
+// UI/UX MODULES //
 part 'package:couclient/src/display/userinterface.dart';
+part 'package:couclient/src/display/chatpanel.dart';
 part 'package:couclient/src/display/audio.dart';
+
+// RENDERING MODULES //
+part 'package:couclient/src/display/render/render.dart';
 part 'package:couclient/src/display/chat_bubble.dart';
 
 // GAME MODULES //
@@ -52,15 +58,21 @@ part 'package:couclient/API_KEYS.dart';
 // Globals //
 Storage session = window.sessionStorage;
 Storage local = window.localStorage;
-
-
+Random random = new Random();
 
 
 // GAME ENTRY //
 main() {
-  app.init();
-  //new ChatManager();
+  ui.init();
+  
+  ui.username = 'UIV2';
+  
+  new NetChatManager();
+  new ChatManager();
   new ClockManager();
   new DebugManager();
-  app.update();  
+  
+  spawnEvent(new StartChat('Global Chat'));
+  spawnEvent(new ChatEvent({'channel': 'Global Chat','message': 'Entering Global Chat!'}));
+  
 }

@@ -1,16 +1,17 @@
 #inventory {
   position:absolute;
-  bottom:10px;
-  left:0px;
+  bottom:17px;
+  left:25px;
   padding:1px;
-  height:70px;
-  width:calc(100% - 250px);
+  height:60px;
+  width:calc(100% - 290px);
   max-width:calc(100% - 40px);
   min-width:calc(300px - 40px);
-  overflow-x: auto;
-  overflow-y: hidden;
   white-space: nowrap;
   text-align:center;
+  background-color:rgba(0,0,0,0.1);
+  border-radius:9px;
+  border-top:1px solid rgba(0,0,0,0.1);
 }
 
 #inventory .box, .window .box {
@@ -19,11 +20,10 @@
   border-radius: 8px;
   width:50px;
   height:50px;
-  margin:0px 0px;
-  border-left:1px solid rgba(0,0,0,0.1);
-  border-bottom:3px solid rgba(0,0,0,0.2);
+  margin:4px 0px;
+  border-bottom:2px solid rgba(0,0,0,0.3);
   z-index:1;
-  box-shadow: 0 0 15px 1px rgba(0,0,0,0.05); 
+  box-shadow: 0 0 15px 1px rgba(0,0,0,0.1); 
   display: inline-block;  
 }
 .box .icon {

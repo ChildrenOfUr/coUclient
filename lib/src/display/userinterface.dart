@@ -1,6 +1,6 @@
 part of couclient;
 
-UserInterface app = new UserInterface();
+UserInterface ui = new UserInterface();
 
 class UserInterface {
 
@@ -20,7 +20,7 @@ class UserInterface {
   Element loadStatus = querySelector("#loading #loadstatus");
   Element loadStatus2 = querySelector("#loading #loadstatus2");
   Element loadingScreen = querySelector('#loading');
-
+  Element loadingSpinner = querySelector('#loading .fa-spin');
   // Name Meter Variables
   Element nameElement = querySelector('#playerName');
 
@@ -51,7 +51,7 @@ class UserInterface {
 
   // bugreport button
   Element bugButton = querySelector('#bugGlyph');
-  Element consoleText = querySelector('.dialog.console');
+  Element consoleText = new DivElement();//querySelector('.dialog.console');
 
   // world Element
   Element worldElement = querySelector('#world');
@@ -79,6 +79,10 @@ class UserInterface {
   Element currMoodText = querySelector('#moodMeter .fraction .curr');
   Element maxMoodText = querySelector('#moodMeter .fraction .max');
   Element moodPercent = querySelector('#moodMeter .percent .number');
+  
+  // Chat panel
+  Element panel = querySelector('#panel');
+  Element chatTemplate = querySelector('#conversationTemplate');
   /////////////////////ELEMENTS//////////////////////////////////////////////
 
 
@@ -147,12 +151,12 @@ class UserInterface {
     bugButton.onClick.listen((_) {
       Element w = openWindow('bugs/suggestions');
       TextAreaElement input = w.querySelector('textarea');
-      input.value = 'UserAgent:' + window.navigator.userAgent + '\n////////////////////////////////\n Console Log: \n' + consoleText.text + '\n////////////////////////////////\n';
+      input.value = 'UserAgent:' + window.navigator.userAgent + '\n////////////////////////////////\n';
 
       // Submits the Bug
       w.querySelector('.button').onClick.listen((_) {
         slack.Message m = new slack.Message()
-            ..username = app.username
+            ..username = ui.username
             ..text = input.value;
         slack.team = SLACK_TEAM;
         slack.token = SLACK_TOKEN;
@@ -188,7 +192,7 @@ class UserInterface {
     });
 
     //update the clock once every 10 seconds
-    EVENT_BUS.events.where((m) => m[0] == 'TimeUpdateEvent').listen((event) {
+    EVENT_BUS.events.where((m) => m is TimeUpdate).listen((event) {
       currDay.text = clock.dayofweek;
       currTime.text = clock.time;
       currDate.text = clock.day + ' of ' + clock.month;
@@ -202,10 +206,13 @@ class UserInterface {
       for (Element button in loadingScreen.querySelectorAll('.button')) button.hidden = false;
       loadingScreen.querySelector('.fa').hidden = true;
     });
+  
+   
+    this.update();
   }
 
   print(message) {
-    app.consoleText.innerHtml += message.toString() + ';<br>';
+    ui.consoleText.innerHtml += message.toString() + ';<br>';
   }
 
   // update the userinterface
@@ -276,7 +283,7 @@ class UserInterface {
 
     // Update all audioElements to the correct volume
     for (AudioElement audio in querySelectorAll('audio')) {
-      if (audio.volume != app.volume / 100) audio.volume = app.volume / 100;
+      if (audio.volume != ui.volume / 100) audio.volume = ui.volume / 100;
 
 
 
@@ -287,7 +294,7 @@ class UserInterface {
       if (SClink != SClinkElement.href) SClinkElement.href = SClink;
 
     }
-
+    window.requestAnimationFrame((_) => this.update());
   }
 
 
