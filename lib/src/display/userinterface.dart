@@ -2,7 +2,7 @@ part of couclient;
 
 UserInterface ui = new UserInterface();
 
-class UserInterface {
+class UserInterface extends Pump{
 
   //NumberFormat for having commas in the currants and iMG displays
   NumberFormat commaFormatter = new NumberFormat("#,###");
@@ -110,8 +110,13 @@ class UserInterface {
 
   /////////////////////VARS//////////////////////////////////////////////////
   // start listening for events
-  init() {
+  UserInterface() {
 
+    // Set initial Time
+    currDay.text = clock.dayofweek;
+    currTime.text = clock.time;
+    currDate.text = clock.day + ' of ' + clock.month;
+    
     // Load saved volume level
     if (local['volume'] != null) {
       volume = int.parse(local['volume']);
@@ -131,7 +136,7 @@ class UserInterface {
     // Starts the game
     playButton.onClick.listen((_) {
       loadingScreen.style.opacity = '0';
-      spawnEvent(new PlaySound('game_loaded'));
+      new EventInstance('PlaySound','game_loaded');
       new Timer(new Duration(seconds: 1), () {
         loadingScreen.remove();
       });
@@ -191,23 +196,22 @@ class UserInterface {
       }
     });
 
-    //update the clock once every 10 seconds
-    EVENT_BUS.events.where((m) => m is TimeUpdate).listen((event) {
-      currDay.text = clock.dayofweek;
-      currTime.text = clock.time;
-      currDate.text = clock.day + ' of ' + clock.month;
-    });
-
-
 
     // display buttons
     for (Element button in loadingScreen.querySelectorAll('.button')) button.hidden = false;
     loadingScreen.querySelector('.fa').hidden = true;
   
-   
-    this.update();
+    this & EVENT_BUS;
   }
 
+  process(var event) {
+    if (event.type == 'TimeUpdate'){
+      currDay.text = clock.dayofweek;
+      currTime.text = clock.time;
+      currDate.text = clock.day + ' of ' + clock.month;
+    }    
+  }
+  
   print(message) {
     ui.consoleText.innerHtml += message.toString() + ';<br>';
   }

@@ -68,20 +68,20 @@ Random random = new Random();
 
 // GAME ENTRY //
 main() {
-  ui.init();
-
-  ui.username = 'UIV2';
+  ui;
   
+  new DebugManager();
   new SoundManager();
   new NetChatManager();
   new ChatManager();
   new ClockManager();
-  new DebugManager();
 
-  spawnEvent(new StartChat('Global Chat'));
-  spawnEvent(new ChatEvent({
-    'channel': 'Global Chat',
-    'message': 'Entering Global Chat!'
-  }));
-  
+  ui.username = 'UIV2';
+  new EventInstance('StartChat','Global Chat');
+  new EventInstance('ChatEvent',
+      {
+      'channel': 'Global Chat',
+      'message': 'Entering Global Chat!'
+      });
+  ui.update();
 }

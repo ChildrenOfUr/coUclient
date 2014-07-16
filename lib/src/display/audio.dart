@@ -18,7 +18,11 @@ class SoundManager extends Pump{
       //here's a fix for dartium http://downloadsquad.switched.com/2010/06/24/play-embedded-mp3-audio-files-chromium/
       //also I updated the loadie library to attempt to find both a .mp3 file and a .ogg file at the specified location
       //this should help with browser compatibility
-      new Asset('packages/couclient/system/loading.mp3'), new Asset('packages/couclient/system/mention.mp3'), new Asset('packages/couclient/system/drop.mp3'), new Asset('packages/couclient/system/game_loaded.mp3'), new Asset('packages/couclient/json/music.json') // soundcloud json
+      new Asset('packages/couclient/system/loading.mp3'),
+      new Asset('packages/couclient/system/mention.mp3'),
+      new Asset('packages/couclient/system/drop.mp3'),
+      new Asset('packages/couclient/system/game_loaded.mp3'),
+      new Asset('packages/couclient/json/music.json') // soundcloud json
     ])..load(ui.print, statusElement:ui.loadStatus2).then((_) {
           //start the loading music and attach it to the loadingScreen so that when that is removed the music stops
           play('loading', element: ui.loadingScreen);
@@ -55,14 +59,10 @@ class SoundManager extends Pump{
     } else ui.print('$name is not a recognised sound.');
   }
   @override
-  process(BusEvent event) {
-    if (event is PlaySound)
+  process(EventInstance event) {
+    if (event.type == 'PlaySound')
       play(event.payload);
   }  
-}
-  
-class PlaySound extends BusEvent {
-  PlaySound(payload) : super(payload);
 }
 
 

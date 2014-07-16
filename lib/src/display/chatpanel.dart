@@ -13,22 +13,17 @@ class ChatManager extends Pump {
   }
   process(var event) {
     // ChatEvents are drawn to their Conversation.
-    if (event is ChatEvent) {
+    if (event.type == 'ChatEvent') {
       //{username: Paul, message: Global test, channel: Global Chat}
       for (Chat convo in chats) {
         if (convo.title == event.payload['channel']) convo.addMessage(event.payload['username'], event.payload['message']);
       }
     }
     // StartChat events start a Conversation
-    if (event is StartChat) {
+    if (event.type == 'StartChat') {
       chats.add(new Chat(event.payload));
     }
   }
-}
-
-// Events that trigger Chats
-class StartChat extends BusEvent {
-  StartChat(payload) : super(payload);
 }
 
 // global functions
@@ -234,43 +229,15 @@ class Chat {
 
   parseInput(String input) {
     Map map = new Map();
-    if (input.split(" ")[0].toLowerCase() == "/setname") {
-      String newName = input.substring(9).replaceAll(" ", "_");
-      if (!new RegExp(r"^-?[_a-zA-Z]+[_a-zA-Z0-9-]*$").hasMatch(newName)) {
-        spawnEvent(new ChatEvent({
-          'channel': 'Global Chat',
-          'message': "Sorry, you can't use the following characters in your name<br>~ ! @ \$ % ^ & * ( ) + = , . / ' ; : \" ? > < [ ] \ { } | ` #"
-        }));
-        return;
-      }
-      map["statusMessage"] = "changeName";
-      map["username"] = ui.username;
-      map["newUsername"] = input.substring(9);
-      ui.username = input.substring(9);
-      map["channel"] = title;
-    } else if (input.toLowerCase() == "/list") {
-      map["username"] = ui.username;
-      map["statusMessage"] = "list";
-      map["channel"] = title;
-      //map["street"] = currentStreet.label;
-    } /*
-      else if(input.split(" ")[0].toLowerCase() == "/setlocation" || input.split(" ")[0].toLowerCase() == "/go")
-      {
-        setLocation(input.split(" ")[1]);
-        return;
-      }
-      */
-    else if (input.split(" ")[0].toLowerCase() == "/playsong") {
-      spawnEvent(new PlaySound(input.split(' ')[1]));
-      return;
-    }
+    if (input.startsWith('/'))
+      parseCommand(input);
     else {
       map["username"] = ui.username;
       map["message"] = input;
       map["channel"] = title;
       //if (channelName == "Local Chat") map["street"] = currentStreet.label;
+      new EventInstance('OutgoingChatEvent',map);
     }
-    spawnEvent(new OutgoingChatEvent(map));
   }
 }
 
@@ -279,14 +246,14 @@ class ChatMessage {
   String player, message;
   ChatMessage(this.player, this.message);
   String toHtml() {
-    if (message is! String) return '';    
+    if (message is String == false) return '';    
     String html;
     
     message = parseUrl(message);
-    message = parseEmoji(message);
+    //message = parseEmoji(message);
 
     if (message.toLowerCase().contains(ui.username.toLowerCase())) {
-      spawnEvent(new PlaySound('mention'));
+      new EventInstance('PlaySound','mention');
     }
 
     if (player == null) {

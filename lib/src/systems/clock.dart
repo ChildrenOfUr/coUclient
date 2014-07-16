@@ -6,21 +6,13 @@ class ClockManager extends Pump{
   ClockManager() {
     // Take each of the 'clock's streams, and when there is an event, broadcast this to the manager's subscribers.
     clock.onUpdate.listen((List timedata) {
-      this + new TimeUpdate(timedata);
+      new EventInstance('TimeUpdate',timedata);
     });    
     clock.onNewDay.listen((_) {
-      this + new NewDay(); // The fact the event fires is all that's important here. 
+      new EventInstance('NewDay',null); // The fact the event fires is all that's important here. 
     });    
     EVENT_BUS < this;
   }
-}
-
-// CLOCK EVENTS //
-class TimeUpdate extends BusEvent {
-  TimeUpdate(List payload) : super(payload);
-}
-class NewDay extends BusEvent {
-  NewDay() : super(null);
 }
 
 
