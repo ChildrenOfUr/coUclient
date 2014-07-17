@@ -7033,17 +7033,27 @@ var $$ = {};
       t1 = t1.get$onKeyUp(input);
       H.setRuntimeTypeInfo(new W._EventStreamSubscription(0, t1._target, t1._eventType, W._wrapZone(new B.TabContent_processInput_closure0(this, input)), t1._useCapture), [H.getTypeArgumentByIndex(t1, 0)])._tryResume$0();
     },
+    containsBadCharacter$1: function(newName) {
+      var badChars, t1, t2, $char;
+      badChars = "! @ $ % ^ & * ( ) + = , . / ' ; : \" ? > < [ ] \\ { } | ` #".split(" ");
+      for (t1 = new H.ListIterator(badChars, badChars.length, 0, null), t2 = newName.length; t1.moveNext$0();) {
+        $char = t1._current;
+        if ($char == null)
+          H.throwExpression(P.ArgumentError$(null));
+        if (H.stringContainsUnchecked(newName, $char, 0))
+          return true;
+      }
+      return false;
+    },
     parseInput$1: function(input) {
-      var map, t1, newName;
+      var map, t1;
       map = P.LinkedHashMap_LinkedHashMap(null, null, null, null, null);
       t1 = J.getInterceptor$s(input).split$1(input, " ");
       if (0 >= t1.length)
         return H.ioore(t1, 0);
       if (J.toLowerCase$0$s(t1[0]) === "/setname") {
         t1 = C.JSString_methods.substring$1(input, 9);
-        newName = H.stringReplaceAllUnchecked(t1, " ", "_");
-        t1 = H.JSSyntaxRegExp_makeNative("^-?[_a-zA-Z]+[_a-zA-Z0-9-]*$", false, true, false);
-        if (!t1.test(newName)) {
+        if (this.containsBadCharacter$1(H.stringReplaceAllUnchecked(t1, " ", "_"))) {
           map = P.LinkedHashMap_LinkedHashMap(null, null, null, null, null);
           map.$indexSet(0, "statusMessage", "hint");
           map.$indexSet(0, "message", "Sorry, you can't use the following characters in your name<br>~ ! @ $ % ^ & * ( ) + = , . / ' ; : \" ? > < [ ]  { } | ` #");
