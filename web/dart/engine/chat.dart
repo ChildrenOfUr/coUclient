@@ -354,20 +354,33 @@ class TabContent
 		});
 	}
 	
+	bool containsBadCharacter(String newName)
+	{
+		List<String> badChars = "! @ \$ % ^ & * ( ) + = , . / ' ; : \" ? > < [ ] \\ { } | ` #".split(" ");
+		for(String char in badChars)
+		{
+			if(newName.contains(char))
+				return true;
+		}
+		
+		return false;
+	}
+	
 	parseInput(String input)
 	{
 		Map map = new Map();
 		if(input.split(" ")[0].toLowerCase() == "/setname")
 		{
 			String newName = input.substring(9).replaceAll(" ", "_");
-			if(!new RegExp(r"^-?[_a-zA-Z]+[_a-zA-Z0-9-]*$").hasMatch(newName))
+			if(containsBadCharacter(newName))
 			{
 				Map map = new Map();
     			map["statusMessage"] = "hint";
     			map["message"] = "Sorry, you can't use the following characters in your name<br>~ ! @ \$ % ^ & * ( ) + = , . / ' ; : \" ? > < [ ] \ { } | ` #";
     			_addmessage(map);
-				return;
+    			return;
 			}
+
 			map["statusMessage"] = "changeName";
 			map["username"] = chat.username;
 			map["newUsername"] = input.substring(9);
