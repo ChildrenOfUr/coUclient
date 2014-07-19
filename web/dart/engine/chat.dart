@@ -356,11 +356,14 @@ class TabContent
 	
 	bool containsBadCharacter(String newName)
 	{
-		List<String> badChars = "! @ \$ % ^ & * ( ) + = , . / ' ; : \" ? > < [ ] \ { } | ` #".split(" ");
+		List<String> badChars = "! @ \$ % ^ & * ( ) + = , . / ' ; : \" ? > < [ ] \\ { } | ` #".split(" ");
 		for(String char in badChars)
 		{
 			if(newName.contains(char))
+			{
+				print("name contains: '$char'");
 				return true;
+			}
 		}
 		
 		return false;
