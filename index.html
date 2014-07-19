@@ -7035,7 +7035,7 @@ var $$ = {};
     },
     containsBadCharacter$1: function(newName) {
       var badChars, t1, t2, $char;
-      badChars = "! @ $ % ^ & * ( ) + = , . / ' ; : \" ? > < [ ] \\ { } | ` #".split(" ");
+      badChars = "! @ $ % ^ & * ( ) + = , . / ' ; : \" ? > < [ ]  { } | ` #".split(" ");
       for (t1 = new H.ListIterator(badChars, badChars.length, 0, null), t2 = newName.length; t1.moveNext$0();) {
         $char = t1._current;
         if ($char == null)
@@ -7056,7 +7056,7 @@ var $$ = {};
         if (this.containsBadCharacter$1(H.stringReplaceAllUnchecked(t1, " ", "_"))) {
           map = P.LinkedHashMap_LinkedHashMap(null, null, null, null, null);
           map.$indexSet(0, "statusMessage", "hint");
-          map.$indexSet(0, "message", "Sorry, you can't use the following characters in your name<br>~ ! @ $ % ^ & * ( ) + = , . / ' ; : \" ? > < [ ]  { } | ` #");
+          map.$indexSet(0, "message", "Sorry, you can't use the following characters in your name<br>~ ! @ $ % ^ & * ( ) + = , . / ' ; : \" ? > < [ ] \\ { } | ` #");
           this._addmessage$1(map);
           return;
         }
