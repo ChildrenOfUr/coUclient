@@ -34,6 +34,7 @@ part 'dart/engine/def/elements.dart';
 
 // Game parts
 part 'dart/street.dart';
+part 'dart/maps_data.dart';
 part 'dart/player.dart';
 part 'dart/chat_bubble.dart';
 part 'dart/npc.dart';

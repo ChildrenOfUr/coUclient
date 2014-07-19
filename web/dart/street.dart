@@ -68,8 +68,13 @@ class Street
 {    
 	String label;
 	Map _data;
+  
 	List<Platform> platforms = new List();
 	List<Ladder> ladders = new List();
+	
+	DataMaps map = new DataMaps();
+	Map<String,String> hubInfo;
+	String hub_id;
 	
 	Rectangle bounds;
   
@@ -79,6 +84,10 @@ class Street
 
 		// sets the label for the street
 		label = _data['label'];
+		
+		hub_id = _data['hub_id'];
+		hubInfo = map.data_maps_hubs[hub_id]();
+		print(hubInfo);
 		
 		if(chat.username != null)
 			sendLeftMessage(label);
