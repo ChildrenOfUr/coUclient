@@ -21,7 +21,7 @@ class NetChatManager extends Pump {
 
         })
         ..onMessage.listen((MessageEvent message) {
-          new EventInstance('ChatEvent', JSON.decoder.convert(message.data), 'incoming Chat message');
+          new Moment('ChatEvent', JSON.decoder.convert(message.data), 'incoming Chat message');
         })
         ..onClose.listen((_) {
           //wait 5 seconds and try to reconnect
@@ -34,10 +34,10 @@ class NetChatManager extends Pump {
     EVENT_BUS & this;
   }
   @override
-  process(EventInstance<Map> event) {// Only accepts 'OutgoingChatEvent's
+  process(Moment<Map> event) {// Only accepts 'OutgoingChatEvent's
     if (event.isType('OutgoingChatEvent')) {
-      event.payload['username'] = ui.username;
-      post(event.payload);
+      event.content['username'] = ui.username;
+      post(event.content);
       return;
     }
   }

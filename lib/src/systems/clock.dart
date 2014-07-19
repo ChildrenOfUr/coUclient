@@ -6,10 +6,10 @@ class ClockManager extends Pump{
   ClockManager() {
     // Take each of the 'clock's streams, and when there is an event, broadcast this to the manager's subscribers.
     clock.onUpdate.listen((List timedata) {
-      new EventInstance('TimeUpdate',timedata);
+      new Moment('TimeUpdate',timedata);
     });    
     clock.onNewDay.listen((_) {
-      new EventInstance('NewDay',null); // The fact the event fires is all that's important here. 
+      new Moment('NewDay',null); // The fact the event fires is all that's important here. 
     });    
     EVENT_BUS < this;
   }

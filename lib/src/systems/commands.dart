@@ -7,12 +7,12 @@ class CommandManager {
   CommandManager() {
     
     COMMANDS['playsound'] = (noun) {
-      new EventInstance('PlaySound', noun);
+      new Moment('PlaySound', noun);
     };
 
     // Trigger arbitrary EventInstances
     COMMANDS['event'] = (String noun) {
-      new EventInstance(noun.split(' ')[0], noun.split(' ')[1]);
+      new Moment(noun.split(' ')[0], noun.split(' ')[1]);
     };
 
     COMMANDS
@@ -49,7 +49,7 @@ setnameCommand(String noun) {
 
   // Is it appropriate?
   if (!new RegExp(r"^-?[_a-zA-Z]+[_a-zA-Z0-9-]*$").hasMatch(newName)) {
-    new EventInstance('ChatEvent', {
+    new Moment('ChatEvent', {
       'channel': 'Global Chat',
       'message': "Sorry, you can't use the following characters in your name<br>~ ! @ \$ % ^ & * ( ) + = , . / ' ; : \" ? > < [ ] \ { } | ` #"
     });
@@ -65,10 +65,10 @@ setnameCommand(String noun) {
   map["channel"] = 'Global Chat';
 
   // Send new name to server
-  new EventInstance('OutgoingChatEvent', map);
+  new Moment('OutgoingChatEvent', map);
 
   // Alert the Player
-  new EventInstance('ChatEvent', {
+  new Moment('ChatEvent', {
     'channel': 'Global Chat',
     'message': "Name changed to $newName"
   });
@@ -82,7 +82,7 @@ listplayersCommand(String noun) {
   //map["street"] = currentStreet.label;
 
   // Send message to server
-  new EventInstance('OutgoingChatEvent', map);
+  new Moment('OutgoingChatEvent', map);
 }
 
 

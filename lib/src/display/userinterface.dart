@@ -136,7 +136,7 @@ class UserInterface extends Pump{
     // Starts the game
     playButton.onClick.listen((_) {
       loadingScreen.style.opacity = '0';
-      new EventInstance('PlaySound','game_loaded');
+      new Moment('PlaySound','game_loaded');
       new Timer(new Duration(seconds: 1), () {
         loadingScreen.remove();
       });

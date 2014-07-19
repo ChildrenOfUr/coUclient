@@ -14,7 +14,7 @@ class ChatManager extends Pump {
   }
   
   @override
-  process(EventInstance <Map> event) {
+  process(Moment <Map> event) {
     // ChatEvents are drawn to their Conversation.
     if (event.isType('ChatEvent')) {
       for (Chat convo in openConversations) {
@@ -240,7 +240,7 @@ class Chat {
       map["message"] = input;
       map["channel"] = title;
       //if (channelName == "Local Chat") map["street"] = currentStreet.label;
-      new EventInstance('OutgoingChatEvent',map, 'parseInput');
+      new Moment('OutgoingChatEvent',map, 'parseInput');
     }
   }
 }
@@ -257,7 +257,7 @@ class ChatMessage {
     message = parseEmoji(message);
 
     if (message.toLowerCase().contains(ui.username.toLowerCase())) {
-      new EventInstance('PlaySound','mention');
+      new Moment('PlaySound','mention');
     }
 
     if (player == null) {

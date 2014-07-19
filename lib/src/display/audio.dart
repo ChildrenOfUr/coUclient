@@ -65,9 +65,9 @@ class SoundManager extends Pump{
     } else ui.print('$name is not a recognised sound.');
   }
   @override
-  process(EventInstance event) {
+  process(Moment event) {
     if (event.isType('PlaySound'))
-      play(event.payload);
+      play(event.content);
   }  
 }
 

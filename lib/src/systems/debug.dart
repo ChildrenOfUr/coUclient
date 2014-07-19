@@ -6,12 +6,12 @@ class DebugManager extends Pump {
     EVENT_BUS & this;
   }
   @override
-  process(EventInstance event) {
+  process(Moment event) {
     if (event.isType('DebugEvent')) {
-      new EventInstance('ChatEvent',{ 
+      new Moment('ChatEvent',{ 
         'channel':'Global Chat',
-        'message':'!:' +event.payload.toString()});
-      ui.print(event.payload);
+        'message':'!:' +event.content.toString()});
+      ui.print(event.content);
     }
   }
 }

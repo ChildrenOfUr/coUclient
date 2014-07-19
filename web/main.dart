@@ -74,8 +74,8 @@ main() {
   new ChatManager();
   new ClockManager();
   new CommandManager();
-
+  
   ui.username = 'NewUITest';
-  new EventInstance('StartChat','Global Chat');
+  new Moment('StartChat','Global Chat');
   ui.update();
 }
