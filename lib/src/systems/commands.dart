@@ -5,7 +5,7 @@ Map<String, Function> COMMANDS = {};
 
 class CommandManager {
   CommandManager() {
-    
+
     COMMANDS['playsound'] = (noun) {
       new Moment('PlaySound', noun);
     };
@@ -16,9 +16,9 @@ class CommandManager {
     };
 
     COMMANDS
-      ..['setname'] = setnameCommand
-      ..['list'] = listplayersCommand;
-    
+        ..['setname'] = setname
+        ..['list'] = listplayersCommand;
+
   }
 }
 
@@ -43,12 +43,12 @@ bool parseCommand(String command) {
 
 // COMMAND FUNCTIONS BELOW  //
 
-setnameCommand(String noun) {
+setname(String noun) {
   // Fix Name
   String newName = noun.replaceAll(" ", "_");
 
   // Is it appropriate?
-  if (!new RegExp(r"^-?[_a-zA-Z]+[_a-zA-Z0-9-]*$").hasMatch(newName)) {
+  if (containsBadCharacter(newName)) {
     new Moment('ChatEvent', {
       'channel': 'Global Chat',
       'message': "Sorry, you can't use the following characters in your name<br>~ ! @ \$ % ^ & * ( ) + = , . / ' ; : \" ? > < [ ] \ { } | ` #"
@@ -73,6 +73,16 @@ setnameCommand(String noun) {
     'message': "Name changed to $newName"
   });
 }
+
+bool containsBadCharacter(String newName) {
+  List<String> badChars = "! @ \$ % ^ & * ( ) + = , . / ' ; : \" ? > < [ ] \\ { } | ` #".split(" ");
+  for (String char in badChars) {
+    if (newName.contains(char)) return true;
+  }
+
+  return false;
+}
+
 
 listplayersCommand(String noun) {
   Map map = new Map();
