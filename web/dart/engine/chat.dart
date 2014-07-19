@@ -356,7 +356,7 @@ class TabContent
 	
 	bool containsBadCharacter(String newName)
 	{
-		List<String> badChars = "! @ \$ % ^ & * ( ) + = , . \/ ' ; : \" ? > < [ ] \\ { } | ` #".split(" ");
+		List<String> badChars = "! @ \$ % ^ & * ( ) + = , . / ' ; : \" ? > < [ ] \ { } | ` #".split(" ");
 		for(String char in badChars)
 		{
 			if(newName.contains(char))
@@ -376,7 +376,7 @@ class TabContent
 			{
 				Map map = new Map();
     			map["statusMessage"] = "hint";
-    			map["message"] = "Sorry, you can't use the following characters in your name<br>~ ! @ \$ % ^ & * ( ) + = , . / ' ; : \" ? > < [ ] \ { } | ` #";
+    			map["message"] = "Sorry, you can't use the following characters in your name<br>~ ! @ \$ % ^ & * ( ) + = , . / ' ; : \" ? > < [ ] \\ { } | ` #";
     			_addmessage(map);
     			return;
 			}
