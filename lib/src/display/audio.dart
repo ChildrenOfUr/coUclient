@@ -8,11 +8,7 @@ class SoundManager extends Pump{
 
   SoundManager(){
     init().then((_) => EVENT_BUS & this);
-    
 
-    
-    
-    
   }
   
   Future init() {
