@@ -120,15 +120,12 @@
   transition-property: opacity;
   transition-duration: 0.2s;
   transition-timing-function: linear;
-  transition-delay: 0.0s;
   -webkit-transition-property: opacity;
   -webkit-transition-duration: 0.2s;
   -webkit-transition-timing-function: linear;
-  -webkit-transition-delay: 0.0s;
   -moz-transition-property: opacity;
   -moz-transition-duration: 0.2s;
   -moz-transition-timing-function: linear;
-  -moz-transition-delay: 0.0s;
   text-shadow: 0px 0.05em rgba(0,0,0,0.3);
 }
 #moodMeter .percent {
@@ -156,6 +153,17 @@
     color:#fff;
 }
 
+#leftDisk .hurt, #leftDisk .dead{
+  transition-property: opacity;
+  transition-duration: 0.2s;
+  transition-timing-function: linear;
+  -webkit-transition-property: opacity;
+  -webkit-transition-duration: 0.2s;
+  -webkit-transition-timing-function: linear;
+  -moz-transition-property: opacity;
+  -moz-transition-duration: 0.2s;
+  -moz-transition-timing-function: linear;
+}
 #leftDisk:hover #moodMeter{
   opacity:1;
 }

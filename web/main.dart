@@ -43,6 +43,7 @@ part 'package:couclient/src/network/multiplayer.dart';
 // UI/UX MODULES //
 part 'package:couclient/src/display/userinterface.dart';
 part 'package:couclient/src/display/chatpanel.dart';
+part 'package:couclient/src/display/meters.dart';
 part 'package:couclient/src/display/audio.dart';
 
 // RENDERING MODULES //
@@ -64,17 +65,28 @@ part 'package:couclient/API_KEYS.dart';
 Storage session = window.sessionStorage;
 Storage local = window.localStorage;
 Random random = new Random();
-
+NumberFormat commaFormatter = new NumberFormat("#,###");
 
 // GAME ENTRY //
+
+Game game = new Game();
+
 main() {
+  // System
   new DebugManager();
-  new SoundManager();
-  new NetChatManager();
-  new ChatManager();
   new ClockManager();
   new CommandManager();
   
+  // Networking
+  new NetChatManager();
+  
+  // UI/UX
+  new SoundManager();
+  new ChatUIManager();
+  new MeterManager();
+  
+
+  // Test Information
   ui.username = 'NewUITest';
   new Moment('StartChat','Global Chat');
   ui.update();

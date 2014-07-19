@@ -4,11 +4,13 @@ List<String> EMOTICONS;
 
 List<Chat> openConversations = [];
 
-class ChatManager extends Pump {
+class ChatUIManager extends Pump {
 
-  ChatManager() {
+  ChatUIManager() {
     //load emoticons
     new Asset("packages/couclient/emoticons/emoticons.json").load().then((Asset asset) => EMOTICONS = asset.get()["names"]);    
+    
+
     // Subscribe to the Bus
     EVENT_BUS > this;
   }

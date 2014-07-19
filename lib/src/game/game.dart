@@ -3,6 +3,15 @@ part of couclient;
 // GAME ENTRY AND MANAGEMENT //
 class Game extends Pump {
   
+  String username = 'null';
+  String location = 'null';
+
+  int energy = 100;
+  int maxenergy = 100;
+  int mood = 100;
+  int maxmood = 100;
+  int currants = 0;
+  int img = 0;
   
   // VARS //  
   List <Entity> _entities = [];

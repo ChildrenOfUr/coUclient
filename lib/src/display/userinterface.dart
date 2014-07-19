@@ -5,7 +5,7 @@ UserInterface ui = new UserInterface();
 class UserInterface extends Pump{
 
   //NumberFormat for having commas in the currants and iMG displays
-  NumberFormat commaFormatter = new NumberFormat("#,###");
+  
 
   // If you need to change an element somewhere else, put the declaration in this class.
   // You can then access it with 'ui.yourElement'. This way we keep everything in one spot
@@ -91,16 +91,6 @@ class UserInterface extends Pump{
   String username = 'null';
 
   String location = 'null';
-
-  int energy = 100;
-  int maxenergy = 100;
-
-  int mood = 100;
-  int maxmood = 100;
-
-  int currants = 0;
-
-  int img = 0;
 
   bool muted = false;
   int volume = 0;
@@ -218,41 +208,17 @@ class UserInterface extends Pump{
 
   // update the userinterface
   update() {
-    // Update img display
-    if (commaFormatter.format(img) != imgElement.text) imgElement.text = commaFormatter.format(img);
 
 
 
-    // Update currant display
-    if (commaFormatter.format(currants) != currantElement.text) currantElement.text = commaFormatter.format(currants);
 
-    // Update mood elements
-    if (maxmood <= 0) {
-      maxmood = 1;
-    }
-    if (mood.toString() != currMoodText.text || maxmood.toString() != maxMoodText.text) {
-      currMoodText.text = mood.toString();
-      maxMoodText.text = maxmood.toString();
-      moodPercent.text = ((100 * ((mood / maxmood))).toInt()).toString();
-      moodmeterImageLow.style.opacity = ((0.7 - (mood / maxmood))).toString();
-      if (mood <= 0) moodmeterImageEmpty.style.opacity = 1.toString(); else moodmeterImageEmpty.style.opacity = 0.toString();
-    }
+    
+    
 
     // Update name display
     if (username.length >= 17) username = username.substring(0, 15) + '...';
     if (username != nameElement.text) nameElement.text = username;
 
-
-    // Update energy elements
-    if (maxenergy <= 0) {
-      maxenergy = 1;
-    }
-    if (currEnergyText.text != energy.toString()) currEnergyText.text = energy.toString();
-    if (maxEnergyText.text != maxenergy.toString()) maxEnergyText.text = maxenergy.toString();
-    String angle = ((120 - (energy / maxenergy) * 120).toInt()).toString();
-    energymeterImage.style.transform = 'rotate(' + angle + 'deg)';
-    energymeterImageLow.style.transform = 'rotate(' + angle + 'deg)';
-    energymeterImageLow.style.opacity = ((1 - (energy / maxenergy))).toString();
 
     // Update the location text
     if (location.length >= 20) location = location.substring(0, 17) + '...';
