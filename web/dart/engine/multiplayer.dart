@@ -1,7 +1,7 @@
 part of coUclient;
 
-String multiplayerServer = "ws://vps.robertmcdermot.com:8080/playerUpdate";//"ws://couserver.herokuapp.com/playerUpdate";
-String streetEventServer = "ws://vps.robertmcdermot.com:8080/streetUpdate";//"ws://couserver.herokuapp.com/streetUpdate";
+String multiplayerServer = "ws://robertmcdermot.com:8080/playerUpdate";
+String streetEventServer = "ws://robertmcdermot.com:8080/streetUpdate";
 String joined = "";
 WebSocket streetSocket;
 bool reconnect = true;
@@ -35,6 +35,7 @@ void sendJoinedMessage(String streetName)
 		Map map = new Map();
 		map["username"] = chat.username;
 		map["streetName"] = streetName;
+		map["tsid"] = currentStreet._data['tsid'];
 		map["message"] = "joined";
 		streetSocket.send(JSON.encode(map));
 		joined = streetName;

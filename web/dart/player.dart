@@ -44,6 +44,8 @@ class Player
 			posY = leftmost.start.y-height;
 
 		playerCanvas = new CanvasElement()
+			..style.overflow = "auto"
+			..style.margin = "auto"
 			..style.transform = "translateZ(0)";
 		
 		playerName = new DivElement()
@@ -328,8 +330,10 @@ class Player
 			//because the aniation sizes are different (walk vs idle, etc.)
 			if(playerCanvas.width != currentAnimation.width || playerCanvas.height != currentAnimation.height)
 			{
+				playerCanvas.style.width = currentAnimation.width.toString()+"px";
+				playerCanvas.style.height = currentAnimation.height.toString()+"px";
 				playerCanvas.width = currentAnimation.width;
-                playerCanvas.height = currentAnimation.height;
+				playerCanvas.height = currentAnimation.height;
 			}
 			else
 				playerCanvas.context2D.clearRect(0, 0, currentAnimation.width, currentAnimation.height);

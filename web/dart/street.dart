@@ -136,7 +136,7 @@ class Street
 		
 		// Load each of them, and then continue.
 		Batch decos = new Batch(assetsToLoad);
-		decos.load(setStreetLoadBar).then((_)
+		decos.load(setStreetLoadBar,enableCrossOrigin:true).then((_)
         {
 			//Decos should all be loaded at this point//
 			
@@ -239,18 +239,7 @@ class Street
 					// only draw if the image is loaded.
 					if (ASSET[deco['filename']] != null)
 					{
-						ImageElement d = ASSET[deco['filename']].get();
-						
-						//resize the image now so that it doesn't have to be done each time
-						//it comes into view by the browser's rendering engine
-						//TODO maybe uncomment someday - looks terrible
-						/*if(w != d.naturalWidth || h != d.naturalHeight)
-						{
-							print("need to resize ${deco['filename']} from ${d.naturalWidth}x${d.naturalHeight} to ${w}x${h}");
-                        	resizeImage(d,w,h);
-                        	print("new size is ${d.width}x${d.height}");
-						}*/
-						
+						ImageElement d = ASSET[deco['filename']].get();						
 						d.style.position = 'absolute';
 						d.style.left = x.toString() + 'px';
 						d.style.top = y.toString() + 'px';
@@ -413,21 +402,26 @@ class Street
 		return c.future;
 	}
 	
-	void resizeImage(ImageElement imageObject, int newWidth, int newHeight) 
+	/*void resizeImage(ImageElement img, int newWidth, int newHeight) 
 	{
-		// New canvas
-        CanvasElement canvas = new CanvasElement();
-        canvas.width = newWidth;
-        canvas.height = newHeight;
-
-        // Draw Image content in canvas
-        CanvasRenderingContext2D context = canvas.context2D;        
-        context.drawImageScaled(imageObject, 0, 0, newWidth, newHeight);
-
-        // Replace source of Image
-        imageObject.src = canvas.toDataUrl();
-    }
- 
+		CanvasElement canvas = new CanvasElement();
+        canvas.width = img.naturalWidth;
+        canvas.height = img.naturalHeight;
+        CanvasRenderingContext2D context = canvas.context2D;
+        context.drawImage(img, 0, 0);
+         
+        new js.JsObject(js.context['resample_hermite'],[canvas, img.naturalWidth, img.naturalHeight, newWidth, newHeight]);
+         
+        CanvasElement copy = new CanvasElement();
+        copy.width = newWidth;
+        copy.height = newHeight;
+        CanvasRenderingContext2D cctx = copy.context2D;
+         
+        cctx.putImageData( context.getImageData( 0, 0, newWidth, newHeight ), 0, 0 );
+         
+        img.src = copy.toDataUrl();
+    }*/
+	
 	//Parallaxing: Adjust the position of each canvas in #GameScreen
 	//based on the camera position and relative size of canvas to Street
 	render()
