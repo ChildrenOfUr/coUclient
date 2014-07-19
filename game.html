@@ -7034,14 +7034,17 @@ var $$ = {};
       H.setRuntimeTypeInfo(new W._EventStreamSubscription(0, t1._target, t1._eventType, W._wrapZone(new B.TabContent_processInput_closure0(this, input)), t1._useCapture), [H.getTypeArgumentByIndex(t1, 0)])._tryResume$0();
     },
     containsBadCharacter$1: function(newName) {
-      var badChars, t1, t2, $char;
-      badChars = "! @ $ % ^ & * ( ) + = , . / ' ; : \" ? > < [ ]  { } | ` #".split(" ");
+      var badChars, t1, t2, $char, line;
+      badChars = "! @ $ % ^ & * ( ) + = , . / ' ; : \" ? > < [ ] \\ { } | ` #".split(" ");
       for (t1 = new H.ListIterator(badChars, badChars.length, 0, null), t2 = newName.length; t1.moveNext$0();) {
         $char = t1._current;
         if ($char == null)
           H.throwExpression(P.ArgumentError$(null));
-        if (H.stringContainsUnchecked(newName, $char, 0))
+        if (H.stringContainsUnchecked(newName, $char, 0)) {
+          line = "name contains: '" + H.S($char) + "'";
+          H.printString(line);
           return true;
+        }
       }
       return false;
     },
