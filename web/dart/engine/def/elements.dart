@@ -44,6 +44,9 @@ Element moodPercent = querySelector('#MoodPercent');
 Element currLocation =  querySelector('#Location');
 Element map =  querySelector('#MapGlyph');
 Element mapWindow = querySelector('#MapWindow');
+Element mapImg = querySelector('#MapImg');
+Element mapTitle = querySelector('#MapTitle');
+Element mapCanvas = querySelector('#MapCanvas');
 
 // Time Meter Variables
 Element currDay = querySelector('#CurrDay');

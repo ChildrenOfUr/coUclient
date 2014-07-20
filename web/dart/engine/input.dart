@@ -393,7 +393,10 @@ class Input
 		if(target.id == "MapGlyph")
 		{
 			if(querySelector('#MapWindow').hidden)
-				showMap();
+			{
+			  ui._createMap();
+				showMap(); 
+			}
 			else
 				hideMap(1);
 		}

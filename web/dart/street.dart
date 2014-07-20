@@ -62,6 +62,55 @@ class Ladder
 	Ladder(this.id,this.boundary);
 }
 
+class WorldMap
+{
+  Map<String,String> hubInfo;
+  Map<String,String> hubMaps;
+  Map<String,String> moteInfo;
+  
+  DataMaps map = new DataMaps();
+  
+  WorldMap(String hub_id){
+    hubInfo = map.data_maps_hubs[hub_id]();
+    hubMaps = map.data_maps_maps[hub_id]();
+    moteInfo = map.data_maps_streets['9']();   
+    mapTitle.text = hubInfo['name'];
+    mapImg.style.backgroundImage = 'url(' +hubInfo['bg']+ ')';
+    //mapImg.setInnerHtml('<img src="' + hubInfo['fg']+ '"/>');
+    
+    //Unsure why warnings pop up here, everything works
+    
+    for (Map object in hubMaps['objs'].values) {
+
+      mapCanvas.context2D.lineCap="round";
+      mapCanvas.context2D.font = "14px Arial";
+      
+
+      if (object['type'] == 'S') {
+        String streetName = moteInfo[hub_id][object['tsid']];
+        mapCanvas.context2D.save();
+        
+        mapCanvas.context2D.lineWidth =1;
+        mapCanvas.context2D.strokeStyle = "#000000";
+        /* Issues with rotation of text
+        mapCanvas.context2D.translate(object['x1'] + mapCanvas.context2D.measureText(streetName).width / 2, object['y1'] + 5); 
+        mapCanvas.context2D.rotate(atan((object['x2']-object['x1'])/(object['y2']-object['y1']))+PI/4);
+        mapCanvas.context2D.translate(-(object['x1'] + mapCanvas.context2D.measureText(streetName).width / 2), -(object['y1'] + 5)); 
+        */
+        mapCanvas.context2D.strokeText(streetName,object['x1'],object['y1']);
+        
+        mapCanvas.context2D.restore();
+        
+        mapCanvas.context2D.strokeStyle = "#ffffbc";
+        mapCanvas.context2D.lineWidth = 5;
+        mapCanvas.context2D.moveTo(object['x1'],object['y1']);
+        mapCanvas.context2D.lineTo(object['x2'],object['y2']);
+        mapCanvas.context2D.stroke();        
+      } 
+    }
+  }
+}
+
 String playerTeleFrom = "";
 
 class Street 
@@ -72,8 +121,8 @@ class Street
 	List<Platform> platforms = new List();
 	List<Ladder> ladders = new List();
 	
-	DataMaps map = new DataMaps();
-	Map<String,String> hubInfo;
+	
+	
 	String hub_id;
 	
 	Rectangle bounds;
@@ -86,8 +135,7 @@ class Street
 		label = _data['label'];
 		
 		hub_id = _data['hub_id'];
-		hubInfo = map.data_maps_hubs[hub_id]();
-		print(hubInfo);
+
 		
 		if(chat.username != null)
 			sendLeftMessage(label);
