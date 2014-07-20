@@ -208,14 +208,19 @@ setMood(String value)
  */
 setMaxMood(String value)
 {
-	int intvalue = int.parse(value,onError:null);
-	if (intvalue != null)
+	int intvalue;
+	try
 	{
-		ui._mood = intvalue;
-		ui._setMood(ui._mood);
-		maxMoodText.text = value;
-		printConsole('Setting the maximum mood value to $value');
+		intvalue = int.parse(value);
 	}
+	catch(e)
+	{
+		intvalue = 100;
+	}
+	ui._mood = intvalue;
+	ui._setMood(ui._mood);
+	maxMoodText.text = value;
+	printConsole('Setting the maximum mood value to $value');
 }
 
 /**
@@ -223,14 +228,19 @@ setMaxMood(String value)
  */
 setCurrants(String value)
 {
-	// Force an int
-	int intvalue = int.parse(value,onError:null);
-	if (intvalue != null)
+	try
 	{
+		int intvalue = int.parse(value);
 		ui._setCurrants(intvalue);
 		localStorage["currants"] = value;
 		printConsole('Setting currants to $value');
-	}  
+	}
+	catch(e)
+	{
+		ui._setCurrants(0);
+		localStorage["currants"] = "0";
+		printConsole("error reading currants, set back to 0 (don't worry, they weren't real anyway)");
+	}
 }
 
 /**
@@ -238,14 +248,19 @@ setCurrants(String value)
  */
 setImg(String value)
 {
-	// Force an int
-	int intvalue = int.parse(value,onError:null);
-	if (intvalue != null)
+	try
 	{
+		int intvalue = int.parse(value);
 		ui._setImg(intvalue);
 		localStorage["img"] = value;
 		printConsole('Setting Img to $value');
-	}  
+	}
+	catch(e)
+	{
+		ui._setImg(0);
+		localStorage["img"] = "0";
+		printConsole("error reading img, set back to 0 (don't worry, they weren't real anyway)");
+	}
 }
 
 int getCurrants()
