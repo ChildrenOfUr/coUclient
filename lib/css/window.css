@@ -1,64 +1,62 @@
 #windowHolder .window{
-  position: absolute; 
-  top:calc(40% - 170px);
-  left:calc(50% - 285px);
+  position: absolute;
+  top: calc(40% - 170px);
+  left: calc(50% - 285px);
   padding: 21px;
-  width:550px;
-  height:350px;
+  width: 550px;
+  height: 350px;
   -moz-border-radius: 8px;
   border-radius: 8px;
   background-color: #eee;
   -webkit-box-shadow: 0px 0px 0px 8px rgba(0,0,0,0.1),  0px 0px 0px 2px rgba(0,0,0,0.3);
-  -moz-box-shadow: 0px 0px 0px 8px rgba(0,0,0,0.1), 0px 0px 0px 2px rgba(0,0,0,0.3); 
-  -o-box-shadow: 0px 0px 0px 8px rgba(0,0,0,0.1), 0px 0px 0px 2px rgba(0,0,0,0.3); 
+  -moz-box-shadow: 0px 0px 0px 8px rgba(0,0,0,0.1), 0px 0px 0px 2px rgba(0,0,0,0.3);
+  -o-box-shadow: 0px 0px 0px 8px rgba(0,0,0,0.1), 0px 0px 0px 2px rgba(0,0,0,0.3);
   -khtml-box-shadow: 0px 0px 0px 8px rgba(0,0,0,0.1), 0px 0px 0px 2px rgba(0,0,0,0.3);
   box-shadow: 0px 0px 0px 8px rgba(0,0,0,0.1), 0px 0px 0px 2px rgba(0,0,0,0.3);
-  z-index:2;
+  z-index: 2;
 }
 
 #windowHolder .window header {
-  position:absolute;
-  top:7px;
-  left:50px;
-  font-size:24px;
+  position: absolute;
+  top: 7px;
+  left: 50px;
+  font-size: 24px;
 }
 .window article {
   font-family: 'Tahoma', 'Geneva', 'sans-serif';
-  color:#000;
-  font-size:12px;
-  padding:0;
-  position:absolute;
-  top:45px;
-  left:10px;
-  width:560px;
-  height:350px;
+  color: #000;
+  font-size: 12px;
+  padding: 0;
+  position: absolute;
+  top: 45px;
+  left: 10px;
+  width: 560px;
+  height: 350px;
   -moz-border-radius: 8px;
   border-radius: 8px;
-  overflow:hidden;
+  overflow: hidden;
 }
 
 .window .fa-times.close {
-  color:#ba381a;
-  position:absolute;
-  top:10px;
-  left:545px;
-  font-size:24px;
-  cursor:pointer;
+  color: #ba381a;
+  position: absolute;
+  top: 10px;
+  left: 545px;
+  font-size: 24px;
+  cursor: pointer;
 }
 
 #bagWindow article {
-  background-color:#eee;
-  text-align:center;
+  text-align: center;
 }
 #bugWindow textarea {
-  margin:5px;
-  width:548px;
+  margin: 5px;
+  width: 548px;
 }
 #bugWindow .button {
-  float:right;
-  width:50px;
-  margin:3%;
-  margin-top:0;
+  float: right;
+  width: 100px;
+  margin-top: 10px;
 }
 
 #bugWindow textarea {
@@ -94,20 +92,17 @@
     position: relative;
     margin-left: 5px;
     display: inline-block;
-    margin-top: 15px;
-    width: 50%;
+    margin-top: 5px;
 }
 
-#butWindow button {
-    float: right;
-    width: 100px;
-    margin-top: 10px;
+#bugWindow input[type="email"] {
+		width: 50%;
+		margin-top: 15px;
 }
-
 
 #motdFrame {
-  border:none;
-  height:100%;
-  width:100%;
-  margin:0;
+  border: none;
+  height: 100%;
+  width: 100%;
+  margin: 0;
 }
