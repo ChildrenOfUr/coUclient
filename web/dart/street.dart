@@ -91,6 +91,37 @@ class WorldMap
       if (object['type'] == 'S') {
         String streetName = moteInfo[hub_id][object['tsid']];
         
+        /*CanvasElement lineCanvas = new CanvasElement();
+        lineCanvas.width = mapCanvas.width;
+        lineCanvas.height = mapCanvas.height;
+        lineCanvas.context2D.lineCap="round";
+        lineCanvas.context2D.miterLimit=2;
+        lineCanvas.context2D.strokeStyle = "rgba(255, 255, 240, 0.25)";
+        lineCanvas.context2D.lineWidth = 5;
+        lineCanvas.context2D.moveTo(object['x1'],object['y1']);
+        lineCanvas.context2D.lineTo(object['x2'],object['y2']);
+        lineCanvas.context2D.stroke();
+        mapCanvas.context2D.drawImage(lineCanvas, 0, 0);
+        
+        CanvasElement textCanvas = new CanvasElement();
+        textCanvas.width = mapCanvas.width;
+        textCanvas.height = mapCanvas.height;
+        textCanvas.context2D.font = "12px Arial";
+        textCanvas.context2D.fillStyle = "#000000";
+        
+        textCanvas.context2D.moveTo(0,0);
+        textCanvas.context2D.translate((object['x1']+object['x2'])/2, (object['y1']+object['y2'])/2); 
+        textCanvas.context2D.rotate(atan((object['y2']-object['y1'])/(object['x2']-object['x1'])));
+        textCanvas.context2D.translate(-((object['x1']+object['x2'])/2), -((object['y1']+object['y2'])/2)); 
+        
+        textCanvas.context2D.lineWidth = 2;
+        textCanvas.context2D.strokeStyle = "#FFFFFF";
+        textCanvas.context2D.strokeText(streetName,((object['x1']+object['x2'])/2 - (mapCanvas.context2D.measureText(streetName).width / 2)), ((object['y1']+object['y2'])/2 + 4));
+        textCanvas.context2D.lineWidth = 1;
+        textCanvas.context2D.strokeStyle = "#000000";
+        textCanvas.context2D.strokeText(streetName,((object['x1']+object['x2'])/2 - (mapCanvas.context2D.measureText(streetName).width / 2)), ((object['y1']+object['y2'])/2 + 4));
+		mapCanvas.context2D.drawImage(textCanvas, 0, 0);*/
+        
         mapCanvas.context2D.save();
         mapCanvas.context2D.font = "14px Arial";
         mapCanvas.context2D.strokeStyle = "rgba(255, 255, 240, 0.25)";
