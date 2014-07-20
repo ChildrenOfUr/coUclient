@@ -46,7 +46,7 @@ Element map =  querySelector('#MapGlyph');
 Element mapWindow = querySelector('#MapWindow');
 Element mapImg = querySelector('#MapImg');
 Element mapTitle = querySelector('#MapTitle');
-Element mapCanvas = querySelector('#MapCanvas');
+CanvasElement mapCanvas = querySelector('#MapCanvas');
 
 // Time Meter Variables
 Element currDay = querySelector('#CurrDay');

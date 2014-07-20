@@ -65,7 +65,7 @@ class Ladder
 class WorldMap
 {
   Map<String,String> hubInfo;
-  Map<String,String> hubMaps;
+  Map<String,Map> hubMaps;
   Map<String,String> moteInfo;
   
   DataMaps map = new DataMaps();
@@ -77,36 +77,71 @@ class WorldMap
     mapTitle.text = hubInfo['name'];
     mapImg.style.backgroundImage = 'url(' +hubInfo['bg']+ ')';
     //mapImg.setInnerHtml('<img src="' + hubInfo['fg']+ '"/>');
+    mapCanvas.context2D.clearRect(0, 0, mapCanvas.width, mapCanvas.height);
     
-    //Unsure why warnings pop up here, everything works
+    // TODO: There seems to be some kind of draw error here, the street lines draw stroke too many times, perhaps?
+    // Text is always buried under street lines.
     
     for (Map object in hubMaps['objs'].values) {
 
       mapCanvas.context2D.lineCap="round";
-      mapCanvas.context2D.font = "14px Arial";
+      mapCanvas.context2D.font = "12px Arial";
+      mapCanvas.context2D.miterLimit=2;
       
-
       if (object['type'] == 'S') {
         String streetName = moteInfo[hub_id][object['tsid']];
+        
         mapCanvas.context2D.save();
-        
-        mapCanvas.context2D.lineWidth =1;
-        mapCanvas.context2D.strokeStyle = "#000000";
-        /* Issues with rotation of text
-        mapCanvas.context2D.translate(object['x1'] + mapCanvas.context2D.measureText(streetName).width / 2, object['y1'] + 5); 
-        mapCanvas.context2D.rotate(atan((object['x2']-object['x1'])/(object['y2']-object['y1']))+PI/4);
-        mapCanvas.context2D.translate(-(object['x1'] + mapCanvas.context2D.measureText(streetName).width / 2), -(object['y1'] + 5)); 
-        */
-        mapCanvas.context2D.strokeText(streetName,object['x1'],object['y1']);
-        
-        mapCanvas.context2D.restore();
-        
-        mapCanvas.context2D.strokeStyle = "#ffffbc";
+        mapCanvas.context2D.font = "14px Arial";
+        mapCanvas.context2D.strokeStyle = "rgba(255, 255, 240, 0.25)";
         mapCanvas.context2D.lineWidth = 5;
         mapCanvas.context2D.moveTo(object['x1'],object['y1']);
         mapCanvas.context2D.lineTo(object['x2'],object['y2']);
-        mapCanvas.context2D.stroke();        
+        mapCanvas.context2D.stroke();  
+        
+        mapCanvas.context2D.restore();
+        mapCanvas.context2D.save();
+        
+        mapCanvas.context2D.fillStyle = "#000000";
+        
+        mapCanvas.context2D.moveTo(0,0);
+        mapCanvas.context2D.translate((object['x1']+object['x2'])/2, (object['y1']+object['y2'])/2); 
+        mapCanvas.context2D.rotate(atan((object['y2']-object['y1'])/(object['x2']-object['x1'])));
+        mapCanvas.context2D.translate(-((object['x1']+object['x2'])/2), -((object['y1']+object['y2'])/2)); 
+        
+        mapCanvas.context2D.lineWidth = 2;
+        mapCanvas.context2D.strokeStyle = "#FFFFFF";
+        mapCanvas.context2D.strokeText(streetName,((object['x1']+object['x2'])/2 - (mapCanvas.context2D.measureText(streetName).width / 2)), ((object['y1']+object['y2'])/2 + 4));
+        mapCanvas.context2D.lineWidth = 1;
+        mapCanvas.context2D.strokeStyle = "#000000";
+        mapCanvas.context2D.strokeText(streetName,((object['x1']+object['x2'])/2 - (mapCanvas.context2D.measureText(streetName).width / 2)), ((object['y1']+object['y2'])/2 + 4));
+
+        mapCanvas.context2D.restore();
+        
       } 
+      else if (object['type'] == 'X') {
+        mapCanvas.context2D.font = "14px Arial";
+        mapCanvas.context2D.beginPath();
+        mapCanvas.context2D.arc(object['x'], object['y'], 18, 0, 2 * PI, false);
+        //this is the To color instead of the away
+        mapCanvas.context2D.fillStyle = map.data_maps_hubs[object['hub_id']]()['color'];
+        mapCanvas.context2D.fill();
+        mapCanvas.context2D.strokeStyle = '#FFFFFF';
+        mapCanvas.context2D.stroke();
+        mapCanvas.context2D.lineWidth = 4;
+        mapCanvas.context2D.strokeText('To: ' + map.data_maps_hubs[object['hub_id']]()['name'], 
+            object['x'] + (sin(PI/180*object['label']) * 70) - mapCanvas.context2D.measureText(map.data_maps_hubs[object['hub_id']]()['name']).width * .8, 
+            object['y'] - (cos(PI/180*object['label']) * 35) + 8);
+        mapCanvas.context2D.lineWidth = .9;
+        mapCanvas.context2D.strokeStyle = map.data_maps_hubs[object['hub_id']]()['color'];
+        mapCanvas.context2D.strokeText('To: ' + map.data_maps_hubs[object['hub_id']]()['name'], 
+            object['x'] + (sin(PI/180*object['label']) * 70) - mapCanvas.context2D.measureText(map.data_maps_hubs[object['hub_id']]()['name']).width * .8, 
+            object['y'] - (cos(PI/180*object['label']) * 35) + 8);
+        mapCanvas.context2D.lineWidth = 2;
+        mapCanvas.context2D.font = "18px Arial";
+        mapCanvas.context2D.fillStyle = '#FFFFFF';
+        mapCanvas.context2D.fillText('GO',object['x']-14, object['y']+7);
+      }
     }
   }
 }

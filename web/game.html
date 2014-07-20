@@ -187,14 +187,16 @@
 	      </div>
 
 	<!-- Map Window -->
-	<div class="PopWindow" id="MapWindow" hidden="true" style="width:720px; height:480px; padding:0px important">
-		<div class="PopWindowHeader handle"style="height:40px">
-            <div id="MapTitle"></div>
+	<div class="PopWindow" id="MapWindow" hidden="true" style="width:760px; height:500px; padding-left:0px; padding-right:0px; padding-bottom:0px">
+		<div class="PopWindowHeader handle"style="height:40px;">
+            <div id="MapTitle" style="text-align:center; font-size:30px"></div>
             <i id="CloseMap" class="fa fa-times fa-lg red"></i>
+            <!-- Removed until fixed
             <textarea class="MapSearchInput" spellcheck="false" rows="1">Search</textarea>
+            -->
 		</div>
-        <div id="MapImg" style="min-width:760px; min-height:460px">
-        <canvas id="MapCanvas" width="760" height="460" style="border:1px solid #000000; position:absolute; top:10; left:0"></canvas>
+        <div id="MapImg" style="min-width:760px; min-height:460px;">
+        <canvas id="MapCanvas" width="760" height="460" style="position:absolute; top:10; left:-10"></canvas>
         </div>
         
 	</div>
