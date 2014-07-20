@@ -13,7 +13,7 @@
    <link rel="stylesheet" href="style.css">
   </head>
   <body>
-    
+
     <div id="loading">
         <div class="splash">
           Children of<br>
@@ -21,14 +21,14 @@
           <div id="playButton" class="button" hidden>PLAY</div>
           <div id="mobileButton" class="button" hidden>
             <i class="fa fa-mobile"></i>
-          </div>        
+          </div>
         </div>
         <div id="loadstatus">Loading</div>
         <br>
         <div id="loadstatus2">This Stuff</div>
       </div>
-    
-    
+
+
     <main>
      <!-- THE VARIOUS METERS AT THE TOP LEFT OF THE SCREEN -->
       <span id="playerName"></span>
@@ -39,7 +39,7 @@
       <div id="energyDisks">
         <img class="green" src="packages/couclient/system/energymeter.svg">
         <img class="red" src="packages/couclient/system/energymeterred.svg">
-      </div> 
+      </div>
       <img id="topLeftMask" src="packages/couclient/system/leftcornerover.svg">
       <img id="enbolt" src="packages/couclient/system/energybolt.svg">
       <div id="leftDisk">
@@ -63,13 +63,13 @@
         </div>
       </div>
       <!-- ------------------------------------------------ -->
-      
+
 
       <div id="mapDisplay">
         <div class="label">
         Current Location:</div>
         <div id="currLocation"></div>
-        
+
         <div id="mapButton" class="button light">
           <i class="fa fa-map-marker"></i>
         </div>
@@ -82,17 +82,17 @@
         </a>
         <i id="volumeGlyph" class="fa fa-volume-up"></i>
         <span id="volumeSlider">
-          <input type="range" id="VolumeSlider" min="0" max="100" step="1">       
+          <input type="range" id="VolumeSlider" min="0" max="100" step="1">
         </span>
         <i id="settingsGlyph" class="fa fa-cog"></i>
       </nav>
-      
+
       <span id="currDay">N</span>
       <span id="currTime">N:NN</span>
       <span id="currDate">Nth of N</span>
 
       <div id="game">
-      
+
         <div id="overlayHolder">
           <div id="pauseMenu" class="overlay" hidden>
            <i class="fa-li fa fa-times close"></i>
@@ -104,18 +104,18 @@
             </div>
             <div id="pauseUpgrades">
               <h2>Upgrades</h2>
-            </div>            
+            </div>
           </div>
         </div>
-      
+
         <div id="world">
           <div id="street">
           <div id="layers"></div>
           <div id="playerHolder"></div>
           </div>
         </div>
-      
-      
+
+
         <div id="streetLoading">
           <br><br>
           <h2>Now Entering:<br>
@@ -125,10 +125,10 @@
           <div class="percent"></div>
           </div>
         </div>
-        
+
       </div>
-      
-      
+
+
       <div id="inventorySearch">
         <i class="fa fa-search"></i>
       </div>
@@ -142,18 +142,16 @@
         <div class="box"></div>
         <div class="box"></div>
         <div class="box"></div>
-        <div class="box"></div>  
+        <div class="box"></div>
       </div>
-      
-      <input type="text" placeholder="Search Inventory..." id="invsearch">
-      
+
       <div id="energyText">
           <span id="currEnergy">n</span>
           <span>/</span>
           <span id="maxEnergy">n</span>
           <div>Energy</div>
       </div>
-            
+
       <div id="currantBack">
         <img src="packages/couclient/system/currant.svg" id="currantEmblem">
         <div id="currantText">
@@ -161,12 +159,12 @@
           <div id="currantLabel">Currants</div>
         </div>
       </div>
-      
+
       <div id="rightSide">
         <div class="toggleSide">
           <i class="fa fa-chevron-left"></i>
         </div>
-      
+
         <ul id="miscList" class="fa-ul">
           <li> <i class="fa-li fa fa-rocket"></i>
             Console
@@ -178,7 +176,7 @@
             Global Chat
           </li>
         </ul>
-            
+
         <h3>Groups</h3>
         <ul id="groupList" class="fa-ul">
           <li class="online"> <i class="fa-li fa fa-square"></i>
@@ -191,7 +189,7 @@
             Swimming
           </li>
         </ul>
-        
+
         <h3>Friends</h3>
         <ul id="friendsList" class="fa-ul">
           <li class="online"> <i class="fa-li fa fa-user"></i>
@@ -207,10 +205,10 @@
 
       </div>
 
-      <div id="panel">    
-      
-      
-      
+      <div id="panel">
+
+
+
         <div id="conversationTemplate" hidden>
           <div class="conversation">
             <header>
@@ -225,9 +223,9 @@
             </span>
           </div>
         </div>
-        
+
       </div>
- 
+
       <div id="SCwidget">
         <div><a id="SCLink" target="_blank"><span id="trackTitle">The Song</span><br> By <span id="trackArtist">The Artist</span></a></div>
           <audio id="musicBox"></audio>
@@ -235,10 +233,10 @@
           <i class="fa fa-soundcloud"></i> SOUNDCLOUD
         </a>
       </div>
-      
-      
+
+
       <div id="windowHolder">
-      
+
         <div id="settingsWindow" class="window" hidden>
           <i class="fa-li fa fa-times close"></i>
           <header>
@@ -246,7 +244,7 @@
             Settings
           </header>
           <article>
-          
+
           <div id="keyboard">
               <table style="text-align: center;">
               <tr>
@@ -281,17 +279,17 @@
                 <td><span class = "KeyBindingOption" id="JumpBindingAlt">space_bar</span></td>
               </tr>
             </table>
-                    
+
           </div>
-          
+
           <div id="audio">
           <div class="tab">Audio</div>
 
           </div>
-          
+
           </article>
         </div>
-        
+
         <div id="mapWindow" class="window" hidden>
           <i class="fa-li fa fa-times close"></i>
           <header>
@@ -302,7 +300,7 @@
           A map should go here.
           </article>
         </div>
-        
+
         <div id="bagWindow" class="window" hidden>
           <i class="fa-li fa fa-times close"></i>
           <header>
@@ -326,9 +324,11 @@
             <div class="box"></div>
             <div class="box"></div>
             <div class="box"></div>
+
+            <input type="text" placeholder="Search Inventory..." id="invsearch">
           </article><!--Cross-Domain Asset Fix-->
         </div>
-        
+
         <div id="bugWindow" class="window" hidden>
           <i class="fa-li fa fa-times close"></i>
           <header>
@@ -353,7 +353,7 @@
               <div class="button">Submit Report</div>
           </article>
         </div>
-        
+
         <div id="motdWindow" class="window">
           <i class="fa-li fa fa-times close"></i>
           <header>
@@ -361,7 +361,7 @@
             Message of the Day
           </header>
           <article>
-          Copyright 2014 CoU Development Team, Children of Ur is not endorsed by or affiliated with <a href="http://tinyspeck.com/">Tiny Speck, Inc.</a> (The makers of <a href="http://glitchthegame.com">Glitch</a>) in any way.     
+          Copyright 2014 CoU Development Team, Children of Ur is not endorsed by or affiliated with <a href="http://tinyspeck.com/">Tiny Speck, Inc.</a> (The makers of <a href="http://glitchthegame.com">Glitch</a>) in any way.
           <br>
           Command Console is now merged with the chat. Many commands have not been implemented yet. Here are some that are: '/mood', '/maxmood', '/energy', '/maxenergy', '/int', '/currants', /playsound.
           '/event' is special, it will allow you to trigger any event that is supposed to contain a string, see sourcecode for details.
@@ -369,13 +369,13 @@
         </div>
 
       </div>
-      
+
     </main>
-   
+
     <div id="youWon" hidden><br><br><br><br>
       WAIT! You were just about to win the game!
     </div>
-   
+
     <!--Cross-Domain Asset Fix-->
     <script type="text/javascript">
       function getRoom(dataJSON){window.postMessage(JSON.stringify(dataJSON),'*');}
