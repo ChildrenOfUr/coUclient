@@ -6037,37 +6037,51 @@ var $$ = {};
     }
   }, "call$1", "setMood$closure", 2, 0, 0],
   setMaxMood: [function(value) {
-    var intvalue, t1;
-    intvalue = H.Primitives_parseInt(value, null, null);
-    if (intvalue != null) {
-      t1 = $.get$ui();
-      t1._mood = intvalue;
-      t1._setMood$1(intvalue);
-      $.get$maxMoodText().textContent = value;
-      B.updateConsole("Setting the maximum mood value to " + H.S(value));
+    var intvalue, exception, t1, t2;
+    intvalue = null;
+    try {
+      intvalue = H.Primitives_parseInt(value, null, null);
+    } catch (exception) {
+      H.unwrapException(exception);
+      intvalue = 100;
     }
+
+    t1 = $.get$ui();
+    t2 = intvalue;
+    t1._mood = t2;
+    t1._setMood$1(t2);
+    $.get$maxMoodText().textContent = value;
+    B.updateConsole("Setting the maximum mood value to " + H.S(value));
   }, "call$1", "setMaxMood$closure", 2, 0, 0],
   setCurrants: [function(value) {
-    var intvalue, t1;
-    intvalue = H.Primitives_parseInt(value, null, null);
-    if (intvalue != null) {
-      t1 = $.get$ui();
-      t1._currants = intvalue;
-      $.get$currantMeter().textContent = t1.commaFormatter.format$1(0, intvalue);
+    var intvalue, exception;
+    try {
+      intvalue = H.Primitives_parseInt(value, null, null);
+      $.get$ui()._setCurrants$1(intvalue);
       $.get$localStorage().setItem("currants", value);
       B.updateConsole("Setting currants to " + H.S(value));
+    } catch (exception) {
+      H.unwrapException(exception);
+      $.get$ui()._setCurrants$1(0);
+      $.get$localStorage().setItem("currants", "0");
+      B.updateConsole("error reading currants, set back to 0 (don't worry, they weren't real anyway)");
     }
+
   }, "call$1", "setCurrants$closure", 2, 0, 0],
   setImg: [function(value) {
-    var intvalue, t1;
-    intvalue = H.Primitives_parseInt(value, null, null);
-    if (intvalue != null) {
-      t1 = $.get$ui();
-      t1._img = intvalue;
-      $.get$imgMeter().textContent = t1.commaFormatter.format$1(0, intvalue);
+    var intvalue, exception;
+    try {
+      intvalue = H.Primitives_parseInt(value, null, null);
+      $.get$ui()._setImg$1(intvalue);
       $.get$localStorage().setItem("img", value);
       B.updateConsole("Setting Img to " + H.S(value));
+    } catch (exception) {
+      H.unwrapException(exception);
+      $.get$ui()._setImg$1(0);
+      $.get$localStorage().setItem("img", "0");
+      B.updateConsole("error reading img, set back to 0 (don't worry, they weren't real anyway)");
     }
+
   }, "call$1", "setImg$closure", 2, 0, 0],
   setName: [function(value) {
     var t1, newValue;
@@ -9213,6 +9227,14 @@ var $$ = {};
         J.set$opacity$x($.get$moodmeterImageEmpty().style, C.JSInt_methods.toString$0(1));
       else
         J.set$opacity$x($.get$moodmeterImageEmpty().style, C.JSInt_methods.toString$0(0));
+    },
+    _setCurrants$1: function(newValue) {
+      this._currants = newValue;
+      $.get$currantMeter().textContent = this.commaFormatter.format$1(0, newValue);
+    },
+    _setImg$1: function(newValue) {
+      this._img = newValue;
+      $.get$imgMeter().textContent = this.commaFormatter.format$1(0, newValue);
     },
     _setMute$1: function(isMuted) {
       if (isMuted != null && isMuted === "1") {
