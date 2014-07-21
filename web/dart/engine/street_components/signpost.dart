@@ -4,7 +4,7 @@ class Signpost
 {
 	DivElement pole;
 	
-	Signpost(Map signpost, int x, int y, DivElement interactionsCanvas)
+	Signpost(Map signpost, int x, int y, DivElement interactionsCanvas, DivElement gradientCanvas)
 	{		
 		pole = new DivElement()
 	        ..style.backgroundImage = "url('http://childrenofur.com/locodarto/scenery/sign_pole.png')"
@@ -43,7 +43,7 @@ class Signpost
 			if(i %2 != 0)
 			{
 				//this is a temporary append so that we can figure out its width
-  				document.body.append(span);
+  				gradientCanvas.append(span);
   				span.style.left = (x-span.clientWidth).toString() + "px";
   				span.style.transform = "rotate(5deg)";
     		}

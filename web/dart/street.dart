@@ -240,7 +240,7 @@ class Street
 				x += layer['w']~/2;
   			}
           
-			new Signpost(signpost,x,y,interactionCanvas);
+			new Signpost(signpost,x,y,interactionCanvas,gradientCanvas);
         }
         
         // Append the canvas to the screen
