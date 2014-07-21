@@ -397,8 +397,6 @@ setVolume(String value, bool mute)
 
 /**
  * Shows the map.
- * 
- *
  */
 showMap()
 {

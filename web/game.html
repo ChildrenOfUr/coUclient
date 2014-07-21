@@ -62,6 +62,7 @@
             		</div>
           		</div>
         </div>
+
         <div id="GameScreen">
 			<div id="Layers"></div>
 			<div id="PlayerHolder"></div>
@@ -186,13 +187,18 @@
 	      </div>
 
 	<!-- Map Window -->
-	<div class="PopWindow" id="MapWindow" hidden="true">
-		<div class="PopWindowHeader handle">
-	  		Map <!-- hub , else "World Map" -->
-            <i id="CloseMap" class="fa fa-times fa-lg red"></i>
+	<div class="PopWindow" id="MapWindow" hidden="true" style="width:760px; height:500px; padding-left:0px; padding-right:0px; padding-bottom:0px">
+		<div class="PopWindowHeader handle"style="height:40px;">
+            <div id="MapTitle" style="text-align:center; font-size:30px"></div>
+            <i id="CloseMap" class="fa fa-times fa-lg red" top="0px"></i>
+            <!-- Removed until fixed
             <textarea class="MapSearchInput" spellcheck="false" rows="1">Search</textarea>
-
+            -->
 		</div>
+        <div id="MapImg" style="min-width:760px; min-height:460px;">
+        <canvas id="MapCanvas" width="760" height="460" style="position:absolute; top:10; left:-10"></canvas>
+        </div>
+        
 	</div>
 
     <!-- Development Console -->

@@ -34,6 +34,13 @@ part 'dart/engine/def/elements.dart';
 
 // Game parts
 part 'dart/street.dart';
+part 'dart/engine/street_components/camera.dart';
+part 'dart/engine/street_components/ladder.dart';
+part 'dart/engine/street_components/platform.dart';
+part 'dart/engine/street_components/worldmap.dart';
+part 'dart/engine/street_components/signpost.dart';
+part 'dart/engine/street_components/deco.dart';
+part 'dart/maps_data.dart';
 part 'dart/player.dart';
 part 'dart/chat_bubble.dart';
 part 'dart/npc.dart';
