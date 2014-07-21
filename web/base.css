@@ -861,11 +861,13 @@ text-decoration: underline;
 /*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 /*Popup elements*/
 .PopWindow{
-  position: fixed; 
-  top:50%;
-  left:50%;
-  margin-top:-194px;
-  margin-left:-340px;
+  position: absolute; 
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  z-index: 2;
   padding: 21px;
   width:590px;
   height:348px;
@@ -939,9 +941,11 @@ text-decoration: underline;
     float: right;
 }
 #CloseMap {
-	float: right;
-	top: 3px;
-	padding-left:20px;
+	top: 10px;
+	right: 10px;
+	margin-left: 20px;
+	position: absolute;
+	cursor: pointer;
 }
 
 /*Styling for a 'console' type window*/
@@ -990,9 +994,11 @@ text-decoration: underline;
 }
 #CloseConsole {
 	float: right;
+	cursor: pointer;
 }
 #CloseSettings {
 	float: right;
+	cursor: pointer;
 }
 
 .WebView {
