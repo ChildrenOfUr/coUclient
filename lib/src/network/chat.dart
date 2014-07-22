@@ -21,7 +21,12 @@ class NetChatManager extends Pump {
 
         })
         ..onMessage.listen((MessageEvent message) {
-          new Moment('ChatEvent', JSON.decoder.convert(message.data), 'incoming Chat message');
+          Map data = JSON.decoder.convert(message.data);
+          print(message.data);
+          if (data['statusMessage'] == 'list')
+            new Moment('ChatListEvent', data, 'incoming Chat message');
+          else
+            new Moment('ChatEvent', data, 'incoming Chat message');
         })
         ..onClose.listen((_) {
           //wait 5 seconds and try to reconnect

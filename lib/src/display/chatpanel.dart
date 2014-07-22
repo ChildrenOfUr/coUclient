@@ -8,19 +8,25 @@ class ChatUIManager extends Pump {
 
   ChatUIManager() {
     //load emoticons
-    new Asset("packages/couclient/emoticons/emoticons.json").load().then((Asset asset) => EMOTICONS = asset.get()["names"]);    
-    
+    new Asset("packages/couclient/emoticons/emoticons.json").load().then((Asset asset) => EMOTICONS = asset.get()["names"]);
+
 
     // Subscribe to the Bus
     EVENT_BUS > this;
   }
-  
+
   @override
-  process(Moment <Map> event) {
+  process(Moment<Map> event) {
     // ChatEvents are drawn to their Conversation.
     if (event.isType('ChatEvent')) {
       for (Chat convo in openConversations) {
         if (convo.title == event()['channel']) convo.addMessage(event()['username'], event()['message']);
+      }
+    }
+    // List online players
+    if (event.isType('ChatListEvent')) {
+      for (Chat convo in openConversations) {
+        if (convo.title == event()['channel']) convo.addAlert("Players in this Channel:  ${event()['users']}".replaceAll('[','').replaceAll(']',''));
       }
     }
     // StartChat events start a Conversation
@@ -235,14 +241,12 @@ class Chat {
   parseInput(String input) {
     Map map = new Map();
     // if its' not a command, send it through.
-    if (parseCommand(input))
-      return;
-    else {
+    if (parseCommand(input)) return; else {
       map["username"] = ui.username;
       map["message"] = input;
       map["channel"] = title;
       //if (channelName == "Local Chat") map["street"] = currentStreet.label;
-      new Moment('OutgoingChatEvent',map, 'parseInput');
+      new Moment('OutgoingChatEvent', map, 'parseInput');
     }
   }
 }
@@ -252,14 +256,14 @@ class ChatMessage {
   String player, message;
   ChatMessage(this.player, this.message);
   String toHtml() {
-    if (message is String == false) return '';    
+    if (message is String == false) return '';
     String html;
-    
+
     message = parseUrl(message);
     message = parseEmoji(message);
 
     if (message.toLowerCase().contains(ui.username.toLowerCase())) {
-      new Moment('PlaySound','mention');
+      new Moment('PlaySound', 'mention');
     }
 
     if (player == null) {
