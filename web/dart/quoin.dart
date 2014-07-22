@@ -1,24 +1,8 @@
 part of coUclient;
 
-class Quoins 
-{
-	final int _value;
-	final String _name;
-	const Quoins._internal(this._value,this._name);
-	toString() => 'Quoin.$_name';
-	
-	static const IMG = const Quoins._internal(0,"img");
-	static const MOOD = const Quoins._internal(1,"mood");
-	static const ENERGY = const Quoins._internal(2,"energy");
-	static const CURRANT = const Quoins._internal(3,"currant");
-	static const MYSTERY = const Quoins._internal(4,"mystery");
-	static const FAVOR = const Quoins._internal(5,"favor");
-	static const TIME = const Quoins._internal(6,"time");
-	static const QUARAZY = const Quoins._internal(7,"quarazy");
-}
-
 class Quoin
 {
+	Map <String,int> quoins = {"img":0,"mood":1,"energy":2,"currant":3,"mystery":4,"favor":5,"time":6,"quarazy":7};
 	Animation animation;
 	bool ready = false, firstRender = true;
 	CanvasElement canvas;
@@ -27,21 +11,13 @@ class Quoin
 	{
 		String typeString = map['type'];
 		String id = map["id"];
-		Quoins type;
-		if(typeString == "img")
-			type = Quoins.IMG;
-		else if(typeString == "mood")
-			type = Quoins.MOOD;
-		else if(typeString == "energy")
-			type = Quoins.ENERGY;
-		else if(typeString == "currant")
-			type = Quoins.CURRANT;
+		int quoinValue = quoins[typeString.toLowerCase()];
 		
 		List<int> frameList = [];
 		for(int i=0; i<24; i++)
-			frameList.add(type._value*24+i);
+			frameList.add(quoinValue*24+i);
 		
-		animation = new Animation(map['url'],type._name,8,24,frameList,fps:22)
+		animation = new Animation(map['url'],typeString.toLowerCase(),8,24,frameList,fps:22)
 			..load().then((_)
 			{
 				canvas = new CanvasElement();

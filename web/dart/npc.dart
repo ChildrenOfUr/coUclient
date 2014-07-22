@@ -17,6 +17,9 @@ class NPC
 		animation = new Animation(map['url'],"npc",map['numRows'],map['numColumns'],frameList);
 		animation.load().then((_)
 		{
+			posY = currentStreet.bounds.height - map['y'].toDouble() - animation.height;
+			posX = map['x'].toDouble();
+			
 			canvas = new CanvasElement();
         	canvas.id = map["id"];
         	canvas.attributes['actions'] = JSON.encode(map['actions']);
@@ -27,8 +30,6 @@ class NPC
         	canvas.style.position = "absolute";
         	canvas.attributes['translatex'] = posX.toString();
             canvas.attributes['translatey'] = posY.toString();
-        	posX = map['x'].toDouble();
-    		posY = (currentStreet.bounds.height - 170).toDouble();
         	querySelector("#PlayerHolder").append(canvas);
         	ready = true;
 		});
@@ -40,7 +41,7 @@ class NPC
 			return;
 		
 		animation.updateSourceRect(dt);
-		if(animation.spritesheet.src.contains("walk"))
+		if(firstRender || animation.url.contains("walk") || animation.url.contains("fly"))
 		{
 			if(facingRight)
 				posX += speed*dt;
@@ -52,13 +53,13 @@ class NPC
 			if(posX > currentStreet.bounds.width-canvas.width)
 				posX = (currentStreet.bounds.width-canvas.width).toDouble();
 			
+			canvas.attributes['translatex'] = posX.toString();
+            canvas.attributes['translatey'] = posY.toString();
+			
 			if(facingRight)
 				canvas.style.transform = "translateX(${posX}px) translateY(${posY}px) translateZ(0) scale(1,1)";
 			else
 				canvas.style.transform = "translateX(${posX}px) translateY(${posY}px) translateZ(0) scale(-1,1)";
-		
-			canvas.attributes['translatex'] = posX.toString();
-			canvas.attributes['translatey'] = posY.toString();
 		}
 	}
 	

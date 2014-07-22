@@ -9,7 +9,7 @@ class Plant
 	Rectangle sourceRect;
 	
 	Plant(Map map)
-	{		
+	{        		
 		numRows = map['numRows'];
 		numColumns = map['numColumns'];
                     
@@ -17,7 +17,7 @@ class Plant
 		for(int i=0; i<map['numFrames']; i++)
 			frameList.add(i);
 		
-		spritesheet = new ImageElement(src:map['url']);
+		spritesheet = new ImageElement(src:map['url'].replaceAll("\"",""));
 		spritesheet.onLoad.listen((_)
 		{
 			width = spritesheet.width~/map['numColumns'];

@@ -27,7 +27,7 @@ class Animation
 		//need to get the avatar background image size dynamically
 		//because we cannot guarentee that every glitchen has the same dimensions
 		//additionally each animation sprite has different dimensions even for the same glitchen
-		spritesheet = new ImageElement(src: url);
+		spritesheet = new ImageElement(src: url.replaceAll("\"", ""));
 		spritesheet.onLoad.listen((_)
 		{
 			width = spritesheet.width~/numColumns;

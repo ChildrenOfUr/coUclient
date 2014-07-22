@@ -1,7 +1,7 @@
 part of coUclient;
 
 String multiplayerServer = "ws://robertmcdermot.com:8080/playerUpdate";
-String streetEventServer = "ws://robertmcdermot.com:8080/streetUpdate";
+String streetEventServer = "ws://localhost:8181/streetUpdate";
 String joined = "";
 WebSocket streetSocket;
 bool reconnect = true;
@@ -81,6 +81,16 @@ _setupStreetSocket(String streetName)
 				}
 			}
 		});
+		(map["plants"] as List).forEach((Map plantMap)
+		{
+			String id = plantMap["id"];
+            Element element = querySelector("#$id");
+            Plant plant = plants[plantMap["id"]];
+			if(element == null)
+				addPlant(plantMap);
+			if(plant != null && plant.state != plantMap['state'])
+				plant.updateState(plantMap['state']);
+		});
 		(map["npcs"] as List).forEach((Map npcMap)
 		{
 			String id = npcMap["id"];
@@ -105,16 +115,6 @@ _setupStreetSocket(String streetName)
 				
 				npc.facingRight = npcMap["facingRight"];
 			}
-		});
-		(map["plants"] as List).forEach((Map plantMap)
-		{
-			String id = plantMap["id"];
-            Element element = querySelector("#$id");
-            Plant plant = plants[plantMap["id"]];
-			if(element == null)
-				addPlant(plantMap);
-			if(plant != null && plant.state != plantMap['state'])
-				plant.updateState(plantMap['state']);
 		});
 	});
 	streetSocket.onClose.listen((_)
