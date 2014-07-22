@@ -68,7 +68,6 @@ Random random = new Random();
 NumberFormat commaFormatter = new NumberFormat("#,###");
 
 // GAME ENTRY //
-
 Game game = new Game();
 
 main() {

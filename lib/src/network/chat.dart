@@ -22,7 +22,6 @@ class NetChatManager extends Pump {
         })
         ..onMessage.listen((MessageEvent message) {
           Map data = JSON.decoder.convert(message.data);
-          print(message.data);
           if (data['statusMessage'] == 'list')
             new Moment('ChatListEvent', data, 'incoming Chat message');
           else

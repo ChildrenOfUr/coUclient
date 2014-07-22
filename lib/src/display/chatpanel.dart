@@ -20,18 +20,18 @@ class ChatUIManager extends Pump {
     // ChatEvents are drawn to their Conversation.
     if (event.isType('ChatEvent')) {
       for (Chat convo in openConversations) {
-        if (convo.title == event()['channel']) convo.addMessage(event()['username'], event()['message']);
+        if (convo.title == event.content['channel']) convo.addMessage(event.content['username'], event.content['message']);
       }
     }
     // List online players
     if (event.isType('ChatListEvent')) {
       for (Chat convo in openConversations) {
-        if (convo.title == event()['channel']) convo.addAlert("Players in this Channel:  ${event()['users']}".replaceAll('[','').replaceAll(']',''));
+        if (convo.title == event.content['channel']) convo.addAlert("Players in this Channel:  ${event.content['users']}".replaceAll('[','').replaceAll(']',''));
       }
     }
     // StartChat events start a Conversation
     if (event.isType('StartChat')) {
-      Chat chat = new Chat(event());
+      Chat chat = new Chat(event.content as String);
       openConversations.add(chat);
     }
   }

@@ -24,8 +24,6 @@ class Moment<T> {
       }
     });
   }
-  /// Directly calling the Event will give us it's contents.
-  call() => content;
 
   /// Checks to see if the event is the proper type, automatically flags it as detected if so.
   isType(String type) {
@@ -33,5 +31,9 @@ class Moment<T> {
       this.detected = true;
       return true;
     } else return false;
+  }
+  @override
+  noSuchMethod(var err) {
+    new Moment('DebugEvent', 'noSuchMethod on $type from $source!');
   }
 }
