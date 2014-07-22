@@ -117,12 +117,6 @@ class UserInterface extends Pump{
       youWon.hidden = false;
     });
 
-
-    // Close button listener, closes popup windows
-    for (Element e in querySelectorAll('.fa-times.close')) e.onClick.listen((MouseEvent m) {
-      e.parent.hidden = true;
-    });
-
     // Starts the game
     playButton.onClick.listen((_) {
       loadingScreen.style.opacity = '0';
@@ -200,10 +194,6 @@ class UserInterface extends Pump{
       currTime.text = clock.time;
       currDate.text = clock.day + ' of ' + clock.month;
     }    
-  }
-  
-  print(message) {
-    ui.consoleText.innerHtml += message.toString() + ';<br>';
   }
 
   // update the userinterface

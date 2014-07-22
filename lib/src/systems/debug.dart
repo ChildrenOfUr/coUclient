@@ -11,7 +11,6 @@ class DebugManager extends Pump {
       new Moment('ChatEvent',{ 
         'channel':'Global Chat',
         'message':'!:' +event.content.toString()});
-      ui.print(event.content);
     }
   }
 }

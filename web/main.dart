@@ -43,6 +43,7 @@ part 'package:couclient/src/network/multiplayer.dart';
 // UI/UX MODULES //
 part 'package:couclient/src/display/userinterface.dart';
 part 'package:couclient/src/display/chatpanel.dart';
+part 'package:couclient/src/display/windows.dart';
 part 'package:couclient/src/display/meters.dart';
 part 'package:couclient/src/display/audio.dart';
 
@@ -80,6 +81,7 @@ main() {
   new NetChatManager();
   
   // UI/UX
+  new WindowManager();
   new SoundManager();
   new ChatUIManager();
   new MeterManager();

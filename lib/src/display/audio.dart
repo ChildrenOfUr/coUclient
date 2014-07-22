@@ -12,7 +12,6 @@ class SoundManager extends Pump{
   }
   
   Future init() {
-    ui.print('Loading Sounds..');
     final c = new Completer();
     ui_sounds = new Batch([//iOS/safari/IE doesn't seem to like .ogg files
       //and dartium/Opera/older Firefox doesn't seem to like .mp3 files
@@ -24,7 +23,7 @@ class SoundManager extends Pump{
       new Asset('packages/couclient/system/drop.mp3'),
       new Asset('packages/couclient/system/game_loaded.mp3'),
       new Asset('packages/couclient/json/music.json') // soundcloud json
-    ])..load(ui.print, statusElement:ui.loadStatus2).then((_) {
+    ])..load(null, statusElement:ui.loadStatus2).then((_) {
           //start the loading music and attach it to the loadingScreen so that when that is removed the music stops
           play('loading', element: ui.loadingScreen);
 
@@ -36,7 +35,7 @@ class SoundManager extends Pump{
           c.complete();
         }).catchError((e) //in case audio does not start to load within 2 seconds
         {
-          ui.print(e.toString());
+          new Moment('DebugEvent', '$e', 'SoundManager');
           c.complete(e);
         });
     return c.future;
@@ -58,7 +57,8 @@ class SoundManager extends Pump{
         ui.SClink = s.meta['permalink_url'];
         s.play();
       });
-    } else ui.print('$name is not a recognised sound.');
+    } else 
+      new Moment('DebugEvent','$name is not a recognised sound.', 'SoundManager');
   }
   @override
   process(Moment event) {
