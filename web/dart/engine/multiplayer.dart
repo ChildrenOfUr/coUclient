@@ -1,7 +1,7 @@
 part of coUclient;
 
 String multiplayerServer = "ws://robertmcdermot.com:8080/playerUpdate";
-String streetEventServer = "ws://robertmcdermot.com:8080/streetUpdate";
+String streetEventServer = "ws://localhost:8181/streetUpdate";
 String joined = "";
 WebSocket streetSocket;
 bool reconnect = true;
@@ -125,6 +125,7 @@ _setupStreetSocket(String streetName)
 			return;
 		}
 		
+		joined = "";
 		//wait 5 seconds and try to reconnect
 		new Timer(new Duration(seconds:5),()
 		{
@@ -165,6 +166,7 @@ _setupPlayerSocket()
 	});
 	playerSocket.onClose.listen((_)
 	{
+		joined = "";
 		//wait 5 seconds and try to reconnect
 		new Timer(new Duration(seconds:5),()
 		{
@@ -320,59 +322,76 @@ Future animate(ImageElement i, Map map)
 void putInInventory(ImageElement img, Map map)
 {
 	String name = map['name'];
+	int stacksTo = 4;
+	if(map['stacksTo'] != null)
+		stacksTo = map['stacksTo'];
 	Element item;
 	
 	if(querySelector("#InventoryBar").querySelector(".item-$name") != null)
 	{
 		item = querySelector("#InventoryBar").querySelector(".item-$name");
 		int count = int.parse(item.attributes['count']);
-		count++;
-		int offset = count;
-		if(offset > 4)
-			offset = 4;
 		
-		num width = int.parse(item.style.width.replaceAll("px", ""));
-		item.style.backgroundPosition = "-${(offset-1)*width}px";
-		item.attributes['count'] = count.toString();
-		
-		Element itemCount = item.parent.querySelector(".itemCount");
-		if(itemCount != null)
-			itemCount.text = count.toString();
+		if(stacksTo < 4 && count >= stacksTo)
+			findNewSlot(item,map,img);
 		else
 		{
-			SpanElement itemCount = new SpanElement()
-				..text = count.toString()
-				..className = "itemCount";
-			item.parent.append(itemCount);
+			count++;
+    		int offset = count;
+    		if(offset > stacksTo)
+    			offset = stacksTo;
+    		
+    		num width = int.parse(item.style.width.replaceAll("px", ""));
+    		item.style.backgroundPosition = "-${(offset-1)*width}px";
+    		item.attributes['count'] = count.toString();
+    		
+    		Element itemCount = item.parent.querySelector(".itemCount");
+    		if(itemCount != null)
+    			itemCount.text = count.toString();
+    		else
+    		{
+    			SpanElement itemCount = new SpanElement()
+    				..text = count.toString()
+    				..className = "itemCount";
+    			item.parent.append(itemCount);
+    		}
 		}
 	}
 	else
     {
-		bool found = false;
-		//find first free item slot
-    	for(Element barSlot in querySelector("#InventoryBar").children)
-    	{
-    		if(barSlot.children.length == 0)
-    		{
-    			item = new DivElement();
-				item.style.width = barSlot.contentEdge.width.toString()+"px";
-				item.style.height = (img.height).toString()+"px";
-				item.style.backgroundImage = 'url(${map['url']})';
-				item.style.backgroundRepeat = 'no-repeat';
-				item.style.backgroundSize = "400% ${item.style.height}";
-				item.className = 'bounce item-'+map['name'];
-    			item.attributes['name'] = map['name'];
-    			item.attributes['count'] = "1";
-    			barSlot.append(item);
-    			found = true;
-    			break;
-    		}
-    	}
-    	
-    	//there was no space in the player's pack, drop the item on the ground instead
-    	if(!found)
-    	{
-    		
-    	}
+		findNewSlot(item,map,img);
     }
+}
+
+findNewSlot(Element item, Map map, ImageElement img)
+{
+	bool found = false;
+	int stacksTo = 4;
+	if(map['stacksTo'] != null)
+		stacksTo = map['stacksTo'];
+	//find first free item slot
+	for(Element barSlot in querySelector("#InventoryBar").children)
+	{
+		if(barSlot.children.length == 0)
+		{
+			item = new DivElement();
+			item.style.width = barSlot.contentEdge.width.toString()+"px";
+			item.style.height = (img.height).toString()+"px";
+			item.style.backgroundImage = 'url(${map['url']})';
+			item.style.backgroundRepeat = 'no-repeat';
+			item.style.backgroundSize = "${stacksTo*100}% ${item.style.height}";
+			item.className = 'bounce item-'+map['name'];
+			item.attributes['name'] = map['name'];
+			item.attributes['count'] = "1";
+			barSlot.append(item);
+			found = true;
+			break;
+		}
+	}
+	
+	//there was no space in the player's pack, drop the item on the ground instead
+	if(!found)
+	{
+		
+	}
 }

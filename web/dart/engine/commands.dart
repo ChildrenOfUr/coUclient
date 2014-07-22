@@ -441,6 +441,7 @@ sendAction(String action)
 	map['id'] = actionParts[1];
 	map['type'] = querySelector("#${actionParts[1]}").className;
 	map['streetName'] = currentStreet.label;
+	map['tsid'] = currentStreet._data['tsid'];
 	streetSocket.send(JSON.encode(map));
 }
 
