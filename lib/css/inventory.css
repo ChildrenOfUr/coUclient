@@ -23,9 +23,10 @@
   margin:4px 0px;
   border-bottom:2px solid rgba(0,0,0,0.3);
   z-index:1;
-  box-shadow: 0 0 15px 1px rgba(0,0,0,0.1); 
-  display: inline-block;  
+  box-shadow: 0 0 15px 1px rgba(0,0,0,0.1);
+  display: inline-block;
 }
+
 .box .icon {
   position:absolute;
   width:35px;
@@ -34,8 +35,6 @@
   left:calc(50% - 17.5px);
 }
 
-
-
 #inventorySearch {
   background-color:#eee;
   width:35px;
@@ -43,7 +42,7 @@
   border-radius:50%;
   position:absolute;
   bottom:70px;
-  left:0px;  
+  left:0px;
   cursor:pointer;
   z-index:0;
 }
@@ -54,6 +53,7 @@
   right:calc(40% - 0.5em);
   cursor:pointer;
 }
+
 #inventorySearch:hover, #inventorySearch *:hover {
   color:#999;
 }
@@ -62,13 +62,9 @@
 #invsearch {
   width: 430px;
   padding: 5px;
-  bottom: 20px;
-  position: absolute;
-  margin-left: 10px;
-  background-color: #fff;  border-radius: 8px;    
-  border: 2px solid rgba(0,0,0,0.3); 
-  z-index: 1; 
+  background-color: #fff;  border-radius: 8px;
+  border: 2px solid rgba(0,0,0,0.3);
+  z-index: 1;
   box-shadow: 0 0 15px 1px rgba(0,0,0,0.1); display: inline-block;
-  margin-bottom: 20px;     
-  margin-left: 50px;
+  margin-top: 80px;
 }
