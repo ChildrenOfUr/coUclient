@@ -2,10 +2,10 @@ part of couclient;
 
 UserInterface ui = new UserInterface();
 
-class UserInterface extends Pump{
+class UserInterface extends Pump {
 
   //NumberFormat for having commas in the currants and iMG displays
-  
+
   // If you need to change an element somewhere else, put the declaration in this class.
   // You can then access it with 'ui.yourElement'. This way we keep everything in one spot
   /////////////////////ELEMENTS//////////////////////////////////////////////
@@ -78,7 +78,7 @@ class UserInterface extends Pump{
   Element currMoodText = querySelector('#moodMeter .fraction .curr');
   Element maxMoodText = querySelector('#moodMeter .fraction .max');
   Element moodPercent = querySelector('#moodMeter .percent .number');
-  
+
   // Chat panel
   Element panel = querySelector('#panel');
   Element chatTemplate = querySelector('#conversationTemplate');
@@ -105,7 +105,7 @@ class UserInterface extends Pump{
     currDay.text = clock.dayofweek;
     currTime.text = clock.time;
     currDate.text = clock.day + ' of ' + clock.month;
-    
+
     // Load saved volume level
     if (local['volume'] != null) {
       volume = int.parse(local['volume']);
@@ -119,7 +119,7 @@ class UserInterface extends Pump{
     // Starts the game
     playButton.onClick.listen((_) {
       loadingScreen.style.opacity = '0';
-      new Moment('PlaySound','game_loaded');
+      new Moment('PlaySound', 'game_loaded');
       new Timer(new Duration(seconds: 1), () {
         loadingScreen.remove();
       });
@@ -147,19 +147,21 @@ class UserInterface extends Pump{
     });
 
 
-    // display buttons
-    for (Element button in loadingScreen.querySelectorAll('.button')) button.hidden = false;
-    loadingScreen.querySelector('.fa').hidden = true;
-  
+
     this & EVENT_BUS;
   }
 
   process(var event) {
-    if (event.isType('TimeUpdate')){
+    if (event.isType('TimeUpdate')) {
       currDay.text = clock.dayofweek;
       currTime.text = clock.time;
       currDate.text = clock.day + ' of ' + clock.month;
-    }    
+    }
+    if (event.isType('DoneLoading')) {
+      // display 'Play' buttons
+      for (Element button in loadingScreen.querySelectorAll('.button')) button.hidden = false;
+      loadingScreen.querySelector('.fa').hidden = true;
+    }
   }
 
   // update the userinterface
@@ -210,9 +212,6 @@ class UserInterface extends Pump{
     }
     window.requestAnimationFrame((_) => this.update());
   }
-
-
-
 }
 
 
@@ -246,7 +245,6 @@ class TouchScroller {
     });
   }
 }
-
 
 
 
