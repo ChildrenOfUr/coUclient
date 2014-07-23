@@ -20,3 +20,6 @@ dependencies:
     git:
       ref: master
       url: https://github.com/ChildrenOfUr/dart-slack.git
+transformers:
+- $dart2js:
+    minify: true

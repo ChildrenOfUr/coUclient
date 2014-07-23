@@ -6,7 +6,6 @@ class UserInterface extends Pump{
 
   //NumberFormat for having commas in the currants and iMG displays
   
-
   // If you need to change an element somewhere else, put the declaration in this class.
   // You can then access it with 'ui.yourElement'. This way we keep everything in one spot
   /////////////////////ELEMENTS//////////////////////////////////////////////
@@ -126,39 +125,6 @@ class UserInterface extends Pump{
       });
     });
 
-    // Listens for the map button
-    mapButton.onClick.listen((_) {
-      openWindow('map');
-    });
-
-    // Listens for the settings button
-    settingsButton.onClick.listen((_) {
-      openWindow('settings');
-    });
-
-    // Listens for the bug report button
-    bugButton.onClick.listen((_) {
-      Element w = openWindow('bugs/suggestions');
-      TextAreaElement input = w.querySelector('textarea');
-      input.value = 'UserAgent:' + window.navigator.userAgent + '\n////////////////////////////////\n';
-
-      // Submits the Bug
-      w.querySelector('.button').onClick.listen((_) {
-        slack.Message m = new slack.Message()
-            ..username = ui.username
-            ..text = input.value;
-        slack.team = SLACK_TEAM;
-        slack.token = SLACK_TOKEN;
-        slack.send(m);
-
-        w.hidden = true;
-      });
-    });
-
-    // Listens for the inventory search button
-    inventorySearch.onClick.listen((_) {
-      openWindow('bag');
-    });
 
     // Listens for the pause button
     pauseButton.onClick.listen((_) {
@@ -199,12 +165,6 @@ class UserInterface extends Pump{
   // update the userinterface
   update() {
 
-
-
-
-    
-    
-
     // Update name display
     if (username.length >= 17) username = username.substring(0, 15) + '...';
     if (username != nameElement.text) nameElement.text = username;
@@ -234,15 +194,12 @@ class UserInterface extends Pump{
       print('volume:$volume');
     }
 
-
     // Updates the stored volume level
     if (volume.toString() != local['volume'] && muted == false) local['volume'] = volume.toString();
 
     // Update all audioElements to the correct volume
     for (AudioElement audio in querySelectorAll('audio')) {
       if (audio.volume != ui.volume / 100) audio.volume = ui.volume / 100;
-
-
 
 
       // Update the soundcloud widget
@@ -255,21 +212,7 @@ class UserInterface extends Pump{
   }
 
 
-  // This opens a new Window, TODO make PopWindow a class, maybe,
-  // spawn in the element instead of having it hardcoded into the page.
-  /////////////////////WINDOWS//////////////////////////////////////////////
-  Element openWindow(String title) {
-    for (Element window in querySelectorAll('.window')) {
-      window.hidden = true;
-    }
-    for (Element window in querySelectorAll('.window')) {
-      if (window.querySelector('header').text.toLowerCase().trim() == title) {
-        window.hidden = false;
-        return window;
-      }
-    }
-    return null;
-  }
+
 }
 
 
