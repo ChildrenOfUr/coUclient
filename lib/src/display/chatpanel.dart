@@ -4,39 +4,6 @@ List<String> EMOTICONS;
 
 List<Chat> openConversations = [];
 
-class ChatUIManager extends Pump {
-
-  ChatUIManager() {
-    //load emoticons
-    new Asset("packages/couclient/emoticons/emoticons.json").load().then((Asset asset) => EMOTICONS = asset.get()["names"]);
-
-
-    // Subscribe to the Bus
-    EVENT_BUS > this;
-  }
-
-  @override
-  process(Moment<Map> event) {
-    // ChatEvents are drawn to their Conversation.
-    if (event.isType('ChatEvent')) {
-      for (Chat convo in openConversations) {
-        if (convo.title == event.content['channel']) convo.addMessage(event.content['username'], event.content['message']);
-      }
-    }
-    // List online players
-    if (event.isType('ChatListEvent')) {
-      for (Chat convo in openConversations) {
-        if (convo.title == event.content['channel']) convo.addAlert("Players in this Channel:  ${event.content['users']}".replaceAll('[','').replaceAll(']',''));
-      }
-    }
-    // StartChat events start a Conversation
-    if (event.isType('StartChat')) {
-      Chat chat = new Chat(event.content as String);
-      openConversations.add(chat);
-    }
-  }
-}
-
 // global functions
 String getColorFromUsername(String username) {
   List<String> COLORS = ["aqua", "blue", "fuchsia", "gray", "green", "lime", "maroon", "navy", "olive", "orange", "purple", "red", "teal"];

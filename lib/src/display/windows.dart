@@ -6,17 +6,17 @@ class WindowManager {
   WindowManager() {
     // WINDOW DECLARATION //
 
-    // Listens for the map button
+    // MAPWINDOW LISTENERS //
     ui.mapButton.onClick.listen((_) {
       openWindow('map');
     });
 
-    // Listens for the settings button
+    // SETTINGS WINDOW LISTENERS //
     ui.settingsButton.onClick.listen((_) {
       openWindow('settings');
     });
 
-    // Listens for the bug report button
+    // BUG REPORT LISTENERS
     ui.bugButton.onClick.listen((_) {
       Element w = openWindow('bugs/suggestions');
       TextAreaElement input = w.querySelector('textarea');
@@ -35,12 +35,17 @@ class WindowManager {
       });
     });
 
-    // Listens for the inventory search button
+    // INVENTORY WINDOW LISTENERS
     ui.inventorySearch.onClick.listen((_) {
       openWindow('bag');
     });
-
-    // WINDOW EVENT LISTENERS //
+   
+    
+    
+    
+    
+    
+    // UNIVERSAL WINDOW EVENT LISTENERS //
     Rectangle windowSize = new Rectangle(0, 0, 550, 350);
     // Close button listener, closes popup windows
     for (Element e in querySelectorAll('.fa-times.close')) e.onClick.listen((MouseEvent m) {

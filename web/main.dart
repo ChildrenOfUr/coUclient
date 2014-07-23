@@ -83,7 +83,6 @@ main() {
   // UI/UX
   new WindowManager();
   new SoundManager();
-  new ChatUIManager();
   new MeterManager();
   
 

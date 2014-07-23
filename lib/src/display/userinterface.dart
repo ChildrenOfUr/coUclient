@@ -4,8 +4,6 @@ UserInterface ui = new UserInterface();
 
 class UserInterface extends Pump {
 
-  //NumberFormat for having commas in the currants and iMG displays
-
   // If you need to change an element somewhere else, put the declaration in this class.
   // You can then access it with 'ui.yourElement'. This way we keep everything in one spot
   /////////////////////ELEMENTS//////////////////////////////////////////////
@@ -98,8 +96,13 @@ class UserInterface extends Pump {
   String SClink = '';
 
   /////////////////////VARS//////////////////////////////////////////////////
+
+
   // start listening for events
   UserInterface() {
+
+    //load emoticons
+    new Asset("packages/couclient/emoticons/emoticons.json").load().then((Asset asset) => EMOTICONS = asset.get()["names"]);
 
     // Set initial Time
     currDay.text = clock.dayofweek;
@@ -152,6 +155,26 @@ class UserInterface extends Pump {
   }
 
   process(var event) {
+
+    // CHAT EVENT HANDLERS //
+    // ChatEvents are drawn to their Conversation.
+    if (event.isType('ChatEvent')) {
+      for (Chat convo in openConversations) {
+        if (convo.title == event.content['channel']) convo.addMessage(event.content['username'], event.content['message']);
+      }
+    }
+    // List online players
+    if (event.isType('ChatListEvent')) {
+      for (Chat convo in openConversations) {
+        if (convo.title == event.content['channel']) convo.addAlert("Players in this Channel:  ${event.content['users']}".replaceAll('[', '').replaceAll(']', ''));
+      }
+    }
+    // StartChat events start a Conversation
+    if (event.isType('StartChat')) {
+      Chat chat = new Chat(event.content as String);
+      openConversations.add(chat);
+    }
+    // MISC EVENT HANDLERS //
     if (event.isType('TimeUpdate')) {
       currDay.text = clock.dayofweek;
       currTime.text = clock.time;
@@ -245,6 +268,5 @@ class TouchScroller {
     });
   }
 }
-
 
 

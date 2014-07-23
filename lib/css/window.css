@@ -21,6 +21,7 @@
   position: absolute;
   top: 7px;
   left: 50px;
+  right:40px;
   font-size: 24px;
 }
 .window article {
@@ -30,12 +31,14 @@
   padding: 0;
   position: absolute;
   top: 45px;
+  bottom:10px;
   left: 10px;
-  width: 560px;
-  height: 350px;
-  -moz-border-radius: 8px;
+  right:10px;
   border-radius: 8px;
   overflow: hidden;
+  background-color:rgba(0,0,0,0.1);
+  border-radius:9px;
+  border-top:1px solid rgba(0,0,0,0.1);
 }
 
 .window .fa-times.close {
