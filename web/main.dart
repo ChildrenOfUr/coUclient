@@ -81,9 +81,9 @@ main() {
   new NetChatManager();
   
   // UI/UX
-  new WindowManager();
   new SoundManager();
   new MeterManager();
+  new WindowManager();
   
 
   // Test Information

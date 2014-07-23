@@ -50,6 +50,9 @@ class UserInterface extends Pump {
   Element bugButton = querySelector('#bugGlyph');
   Element consoleText = new DivElement();//querySelector('.dialog.console');
 
+  // main Element
+  Element mainElement = querySelector('main');
+  
   // world Element
   Element worldElement = querySelector('#world');
   Element playerHolder = querySelector("#playerHolder");
@@ -100,7 +103,7 @@ class UserInterface extends Pump {
 
   // start listening for events
   UserInterface() {
-
+    
     //load emoticons
     new Asset("packages/couclient/emoticons/emoticons.json").load().then((Asset asset) => EMOTICONS = asset.get()["names"]);
 
@@ -216,7 +219,6 @@ class UserInterface extends Pump {
     if (int.parse(volumeSlider.value) == 0) muted = true; else muted = false;
     if (volume != int.parse(volumeSlider.value)) {
       volume = int.parse(volumeSlider.value);
-      print('volume:$volume');
     }
 
     // Updates the stored volume level

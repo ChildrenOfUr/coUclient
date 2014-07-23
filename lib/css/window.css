@@ -28,7 +28,7 @@
   font-family: 'Tahoma', 'Geneva', 'sans-serif';
   color: #000;
   font-size: 12px;
-  padding: 0;
+  padding: 5px;
   position: absolute;
   top: 45px;
   bottom:10px;
@@ -39,6 +39,12 @@
   background-color:rgba(0,0,0,0.1);
   border-radius:9px;
   border-top:1px solid rgba(0,0,0,0.1);
+}
+.window iframe {
+  border: none;
+  height: 100%;
+  width: 100%;
+  margin: -6px;
 }
 
 .window .fa-times.close {

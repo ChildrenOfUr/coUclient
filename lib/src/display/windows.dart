@@ -1,28 +1,42 @@
 part of couclient;
 
+
+
+
+
 class WindowManager {
-
-
+  Map<String, Modal> modals = {};
+  
   WindowManager() {
-    // WINDOW DECLARATION //
+    
+    
+    // WINDOW COLLECTION //
+    for (Element w in querySelectorAll('#windowHolder .window')) {
+      Modal newModal = new Modal(w.id);
+      modals[w.id] = newModal;
+    }
 
     // MAPWINDOW LISTENERS //
     ui.mapButton.onClick.listen((_) {
-      openWindow('map');
+      modals['mapWindow'].open();
     });
 
     // SETTINGS WINDOW LISTENERS //
     ui.settingsButton.onClick.listen((_) {
-      openWindow('settings');
+      modals['settingsWindow'].open();
     });
+
+
 
     // BUG REPORT LISTENERS
     ui.bugButton.onClick.listen((_) {
-      Element w = openWindow('bugs/suggestions');
+      modals['bugWindow'].open();
+      Element w = modals['bugWindow'].window;
       TextAreaElement input = w.querySelector('textarea');
       input.value = 'UserAgent:' + window.navigator.userAgent + '\n////////////////////////////////\n';
 
       // Submits the Bug
+      // TODO someday this should be serverside. Let's not give our keys to the client unless we have to.
       w.querySelector('.button').onClick.listen((_) {
         slack.Message m = new slack.Message()
             ..username = ui.username
@@ -37,64 +51,67 @@ class WindowManager {
 
     // INVENTORY WINDOW LISTENERS
     ui.inventorySearch.onClick.listen((_) {
-      openWindow('bag');
-    });
-   
-    
-    
-    
-    
-    
-    // UNIVERSAL WINDOW EVENT LISTENERS //
-    Rectangle windowSize = new Rectangle(0, 0, 550, 350);
-    // Close button listener, closes popup windows
-    for (Element e in querySelectorAll('.fa-times.close')) e.onClick.listen((MouseEvent m) {
-      e.parent.hidden = true;
+      modals['bagWindow'].open();
     });
 
-    // Window Drag listener
-    for (Element w in querySelectorAll('.window header')) {
-      // init vars
-      int new_x = document.documentElement.client.width ~/ 2 - windowSize.width ~/ 2;
-      int new_y = document.documentElement.client.height ~/ 2 - windowSize.height ~/ 2;
-      w.parent.style
-          ..top = '${new_y}px'
-          ..left = '${new_x}px';
-
-      bool dragging = false;
-
-      // mouse down listeners
-      w.onMouseDown.listen((_) {
-        dragging = true;
-      });
-      // mouse is moving
-      document.onMouseMove.listen((MouseEvent m) {
-        if (dragging == true) {
-          new_x += m.movement.x;
-          new_y += m.movement.y;
-
-          w.parent.style
-              ..top = '${new_y}px'
-              ..left = '${new_x}px';
-        }
-      });
-      // mouseUp listener
-      document.onMouseUp.listen((_) {
-        dragging = false;
-      });
-    }
   }
-  // Handle window opening and closing
-  Element openWindow(String title) {
-    for (Element window in querySelectorAll('.window')) {
-      window.hidden = true;
+}
+
+/// A Dart interface to an html Modal
+class Modal {
+  Element window;
+
+  open() {
+    window.hidden = false;
+    this.focus();
+  }
+  close() {
+    window.hidden = true;
+  }
+  focus() {
+    for (Element others in querySelectorAll('.window')) {
+          others.style.zIndex = '2';
     }
-    for (Element window in querySelectorAll('.window')) {
-      if (window.querySelector('header').text.toLowerCase().trim() == title) {
-        window.hidden = false;
-        return window;
+    this.window.style.zIndex = '3';
+    window.focus();
+  }
+
+  Modal(String id) {    
+    // GET 'window' ////////////////////////////////////
+    window = querySelector('#$id');
+
+    // CLOSE BUTTON ////////////////////////////////////
+    window.querySelector('.fa-times.close').onClick.listen((_) => this.close());
+    
+    // DRAGGING/////////////////////////////////////////
+    // init vars
+    int new_x = ui.mainElement.client.width ~/ 2 - 550 ~/ 2;
+    int new_y = ui.mainElement.client.height ~/ 2 - 350 ~/ 2;
+    window.style
+        ..top = '${new_y}px'
+        ..left = '${new_x}px';
+    bool dragging = false;
+    
+    // mouse down listeners
+    window.onMouseDown.listen((_) => this.focus());
+    
+    window.querySelector('header').onMouseDown.listen((_) {
+      dragging = true;
+    });
+    // mouse is moving
+    document.onMouseMove.listen((MouseEvent m) {
+      if (dragging == true) {
+        new_x += m.movement.x;
+        new_y += m.movement.y;
+        window.style
+            ..top = '${new_y}px'
+            ..left = '${new_x}px';
       }
-    }
-    return null;
+    });
+    // mouseUp listener
+    document.onMouseUp.listen((_) {
+      dragging = false;
+    });
   }
+
 }
