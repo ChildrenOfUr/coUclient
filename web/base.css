@@ -1672,3 +1672,51 @@ quoin graphic
   	padding-bottom: 9px;
     opacity: 1;
   }
+}
+.vendorItemParent {
+	display: inline-block;
+	border: 1px solid rgba(0,0,0,0.2);
+	border-radius: 5px;
+	padding: 5px;
+	background: white;
+	margin: 10px;
+}
+.vendorItemParent:hover .vendorItemTooltip {
+	display: inline-block;
+}
+.vendorItemTooltip {
+	display: none;
+	position: absolute;
+	padding: 5px;
+	top: 15px;
+	background: #EBF052;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	-webkit-box-shadow: 0px 2px 10px 0px rgba(97, 97, 97, 0.5);
+	-moz-box-shadow: 0px 2px 10px 0px rgba(97, 97, 97, 0.5);
+	box-shadow: 0px 2px 10px 0px rgba(97, 97, 97, 0.5);
+}
+.vendorItemTooltip:after {
+    content: "";
+    position: absolute;
+    bottom: -15px;
+    left: calc(50% - 20px);
+    border-style: solid;
+    border-width: 15px 20px 0;
+    border-color: #EBF052 transparent;
+    display: block;
+    width: 0;
+    z-index: 1;
+}
+.vendorItemPreview {
+	display: block;
+	margin: 10px;
+}
+.vendorItemPrice {
+	display: inline-block;
+	float: right;
+}
+.cantAfford {
+	color: red;
+}

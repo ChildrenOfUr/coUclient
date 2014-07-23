@@ -59,6 +59,11 @@ _setupStreetSocket(String streetName)
 			addItemToInventory(map);
 			return;
 		}
+		if(map['itemsForSale'] != null)
+		{
+			showVendorWindow(map);
+			return;
+		}
 		
 		(map["quoins"] as List).forEach((Map quoinMap)
 		{
@@ -268,7 +273,7 @@ void addPlant(Map map)
 
 void addItemToInventory(Map map)
 {	
-	ImageElement img = new ImageElement(src:map['url']);
+	ImageElement img = new ImageElement(src:map['item']['spriteUrl']);
 	img.onLoad.first.then((_)
 	{
 		//do some fancy 'put in bag' animation that I can't figure out right now
@@ -321,25 +326,25 @@ Future animate(ImageElement i, Map map)
 
 void putInInventory(ImageElement img, Map map)
 {
-	String name = map['name'];
-	int stacksTo = 4;
-	if(map['stacksTo'] != null)
-		stacksTo = map['stacksTo'];
+	Map i = map['item'];
+	String name = i['name'];
+	int stacksTo = i['stacksTo'];
 	Element item;
 	
-	if(querySelector("#InventoryBar").querySelector(".item-$name") != null)
+	String cssName = name.replaceAll(" ","_");
+	if(querySelector("#InventoryBar").querySelector(".item-$cssName") != null)
 	{
-		item = querySelector("#InventoryBar").querySelector(".item-$name");
+		item = querySelector("#InventoryBar").querySelector(".item-$cssName");
 		int count = int.parse(item.attributes['count']);
 		
-		if(stacksTo < 4 && count >= stacksTo)
+		if(count >= stacksTo)
 			findNewSlot(item,map,img);
 		else
 		{
 			count++;
     		int offset = count;
-    		if(offset > stacksTo)
-    			offset = stacksTo;
+    		if(i['iconNum'] != null && i['iconNum'] < count)
+    			offset = i['iconNum'];
     		
     		num width = int.parse(item.style.width.replaceAll("px", ""));
     		item.style.backgroundPosition = "-${(offset-1)*width}px";
@@ -366,22 +371,22 @@ void putInInventory(ImageElement img, Map map)
 findNewSlot(Element item, Map map, ImageElement img)
 {
 	bool found = false;
-	int stacksTo = 4;
-	if(map['stacksTo'] != null)
-		stacksTo = map['stacksTo'];
+	Map i = map['item'];
+	int stacksTo = i['stacksTo'];
 	//find first free item slot
 	for(Element barSlot in querySelector("#InventoryBar").children)
 	{
 		if(barSlot.children.length == 0)
 		{
+			String cssName = i['name'].replaceAll(" ","_");
 			item = new DivElement();
 			item.style.width = barSlot.contentEdge.width.toString()+"px";
 			item.style.height = (img.height).toString()+"px";
-			item.style.backgroundImage = 'url(${map['url']})';
+			item.style.backgroundImage = 'url(${i['spriteUrl']})';
 			item.style.backgroundRepeat = 'no-repeat';
-			item.style.backgroundSize = "${stacksTo*100}% ${item.style.height}";
-			item.className = 'bounce item-'+map['name'];
-			item.attributes['name'] = map['name'];
+			item.style.backgroundSize = "${i['iconNum']*100}% ${item.style.height}";
+			item.className = 'bounce item-$cssName';
+			item.attributes['name'] = cssName;
 			item.attributes['count'] = "1";
 			barSlot.append(item);
 			found = true;
@@ -393,5 +398,30 @@ findNewSlot(Element item, Map map, ImageElement img)
 	if(!found)
 	{
 		
+	}
+}
+
+void showVendorWindow(Map map)
+{
+	TemplateElement vendorTemplate = querySelector("#VendorTemplate");
+	document.body.append(vendorTemplate.content.clone(true));
+	querySelector("#CloseVendor").onClick.first.then((_) => querySelector("#VendorWindow").remove());
+	
+	querySelector("#VendorTitle").text = map['vendorName'];
+	Element content = querySelector("#VendorContent");
+	for(Map item in map['itemsForSale'] as List)
+	{
+		DivElement parent = new DivElement()..className = "vendorItemParent";
+		DivElement tooltip = new DivElement()..className = "vendorItemTooltip";
+		ImageElement image = new ImageElement(src:item['iconUrl'])..className = "vendorItemPreview";
+		DivElement price = new DivElement()..className = "vendorItemPrice";
+		tooltip.text = item['name'];
+		price.text = item['price'].toString() + "\u20a1";
+		
+		//if we can't afford it, color the price reddish
+		if(item['price'] > getCurrants())
+			price.classes.add("cantAfford");
+		parent..append(tooltip)..append(image)..append(price);
+		content.append(parent);
 	}
 }
