@@ -34,7 +34,6 @@ part 'package:couclient/src/systems/clock.dart';
 part 'package:couclient/src/systems/debug.dart';
 part 'package:couclient/src/systems/events.dart';
 part 'package:couclient/src/systems/commands.dart';
-part 'package:couclient/src/systems/settings.dart';
 part 'package:couclient/src/systems/assets.dart';
 
 // NETWORKING MODULES //
@@ -77,7 +76,6 @@ main() {
   new DebugManager();
   new ClockManager();
   new CommandManager();
-  new SettingsManager();
   
   // Networking
   new NetChatManager();
