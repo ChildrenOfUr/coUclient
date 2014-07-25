@@ -13,7 +13,7 @@ class Player
 	Animation currentAnimation;
 	ChatBubble chatBubble = null;
 	Random rand = new Random();
-	String intersectingObject = null;
+	Map<String,Rectangle> intersectingObjects = {};
   		
 	//for testing purposes
 	//if false, player can move around with wasd and arrows, no falling
@@ -267,47 +267,26 @@ class Player
 			checkCollision(element);
 		});
 		
-		intersectingObject = null;
-		//search for plants first and npcs second since plants are probably easier
-		//to overlap than small npcs are (think fruit tree size/box vs piggy size/box)
-		querySelectorAll(".plant").forEach((Element element)
+		intersectingObjects = {};
+		querySelectorAll(".entity").forEach((Element element)
 		{
-			CanvasElement canvas = element as CanvasElement;
 			num left = num.parse(element.attributes['translatex'].replaceAll("px", ""));
     		num top = num.parse(element.attributes['translatey'].replaceAll("px", ""));
-    		Rectangle plantRect = new Rectangle(left,top,canvas.width,canvas.height);		
-			
-    		if(intersect(avatarRect,plantRect))
-			{
-				if(plants[element.id] != null)
-					plants[element.id].updateGlow(true);
-				
-				intersectingObject = element.id;
-			}
-			else
-			{
-				if(plants[element.id] != null)
-					plants[element.id].updateGlow(false);
-			}
-		});
-		querySelectorAll(".npc").forEach((Element element)
-		{
-			CanvasElement canvas = element as CanvasElement;
-			num left = num.parse(element.attributes['translatex'].replaceAll("px", ""));
-    		num top = num.parse(element.attributes['translatey'].replaceAll("px", ""));
-    		Rectangle npcRect = new Rectangle(left,top,canvas.width,canvas.height);
+    		num width = num.parse(element.attributes['width']);
+    		num height = num.parse(element.attributes['height']);
+    		Rectangle entityRect = new Rectangle(left,top,width,height);
                 		
-			if(intersect(avatarRect,npcRect))
+			if(intersect(avatarRect,entityRect))
 			{
-				if(npcs[element.id] != null)
-					npcs[element.id].glow = true;
+				if(entities[element.id] != null)
+					entities[element.id].updateGlow(true);
 				
-				intersectingObject = element.id;
+				intersectingObjects[element.id] = entityRect;
 			}
 			else
 			{
-				if(npcs[element.id] != null)
-					npcs[element.id].glow = false;
+				if(entities[element.id] != null)
+					entities[element.id].updateGlow(false);
 			}
 		});
 	}

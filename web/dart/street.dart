@@ -39,12 +39,12 @@ class Street
     playerHolder.attributes["ground_y"] = "0";
     playerHolder.style.transform = "translateZ(0)";
     
-    if(npcs != null)
-      npcs.clear();
+    if(entities != null)
+    	entities.clear();
     if(quoins != null)
-      quoins.clear();
+    	quoins.clear();
     if(otherPlayers != null)
-      otherPlayers.clear();
+		otherPlayers.clear();
   }
   
   Future <List> load()

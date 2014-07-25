@@ -1,14 +1,13 @@
 part of coUclient;
 
 String multiplayerServer = "ws://robertmcdermot.com:8080/playerUpdate";
-String streetEventServer = "ws://robertmcdermot.com:8080/streetUpdate";
+String streetEventServer = "ws://localhost:8181/streetUpdate";
 String joined = "";
 WebSocket streetSocket;
 bool reconnect = true;
 Map<String,Player> otherPlayers = new Map();
-Map<String,NPC> npcs = new Map();
 Map<String,Quoin> quoins = new Map();
-Map<String,Plant> plants = new Map();
+Map<String,Entity> entities = new Map();
 
 multiplayerInit()
 {
@@ -90,7 +89,7 @@ _setupStreetSocket(String streetName)
 		{
 			String id = plantMap["id"];
             Element element = querySelector("#$id");
-            Plant plant = plants[plantMap["id"]];
+            Plant plant = entities[plantMap["id"]];
 			if(element == null)
 				addPlant(plantMap);
 			if(plant != null && plant.state != plantMap['state'])
@@ -100,7 +99,7 @@ _setupStreetSocket(String streetName)
 		{
 			String id = npcMap["id"];
             Element element = querySelector("#$id");
-            NPC npc = npcs[npcMap["id"]];
+            NPC npc = entities[npcMap["id"]];
 			if(element == null)
 				addNPC(npcMap);
 			else if(npc != null)
@@ -119,6 +118,18 @@ _setupStreetSocket(String streetName)
 				}
 				
 				npc.facingRight = npcMap["facingRight"];
+			}
+		});
+		(map['groundItems'] as List).forEach((Map itemMap)
+		{
+			String id = itemMap['id'];
+			Element element = querySelector("#$id");
+			if(element == null)
+				addItem(itemMap);
+			else
+			{
+				if(itemMap['onGround'] == false)
+					element.remove();
 			}
 		});
 	});
@@ -260,7 +271,7 @@ void addNPC(Map map)
 	if(currentStreet == null)
 		return;
 	
-	npcs[map['id']] = new NPC(map);
+	entities[map['id']] = new NPC(map);
 }
 
 void addPlant(Map map)
@@ -268,7 +279,30 @@ void addPlant(Map map)
 	if(currentStreet == null)
 		return;
 	
-	plants[map['id']] = new Plant(map);
+	entities[map['id']] = new Plant(map);
+}
+
+void addItem(Map map)
+{
+	if(currentStreet == null)
+		return;
+	
+	ImageElement item = new ImageElement(src:map['iconUrl']);
+	item.onLoad.first.then((_)
+	{
+		item.style.transform = "translateX(${map['x']}px) translateY(${map['y']}px)";
+		item.style.position = "absolute";
+    	item.attributes['translatex'] = map['x'].toString();
+    	item.attributes['translatey'] = map['y'].toString();
+    	item.attributes['width'] = item.width.toString();
+        item.attributes['height'] = item.height.toString();
+    	item.attributes['type'] = map['name'];
+    	item.attributes['actions'] = JSON.encode(map['actions']);
+    	item.classes.add('groundItem');
+    	item.classes.add('entity');
+    	item.id = map['id'];
+    	querySelector("#PlayerHolder").append(item);
+	});
 }
 
 void addItemToInventory(Map map)
@@ -330,24 +364,22 @@ void putInInventory(ImageElement img, Map map)
 	String name = i['name'];
 	int stacksTo = i['stacksTo'];
 	Element item;
+	bool found = false;
 	
 	String cssName = name.replaceAll(" ","_");
-	if(querySelector("#InventoryBar").querySelector(".item-$cssName") != null)
+	for(Element item in querySelector("#InventoryBar").querySelectorAll(".item-$cssName"))
 	{
-		item = querySelector("#InventoryBar").querySelector(".item-$cssName");
 		int count = int.parse(item.attributes['count']);
 		
-		if(count >= stacksTo)
-			findNewSlot(item,map,img);
-		else
+		if(count < stacksTo)
 		{
 			count++;
     		int offset = count;
     		if(i['iconNum'] != null && i['iconNum'] < count)
     			offset = i['iconNum'];
     		
-    		num width = int.parse(item.style.width.replaceAll("px", ""));
-    		item.style.backgroundPosition = "-${(offset-1)*width}px";
+    		num width = img.width/i['iconNum'];
+    		item.style.backgroundPosition = "calc(100% / ${i['iconNum'] - 1} * ${offset - 1}";
     		item.attributes['count'] = count.toString();
     		
     		Element itemCount = item.parent.querySelector(".itemCount");
@@ -360,9 +392,12 @@ void putInInventory(ImageElement img, Map map)
     				..className = "itemCount";
     			item.parent.append(itemCount);
     		}
+    		
+    		found = true;
+    		break;
 		}
 	}
-	else
+	if(!found)
     {
 		findNewSlot(item,map,img);
     }
@@ -373,6 +408,7 @@ findNewSlot(Element item, Map map, ImageElement img)
 	bool found = false;
 	Map i = map['item'];
 	int stacksTo = i['stacksTo'];
+	
 	//find first free item slot
 	for(Element barSlot in querySelector("#InventoryBar").children)
 	{
@@ -380,11 +416,21 @@ findNewSlot(Element item, Map map, ImageElement img)
 		{
 			String cssName = i['name'].replaceAll(" ","_");
 			item = new DivElement();
-			item.style.width = barSlot.contentEdge.width.toString()+"px";
-			item.style.height = (img.height).toString()+"px";
+			
+			//determine what we need to scale the sprite image to in order to fit
+			num scale = 1;
+			if(img.height > img.width/i['iconNum'])
+				scale = (barSlot.contentEdge.height-10)/img.height;
+			else
+				scale = (barSlot.contentEdge.width-10)/(img.width/i['iconNum']);
+			
+			item.style.width = (barSlot.contentEdge.width-10).toString()+"px";
+			item.style.height = (barSlot.contentEdge.height-10).toString()+"px";
 			item.style.backgroundImage = 'url(${i['spriteUrl']})';
 			item.style.backgroundRepeat = 'no-repeat';
-			item.style.backgroundSize = "${i['iconNum']*100}% ${item.style.height}";
+			item.style.backgroundSize = "${img.width*scale}px ${img.height*scale}px";
+			item.style.backgroundPosition = "0 50%";
+			item.style.margin = "auto";
 			item.className = 'bounce item-$cssName';
 			item.attributes['name'] = cssName;
 			item.attributes['count'] = "1";
@@ -396,9 +442,20 @@ findNewSlot(Element item, Map map, ImageElement img)
 	
 	//there was no space in the player's pack, drop the item on the ground instead
 	if(!found)
-	{
-		
-	}
+		dropItem(i);
+}
+
+void dropItem(Map item)
+{
+	Map dropMap = new Map()
+		..['dropItem'] = item
+		..['count'] = 1
+		..['x'] = CurrentPlayer.posX
+		..['y'] = CurrentPlayer.posY+CurrentPlayer.height/2
+		..['streetName'] = currentStreet.label
+		..['tsid'] = currentStreet._data['tsid'];
+	
+	streetSocket.send(JSON.encode(dropMap));
 }
 
 void showVendorWindow(Map map)

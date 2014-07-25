@@ -1,10 +1,10 @@
 part of coUclient;
 
-class NPC
+class NPC extends Entity
 {
 	int speed;
 	CanvasElement canvas;
-	bool ready = false, facingRight = true, glow = false, firstRender = true;
+	bool ready = false, facingRight = true, firstRender = true;
 	double posX = 0.0, posY = 0.0;
 	Animation animation;
 	
@@ -25,11 +25,14 @@ class NPC
         	canvas.attributes['actions'] = JSON.encode(map['actions']);
         	canvas.attributes['type'] = map['type'];
         	canvas.classes.add("npc");
+        	canvas.classes.add('entity');
         	canvas.width = map["width"];
         	canvas.height = map["height"];
         	canvas.style.position = "absolute";
         	canvas.attributes['translatex'] = posX.toString();
             canvas.attributes['translatey'] = posY.toString();
+            canvas.attributes['width'] = canvas.width.toString();
+            canvas.attributes['height'] = canvas.height.toString();
         	querySelector("#PlayerHolder").append(canvas);
         	ready = true;
 		});

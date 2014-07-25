@@ -38,14 +38,11 @@ render()
 	if(CurrentPlayer is Player)
 		CurrentPlayer.render();
 	
-	//draw npcs
-	npcs.forEach((String id, NPC npc) => npc.render());
-	
 	//draw quoins
 	quoins.forEach((String id, Quoin quoin) => quoin.render());
 	
-	//draw plants
-	plants.forEach((String id, Plant plant) => plant.render());
+	//draw entites
+	entities.forEach((String id, Entity entity) => entity.render());
 	
 	//draw other players
 	otherPlayers.forEach((String name, Player player) => player.render());

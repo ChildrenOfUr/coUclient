@@ -1,10 +1,10 @@
 part of coUclient;
 
-class Plant
+class Plant extends Entity
 {
 	int state, x, y, width, height, numRows, numColumns;
 	CanvasElement canvas;
-	bool ready = false, dirty = true, glow = false, firstRender = true;
+	bool ready = false, firstRender = true;
 	ImageElement spritesheet;
 	Rectangle sourceRect;
 	
@@ -30,12 +30,16 @@ class Plant
         	canvas.attributes['actions'] = JSON.encode(map['actions']);
         	canvas.attributes['type'] = map['type'];
         	canvas.classes.add("plant");
+        	canvas.classes.add('entity');
+        	canvas.style.zIndex = (-1).toString(); //make sure plants are behind animals
         	canvas.width = width;
         	canvas.height = height;
         	canvas.style.position = "absolute";
         	canvas.style.transform = "translateX(${x}px) translateY(${y}px) translateZ(0)";
         	canvas.attributes['translatex'] = x.toString();
         	canvas.attributes['translatey'] = y.toString();
+        	canvas.attributes['width'] = width.toString();
+        	canvas.attributes['height'] = height.toString();
     		state = map['state'];
         	querySelector("#PlayerHolder").append(canvas);
         	sourceRect = new Rectangle(0,0,width,height);
@@ -55,7 +59,7 @@ class Plant
 		dirty = true;
 	}
 	
-	update()
+	update(double dt)
 	{
 		if(!ready)
 			return;
