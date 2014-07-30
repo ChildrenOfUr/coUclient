@@ -1,6 +1,18 @@
 {
     "tsid": "GA58KK7B9O522PC",
     "label": "Mira Mesh",
+    "hub_id": "89",
+    "mote_id": "9",
+    "loading_image": {
+        "url": "http://c2.glitch.bz/streets/2011-09-26/LA58KK7B9O522PC_loading_1317062728.jpg",
+        "w": 840,
+        "h": 160
+    },
+    "main_image": {
+        "url": "http://c2.glitch.bz/streets/2011-09-26/LA58KK7B9O522PC_main_1317062735.jpg",
+        "w": 720,
+        "h": 1152
+    },
     "gradient": {
         "top": "A7C8D9",
         "bottom": "D9B166"

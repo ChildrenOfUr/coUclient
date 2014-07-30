@@ -33,9 +33,8 @@ loop(double dt)
 		otherPlayer.playerParentElement.style.transform = transform;
 	});
 	
-	npcs.forEach((String id, NPC npc) => npc.update(dt));
 	quoins.forEach((String id, Quoin quoin) => quoin.update(dt));
-	plants.forEach((String id, Plant plant) => plant.update());
+	entities.forEach((String id, Entity entity) => entity.update(dt));
 	
 	//update the other clients with our position & street
 	timeLast += dt;

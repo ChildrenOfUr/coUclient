@@ -34,6 +34,7 @@ class UserInterface
 	// Img Variables
 	int _img = 0;
 		
+	WorldMap worldMap;
 	
 	
 	UserInterface()
@@ -66,8 +67,7 @@ class UserInterface
 		//Set up the Currant Display
 		setCurrants(_currants.toString());
 		setImg(_img.toString());
-		
-		currLocation.text = currentStreet.label;
+
 	}
 	
 	_setEnergy(int newValue)
@@ -142,9 +142,9 @@ class UserInterface
 	  	nameMeter.text = newValue;
 	}
 	
-	_setLocation(String label)
+	_createMap()
 	{
-		currLocation.text = label;
+    worldMap = new WorldMap(currentStreet.hub_id);
 	}
 	
 	_setSong(String artist, String song)

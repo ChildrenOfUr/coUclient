@@ -2,7 +2,7 @@
 
 <html onContextMenu="return false">
 <head>
-    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes"> <!--iOS-->
     <meta name="mobile-web-app-capable" content="yes"> <!--Chrome for android-->
@@ -62,6 +62,7 @@
             		</div>
           		</div>
         </div>
+
         <div id="GameScreen">
 			<div id="Layers"></div>
 			<div id="PlayerHolder"></div>
@@ -144,12 +145,6 @@
 		    <span class="InventoryBox" id="bagItem8"></span>
 		    <span class="InventoryBox" id="bagItem9"></span>
 		    <span class="InventoryBox" id="bagItem10"></span>
-		    <span class="InventoryBox" id="bagItem11"></span>
-		    <span class="InventoryBox" id="bagItem12"></span>
-		    <span class="InventoryBox" id="bagItem13"></span>
-		    <span class="InventoryBox" id="bagItem14"></span>
-		    <span class="InventoryBox" id="bagItem15"></span>
-		    <span class="InventoryBox" id="bagItem16"></span>
 		</div>
 		<div id="InventoryBar">
 		    <span class="InventoryBox" id="Item1"></span>
@@ -162,12 +157,6 @@
 		    <span class="InventoryBox" id="Item8"></span>
 		    <span class="InventoryBox" id="Item9"></span>
 		    <span class="InventoryBox" id="Item10"></span>
-		    <span class="InventoryBox" id="Item11"></span>
-		    <span class="InventoryBox" id="Item12"></span>
-		    <span class="InventoryBox" id="Item13"></span>
-		    <span class="InventoryBox" id="Item14"></span>
-		    <span class="InventoryBox" id="Item15"></span>
-		    <span class="InventoryBox" id="Item16"></span>
 		</div>
 	</div>
 
@@ -186,13 +175,18 @@
 	      </div>
 
 	<!-- Map Window -->
-	<div class="PopWindow" id="MapWindow" hidden="true">
-		<div class="PopWindowHeader handle">
-	  		Map <!-- hub , else "World Map" -->
-            <i id="CloseMap" class="fa fa-times fa-lg red"></i>
+	<div class="PopWindow" id="MapWindow" hidden="true" style="width:760px; height:500px; padding-left:0px; padding-right:0px; padding-bottom:0px">
+		<div class="PopWindowHeader handle"style="height:40px;">
+            <div id="MapTitle" style="text-align:center; font-size:30px"></div>
+            <i id="CloseMap" class="fa fa-times fa-lg red" top="0px"></i>
+            <!-- Removed until fixed
             <textarea class="MapSearchInput" spellcheck="false" rows="1">Search</textarea>
-
+            -->
 		</div>
+        <div id="MapImg" style="min-width:760px; min-height:460px;">
+        <canvas id="MapCanvas" width="760" height="460" style="position:absolute; top:10; left:-10"></canvas>
+        </div>
+        
 	</div>
 
     <!-- Development Console -->
@@ -303,6 +297,68 @@
 	        </div>
 	      </div>
 	    </template>
+	    
+	<!-- template for vendor window -->
+	<template id="VendorTemplate">
+		<div class="PopWindow" id="VendorWindow">
+			<div class="PopWindowHeader handle">
+	            <div id="VendorTitle"></div>
+	            <i id="CloseVendor" class="fa fa-times fa-lg red PopCloseEmblem"></i>
+			</div>
+	        <div class="vendorContentInsert" id="VendorContent"></div>
+	        
+	        <div id="CurrantParent">
+	        	<span style="color:gray;vertical-align:middle">You have</span>
+	        	<img src="./assets/system/currant.svg" id="NumCurrantsEmblem">
+	        	<span id="NumCurrants" style="vertical-align:middle">0 currants</span>
+	        </div>
+		</div>
+	</template>
+	
+	<template id="DetailsTemplate">
+		<div id="ItemDetails" class="vendorContentInsert">
+        	<div id="BackLink">&#9001;Back</div>
+        	<div id="LeftColumn">
+        		<div id="ItemImageParent">
+        			<img id="ItemImage">
+        			<span id="ItemPrice"></span>
+        		</div>
+        		<div id="ItemCount">
+	        		<span style="color:gray;vertical-align:middle">You have </span>
+	        		<span id="ItemNum" class="itemDetailNum">0</span>
+	        		<span style="color:gray;vertical-align:middle">of these</span>
+        		</div>
+        	</div>
+        	<div id="RightColumn">
+	        	<div id="ItemName"></div>
+	        	<div id="QuantityParent">
+	        		<span id="MinusButton">-</span>
+	        		<input id="NumToBuy" type="number" value="1" min="1">
+	        		<span id="PlusButton">+</span>
+	        		<div class="button light" id="MaxButton">Max</div>
+	        	</div>
+	        	<div class="button light" id="BuyButton">Buy 1 for 10&#8353;</div>
+	        	<div id="Description"></div>
+	        	<div id="ItemStack">
+	        		<span id="BlankSlot"></span>
+	        		<span style="color:gray;vertical-align:middle">Fits up to </span>
+	        		<span id="StackNum" class="itemDetailNum">0</span>
+	        		<span style="color:gray;vertical-align:middle"> in an inventory slot</span>
+	        	</div>
+	        </div>
+        </div>
+	</template>
+	
+	<!-- template for entity interaction window -->
+	<template id="InteractionTemplate">
+		<div class="interactionWindow" id="InteractionWindow">
+			<div class="PopWindowHeader handle">
+	            <div id="InteractionTitle"></div>
+	            <i id="CloseInteraction" class="fa fa-times fa-lg red PopCloseEmblem"></i>
+			</div>
+	        <div id="InteractionContent"></div>
+		</div>
+	</template>
 
 	<!-- mobile specific components -->
 	<span id="MobileAudioGlyph">
@@ -310,8 +366,10 @@
 	</span>
 	<i id="MobileFullscreen" class="fa FullscreenGlyph fa-fullscreen glyph fa-lg"> </i>
 	<i id="MobileFullscreenReset" class="fa FullscreenResetGlyph fa-resize-small fa-lg"> </i>
-	<div id="Joystick">
-		<div id="Knob"></div>
+	<div id="JoystickParent">
+		<div id="Joystick">
+			<div id="Knob"></div>
+		</div>
 	</div>
 	<div id="AButton">A</div>
 	<div id="BButton">B</div>

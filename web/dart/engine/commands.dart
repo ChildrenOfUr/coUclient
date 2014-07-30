@@ -412,8 +412,6 @@ setVolume(String value, bool mute)
 
 /**
  * Shows the map.
- * 
- *
  */
 showMap()
 {
@@ -450,14 +448,16 @@ togglePhysics(var nothing)
 		CurrentPlayer.doPhysicsApply = true;
 }
 
-sendAction(String action)
+sendAction(String methodName, String entityId, [Map arguments])
 {
-	List<String> actionParts = action.trim().split(' ');
 	Map map = {};
-	map['callMethod'] = actionParts[0];
-	map['id'] = actionParts[1];
-	map['type'] = querySelector("#${actionParts[1]}").className;
+	map['callMethod'] = methodName;
+	map['id'] = entityId;
+	map['type'] = querySelector("#${entityId}").className;
 	map['streetName'] = currentStreet.label;
+	map['username'] = chat.username;
+	map['tsid'] = currentStreet._data['tsid'];
+	map['arguments'] = arguments;
 	streetSocket.send(JSON.encode(map));
 }
 

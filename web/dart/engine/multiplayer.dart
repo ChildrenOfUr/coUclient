@@ -1,14 +1,13 @@
 part of coUclient;
 
-String multiplayerServer = "ws://vps.robertmcdermot.com:8080/playerUpdate";//"ws://couserver.herokuapp.com/playerUpdate";
-String streetEventServer = "ws://vps.robertmcdermot.com:8080/streetUpdate";//"ws://couserver.herokuapp.com/streetUpdate";
+String multiplayerServer = "ws://localhost:8181/playerUpdate";
+String streetEventServer = "ws://localhost:8181/streetUpdate";
 String joined = "";
 WebSocket streetSocket;
 bool reconnect = true;
 Map<String,Player> otherPlayers = new Map();
-Map<String,NPC> npcs = new Map();
 Map<String,Quoin> quoins = new Map();
-Map<String,Plant> plants = new Map();
+Map<String,Entity> entities = new Map();
 
 multiplayerInit()
 {
@@ -28,13 +27,14 @@ void sendLeftMessage(String streetName)
     }
 }
 
-void sendJoinedMessage(String streetName)
+void sendJoinedMessage(String streetName, [String tsid])
 {
 	if(joined != streetName && streetSocket != null && streetSocket.readyState == WebSocket.OPEN)
 	{
 		Map map = new Map();
 		map["username"] = chat.username;
 		map["streetName"] = streetName;
+		map["tsid"] = tsid == null ? currentStreet._data['tsid'] : tsid;
 		map["message"] = "joined";
 		streetSocket.send(JSON.encode(map));
 		joined = streetName;
@@ -55,7 +55,13 @@ _setupStreetSocket(String streetName)
 		//check if we are receiving an item
 		if(map['giveItem'] != null)
 		{
-			addItemToInventory(map);
+			for(int i=0; i<map['num']; i++)
+				addItemToInventory(map);
+			return;
+		}
+		if(map['itemsForSale'] != null)
+		{
+			showVendorWindow(map);
 			return;
 		}
 		
@@ -80,40 +86,62 @@ _setupStreetSocket(String streetName)
 				}
 			}
 		});
-		(map["npcs"] as List).forEach((Map npcMap)
-		{
-			String id = npcMap["id"];
-            Element element = querySelector("#$id");
-            NPC npc = npcs[npcMap["id"]];
-			if(element == null)
-				addNPC(npcMap);
-			else if(npc != null)
-			{
-				if(npc.animation.url != npcMap["url"]) //new animation
-				{
-					npc.ready = false;
-					
-					List<int> frameList = [];
-            		for(int i=0; i<npcMap['numFrames']; i++)
-            			frameList.add(i);
-            		
-            		npc.animation = new Animation(npcMap['url'],"npc",npcMap['numRows'],npcMap['numColumns'],frameList);
-            		npc.animation.load().then((_) => npc.ready = true);
-					
-				}
-				
-				npc.facingRight = npcMap["facingRight"];
-			}
-		});
 		(map["plants"] as List).forEach((Map plantMap)
 		{
 			String id = plantMap["id"];
             Element element = querySelector("#$id");
-            Plant plant = plants[plantMap["id"]];
+            Plant plant = entities[plantMap["id"]];
 			if(element == null)
 				addPlant(plantMap);
-			if(plant != null && plant.state != plantMap['state'])
-				plant.updateState(plantMap['state']);
+			else
+			{
+				element.attributes['actions'] = JSON.encode(plantMap['actions']);
+				if(plant != null && plant.state != plantMap['state'])
+					plant.updateState(plantMap['state']);
+			}
+		});
+		(map["npcs"] as List).forEach((Map npcMap)
+		{
+			String id = npcMap["id"];
+            Element element = querySelector("#$id");
+            NPC npc = entities[npcMap["id"]];
+			if(element == null)
+				addNPC(npcMap);
+			else
+			{
+				element.attributes['actions'] = JSON.encode(npcMap['actions']);
+				if(npc != null)
+      			{
+      				if(npc.animation.url != npcMap["url"]) //new animation
+      				{
+      					npc.ready = false;
+      					
+      					List<int> frameList = [];
+                  		for(int i=0; i<npcMap['numFrames']; i++)
+                  			frameList.add(i);
+                  		
+                  		npc.animation = new Animation(npcMap['url'],"npc",npcMap['numRows'],npcMap['numColumns'],frameList);
+                  		npc.animation.load().then((_) => npc.ready = true);
+      					
+      				}
+      				
+      				npc.facingRight = npcMap["facingRight"];
+      			}
+			}
+		});
+		(map['groundItems'] as List).forEach((Map itemMap)
+		{
+			String id = itemMap['id'];
+			Element element = querySelector("#$id");
+			if(element == null)
+				addItem(itemMap);
+			else
+			{
+				if(itemMap['onGround'] == false)
+					element.remove();
+				else
+					element.attributes['actions'] = JSON.encode(itemMap['actions']);
+			}
 		});
 	});
 	streetSocket.onClose.listen((_)
@@ -124,6 +152,7 @@ _setupStreetSocket(String streetName)
 			return;
 		}
 		
+		joined = "";
 		//wait 5 seconds and try to reconnect
 		new Timer(new Duration(seconds:5),()
 		{
@@ -164,6 +193,7 @@ _setupPlayerSocket()
 	});
 	playerSocket.onClose.listen((_)
 	{
+		joined = "";
 		//wait 5 seconds and try to reconnect
 		new Timer(new Duration(seconds:5),()
 		{
@@ -252,7 +282,7 @@ void addNPC(Map map)
 	if(currentStreet == null)
 		return;
 	
-	npcs[map['id']] = new NPC(map);
+	entities[map['id']] = new NPC(map);
 }
 
 void addPlant(Map map)
@@ -260,12 +290,35 @@ void addPlant(Map map)
 	if(currentStreet == null)
 		return;
 	
-	plants[map['id']] = new Plant(map);
+	entities[map['id']] = new Plant(map);
+}
+
+void addItem(Map map)
+{
+	if(currentStreet == null)
+		return;
+	
+	ImageElement item = new ImageElement(src:map['iconUrl']);
+	item.onLoad.first.then((_)
+	{
+		item.style.transform = "translateX(${map['x']}px) translateY(${map['y']}px)";
+		item.style.position = "absolute";
+    	item.attributes['translatex'] = map['x'].toString();
+    	item.attributes['translatey'] = map['y'].toString();
+    	item.attributes['width'] = item.width.toString();
+        item.attributes['height'] = item.height.toString();
+    	item.attributes['type'] = map['name'];
+    	item.attributes['actions'] = JSON.encode(map['actions']);
+    	item.classes.add('groundItem');
+    	item.classes.add('entity');
+    	item.id = map['id'];
+    	querySelector("#PlayerHolder").append(item);
+	});
 }
 
 void addItemToInventory(Map map)
 {	
-	ImageElement img = new ImageElement(src:map['url']);
+	ImageElement img = new ImageElement(src:map['item']['spriteUrl']);
 	img.onLoad.first.then((_)
 	{
 		//do some fancy 'put in bag' animation that I can't figure out right now
@@ -318,60 +371,202 @@ Future animate(ImageElement i, Map map)
 
 void putInInventory(ImageElement img, Map map)
 {
-	String name = map['name'];
+	Map i = map['item'];
+	String name = i['name'];
+	int stacksTo = i['stacksTo'];
 	Element item;
+	bool found = false;
 	
-	if(querySelector("#InventoryBar").querySelector(".item-$name") != null)
+	String cssName = name.replaceAll(" ","_");
+	for(Element item in querySelector("#InventoryBar").querySelectorAll(".item-$cssName"))
 	{
-		item = querySelector("#InventoryBar").querySelector(".item-$name");
 		int count = int.parse(item.attributes['count']);
-		count++;
-		int offset = count;
-		if(offset > 4)
-			offset = 4;
 		
-		num width = int.parse(item.style.width.replaceAll("px", ""));
-		item.style.backgroundPosition = "-${(offset-1)*width}px";
-		item.attributes['count'] = count.toString();
-		
-		Element itemCount = item.parent.querySelector(".itemCount");
-		if(itemCount != null)
-			itemCount.text = count.toString();
-		else
+		if(count < stacksTo)
 		{
-			SpanElement itemCount = new SpanElement()
-				..text = count.toString()
-				..className = "itemCount";
-			item.parent.append(itemCount);
+			count++;
+    		int offset = count;
+    		if(i['iconNum'] != null && i['iconNum'] < count)
+    			offset = i['iconNum'];
+    		
+    		num width = img.width/i['iconNum'];
+    		item.style.backgroundPosition = "calc(100% / ${i['iconNum'] - 1} * ${offset - 1}";
+    		item.attributes['count'] = count.toString();
+    		
+    		Element itemCount = item.parent.querySelector(".itemCount");
+    		if(itemCount != null)
+    			itemCount.text = count.toString();
+    		else
+    		{
+    			SpanElement itemCount = new SpanElement()
+    				..text = count.toString()
+    				..className = "itemCount";
+    			item.parent.append(itemCount);
+    		}
+    		
+    		found = true;
+    		break;
 		}
 	}
-	else
+	if(!found)
     {
-		bool found = false;
-		//find first free item slot
-    	for(Element barSlot in querySelector("#InventoryBar").children)
-    	{
-    		if(barSlot.children.length == 0)
-    		{
-    			item = new DivElement();
-				item.style.width = barSlot.contentEdge.width.toString()+"px";
-				item.style.height = (img.height).toString()+"px";
-				item.style.backgroundImage = 'url(${map['url']})';
-				item.style.backgroundRepeat = 'no-repeat';
-				item.style.backgroundSize = "400% ${item.style.height}";
-				item.className = 'bounce item-'+map['name'];
-    			item.attributes['name'] = map['name'];
-    			item.attributes['count'] = "1";
-    			barSlot.append(item);
-    			found = true;
-    			break;
-    		}
-    	}
-    	
-    	//there was no space in the player's pack, drop the item on the ground instead
-    	if(!found)
-    	{
-    		
-    	}
+		findNewSlot(item,map,img);
     }
+}
+
+findNewSlot(Element item, Map map, ImageElement img)
+{
+	bool found = false;
+	Map i = map['item'];
+	int stacksTo = i['stacksTo'];
+	
+	//find first free item slot
+	for(Element barSlot in querySelector("#InventoryBar").children)
+	{
+		if(barSlot.children.length == 0)
+		{
+			String cssName = i['name'].replaceAll(" ","_");
+			item = new DivElement();
+			
+			//determine what we need to scale the sprite image to in order to fit
+			num scale = 1;
+			if(img.height > img.width/i['iconNum'])
+				scale = (barSlot.contentEdge.height-10)/img.height;
+			else
+				scale = (barSlot.contentEdge.width-10)/(img.width/i['iconNum']);
+			
+			item.style.width = (barSlot.contentEdge.width-10).toString()+"px";
+			item.style.height = (barSlot.contentEdge.height-10).toString()+"px";
+			item.style.backgroundImage = 'url(${i['spriteUrl']})';
+			item.style.backgroundRepeat = 'no-repeat';
+			item.style.backgroundSize = "${img.width*scale}px ${img.height*scale}px";
+			item.style.backgroundPosition = "0 50%";
+			item.style.margin = "auto";
+			item.className = 'bounce item-$cssName';
+			item.attributes['name'] = cssName;
+			item.attributes['count'] = "1";
+			barSlot.append(item);
+			found = true;
+			break;
+		}
+	}
+	
+	//there was no space in the player's pack, drop the item on the ground instead
+	if(!found)
+		dropItem(i);
+}
+
+void dropItem(Map item)
+{
+	Map dropMap = new Map()
+		..['dropItem'] = item
+		..['count'] = 1
+		..['x'] = CurrentPlayer.posX
+		..['y'] = CurrentPlayer.posY+CurrentPlayer.height/2
+		..['streetName'] = currentStreet.label
+		..['tsid'] = currentStreet._data['tsid'];
+	
+	streetSocket.send(JSON.encode(dropMap));
+}
+
+void showVendorWindow(Map map)
+{
+	TemplateElement vendorTemplate = querySelector("#VendorTemplate");
+	document.body.append(vendorTemplate.content.clone(true));
+	querySelector("#CloseVendor").onClick.first.then((_) => querySelector("#VendorWindow").remove());
+	
+	querySelector("#NumCurrants").text = "${ui.commaFormatter.format(getCurrants())} currants";
+	querySelector("#VendorTitle").text = map['vendorName'];
+	Element content = querySelector("#VendorContent");
+	for(Map item in map['itemsForSale'] as List)
+	{
+		DivElement parent = new DivElement()..className = "vendorItemParent";
+		DivElement tooltip = new DivElement()..className = "vendorItemTooltip";
+		ImageElement image = new ImageElement(src:item['iconUrl'])..className = "vendorItemPreview";
+		SpanElement price = new SpanElement();
+		DivElement priceParent = new DivElement()..style.textAlign="center"..append(price);
+		tooltip.text = item['name'];
+		price.text = item['price'].toString() + "\u20a1";
+		
+		//if we can't afford it, color the price reddish
+		if(item['price'] > getCurrants())
+			price.classes.add("cantAfford");
+		
+		parent.onClick.listen((_) => showDetailsWindow(item,map));
+		parent..append(tooltip)..append(image)..append(priceParent);
+		content.append(parent);
+	}
+}
+
+void showDetailsWindow(Map item, Map vendorMap)
+{
+	TemplateElement detailsTempalte = querySelector("#DetailsTemplate");
+	querySelector("#VendorWindow").insertBefore(detailsTempalte.content.clone(true), querySelector("#CurrantParent"));
+
+	DivElement vendorContent = querySelector("#VendorContent");
+	
+	vendorContent.hidden = true;
+	
+	ImageElement itemImg = querySelector("#ItemImage");
+	itemImg.src = item['iconUrl'];
+	querySelector("#Description").text = item['description'];
+	querySelector("#ItemName").text = item['name'];
+	querySelector("#ItemPrice").text = "Price ${item['price']}\u20a1";
+	querySelector("#ItemNum").text = "${getNumItems(item['name'])}";
+	querySelector("#StackNum").text = "${item['stacksTo']}";
+	
+	InputElement numInput = querySelector("#NumToBuy");
+	DivElement buyButton = querySelector("#BuyButton");
+	int numToBuy = 1;
+	numInput.onInput.listen((_)
+	{
+		try
+		{
+			int newNum = numInput.valueAsNumber.toInt();
+			numToBuy = updateNumToBuy(numInput,buyButton,item['price'],newNum);
+		}catch(e){}
+	});
+	buyButton.text = "Buy 1 for ${item['price']}\u20a1";
+	buyButton.onClick.listen((_)
+	{
+		if(getCurrants() < item['price']*numToBuy)
+			return;
+		
+		setCurrants((getCurrants()-item['price']*numToBuy).toString());
+		querySelector("#NumCurrants").text = "${ui.commaFormatter.format(getCurrants())} currants";
+		sendAction("buyItem",vendorMap['id'],{"itemName":item['name'],"num":numToBuy});
+		querySelector("#BackLink").click();
+	});
+	querySelector("#PlusButton").onClick.listen((_)
+	{
+        try
+        {
+        	int newNum = (++numInput.valueAsNumber).toInt();
+        	numToBuy = updateNumToBuy(numInput,buyButton,item['price'],newNum);
+        }catch(e){}
+	});
+	querySelector("#MinusButton").onClick.listen((_)
+	{
+		try
+	    {
+	    	int newNum = (--numInput.valueAsNumber).toInt();
+	    	numToBuy = updateNumToBuy(numInput,buyButton,item['price'],newNum);
+	    }catch(e){}
+	});
+	querySelector("#BackLink").onClick.first.then((_)
+	{
+		vendorContent.hidden=false;
+		querySelector("#ItemDetails").remove();
+	});
+}
+
+int updateNumToBuy(InputElement numInput, DivElement buyButton, int price, int newNum)
+{
+	if(newNum < 1)
+		newNum = 1;
+	
+	numInput.valueAsNumber = newNum;
+    buyButton.text = "Buy $newNum for ${price*newNum}\u20a1";
+    
+    return numInput.valueAsNumber.toInt();
 }
