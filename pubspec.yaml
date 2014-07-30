@@ -12,5 +12,7 @@ dependencies:
       ref: master
       url: https://github.com/ChildrenOfUr/libld
   scproxy:
-    path: ../scproxy
+    git:
+      ref: master
+      url: https://github.com/darkkiero/scproxy.git
   gorgon: '>=0.13.3'
