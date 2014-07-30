@@ -243,6 +243,11 @@
 		left: 16px;
 		bottom: 80px;
 	}
+	#JoystickParent {
+		width: 115px;
+		height: 115px;
+		overflow: auto;
+	}
 	#Joystick {
 		display: block;
 		width: 50px;
