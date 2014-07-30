@@ -3,7 +3,7 @@ part of coUclient;
 WebSocket playerSocket;
 AudioInstance loadingMusic;
 
-main()
+initialize()
 {
 	//disable the mobile stylesheet
 	//we do it here instead of in the html so that it loads

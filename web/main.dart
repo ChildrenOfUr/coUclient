@@ -49,6 +49,11 @@ part 'dart/quoin.dart';
 part 'dart/plant.dart';
 part 'dart/entity.dart';
 
+main()
+{
+	initialize();
+}
+
 //localStorage to use throughout app
 Storage localStorage = window.localStorage;
 
