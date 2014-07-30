@@ -275,12 +275,12 @@ class Street
       Map<String,DivElement> transforms = new Map();
       for(DivElement canvas in gameScreen.querySelectorAll('.streetcanvas'))
       {
-        int canvasWidth = int.parse(canvas.style.width.replaceAll('px', ''));
-        int canvasHeight = int.parse(canvas.style.height.replaceAll('px', ''));
+        int canvasWidth = num.parse(canvas.style.width.replaceAll('px', '')).toInt();
+        int canvasHeight = num.parse(canvas.style.height.replaceAll('px', '')).toInt();
         double offsetX = (canvasWidth - ui.gameScreenWidth) * currentPercentX;
         double offsetY = (canvasHeight - ui.gameScreenHeight) * currentPercentY;
         
-        int groundY = int.parse(canvas.attributes['ground_y']);
+        int groundY = num.parse(canvas.attributes['ground_y']).toInt();
         offsetY += groundY;
   
         //translateZ(0) forces the gpu to render the transform
