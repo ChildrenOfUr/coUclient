@@ -255,7 +255,7 @@ class Street
 	//make sure to redraw the screen (in case of street switching)
       camera.dirty = true;
       c.complete(this);
-      sendJoinedMessage(label);
+      sendJoinedMessage(label,_data['tsid']);
     });
         // Done initializing street.
     return c.future;

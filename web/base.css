@@ -1,4 +1,5 @@
 
+@import url("buttons.css");
 @font-face{font-family:'RockoFLFBold';src:url('./assets/font/rockoflf-bold-webfont.eot');src:url('./assets/font/rockoflf-bold-webfont.eot?#iefix') format('embedded-opentype'),url('./assets/font/rockoflf-bold-webfont.woff') format('woff'),url('./assets/font/rockoflf-bold-webfont.ttf') format('truetype'),url('./assets/font/rockoflf-bold-webfont.svg#RockoFLFBold') format('svg');font-weight:normal;font-style:normal}
 
 /*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
@@ -1065,6 +1066,11 @@ text-decoration: underline;
   cursor: pointer;  color: #d79035;
   border: 1px solid #d79035;
 }
+.RCItemDisabled {
+  color: grey;
+  cursor: default;
+  border: none;
+}
 
 #CurrentLocation{
   position:absolute;
@@ -1538,8 +1544,6 @@ quoin graphic
 }
 
 .fill {
-	-webkit-transition: width 3s linear;
-	transition: width 3s linear;
 	width: 0px;
     position:absolute;
     font-size: 36px;
@@ -1681,7 +1685,8 @@ quoin graphic
 	border-radius: 5px;
 	padding: 5px;
 	background: white;
-	margin: 10px;
+	position: relative;
+	margin-right: 10px;
 }
 .vendorItemParent:hover .vendorItemTooltip {
 	display: inline-block;
@@ -1690,7 +1695,8 @@ quoin graphic
 	display: none;
 	position: absolute;
 	padding: 5px;
-	top: 15px;
+	top: 0px;
+	transform: translateY(-100%);
 	background: #EBF052;
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
@@ -1715,12 +1721,125 @@ quoin graphic
 	display: block;
 	margin: 10px;
 }
-.vendorItemPrice {
-	display: inline-block;
-	float: right;
-}
 .cantAfford {
 	color: red;
+}
+#CurrantParent {
+	position: absolute;
+	right: 15px;
+	bottom: 15px;
+	display: inline-block;
+}
+#NumCurrantsEmblem {
+	width: 1.3em;
+	height: 1.3em;
+	vertical-align: middle;
+}
+.vendorContentInsert {
+	background: rgb(243, 243, 248);
+	padding: 10px;
+	margin: 0 -20px;
+	height: calc(100% - 70px);
+}
+#BackLink {
+	margin: 10px;
+	color: #4b2e4c;
+	display: inline-block;
+	cursor: pointer;
+}
+#LeftColumn {
+	position: absolute;
+	left: 10px;
+	right: 73%;
+	text-align: center;
+}
+#RightColumn {
+	position: absolute;
+	left: 30%;
+	right: 20px;			
+}
+#ItemName {
+	font-size: 1.5em;
+	margin-bottom: 5px;
+}
+#QuantityParent {
+	display: inline-block;
+	background: white;
+	padding: 5px;
+	border: 1px solid lightgray;
+	border-radius: 5px;
+}
+#MinusButton {
+	font-size: 1.5em;
+	vertical-align: middle;
+	color: red;
+}
+#PlusButton {
+	font-size: 1.5em;
+	vertical-align: middle;
+	color: green;
+}
+#NumToBuy {
+	font-family: 'RockoFLFBold', sans-serif;
+	text-align: center;
+	vertical-align: middle;
+	font-size: 1.5em;
+	width: 50px;
+	height: 1.5em;
+	border: none;
+}
+#NumToBuy::-webkit-inner-spin-button, 
+#NumToBuy::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+#ItemImageParent {
+	text-align: center;
+	background: white;
+	border: 1px solid rgb(228, 228, 228);
+	border-radius: 5px;
+	padding: 10px 20px;
+	display: inline-block;
+}
+#ItemImage {
+	display: block;
+	margin: auto;
+	margin-bottom: 10px;
+}
+#ItemPrice {
+	color: gray;
+}
+#ItemCount {
+	margin-top: 10px;
+}
+#MaxButton {
+	display: inline-block;
+	margin: 0;
+	margin-left: 5px;
+	box-shadow: none;
+}
+#BuyButton {
+	display: inline-block;
+	margin: 0;
+	box-shadow: none;
+}
+#Description {
+	margin-top: 10px;
+	margin-bottom: 15px;
+}
+#BlankSlot {
+	width: 1em;
+	height: 1em;
+	display: inline-block;
+	vertical-align: middle;
+	background: white;
+	border: 1px dashed lightgray;
+	border-radius: 3px;
+	margin-right: 5px;
+}
+.itemDetailNum {
+	font-size: 1.3em;
+	vertical-align: middle;
 }
 .interactionWindow {
 	z-index: 2;

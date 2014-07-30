@@ -69,7 +69,7 @@ class Input
 	    //keyCode's could be configurable in the future
 	    document.onKeyDown.listen((KeyboardEvent k)
 		{
-	    	if(ignoreKeys || menuKeyListener != null)
+	    	if(ignoreKeys || menuKeyListener != null || querySelector(".fill") != null)
 	    		return;
 	    	
 			if ((k.keyCode == keys["UpBindingPrimary"] || k.keyCode == keys["UpBindingAlt"])) //up arrow or w
@@ -111,14 +111,18 @@ class Input
 		Joystick joystick = new Joystick(querySelector('#Joystick'),querySelector('#Knob'),deadzoneInPercent:.2);
 		joystick.onMove.listen((_)
 		{
-			if(joystick.UP) upKey = true;
-			else upKey = false;
-			if(joystick.DOWN) downKey = true;
-			else downKey = false;
-			if(joystick.LEFT) leftKey = true;
-			else leftKey = false;
-			if(joystick.RIGHT) rightKey = true;
-			else rightKey = false;
+			//don't move during harvesting, etc.
+			if(querySelector(".fill") == null)
+			{
+				if(joystick.UP) upKey = true;
+    			else upKey = false;
+    			if(joystick.DOWN) downKey = true;
+    			else downKey = false;
+    			if(joystick.LEFT) leftKey = true;
+    			else leftKey = false;
+    			if(joystick.RIGHT) rightKey = true;
+    			else rightKey = false;
+			}
 			
 			Element clickMenu = querySelector("#RightClickMenu");
 			if(clickMenu != null)
@@ -225,7 +229,7 @@ class Input
 	
 	void doObjectInteraction([MouseEvent e, List<String> ids])
 	{
-		if(CurrentPlayer.intersectingObjects.length > 0 && querySelector('#RightClickMenu') == null)
+		if(CurrentPlayer.intersectingObjects.length > 0 && querySelector('#RightClickMenu') == null && querySelector(".fill") == null)
 		{
 			if(CurrentPlayer.intersectingObjects.length == 1)
 				CurrentPlayer.intersectingObjects.forEach(
@@ -323,21 +327,27 @@ class Input
 	{
 		Element element = querySelector("#$id");
 		List<List> actions = [];
+		bool allDisabled = true;
 		if(element.attributes['actions'] != null)
 		{
-			Map<String,String> actionNames = JSON.decode(element.attributes['actions']);
-			actionNames.forEach((String action, String actionText)
+			List<Map> actionsList = JSON.decode(element.attributes['actions']);
+			actionsList.forEach((Map actionMap)
 			{
-				actions.add([capitalizeFirstLetter(action)+","+actionText,element.id,"sendAction $action ${element.id}"]);
+				bool enabled = actionMap['enabled'];
+				if(enabled)
+					allDisabled = false;
+				String error = "";
+				if(actionMap['requires'] != null)
+				{
+					enabled = hasRequirements(actionMap['requires']);
+					error = getRequirementString(actionMap['requires']);
+				}
+				actions.add([capitalizeFirstLetter(actionMap['action'])+"|"+actionMap['actionWord']+"|${actionMap['timeRequired']}|$enabled|$error",element.id,"sendAction ${actionMap['action']} ${element.id}"]);
 			});
 		}
-		showClickMenu(null,element.attributes['type'],"Desc",actions);
+		if(!allDisabled)
+			showClickMenu(null,element.attributes['type'],"Desc",actions);
 	}
-	
-	String capitalizeFirstLetter(String string)
-    {
-        return string[0].toUpperCase() + string.substring(1);
-    }
 	
 	setupKeyBindings()
 	{
@@ -671,25 +681,47 @@ class Input
 		for (List option in options)
 		{
 			DivElement menuitem = new DivElement();
-			menuitem..classes.add('RCItem')
-				..text = (option[0] as String).split(",")[0]
-				..onClick.listen((_)
+			menuitem..classes.add('RCItem')..text = (option[0] as String).split("|")[0];
+			
+			if((option[0] as String).split("|")[3] == "true")
+			{
+		        menuitem..onClick.listen((_)
 				{
-					runCommand(option[2]);
+		        	int timeRequired = int.parse((option[0] as String).split("|")[2]);
+		        	
 					SpanElement outline = new SpanElement()
-						..text = (option[0] as String).split(",")[1]
+						..text = (option[0] as String).split("|")[1]
 						..className = "border"
 						..style.top  = '$y' 'px'
                         ..style.left = '$x' 'px';
 					SpanElement fill = new SpanElement()
-						..text = (option[0] as String).split(",")[1]
+						..text = (option[0] as String).split("|")[1]
 						..className = "fill"
+						..style.transition = "width ${timeRequired/1000}s linear"
 						..style.top  = '$y' 'px'
                         ..style.left = '$x' 'px';
 					document.body..append(outline)..append(fill);
 					//start the "fill animation"
 					fill.style.width = outline.clientWidth.toString()+"px";
-					new Timer(new Duration(milliseconds:3300), () {outline.remove();fill.remove();});
+					
+					StreamSubscription escListener;					
+					Timer miningTimer = new Timer(new Duration(milliseconds:timeRequired+300), () 
+					{
+						outline.remove();
+						fill.remove();
+						sendAction((option[0] as String).split("|")[0].toLowerCase(),option[1]);
+						escListener.cancel();
+					});
+					escListener = document.onKeyUp.listen((KeyboardEvent k)
+					{
+						if(k.keyCode == 27)
+						{
+							outline.remove();
+                        	fill.remove();
+                        	escListener.cancel();
+                        	miningTimer.cancel();
+						}
+					});
 				})
 				..onMouseOver.listen((_)
     			{
@@ -700,9 +732,15 @@ class Input
     				});
     				menuitem.classes.add("RCItemSelected");
     			});
+			}
+			else
+			{
+				menuitem..classes.add('RCItemDisabled')
+					    ..onMouseOver.listen((_) => querySelector('#ClickDesc').text = (option[0] as String).split("|")[4]);
+			}
 			newOptions.add(menuitem);
 		}
-		if(newOptions.length > 0)
+		if(newOptions.length > 0 && !newOptions[0].classes.contains("RCItemDisabled"))
 			newOptions[0].classes.toggle("RCItemSelected");
 		
 		list.children.addAll(newOptions);

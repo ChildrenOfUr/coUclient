@@ -7,7 +7,7 @@ import 'dart:math';
 import 'package:intl/intl.dart'; //used for NumberFormat
 
 // Import our coU libraries.
-import 'package:glitchTime/glitch-time.dart';// The script that spits out time!
+import 'package:glitch_time/glitch_time.dart';// The script that spits out time!
 import 'package:scproxy/scproxy.dart'; // Paul's soundcloud bootstrap
 import 'package:libld/libld.dart'; // Nice and simple asset loading.
 import 'package:gorgon/gorgon.dart';
@@ -31,6 +31,7 @@ part 'dart/engine/multiplayer.dart';
 // Definitions
 part 'dart/engine/def/keycodes.dart';
 part 'dart/engine/def/elements.dart';
+part 'dart/engine/util.dart';
 
 // Game parts
 part 'dart/street.dart';

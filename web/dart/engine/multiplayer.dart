@@ -1,7 +1,7 @@
 part of coUclient;
 
-String multiplayerServer = "ws://robertmcdermot.com:8080/playerUpdate";
-String streetEventServer = "ws://robertmcdermot.com:8080/streetUpdate";
+String multiplayerServer = "ws://localhost:8181/playerUpdate";
+String streetEventServer = "ws://localhost:8181/streetUpdate";
 String joined = "";
 WebSocket streetSocket;
 bool reconnect = true;
@@ -27,14 +27,14 @@ void sendLeftMessage(String streetName)
     }
 }
 
-void sendJoinedMessage(String streetName)
+void sendJoinedMessage(String streetName, [String tsid])
 {
 	if(joined != streetName && streetSocket != null && streetSocket.readyState == WebSocket.OPEN)
 	{
 		Map map = new Map();
 		map["username"] = chat.username;
 		map["streetName"] = streetName;
-		map["tsid"] = currentStreet._data['tsid'];
+		map["tsid"] = tsid == null ? currentStreet._data['tsid'] : tsid;
 		map["message"] = "joined";
 		streetSocket.send(JSON.encode(map));
 		joined = streetName;
@@ -55,7 +55,8 @@ _setupStreetSocket(String streetName)
 		//check if we are receiving an item
 		if(map['giveItem'] != null)
 		{
-			addItemToInventory(map);
+			for(int i=0; i<map['num']; i++)
+				addItemToInventory(map);
 			return;
 		}
 		if(map['itemsForSale'] != null)
@@ -92,8 +93,12 @@ _setupStreetSocket(String streetName)
             Plant plant = entities[plantMap["id"]];
 			if(element == null)
 				addPlant(plantMap);
-			if(plant != null && plant.state != plantMap['state'])
-				plant.updateState(plantMap['state']);
+			else
+			{
+				element.attributes['actions'] = JSON.encode(plantMap['actions']);
+				if(plant != null && plant.state != plantMap['state'])
+					plant.updateState(plantMap['state']);
+			}
 		});
 		(map["npcs"] as List).forEach((Map npcMap)
 		{
@@ -102,22 +107,26 @@ _setupStreetSocket(String streetName)
             NPC npc = entities[npcMap["id"]];
 			if(element == null)
 				addNPC(npcMap);
-			else if(npc != null)
+			else
 			{
-				if(npc.animation.url != npcMap["url"]) //new animation
-				{
-					npc.ready = false;
-					
-					List<int> frameList = [];
-            		for(int i=0; i<npcMap['numFrames']; i++)
-            			frameList.add(i);
-            		
-            		npc.animation = new Animation(npcMap['url'],"npc",npcMap['numRows'],npcMap['numColumns'],frameList);
-            		npc.animation.load().then((_) => npc.ready = true);
-					
-				}
-				
-				npc.facingRight = npcMap["facingRight"];
+				element.attributes['actions'] = JSON.encode(npcMap['actions']);
+				if(npc != null)
+      			{
+      				if(npc.animation.url != npcMap["url"]) //new animation
+      				{
+      					npc.ready = false;
+      					
+      					List<int> frameList = [];
+                  		for(int i=0; i<npcMap['numFrames']; i++)
+                  			frameList.add(i);
+                  		
+                  		npc.animation = new Animation(npcMap['url'],"npc",npcMap['numRows'],npcMap['numColumns'],frameList);
+                  		npc.animation.load().then((_) => npc.ready = true);
+      					
+      				}
+      				
+      				npc.facingRight = npcMap["facingRight"];
+      			}
 			}
 		});
 		(map['groundItems'] as List).forEach((Map itemMap)
@@ -130,6 +139,8 @@ _setupStreetSocket(String streetName)
 			{
 				if(itemMap['onGround'] == false)
 					element.remove();
+				else
+					element.attributes['actions'] = JSON.encode(itemMap['actions']);
 			}
 		});
 	});
@@ -464,6 +475,7 @@ void showVendorWindow(Map map)
 	document.body.append(vendorTemplate.content.clone(true));
 	querySelector("#CloseVendor").onClick.first.then((_) => querySelector("#VendorWindow").remove());
 	
+	querySelector("#NumCurrants").text = "${ui.commaFormatter.format(getCurrants())} currants";
 	querySelector("#VendorTitle").text = map['vendorName'];
 	Element content = querySelector("#VendorContent");
 	for(Map item in map['itemsForSale'] as List)
@@ -471,14 +483,90 @@ void showVendorWindow(Map map)
 		DivElement parent = new DivElement()..className = "vendorItemParent";
 		DivElement tooltip = new DivElement()..className = "vendorItemTooltip";
 		ImageElement image = new ImageElement(src:item['iconUrl'])..className = "vendorItemPreview";
-		DivElement price = new DivElement()..className = "vendorItemPrice";
+		SpanElement price = new SpanElement();
+		DivElement priceParent = new DivElement()..style.textAlign="center"..append(price);
 		tooltip.text = item['name'];
 		price.text = item['price'].toString() + "\u20a1";
 		
 		//if we can't afford it, color the price reddish
 		if(item['price'] > getCurrants())
 			price.classes.add("cantAfford");
-		parent..append(tooltip)..append(image)..append(price);
+		
+		parent.onClick.listen((_) => showDetailsWindow(item,map));
+		parent..append(tooltip)..append(image)..append(priceParent);
 		content.append(parent);
 	}
+}
+
+void showDetailsWindow(Map item, Map vendorMap)
+{
+	TemplateElement detailsTempalte = querySelector("#DetailsTemplate");
+	querySelector("#VendorWindow").insertBefore(detailsTempalte.content.clone(true), querySelector("#CurrantParent"));
+
+	DivElement vendorContent = querySelector("#VendorContent");
+	
+	vendorContent.hidden = true;
+	
+	ImageElement itemImg = querySelector("#ItemImage");
+	itemImg.src = item['iconUrl'];
+	querySelector("#Description").text = item['description'];
+	querySelector("#ItemName").text = item['name'];
+	querySelector("#ItemPrice").text = "Price ${item['price']}\u20a1";
+	querySelector("#ItemNum").text = "${getNumItems(item['name'])}";
+	querySelector("#StackNum").text = "${item['stacksTo']}";
+	
+	InputElement numInput = querySelector("#NumToBuy");
+	DivElement buyButton = querySelector("#BuyButton");
+	int numToBuy = 1;
+	numInput.onInput.listen((_)
+	{
+		try
+		{
+			int newNum = numInput.valueAsNumber.toInt();
+			numToBuy = updateNumToBuy(numInput,buyButton,item['price'],newNum);
+		}catch(e){}
+	});
+	buyButton.text = "Buy 1 for ${item['price']}\u20a1";
+	buyButton.onClick.listen((_)
+	{
+		if(getCurrants() < item['price']*numToBuy)
+			return;
+		
+		setCurrants((getCurrants()-item['price']*numToBuy).toString());
+		querySelector("#NumCurrants").text = "${ui.commaFormatter.format(getCurrants())} currants";
+		sendAction("buyItem",vendorMap['id'],{"itemName":item['name'],"num":numToBuy});
+		querySelector("#BackLink").click();
+	});
+	querySelector("#PlusButton").onClick.listen((_)
+	{
+        try
+        {
+        	int newNum = (++numInput.valueAsNumber).toInt();
+        	numToBuy = updateNumToBuy(numInput,buyButton,item['price'],newNum);
+        }catch(e){}
+	});
+	querySelector("#MinusButton").onClick.listen((_)
+	{
+		try
+	    {
+	    	int newNum = (--numInput.valueAsNumber).toInt();
+	    	numToBuy = updateNumToBuy(numInput,buyButton,item['price'],newNum);
+	    }catch(e){}
+	});
+	querySelector("#BackLink").onClick.first.then((_)
+	{
+		vendorContent.hidden=false;
+		querySelector("#ItemDetails").remove();
+	});
+}
+
+int updateNumToBuy(InputElement numInput, DivElement buyButton, int price, int newNum)
+{
+	if(newNum < 1)
+		newNum = 1;
+	
+	numInput.valueAsNumber = newNum;
+    buyButton.text = "Buy $newNum for ${price*newNum}\u20a1";
+    
+    return numInput.valueAsNumber.toInt();
 }
