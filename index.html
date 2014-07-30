@@ -12877,7 +12877,7 @@ var $$ = {};
       return c.future;
     },
     render$0: function() {
-      var t1, t2, currentPercentX, currentPercentY, transforms, canvas, t3, canvasWidth, canvasHeight, offsetX, offsetY;
+      var t1, t2, currentPercentX, currentPercentY, transforms, canvas, t3, canvasWidth, canvasHeight, t4, groundY;
       t1 = $.get$camera();
       if (t1.dirty) {
         t1 = t1._x;
@@ -12900,22 +12900,22 @@ var $$ = {};
           t2 = J.getInterceptor$x(canvas);
           t3 = J.get$width$x(t2.get$style(canvas));
           t3.toString;
-          canvasWidth = H.Primitives_parseInt(H.stringReplaceAllUnchecked(t3, "px", ""), null, null);
+          canvasWidth = J.toInt$0$n(P.num_parse(H.stringReplaceAllUnchecked(t3, "px", ""), null));
           t3 = J.get$height$x(t2.get$style(canvas));
           t3.toString;
-          canvasHeight = H.Primitives_parseInt(H.stringReplaceAllUnchecked(t3, "px", ""), null, null);
-          offsetX = J.$mul$ns(J.$sub$n(canvasWidth, $.get$ui().gameScreenWidth), currentPercentX);
-          offsetY = J.$add$ns(J.$mul$ns(J.$sub$n(canvasHeight, $.get$ui().gameScreenHeight), currentPercentY), H.Primitives_parseInt(t2.get$attributes(canvas)._element.getAttribute("ground_y"), null, null));
+          canvasHeight = J.toInt$0$n(P.num_parse(H.stringReplaceAllUnchecked(t3, "px", ""), null));
+          t3 = $.get$ui();
+          t4 = t3.gameScreenWidth;
+          if (typeof t4 !== "number")
+            return H.iae(t4);
+          t3 = t3.gameScreenHeight;
+          if (typeof t3 !== "number")
+            return H.iae(t3);
+          groundY = J.toInt$0$n(P.num_parse(t2.get$attributes(canvas)._element.getAttribute("ground_y"), null));
           t2 = canvas.id;
           if (typeof t2 !== "string")
             return t2.$add();
-          t2 += "translateZ(0) translateX(";
-          if (typeof offsetX !== "number")
-            return offsetX.$negate();
-          t2 = t2 + C.JSNumber_methods.toString$0(-offsetX) + "px) translateY(";
-          if (typeof offsetY !== "number")
-            return offsetY.$negate();
-          transforms.$indexSet(0, t2 + C.JSNumber_methods.toString$0(-offsetY) + "px)", canvas);
+          transforms.$indexSet(0, t2 + "translateZ(0) translateX(" + C.JSNumber_methods.toString$0(-((canvasWidth - t4) * currentPercentX)) + "px) translateY(" + C.JSNumber_methods.toString$0(-((canvasHeight - t3) * currentPercentY + groundY)) + "px)", canvas);
         }
         transforms.forEach$1(0, new B.Street_render_closure());
         $.get$camera().dirty = false;
