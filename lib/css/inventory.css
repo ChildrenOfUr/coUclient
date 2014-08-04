@@ -65,6 +65,10 @@
   background-color: #fff;  border-radius: 8px;
   border: 2px solid rgba(0,0,0,0.3);
   z-index: 1;
-  box-shadow: 0 0 15px 1px rgba(0,0,0,0.1); display: inline-block;
+  box-shadow: 0 0 5px 1px rgba(0,0,0,0.1); display: inline-block;
   margin-top: 80px;
+  outline: none;
+}
+#invsearch:focus {
+  box-shadow: 0 0 15px 1px rgba(0,0,0,0.1);
 }
