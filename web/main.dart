@@ -27,7 +27,7 @@ import 'package:libld/libld.dart'; // Nice and simple asset loading.
 import 'package:pump/pump.dart';
 
 // Locally hosted street rendering system
-//import 'package:couclient/src/display/render/streetlib.dart';
+import 'package:couclient/src/display/render/streetlib.dart';
 
 // SYSTEMS MODULES //
 part 'package:couclient/src/systems/clock.dart';
@@ -49,7 +49,6 @@ part 'package:couclient/src/display/audio.dart';
 
 // RENDERING MODULES //
 part 'package:couclient/src/display/render.dart';
-part 'package:couclient/src/display/chat_bubble.dart';
 
 // GAME MODULES //
 part 'package:couclient/src/game/game.dart';
@@ -93,5 +92,9 @@ main() {
   
   
   new Moment('DoneLoading',null);
+  
+  // Game Starting Stuff
+  new StreetManager();
+  
   
 }
