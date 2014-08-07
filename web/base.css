@@ -17,7 +17,10 @@
   -khtml-user-drag: none;
   -webkit-user-drag: none;
   user-drag: none;
-  
+}
+
+.template {
+	display: none;
 }
 
 .button {

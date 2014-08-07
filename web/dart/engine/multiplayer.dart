@@ -471,8 +471,7 @@ void dropItem(Map item)
 
 void showVendorWindow(Map map)
 {
-	TemplateElement vendorTemplate = querySelector("#VendorTemplate");
-	document.body.append(vendorTemplate.content.clone(true));
+	document.body.append(VendorWindow.create());
 	querySelector("#CloseVendor").onClick.first.then((_) => querySelector("#VendorWindow").remove());
 	
 	querySelector("#NumCurrants").text = "${ui.commaFormatter.format(getCurrants())} currants";
@@ -500,8 +499,7 @@ void showVendorWindow(Map map)
 
 void showDetailsWindow(Map item, Map vendorMap)
 {
-	TemplateElement detailsTempalte = querySelector("#DetailsTemplate");
-	querySelector("#VendorWindow").insertBefore(detailsTempalte.content.clone(true), querySelector("#CurrantParent"));
+	querySelector("#VendorWindow").insertBefore(DetailsWindow.create(), querySelector("#CurrantParent"));
 
 	DivElement vendorContent = querySelector("#VendorContent");
 	

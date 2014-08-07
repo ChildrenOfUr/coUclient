@@ -49,6 +49,12 @@ part 'dart/quoin.dart';
 part 'dart/plant.dart';
 part 'dart/entity.dart';
 
+//ui templates (in lieu of <template> being available on some browsers)
+part 'dart/ui_templates/vendor_window.dart';
+part 'dart/ui_templates/right_click_menu.dart';
+part 'dart/ui_templates/interactions_menu.dart';
+part 'dart/ui_templates/details_window.dart';
+
 main()
 {
 	initialize();

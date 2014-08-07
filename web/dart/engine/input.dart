@@ -253,8 +253,7 @@ class Input
 		if(oldWindow != null)
 			oldWindow.remove();
 		
-		TemplateElement vendorTemplate = querySelector("#InteractionTemplate");
-    	document.body.append(vendorTemplate.content.clone(true));
+		document.body.append(InteractionWindow.create());
     	Element multiWindow = querySelector("#InteractionWindow");
     	querySelector("#CloseInteraction").onClick.first.then((_) => stopMenu(multiWindow));
     	querySelector("#InteractionTitle").text = "Interact With...";
@@ -640,8 +639,7 @@ class Input
 	showClickMenu(MouseEvent Click, String title, String description, List<List> options)
 	{
 		hideClickMenu(querySelector('#RightClickMenu'));
-		TemplateElement t = querySelector('#RC_Template');
-		Node menu = document.body.append(t.content.clone(true));
+		document.body.append(RightClickMenu.create());
 		Element clickMenu = querySelector('#RightClickMenu');
 		Element list = querySelector('#RCActionList');
 		

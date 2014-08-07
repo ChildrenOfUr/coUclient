@@ -284,82 +284,6 @@
 	    <a href="http://www.soundcloud.com" target="_blank"><img src="./assets/system/soundcloud.png"></img></a>
 	  </div>
 
-	<!-- Right-Click Menu template -->
-	    <template id="RC_Template">
-	      <div id="RightClickMenu">
-	      <div class="InfoButton">Info</div>
-	      <span id="ClickTitle">A Chicken</span><br>
-	        <span id="ClickDesc" class="soft">
-	          Obtain wheat. Costs 2 energy
-	        </span>
-	        <div id="RCActionList">
-	            
-	        </div>
-	      </div>
-	    </template>
-	    
-	<!-- template for vendor window -->
-	<template id="VendorTemplate">
-		<div class="PopWindow" id="VendorWindow">
-			<div class="PopWindowHeader handle">
-	            <div id="VendorTitle"></div>
-	            <i id="CloseVendor" class="fa fa-times fa-lg red PopCloseEmblem"></i>
-			</div>
-	        <div class="vendorContentInsert" id="VendorContent"></div>
-	        
-	        <div id="CurrantParent">
-	        	<span style="color:gray;vertical-align:middle">You have</span>
-	        	<img src="./assets/system/currant.svg" id="NumCurrantsEmblem">
-	        	<span id="NumCurrants" style="vertical-align:middle">0 currants</span>
-	        </div>
-		</div>
-	</template>
-	
-	<template id="DetailsTemplate">
-		<div id="ItemDetails" class="vendorContentInsert">
-        	<div id="BackLink">&#9001;Back</div>
-        	<div id="LeftColumn">
-        		<div id="ItemImageParent">
-        			<img id="ItemImage">
-        			<span id="ItemPrice"></span>
-        		</div>
-        		<div id="ItemCount">
-	        		<span style="color:gray;vertical-align:middle">You have </span>
-	        		<span id="ItemNum" class="itemDetailNum">0</span>
-	        		<span style="color:gray;vertical-align:middle">of these</span>
-        		</div>
-        	</div>
-        	<div id="RightColumn">
-	        	<div id="ItemName"></div>
-	        	<div id="QuantityParent">
-	        		<span id="MinusButton">-</span>
-	        		<input id="NumToBuy" type="number" value="1" min="1">
-	        		<span id="PlusButton">+</span>
-	        		<div class="button light" id="MaxButton">Max</div>
-	        	</div>
-	        	<div class="button light" id="BuyButton">Buy 1 for 10&#8353;</div>
-	        	<div id="Description"></div>
-	        	<div id="ItemStack">
-	        		<span id="BlankSlot"></span>
-	        		<span style="color:gray;vertical-align:middle">Fits up to </span>
-	        		<span id="StackNum" class="itemDetailNum">0</span>
-	        		<span style="color:gray;vertical-align:middle"> in an inventory slot</span>
-	        	</div>
-	        </div>
-        </div>
-	</template>
-	
-	<!-- template for entity interaction window -->
-	<template id="InteractionTemplate">
-		<div class="interactionWindow" id="InteractionWindow">
-			<div class="PopWindowHeader handle">
-	            <div id="InteractionTitle"></div>
-	            <i id="CloseInteraction" class="fa fa-times fa-lg red PopCloseEmblem"></i>
-			</div>
-	        <div id="InteractionContent"></div>
-		</div>
-	</template>
-
 	<!-- mobile specific components -->
 	<span id="MobileAudioGlyph">
 		<i id="MobileVolumeGlyph" class="fa fa-volume-up glyph fa-lg"></i>
@@ -413,6 +337,7 @@ function getRoom(dataJSON)
 {
 	window.postMessage(JSON.stringify(dataJSON), '*');
 }
+
 </script>
 
 <!-- Start the Game up. -->
