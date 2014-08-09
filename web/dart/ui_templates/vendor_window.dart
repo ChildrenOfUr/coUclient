@@ -7,24 +7,46 @@ class VendorWindow
 	 * Creates the UI for a vendor window and returns a reference to the root element
 	 * 
 	 **/
-	static Element create()
+	static Element create(Map vendorMap)
 	{
 		DivElement vendorWindow = new DivElement()..id="VendorWindow"..className = "PopWindow";
 		
 		DivElement header = new DivElement()..className = "PopWindowHeader handle";
-		DivElement title = new DivElement()..id="VendorTitle";
+		DivElement title = new DivElement()..id="VendorTitle"..text = vendorMap['vendorName'];
 		SpanElement close = new SpanElement()..id="CloseVendor"..className="fa fa-times fa-lg red PopCloseEmblem";
 		header..append(title)..append(close);
 		
-		DivElement content = new DivElement()..id="VendorContent"..className="vendorContentInsert";
+		DivElement tabParent = new DivElement()..id="VendorTabParent";
+		DivElement buy = new DivElement()..id="BuyTab"..className="vendorTab vendorTabSelected"..text="Buy";
+		DivElement sell = new DivElement()..id="SellTab"..className="vendorTab"..text="Sell";
+		tabParent..append(buy)..append(sell);
 		
 		DivElement currantParent = new DivElement()..id="CurrantParent";
 		SpanElement first = new SpanElement()..attributes['style']="color:gray;vertical-align:middle"..text="You have ";
 		ImageElement currant = new ImageElement(src:"./assets/system/currant.svg")..id="NumCurrantsEmblem";
-		SpanElement last = new SpanElement()..attributes['style']="vertical-align:middle"..id="NumCurrants"..text=" 0 currants";
+		SpanElement last = new SpanElement()..attributes['style']="vertical-align:middle"..id="NumCurrants"..text = " ${ui.commaFormatter.format(getCurrants())} currants";
 		currantParent..append(first)..append(currant)..append(last);
 		
-		vendorWindow..append(header)..append(content)..append(currantParent);
+		vendorWindow..append(header)..append(tabParent)..append(VendorShelves.create(vendorMap))..append(currantParent);
+		
+		close.onClick.first.then((_) => destroy());
+		
+		buy.onClick.listen((_)
+		{
+			insertContent(VendorShelves.create(vendorMap));
+			_setActiveTab(buy);
+		});
+		
+		sell.onClick.listen((_)
+		{
+			insertContent(SellInterface.create(vendorMap));
+			_setActiveTab(sell);
+		});
+		document.onKeyUp.listen((KeyboardEvent k)
+		{
+			if(k.keyCode == 27)
+				destroy();
+		});
 		
 		return vendorWindow;
 	}
@@ -36,6 +58,26 @@ class VendorWindow
 	 **/
 	static void destroy()
 	{
-		querySelector("#VendorWindow").remove();
+		Element window = querySelector("#VendorWindow");
+		if(window != null)
+			window.remove();
+	}
+	
+	static void insertContent(Element content)
+	{
+		Element existing = querySelector(".vendorContentInsert");
+		if(existing != null)
+			existing.remove();
+		querySelector("#VendorWindow").insertBefore(content, querySelector("#CurrantParent"));
+		if(querySelector("#SellInterface") != null || DetailsWindow.inSellMode)
+			_setActiveTab(querySelector("#SellTab"));
+		else
+			_setActiveTab(querySelector("#BuyTab"));
+	}
+	
+	static void _setActiveTab(Element tab)
+	{
+		querySelector("#VendorTabParent").children.forEach((Element child) => child.classes.remove("vendorTabSelected"));
+		tab.classes.add("vendorTabSelected");
 	}
 }

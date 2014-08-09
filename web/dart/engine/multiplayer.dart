@@ -59,9 +59,14 @@ _setupStreetSocket(String streetName)
 				addItemToInventory(map);
 			return;
 		}
+		if(map['takeItem'] != null)
+		{
+			subtractItemFromInventory(map);
+			return;
+		}
 		if(map['itemsForSale'] != null)
 		{
-			showVendorWindow(map);
+			document.body.append(VendorWindow.create(map));
 			return;
 		}
 		
@@ -328,6 +333,28 @@ void addItemToInventory(Map map)
 	});
 }
 
+void subtractItemFromInventory(Map map)
+{
+	String cssName = map['name'].replaceAll(" ","_");
+	int remaining = map['count'];
+	for(Element item in querySelector("#Inventory").querySelectorAll(".item-$cssName"))
+	{
+		if(remaining < 1)
+			break;
+		
+		int count = int.parse(item.attributes['count']);
+		if(count > map['count'])
+		{
+			item.attributes['count'] = (count-map['count']).toString();
+			item.parent.querySelector('.itemCount').text = (count-map['count']).toString();
+		}
+		else
+			item.parent.children.clear();
+		
+		remaining -= count;
+	}
+}
+
 Future animate(ImageElement i, Map map)
 {
 	Completer c = new Completer();
@@ -378,7 +405,7 @@ void putInInventory(ImageElement img, Map map)
 	bool found = false;
 	
 	String cssName = name.replaceAll(" ","_");
-	for(Element item in querySelector("#InventoryBar").querySelectorAll(".item-$cssName"))
+	for(Element item in querySelector("#Inventory").querySelectorAll(".item-$cssName"))
 	{
 		int count = int.parse(item.attributes['count']);
 		
@@ -442,129 +469,60 @@ findNewSlot(Element item, Map map, ImageElement img)
 			item.style.backgroundSize = "${img.width*scale}px ${img.height*scale}px";
 			item.style.backgroundPosition = "0 50%";
 			item.style.margin = "auto";
-			item.className = 'bounce item-$cssName';
+			item.className = 'item-$cssName inventoryItem';
 			item.attributes['name'] = cssName;
 			item.attributes['count'] = "1";
+			item.attributes['itemMap'] = JSON.encode(i);
+			
+			item.onContextMenu.listen((MouseEvent event)
+			{
+				List<List> actions = [];
+        		bool allDisabled = true;
+        		if(i['actions'] != null)
+        		{
+        			List<Map> actionsList = i['actions'];
+        			actionsList.forEach((Map actionMap)
+        			{
+        				bool enabled = actionMap['enabled'];
+        				if(enabled)
+        					allDisabled = false;
+        				String error = "";
+        				if(actionMap['requires'] != null)
+        				{
+        					enabled = hasRequirements(actionMap['requires']);
+        					error = getRequirementString(actionMap['requires']);
+        				}
+        				actions.add([capitalizeFirstLetter(actionMap['action'])+"|"+actionMap['actionWord']+"|${actionMap['timeRequired']}|$enabled|$error",i['name'],"sendAction ${actionMap['action']} ${i['id']}",getDropMap(i,1)]);
+        			});
+        		}
+        		if(!allDisabled)
+					document.body.append(RightClickMenu.create(event, "Options", i['description'], actions));
+			});
 			barSlot.append(item);
+			
+			item.classes.add("bounce");
+			//remove the bounce class so that it's not still there for a drag and drop event
+			new Timer(new Duration(seconds:1),() => item.classes.remove("bounce"));
+						
 			found = true;
 			break;
 		}
 	}
-	
+		
 	//there was no space in the player's pack, drop the item on the ground instead
 	if(!found)
-		dropItem(i);
+		sendAction("drop",i['name'].replaceAll(" ",""),getDropMap(i,1));
 }
 
-void dropItem(Map item)
+Map getDropMap(Map item, int count)
 {
 	Map dropMap = new Map()
 		..['dropItem'] = item
-		..['count'] = 1
+		..['count'] = count
 		..['x'] = CurrentPlayer.posX
 		..['y'] = CurrentPlayer.posY+CurrentPlayer.height/2
 		..['streetName'] = currentStreet.label
 		..['tsid'] = currentStreet._data['tsid'];
 	
-	streetSocket.send(JSON.encode(dropMap));
-}
-
-void showVendorWindow(Map map)
-{
-	document.body.append(VendorWindow.create());
-	querySelector("#CloseVendor").onClick.first.then((_) => querySelector("#VendorWindow").remove());
-	
-	querySelector("#NumCurrants").text = "${ui.commaFormatter.format(getCurrants())} currants";
-	querySelector("#VendorTitle").text = map['vendorName'];
-	Element content = querySelector("#VendorContent");
-	for(Map item in map['itemsForSale'] as List)
-	{
-		DivElement parent = new DivElement()..className = "vendorItemParent";
-		DivElement tooltip = new DivElement()..className = "vendorItemTooltip";
-		ImageElement image = new ImageElement(src:item['iconUrl'])..className = "vendorItemPreview";
-		SpanElement price = new SpanElement();
-		DivElement priceParent = new DivElement()..style.textAlign="center"..append(price);
-		tooltip.text = item['name'];
-		price.text = item['price'].toString() + "\u20a1";
-		
-		//if we can't afford it, color the price reddish
-		if(item['price'] > getCurrants())
-			price.classes.add("cantAfford");
-		
-		parent.onClick.listen((_) => showDetailsWindow(item,map));
-		parent..append(tooltip)..append(image)..append(priceParent);
-		content.append(parent);
-	}
-}
-
-void showDetailsWindow(Map item, Map vendorMap)
-{
-	querySelector("#VendorWindow").insertBefore(DetailsWindow.create(), querySelector("#CurrantParent"));
-
-	DivElement vendorContent = querySelector("#VendorContent");
-	
-	vendorContent.hidden = true;
-	
-	ImageElement itemImg = querySelector("#ItemImage");
-	itemImg.src = item['iconUrl'];
-	querySelector("#Description").text = item['description'];
-	querySelector("#ItemName").text = item['name'];
-	querySelector("#ItemPrice").text = "Price ${item['price']}\u20a1";
-	querySelector("#ItemNum").text = "${getNumItems(item['name'])}";
-	querySelector("#StackNum").text = "${item['stacksTo']}";
-	
-	InputElement numInput = querySelector("#NumToBuy");
-	DivElement buyButton = querySelector("#BuyButton");
-	int numToBuy = 1;
-	numInput.onInput.listen((_)
-	{
-		try
-		{
-			int newNum = numInput.valueAsNumber.toInt();
-			numToBuy = updateNumToBuy(numInput,buyButton,item['price'],newNum);
-		}catch(e){}
-	});
-	buyButton.text = "Buy 1 for ${item['price']}\u20a1";
-	buyButton.onClick.listen((_)
-	{
-		if(getCurrants() < item['price']*numToBuy)
-			return;
-		
-		setCurrants((getCurrants()-item['price']*numToBuy).toString());
-		querySelector("#NumCurrants").text = "${ui.commaFormatter.format(getCurrants())} currants";
-		sendAction("buyItem",vendorMap['id'],{"itemName":item['name'],"num":numToBuy});
-		querySelector("#BackLink").click();
-	});
-	querySelector("#PlusButton").onClick.listen((_)
-	{
-        try
-        {
-        	int newNum = (++numInput.valueAsNumber).toInt();
-        	numToBuy = updateNumToBuy(numInput,buyButton,item['price'],newNum);
-        }catch(e){}
-	});
-	querySelector("#MinusButton").onClick.listen((_)
-	{
-		try
-	    {
-	    	int newNum = (--numInput.valueAsNumber).toInt();
-	    	numToBuy = updateNumToBuy(numInput,buyButton,item['price'],newNum);
-	    }catch(e){}
-	});
-	querySelector("#BackLink").onClick.first.then((_)
-	{
-		vendorContent.hidden=false;
-		querySelector("#ItemDetails").remove();
-	});
-}
-
-int updateNumToBuy(InputElement numInput, DivElement buyButton, int price, int newNum)
-{
-	if(newNum < 1)
-		newNum = 1;
-	
-	numInput.valueAsNumber = newNum;
-    buyButton.text = "Buy $newNum for ${price*newNum}\u20a1";
-    
-    return numInput.valueAsNumber.toInt();
+	return dropMap;
 }

@@ -450,10 +450,16 @@ togglePhysics(var nothing)
 
 sendAction(String methodName, String entityId, [Map arguments])
 {
+	Element entity = querySelector("#${entityId}");
 	Map map = {};
 	map['callMethod'] = methodName;
-	map['id'] = entityId;
-	map['type'] = querySelector("#${entityId}").className;
+	if(entity != null)
+	{
+		map['id'] = entityId;
+        map['type'] = entity.className;
+	}
+	else
+		map['type'] = entityId;
 	map['streetName'] = currentStreet.label;
 	map['username'] = chat.username;
 	map['tsid'] = currentStreet._data['tsid'];

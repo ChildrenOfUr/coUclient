@@ -1385,7 +1385,6 @@ text-decoration: underline;
 		  left:40px;
 		  right:300px;
 		  overflow:hidden;
-		  overflow-y:auto;
 		  -moz-border-radius: 4px;
 		  border-radius: 4px;
 	}
@@ -1762,6 +1761,42 @@ quoin graphic
 .cantAfford {
 	color: red;
 }
+#VendorTabParent {
+	text-align: right;
+}
+.vendorTab {
+	display: inline-block;
+	border-top: 1px solid rgba(0,0,0,0.2);
+	border-right: 1px solid rgba(0,0,0,0.2);
+	border-left: 1px solid rgba(0,0,0,0.2);
+	border-radius: 5px 5px 0px 0px;
+	padding: 2px 15px;
+	margin-right: 5px;
+	color: #4b2e4c;
+	font-size: 1.4em;
+	cursor: pointer;
+}
+.vendorTabSelected {
+	color: black;
+	background: #eee;
+}
+#SellDropTarget
+{
+	background: white;
+	border: 2px dashed #999;
+	width: 75px;
+	height: 75px;
+	border-radius: 5px;
+	margin-left: 20%;
+	margin-top: 50px;
+}
+#SellCallout
+{
+	position: relative;
+	left: 150px;
+	top: -50px;
+	pointer-events: none;
+}
 #CurrantParent {
 	position: absolute;
 	right: 15px;
@@ -1774,10 +1809,10 @@ quoin graphic
 	vertical-align: middle;
 }
 .vendorContentInsert {
-	background: rgb(243, 243, 248);
+	background: #eee;
 	padding: 10px;
 	margin: 0 -20px;
-	height: calc(100% - 70px);
+	height: calc(100% - 100px);
 }
 #BackLink {
 	margin: 10px;
@@ -1903,4 +1938,7 @@ quoin graphic
 .entitySelected {
 	border: 1px solid orange;
 	color: orange;
+}
+.dnd-dragging {
+  opacity: 0.5;
 }

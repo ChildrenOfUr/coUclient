@@ -237,14 +237,6 @@ class Input
 			else
 				createMultiEntityWindow();
 		}
-		else
-		{
-			if(e != null)
-			{
-				//TODO show a right click menu that is meaningful or don't show anything
-				//showClickMenu(e,'Testing Right Click', 'this is a demo',[["Sample"]]);
-			}
-		}
 	}
 	
 	void createMultiEntityWindow()
@@ -254,72 +246,6 @@ class Input
 			oldWindow.remove();
 		
 		document.body.append(InteractionWindow.create());
-    	Element multiWindow = querySelector("#InteractionWindow");
-    	querySelector("#CloseInteraction").onClick.first.then((_) => stopMenu(multiWindow));
-    	querySelector("#InteractionTitle").text = "Interact With...";
-    	Element content = querySelector("#InteractionContent");
-    	
-        for(String id in CurrentPlayer.intersectingObjects.keys)
-		{
-			DivElement container = new DivElement()
-				..style.display = "inline-block"
-				..style.textAlign = "center"
-				..classes.add("entityContainer");
-			Element oldEntity = querySelector("#$id");
-			Element entity = oldEntity.clone(false);
-			if(oldEntity is CanvasElement)
-				(entity as CanvasElement).context2D.drawImage(oldEntity, 0, 0);
-			entity.style.transform = "";
-			entity.style.position = "";
-			entity.style.display = "block";
-			entity.style.margin = "auto";
-			entity.attributes['id'] = id;
-			container.append(entity);
-			SpanElement text = new SpanElement()..text = entity.attributes['type'];
-			container.append(text);
-			container.onMouseOver.listen((_)
-			{
-				content.children.forEach((Element child)
-				{
-					if(child != container)
-						child.classes.remove("entitySelected");
-				});
-				container.classes.add("entitySelected");
-			});
-			container.onClick.first.then((MouseEvent e)
-			{
-				e.stopPropagation();
-				stopMenu(multiWindow);
-                interactWithObject(id);
-			});
-			content.append(container);
-		}
-        
-        content.children.first.classes.add("entitySelected");
-        
-        menuKeyListener = document.onKeyDown.listen((KeyboardEvent k)
-		{
-			if((k.keyCode == keys["UpBindingPrimary"] || k.keyCode == keys["UpBindingAlt"]) && !ignoreKeys) //up arrow or w and not typing
-				stopMenu(multiWindow);
-			if((k.keyCode == keys["DownBindingPrimary"] || k.keyCode == keys["DownBindingAlt"]) && !ignoreKeys) //down arrow or s and not typing
-				stopMenu(multiWindow);
-			if((k.keyCode == keys["LeftBindingPrimary"] || k.keyCode == keys["LeftBindingAlt"]) && !ignoreKeys) //left arrow or a and not typing
-				selectUp(content,"entitySelected");
-			if((k.keyCode == keys["RightBindingPrimary"] || k.keyCode == keys["RightBindingAlt"]) && !ignoreKeys) //right arrow or d and not typing
-				selectDown(content,"entitySelected");
-			if((k.keyCode == keys["JumpBindingPrimary"] || k.keyCode == keys["JumpBindingAlt"]) && !ignoreKeys) //spacebar and not typing
-				stopMenu(multiWindow);
-			if((k.keyCode == keys["ActionBindingPrimary"] || k.keyCode == keys["ActionBindingAlt"]) && !ignoreKeys) //spacebar and not typing
-			{
-				stopMenu(multiWindow);
-				interactWithObject(content.querySelector('.entitySelected').children.first.attributes['id']);
-			}
-		});
-		document.onClick.listen((_)
-		{
-			stopMenu(multiWindow);
-		});
-		document.body.append(multiWindow);
 	}
 	
 	void interactWithObject(String id)
@@ -639,116 +565,10 @@ class Input
 	showClickMenu(MouseEvent Click, String title, String description, List<List> options)
 	{
 		hideClickMenu(querySelector('#RightClickMenu'));
-		document.body.append(RightClickMenu.create());
+		document.body.append(RightClickMenu.create(Click,title,description,options));
+		
 		Element clickMenu = querySelector('#RightClickMenu');
-		Element list = querySelector('#RCActionList');
-		
-		int x,y;
-		if(Click != null)
-		{
-			if (Click.page.y > window.innerHeight/2)
-    			y = Click.page.y - 55 - (options.length * 30);
-    		else
-    			y = Click.page.y - 10;
-    		if (Click.page.x > window.innerWidth/2)
-    			x = Click.page.x - 120;
-    		else
-    			x = Click.page.x - 10;
-		}
-		else
-		{
-			num posX = CurrentPlayer.posX, posY = CurrentPlayer.posY;
-			int width = CurrentPlayer.width, height = CurrentPlayer.height;
-			num translateX = posX, translateY = ui.gameScreenHeight - height;
-    		if(posX > currentStreet.bounds.width - width/2 - ui.gameScreenWidth/2)
-    			translateX = posX - currentStreet.bounds.width + ui.gameScreenWidth;
-    		else if(posX + width/2 > ui.gameScreenWidth/2)
-    			translateX = ui.gameScreenWidth/2 - width/2;
-    		if(posY + height/2 < ui.gameScreenHeight/2)
-    			translateY = posY;
-    		else if(posY < currentStreet.bounds.height - height/2 - ui.gameScreenHeight/2)
-    			translateY = ui.gameScreenHeight/2 - height/2;
-    		else
-    			translateY = ui.gameScreenHeight - (currentStreet.bounds.height - posY);
-			x = (translateX+querySelector("#RightClickMenu").clientWidth+10)~/1;
-			y = (translateY+height/2)~/1;
-		}
-		querySelector('#ClickTitle').text = title;
-		querySelector('#ClickDesc').text = description;
-		List <Element> newOptions = new List();
-		for (List option in options)
-		{
-			DivElement menuitem = new DivElement();
-			menuitem..classes.add('RCItem')..text = (option[0] as String).split("|")[0];
-			
-			if((option[0] as String).split("|")[3] == "true")
-			{
-		        menuitem..onClick.listen((_)
-				{
-		        	int timeRequired = int.parse((option[0] as String).split("|")[2]);
-		        	
-					SpanElement outline = new SpanElement()
-						..text = (option[0] as String).split("|")[1]
-						..className = "border"
-						..style.top  = '$y' 'px'
-                        ..style.left = '$x' 'px';
-					SpanElement fill = new SpanElement()
-						..text = (option[0] as String).split("|")[1]
-						..className = "fill"
-						..style.transition = "width ${timeRequired/1000}s linear"
-						..style.top  = '$y' 'px'
-                        ..style.left = '$x' 'px';
-					document.body..append(outline)..append(fill);
-					//start the "fill animation"
-					fill.style.width = outline.clientWidth.toString()+"px";
-					
-					StreamSubscription escListener;					
-					Timer miningTimer = new Timer(new Duration(milliseconds:timeRequired+300), () 
-					{
-						outline.remove();
-						fill.remove();
-						sendAction((option[0] as String).split("|")[0].toLowerCase(),option[1]);
-						escListener.cancel();
-					});
-					escListener = document.onKeyUp.listen((KeyboardEvent k)
-					{
-						if(k.keyCode == 27)
-						{
-							outline.remove();
-                        	fill.remove();
-                        	escListener.cancel();
-                        	miningTimer.cancel();
-						}
-					});
-				})
-				..onMouseOver.listen((_)
-    			{
-    				list.children.forEach((Element child)
-    				{
-    					if(child != menuitem)
-    						child.classes.remove("RCItemSelected");
-    				});
-    				menuitem.classes.add("RCItemSelected");
-    			});
-			}
-			else
-			{
-				menuitem..classes.add('RCItemDisabled')
-					    ..onMouseOver.listen((_) => querySelector('#ClickDesc').text = (option[0] as String).split("|")[4]);
-			}
-			newOptions.add(menuitem);
-		}
-		if(newOptions.length > 0 && !newOptions[0].classes.contains("RCItemDisabled"))
-			newOptions[0].classes.toggle("RCItemSelected");
-		
-		list.children.addAll(newOptions);
-		clickMenu.style
-			..opacity = '1.0'
-			..position = 'absolute'
-			..top  = '$y' 'px'
-			..left = '$x' 'px';
-		
-		printConsole('Spawned rc window called "' + title + '".');
+        Element list = querySelector('#RCActionList');
 		
 		menuKeyListener = document.onKeyDown.listen((KeyboardEvent k)
 		{

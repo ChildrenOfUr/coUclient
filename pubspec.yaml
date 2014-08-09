@@ -16,3 +16,5 @@ dependencies:
       ref: master
       url: https://github.com/darkkiero/scproxy.git
   gorgon: '>=0.13.3'
+  dnd:
+    path: ../dart-dnd

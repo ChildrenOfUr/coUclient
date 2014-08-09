@@ -11,6 +11,7 @@ import 'package:glitch_time/glitch_time.dart';// The script that spits out time!
 import 'package:scproxy/scproxy.dart'; // Paul's soundcloud bootstrap
 import 'package:libld/libld.dart'; // Nice and simple asset loading.
 import 'package:gorgon/gorgon.dart';
+import 'package:dnd/dnd.dart';
 
 // main game entry
 part 'dart/engine/initialize.dart'; // home of the 'main()'
@@ -54,6 +55,8 @@ part 'dart/ui_templates/vendor_window.dart';
 part 'dart/ui_templates/right_click_menu.dart';
 part 'dart/ui_templates/interactions_menu.dart';
 part 'dart/ui_templates/details_window.dart';
+part 'dart/ui_templates/sell_interface.dart';
+part 'dart/ui_templates/vendor_shelves.dart';
 
 main()
 {

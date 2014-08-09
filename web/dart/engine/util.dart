@@ -19,7 +19,7 @@ int getNumItems(String item)
 {
 	int count = 0;
 	String cssName = item.replaceAll(" ","_");
-	for(Element item in querySelector("#InventoryBar").querySelectorAll(".item-$cssName"))
+	for(Element item in querySelector("#Inventory").querySelectorAll(".item-$cssName"))
 		count += int.parse(item.attributes['count']);
 	
     return count;
