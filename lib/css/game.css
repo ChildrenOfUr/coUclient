@@ -1,4 +1,5 @@
 #game {
+  pointer-events: none;
   position:absolute;
   top:50px;
   left:20px;
@@ -22,4 +23,14 @@
 #world {
 	position: absolute;
 	top: 0;
+	width: 100%;
+	height: 100%;
+}
+#fps {
+	position: absolute;
+	top: 60px;
+	left: 220px;
+	z-index: 1;
+	font-size: 1.5em;
+	color: greenyellow;
 }

@@ -1,6 +1,10 @@
 part of couclient;
 
 // GAME ENTRY AND MANAGEMENT //
+Map<String,Entity> entities = {};
+Map<String,Quoin> quoins = {};
+Map<String,Player> otherPlayers = {};
+
 class Game extends Pump {
   
   String username = 'null';
@@ -13,16 +17,23 @@ class Game extends Pump {
   int currants = 0;
   int img = 0;
   
-  // VARS //  
-  List <Entity> _entities = [];
-  
   
   // INITIALIZATION //
   Game() {
     // init stuff here
 	  load_streets()
 	  	.then((_) => new Street('test').load()
-			.then((_) => loop(0.0)));
+	  	.then((_)
+		{
+			CurrentPlayer = new Player();
+              		    		
+			CurrentPlayer.loadAnimations()
+			.then((_)
+			{    			
+				CurrentPlayer.currentAnimation = CurrentPlayer.animations['idle'];
+			})
+			.then((_) => loop(0.0));
+		}));
   }  
   
   // GAME LOOP //
@@ -33,16 +44,24 @@ class Game extends Pump {
     double dt = (delta-lastTime)/1000;
     lastTime = delta;
     
-    currentStreet.render();
-    
-    for (Entity entity in _entities)
-      entity.update(dt);
+    update(dt);
+    render();
     window.animationFrame.then(loop);
   }
 }
 
 
 // we can extend something like this to handle player/npc updates.
-class Entity {
-  update(num dt){}
+abstract class Entity
+{
+	bool glow = false, dirty = true;
+	
+	void update(double dt);
+	void render();
+	
+	void updateGlow(bool newGlow)
+	{
+		glow = newGlow;
+		dirty = true;
+	}
 }

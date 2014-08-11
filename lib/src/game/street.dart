@@ -329,6 +329,6 @@ setStreetLoadBar(int percent)
   {
     //streetLoadingStatus.text = '...done';
     //mapLoadingScreen.className = "MapLoadingScreen";
-    querySelector("#streetLoading").style.opacity = '0.0';
+    ui.streetLoading.style.opacity = '0.0';
   }
 }

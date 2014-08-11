@@ -12,3 +12,6 @@
     -ms-filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=0, OffY=0, Color='#dc')";
     filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=0, OffY=0, Color='#dc')";
 }
+.streetcanvas {
+	pointer-events: none;
+}

@@ -38,6 +38,28 @@ class InputManager extends Pump {
     
     setupKeyBindings();
     
+    window.onMessage.listen((MessageEvent event)
+	{
+		Map<String,String> street = JSON.decode(event.data);
+		String label = street['label'];
+		String tsid = street['tsid'];
+		
+		//send changeStreet to chat server
+		Map map = new Map();
+		map["statusMessage"] = "changeStreet";
+		map["username"] = ui.username;
+		map["newStreetLabel"] = label;
+		map["newStreetTsid"] = tsid;
+		map["oldStreet"] = currentStreet.label;
+		new Moment("OutgoingChatEvent",map);
+		
+		new Asset.fromMap(street,label);
+		new Street(label).load();
+	});
+    
+    document.onClick.listen((MouseEvent event) => clickOrTouch(event,null));
+    document.onTouchStart.listen((TouchEvent event) => clickOrTouch(null,event));
+    
     EVENT_BUS > this;
   }
 
@@ -87,12 +109,11 @@ class InputManager extends Pump {
     //handle changing streets via exit signs
     if (target.className == "ExitLabel") {
       //make sure loading screen is visible during load
-      Element loadingScreen = querySelector('#MapLoadingScreen');
-      loadingScreen.className = "MapLoadingScreenIn";
-      loadingScreen.style.opacity = "1.0";
+      ui.loadingScreen.className = "MapLoadingScreenIn";
+      ui.loadingScreen.style.opacity = "1.0";
       ScriptElement loadStreet = new ScriptElement();
       loadStreet.src = target.attributes['url'];
-      //playerTeleFrom = target.attributes['from'];  TODO uncomment when street.dart is done
+      playerTeleFrom = target.attributes['from'];
       document.body.append(loadStreet);
     }
   }
