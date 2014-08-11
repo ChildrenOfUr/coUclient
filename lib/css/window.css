@@ -81,6 +81,18 @@
   left:0;
   right:0;
 }
+#settingsWindow article .tab-content div {
+  font-family: 'Tahoma', 'Geneva', 'sans-serif';
+  font-size:1em;
+  margin:2px;
+}
+#settingsWindow article .tab-content div kbd {
+  background-color:#4b2e4c;
+  color:#eee;
+  font-family: 'Tahoma', 'Geneva', 'sans-serif';
+  padding:0px;
+  float:right;
+}
 
 
 
