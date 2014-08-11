@@ -1,6 +1,6 @@
 part of couclient;
 
-// At the moment we output the contents of every event, later we'll only output the contents of ErrorEvents
+// Takes DebugEvents and turns them into a visible alert for the player
 class DebugManager extends Pump {
   DebugManager() {
     EVENT_BUS & this;

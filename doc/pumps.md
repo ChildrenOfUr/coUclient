@@ -7,8 +7,8 @@ In order to make working with these classes easier, their syntax is simplified b
 
 For example, if you want Pump A to subscribe to Pump B you can:
 
-    A > B; // or,
-    B < A; // or,
+    A < B; // or,
+    B > A; // or,
     A.listen(B);
 
 When using the greater than or less than operators, it's important to remember that events travel in the direction of the sign.

@@ -20,21 +20,17 @@ import 'package:slack/slack_html.dart' as slack;
 // SoundCloud Helper
 import 'package:scproxy/scproxy.dart';
 // Audio and Graphics
-import 'package:gorgon/gorgon.dart';
+import 'package:gorgon/gorgon.dart'; // for Webaudio api
 // Asset Loading
 import 'package:libld/libld.dart'; // Nice and simple asset loading.
 // Event Bus and Pumps // for more infomation see '/doc/pumps.md'
 import 'package:pump/pump.dart';
-
-// Locally hosted street rendering system
-import 'package:couclient/src/display/render/streetlib.dart';
 
 // SYSTEMS MODULES //
 part 'package:couclient/src/systems/clock.dart';
 part 'package:couclient/src/systems/debug.dart';
 part 'package:couclient/src/systems/events.dart';
 part 'package:couclient/src/systems/commands.dart';
-part 'package:couclient/src/systems/assets.dart';
 
 // NETWORKING MODULES //
 part 'package:couclient/src/network/chat.dart';
@@ -47,8 +43,8 @@ part 'package:couclient/src/display/windows.dart';
 part 'package:couclient/src/display/meters.dart';
 part 'package:couclient/src/display/audio.dart';
 
-// RENDERING MODULES //
-part 'package:couclient/src/display/render.dart';
+// STREET RENDERING MODULES //
+
 
 // GAME MODULES //
 part 'package:couclient/src/game/game.dart';
@@ -90,11 +86,7 @@ main() {
   new Moment('StartChat','Global Chat');
   ui.update();
   
-  
-  new Moment('DoneLoading',null);
-  
-  // Game Starting Stuff
-  new StreetManager();
-  
+  // This tells the game to put the start button on the loading page.
+  new Moment('DoneLoading',null);  
   
 }

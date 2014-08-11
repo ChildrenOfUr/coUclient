@@ -30,6 +30,7 @@ class Game extends Pump {
   loop(num delta) {
     double dt = (delta-lastTime)/1000;
     lastTime = delta;
+
     for (Entity entity in _entities)
       entity.update(dt);
     window.animationFrame.then(loop);
