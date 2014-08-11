@@ -5,7 +5,7 @@ part of couclient;
 class NetChatManager extends Pump {
   WebSocket _connection;
   NetChatManager() {
-    _connection = new WebSocket('ws://vps.robertmcdermot.com:8080')
+    _connection = new WebSocket('ws://robertmcdermot.com:8080')
         ..onOpen.listen((_) {
           // First event, tells the server who we are.
           post(new Map()
@@ -40,8 +40,11 @@ class NetChatManager extends Pump {
   @override
   process(Moment<Map> event) {// Only accepts 'OutgoingChatEvent's
     if (event.isType('OutgoingChatEvent')) {
-      event.content['username'] = ui.username;
-      post(event.content);
+		if(_connection.readyState == WebSocket.OPEN)
+		{
+	      event.content['username'] = ui.username;
+	      post(event.content);
+	    }
       return;
     }
   }
