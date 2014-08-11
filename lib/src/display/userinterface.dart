@@ -54,6 +54,10 @@ class UserInterface extends Pump {
   
   // bugreport button
   Element bugButton = querySelector('#bugGlyph');
+  Element bugReportMeta = querySelector('#bugWindow article #reportMeta');
+  InputElement bugReportEmail = querySelector('#bugWindow article input[type="email"]');
+  SelectElement bugReportType = querySelector('#bugWindow article #reportCategory');
+  
   Element consoleText = new DivElement();//querySelector('.dialog.console');
 
   // main Element

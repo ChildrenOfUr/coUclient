@@ -80,6 +80,7 @@
   bottom:0;
   left:0;
   right:0;
+  overflow-y:scroll;
 }
 #settingsWindow article .tab-content div {
   font-family: 'Tahoma', 'Geneva', 'sans-serif';
@@ -108,7 +109,7 @@
 #bugWindow .button {
   float: right;
   width: 100px;
-  margin-top: 10px;
+  margin-top: 0px;
 }
 
 #bugWindow textarea {
@@ -149,7 +150,7 @@
 
 #bugWindow input[type="email"] {
 		width: 50%;
-		margin-top: 15px;
+		margin-top: 7px;
 }
 
 #motdFrame {
