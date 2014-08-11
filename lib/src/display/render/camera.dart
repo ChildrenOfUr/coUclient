@@ -1,6 +1,6 @@
 part of couclient;
 
-Camera camera = new Camera(0,400);
+Camera camera = new Camera(0,0);
 class Camera
 {
   int _x,_y;
@@ -9,7 +9,7 @@ class Camera
   Rectangle visibleRect;
   Camera(this._x,this._y)
   {
-      COMMANDS.add(['camera','sets the cameras position "camera x,y"',this.setCamera]);
+      COMMANDS['camera'] = setCamera;
   }
   
     // we're using css transitions for smooth scrolling.
@@ -19,16 +19,21 @@ class Camera
     {
       int newX = int.parse(xy.split(',')[0]);
       int newY = int.parse(xy.split(',')[1]);
-      if(newX != _x || newY != _y)
-        dirty = true;
-      _x = newX;
-      _y = newY;
-      visibleRect = new Rectangle(_x,_y,ui.gameScreenWidth,ui.gameScreenHeight);
+      setCameraPosition(newX,newY);
     }
     catch (error)
     {
-      printConsole("error: format must be camera [num],[num]: $error");
+      //printConsole("error: format must be camera [num],[num]: $error");
     }
+  }
+  
+  void setCameraPosition(int newX, int newY)
+  {
+	  if(newX != _x || newY != _y)
+		  dirty = true;
+	  _x = newX;
+	  _y = newY;
+	  visibleRect = new Rectangle(_x,_y,ui.worldWidth,ui.worldHeight);
   }
   
   int getX() => _x;

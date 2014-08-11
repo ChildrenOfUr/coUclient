@@ -20,7 +20,9 @@ class Game extends Pump {
   // INITIALIZATION //
   Game() {
     // init stuff here
-
+	  load_streets()
+	  	.then((_) => new Street('test').load()
+			.then((_) => loop(0.0)));
   }  
   
   // GAME LOOP //
@@ -30,7 +32,9 @@ class Game extends Pump {
   loop(num delta) {
     double dt = (delta-lastTime)/1000;
     lastTime = delta;
-
+    
+    currentStreet.render();
+    
     for (Entity entity in _entities)
       entity.update(dt);
     window.animationFrame.then(loop);

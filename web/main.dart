@@ -44,7 +44,11 @@ part 'package:couclient/src/display/meters.dart';
 part 'package:couclient/src/display/audio.dart';
 
 // STREET RENDERING MODULES //
-
+part 'package:couclient/src/display/render/camera.dart';
+part 'package:couclient/src/display/render/deco.dart';
+part 'package:couclient/src/display/render/ladder.dart';
+part 'package:couclient/src/display/render/platform.dart';
+part 'package:couclient/src/display/render/signpost.dart';
 
 // GAME MODULES //
 part 'package:couclient/src/game/game.dart';
@@ -58,13 +62,12 @@ part 'package:couclient/src/game/quoin.dart';
 part 'package:couclient/API_KEYS.dart';
 
 // Globals //
+Storage localStorage = window.localStorage;
+SoundManager soundManager;
 Storage session = window.sessionStorage;
 Storage local = window.localStorage;
 Random random = new Random();
 NumberFormat commaFormatter = new NumberFormat("#,###");
-
-// GAME ENTRY //
-Game game = new Game();
 
 main() {
   // System
@@ -76,7 +79,7 @@ main() {
   new NetChatManager();
   
   // UI/UX
-  new SoundManager();
+  soundManager = new SoundManager();
   new MeterManager();
   new WindowManager();
   
@@ -88,5 +91,8 @@ main() {
   
   // This tells the game to put the start button on the loading page.
   new Moment('DoneLoading',null);  
+  
+	// GAME ENTRY //
+	Game game = new Game();
   
 }
