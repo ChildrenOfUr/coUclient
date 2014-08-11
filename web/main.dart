@@ -36,6 +36,7 @@ part 'package:couclient/src/game/input.dart';
 // NETWORKING MODULES //
 part 'package:couclient/src/network/chat.dart';
 part 'package:couclient/src/network/multiplayer.dart';
+part 'package:couclient/src/network/metabolics.dart';
 
 // UI/UX MODULES //
 part 'package:couclient/src/display/userinterface.dart';
@@ -43,6 +44,8 @@ part 'package:couclient/src/display/chatpanel.dart';
 part 'package:couclient/src/display/windows.dart';
 part 'package:couclient/src/display/meters.dart';
 part 'package:couclient/src/display/audio.dart';
+part 'package:couclient/src/display/render.dart';
+part 'package:couclient/src/display/loop.dart';
 
 // STREET RENDERING MODULES //
 part 'package:couclient/src/display/render/camera.dart';
@@ -54,6 +57,8 @@ part 'package:couclient/src/display/render/signpost.dart';
 // GAME MODULES //
 part 'package:couclient/src/game/game.dart';
 part 'package:couclient/src/game/player.dart';
+part 'package:couclient/src/game/animation.dart';
+part 'package:couclient/src/game/chat_bubble.dart';
 part 'package:couclient/src/game/npc.dart';
 part 'package:couclient/src/game/street.dart';
 part 'package:couclient/src/game/quoin.dart';
@@ -65,6 +70,7 @@ part 'package:couclient/API_KEYS.dart';
 // Globals //
 Storage localStorage = window.localStorage;
 SoundManager soundManager;
+InputManager inputManager;
 Storage session = window.sessionStorage;
 Storage local = window.localStorage;
 Random random = new Random();
@@ -83,7 +89,7 @@ main() {
   soundManager = new SoundManager();
   new MeterManager();
   new WindowManager();
-  new InputManager();
+  inputManager = new InputManager();
   
 
   // Test Information

@@ -18,6 +18,8 @@ class UserInterface extends Pump {
   Element loadStatus2 = querySelector("#loading #loadstatus2");
   Element loadingScreen = querySelector('#loading');
   Element loadingSpinner = querySelector('#loading .fa-spin');
+  Element streetLoading = querySelector("#streetLoading");
+  
   // Name Meter Variables
   Element nameElement = querySelector('#playerName');
 
@@ -84,6 +86,10 @@ class UserInterface extends Pump {
   // Chat panel
   Element panel = querySelector('#panel');
   Element chatTemplate = querySelector('#conversationTemplate');
+  
+  //fps meter
+  Element fpsDisplay = querySelector('#fps');
+  
   /////////////////////ELEMENTS//////////////////////////////////////////////
 
 
@@ -164,7 +170,6 @@ class UserInterface extends Pump {
   
 	void _resize()
 	{
-	  //width and height calculations done here are now done in CSS
 	  	worldWidth = worldElement.clientWidth;
 	  	worldHeight = worldElement.clientHeight;
 	}
