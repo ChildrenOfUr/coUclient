@@ -10,7 +10,7 @@ library couclient;
 import 'dart:html';
 import 'dart:async';
 import 'dart:convert';
-import 'dart:math' show Random;
+import 'dart:math';
 
 // LIBRARIES //
 // Used for NumberFormat
@@ -21,6 +21,7 @@ import 'package:slack/slack_html.dart' as slack;
 import 'package:scproxy/scproxy.dart';
 // Audio and Graphics
 import 'package:gorgon/gorgon.dart'; // for Webaudio api
+import 'package:dnd/dnd.dart'; //for dragging items into vendor interface
 // Asset Loading
 import 'package:libld/libld.dart'; // Nice and simple asset loading.
 // Event Bus and Pumps // for more infomation see '/doc/pumps.md'
@@ -32,6 +33,7 @@ part 'package:couclient/src/systems/debug.dart';
 part 'package:couclient/src/systems/events.dart';
 part 'package:couclient/src/systems/commands.dart';
 part 'package:couclient/src/game/input.dart';
+part 'package:couclient/src/systems/util.dart';
 
 // NETWORKING MODULES //
 part 'package:couclient/src/network/chat.dart';
@@ -56,12 +58,21 @@ part 'package:couclient/src/display/render/signpost.dart';
 
 // GAME MODULES //
 part 'package:couclient/src/game/game.dart';
-part 'package:couclient/src/game/player.dart';
+part 'package:couclient/src/game/entities/player.dart';
 part 'package:couclient/src/game/animation.dart';
 part 'package:couclient/src/game/chat_bubble.dart';
-part 'package:couclient/src/game/npc.dart';
+part 'package:couclient/src/game/entities/npc.dart';
+part 'package:couclient/src/game/entities/plant.dart';
 part 'package:couclient/src/game/street.dart';
-part 'package:couclient/src/game/quoin.dart';
+part 'package:couclient/src/game/entities/quoin.dart';
+
+// UI PIECES //
+part 'package:couclient/src/display/ui_templates/details_window.dart';
+part 'package:couclient/src/display/ui_templates/interactions_menu.dart';
+part 'package:couclient/src/display/ui_templates/right_click_menu.dart';
+part 'package:couclient/src/display/ui_templates/vendor_window.dart';
+part 'package:couclient/src/display/ui_templates/vendor_shelves.dart';
+part 'package:couclient/src/display/ui_templates/sell_interface.dart';
 
 
 // API KEYS // for more infomation see '/doc/api.md'
@@ -82,15 +93,14 @@ main() {
   new ClockManager();
   new CommandManager();
   
-  // Networking
-  new NetChatManager();
-  
   // UI/UX
   soundManager = new SoundManager();
   new MeterManager();
   new WindowManager();
   inputManager = new InputManager();
   
+  // Networking
+  new NetChatManager();
 
   // Test Information
   ui.username = 'NewUITest';

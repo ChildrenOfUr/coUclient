@@ -435,7 +435,7 @@ class Player
 		//if the main screen is hidden don't check for quoin collection
 		//this should avoid a bug where the player can pick up all the quoins
 		//on a street at once because the bounding boxes all squish together
-		if(querySelector('#MainScreen').hidden == true)
+		if(ui.mainElement.hidden == true)
 			return;
 		
 		if(element.attributes['collected'] == "true")
@@ -459,26 +459,22 @@ class Player
 			if(element.classes.contains("currant"))
 			{
 				quoinText.text = "+" + amt.toString() + "\u20a1";
-				(metabolics.get("currants").then((int value)
-						=> metabolics.set("currants",value+amt)));
+				metabolics.setCurrants(metabolics.getCurrants()+amt);
 			}
 			else if(element.classes.contains("mood"))
 			{
 				quoinText.text = "+" + amt.toString() + " mood";
-				(metabolics.get("mood").then((int value)
-                		=> metabolics.set("mood",value+amt)));
+				metabolics.setMood(metabolics.getMood()+amt);
 			}
 			else if(element.classes.contains("energy"))
 			{
             	quoinText.text = "+" + amt.toString() + " energy";
-            	(metabolics.get("energy").then((int value)
-                		=> metabolics.set("energy",value+amt)));
+            	metabolics.setEnergy(metabolics.getEnergy()+amt);
 			}
 			else if(element.classes.contains("img"))
 			{
             	quoinText.text = "+" + amt.toString() + " iMG";
-            	(metabolics.get("img").then((int value)
-             			=> metabolics.set("img",value+amt)));
+            	metabolics.setImg(metabolics.getImg()+amt);
 			}
 			querySelector("#q"+element.id).classes.add("circleExpand");
 			querySelector("#qq"+element.id).classes.add("circleExpand");
@@ -486,14 +482,14 @@ class Player
 			new Timer(new Duration(milliseconds:800), () => _removeCircleExpand(querySelector("#q"+element.id)));
 			element.style.display = "none"; //.remove() is very slow
 			
-			/*if(streetSocket != null && streetSocket.readyState == WebSocket.OPEN)
+			if(streetSocket != null && streetSocket.readyState == WebSocket.OPEN)
 			{
 				Map map = new Map();
     			map["remove"] = element.id;
     			map["type"] = "quoin";
     			map["streetName"] = currentStreet.label;
     			streetSocket.send(JSON.encode(map));
-			}*/
+			}
 		}
 	}
 	

@@ -4,6 +4,9 @@ UserInterface ui = new UserInterface();
 
 class UserInterface extends Pump {
 
+//NumberFormat for having commas in the currants and iMG displays
+	NumberFormat commaFormatter = new NumberFormat("#,###");
+	
   // If you need to change an element somewhere else, put the declaration in this class.
   // You can then access it with 'ui.yourElement'. This way we keep everything in one spot
   /////////////////////ELEMENTS//////////////////////////////////////////////
@@ -201,6 +204,14 @@ class UserInterface extends Pump {
     if (event.isType('StartChat')) {
       Chat chat = new Chat(event.content as String);
       openConversations.add(chat);
+	  //handle chat input getting focused/unfocused so that the character doesn't move while typing
+	  ElementList chatInputs = querySelectorAll('.Typing');
+	  chatInputs.onFocus.listen((_) {
+	    inputManager.ignoreKeys = true;
+	  });
+	  chatInputs.onBlur.listen((_) {
+	    inputManager.ignoreKeys = false;
+	  });
     }
     // MISC EVENT HANDLERS //
     if (event.isType('TimeUpdate')) {

@@ -144,15 +144,6 @@ class InputManager extends Pump {
       local["GraphicsBlur"] = graphicsBlur.checked.toString();
     });
     */
-    
-    //handle chat input getting focused/unfocused so that the character doesn't move while typing
-    ElementList chatInputs = querySelectorAll('.Typing');
-    chatInputs.onFocus.listen((_) {
-      ignoreKeys = true;
-    });
-    chatInputs.onBlur.listen((_) {
-      ignoreKeys = false;
-    });
 
     //Handle player input
     //KeyUp and KeyDown are neccesary for preventing weird movement glitches
