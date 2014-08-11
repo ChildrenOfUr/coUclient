@@ -506,6 +506,7 @@ class Player
 		Platform bestPlatform;
 		num x = posX+width/2;
 		num from = cameFrom+height+currentStreet._data['dynamic']['ground_y'];
+		num bestDiffY = 1000;
 		
 		for(Platform platform in currentStreet.platforms)
 		{
@@ -514,14 +515,18 @@ class Player
 				num slope = (platform.end.y-platform.start.y)/(platform.end.x-platform.start.x);
     			num yInt = platform.start.y - slope*platform.start.x;
     			num lineY = slope*x+yInt;
+    			num diffY = (from-lineY).abs();
     			    			    			
     			if(bestPlatform == null)
 					bestPlatform = platform;
 				else
 				{
 					//+5 helps with upward slopes and not falling through things
-					if(lineY+5 >= from)
+					if(lineY+5 >= from && diffY < bestDiffY)
+					{
 						bestPlatform = platform;
+						bestDiffY = diffY;
+					}
 				}
 			}
 		}

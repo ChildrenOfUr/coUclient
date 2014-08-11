@@ -5,7 +5,7 @@ class NPC extends Entity
 	int speed;
 	CanvasElement canvas;
 	bool ready = false, facingRight = true, firstRender = true;
-	double posX = 0.0, posY = 0.0;
+	num posX = 0.0, posY = 0.0;
 	Animation animation;
 	
 	NPC(Map map,{this.speed : 75})
@@ -17,8 +17,8 @@ class NPC extends Entity
 		animation = new Animation(map['url'],"npc",map['numRows'],map['numColumns'],frameList);
 		animation.load().then((_)
 		{
-			posY = currentStreet.bounds.height - map['y'].toDouble() - animation.height;
-			posX = map['x'].toDouble();
+			posY = currentStreet.bounds.height - num.parse(map['y'].toString()) - animation.height;
+			posX = num.parse(map['x'].toString());
 			
 			canvas = new CanvasElement();
         	canvas.id = map["id"];

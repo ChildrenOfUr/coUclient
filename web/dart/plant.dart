@@ -2,7 +2,8 @@ part of coUclient;
 
 class Plant extends Entity
 {
-	int state, x, y, width, height, numRows, numColumns;
+	int state, width, height, numRows, numColumns;
+	num x,y;
 	CanvasElement canvas;
 	bool ready = false, firstRender = true;
 	ImageElement spritesheet;
@@ -22,8 +23,8 @@ class Plant extends Entity
 		{
 			width = spritesheet.width~/map['numColumns'];
 			height = spritesheet.height~/map['numRows'];
-			x = map['x'];
-            y = currentStreet.bounds.height - map['y'] - height;
+			x = num.parse(map['x'].toString());
+            y = currentStreet.bounds.height - num.parse(map['x'].toString()) - height;
                 		
 			canvas = new CanvasElement();
         	canvas.id = map["id"];
