@@ -3,6 +3,7 @@ description: 'Children of Ur :: Webclient'
 dependencies:
   browser: any
   gorgon: any
+  dnd: any
   intl: any
   libld:
     git:

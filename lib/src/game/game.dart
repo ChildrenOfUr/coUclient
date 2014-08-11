@@ -1,10 +1,6 @@
 part of couclient;
 
 // GAME ENTRY AND MANAGEMENT //
-Map<String,Entity> entities = {};
-Map<String,Quoin> quoins = {};
-Map<String,Player> otherPlayers = {};
-
 class Game extends Pump {
   
   String username = 'null';
@@ -25,6 +21,8 @@ class Game extends Pump {
 	  	.then((_) => new Street('test').load()
 	  	.then((_)
 		{
+		  	metabolics.init();
+		  	multiplayerInit();
 			CurrentPlayer = new Player();
               		    		
 			CurrentPlayer.loadAnimations()
