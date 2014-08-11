@@ -31,6 +31,7 @@ part 'package:couclient/src/systems/clock.dart';
 part 'package:couclient/src/systems/debug.dart';
 part 'package:couclient/src/systems/events.dart';
 part 'package:couclient/src/systems/commands.dart';
+part 'package:couclient/src/game/input.dart';
 
 // NETWORKING MODULES //
 part 'package:couclient/src/network/chat.dart';
@@ -79,6 +80,7 @@ main() {
   new SoundManager();
   new MeterManager();
   new WindowManager();
+  new InputManager();
   
 
   // Test Information
