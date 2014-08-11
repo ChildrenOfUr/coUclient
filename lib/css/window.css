@@ -84,13 +84,15 @@
 #settingsWindow article .tab-content div {
   font-family: 'Tahoma', 'Geneva', 'sans-serif';
   font-size:1em;
-  margin:2px;
+  margin:10px;
 }
 #settingsWindow article .tab-content div kbd {
   background-color:#4b2e4c;
   color:#eee;
   font-family: 'Tahoma', 'Geneva', 'sans-serif';
-  padding:0px;
+  padding:3px;
+  text-align:right;
+  border-radius:5px;
   float:right;
 }
 
