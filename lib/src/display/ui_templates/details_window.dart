@@ -28,9 +28,9 @@ class DetailsWindow
 		DivElement rightColumn = new DivElement()..id="RightColumn";
 		DivElement name = new DivElement()..id="ItemName"..text = item['name'];
 		DivElement quantityParent = new DivElement()..id="QuantityParent";
-		SpanElement minus = new SpanElement()..id="MinusButton"..text="-";
+		SpanElement minus = new SpanElement()..id="MinusButton"..className="incrementDecrement"..text="-";
 		InputElement buyNum = new InputElement()..id="NumToBuy"..type="number"..value="1"..min="1";
-		SpanElement plus = new SpanElement()..id="PlusButton"..text="+";
+		SpanElement plus = new SpanElement()..id="PlusButton"..className="incrementDecrement"..text="+";
 		DivElement max = new DivElement()..id="MaxButton"..className="button light"..text="Max";
 		quantityParent..append(minus)..append(buyNum)..append(plus)..append(max);
 		
@@ -60,11 +60,12 @@ class DetailsWindow
     		try
     		{
     			int newNum = buyNum.valueAsNumber.toInt();
-    			if(newNum > getNumItems(item['name']))
+    			if(sellMode && newNum >= getNumItems(item['name']))
     			{
     				newNum = getNumItems(item['name']);
-    				buyNum.value = getNumItems(item['name']).toString();
+                    buyNum.value = getNumItems(item['name']).toString();
     			}
+    			
     			numToBuy = _updateNumToBuy(buyNum,buy,item['price'],newNum,verb);
     		}catch(e){}
     	});

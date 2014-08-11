@@ -46,6 +46,7 @@ class UserInterface extends Pump {
 
   // Inventory Management
   Element inventorySearch = querySelector('#inventorySearch');
+  Element inventory = querySelector("#inventory");
 
   // Pause button
   Element pauseButton = querySelector('#thinkButton');

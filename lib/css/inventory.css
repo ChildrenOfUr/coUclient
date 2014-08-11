@@ -35,6 +35,10 @@
   left:calc(50% - 17.5px);
 }
 
+.box {
+	position: relative;
+}
+
 #inventorySearch {
   background-color:#eee;
   width:35px;
@@ -71,4 +75,13 @@
 }
 #invsearch:focus {
   box-shadow: 0 0 15px 1px rgba(0,0,0,0.1);
+}
+
+.inventoryItem {
+  cursor: pointer;
+}
+.itemCount {
+	position: absolute;
+	bottom: 0px;
+	right: 3px;
 }
