@@ -25,6 +25,21 @@ class WindowManager {
     ui.settingsButton.onClick.listen((_) {
       modals['settingsWindow'].open();
     });
+    
+    ui.settingsTabs.onClick.listen((MouseEvent m) {
+      Element tab = m.target as Element;
+      Element tabView = querySelector('#settingsWindow article #${tab.text.toLowerCase()}');
+      // hide all tabs
+      for (Element t in querySelectorAll('#settingsWindow article .tab-content'))
+        t.hidden = true;
+      for (Element t in querySelectorAll('#settingsWindow article .tab'))
+        t.classes.remove('active');
+      // show intended tab
+      tab.classes.add('active');
+      tabView.hidden = false;
+
+    });
+    
 
 
 

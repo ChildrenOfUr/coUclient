@@ -46,6 +46,10 @@ class UserInterface extends Pump {
   Element pauseButton = querySelector('#thinkButton');
   Element pauseMenu = querySelector('#pauseMenu');
 
+  // settings window elements
+  ElementList settingsTabs = querySelectorAll('#settingsWindow article .tab');
+  
+  
   // bugreport button
   Element bugButton = querySelector('#bugGlyph');
   Element consoleText = new DivElement();//querySelector('.dialog.console');
