@@ -163,7 +163,7 @@ class InputManager extends Pump {
       jumpKey = true;
       if ((k.keyCode == keys["ActionBindingPrimary"] || k.keyCode == keys["ActionBindingAlt"])) //enter
       {
-        //doObjectInteraction(); TODO rightclicks
+        doObjectInteraction();
       }
     });
 
@@ -184,12 +184,171 @@ class InputManager extends Pump {
       actionKey = false;
     });
 
+//listen for right-clicks on entities that we're close to
+		document.body.onContextMenu.listen((MouseEvent e)
+		{
+			Element element = e.target as Element;
+			int groundY = 0, xOffset = 0, yOffset = 0;
+			if(element.attributes['ground_y'] != null)
+				groundY = int.parse(element.attributes['ground_y']);
+			else
+			{
+				xOffset = camera.getX();
+				yOffset = camera.getY();
+			}
+			num x = e.offset.x+xOffset, y = e.offset.y-groundY+yOffset;
+			List<String> ids =[];
+			CurrentPlayer.intersectingObjects.forEach((String id, Rectangle rect)
+			{
+				if(x > rect.left && x < rect.right && y > rect.top && y < rect.bottom)
+					ids.add(id);
+			});
+			
+			if(ids.length > 0)
+				doObjectInteraction(e,ids);
+		});
 
   }
 
-
-
-
+  void doObjectInteraction([MouseEvent e, List<String> ids])
+  	{
+  		if(CurrentPlayer.intersectingObjects.length > 0 && querySelector('#RightClickMenu') == null && querySelector(".fill") == null)
+  		{
+  			if(CurrentPlayer.intersectingObjects.length == 1)
+  				CurrentPlayer.intersectingObjects.forEach(
+  						(String id, Rectangle rect) => interactWithObject(id));
+  			else
+  				createMultiEntityWindow();
+  		}
+  	}
+  	
+  	void createMultiEntityWindow()
+  	{
+  		Element oldWindow = querySelector("#InteractionWindow");
+  		if(oldWindow != null)
+  			oldWindow.remove();
+  		
+  		document.body.append(InteractionWindow.create());
+  	}
+  	
+  	void interactWithObject(String id)
+  	{
+  		Element element = querySelector("#$id");
+  		List<List> actions = [];
+  		bool allDisabled = true;
+  		if(element.attributes['actions'] != null)
+  		{
+  			List<Map> actionsList = JSON.decode(element.attributes['actions']);
+  			actionsList.forEach((Map actionMap)
+  			{
+  				bool enabled = actionMap['enabled'];
+  				if(enabled)
+  					allDisabled = false;
+  				String error = "";
+  				if(actionMap['requires'] != null)
+  				{
+  					enabled = hasRequirements(actionMap['requires']);
+  					error = getRequirementString(actionMap['requires']);
+  				}
+  				actions.add([capitalizeFirstLetter(actionMap['action'])+"|"+actionMap['actionWord']+"|${actionMap['timeRequired']}|$enabled|$error",element.id,"sendAction ${actionMap['action']} ${element.id}"]);
+  			});
+  		}
+  		if(!allDisabled)
+  			showClickMenu(null,element.attributes['type'],"Desc",actions);
+  	}
+  	
+// Right-click menu functions
+	hideClickMenu(Element window) 
+	{
+		if(window != null)
+			window.remove();
+	}
+	
+	showClickMenu(MouseEvent Click, String title, String description, List<List> options)
+	{
+		hideClickMenu(querySelector('#RightClickMenu'));
+		document.body.append(RightClickMenu.create(Click,title,description,options));
+		
+		Element clickMenu = querySelector('#RightClickMenu');
+     Element list = querySelector('#RCActionList');
+		
+		menuKeyListener = document.onKeyDown.listen((KeyboardEvent k)
+		{
+			if((k.keyCode == keys["UpBindingPrimary"] || k.keyCode == keys["UpBindingAlt"]) && !ignoreKeys) //up arrow or w and not typing
+				selectUp(list,"RCItemSelected");
+			if((k.keyCode == keys["DownBindingPrimary"] || k.keyCode == keys["DownBindingAlt"]) && !ignoreKeys) //down arrow or s and not typing
+				selectDown(list,"RCItemSelected");
+			if((k.keyCode == keys["LeftBindingPrimary"] || k.keyCode == keys["LeftBindingAlt"]) && !ignoreKeys) //left arrow or a and not typing
+				stopMenu(clickMenu);
+			if((k.keyCode == keys["RightBindingPrimary"] || k.keyCode == keys["RightBindingAlt"]) && !ignoreKeys) //right arrow or d and not typing
+				stopMenu(clickMenu);
+			if((k.keyCode == keys["JumpBindingPrimary"] || k.keyCode == keys["JumpBindingAlt"]) && !ignoreKeys) //spacebar and not typing
+				stopMenu(clickMenu);
+			if((k.keyCode == keys["ActionBindingPrimary"] || k.keyCode == keys["ActionBindingAlt"]) && !ignoreKeys) //spacebar and not typing
+				doAction(list,clickMenu,"RCItemSelected");
+		});
+		document.onClick.listen((_)
+		{
+			stopMenu(clickMenu);
+		});
+	}
+	
+	void selectUp(Element menu, String className)
+	{
+		List<Element> options = menu.children;
+		int removed = 0;
+		for(int i=0; i<options.length; i++)
+		{
+			if(options[i].classes.remove(className))
+				removed = i;
+		}
+		if(removed == 0)
+			options[options.length-1].classes.add(className);
+		else
+			options[removed-1].classes.add(className);
+		
+		lastSelect = new DateTime.now();
+	}
+	
+	void selectDown(Element menu, String className)
+	{
+		List<Element> options = menu.children;
+		int removed = options.length-1;
+		for(int i=0; i<options.length; i++)
+		{
+			if(options[i].classes.remove(className))
+				removed = i;
+		}
+		if(removed == options.length-1)
+			options[0].classes.add(className);
+		else
+			options[removed+1].classes.add(className);
+		
+		lastSelect = new DateTime.now();
+	}
+	
+	void stopMenu(Element window)
+	{
+		if(menuKeyListener != null)
+		{
+			menuKeyListener.cancel();
+			menuKeyListener = null;
+		}
+     hideClickMenu(window);
+	}
+	
+	void doAction(Element list, Element window, String className)
+	{
+		for(Element element in list.children)
+		{
+			if(element.classes.contains(className))
+			{
+				element.click();
+				break;
+			}
+		}
+		stopMenu(window);
+	}
 
   String fromKeyCode(int keyCode) {
     String keyPressed = "";

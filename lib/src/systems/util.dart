@@ -19,7 +19,7 @@ int getNumItems(String item)
 {
 	int count = 0;
 	String cssName = item.replaceAll(" ","_");
-	for(Element item in querySelector("#InventoryBar").querySelectorAll(".item-$cssName"))
+	for(Element item in ui.inventory.querySelectorAll(".item-$cssName"))
 		count += int.parse(item.attributes['count']);
 	
     return count;
@@ -85,12 +85,18 @@ String getRequirementString(List<Map> requires)
  * with optional [arguments]
  * 
  **/
-void sendAction(String methodName, String entityId, [Map arguments])
+sendAction(String methodName, String entityId, [Map arguments])
 {
+	Element entity = querySelector("#${entityId}");
 	Map map = {};
 	map['callMethod'] = methodName;
-	map['id'] = entityId;
-	map['type'] = querySelector("#${entityId}").className;
+	if(entity != null)
+	{
+		map['id'] = entityId;
+        map['type'] = entity.className;
+	}
+	else
+		map['type'] = entityId;
 	map['streetName'] = currentStreet.label;
 	map['username'] = ui.username;
 	map['tsid'] = currentStreet._data['tsid'];

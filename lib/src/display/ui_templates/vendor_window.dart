@@ -23,7 +23,7 @@ class VendorWindow
 		
 		DivElement currantParent = new DivElement()..id="CurrantParent";
 		SpanElement first = new SpanElement()..attributes['style']="color:gray;vertical-align:middle"..text="You have ";
-		ImageElement currant = new ImageElement(src:"./assets/system/currant.svg")..id="NumCurrantsEmblem";
+		ImageElement currant = new ImageElement(src:"packages/couclient/system/currant.svg")..id="NumCurrantsEmblem";
 		SpanElement last = new SpanElement()..attributes['style']="vertical-align:middle"..id="NumCurrants"..text = " ${ui.commaFormatter.format(metabolics.getCurrants())} currants";
 		currantParent..append(first)..append(currant)..append(last);
 		

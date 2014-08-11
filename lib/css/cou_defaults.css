@@ -35,6 +35,19 @@ p, input, textarea{
  text-decoration:none;
 }
 
+.primary, #SCLink {color: #4d8c8b;}
+.red {color: #ba381a;}
+.white{color: #fff;}
+.big {font-size:20px;}
+.small {font-size:15px;}
+.soft {
+   list-style-type: none;
+   color: gray;
+   font-family: 'RockoFLFBold', sans-serif;
+   font-size:12px;
+   font-weight: 200;
+}
+
 main {
   width:100%;
   max-width:1300px;

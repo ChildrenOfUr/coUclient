@@ -317,7 +317,7 @@ void addItem(Map map)
     	item.classes.add('groundItem');
     	item.classes.add('entity');
     	item.id = map['id'];
-    	querySelector("#PlayerHolder").append(item);
+    	ui.playerHolder.append(item);
 	});
 }
 
@@ -337,7 +337,7 @@ void subtractItemFromInventory(Map map)
 {
 	String cssName = map['name'].replaceAll(" ","_");
 	int remaining = map['count'];
-	for(Element item in querySelector("#Inventory").querySelectorAll(".item-$cssName"))
+	for(Element item in ui.inventory.querySelectorAll(".item-$cssName"))
 	{
 		if(remaining < 1)
 			break;
@@ -405,7 +405,7 @@ void putInInventory(ImageElement img, Map map)
 	bool found = false;
 	
 	String cssName = name.replaceAll(" ","_");
-	for(Element item in querySelector("#Inventory").querySelectorAll(".item-$cssName"))
+	for(Element item in ui.inventory.querySelectorAll(".item-$cssName"))
 	{
 		int count = int.parse(item.attributes['count']);
 		
@@ -448,7 +448,7 @@ findNewSlot(Element item, Map map, ImageElement img)
 	int stacksTo = i['stacksTo'];
 	
 	//find first free item slot
-	for(Element barSlot in querySelector("#InventoryBar").children)
+	for(Element barSlot in ui.inventory.children)
 	{
 		if(barSlot.children.length == 0)
 		{

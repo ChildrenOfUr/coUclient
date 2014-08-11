@@ -7,7 +7,7 @@ class SellInterface
 		DivElement interface = new DivElement()..id="SellInterface"..className="vendorContentInsert";
 		
 		DivElement dropTarget = new DivElement()..id="SellDropTarget";
-		ImageElement callout = new ImageElement(src:"assets/system/callout_dropitem.png")..id="SellCallout";
+		ImageElement callout = new ImageElement(src:"packages/couclient/system/callout_dropitem.png")..id="SellCallout";
 		
 		interface..append(dropTarget)..append(callout);
         
@@ -15,7 +15,6 @@ class SellInterface
         Dropzone dropzone = new Dropzone(dropTarget, acceptor: new Acceptor.draggables([draggable]));
         dropzone.onDrop.listen((DropzoneEvent dropEvent)
 		{
-			destroy();
 			VendorWindow.insertContent(DetailsWindow.create(JSON.decode(dropEvent.draggableElement.attributes['itemMap']),vendorMap,sellMode:true));
 		});
             	
