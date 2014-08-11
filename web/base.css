@@ -1942,3 +1942,6 @@ quoin graphic
 .dnd-dragging {
   opacity: 0.5;
 }
+.incrementDisabled {
+  opacity: 0.3;
+}
