@@ -22,10 +22,9 @@ class Signpost
   		{
     		if(exit['label'] == playerTeleFrom || playerTeleFrom == "console")
 			{
-  				if(playerTeleFrom == "console")
-					print("setting x: $x, y: $y");
-  				CurrentPlayer.posX = x;
-  				CurrentPlayer.posY = y;
+    			//TODO: after player is re-implemented
+  				//CurrentPlayer.posX = x;
+  				//CurrentPlayer.posY = y;
 			}
 
 			String tsid = exit['tsid'].replaceFirst("L", "G");

@@ -7,7 +7,7 @@ dependencies:
   libld:
     git:
       ref: master
-      url: https://github.com/ChildrenOfUr/libld.git
+      url: https://github.com/ChildrenOfUr/libld
   pump:
     git:
       ref: master

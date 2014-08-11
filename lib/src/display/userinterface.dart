@@ -57,6 +57,7 @@ class UserInterface extends Pump {
   Element worldElement = querySelector('#world');
   Element playerHolder = querySelector("#playerHolder");
   Element layers = querySelector("#layers");
+  int worldWidth, worldHeight;
 
 
   // Music Meter Variables
@@ -121,6 +122,10 @@ class UserInterface extends Pump {
     window.onBeforeUnload.listen((_) {
       youWon.hidden = false;
     });
+    
+	//Start listening for page resizes.
+	_resize();
+	window.onResize.listen((_) => _resize());
 
     // Starts the game
     playButton.onClick.listen((_) {
@@ -156,6 +161,13 @@ class UserInterface extends Pump {
 
     this & EVENT_BUS;
   }
+  
+	void _resize()
+	{
+	  //width and height calculations done here are now done in CSS
+	  	worldWidth = worldElement.clientWidth;
+	  	worldHeight = worldElement.clientHeight;
+	}
 
   process(var event) {
 

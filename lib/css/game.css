@@ -19,6 +19,7 @@
   left:0;
   overflow:hidden;
 }
-
-
-
+#world {
+	position: absolute;
+	top: 0;
+}
