@@ -117,11 +117,13 @@ class InputManager extends Pump {
       } else querySelector("#$action").text = key;
     });
 
+    /*
     CheckboxInputElement graphicsBlur = querySelector("#GraphicsBlur") as CheckboxInputElement;
     graphicsBlur.onChange.listen((_) {
       local["GraphicsBlur"] = graphicsBlur.checked.toString();
     });
-
+    */
+    
     //handle chat input getting focused/unfocused so that the character doesn't move while typing
     ElementList chatInputs = querySelectorAll('.Typing');
     chatInputs.onFocus.listen((_) {
