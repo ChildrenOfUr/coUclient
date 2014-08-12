@@ -279,7 +279,17 @@ class Chat {
       map["username"] = ui.username;
       map["message"] = input;
       map["channel"] = title;
-      if (title == "Local Chat") map["street"] = currentStreet.label;
+      if (title == "Local Chat") 
+    	  map["street"] = currentStreet.label;
+//display chat bubble if we're talking in local (unless it's a /me message)
+		if(map["channel"] == "Local Chat" && map["username"] == ui.username && map["statusMessage"] == null
+				&& !(map["message"] as String).toLowerCase().startsWith("/me"))
+		{
+			//remove any existing bubble
+			if(CurrentPlayer.chatBubble != null && CurrentPlayer.chatBubble.bubble != null)
+				CurrentPlayer.chatBubble.bubble.remove();
+			CurrentPlayer.chatBubble = new ChatBubble(parseEmoji(map["message"]));
+		}
       new Moment('OutgoingChatEvent', map, 'parseInput');
     }
   }
