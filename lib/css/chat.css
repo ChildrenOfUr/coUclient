@@ -98,6 +98,9 @@
   top:1%;
   left:-57%;
   color:rgba(0,0,0,0.5);
+  cursor: pointer;
 }
 
-
+.conversation .fa-chevron-down {
+	cursor: pointer;
+}
