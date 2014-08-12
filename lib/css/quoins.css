@@ -73,6 +73,8 @@ quoin graphic
     -o-transition: all .2s ease-out .2s;
     -ms-transition: all .2s ease-out .2s;
     transition: all .2s ease-out .2s;
+    font-family: 'RockoFLFBold', sans-serif;
+    color: #fff;
 }
 .circleExpand .quoinString {
     opacity: 1;

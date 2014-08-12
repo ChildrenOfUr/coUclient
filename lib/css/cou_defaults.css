@@ -1,5 +1,4 @@
 *:not(input){
-   font-family: 'RockoFLFBold', sans-serif;
    cursor: default;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
@@ -11,6 +10,8 @@
   color: #4b2e4c;
 }
 html, body {
+  font-family: 'RockoFLFBold', sans-serif;
+  -webkit-font-smoothing: antialiased;
   background-color:#eee;
   overflow:hidden;
   height:100%;
