@@ -1,3 +1,9 @@
+.well {
+  background-color:rgba(0,0,0,0.1);
+  border-radius:9px;
+  border-top:1px solid rgba(0,0,0,0.1);
+}
+
 #windowHolder .window{
   position: absolute;
   top: calc(40% - 170px);
@@ -36,9 +42,6 @@
   right:10px;
   border-radius: 8px;
   overflow: hidden;
-  background-color:rgba(0,0,0,0.1);
-  border-radius:9px;
-  border-top:1px solid rgba(0,0,0,0.1);
 }
 .window iframe {
   border: none;
@@ -59,30 +62,32 @@
 article .tab{
   font-size:1.5em;
   padding: 1px 4px;
-  margin: -2px 2px;
+  margin: -1px 0px;
   min-width:70px;
-  background-color:#eee;
+  background-color:#fff;
   border-radius: 8px 8px 0px 0px;
   float:right;
-  height:24px;
-  opacity:0.8;
-  border-bottom:1px solid rgba(0,0,0,0.2);
+  height:26px;
   text-align:center;
+  box-shadow: inset 0 -3px 5px rgba(0,0,0,0.2);
+  border-top:2px solid rgba(0,0,0,0.1);
 }
 article .tab.active {
-  opacity:1;
-  border-bottom:1px solid rgba(0,0,0,0);
+  margin:-5px 0px;
+  box-shadow: none;
 }
 
 article .tab-content{
   position:absolute;
-  background-color:#eee;
   top:30px;
   padding:5px;
+  background-color:#fff;
   bottom:0;
   left:0;
   right:0;
-  overflow-y:scroll;
+  overflow-y:auto;
+  border-radius:9px;
+  border-bottom:3px solid rgba(0,0,0,0.2);
 }
 
 #settingsWindow article .tab-content div {
@@ -100,8 +105,6 @@ article .tab-content{
   float:right;
 }
 
-
-
 #bagWindow article {
   text-align: center;
 }
@@ -116,44 +119,44 @@ article .tab-content{
 }
 
 #bugWindow textarea {
-    margin: 5px;
-    width: 548px;
+  margin: 5px;
+  width: 548px;
 }
 
 #bugWindow label {
-    margin-left: 5px;
+  margin-left: 5px;
 }
 
 #bugWindow p {
-    margin: 0 0 5px 5px;
+  margin: 0 0 5px 5px;
 }
 
 #bugWindow #checkGroup {
-    float: right;
+  float: right;
 }
 
 #bugWindow label {
-    vertical-align: 2px;
+  vertical-align: 2px;
 }
 
 #bugWindow #reportMain {
-    height: 100px;
+  height: 100px;
 }
 
 #bugWindow #reportMeta {
-    height: 80px;
+  height: 80px;
 }
 
 #bugWindow input {
-    position: relative;
-    margin-left: 5px;
-    display: inline-block;
-    margin-top: 5px;
+  position: relative;
+  margin-left: 5px;
+  display: inline-block;
+  margin-top: 5px;
 }
 
 #bugWindow input[type="email"] {
-		width: 50%;
-		margin-top: 7px;
+  width: 50%;
+  margin-top: 7px;
 }
 
 #motdFrame {
@@ -162,6 +165,27 @@ article .tab-content{
   width: 100%;
   margin: 0;
 }
+
+
+#shopWindow #buy-shop{
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  right:10px;
+  bottom: 10px;
+}
+#shopWindow #buy-buy{
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  right:10px;
+  bottom: 10px;
+}
+
+
+
+
+
 
 /*Popup elements*/
 .PopWindow{
@@ -185,23 +209,23 @@ article .tab-content{
   box-shadow: 0px 0px 0px 8px rgba(0,0,0,0.1), 0px 0px 0px 2px rgba(0,0,0,0.3);
 }
 .PopWindowHeader {
-   opacity:0.8;
-   font-size:22px;   
+ opacity:0.8;
+ font-size:22px;   
 }
 .PopCloseEmblem {
-    cursor: pointer;
-    position:absolute;
-    top:20px;
-    right: 20px;
+  cursor: pointer;
+  position:absolute;
+  top:20px;
+  right: 20px;
 }
 .PopWindowBody {
-   font-family: 'RockoFLFBold', sans-serif;
-   overflow:auto;
-   font-size:12px;
-   font-weight: normal;
-   position:absolute;
-   left:0px;
-   top:65px;
-   right:0px;
-   height:320px;
+ font-family: 'RockoFLFBold', sans-serif;
+ overflow:auto;
+ font-size:12px;
+ font-weight: normal;
+ position:absolute;
+ left:0px;
+ top:65px;
+ right:0px;
+ height:320px;
 }

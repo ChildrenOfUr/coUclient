@@ -292,12 +292,14 @@
             <i class="fa-li fa fa-map-marker"></i>
             Map
           </header>
-          <article>
+          <article class="well">
           A map should go here.
           </article>
         </div>
         
-        <div id="shopWindow" class="window">
+
+        <!-- TODO -->
+        <div id="shopWindow" class="window" hidden>
           <i class="fa-li fa fa-times close"></i>
           <header>
             Vendor
@@ -307,16 +309,17 @@
           <span class="tab">Sell</span>
           
           <div id="sell" class="tab-content">
-          Chat Settings
+          Selling Things
           </div>
           
           <div id="buy" class="tab-content">
             <div id="buy-shop"></div>
-            <div id="buy-buy"></div>
+            <div id="buy-buy" hidden></div>
           </div>
           
           </article>
         </div>
+        <!-- TODO -->
         
         
 
@@ -326,7 +329,7 @@
             <i class="fa-li fa fa-search"></i>
             Bag
           </header>
-          <article><br><br><br><br>
+          <article class="well"><br><br><br><br>
             <div class="box"></div>
             <div class="box"></div>
             <div class="box"></div>
@@ -354,7 +357,7 @@
             <i class="fa-li fa fa-bug"></i>
             Bugs/Suggestions
           </header>
-          <article>
+          <article class="well">
               <p>If you would like to report a bug or make a feature request, please fill this out. Your browser information is included automatically for debugging purposes. You can choose to provide an email address for further contact.</p>
               <label for="reportCategory">Choose a report type:</label>
               <select id="reportCategory">
