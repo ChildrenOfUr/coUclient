@@ -103,8 +103,9 @@ main() {
   new NetChatManager();
 
   // Test Information
-  ui.username = 'NewUITest';
+  ui.username = 'test_';
   new Moment('StartChat','Global Chat');
+  new Moment('StartChat','Local Chat');
   ui.update();
   
   // This tells the game to put the start button on the loading page.

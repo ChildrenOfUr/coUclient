@@ -60,14 +60,35 @@ class Chat {
       numMessages = 0,
       inputHistoryPointer = 0,
       emoticonPointer = 0;
+  static Element otherChat = null, localChat = null;
   List<String> connectedUsers = new List();
   List<String> inputHistory = new List();
   bool tabInserted = false;
   Chat(this.title) {
     // clone the template
     conversationElement = ui.chatTemplate.querySelector('.conversation').clone(true);
-    Element title = conversationElement.querySelector('.title')..text = this.title;
-    ui.panel.append(conversationElement);
+    conversationElement.querySelector('.title')..text = title;
+    
+    if(title != "Local Chat")
+    {
+    	if(otherChat != null)
+    		otherChat.replaceWith(conversationElement);
+    	else
+    	{
+    		if(localChat != null)
+    			ui.panel.insertBefore(conversationElement, localChat);
+    		else
+    			ui.panel.append(conversationElement);
+    	}
+    	otherChat = conversationElement;
+    }
+    else
+    {
+    	localChat = conversationElement;
+    	ui.panel.append(localChat);
+    }
+    
+    computePanelSize();
 
     Stream minimize = conversationElement.querySelector('.fa-chevron-down').onClick;
     minimize.listen((_) => this.hide());
@@ -90,8 +111,30 @@ class Chat {
     conversationElement.querySelector('.dialog').appendHtml(text);
     conversationElement.querySelector('.dialog').scrollTop = conversationElement.querySelector('.dialog').scrollHeight; //scroll to the bottom
   }
-  hide() => conversationElement.hidden = true;
-  show() => conversationElement.hidden = false;
+  hide()
+  {
+	  conversationElement.hidden = true;
+	  computePanelSize();
+	  otherChat = null;
+  }
+  show()
+  {
+	  conversationElement.hidden = false;
+	  computePanelSize();
+  }
+  
+  void computePanelSize()
+  {
+	  List<Element> conversations = ui.panel.querySelectorAll('.conversation').toList();
+	  int num = conversations.length-1;
+      conversations.forEach((Element conversation)
+	  {
+    	  if(conversation.hidden)
+    		  num--;          
+      });
+      conversations.forEach((Element conversation) 
+    		  => conversation.style.height = "${100/num}%");
+  }
 
   void processInput(TextInputElement input) {
     input.onKeyDown.listen((KeyboardEvent key) //onKeyUp seems to be too late to prevent TAB's default behavior
@@ -212,7 +255,7 @@ class Chat {
       map["username"] = ui.username;
       map["message"] = input;
       map["channel"] = title;
-      //if (channelName == "Local Chat") map["street"] = currentStreet.label;
+      if (title == "Local Chat") map["street"] = currentStreet.label;
       new Moment('OutgoingChatEvent', map, 'parseInput');
     }
   }

@@ -116,6 +116,11 @@ class InputManager extends Pump {
       playerTeleFrom = target.attributes['from'];
       document.body.append(loadStreet);
     }
+    
+    if(target.classes.contains("chatSpawn"))
+    {
+    	new Chat(target.text);
+    }
   }
 
   
