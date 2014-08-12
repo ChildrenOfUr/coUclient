@@ -99,6 +99,9 @@ class UserInterface extends Pump {
   Element panel = querySelector('#panel');
   Element chatTemplate = querySelector('#conversationTemplate');
 
+  Element conversationArchive = querySelector("#conversationArchive");
+  
+
   //fps meter
   Element fpsDisplay = querySelector('#fps');
 
@@ -107,7 +110,7 @@ class UserInterface extends Pump {
 
   // Declare/Set initial variables here
   /////////////////////VARS//////////////////////////////////////////////////
-  String username = 'null';
+  String username = 'testUser';
 
   String location = 'null';
 
@@ -125,7 +128,7 @@ class UserInterface extends Pump {
 
     //load emoticons
     new Asset("packages/couclient/emoticons/emoticons.json").load().then((Asset asset) => EMOTICONS = asset.get()["names"]);
-
+	
     // Set initial Time
     currDay.text = clock.dayofweek;
     currTime.text = clock.time;

@@ -38,7 +38,7 @@ update(double dt)
 	
 	//update the other clients with our position & street
 	timeLast += dt;
-	/*if(timeLast > .03 && playerSocket != null && playerSocket.readyState == WebSocket.OPEN)
+	if(timeLast > .03 && playerSocket != null && playerSocket.readyState == WebSocket.OPEN)
 	{
 		String xy = CurrentPlayer.posX.toString()+","+CurrentPlayer.posY.toString();
 		if(xy == lastXY) //don't send updates when the player doesn't move - except once every 5 seconds
@@ -49,5 +49,5 @@ update(double dt)
 		
 		lastXY = xy;
 		sendPlayerInfo();
-	}*/
+	}
 }

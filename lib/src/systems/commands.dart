@@ -16,7 +16,7 @@ class CommandManager {
     };
 
     COMMANDS
-        ..['setname'] = setname
+        ..['setname'] = setName
         ..['list'] = listplayersCommand;
 
   }
@@ -43,7 +43,7 @@ bool parseCommand(String command) {
 
 // COMMAND FUNCTIONS BELOW  //
 
-setname(String noun) {
+setName(String noun) {
   // Fix Name
   String newName = noun.replaceAll(" ", "_");
 
@@ -55,6 +55,11 @@ setname(String noun) {
     });
     return;
   }
+  
+  if(CurrentPlayer != null)
+  	CurrentPlayer.playerName.text = noun;
+  ui.username = noun;
+  localStorage['username'] = noun;
 
   // Prepare Server Message
   Map map = new Map();
