@@ -62,18 +62,17 @@
 article .tab{
   font-size:1.5em;
   padding: 1px 4px;
-  margin: -1px 0px;
+  margin: -1px 2px;
   min-width:70px;
   background-color:#fff;
   border-radius: 8px 8px 0px 0px;
   float:right;
   height:26px;
   text-align:center;
-  box-shadow: inset 0 -3px 5px rgba(0,0,0,0.2);
   border-top:2px solid rgba(0,0,0,0.1);
 }
 article .tab.active {
-  margin:-5px 0px;
+  margin:-5px 2px;
   box-shadow: none;
 }
 
@@ -90,8 +89,10 @@ article .tab-content{
   border-bottom:3px solid rgba(0,0,0,0.2);
 }
 
-#settingsWindow article .tab-content div {
+#settingsWindow article .tab-content * {
   font-family: 'Tahoma', 'Geneva', 'sans-serif';
+}
+#settingsWindow article .tab-content div {
   font-size:1em;
   margin:10px;
 }
