@@ -6,7 +6,7 @@ class RightClickMenu
 	{
 		DivElement menu = new DivElement()..id="RightClickMenu";
 		
-		DivElement infoButton = new DivElement()..className="InfoButton"..text="Info";
+		DivElement infoButton = new DivElement()..className="InfoButton fa fa-info-circle";
 		SpanElement titleElement = new SpanElement()..id="ClickTitle"..text=title;
 		BRElement br = new BRElement();
 		SpanElement desc = new SpanElement()..id="ClickDesc"..className="soft"..text=description;
