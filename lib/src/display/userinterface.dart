@@ -189,7 +189,6 @@ class UserInterface extends Pump {
 	    // ChatEvents are drawn to their Conversation.
 	    if (event.isType('ChatEvent'))
 	    {
-	    	print('chatEvent: ${event.content}');
 	    	for (Chat convo in openConversations) 
 	    	{
 	    		if(convo.title == "Local Chat" && event.content['street'] == currentStreet.label)
