@@ -4,9 +4,9 @@ UserInterface ui = new UserInterface();
 
 class UserInterface extends Pump {
 
-//NumberFormat for having commas in the currants and iMG displays
-	NumberFormat commaFormatter = new NumberFormat("#,###");
-	
+  //NumberFormat for having commas in the currants and iMG displays
+  NumberFormat commaFormatter = new NumberFormat("#,###");
+
   // If you need to change an element somewhere else, put the declaration in this class.
   // You can then access it with 'ui.yourElement'. This way we keep everything in one spot
   /////////////////////ELEMENTS//////////////////////////////////////////////
@@ -22,7 +22,7 @@ class UserInterface extends Pump {
   Element loadingScreen = querySelector('#loading');
   Element loadingSpinner = querySelector('#loading .fa-spin');
   Element streetLoading = querySelector("#streetLoading");
-  
+
   // Name Meter Variables
   Element nameElement = querySelector('#playerName');
 
@@ -54,19 +54,19 @@ class UserInterface extends Pump {
 
   // settings window elements
   ElementList settingsTabs = querySelectorAll('#settingsWindow article .tab');
-  
-  
+
+
   // bugreport button
   Element bugButton = querySelector('#bugGlyph');
   Element bugReportMeta = querySelector('#bugWindow article #reportMeta');
   InputElement bugReportEmail = querySelector('#bugWindow article input[type="email"]');
   SelectElement bugReportType = querySelector('#bugWindow article #reportCategory');
-  
+
   Element consoleText = new DivElement();//querySelector('.dialog.console');
 
   // main Element
   Element mainElement = querySelector('main');
-  
+
   // world Element
   Element worldElement = querySelector('#world');
   Element playerHolder = querySelector("#playerHolder");
@@ -98,10 +98,10 @@ class UserInterface extends Pump {
   // Chat panel
   Element panel = querySelector('#panel');
   Element chatTemplate = querySelector('#conversationTemplate');
-  
+
   //fps meter
   Element fpsDisplay = querySelector('#fps');
-  
+
   /////////////////////ELEMENTS//////////////////////////////////////////////
 
 
@@ -122,7 +122,7 @@ class UserInterface extends Pump {
 
   // start listening for events
   UserInterface() {
-    
+
     //load emoticons
     new Asset("packages/couclient/emoticons/emoticons.json").load().then((Asset asset) => EMOTICONS = asset.get()["names"]);
 
@@ -135,15 +135,17 @@ class UserInterface extends Pump {
     if (local['volume'] != null) {
       volume = int.parse(local['volume']);
     } else volume = 10;
+    local['volume'] = volume.toString();
+    volumeSlider.value = volume.toString();
 
     // The 'you won' splash
     window.onBeforeUnload.listen((_) {
       youWon.hidden = false;
     });
-    
-	//Start listening for page resizes.
-	_resize();
-	window.onResize.listen((_) => _resize());
+
+    //Start listening for page resizes.
+    _resize();
+    window.onResize.listen((_) => _resize());
 
     // Starts the game
     playButton.onClick.listen((_) {
@@ -163,13 +165,12 @@ class UserInterface extends Pump {
 
     // Controls the volume slider and glyph
     volumeGlyph.onClick.listen((_) {
-      if (session['volume'] == null) session['volume'] = '5';
       if (muted == true) {
-        volume = int.parse(session['volume']);
+        volume = int.parse(local['volume']);
         muted = false;
         volumeSlider.value = volume.toString();
       } else if (muted == false) {
-        session['volume'] = volume.toString();
+        local['volume'] = volume.toString();
         muted = true;
         volumeSlider.value = '0';
       }
@@ -179,12 +180,11 @@ class UserInterface extends Pump {
 
     this & EVENT_BUS;
   }
-  
-	void _resize()
-	{
-	  	worldWidth = worldElement.clientWidth;
-	  	worldHeight = worldElement.clientHeight;
-	}
+
+  void _resize() {
+    worldWidth = worldElement.clientWidth;
+    worldHeight = worldElement.clientHeight;
+  }
 
   process(var event) {
 
@@ -205,14 +205,14 @@ class UserInterface extends Pump {
     if (event.isType('StartChat')) {
       Chat chat = new Chat(event.content as String);
       openConversations.add(chat);
-	  //handle chat input getting focused/unfocused so that the character doesn't move while typing
-	  ElementList chatInputs = querySelectorAll('.Typing');
-	  chatInputs.onFocus.listen((_) {
-	    inputManager.ignoreKeys = true;
-	  });
-	  chatInputs.onBlur.listen((_) {
-	    inputManager.ignoreKeys = false;
-	  });
+      //handle chat input getting focused/unfocused so that the character doesn't move while typing
+      ElementList chatInputs = querySelectorAll('.Typing');
+      chatInputs.onFocus.listen((_) {
+        inputManager.ignoreKeys = true;
+      });
+      chatInputs.onBlur.listen((_) {
+        inputManager.ignoreKeys = false;
+      });
     }
     // MISC EVENT HANDLERS //
     if (event.isType('TimeUpdate')) {
@@ -264,14 +264,13 @@ class UserInterface extends Pump {
     // Update all audioElements to the correct volume
     for (AudioElement audio in querySelectorAll('audio')) {
       if (audio.volume != ui.volume / 100) audio.volume = ui.volume / 100;
-
-
-      // Update the soundcloud widget
-      if (SCsong != titleElement.text) titleElement.text = SCsong;
-      if (SCartist != artistElement.text) artistElement.text = SCartist;
-      if (SClink != SClinkElement.href) SClinkElement.href = SClink;
-
     }
+
+    // Update the soundcloud widget
+    if (SCsong != titleElement.text) titleElement.text = SCsong;
+    if (SCartist != artistElement.text) artistElement.text = SCartist;
+    if (SClink != SClinkElement.href) SClinkElement.href = SClink;
+
     window.requestAnimationFrame((_) => this.update());
   }
 }
@@ -307,5 +306,3 @@ class TouchScroller {
     });
   }
 }
-
-

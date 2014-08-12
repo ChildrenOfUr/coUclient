@@ -23,8 +23,8 @@ class SoundManager extends Pump {
 
   Future init() {
     try {
-      audioChannels['soundEffects'] = new AudioChannel("soundEffects")..gain = .5;
-      audioChannels['music'] = new AudioChannel("music")..gain = .5;
+      audioChannels['soundEffects'] = new AudioChannel("soundEffects")..gain = ui.volume / 100;
+      audioChannels['music'] = new AudioChannel("music")..gain = ui.volume / 100;
     } catch (e) {
       print("browser does not support web audio: $e");
       useWebAudio = false;
@@ -66,6 +66,7 @@ class SoundManager extends Pump {
     } else {
       return loadNonWebAudio(c);
     }
+
   }
 
   Future loadNonWebAudio(Completer c) {
@@ -155,34 +156,28 @@ class SoundManager extends Pump {
    * Sets the SoundCloud widget's song to [value].  Must be one of the available songs.
    * If [value] is already playing, this method has no effect.
    */
-  Future setSong(String value)
-  {
-  	Completer c = new Completer();
-  	
-  	if(value == ui.titleElement.text)
-  	{
-  		c.complete();
-  		return c.future;
-  	}
-  	
-  	value = value.replaceAll(' ', '');
-  	if(songs[value] == null)
-  	{
-  		loadSong(value).then((_)
-  		{
-  			_playSong(value);
-  			c.complete();
-  		});
-  	}
-  	else
-  	{
-  		_playSong(value);
-  		c.complete();
-  	}
-  	
-  	return c.future;
+  Future setSong(String value) {
+    Completer c = new Completer();
+
+    if (value == ui.titleElement.text) {
+      c.complete();
+      return c.future;
+    }
+
+    value = value.replaceAll(' ', '');
+    if (songs[value] == null) {
+      loadSong(value).then((_) {
+        _playSong(value);
+        c.complete();
+      });
+    } else {
+      _playSong(value);
+      c.complete();
+    }
+
+    return c.future;
   }
-  
+
   _playSong(String name) {
     /*
      * canPlayType should return:
