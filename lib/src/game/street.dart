@@ -307,7 +307,7 @@ Future load_streets()
   Completer c = new Completer();
 
   // loads the master street json.
-  new Asset('./assets/streets.json').load().then((Asset streetList) 
+  new Asset('packages/couclient/json/streets.json').load().then((Asset streetList) 
   {
     // Load each street file into memory. If this gets too expensive we'll move this elsewhere.
     List toLoad = [];

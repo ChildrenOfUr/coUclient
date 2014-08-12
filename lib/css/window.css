@@ -56,23 +56,25 @@
   cursor: pointer;
 }
 
-#settingsWindow article .tab{
+article .tab{
   font-size:1.5em;
   padding: 1px 4px;
   margin: -2px 2px;
+  min-width:70px;
   background-color:#eee;
   border-radius: 8px 8px 0px 0px;
-  float:left;
+  float:right;
   height:24px;
   opacity:0.8;
   border-bottom:1px solid rgba(0,0,0,0.2);
+  text-align:center;
 }
-#settingsWindow article .tab.active {
+article .tab.active {
   opacity:1;
   border-bottom:1px solid rgba(0,0,0,0);
 }
 
-#settingsWindow article .tab-content{
+article .tab-content{
   position:absolute;
   background-color:#eee;
   top:30px;
@@ -82,6 +84,7 @@
   right:0;
   overflow-y:scroll;
 }
+
 #settingsWindow article .tab-content div {
   font-family: 'Tahoma', 'Geneva', 'sans-serif';
   font-size:1em;
