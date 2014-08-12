@@ -17,8 +17,8 @@ class CommandManager {
 
     COMMANDS
         ..['setname'] = setName
-        ..['list'] = listplayersCommand;
-
+        ..['go'] = setLocationCommand
+        ..['setlocation'] = setLocationCommand;
   }
 }
 
@@ -43,9 +43,11 @@ bool parseCommand(String command) {
 
 // COMMAND FUNCTIONS BELOW  //
 
-setName(String noun) {
+setName(String noun) 
+{
   // Fix Name
   String newName = noun.replaceAll(" ", "_");
+  String oldName = ui.username;
 
   // Is it appropriate?
   if (containsBadCharacter(newName)) {
@@ -64,9 +66,8 @@ setName(String noun) {
   // Prepare Server Message
   Map map = new Map();
   map["statusMessage"] = "changeName";
-  map["username"] = ui.username;
-  map["newUsername"] = newName;
-  ui.username = newName;
+  map["username"] = oldName;
+  map["newUsername"] = noun;
   map["channel"] = 'Global Chat';
 
   // Send new name to server
@@ -75,7 +76,7 @@ setName(String noun) {
   // Alert the Player
   new Moment('ChatEvent', {
     'channel': 'Global Chat',
-    'message': "Name changed to $newName"
+    'message': "Name changed to $noun"
   });
 }
 
@@ -88,26 +89,16 @@ bool containsBadCharacter(String newName) {
   return false;
 }
 
-
-listplayersCommand(String noun) {
-  Map map = new Map();
-  map["username"] = ui.username;
-  map["statusMessage"] = "list";
-  map["channel"] = 'Global Chat';
-  //map["street"] = currentStreet.label;
-
-  // Send message to server
-  new Moment('OutgoingChatEvent', map);
-}
-
-
-
-setlocationCommand(String noun) { // TODO implement after streets are usable.
-  /*
-  else if(command.split(" ")[0].toLowerCase() == "/setlocation" || command.split(" ")[0].toLowerCase() == "/go")
-  {
-  setLocation(command.split(" ")[1]);
-  return;
-  }
-*/
+setLocationCommand(String noun) 
+{
+	playerTeleFrom="console";
+	noun = noun.trim();
+	ui.loadingScreen.className = "MapLoadingScreenIn";
+	ui.loadingScreen.style.opacity = "1.0";
+	//changes first letter to match revdancatt's code - only if it starts with an L
+	if(noun.startsWith("L"))
+		noun = noun.replaceFirst("L", "G");
+	ScriptElement loadStreet = new ScriptElement();
+	loadStreet.src = "http://robertmcdermot.github.io/CAT422-glitch-location-viewer/locations/$noun.callback.json";
+	document.body.append(loadStreet);
 }
