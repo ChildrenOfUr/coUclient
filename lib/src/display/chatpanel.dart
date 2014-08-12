@@ -1,28 +1,34 @@
 part of couclient;
 
 List<String> EMOTICONS;
-
+List<String> COLORS = ["aqua", "blue", "fuchsia", "gray", "green", "lime", "maroon", "navy", "olive", "orange", "purple", "red", "teal"];
 List<Chat> openConversations = [];
 
 // global functions
-String getColorFromUsername(String username) {
-  List<String> COLORS = ["aqua", "blue", "fuchsia", "gray", "green", "lime", "maroon", "navy", "olive", "orange", "purple", "red", "teal"];
-  int index = 0;
-  for (int i = 0; i < username.length; i++) {
-    index += username.codeUnitAt(i);
-  }
-  return COLORS[index % (COLORS.length - 1)];
+String getColorFromUsername(String username)
+{
+	int index = 0;
+	for (int i = 0; i < username.length; i++)
+		index += username.codeUnitAt(i);
+  	
+	return COLORS[index % (COLORS.length - 1)];
 }
 
-String parseEmoji(String message) {
-  String returnString = "";
-  RegExp regex = new RegExp(":(.+?):");
-  message.splitMapJoin(regex, onMatch: (Match m) {
-    String match = m[1];
-    if (EMOTICONS.contains(match)) returnString += '<img style="height:1em;" class="Emoticon" src="packages/couclient/emoticons/$match.svg"></img>'; else returnString += m[0];
-  }, onNonMatch: (String s) => returnString += s);
+String parseEmoji(String message)
+{
+	String returnString = "";
+	RegExp regex = new RegExp(":(.+?):");
+	message.splitMapJoin(regex, onMatch: (Match m)
+	{
+    	String match = m[1];
+    	if(EMOTICONS.contains(match))
+    		returnString += '<img style="height:1em;" class="Emoticon" src="packages/couclient/emoticons/$match.svg"></img>';
+    	else 
+    		returnString += m[0];
+  	}, 
+  	onNonMatch: (String s) => returnString += s);
 
-  return returnString;
+	return returnString;
 }
 
 String parseUrl(String message) {
@@ -66,14 +72,16 @@ class Chat {
   bool tabInserted = false;
   Chat(this.title) 
   {
+	  title = title.trim();
 	//look for an 'archived' version of this chat
 	//otherwise create a new one
-	conversationElement = getArchivedConversation(title.trim());
+	conversationElement = getArchivedConversation(title);
 	if(conversationElement == null)
   	{
   		// clone the template
 		conversationElement = ui.chatTemplate.querySelector('.conversation').clone(true);
 		conversationElement.querySelector('.title')..text = title;
+		openConversations.add(this);
 	}
     
     if(title != "Local Chat")
@@ -120,45 +128,46 @@ class Chat {
     conversationElement.querySelector('.dialog').scrollTop = conversationElement.querySelector('.dialog').scrollHeight; //scroll to the bottom
   }
   
-  /**
-   * Archive the conversation (detach it from the chat panel) so that we may reattach
-   * it later with the history intact.
-   **/
-  hide()
-  {
-	  conversationElement.classes.add("archive-${title.replaceAll(' ', '_')}");
-	  conversationElement.classes.remove("conversation");
-	  ui.conversationArchive.append(conversationElement);
-	  computePanelSize();
-	  otherChat = null;
-  }
-  /**
-   * Find an archived conversation and return it
-   * returns null if no conversation exists
-   **/
-  Element getArchivedConversation(String title)
-  {
-	  Element conversationElement = ui.conversationArchive.querySelector('.archive-${title.replaceAll(' ', '_')}');
-	  if(conversationElement != null)
-	  {
-		  conversationElement.classes.remove('.archive-$title');
-		  conversationElement.classes.add("conversation");
-	  }
-	  return conversationElement;
-  }
+	/**
+ 	* Archive the conversation (detach it from the chat panel) so that we may reattach
+ 	* it later with the history intact.
+	**/
+	hide()
+	{
+		conversationElement.classes.add("archive-${title.replaceAll(' ', '_')}");
+		conversationElement.classes.remove("conversation");
+		ui.conversationArchive.append(conversationElement);
+		computePanelSize();
+		otherChat = null;
+	}
   
-  void computePanelSize()
-  {
-	  List<Element> conversations = ui.panel.querySelectorAll('.conversation').toList();
-	  int num = conversations.length-1;
-      conversations.forEach((Element conversation)
-	  {
-    	  if(conversation.hidden)
-    		  num--;          
-      });
-      conversations.forEach((Element conversation) 
-    		  => conversation.style.height = "${100/num}%");
-  }
+	/**
+	* Find an archived conversation and return it
+	* returns null if no conversation exists
+	**/
+	Element getArchivedConversation(String title)
+	{
+		Element conversationElement = ui.conversationArchive.querySelector('.archive-${title.replaceAll(' ', '_')}');
+		if(conversationElement != null)
+		{
+			conversationElement.classes.remove('.archive-$title');
+			conversationElement.classes.add("conversation");
+		}
+		return conversationElement;
+	}
+  
+	void computePanelSize()
+	{
+		List<Element> conversations = ui.panel.querySelectorAll('.conversation').toList();
+		int num = conversations.length-1;
+    	conversations.forEach((Element conversation)
+		{
+    		if(conversation.hidden)
+    			num--;          
+		});
+		conversations.forEach((Element conversation) 
+    		=> conversation.style.height = "${100/num}%");
+	}
 
   void processInput(TextInputElement input) {
     input.onKeyDown.listen((KeyboardEvent key) //onKeyUp seems to be too late to prevent TAB's default behavior
@@ -272,65 +281,86 @@ class Chat {
   }
 
 
-  parseInput(String input) {
-    Map map = new Map();
-    // if its' not a command, send it through.
-    if (parseCommand(input)) return; else {
-      map["username"] = ui.username;
-      map["message"] = input;
-      map["channel"] = title;
-      if (title == "Local Chat") 
-    	  map["street"] = currentStreet.label;
-//display chat bubble if we're talking in local (unless it's a /me message)
-		if(map["channel"] == "Local Chat" && map["username"] == ui.username && map["statusMessage"] == null
-				&& !(map["message"] as String).toLowerCase().startsWith("/me"))
-		{
-			//remove any existing bubble
-			if(CurrentPlayer.chatBubble != null && CurrentPlayer.chatBubble.bubble != null)
-				CurrentPlayer.chatBubble.bubble.remove();
-			CurrentPlayer.chatBubble = new ChatBubble(parseEmoji(map["message"]));
+	parseInput(String input) 
+	{
+	    // if its' not a command, send it through.
+	    if (parseCommand(input)) 
+	    	return;
+	    else if(input.toLowerCase() == "/list")
+        {
+	    	Map map = {};
+			map["username"] = ui.username;
+			map["statusMessage"] = "list";
+			map["channel"] = title;
+			map["street"] = currentStreet.label;
+			new Moment('OutgoingChatEvent', map, 'parseInput');
+        }
+	    else 
+	    {
+	    	Map map = new Map();
+	    	map["username"] = ui.username;
+	    	map["message"] = input;
+	    	map["channel"] = title;
+	    	if (title == "Local Chat") 
+				map["street"] = currentStreet.label;
+	
+			new Moment('OutgoingChatEvent', map, 'parseInput');
+	      
+			//display chat bubble if we're talking in local (unless it's a /me message)
+			if(map["channel"] == "Local Chat" && !(map["message"] as String).toLowerCase().startsWith("/me"))
+			{
+				//remove any existing bubble
+				if(CurrentPlayer.chatBubble != null && CurrentPlayer.chatBubble.bubble != null)
+					CurrentPlayer.chatBubble.bubble.remove();
+				CurrentPlayer.chatBubble = new ChatBubble(parseEmoji(map["message"]));
+			}
 		}
-      new Moment('OutgoingChatEvent', map, 'parseInput');
-    }
-  }
+	}
 }
 
+class ChatMessage 
+{
+	String player, message;
+	ChatMessage(this.player, this.message);
+	
+	String toHtml()
+	{
+		if (message is String == false) return '';
+		String html;
 
-class ChatMessage {
-  String player, message;
-  ChatMessage(this.player, this.message);
-  String toHtml() {
-    if (message is String == false) return '';
-    String html;
+		message = parseUrl(message);
+		message = parseEmoji(message);
 
-    message = parseUrl(message);
-    message = parseEmoji(message);
+		if (message.toLowerCase().contains(ui.username.toLowerCase()))
+			new Moment('PlaySound', 'mention');
 
-    if (message.toLowerCase().contains(ui.username.toLowerCase())) {
-      new Moment('PlaySound', 'mention');
-    }
-
-    if (player == null) {
-      html = '''
-      <p class="system">
-      $message
-      </p>
-      ''';
-    } else if (message.startsWith('/me')) {
-      message = message.replaceFirst('/me ', '');
-      html = '''
-      <p class="me" style="color:${getColorFromUsername(player)};">
-      $player $message
-      </p>
-      ''';
-    } else {
-      html = '''
-      <p>
-      <span class="name" style="color:${getColorFromUsername(player)};">$player:</span>
-      <span class="message">$message</span>
-      </p>
-      ''';
-    }
-    return html;
-  }
+		if (player == null)
+		{
+			html = '''
+			<p class="system">
+			$message
+			</p>
+			''';
+		}
+		else if (message.startsWith('/me'))
+		{
+			message = message.replaceFirst('/me ', '');
+			html = '''
+			<p class="me" style="color:${getColorFromUsername(player)};">
+			$player $message
+			</p>
+			''';
+		}
+		else 
+		{
+			html = '''
+			<p>
+			<span class="name" style="color:${getColorFromUsername(player)};">$player:</span>
+			<span class="message">$message</span>
+			</p>
+			''';
+		}
+		
+		return html;
+	}
 }
