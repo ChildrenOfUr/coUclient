@@ -60,41 +60,49 @@ class Chat {
       numMessages = 0,
       inputHistoryPointer = 0,
       emoticonPointer = 0;
-  static Element otherChat = null, localChat = null;
+  static Chat otherChat = null, localChat = null;
   List<String> connectedUsers = new List();
   List<String> inputHistory = new List();
   bool tabInserted = false;
-  Chat(this.title) {
-    // clone the template
-    conversationElement = ui.chatTemplate.querySelector('.conversation').clone(true);
-    conversationElement.querySelector('.title')..text = title;
+  Chat(this.title) 
+  {
+	//look for an 'archived' version of this chat
+	//otherwise create a new one
+	conversationElement = getArchivedConversation(title.trim());
+	if(conversationElement == null)
+  	{
+  		// clone the template
+		conversationElement = ui.chatTemplate.querySelector('.conversation').clone(true);
+		conversationElement.querySelector('.title')..text = title;
+	}
     
     if(title != "Local Chat")
     {
     	if(otherChat != null)
-    		otherChat.replaceWith(conversationElement);
-    	else
-    	{
-    		if(localChat != null)
-    			ui.panel.insertBefore(conversationElement, localChat);
-    		else
-    			ui.panel.append(conversationElement);
-    	}
-    	otherChat = conversationElement;
+    		otherChat.hide();
+      	
+    	if(localChat != null)
+			ui.panel.insertBefore(conversationElement, localChat.conversationElement);
+		else
+			ui.panel.append(conversationElement);
+    	
+    	otherChat = this;
     }
-    else
+    else if(localChat == null) //don't ever have 2 local chats
     {
-    	localChat = conversationElement;
-    	ui.panel.append(localChat);
+    	localChat = this;
+    	ui.panel.append(conversationElement);
+    	//can't remove the local chat
+    	conversationElement.querySelector('.fa-chevron-down').remove();
     }
     
     computePanelSize();
 
-    Stream minimize = conversationElement.querySelector('.fa-chevron-down').onClick;
-    minimize.listen((_) => this.hide());
+    Element minimize = conversationElement.querySelector('.fa-chevron-down');
+    if(minimize != null)
+    	minimize.onClick.listen((_) => this.hide());
 
     processInput(conversationElement.querySelector('input'));
-
   }
 
   addMessage(String player, String message) {
@@ -111,16 +119,32 @@ class Chat {
     conversationElement.querySelector('.dialog').appendHtml(text);
     conversationElement.querySelector('.dialog').scrollTop = conversationElement.querySelector('.dialog').scrollHeight; //scroll to the bottom
   }
+  
+  /**
+   * Archive the conversation (detach it from the chat panel) so that we may reattach
+   * it later with the history intact.
+   **/
   hide()
   {
-	  conversationElement.hidden = true;
+	  conversationElement.classes.add("archive-${title.replaceAll(' ', '_')}");
+	  conversationElement.classes.remove("conversation");
+	  ui.conversationArchive.append(conversationElement);
 	  computePanelSize();
 	  otherChat = null;
   }
-  show()
+  /**
+   * Find an archived conversation and return it
+   * returns null if no conversation exists
+   **/
+  Element getArchivedConversation(String title)
   {
-	  conversationElement.hidden = false;
-	  computePanelSize();
+	  Element conversationElement = ui.conversationArchive.querySelector('.archive-${title.replaceAll(' ', '_')}');
+	  if(conversationElement != null)
+	  {
+		  conversationElement.classes.remove('.archive-$title');
+		  conversationElement.classes.add("conversation");
+	  }
+	  return conversationElement;
   }
   
   void computePanelSize()

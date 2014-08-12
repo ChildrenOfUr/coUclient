@@ -103,7 +103,6 @@ main() {
   new NetChatManager();
 
   // Test Information
-  ui.username = 'test_';
   new Moment('StartChat','Global Chat');
   new Moment('StartChat','Local Chat');
   ui.update();

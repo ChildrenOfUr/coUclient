@@ -5,6 +5,15 @@ part of couclient;
 class NetChatManager extends Pump {
   WebSocket _connection;
   NetChatManager() {
+	//assign temporary chat handle
+	if(localStorage["username"] != null)
+		ui.username = localStorage["username"];
+	else
+	{
+		Random rand = new Random();
+		ui.username += rand.nextInt(10000).toString();
+	}
+	
     _connection = new WebSocket('ws://robertmcdermot.com:8080')
         ..onOpen.listen((_) {
           // First event, tells the server who we are.

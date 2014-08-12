@@ -230,7 +230,7 @@ void createOtherPlayer(Map map)
 		updateOtherPlayer(map,otherPlayer);
         	
         otherPlayers[map["username"]] = otherPlayer;
-        querySelector("#PlayerHolder").append(otherPlayer.playerParentElement);
+        ui.playerHolder.append(otherPlayer.playerParentElement);
 	});
 }
 
