@@ -86,12 +86,25 @@ class WindowManager {
       localStorage["playMentionSound"] = "true";
       setJoinMessagesVisibility(true);
     }
+
     querySelectorAll("#PlayMentionSound").forEach((Element element)
     {
       (element as CheckboxInputElement).checked = getPlayMentionSound();
     });
-
-
+    
+    // set graphicsblur
+    CheckboxInputElement graphicsBlur = querySelector("#GraphicsBlur") as CheckboxInputElement;
+    if(localStorage["GraphicsBlur"] != null)
+    {
+      if(localStorage["GraphicsBlur"] == "true")
+        graphicsBlur.checked = true;
+      else
+        graphicsBlur.checked = false;
+    } 
+    graphicsBlur.onChange.listen((_)
+    {
+      localStorage["GraphicsBlur"] = graphicsBlur.checked.toString();
+    });
 
 
     // BUG REPORT LISTENERS
