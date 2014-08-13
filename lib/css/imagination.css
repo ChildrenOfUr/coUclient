@@ -14,7 +14,8 @@
 }
 #thinkButton {
   position:absolute;
-  width:30px;
+  width:36px;
+  top:-7px;
   left:-45px;
   z-index:2;
   cursor: pointer;
