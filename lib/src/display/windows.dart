@@ -13,33 +13,20 @@ class WindowManager {
 
   WindowManager() {
 
-
-    // WINDOW COLLECTION //
-    for (Element w in querySelectorAll('#windowHolder .window')) {
-      Modal newModal = new Modal(w.id);
-      modals[w.id] = newModal;
-    }
-
-    // MAPWINDOW LISTENERS //
-    ui.mapButton.onClick.listen((_) {
-      modals['mapWindow'].open();
-    });
-
-
-
-
-
+    new MapWindow();
+    
+    
     // SETTINGS WINDOW LISTENERS //
     ui.settingsButton.onClick.listen((_) {
       modals['settingsWindow'].open();
     });
 
-    ui.settingsTabs.onClick.listen((MouseEvent m) {
+    ui.tabs.onClick.listen((MouseEvent m) {
       Element tab = m.target as Element;
-      Element tabView = querySelector('#settingsWindow article #${tab.text.toLowerCase()}');
+      Element tabView = querySelector('article #${tab.text.toLowerCase()}');
       // hide all tabs
-      for (Element t in querySelectorAll('#settingsWindow article .tab-content')) t.hidden = true;
-      for (Element t in querySelectorAll('#settingsWindow article .tab')) t.classes.remove('active');
+      for (Element t in querySelectorAll('article .tab-content')) t.hidden = true;
+      for (Element t in querySelectorAll('article .tab')) t.classes.remove('active');
       // show intended tab
       tab.classes.add('active');
       tabView.hidden = false;
@@ -143,9 +130,9 @@ class WindowManager {
 }
 
 /// A Dart interface to an html Modal
-class Modal {
+abstract class Modal {
   Element window;
-
+  String id;
   open() {
     window.hidden = false;
     this.focus();
@@ -161,7 +148,7 @@ class Modal {
     window.focus();
   }
 
-  Modal(String id) {
+  prepare() {
     // GET 'window' ////////////////////////////////////
     window = querySelector('#$id');
 
@@ -199,5 +186,6 @@ class Modal {
     });
   }
 
+  
 
 }

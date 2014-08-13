@@ -8,7 +8,7 @@ class VendorShelves
         		
 		for(Map item in vendorMap['itemsForSale'] as List)
     	{
-    		DivElement parent = new DivElement()..className = "vendorItemParent";
+    		DivElement parent = new DivElement()..className = "vendorItemParent box";
     		DivElement tooltip = new DivElement()..className = "vendorItemTooltip";
     		ImageElement image = new ImageElement(src:item['iconUrl'])..className = "vendorItemPreview";
     		SpanElement price = new SpanElement()..className="itemPrice";

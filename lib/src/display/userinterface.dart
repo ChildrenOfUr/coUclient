@@ -53,7 +53,7 @@ class UserInterface extends Pump {
   Element pauseMenu = querySelector('#pauseMenu');
 
   // settings window elements
-  ElementList settingsTabs = querySelectorAll('#settingsWindow article .tab');
+  ElementList tabs = querySelectorAll('article .tab');
 
 
   // bugreport button
@@ -184,53 +184,65 @@ class UserInterface extends Pump {
 
     this & EVENT_BUS;
   }
+  
+	void _resize()
+	{
+	  	worldWidth = worldElement.clientWidth;
+	  	worldHeight = worldElement.clientHeight;
+	}
 
-  void _resize() {
-    worldWidth = worldElement.clientWidth;
-    worldHeight = worldElement.clientHeight;
-  }
-
-  process(var event) {
-
-    // CHAT EVENT HANDLERS //
-    // ChatEvents are drawn to their Conversation.
-    if (event.isType('ChatEvent')) {
-      for (Chat convo in openConversations) {
-        if (convo.title == event.content['channel']) convo.addMessage(event.content['username'], event.content['message']);
-      }
-    }
-    // List online players
-    if (event.isType('ChatListEvent')) {
-      for (Chat convo in openConversations) {
-        if (convo.title == event.content['channel']) convo.addAlert("Players in this Channel:  ${event.content['users']}".replaceAll('[', '').replaceAll(']', ''));
-      }
-    }
-    // StartChat events start a Conversation
-    if (event.isType('StartChat')) {
-      Chat chat = new Chat(event.content as String);
-      openConversations.add(chat);
-      //handle chat input getting focused/unfocused so that the character doesn't move while typing
-      ElementList chatInputs = querySelectorAll('.Typing');
-      chatInputs.onFocus.listen((_) {
-        inputManager.ignoreKeys = true;
-      });
-      chatInputs.onBlur.listen((_) {
-        inputManager.ignoreKeys = false;
-      });
-    }
-    // MISC EVENT HANDLERS //
-    if (event.isType('TimeUpdate')) {
-      currDay.text = clock.dayofweek;
-      currTime.text = clock.time;
-      currDate.text = clock.day + ' of ' + clock.month;
-    }
-    if (event.isType('DoneLoading')) {
-      // display 'Play' buttons
-      for (Element button in loadingScreen.querySelectorAll('.button')) button.hidden = false;
-      loadingScreen.querySelector('.fa').hidden = true;
-    }
-  }
-
+	process(var event)
+	{
+	    // CHAT EVENT HANDLERS //
+	    // ChatEvents are drawn to their Conversation.
+	    if (event.isType('ChatEvent'))
+	    {
+	    	for (Chat convo in openConversations) 
+	    	{
+	    		if(convo.title == "Local Chat" && event.content['street'] == currentStreet.label)
+	    			convo.addMessage(event.content['username'], event.content['message']);
+	    		else if(convo.title == event.content['channel'] && convo.title != "Local Chat")
+	        		convo.addMessage(event.content['username'], event.content['message']);
+	    	}
+	    }
+	    
+	    // List online players
+	    if (event.isType('ChatListEvent'))
+	    {
+	    	for (Chat convo in openConversations) 
+	    	{
+	        	if (convo.title == event.content['channel']) 
+	        		convo.addAlert("Players in this Channel:  ${event.content['users']}".replaceAll('[', '').replaceAll(']', ''));
+	    	}
+	    }
+	    
+	    // StartChat events start a Conversation
+	    if (event.isType('StartChat'))
+	    {
+	    	Chat chat = new Chat(event.content as String);
+			
+	    	//handle chat input getting focused/unfocused so that the character doesn't move while typing
+			ElementList chatInputs = querySelectorAll('.Typing');
+			chatInputs.onFocus.listen((_) => inputManager.ignoreKeys = true);
+		  	chatInputs.onBlur.listen((_) => inputManager.ignoreKeys = false);
+	    }
+	    
+	    // MISC EVENT HANDLERS //
+	    if (event.isType('TimeUpdate'))
+	    {
+	    	currDay.text = clock.dayofweek;
+	    	currTime.text = clock.time;
+	    	currDate.text = clock.day + ' of ' + clock.month;
+	    }
+	    
+	    if (event.isType('DoneLoading'))
+	    {
+	    	// display 'Play' buttons
+	    	for (Element button in loadingScreen.querySelectorAll('.button')) 
+	    		button.hidden = false;
+	    	loadingScreen.querySelector('.fa').hidden = true;
+	    }
+	}
 
   // update the userinterface
   update() {

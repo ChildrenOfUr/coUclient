@@ -5,7 +5,7 @@ part of couclient;
 class NetChatManager extends Pump 
 {
 	WebSocket _connection;
-	String _chatServerUrl = 'ws://localhost:8181';
+	String _chatServerUrl = 'ws://robertmcdermot.com:8282';
 	
 	NetChatManager() 
 	{
@@ -49,8 +49,8 @@ class NetChatManager extends Pump
 		{
         	// First event, tells the server who we are.
 			post(new Map()
-            	..['message'] = 'userName=' + ui.username
-            	..['channel'] = 'Global Chat');
+            	..['username'] = ui.username
+            	..['statusMessage'] = 'join');
 
         	// Get a List of the other players online
         	post(new Map()

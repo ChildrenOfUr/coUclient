@@ -43,11 +43,17 @@ part 'package:couclient/src/network/metabolics.dart';
 // UI/UX MODULES //
 part 'package:couclient/src/display/userinterface.dart';
 part 'package:couclient/src/display/chatpanel.dart';
-part 'package:couclient/src/display/windows.dart';
 part 'package:couclient/src/display/meters.dart';
 part 'package:couclient/src/display/audio.dart';
 part 'package:couclient/src/display/render.dart';
 part 'package:couclient/src/display/loop.dart';
+
+//  WINDOW MODULES //
+part 'package:couclient/src/display/windows.dart';
+part 'package:couclient/src/display/windows/settings_window.dart';
+part 'package:couclient/src/display/windows/bag_window.dart';
+part 'package:couclient/src/display/windows/bug_window.dart';
+part 'package:couclient/src/display/windows/map_window.dart';
 
 // STREET RENDERING MODULES //
 part 'package:couclient/src/display/render/camera.dart';
@@ -67,12 +73,12 @@ part 'package:couclient/src/game/street.dart';
 part 'package:couclient/src/game/entities/quoin.dart';
 
 // UI PIECES //
-part 'package:couclient/src/display/ui_templates/details_window.dart';
+part 'package:couclient/src/display/windows/details_window.dart';
 part 'package:couclient/src/display/ui_templates/interactions_menu.dart';
 part 'package:couclient/src/display/ui_templates/right_click_menu.dart';
-part 'package:couclient/src/display/ui_templates/vendor_window.dart';
-part 'package:couclient/src/display/ui_templates/vendor_shelves.dart';
-part 'package:couclient/src/display/ui_templates/sell_interface.dart';
+part 'package:couclient/src/display/windows/vendor_window.dart';
+part 'package:couclient/src/display/windows/vendor_shelves.dart';
+part 'package:couclient/src/display/windows/sell_interface.dart';
 
 
 // API KEYS // for more infomation see '/doc/api.md'
