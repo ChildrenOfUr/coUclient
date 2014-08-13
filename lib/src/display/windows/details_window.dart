@@ -114,9 +114,9 @@ class DetailsWindow
     	{
     		destroy();
     		if(sellMode)
-    			VendorWindow.insertContent(SellInterface.create(vendorMap));
+    			VendorWindow_old.insertContent(SellInterface.create(vendorMap));
     		else
-    			VendorWindow.insertContent(VendorShelves.create(vendorMap));
+    			VendorWindow_old.insertContent(VendorShelves.create(vendorMap));
     	});
 		
 		return itemDetails;

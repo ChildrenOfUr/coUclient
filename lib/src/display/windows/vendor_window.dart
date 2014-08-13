@@ -1,6 +1,6 @@
 part of couclient;
 
-class VendorWindow
+class VendorWindow_old
 {
 	/**
 	 * 
@@ -9,7 +9,7 @@ class VendorWindow
 	 **/
 	static Element create(Map vendorMap)
 	{
-		DivElement vendorWindow = new DivElement()..id="VendorWindow"..className = "PopWindow";
+		DivElement VendorWindow_old = new DivElement()..id="VendorWindow_old"..className = "PopWindow";
 		
 		DivElement header = new DivElement()..className = "PopWindowHeader handle";
 		DivElement title = new DivElement()..id="VendorTitle"..text = vendorMap['vendorName'];
@@ -27,7 +27,7 @@ class VendorWindow
 		SpanElement last = new SpanElement()..attributes['style']="vertical-align:middle"..id="NumCurrants"..text = " ${ui.commaFormatter.format(metabolics.getCurrants())} currants";
 		currantParent..append(first)..append(currant)..append(last);
 		
-		vendorWindow..append(header)..append(tabParent)..append(VendorShelves.create(vendorMap))..append(currantParent);
+		VendorWindow_old..append(header)..append(tabParent)..append(VendorShelves.create(vendorMap))..append(currantParent);
 		
 		close.onClick.first.then((_) => destroy());
 		
@@ -48,7 +48,7 @@ class VendorWindow
 				destroy();
 		});
 		
-		return vendorWindow;
+		return VendorWindow_old;
 	}
 	
 	/**
@@ -58,7 +58,7 @@ class VendorWindow
 	 **/
 	static void destroy()
 	{
-		Element window = querySelector("#VendorWindow");
+		Element window = querySelector("#VendorWindow_old");
 		if(window != null)
 			window.remove();
 	}
@@ -68,7 +68,7 @@ class VendorWindow
 		Element existing = querySelector(".vendorContentInsert");
 		if(existing != null)
 			existing.remove();
-		querySelector("#VendorWindow").insertBefore(content, querySelector("#CurrantParent"));
+		querySelector("#VendorWindow_old").insertBefore(content, querySelector("#CurrantParent"));
 		if(querySelector("#SellInterface") != null || DetailsWindow.inSellMode)
 			_setActiveTab(querySelector("#SellTab"));
 		else

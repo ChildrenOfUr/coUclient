@@ -15,7 +15,7 @@ class SellInterface
         Dropzone dropzone = new Dropzone(dropTarget, acceptor: new Acceptor.draggables([draggable]));
         dropzone.onDrop.listen((DropzoneEvent dropEvent)
 		{
-			VendorWindow.insertContent(DetailsWindow.create(JSON.decode(dropEvent.draggableElement.attributes['itemMap']),vendorMap,sellMode:true));
+			VendorWindow_old.insertContent(DetailsWindow.create(JSON.decode(dropEvent.draggableElement.attributes['itemMap']),vendorMap,sellMode:true));
 		});
             	
 		return interface;

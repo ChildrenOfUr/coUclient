@@ -65,8 +65,8 @@
 }
 .dialog p.system{
   font-style:italic;  color: #000;
-  color:#555;
-  border-left: 2px solid #555;
+  color:#444;
+  border-left: 2px solid #444;
 }
 
 .conversation input {

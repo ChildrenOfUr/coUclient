@@ -247,15 +247,13 @@
             Settings
           </header>
           <article>
-          <span class="tab active">Keyboard</span>
-          <span class="tab">Audio</span>
-          <span class="tab">Graphics</span>
-          <span class="tab">Chat</span>
 
-          <div id="audio" class="tab-content">
-          Audio UP
+          <div class= "tab-holder">
+            <span class="tab active">Keyboard</span>
+            <span class="tab">Graphics</span>
+            <span class="tab">Chat</span>
           </div>
-          
+
           <div id="graphics" class="tab-content">
           <div class="content settingsContent">
             <label class="ChatSettingsOption"><input id="GraphicsBlur" type="checkbox" class="ChatSettingsCheckbox">Enable Scenery Blur</label>
@@ -308,23 +306,29 @@
         
 
         <!-- TODO -->
-        <div id="shopWindow" class="window" hidden>
+        <div id="shopWindow" class="window">
           <i class="fa-li fa fa-times close"></i>
           <header>
             Vendor
           </header>
           <article>
-          <span class="tab active">Buy</span>
-          <span class="tab">Sell</span>
-          
+            <div class= "tab-holder">
+              <span class="tab">Sell</span>
+              <span class="tab active">Buy</span>
+            </div>
           <div id="sell" class="tab-content">
-          Selling Things
+
+
           </div>
-          
+
           <div id="buy" class="tab-content">
-          Buying things
           </div>
-          
+          <div class="footer">
+            <span> currants</span>
+            <span>???</span>
+            <img src="packages/couclient/system/currant.svg">
+            <span>You have </span>
+          </div>
           </article>
         </div>
         <!-- TODO -->
@@ -337,7 +341,10 @@
             <i class="fa-li fa fa-search"></i>
             Bag
           </header>
-          <article class="well"><br><br><br><br>
+          <article class="well">
+          <div class="storage">
+            <div class="box"></div>
+            <div class="box"></div>
             <div class="box"></div>
             <div class="box"></div>
             <div class="box"></div>
@@ -354,7 +361,9 @@
             <div class="box"></div>
             <div class="box"></div>
             <div class="box"></div>
-
+            <div class="box"></div>
+            <div class="box"></div>
+          </div>
             <input type="text" placeholder="Search Inventory..." id="invsearch">
           </article><!--Cross-Domain Asset Fix-->
         </div>

@@ -18,7 +18,7 @@ class VendorShelves
     		if(item['price'] > metabolics.getCurrants())
             	price.classes.add("cantAfford");
     		
-    		parent.onClick.listen((_) => VendorWindow.insertContent(DetailsWindow.create(item,vendorMap)));
+    		parent.onClick.listen((_) => VendorWindow_old.insertContent(DetailsWindow.create(item,vendorMap)));
     		parent..append(tooltip)..append(image)..append(priceParent);
     		content.append(parent);
     	}
