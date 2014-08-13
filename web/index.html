@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html> <!--disable normal right-clicks-->
+<html>
   <head>
 
     <meta charset="utf-8">
@@ -29,7 +29,7 @@
       </div>
 
 
-    <main>
+    <main onContextMenu="return false">
     <div id="fps"></div>
      <!-- THE VARIOUS METERS AT THE TOP LEFT OF THE SCREEN -->
       <span id="playerName"></span>
@@ -308,7 +308,7 @@
         
 
         <!-- TODO -->
-        <div id="shopWindow" class="window">
+        <div id="shopWindow" class="window" hidden>
           <i class="fa-li fa fa-times close"></i>
           <header>
             Vendor
