@@ -3,7 +3,8 @@
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -moz-user-select: none;
-  user-select: none;
+  -ms-user-select: none;
+      user-select: none;
   -webkit-user-drag: none;
   -moz-user-drag: none;
   user-drag: none;
@@ -25,7 +26,8 @@ p, input, textarea{
   cursor: auto;
   -webkit-user-select: text;
   -moz-user-select: text;
-  user-select: text;
+  -ms-user-select: text;
+      user-select: text;
   color: #000;
   resize: none;
   margin:0;

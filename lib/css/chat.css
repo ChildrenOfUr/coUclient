@@ -40,7 +40,8 @@
   cursor: auto;
   -webkit-user-select: text;
   -moz-user-select: text;
-  user-select: text;
+  -ms-user-select: text;
+      user-select: text;
   color: #000;
 }
 .dialog p{
@@ -59,7 +60,8 @@
     color: #000;
   -webkit-user-select: text;
   -moz-user-select: text;
-  user-select: text;
+  -ms-user-select: text;
+      user-select: text;
 }
 .dialog p.system{
   font-style:italic;  color: #000;
@@ -102,32 +104,32 @@
 }
 
 .conversation .fa-chevron-down {
-	cursor: pointer;
+  cursor: pointer;
 }
 
 .PlayerChatBubble {
-	background: white;
-	padding: 2px;
-	border-radius: 5px;
-	position: relative;
-	top: -110px;
-	left: 110px;
+  background: white;
+  padding: 2px;
+  border-radius: 5px;
+  position: relative;
+  top: -110px;
+  left: 110px;
 }
 .ChatBubbleMax {
-	max-width: 250px;
-	max-height: 90px;
+  max-width: 250px;
+  max-height: 90px;
 }
 .PlayerChatBubble::before {
-	background: white;
-	content: "\00a0";
-	position: absolute;
-	bottom: 1px;
-	left: -6px;
-	z-index: -1;
-	transform: rotate( 29deg ) skew( -35deg );
-				-moz-transform: rotate( 29deg ) skew( -35deg );
-				-ms-transform: rotate( 29deg ) skew( -35deg );
-				-o-transform: rotate( 29deg ) skew( -35deg );
-				-webkit-transform: rotate( 29deg ) skew( -35deg );
-	width: 20px;
+  background: white;
+  content: "\00a0";
+  position: absolute;
+  bottom: 1px;
+  left: -6px;
+  z-index: -1;
+  transform: rotate( 29deg ) skew( -35deg );
+        -moz-transform: rotate( 29deg ) skew( -35deg );
+        -ms-transform: rotate( 29deg ) skew( -35deg );
+        -o-transform: rotate( 29deg ) skew( -35deg );
+        -webkit-transform: rotate( 29deg ) skew( -35deg );
+  width: 20px;
 }

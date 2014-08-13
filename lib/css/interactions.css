@@ -1,5 +1,5 @@
 .fill {
-	width: 0px;
+  width: 0px;
     position:absolute;
     font-size: 36px;
     color: orange;
@@ -12,73 +12,71 @@
     color: lightgrey;
     opacity: .9;
     text-shadow:
-	-1px -1px 0 #fff,  
+  -1px -1px 0 #fff,  
     1px -1px 0 #fff,
     -1px 1px 0 #fff,
-	1px 1px 0 #fff;
+  1px 1px 0 #fff;
     -webkit-font-smoothing: antialiased;
     display: inline-block;
 }
 .item {
-	-webkit-transition: all 1s;
-	transition: all 1s;
-	background-repeat: no-repeat;
-	position: absolute;
+  -webkit-transition: all 1s;
+  transition: all 1s;
+  background-repeat: no-repeat;
+  position: absolute;
 }
 
 .bounce {
-	-webkit-animation: bounce 800ms 1;
-	-moz-animation:    bounce 800ms 1;
-	-o-animation:      bounce 800ms 1;
-	animation:         bounce 800ms 1; 
+  -webkit-animation: bounce 800ms 1;
+  animation:         bounce 800ms 1; 
 }
 @-webkit-keyframes bounce {
   0% {
-	-webkit-transform:translateY(-100%);
+  -webkit-transform:translateY(-100%);
     opacity: 0;
   }
   5% {
-  	-webkit-transform:translateY(-100%);
+    -webkit-transform:translateY(-100%);
     opacity: 0;
   }
   15% {
-  	-webkit-transform:translateY(0);
+    -webkit-transform:translateY(0);
     padding-bottom: 5px;
   }
   30% {
-  	-webkit-transform:translateY(-50%);
+    -webkit-transform:translateY(-50%);
   }
   40% {
-  	-webkit-transform:translateY(0%);
+    -webkit-transform:translateY(0%);
     padding-bottom: 6px;
   }
   50% {
-  	-webkit-transform:translateY(-30%);
+    -webkit-transform:translateY(-30%);
   }
   70% {
-  	-webkit-transform:translateY(0%);
+    -webkit-transform:translateY(0%);
     padding-bottom: 7px;
   }
   80% {
-  	-webkit-transform:translateY(-15%);
+    -webkit-transform:translateY(-15%);
   }
   90% {
-  	-webkit-transform:translateY(0%);
-  	padding-bottom: 8px;
+    -webkit-transform:translateY(0%);
+    padding-bottom: 8px;
   }
   95% {
-  	-webkit-transform:translateY(-10%);
+    -webkit-transform:translateY(-10%);
   }
   97% {
-  	-webkit-transform:translateY(0%);
-  	padding-bottom: 9px;
+    -webkit-transform:translateY(0%);
+    padding-bottom: 9px;
   }
   99% {
-  	-webkit-transform:translateY(-5%);
+    -webkit-transform:translateY(-5%);
   }
   100% {
-  	-webkit-transform:translateY(0);
-  	padding-bottom: 9px;
+    -webkit-transform:translateY(0);
+    padding-bottom: 9px;
     opacity: 1;
   }
 }
@@ -86,78 +84,88 @@
 /* W3, Opera 12+, Firefox 16+ */
 @keyframes bounce {
   0% {
-	transform:translateY(-100%);
+  -webkit-transform:translateY(-100%);
+          transform:translateY(-100%);
     opacity: 0;
   }
   5% {
-  	transform:translateY(-100%);
+    -webkit-transform:translateY(-100%);
+            transform:translateY(-100%);
     opacity: 0;
   }
   15% {
-  	transform:translateY(0);
+    -webkit-transform:translateY(0);
+            transform:translateY(0);
     padding-bottom: 5px;
   }
   30% {
-  	transform:translateY(-50%);
+    -webkit-transform:translateY(-50%);
+            transform:translateY(-50%);
   }
   40% {
-  	transform:translateY(0%);
+    -webkit-transform:translateY(0%);
+            transform:translateY(0%);
     padding-bottom: 6px;
   }
   50% {
-  	transform:translateY(-30%);
+    -webkit-transform:translateY(-30%);
+            transform:translateY(-30%);
   }
   70% {
-  	transform:translateY(0%);
+    -webkit-transform:translateY(0%);
+            transform:translateY(0%);
     padding-bottom: 7px;
   }
   80% {
-  	transform:translateY(-15%);
+    -webkit-transform:translateY(-15%);
+            transform:translateY(-15%);
   }
   90% {
-  	transform:translateY(0%);
-  	padding-bottom: 8px;
+    -webkit-transform:translateY(0%);
+            transform:translateY(0%);
+    padding-bottom: 8px;
   }
   95% {
-  	transform:translateY(-7%);
+    -webkit-transform:translateY(-7%);
+            transform:translateY(-7%);
   }
   97% {
-  	transform:translateY(0%);
-  	padding-bottom: 9px;
+    -webkit-transform:translateY(0%);
+            transform:translateY(0%);
+    padding-bottom: 9px;
   }
   99% {
-  	transform:translateY(-3%);
+    -webkit-transform:translateY(-3%);
+            transform:translateY(-3%);
   }
   100% {
-  	transform:translateY(0);
-  	padding-bottom: 9px;
+    -webkit-transform:translateY(0);
+            transform:translateY(0);
+    padding-bottom: 9px;
     opacity: 1;
   }
 }
 .interactionWindow {
-	z-index: 2;
-	padding: 21px;
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	-webkit-transform: translateX(-50%) translateY(-50%);
-	transform: translateX(-50%) translateY(-50%);
-	-moz-border-radius: 6px;
-	border-radius: 6px;
-	background-color: #eee;
-	-webkit-box-shadow: 0px 0px 0px 8px rgba(0,0,0,0.1),  0px 0px 0px 2px rgba(0,0,0,0.3);
-	-moz-box-shadow: 0px 0px 0px 8px rgba(0,0,0,0.1), 0px 0px 0px 2px rgba(0,0,0,0.3); 
-	-o-box-shadow: 0px 0px 0px 8px rgba(0,0,0,0.1), 0px 0px 0px 2px rgba(0,0,0,0.3); 
-	-khtml-box-shadow: 0px 0px 0px 8px rgba(0,0,0,0.1), 0px 0px 0px 2px rgba(0,0,0,0.3);
-	box-shadow: 0px 0px 0px 8px rgba(0,0,0,0.1), 0px 0px 0px 2px rgba(0,0,0,0.3);
+  z-index: 2;
+  padding: 21px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  transform: translateX(-50%) translateY(-50%);
+  border-radius: 6px;
+  background-color: #eee; 
+  -o-box-shadow: 0px 0px 0px 8px rgba(0,0,0,0.1), 0px 0px 0px 2px rgba(0,0,0,0.3); 
+  -khtml-box-shadow: 0px 0px 0px 8px rgba(0,0,0,0.1), 0px 0px 0px 2px rgba(0,0,0,0.3);
+  box-shadow: 0px 0px 0px 8px rgba(0,0,0,0.1), 0px 0px 0px 2px rgba(0,0,0,0.3);
 }
 .entityContainer {
-	border: 1px solid eee;
-	color: black;
+  border: 1px solid eee;
+  color: black;
 }
 .entitySelected {
-	border: 1px solid orange;
-	color: orange;
+  border: 1px solid orange;
+  color: orange;
 }
 
 /*The right click menu*/
@@ -171,7 +179,6 @@
    z-index: 5;
    top:  -100%;
    left: -100%;
-   -moz-border-radius: 8px;
    border-radius: 8px;
    border-bottom:2px solid rgba(0,0,0,0.3);
 }
@@ -180,7 +187,6 @@
    position:absolute;
    top:  5px;
    right: 5px;
-   -moz-border-radius: 50%;
    border-radius: 50%;
    background-color: #eee;
    color: #4b2e4c;
@@ -197,7 +203,6 @@
   font-size:14px;
   color: #333;
   width: 95%;
-  -moz-border-radius: 3px;
   border-radius: 3px;
   border: 1px solid #eee;
 }

@@ -11,9 +11,6 @@ quoin graphic
 
 .circle {  
     -webkit-transition: all .2s ease-in-out;
-    -moz-transition: all .2s ease-in-out;
-    -o-transition: all .2s ease-in-out;
-    -ms-transition: all .2s ease-in-out;
     transition: all .2s ease-in-out;
     background: rgba( 255,255,255, 0.22 );
     border-radius: 100%;
@@ -22,9 +19,6 @@ quoin graphic
     font-family: sans-serif;
     
     -webkit-transform: scale( 0.01 );
-    -moz-transform: scale( 0.01 );
-    -o-transform: scale( 0.01 );
-    -ms-transform: scale( 0.01 );
     transform: scale( 0.01 );
     
     width: 50px;
@@ -33,19 +27,13 @@ quoin graphic
 }
 .parent {  
     -webkit-transition: all .2s ease-in-out;
-    -moz-transition: all .2s ease-in-out;
-    -o-transition: all .2s ease-in-out;
-    -ms-transition: all .2s ease-in-out;
     transition: all .2s ease-in-out;
-   	border-radius: 100%;
+    border-radius: 100%;
     border: 3px solid rgba(0, 0, 0, 0);
     color: white;
     font-family: sans-serif;
     
     -webkit-transform: scale( 0.01 );
-    -moz-transform: scale( 0.01 );
-    -o-transform: scale( 0.01 );
-    -ms-transform: scale( 0.01 );
     transform: scale( 0.01 );
     
     width: 50px;
@@ -55,9 +43,6 @@ quoin graphic
 
 .circleExpand {
     -webkit-transform: scale(1);
-    -moz-transform: scale(1);
-    -o-transform: scale(1);
-    -ms-transform: scale(1);
     transform: scale(1);
 }
 
@@ -69,9 +54,6 @@ quoin graphic
     white-space: nowrap;
     font-size: x-large;
     -webkit-transition: all .2s ease-out .2s;
-    -moz-transition: all .2s ease-out .2s;
-    -o-transition: all .2s ease-out .2s;
-    -ms-transition: all .2s ease-out .2s;
     transition: all .2s ease-out .2s;
     font-family: 'RockoFLFBold', sans-serif;
     color: #fff;
