@@ -94,18 +94,19 @@ article .tab{
   padding: 1px 4px;
   margin: -1px 1px;
   min-width:70px;
-  background-color:#fff;
+  background-color:#eee;
   color:#222;
   border-radius: 8px 8px 0px 0px;
   float:right;
   position:relative;
   top:-28px;
+  opacity:0.6;
   height:26px;
   text-align:center;
   border:1px solid #eee;
 }
 article .tab.active {
-  background-color: #ddd;
+  opacity: 1;
   margin:-5px 2px;
 }
 article .tab-holder {
@@ -117,7 +118,7 @@ article .tab-content{
   position:absolute;
   top:0;
   padding:5px;
-  background-color:#ddd;
+  background-color:#eee;
   color:#444;
   bottom:0px;
   left:0;
