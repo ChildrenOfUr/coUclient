@@ -240,7 +240,6 @@ class UserInterface extends Pump {
 	    	// display 'Play' buttons
 	    	for (Element button in loadingScreen.querySelectorAll('.button')) 
 	    		button.hidden = false;
-	    	loadingScreen.querySelector('.fa').hidden = true;
 	    }
 	}
 

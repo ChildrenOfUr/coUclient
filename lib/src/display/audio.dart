@@ -22,6 +22,16 @@ class SoundManager extends Pump {
   }
 
   Future init() {
+    
+    
+    new Asset('packages/couclient/system/loading.mp3').load().then((_) {
+        //start the loading music and attach it to the #LoadingScreen so that when that is removed the music stops
+        if (ui.volume > 0 && ui.muted == false) {
+          playSound('loading', parentElement: querySelector('#LoadingScreen'), looping:false);
+        }
+    });
+    
+    
     try {
       audioChannels['soundEffects'] = new AudioChannel("soundEffects")..gain = ui.volume / 100;
       audioChannels['music'] = new AudioChannel("music")..gain = ui.volume / 100;
@@ -76,11 +86,7 @@ class SoundManager extends Pump {
       //here's a fix for dartium http://downloadsquad.switched.com/2010/06/24/play-embedded-mp3-audio-files-chromium/
       //also I updated the loadie library to attempt to find both a .mp3 file and a .ogg file at the specified location
       //this should help with browser compatibility
-      new Asset('packages/couclient/system/loading.mp3'), new Asset('packages/couclient/system/mention.mp3'), new Asset('packages/couclient/system/quoinSound.mp3'), new Asset('packages/couclient/system/game_loaded.mp3')])..load(print, statusElement: querySelector("#LoadStatus2")).then((_) {
-          //start the loading music and attach it to the #LoadingScreen so that when that is removed the music stops
-          if (ui.volume > 0 && ui.muted == false) {
-            playSound('loading', parentElement: querySelector('#LoadingScreen'), looping: true);
-          }
+      new Asset('packages/couclient/system/mention.mp3'), new Asset('packages/couclient/system/quoinSound.mp3'), new Asset('packages/couclient/system/game_loaded.mp3')])..load(print, statusElement: querySelector("#LoadStatus2")).then((_) {
         }).catchError((e) //in case audio does not start to load within 2 seconds
         {
           print("error while loading sounds: $e");
