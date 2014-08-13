@@ -43,7 +43,8 @@
 #playButton {
   font-size:23px;
   padding:12px;
-  margin-top:30px;
+  margin:auto;
+  margin-top: 20px;
   height:30px;
   width:95px;
 }

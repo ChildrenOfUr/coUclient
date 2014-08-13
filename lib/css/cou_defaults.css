@@ -9,6 +9,7 @@
   -moz-user-drag: none;
   user-drag: none;
   color: #4b2e4c;
+  text-shadow: 0px 1px rgba(100,100,100,0.3);
 }
 html, body {
   font-family: 'RockoFLFBold', sans-serif;

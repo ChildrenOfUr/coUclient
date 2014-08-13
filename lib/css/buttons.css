@@ -1,18 +1,25 @@
 .button {
+  font-family: 'Tahoma', 'Geneva', 'sans-serif';
+  font-
   position:relative;
-  border-radius:8px;
-  margin:5px;
-  padding:9px;
-  background-color: #4b2e4c;
-  border:none;  
-  border-bottom:2px solid rgba(0,0,0,0.5);
-  text-shadow: 0px -1px rgba(0,0,0,0.9);
-  box-shadow: 0 1px 5px 2px rgba(0,0,0,0.2);
+  border-radius:7px;
+  margin:0px 5px;
+  padding:5px;
+  background-color: #8d5f8d;
+  border: 1px solid rgba(0,0,0,0.3);
+  border-bottom:3px solid rgba(0,0,0,0.3);
   text-align:center;
   cursor: pointer;
+  box-shadow:inset 0 -2px 5px 3px rgba(255,255,255,0.1);
+  transition:box-shadow 0.1s;
 }
+.button:hover {
+  box-shadow:inset 0 -2px 5px 3px rgba(255,255,255,0.1), 0 2px 10px 0px #8d5f8d;
+  
+}
+
 .button, .button *{
-  color:#eee;
+  color:#fff;
 }
 
 .button.light {
@@ -22,14 +29,16 @@
   background-color: #fff;
   border:none;  
   text-shadow: 0px -1px #ccc;
-  border-bottom:2px solid rgba(0,0,0,0.2);
+  border-bottom:3px solid rgba(0,0,0,0.2);
   box-shadow: 0 1px 50px 2px rgba(0,0,0,0.1);
 }
 .button.light, .button.light * {
     color:#4b2e4c;
 }
+.button.light:hover {}
 
 .button:active {
   border-bottom:1px solid rgba(0,0,0,0.2);
-  top:1px;
+  box-shadow: 0 1px 50px 20px rgba(255,255,255,0.5);
+  transform:translateY(2px);
 }

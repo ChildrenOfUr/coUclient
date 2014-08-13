@@ -105,7 +105,7 @@ article .tab{
   border:1px solid #eee;
 }
 article .tab.active {
-  background-color: #eee;
+  background-color: #ddd;
   margin:-5px 2px;
 }
 article .tab-holder {
@@ -117,7 +117,7 @@ article .tab-content{
   position:absolute;
   top:0;
   padding:5px;
-  background-color:#eee;
+  background-color:#ddd;
   color:#444;
   bottom:0px;
   left:0;
