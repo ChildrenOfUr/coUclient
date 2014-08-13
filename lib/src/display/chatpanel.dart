@@ -113,6 +113,32 @@ class Chat {
     processInput(conversationElement.querySelector('input'));
   }
 
+	processEvent(Map data)
+	{
+		if(data["message"] == " joined.")
+		{
+			if(!connectedUsers.contains(data["username"]))
+				connectedUsers.add(data["username"]);
+		}
+	
+		if(data["message"] == " left.")
+		{
+			connectedUsers.remove(data["username"]);
+			removeOtherPlayer(data["username"]);
+		}
+		
+		if(data["statusMessage"] == "changeName")
+		{						
+			if(data["success"] == "true")
+			{
+				connectedUsers.remove(data["username"]);
+				removeOtherPlayer(data["username"]);
+                connectedUsers.add(data["newUsername"]);
+			}
+		}
+		addMessage(data['username'], data['message']);
+	}
+	
   addMessage(String player, String message) {
     ChatMessage chat = new ChatMessage(player, message);
     conversationElement.querySelector('.dialog').appendHtml(chat.toHtml());
