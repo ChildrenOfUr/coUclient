@@ -25,7 +25,6 @@
 @import url("packages/couclient/css/map.css");
 @import url("packages/couclient/css/panel.css");
 @import url("packages/couclient/css/chat.css");
-@import url("packages/couclient/css/windows/window.css");
 @import url("packages/couclient/css/console.css");
 @import url("packages/couclient/css/youwon.css");
 @import url("packages/couclient/css/soundcloud.css");
@@ -33,3 +32,11 @@
 @import url("packages/couclient/css/quoins.css");
 @import url("packages/couclient/css/interactions.css");
 @import url("packages/couclient/css/vendor.css");
+
+/*Popup windows*/
+@import url("packages/couclient/css/windows/window.css");
+@import url("packages/couclient/css/windows/map_window.css");
+@import url("packages/couclient/css/windows/bag_window.css");
+@import url("packages/couclient/css/windows/bug_window.css");
+@import url("packages/couclient/css/windows/settings_window.css");
+@import url("packages/couclient/css/windows/vendor_window.css");

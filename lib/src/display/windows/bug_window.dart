@@ -18,6 +18,7 @@ class BugWindow extends Modal {
       if (listening == false) {
         listening = true;
         w.querySelector('.button').onClick.listen((_) {
+          if (input.value.trim() != ''){
           slack.Message m = new slack.Message()
               ..username = ui.username
               ..text = '${ui.bugReportMeta.text} \n REPORT TYPE:${ui.bugReportType.value} \n ${input.value} \n ${ui.bugReportEmail.value}';
@@ -25,6 +26,10 @@ class BugWindow extends Modal {
           slack.token = SLACK_TOKEN;
           slack.send(m);
           w.hidden = true;
+          }
+          else{
+            new Moment('DebugEvent','If you want to submit a bug, please let us know what you find wrong.');
+          }
         });
       }
     });

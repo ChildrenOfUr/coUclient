@@ -1,0 +1,50 @@
+#bugWindow textarea {
+  margin: 5px;
+  width: 548px;
+}
+#bugWindow .button {
+  float: right;
+  width: 100px;
+  margin-top: -4px;
+}
+
+#bugWindow textarea {
+  margin: 5px;
+  width: 548px;
+}
+
+#bugWindow label {
+  margin-left: 5px;
+}
+
+#bugWindow p {
+  margin: 0 0 5px 5px;
+}
+
+#bugWindow #checkGroup {
+  float: right;
+}
+
+#bugWindow label {
+  vertical-align: 2px;
+}
+
+#bugWindow #reportMain {
+  height: 100px;
+}
+
+#bugWindow #reportMeta {
+  height: 80px;
+}
+
+#bugWindow input {
+  position: relative;
+  margin-left: 5px;
+  display: inline-block;
+  margin-top: -1px;
+}
+
+#bugWindow input[type="email"] {
+  width: 50%;
+  margin-top: 2px;
+}
