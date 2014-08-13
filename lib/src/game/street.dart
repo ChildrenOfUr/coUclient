@@ -23,8 +23,8 @@ class Street
     label = _data['label'];
     hub_id = _data['hub_id'];
     
-    //if(chat.username != null)
-      //sendLeftMessage(label);
+    if(ui.username != null)
+    	sendLeftMessage(label);
           
     bounds = new Rectangle(_data['dynamic']['l'],
                 _data['dynamic']['t'],
@@ -39,12 +39,15 @@ class Street
     	..attributes["ground_y"] = "0"
     	..style.transform = "translateZ(0)";
     
-    /*if(entities != null)
+    if(entities != null)
     	entities.clear();
     if(quoins != null)
     	quoins.clear();
     if(otherPlayers != null)
-		otherPlayers.clear();*/
+		otherPlayers.clear();
+    
+	// set the street.
+    currentStreet = this;
   }
   
   Future <List> load()
@@ -82,10 +85,7 @@ class Street
     decos.load(setStreetLoadBar).then((_)
         {
       //Decos should all be loaded at this point//
-      
-      // set the street.
-      currentStreet = this;
-      
+          
       int groundY = -(_data['dynamic']['ground_y'] as num).abs();
           
       DivElement interactionCanvas = new DivElement()

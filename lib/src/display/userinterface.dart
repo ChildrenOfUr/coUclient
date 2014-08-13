@@ -190,11 +190,11 @@ class UserInterface extends Pump {
 	    if (event.isType('ChatEvent'))
 	    {
 	    	for (Chat convo in openConversations) 
-	    	{
+	    	{                			
 	    		if(convo.title == "Local Chat" && event.content['street'] == currentStreet.label)
-	    			convo.addMessage(event.content['username'], event.content['message']);
+	    			convo.processEvent(event.content);
 	    		else if(convo.title == event.content['channel'] && convo.title != "Local Chat")
-	        		convo.addMessage(event.content['username'], event.content['message']);
+	        		convo.processEvent(event.content);
 	    	}
 	    }
 	    
