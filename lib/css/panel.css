@@ -81,8 +81,8 @@ h3 {
   width:243px;
   height:calc(100% - 140px);
   background-color:#fff;
-  border:2px solid rgba(0,0,0,0.1);
-  border-bottom:2px solid rgba(0,0,0,0.2);
+  border: 1px solid #aaa;
+  border-bottom:2px solid #aaa;
   border-radius:10px;
   overflow:hidden;
 }

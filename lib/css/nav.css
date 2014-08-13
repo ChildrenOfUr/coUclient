@@ -29,7 +29,7 @@ nav .fa {
 
 #volumeSlider * {
   position: absolute;
-  left: -36px;
+  left: -35px;
   top: 26px;
   -webkit-appearance: none;
   width: 80px;
@@ -46,9 +46,11 @@ nav .fa {
 
 #volumeSlider *::-webkit-slider-thumb {
   -webkit-appearance: none;
-  width: 15px;
-  height: 15px;
-  background-color: #4b2e4c;
+  width: 17px;
+  height: 17px;
+  box-shadow:inset 0 -5px 5px 1px rgba(255,255,255,0.1);
+  background-color: #8d388d;
+  border:2px solid #4b2e4c;
   border-radius: 50%;
 }
 
