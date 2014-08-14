@@ -24,7 +24,7 @@ class Plant extends Entity
 			width = spritesheet.width~/map['numColumns'];
 			height = spritesheet.height~/map['numRows'];
 			x = num.parse(map['x'].toString());
-            y = currentStreet.bounds.height - num.parse(map['x'].toString()) - height;
+            y = currentStreet.bounds.height - num.parse(map['y'].toString()) - height;
                 		
 			canvas = new CanvasElement();
         	canvas.id = map["id"];
