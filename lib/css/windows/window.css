@@ -1,7 +1,8 @@
 .well {
   background-color:rgba(0,0,0,0.1);
   border-radius:9px;
-  border-top:1px solid rgba(0,0,0,0.1);
+  border: 1px solid rgba(0,0,0,0.1);
+  border-top:2px solid rgba(0,0,0,0.1);
 }
 
 #windowHolder .window{
@@ -125,7 +126,8 @@ article .tab-content{
   right:0;
   overflow-y:auto;
   border-radius:9px;
-  border-bottom:1px solid rgba(0,0,0,0.1);
+  border: 1px solid rgba(0,0,0,0.1);
+  border-top:2px solid rgba(0,0,0,0.1);
 }
 
 #motdFrame {

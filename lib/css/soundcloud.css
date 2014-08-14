@@ -7,12 +7,11 @@
   font-size:12px;
   line-height:15px;
   border-radius: 8px;
-  background-color: #fff;
-  border-left:1px solid rgba(0,0,0,0.1);
-  border-bottom:2px solid rgba(0,0,0,0.3);
+  background-color:#fff;
+  border: 1px solid #bbb;
+  border-bottom:2px solid #bbb;
   padding:4px;
   margin:5px;
-  box-shadow: 0 0 15px 1px rgba(0,0,0,0.1); 
 }
 #SCwidget * {
   color:#777;

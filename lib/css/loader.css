@@ -31,7 +31,8 @@
   
 }
 #loading img {
-    width:120px;
+    height:200px;
+    min-width:120px;
 }
 #loading .splash {
   text-align:center;
@@ -49,16 +50,6 @@
   width:95px;
 }
 
-#mobileButton {
-  font-size:40px;
-  padding:12px;
-  padding-top:3px;
-  padding-bottom:20px;
-  margin-top:-61px;
-  height:30px;
-  left:130px;
-  width:30px;
-}
 
 #loading #loadstatus {
   font-size:14px;
