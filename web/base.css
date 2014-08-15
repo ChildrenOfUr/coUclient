@@ -1298,14 +1298,6 @@ text-decoration: underline;
   border-radius: 5px;
   text-align: right;
 }
-.InventoryItem {
-  cursor: pointer;
-  position:relative;
-   left: 50%;
-   top: 50%; 
-   margin-left: -20px;
-   margin-top: -25px;
-}
 .itemCount {
 	position: absolute;
 	bottom: 0px;
@@ -1384,7 +1376,6 @@ text-decoration: underline;
 		  bottom: 50px;
 		  left:40px;
 		  right:300px;
-		  overflow:hidden;
 		  -moz-border-radius: 4px;
 		  border-radius: 4px;
 	}
@@ -1944,4 +1935,8 @@ quoin graphic
 }
 .incrementDisabled {
   opacity: 0.3;
+}
+.moveCursor {
+	cursor: move;
+	cursor: -webkit-grabbing;
 }

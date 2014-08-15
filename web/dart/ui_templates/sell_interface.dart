@@ -2,28 +2,42 @@ part of coUclient;
 
 class SellInterface
 {
-	static Element create(Map vendorMap)
+	static DivElement interface;
+	static Map vendorMap;
+	static Draggable draggable;
+	
+	static Element create(Map map)
 	{
-		DivElement interface = new DivElement()..id="SellInterface"..className="vendorContentInsert";
+		vendorMap = map;
+		draggable = new Draggable(querySelectorAll(".inventoryItem"),avatarHandler: new AvatarHandler.clone());
+                
+		if(interface == null)
+			_makeUI();
+		else
+			interface.style.display = "block";
 		
-		DivElement dropTarget = new DivElement()..id="SellDropTarget";
-		ImageElement callout = new ImageElement(src:"assets/system/callout_dropitem.png")..id="SellCallout";
-		
-		interface..append(dropTarget)..append(callout);
-        
-        Draggable draggable = new Draggable(querySelectorAll(".inventoryItem"),avatarHandler: new AvatarHandler.clone());
-        Dropzone dropzone = new Dropzone(dropTarget, acceptor: new Acceptor.draggables([draggable]));
-        dropzone.onDrop.listen((DropzoneEvent dropEvent)
-		{
-			destroy();
-			VendorWindow.insertContent(DetailsWindow.create(JSON.decode(dropEvent.draggableElement.attributes['itemMap']),vendorMap,sellMode:true));
-		});
-            	
 		return interface;
 	}
 	
 	static void destroy()
 	{
-		querySelector("#SellInterface").remove();
+		querySelector("#SellInterface").style.display = "none";
+	}
+	
+	static void _makeUI()
+	{
+		interface = new DivElement()..id="SellInterface"..className="vendorContentInsert";
+        		
+		DivElement dropTarget = new DivElement()..id="SellDropTarget";
+		ImageElement callout = new ImageElement(src:"assets/system/callout_dropitem.png")..id="SellCallout";
+		
+		interface..append(dropTarget)..append(callout);
+        
+        Dropzone dropzone = new Dropzone(dropTarget);
+        dropzone.onDrop.listen((DropzoneEvent dropEvent)
+		{
+			destroy();
+			VendorWindow.insertContent(DetailsWindow.create(JSON.decode(dropEvent.draggableElement.attributes['itemMap']),vendorMap,sellMode:true));
+		});
 	}
 }
