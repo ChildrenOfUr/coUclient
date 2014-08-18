@@ -1,10 +1,10 @@
 #inventory {
   position:absolute;
-  bottom:17px;
-  left:25px;
+  bottom:15px;
+  left:18px;
   padding:1px;
   height:60px;
-  width:calc(100% - 290px);
+  width:calc(100% - 280px);
   max-width:calc(100% - 40px);
   min-width:calc(300px - 40px);
   white-space: nowrap;

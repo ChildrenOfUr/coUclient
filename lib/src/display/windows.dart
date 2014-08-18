@@ -4,39 +4,22 @@ part of couclient;
 
 
 
-class WindowManager {
-  Map<String, Modal> modals = {};
-
-  
-
+class WindowManager extends Pump{
   WindowManager() {
 
     new MapWindow();
     new SettingsWindow();
     new BugWindow();
     new BagWindow();
+    new VendorWindow();
     
-    // General tab handling
-    ui.tabs.onClick.listen((MouseEvent m) {
-      Element tab = m.target as Element;
-      Element tabView = querySelector('article #${tab.text.toLowerCase()}');
-      // hide all tabs
-      for (Element t in querySelectorAll('article .tab-content')) t.hidden = true;
-      for (Element t in querySelectorAll('article .tab')) t.classes.remove('active');
-      // show intended tab
-      tab.classes.add('active');
-      tabView.hidden = false;
-    });
-    
-
-    
-
-    
-
-
+    EVENT_BUS > this;
   }
 
- 
+  @override
+  process(Moment event) {
+    
+  }  
 }
 
 /// A Dart interface to an html Modal
@@ -65,6 +48,18 @@ abstract class Modal {
     // CLOSE BUTTON ////////////////////////////////////
     window.querySelector('.fa-times.close').onClick.listen((_) => this.close());
 
+    
+    // TABS ////////////////////////////////////////////
+    window.querySelectorAll('.tab').onClick.listen((MouseEvent m) {
+      Element tab = m.target as Element;
+      Element tabView = window.querySelector('article #${tab.text.toLowerCase()}');
+      // hide all tabs
+      for (Element t in window.querySelectorAll('article .tab-content')) t.hidden = true;
+      for (Element t in window.querySelectorAll('article .tab')) t.classes.remove('active');
+      // show intended tab
+      tab.classes.add('active');
+      tabView.hidden = false;
+    });
     // DRAGGING/////////////////////////////////////////
     // init vars
     int new_x = ui.mainElement.client.width ~/ 2 - 550 ~/ 2;

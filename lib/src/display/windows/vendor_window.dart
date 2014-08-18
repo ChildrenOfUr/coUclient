@@ -1,5 +1,22 @@
 part of couclient;
 
+
+class VendorWindow extends Modal {
+  String id = 'shopWindow';
+  
+  VendorWindow() {
+      prepare();
+
+      
+    }
+  
+}
+
+
+
+
+
+
 class VendorWindow_old
 {
 	/**
