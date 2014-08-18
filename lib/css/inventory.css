@@ -15,25 +15,30 @@
   border-top:2px solid rgba(0,0,0,0.1);
 }
 
-#inventory .box, .window .box {
+ .box {
   background-color: #fff;
   border-radius: 8px;
-  width:50px;
-  height:50px;
+  width:40px;
+  height:40px;
   margin:4px 0px;
   border: 1px solid #bbb;
   border-bottom:2px solid #bbb;
   z-index:1;
   box-shadow: 0 0 15px 1px rgba(0,0,0,0.1);
   display: inline-block;
+  padding:5px;
 }
 
 .box .icon {
-  position:absolute;
-  width:35px;
-  height:35px;
-  top:calc(50% - 17.5px);
-  left:calc(50% - 17.5px);
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+  margin:auto;
+  /* Maintain aspect ratio */
+  max-height: 90%;
+  max-width: 90%;
 }
 
 .box {

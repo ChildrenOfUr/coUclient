@@ -3,12 +3,51 @@ part of couclient;
 
 class VendorWindow extends Modal {
   String id = 'shopWindow';
+  Element header;
+  Element buy;
+  
   
   VendorWindow() {
-      prepare();
-
+    prepare();
+    header = this.window.querySelector('header');
+      buy = this.window.querySelector('#buy');
       
+      
+      
+
     }
+  
+  // Calling the modal with a vendorMap opens a vendor window
+  call(Map vendorMap) {
+
+    
+    header.text = vendorMap['vendorName'];
+    
+    new List.from(buy.children)..forEach((child) => child.remove());
+    
+    for(Map item in vendorMap['itemsForSale'] as List)
+      {
+        Element merch = buy.append(new DivElement()..className = 'box');
+        merch.append(new ImageElement(src:item['iconUrl'])..className = "icon");
+      
+        //DivElement tooltip = new DivElement()..className = "vendorItemTooltip";
+        
+        //SpanElement price = new SpanElement()..className="itemPrice";
+        //DivElement priceParent = new DivElement()..style.textAlign="center"..append(price);
+        //tooltip.text = item['name'];
+        //price.text = item['price'].toString() + "\u20a1";
+        //if(item['price'] > metabolics.getCurrants())
+        //      price.classes.add("cantAfford");
+        
+        //parent.onClick.listen((_) => VendorWindow_old.insertContent(DetailsWindow.create(item,vendorMap)));
+       // parent..append(tooltip)..append(image)..append(priceParent);
+      }
+    
+    
+    
+    
+    this.open();
+  }
   
 }
 

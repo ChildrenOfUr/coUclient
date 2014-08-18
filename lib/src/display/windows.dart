@@ -5,22 +5,25 @@ part of couclient;
 
 
 class WindowManager extends Pump{
+  // Declaring all the possible popup windows
+  MapWindow map = new MapWindow();
+  SettingsWindow settings = new SettingsWindow();
+  BugWindow bugs = new BugWindow();
+  BagWindow bag = new BagWindow();
+  VendorWindow vendor = new VendorWindow();
+  
   WindowManager() {
-
-    new MapWindow();
-    new SettingsWindow();
-    new BugWindow();
-    new BagWindow();
-    new VendorWindow();
-    
     EVENT_BUS > this;
   }
 
   @override
   process(Moment event) {
-    
+    if (event.isType('VendorWindow')){
+      vendor(event.content);      
+    }
   }  
 }
+
 
 /// A Dart interface to an html Modal
 abstract class Modal {
@@ -48,7 +51,6 @@ abstract class Modal {
     // CLOSE BUTTON ////////////////////////////////////
     window.querySelector('.fa-times.close').onClick.listen((_) => this.close());
 
-    
     // TABS ////////////////////////////////////////////
     window.querySelectorAll('.tab').onClick.listen((MouseEvent m) {
       Element tab = m.target as Element;
@@ -60,6 +62,7 @@ abstract class Modal {
       tab.classes.add('active');
       tabView.hidden = false;
     });
+    
     // DRAGGING/////////////////////////////////////////
     // init vars
     int new_x = ui.mainElement.client.width ~/ 2 - 550 ~/ 2;
@@ -90,7 +93,4 @@ abstract class Modal {
       dragging = false;
     });
   }
-
-  
-
 }
