@@ -89,7 +89,9 @@
 }
 
 
-
+.tab {
+	cursor: pointer;
+}
 article .tab{
   font-size:1.5em;
   padding: 1px 4px;
