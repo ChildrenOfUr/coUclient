@@ -476,6 +476,25 @@ class Player
             	quoinText.text = "+" + amt.toString() + " iMG";
             	setImg((getImg()+amt).toString());
 			}
+			else if (element.classes.contains("mystery")) {
+        var mystType = "";
+        var mystTypeNum = rand.nextInt(2);
+        if (mystTypeNum == 0) {
+          mystType = "mood";
+          quoinText.text = "+" + amt.toString() + mystType;
+          setMood((getMood()+amt).toString());
+        }
+        else if (mystTypeNum == 1) {
+          mystType = "energy";
+          quoinText.text = "+" + amt.toString() + mystType;
+          setEnergy((getEnergy()+amt).toString());
+        }
+        else if (mystTypeNum == 2) {
+          mystType = "iMG";
+          quoinText.text = "+" + amt.toString() + mystType;
+          setImg((getImg()+amt).toString());
+        }
+      }
 			querySelector("#q"+element.id).classes.add("circleExpand");
 			querySelector("#qq"+element.id).classes.add("circleExpand");
 			new Timer(new Duration(seconds:2), () => _removeCircleExpand(querySelector("#qq"+element.id)));
