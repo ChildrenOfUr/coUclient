@@ -13538,7 +13538,7 @@ I.$lazy($,"prevVolume","So","Ky",function(){return $.nT().getItem("prevVolume")}
 I.$lazy($,"isMuted","Eh","md",function(){return $.nT().getItem("isMuted")})
 I.$lazy($,"gameSounds","Ct","Sg",function(){return P.Fl(null,null)})
 I.$lazy($,"audioChannels","Sq","nY",function(){return P.Fl(null,null)})
-I.$lazy($,"_COLORS","bZ","qJ",function(){return["#e85d72","#e06b56","9d8eee","#a63924","#43761b","#4bbe2e","#d58247","#d55aef","#9b3b45","#4cc091"]})
+I.$lazy($,"_COLORS","bZ","qJ",function(){return["#e85d72","#e06b56","#9d8eee","#a63924","#43761b","#4bbe2e","#d58247","#d55aef","#9b3b45","#4cc091"]})
 I.$lazy($,"COMMANDS","Lx","bl",function(){var z=H.VM([],[P.zM])
 z.push(["print","\"print <message>\" Prints a message to the console.",B.bo()])
 z.push(["clear","Clears the console history",B.Yo()])
