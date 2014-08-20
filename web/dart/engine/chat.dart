@@ -2,7 +2,7 @@ part of coUclient;
 
 class Chat
 {
-	static List<String> _COLORS = ["#e85d72","#e06b56","9d8eee","#a63924","#43761b","#4bbe2e","#d58247","#d55aef","#9b3b45","#4cc091"];
+	static List<String> _COLORS = ["#e85d72","#e06b56","#9d8eee","#a63924","#43761b","#4bbe2e","#d58247","#d55aef","#9b3b45","#4cc091"];
     static List<String> _EMOTICONS;
 	bool _showJoinMessages = false, _playMentionSound = true;
 	Map<String, TabContent> tabContentMap = new Map();
