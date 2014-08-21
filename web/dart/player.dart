@@ -44,9 +44,9 @@ class Player
 		posY = leftmost.start.y-height;
 
 		playerCanvas = new CanvasElement()
-		..style.overflow = "auto"
-		..style.margin = "auto"
-		..style.transform = "translateZ(0)";
+			..className = "playerCanvas"
+			..style.overflow = "auto"
+			..style.margin = "auto";
 		
 		playerName = new DivElement()
 		..classes.add("playerName")
@@ -407,7 +407,7 @@ class Player
 		camera.setCamera((camX~/1).toString()+','+(camY~/1).toString());
 		
 		//translateZ forces the whole operation to be gpu accelerated (which is very good)
-		String transform = 'translateZ(0) translateX('+translateX.toString()+'px) translateY('+translateY.toString()+'px)';
+		String transform = 'translateX('+translateX.toString()+'px) translateY('+translateY.toString()+'px)';
 		if(!facingRight)
 		{
 			transform += ' scale(-1,1)';

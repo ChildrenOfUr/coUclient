@@ -36,7 +36,7 @@ class Plant extends Entity
         	canvas.width = width;
         	canvas.height = height;
         	canvas.style.position = "absolute";
-        	canvas.style.transform = "translateX(${x}px) translateY(${y}px) translateZ(0)";
+        	canvas.style.transform = "translateX(${x}px) translateY(${y}px)";
         	canvas.attributes['translatex'] = x.toString();
         	canvas.attributes['translatey'] = y.toString();
         	canvas.attributes['width'] = width.toString();

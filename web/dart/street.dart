@@ -37,7 +37,7 @@ class Street
     playerHolder.classes.add('streetcanvas');
     playerHolder.style.position = "absolute";
     playerHolder.attributes["ground_y"] = "0";
-    playerHolder.style.transform = "translateZ(0)";
+    //playerHolder.style.transform = "translateZ(0)";
     
     if(entities != null)
     	entities.clear();
@@ -80,7 +80,7 @@ class Street
     // Load each of them, and then continue.
     Batch decos = new Batch(assetsToLoad);
     decos.load(setStreetLoadBar).then((_)
-        {
+    {
       //Decos should all be loaded at this point//
       
       // set the street.
@@ -231,8 +231,13 @@ class Street
         
 		for (Map signpost in layer['signposts'])
         {
+			int h = 200, w = 100;
+			if(signpost['h'] != null)
+				h = signpost['h'];
+			if(signpost['w'] != null)
+				w = signpost['w'];
 			int x = signpost['x'];
-			int y = signpost['y'] - signpost['h'] + groundY;
+			int y = signpost['y'] - h + groundY;
 			if(layer['name'] == 'middleground')
   			{
     			//middleground has different layout needs
@@ -284,7 +289,7 @@ class Street
         offsetY += groundY;
   
         //translateZ(0) forces the gpu to render the transform
-        transforms[canvas.id+"translateZ(0) translateX("+(-offsetX).toString()+"px) translateY("+(-offsetY).toString()+"px)"] = canvas;
+        transforms[canvas.id+"translateX("+(-offsetX).toString()+"px) translateY("+(-offsetY).toString()+"px)"] = canvas;
       }
       //try to bundle DOM writes together for performance.
       transforms.forEach((String transform, DivElement canvas)

@@ -60,9 +60,9 @@ class NPC extends Entity
             canvas.attributes['translatey'] = posY.toString();
 			
 			if(facingRight)
-				canvas.style.transform = "translateX(${posX}px) translateY(${posY}px) translateZ(0) scale(1,1)";
+				canvas.style.transform = "translateX(${posX}px) translateY(${posY}px) scale(1,1)";
 			else
-				canvas.style.transform = "translateX(${posX}px) translateY(${posY}px) translateZ(0) scale(-1,1)";
+				canvas.style.transform = "translateX(${posX}px) translateY(${posY}px) scale(-1,1)";
 		}
 	}
 	

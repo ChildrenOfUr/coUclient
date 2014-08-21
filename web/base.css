@@ -389,28 +389,30 @@ html, body {
 		filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=0, OffY=0, Color='#dc')";
 	}
 
-	.streetcanvas {
-		pointer-events: none;
-	}
-	/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
-	/*Elements in the top, left corner*/
-	#PlayerPortraitDiv {
-		position:absolute;
-		top: 23px;
-		left:24px;
-		overflow:hidden;
-		width: 83px;
-		height: 83px;
-		margin: auto;y
-		-moz-border-radius: 50%;
-		border-radius: 50%;
-		background: #eee;
-		color: #717171;
+.streetcanvas {
+	pointer-events: none;
+	will-change: transform;
+}
+.entity, .playerCanvas {
+	will-change: transform;
+}
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+/*Elements in the top, left corner*/
+#PlayerPortraitDiv {
+    position:absolute;
+    top: 23px;
+    left:24px;
+    overflow:hidden;
+    width: 83px;
+    height: 83px;
+    margin: auto;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+   background: #eee;
+   color: #717171;
    /* this fixes the overflow:hidden in Chrome not clipping it's contents to the border-radius
-   more information here: http://stackoverflow.com/questions/5736503/how-to-make-css3-rounded-corners-hide-overflow-in-chrome-opera
-   -webkit-mask-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC);*/
-
-
+   more information here: http://stackoverflow.com/questions/5736503/how-to-make-css3-rounded-corners-hide-overflow-in-chrome-opera*/
+   -webkit-mask-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC);
 }
 
 .MoodCircle {

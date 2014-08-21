@@ -20,7 +20,11 @@ int getNumItems(String item)
 	int count = 0;
 	String cssName = item.replaceAll(" ","_");
 	for(Element item in querySelector("#Inventory").querySelectorAll(".item-$cssName"))
-		count += int.parse(item.attributes['count']);
+	{
+		//don't count the clone that is the dragged item (if any)
+		if(!item.classes.contains('dnd-dragging'))
+			count += int.parse(item.attributes['count']);
+	}
 	
     return count;
 }

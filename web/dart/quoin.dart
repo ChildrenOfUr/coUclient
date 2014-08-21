@@ -28,7 +28,7 @@ class Quoin
                 canvas.style.position = "absolute";
                 canvas.style.left = map['x'].toString()+"px";
                 canvas.style.bottom = map['y'].toString()+"px";
-                canvas.style.transform = "translateZ(0)";
+                //canvas.style.transform = "translateZ(0)";
                 canvas.attributes['collected'] = "false";
                 
             	DivElement element = new DivElement();
