@@ -63,7 +63,7 @@ class RightClickMenu
                         ..style.left = '$x' 'px';
 					SpanElement fill = new SpanElement()
 						..text = (option[0] as String).split("|")[1]
-						..className = "fill"
+						..className = "fill" + " " + (option[0] as String).split("|")[1]
 						..style.transition = "width ${timeRequired/1000}s linear"
 						..style.top  = '$y' 'px'
                         ..style.left = '$x' 'px';
