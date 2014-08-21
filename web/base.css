@@ -390,6 +390,10 @@ textarea{resize: none;}
 
 .streetcanvas {
 	pointer-events: none;
+	will-change: transform;
+}
+.entity, .playerCanvas {
+	will-change: transform;
 }
 /*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 /*Elements in the top, left corner*/

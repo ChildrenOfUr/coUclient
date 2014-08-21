@@ -6,11 +6,16 @@ class Signpost
 	
 	Signpost(Map signpost, int x, int y, DivElement interactionsCanvas, DivElement gradientCanvas)
 	{		
+		int h = 200, w = 100;
+		if(signpost['h'] != null)
+			h = signpost['h'];
+		if(signpost['w'] != null)
+			w = signpost['w'];
 		pole = new DivElement()
 	        ..style.backgroundImage = "url('http://childrenofur.com/locodarto/scenery/sign_pole.png')"
 	        ..style.backgroundRepeat = "no-repeat"
-	        ..style.width = signpost['w'].toString() + "px"
-	        ..style.height = signpost['h'].toString() + "px"
+	        ..style.width = w.toString() + "px"
+	        ..style.height = h.toString() + "px"
 	        ..style.position = "absolute"
 	        ..style.top = y.toString() + "px"
 	        ..style.left = (x-48).toString() + "px";
@@ -22,8 +27,6 @@ class Signpost
   		{
     		if(exit['label'] == playerTeleFrom || playerTeleFrom == "console")
 			{
-  				if(playerTeleFrom == "console")
-					print("setting x: $x, y: $y");
   				CurrentPlayer.posX = x;
   				CurrentPlayer.posY = y;
 			}
