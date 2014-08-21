@@ -267,6 +267,7 @@
 		border: 1px solid;
 		border-radius: 50%;
 		background: #fff;
+		will-change: transform;
 	}
 	#ChatBubble {
 		display: block;

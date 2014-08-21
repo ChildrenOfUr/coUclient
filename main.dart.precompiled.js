@@ -2593,9 +2593,11 @@ J.hi($.Ie(),k[4])
 J.hi($.Yi(),k[2]+" of "+k[1])},
 Lr:function(a){var z,y,x,w
 z=J.JA(a," ","_")
-for(y=W.GN(document.querySelector("#Inventory").querySelectorAll(".item-"+z),null),y=y.gA(y),x=0;y.G();){w=H.Hp(J.Vs(y.lo).MW.getAttribute("count"),null,null)
+for(y=W.GN(document.querySelector("#Inventory").querySelectorAll(".item-"+z),null),y=y.gA(y),x=0;y.G();){a=y.lo
+w=J.RE(a)
+if(!w.gDD(a).lF().tg(0,"dnd-dragging")){w=H.Hp(w.gQg(a).MW.getAttribute("count"),null,null)
 if(typeof w!=="number")return H.s(w)
-x+=w}return x},
+x+=w}}return x},
 MK:function(a){var z,y,x,w,v
 for(z=J.GP(a);z.G();){y={}
 x=z.gl()
@@ -4695,39 +4697,40 @@ if(J.de(v.t(w,"name"),"middleground"))y.eX=H.VM(new P.hL(J.WB(z.t(a,"x"),J.Ts(v.
 $isEH:true},
 jg:{
 "^":"a;JF",
-b0:function(a,b,c,d,e){var z,y,x,w,v,u,t,s,r,q
-z=document.createElement("div",null)
-J.BB(z.style,"url('http://childrenofur.com/locodarto/scenery/sign_pole.png')")
-J.aZ(z.style,"no-repeat")
-y=J.U6(a)
-J.vP(z.style,J.WB(J.AG(y.t(a,"w")),"px"))
-J.OE(z.style,J.WB(J.AG(y.t(a,"h")),"px"))
-J.eC(z.style,"absolute")
-x=J.x(c)
-J.cp(z.style,x.bu(c)+"px")
-w=J.Wx(b)
-J.lM(z.style,J.AG(w.W(b,48))+"px")
-this.JF=z
-d.appendChild(z)
-for(z=J.GP(H.ug(y.t(a,"connects"))),v=0;z.G();){u=z.gl()
-y=J.U6(u)
-if(J.de(y.t(u,"label"),$.mr)||$.mr==="console"){if($.mr==="console"){t="setting x: "+H.d(b)+", y: "+H.d(c)
-H.qw(t)}s=$.KW
-s.QK=b
-s.YZ=c}r=J.js(y.t(u,"tsid"),"L","G")
-q=document.createElement("span",null)
-J.eC(q.style,"absolute")
-J.cp(q.style,J.AG(J.WB(x.g(c,v*25),10))+"px")
-J.lM(q.style,J.WB(w.bu(b),"px"))
-q.textContent=y.t(u,"label")
-q.className="ExitLabel"
-q.setAttribute("url","http://RobertMcDermot.github.io/CAT422-glitch-location-viewer/locations/"+r+".callback.json")
-q.setAttribute("tsid",r)
-q.setAttribute("from",$.D9.ph)
-J.HT(q.style,"rotate(-5deg)")
-if(C.jn.Y(v,2)!==0){e.appendChild(q)
-J.lM(q.style,J.AG(w.W(b,C.CD.yu(C.CD.UD(q.clientWidth))))+"px")
-J.HT(q.style,"rotate(5deg)")}d.appendChild(q);++v}},
+b0:function(a,b,c,d,e){var z,y,x,w,v,u,t,s,r,q,p
+z=J.U6(a)
+y=z.t(a,"h")!=null?z.t(a,"h"):200
+x=z.t(a,"w")!=null?z.t(a,"w"):100
+w=document.createElement("div",null)
+J.BB(w.style,"url('http://childrenofur.com/locodarto/scenery/sign_pole.png')")
+J.aZ(w.style,"no-repeat")
+J.vP(w.style,J.WB(J.AG(x),"px"))
+J.OE(w.style,J.WB(J.AG(y),"px"))
+J.eC(w.style,"absolute")
+v=J.x(c)
+J.cp(w.style,v.bu(c)+"px")
+u=J.Wx(b)
+J.lM(w.style,J.AG(u.W(b,48))+"px")
+this.JF=w
+d.appendChild(w)
+for(z=J.GP(H.ug(z.t(a,"connects"))),t=0;z.G();){s=z.gl()
+w=J.U6(s)
+if(J.de(w.t(s,"label"),$.mr)||$.mr==="console"){r=$.KW
+r.QK=b
+r.YZ=c}q=J.js(w.t(s,"tsid"),"L","G")
+p=document.createElement("span",null)
+J.eC(p.style,"absolute")
+J.cp(p.style,J.AG(J.WB(v.g(c,t*25),10))+"px")
+J.lM(p.style,J.WB(u.bu(b),"px"))
+p.textContent=w.t(s,"label")
+p.className="ExitLabel"
+p.setAttribute("url","http://RobertMcDermot.github.io/CAT422-glitch-location-viewer/locations/"+q+".callback.json")
+p.setAttribute("tsid",q)
+p.setAttribute("from",$.D9.ph)
+J.HT(p.style,"rotate(-5deg)")
+if(C.jn.Y(t,2)!==0){e.appendChild(p)
+J.lM(p.style,J.AG(u.W(b,C.CD.yu(C.CD.UD(p.clientWidth))))+"px")
+J.HT(p.style,"rotate(5deg)")}d.appendChild(p);++t}},
 static:{lH:function(a,b,c,d,e){var z=new B.jg(null)
 z.b0(a,b,c,d,e)
 return z}}},
@@ -6003,8 +6006,8 @@ z.setAttribute("translatey",J.AG(this.YZ))
 z=this.mu
 y=this.qN
 x=this.QK
-if(z===!0)J.HT(y.style,"translateX("+H.d(x)+"px) translateY("+H.d(this.YZ)+"px) translateZ(0) scale(1,1)")
-else J.HT(y.style,"translateX("+H.d(x)+"px) translateY("+H.d(this.YZ)+"px) translateZ(0) scale(-1,1)")}},
+if(z===!0)J.HT(y.style,"translateX("+H.d(x)+"px) translateY("+H.d(this.YZ)+"px) scale(1,1)")
+else J.HT(y.style,"translateX("+H.d(x)+"px) translateY("+H.d(this.YZ)+"px) scale(-1,1)")}},
 Ww:function(){var z,y,x,w
 if(this.aS&&this.Ar.Z6){if(!this.hz){z=P.Ci(this.QK,this.YZ,J.DO(this.qN),J.OB(this.qN),null)
 if(!B.nG($.k9().J0,z))return}this.hz=!1
@@ -6147,7 +6150,7 @@ J.Vn(z.qN.style,C.jn.bu(-1))
 J.vP(z.qN,z.R)
 J.OE(z.qN,z.fg)
 J.eC(z.qN.style,"absolute")
-J.HT(z.qN.style,"translateX("+H.d(z.x)+"px) translateY("+H.d(z.y)+"px) translateZ(0)")
+J.HT(z.qN.style,"translateX("+H.d(z.x)+"px) translateY("+H.d(z.y)+"px)")
 w=z.qN
 w.toString
 w.setAttribute("translatex",J.AG(z.x))
@@ -6308,7 +6311,7 @@ if(typeof x!=="number")return H.s(x)
 g=y-x}}$.k9().x5(J.AG(J.Ts(h,1))+","+J.AG(J.Ts(f,1)))
 y=J.x(i)
 x=J.x(g)
-c=C.xB.g(C.xB.g("translateZ(0) translateX(",y.bu(i))+"px) translateY(",x.bu(g))+"px)"
+c=C.xB.g(C.xB.g("translateX(",y.bu(i))+"px) translateY(",x.bu(g))+"px)"
 e=this.mu
 b=this.Dm
 if(e!==!0){c+=" scale(-1,1)"
@@ -6344,7 +6347,7 @@ J.OE(this.Mj,J.OB(this.P3))}else J.rN(x).clearRect(0,0,J.DO(this.P3),J.OB(this.P
 w=P.Ci(0,0,J.DO(this.P3),J.OB(this.P3),null)
 J.UH(J.rN(this.Mj),this.P3.go5(),w,this.P3.gtV())
 this.P3.sZ6(!1)}},
-Qb:function(a){var z,y,x,w,v,u,t,s
+Qb:function(a){var z,y,x,w,v,u,t,s,r,q
 if(document.querySelector("#MainScreen").hidden===!0)return
 z=J.RE(a)
 if(z.gQg(a).MW.getAttribute("collected")==="true")return
@@ -6358,14 +6361,45 @@ w.toString
 v=P.Ci(x,J.xH(J.xH(y.fg,P.C1(H.ys(w,"px",""),null)),a.height),a.width,a.height,null)
 if(B.nG(P.Ci(this.QK,this.YZ,this.R,this.fg,null),v)){B.dJ("quoinSound",!0,!1,null)
 z.gQg(a).MW.setAttribute("collected","true")
-u=this.SQ.j1(4)+1
-y=C.xB.g("#qq",z.gjO(a))+" .quoinString"
-t=document.querySelector(y)
-if(z.gDD(a).lF().tg(0,"currant")){t.textContent="+"+C.jn.bu(u)+"\u20a1"
-B.dS(J.AG(J.WB($.Uz().cN,u)))}else if(z.gDD(a).lF().tg(0,"mood")){t.textContent="+"+C.jn.bu(u)+" mood"
-B.pI(J.AG(J.WB($.Uz().LK,u)))}else if(z.gDD(a).lF().tg(0,"energy")){t.textContent="+"+C.jn.bu(u)+" energy"
-B.t6(J.AG(J.WB($.Uz().z6,u)))}else if(z.gDD(a).lF().tg(0,"img")){t.textContent="+"+C.jn.bu(u)+" iMG"
-B.j0(J.AG(J.WB($.Uz().vY,u)))}y=C.xB.g("#q",z.gjO(a))
+y=this.SQ
+u=y.j1(4)+1
+w=C.xB.g("#qq",z.gjO(a))+" .quoinString"
+t=document.querySelector(w)
+if(z.gDD(a).lF().tg(0,"currant"))s="currant"
+else if(z.gDD(a).lF().tg(0,"mood"))s="mood"
+else if(z.gDD(a).lF().tg(0,"energy"))s="energy"
+else if(z.gDD(a).lF().tg(0,"img"))s="img"
+else if(z.gDD(a).lF().tg(0,"favor"))s="favor"
+else if(z.gDD(a).lF().tg(0,"time"))s="time"
+else if(z.gDD(a).lF().tg(0,"mystery"))s="mystery"
+else s=z.gDD(a).lF().tg(0,"quarazy")?"quarazy":""
+switch(s){case"currant":t.textContent="+"+C.jn.bu(u)+"\u20a1"
+B.dS(J.AG(J.WB($.Uz().cN,u)))
+break
+case"mood":t.textContent="+"+C.jn.bu(u)+" mood"
+B.pI(J.AG(J.WB($.Uz().LK,u)))
+break
+case"energy":t.textContent="+"+C.jn.bu(u)+" energy"
+B.t6(J.AG(J.WB($.Uz().z6,u)))
+break
+case"img":t.textContent="+"+C.jn.bu(u)+" iMG"
+B.j0(J.AG(J.WB($.Uz().vY,u)))
+break
+case"favor":break
+case"time":break
+case"mystery":switch(y.j1(2)){case 0:t.textContent="+"+C.jn.bu(u)+" mood"
+B.pI(J.AG(J.WB($.Uz().LK,u)))
+break
+case 1:t.textContent="+"+C.jn.bu(u)+" energy"
+B.t6(J.AG(J.WB($.Uz().z6,u)))
+break
+case 2:t.textContent="+"+C.jn.bu(u)+" iMG"
+B.j0(J.AG(J.WB($.Uz().vY,u)))
+break}break
+case"quarazy":r=y.j1(98)+401
+t.textContent="+"+C.jn.bu(r)+" iMG"
+B.j0(J.AG(J.WB($.Uz().vY,r)))
+break}y=C.xB.g("#q",z.gjO(a))
 J.pP(document.querySelector(y)).h(0,"circleExpand")
 y=C.xB.g("#qq",z.gjO(a))
 J.pP(document.querySelector(y)).h(0,"circleExpand")
@@ -6373,11 +6407,11 @@ P.rT(P.k5(0,0,0,0,0,2),new B.ma(this,a))
 P.rT(P.k5(0,0,0,800,0,0),new B.SJ(this,a))
 J.oH(z.gS(a),"none")
 y=$.wp
-if(y!=null&&y.readyState===1){s=P.L5(null,null,null,null,null)
-s.u(0,"remove",z.gjO(a))
-s.u(0,"type","quoin")
-s.u(0,"streetName",$.D9.ph)
-$.wp.send(C.xr.KP(s))}}},
+if(y!=null&&y.readyState===1){q=P.L5(null,null,null,null,null)
+q.u(0,"remove",z.gjO(a))
+q.u(0,"type","quoin")
+q.u(0,"streetName",$.D9.ph)
+$.wp.send(C.xr.KP(q))}}},
 Yr:function(a){var z,y,x,w,v,u,t,s,r,q,p,o,n,m
 z=J.WB(this.QK,this.R/2)
 y=J.WB(J.WB(a,this.fg),J.UQ(J.UQ($.D9.Wy,"dynamic"),"ground_y"))
@@ -6403,9 +6437,9 @@ v=J.RE(w)
 if(J.de(J.Rd(v.gM(w)),1)){this.YZ=J.xH(J.WQ(v.gM(w)),this.fg)
 y=!0}}if(!y)this.YZ=J.xH(J.WQ(J.SW(x)),this.fg)
 z=W.d9(null,null)
+z.className="playerCanvas"
 J.F3(z.style,"auto")
 J.lE(z.style,"auto")
-J.HT(z.style,"translateZ(0)")
 this.Mj=z
 z=document.createElement("div",null)
 J.pP(z).h(0,"playerName")
@@ -6512,7 +6546,6 @@ y.className=J.WB(v.t(w,"type")," quoin")
 J.eC(z.qN.style,"absolute")
 J.lM(z.qN.style,J.WB(J.AG(v.t(w,"x")),"px"))
 J.uP(z.qN.style,J.WB(J.AG(v.t(w,"y")),"px"))
-J.HT(z.qN.style,"translateZ(0)")
 z.qN.setAttribute("collected","false")
 document.createElement("div",null)
 u=document.createElement("div",null)
@@ -6572,7 +6605,7 @@ if(typeof q!=="number")return H.s(q)
 t=t.px
 if(typeof t!=="number")return H.s(t)
 p=J.XH(P.C1(u.gQg(v).MW.getAttribute("ground_y"),null))
-w.u(0,J.WB(J.WB(J.WB(J.WB(J.WB(u.gjO(v),"translateZ(0) translateX("),C.CD.bu(-((s-q)*y))),"px) translateY("),C.CD.bu(-((r-t)*x+p))),"px)"),v)}w.aN(0,new B.oQ())
+w.u(0,J.WB(J.WB(J.WB(J.WB(J.WB(u.gjO(v),"translateX("),C.CD.bu(-((s-q)*y))),"px) translateY("),C.CD.bu(-((r-t)*x+p))),"px)"),v)}w.aN(0,new B.oQ())
 $.k9().Z6=!1}},
 hD:function(a){var z,y,x
 z=$.U3().t(0,a).hf()
@@ -6592,7 +6625,6 @@ J.OE($.yO().style,J.WB(J.AG(this.KQ.fg),"px"))
 J.pP($.yO()).h(0,"streetcanvas")
 J.eC($.yO().style,"absolute")
 $.yO().setAttribute("ground_y","0")
-J.HT($.yO().style,"translateZ(0)")
 z=$.jY()
 if(z!=null)z.V1(0)
 z=$.kb()
@@ -6605,7 +6637,7 @@ z.hD(a)
 return z}}},
 fz:{
 "^":"Tp:15;a,b",
-$1:[function(a){var z,y,x,w,v,u,t,s,r,q,p,o,n,m,l,k,j,i,h,g,f,e,d,c,b
+$1:[function(a0){var z,y,x,w,v,u,t,s,r,q,p,o,n,m,l,k,j,i,h,g,f,e,d,c,b,a
 z=this.a
 $.D9=z
 y=-J.dX(H.kC(J.UQ(J.UQ(z.Wy,"dynamic"),"ground_y")))
@@ -6673,8 +6705,10 @@ c=new P.tn(j,i,l,e)
 c.$builtinTypeInfo=[null]
 t.push(new B.Tr(c,d))}for(m=J.GP(o.t(q,"signposts"));m.G();){b=m.gl()
 l=J.U6(b)
+a=l.t(b,"h")!=null?l.t(b,"h"):200
+if(l.t(b,"w")!=null)l.t(b,"w")
 j=l.t(b,"x")
-i=J.WB(J.xH(l.t(b,"y"),l.t(b,"h")),y)
+i=J.WB(J.xH(l.t(b,"y"),a),y)
 if(J.de(o.t(q,"name"),"middleground")){i=J.WB(i,o.t(q,"h"))
 j=J.WB(j,J.Ts(o.t(q,"w"),2))}B.lH(b,j,i,x,w)}$.Op().appendChild(p)}$.Op().appendChild(x)
 $.bm().textContent=z.ph
@@ -6879,7 +6913,7 @@ $1:[function(a){return $.Lo.ye(this.Rm)},"$1",null,2,0,null,63,"call"],
 $isEH:true},
 dp:{
 "^":"Tp:15;b,c",
-$1:[function(a){var z,y,x,w,v,u,t,s
+$1:[function(a){var z,y,x,w,v,u,t,s,r
 z={}
 y=this.c
 x=J.U6(y)
@@ -6895,10 +6929,12 @@ w=this.b
 J.cp(u.style,H.d(w.c)+"px")
 J.lM(u.style,H.d(w.b)+"px")
 t=document.createElement("span",null)
+s=H.aH(x.t(y,0)).split("|")
+if(1>=s.length)return H.e(s,1)
+t.textContent=s[1]
 x=H.aH(x.t(y,0)).split("|")
 if(1>=x.length)return H.e(x,1)
-t.textContent=x[1]
-t.className="fill"
+t.className=C.xB.g("fill ",x[1])
 x=J.Wx(v)
 J.re(t.style,"width "+H.d(x.V(v,1000))+"s linear")
 J.cp(t.style,H.d(w.c)+"px")
@@ -6910,8 +6946,8 @@ w=t.style
 u.toString
 J.vP(w,C.jn.bu(C.CD.yu(C.CD.UD(u.clientWidth)))+"px")
 z.a=null
-s=P.rT(P.k5(0,0,0,x.g(v,300),0,0),new B.nQ(z,y,u,t))
-z.a=C.Z4.aM(document).yI(new B.qY(z,u,t,s))},"$1",null,2,0,null,63,"call"],
+r=P.rT(P.k5(0,0,0,x.g(v,300),0,0),new B.nQ(z,y,u,t))
+z.a=C.Z4.aM(document).yI(new B.qY(z,u,t,r))},"$1",null,2,0,null,63,"call"],
 $isEH:true},
 nQ:{
 "^":"Tp:28;a,d,e,f",
