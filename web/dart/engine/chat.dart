@@ -141,7 +141,7 @@ class TabContent
 	WebSocket webSocket;
 	DivElement chatDiv, chatHistory;
 	int unreadMessages = 0, tabSearchIndex = 0, numMessages = 0, inputHistoryPointer = 0, emoticonPointer = 0;
-	final _chatServerUrl = "ws://robertmcdermot.com:8080";
+	final _chatServerUrl = "ws://robertmcdermot.com:8282/chat";
 	
 	TabContent(this.channelName, this.useSpanForTitle)
 	{
@@ -648,6 +648,7 @@ class TabContent
 				connectedUsers.add(map["newUsername"]);
 				
 				//warn multiplayer server that it will receive messages from a new name but it should be the same person
+				map['street'] = currentStreet.label;
 				playerSocket.send(JSON.encode(map));
 			}
 			else
