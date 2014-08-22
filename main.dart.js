@@ -3399,6 +3399,7 @@ n=J.J5(v.gB(o),17)?v.Nj(o,0,15)+"...":o
 $.W2().textContent=n
 B.VD("Setting name to \""+H.d(o)+"\"")}J.V1(this.wn,z.t(a,"username"))
 J.bi(this.wn,z.t(a,"newUsername"))
+z.u(a,"street",$.D9.ph)
 $.zg.send(C.xr.KP(a))}else v.gwd(u).h(0,w)}if(J.de(z.t(a,"statusMessage"),"list")){if(J.de(z.t(a,"hide"),"true")){this.wn=z.t(a,"users")
 return}J.t4(w.style,"4px")
 J.OG(u).h(0,w)
@@ -3471,7 +3472,7 @@ v.className="ChannelName"
 v.textContent=z
 v.id="channelName-"+H.ys(z," ","_")
 J.OG(w).h(0,v)},
-static:{bd:function(a,b){var z=new B.Rb([],[],a,"",b,!1,null,null,null,0,0,0,0,0,"ws://robertmcdermot.com:8080")
+static:{bd:function(a,b){var z=new B.Rb([],[],a,"",b,!1,null,null,null,0,0,0,0,0,"ws://robertmcdermot.com:8282/chat")
 z.Kq(a,b)
 return z}}},
 Cf:{
@@ -13509,8 +13510,8 @@ $.eS=null
 $.Lo=null
 $.B9=0
 $.Gx=""
-$.au="ws://robertmcdermot.com:8080/playerUpdate"
-$.cl="ws://robertmcdermot.com:8080/streetUpdate"
+$.au="ws://robertmcdermot.com:8282/playerUpdate"
+$.cl="ws://robertmcdermot.com:8282/streetUpdate"
 $.NG=""
 $.wp=null
 $.uK=!0
