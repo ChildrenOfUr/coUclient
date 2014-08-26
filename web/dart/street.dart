@@ -12,16 +12,20 @@ class Street
   List<Ladder> ladders = new List();
   
   String hub_id;
+  String hub_name;
   
   Rectangle bounds;
   
   Street(String streetName)
   {
     _data = ASSET[streetName].get();
+    
+    DataMaps map = new DataMaps();
 
     // sets the label for the street
     label = _data['label'];
     hub_id = _data['hub_id'];
+    hub_name = map.data_maps_hubs[hub_id]()['name'];
     
     if(chat.username != null)
       sendLeftMessage(label);
@@ -55,6 +59,9 @@ class Street
     layers.children.clear();
     querySelector("#PlayerHolder").children.clear(); //clear previous street's quoins and stuff
    
+    // set the street.
+    currentStreet = this;    
+    
     // set the song loading if necessary
     if (_data['music'] != null)
       setSong(_data['music']);
@@ -79,12 +86,9 @@ class Street
     
     // Load each of them, and then continue.
     Batch decos = new Batch(assetsToLoad);
-    decos.load(setStreetLoadBar).then((_)
+    decos.load(setStreetLoading).then((_)
     {
       //Decos should all be loaded at this point//
-      
-      // set the street.
-      currentStreet = this;
       
       int groundY = -(_data['dynamic']['ground_y'] as num).abs();
           
@@ -326,13 +330,17 @@ Future load_streets()
 }
 
 // the callback function for our deco loading 'Batch'
-setStreetLoadBar(int percent)
-{
-  streetLoadingStatus.text = 'loading decos...';
+setStreetLoading(int percent)
+{ 
+  nowEntering.setInnerHtml('<h2>Entering</h2><h1>' + currentStreet.label.toString() + '</h1><h2>in ' + currentStreet.hub_name/* + '</h2><h3>Home to: <ul><li>A <strong>Generic Goods Vendor</strong></li></ul>'*/);
+  nowEntering.setAttribute('style', 'background-image: url(' + currentStreet._data['loading_image']['url'] + '); background-size: contain; background-repeat: no-repeat;');
+
+  
+  streetLoadingStatus.text = 'reticulating splines ... ' + (percent + 1).toString() + '%';
   mapLoadingBar.style.width = (percent + 1).toString() + '%';
   if (percent >= 99)
   {
-    streetLoadingStatus.text = '...done';
+    streetLoadingStatus.text = '    done! ... 100%';
     mapLoadingScreen.className = "MapLoadingScreen";
     mapLoadingScreen.style.opacity = '0.0';
   }

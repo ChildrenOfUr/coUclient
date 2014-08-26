@@ -228,9 +228,10 @@ html, body {
 				-webkit-transition-delay:1s; 
 			}
 			#LoadStatus {
-
+            
 			}
-
+			
+    
 			/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 			/*The default styling of the 'You Won' Screen*/
 			#YouWon {
@@ -315,18 +316,34 @@ html, body {
 					opacity:1.0;
 					z-index:2;
 				}
+				#NowEntering{
+				    position:absolute;
+				    top:30%;
+				    left:10%;
+				    right:10%;
+				    padding:8% 10px 0px;
+				}
+				#NowEntering h1{
+				    color:#f7ff95;
+				    font-size:56px;
+				    line-height:0px;
+				    text-shadow: 0px 4px rgba(0,0,0,0.3);
+				}
+				#NowEntering h2{
+				    text-shadow: 0px 4px rgba(0,0,0,0.3);
+				}
 				.LoadingGroove{
 					background-color: #e6ecee;
 					position:absolute;
-					left:5%;
-					right:5%;
+					left:10%;
+					right:10%;
 					bottom:10%;
 					overflow: hidden;
-					font-size:13px;
+					font-size:18px;
 					color:rgba(0,0,0,0.7);
 					border: 2px solid #fff;
-					-moz-border-radius: 5px;
-					border-radius: 5px;
+					-moz-border-radius: 3px;
+					border-radius: 3px;
 
 				}
 				.LoadingBar{
