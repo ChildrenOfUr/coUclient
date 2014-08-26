@@ -645,14 +645,14 @@ class TabContent
 					
 					CurrentPlayer.username = map['newUsername'];
 					CurrentPlayer.loadAnimations();
+					
+					//warn multiplayer server that it will receive messages from a new name but it should be the same person
+					map['street'] = currentStreet.label;
+					playerSocket.send(JSON.encode(map));
 				}
 				
 				connectedUsers.remove(map["username"]);
 				connectedUsers.add(map["newUsername"]);
-				
-				//warn multiplayer server that it will receive messages from a new name but it should be the same person
-				map['street'] = currentStreet.label;
-				playerSocket.send(JSON.encode(map));
 			}
 			else
 			{
