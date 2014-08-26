@@ -13,6 +13,8 @@ class Street
   
   String hub_id;
   String hub_name;
+  String street_load_color_top;
+  String street_load_color_btm;
   
   Rectangle bounds;
   
@@ -26,6 +28,8 @@ class Street
     label = _data['label'];
     hub_id = _data['hub_id'];
     hub_name = map.data_maps_hubs[hub_id]()['name'];
+    street_load_color_top = map.data_maps_hubs[hub_id]()['top_color'];
+    street_load_color_btm = map.data_maps_hubs[hub_id]()['btm_color'];
     
     if(chat.username != null)
       sendLeftMessage(label);
@@ -332,11 +336,10 @@ Future load_streets()
 // the callback function for our deco loading 'Batch'
 setStreetLoading(int percent)
 { 
-  nowEntering.setInnerHtml('<h2>Entering</h2><h1>' + currentStreet.label.toString() + '</h1><h2>in ' + currentStreet.hub_name/* + '</h2><h3>Home to: <ul><li>A <strong>Generic Goods Vendor</strong></li></ul>'*/);
-  nowEntering.setAttribute('style', 'background-image: url(' + currentStreet._data['loading_image']['url'] + '); background-size: contain; background-repeat: no-repeat;');
-
-  
   streetLoadingStatus.text = 'reticulating splines ... ' + (percent + 1).toString() + '%';
+  
+  streetLoadingImage.setAttribute('style', 'background-image: url(' + currentStreet._data['loading_image']['url'] + ');background-repeat: no-repeat;');
+  
   mapLoadingBar.style.width = (percent + 1).toString() + '%';
   if (percent >= 99)
   {
@@ -344,4 +347,14 @@ setStreetLoading(int percent)
     mapLoadingScreen.className = "MapLoadingScreen";
     mapLoadingScreen.style.opacity = '0.0';
   }
+  nowEntering.setInnerHtml('<h2>Entering</h2><h1>' + currentStreet.label.toString() + '</h1><h2>in ' + currentStreet.hub_name/* + '</h2><h3>Home to: <ul><li>A <strong>Generic Goods Vendor</strong></li></ul>'*/);
+
+  
+  mapLoadingScreen.style.backgroundImage = '-webkit-gradient(linear,left top,left bottom,color-stop(0, ' + currentStreet.street_load_color_top + '),color-stop(1, ' + currentStreet.street_load_color_btm + '))';
+  mapLoadingScreen.style.backgroundImage = '-o-linear-gradient(bottom, ' + currentStreet.street_load_color_top + ' 0%, ' + currentStreet.street_load_color_btm + ' 100%)';
+  mapLoadingScreen.style.backgroundImage = '-moz-linear-gradient(bottom, ' + currentStreet.street_load_color_top + ' 0%, ' + currentStreet.street_load_color_btm + ' 100%)';
+  mapLoadingScreen.style.backgroundImage = '-webkit-linear-gradient(bottom, ' + currentStreet.street_load_color_top + ' 0%, ' + currentStreet.street_load_color_btm + ' 100%)';
+  mapLoadingScreen.style.backgroundImage = '-ms-linear-gradient(bottom, ' + currentStreet.street_load_color_top + ' 0%, ' + currentStreet.street_load_color_btm + ' 100%)';
+  mapLoadingScreen.style.backgroundImage = 'linear-gradient(to bottom, ' + currentStreet.street_load_color_top + ' 0%, ' + currentStreet.street_load_color_btm + ' 100%)';
+  
 }
