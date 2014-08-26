@@ -14,6 +14,7 @@ class Player
 	ChatBubble chatBubble = null;
 	Random rand = new Random();
 	Map<String,Rectangle> intersectingObjects = {};
+	String username;
 
 	//for testing purposes
 	//if false, player can move around with wasd and arrows, no falling
@@ -23,8 +24,11 @@ class Player
 	CanvasElement playerCanvas;
 	DivElement playerName;
 
-	Player([String name])
+	Player([this.username])
 	{
+		if(username == null)
+			username = chat.username;
+		
 		bool found = false;
 		Platform leftmost = null;
 		
@@ -49,13 +53,13 @@ class Player
 			..style.margin = "auto";
 		
 		playerName = new DivElement()
-		..classes.add("playerName")
-		..text = name != null ? name : chat.username;
+			..classes.add("playerName")
+			..text = username;
 
 		playerParentElement = new DivElement()
-		..classes.add("playerParent")
-		..style.width = width.toString() + "px"
-		..style.height = height.toString() + "px";
+			..classes.add("playerParent")
+			..style.width = width.toString() + "px"
+			..style.height = height.toString() + "px";
 		
 		playerParentElement.append(playerName);
 		playerParentElement.append(playerCanvas);
@@ -67,25 +71,46 @@ class Player
 		//need to get background images from some server for each player based on name
 		List<int> idleFrames=[], baseFrames=[], jumpUpFrames=[], fallDownFrames, landFrames, climbFrames=[];
 		for(int i=0; i<57; i++)
-		idleFrames.add(i);
+			idleFrames.add(i);
 		for(int i=0; i<12; i++)
-		baseFrames.add(i);
+			baseFrames.add(i);
 		for(int i=0; i<16; i++)
-		jumpUpFrames.add(i);
+			jumpUpFrames.add(i);
 		for(int i=0; i<19; i++)
-		climbFrames.add(i);
+			climbFrames.add(i);
 		fallDownFrames = [16,17,18,19,20,21,22,23];
 		landFrames = [24,25,26,27,28,29,30,31,32];
 
-		animations['idle'] = new Animation("./assets/sprites/idle.png","idle",2,29,idleFrames,loopDelay:new Duration(seconds:10),delayInitially:true);
-		animations['base'] = new Animation("./assets/sprites/base.png","base",1,15,baseFrames);
-		animations['jumpup'] = new Animation("./assets/sprites/jump.png","jumpup",1,33,jumpUpFrames);
-		animations['falldown'] = new Animation("./assets/sprites/jump.png","falldown",1,33,fallDownFrames);
-		animations['land'] = new Animation("./assets/sprites/jump.png","land",1,33,landFrames);
-		animations['climb'] = new Animation("./assets/sprites/climb.png","climb",1,19,climbFrames);
-
 		List<Future> futures = new List();
-		animations.forEach((String name,Animation animation) => futures.add(animation.load()));
+		
+		futures.add(HttpRequest.requestCrossOrigin('http://robertmcdermot.com:8181/getSpritesheets?username=$username')
+			.then((String response)
+			{
+				Map spritesheets = JSON.decode(response);
+				String idle, base, jump, climb;
+				if(spritesheets['base'] == null)
+				{
+					idle = './assets/sprites/idle.png';
+					base = './assets/sprites/base.png';
+					jump = './assets/sprites/jump.png';
+					climb = './assets/sprites/climb.png';
+				}
+				else
+				{
+					idle = spritesheets['idle2'];
+					base = spritesheets['base'];
+					jump = spritesheets['jump'];
+					climb = spritesheets['climb'];
+				}
+				animations['idle'] = new Animation(idle,"idle",2,29,idleFrames,loopDelay:new Duration(seconds:10),delayInitially:true);
+	    		animations['base'] = new Animation(base,"base",1,15,baseFrames);
+	    		animations['jumpup'] = new Animation(jump,"jumpup",1,33,jumpUpFrames);
+	    		animations['falldown'] = new Animation(jump,"falldown",1,33,fallDownFrames);
+	    		animations['land'] = new Animation(jump,"land",1,33,landFrames);
+	    		animations['climb'] = new Animation(climb,"climb",1,19,climbFrames);
+	
+	    		animations.forEach((String name,Animation animation) => futures.add(animation.load()));
+			}));
 		
 		return Future.wait(futures);
 	}
@@ -293,7 +318,7 @@ class Player
 
 	void render()
 	{
-		if(currentAnimation != null && currentAnimation.dirty)
+		if(currentAnimation != null && currentAnimation.loaded && currentAnimation.dirty)
 		{
 			if(!firstRender)
 			{
@@ -315,7 +340,7 @@ class Player
 				playerCanvas.height = currentAnimation.height;
 			}
 			else
-			playerCanvas.context2D.clearRect(0, 0, currentAnimation.width, currentAnimation.height);
+				playerCanvas.context2D.clearRect(0, 0, currentAnimation.width, currentAnimation.height);
 			
 			Rectangle destRect = new Rectangle(0,0,currentAnimation.width,currentAnimation.height);
 			playerCanvas.context2D.drawImageToRect(currentAnimation.spritesheet, destRect, sourceRect: currentAnimation.sourceRect);
@@ -411,14 +436,14 @@ class Player
 		if(!facingRight)
 		{
 			transform += ' scale(-1,1)';
-			playerName.style.transform = 'scale(-1,1)';
+			playerName.style.transform = 'translateY(calc(-100% - 34px)) scale(-1,1)';
 			
 			if(chatBubble != null)
 			chatBubble.textElement.style.transform = 'scale(-1,1)';
 		}
 		else
 		{
-			playerName.style.transform = 'scale(1,1)';
+			playerName.style.transform = 'translateY(calc(-100% - 34px)) scale(1,1)';
 			
 			if(chatBubble != null)
 			chatBubble.textElement.style.transform = 'scale(1,1)';

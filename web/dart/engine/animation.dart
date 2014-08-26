@@ -10,7 +10,7 @@ class Animation
 	ImageElement spritesheet;
 	double timeInMillis = 0.0, delayConsumed = 0.0;
 	Rectangle sourceRect;
-	bool dirty = true, delayInitially = false, paused = false;
+	bool dirty = true, delayInitially = false, paused = false, loaded = false;
 	
 	Animation(this.url,this.animationName,this.numRows,this.numColumns,this.frameList,{this.fps : 30, this.loopDelay : null, this.delayInitially : false});
 	
@@ -35,6 +35,7 @@ class Animation
 			
 			sourceRect = new Rectangle(0,0,width,height);
 						
+			loaded = true;
 			c.complete(this);
 		});
 		
@@ -52,7 +53,7 @@ class Animation
 	
 	updateSourceRect(double dt, {bool holdAtLastFrame: false})
 	{
-		if(paused)
+		if(paused || !loaded)
 			return;
 		
 		timeInMillis += dt;

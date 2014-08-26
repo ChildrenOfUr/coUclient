@@ -2,7 +2,7 @@ part of coUclient;
 
 String multiplayerServer = "ws://robertmcdermot.com:8282/playerUpdate";
 String streetEventServer = "ws://robertmcdermot.com:8282/streetUpdate";
-String joined = "";
+String joined = "", creatingPlayer = "";
 WebSocket streetSocket;
 bool reconnect = true;
 Map<String,Player> otherPlayers = new Map();
@@ -210,9 +210,8 @@ _setupPlayerSocket()
 sendPlayerInfo()
 {
 	String xy = CurrentPlayer.posX.toString()+","+CurrentPlayer.posY.toString();
-	timeLast = 0.0;
 	Map map = new Map();
-	map["username"] = chat.username;
+	map["username"] = CurrentPlayer.username;
 	map["xy"] = xy;
 	map["street"] = currentStreet.label;
 	map["facingRight"] = CurrentPlayer.facingRight.toString();
@@ -224,6 +223,10 @@ sendPlayerInfo()
 
 void createOtherPlayer(Map map)
 {
+	if(creatingPlayer == map['username'])
+		return;
+		
+	creatingPlayer = map['username'];
 	Player otherPlayer = new Player(map["username"]);
 	otherPlayer.loadAnimations().then((_)
 	{
@@ -231,6 +234,8 @@ void createOtherPlayer(Map map)
         	
         otherPlayers[map["username"]] = otherPlayer;
         querySelector("#PlayerHolder").append(otherPlayer.playerParentElement);
+        
+        creatingPlayer = "";
 	});
 }
 
@@ -239,6 +244,11 @@ updateOtherPlayer(Map map, Player otherPlayer)
 	otherPlayer.currentAnimation = otherPlayer.animations[map["animation"]];
 	otherPlayer.playerParentElement.id = "player-"+map["username"];
 	otherPlayer.playerParentElement.style.position = "absolute";
+	if(map['username'] != otherPlayer.username)
+	{
+		otherPlayer.username = map['username'];
+		otherPlayer.loadAnimations();
+	}
 	
 	double x = double.parse(map["xy"].split(',')[0]);
 	double y = double.parse(map["xy"].split(',')[1]);

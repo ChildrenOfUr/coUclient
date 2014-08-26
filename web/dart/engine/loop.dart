@@ -1,7 +1,7 @@
 part of coUclient;
 
 double timeLast = 0.0;
-String lastXY = "";
+String lastXY = "", lastAnimation = "";
 // Our gameloop
 loop(double dt) 
 {
@@ -41,13 +41,17 @@ loop(double dt)
 	if(timeLast > .03 && playerSocket != null && playerSocket.readyState == WebSocket.OPEN)
 	{
 		String xy = CurrentPlayer.posX.toString()+","+CurrentPlayer.posY.toString();
-		if(xy == lastXY) //don't send updates when the player doesn't move - except once every 5 seconds
+		//don't send updates when the player doesn't move - except once every 5 seconds
+		//or when the animation changes
+		if(xy == lastXY && CurrentPlayer.currentAnimation.animationName == lastAnimation)
 		{
 			if(timeLast < 5)
 				return;
 		}
 		
 		lastXY = xy;
+		lastAnimation = CurrentPlayer.currentAnimation.animationName;
+		timeLast = 0.0;
 		sendPlayerInfo();
 	}
 }

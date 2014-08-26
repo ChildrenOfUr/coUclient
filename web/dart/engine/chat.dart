@@ -622,17 +622,17 @@ class TabContent
 			if(map["success"] == "true")
 			{
 				SpanElement oldUsername = new SpanElement()
-				..text = map["username"]
-				..style.color = _getColor(map["username"])
-				..style.paddingRight = "4px";
+					..text = map["username"]
+					..style.color = _getColor(map["username"])
+					..style.paddingRight = "4px";
 				SpanElement newUsername = new SpanElement()
 					..text = map["newUsername"]
 					..style.color = _getColor(map["newUsername"]);
 				
 				chatString.children
-				..add(oldUsername)
-				..add(text)
-				..add(newUsername);
+					..add(oldUsername)
+					..add(text)
+					..add(newUsername);
 				
 				if(map["username"] == chat.username) //although this message is broadcast to everyone, only change usernames if we were the one to type /setname
 				{
@@ -642,6 +642,9 @@ class TabContent
 					//set name in upper left and above avatar
 					CurrentPlayer.playerName.text = map["newUsername"];
 					setName(map["newUsername"]);
+					
+					CurrentPlayer.username = map['newUsername'];
+					CurrentPlayer.loadAnimations();
 				}
 				
 				connectedUsers.remove(map["username"]);
