@@ -212,16 +212,16 @@ class Player
 			moving = true;
 		}
 		else
-		moving = false;
+			moving = false;
 
 		//primitive jumping
 		if (playerInput.jumpKey == true && !jumping && !climbingUp && !climbingDown)
 		{
 			Random rand = new Random();
 			if(rand.nextInt(4) == 3)
-			yVel = -1200;
+				yVel = -1200;
 			else
-			yVel = -900;
+				yVel = -900;
 			jumping = true;
 		}
 		
@@ -235,18 +235,18 @@ class Player
 		else
 		{
 			if(playerInput.downKey == true)
-			posY += speed * dt;
+				posY += speed * dt;
 			if(playerInput.upKey == true)
-			posY -= speed * dt;
+				posY -= speed * dt;
 		}
 		
 		if(posX < 0)
-		posX = 0.0;
+			posX = 0.0;
 		if(posX > currentStreet.bounds.width - width)
-		posX = currentStreet.bounds.width - width;
+			posX = currentStreet.bounds.width - width;
 		
 		//check for collisions with platforms
-		if(doPhysicsApply && !climbingDown && yVel >= 0)
+		if(doPhysicsApply && !climbingDown && !climbingUp && yVel >= 0)
 		{
 			num x = posX+width/2;
 			Platform bestPlatform = _getBestPlatform(cameFrom);
@@ -268,7 +268,7 @@ class Player
 		}
 		
 		if(posY < 0)
-		posY = 0.0;
+			posY = 0.0;
 		
 		updateAnimation(dt);
 
@@ -596,7 +596,8 @@ class Player
 	{
 		Platform bestPlatform;
 		num x = posX+width/2;
-		num from = cameFrom+height+currentStreet._data['dynamic']['ground_y'];
+		num feetY = cameFrom+height+currentStreet._data['dynamic']['ground_y'];
+		num headY = cameFrom+currentStreet._data['dynamic']['ground_y'];
 		num bestDiffY = 1000;
 		
 		for(Platform platform in currentStreet.platforms)
@@ -606,14 +607,13 @@ class Player
 				num slope = (platform.end.y-platform.start.y)/(platform.end.x-platform.start.x);
 				num yInt = platform.start.y - slope*platform.start.x;
 				num lineY = slope*x+yInt;
-				num diffY = (from-lineY).abs();
+				num diffY = (feetY-lineY).abs();
 
 				if(bestPlatform == null)
 				bestPlatform = platform;
 				else
 				{
-					//+5 helps with upward slopes and not falling through things
-					if(lineY+5 >= from && diffY < bestDiffY)
+					if((lineY >= feetY || !jumping && feetY > lineY && headY < lineY) && diffY < bestDiffY)
 					{
 						bestPlatform = platform;
 						bestDiffY = diffY;
