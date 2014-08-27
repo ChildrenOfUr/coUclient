@@ -16,6 +16,8 @@ class Street
   String street_load_color_top;
   String street_load_color_btm;
   
+  Stopwatch loadTime;
+  
   Rectangle bounds;
   
   Street(String streetName)
@@ -24,12 +26,17 @@ class Street
     
     DataMaps map = new DataMaps();
 
+    loadTime = new Stopwatch();
+    
     // sets the label for the street
     label = _data['label'];
     hub_id = _data['hub_id'];
     hub_name = map.data_maps_hubs[hub_id]()['name'];
     street_load_color_top = map.data_maps_hubs[hub_id]()['top_color'];
     street_load_color_btm = map.data_maps_hubs[hub_id]()['btm_color'];
+    
+    // set the street.
+    currentStreet = this; 
     
     if(chat.username != null)
       sendLeftMessage(label);
@@ -64,8 +71,10 @@ class Street
     querySelector("#PlayerHolder").children.clear(); //clear previous street's quoins and stuff
    
     // set the street.
-    currentStreet = this;    
-    
+    currentStreet = this; 
+
+    setStreetLoading();
+     
     // set the song loading if necessary
     if (_data['music'] != null)
       setSong(_data['music']);
@@ -90,8 +99,11 @@ class Street
     
     // Load each of them, and then continue.
     Batch decos = new Batch(assetsToLoad);
-    decos.load(setStreetLoading).then((_)
-    {
+
+
+    
+    decos.load(setLoadingPercent).then((_)
+        {
       //Decos should all be loaded at this point//
       
       int groundY = -(_data['dynamic']['ground_y'] as num).abs();
@@ -333,22 +345,10 @@ Future load_streets()
   return c.future;
 }
 
-// the callback function for our deco loading 'Batch'
-setStreetLoading(int percent)
-{ 
-  streetLoadingStatus.text = 'reticulating splines ... ' + (percent + 1).toString() + '%';
-  
-  streetLoadingImage.setAttribute('style', 'background-image: url(' + currentStreet._data['loading_image']['url'] + ');background-repeat: no-repeat;');
-  
-  mapLoadingBar.style.width = (percent + 1).toString() + '%';
-  if (percent >= 99)
-  {
-    streetLoadingStatus.text = '    done! ... 100%';
-    mapLoadingScreen.className = "MapLoadingScreen";
-    mapLoadingScreen.style.opacity = '0.0';
-  }
-  nowEntering.setInnerHtml('<h2>Entering</h2><h1>' + currentStreet.label.toString() + '</h1><h2>in ' + currentStreet.hub_name/* + '</h2><h3>Home to: <ul><li>A <strong>Generic Goods Vendor</strong></li></ul>'*/);
+setStreetLoading() {
+  streetLoadingImage.style.backgroundImage = 'url("'+ currentStreet._data['loading_image']['url'] + '")';
 
+  nowEntering.setInnerHtml('<h2>Entering</h2><h1>' + currentStreet.label.toString() + '</h1><h2>in ' + currentStreet.hub_name/* + '</h2><h3>Home to: <ul><li>A <strong>Generic Goods Vendor</strong></li></ul>'*/);
   
   mapLoadingScreen.style.backgroundImage = '-webkit-gradient(linear,left top,left bottom,color-stop(0, ' + currentStreet.street_load_color_top + '),color-stop(1, ' + currentStreet.street_load_color_btm + '))';
   mapLoadingScreen.style.backgroundImage = '-o-linear-gradient(bottom, ' + currentStreet.street_load_color_top + ' 0%, ' + currentStreet.street_load_color_btm + ' 100%)';
@@ -356,5 +356,44 @@ setStreetLoading(int percent)
   mapLoadingScreen.style.backgroundImage = '-webkit-linear-gradient(bottom, ' + currentStreet.street_load_color_top + ' 0%, ' + currentStreet.street_load_color_btm + ' 100%)';
   mapLoadingScreen.style.backgroundImage = '-ms-linear-gradient(bottom, ' + currentStreet.street_load_color_top + ' 0%, ' + currentStreet.street_load_color_btm + ' 100%)';
   mapLoadingScreen.style.backgroundImage = 'linear-gradient(to bottom, ' + currentStreet.street_load_color_top + ' 0%, ' + currentStreet.street_load_color_btm + ' 100%)';
+    
+}
+
+// the callback function for our deco loading 'Batch'
+setLoadingPercent(int percent)
+{ 
+  Stopwatch loadTime = new Stopwatch();
+  currentStreet.loadTime.start();
+  if (percent >= 99)
+  {
+    //TODO: Whatever '1000' is changed to, that's how long it takes to display street image
+    new KeepingTime().delayMilliseconds(1000 - currentStreet.loadTime.elapsedMilliseconds);
+    streetLoadingStatus.text = '    done! ... 100%';
+    mapLoadingBar.style.width = '100%';
+    mapLoadingScreen.className = "MapLoadingScreen";
+    mapLoadingScreen.style.opacity = '0.0';
+    currentStreet.loadTime.stop();
+    currentStreet.loadTime.reset();
+  }
   
+  else {
+    streetLoadingStatus.text = 'reticulating splines ... ' + (percent).toString() + '%';
+    mapLoadingBar.style.width = (percent).toString() + '%';
+  }
+}
+
+//test stopwatch
+
+class KeepingTime {
+  Stopwatch watch;
+
+  KeepingTime() {
+    watch = new Stopwatch();
+  }
+
+  void delayMilliseconds(int milliseconds) {
+    watch.start();
+    while (watch.elapsedMilliseconds < (milliseconds));
+    watch.stop();
+  }
 }
