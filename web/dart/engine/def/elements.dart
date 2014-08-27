@@ -63,8 +63,11 @@ Element loadingScreen = querySelector('#MapLoadingScreen');
 Element loadStatus = querySelector("#LoadStatus");
 Element loadStatus2 = querySelector("#LoadStatus2");
 Element streetLoadingStatus = querySelector('#StreetLoadingStatus');
+ImageElement streetLoadingImage = querySelector('#StreetLoadingImage');
+Element nowEntering = querySelector('#NowEntering');
 Element mapLoadingBar = querySelector('#MapLoadingBar');
 Element mapLoadingScreen = querySelector('#MapLoadingScreen');
+Element mapLoadingContent = querySelector('#MapLoadingContent');
 
 
 // Settings Elements
