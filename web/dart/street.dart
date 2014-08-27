@@ -10,6 +10,7 @@ class Street
 
 	List<Platform> platforms = new List();
 	List<Ladder> ladders = new List();
+	List<Wall> walls = new List();
 
 	String hub_id;
 	String hub_name;
@@ -163,28 +164,18 @@ class Street
 				}
 
 				for(Map platformLine in layer['platformLines'])
-				{
 					platforms.add(new Platform(platformLine, layer, groundY));
-				}
 
 				platforms.sort((x, y) => x.compareTo(y));
 
 				for(Map ladder in layer['ladders'])
-				{
-					int x, y, width, height;
-					String id;
+					ladders.add(new Ladder(ladder, layer, groundY));
 
-					width = ladder['w'];
-					height = ladder['h'];
-					x = ladder['x'] + layer['w'] ~/ 2 - width ~/ 2;
-					y = ladder['y'] + layer['h'] - height + groundY;
-					id = ladder['id'];
+				for(Map wall in layer['walls'])
+					walls.add(new Wall(wall, layer, groundY));
 
-					Rectangle box = new Rectangle(x, y, width, height);
-					ladders.add(new Ladder(id, box));
-				}
-
-				if(showCollisionLines) showLineCanvas();
+				//if(showCollisionLines)
+					showLineCanvas();
 
 				for(Map signpost in layer['signposts'])
 				{

@@ -39,6 +39,7 @@ part 'dart/street.dart';
 part 'dart/engine/street_components/camera.dart';
 part 'dart/engine/street_components/ladder.dart';
 part 'dart/engine/street_components/platform.dart';
+part 'dart/engine/street_components/wall.dart';
 part 'dart/engine/street_components/worldmap.dart';
 part 'dart/engine/street_components/signpost.dart';
 part 'dart/engine/street_components/deco.dart';
