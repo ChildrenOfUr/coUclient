@@ -185,21 +185,6 @@ class Street
 
         platforms.sort((x,y) => x.compareTo(y));
         
-        //debug only: draw platforms
-        /*platforms.forEach((Platform platform)
-        {
-          Element rect = new DivElement();
-          rect.text = "(${platform.start.x},${platform.start.y}) - (${platform.end.x},${platform.end.y})";
-          rect.style.width = (platform.end.x-platform.start.x).toString() + "px";
-          rect.style.height = (platform.end.y-platform.start.y).toString() + "px";
-          rect.style.left = platform.start.x.toString()+"px";
-          rect.style.top = platform.start.y.toString()+"px";
-          rect.style.border = "1px black solid";
-          rect.style.position = "absolute";
-          rect.style.zIndex = "100";
-          decoCanvas.append(rect);
-        });*/
-        
         for(Map ladder in layer['ladders'])
         {
 			int x,y,width,height;
@@ -215,19 +200,8 @@ class Street
 			ladders.add(new Ladder(id,box));
 		}
         
-        //debug only: draw ladders
-        /*for(Ladder ladder in ladders)
-        {
-          Element rect = new DivElement();
-          rect.style.width = ladder.boundary.width.toString() + "px";
-          rect.style.height = ladder.boundary.height.toString() + "px";
-          rect.style.left = ladder.boundary.left.toString()+"px";
-          rect.style.top = ladder.boundary.top.toString()+"px";
-          rect.style.border = "1px black solid";
-          rect.style.position = "absolute";
-          rect.style.zIndex = "100";
-          decoCanvas.append(rect);
-        }*/
+        if(showCollisionLines)
+        	showLineCanvas();
         
 		for (Map signpost in layer['signposts'])
         {
@@ -277,8 +251,8 @@ class Street
       num currentPercentY = camera.getY() / (bounds.height - ui.gameScreenHeight);
       
       //modify left and top for parallaxing
-      Map<String,DivElement> transforms = new Map();
-      for(DivElement canvas in gameScreen.querySelectorAll('.streetcanvas'))
+      Map<String,Element> transforms = new Map();
+      for(Element canvas in gameScreen.querySelectorAll('.streetcanvas'))
       {
         int canvasWidth = num.parse(canvas.style.width.replaceAll('px', '')).toInt();
         int canvasHeight = num.parse(canvas.style.height.replaceAll('px', '')).toInt();
@@ -292,7 +266,7 @@ class Street
         transforms[canvas.id+"translateX("+(-offsetX).toString()+"px) translateY("+(-offsetY).toString()+"px)"] = canvas;
       }
       //try to bundle DOM writes together for performance.
-      transforms.forEach((String transform, DivElement canvas)
+      transforms.forEach((String transform, Element canvas)
       {
         transform = transform.replaceAll(canvas.id, '');
         canvas.style.transform = transform;

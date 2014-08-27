@@ -26,6 +26,7 @@ List<List> COMMANDS = new List<List>()
 	..add(['setvolume','"setvolume <1-100>" Changes the volume of the current song',setVolume])
 	
 	..add(['togglefps','show or hide the fps display"',toggleFps])
+	..add(['toggleCollisionLines','show or hide the platforms and ladders',toggleCollisionLines])
 	..add(['togglePhysics','enable or disable jumping and falling to the groud"',togglePhysics])
 
 	..add(['sendAction','send action command to server', sendAction]);
@@ -435,6 +436,20 @@ toggleFps(var nothing)
 		showFps = false;
 	else
 		showFps = true;
+}
+
+toggleCollisionLines(var nothing)
+{
+	if(showCollisionLines)
+	{
+		showCollisionLines = false;
+		hideLineCanvas();
+	}
+	else
+	{
+		showCollisionLines = true;
+		showLineCanvas();
+	}
 }
 
 /**

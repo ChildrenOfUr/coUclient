@@ -8,7 +8,7 @@ class Player
 	num posX = 1.0, posY = 0.0;
 	num yVel = 0, yAccel = -2400;
 	bool jumping = false, moving = false, climbingUp = false, climbingDown = false;
-	bool activeClimb = false, facingRight = true, firstRender = true;
+	bool activeClimb = false, lastClimbStatus = false, facingRight = true, firstRender = true;
 	Map<String,Animation> animations = new Map();
 	Animation currentAnimation;
 	ChatBubble chatBubble = null;
@@ -45,7 +45,7 @@ class Player
 		}
 		
 		if(!found)
-		posY = leftmost.start.y-height;
+			posY = leftmost.start.y-height;
 
 		playerCanvas = new CanvasElement()
 			..className = "playerCanvas"
@@ -121,18 +121,7 @@ class Player
 		
 		//show chat message if it exists and decrement it's timeToLive
 		if(chatBubble != null)
-		{
-			if(chatBubble.timeToLive <= 0)
-			{
-				chatBubble.bubble.remove();
-				chatBubble = null;
-			}
-			else
-			{
-				chatBubble.timeToLive -= dt;
-				playerParentElement.append(chatBubble.bubble);
-			}
-		}
+			chatBubble.update(dt);
 		
 		if(doPhysicsApply && playerInput.upKey == true)
 		{
@@ -144,7 +133,7 @@ class Player
 				{
 					//if our feet are above the ladder, stop climbing
 					if(playerRect.top+playerRect.height < ladder.boundary.top)
-					break;
+						break;
 					
 					posY -= speed/4 * dt;
 					climbingUp = true;
@@ -287,10 +276,7 @@ class Player
 
 		//check for collision with quoins
 		Rectangle avatarRect = new Rectangle(posX,posY,width,height);
-		querySelectorAll(".quoin").forEach((Element element)
-		{
-			checkCollision(element);
-			});
+		querySelectorAll(".quoin").forEach((Element element) => checkCollision(element));
 		
 		intersectingObjects = {};
 		querySelectorAll(".entity").forEach((Element element)
@@ -338,6 +324,8 @@ class Player
 				playerCanvas.style.height = currentAnimation.height.toString()+"px";
 				playerCanvas.width = currentAnimation.width;
 				playerCanvas.height = currentAnimation.height;
+				height = currentAnimation.height;
+				//width = currentAnimation.width;
 			}
 			else
 				playerCanvas.context2D.clearRect(0, 0, currentAnimation.width, currentAnimation.height);
@@ -352,7 +340,7 @@ class Player
 	{
 		bool climbing = climbingUp || climbingDown;
 		if(!moving && !jumping && !climbing)
-		currentAnimation = animations['idle'];
+			currentAnimation = animations['idle'];
 		else
 		{
 			//reset idle so that the 10 second delay starts over
@@ -360,6 +348,12 @@ class Player
 			
 			if(climbing)
 			{
+				if(activeClimb != lastClimbStatus)
+				{
+					//force a player update to be sent right now
+					timeLast = 5.0;
+					lastClimbStatus = activeClimb;
+				}
 				currentAnimation = animations['climb'];
 				currentAnimation.paused = !activeClimb;
 			}

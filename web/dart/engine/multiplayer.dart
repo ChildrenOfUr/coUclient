@@ -214,7 +214,10 @@ sendPlayerInfo()
 	map["username"] = CurrentPlayer.username;
 	map["xy"] = xy;
 	map["street"] = currentStreet.label;
-	map["facingRight"] = CurrentPlayer.facingRight.toString();
+	map["facingRight"] = CurrentPlayer.facingRight;
+	map['jumping'] = CurrentPlayer.jumping;
+	map['climbing'] = CurrentPlayer.climbingDown || CurrentPlayer.climbingUp;
+	map['activeClimb'] = CurrentPlayer.activeClimb;
 	map["animation"] = CurrentPlayer.currentAnimation.animationName;
 	if(CurrentPlayer.chatBubble != null)
 		map["bubbleText"] = CurrentPlayer.chatBubble.text;
@@ -241,8 +244,25 @@ void createOtherPlayer(Map map)
 
 updateOtherPlayer(Map map, Player otherPlayer)
 {
-	otherPlayer.currentAnimation = otherPlayer.animations[map["animation"]];
-	otherPlayer.playerParentElement.id = "player-"+map["username"];
+	if(otherPlayer.currentAnimation == null)
+    	otherPlayer.currentAnimation = otherPlayer.animations[map["animation"]];
+    	
+	//set movement bools
+	if(map['jumping'] != null)
+		otherPlayer.jumping = map['jumping'];
+	if(map['climbing'] == true)
+		otherPlayer.currentAnimation.paused = !map['activeClimb'];
+	else
+		otherPlayer.currentAnimation.paused = false;
+	
+	//set animation state
+	if(map["animation"] != otherPlayer.currentAnimation.animationName)
+	{
+		otherPlayer.currentAnimation.reset();
+		otherPlayer.currentAnimation = otherPlayer.animations[map["animation"]];
+	}
+	
+	otherPlayer.playerParentElement.id = "player-"+map["username"].replaceAll(' ','_');
 	otherPlayer.playerParentElement.style.position = "absolute";
 	if(map['username'] != otherPlayer.username)
 	{
@@ -250,11 +270,9 @@ updateOtherPlayer(Map map, Player otherPlayer)
 		otherPlayer.loadAnimations();
 	}
 	
-	double x = double.parse(map["xy"].split(',')[0]);
-	double y = double.parse(map["xy"].split(',')[1]);
-
-	otherPlayer.posX = x;
-	otherPlayer.posY = y;
+	//set player position
+	otherPlayer.posX = double.parse(map["xy"].split(',')[0]);
+	otherPlayer.posY = double.parse(map["xy"].split(',')[1]);
 	
 	if(map["bubbleText"] != null)
 	{
@@ -269,7 +287,7 @@ updateOtherPlayer(Map map, Player otherPlayer)
 	}
 	
 	bool facingRight = false;
-	if(map["facingRight"] == "true")
+	if(map["facingRight"] == "true" || map['facingRight'] == true)
 		facingRight = true;
 	otherPlayer.facingRight = facingRight;
 }
@@ -280,7 +298,7 @@ void removeOtherPlayer(String username)
 		return;
 	
 	otherPlayers.remove(username);
-	Element otherPlayer = querySelector("#player-"+username);
+	Element otherPlayer = querySelector("#player-"+username.replaceAll(' ','_'));
 	if(otherPlayer != null)
 		otherPlayer.remove();
 }

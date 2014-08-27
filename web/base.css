@@ -393,7 +393,7 @@ html, body {
 	pointer-events: none;
 	will-change: transform;
 }
-.entity, .playerCanvas {
+.entity, .playerCanvas, .playerParent {
 	will-change: transform;
 }
 /*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
@@ -1571,6 +1571,8 @@ quoin graphic
 	margin-right: auto;
 	left: 0;
 	right: 0;
+	transform: translateY(calc(-100% - 34px));
+	-webkit-transform: translateY(calc(-100% - 34px));
 }
 
 .fill {

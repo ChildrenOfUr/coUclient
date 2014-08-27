@@ -10,14 +10,15 @@ loop(double dt)
 	otherPlayers.forEach((String username, Player otherPlayer)
 	{
 		if(otherPlayer.currentAnimation != null)
-			otherPlayer.currentAnimation.updateSourceRect(dt);
+			otherPlayer.currentAnimation.updateSourceRect(dt,holdAtLastFrame:otherPlayer.jumping);
+		
 		double x = otherPlayer.posX;
 		double y = otherPlayer.posY;
-		String transform = "translateY(${y}px) translateX(${x}px) translateZ(0)";
+		String transform = "translateY(${y}px) translateX(${x}px)";
 		if(!otherPlayer.facingRight)
 		{
 			transform += ' scale(-1,1)';
-			otherPlayer.playerName.style.transform = 'scale(-1,1)';
+			otherPlayer.playerName.style.transform = 'translateY(calc(-100% - 34px)) scale(-1,1)';
 			
 			if(otherPlayer.chatBubble != null)
 				otherPlayer.chatBubble.textElement.style.transform = 'scale(-1,1)';
@@ -25,7 +26,7 @@ loop(double dt)
 		else
 		{
 			transform += ' scale(1,1)';
-			otherPlayer.playerName.style.transform = 'scale(1,1)';
+			otherPlayer.playerName.style.transform = 'translateY(calc(-100% - 34px)) scale(1,1)';
 			
 			if(otherPlayer.chatBubble != null)
 				otherPlayer.chatBubble.textElement.style.transform = 'scale(1,1)';

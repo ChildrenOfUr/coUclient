@@ -4,7 +4,7 @@ part of coUclient;
 
 Element fpsDisplay = querySelector('#fps');
 NumberFormat twoDigit = new NumberFormat("#0");
-bool showFps = false;
+bool showFps = false, showCollisionLines = false;
 
 num fps = 0.0;
 DateTime now, lastUpdate = new DateTime.now();
