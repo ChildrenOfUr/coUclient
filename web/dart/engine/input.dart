@@ -430,6 +430,7 @@ class Input
 		if(target.className == "ExitLabel")
 		{
 			//make sure loading screen is visible during load
+			streetLoadingImage.src = "";
 			Element loadingScreen = querySelector('#MapLoadingScreen');
 			loadingScreen.className = "MapLoadingScreenIn";
 			loadingScreen.style.opacity = "1.0";
