@@ -318,13 +318,11 @@ html, body {
 				}
 				#StreetLoadingImage{
 				    position:absolute;
-				    height:20vh;
-				    top:23vh;
-				    left:10%;
-				    right:10%;
-				    bottom:5vh;
-				    background-size: 100% 100%;
-				    background-repeat: no-repeat;
+				    width: 80%;
+					top: 20%;
+					left: 0;
+					right: 0;
+					margin: auto;
 				    border: 10px solid rgba(255,255,255,0.3);
 					-moz-border-radius: 3px;
 					border-radius: 3px;
