@@ -454,7 +454,11 @@ class Player
 			
 			element.attributes['collected'] = "true";
 			
-			int amt = rand.nextInt(4)+1;
+			int quoinMultiplier = 1;
+			// TODO: change 1 to the real quoin multiplier
+			int amt = rand.nextInt(4) + 1;
+			amt = amt * quoinMultiplier;
+			
 			Element quoinText = querySelector("#qq"+element.id+" .quoinString");
 			
 			var quoinType = "";
@@ -486,7 +490,12 @@ class Player
 
 			switch (quoinType) {
 				case "currant" :
-				quoinText.text = "+" + amt.toString() + "\u20a1";
+				if (amt == 1) {
+					quoinText.text = "+" + amt.toString() + " currant";
+				}
+				else {
+					quoinText.text = "+" + amt.toString() + " currants";
+				}
 				setCurrants((getCurrants()+amt).toString());
 				break;
 
@@ -542,9 +551,9 @@ class Player
 				break;
 
 				case "quarazy" :
-				int qamt = rand.nextInt(98)+401;
-				quoinText.text = "+" + qamt.toString() + " iMG";
-				setImg((getImg()+qamt).toString());
+				amt = amt * 7;
+				quoinText.text = "+" + amt.toString() + " iMG";
+				setImg((getImg()+amt).toString());
 				break;
 			}
 
