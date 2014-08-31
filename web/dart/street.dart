@@ -100,159 +100,155 @@ class Street
     // Load each of them, and then continue.
     Batch decos = new Batch(assetsToLoad);
 
-    streetLoadingImage.src = currentStreet._data['loading_image']['url'];
-    streetLoadingImage.onLoad.first.then((_)
+    decos.load(setLoadingPercent).then((_)
     {
-    	decos.load(setLoadingPercent).then((_)
-        {
-			//Decos should all be loaded at this point//
+		//Decos should all be loaded at this point//
+  
+		int groundY = -(_data['dynamic']['ground_y'] as num).abs();
       
-			int groundY = -(_data['dynamic']['ground_y'] as num).abs();
-          
-      		DivElement interactionCanvas = new DivElement()
-		        ..classes.add('streetcanvas')
-		        ..style.pointerEvents = "auto"
-		        ..id = "interractions"
-		        ..style.width = bounds.width.toString() + "px"
-		        ..style.height = bounds.height.toString() + "px"
-		        ..style.position = 'absolute'
-		        ..attributes['ground_y'] = groundY.toString();
-      		
-      		/* //// Gradient Canvas //// */
-	      	DivElement gradientCanvas = new DivElement();
-			gradientCanvas.classes.add('streetcanvas');
-			gradientCanvas.id = 'gradient';
-			gradientCanvas.style.zIndex = (-100).toString();
-			gradientCanvas.style.width = bounds.width.toString() + "px";
-			gradientCanvas.style.height = bounds.height.toString() + "px";
-			gradientCanvas.style.position = 'absolute';
-			gradientCanvas.attributes['ground_y'] = "0";
-			  
-			// Color the gradientCanvas
-			String top = _data['gradient']['top'];
-			String bottom = _data['gradient']['bottom'];
-			gradientCanvas.style.background = "-webkit-linear-gradient(top, #$top, #$bottom)";
-			gradientCanvas.style.background = "-moz-linear-gradient(top, #$top, #$bottom)";
-			gradientCanvas.style.background = "-ms-linear-gradient(#$top, #$bottom)";
-			gradientCanvas.style.background = "-o-linear-gradient(#$top, #$bottom)";
+  		DivElement interactionCanvas = new DivElement()
+	        ..classes.add('streetcanvas')
+	        ..style.pointerEvents = "auto"
+	        ..id = "interractions"
+	        ..style.width = bounds.width.toString() + "px"
+	        ..style.height = bounds.height.toString() + "px"
+	        ..style.position = 'absolute'
+	        ..attributes['ground_y'] = groundY.toString();
+  		
+  		/* //// Gradient Canvas //// */
+      	DivElement gradientCanvas = new DivElement();
+		gradientCanvas.classes.add('streetcanvas');
+		gradientCanvas.id = 'gradient';
+		gradientCanvas.style.zIndex = (-100).toString();
+		gradientCanvas.style.width = bounds.width.toString() + "px";
+		gradientCanvas.style.height = bounds.height.toString() + "px";
+		gradientCanvas.style.position = 'absolute';
+		gradientCanvas.attributes['ground_y'] = "0";
+		  
+		// Color the gradientCanvas
+		String top = _data['gradient']['top'];
+		String bottom = _data['gradient']['bottom'];
+		gradientCanvas.style.background = "-webkit-linear-gradient(top, #$top, #$bottom)";
+		gradientCanvas.style.background = "-moz-linear-gradient(top, #$top, #$bottom)";
+		gradientCanvas.style.background = "-ms-linear-gradient(#$top, #$bottom)";
+		gradientCanvas.style.background = "-o-linear-gradient(#$top, #$bottom)";
   
 			// Append it to the screen*/
-			layers.append(gradientCanvas);
-        
-      		/* //// Scenery Canvases //// */
-      		//For each layer on the street . . .
-      		for(Map layer in new Map.from(_data['dynamic']['layers']).values)
-      		{
-        		DivElement decoCanvas = new DivElement()
-          			..classes.add('streetcanvas');
-        		decoCanvas.id = (layer['name'] as String).replaceAll(" ", "_");
-        
-    			decoCanvas.style.zIndex = layer['z'].toString();
-        		decoCanvas.style.width = layer['w'].toString() + 'px';
-        		decoCanvas.style.height = layer['h'].toString() + 'px';
-        		decoCanvas.style.position = 'absolute';
-        		decoCanvas.attributes['ground_y'] = groundY.toString();
-        
-        		applyFilters(layer,decoCanvas);
-          
-        		//For each decoration in the layer, give its attributes and draw
-		        for(Map deco in layer['decos'])
-		        {
-		  			int x = deco['x'] - deco['w']~/2;
-		  			int y = deco['y'] - deco['h'] + groundY;
-		  			if(layer['name'] == 'middleground')
-		  			{
-		    			//middleground has different layout needs
-						y += layer['h'];
-						x += layer['w']~/2;
-		  			}
-		          	new Deco(deco,x,y,decoCanvas);
-		        }
-        
-		        for(Map platformLine in layer['platformLines'])
-				{
-		            platforms.add(new Platform(platformLine,layer,groundY));
-				}
-
-        		platforms.sort((x,y) => x.compareTo(y));
-        
-		        //debug only: draw platforms
-		        /*platforms.forEach((Platform platform)
-		        {
-		          Element rect = new DivElement();
-		          rect.text = "(${platform.start.x},${platform.start.y}) - (${platform.end.x},${platform.end.y})";
-		          rect.style.width = (platform.end.x-platform.start.x).toString() + "px";
-		          rect.style.height = (platform.end.y-platform.start.y).toString() + "px";
-		          rect.style.left = platform.start.x.toString()+"px";
-		          rect.style.top = platform.start.y.toString()+"px";
-		          rect.style.border = "1px black solid";
-		          rect.style.position = "absolute";
-		          rect.style.zIndex = "100";
-		          decoCanvas.append(rect);
-		        });*/
-        
-		        for(Map ladder in layer['ladders'])
-		        {
-					int x,y,width,height;
-					String id;
-		  
-					width = ladder['w'];
-					height = ladder['h'];
-					x = ladder['x']+layer['w']~/2-width~/2;
-					y = ladder['y']+layer['h']-height+groundY;
-					id = ladder['id'];
-		  
-					Rectangle box = new Rectangle(x,y,width,height);
-					ladders.add(new Ladder(id,box));
-				}
-		        
-		        //debug only: draw ladders
-		        /*for(Ladder ladder in ladders)
-		        {
-		          Element rect = new DivElement();
-		          rect.style.width = ladder.boundary.width.toString() + "px";
-		          rect.style.height = ladder.boundary.height.toString() + "px";
-		          rect.style.left = ladder.boundary.left.toString()+"px";
-		          rect.style.top = ladder.boundary.top.toString()+"px";
-		          rect.style.border = "1px black solid";
-		          rect.style.position = "absolute";
-		          rect.style.zIndex = "100";
-		          decoCanvas.append(rect);
-		        }*/
-        
-				for (Map signpost in layer['signposts'])
-		        {
-					int h = 200, w = 100;
-					if(signpost['h'] != null)
-						h = signpost['h'];
-					if(signpost['w'] != null)
-						w = signpost['w'];
-					int x = signpost['x'];
-					int y = signpost['y'] - h + groundY;
-					if(layer['name'] == 'middleground')
-		  			{
-		    			//middleground has different layout needs
-						y += layer['h'];
-						x += layer['w']~/2;
-		  			}
-		          
-					new Signpost(signpost,x,y,interactionCanvas,gradientCanvas);
-		        }
-        
-        		// Append the canvas to the screen
-        		layers.append(decoCanvas);
+		layers.append(gradientCanvas);
+    
+  		/* //// Scenery Canvases //// */
+  		//For each layer on the street . . .
+  		for(Map layer in new Map.from(_data['dynamic']['layers']).values)
+  		{
+    		DivElement decoCanvas = new DivElement()
+      			..classes.add('streetcanvas');
+    		decoCanvas.id = (layer['name'] as String).replaceAll(" ", "_");
+    
+			decoCanvas.style.zIndex = layer['z'].toString();
+    		decoCanvas.style.width = layer['w'].toString() + 'px';
+    		decoCanvas.style.height = layer['h'].toString() + 'px';
+    		decoCanvas.style.position = 'absolute';
+    		decoCanvas.attributes['ground_y'] = groundY.toString();
+    
+    		applyFilters(layer,decoCanvas);
+      
+    		//For each decoration in the layer, give its attributes and draw
+	        for(Map deco in layer['decos'])
+	        {
+	  			int x = deco['x'] - deco['w']~/2;
+	  			int y = deco['y'] - deco['h'] + groundY;
+	  			if(layer['name'] == 'middleground')
+	  			{
+	    			//middleground has different layout needs
+					y += layer['h'];
+					x += layer['w']~/2;
+	  			}
+	          	new Deco(deco,x,y,decoCanvas);
+	        }
+    
+	        for(Map platformLine in layer['platformLines'])
+			{
+	            platforms.add(new Platform(platformLine,layer,groundY));
 			}
-      
-    		layers.append(interactionCanvas);
-      
-		    //display current street name     
-			currLocation.text = label;
-      
-			//make sure to redraw the screen (in case of street switching)
-      		camera.dirty = true;
-      		c.complete(this);
-      		sendJoinedMessage(label,_data['tsid']);
-    	});
+
+    		platforms.sort((x,y) => x.compareTo(y));
+    
+	        //debug only: draw platforms
+	        /*platforms.forEach((Platform platform)
+	        {
+	          Element rect = new DivElement();
+	          rect.text = "(${platform.start.x},${platform.start.y}) - (${platform.end.x},${platform.end.y})";
+	          rect.style.width = (platform.end.x-platform.start.x).toString() + "px";
+	          rect.style.height = (platform.end.y-platform.start.y).toString() + "px";
+	          rect.style.left = platform.start.x.toString()+"px";
+	          rect.style.top = platform.start.y.toString()+"px";
+	          rect.style.border = "1px black solid";
+	          rect.style.position = "absolute";
+	          rect.style.zIndex = "100";
+	          decoCanvas.append(rect);
+	        });*/
+    
+	        for(Map ladder in layer['ladders'])
+	        {
+				int x,y,width,height;
+				String id;
+	  
+				width = ladder['w'];
+				height = ladder['h'];
+				x = ladder['x']+layer['w']~/2-width~/2;
+				y = ladder['y']+layer['h']-height+groundY;
+				id = ladder['id'];
+	  
+				Rectangle box = new Rectangle(x,y,width,height);
+				ladders.add(new Ladder(id,box));
+			}
+	        
+	        //debug only: draw ladders
+	        /*for(Ladder ladder in ladders)
+	        {
+	          Element rect = new DivElement();
+	          rect.style.width = ladder.boundary.width.toString() + "px";
+	          rect.style.height = ladder.boundary.height.toString() + "px";
+	          rect.style.left = ladder.boundary.left.toString()+"px";
+	          rect.style.top = ladder.boundary.top.toString()+"px";
+	          rect.style.border = "1px black solid";
+	          rect.style.position = "absolute";
+	          rect.style.zIndex = "100";
+	          decoCanvas.append(rect);
+	        }*/
+    
+			for (Map signpost in layer['signposts'])
+	        {
+				int h = 200, w = 100;
+				if(signpost['h'] != null)
+					h = signpost['h'];
+				if(signpost['w'] != null)
+					w = signpost['w'];
+				int x = signpost['x'];
+				int y = signpost['y'] - h + groundY;
+				if(layer['name'] == 'middleground')
+	  			{
+	    			//middleground has different layout needs
+					y += layer['h'];
+					x += layer['w']~/2;
+	  			}
+	          
+				new Signpost(signpost,x,y,interactionCanvas,gradientCanvas);
+	        }
+    
+    		// Append the canvas to the screen
+    		layers.append(decoCanvas);
+		}
+  
+		layers.append(interactionCanvas);
+  
+	    //display current street name     
+		currLocation.text = label;
+  
+		//make sure to redraw the screen (in case of street switching)
+  		camera.dirty = true;
+  		c.complete(this);
+  		sendJoinedMessage(label,_data['tsid']);
 	});
 	
     // Done initializing street.
@@ -355,14 +351,12 @@ Future load_streets()
 
 setStreetLoading()
 {
-  nowEntering.setInnerHtml('<h2>Entering</h2><h1>' + currentStreet.label.toString() + '</h1><h2>in ' + currentStreet.hub_name/* + '</h2><h3>Home to: <ul><li>A <strong>Generic Goods Vendor</strong></li></ul>'*/);
-  
-  mapLoadingScreen.style.backgroundImage = '-webkit-gradient(linear,left top,left bottom,color-stop(0, ' + currentStreet.street_load_color_top + '),color-stop(1, ' + currentStreet.street_load_color_btm + '))';
-  mapLoadingScreen.style.backgroundImage = '-o-linear-gradient(bottom, ' + currentStreet.street_load_color_top + ' 0%, ' + currentStreet.street_load_color_btm + ' 100%)';
-  mapLoadingScreen.style.backgroundImage = '-moz-linear-gradient(bottom, ' + currentStreet.street_load_color_top + ' 0%, ' + currentStreet.street_load_color_btm + ' 100%)';
-  mapLoadingScreen.style.backgroundImage = '-webkit-linear-gradient(bottom, ' + currentStreet.street_load_color_top + ' 0%, ' + currentStreet.street_load_color_btm + ' 100%)';
-  mapLoadingScreen.style.backgroundImage = '-ms-linear-gradient(bottom, ' + currentStreet.street_load_color_top + ' 0%, ' + currentStreet.street_load_color_btm + ' 100%)';
-  mapLoadingScreen.style.backgroundImage = 'linear-gradient(to bottom, ' + currentStreet.street_load_color_top + ' 0%, ' + currentStreet.street_load_color_btm + ' 100%)';
+  mapLoadingScreen.style.background = '-webkit-gradient(linear,left top,left bottom,color-stop(0, ' + currentStreet.street_load_color_top + '),color-stop(1, ' + currentStreet.street_load_color_btm + '))';
+  mapLoadingScreen.style.background = '-o-linear-gradient(bottom, ' + currentStreet.street_load_color_top + ' 0%, ' + currentStreet.street_load_color_btm + ' 100%)';
+  mapLoadingScreen.style.background = '-moz-linear-gradient(bottom, ' + currentStreet.street_load_color_top + ' 0%, ' + currentStreet.street_load_color_btm + ' 100%)';
+  mapLoadingScreen.style.background = '-webkit-linear-gradient(bottom, ' + currentStreet.street_load_color_top + ' 0%, ' + currentStreet.street_load_color_btm + ' 100%)';
+  mapLoadingScreen.style.background = '-ms-linear-gradient(bottom, ' + currentStreet.street_load_color_top + ' 0%, ' + currentStreet.street_load_color_btm + ' 100%)';
+  mapLoadingScreen.style.background = 'linear-gradient(to bottom, ' + currentStreet.street_load_color_top + ' 0%, ' + currentStreet.street_load_color_btm + ' 100%)';
 }
 
 // the callback function for our deco loading 'Batch'
@@ -378,6 +372,7 @@ setLoadingPercent(int percent)
     mapLoadingBar.style.width = '100%';
     mapLoadingScreen.className = "MapLoadingScreen";
     mapLoadingScreen.style.opacity = '0.0';
+    new Timer(new Duration(seconds:1),()=>mapLoadingContent.style.opacity = '0.0');
     currentStreet.loadTime.stop();
     currentStreet.loadTime.reset();
   }

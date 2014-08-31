@@ -313,8 +313,24 @@ html, body {
 					left:0px;
 					right:0px;
 					bottom:0px;
-					opacity:1.0;
+					opacity:0.0;
 					z-index:2;
+					transition-property: opacity;
+					transition-duration: 1s;
+					transition-timing-function: linear;
+					-webkit-transition-property:opacity;
+					-webkit-transition-duration:1s;
+					-webkit-transition-timing-function:linear;
+				}
+				#MapLoadingContent
+				{
+					opacity:0.0;
+					transition-property: opacity;
+					transition-duration: .3s;
+					transition-timing-function: linear;
+					-webkit-transition-property:opacity;
+					-webkit-transition-duration:.3s;
+					-webkit-transition-timing-function:linear;
 				}
 				#StreetLoadingImage{
 				    position:absolute;
