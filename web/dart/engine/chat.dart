@@ -7,13 +7,13 @@ class Chat
 	bool _showJoinMessages = false, _playMentionSound = true;
 	Map<String, TabContent> tabContentMap = new Map();
 	String username = "testUser"; //TODO: get actual username of logged in user;
-	
+
 	List<String> get EMOTICONS => _EMOTICONS;
 	List<String> get COLORS => _COLORS;
-	
+
 	/**
 	 * Determines if messages like "<user> has joined" are shown to the player.
-	 * 
+	 *
 	 * Sets the visibility of join messages to [visible]
 	 */
 	void setJoinMessagesVisibility(bool visible)
@@ -21,25 +21,25 @@ class Chat
 		_showJoinMessages = visible;
 		localStorage["showJoinMessages"] = visible.toString();
 	}
-	
+
 	/**
 	 * Returns the visibility of messages like "<user> has joined"
 	 */
 	bool getJoinMessagesVisibility() => _showJoinMessages;
-	
+
 	void setPlayMentionSound(bool enabled)
 	{
 		_playMentionSound = enabled;
 		localStorage["playMentionSound"] = enabled.toString();
 	}
-	
+
 	bool getPlayMentionSound() => _playMentionSound;
-	
+
 	init()
 	{
 		//load emoticons
 		new Asset("assets/emoticons/emoticons.json").load().then((Asset asset) => _EMOTICONS = asset.get()["names"]);
-		
+
 		//assign temporary chat handle
 		if(localStorage["username"] != null)
 			username = localStorage["username"];
@@ -48,10 +48,10 @@ class Chat
 			Random rand = new Random();
 			username += rand.nextInt(10000).toString();
 		}
-		
+
 		//TODO: change this when usernames are real
 		setName(username);
-		
+
 		//listen for onChange events so that clicking the label or the checkbox will call this method
 		querySelectorAll('.ChatSettingsCheckbox').onChange.listen((Event event)
 		{
@@ -61,7 +61,7 @@ class Chat
 			if(checkbox.id == "PlayMentionSound")
 				setPlayMentionSound(checkbox.checked);
 		});
-	
+
 		//setup saved variables
 		if(localStorage["showJoinMessages"] != null)
 		{
@@ -80,7 +80,7 @@ class Chat
 		{
 			(element as CheckboxInputElement).checked = getJoinMessagesVisibility();
 		});
-		
+
 		if(localStorage["playMentionSound"] != null)
 		{
 			if(localStorage["playMentionSound"] == "true")
@@ -97,15 +97,15 @@ class Chat
 		{
 			(element as CheckboxInputElement).checked = getPlayMentionSound();
 		});
-		
+
 		addChatTab("Global Chat", true);
 		addChatTab("Other Chat", false);
 		querySelector("#ChatPane").children.add(new TabContent("Local Chat",true).getDiv());
-		
+
 		//add touch scrolling to the channel list
 		new TouchScroller(querySelector("#ChannelList"),TouchScroller.VERTICAL);
 	}
-	
+
 	void addChatTab(String channelName, bool checked)
 	{
 		TabContent tabContent = new TabContent(channelName,false);
@@ -142,11 +142,11 @@ class TabContent
 	DivElement chatDiv, chatHistory;
 	int unreadMessages = 0, tabSearchIndex = 0, numMessages = 0, inputHistoryPointer = 0, emoticonPointer = 0;
 	final _chatServerUrl = "ws://robertmcdermot.com:8282/chat";
-	
+
 	TabContent(this.channelName, this.useSpanForTitle)
 	{
 		chat.tabContentMap[channelName] = this;
-		
+
 		//for mobile chat
 		DivElement conversationStack = querySelector("#ConversationStack");
 		DivElement conversation = new DivElement()
@@ -154,7 +154,7 @@ class TabContent
 			..id = "conversation-"+channelName.replaceAll(" ", "_");
 		new TouchScroller(conversation,TouchScroller.VERTICAL);
 		conversationStack.children.add(conversation);
-		
+
 		DivElement channelList = querySelector("#ChannelList");
 		DivElement channel = new DivElement()
 			..className = "ChannelName"
@@ -162,22 +162,22 @@ class TabContent
 			..id = "channelName-"+channelName.replaceAll(" ", "_");
 		channelList.children.add(channel);
 	}
-	
+
 	void resetMessages([MouseEvent event])
 	{
 		unreadMessages = 0;
-		
+
 		//mobile chat titles
 		String selector = "#channelName-"+channelName.replaceAll(" ", "_");
 		querySelector(selector).text = channelName;
-		
+
 		//desktop chat tab labels
 		if(channelName != "Local Chat") //there is no counter for local chat on desktop
 		{
 			selector = "#label-"+channelName.replaceAll(" ", "_");
 			querySelector(selector).text = channelName;
 		}
-		
+
 		int totalUnread = 0;
 		chat.tabContentMap.values.forEach((TabContent tabContent)
 		{
@@ -185,7 +185,7 @@ class TabContent
 		});
 		querySelector('#ChatBubbleText').text = totalUnread.toString();
 	}
-	
+
 	DivElement getDiv()
 	{
 		chatDiv = new DivElement()
@@ -197,13 +197,13 @@ class TabContent
 		TextInputElement input = new TextInputElement()
 			..classes.add("ChatInput")
 			..classes.add("Typing");
-	
+
 		if(useSpanForTitle)
 			chatDiv.children.add(span);
 		chatDiv.children
 			..add(chatHistory)
 			..add(input);
-		
+
 		//TODO: remove this section when usernames are for real
 		if(channelName == "Local Chat")
 		{
@@ -213,14 +213,14 @@ class TabContent
 			_addmessage(map);
 		}
 		//TODO: end section
-		
+
 		setupWebSocket(chatHistory,channelName);
-		
+
 		processInput(input);
-		
+
 		return chatDiv;
 	}
-	
+
 	void processInput(TextInputElement input)
 	{
 		input.onKeyDown.listen((KeyboardEvent key) //onKeyUp seems to be too late to prevent TAB's default behavior
@@ -244,7 +244,7 @@ class TabContent
 			if(key.keyCode == 9) //tab key, try to complete a user's name or an emoticon
 			{
 				key.preventDefault();
-				
+
 				if(input.value.endsWith(":")) //look for an emoticon instead of a username
 				{
 					String value = input.value;
@@ -271,7 +271,7 @@ class TabContent
                                 	emoticonPointer = 0;
 								break;
 							}
-							
+
 							if(value.substring(lastColon-name.length,lastColon) != -1
 								&& value.substring(lastColon-name.length,lastColon) == name)
 							{
@@ -281,10 +281,10 @@ class TabContent
 							count++;
 						}
 					}
-					
+
 					return;
 				}
-				
+
 				int startIndex = input.value.lastIndexOf(" ") == -1 ? 0 : input.value.lastIndexOf(" ")+1;
 				for(int i=0; i<connectedUsers.length; i++)
 				{
@@ -324,36 +324,36 @@ class TabContent
 						}
 					}
 				}
-				
+
 				if(tabSearchIndex == connectedUsers.length) //wrap around for next time
 				tabSearchIndex = 0;
-				
+
 				return;
 			}
 		});
-		
+
 		input.onKeyUp.listen((KeyboardEvent key)
 		{
 			if(key.keyCode != 9)
 				tabInserted = false;
-			
+
 			if (key.keyCode != 13) //listen for enter key
 				return;
-			
+
 			if(input.value.trim().length == 0) //don't allow for blank messages
 				return;
-			
+
 			parseInput(input.value);
-			
+
 			inputHistory.insert(0, input.value); //add to beginning of list
 			inputHistoryPointer = 0; //point to beginning of list
 			if(inputHistory.length > 50) //don't allow the list to grow forever
 				inputHistory.removeLast();
-			
+
 			input.value = '';
 		});
 	}
-	
+
 	bool containsBadCharacter(String newName)
 	{
 		List<String> badChars = "! @ \$ % ^ & * ( ) + = , . / ' ; : \" ? > < [ ] \\ { } | ` #".split(" ");
@@ -365,10 +365,10 @@ class TabContent
 				return true;
 			}
 		}
-		
+
 		return false;
 	}
-	
+
 	parseInput(String input)
 	{
 		Map map = new Map();
@@ -410,10 +410,10 @@ class TabContent
 				map["street"] = currentStreet.label;
 			_addmessage(map);
 		}
-		
+
 		webSocket.send(JSON.encode(map));
 	}
-	
+
 	void setupWebSocket(DivElement chatHistory, String channelName)
 	{
 		webSocket = new WebSocket(_chatServerUrl);
@@ -424,7 +424,7 @@ class TabContent
 			querySelector("#ChatBubbleText")
 				..text = "0"
 				..hidden = false;
-			
+
 			//let server know that we connected
 			Map map = new Map();
 			map["message"] = 'userName='+chat.username;
@@ -432,7 +432,7 @@ class TabContent
 			if(channelName == "Local Chat")
 				map["street"] = currentStreet.label;
 			webSocket.send(JSON.encode(map));
-			
+
 			//get list of all users connected
 			map = new Map();
 			map["hide"] = "true";
@@ -446,7 +446,7 @@ class TabContent
 			Map map = JSON.decode(messageEvent.data);
 			if(map["message"] == "ping") //only used to keep the connection alive, ignore
 				return;
-			
+
 			if(map["message"] == " joined.")
 			{
 				if(!connectedUsers.contains(map["username"]))
@@ -454,7 +454,7 @@ class TabContent
 				if(!chat.getJoinMessagesVisibility()) //ignore join messages unless the user turns them on
 					return;
 			}
-			
+
 			if(map["message"] == " left.")
 			{
 				connectedUsers.remove(map["username"]);
@@ -462,11 +462,11 @@ class TabContent
 				if(!chat.getJoinMessagesVisibility()) //ignore left messages unless the user turns them on
 					return;
 			}
-						
+
 			int prevUnread = unreadMessages;
 			if(map["statusMessage"] == null && map["channel"] == channelName)
 				unreadMessages++;
-			
+
 			//mobile
 			if(map["username"] != chat.username && map["channel"] == channelName)
 			{
@@ -478,7 +478,7 @@ class TabContent
 				}
 				else
 					unreadMessages--; //if it is showing, this is a read message, un-increment counter
-				
+
 				int totalUnread = 0;
 				chat.tabContentMap.values.forEach((TabContent tabContent)
 				{
@@ -486,7 +486,7 @@ class TabContent
 				});
 				querySelector('#ChatBubbleText').text = totalUnread.toString();
 			}
-			
+
 			if(map["channel"] == "all")
 			{
 				_addmessage(map);
@@ -506,7 +506,7 @@ class TabContent
 					//need to replace spaces to make CSS selector work
 					String selector = "#tab-"+channelName.replaceAll(" ", "_");
 					if(!(querySelector(selector) as RadioButtonInputElement).checked)
-					{						
+					{
 						if(prevUnread != unreadMessages)
 						{
 							//find label related to this channel's tab and add the unread count to it
@@ -514,7 +514,7 @@ class TabContent
 							querySelector(selector).innerHtml = '<span class="Counter">'+unreadMessages.toString()+'</span>' + " " + channelName;
 						}
 					}
-					
+
 					//don't add to history if the user said it
 					//we already added it before we sent it to the server
 					if(map["username"] != chat.username)
@@ -533,7 +533,7 @@ class TabContent
 			//mobile
 			querySelector("#ChatBubbleDisconnect").style.display = "inline-block";
 			querySelector("#ChatBubbleText").hidden = true;
-			
+
 			//wait 5 seconds and try to reconnect
 			new Timer(new Duration(seconds:5),()
 			{
@@ -541,28 +541,28 @@ class TabContent
 			});
 		});
 	}
-	
+
 	void _addmessage(Map map)
 	{
 		NodeValidator validator = new NodeValidatorBuilder()
   			..allowHtml5()
         	..allowElement('a', attributes: ['href','class',])
 			..allowElement('span');
-		
+
 		numMessages++;
 		if(numMessages > 100) //limit chat history (each pane is seperate) to 100 messages
 		{
 			chatHistory.children.removeAt(0);
 			if(chatHistory.children.first.className == "RowSpacer") //if the top is a row spacer, remove that too
 				chatHistory.children.removeAt(0);
-			
+
 			//mobile
 			DivElement conversation = querySelector('#conversation-'+channelName.replaceAll(" ","_"));
 			conversation.children.removeAt(0);
-			
+
 			numMessages--;
 		}
-		
+
 		if(chat.getPlayMentionSound() && map["message"].toLowerCase().contains(chat.username.toLowerCase()) && int.parse(prevVolume) > 0 && isMuted == '0')
 		{
 			playSound('mention');
@@ -578,7 +578,7 @@ class TabContent
 			{
 				userElement.text = map["username"] + ": ";
 				userElement.style.color = _getColor(map["username"]); //hashes the username so as to get a random color but the same each time for a specific user
-				
+
 				chatString.children
 					..add(userElement)
 					..add(text);
@@ -595,7 +595,7 @@ class TabContent
 			//display "user has left for <street>" message with clickable street
 			userElement.text = map["username"];
 			userElement.style.color = _getColor(map["username"]);
-			
+
 			AnchorElement streetElement = new AnchorElement()
 			    ..text = map["streetName"]
 				..className = "ClickableStreetLink"
@@ -607,7 +607,7 @@ class TabContent
 				..add(userElement)
 				..add(text)
 				..add(streetElement);
-			
+
 			removeOtherPlayer(map["username"]);
 		}
 		//TODO: remove after real usernames happen
@@ -616,9 +616,9 @@ class TabContent
 			chatString.children.add(text);
 		}
 		if(map["statusMessage"] == "changeName")
-		{			
+		{
 			text.style.paddingRight = "4px";
-			
+
 			if(map["success"] == "true")
 			{
 				SpanElement oldUsername = new SpanElement()
@@ -628,28 +628,28 @@ class TabContent
 				SpanElement newUsername = new SpanElement()
 					..text = map["newUsername"]
 					..style.color = _getColor(map["newUsername"]);
-				
+
 				chatString.children
 				..add(oldUsername)
 				..add(text)
 				..add(newUsername);
-				
+
 				if(map["username"] == chat.username) //although this message is broadcast to everyone, only change usernames if we were the one to type /setname
 				{
 					chat.username = map["newUsername"];
 					localStorage["username"] = chat.username;
-					
+
 					//set name in upper left and above avatar
 					CurrentPlayer.playerName.text = map["newUsername"];
 					setName(map["newUsername"]);
+
+					//warn multiplayer server that it will receive messages from a new name but it should be the same person
+					map['street'] = currentStreet.label;
+					playerSocket.send(JSON.encode(map));
 				}
-				
+
 				connectedUsers.remove(map["username"]);
 				connectedUsers.add(map["newUsername"]);
-				
-				//warn multiplayer server that it will receive messages from a new name but it should be the same person
-				map['street'] = currentStreet.label;
-				playerSocket.send(JSON.encode(map));
 			}
 			else
 			{
@@ -664,10 +664,10 @@ class TabContent
 				connectedUsers = map["users"];
 				return;
 			}
-			
+
 			text.style.paddingRight = "4px";
 			chatString.children.add(text);
-			
+
 			List users = map["users"];
 			users.forEach((String username)
 			{
@@ -679,11 +679,11 @@ class TabContent
 				chatString.children.add(user);
 			});
 		}
-		
+
 		DivElement rowSpacer = new DivElement()
 			..className = "RowSpacer";
 		chatString.style.paddingRight = "2px";
-		
+
 		bool atTheBottom = false;
 		//if we're at the bottom before adding the incoming strings, scroll with them
 		if((querySelector("#MobileStyle") as LinkElement).disabled)
@@ -691,27 +691,27 @@ class TabContent
 			if((chatHistory.scrollHeight - chatHistory.offsetHeight - chatHistory.scrollTop).abs() < 5)
             	atTheBottom = true;
 		}
-		
+
 		chatHistory.children.add(chatString);
 		chatHistory.children.add(rowSpacer);
-		
+
 		if(atTheBottom || (map['username'] == chat.username || map['newUsername'] == chat.username))
 			chatHistory.scrollTop = chatHistory.scrollHeight;
-		
+
 		//for mobile version
 		DivElement chatLine = new DivElement()
 			..className = "bubble"
 			..setInnerHtml(chatString.innerHtml, treeSanitizer: new NullTreeSanitizer());
-		
+
 		if(chatString.text.startsWith(chat.username))
 			chatLine.classes.add("me");
 		else
 			chatLine.classes.add("you");
-		
+
 		DivElement chatRow = new DivElement()
 			..className = "bubbleRow";
 		chatRow.children.add(chatLine);
-		
+
 		DivElement conversation = querySelector('#conversation-'+channelName.replaceAll(" ","_"));
 		atTheBottom = false;
 		if(!(querySelector("#MobileStyle") as LinkElement).disabled)
@@ -722,7 +722,7 @@ class TabContent
 		conversation.children.add(chatRow);
 		if(atTheBottom || (map['username'] == chat.username || map['newUsername'] == chat.username))
 			conversation.scrollTop = conversation.scrollHeight;
-		
+
 		//display chat bubble if we're talking in local (unless it's a /me message)
 		if(map["channel"] == "Local Chat" && map["username"] == chat.username && map["statusMessage"] == null
 				&& !(map["message"] as String).toLowerCase().startsWith("/me"))
@@ -733,7 +733,7 @@ class TabContent
 			CurrentPlayer.chatBubble = new ChatBubble(_parseForEmoticons(map["message"]));
 		}
 	}
-	
+
 	String _parseForUrls(String message)
 	{
 		/*
@@ -743,12 +743,12 @@ class TabContent
 		(:\d+)?                           : the port (optional)
 		(\/\S*)?                          : the path (optional)
 		*/
-		String regexString = r"((https?:\/\/)?[\w-]+(\.[\w-]+)+\.?(:\d+)?(\/\S*)?)"; 
+		String regexString = r"((https?:\/\/)?[\w-]+(\.[\w-]+)+\.?(:\d+)?(\/\S*)?)";
 		//the r before the string makes dart interpret it as a raw string so that you don't have to escape characters like \
-		
+
 		String returnString = "";
 		RegExp regex = new RegExp(regexString);
-		message.splitMapJoin(regex, 
+		message.splitMapJoin(regex,
 		onMatch: (Match m)
 		{
 			String url = m[0];
@@ -757,15 +757,15 @@ class TabContent
 			returnString += '<a href="${url}" target="_blank" class="MessageLink">${m[0]}</a>';
 		},
 		onNonMatch: (String s) => returnString += s);
-		
+
 		return returnString;
 	}
-	
+
 	String _parseForEmoticons(String message)
 	{
 		String returnString = "";
 		RegExp regex = new RegExp(":(.+?):");
-		message.splitMapJoin(regex, 
+		message.splitMapJoin(regex,
 		onMatch: (Match m)
 		{
 			String match = m[1];
@@ -775,10 +775,10 @@ class TabContent
 				returnString += m[0];
 		},
 		onNonMatch: (String s) => returnString += s);
-		
+
 		return returnString;
 	}
-	
+
 	String _getColor(String username)
 	{
 		int index = 0;
@@ -788,7 +788,7 @@ class TabContent
 		}
 		return chat.COLORS[index%(chat.COLORS.length-1)];
 	}
-	
+
 	String _timeStamp() => new DateTime.now().toString().substring(11,16);
 }
 
