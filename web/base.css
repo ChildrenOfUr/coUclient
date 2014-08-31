@@ -30,7 +30,7 @@
 	margin:5px;
 	padding:9px;
 	background-color: #4b2e4c;
-	border:none;  
+	border:none;
 	border-bottom:2px solid rgba(0,0,0,0.5);
 	text-shadow: 0px -1px rgba(0,0,0,0.9);
 	box-shadow: 0 1px 5px 2px rgba(0,0,0,0.2);
@@ -45,7 +45,7 @@
 	margin:10px;
 	padding:9px;
 	background-color: #fff;
-	border:none;  
+	border:none;
 	text-shadow: 0px -1px #ccc;
 	border-bottom:2px solid rgba(0,0,0,0.2);
 	box-shadow: 0 1px 50px 2px rgba(0,0,0,0.1);
@@ -78,7 +78,7 @@ html, body {
 	-moz-user-drag: none;
 	-khtml-user-drag: none;
 	-webkit-user-drag: none;
-	user-drag: none;} 
+	user-drag: none;}
 	a{color: purple;text-decoration: none;}
 	.primary, #SCLink {color: #4d8c8b;}
 	.red {color: #ba381a;}
@@ -181,7 +181,7 @@ html, body {
 	#LoadingScreen {
 		text-align: center;
 		overflow:hidden;
-		top:0px;  
+		top:0px;
 		left:0px;
 		background-color: #fff;
 		color: #005c73;
@@ -197,11 +197,11 @@ html, body {
 		-webkit-transition-property:opacity;
 		-webkit-transition-duration:0.2s;
 		-webkit-transition-timing-function:linear;
-		-webkit-transition-delay:0.5s;  
+		-webkit-transition-delay:0.5s;
 		-moz-transition-property:opacity;
 		-moz-transition-duration:0.2s;
 		-moz-transition-timing-function:linear;
-		-moz-transition-delay:0.5s;  
+		-moz-transition-delay:0.5s;
 	}
 	.LoadingH1 {
 		margin-left:auto;
@@ -225,13 +225,13 @@ html, body {
 				-webkit-transition-property:opacity;
 				-webkit-transition-duration:3s;
 				-webkit-transition-timing-function:linear;
-				-webkit-transition-delay:1s; 
+				-webkit-transition-delay:1s;
 			}
 			#LoadStatus {
-            
+
 			}
-			
-    
+
+
 			/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 			/*The default styling of the 'You Won' Screen*/
 			#YouWon {
@@ -239,7 +239,7 @@ html, body {
 				font-size:1.5em;
 				text-align: center;
 				overflow:hidden;
-				top:0px;  
+				top:0px;
 				left:0px;
 				background-color: #000;
 				color: #000;
@@ -261,13 +261,13 @@ html, body {
 				position:absolute;
 				width:900px;
 				height:600px;
-				top:60px;  
+				top:60px;
 				left:40px;
 				-moz-border-radius: 10px;
 				border-radius: 10px;
-				z-index:-1; 
+				z-index:-1;
 				opacity:0.0;
-				
+
 				transition-property: opacity;
 				transition-duration: 0.2s;
 				transition-timing-function: linear;
@@ -289,14 +289,14 @@ html, body {
 				.MapLoadingScreen {
 					background-color: #829363;
 					position:absolute;
-					top:0px;  
+					top:0px;
 					left:0px;
 					right:0px;
 					bottom:0px;
 					opacity:1.0;
 					z-index:3;
 					pointer-events: none;
-					
+
 					transition-property: opacity;
 					transition-duration: 1s;
 					transition-timing-function: linear;
@@ -309,7 +309,7 @@ html, body {
 				.MapLoadingScreenIn {
 					background-color: #829363;
 					position:absolute;
-					top:0px;  
+					top:0px;
 					left:0px;
 					right:0px;
 					bottom:0px;
@@ -414,7 +414,7 @@ html, body {
 					height: 100%;
 					-moz-border-radius: 10px;
 					border-radius: 10px;
-					z-index:0; 
+					z-index:0;
 					overflow: hidden;
 	 /* this fixes the overflow:hidden in Chrome not clipping it's contents to the border-radius
 	 more information here: http://stackoverflow.com/questions/5736503/how-to-make-css3-rounded-corners-hide-overflow-in-chrome-opera*/
@@ -442,6 +442,11 @@ html, body {
 }
 .entity, .playerCanvas, .playerParent {
 	will-change: transform;
+}
+.playerCanvas {
+	position: absolute;
+	left: 0;
+	top: 0;
 }
 /*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 /*Elements in the top, left corner*/
@@ -484,7 +489,7 @@ html, body {
 
 #MoodCircleDefault {
 	background-image: url("./assets/system/moodmeter.svg"); /* Redo this image as css later */
-	
+
 	-webkit-animation: spin 15s infinite linear;
 	-moz-animation: spin 15s infinite linear;
 	animation: spin 15s infinite linear;
@@ -509,7 +514,7 @@ html, body {
 	background-image: url("./assets/system/raindrop.svg");
 	background-size: 20px;
 	background-repeat: repeat;
-	
+
 	-webkit-animation: rain 0.5s infinite linear;
 	-moz-animation: rain 0.5s infinite linear;
 	animation: rain 0.5s infinite linear;
@@ -584,7 +589,7 @@ html, body {
 	line-height:15px;
 	color:#555;
 	text-shadow: 0px 1px rgba(255,255,255,0.5);
-	opacity:0; 
+	opacity:0;
 	transition-property: opacity;
 	transition-duration: 0.2s;
 	transition-timing-function: linear;
@@ -642,7 +647,7 @@ html, body {
 	-webkit-transition-property: -webkit-transform, opacity;
 	-webkit-transition-duration:1s;
 	-webkit-transition-timing-function:ease-in-out;
-	-webkit-transition-delay:0s;  
+	-webkit-transition-delay:0s;
 }
 #EnergyIndicatorRed{opacity:0;}
 #EnergyText {
@@ -658,7 +663,7 @@ html, body {
 	-webkit-transition-property: opacity;
 	-webkit-transition-duration:0.1s;
 	-webkit-transition-timing-function:linear;
-	-webkit-transition-delay:0s;  
+	-webkit-transition-delay:0s;
 
 }
 #EnergyText:hover {
@@ -719,7 +724,7 @@ html, body {
 	-webkit-transition-property: opacity;
 	-webkit-transition-duration:0.1s;
 	-webkit-transition-timing-function:linear;
-	-webkit-transition-delay:0s;  
+	-webkit-transition-delay:0s;
 }
 #CurrantText:hover {
 	opacity:1;
@@ -767,7 +772,7 @@ html, body {
 	position:absolute;
 	width:290px;
 	height: calc(100% - 120px);
-	top:60px;  
+	top:60px;
 	right:18px;
 	-moz-border-radius: 7px;
 	border-radius: 7px;
@@ -785,7 +790,7 @@ html, body {
 	position:absolute;
 	width:290px;
 	height: calc(100% - 130px);
-	top:60px;  
+	top:60px;
 	right:18px;
 	-moz-border-radius: 7px;
 	border-radius: 7px;
@@ -872,21 +877,21 @@ this WILL NOT WORK in Firefox or IE.  Only a loss of style will result however.*
 .MessageBody {
 	cursor: auto;
 	-webkit-user-select: text;
-	-khtml-user-select: text; 
+	-khtml-user-select: text;
 	-moz-user-select: text;
 	-ms-user-select: text;
 	-o-user-select: text;
-	user-select: text; 
+	user-select: text;
 	font-family: 'Tahoma', 'Geneva', 'sans-serif';
 }
 .MessageLink {
 	cursor: auto;
 	-webkit-user-select: text;
-	-khtml-user-select: text; 
+	-khtml-user-select: text;
 	-moz-user-select: text;
 	-ms-user-select: text;
 	-o-user-select: text;
-	user-select: text; 
+	user-select: text;
 }
 .ClickableStreetLink {
 	cursor: pointer;
@@ -903,9 +908,9 @@ this WILL NOT WORK in Firefox or IE.  Only a loss of style will result however.*
 	cursor: pointer;
 }
 .tab .tabLabel {
-	background: #eee; 
-	padding: 4px; 
-	border: 1px solid #ccc; 
+	background: #eee;
+	padding: 4px;
+	border: 1px solid #ccc;
 	border-top-left-radius: 5px;
 	border-top-right-radius: 5px;
 	margin-left: -1px;
@@ -914,7 +919,7 @@ this WILL NOT WORK in Firefox or IE.  Only a loss of style will result however.*
 	top: 5px;
 }
 .tab [type=radio] {
-	display: none;   
+	display: none;
 }
 .content {
 	position: absolute;
@@ -950,7 +955,7 @@ this WILL NOT WORK in Firefox or IE.  Only a loss of style will result however.*
 /*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 /*Popup elements*/
 .PopWindow{
-	position: absolute; 
+	position: absolute;
 	left: 0;
 	top: 0;
 	right: 0;
@@ -964,14 +969,14 @@ this WILL NOT WORK in Firefox or IE.  Only a loss of style will result however.*
 	border-radius: 6px;
 	background-color: #fff;
 	-webkit-box-shadow: 0px 0px 0px 8px rgba(0,0,0,0.1),  0px 0px 0px 2px rgba(0,0,0,0.3);
-	-moz-box-shadow: 0px 0px 0px 8px rgba(0,0,0,0.1), 0px 0px 0px 2px rgba(0,0,0,0.3); 
-	-o-box-shadow: 0px 0px 0px 8px rgba(0,0,0,0.1), 0px 0px 0px 2px rgba(0,0,0,0.3); 
+	-moz-box-shadow: 0px 0px 0px 8px rgba(0,0,0,0.1), 0px 0px 0px 2px rgba(0,0,0,0.3);
+	-o-box-shadow: 0px 0px 0px 8px rgba(0,0,0,0.1), 0px 0px 0px 2px rgba(0,0,0,0.3);
 	-khtml-box-shadow: 0px 0px 0px 8px rgba(0,0,0,0.1), 0px 0px 0px 2px rgba(0,0,0,0.3);
 	box-shadow: 0px 0px 0px 8px rgba(0,0,0,0.1), 0px 0px 0px 2px rgba(0,0,0,0.3);
 }
 .PopWindowHeader {
 	opacity:0.8;
-	font-size:22px;   
+	font-size:22px;
 }
 .PopCloseEmblem {
 	cursor: pointer;
@@ -1114,13 +1119,13 @@ this WILL NOT WORK in Firefox or IE.  Only a loss of style will result however.*
 	padding: 6px;
 	-moz-border-radius: 6px;
 	border-radius: 6px;
-	font-size:14px;   
+	font-size:14px;
 	z-index: 5;
 	top:  -100%;
 	left: -100%;
 	-moz-box-shadow:    0px 2px 0px 0px rgba(0,0,0,0.5);
 	-webkit-box-shadow: 0px 2px 0px 0px rgba(0,0,0,0.5);
-	box-shadow:         0px 2px 0px 0px rgba(0,0,0,0.5);  
+	box-shadow:         0px 2px 0px 0px rgba(0,0,0,0.5);
 }
 .InfoButton {
 	font-size:12px;
@@ -1138,7 +1143,7 @@ this WILL NOT WORK in Firefox or IE.  Only a loss of style will result however.*
 	cursor: pointer; color: #d79035;
 }
 .RCActionList {
-	line-height:150%; 
+	line-height:150%;
 	list-style-type: none;
 }
 .RCItem {
@@ -1201,23 +1206,23 @@ this WILL NOT WORK in Firefox or IE.  Only a loss of style will result however.*
 	color: #005c73;
 	opacity:0.5;
 	position:absolute;
-	top:0px;  
-	left:150px;  
+	top:0px;
+	left:150px;
 }
 #CurrTime{
 	font-size:15px;
 	color: #005c73;
 	position:absolute;
-	top:13px;  
-	left:150px; 
+	top:13px;
+	left:150px;
 }
 #CurrDate{
 	color: #005c73;
 	opacity:0.5;
 	font-size:13px;
 	position:absolute;
-	top:29px;  
-	left:150px; 
+	top:29px;
+	left:150px;
 }
 
 
@@ -1384,7 +1389,7 @@ this WILL NOT WORK in Firefox or IE.  Only a loss of style will result however.*
 }
 #Joystick {
 	display: none;
-}		
+}
 #AButton {
 	display: none;
 }
@@ -1459,31 +1464,31 @@ this WILL NOT WORK in Firefox or IE.  Only a loss of style will result however.*
 }
 
 .you {
-	float: left;   
-	margin: 5px 45px 5px 20px;         
+	float: left;
+	margin: 5px 45px 5px 20px;
 }
 
 .you::before {
 	box-shadow: -2px 2px 2px 0 rgba( 178, 178, 178, .4 );
-	left: -9px;           
+	left: -9px;
 }
 
 .me {
-	float: right;    
-	margin: 5px 20px 5px 45px;         
+	float: right;
+	margin: 5px 20px 5px 45px;
 }
 
 .me::before {
 	box-shadow: 2px -2px 2px 0 rgba( 178, 178, 178, .4 );
-	right: -9px;    
+	right: -9px;
 }
 .PlayerChatBubble {
 	background: white;
 	padding: 2px;
 	border-radius: 5px;
 	position: relative;
-	top: -110px;
-	left: 110px;
+	transform: translateX(100%) translateY(40px);
+	-webkit-transform: translateX(100%) translateY(40px);
 }
 .ChatBubbleMax {
 	max-width: 250px;
@@ -1493,13 +1498,9 @@ this WILL NOT WORK in Firefox or IE.  Only a loss of style will result however.*
 	background: white;
 	content: "\00a0";
 	position: absolute;
-	bottom: 1px;
 	left: -6px;
 	z-index: -1;
 	transform: rotate( 29deg ) skew( -35deg );
-	-moz-transform: rotate( 29deg ) skew( -35deg );
-	-ms-transform: rotate( 29deg ) skew( -35deg );
-	-o-transform: rotate( 29deg ) skew( -35deg );
 	-webkit-transform: rotate( 29deg ) skew( -35deg );
 	width: 20px;
 }
@@ -1531,7 +1532,7 @@ quoin graphic
 	left: 50%;
 }
 
-.circle {  
+.circle {
 	-webkit-transition: all .2s ease-in-out;
 	-moz-transition: all .2s ease-in-out;
 	-o-transition: all .2s ease-in-out;
@@ -1553,7 +1554,7 @@ quoin graphic
 	height: 50px;
 	line-height: 50px;
 }
-.parent {  
+.parent {
 	-webkit-transition: all .2s ease-in-out;
 	-moz-transition: all .2s ease-in-out;
 	-o-transition: all .2s ease-in-out;
@@ -1653,7 +1654,7 @@ quoin graphic
 	color: #d3d3d3;
 	opacity: 0.9;
 	text-shadow:
-	-1px -1px 0 #fff,  
+	-1px -1px 0 #fff,
 	1px -1px 0 #fff,
 	-1px 1px 0 #fff,
 	1px 1px 0 #fff;
@@ -1675,7 +1676,7 @@ quoin graphic
 	-webkit-animation: bounce 800ms 1;
 	-moz-animation:    bounce 800ms 1;
 	-o-animation:      bounce 800ms 1;
-	animation:         bounce 800ms 1; 
+	animation:         bounce 800ms 1;
 }
 @-webkit-keyframes bounce {
 	0% {
@@ -1892,7 +1893,7 @@ quoin graphic
 #RightColumn {
 	position: absolute;
 	left: 30%;
-	right: 20px;			
+	right: 20px;
 }
 #ItemName {
 	font-size: 1.5em;
@@ -1924,10 +1925,10 @@ quoin graphic
 	height: 1.5em;
 	border: none;
 }
-#NumToBuy::-webkit-inner-spin-button, 
-#NumToBuy::-webkit-outer-spin-button { 
-	-webkit-appearance: none; 
-	margin: 0; 
+#NumToBuy::-webkit-inner-spin-button,
+#NumToBuy::-webkit-outer-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
 }
 #ItemImageParent {
 	text-align: center;
@@ -1989,8 +1990,8 @@ quoin graphic
 	border-radius: 6px;
 	background-color: #fff;
 	-webkit-box-shadow: 0px 0px 0px 8px rgba(0,0,0,0.1),  0px 0px 0px 2px rgba(0,0,0,0.3);
-	-moz-box-shadow: 0px 0px 0px 8px rgba(0,0,0,0.1), 0px 0px 0px 2px rgba(0,0,0,0.3); 
-	-o-box-shadow: 0px 0px 0px 8px rgba(0,0,0,0.1), 0px 0px 0px 2px rgba(0,0,0,0.3); 
+	-moz-box-shadow: 0px 0px 0px 8px rgba(0,0,0,0.1), 0px 0px 0px 2px rgba(0,0,0,0.3);
+	-o-box-shadow: 0px 0px 0px 8px rgba(0,0,0,0.1), 0px 0px 0px 2px rgba(0,0,0,0.3);
 	-khtml-box-shadow: 0px 0px 0px 8px rgba(0,0,0,0.1), 0px 0px 0px 2px rgba(0,0,0,0.3);
 	box-shadow: 0px 0px 0px 8px rgba(0,0,0,0.1), 0px 0px 0px 2px rgba(0,0,0,0.3);
 }

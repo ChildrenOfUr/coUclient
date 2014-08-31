@@ -267,11 +267,7 @@ class Player
 			}
 		}
 
-		if(posY < 0)
-			posY = 0.0;
-
 		updateAnimation(dt);
-
 		updateTransform();
 
 		//check for collision with quoins
@@ -310,7 +306,7 @@ class Player
 			{
 				Rectangle avatarRect = new Rectangle(posX,posY,currentAnimation.width,currentAnimation.height);
 				if(!intersect(camera.visibleRect,avatarRect))
-				return;
+					return;
 			}
 
 			firstRender = false;
@@ -324,8 +320,9 @@ class Player
 				playerCanvas.style.height = currentAnimation.height.toString()+"px";
 				playerCanvas.width = currentAnimation.width;
 				playerCanvas.height = currentAnimation.height;
-				height = currentAnimation.height;
-				width = currentAnimation.width;
+				int x = -((currentAnimation.width-width)~/2);
+                int y = -((currentAnimation.height-height));
+                playerCanvas.style.transform = "translateX(${x}px) translateY(${y}px)";
 			}
 			else
 				playerCanvas.context2D.clearRect(0, 0, currentAnimation.width, currentAnimation.height);
@@ -383,13 +380,13 @@ class Player
 		String yattr = playerParentElement.attributes['translateY'];
 		num prevX, prevY, prevCamX = camera.getX(), prevCamY = camera.getY();
 		if(xattr != null)
-		prevX = num.parse(xattr);
+			prevX = num.parse(xattr);
 		else
-		prevX = 0;
+			prevX = 0;
 		if(yattr != null)
-		prevY = num.parse(yattr);
+			prevY = num.parse(yattr);
 		else
-		prevY = 0;
+			prevY = 0;
 
 		num translateX = posX, translateY = ui.gameScreenHeight - height;
 		num camX = camera.getX(), camY = camera.getY();

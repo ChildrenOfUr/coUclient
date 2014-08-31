@@ -1,7 +1,7 @@
 part of coUclient;
 
-String multiplayerServer = "ws://robertmcdermot.com:8282/playerUpdate";
-String streetEventServer = "ws://robertmcdermot.com:8282/streetUpdate";
+String multiplayerServer = "ws://$websocketServerAddress/playerUpdate";
+String streetEventServer = "ws://$websocketServerAddress/streetUpdate";
 String joined = "", creatingPlayer = "";
 WebSocket streetSocket;
 bool reconnect = true;
@@ -44,7 +44,7 @@ void sendJoinedMessage(String streetName, [String tsid])
 _setupStreetSocket(String streetName)
 {
 	streetSocket = new WebSocket(streetEventServer);
-	
+
 	streetSocket.onOpen.listen((_)
 	{
 		sendJoinedMessage(streetName);
@@ -69,7 +69,7 @@ _setupStreetSocket(String streetName)
 			document.body.append(VendorWindow.create(map));
 			return;
 		}
-		
+
 		(map["quoins"] as List).forEach((Map quoinMap)
 		{
 			if(quoinMap["remove"] == "true")
@@ -120,16 +120,16 @@ _setupStreetSocket(String streetName)
       				if(npc.animation.url != npcMap["url"]) //new animation
       				{
       					npc.ready = false;
-      					
+
       					List<int> frameList = [];
                   		for(int i=0; i<npcMap['numFrames']; i++)
                   			frameList.add(i);
-                  		
+
                   		npc.animation = new Animation(npcMap['url'],"npc",npcMap['numRows'],npcMap['numColumns'],frameList);
                   		npc.animation.load().then((_) => npc.ready = true);
-      					
+
       				}
-      				
+
       				npc.facingRight = npcMap["facingRight"];
       			}
 			}
@@ -156,7 +156,7 @@ _setupStreetSocket(String streetName)
 			reconnect = true;
 			return;
 		}
-		
+
 		joined = "";
 		//wait 5 seconds and try to reconnect
 		new Timer(new Duration(seconds:5),()
@@ -228,16 +228,16 @@ void createOtherPlayer(Map map)
 {
 	if(creatingPlayer == map['username'])
 		return;
-		
+
 	creatingPlayer = map['username'];
 	Player otherPlayer = new Player(map["username"]);
 	otherPlayer.loadAnimations().then((_)
 	{
 		updateOtherPlayer(map,otherPlayer);
-        	
+
         otherPlayers[map["username"]] = otherPlayer;
         querySelector("#PlayerHolder").append(otherPlayer.playerParentElement);
-        
+
         creatingPlayer = "";
 	});
 }
@@ -246,7 +246,7 @@ updateOtherPlayer(Map map, Player otherPlayer)
 {
 	if(otherPlayer.currentAnimation == null)
     	otherPlayer.currentAnimation = otherPlayer.animations[map["animation"]];
-    	
+
 	//set movement bools
 	if(map['jumping'] != null)
 		otherPlayer.jumping = map['jumping'];
@@ -254,14 +254,14 @@ updateOtherPlayer(Map map, Player otherPlayer)
 		otherPlayer.currentAnimation.paused = !map['activeClimb'];
 	else
 		otherPlayer.currentAnimation.paused = false;
-	
+
 	//set animation state
 	if(map["animation"] != otherPlayer.currentAnimation.animationName)
 	{
 		otherPlayer.currentAnimation.reset();
 		otherPlayer.currentAnimation = otherPlayer.animations[map["animation"]];
 	}
-	
+
 	otherPlayer.playerParentElement.id = "player-"+map["username"].replaceAll(' ','_');
 	otherPlayer.playerParentElement.style.position = "absolute";
 	if(map['username'] != otherPlayer.username)
@@ -269,11 +269,11 @@ updateOtherPlayer(Map map, Player otherPlayer)
 		otherPlayer.username = map['username'];
 		otherPlayer.loadAnimations();
 	}
-	
+
 	//set player position
 	otherPlayer.posX = double.parse(map["xy"].split(',')[0]);
 	otherPlayer.posY = double.parse(map["xy"].split(',')[1]);
-	
+
 	if(map["bubbleText"] != null)
 	{
 		if(otherPlayer.chatBubble == null)
@@ -285,7 +285,7 @@ updateOtherPlayer(Map map, Player otherPlayer)
 		otherPlayer.chatBubble.bubble.remove();
 		otherPlayer.chatBubble = null;
 	}
-	
+
 	bool facingRight = false;
 	if(map["facingRight"] == "true" || map['facingRight'] == true)
 		facingRight = true;
@@ -296,7 +296,7 @@ void removeOtherPlayer(String username)
 {
 	if(username == null)
 		return;
-	
+
 	otherPlayers.remove(username);
 	Element otherPlayer = querySelector("#player-"+username.replaceAll(' ','_'));
 	if(otherPlayer != null)
@@ -307,14 +307,14 @@ void addQuoin(Map map)
 {
 	if(currentStreet == null)
     	return;
-	
+
 	quoins[map['id']] = new Quoin(map);
 }
 void addNPC(Map map)
 {
 	if(currentStreet == null)
 		return;
-	
+
 	entities[map['id']] = new NPC(map);
 }
 
@@ -322,7 +322,7 @@ void addPlant(Map map)
 {
 	if(currentStreet == null)
 		return;
-	
+
 	entities[map['id']] = new Plant(map);
 }
 
@@ -330,7 +330,7 @@ void addItem(Map map)
 {
 	if(currentStreet == null)
 		return;
-	
+
 	ImageElement item = new ImageElement(src:map['iconUrl']);
 	item.onLoad.first.then((_)
 	{
@@ -350,13 +350,13 @@ void addItem(Map map)
 }
 
 void addItemToInventory(Map map)
-{	
+{
 	ImageElement img = new ImageElement(src:map['item']['spriteUrl']);
 	img.onLoad.first.then((_)
 	{
 		//do some fancy 'put in bag' animation that I can't figure out right now
 		//animate(img,map).then((_) => putInInventory(img,map));
-		
+
 		putInInventory(img,map);
 	});
 }
@@ -369,7 +369,7 @@ void subtractItemFromInventory(Map map)
 	{
 		if(remaining < 1)
 			break;
-		
+
 		int count = int.parse(item.attributes['count']);
 		if(count > map['count'])
 		{
@@ -378,7 +378,7 @@ void subtractItemFromInventory(Map map)
 		}
 		else
 			item.parent.children.clear();
-		
+
 		remaining -= count;
 	}
 }
@@ -388,7 +388,7 @@ Future animate(ImageElement i, Map map)
 	Completer c = new Completer();
 	Element fromObject = querySelector("#${map['fromObject']}");
 	DivElement item = new DivElement();
-	
+
 	num fromX = num.parse(fromObject.attributes['translatex']) - camera.getX();
 	num fromY = num.parse(fromObject.attributes['translatey']) - camera.getY() - fromObject.clientHeight;
 	item.className = "item";
@@ -399,7 +399,7 @@ Future animate(ImageElement i, Map map)
 	item.style.transform = "translate(${fromX}px,${fromY}px)";
 	print("from: " + item.style.transform);
 	querySelector("#GameScreen").append(item);
-	
+
 	//animation seems to happen instantaneously if there isn't a delay
 	//between adding the element to the document and changing its properties
 	//even this 1 millisecond delay seems to fix that - strange
@@ -412,7 +412,7 @@ Future animate(ImageElement i, Map map)
 	new Timer(new Duration(seconds:2), ()
     {
 		item.style.transform = "translate(${CurrentPlayer.posX}px,${CurrentPlayer.posY}px) scale(.5)";
-		
+
 		//wait 1 second for animation to finish and then remove
 		new Timer(new Duration(seconds:1), ()
     	{
@@ -420,7 +420,7 @@ Future animate(ImageElement i, Map map)
     		c.complete();
     	});
     });
-	
+
 	return c.future;
 }
 
@@ -431,23 +431,23 @@ void putInInventory(ImageElement img, Map map)
 	int stacksTo = i['stacksTo'];
 	Element item;
 	bool found = false;
-	
+
 	String cssName = name.replaceAll(" ","_");
 	for(Element item in querySelector("#Inventory").querySelectorAll(".item-$cssName"))
 	{
 		int count = int.parse(item.attributes['count']);
-		
+
 		if(count < stacksTo)
 		{
 			count++;
     		int offset = count;
     		if(i['iconNum'] != null && i['iconNum'] < count)
     			offset = i['iconNum'];
-    		
+
     		num width = img.width/i['iconNum'];
     		item.style.backgroundPosition = "calc(100% / ${i['iconNum'] - 1} * ${offset - 1}";
     		item.attributes['count'] = count.toString();
-    		
+
     		Element itemCount = item.parent.querySelector(".itemCount");
     		if(itemCount != null)
     			itemCount.text = count.toString();
@@ -458,7 +458,7 @@ void putInInventory(ImageElement img, Map map)
     				..className = "itemCount";
     			item.parent.append(itemCount);
     		}
-    		
+
     		found = true;
     		break;
 		}
@@ -474,7 +474,7 @@ findNewSlot(Element item, Map map, ImageElement img)
 	bool found = false;
 	Map i = map['item'];
 	int stacksTo = i['stacksTo'];
-	
+
 	//find first free item slot
 	for(Element barSlot in querySelector("#InventoryBar").children)
 	{
@@ -482,14 +482,14 @@ findNewSlot(Element item, Map map, ImageElement img)
 		{
 			String cssName = i['name'].replaceAll(" ","_");
 			item = new DivElement();
-			
+
 			//determine what we need to scale the sprite image to in order to fit
 			num scale = 1;
 			if(img.height > img.width/i['iconNum'])
 				scale = (barSlot.contentEdge.height-10)/img.height;
 			else
 				scale = (barSlot.contentEdge.width-10)/(img.width/i['iconNum']);
-			
+
 			item.style.width = (barSlot.contentEdge.width-10).toString()+"px";
 			item.style.height = (barSlot.contentEdge.height-10).toString()+"px";
 			item.style.backgroundImage = 'url(${i['spriteUrl']})';
@@ -501,7 +501,7 @@ findNewSlot(Element item, Map map, ImageElement img)
 			item.attributes['name'] = cssName;
 			item.attributes['count'] = "1";
 			item.attributes['itemMap'] = JSON.encode(i);
-			
+
 			item.onContextMenu.listen((MouseEvent event)
 			{
 				List<List> actions = [];
@@ -527,16 +527,16 @@ findNewSlot(Element item, Map map, ImageElement img)
 					document.body.append(RightClickMenu.create(event, "Options", i['description'], actions));
 			});
 			barSlot.append(item);
-			
+
 			item.classes.add("bounce");
 			//remove the bounce class so that it's not still there for a drag and drop event
 			new Timer(new Duration(seconds:1),() => item.classes.remove("bounce"));
-						
+
 			found = true;
 			break;
 		}
 	}
-		
+
 	//there was no space in the player's pack, drop the item on the ground instead
 	if(!found)
 		sendAction("drop",i['name'].replaceAll(" ",""),getDropMap(i,1));
@@ -551,6 +551,6 @@ Map getDropMap(Map item, int count)
 		..['y'] = CurrentPlayer.posY+CurrentPlayer.height/2
 		..['streetName'] = currentStreet.label
 		..['tsid'] = currentStreet._data['tsid'];
-	
+
 	return dropMap;
 }

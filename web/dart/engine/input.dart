@@ -9,7 +9,7 @@ class Input
 	bool ignoreKeys = false, touched = false, clickUsed = false;
 	StreamSubscription keyPressSub, keyDownSub, menuKeyListener;
 	DateTime lastSelect = new DateTime.now();
-  
+
     Input()
 	{
 		leftKey = false;
@@ -24,7 +24,7 @@ class Input
 	init()
 	{
 		setupKeyBindings();
-		
+
 		document.onFullscreenChange.listen((_)
 		{
 			if (document.fullscreenElement != null)
@@ -40,7 +40,7 @@ class Input
 			    querySelectorAll('.FullscreenResetGlyph').style.display = 'none';
 		    }
 		});
-	  
+
 		//Handle volume slider changes
 		InputElement volumeSlider = querySelector('#VolumeSlider');
 		volumeSlider.onChange.listen((_)
@@ -52,7 +52,7 @@ class Input
 		{
 			localStorage["GraphicsBlur"] = graphicsBlur.checked.toString();
 		});
-	      
+
 		//handle chat input getting focused/unfocused so that the character doesn't move while typing
 		ElementList chatInputs = querySelectorAll('.Typing');
 		chatInputs.onFocus.listen((_)
@@ -63,7 +63,7 @@ class Input
 		{
 			ignoreKeys = false;
 		});
-	     
+
 	    //Handle player input
 	    //KeyUp and KeyDown are neccesary for preventing weird movement glitches
 	    //keyCode's could be configurable in the future
@@ -71,7 +71,7 @@ class Input
 		{
 	    	if(ignoreKeys || menuKeyListener != null || querySelector(".fill") != null)
 	    		return;
-	    	
+
 			if ((k.keyCode == keys["UpBindingPrimary"] || k.keyCode == keys["UpBindingAlt"])) //up arrow or w
 				upKey = true;
 			if ((k.keyCode == keys["DownBindingPrimary"] || k.keyCode == keys["DownBindingAlt"])) //down arrow or s
@@ -87,26 +87,26 @@ class Input
 				doObjectInteraction();
 			}
 	    });
-	    
+
 	    document.onKeyUp.listen((KeyboardEvent k)
 		{
 	    	if(ignoreKeys)
         		return;
-	    	
-			if ((k.keyCode == keys["UpBindingPrimary"] || k.keyCode == keys["UpBindingAlt"])) //up arrow or w 
+
+			if ((k.keyCode == keys["UpBindingPrimary"] || k.keyCode == keys["UpBindingAlt"])) //up arrow or w
 				upKey = false;
-			if ((k.keyCode == keys["DownBindingPrimary"] || k.keyCode == keys["DownBindingAlt"])) //down arrow or s 
+			if ((k.keyCode == keys["DownBindingPrimary"] || k.keyCode == keys["DownBindingAlt"])) //down arrow or s
 				downKey = false;
-			if ((k.keyCode == keys["LeftBindingPrimary"] || k.keyCode == keys["LeftBindingAlt"])) //left arrow or a 
+			if ((k.keyCode == keys["LeftBindingPrimary"] || k.keyCode == keys["LeftBindingAlt"])) //left arrow or a
 				leftKey = false;
-			if ((k.keyCode == keys["RightBindingPrimary"] || k.keyCode == keys["RightBindingAlt"])) //right arrow or d 
+			if ((k.keyCode == keys["RightBindingPrimary"] || k.keyCode == keys["RightBindingAlt"])) //right arrow or d
 				rightKey = false;
-			if ((k.keyCode == keys["JumpBindingPrimary"] || k.keyCode == keys["JumpBindingAlt"])) //spacebar 
+			if ((k.keyCode == keys["JumpBindingPrimary"] || k.keyCode == keys["JumpBindingAlt"])) //spacebar
 				jumpKey = false;
-			if ((k.keyCode == keys["ActionBindingPrimary"] || k.keyCode == keys["ActionBindingAlt"])) //enter 
+			if ((k.keyCode == keys["ActionBindingPrimary"] || k.keyCode == keys["ActionBindingAlt"])) //enter
             	actionKey = false;
 	    });
-		
+
 		//only for mobile version
 		Joystick joystick = new Joystick(querySelector('#Joystick'),querySelector('#Knob'),deadzoneInPercent:.2);
 		joystick.onMove.listen((_)
@@ -123,7 +123,7 @@ class Input
     			if(joystick.RIGHT) rightKey = true;
     			else rightKey = false;
 			}
-			
+
 			Element clickMenu = querySelector("#RightClickMenu");
 			if(clickMenu != null)
 			{
@@ -145,13 +145,13 @@ class Input
 		document.onTouchStart.listen((TouchEvent event)
 		{
 			Element target = event.target;
-			
+
 			if(target.id == "AButton")
 			{
 				event.preventDefault(); //to disable long press calling the context menu
 				jumpKey = true;
 			}
-			
+
 			if(target.id == "BButton")
 			{
 				event.preventDefault(); //to disable long press calling the context menu
@@ -164,26 +164,26 @@ class Input
 		document.onTouchEnd.listen((TouchEvent event)
 		{
 			Element target = event.target;
-			
+
 			if(target.id == "AButton")
 			{
 				jumpKey = false;
 			}
 		});
-		
+
 		document.onClick.listen((MouseEvent event) => clickOrTouch(event,null));
 		document.onTouchStart.listen((TouchEvent event) => clickOrTouch(null,event));
-		
+
 		new TouchScroller(querySelector('#InventoryBar'),TouchScroller.HORIZONTAL);
 		new TouchScroller(querySelector('#InventoryBag'),TouchScroller.HORIZONTAL);
 		//end mobile specific stuff
-		
+
 		window.onMessage.listen((MessageEvent event)
 		{
 			Map street = JSON.decode(event.data);
 			String label = street['label'];
 			String tsid = street['tsid'];
-			
+
 			//send changeStreet to chat server
 			if(chat.tabContentMap["Local Chat"].webSocket.readyState == WebSocket.OPEN)
 			{
@@ -195,7 +195,7 @@ class Input
 				map["oldStreet"] = currentStreet.label;
 				chat.tabContentMap["Local Chat"].webSocket.send(JSON.encode(map));
 			}
-			
+
 			streetLoadingImage.src = street['loading_image']['url'];
 			streetLoadingImage.onLoad.first.then((_)
 			{
@@ -209,7 +209,7 @@ class Input
     			});
 			});
 		});
-		
+
 		//listen for right-clicks on entities that we're close to
 		document.body.onContextMenu.listen((MouseEvent e)
 		{
@@ -229,14 +229,14 @@ class Input
 				if(x > rect.left && x < rect.right && y > rect.top && y < rect.bottom)
 					ids.add(id);
 			});
-			
+
 			if(ids.length > 0)
 				doObjectInteraction(e,ids);
 		});
-		
+
 		playerInput = this;
     }
-	
+
 	void doObjectInteraction([MouseEvent e, List<String> ids])
 	{
 		if(CurrentPlayer.intersectingObjects.length > 0 && querySelector('#RightClickMenu') == null && querySelector(".fill") == null)
@@ -248,16 +248,16 @@ class Input
 				createMultiEntityWindow();
 		}
 	}
-	
+
 	void createMultiEntityWindow()
 	{
 		Element oldWindow = querySelector("#InteractionWindow");
 		if(oldWindow != null)
 			oldWindow.remove();
-		
+
 		document.body.append(InteractionWindow.create());
 	}
-	
+
 	void interactWithObject(String id)
 	{
 		Element element = querySelector("#$id");
@@ -277,13 +277,13 @@ class Input
 					enabled = hasRequirements(actionMap['requires']);
 					error = getRequirementString(actionMap['requires']);
 				}
-				actions.add([capitalizeFirstLetter(actionMap['action'])+"|"+actionMap['actionWord']+"|${actionMap['timeRequired']}|$enabled|$error",element.id,"sendAction ${actionMap['action']} ${element.id}"]);
+				actions.add([capitalizeFirstLetter(actionMap['action'],eachWord:true)+"|"+actionMap['actionWord']+"|${actionMap['timeRequired']}|$enabled|$error",element.id,"sendAction ${actionMap['action']} ${element.id}"]);
 			});
 		}
 		if(!allDisabled)
 			showClickMenu(null,element.attributes['type'],"Desc",actions);
 	}
-	
+
 	setupKeyBindings()
 	{
 		//this prevents 2 keys from being set at once
@@ -291,7 +291,7 @@ class Input
 			keyPressSub.cancel();
 		if(keyDownSub != null)
 			keyDownSub.cancel();
-		
+
 		//set up key bindings
 		keys.forEach((String action, int keyCode)
 		{
@@ -303,7 +303,7 @@ class Input
 			}
 			else
 				localStorage[action] = keys[action].toString();
-			
+
 			String key = fromKeyCode(keys[action]);
 			if(key == "")
 			{
@@ -316,7 +316,7 @@ class Input
 				querySelector("#$action").text = key;
 		});
 	}
-	
+
 	clickOrTouch(MouseEvent mouseEvent, TouchEvent touchEvent)
 	{
 		//don't handle too many touch events too fast
@@ -329,12 +329,12 @@ class Input
 			touched = false;
 		});
 		Element target;
-		
+
 		if(mouseEvent != null)
 			target = mouseEvent.target;
 		else
 			target = touchEvent.target;
-		
+
 		// Handle the console opener/closer
 		if(target.id == "ConsoleGlyph")
 		{
@@ -347,7 +347,7 @@ class Input
 		{
 			hideConsole(1);
 		}
-		
+
 		// Handle the fullscreen Requests
 		if(target.className.contains("FullscreenGlyph"))
 		{
@@ -357,7 +357,7 @@ class Input
 		{
 			document.exitFullscreen();
 		}
-		
+
 		//Toggle mute and previous volume when volume button clicked
 		//parent because it contains different elements depending on mute state
 		if(target.parent.id == "AudioGlyph" || target.parent.id == "MobileAudioGlyph")
@@ -367,7 +367,7 @@ class Input
 				mute = '1';
 			ui._setMute(mute);
 		}
-		
+
 		//handle settings menu
 		if(target.id == "SettingsGlyph" || target.id == "CloseSettings")
 		{
@@ -381,13 +381,13 @@ class Input
 			}
 			toggleSettings();
 		}
-		
+
 		//handle key re-binds
 		if(target.classes.contains("KeyBindingOption"))
 		{
 			if(!clickUsed)
 				setupKeyBindings();
-			
+
 			target.text = "(press key to change)";
 
 			//we need to use .listen instead of .first.then so that if the user does not press a key
@@ -404,7 +404,7 @@ class Input
 						keyPressSub.cancel();
 	    				KeyEvent keyEvent = new KeyEvent.wrap(event);
 	    				target.text = new String.fromCharCode(keyEvent.charCode).toUpperCase();
-	    				keys[target.id] = keyCode; 
+	    				keys[target.id] = keyCode;
 	    				//store keycode and charcode
 	    				localStorage[target.id] = keyCode.toString()+"."+keyEvent.charCode.toString();
 	    			});
@@ -417,7 +417,7 @@ class Input
 				}
 			});
 		}
-		
+
 		//handle chat settings menu
 		if(target.id == "ChatSettingsIcon")
 		{
@@ -435,7 +435,7 @@ class Input
 			else
 				chatMenu.hidden = true;
 		}
-		
+
 		//handle changing streets via exit signs
 		if(target.className == "ExitLabel")
 		{
@@ -448,14 +448,14 @@ class Input
 			playerTeleFrom = target.attributes['from'];
 			document.body.append(loadStreet);
 		}
-		
+
 		//show and hide map
 		if(target.id == "MapGlyph")
 		{
 			if(querySelector('#MapWindow').hidden)
 			{
 			  ui._createMap();
-				showMap(); 
+				showMap();
 			}
 			else
 				hideMap(1);
@@ -464,7 +464,7 @@ class Input
 		{
 				hideMap(1);
 		}
-		
+
 		//mobile css toggle
 		if(target.id == "ThemeSwitcher")
 		{
@@ -489,8 +489,8 @@ class Input
 				resize();
 			}
 		}
-		
-		
+
+
 		//////////////////////////////////////////
 		///mobile specific click targets
 		//////////////////////////////////////////
@@ -499,23 +499,23 @@ class Input
 			//get channel name depending on which element was clicked
 			String channelName = target.id.substring(target.id.indexOf("-")+1).replaceAll("_", " ");
 			querySelector('#ChatChannelTitle').text = channelName;
-			
+
 			//reset unreadMessages
 			chat.tabContentMap[channelName].resetMessages(mouseEvent);
-			
+
 			//
 			TextInputElement input = querySelector('#MobileChatInput') as TextInputElement;
 			chat.tabContentMap[channelName].processInput(input);
-			
+
 			//bring up the right screen
 			querySelector('#ChatScreen').hidden = false;
 			querySelector('#ChannelSelectorScreen').hidden = true;
-			
+
 			//send all conversations to z-index=0 except the one we want to see
 			querySelectorAll('.Conversation').style.zIndex = "0";
 			querySelector('#conversation-'+channelName.replaceAll(" ", "_")).style.zIndex = "1";
 		}
-		
+
 		if(target.id == "BackFromChat")
 		{
 			//set all conversation's to z-index=0 to determine visibility later
@@ -523,38 +523,38 @@ class Input
 			querySelector('#ChatScreen').hidden = true;
 			querySelector('#ChannelSelectorScreen').hidden = false;
 		}
-		
+
 		if(target.id == "BackFromChannelSelector")
 		{
 			querySelector('#ChannelSelectorScreen').hidden = true;
 			querySelector('#MainScreen').hidden = false;
 			resize();
 		}
-		
+
 		if(target.id == "ChatBubble" || target.id == "ChatBubbleText")
 		{
 			//if chat is reconnecting, don't do anything
 			if(querySelector('#ChatBubbleDisconnect').style.display == "inline-block")
 				return;
-			
+
 			querySelector('#ChannelSelectorScreen').hidden = false;
 			querySelector('#MainScreen').hidden = true;
 		}
-		
+
 		if(target.id == "SendButton")
 		{
 			//get name of channel this text should be sent to
 			//then process the input using the associated TabContent object
 			String channelName = querySelector('#ChatChannelTitle').text;
 			TextInputElement input = querySelector('#MobileChatInput') as TextInputElement;
-			
+
 			if(input.value.trim().length == 0) //don't allow for blank messages
 				return;
-			
+
 			chat.tabContentMap[channelName].parseInput(input.value);
 			input.value = '';
 		}
-		
+
 		if(target.id == "InventoryTitle")
 		{
 			Element drawer = querySelector("#InventoryDrawer");
@@ -564,22 +564,22 @@ class Input
 				drawer.style.bottom = "0px";
 		}
 	}
-	
+
 	// Right-click menu functions
-	hideClickMenu(Element window) 
+	hideClickMenu(Element window)
 	{
 		if(window != null)
 			window.remove();
 	}
-	
+
 	showClickMenu(MouseEvent Click, String title, String description, List<List> options)
 	{
 		hideClickMenu(querySelector('#RightClickMenu'));
 		document.body.append(RightClickMenu.create(Click,title,description,options));
-		
+
 		Element clickMenu = querySelector('#RightClickMenu');
         Element list = querySelector('#RCActionList');
-		
+
 		menuKeyListener = document.onKeyDown.listen((KeyboardEvent k)
 		{
 			if((k.keyCode == keys["UpBindingPrimary"] || k.keyCode == keys["UpBindingAlt"]) && !ignoreKeys) //up arrow or w and not typing
@@ -600,7 +600,7 @@ class Input
 			stopMenu(clickMenu);
 		});
 	}
-	
+
 	void selectUp(Element menu, String className)
 	{
 		List<Element> options = menu.children;
@@ -614,10 +614,10 @@ class Input
 			options[options.length-1].classes.add(className);
 		else
 			options[removed-1].classes.add(className);
-		
+
 		lastSelect = new DateTime.now();
 	}
-	
+
 	void selectDown(Element menu, String className)
 	{
 		List<Element> options = menu.children;
@@ -631,10 +631,10 @@ class Input
 			options[0].classes.add(className);
 		else
 			options[removed+1].classes.add(className);
-		
+
 		lastSelect = new DateTime.now();
 	}
-	
+
 	void stopMenu(Element window)
 	{
 		if(menuKeyListener != null)
@@ -644,7 +644,7 @@ class Input
 		}
         hideClickMenu(window);
 	}
-	
+
 	void doAction(Element list, Element window, String className)
 	{
 		for(Element element in list.children)

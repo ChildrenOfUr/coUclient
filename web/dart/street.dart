@@ -81,7 +81,8 @@ class Street
 		{
 			for(Map deco in layer['decos'])
 			{
-				if(!decosToLoad.contains('http://childrenofur.com/locodarto/scenery/' + deco['filename'] + '.png')) decosToLoad.add('http://childrenofur.com/locodarto/scenery/' + deco['filename'] + '.png');
+				if(!decosToLoad.contains('http://childrenofur.com/locodarto/scenery/' + deco['filename'] + '.png'))
+					decosToLoad.add('http://childrenofur.com/locodarto/scenery/' + deco['filename'] + '.png');
 			}
 		}
 
@@ -174,7 +175,7 @@ class Street
 				for(Map wall in layer['walls'])
 					walls.add(new Wall(wall, layer, groundY));
 
-				//if(showCollisionLines)
+				if(showCollisionLines)
 					showLineCanvas();
 
 				for(Map signpost in layer['signposts'])

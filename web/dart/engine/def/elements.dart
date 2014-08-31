@@ -1,5 +1,7 @@
 part of coUclient;
 
+String websocketServerAddress = 'localhost:8282';
+
 // Game Screen
 Element gameScreen = querySelector('#GameScreen');
 DivElement layers = querySelector('#Layers');

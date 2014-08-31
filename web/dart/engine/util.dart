@@ -7,13 +7,13 @@ part of coUclient;
 //in more than one place
 
 /**
- * 
+ *
  * Counts the number of items of type [item] that the player currently has in their pack.
  * If the items are spread across more than one inventory slot, this will return the sum
  * of all slots.
- * 
+ *
  * For example, if the player has 50 Chunks of Beryl in 3 slots, then this will return 150
- * 
+ *
  **/
 int getNumItems(String item)
 {
@@ -25,31 +25,57 @@ int getNumItems(String item)
 		if(!item.classes.contains('dnd-dragging'))
 			count += int.parse(item.attributes['count']);
 	}
-	
+
     return count;
 }
 
 /**
- * 
+ *
  * A simple function to capitalize the first letter of a string.
- * 
+ * If [eachWord] is true, it will capitalize the first letter of all words (seperated by [seperator])
+ *
  **/
-String capitalizeFirstLetter(String string)
+String capitalizeFirstLetter(String string, {bool eachWord: false, String seperator: ' '})
 {
-    return string[0].toUpperCase() + string.substring(1);
+	if(eachWord)
+	{
+		String newString = '';
+		string.split(seperator).forEach((String sub) => newString += '${capitalizeFirstLetter(sub)}$seperator');
+		return newString;
+	}
+	else
+    	return string[0].toUpperCase() + string.substring(1);
+}
+
+String makeMethodName(String str)
+{
+	String newString = '';
+	List<String> parts = str.split(' ');
+	newString += parts[0];
+
+	if(parts.length > 1)
+	{
+		for(int i=1; i<parts.length; i++)
+		{
+			if(parts[i].trim() != '')
+        		newString += capitalizeFirstLetter(parts[i]);
+		}
+	}
+
+	return newString;
 }
 
 /**
- * 
+ *
  * This function will determine if a user has the required items in order to perform an action.
- * 
+ *
  * For example, if the user is trying to mine a rock, this will take in a List<Map> which looks like
- * 
+ *
  * [{"num":1,"of":["Pick","Fancy Pick"]}]
- * 
+ *
  * ...meaning that the player must have 1 of either a Pick or Fancy Pick in their bags in order
  * to perform the action.
- * 
+ *
  **/
 bool hasRequirements(List<Map> requires)
 {
@@ -69,9 +95,9 @@ bool hasRequirements(List<Map> requires)
 }
 
 /**
- * 
+ *
  * This function will generate a string that shows what the requirements are for a certain action.
- * 
+ *
  **/
 String getRequirementString(List<Map> requires)
 {

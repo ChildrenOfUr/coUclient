@@ -5,15 +5,15 @@ class RightClickMenu
 	static Element create(MouseEvent Click, String title, String description, List<List> options)
 	{
 		DivElement menu = new DivElement()..id="RightClickMenu";
-		
+
 		DivElement infoButton = new DivElement()..className="InfoButton"..text="Info";
 		SpanElement titleElement = new SpanElement()..id="ClickTitle"..text=title;
 		BRElement br = new BRElement();
 		SpanElement desc = new SpanElement()..id="ClickDesc"..className="soft"..text=description;
 		DivElement actionList = new DivElement()..id="RCActionList";
-		
-		menu..append(infoButton)..append(titleElement)..append(br)..append(desc)..append(actionList);   
-				
+
+		menu..append(infoButton)..append(titleElement)..append(br)..append(desc)..append(actionList);
+
 		int x,y;
 		if(Click != null)
 		{
@@ -49,13 +49,13 @@ class RightClickMenu
 		{
 			DivElement menuitem = new DivElement();
 			menuitem..classes.add('RCItem')..text = (option[0] as String).split("|")[0];
-			
+
 			if((option[0] as String).split("|")[3] == "true")
 			{
 		        menuitem..onClick.listen((_)
 				{
 		        	int timeRequired = int.parse((option[0] as String).split("|")[2]);
-		        	
+
 					SpanElement outline = new SpanElement()
 						..text = (option[0] as String).split("|")[1]
 						..className = "border"
@@ -70,16 +70,17 @@ class RightClickMenu
 					document.body..append(outline)..append(fill);
 					//start the "fill animation"
 					fill.style.width = outline.clientWidth.toString()+"px";
-					
-					StreamSubscription escListener;					
-					Timer miningTimer = new Timer(new Duration(milliseconds:timeRequired+300), () 
+
+					StreamSubscription escListener;
+					Timer miningTimer = new Timer(new Duration(milliseconds:timeRequired+300), ()
 					{
 						outline.remove();
 						fill.remove();
 						Map arguments = null;
 						if(option.length > 3)
 							arguments = option[3];
-						sendAction((option[0] as String).split("|")[0].toLowerCase(),option[1],arguments);
+						String methodName = makeMethodName((option[0] as String).split("|")[0].toLowerCase());
+						sendAction(methodName,option[1],arguments);
 						escListener.cancel();
 						destroy();
 					});
@@ -118,19 +119,19 @@ class RightClickMenu
 		}
 		if(newOptions.length > 0 && !newOptions[0].classes.contains("RCItemDisabled"))
 			newOptions[0].classes.toggle("RCItemSelected");
-		
+
 		actionList.children.addAll(newOptions);
 		menu.style
 			..opacity = '1.0'
 			..position = 'absolute'
 			..top  = '$y' 'px'
 			..left = '$x' 'px';
-		
+
 		printConsole('Spawned rc window called "' + title + '".');
-        		
+
     	return menu;
 	}
-	
+
 	static void destroy()
 	{
 		Element menu = querySelector("#RightClickMenu");
