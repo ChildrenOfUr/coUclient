@@ -5,3 +5,4 @@ pubspec.lock
 APIKEYS.dart
 web/*.js*
 build/
+*.orig
