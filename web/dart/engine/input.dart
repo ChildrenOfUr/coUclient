@@ -180,7 +180,7 @@ class Input
 		
 		window.onMessage.listen((MessageEvent event)
 		{
-			Map<String,String> street = JSON.decode(event.data);
+			Map street = JSON.decode(event.data);
 			String label = street['label'];
 			String tsid = street['tsid'];
 			
@@ -196,8 +196,18 @@ class Input
 				chat.tabContentMap["Local Chat"].webSocket.send(JSON.encode(map));
 			}
 			
-			new Asset.fromMap(street,label);
-			new Street(label).load();
+			streetLoadingImage.src = street['loading_image']['url'];
+			streetLoadingImage.onLoad.first.then((_)
+			{
+				String hubName = new DataMaps().data_maps_hubs[street['hub_id']]()['name'];
+				mapLoadingContent.style.opacity = "1.0";
+				nowEntering.setInnerHtml('<h2>Entering</h2><h1>' + label + '</h1><h2>in ' + hubName/* + '</h2><h3>Home to: <ul><li>A <strong>Generic Goods Vendor</strong></li></ul>'*/);
+				new Timer(new Duration(seconds:1),()
+                {
+    				new Asset.fromMap(street,label);
+                    new Street(label).load();
+    			});
+			});
 		});
 		
 		//listen for right-clicks on entities that we're close to
@@ -430,7 +440,6 @@ class Input
 		if(target.className == "ExitLabel")
 		{
 			//make sure loading screen is visible during load
-			streetLoadingImage.src = "";
 			Element loadingScreen = querySelector('#MapLoadingScreen');
 			loadingScreen.className = "MapLoadingScreenIn";
 			loadingScreen.style.opacity = "1.0";
