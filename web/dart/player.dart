@@ -14,6 +14,7 @@ class Player
 	ChatBubble chatBubble = null;
 	Random rand = new Random();
 	Map<String,Rectangle> intersectingObjects = {};
+	int jumpcount = 0;
 
 	//for testing purposes
 	//if false, player can move around with wasd and arrows, no falling
@@ -27,27 +28,27 @@ class Player
 	{
 		bool found = false;
 		Platform leftmost = null;
-
+		
 		for(Platform platform in currentStreet.platforms)
 		{
 			if(leftmost == null || platform.start.x < leftmost.start.x)
 			leftmost = platform;
-
+			
 			if(platform.start.x == 1)
 			{
 				found = true;
 				posY = platform.start.y-height;
 			}
 		}
-
+		
 		if(!found)
-        	posY = 0.0;
+		posY = leftmost.start.y-height;
 
 		playerCanvas = new CanvasElement()
-			..className = "playerCanvas"
-			..style.overflow = "auto"
-			..style.margin = "auto";
-
+		..className = "playerCanvas"
+		..style.overflow = "auto"
+		..style.margin = "auto";
+		
 		playerName = new DivElement()
 		..classes.add("playerName")
 		..text = name != null ? name : chat.username;
@@ -56,12 +57,12 @@ class Player
 		..classes.add("playerParent")
 		..style.width = width.toString() + "px"
 		..style.height = height.toString() + "px";
-
+		
 		playerParentElement.append(playerName);
 		playerParentElement.append(playerCanvas);
 		gameScreen.append(playerParentElement);
 	}
-
+	
 	Future<List<Animation>> loadAnimations()
 	{
 		//need to get background images from some server for each player based on name
@@ -86,14 +87,14 @@ class Player
 
 		List<Future> futures = new List();
 		animations.forEach((String name,Animation animation) => futures.add(animation.load()));
-
+		
 		return Future.wait(futures);
 	}
 
 	update(double dt)
-	{
+	{	
 		num cameFrom = posY;
-
+		
 		//show chat message if it exists and decrement it's timeToLive
 		if(chatBubble != null)
 		{
@@ -108,7 +109,7 @@ class Player
 				playerParentElement.append(chatBubble.bubble);
 			}
 		}
-
+		
 		if(doPhysicsApply && playerInput.upKey == true)
 		{
 			bool found = false;
@@ -120,7 +121,7 @@ class Player
 					//if our feet are above the ladder, stop climbing
 					if(playerRect.top+playerRect.height < ladder.boundary.top)
 					break;
-
+					
 					posY -= speed/4 * dt;
 					climbingUp = true;
 					activeClimb = true;
@@ -136,7 +137,7 @@ class Player
 				activeClimb = false;
 			}
 		}
-
+		
 		if(doPhysicsApply && playerInput.downKey == true)
 		{
 			bool found = false;
@@ -148,7 +149,7 @@ class Player
 					//if our feet are below the ladder, stop climbing
 					if(playerRect.top+playerRect.height > ladder.boundary.top+ladder.boundary.height)
 					break;
-
+					
 					posY += speed/4 * dt;
 					climbingDown = true;
 					activeClimb = true;
@@ -164,7 +165,7 @@ class Player
 				activeClimb = false;
 			}
 		}
-
+		
 		if(doPhysicsApply && playerInput.downKey == false && playerInput.upKey == false)
 		{
 			bool found = false;
@@ -184,7 +185,7 @@ class Player
 			}
 			activeClimb = false;
 		}
-
+		
 		if(playerInput.rightKey == true)
 		{
 			posX += speed * dt;
@@ -199,20 +200,23 @@ class Player
 		}
 		else
 		moving = false;
-
 		//primitive jumping
 		if (playerInput.jumpKey == true && !jumping && !climbingUp && !climbingDown)
 		{
-			Random rand = new Random();
-			if(rand.nextInt(4) == 3)
-			yVel = -1200;
-			else
-			yVel = -900;
+			if(jumpcount == 2) {
+				yVel = -1200;
+				jumpcount = 0;
+			}
+			else {
+				jumpcount++;
+				new Timer(new Duration(seconds:4), () => jumpcount = 0);
+				yVel = -900;
+			}
 			jumping = true;
 		}
-
+		
 		//needs acceleration, some gravity const somewhere
-		//for jumps/falling
+		//for jumps/falling	    
 		if(doPhysicsApply && !climbingUp && !climbingDown)
 		{
 			yVel -= yAccel * dt;
@@ -225,12 +229,12 @@ class Player
 			if(playerInput.upKey == true)
 			posY -= speed * dt;
 		}
-
+		
 		if(posX < 0)
 		posX = 0.0;
 		if(posX > currentStreet.bounds.width - width)
 		posX = currentStreet.bounds.width - width;
-
+		
 		//check for collisions with platforms
 		if(doPhysicsApply && !climbingDown && yVel >= 0)
 		{
@@ -252,10 +256,10 @@ class Player
 				}
 			}
 		}
-
+		
 		if(posY < 0)
 		posY = 0.0;
-
+		
 		updateAnimation(dt);
 
 		updateTransform();
@@ -266,7 +270,7 @@ class Player
 		{
 			checkCollision(element);
 			});
-
+		
 		intersectingObjects = {};
 		querySelectorAll(".entity").forEach((Element element)
 		{
@@ -280,7 +284,7 @@ class Player
 			{
 				if(entities[element.id] != null)
 				entities[element.id].updateGlow(true);
-
+				
 				intersectingObjects[element.id] = entityRect;
 			}
 			else
@@ -301,9 +305,9 @@ class Player
 				if(!intersect(camera.visibleRect,avatarRect))
 				return;
 			}
-
+			
 			firstRender = false;
-
+			
 			//it's not obvious, but setting the width and/or height erases the current canvas as well
 			//it is necessary to do this in order to prevent the player from moving within the frame
 			//because the aniation sizes are different (walk vs idle, etc.)
@@ -316,13 +320,13 @@ class Player
 			}
 			else
 			playerCanvas.context2D.clearRect(0, 0, currentAnimation.width, currentAnimation.height);
-
+			
 			Rectangle destRect = new Rectangle(0,0,currentAnimation.width,currentAnimation.height);
 			playerCanvas.context2D.drawImageToRect(currentAnimation.spritesheet, destRect, sourceRect: currentAnimation.sourceRect);
 			currentAnimation.dirty = false;
 		}
 	}
-
+	
 	void updateAnimation(double dt)
 	{
 		bool climbing = climbingUp || climbingDown;
@@ -332,14 +336,14 @@ class Player
 		{
 			//reset idle so that the 10 second delay starts over
 			animations['idle'].reset();
-
+			
 			if(climbing)
 			{
 				currentAnimation = animations['climb'];
 				currentAnimation.paused = !activeClimb;
 			}
 			else
-			{
+			{				
 				if(moving && !jumping)
 				currentAnimation = animations['base'];
 				else if(jumping && yVel < 0)
@@ -354,10 +358,10 @@ class Player
 				}
 			}
 		}
-
+		
 		currentAnimation.updateSourceRect(dt,holdAtLastFrame:jumping);
 	}
-
+	
 	void updateTransform()
 	{
 		String xattr = playerParentElement.attributes['translateX'];
@@ -386,7 +390,7 @@ class Player
 		}
 		else
 		camX = 0;
-
+		
 		if(posY + height/2 < ui.gameScreenHeight/2)
 		{
 			camY = 0;
@@ -403,33 +407,33 @@ class Player
 			camY = currentStreet.bounds.height - ui.gameScreenHeight;
 			translateY = ui.gameScreenHeight - (currentStreet.bounds.height - posY);
 		}
-
+		
 		camera.setCamera((camX~/1).toString()+','+(camY~/1).toString());
-
+		
 		//translateZ forces the whole operation to be gpu accelerated (which is very good)
 		String transform = 'translateX('+translateX.toString()+'px) translateY('+translateY.toString()+'px)';
 		if(!facingRight)
 		{
 			transform += ' scale(-1,1)';
 			playerName.style.transform = 'scale(-1,1)';
-
+			
 			if(chatBubble != null)
 			chatBubble.textElement.style.transform = 'scale(-1,1)';
 		}
 		else
 		{
 			playerName.style.transform = 'scale(1,1)';
-
+			
 			if(chatBubble != null)
 			chatBubble.textElement.style.transform = 'scale(1,1)';
 		}
-
+		
 		playerParentElement.style.transform = transform;
 		playerParentElement.attributes['translateX'] = translateX.toString();
 		playerParentElement.attributes['translateY'] = translateY.toString();
 		num diffX = translateX-prevX, diffY = translateY-prevY;
 	}
-
+	
 	void checkCollision(Element element)
 	{
 		//if the main screen is hidden don't check for quoin collection
@@ -437,32 +441,31 @@ class Player
 		//on a street at once because the bounding boxes all squish together
 		if(querySelector('#MainScreen').hidden == true)
 		return;
-
+		
 		if(element.attributes['collected'] == "true")
 		return;
-
+		
 		CanvasElement canvas = element as CanvasElement;
 		num left = num.parse(canvas.style.left.replaceAll("px", ""));
 		num top = currentStreet.bounds.height - num.parse(canvas.style.bottom.replaceAll("px", "")) - canvas.height;
 		Rectangle quoinRect = new Rectangle(left,top,canvas.width,canvas.height);
-
+		
 		Rectangle avatarRect = new Rectangle(posX,posY,width,height);
-
+		
 		if(intersect(avatarRect,quoinRect))
 		{
 			playSound('quoinSound');
-
+			
 			element.attributes['collected'] = "true";
-
+			
 			int quoinMultiplier = 1;
 			// TODO: change 1 to the real quoin multiplier
 			int amt = rand.nextInt(4) + 1;
 			amt = amt * quoinMultiplier;
-
 			Element quoinText = querySelector("#qq"+element.id+" .quoinString");
-
+			
 			var quoinType = "";
-
+			
 			if (element.classes.contains("currant")) {
 				quoinType = "currant";
 			}
@@ -515,11 +518,11 @@ class Player
 				break;
 
 				case "favor" :
-				// todo : add code for favor
+				// TODO : add code for favor
 				break;
 
 				case "time" :
-				// todo : what DOES time do?
+				// TODO : what DOES time do?
 				break;
 
 				case "mystery" :
@@ -562,7 +565,7 @@ class Player
 			new Timer(new Duration(seconds:2), () => _removeCircleExpand(querySelector("#qq"+element.id)));
 			new Timer(new Duration(milliseconds:800), () => _removeCircleExpand(querySelector("#q"+element.id)));
 			element.style.display = "none"; //.remove() is very slow
-
+			
 			if(streetSocket != null && streetSocket.readyState == WebSocket.OPEN)
 			{
 				Map map = new Map();
@@ -573,13 +576,13 @@ class Player
 			}
 		}
 	}
-
+	
 	void _removeCircleExpand(Element element)
 	{
 		if(element != null)
 		element.classes.remove("circleExpand");
 	}
-
+	
 	//ONLY WORKS IF PLATFORMS ARE SORTED WITH
 	//THE HIGHEST (SMALLEST Y VALUE) FIRST IN THE LIST
 	Platform _getBestPlatform(num cameFrom)
@@ -588,7 +591,7 @@ class Player
 		num x = posX+width/2;
 		num from = cameFrom+height+currentStreet._data['dynamic']['ground_y'];
 		num bestDiffY = 1000;
-
+		
 		for(Platform platform in currentStreet.platforms)
 		{
 			if(x >= platform.start.x && x <= platform.end.x)
@@ -611,12 +614,12 @@ class Player
 				}
 			}
 		}
-
+		
 		return bestPlatform;
 	}
 }
 
-bool intersect(Rectangle a, Rectangle b)
+bool intersect(Rectangle a, Rectangle b) 
 {
 	return (a.left <= b.right &&
 		b.left <= a.right &&
