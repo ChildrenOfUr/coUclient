@@ -419,6 +419,7 @@ class TabContent
 		webSocket = new WebSocket(_chatServerUrl);
 		webSocket.onOpen.listen((_)
 		{
+			webSocket.send(JSON.encode({'clientVersion': clientVersion}));
 			querySelector("#ChatDisconnected").hidden = true; //hide if visible
 			querySelector("#ChatBubbleDisconnect").style.display = "none";
 			querySelector("#ChatBubbleText")
@@ -444,6 +445,15 @@ class TabContent
 		webSocket.onMessage.listen((MessageEvent messageEvent)
 		{
 			Map map = JSON.decode(messageEvent.data);
+
+			if(map['error'] != null)
+    		{
+    			reconnect = false;
+    			print(map['error']);
+    			webSocket.close();
+    			return;
+    		}
+
 			if(map["message"] == "ping") //only used to keep the connection alive, ignore
 				return;
 
@@ -526,6 +536,12 @@ class TabContent
 		});
 		webSocket.onClose.listen((_)
 		{
+			if(!reconnect)
+    		{
+    			reconnect = true;
+    			return;
+    		}
+
 			//attempt to reconnect and display a message to the user stating so
 			querySelector("#ChatDisconnected")
 				..hidden = false

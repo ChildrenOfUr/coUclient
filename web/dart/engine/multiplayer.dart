@@ -32,6 +32,7 @@ void sendJoinedMessage(String streetName, [String tsid])
 	if(joined != streetName && streetSocket != null && streetSocket.readyState == WebSocket.OPEN)
 	{
 		Map map = new Map();
+		map['clientVersion'] = clientVersion;
 		map["username"] = chat.username;
 		map["streetName"] = streetName;
 		map["tsid"] = tsid == null ? currentStreet._data['tsid'] : tsid;
@@ -52,6 +53,14 @@ _setupStreetSocket(String streetName)
 	streetSocket.onMessage.listen((MessageEvent event)
 	{
 		Map map = JSON.decode(event.data);
+		if(map['error'] != null)
+		{
+			reconnect = false;
+			print(map['error']);
+			streetSocket.close();
+			return;
+		}
+
 		//check if we are receiving an item
 		if(map['giveItem'] != null)
 		{
@@ -169,9 +178,21 @@ _setupStreetSocket(String streetName)
 _setupPlayerSocket()
 {
 	playerSocket = new WebSocket(multiplayerServer);
+	playerSocket.onOpen.listen((_)
+	{
+		playerSocket.send(JSON.encode({'clientVersion': clientVersion}));
+	});
 	playerSocket.onMessage.listen((MessageEvent event)
 	{
 		Map map = JSON.decode(event.data);
+		if(map['error'] != null)
+		{
+			reconnect = false;
+			print(map['error']);
+			playerSocket.close();
+			return;
+		}
+
 		if(map["changeStreet"] != null)
 		{
 			if(map["changeStreet"] != currentStreet.label) //someone left this street
@@ -198,6 +219,12 @@ _setupPlayerSocket()
 	});
 	playerSocket.onClose.listen((_)
 	{
+		if(!reconnect)
+		{
+			reconnect = true;
+			return;
+		}
+
 		joined = "";
 		//wait 5 seconds and try to reconnect
 		new Timer(new Duration(seconds:5),()
