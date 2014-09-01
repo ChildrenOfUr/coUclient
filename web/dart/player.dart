@@ -15,6 +15,8 @@ class Player
 	Random rand = new Random();
 	Map<String,Rectangle> intersectingObjects = {};
 	String username;
+	int jumpcount = 0;
+	Timer jumpTimer;
 
 	//for testing purposes
 	//if false, player can move around with wasd and arrows, no falling
@@ -217,11 +219,19 @@ class Player
 		//primitive jumping
 		if (playerInput.jumpKey == true && !jumping && !climbingUp && !climbingDown)
 		{
-			Random rand = new Random();
-			if(rand.nextInt(4) == 3)
-				yVel = -1200;
+			if(jumpTimer != null)
+				jumpTimer.cancel();
+			if(jumpcount == 2)
+			{
+				yVel = -1500;
+				jumpcount = 0;
+			}
 			else
-				yVel = -900;
+			{
+				jumpcount++;
+				jumpTimer = new Timer(new Duration(seconds:4), () => jumpcount = 0);
+				yVel = -1000;
+			}
 			jumping = true;
 		}
 
@@ -266,6 +276,9 @@ class Player
 				}
 			}
 		}
+
+		if(posY < 0)
+		posY = 0.0;
 
 		updateAnimation(dt);
 		updateTransform();
@@ -471,6 +484,9 @@ class Player
 			element.attributes['collected'] = "true";
 
 			int amt = rand.nextInt(4)+1;
+			int quoinMultiplier = 1;
+			// TODO: change 1 to the real quoin multiplier
+			amt = amt * quoinMultiplier;
 			Element quoinText = querySelector("#qq"+element.id+" .quoinString");
 
 			var quoinType = "";
@@ -502,7 +518,12 @@ class Player
 
 			switch (quoinType) {
 				case "currant" :
-				quoinText.text = "+" + amt.toString() + "\u20a1";
+				if (amt == 1) {
+					quoinText.text = "+" + amt.toString() + " currant";
+				}
+				else {
+					quoinText.text = "+" + amt.toString() + " currants";
+				}
 				setCurrants((getCurrants()+amt).toString());
 				break;
 
@@ -522,11 +543,11 @@ class Player
 				break;
 
 				case "favor" :
-				// todo : add code for favor
+				// TODO : add code for favor
 				break;
 
 				case "time" :
-				// todo : what DOES time do?
+				// TODO : what DOES time do?
 				break;
 
 				case "mystery" :
@@ -558,9 +579,9 @@ class Player
 				break;
 
 				case "quarazy" :
-				int qamt = rand.nextInt(98)+401;
-				quoinText.text = "+" + qamt.toString() + " iMG";
-				setImg((getImg()+qamt).toString());
+				amt = amt * 7;
+				quoinText.text = "+" + amt.toString() + " iMG";
+				setImg((getImg()+amt).toString());
 				break;
 			}
 
