@@ -24,7 +24,7 @@ init_audio()
 		print("browser does not support web audio: $e");
 		useWebAudio = false;
 	}
-	
+
 	if(prevVolume != null)
 	{
 		setVolume(prevVolume,false);
@@ -37,7 +37,7 @@ init_audio()
 		localStorage['prevVolume'] = '50';
 		setVolume(prevVolume,false);
 	}
-	
+
 	if(isMuted == null)
 	{
 		isMuted = '0';
@@ -49,25 +49,25 @@ init_audio()
 Future load_audio()
 {
 	final c = new Completer();
-	
+
 	if(useWebAudio)
 	{
 		List<Future> futures = [];
 		String extension = "ogg";
-        	
+
     	//if canPlayType returns the empty string, that format is not compatible
     	if(new AudioElement().canPlayType('audio/ogg') == "")
     	{
     		print("ogg not supported, using mp3s instead");
     		extension = "mp3";
     	}
-    	
+
     	try
     	{
 			//load the loading music and play when ready
 		  	gameSounds['loading'] = new Sound(channel:audioChannels['music']);
 		  	futures.add(gameSounds['loading'].load("assets/system/loading.$extension"));
-		      	
+
 		  	//load the sound effects
 		  	gameSounds['quoinSound'] = new Sound(channel:audioChannels['soundEffects']);
 		  	futures.add(gameSounds['quoinSound'].load("assets/system/quoinSound.$extension"));
@@ -75,10 +75,10 @@ Future load_audio()
 		  	futures.add(gameSounds['mention'].load("assets/system/mention.$extension"));
 		  	gameSounds['game_loaded'] = new Sound(channel:audioChannels['soundEffects']);
 		  	futures.add(gameSounds['game_loaded'].load("assets/system/game_loaded.$extension"));
-		  	
+
 		  	Asset soundCloudSongs = new Asset('./assets/music.json');
 		  	futures.add(soundCloudSongs.load(statusElement:querySelector("#LoadStatus2")));
-		  	
+
 		  	return Future.wait(futures);
     	}
     	catch(e)
@@ -110,7 +110,7 @@ Future loadNonWebAudio(Completer c)
 		        new Asset('./assets/system/game_loaded.mp3')
 	        ])
  	..load(print,statusElement:querySelector("#LoadStatus2")).then((_)
- 	{ 		
+ 	{
  		//start the loading music and attach it to the #LoadingScreen so that when that is removed the music stops
  		if(int.parse(prevVolume) > 0 && isMuted == '0')
  		{
@@ -179,13 +179,13 @@ void stopSound(soundObjectToStop)
 Future loadSong(String name)
 {
 	Completer c = new Completer();
-	
+
 	ui.sc.load(ASSET['music'].get()[name]['scid'])
-	.then((Scound s) 
+	.then((Scound s)
 	{
 		ui.jukebox[name] = s;
 		c.complete();
 	});
-	
+
 	return c.future;
 }
