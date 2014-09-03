@@ -289,7 +289,7 @@ updateOtherPlayer(Map map, Player otherPlayer)
 		otherPlayer.currentAnimation = otherPlayer.animations[map["animation"]];
 	}
 
-	otherPlayer.playerParentElement.id = "player-"+map["username"].replaceAll(' ','_');
+	otherPlayer.playerParentElement.id = "player-"+sanitizeName(map["username"].replaceAll(' ','_'));
 	otherPlayer.playerParentElement.style.position = "absolute";
 	if(map['username'] != otherPlayer.username)
 	{
@@ -325,7 +325,7 @@ void removeOtherPlayer(String username)
 		return;
 
 	otherPlayers.remove(username);
-	Element otherPlayer = querySelector("#player-"+username.replaceAll(' ','_'));
+	Element otherPlayer = querySelector("#player-"+sanitizeName(username.replaceAll(' ','_')));
 	if(otherPlayer != null)
 		otherPlayer.remove();
 }

@@ -354,36 +354,11 @@ class TabContent
 		});
 	}
 
-	bool containsBadCharacter(String newName)
-	{
-		List<String> badChars = "! @ \$ % ^ & * ( ) + = , . / ' ; : \" ? > < [ ] \\ { } | ` #".split(" ");
-		for(String char in badChars)
-		{
-			if(newName.contains(char))
-			{
-				print("name contains: '$char'");
-				return true;
-			}
-		}
-
-		return false;
-	}
-
 	parseInput(String input)
 	{
 		Map map = new Map();
 		if(input.split(" ")[0].toLowerCase() == "/setname")
 		{
-			String newName = input.substring(9).replaceAll(" ", "_");
-			if(containsBadCharacter(newName))
-			{
-				Map map = new Map();
-    			map["statusMessage"] = "hint";
-    			map["message"] = "Sorry, you can't use the following characters in your name<br>~ ! @ \$ % ^ & * ( ) + = , . / ' ; : \" ? > < [ ] \\ { } | ` #";
-    			_addmessage(map);
-    			return;
-			}
-
 			map["statusMessage"] = "changeName";
 			map["username"] = chat.username;
 			map["newUsername"] = input.substring(9);
@@ -665,6 +640,8 @@ class TabContent
 					//warn multiplayer server that it will receive messages from a new name but it should be the same person
 					map['street'] = currentStreet.label;
 					playerSocket.send(JSON.encode(map));
+
+					timeLast = 5.0;
 				}
 
 				connectedUsers.remove(map["username"]);
