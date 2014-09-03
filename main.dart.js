@@ -174,7 +174,7 @@ Gv:{
 n:function(a,b){return a===b},
 giO:function(a){return H.eQ(a)},
 bu:function(a){return H.a5(a)},
-T:[function(a,b){throw H.b(P.ql(a,b.gWa(),b.gnd(),b.gZ2(),null))},"$1","gkh",2,0,null,54],
+T:[function(a,b){throw H.b(P.ql(a,b.gWa(),b.gnd(),b.gZ2(),null))},"$1","gxK",2,0,null,54],
 "%":"ArrayBuffer|AudioParam|CanvasGradient|CanvasPattern|DOMError|DOMImplementation|FileError|MediaError|MediaKeyError|Navigator|NavigatorUserMediaError|PositionError|SQLError|SVGAnimatedEnumeration|SVGAnimatedLength|SVGAnimatedLengthList|SVGAnimatedNumber|SVGAnimatedNumberList|SVGAnimatedString"},
 kn:{
 "^":"Gv;",
@@ -186,7 +186,7 @@ we:{
 n:function(a,b){return null==b},
 bu:function(a){return"null"},
 giO:function(a){return 0},
-T:[function(a,b){return J.Gv.prototype.T.call(this,a,b)},"$1","gkh",2,0,null,54]},
+T:[function(a,b){return J.Gv.prototype.T.call(this,a,b)},"$1","gxK",2,0,null,54]},
 QI:{
 "^":"Gv;",
 giO:function(a){return 0}},
@@ -2018,8 +2018,9 @@ if(d!=null)d.appendChild(y)
 z.bY(y)
 return y}},
 ms:function(a){var z,y
-if($.p2)J.z8(H.Go(a,"$isno").hQ,0)
-else{z=H.Go(a,"$isMr")
+if($.p2){H.Go(a,"$isno")
+J.z8(a.hQ,0)
+a.zY=!0}else{z=H.Go(a,"$isMr")
 try{J.xi(z)
 J.Mp(z)}catch(y){H.Ru(y)}}},
 YA:function(a){var z=H.VM(new P.Zf(P.Dt(null)),[null])
@@ -2342,7 +2343,7 @@ if(z.t(a,"jumping")!=null)b.sYo(z.t(a,"jumping"))
 if(J.de(z.t(a,"climbing"),!0))J.PB(b.gP3(),z.t(a,"activeClimb")!==!0)
 else J.PB(b.gP3(),!1)
 if(!J.de(z.t(a,"animation"),J.Ii(b.gP3()))){J.et(b.gP3())
-b.sP3(b.gpE().t(0,z.t(a,"animation")))}b.gXJ().id="player-"+J.JA(z.t(a,"username")," ","_")
+b.sP3(b.gpE().t(0,z.t(a,"animation")))}b.gXJ().id=C.xB.g("player-",B.bB(J.JA(z.t(a,"username")," ","_")))
 J.eC(b.gXJ().style,"absolute")
 y=J.RE(b)
 if(!J.de(z.t(a,"username"),y.gIW(b))){y.sIW(b,z.t(a,"username"))
@@ -2358,7 +2359,7 @@ b.shs(null)}b.smu((J.de(z.t(a,"facingRight"),"true")||J.de(z.t(a,"facingRight"),
 vI:function(a){var z,y
 if(a==null)return
 $.jj().Rz(0,a)
-z="#player-"+J.JA(a," ","_")
+z=C.xB.g("#player-",B.bB(J.JA(a," ","_")))
 y=document.querySelector(z)
 if(y!=null)J.Mp(y)},
 Gw:function(a){if($.D9==null)return
@@ -2637,6 +2638,10 @@ z.a="Requires:"
 J.kH(a,new B.GX(z))
 z=z.a
 return C.xB.Nj(z,0,z.length-1)},
+bB:function(a){var z,y
+z="! @ $ % ^ & * ( ) + = , . / ' ; : \" ? > < [ ] \\ { } | ` #".split(" ")
+for(y=new H.a7(z,z.length,0,null);y.G();)a=J.JA(a,y.Ff,"_")
+return a},
 N5:function(a,b){var z,y,x,w
 z=a.Bb
 y=b.Bb
@@ -3337,24 +3342,12 @@ y=z.geg(a)
 H.VM(new W.xC(0,y.J6,y.fA,W.VF(new B.Zi(this,a)),y.el),[H.Kp(y,0)]).DN()
 z=z.gS0(a)
 H.VM(new W.xC(0,z.J6,z.fA,W.VF(new B.DT(this,a)),z.el),[H.Kp(z,0)]).DN()},
-D2:function(a){var z,y,x,w,v
-z="! @ $ % ^ & * ( ) + = , . / ' ; : \" ? > < [ ] \\ { } | ` #".split(" ")
-for(y=new H.a7(z,z.length,0,null),x=a.length;y.G();){w=y.Ff
-if(w==null)H.vh(P.u(null))
-if(H.m2(a,w,0)){v="name contains: '"+H.d(w)+"'"
-H.qw(v)
-return!0}}return!1},
 W8:function(a){var z,y,x
 z=P.L5(null,null,null,null,null)
 y=J.rY(a)
 x=y.Fr(a," ")
 if(0>=x.length)return H.e(x,0)
-if(J.Mz(x[0])==="/setname"){x=y.yn(a,9)
-if(this.D2(H.ys(x," ","_"))){z=P.L5(null,null,null,null,null)
-z.u(0,"statusMessage","hint")
-z.u(0,"message","Sorry, you can't use the following characters in your name<br>~ ! @ $ % ^ & * ( ) + = , . / ' ; : \" ? > < [ ] \\ { } | ` #")
-this.MS(z)
-return}z.u(0,"statusMessage","changeName")
+if(J.Mz(x[0])==="/setname"){z.u(0,"statusMessage","changeName")
 z.u(0,"username",$.Rg().IW)
 z.u(0,"newUsername",y.yn(a,9))
 z.u(0,"channel",this.Xg)}else if(y.hc(a)==="/list"){z.u(0,"username",$.Rg().IW)
@@ -3433,7 +3426,7 @@ v.h(0,q)
 v.h(0,w)
 v.h(0,p)
 if(J.de(z.t(a,"username"),$.Rg().IW)){$.Rg().IW=z.t(a,"newUsername")
-$.nT().setItem("username",$.Rg().IW)
+$.nT().setItem("username",z.t(a,"newUsername"))
 $.KW.Dm.textContent=z.t(a,"newUsername")
 o=z.t(a,"newUsername")
 $.aP().toString
@@ -3444,7 +3437,8 @@ B.VD("Setting name to \""+H.d(o)+"\"")
 $.KW.IW=z.t(a,"newUsername")
 $.KW.hF()
 z.u(a,"street",$.D9.ph)
-$.zg.send(C.xr.KP(a))}J.Dq(this.wn,z.t(a,"username"))
+$.zg.send(C.xr.KP(a))
+$.B9=5}J.Dq(this.wn,z.t(a,"username"))
 J.bi(this.wn,z.t(a,"newUsername"))}else v.gwd(u).h(0,w)}if(J.de(z.t(a,"statusMessage"),"list")){if(J.de(z.t(a,"hide"),"true")){this.wn=z.t(a,"users")
 return}J.t4(w.style,"4px")
 J.OG(u).h(0,w)
@@ -3961,7 +3955,7 @@ document.body.appendChild(B.co(a,b,c,d))
 y=document.querySelector("#RightClickMenu")
 x=document.querySelector("#RCActionList")
 this.Pe=C.rl.aM(document).yI(new B.W4(this,y,x))
-C.T1.aM(document).yI(new B.Zq(this,y))},
+C.T1.aM(document).yI(new B.ZC(this,y))},
 I0:function(a,b){var z,y,x,w
 z=J.OG(a)
 for(y=0,x=0;x<z.gB(z);++x)if(J.pP(z.t(0,x)).Rz(0,b)===!0)y=x
@@ -4366,7 +4360,7 @@ w=z==null?w==null:z===w
 z=w}else z=!0
 if(z&&!x.uJ)x.Ut(this.c,this.b,"RCItemSelected")},"$1",null,2,0,null,78,"call"],
 $isEH:true},
-Zq:{
+ZC:{
 "^":"Tp:14;d,e",
 $1:[function(a){this.d.ye(this.e)},"$1",null,2,0,null,59,"call"],
 $isEH:true},
@@ -4617,7 +4611,7 @@ y=J.U6(z)
 if(y.t(z,"error")!=null){$.uK=!1
 P.JS(y.t(z,"error"))
 $.zg.close()
-return}if(y.t(z,"changeStreet")!=null)if(!J.de(y.t(z,"changeStreet"),$.D9.ph))B.vI(y.t(z,"username"))
+return}if(y.t(z,"changeStreet")!=null)if(!J.de(y.t(z,"changeStreet"),$.D9.ph))B.vI(B.bB(y.t(z,"username")))
 else B.zl(z)
 else if(y.t(z,"disconnect")!=null)B.vI(y.t(z,"username"))
 else if($.jj().t(0,y.t(z,"username"))==null)B.zl(z)
@@ -4640,7 +4634,7 @@ z=this.a
 y=this.b
 B.aO(z,y)
 $.jj().u(0,J.UQ(z,"username"),y)
-document.querySelector("#PlayerHolder").appendChild(y.XJ)
+$.yO().appendChild(y.XJ)
 $.kr=""},"$1",null,2,0,null,59,"call"],
 $isEH:true},
 Lj:{
@@ -4961,7 +4955,7 @@ static:{Aw:function(a){var z=new B.iI(null,null,null,B.nd())
 z.CJ(a)
 return z}}},
 iL:{
-"^":"a;FE,li,iH,ti,uY,Bl",
+"^":"a;FE,li,iH,ti,kh,Bl",
 iX:function(a,b){var z,y
 z=this.FE
 z.toString
@@ -4984,7 +4978,7 @@ z=J.n9(z.glZ(a))
 z=H.VM(new P.hL(C.CD.yu(C.CD.UD(z.clientX)),C.CD.yu(C.CD.UD(z.clientY))),[null]).y
 y.iH=z
 y.ti=y.li
-y.uY=z},"$1",null,2,0,null,66,"call"],
+y.kh=z},"$1",null,2,0,null,66,"call"],
 $isEH:true},
 To:{
 "^":"Tp:79;b",
@@ -4995,13 +4989,13 @@ y=this.b
 x=y.ti
 w=J.ju(z.glZ(a))
 v=J.xH(x,H.VM(new P.hL(C.CD.yu(C.CD.UD(w.clientX)),C.CD.yu(C.CD.UD(w.clientY))),[null]).x)
-w=y.uY
+w=y.kh
 x=J.ju(z.glZ(a))
 u=J.xH(w,H.VM(new P.hL(C.CD.yu(C.CD.UD(x.clientX)),C.CD.yu(C.CD.UD(x.clientY))),[null]).y)
 x=J.ju(z.glZ(a))
 y.ti=H.VM(new P.hL(C.CD.yu(C.CD.UD(x.clientX)),C.CD.yu(C.CD.UD(x.clientY))),[null]).x
 z=J.ju(z.glZ(a))
-y.uY=H.VM(new P.hL(C.CD.yu(C.CD.UD(z.clientX)),C.CD.yu(C.CD.UD(z.clientY))),[null]).y
+y.kh=H.VM(new P.hL(C.CD.yu(C.CD.UD(z.clientX)),C.CD.yu(C.CD.UD(z.clientY))),[null]).y
 z=y.Bl
 if(z===$.Hd||z===$.hx){x=y.FE
 x.toString
@@ -6168,7 +6162,6 @@ w.setAttribute("type",x.t(y,"type"))
 J.pP(z.qN).h(0,"npc")
 J.pP(z.qN).h(0,"entity")
 J.vP(z.qN,x.t(y,"width"))
-J.OE(z.qN,x.t(y,"height"))
 J.eC(z.qN.style,"absolute")
 y=z.qN
 y.toString
@@ -6180,7 +6173,7 @@ y=z.qN
 y.setAttribute("width",J.AG(J.DO(y)))
 y=z.qN
 y.setAttribute("height",J.AG(J.OB(y)))
-document.querySelector("#PlayerHolder").appendChild(z.qN)
+$.yO().appendChild(z.qN)
 z.aS=!0},"$1",null,2,0,null,59,"call"],
 $isEH:true},
 eF:{
@@ -9688,7 +9681,7 @@ if(b==null)throw H.b(P.rr(a,null,null))
 return b.$1(a)},
 rn:[function(a){return},"$1","Bp",2,0,14],
 JS:[function(a){var z=H.d(a)
-H.qw(z)},"$1","YK",2,0,43,0],
+H.qw(z)},"$1","YK",2,0,43],
 Y2:{
 "^":"Tp:55;a",
 $2:function(a,b){this.a.u(0,a.gOB(),b)},
@@ -9928,26 +9921,26 @@ Od:{
 Pi:{
 "^":"a;"},
 P1:{
-"^":"a;bS,iJ",
+"^":"a;n2,iJ",
 wE:[function(a){var z,y
-z=this.bS==null
+z=this.n2==null
 if(!z&&this.iJ==null)return
 y=$.lE
-if(z)this.bS=y.$0()
-else{this.bS=J.xH(y.$0(),J.xH(this.iJ,this.bS))
+if(z)this.n2=y.$0()
+else{this.n2=J.xH(y.$0(),J.xH(this.iJ,this.n2))
 this.iJ=null}},"$0","gM",0,0,31],
-TP:function(a){if(!(this.bS!=null&&this.iJ==null))return
+TP:function(a){if(!(this.n2!=null&&this.iJ==null))return
 this.iJ=$.lE.$0()},
 CH:function(a){var z
-if(this.bS==null)return
+if(this.n2==null)return
 z=$.lE.$0()
-this.bS=z
+this.n2=z
 if(this.iJ!=null)this.iJ=z},
 giU:function(){var z,y
-z=this.bS
+z=this.n2
 if(z==null)return 0
 y=this.iJ
-return y==null?J.xH($.lE.$0(),this.bS):J.xH(y,z)},
+return y==null?J.xH($.lE.$0(),this.n2):J.xH(y,z)},
 static:{"^":"N8"}},
 qU:{
 "^":"a;",
@@ -10465,7 +10458,7 @@ EO:{
 wR:function(a,b){return a.send(b)},
 geO:function(a){return C.MD.aM(a)},
 "%":"DataChannel|RTCDataChannel"},
-bB:{
+j24:{
 "^":"NN;LA:src%,t5:type%",
 "%":"HTMLScriptElement"},
 lp:{
@@ -12338,19 +12331,38 @@ x+=v
 if(x>a)return[w+1,a+1-(x-v)]}return[0,0]}}],["","",,M,{
 "^":"",
 J0:{
-"^":"a;bJ<,YL,IA,Gu",
-suh:function(a,b){this.YL.gain.value=b},
-Yc:function(){var z,y
-for(z=this.Gu,y=z.length-1;y>=0;--y){if(y>=z.length)return H.e(z,y)
-z[y].gmx()}},
+"^":"a;bJ<,YL<,IA,Gu",
+suh:function(a,b){var z,y
+z=this.YL
+z.gain.value=b
+z=z.gain
+y=z.value
+if(typeof y!=="number")return y.D()
+if(y>1)z.value=1
+else if(y<0)z.value=0},
+Yc:function(){var z,y,x,w,v,u
+for(z=this.Gu,y=z.length-1;y>=0;--y){x=z.length
+if(y>=x)return H.e(z,y)
+w=z[y]
+if(!w.zY){v=w.hQ
+if(v.loop!==!0){u=v.context.currentTime
+w=w.bS
+v=v.buffer.duration
+if(typeof w!=="number")return w.g()
+if(typeof v!=="number")return H.s(v)
+if(typeof u!=="number")return u.D()
+v=u>w+v
+w=v}else w=!1}else w=!1
+if(w){if(y>=x)H.vh(P.N(y))
+z.splice(y,1)[0]}}},
 SS:function(a,b){var z,y,x
 z=this.bJ.createBufferSource()
 z.buffer=a.Zj
 z.loop=b
-z.connect(this.YL,0,0)
-C.PV.xk(z,0)
-y=new M.no(null)
-y.hQ=z
+z.connect(a.YL,0,0)
+C.PV.wE(z)
+y=new M.no(null,null,null,null)
+y.uY(z,a.YL)
 x=this.Gu
 x.push(y)
 if(x.length>100)this.Yc()
@@ -12369,17 +12381,34 @@ y=z.t(0,a)
 if(y==null){y=M.mO()
 z.u(0,a,y)}return y}}},
 no:{
-"^":"a;hQ",
-suh:function(a,b){J.tT(this.hQ).sP(0,b)},
-gIE:function(){this.hQ.gjq()
-return!1},
-gmx:function(){this.hQ.gjq()
-return!1},
-bY:function(a){this.gIE()
-J.A1(this.hQ,0)},
+"^":"a;hQ,YL<,bS,zY",
+suh:function(a,b){var z,y
+z=this.YL
+z.gain.value=b
+z=z.gain
+y=z.value
+if(typeof y!=="number")return y.D()
+if(y>1)z.value=1
+else if(y<0)z.value=0},
+bY:function(a){var z,y,x
+if(!this.zY){z=this.hQ
+y=z.context.currentTime
+x=this.bS
+if(typeof y!=="number")return y.F()
+if(typeof x!=="number")return H.s(x)
+if(y>=x)if(z.loop!==!0){z=z.buffer.duration
+if(typeof z!=="number")return H.s(z)
+z=y<x+z}else z=!0
+else z=!1}else z=!1
+if(!z){this.zY=!1
+J.A1(this.hQ,0)}},
 CH:function(a){J.z8(this.hQ,0)
-this.gIE()
-J.A1(this.hQ,0)},
+this.zY=!0
+this.bY(0)},
+uY:function(a,b){this.zY=!1
+this.hQ=a
+this.YL=b
+this.bS=a.context.currentTime},
 $isno:true},
 ZU:{
 "^":"a;WI",
@@ -12391,8 +12420,15 @@ if(z==null){z=new M.ZU(P.L5(null,null,null,P.qU,M.J0))
 z.N3()
 $.G4=z}return z}}},
 Me:{
-"^":"a;CG,Zj,dD",
-suh:function(a,b){J.xW(this.Zj,b)},
+"^":"a;CG,YL<,Zj,dD",
+suh:function(a,b){var z,y
+z=this.YL
+z.gain.value=b
+z=z.gain
+y=z.value
+if(typeof y!=="number")return y.D()
+if(y>1)z.value=1
+else if(y<0)z.value=0},
 cD:function(a,b){var z,y,x
 z=H.VM(new P.Zf(P.Dt(null)),[null])
 y=new XMLHttpRequest()
@@ -12409,8 +12445,11 @@ bY:function(a){return this.tk(a,!1)},
 Rp:function(a,b){var z
 if(a!=null)z=a
 else{M.Yd().toString
-z=$.IX}this.CG=z},
-static:{Yq:function(a,b){var z=new M.Me(null,null,H.VM(new P.Zf(P.Dt(null)),[null]).MM)
+z=$.IX}this.CG=z
+z=J.Sp(z.gbJ())
+this.YL=z
+z.connect(this.CG.gYL(),0,0)},
+static:{Yq:function(a,b){var z=new M.Me(null,null,null,H.VM(new P.Zf(P.Dt(null)),[null]).MM)
 z.Rp(a,b)
 return z}}},
 My:{
@@ -13075,8 +13114,8 @@ lN:{
 bu:function(a){return this.cb}}}],["","",,Z,{
 "^":"",
 I1:{
-"^":"a;RE,u8<,JB<,oL',kr,zY,qc,HG,G0,d4,De,qw,vq",
-bY:function(a){this.zY=!1
+"^":"a;RE,u8<,JB<,oL',kr,ib,qc,HG,G0,d4,De,qw,vq",
+bY:function(a){this.ib=!1
 J.hp(this.RE)},
 i4:function(a,b){J.Cz(this.RE,b)},
 zd:function(a){J.xi(this.RE)
@@ -13492,7 +13531,6 @@ J.rP=function(a,b){return J.RE(a).sTq(a,b)}
 J.rR=function(a,b){return J.RE(a).sKc(a,b)}
 J.re=function(a,b){return J.RE(a).srB(a,b)}
 J.t4=function(a,b){return J.RE(a).sjC(a,b)}
-J.tT=function(a){return J.RE(a).guh(a)}
 J.to=function(a,b){return J.RE(a).BT(a,b)}
 J.u6=function(a,b){if(typeof a=="number"&&typeof b=="number")return a<b
 return J.Wx(a).C(a,b)}
@@ -13709,14 +13747,14 @@ C.Vu=function(_, letter) { return letter.toUpperCase(); }
 C.xr=new P.by(null,null)
 C.A3=new P.c5(null)
 C.cb=new P.pD(null,null)
-I.mn=function(a){a.immutable$list=init
+I.IE=function(a){a.immutable$list=init
 a.fixed$length=init
 return a}
-C.zm=H.VM(I.mn(["*::class","*::dir","*::draggable","*::hidden","*::id","*::inert","*::itemprop","*::itemref","*::itemscope","*::lang","*::spellcheck","*::title","*::translate","A::accesskey","A::coords","A::hreflang","A::name","A::shape","A::tabindex","A::target","A::type","AREA::accesskey","AREA::alt","AREA::coords","AREA::nohref","AREA::shape","AREA::tabindex","AREA::target","AUDIO::controls","AUDIO::loop","AUDIO::mediagroup","AUDIO::muted","AUDIO::preload","BDO::dir","BODY::alink","BODY::bgcolor","BODY::link","BODY::text","BODY::vlink","BR::clear","BUTTON::accesskey","BUTTON::disabled","BUTTON::name","BUTTON::tabindex","BUTTON::type","BUTTON::value","CANVAS::height","CANVAS::width","CAPTION::align","COL::align","COL::char","COL::charoff","COL::span","COL::valign","COL::width","COLGROUP::align","COLGROUP::char","COLGROUP::charoff","COLGROUP::span","COLGROUP::valign","COLGROUP::width","COMMAND::checked","COMMAND::command","COMMAND::disabled","COMMAND::label","COMMAND::radiogroup","COMMAND::type","DATA::value","DEL::datetime","DETAILS::open","DIR::compact","DIV::align","DL::compact","FIELDSET::disabled","FONT::color","FONT::face","FONT::size","FORM::accept","FORM::autocomplete","FORM::enctype","FORM::method","FORM::name","FORM::novalidate","FORM::target","FRAME::name","H1::align","H2::align","H3::align","H4::align","H5::align","H6::align","HR::align","HR::noshade","HR::size","HR::width","HTML::version","IFRAME::align","IFRAME::frameborder","IFRAME::height","IFRAME::marginheight","IFRAME::marginwidth","IFRAME::width","IMG::align","IMG::alt","IMG::border","IMG::height","IMG::hspace","IMG::ismap","IMG::name","IMG::usemap","IMG::vspace","IMG::width","INPUT::accept","INPUT::accesskey","INPUT::align","INPUT::alt","INPUT::autocomplete","INPUT::checked","INPUT::disabled","INPUT::inputmode","INPUT::ismap","INPUT::list","INPUT::max","INPUT::maxlength","INPUT::min","INPUT::multiple","INPUT::name","INPUT::placeholder","INPUT::readonly","INPUT::required","INPUT::size","INPUT::step","INPUT::tabindex","INPUT::type","INPUT::usemap","INPUT::value","INS::datetime","KEYGEN::disabled","KEYGEN::keytype","KEYGEN::name","LABEL::accesskey","LABEL::for","LEGEND::accesskey","LEGEND::align","LI::type","LI::value","LINK::sizes","MAP::name","MENU::compact","MENU::label","MENU::type","METER::high","METER::low","METER::max","METER::min","METER::value","OBJECT::typemustmatch","OL::compact","OL::reversed","OL::start","OL::type","OPTGROUP::disabled","OPTGROUP::label","OPTION::disabled","OPTION::label","OPTION::selected","OPTION::value","OUTPUT::for","OUTPUT::name","P::align","PRE::width","PROGRESS::max","PROGRESS::min","PROGRESS::value","SELECT::autocomplete","SELECT::disabled","SELECT::multiple","SELECT::name","SELECT::required","SELECT::size","SELECT::tabindex","SOURCE::type","TABLE::align","TABLE::bgcolor","TABLE::border","TABLE::cellpadding","TABLE::cellspacing","TABLE::frame","TABLE::rules","TABLE::summary","TABLE::width","TBODY::align","TBODY::char","TBODY::charoff","TBODY::valign","TD::abbr","TD::align","TD::axis","TD::bgcolor","TD::char","TD::charoff","TD::colspan","TD::headers","TD::height","TD::nowrap","TD::rowspan","TD::scope","TD::valign","TD::width","TEXTAREA::accesskey","TEXTAREA::autocomplete","TEXTAREA::cols","TEXTAREA::disabled","TEXTAREA::inputmode","TEXTAREA::name","TEXTAREA::placeholder","TEXTAREA::readonly","TEXTAREA::required","TEXTAREA::rows","TEXTAREA::tabindex","TEXTAREA::wrap","TFOOT::align","TFOOT::char","TFOOT::charoff","TFOOT::valign","TH::abbr","TH::align","TH::axis","TH::bgcolor","TH::char","TH::charoff","TH::colspan","TH::headers","TH::height","TH::nowrap","TH::rowspan","TH::scope","TH::valign","TH::width","THEAD::align","THEAD::char","THEAD::charoff","THEAD::valign","TR::align","TR::bgcolor","TR::char","TR::charoff","TR::valign","TRACK::default","TRACK::kind","TRACK::label","TRACK::srclang","UL::compact","UL::type","VIDEO::controls","VIDEO::height","VIDEO::loop","VIDEO::mediagroup","VIDEO::muted","VIDEO::preload","VIDEO::width"]),[P.qU])
-C.xD=I.mn([])
-C.nm=H.VM(I.mn(["bind","if","ref","repeat","syntax"]),[P.qU])
-C.BI=H.VM(I.mn(["A::href","AREA::href","BLOCKQUOTE::cite","BODY::background","COMMAND::icon","DEL::cite","FORM::action","IMG::src","INPUT::src","INS::cite","Q::cite","VIDEO::poster"]),[P.qU])
-C.Qd=I.mn(["af","am","ar","az","bg","bn","br","ca","chr","cs","cy","da","de","de_AT","de_CH","el","en","en_AU","en_GB","en_IE","en_IN","en_SG","en_US","en_ZA","es","es_419","es_ES","et","eu","fa","fi","fil","fr","fr_CA","gl","gsw","gu","haw","he","hi","hr","hu","hy","id","in","is","it","iw","ja","ka","kk","km","kn","ko","ky","ln","lo","lt","lv","mk","ml","mn","mr","ms","mt","my","nb","ne","nl","no","no_NO","or","pa","pl","pt","pt_BR","pt_PT","ro","ru","si","sk","sl","sq","sr","sv","sw","ta","te","th","tl","tr","uk","ur","uz","vi","zh","zh_CN","zh_HK","zh_TW","zu"])
+C.zm=H.VM(I.IE(["*::class","*::dir","*::draggable","*::hidden","*::id","*::inert","*::itemprop","*::itemref","*::itemscope","*::lang","*::spellcheck","*::title","*::translate","A::accesskey","A::coords","A::hreflang","A::name","A::shape","A::tabindex","A::target","A::type","AREA::accesskey","AREA::alt","AREA::coords","AREA::nohref","AREA::shape","AREA::tabindex","AREA::target","AUDIO::controls","AUDIO::loop","AUDIO::mediagroup","AUDIO::muted","AUDIO::preload","BDO::dir","BODY::alink","BODY::bgcolor","BODY::link","BODY::text","BODY::vlink","BR::clear","BUTTON::accesskey","BUTTON::disabled","BUTTON::name","BUTTON::tabindex","BUTTON::type","BUTTON::value","CANVAS::height","CANVAS::width","CAPTION::align","COL::align","COL::char","COL::charoff","COL::span","COL::valign","COL::width","COLGROUP::align","COLGROUP::char","COLGROUP::charoff","COLGROUP::span","COLGROUP::valign","COLGROUP::width","COMMAND::checked","COMMAND::command","COMMAND::disabled","COMMAND::label","COMMAND::radiogroup","COMMAND::type","DATA::value","DEL::datetime","DETAILS::open","DIR::compact","DIV::align","DL::compact","FIELDSET::disabled","FONT::color","FONT::face","FONT::size","FORM::accept","FORM::autocomplete","FORM::enctype","FORM::method","FORM::name","FORM::novalidate","FORM::target","FRAME::name","H1::align","H2::align","H3::align","H4::align","H5::align","H6::align","HR::align","HR::noshade","HR::size","HR::width","HTML::version","IFRAME::align","IFRAME::frameborder","IFRAME::height","IFRAME::marginheight","IFRAME::marginwidth","IFRAME::width","IMG::align","IMG::alt","IMG::border","IMG::height","IMG::hspace","IMG::ismap","IMG::name","IMG::usemap","IMG::vspace","IMG::width","INPUT::accept","INPUT::accesskey","INPUT::align","INPUT::alt","INPUT::autocomplete","INPUT::checked","INPUT::disabled","INPUT::inputmode","INPUT::ismap","INPUT::list","INPUT::max","INPUT::maxlength","INPUT::min","INPUT::multiple","INPUT::name","INPUT::placeholder","INPUT::readonly","INPUT::required","INPUT::size","INPUT::step","INPUT::tabindex","INPUT::type","INPUT::usemap","INPUT::value","INS::datetime","KEYGEN::disabled","KEYGEN::keytype","KEYGEN::name","LABEL::accesskey","LABEL::for","LEGEND::accesskey","LEGEND::align","LI::type","LI::value","LINK::sizes","MAP::name","MENU::compact","MENU::label","MENU::type","METER::high","METER::low","METER::max","METER::min","METER::value","OBJECT::typemustmatch","OL::compact","OL::reversed","OL::start","OL::type","OPTGROUP::disabled","OPTGROUP::label","OPTION::disabled","OPTION::label","OPTION::selected","OPTION::value","OUTPUT::for","OUTPUT::name","P::align","PRE::width","PROGRESS::max","PROGRESS::min","PROGRESS::value","SELECT::autocomplete","SELECT::disabled","SELECT::multiple","SELECT::name","SELECT::required","SELECT::size","SELECT::tabindex","SOURCE::type","TABLE::align","TABLE::bgcolor","TABLE::border","TABLE::cellpadding","TABLE::cellspacing","TABLE::frame","TABLE::rules","TABLE::summary","TABLE::width","TBODY::align","TBODY::char","TBODY::charoff","TBODY::valign","TD::abbr","TD::align","TD::axis","TD::bgcolor","TD::char","TD::charoff","TD::colspan","TD::headers","TD::height","TD::nowrap","TD::rowspan","TD::scope","TD::valign","TD::width","TEXTAREA::accesskey","TEXTAREA::autocomplete","TEXTAREA::cols","TEXTAREA::disabled","TEXTAREA::inputmode","TEXTAREA::name","TEXTAREA::placeholder","TEXTAREA::readonly","TEXTAREA::required","TEXTAREA::rows","TEXTAREA::tabindex","TEXTAREA::wrap","TFOOT::align","TFOOT::char","TFOOT::charoff","TFOOT::valign","TH::abbr","TH::align","TH::axis","TH::bgcolor","TH::char","TH::charoff","TH::colspan","TH::headers","TH::height","TH::nowrap","TH::rowspan","TH::scope","TH::valign","TH::width","THEAD::align","THEAD::char","THEAD::charoff","THEAD::valign","TR::align","TR::bgcolor","TR::char","TR::charoff","TR::valign","TRACK::default","TRACK::kind","TRACK::label","TRACK::srclang","UL::compact","UL::type","VIDEO::controls","VIDEO::height","VIDEO::loop","VIDEO::mediagroup","VIDEO::muted","VIDEO::preload","VIDEO::width"]),[P.qU])
+C.xD=I.IE([])
+C.nm=H.VM(I.IE(["bind","if","ref","repeat","syntax"]),[P.qU])
+C.BI=H.VM(I.IE(["A::href","AREA::href","BLOCKQUOTE::cite","BODY::background","COMMAND::icon","DEL::cite","FORM::action","IMG::src","INPUT::src","INS::cite","Q::cite","VIDEO::poster"]),[P.qU])
+C.Qd=I.IE(["af","am","ar","az","bg","bn","br","ca","chr","cs","cy","da","de","de_AT","de_CH","el","en","en_AU","en_GB","en_IE","en_IN","en_SG","en_US","en_ZA","es","es_419","es_ES","et","eu","fa","fi","fil","fr","fr_CA","gl","gsw","gu","haw","he","hi","hr","hu","hy","id","in","is","it","iw","ja","ka","kk","km","kn","ko","ky","ln","lo","lt","lv","mk","ml","mn","mr","ms","mt","my","nb","ne","nl","no","no_NO","or","pa","pl","pt","pt_BR","pt_PT","ro","ru","si","sk","sl","sq","sr","sv","sw","ta","te","th","tl","tr","uk","ur","uz","vi","zh","zh_CN","zh_HK","zh_TW","zu"])
 C.zP=new B.lN("af",",","\u00a0","%","0","+","-","E","\u2030","\u221e","NaN","#,##0.###","#E0","#,##0%","\u00a4#,##0.00","ZAR")
 C.Uj=new B.lN("am",".",",","%","0","+","-","E","\u2030","\u221e","NaN","#,##0.###","#E0","#,##0%","\u00a4#,##0.00","ETB")
 C.Fi=new B.lN("ar","\u066b","\u066c","\u066a","\u0660","\u200f+","\u200f-","\u0627\u0633","\u0609","\u221e","\u0644\u064a\u0633\u00a0\u0631\u0642\u0645","#,##0.###","#E0","#,##0%","\u00a4\u00a0#,##0.00","EGP")
@@ -14173,7 +14211,7 @@ new ForceEfficientMap()}Isolate.prototype=a.prototype
 Isolate.prototype.constructor=Isolate
 Isolate.p=y
 Isolate.$finishClasses=a.$finishClasses
-Isolate.mn=a.mn
+Isolate.IE=a.IE
 return Isolate}}
 !function(){function intern(a){var u={}
 u[a]=1
