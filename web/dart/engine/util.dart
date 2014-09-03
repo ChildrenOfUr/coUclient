@@ -108,15 +108,3 @@ String getRequirementString(List<Map> requires)
 	});
 	return error.substring(0,error.length-1); //remove trailing comma
 }
-
-/**
- * Get a name that will work as a css selector by replacing all invalid characters with an underscore
- **/
-String sanitizeName(String name)
-{
-	List<String> badChars = "! @ \$ % ^ & * ( ) + = , . / ' ; : \" ? > < [ ] \\ { } | ` #".split(" ");
-	for(String char in badChars)
-		name = name.replaceAll(char, '_');
-
-	return name;
-}

@@ -27,12 +27,13 @@ class NPC extends Entity
         	canvas.classes.add("npc");
         	canvas.classes.add('entity');
         	canvas.width = map["width"];
+        	canvas.height = map["height"];
         	canvas.style.position = "absolute";
         	canvas.attributes['translatex'] = posX.toString();
             canvas.attributes['translatey'] = posY.toString();
             canvas.attributes['width'] = canvas.width.toString();
             canvas.attributes['height'] = canvas.height.toString();
-        	playerHolder.append(canvas);
+        	querySelector("#PlayerHolder").append(canvas);
         	ready = true;
 		});
 	}
