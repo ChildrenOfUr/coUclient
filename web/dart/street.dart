@@ -49,7 +49,6 @@ class Street
 		playerHolder.classes.add('streetcanvas');
 		playerHolder.style.position = "absolute";
 		playerHolder.attributes["ground_y"] = "0";
-		//playerHolder.style.transform = "translateZ(0)";
 
 		if(entities != null) entities.clear();
 

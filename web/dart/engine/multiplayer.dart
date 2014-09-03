@@ -185,6 +185,7 @@ _setupPlayerSocket()
 	playerSocket.onMessage.listen((MessageEvent event)
 	{
 		Map map = JSON.decode(event.data);
+
 		if(map['error'] != null)
 		{
 			reconnect = false;
@@ -197,7 +198,7 @@ _setupPlayerSocket()
 		{
 			if(map["changeStreet"] != currentStreet.label) //someone left this street
 			{
-				removeOtherPlayer(map["username"]);
+				removeOtherPlayer(sanitizeName(map["username"]));
 			}
 			else //someone joined
 			{
@@ -263,7 +264,7 @@ void createOtherPlayer(Map map)
 		updateOtherPlayer(map,otherPlayer);
 
         otherPlayers[map["username"]] = otherPlayer;
-        querySelector("#PlayerHolder").append(otherPlayer.playerParentElement);
+        playerHolder.append(otherPlayer.playerParentElement);
 
         creatingPlayer = "";
 	});
@@ -289,7 +290,7 @@ updateOtherPlayer(Map map, Player otherPlayer)
 		otherPlayer.currentAnimation = otherPlayer.animations[map["animation"]];
 	}
 
-	otherPlayer.playerParentElement.id = "player-"+map["username"].replaceAll(' ','_');
+	otherPlayer.playerParentElement.id = "player-"+sanitizeName(map["username"].replaceAll(' ','_'));
 	otherPlayer.playerParentElement.style.position = "absolute";
 	if(map['username'] != otherPlayer.username)
 	{
@@ -325,7 +326,7 @@ void removeOtherPlayer(String username)
 		return;
 
 	otherPlayers.remove(username);
-	Element otherPlayer = querySelector("#player-"+username.replaceAll(' ','_'));
+	Element otherPlayer = querySelector("#player-"+sanitizeName(username.replaceAll(' ','_')));
 	if(otherPlayer != null)
 		otherPlayer.remove();
 }
