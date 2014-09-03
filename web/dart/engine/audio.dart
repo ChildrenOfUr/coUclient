@@ -133,47 +133,51 @@ Future loadNonWebAudio(Completer c)
 
 playSound(String name, {bool asset : true, bool looping : false, Element parentElement : null})
 {
-	if(useWebAudio)
-	{
-		if(asset)
-			return gameSounds[name].play(looping:looping);
-		else //if we say it's not an asset then load a new sound and play it as music
+	try
+    {
+		if(useWebAudio)
 		{
-			Sound music = new Sound(channel:audioChannels['music']);
-    		music.load(ui.currentSong.streamingUrl).then((Sound music)
-    		{
-    			ui.currentAudioInstance = music.play(looping:looping);
-    		});
+			if(asset)
+				return gameSounds[name].play(looping:looping);
+			else //if we say it's not an asset then load a new sound and play it as music
+			{
+				Sound music = new Sound(channel:audioChannels['music']);
+	    		music.load(ui.currentSong.streamingUrl).then((Sound music)
+	    		{
+	    			ui.currentAudioInstance = music.play(looping:looping);
+	    		});
+			}
+		}
+		else
+		{
+			AudioElement loading = ASSET[name].get();
+			loading.loop = looping;
+			loading.volume = int.parse(prevVolume)/100;
+			if(parentElement != null)
+				parentElement.append(loading);
+			loading.play();
+			return loading;
 		}
 	}
-	else
-	{
-		AudioElement loading = ASSET[name].get();
-		loading.loop = looping;
-		loading.volume = int.parse(prevVolume)/100;
-		if(parentElement != null)
-			parentElement.append(loading);
-		loading.play();
-		return loading;
-	}
+	catch(err){print('error playing sound: $err');}
 }
 
 void stopSound(soundObjectToStop)
 {
-	if(useWebAudio)
+	try
 	{
-		(soundObjectToStop as AudioInstance).stop();
+		if(useWebAudio)
+    	{
+    		(soundObjectToStop as AudioInstance).stop();
+    	}
+    	else
+    	{
+    		AudioElement audio = soundObjectToStop as AudioElement;
+    		audio.pause();
+    		audio.remove();
+    	}
 	}
-	else
-	{
-		AudioElement audio = soundObjectToStop as AudioElement;
-		try
-		{
-			audio.pause();
-			audio.remove();
-		}
-		catch(e){}
-	}
+	catch(err){print('error stopping sound: $err');}
 }
 
 Future loadSong(String name)
