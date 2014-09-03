@@ -2343,7 +2343,7 @@ if(z.t(a,"jumping")!=null)b.sYo(z.t(a,"jumping"))
 if(J.de(z.t(a,"climbing"),!0))J.PB(b.gP3(),z.t(a,"activeClimb")!==!0)
 else J.PB(b.gP3(),!1)
 if(!J.de(z.t(a,"animation"),J.Ii(b.gP3()))){J.et(b.gP3())
-b.sP3(b.gpE().t(0,z.t(a,"animation")))}b.gXJ().id="player-"+J.JA(z.t(a,"username")," ","_")
+b.sP3(b.gpE().t(0,z.t(a,"animation")))}b.gXJ().id="player-"+B.bB(J.JA(z.t(a,"username")," ","_"))
 J.eC(b.gXJ().style,"absolute")
 y=J.RE(b)
 if(!J.de(z.t(a,"username"),y.gIW(b))){y.sIW(b,z.t(a,"username"))
@@ -2359,7 +2359,7 @@ b.shs(null)}b.smu((J.de(z.t(a,"facingRight"),"true")||J.de(z.t(a,"facingRight"),
 vI:function(a){var z,y
 if(a==null)return
 $.jj().Rz(0,a)
-z="#player-"+J.JA(a," ","_")
+z="#player-"+B.bB(J.JA(a," ","_"))
 y=document.querySelector(z)
 if(y!=null)J.Mp(y)},
 Gw:function(a){if($.D9==null)return
@@ -2638,6 +2638,10 @@ z.a="Requires:"
 J.kH(a,new B.GX(z))
 z=z.a
 return C.xB.Nj(z,0,z.length-1)},
+bB:function(a){var z,y,x
+z="! @ $ % ^ & * ( ) + = , . / ' ; : \" ? > < [ ] \\ { } | ` #".split(" ")
+for(y=new H.a7(z,z.length,0,null);y.G();){x=y.Ff
+a=H.ys(a,x,"_")}return a},
 N5:function(a,b){var z,y,x,w
 z=a.Bb
 y=b.Bb
@@ -3338,24 +3342,12 @@ y=z.geg(a)
 H.VM(new W.xC(0,y.J6,y.fA,W.VF(new B.Zi(this,a)),y.el),[H.Kp(y,0)]).DN()
 z=z.gS0(a)
 H.VM(new W.xC(0,z.J6,z.fA,W.VF(new B.DT(this,a)),z.el),[H.Kp(z,0)]).DN()},
-D2:function(a){var z,y,x,w,v
-z="! @ $ % ^ & * ( ) + = , . / ' ; : \" ? > < [ ] \\ { } | ` #".split(" ")
-for(y=new H.a7(z,z.length,0,null),x=a.length;y.G();){w=y.Ff
-if(w==null)H.vh(P.u(null))
-if(H.m2(a,w,0)){v="name contains: '"+H.d(w)+"'"
-H.qw(v)
-return!0}}return!1},
 W8:function(a){var z,y,x
 z=P.L5(null,null,null,null,null)
 y=J.rY(a)
 x=y.Fr(a," ")
 if(0>=x.length)return H.e(x,0)
-if(J.Mz(x[0])==="/setname"){x=y.yn(a,9)
-if(this.D2(H.ys(x," ","_"))){z=P.L5(null,null,null,null,null)
-z.u(0,"statusMessage","hint")
-z.u(0,"message","Sorry, you can't use the following characters in your name<br>~ ! @ $ % ^ & * ( ) + = , . / ' ; : \" ? > < [ ] \\ { } | ` #")
-this.MS(z)
-return}z.u(0,"statusMessage","changeName")
+if(J.Mz(x[0])==="/setname"){z.u(0,"statusMessage","changeName")
 z.u(0,"username",$.Rg().IW)
 z.u(0,"newUsername",y.yn(a,9))
 z.u(0,"channel",this.Xg)}else if(y.hc(a)==="/list"){z.u(0,"username",$.Rg().IW)
@@ -3445,7 +3437,8 @@ B.VD("Setting name to \""+H.d(o)+"\"")
 $.KW.IW=z.t(a,"newUsername")
 $.KW.hF()
 z.u(a,"street",$.D9.ph)
-$.zg.send(C.xr.KP(a))}J.Dq(this.wn,z.t(a,"username"))
+$.zg.send(C.xr.KP(a))
+$.B9=5}J.Dq(this.wn,z.t(a,"username"))
 J.bi(this.wn,z.t(a,"newUsername"))}else v.gwd(u).h(0,w)}if(J.de(z.t(a,"statusMessage"),"list")){if(J.de(z.t(a,"hide"),"true")){this.wn=z.t(a,"users")
 return}J.t4(w.style,"4px")
 J.OG(u).h(0,w)
@@ -6181,7 +6174,7 @@ y=z.qN
 y.setAttribute("width",J.AG(J.DO(y)))
 y=z.qN
 y.setAttribute("height",J.AG(J.OB(y)))
-document.querySelector("#PlayerHolder").appendChild(z.qN)
+$.yO().appendChild(z.qN)
 z.aS=!0},"$1",null,2,0,null,59,"call"],
 $isEH:true},
 eF:{
@@ -9689,7 +9682,7 @@ if(b==null)throw H.b(P.rr(a,null,null))
 return b.$1(a)},
 rn:[function(a){return},"$1","Bp",2,0,14],
 JS:[function(a){var z=H.d(a)
-H.qw(z)},"$1","YK",2,0,43,0],
+H.qw(z)},"$1","YK",2,0,43],
 Y2:{
 "^":"Tp:55;a",
 $2:function(a,b){this.a.u(0,a.gOB(),b)},
@@ -10466,7 +10459,7 @@ EO:{
 wR:function(a,b){return a.send(b)},
 geO:function(a){return C.MD.aM(a)},
 "%":"DataChannel|RTCDataChannel"},
-bB:{
+j24:{
 "^":"NN;LA:src%,t5:type%",
 "%":"HTMLScriptElement"},
 lp:{
