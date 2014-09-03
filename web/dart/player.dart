@@ -277,6 +277,9 @@ class Player
 			}
 		}
 
+		if(posY < 0)
+		posY = 0.0;
+
 		updateAnimation(dt);
 		updateTransform();
 
