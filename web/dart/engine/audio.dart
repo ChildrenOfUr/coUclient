@@ -18,7 +18,7 @@ init_audio()
 	{
 		audioChannels['soundEffects'] = new AudioChannel("soundEffects")..gain = .5;
         audioChannels['music'] = new AudioChannel("music")..gain = .5;
-	}//
+	}
 	catch(e)
 	{
 		print("browser does not support web audio: $e");
