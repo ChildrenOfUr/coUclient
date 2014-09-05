@@ -211,7 +211,7 @@ class Input
 		});
 
 		//listen for right-clicks on entities that we're close to
-		document.body.onContextMenu.listen((MouseEvent e)
+		gameScreen.onContextMenu.listen((MouseEvent e)
 		{
 			Element element = e.target as Element;
 			int groundY = 0, xOffset = 0, yOffset = 0;

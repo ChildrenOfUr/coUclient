@@ -4,7 +4,7 @@ String multiplayerServer = "ws://$websocketServerAddress/playerUpdate";
 String streetEventServer = "ws://$websocketServerAddress/streetUpdate";
 String joined = "", creatingPlayer = "";
 WebSocket streetSocket;
-bool reconnect = true;
+bool reconnect = true, firstConnect = true;
 Map<String,Player> otherPlayers = new Map();
 Map<String,Quoin> quoins = new Map();
 Map<String,Entity> entities = new Map();
@@ -37,8 +37,11 @@ void sendJoinedMessage(String streetName, [String tsid])
 		map["streetName"] = streetName;
 		map["tsid"] = tsid == null ? currentStreet._data['tsid'] : tsid;
 		map["message"] = "joined";
+		map['firstConnect'] = firstConnect;
 		streetSocket.send(JSON.encode(map));
 		joined = streetName;
+		if(firstConnect)
+			firstConnect = false;
 	}
 }
 
@@ -193,6 +196,9 @@ _setupPlayerSocket()
 			return;
 		}
 
+		if(map['username'] == chat.username)
+			return;
+
 		if(map["changeStreet"] != null)
 		{
 			if(map["changeStreet"] != currentStreet.label) //someone left this street
@@ -253,6 +259,7 @@ sendPlayerInfo()
 
 void createOtherPlayer(Map map)
 {
+	print('creating player: $map');
 	if(creatingPlayer == map['username'])
 		return;
 
@@ -529,8 +536,11 @@ findNewSlot(Element item, Map map, ImageElement img)
 			item.attributes['count'] = "1";
 			item.attributes['itemMap'] = JSON.encode(i);
 
-			item.onContextMenu.listen((MouseEvent event)
+			item.onMouseDown.listen((MouseEvent event)
 			{
+				if(event.button != 2)
+					return;
+
 				List<List> actions = [];
         		bool allDisabled = true;
         		if(i['actions'] != null)

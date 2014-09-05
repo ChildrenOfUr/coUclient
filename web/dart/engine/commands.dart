@@ -8,23 +8,23 @@ List<List> COMMANDS = new List<List>()
 	..add(['clear','Clears the console history',clearConsole])
 	..add(['help','Displays this dialog.',printHelp])
 	..add(['hideConsole','Hides the console from view',hideConsole])
-	
+
 	..add(['setenergy','"setenergy <value>" Changes the energy meter',setEnergy])
 	..add(['setmaxenergy','"setmaxenergy <value>" Changes the energy meters max value',setMaxEnergy])
-	
+
 	..add(['setmood','"setmood <value>" Changes the mood meter',setMood])
 	..add(['setmaxmood','"setmaxmood <value>" Changes the mood meters max value',setMaxMood])
-	
+
 	..add(['setcurrants','"setcurrants <value>" Changes the currant meters value',setCurrants])
 	..add(['setimg','"setimg <value>" Changes the img meters value',setImg])
-	
+
 	..add(['setname','"setname <value>" Changes the players displayed name',setName])
-	
+
 	..add(['setlocation','"setlocation <tsid>" Changes the current street',setLocation])
-	
+
 	..add(['setsong','"setsong <value>" Changes the currently playing song',setSong])
 	..add(['setvolume','"setvolume <1-100>" Changes the volume of the current song',setVolume])
-	
+
 	..add(['togglefps','show or hide the fps display"',toggleFps])
 	..add(['toggleCollisionLines','show or hide the platforms and ladders',toggleCollisionLines])
 	..add(['togglePhysics','enable or disable jumping and falling to the groud"',togglePhysics])
@@ -33,7 +33,7 @@ List<List> COMMANDS = new List<List>()
 
 /**
  * Attempts to parse input from the user and run the appropriate command.
- * 
+ *
  * This method will cycle through the list of available commands and try to match the user's input to one of them.
  * If it matches, it will pass the parsed parameters to that function.
  */
@@ -46,7 +46,7 @@ runCommand(String commandToRun)
 		if (commandToRun.startsWith(syntaxParts[0]))
 		{
 			Function action = syntaxParts[2];
-			String commandID = syntaxParts[0]; 
+			String commandID = syntaxParts[0];
 			String data = commandToRun.replaceAll(commandID,'').replaceAll('\n', '');
 			action(data);
 			return;
@@ -56,7 +56,7 @@ runCommand(String commandToRun)
 
 /**
  * Updates the console window using the given input string.
- * 
+ *
  * Adds [line] to the console window and scrolls the window to the bottom.  Pass in [null] if you want to clear all history from the window.
  */
 updateConsole(String line)
@@ -66,7 +66,7 @@ updateConsole(String line)
 		consoleContainer.children.clear();
 		return;
 	}
-	
+
 	DivElement lineDiv = new DivElement()
 	    ..classes.add('ConsoleEntry')
 	    ..text = line;
@@ -76,7 +76,7 @@ updateConsole(String line)
 
 /**
  * Toggle the settings window.
- * 
+ *
  * This method will toggle the visiblity of the settings window
  */
 toggleSettings()
@@ -95,7 +95,7 @@ toggleSettings()
 
 /**
  * Shows the debug console.
- * 
+ *
  * This method will set the debug console to be unhidden.  Additionally it will scroll the contents to the bottom.
  */
 showConsole()
@@ -121,7 +121,7 @@ _runConsoleCommand()
 
 /**
  * Hides the debug console.
- * 
+ *
  * This method will set the debug console to be hidden.
  */
 hideConsole(var nothing)
@@ -132,7 +132,7 @@ hideConsole(var nothing)
 
 /**
  * Echoes the [message] to the console.
- * 
+ *
  * This method echoes whatever the user types into a new line in the console's history.
  */
 printConsole(String message)
@@ -142,7 +142,7 @@ printConsole(String message)
 
 /**
  * Prints a list of available commands and their descriptions.
- * 
+ *
  * This method shows the user a list of commands that they can use.
  */
 printHelp(var nothing)
@@ -154,7 +154,7 @@ printHelp(var nothing)
 
 /**
  * Clears the history in the console.
- * 
+ *
  * This method clears all of the previous console history.
  */
 clearConsole(var nothing)
@@ -290,7 +290,7 @@ int getImg()
 setName(String value)
 {
 	ui._setName(value);
-	printConsole('Setting name to "$value"');  
+	printConsole('Setting name to "$value"');
 }
 
 /**
@@ -319,13 +319,13 @@ setLocation(String value)
 Future setSong(String value)
 {
 	Completer c = new Completer();
-	
+
 	if(value == titleMeter.text)
 	{
 		c.complete();
 		return c.future;
 	}
-	
+
 	value = value.replaceAll(' ', '');
 	if(ui.jukebox[value] == null)
 	{
@@ -340,7 +340,7 @@ Future setSong(String value)
 		_playSong(value);
 		c.complete();
 	}
-	
+
 	return c.future;
 }
 
@@ -360,13 +360,13 @@ _playSong(String value)
 	}
 	else if(testResult == 'maybe') //give warning message but proceed anyway
 		printConsole('SoundCloud: Your browser may or may not fully support mp3s');
-	
+
 	//stop any current song
 	if(useWebAudio && ui.currentAudioInstance != null)
 		stopSound(ui.currentAudioInstance);
 	else if (ui.currentSong != null)
 		ui.currentSong.pause();
-	
+
 	//play a new song
 	ui.currentSong = ui.jukebox[value];
 	if(useWebAudio)
@@ -376,16 +376,16 @@ _playSong(String value)
 	else
 	{
 		ui.currentSong.play();
-		ui.currentSong.loop(true);	
+		ui.currentSong.loop(true);
 	}
-	
+
 	// Changes the ui
 	String title = ui.currentSong.meta['title'];
 	String artist = ui.currentSong.meta['user']['username'];
 	ui._setSong(artist,title);
 
 	scLink.href = ui.currentSong.meta['permalink_url'];
-	
+
 	if(isMuted == '1')
 		setVolume('0',true);
 	else
@@ -408,7 +408,7 @@ setVolume(String value, bool mute)
 		if (ui.currentSong != null)
 	    	ui.currentSong.volume(intvalue);
 		printConsole('Setting volume to $value');
-	}  
+	}
 }
 
 /**

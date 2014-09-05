@@ -637,6 +637,13 @@ class TabContent
 					CurrentPlayer.username = map['newUsername'];
 					CurrentPlayer.loadAnimations();
 
+					//clear our inventory so we can get the new one
+					querySelectorAll('.InventoryBox')
+						.forEach((Element box) => box.children.clear());
+					firstConnect = true;
+					joined = "";
+					sendJoinedMessage(currentStreet.label);
+
 					//warn multiplayer server that it will receive messages from a new name but it should be the same person
 					map['street'] = currentStreet.label;
 					playerSocket.send(JSON.encode(map));
