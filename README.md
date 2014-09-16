@@ -11,14 +11,13 @@ For more information on the original game and its licensing information, visit <
 1. Download the <a href="https://www.dartlang.org/">Dart Editor</a> and open this project
 2. Make sure you have the required dependencies specified in pubspec.yaml
    If you're missing any of these, try running Tools > Pub Install
-   If you're having trouble installing the coUlib package, try cloning the project
-   from GitHub and specify the local pathname in the pubspec.yaml source
    
 ##General Roadmap##
 The project is built in <a href="https://www.dartlang.org" target="_blank">Dart</a>, which is then compiled and minified into javascript and can run in most browsers.
 
 main.dart serves as the main game loop. This class controls all functions within the game.
 
-To test the project, it can be run at any time within the Dartium browser, which natively supports Dart.
+To test the project, you will have to build an 'API_KEYS.dart' file for the /lib folder. Directions can be found <a href="https://github.com/ChildrenOfUr/coUclient/blob/ui_v2/doc/api.md" target="_blank">Here.</a>
+With that included, simply right clicking on the index.html file and selecting 'Run in Dartium' will fire up the client.
 To test the project within other browsers, it is necessary to first compile the project.
-In coUclient, run tools > Publish_web.dart to compile your current build of the project.
+While using the Dart Editor, right click the index.html file and 'Run as JavaScript'.

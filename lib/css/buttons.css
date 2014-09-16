@@ -1,0 +1,47 @@
+.button {
+  font-family: 'Tahoma', 'Geneva', 'sans-serif';
+  position:relative;
+  border-radius:7px;
+  margin:0px 5px;
+  padding:5px;
+  background-color: #4b2e4c;
+  border: 1px solid rgba(0,0,0,0.3);
+  border-bottom:3px solid rgba(0,0,0,0.3);
+  text-align:center;
+  cursor: pointer;
+  box-shadow:inset 0 -2px 5px 1px rgba(255,255,255,0.1);
+  transition:box-shadow 0.1s;
+}
+.button:hover {
+  box-shadow:inset 0 -2px 5px 3px rgba(255,255,255,0.1);
+}
+
+.button, .button *{
+  color:#fff;
+}
+
+.button:active {
+  border-bottom:1px solid rgba(0,0,0,0.2);
+  box-shadow: 0 1px 50px 20px rgba(255,255,255,0.1);
+  transform:translateY(2px);
+}
+
+
+.button.warn {
+  background-color: #ba381a;
+}
+
+.button.success {
+  background-color: #57AA4B;
+}
+
+
+.button.light {
+  margin:10px;
+  padding:9px;
+  background-color: #fff;
+}
+.button.light, .button.light * {
+    color:#4b2e4c;
+}
+

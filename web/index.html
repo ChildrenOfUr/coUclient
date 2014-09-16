@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes"> <!--iOS-->
+    <meta name="mobile-web-app-capable" content="yes"> <!--Chrome for android-->
+    <link rel="icon" type="image/png" href="packages/couclient/system/favicon.ico">
+    <title>CoU - children of Ur</title>
+
+   <!--Import game css-->
+   <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+
+    <div id="loading">
+        <div class="splash">
+          Children of<br>
+          <img src="packages/couclient/system/logo.svg"><br>
+          <div id="playButton" class="button" hidden>PLAY</div>
+        </div>
+        <div id="loadstatus">Loading</div>
+        <br>
+        <div id="loadstatus2">This Stuff</div>
+      </div>
+
+
+    <main onContextMenu="return false">
+    <div id="fps"></div>
+     <!-- THE VARIOUS METERS AT THE TOP LEFT OF THE SCREEN -->
+      <span id="playerName"></span>
+      <div id="imaginationText">
+        <img id="thinkButton" src="packages/couclient/system/think.svg">
+        <span id="currImagination">n</span><span class="smi">i</span>
+      </div>
+      <div id="energyDisks">
+        <img class="green" src="packages/couclient/system/energymeter.svg">
+        <img class="red" src="packages/couclient/system/energymeterred.svg">
+      </div>
+      <img id="topLeftMask" src="packages/couclient/system/leftcornerover.svg">
+      <img id="enbolt" src="packages/couclient/system/energybolt.svg">
+      <div id="leftDisk">
+        <div class="hurt"></div>
+        <img id="rays" src="packages/couclient/system/rays.svg">
+        <div class="dead">
+          <div id="rain"></div>
+        </div>
+        <div id="portrait">
+          <img id="moodAvatar" src="packages/couclient/sprites/avatar.png" hidden>
+        </div>
+        <div id="moodMeter">
+          <span class="percent">
+            <span class="number">n</span>%
+          </span>
+          <span class="fraction">
+            <span class="curr">n</span>
+            /
+            <span class="max">n</span>
+          </span>
+        </div>
+      </div>
+      <!-- ------------------------------------------------ -->
+
+
+      <div id="mapDisplay">
+        <div class="label">
+        Current Location:</div>
+        <div id="currLocation"></div>
+
+        <div id="mapButton" class="button light">
+          <i class="fa fa-map-marker"></i>
+        </div>
+      </div>
+      <nav>
+        <i id="signoutGlyph" class="fa fa-sign-out"></i>
+        <i id="bugGlyph" class="fa fa-bug"> </i>
+        <a href="http://childrenofur.com" target="_blank">
+          <i id="questionGlyph" class="fa fa-home"> </i>
+        </a>
+        <i id="volumeGlyph" class="fa fa-volume-up"></i>
+        <span id="volumeSlider">
+          <input type="range" id="VolumeSlider" min="0" max="100" step="1">
+        </span>
+        <i id="settingsGlyph" class="fa fa-cog"></i>
+      </nav>
+
+      <span id="currDay">N</span>
+      <span id="currTime">N:NN</span>
+      <span id="currDate">Nth of N</span>
+
+      <div id="game">
+
+        <div id="world">
+          <div id="street">
+          <div id="layers"></div>
+          <div id="playerHolder"></div>
+          </div>
+        </div>
+
+        <div id="overlayHolder">
+          <div id="pauseMenu" class="overlay" hidden>
+           <i class="fa-li fa fa-times close"></i>
+            <div id="pauseSkills">
+              <h2>Skills</h2>
+            </div>
+            <div id="pauseQuests">
+              <h2>Quests</h2>
+            </div>
+            <div id="pauseUpgrades">
+              <h2>Upgrades</h2>
+            </div>
+          </div>
+        </div>
+
+
+        <div id="streetLoading">
+          <br><br>
+          <h2>Now Entering:<br>
+          <span id="location"></span>
+          </h2>
+          <div class="bar">
+          <div class="percent"></div>
+          </div>
+        </div>
+
+      </div>
+
+
+      <div id="inventorySearch">
+        <i class="fa fa-search"></i>
+      </div>
+      <div id="inventory">
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+      </div>
+
+      <div id="energyText">
+          <span id="currEnergy">n</span>
+          <span>/</span>
+          <span id="maxEnergy">n</span>
+          <div>Energy</div>
+      </div>
+
+      <div id="currantBack">
+        <img src="packages/couclient/system/currant.svg" id="currantEmblem">
+        <div id="currantText">
+          <div id="currCurrants">n</div>
+          <div id="currantLabel">Currants</div>
+        </div>
+      </div>
+
+      <div id="rightSide">
+        <div class="toggleSide">
+          <i class="fa fa-chevron-left"></i>
+        </div>
+
+        <ul id="miscList" class="fa-ul">
+          <li class="chatSpawn"> <i class="fa-li fa fa-rocket"></i>
+            Console
+          </li>
+          <li class="chatSpawn"> <i class="fa-li fa fa-question"></i>
+            Live Help
+          </li>
+          <li class="chatSpawn"> <i class="fa-li fa fa-asterisk"></i>
+            Global Chat
+          </li>
+        </ul>
+
+        <h3>Groups</h3>
+        <ul id="groupList" class="fa-ul">
+          <li class="online chatSpawn"> <i class="fa-li fa fa-square"></i>
+            Glitchen of Doo
+          </li>
+          <li class="online chatSpawn"> <i class="fa-li fa fa-square"></i>
+            Monster Hunters
+          </li>
+          <li class="online chatSpawn"> <i class="fa-li fa fa-square"></i>
+            Swimming
+          </li>
+        </ul>
+
+        <h3>Friends</h3>
+        <ul id="friendsList" class="fa-ul">
+          <li class="online chatSpawn"> <i class="fa-li fa fa-user"></i>
+            Friendly
+          </li>
+          <li class="offline chatSpawn"> <i class="fa-li fa fa-user"></i>
+            Mab
+          </li>
+          <li class="busy chatSpawn"> <i class="fa-li fa fa-user"></i>
+            Zille
+          </li>
+        </ul>
+
+      </div>
+
+      <div id="panel">
+
+
+
+        <div id="conversationTemplate" hidden>
+          <div class="conversation">
+            <header>
+              <i class="fa-li fa fa-chevron-down"></i>
+              <span class="title"></span>
+            </header>
+            <div class="dialog">
+            </div>
+            <input class="Typing" type="text"></input>
+            <span class="emojiButton">
+            <i class="fa-li fa  fa-smile-o"></i>
+            </span>
+          </div>
+        </div>
+        
+        <div id="conversationArchive" hidden></div>
+
+      </div>
+
+      <div id="SCwidget">
+        <div><a id="SCLink" target="_blank"><span id="trackTitle">The Song</span><br> By <span id="trackArtist">The Artist</span></a></div>
+          <audio id="musicBox"></audio>
+        <a href="http://www.soundcloud.com" target="_blank">
+          @ SOUNDCLOUD
+        </a>
+      </div>
+
+
+      <div id="windowHolder">
+
+        <div id="settingsWindow" class="window" hidden>
+          <i class="fa-li fa fa-times close"></i>
+          <header>
+            <i class="fa-li fa fa-gears"></i>
+            Settings
+          </header>
+          <article>
+
+          <div class= "tab-holder">
+            <span class="tab active">Keyboard</span>
+            <span class="tab">Graphics</span>
+            <span class="tab">Chat</span>
+          </div>
+
+          <div id="graphics" class="tab-content">
+          <div class="content settingsContent">
+            <label class="ChatSettingsOption"><input id="GraphicsBlur" type="checkbox" class="ChatSettingsCheckbox">Enable Scenery Blur</label>
+          </div>
+          </div>
+          
+          <div id="chat" class="tab-content">
+          <div class="content settingsContent">
+            <label class="ChatSettingsOption"><input id="ShowJoinMessages" type="checkbox" class="ChatSettingsCheckbox">Show Join Messages</label>  
+            <br>
+            <label class="ChatSettingsOption"><input id="PlayMentionSound" type="checkbox" class="ChatSettingsCheckbox">Play Mention Sound</label>
+            <br>
+          </div>
+          </div>
+          
+          <div id="keyboard" class="tab-content">
+            <div>Move Left <kbd class = "KeyBindingOption" id="LeftBindingPrimary" style="width: 200px;">A</kbd></div>
+            <div>Move Left (secondary) <kbd class = "KeyBindingOption" id="LeftBindingAlt" style="width: 200px;">left_arrow</kbd></div>
+            
+            <div>Move Right <kbd class = "KeyBindingOption" id="RightBindingPrimary" style="width: 200px;">D</kbd></div>
+            <div>Move Right (secondary) <kbd class = "KeyBindingOption" id="RightBindingAlt" style="width: 200px;">right_arrow</kbd></div>
+            
+            <div>Move Up <kbd class = "KeyBindingOption" id="UpBindingPrimary" style="width: 200px;">W</kbd></div>
+            <div>Move Up (secondary) <kbd class = "KeyBindingOption" id="UpBindingAlt" style="width: 200px;">up_arrow</kbd></div>
+            
+            <div>Move Down <kbd class = "KeyBindingOption" id="DownBindingPrimary" style="width: 200px;">S</kbd></div>
+            <div>Move Down (secondary) <kbd class = "KeyBindingOption" id="DownBindingAlt" style="width: 200px;">down_arrow</kbd></div>
+            
+            <div>Jump <kbd class = "KeyBindingOption" id="JumpBindingPrimary" style="width: 200px;">space_bar</kbd></div>
+            <div>Jump (secondary) <kbd class = "KeyBindingOption" id="JumpBindingAlt" style="width: 200px;">space_bar</kbd></div>
+          
+            <div>Action <kbd class = "KeyBindingOption" id="ActionBindingPrimary" style="width: 200px;">enter</kbd></div>
+            <div>Action (secondary) <kbd class = "KeyBindingOption" id="ActionBindingAlt" style="width: 200px;">enter</kbd></div>
+          </div>
+
+
+          </article>
+        </div>
+
+        <div id="mapWindow" class="window" hidden>
+          <i class="fa-li fa fa-times close"></i>
+          <header>
+            <i class="fa-li fa fa-map-marker"></i>
+            Map
+          </header>
+          <article class="well">
+          A map should go here.
+          </article>
+        </div>
+        
+
+        <!-- TODO -->
+        <div id="shopWindow" class="window" hidden>
+          <i class="fa-li fa fa-times close"></i>
+          <header>
+            Vendor
+          </header>
+          <article>
+            <div class= "tab-holder">
+              <span class="tab">Sell</span>
+              <span class="tab active">Buy</span>
+            </div>
+            
+          <div id="sell" class="tab-content">
+            <div id="SellDropTarget"></div>
+            <img src="packages/couclient/system/callout_dropitem.png" id="SellCallout">
+          </div>
+
+          <div id="buy" class="tab-content">
+          </div>
+          
+          <div id="buy-qty" class="tab-content" hidden>
+            <div class="back">
+                <i class="fa fa-chevron-left"></i>
+                Back
+            </div>
+            <div class="LeftColumn">
+              <div class="ItemImageParent">
+                <img src="" class="ItemImage">
+                <span class="ItemPrice">ADB</span>
+              </div>
+              <div class="ItemCount">
+                <span style="color:gray;vertical-align:middle">You have </span>
+                <span class="ItemNum itemDetailNum">0</span>
+                <span style="color:gray;vertical-align:middle"> of these</span>
+              </div>
+            </div>
+            <div class="RightColumn">
+              <div class="ItemName"></div>
+              <div class="QuantityParent">
+                <i class="minus fa fa-minus"></i>
+                <input class="NumToBuy" type="number" min="1" max="99">
+                <i class="plus fa fa-plus"></i>
+                <div class="max button light">Max</div>
+              </div>
+              <div class="BuyButton button light" style="margin-left:10px;">Buy 1 for 1000₡</div>
+              <div class="Description"></div>
+              <div class="ItemStack">
+                <span class="BlankSlot"></span>
+                <span style="color:gray;vertical-align:middle">Fits up to </span>
+                <span class="StackNum itemDetailNum"></span>
+                <span style="color:gray;vertical-align:middle"> in an inventory slot</span>
+              </div>
+            </div>
+          
+          </div>
+          
+          <div id="sell-qty" class="tab-content" hidden>
+              <div class="back">
+                <i class="fa fa-chevron-left"></i>
+                Back
+              </div>
+              <div id="LeftColumn">
+                <div id="ItemImageParent">
+                  <img src="" id="ItemImage">
+                  <span id="ItemPrice">Price 1₡</span>
+                </div>
+                <div id="ItemCount">
+                  
+                </div>
+              </div>
+              <div id="RightColumn">
+              <div id="ItemName"></div>
+              <div id="QuantityParent">
+                <span id="MinusButton">-</span>
+                <input id="NumToBuy" type="number" min="1">
+                <span id="PlusButton">+</span>
+                <div id="MaxButton" class="button light">Max</div>
+              </div>
+              <div id="BuyButton" class="button light" style="margin-left:10px;">Sell 1 for 0₡</div>
+              <div id="Description"></div>
+              <div id="ItemStack">
+                <span id="BlankSlot"></span>
+                <span style="color:gray;vertical-align:middle">Fits up to </span>
+                <span id="StackNum" class="itemDetailNum"></span>
+                <span style="color:gray;vertical-align:middle"> in an inventory slot</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="footer">
+            <span class="qty">???</span>
+            <img src="packages/couclient/system/currant.svg">
+            <span>You have </span>
+          </div>
+          </article>
+        </div>
+        <!-- TODO -->
+        
+        
+
+        <div id="bagWindow" class="window" hidden>
+          <i class="fa-li fa fa-times close"></i>
+          <header>
+            <i class="fa-li fa fa-search"></i>
+            Bag
+          </header>
+          <article class="well">
+          <div class="storage">
+            <div class="box"></div>
+            <div class="box"></div>
+            <div class="box"></div>
+            <div class="box"></div>
+            <div class="box"></div>
+            <div class="box"></div>
+            <div class="box"></div>
+            <div class="box"></div>
+            <div class="box"></div>
+            <div class="box"></div><br>
+            <div class="box"></div>
+            <div class="box"></div>
+            <div class="box"></div>
+            <div class="box"></div>
+            <div class="box"></div>
+            <div class="box"></div>
+            <div class="box"></div>
+            <div class="box"></div>
+            <div class="box"></div>
+            <div class="box"></div>
+          </div>
+            <input type="text" placeholder="Search Inventory..." id="invsearch">
+          </article><!--Cross-Domain Asset Fix-->
+        </div>
+
+        <div id="bugWindow" class="window" hidden>
+          <i class="fa-li fa fa-times close"></i>
+          <header>
+            <i class="fa-li fa fa-bug"></i>
+            Bugs/Suggestions
+          </header>
+          <article class="well">
+              <p>If you would like to report a bug or make a feature request, please fill this out. Your browser information is included automatically for debugging purposes. You can choose to provide an email address for further contact.</p>
+              <label for="reportCategory">Choose a report type:</label>
+              <select id="reportCategory">
+                  <option value="generic_other">Generic or Other</option>
+                  <option value="bug_prob_incomp">Bug, Problem, Incompatibility</option>
+                  <option value="sugg_feat_req">Suggestion or Feature Request</option>
+              </select>
+              
+              <textarea id="reportMain" placeholder="Please provide a detailed description of the problem you are experiencing or of the feature you would like us to add."></textarea>
+              <textarea id="reportMeta" disabled="true"></textarea>
+              <input type="email" placeholder="Email Address (optional)">
+              <div class="button">Submit Report</div>
+          </article>
+        </div>
+
+        <div id="motdWindow" class="window" hidden>
+          <i class="fa-li fa fa-times close"></i>
+          <header>
+            <i class="fa-li fa fa-gears"></i>
+            Message of the Day
+          </header>
+          <article>
+          Copyright 2014 CoU Development Team, Children of Ur is not endorsed by or affiliated with <a href="http://tinyspeck.com/">Tiny Speck, Inc.</a> (The makers of <a href="http://glitchthegame.com">Glitch</a>) in any way.
+          <br>
+          Command Console is now merged with the chat. Many commands have not been implemented yet. Here are some that are: '/mood', '/maxmood', '/energy', '/maxenergy', '/int', '/currants', /playsound.
+          '/event' is special, it will allow you to trigger any event that is supposed to contain a string, see sourcecode for details.
+          </article>
+        </div>
+
+      </div>
+
+    </main>
+
+    <div id="youWon" hidden><br><br><br><br>
+      WAIT! You were just about to win the game!
+    </div>
+
+    <!--Cross-Domain Asset Fix-->
+    <script type="text/javascript">
+      function getRoom(dataJSON){window.postMessage(JSON.stringify(dataJSON),'*');}
+    </script>
+
+    <!-- Start the Game up. -->
+    <script type="application/dart" src="./main.dart"></script>
+    <script src="packages/browser/dart.js"></script>
+  </body>
+</html>
