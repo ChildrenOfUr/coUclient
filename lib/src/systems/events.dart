@@ -3,8 +3,6 @@ part of couclient;
 // The main Event Bus
 Pump EVENT_BUS = new Pump();
 
-
-
 /// Events in the lifecycle of the game.
 class Moment<T> {
   String type;

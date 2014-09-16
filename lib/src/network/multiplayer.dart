@@ -1,7 +1,7 @@
 part of couclient;
 
-String multiplayerServer = "ws://robertmcdermot.com:8080/playerUpdate";
-String streetEventServer = "ws://robertmcdermot.com:8080/streetUpdate";
+String multiplayerServer = "ws://robertmcdermot.com:8282/playerUpdate";
+String streetEventServer = "ws://robertmcdermot.com:8282/streetUpdate";
 String joined = "";
 WebSocket streetSocket, playerSocket;
 bool reconnect = true;

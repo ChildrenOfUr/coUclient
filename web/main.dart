@@ -38,6 +38,7 @@ part 'package:couclient/src/systems/preload.dart';
 
 // NETWORKING MODULES //
 part 'package:couclient/src/network/chat.dart';
+part 'package:couclient/src/network/auth.dart';
 part 'package:couclient/src/network/multiplayer.dart';
 part 'package:couclient/src/network/metabolics.dart';
 
@@ -88,7 +89,6 @@ Random random = new Random();
 NumberFormat commaFormatter = new NumberFormat("#,###");
 
 main() {
-  
   // System
   loadTokens();
   new DebugManager();
