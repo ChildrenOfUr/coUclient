@@ -34,6 +34,7 @@ part 'package:couclient/src/systems/events.dart';
 part 'package:couclient/src/systems/commands.dart';
 part 'package:couclient/src/game/input.dart';
 part 'package:couclient/src/systems/util.dart';
+part 'package:couclient/src/systems/preload.dart';
 
 // NETWORKING MODULES //
 part 'package:couclient/src/network/chat.dart';
@@ -77,10 +78,6 @@ part 'package:couclient/src/game/entities/quoin.dart';
 part 'package:couclient/src/display/ui_templates/interactions_menu.dart';
 part 'package:couclient/src/display/ui_templates/right_click_menu.dart';
 
-// API KEYS // for more infomation see '/doc/api.md'
-part 'package:couclient/API_KEYS.dart';
-
-
 // Globals //
 Storage localStorage = window.localStorage;
 SoundManager soundManager;
@@ -91,7 +88,9 @@ Random random = new Random();
 NumberFormat commaFormatter = new NumberFormat("#,###");
 
 main() {
+  
   // System
+  loadTokens();
   new DebugManager();
   new ClockManager();
   new CommandManager();
