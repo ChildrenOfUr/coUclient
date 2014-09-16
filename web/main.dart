@@ -77,13 +77,8 @@ part 'package:couclient/src/game/entities/quoin.dart';
 part 'package:couclient/src/display/ui_templates/interactions_menu.dart';
 part 'package:couclient/src/display/ui_templates/right_click_menu.dart';
 
-
-
 // API KEYS // for more infomation see '/doc/api.md'
-part 'package:couclient/system/API_KEYS.dart';
-
-
-
+part 'package:couclient/API_KEYS.dart';
 
 
 // Globals //
