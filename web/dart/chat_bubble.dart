@@ -4,10 +4,12 @@ class ChatBubble
 {
 	String text;
 	num timeToLive;
-	DivElement bubble;
+	DivElement bubble, parent;
 	SpanElement textElement;
+	var hostObject;
+	bool autoDismiss,removeParent;
 
-	ChatBubble(this.text)
+	ChatBubble(this.text,this.hostObject,this.parent,{this.autoDismiss : true, this.removeParent : false})
 	{
 		timeToLive = text.length * 0.03 + 3; //minimum 3s plus 0.3s per character
 		if(timeToLive > 10) //max 10s
@@ -30,17 +32,24 @@ class ChatBubble
 
 	update(double dt)
 	{
-		if(timeToLive <= 0)
+		if(timeToLive <= 0 && autoDismiss)
 		{
-			bubble.remove();
-			CurrentPlayer.chatBubble = null;
+			removeBubble();
 			//force a player update to be sent right now
 			timeLast = 5.0;
 		}
 		else
 		{
 			timeToLive -= dt;
-			CurrentPlayer.playerParentElement.append(bubble);
+			parent.append(bubble);
 		}
+	}
+
+	void removeBubble()
+	{
+		bubble.remove();
+        hostObject.chatBubble = null;
+        if(removeParent)
+        	parent.remove();
 	}
 }

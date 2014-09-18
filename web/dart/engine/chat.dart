@@ -733,7 +733,7 @@ class TabContent
 			//remove any existing bubble
 			if(CurrentPlayer.chatBubble != null && CurrentPlayer.chatBubble.bubble != null)
 				CurrentPlayer.chatBubble.bubble.remove();
-			CurrentPlayer.chatBubble = new ChatBubble(_parseForEmoticons(map["message"]));
+			CurrentPlayer.chatBubble = new ChatBubble(_parseForEmoticons(map["message"]),CurrentPlayer,CurrentPlayer.playerParentElement);
 		}
 	}
 

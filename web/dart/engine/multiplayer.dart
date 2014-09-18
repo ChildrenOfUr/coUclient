@@ -113,8 +113,13 @@ _setupStreetSocket(String streetName)
 			else
 			{
 				element.attributes['actions'] = JSON.encode(plantMap['actions']);
-				if(plant != null && plant.state != plantMap['state'])
-					plant.updateState(plantMap['state']);
+				if(plant != null)
+				{
+					if(plant.state != plantMap['state'])
+						plant.updateState(plantMap['state']);
+
+					_updateChatBubble(plantMap,plant);
+				}
 			}
 		});
 		(map["npcs"] as List).forEach((Map npcMap)
@@ -139,10 +144,10 @@ _setupStreetSocket(String streetName)
 
                   		npc.animation = new Animation(npcMap['url'],"npc",npcMap['numRows'],npcMap['numColumns'],frameList);
                   		npc.animation.load().then((_) => npc.ready = true);
-
       				}
 
       				npc.facingRight = npcMap["facingRight"];
+      				_updateChatBubble(npcMap,npc);
       			}
 			}
 		});
@@ -176,6 +181,27 @@ _setupStreetSocket(String streetName)
 			_setupStreetSocket(currentStreet.label);
 		});
 	});
+}
+
+_updateChatBubble(Map map, Entity entity)
+{
+	if(map["bubbleText"] != null)
+	{
+		if(entity.chatBubble == null)
+		{
+			DivElement bubbleParent = new DivElement()
+				..style.position = 'absolute'
+				..style.width = entity.canvas.width.toString()+'px'
+				..style.height = entity.canvas.height.toString()+'px'
+				..style.transform = 'translateX(${map['x']}px) translateY(${entity.canvas.attributes['translateY']}px)';
+			playerHolder.append(bubbleParent);
+			entity.chatBubble = new ChatBubble(map["bubbleText"],entity,bubbleParent,autoDismiss:false,removeParent:true);
+		}
+
+		entity.chatBubble.update(1.0);
+	}
+	else if(entity.chatBubble != null)
+		entity.chatBubble.removeBubble();
 }
 
 _setupPlayerSocket()
@@ -259,7 +285,6 @@ sendPlayerInfo()
 
 void createOtherPlayer(Map map)
 {
-	print('creating player: $map');
 	if(creatingPlayer == map['username'])
 		return;
 
@@ -311,7 +336,7 @@ updateOtherPlayer(Map map, Player otherPlayer)
 	if(map["bubbleText"] != null)
 	{
 		if(otherPlayer.chatBubble == null)
-			otherPlayer.chatBubble = new ChatBubble(map["bubbleText"]);
+			otherPlayer.chatBubble = new ChatBubble(map["bubbleText"],otherPlayer,otherPlayer.playerParentElement);
 		otherPlayer.playerParentElement.append(otherPlayer.chatBubble.bubble);
 	}
 	else if(otherPlayer.chatBubble != null)
