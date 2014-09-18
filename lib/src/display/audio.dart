@@ -20,16 +20,16 @@ class SoundManager extends Pump {
   }
 
   Future init() {
-    
-    
+
+
     new Asset('packages/couclient/audio/loading.mp3').load().then((_) {
         //start the loading music and attach it to the #LoadingScreen so that when that is removed the music stops
         if (ui.volume > 0 && ui.muted == false) {
           playSound('loading', parentElement: querySelector('#LoadingScreen'), looping:false);
         }
     });
-    
-    
+
+
     try {
       audioChannels['soundEffects'] = new AudioChannel("soundEffects")..gain = ui.volume / 100;
       audioChannels['music'] = new AudioChannel("music")..gain = ui.volume / 100;
@@ -98,37 +98,54 @@ class SoundManager extends Pump {
     return c.future;
   }
 
-  playSound(String name, {bool asset: true, bool looping: false, Element parentElement: null}) {
+	playSound(String name, {bool asset: true, bool looping: false, Element parentElement: null})
+	{
+		try
+		{
+			if(useWebAudio)
+			{
+				if(asset)
+					return gameSounds[name].play(looping:looping);
+				else //if we say it's not an asset then load a new sound and play it as music
+				{
+					Sound music = new Sound(channel:audioChannels['music']);
+					music.load(currentSong.streamingUrl).then((Sound music)
+					{
+						currentAudioInstance = music.play(looping:looping);
+					});
+				}
+			}
+			else
+			{
+				AudioElement loading = ASSET[name].get();
+				loading.loop = looping;
+				loading.volume = ui.volume/100;
+				if(parentElement != null)
+					parentElement.append(loading);
+					loading.play();
+					return loading;
+			}
+		}
+		catch(err){print('error playing sound: $err');}
+	}
 
-    if (useWebAudio) {
-      if (asset) return gameSounds[name].play(looping: looping); else //if we say it's not an asset then load a new sound and play it as music
-      {
-        Sound music = new Sound(channel: audioChannels['music']);
-        music.load(currentSong.streamingUrl).then((Sound music) {
-          currentAudioInstance = music.play(looping: looping);
-        });
-      }
-    } else {
-      AudioElement loading = ASSET[name].get();
-      loading.loop = looping;
-      loading.volume = ui.volume / 100;
-      if (parentElement != null) parentElement.append(loading);
-      loading.play();
-      return loading;
+	void stopSound(soundObjectToStop)
+    {
+    	try
+    	{
+    		if(useWebAudio)
+        	{
+        		(soundObjectToStop as AudioInstance).stop();
+        	}
+        	else
+        	{
+        		AudioElement audio = soundObjectToStop as AudioElement;
+        		audio.pause();
+        		audio.remove();
+        	}
+    	}
+    	catch(err){print('error stopping sound: $err');}
     }
-  }
-
-  void stopSound(soundObjectToStop) {
-    if (useWebAudio) {
-      (soundObjectToStop as AudioInstance).stop();
-    } else {
-      AudioElement audio = soundObjectToStop as AudioElement;
-      try {
-        audio.pause();
-        audio.remove();
-      } catch (e) {}
-    }
-  }
 
   Future loadSong(String name) {
     Completer c = new Completer();

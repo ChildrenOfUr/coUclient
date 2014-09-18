@@ -7,13 +7,13 @@ part of couclient;
 //in more than one place
 
 /**
- * 
+ *
  * Counts the number of items of type [item] that the player currently has in their pack.
  * If the items are spread across more than one inventory slot, this will return the sum
  * of all slots.
- * 
+ *
  * For example, if the player has 50 Chunks of Beryl in 3 slots, then this will return 150
- * 
+ *
  **/
 int getNumItems(String item)
 {
@@ -21,14 +21,14 @@ int getNumItems(String item)
 	String cssName = item.replaceAll(" ","_");
 	for(Element item in ui.inventory.querySelectorAll(".item-$cssName"))
 		count += int.parse(item.attributes['count']);
-	
+
     return count;
 }
 
 /**
- * 
+ *
  * A simple function to capitalize the first letter of a string.
- * 
+ *
  **/
 String capitalizeFirstLetter(String string)
 {
@@ -36,16 +36,16 @@ String capitalizeFirstLetter(String string)
 }
 
 /**
- * 
+ *
  * This function will determine if a user has the required items in order to perform an action.
- * 
+ *
  * For example, if the user is trying to mine a rock, this will take in a List<Map> which looks like
- * 
+ *
  * [{"num":1,"of":["Pick","Fancy Pick"]}]
- * 
+ *
  * ...meaning that the player must have 1 of either a Pick or Fancy Pick in their bags in order
  * to perform the action.
- * 
+ *
  **/
 bool hasRequirements(List<Map> requires)
 {
@@ -65,9 +65,9 @@ bool hasRequirements(List<Map> requires)
 }
 
 /**
- * 
+ *
  * This function will generate a string that shows what the requirements are for a certain action.
- * 
+ *
  **/
 String getRequirementString(List<Map> requires)
 {
@@ -80,10 +80,10 @@ String getRequirementString(List<Map> requires)
 }
 
 /**
- * 
+ *
  * Send a message to the server that you want to perform [methodName] on [entityId]
  * with optional [arguments]
- * 
+ *
  **/
 sendAction(String methodName, String entityId, [Map arguments])
 {
@@ -102,4 +102,16 @@ sendAction(String methodName, String entityId, [Map arguments])
 	map['tsid'] = currentStreet._data['tsid'];
 	map['arguments'] = arguments;
 	streetSocket.send(JSON.encode(map));
+}
+
+/**
+ * Get a name that will work as a css selector by replacing all invalid characters with an underscore
+ **/
+String sanitizeName(String name)
+{
+	List<String> badChars = "! @ \$ % ^ & * ( ) + = , . / ' ; : \" ? > < [ ] \\ { } | ` #".split(" ");
+	for(String char in badChars)
+		name = name.replaceAll(char, '_');
+
+	return name;
 }

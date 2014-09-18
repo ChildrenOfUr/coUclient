@@ -35,15 +35,15 @@ class InputManager extends Pump {
     downKey = false;
     jumpKey = false;
     actionKey = false;
-    
+
     setupKeyBindings();
-    
+
     window.onMessage.listen((MessageEvent event)
 	{
-		Map<String,String> street = JSON.decode(event.data);
+		Map<String,dynamic> street = JSON.decode(event.data);
 		String label = street['label'];
 		String tsid = street['tsid'];
-		
+
 		//send changeStreet to chat server
 		Map map = new Map();
 		map["statusMessage"] = "changeStreet";
@@ -52,18 +52,28 @@ class InputManager extends Pump {
 		map["newStreetTsid"] = tsid;
 		map["oldStreet"] = currentStreet.label;
 		new Moment("OutgoingChatEvent",map);
-		
-		new Asset.fromMap(street,label);
-		new Street(label).load();
+
+		ui.streetLoadingImage.src = street['loading_image']['url'];
+		ui.streetLoadingImage.onLoad.first.then((_)
+		{
+			String hubName = new DataMaps().data_maps_hubs[street['hub_id']]()['name'];
+			ui.mapLoadingContent.style.opacity = "1.0";
+			ui.nowEntering.setInnerHtml('<h2>Entering</h2><h1>' + label + '</h1><h2>in ' + hubName/* + '</h2><h3>Home to: <ul><li>A <strong>Generic Goods Vendor</strong></li></ul>'*/);
+			new Timer(new Duration(seconds:1),()
+            {
+				new Asset.fromMap(street,label);
+                new Street(label).load();
+			});
+		});
 	});
-    
+
     document.onClick.listen((MouseEvent event) => clickOrTouch(event,null));
     document.onTouchStart.listen((TouchEvent event) => clickOrTouch(null,event));
-    
+
     EVENT_BUS > this;
   }
 
-  clickOrTouch(MouseEvent mouseEvent, TouchEvent touchEvent) { 
+  clickOrTouch(MouseEvent mouseEvent, TouchEvent touchEvent) {
     // TODO: for now mobile touch targets are not included
     //don't handle too many touch events too fast
     if (touched) return;
@@ -109,21 +119,21 @@ class InputManager extends Pump {
     //handle changing streets via exit signs
     if (target.className == "ExitLabel") {
       //make sure loading screen is visible during load
-      ui.loadingScreen.className = "MapLoadingScreenIn";
-      ui.loadingScreen.style.opacity = "1.0";
+      ui.mapLoadingScreen.className = "MapLoadingScreenIn";
+      ui.mapLoadingScreen.style.opacity = "1.0";
       ScriptElement loadStreet = new ScriptElement();
       loadStreet.src = target.attributes['url'];
       playerTeleFrom = target.attributes['from'];
       document.body.append(loadStreet);
     }
-    
+
     if(target.classes.contains("chatSpawn"))
     {
     	new Chat(target.text);
     }
   }
 
-  
+
   setupKeyBindings() {
     //this prevents 2 keys from being set at once
     if (keyPressSub != null) keyPressSub.cancel();
@@ -208,7 +218,7 @@ class InputManager extends Pump {
 				if(x > rect.left && x < rect.right && y > rect.top && y < rect.bottom)
 					ids.add(id);
 			});
-			
+
 			if(ids.length > 0)
 				doObjectInteraction(e,ids);
 		});
@@ -226,16 +236,16 @@ class InputManager extends Pump {
   				createMultiEntityWindow();
   		}
   	}
-  	
+
   	void createMultiEntityWindow()
   	{
   		Element oldWindow = querySelector("#InteractionWindow");
   		if(oldWindow != null)
   			oldWindow.remove();
-  		
+
   		document.body.append(InteractionWindow.create());
   	}
-  	
+
   	void interactWithObject(String id)
   	{
   		Element element = querySelector("#$id");
@@ -261,22 +271,22 @@ class InputManager extends Pump {
   		if(!allDisabled)
   			showClickMenu(null,element.attributes['type'],"Desc",actions);
   	}
-  	
+
 // Right-click menu functions
-	hideClickMenu(Element window) 
+	hideClickMenu(Element window)
 	{
 		if(window != null)
 			window.remove();
 	}
-	
+
 	showClickMenu(MouseEvent Click, String title, String description, List<List> options)
 	{
 		hideClickMenu(querySelector('#RightClickMenu'));
 		document.body.append(RightClickMenu.create(Click,title,description,options));
-		
+
 		Element clickMenu = querySelector('#RightClickMenu');
      Element list = querySelector('#RCActionList');
-		
+
 		menuKeyListener = document.onKeyDown.listen((KeyboardEvent k)
 		{
 			if((k.keyCode == keys["UpBindingPrimary"] || k.keyCode == keys["UpBindingAlt"]) && !ignoreKeys) //up arrow or w and not typing
@@ -297,7 +307,7 @@ class InputManager extends Pump {
 			stopMenu(clickMenu);
 		});
 	}
-	
+
 	void selectUp(Element menu, String className)
 	{
 		List<Element> options = menu.children;
@@ -311,10 +321,10 @@ class InputManager extends Pump {
 			options[options.length-1].classes.add(className);
 		else
 			options[removed-1].classes.add(className);
-		
+
 		lastSelect = new DateTime.now();
 	}
-	
+
 	void selectDown(Element menu, String className)
 	{
 		List<Element> options = menu.children;
@@ -328,10 +338,10 @@ class InputManager extends Pump {
 			options[0].classes.add(className);
 		else
 			options[removed+1].classes.add(className);
-		
+
 		lastSelect = new DateTime.now();
 	}
-	
+
 	void stopMenu(Element window)
 	{
 		if(menuKeyListener != null)
@@ -341,7 +351,7 @@ class InputManager extends Pump {
 		}
      hideClickMenu(window);
 	}
-	
+
 	void doAction(Element list, Element window, String className)
 	{
 		for(Element element in list.children)

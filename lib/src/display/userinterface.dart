@@ -21,7 +21,12 @@ class UserInterface extends Pump {
   Element loadStatus2 = querySelector("#loading #loadstatus2");
   Element loadingScreen = querySelector('#loading');
   Element loadingSpinner = querySelector('#loading .fa-spin');
-  Element streetLoading = querySelector("#streetLoading");
+  ImageElement streetLoadingImage = querySelector('#StreetLoadingImage');
+  Element streetLoadingStatus = querySelector('#StreetLoadingStatus');
+  Element nowEntering = querySelector('#NowEntering');
+  Element mapLoadingBar = querySelector('#MapLoadingBar');
+  Element mapLoadingScreen = querySelector('#MapLoadingScreen');
+  Element mapLoadingContent = querySelector('#MapLoadingContent');
 
   // Name Meter Variables
   Element nameElement = querySelector('#playerName');
@@ -95,12 +100,18 @@ class UserInterface extends Pump {
   Element maxMoodText = querySelector('#moodMeter .fraction .max');
   Element moodPercent = querySelector('#moodMeter .percent .number');
 
+  //Location/Map Variables
+  Element mapWindow = querySelector('#mapWindow');
+  Element mapImg = querySelector('#mapImage');
+  Element mapTitle = querySelector('#mapTitle');
+  CanvasElement mapCanvas = querySelector('#MapCanvas');
+
   // Chat panel
   Element panel = querySelector('#panel');
   Element chatTemplate = querySelector('#conversationTemplate');
 
   Element conversationArchive = querySelector("#conversationArchive");
-  
+
 
   //fps meter
   Element fpsDisplay = querySelector('#fps');
@@ -128,7 +139,7 @@ class UserInterface extends Pump {
 
     //load emoticons
     new Asset("packages/couclient/emoticons/emoticons.json").load().then((Asset asset) => EMOTICONS = asset.get()["names"]);
-	
+
     // Set initial Time
     currDay.text = clock.dayofweek;
     currTime.text = clock.time;
@@ -184,7 +195,7 @@ class UserInterface extends Pump {
 
     this & EVENT_BUS;
   }
-  
+
 	void _resize()
 	{
 	  	worldWidth = worldElement.clientWidth;
@@ -197,36 +208,36 @@ class UserInterface extends Pump {
 	    // ChatEvents are drawn to their Conversation.
 	    if (event.isType('ChatEvent'))
 	    {
-	    	for (Chat convo in openConversations) 
-	    	{                			
+	    	for (Chat convo in openConversations)
+	    	{
 	    		if(convo.title == "Local Chat" && event.content['street'] == currentStreet.label)
 	    			convo.processEvent(event.content);
 	    		else if(convo.title == event.content['channel'] && convo.title != "Local Chat")
 	        		convo.processEvent(event.content);
 	    	}
 	    }
-	    
+
 	    // List online players
 	    if (event.isType('ChatListEvent'))
 	    {
-	    	for (Chat convo in openConversations) 
+	    	for (Chat convo in openConversations)
 	    	{
-	        	if (convo.title == event.content['channel']) 
+	        	if (convo.title == event.content['channel'])
 	        		convo.addAlert("Players in this Channel:  ${event.content['users']}".replaceAll('[', '').replaceAll(']', ''));
 	    	}
 	    }
-	    
+
 	    // StartChat events start a Conversation
 	    if (event.isType('StartChat'))
 	    {
 	    	Chat chat = new Chat(event.content as String);
-			
+
 	    	//handle chat input getting focused/unfocused so that the character doesn't move while typing
 			ElementList chatInputs = querySelectorAll('.Typing');
 			chatInputs.onFocus.listen((_) => inputManager.ignoreKeys = true);
 		  	chatInputs.onBlur.listen((_) => inputManager.ignoreKeys = false);
 	    }
-	    
+
 	    // MISC EVENT HANDLERS //
 	    if (event.isType('TimeUpdate'))
 	    {
@@ -234,11 +245,11 @@ class UserInterface extends Pump {
 	    	currTime.text = clock.time;
 	    	currDate.text = clock.day + ' of ' + clock.month;
 	    }
-	    
+
 	    if (event.isType('DoneLoading'))
 	    {
 	    	// display 'Play' buttons
-	    	for (Element button in loadingScreen.querySelectorAll('.button')) 
+	    	for (Element button in loadingScreen.querySelectorAll('.button'))
 	    		button.hidden = false;
 	    }
 	}

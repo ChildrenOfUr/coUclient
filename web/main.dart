@@ -2,8 +2,8 @@ library couclient;
 /*
  *  THE CHILDREN OF UR WEBCLIENT
  *  http://www.childrenofur.com
- * 
- * 
+ *
+ *
 */
 
 // DART //
@@ -62,14 +62,19 @@ part 'package:couclient/src/display/windows/vendor_window.dart';
 part 'package:couclient/src/display/render/camera.dart';
 part 'package:couclient/src/display/render/deco.dart';
 part 'package:couclient/src/display/render/ladder.dart';
+part 'package:couclient/src/display/render/wall.dart';
 part 'package:couclient/src/display/render/platform.dart';
 part 'package:couclient/src/display/render/signpost.dart';
+part 'package:couclient/src/display/render/collision_lines_debug.dart';
+part 'package:couclient/src/display/render/worldmap.dart';
+part 'package:couclient/src/display/render/maps_data.dart';
 
 // GAME MODULES //
 part 'package:couclient/src/game/game.dart';
 part 'package:couclient/src/game/entities/player.dart';
 part 'package:couclient/src/game/animation.dart';
 part 'package:couclient/src/game/chat_bubble.dart';
+part 'package:couclient/src/game/entities/entity.dart';
 part 'package:couclient/src/game/entities/npc.dart';
 part 'package:couclient/src/game/entities/plant.dart';
 part 'package:couclient/src/game/street.dart';
@@ -94,13 +99,13 @@ main() {
   new DebugManager();
   new ClockManager();
   new CommandManager();
-  
+
   // UI/UX
   soundManager = new SoundManager();
   new MeterManager();
   new WindowManager();
   inputManager = new InputManager();
-  
+
   // Networking
   new NetChatManager();
 
@@ -108,11 +113,11 @@ main() {
   new Moment('StartChat','Global Chat');
   new Moment('StartChat','Local Chat');
   ui.update();
-  
+
   // This tells the game to put the start button on the loading page.
-  new Moment('DoneLoading',null);  
-  
+  new Moment('DoneLoading',null);
+
 	// GAME ENTRY //
 	Game game = new Game();
-  
+
 }

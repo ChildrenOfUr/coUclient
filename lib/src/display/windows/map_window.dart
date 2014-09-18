@@ -9,6 +9,7 @@ class MapWindow extends Modal {
     // MAPWINDOW LISTENERS //
     ui.mapButton.onClick.listen((_) {
       this.open();
+      worldMap = new WorldMap(currentStreet.hub_id);
     });
   }
 

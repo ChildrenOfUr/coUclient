@@ -24,12 +24,12 @@ class Platform
       }
     });
   }
-  
+
   String toString()
   {
     return "(${start.x},${start.y})->(${end.x},${end.y})";
   }
-  
+
   int compareTo(Platform other)
   {
     return other.start.y - start.y;

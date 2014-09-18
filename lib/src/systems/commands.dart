@@ -18,7 +18,10 @@ class CommandManager {
     COMMANDS
         ..['setname'] = setName
         ..['go'] = setLocationCommand
-        ..['setlocation'] = setLocationCommand;
+        ..['setlocation'] = setLocationCommand
+        ..['toggleFps'] = toggleFps
+        ..['toggleCollisionLines'] = toggleCollisionLines
+        ..['togglePhysics'] = togglePhysics;
   }
 }
 
@@ -43,7 +46,7 @@ bool parseCommand(String command) {
 
 // COMMAND FUNCTIONS BELOW  //
 
-setName(String noun) 
+setName(String noun)
 {
   // Fix Name
   String newName = noun.replaceAll(" ", "_");
@@ -57,7 +60,7 @@ setName(String noun)
     });
     return;
   }
-  
+
   if(CurrentPlayer != null)
   	CurrentPlayer.playerName.text = noun;
   ui.username = noun;
@@ -89,12 +92,12 @@ bool containsBadCharacter(String newName) {
   return false;
 }
 
-setLocationCommand(String noun) 
+setLocationCommand(String noun)
 {
 	playerTeleFrom="console";
 	noun = noun.trim();
-	ui.loadingScreen.className = "MapLoadingScreenIn";
-	ui.loadingScreen.style.opacity = "1.0";
+	ui.mapLoadingScreen.className = "MapLoadingScreenIn";
+	ui.mapLoadingScreen.style.opacity = "1.0";
 	//changes first letter to match revdancatt's code - only if it starts with an L
 	if(noun.startsWith("L"))
 		noun = noun.replaceFirst("L", "G");
@@ -102,3 +105,40 @@ setLocationCommand(String noun)
 	loadStreet.src = "http://robertmcdermot.github.io/CAT422-glitch-location-viewer/locations/$noun.callback.json";
 	document.body.append(loadStreet);
 }
+
+/**
+ * Toggles the display of the fps counter
+ */
+toggleFps(var nothing)
+{
+	if(showFps)
+		showFps = false;
+	else
+		showFps = true;
+}
+
+toggleCollisionLines(var nothing)
+{
+	if(showCollisionLines)
+	{
+		showCollisionLines = false;
+		hideLineCanvas();
+	}
+	else
+	{
+		showCollisionLines = true;
+		showLineCanvas();
+	}
+}
+
+/**
+ * Toggles physics on the current player
+ */
+togglePhysics(var nothing)
+{
+	if(CurrentPlayer.doPhysicsApply)
+		CurrentPlayer.doPhysicsApply = false;
+	else
+		CurrentPlayer.doPhysicsApply = true;
+}
+

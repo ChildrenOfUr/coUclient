@@ -10,7 +10,7 @@ String getColorFromUsername(String username)
 	int index = 0;
 	for (int i = 0; i < username.length; i++)
 		index += username.codeUnitAt(i);
-  	
+
 	return COLORS[index % (COLORS.length - 1)];
 }
 
@@ -23,9 +23,9 @@ String parseEmoji(String message)
     	String match = m[1];
     	if(EMOTICONS.contains(match))
     		returnString += '<img style="height:1em;" class="Emoticon" src="packages/couclient/emoticons/$match.svg"></img>';
-    	else 
+    	else
     		returnString += m[0];
-  	}, 
+  	},
   	onNonMatch: (String s) => returnString += s);
 
 	return returnString;
@@ -70,7 +70,7 @@ class Chat {
   List<String> connectedUsers = new List();
   List<String> inputHistory = new List();
   bool tabInserted = false;
-  Chat(this.title) 
+  Chat(this.title)
   {
 	  title = title.trim();
 	//look for an 'archived' version of this chat
@@ -83,17 +83,17 @@ class Chat {
 		conversationElement.querySelector('.title')..text = title;
 		openConversations.add(this);
 	}
-    
+
     if(title != "Local Chat")
     {
     	if(otherChat != null)
     		otherChat.hide();
-      	
+
     	if(localChat != null)
 			ui.panel.insertBefore(conversationElement, localChat.conversationElement);
 		else
 			ui.panel.append(conversationElement);
-    	
+
     	otherChat = this;
     }
     else if(localChat == null) //don't ever have 2 local chats
@@ -103,7 +103,7 @@ class Chat {
     	//can't remove the local chat
     	conversationElement.querySelector('.fa-chevron-down').remove();
     }
-    
+
     computePanelSize();
 
     Element minimize = conversationElement.querySelector('.fa-chevron-down');
@@ -120,15 +120,15 @@ class Chat {
 			if(!connectedUsers.contains(data["username"]))
 				connectedUsers.add(data["username"]);
 		}
-	
+
 		if(data["message"] == " left.")
 		{
 			connectedUsers.remove(data["username"]);
 			removeOtherPlayer(data["username"]);
 		}
-		
+
 		if(data["statusMessage"] == "changeName")
-		{						
+		{
 			if(data["success"] == "true")
 			{
 				connectedUsers.remove(data["username"]);
@@ -138,7 +138,7 @@ class Chat {
 		}
 		addMessage(data['username'], data['message']);
 	}
-	
+
   addMessage(String player, String message) {
     ChatMessage chat = new ChatMessage(player, message);
     conversationElement.querySelector('.dialog').appendHtml(chat.toHtml());
@@ -153,7 +153,7 @@ class Chat {
     conversationElement.querySelector('.dialog').appendHtml(text);
     conversationElement.querySelector('.dialog').scrollTop = conversationElement.querySelector('.dialog').scrollHeight; //scroll to the bottom
   }
-  
+
 	/**
  	* Archive the conversation (detach it from the chat panel) so that we may reattach
  	* it later with the history intact.
@@ -166,7 +166,7 @@ class Chat {
 		computePanelSize();
 		otherChat = null;
 	}
-  
+
 	/**
 	* Find an archived conversation and return it
 	* returns null if no conversation exists
@@ -181,7 +181,7 @@ class Chat {
 		}
 		return conversationElement;
 	}
-  
+
 	void computePanelSize()
 	{
 		List<Element> conversations = ui.panel.querySelectorAll('.conversation').toList();
@@ -189,9 +189,9 @@ class Chat {
     	conversations.forEach((Element conversation)
 		{
     		if(conversation.hidden)
-    			num--;          
+    			num--;
 		});
-		conversations.forEach((Element conversation) 
+		conversations.forEach((Element conversation)
     		=> conversation.style.height = "${100/num}%");
 	}
 
@@ -307,10 +307,10 @@ class Chat {
   }
 
 
-	parseInput(String input) 
+	parseInput(String input)
 	{
 	    // if its' not a command, send it through.
-	    if (parseCommand(input)) 
+	    if (parseCommand(input))
 	    	return;
 	    else if(input.toLowerCase() == "/list")
         {
@@ -321,34 +321,34 @@ class Chat {
 			map["street"] = currentStreet.label;
 			new Moment('OutgoingChatEvent', map, 'parseInput');
         }
-	    else 
+	    else
 	    {
 	    	Map map = new Map();
 	    	map["username"] = ui.username;
 	    	map["message"] = input;
 	    	map["channel"] = title;
-	    	if (title == "Local Chat") 
+	    	if (title == "Local Chat")
 				map["street"] = currentStreet.label;
-	
+
 			new Moment('OutgoingChatEvent', map, 'parseInput');
-	      
+
 			//display chat bubble if we're talking in local (unless it's a /me message)
 			if(map["channel"] == "Local Chat" && !(map["message"] as String).toLowerCase().startsWith("/me"))
 			{
 				//remove any existing bubble
 				if(CurrentPlayer.chatBubble != null && CurrentPlayer.chatBubble.bubble != null)
 					CurrentPlayer.chatBubble.bubble.remove();
-				CurrentPlayer.chatBubble = new ChatBubble(parseEmoji(map["message"]));
+				CurrentPlayer.chatBubble = new ChatBubble(parseEmoji(map["message"]),CurrentPlayer,CurrentPlayer.playerParentElement);
 			}
 		}
 	}
 }
 
-class ChatMessage 
+class ChatMessage
 {
 	String player, message;
 	ChatMessage(this.player, this.message);
-	
+
 	String toHtml()
 	{
 		if (message is String == false) return '';
@@ -377,7 +377,7 @@ class ChatMessage
 			</p>
 			''';
 		}
-		else 
+		else
 		{
 			html = '''
 			<p>
@@ -386,7 +386,7 @@ class ChatMessage
 			</p>
 			''';
 		}
-		
+
 		return html;
 	}
 }

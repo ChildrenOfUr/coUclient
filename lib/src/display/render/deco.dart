@@ -7,19 +7,19 @@ class Deco
 		int w = deco['w'];
   		int h = deco['h'];
   		int z = deco['z'];
-    
+
   		// only draw if the image is loaded.
   		if (ASSET[deco['filename']] != null)
   		{
     		ImageElement d = ASSET[deco['filename']].get();
-    
+
     		d.style.position = 'absolute';
 		    d.style.left = x.toString() + 'px';
 		    d.style.top = y.toString() + 'px';
 		    d.style.width = w.toString() + 'px';
 		    d.style.height = h.toString() + 'px';
 		    d.style.zIndex = z.toString();
-    
+
 		    String transform = "";
 		    if(deco['r'] != null)
 		    {

@@ -3,23 +3,23 @@ part of couclient;
 class NPC extends Entity
 {
 	int speed;
-	CanvasElement canvas;
 	bool ready = false, facingRight = true, firstRender = true;
-	double posX = 0.0, posY = 0.0;
+	num posX = 0.0, posY = 0.0;
 	Animation animation;
-	
+	ChatBubble chatBubble = null;
+
 	NPC(Map map,{this.speed : 75})
 	{
 		List<int> frameList = [];
 		for(int i=0; i<map['numFrames']; i++)
 			frameList.add(i);
-		
+
 		animation = new Animation(map['url'],"npc",map['numRows'],map['numColumns'],frameList);
 		animation.load().then((_)
 		{
-			posY = currentStreet.bounds.height - map['y'].toDouble() - animation.height;
-			posX = map['x'].toDouble();
-			
+			posY = currentStreet.bounds.height - num.parse(map['y'].toString()) - animation.height;
+			posX = num.parse(map['x'].toString());
+
 			canvas = new CanvasElement();
         	canvas.id = map["id"];
         	canvas.attributes['actions'] = JSON.encode(map['actions']);
@@ -33,16 +33,16 @@ class NPC extends Entity
             canvas.attributes['translatey'] = posY.toString();
             canvas.attributes['width'] = canvas.width.toString();
             canvas.attributes['height'] = canvas.height.toString();
-            ui.playerHolder.append(canvas);
+        	ui.playerHolder.append(canvas);
         	ready = true;
 		});
 	}
-	
+
 	update(double dt)
 	{
 		if(!ready)
 			return;
-		
+
 		animation.updateSourceRect(dt);
 		if(firstRender || animation.url.contains("walk") || animation.url.contains("fly"))
 		{
@@ -50,22 +50,22 @@ class NPC extends Entity
 				posX += speed*dt;
 			else
 				posX -= speed*dt;
-							
+
 			if(posX < 0)
 				posX = 0.0;
 			if(posX > currentStreet.bounds.width-canvas.width)
 				posX = (currentStreet.bounds.width-canvas.width).toDouble();
-			
+
 			canvas.attributes['translatex'] = posX.toString();
             canvas.attributes['translatey'] = posY.toString();
-			
+
 			if(facingRight)
-				canvas.style.transform = "translateX(${posX}px) translateY(${posY}px) translateZ(0) scale(1,1)";
+				canvas.style.transform = "translateX(${posX}px) translateY(${posY}px) scale(1,1)";
 			else
-				canvas.style.transform = "translateX(${posX}px) translateY(${posY}px) translateZ(0) scale(-1,1)";
+				canvas.style.transform = "translateX(${posX}px) translateY(${posY}px) scale(-1,1)";
 		}
 	}
-	
+
 	render()
 	{
 		if(ready && animation.dirty)
@@ -77,13 +77,13 @@ class NPC extends Entity
 				if(!intersect(camera.visibleRect,npcRect))
 					return;
 			}
-			
+
 			firstRender = false;
-			
+
 			//fastest way to clear a canvas (without using a solid color)
 			//source: http://jsperf.com/ctx-clearrect-vs-canvas-width-canvas-width/6
 			canvas.context2D.clearRect(0, 0, animation.width, animation.height);
-			
+
 			if(glow)
             {
             	canvas.context2D.shadowColor = "rgba(0, 0, 255, 0.2)";

@@ -1,8 +1,11 @@
 part of couclient;
 
-String multiplayerServer = "ws://robertmcdermot.com:8282/playerUpdate";
-String streetEventServer = "ws://robertmcdermot.com:8282/streetUpdate";
-String joined = "";
+String websocketServerAddress = 'robertmcdermot.com:8282';
+double clientVersion = 0.06;
+
+String multiplayerServer = "ws://$websocketServerAddress/playerUpdate";
+String streetEventServer = "ws://$websocketServerAddress/streetUpdate";
+String joined = "", creatingPlayer = "";
 WebSocket streetSocket, playerSocket;
 bool reconnect = true;
 Map<String,Player> otherPlayers = new Map();
@@ -32,6 +35,7 @@ void sendJoinedMessage(String streetName, [String tsid])
 	if(joined != streetName && streetSocket != null && streetSocket.readyState == WebSocket.OPEN)
 	{
 		Map map = new Map();
+		map['clientVersion'] = clientVersion;
 		map["username"] = ui.username;
 		map["streetName"] = streetName;
 		map["tsid"] = tsid == null ? currentStreet._data['tsid'] : tsid;
@@ -44,7 +48,7 @@ void sendJoinedMessage(String streetName, [String tsid])
 _setupStreetSocket(String streetName)
 {
 	streetSocket = new WebSocket(streetEventServer);
-	
+
 	streetSocket.onOpen.listen((_)
 	{
 		sendJoinedMessage(streetName);
@@ -52,6 +56,14 @@ _setupStreetSocket(String streetName)
 	streetSocket.onMessage.listen((MessageEvent event)
 	{
 		Map map = JSON.decode(event.data);
+		if(map['error'] != null)
+		{
+			reconnect = false;
+			print(map['error']);
+			streetSocket.close();
+			return;
+		}
+
 		//check if we are receiving an item
 		if(map['giveItem'] != null)
 		{
@@ -66,10 +78,10 @@ _setupStreetSocket(String streetName)
 		}
 		if(map['itemsForSale'] != null)
 		{
-			new Moment('VendorWindow', map);
+			document.body.append(new VendorWindow().call(map));
 			return;
 		}
-		
+
 		(map["quoins"] as List).forEach((Map quoinMap)
 		{
 			if(quoinMap["remove"] == "true")
@@ -103,6 +115,8 @@ _setupStreetSocket(String streetName)
 				element.attributes['actions'] = JSON.encode(plantMap['actions']);
 				if(plant != null && plant.state != plantMap['state'])
 					plant.updateState(plantMap['state']);
+
+				_updateChatBubble(plantMap,plant);
 			}
 		});
 		(map["npcs"] as List).forEach((Map npcMap)
@@ -120,17 +134,17 @@ _setupStreetSocket(String streetName)
       				if(npc.animation.url != npcMap["url"]) //new animation
       				{
       					npc.ready = false;
-      					
+
       					List<int> frameList = [];
                   		for(int i=0; i<npcMap['numFrames']; i++)
                   			frameList.add(i);
-                  		
+
                   		npc.animation = new Animation(npcMap['url'],"npc",npcMap['numRows'],npcMap['numColumns'],frameList);
                   		npc.animation.load().then((_) => npc.ready = true);
-      					
       				}
-      				
+
       				npc.facingRight = npcMap["facingRight"];
+      				_updateChatBubble(npcMap,npc);
       			}
 			}
 		});
@@ -156,7 +170,7 @@ _setupStreetSocket(String streetName)
 			reconnect = true;
 			return;
 		}
-		
+
 		joined = "";
 		//wait 5 seconds and try to reconnect
 		new Timer(new Duration(seconds:5),()
@@ -166,12 +180,45 @@ _setupStreetSocket(String streetName)
 	});
 }
 
+_updateChatBubble(Map map, Entity entity)
+{
+	if(map["bubbleText"] != null)
+	{
+		if(entity.chatBubble == null)
+		{
+			DivElement bubbleParent = new DivElement()
+				..style.position = 'absolute'
+				..style.width = entity.canvas.width.toString()+'px'
+				..style.height = entity.canvas.height.toString()+'px'
+				..style.transform = 'translateX(${map['x']}px) translateY(${entity.canvas.attributes['translateY']}px)';
+			ui.playerHolder.append(bubbleParent);
+			entity.chatBubble = new ChatBubble(map["bubbleText"],entity,bubbleParent,autoDismiss:false,removeParent:true);
+		}
+
+		entity.chatBubble.update(1.0);
+	}
+	else if(entity.chatBubble != null)
+		entity.chatBubble.removeBubble();
+}
+
 _setupPlayerSocket()
 {
 	playerSocket = new WebSocket(multiplayerServer);
+	playerSocket.onOpen.listen((_)
+	{
+		playerSocket.send(JSON.encode({'clientVersion': clientVersion}));
+	});
 	playerSocket.onMessage.listen((MessageEvent event)
 	{
 		Map map = JSON.decode(event.data);
+		if(map['error'] != null)
+		{
+			reconnect = false;
+			print(map['error']);
+			playerSocket.close();
+			return;
+		}
+
 		if(map["changeStreet"] != null)
 		{
 			if(map["changeStreet"] != currentStreet.label) //someone left this street
@@ -198,6 +245,12 @@ _setupPlayerSocket()
 	});
 	playerSocket.onClose.listen((_)
 	{
+		if(!reconnect)
+		{
+			reconnect = true;
+			return;
+		}
+
 		joined = "";
 		//wait 5 seconds and try to reconnect
 		new Timer(new Duration(seconds:5),()
@@ -210,12 +263,14 @@ _setupPlayerSocket()
 sendPlayerInfo()
 {
 	String xy = CurrentPlayer.posX.toString()+","+CurrentPlayer.posY.toString();
-	timeLast = 0.0;
 	Map map = new Map();
-	map["username"] = ui.username;
+	map["username"] = CurrentPlayer.username;
 	map["xy"] = xy;
 	map["street"] = currentStreet.label;
-	map["facingRight"] = CurrentPlayer.facingRight.toString();
+	map["facingRight"] = CurrentPlayer.facingRight;
+	map['jumping'] = CurrentPlayer.jumping;
+	map['climbing'] = CurrentPlayer.climbingDown || CurrentPlayer.climbingUp;
+	map['activeClimb'] = CurrentPlayer.activeClimb;
 	map["animation"] = CurrentPlayer.currentAnimation.animationName;
 	if(CurrentPlayer.chatBubble != null)
 		map["bubbleText"] = CurrentPlayer.chatBubble.text;
@@ -224,32 +279,58 @@ sendPlayerInfo()
 
 void createOtherPlayer(Map map)
 {
+	if(creatingPlayer == map['username'])
+		return;
+
+	creatingPlayer = map['username'];
 	Player otherPlayer = new Player(map["username"]);
 	otherPlayer.loadAnimations().then((_)
 	{
 		updateOtherPlayer(map,otherPlayer);
-        	
+
         otherPlayers[map["username"]] = otherPlayer;
-        ui.playerHolder.append(otherPlayer.playerParentElement);
+        querySelector("#PlayerHolder").append(otherPlayer.playerParentElement);
+
+        creatingPlayer = "";
 	});
 }
 
 updateOtherPlayer(Map map, Player otherPlayer)
 {
-	otherPlayer.currentAnimation = otherPlayer.animations[map["animation"]];
-	otherPlayer.playerParentElement.id = "player-"+map["username"];
-	otherPlayer.playerParentElement.style.position = "absolute";
-	
-	double x = double.parse(map["xy"].split(',')[0]);
-	double y = double.parse(map["xy"].split(',')[1]);
+	if(otherPlayer.currentAnimation == null)
+    	otherPlayer.currentAnimation = otherPlayer.animations[map["animation"]];
 
-	otherPlayer.posX = x;
-	otherPlayer.posY = y;
-	
+	//set movement bools
+	if(map['jumping'] != null)
+		otherPlayer.jumping = map['jumping'];
+	if(map['climbing'] == true)
+		otherPlayer.currentAnimation.paused = !map['activeClimb'];
+	else
+		otherPlayer.currentAnimation.paused = false;
+
+	//set animation state
+	if(map["animation"] != otherPlayer.currentAnimation.animationName)
+	{
+		otherPlayer.currentAnimation.reset();
+		otherPlayer.currentAnimation = otherPlayer.animations[map["animation"]];
+	}
+
+	otherPlayer.playerParentElement.id = "player-"+sanitizeName(map["username"].replaceAll(' ','_'));
+	otherPlayer.playerParentElement.style.position = "absolute";
+	if(map['username'] != otherPlayer.username)
+	{
+		otherPlayer.username = map['username'];
+		otherPlayer.loadAnimations();
+	}
+
+	//set player position
+	otherPlayer.posX = double.parse(map["xy"].split(',')[0]);
+	otherPlayer.posY = double.parse(map["xy"].split(',')[1]);
+
 	if(map["bubbleText"] != null)
 	{
 		if(otherPlayer.chatBubble == null)
-			otherPlayer.chatBubble = new ChatBubble(map["bubbleText"]);
+			otherPlayer.chatBubble = new ChatBubble(map["bubbleText"],otherPlayer,otherPlayer.playerParentElement);
 		otherPlayer.playerParentElement.append(otherPlayer.chatBubble.bubble);
 	}
 	else if(otherPlayer.chatBubble != null)
@@ -257,9 +338,9 @@ updateOtherPlayer(Map map, Player otherPlayer)
 		otherPlayer.chatBubble.bubble.remove();
 		otherPlayer.chatBubble = null;
 	}
-	
+
 	bool facingRight = false;
-	if(map["facingRight"] == "true")
+	if(map["facingRight"] == "true" || map['facingRight'] == true)
 		facingRight = true;
 	otherPlayer.facingRight = facingRight;
 }
@@ -268,9 +349,9 @@ void removeOtherPlayer(String username)
 {
 	if(username == null)
 		return;
-	
+
 	otherPlayers.remove(username);
-	Element otherPlayer = querySelector("#player-"+username);
+	Element otherPlayer = querySelector("#player-"+sanitizeName(username.replaceAll(' ','_')));
 	if(otherPlayer != null)
 		otherPlayer.remove();
 }
@@ -279,14 +360,14 @@ void addQuoin(Map map)
 {
 	if(currentStreet == null)
     	return;
-	
+
 	quoins[map['id']] = new Quoin(map);
 }
 void addNPC(Map map)
 {
 	if(currentStreet == null)
 		return;
-	
+
 	entities[map['id']] = new NPC(map);
 }
 
@@ -294,7 +375,7 @@ void addPlant(Map map)
 {
 	if(currentStreet == null)
 		return;
-	
+
 	entities[map['id']] = new Plant(map);
 }
 
@@ -302,7 +383,7 @@ void addItem(Map map)
 {
 	if(currentStreet == null)
 		return;
-	
+
 	ImageElement item = new ImageElement(src:map['iconUrl']);
 	item.onLoad.first.then((_)
 	{
@@ -317,18 +398,18 @@ void addItem(Map map)
     	item.classes.add('groundItem');
     	item.classes.add('entity');
     	item.id = map['id'];
-    	ui.playerHolder.append(item);
+    	querySelector("#PlayerHolder").append(item);
 	});
 }
 
 void addItemToInventory(Map map)
-{	
+{
 	ImageElement img = new ImageElement(src:map['item']['spriteUrl']);
 	img.onLoad.first.then((_)
 	{
 		//do some fancy 'put in bag' animation that I can't figure out right now
 		//animate(img,map).then((_) => putInInventory(img,map));
-		
+
 		putInInventory(img,map);
 	});
 }
@@ -341,7 +422,7 @@ void subtractItemFromInventory(Map map)
 	{
 		if(remaining < 1)
 			break;
-		
+
 		int count = int.parse(item.attributes['count']);
 		if(count > map['count'])
 		{
@@ -350,7 +431,7 @@ void subtractItemFromInventory(Map map)
 		}
 		else
 			item.parent.children.clear();
-		
+
 		remaining -= count;
 	}
 }
@@ -360,7 +441,7 @@ Future animate(ImageElement i, Map map)
 	Completer c = new Completer();
 	Element fromObject = querySelector("#${map['fromObject']}");
 	DivElement item = new DivElement();
-	
+
 	num fromX = num.parse(fromObject.attributes['translatex']) - camera.getX();
 	num fromY = num.parse(fromObject.attributes['translatey']) - camera.getY() - fromObject.clientHeight;
 	item.className = "item";
@@ -371,7 +452,7 @@ Future animate(ImageElement i, Map map)
 	item.style.transform = "translate(${fromX}px,${fromY}px)";
 	print("from: " + item.style.transform);
 	querySelector("#GameScreen").append(item);
-	
+
 	//animation seems to happen instantaneously if there isn't a delay
 	//between adding the element to the document and changing its properties
 	//even this 1 millisecond delay seems to fix that - strange
@@ -384,7 +465,7 @@ Future animate(ImageElement i, Map map)
 	new Timer(new Duration(seconds:2), ()
     {
 		item.style.transform = "translate(${CurrentPlayer.posX}px,${CurrentPlayer.posY}px) scale(.5)";
-		
+
 		//wait 1 second for animation to finish and then remove
 		new Timer(new Duration(seconds:1), ()
     	{
@@ -392,7 +473,7 @@ Future animate(ImageElement i, Map map)
     		c.complete();
     	});
     });
-	
+
 	return c.future;
 }
 
@@ -403,23 +484,23 @@ void putInInventory(ImageElement img, Map map)
 	int stacksTo = i['stacksTo'];
 	Element item;
 	bool found = false;
-	
+
 	String cssName = name.replaceAll(" ","_");
 	for(Element item in ui.inventory.querySelectorAll(".item-$cssName"))
 	{
 		int count = int.parse(item.attributes['count']);
-		
+
 		if(count < stacksTo)
 		{
 			count++;
     		int offset = count;
     		if(i['iconNum'] != null && i['iconNum'] < count)
     			offset = i['iconNum'];
-    		
+
     		num width = img.width/i['iconNum'];
     		item.style.backgroundPosition = "calc(100% / ${i['iconNum'] - 1} * ${offset - 1}";
     		item.attributes['count'] = count.toString();
-    		
+
     		Element itemCount = item.parent.querySelector(".itemCount");
     		if(itemCount != null)
     			itemCount.text = count.toString();
@@ -430,7 +511,7 @@ void putInInventory(ImageElement img, Map map)
     				..className = "itemCount";
     			item.parent.append(itemCount);
     		}
-    		
+
     		found = true;
     		break;
 		}
@@ -446,7 +527,7 @@ findNewSlot(Element item, Map map, ImageElement img)
 	bool found = false;
 	Map i = map['item'];
 	int stacksTo = i['stacksTo'];
-	
+
 	//find first free item slot
 	for(Element barSlot in ui.inventory.children)
 	{
@@ -454,25 +535,26 @@ findNewSlot(Element item, Map map, ImageElement img)
 		{
 			String cssName = i['name'].replaceAll(" ","_");
 			item = new DivElement();
-			
+
 			//determine what we need to scale the sprite image to in order to fit
 			num scale = 1;
 			if(img.height > img.width/i['iconNum'])
 				scale = (barSlot.contentEdge.height-10)/img.height;
 			else
 				scale = (barSlot.contentEdge.width-10)/(img.width/i['iconNum']);
-			
+
 			item.style.width = (barSlot.contentEdge.width-10).toString()+"px";
 			item.style.height = (barSlot.contentEdge.height-10).toString()+"px";
 			item.style.backgroundImage = 'url(${i['spriteUrl']})';
 			item.style.backgroundRepeat = 'no-repeat';
 			item.style.backgroundSize = "${img.width*scale}px ${img.height*scale}px";
 			item.style.backgroundPosition = "0 50%";
-			item.className = 'icon item-$cssName inventoryItem';
+			item.style.margin = "auto";
+			item.className = 'item-$cssName inventoryItem';
 			item.attributes['name'] = cssName;
 			item.attributes['count'] = "1";
 			item.attributes['itemMap'] = JSON.encode(i);
-			
+
 			item.onContextMenu.listen((MouseEvent event)
 			{
 				List<List> actions = [];
@@ -498,16 +580,16 @@ findNewSlot(Element item, Map map, ImageElement img)
 					document.body.append(RightClickMenu.create(event, "Options", i['description'], actions));
 			});
 			barSlot.append(item);
-			
+
 			item.classes.add("bounce");
 			//remove the bounce class so that it's not still there for a drag and drop event
 			new Timer(new Duration(seconds:1),() => item.classes.remove("bounce"));
-						
+
 			found = true;
 			break;
 		}
 	}
-		
+
 	//there was no space in the player's pack, drop the item on the ground instead
 	if(!found)
 		sendAction("drop",i['name'].replaceAll(" ",""),getDropMap(i,1));
@@ -522,6 +604,6 @@ Map getDropMap(Map item, int count)
 		..['y'] = CurrentPlayer.posY+CurrentPlayer.height/2
 		..['streetName'] = currentStreet.label
 		..['tsid'] = currentStreet._data['tsid'];
-	
+
 	return dropMap;
 }

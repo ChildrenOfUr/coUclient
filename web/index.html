@@ -114,15 +114,16 @@
         </div>
 
 
-        <div id="streetLoading">
-          <br><br>
-          <h2>Now Entering:<br>
-          <span id="location"></span>
-          </h2>
-          <div class="bar">
-          <div class="percent"></div>
-          </div>
-        </div>
+        <div id="MapLoadingScreen" class="MapLoadingScreen">
+				<div id="MapLoadingContent">
+					<img id="StreetLoadingImage"></img>
+	                <span id="NowEntering" class="white"></span>
+					<div class="LoadingGroove">&nbsp;
+						<span class="LoadingBar" id="MapLoadingBar">
+						<span id="StreetLoadingStatus"></span></span>
+					</div>
+				</div>
+			</div>
 
       </div>
 
@@ -221,7 +222,7 @@
             </span>
           </div>
         </div>
-        
+
         <div id="conversationArchive" hidden></div>
 
       </div>
@@ -256,32 +257,32 @@
             <label class="ChatSettingsOption"><input id="GraphicsBlur" type="checkbox" class="ChatSettingsCheckbox">Enable Scenery Blur</label>
           </div>
           </div>
-          
+
           <div id="chat" class="tab-content">
           <div class="content settingsContent">
-            <label class="ChatSettingsOption"><input id="ShowJoinMessages" type="checkbox" class="ChatSettingsCheckbox">Show Join Messages</label>  
+            <label class="ChatSettingsOption"><input id="ShowJoinMessages" type="checkbox" class="ChatSettingsCheckbox">Show Join Messages</label>
             <br>
             <label class="ChatSettingsOption"><input id="PlayMentionSound" type="checkbox" class="ChatSettingsCheckbox">Play Mention Sound</label>
             <br>
           </div>
           </div>
-          
+
           <div id="keyboard" class="tab-content">
             <div>Move Left <kbd class = "KeyBindingOption" id="LeftBindingPrimary" style="width: 200px;">A</kbd></div>
             <div>Move Left (secondary) <kbd class = "KeyBindingOption" id="LeftBindingAlt" style="width: 200px;">left_arrow</kbd></div>
-            
+
             <div>Move Right <kbd class = "KeyBindingOption" id="RightBindingPrimary" style="width: 200px;">D</kbd></div>
             <div>Move Right (secondary) <kbd class = "KeyBindingOption" id="RightBindingAlt" style="width: 200px;">right_arrow</kbd></div>
-            
+
             <div>Move Up <kbd class = "KeyBindingOption" id="UpBindingPrimary" style="width: 200px;">W</kbd></div>
             <div>Move Up (secondary) <kbd class = "KeyBindingOption" id="UpBindingAlt" style="width: 200px;">up_arrow</kbd></div>
-            
+
             <div>Move Down <kbd class = "KeyBindingOption" id="DownBindingPrimary" style="width: 200px;">S</kbd></div>
             <div>Move Down (secondary) <kbd class = "KeyBindingOption" id="DownBindingAlt" style="width: 200px;">down_arrow</kbd></div>
-            
+
             <div>Jump <kbd class = "KeyBindingOption" id="JumpBindingPrimary" style="width: 200px;">space_bar</kbd></div>
             <div>Jump (secondary) <kbd class = "KeyBindingOption" id="JumpBindingAlt" style="width: 200px;">space_bar</kbd></div>
-          
+
             <div>Action <kbd class = "KeyBindingOption" id="ActionBindingPrimary" style="width: 200px;">enter</kbd></div>
             <div>Action (secondary) <kbd class = "KeyBindingOption" id="ActionBindingAlt" style="width: 200px;">enter</kbd></div>
           </div>
@@ -294,13 +295,13 @@
           <i class="fa-li fa fa-times close"></i>
           <header>
             <i class="fa-li fa fa-map-marker"></i>
-            Map
+            <span id="mapTitle">Map</span>
           </header>
-          <article class="well">
-          A map should go here.
+          <article id="mapImage" class="well">
+          	<canvas id="MapCanvas" width="760" height="460"></canvas>
           </article>
         </div>
-        
+
 
         <!-- TODO -->
         <div id="shopWindow" class="window" hidden>
@@ -313,7 +314,7 @@
               <span class="tab">Sell</span>
               <span class="tab active">Buy</span>
             </div>
-            
+
           <div id="sell" class="tab-content">
             <div id="SellDropTarget"></div>
             <img src="packages/couclient/system/callout_dropitem.png" id="SellCallout">
@@ -321,7 +322,7 @@
 
           <div id="buy" class="tab-content">
           </div>
-          
+
           <div id="buy-qty" class="tab-content" hidden>
             <div class="back">
                 <i class="fa fa-chevron-left"></i>
@@ -355,9 +356,9 @@
                 <span style="color:gray;vertical-align:middle"> in an inventory slot</span>
               </div>
             </div>
-          
+
           </div>
-          
+
           <div id="sell-qty" class="tab-content" hidden>
               <div class="back">
                 <i class="fa fa-chevron-left"></i>
@@ -369,7 +370,7 @@
                   <span id="ItemPrice">Price 1₡</span>
                 </div>
                 <div id="ItemCount">
-                  
+
                 </div>
               </div>
               <div id="RightColumn">
@@ -390,7 +391,7 @@
               </div>
             </div>
           </div>
-          
+
           <div class="footer">
             <span class="qty">???</span>
             <img src="packages/couclient/system/currant.svg">
@@ -399,8 +400,8 @@
           </article>
         </div>
         <!-- TODO -->
-        
-        
+
+
 
         <div id="bagWindow" class="window" hidden>
           <i class="fa-li fa fa-times close"></i>
@@ -449,7 +450,7 @@
                   <option value="bug_prob_incomp">Bug, Problem, Incompatibility</option>
                   <option value="sugg_feat_req">Suggestion or Feature Request</option>
               </select>
-              
+
               <textarea id="reportMain" placeholder="Please provide a detailed description of the problem you are experiencing or of the feature you would like us to add."></textarea>
               <textarea id="reportMeta" disabled="true"></textarea>
               <input type="email" placeholder="Email Address (optional)">

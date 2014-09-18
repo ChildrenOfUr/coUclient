@@ -10,20 +10,20 @@ class Animation
 	ImageElement spritesheet;
 	double timeInMillis = 0.0, delayConsumed = 0.0;
 	Rectangle sourceRect;
-	bool dirty = true, delayInitially = false, paused = false;
-	
+	bool dirty = true, delayInitially = false, paused = false, loaded = false;
+
 	Animation(this.url,this.animationName,this.numRows,this.numColumns,this.frameList,{this.fps : 30, this.loopDelay : null, this.delayInitially : false});
-	
+
 	Future<Animation> load()
 	{
 		if(loopDelay == null)
 			loopDelay = new Duration(milliseconds:0);
-		
+
 		if(!delayInitially)
 			delayConsumed = loopDelay.inMilliseconds.toDouble();
-		
+
 		Completer c = new Completer();
-		
+
 		//need to get the avatar background image size dynamically
 		//because we cannot guarentee that every glitchen has the same dimensions
 		//additionally each animation sprite has different dimensions even for the same glitchen
@@ -32,15 +32,16 @@ class Animation
 		{
 			width = spritesheet.width~/numColumns;
 			height = spritesheet.height~/numRows;
-			
+
 			sourceRect = new Rectangle(0,0,width,height);
-						
+
+			loaded = true;
 			c.complete(this);
 		});
-		
+
 		return c.future;
 	}
-	
+
 	reset()
 	{
 		timeInMillis = 0.0;
@@ -49,15 +50,15 @@ class Animation
 		dirty = true; //will cause the first frame to be shown right away even if there is a delay of the rest of the animation (should be a good thing)
 		paused = false;
 	}
-	
+
 	updateSourceRect(double dt, {bool holdAtLastFrame: false})
 	{
-		if(paused)
+		if(paused || !loaded)
 			return;
-		
+
 		timeInMillis += dt;
 		delayConsumed += dt*1000;
-		
+
 		if(timeInMillis > 1/fps && delayConsumed >= loopDelay.inMilliseconds)
 		{
 			//advance the frame cycling around if necessary
@@ -68,15 +69,15 @@ class Animation
 				frameNum = (frameNum + timeInMillis~/(1/fps)) % frameList.length;
                 timeInMillis = 0.0;
                 dirty = true;
-                
+
                 if(frameNum >= frameList.length -1)
                 	delayConsumed = 0.0;
 			}
 		}
-		
+
 		int column = frameList[frameNum]%numColumns;
 		int row = frameList[frameNum]~/numColumns;
-		
+
 		sourceRect = new Rectangle(column*width,row*height,width,height);
 	}
 }
