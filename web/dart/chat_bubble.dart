@@ -4,8 +4,7 @@ class ChatBubble
 {
 	String text;
 	num timeToLive;
-	DivElement bubble, parent;
-	SpanElement textElement;
+	DivElement bubble, parent, textElement, arrowElement;
 	var hostObject;
 	bool autoDismiss,removeParent;
 
@@ -16,15 +15,16 @@ class ChatBubble
 			timeToLive = 10; //messages over 10s will only display for 10s
 
 		bubble = new DivElement()
-			..classes.add("PlayerChatBubble")
-			..classes.add("ChatBubbleMax");
-		textElement = new SpanElement()
-			..classes.add("ChatBubbleMax") //prevent overflow
-			..style.overflow = "hidden" //prevent overflow
-			..style.display = "inline-block"
+			..classes.add("chat-bubble");
+		textElement = new DivElement()
+			..classes.add("cb-content")
+		//..style.overflow = "hidden" //prevent overflow
 			..innerHtml = text; //uses default html tag sanitizer (allows img tags, does not allow links)
+		arrowElement = new DivElement()
+			..classes.add("cb-arrow");
 
 		bubble.append(textElement);
+		bubble.append(arrowElement);
 
 		//force a player update to be sent right now
 		timeLast = 5.0;

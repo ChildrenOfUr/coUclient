@@ -1,3 +1,54 @@
+.chat-bubble {
+  position: relative;
+  left: 0;
+  z-index: 1060;
+  max-width: 350px;
+  padding: 1px;
+  background-color: #ffffff;
+  background-clip: padding-box;
+  border: 1px solid #cccccc;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 6px;
+  -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  bottom: 60px;
+  width: inherit;
+}
+.cb-content {
+  padding: 9px 14px;
+}
+.chat-bubble > .cb-arrow,
+.chat-bubble > .cb-arrow:after {
+  position: absolute;
+  display: block;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+}
+.chat-bubble > .cb-arrow {
+  border-width: 11px;
+}
+.chat-bubble > .cb-arrow:after {
+  border-width: 10px;
+  content: "";
+}
+.chat-bubble > .cb-arrow {
+  left: 50%;
+  margin-left: -11px;
+  border-bottom-width: 0;
+  border-top-color: #999999;
+  border-top-color: rgba(0, 0, 0, 0.25);
+  bottom: -11px;
+}
+.chat-bubble > .cb-arrow:after {
+  content: " ";
+  bottom: 1px;
+  margin-left: -10px;
+  border-bottom-width: 0;
+  border-top-color: #ffffff;
+}
+
 
 @font-face{font-family:'RockoFLFBold';src:url('./assets/font/rockoflf-bold-webfont.eot');src:url('./assets/font/rockoflf-bold-webfont.eot?#iefix') format('embedded-opentype'),url('./assets/font/rockoflf-bold-webfont.woff') format('woff'),url('./assets/font/rockoflf-bold-webfont.ttf') format('truetype'),url('./assets/font/rockoflf-bold-webfont.svg#RockoFLFBold') format('svg');font-weight:normal;font-style:normal}
 /* below used for the action status bars */
