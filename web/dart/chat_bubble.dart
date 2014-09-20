@@ -2,7 +2,7 @@ part of coUclient;
 
 class ChatBubble
 {
-	String text;
+	String text, bubbleClass;
 	num timeToLive;
 	DivElement bubble, parent, textElement, arrowElement;
 	var hostObject;
@@ -10,9 +10,10 @@ class ChatBubble
 
 	ChatBubble(this.text,this.hostObject,this.parent,{this.autoDismiss : true, this.removeParent : false})
 	{
-		timeToLive = text.length * 0.03 + 3; //minimum 3s plus 0.3s per character
-		if(timeToLive > 10) //max 10s
-			timeToLive = 10; //messages over 10s will only display for 10s
+		// timeToLive = (text.length * 0.05) + 3; //minimum 3s plus 0.05 per character
+		// if(timeToLive > 10) //max 10s
+		// 	timeToLive = 10; //messages over 10s will only display for 10s
+		timeToLive = 9000;
 
 		bubble = new DivElement()
 			..classes.add("chat-bubble");
