@@ -1,6 +1,6 @@
 part of couclient;
 
-class InputManager extends Pump {
+class InputManager {
   bool leftKey, rightKey, upKey, downKey, jumpKey, actionKey;
   Map<String, int> keys = {
     "LeftBindingPrimary": 65,
@@ -21,12 +21,6 @@ class InputManager extends Pump {
       clickUsed = false;
   StreamSubscription keyPressSub, keyDownSub, menuKeyListener;
   DateTime lastSelect = new DateTime.now();
-
-  @override
-  process(Moment event) {
-
-  }
-
 
   InputManager() {
     leftKey = false;
@@ -51,7 +45,7 @@ class InputManager extends Pump {
 		map["newStreetLabel"] = label;
 		map["newStreetTsid"] = tsid;
 		map["oldStreet"] = currentStreet.label;
-		new Moment("OutgoingChatEvent",map);
+		new Moment(#outgoingChatEvent,map);
 
 		ui.streetLoadingImage.src = street['loading_image']['url'];
 		ui.streetLoadingImage.onLoad.first.then((_)
@@ -70,7 +64,6 @@ class InputManager extends Pump {
     document.onClick.listen((MouseEvent event) => clickOrTouch(event,null));
     document.onTouchStart.listen((TouchEvent event) => clickOrTouch(null,event));
 
-    EVENT_BUS > this;
   }
 
   clickOrTouch(MouseEvent mouseEvent, TouchEvent touchEvent) {

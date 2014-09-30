@@ -13,7 +13,11 @@ dependencies:
     git:
       ref: master
       url: https://github.com/ChildrenOfUr/dart-persona.git
-  pump: any
+  pump:
+    git:
+      ref: master
+      url: https://github.com/ppvk/pump.git
+    version: 0.1.0
   scproxy:
     git:
       ref: master

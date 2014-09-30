@@ -2,7 +2,7 @@ part of couclient;
 
 UserInterface ui = new UserInterface();
 
-class UserInterface extends Pump {
+class UserInterface{
 
   //NumberFormat for having commas in the currants and iMG displays
   NumberFormat commaFormatter = new NumberFormat("#,###");
@@ -164,7 +164,7 @@ class UserInterface extends Pump {
     // Starts the game
     playButton.onClick.listen((_) {
       loadingScreen.style.opacity = '0';
-      new Moment('PlaySound', 'game_loaded');
+      new Moment(#playSound, 'game_loaded');
       new Timer(new Duration(seconds: 1), () {
         loadingScreen.remove();
       });
@@ -190,10 +190,60 @@ class UserInterface extends Pump {
         volumeSlider.value = '0';
       }
     });
+    
+    new Service((Moment event)
+    {
+        // CHAT EVENT HANDLERS //
+        // ChatEvents are drawn to their Conversation.
+        if (event.isType(#chatEvent))
+        {
+          for (Chat convo in openConversations)
+          {
+            if(convo.title == "Local Chat" && event.content['street'] == currentStreet.label)
+              convo.processEvent(event.content);
+            else if(convo.title == event.content['channel'] && convo.title != "Local Chat")
+                convo.processEvent(event.content);
+          }
+        }
 
+        // List online players
+        if (event.isType(#chatListEvent))
+        {
+          for (Chat convo in openConversations)
+          {
+              if (convo.title == event.content['channel'])
+                convo.addAlert("Players in this Channel:  ${event.content['users']}".replaceAll('[', '').replaceAll(']', ''));
+          }
+        }
 
+        // StartChat events start a Conversation
+        if (event.isType(#startChat))
+        {
+          Chat chat = new Chat(event.content as String);
 
-    this & EVENT_BUS;
+          //handle chat input getting focused/unfocused so that the character doesn't move while typing
+        ElementList chatInputs = querySelectorAll('.Typing');
+        chatInputs.onFocus.listen((_) => inputManager.ignoreKeys = true);
+          chatInputs.onBlur.listen((_) => inputManager.ignoreKeys = false);
+        }
+
+        // MISC EVENT HANDLERS //
+        if (event.isType(#timeUpdate))
+        {
+          currDay.text = clock.dayofweek;
+          currTime.text = clock.time;
+          currDate.text = clock.day + ' of ' + clock.month;
+        }
+
+        if (event.isType(#doneLoading))
+        {
+          // display 'Play' buttons
+          for (Element button in loadingScreen.querySelectorAll('.button'))
+            button.hidden = false;
+        }
+    });
+    
+
   }
 
 	void _resize()
@@ -202,57 +252,7 @@ class UserInterface extends Pump {
 	  	worldHeight = worldElement.clientHeight;
 	}
 
-	process(var event)
-	{
-	    // CHAT EVENT HANDLERS //
-	    // ChatEvents are drawn to their Conversation.
-	    if (event.isType('ChatEvent'))
-	    {
-	    	for (Chat convo in openConversations)
-	    	{
-	    		if(convo.title == "Local Chat" && event.content['street'] == currentStreet.label)
-	    			convo.processEvent(event.content);
-	    		else if(convo.title == event.content['channel'] && convo.title != "Local Chat")
-	        		convo.processEvent(event.content);
-	    	}
-	    }
 
-	    // List online players
-	    if (event.isType('ChatListEvent'))
-	    {
-	    	for (Chat convo in openConversations)
-	    	{
-	        	if (convo.title == event.content['channel'])
-	        		convo.addAlert("Players in this Channel:  ${event.content['users']}".replaceAll('[', '').replaceAll(']', ''));
-	    	}
-	    }
-
-	    // StartChat events start a Conversation
-	    if (event.isType('StartChat'))
-	    {
-	    	Chat chat = new Chat(event.content as String);
-
-	    	//handle chat input getting focused/unfocused so that the character doesn't move while typing
-			ElementList chatInputs = querySelectorAll('.Typing');
-			chatInputs.onFocus.listen((_) => inputManager.ignoreKeys = true);
-		  	chatInputs.onBlur.listen((_) => inputManager.ignoreKeys = false);
-	    }
-
-	    // MISC EVENT HANDLERS //
-	    if (event.isType('TimeUpdate'))
-	    {
-	    	currDay.text = clock.dayofweek;
-	    	currTime.text = clock.time;
-	    	currDate.text = clock.day + ' of ' + clock.month;
-	    }
-
-	    if (event.isType('DoneLoading'))
-	    {
-	    	// display 'Play' buttons
-	    	for (Element button in loadingScreen.querySelectorAll('.button'))
-	    		button.hidden = false;
-	    }
-	}
 
   // update the userinterface
   update() {

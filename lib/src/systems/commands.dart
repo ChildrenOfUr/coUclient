@@ -7,12 +7,7 @@ class CommandManager {
   CommandManager() {
 
     COMMANDS['playsound'] = (noun) {
-      new Moment('PlaySound', noun);
-    };
-
-    // Trigger arbitrary EventInstances
-    COMMANDS['event'] = (String noun) {
-      new Moment(noun.split(' ')[0], noun.split(' ')[1]);
+      new Moment(#playSound, noun);
     };
 
     COMMANDS
@@ -54,7 +49,7 @@ setName(String noun)
 
   // Is it appropriate?
   if (containsBadCharacter(newName)) {
-    new Moment('ChatEvent', {
+    new Moment(#chatEvent, {
       'channel': 'Global Chat',
       'message': "Sorry, you can't use the following characters in your name<br>~ ! @ \$ % ^ & * ( ) + = , . / ' ; : \" ? > < [ ] \ { } | ` #"
     });
@@ -74,10 +69,10 @@ setName(String noun)
   map["channel"] = 'Global Chat';
 
   // Send new name to server
-  new Moment('OutgoingChatEvent', map);
+  new Moment(#outgoingChatEvent, map);
 
   // Alert the Player
-  new Moment('ChatEvent', {
+  new Moment(#chatEvent, {
     'channel': 'Global Chat',
     'message': "Name changed to $noun"
   });

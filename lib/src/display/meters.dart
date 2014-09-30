@@ -1,7 +1,7 @@
 part of couclient;
 
 
-class MeterManager extends Pump {
+class MeterManager {
   int energy = 100;
   int maxenergy = 100;
   int mood = 100;
@@ -18,53 +18,49 @@ class MeterManager extends Pump {
 
     COMMANDS
         ..['mood'] = (String mood) {
-          new Moment('MoodDisplayEvent', {
+          new Moment(#moodDisplayEvent, {
             'mood': int.parse(mood)
           });
         }
         ..['energy'] = (String energy) {
-          new Moment('EnergyDisplayEvent', {
+          new Moment(#energyDisplayEvent, {
             'energy': int.parse(energy)
           });
         }
         ..['maxmood'] = (String mood) {
-          new Moment('MoodDisplayEvent', {
+          new Moment(#moodDisplayEvent, {
             'maxmood': int.parse(mood)
           });
         }
         ..['maxenergy'] = (String energy) {
-          new Moment('EnergyDisplayEvent', {
+          new Moment(#energyDisplayEvent, {
             'maxenergy': int.parse(energy)
           });
         }
         ..['currants'] = (String currants) {
-          new Moment('CurrantsDisplayEvent', int.parse(currants));
+          new Moment(#currantsDisplayEvent, int.parse(currants));
         }
         ..['img'] = (String img) {
-          new Moment('ImgDisplayEvent', int.parse(img));
+          new Moment(#imgDisplayEvent, int.parse(img));
         };
 
 
-    EVENT_BUS > this;
+
+    new Service((Moment event) {
+      if (event.isType(#imgDisplayEvent)) {
+        updateImgDisplay(event.content);
+      }
+      if (event.isType(#currantsDisplayEvent)) {
+        updateCurrantsDisplay(event.content);
+      }
+      if (event.isType(#moodDisplayEvent)) {
+        updateMoodDisplay(event.content['mood'], event.content['maxmood']);
+      }
+      if (event.isType(#energyDisplayEvent)) {
+        updateEnergyDisplay(event.content['energy'], event.content['maxenergy']);
+      }
+    });
   }
-
-
-  @override
-  process(Moment event) {
-    if (event.isType('ImgDisplayEvent')) {
-      updateImgDisplay(event.content);
-    }
-    if (event.isType('CurrantsDisplayEvent')) {
-      updateCurrantsDisplay(event.content);
-    }
-    if (event.isType('MoodDisplayEvent')) {
-      updateMoodDisplay(event.content['mood'], event.content['maxmood']);
-    }
-    if (event.isType('EnergyDisplayEvent')) {
-      updateEnergyDisplay(event.content['energy'], event.content['maxenergy']);
-    }
-  }
-
   updateImgDisplay(int newImg) {
     // Update img display
     if (commaFormatter.format(newImg) != ui.imgElement.text) ui.imgElement.text = commaFormatter.format(newImg);

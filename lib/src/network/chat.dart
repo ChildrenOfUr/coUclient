@@ -2,7 +2,7 @@ part of couclient;
 
 
 // TODO Add documentation to the doc folder that outlines the format outgoing chat messages must adhere to.
-class NetChatManager extends Pump {
+class NetChatManager {
   WebSocket _connection;
   String _chatServerUrl = 'ws://robertmcdermot.com:8282';
 
@@ -15,19 +15,18 @@ class NetChatManager extends Pump {
 
     setupWebsocket(_chatServerUrl);
 
-    EVENT_BUS & this;
+    new Service((Moment<Map> event) {
+      // Only accepts 'OutgoingChatEvent's
+      if (event.isType(#outgoingChatEvent)) {
+        if (_connection.readyState == WebSocket.OPEN) {
+          post(event.content);
+        }
+        return;
+      }
+    });
   }
 
-  @override
-  process(Moment<Map> event) {
-    // Only accepts 'OutgoingChatEvent's
-    if (event.isType('OutgoingChatEvent')) {
-      if (_connection.readyState == WebSocket.OPEN) {
-        post(event.content);
-      }
-      return;
-    }
-  }
+
 
   post(Map data) {
     _connection.sendString(JSON.encoder.convert(data));
@@ -50,7 +49,7 @@ class NetChatManager extends Pump {
         })
         ..onMessage.listen((MessageEvent message) {
           Map data = JSON.decoder.convert(message.data);
-          if (data['statusMessage'] == 'list') new Moment('ChatListEvent', data, 'incoming Chat message'); else new Moment('ChatEvent', data, 'incoming Chat message');
+          if (data['statusMessage'] == 'list') new Moment(#chatListEvent, data); else new Moment(#chatEvent, data);
         })
         ..onClose.listen((_) {
           //wait 5 seconds and try to reconnect
@@ -58,7 +57,7 @@ class NetChatManager extends Pump {
         })
         ..onError.listen((message) {
           // Send the Error to the bus.
-          new Moment('DebugEvent', 'Problem with Websocket, check console');
+          new Moment(#err, 'Problem with Websocket, check console');
         });
   }
 }

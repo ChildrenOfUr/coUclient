@@ -1,7 +1,7 @@
 part of couclient;
 // Handles all the engine's audio needs
 
-class SoundManager extends Pump {
+class SoundManager {
 
   Map<String, Sound> gameSounds = {};
   Map<String, AudioChannel> audioChannels = {};
@@ -16,17 +16,30 @@ class SoundManager extends Pump {
   AudioInstance currentAudioInstance;
 
   SoundManager() {
-    init().then((_) => EVENT_BUS & this);
+    init().then((_) {
+      new Service((Moment event) {
+        if (event.isType(#playSound)) playSound(event.content); else if (event.isType(#playSong)) {
+          event.content = event.content.replaceAll(' ', '');
+          if (songs[event.content] == null) {
+            loadSong(event.content).then((_) {
+              _playSong(event.content);
+            });
+          } else {
+            _playSong(event.content);
+          }
+        };
+      });
+    });
   }
 
   Future init() {
 
 
     new Asset('packages/couclient/audio/loading.mp3').load().then((_) {
-        //start the loading music and attach it to the #LoadingScreen so that when that is removed the music stops
-        if (ui.volume > 0 && ui.muted == false) {
-          playSound('loading', parentElement: querySelector('#LoadingScreen'), looping:false);
-        }
+      //start the loading music and attach it to the #LoadingScreen so that when that is removed the music stops
+      if (ui.volume > 0 && ui.muted == false) {
+        playSound('loading', parentElement: querySelector('#LoadingScreen'), looping: false);
+      }
     });
 
 
@@ -98,54 +111,42 @@ class SoundManager extends Pump {
     return c.future;
   }
 
-	playSound(String name, {bool asset: true, bool looping: false, Element parentElement: null})
-	{
-		try
-		{
-			if(useWebAudio)
-			{
-				if(asset)
-					return gameSounds[name].play(looping:looping);
-				else //if we say it's not an asset then load a new sound and play it as music
-				{
-					Sound music = new Sound(channel:audioChannels['music']);
-					music.load(currentSong.streamingUrl).then((Sound music)
-					{
-						currentAudioInstance = music.play(looping:looping);
-					});
-				}
-			}
-			else
-			{
-				AudioElement loading = ASSET[name].get();
-				loading.loop = looping;
-				loading.volume = ui.volume/100;
-				if(parentElement != null)
-					parentElement.append(loading);
-					loading.play();
-					return loading;
-			}
-		}
-		catch(err){print('error playing sound: $err');}
-	}
-
-	void stopSound(soundObjectToStop)
-    {
-    	try
-    	{
-    		if(useWebAudio)
-        	{
-        		(soundObjectToStop as AudioInstance).stop();
-        	}
-        	else
-        	{
-        		AudioElement audio = soundObjectToStop as AudioElement;
-        		audio.pause();
-        		audio.remove();
-        	}
-    	}
-    	catch(err){print('error stopping sound: $err');}
+  playSound(String name, {bool asset: true, bool looping: false, Element parentElement: null}) {
+    try {
+      if (useWebAudio) {
+        if (asset) return gameSounds[name].play(looping: looping); else //if we say it's not an asset then load a new sound and play it as music
+        {
+          Sound music = new Sound(channel: audioChannels['music']);
+          music.load(currentSong.streamingUrl).then((Sound music) {
+            currentAudioInstance = music.play(looping: looping);
+          });
+        }
+      } else {
+        AudioElement loading = ASSET[name].get();
+        loading.loop = looping;
+        loading.volume = ui.volume / 100;
+        if (parentElement != null) parentElement.append(loading);
+        loading.play();
+        return loading;
+      }
+    } catch (err) {
+      print('error playing sound: $err');
     }
+  }
+
+  void stopSound(soundObjectToStop) {
+    try {
+      if (useWebAudio) {
+        (soundObjectToStop as AudioInstance).stop();
+      } else {
+        AudioElement audio = soundObjectToStop as AudioElement;
+        audio.pause();
+        audio.remove();
+      }
+    } catch (err) {
+      print('error stopping sound: $err');
+    }
+  }
 
   Future loadSong(String name) {
     Completer c = new Completer();
@@ -155,22 +156,6 @@ class SoundManager extends Pump {
     });
 
     return c.future;
-  }
-
-  @override
-  process(Moment event) {
-    if (event.isType('PlaySound')) playSound(event.content); else if (event.isType('PlaySong')) {
-
-      event.content = event.content.replaceAll(' ', '');
-      if (songs[event.content] == null) {
-        loadSong(event.content).then((_) {
-          _playSong(event.content);
-        });
-      } else {
-        _playSong(event.content);
-      }
-    }
-    ;
   }
 
   /**

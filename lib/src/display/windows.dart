@@ -4,7 +4,7 @@ part of couclient;
 
 
 
-class WindowManager extends Pump{
+class WindowManager {
   // Declaring all the possible popup windows
   MapWindow map = new MapWindow();
   SettingsWindow settings = new SettingsWindow();
@@ -13,15 +13,12 @@ class WindowManager extends Pump{
   VendorWindow vendor = new VendorWindow();
   
   WindowManager() {
-    EVENT_BUS > this;
-  }
-
-  @override
-  process(Moment event) {
-    if (event.isType('VendorWindow')){
-      vendor(event.content);      
-    }
-  }  
+    new Service((Moment event) {
+      if (event.isType(#vendorWindow)){
+        vendor(event.content);      
+      }
+    }); 
+  } 
 }
 
 

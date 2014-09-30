@@ -21,7 +21,7 @@ import 'package:slack/slack_html.dart' as slack;
 import 'package:scproxy/scproxy.dart';
 // Audio and Graphics
 import 'package:gorgon/gorgon.dart'; // for Webaudio api
-import 'package:dnd/dnd.dart'; //for dragging items into vendor interface
+//import 'package:dnd/dnd.dart'; //for dragging items into vendor interface
 // Asset Loading
 import 'package:libld/libld.dart'; // Nice and simple asset loading.
 // Event Bus and Pumps // for more infomation see '/doc/pumps.md'
@@ -29,8 +29,6 @@ import 'package:pump/pump.dart';
 
 // SYSTEMS MODULES //
 part 'package:couclient/src/systems/clock.dart';
-part 'package:couclient/src/systems/debug.dart';
-part 'package:couclient/src/systems/events.dart';
 part 'package:couclient/src/systems/commands.dart';
 part 'package:couclient/src/game/input.dart';
 part 'package:couclient/src/systems/util.dart';
@@ -96,7 +94,6 @@ NumberFormat commaFormatter = new NumberFormat("#,###");
 main() {
   // System
   loadTokens();
-  new DebugManager();
   new ClockManager();
   new CommandManager();
 
@@ -110,12 +107,12 @@ main() {
   new NetChatManager();
 
   // Test Information
-  new Moment('StartChat','Global Chat');
-  new Moment('StartChat','Local Chat');
+  new Moment(#startChat,'Global Chat');
+  new Moment(#startChat,'Local Chat');
   ui.update();
 
   // This tells the game to put the start button on the loading page.
-  new Moment('DoneLoading',null);
+  new Moment(#doneLoading,null);
 
 	// GAME ENTRY //
 	Game game = new Game();

@@ -1,7 +1,7 @@
 part of couclient;
 
 // GAME ENTRY AND MANAGEMENT //
-class Game extends Pump {
+class Game {
 
   String username = 'null';
   String location = 'null';

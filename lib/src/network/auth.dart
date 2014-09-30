@@ -4,19 +4,13 @@ String SLACK_TEAM;
 String SLACK_TOKEN;
 String SC_TOKEN;
 
-class AuthManager extends Pump {
+class AuthManager {
   WebSocket _connection;
   String _authUrl = 'wss://robertmcdermot.com:8282/auth';
   
   
   AuthManager() {
     setupWebsocket(_authUrl);
-    EVENT_BUS & this;
-  }
-
-  @override
-  process(Moment<Map> event) {
-    return;
   }
 
   post(Map data) {
@@ -34,7 +28,7 @@ class AuthManager extends Pump {
         
         ..onMessage.listen((MessageEvent message) {
           Map data = JSON.decoder.convert(message.data);
-          if (data['statusMessage'] == 'list') new Moment('ChatListEvent', data, 'incoming Chat message'); else new Moment('ChatEvent', data, 'incoming Chat message');
+          if (data['statusMessage'] == 'list') new Moment(#chatListEvent, data); else new Moment(#chatEvent, data);
         })
         ..onClose.listen((_) {
           //wait 5 seconds and try to reconnect
@@ -42,7 +36,7 @@ class AuthManager extends Pump {
         })
         ..onError.listen((message) {
           // Send the Error to the bus.
-          new Moment('DebugEvent', 'Problem with Websocket, check console');
+          new Moment(#err, 'Problem with Websocket, check console');
         });
   }
 }
