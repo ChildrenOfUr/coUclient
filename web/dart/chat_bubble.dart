@@ -8,7 +8,7 @@ class ChatBubble
 	var hostObject;
 	bool autoDismiss,removeParent;
 
-	ChatBubble(this.text,this.hostObject,this.parent,{this.autoDismiss : true, this.removeParent : false})
+	ChatBubble(this.text,this.hostObject,this.parent,{this.autoDismiss : true, this.removeParent : false, bool addUsername : false})
 	{
 		// timeToLive = (text.length * 0.05) + 3; //minimum 3s plus 0.05 per character
 		// if(timeToLive > 10) //max 10s
@@ -16,12 +16,18 @@ class ChatBubble
 		timeToLive = 9000;
 		// TODO: revert the above when going live
 
+		NodeValidator validator = new NodeValidatorBuilder()
+			..allowHtml5()
+			..allowElement('span', attributes: ['style']);
+
 		bubble = new DivElement()
 			..classes.add("chat-bubble");
 		textElement = new DivElement()
-			..classes.add("cb-content")
-		//..style.overflow = "hidden" //prevent overflow
-			..innerHtml = text; //uses default html tag sanitizer (allows img tags, does not allow links)
+			..classes.add("cb-content");
+		if(addUsername)
+			textElement.setInnerHtml("${_getColoredUsername()}: $text", validator: validator);
+		else
+			textElement.innerHtml = text;
 		arrowElement = new DivElement()
 			..classes.add("cb-arrow");
 
@@ -53,5 +59,10 @@ class ChatBubble
         hostObject.chatBubble = null;
         if(removeParent)
         	parent.remove();
+	}
+
+	String _getColoredUsername()
+	{
+		return "<span style='color:${getUsernameColor(chat.username)};paddingRight:4px;display:inline-block;'>${chat.username}</span>";
 	}
 }

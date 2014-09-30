@@ -120,3 +120,14 @@ String sanitizeName(String name)
 
 	return name;
 }
+
+String getUsernameColor(String username)
+{
+	int index = 0;
+	for (int i = 0; i < username.length; i++)
+		index += username.codeUnitAt(i);
+
+	return chat.COLORS[index % (chat.COLORS.length - 1)];
+}
+
+String getTimestampString() => new DateTime.now().toString().substring(11, 16);

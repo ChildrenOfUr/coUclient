@@ -487,7 +487,7 @@ class TabContent {
 			if (map["statusMessage"] == null || map["message"] == " joined.") {
 				if (map["username"] != null && !(map["message"] as String).toLowerCase().startsWith("/me")) {
 					userElement.text = map["username"] + ": ";
-					userElement.style.color = _getColor(map["username"]); //hashes the username so as to get a random color but the same each time for a specific user
+					userElement.style.color = getUsernameColor(map["username"]); //hashes the username so as to get a random color but the same each time for a specific user
 
 					chatString.children
 							..add(userElement)
@@ -502,7 +502,7 @@ class TabContent {
 			if (map["statusMessage"] == "leftStreet") {
 				//display "user has left for <street>" message with clickable street
 				userElement.text = map["username"];
-				userElement.style.color = _getColor(map["username"]);
+				userElement.style.color = getUsernameColor(map["username"]);
 
 				AnchorElement streetElement = new AnchorElement()
 						..text = map["streetName"]
@@ -527,11 +527,11 @@ class TabContent {
 				if (map["success"] == "true") {
 					SpanElement oldUsername = new SpanElement()
 							..text = map["username"]
-							..style.color = _getColor(map["username"])
+							..style.color = getUsernameColor(map["username"])
 							..style.paddingRight = "4px";
 					SpanElement newUsername = new SpanElement()
 							..text = map["newUsername"]
-							..style.color = _getColor(map["newUsername"]);
+							..style.color = getUsernameColor(map["newUsername"]);
 
 					chatString.children
 							..add(oldUsername)
@@ -584,7 +584,7 @@ class TabContent {
 				users.forEach((String username) {
 					SpanElement user = new SpanElement()
 							..text = username
-							..style.color = _getColor(username)
+							..style.color = getUsernameColor(username)
 							..style.paddingRight = "4px"
 							..style.display = "inline-block";
 					chatString.children.add(user);
@@ -627,7 +627,7 @@ class TabContent {
 			if (map["channel"] == "Local Chat" && map["username"] == chat.username && map["statusMessage"] == null && !(map["message"] as String).toLowerCase().startsWith("/me")) {
 				//remove any existing bubble
 				if (CurrentPlayer.chatBubble != null && CurrentPlayer.chatBubble.bubble != null) CurrentPlayer.chatBubble.bubble.remove();
-				CurrentPlayer.chatBubble = new ChatBubble(_parseForEmoticons(map["message"]), CurrentPlayer, CurrentPlayer.playerParentElement);
+				CurrentPlayer.chatBubble = new ChatBubble(_parseForEmoticons(map["message"]), CurrentPlayer, CurrentPlayer.playerParentElement, addUsername: true);
 			}
 		} else if (chatFail) {
 			print(message);
@@ -666,16 +666,6 @@ class TabContent {
 
 		return returnString;
 	}
-
-	String _getColor(String username) {
-		int index = 0;
-		for (int i = 0; i < username.length; i++) {
-			index += username.codeUnitAt(i);
-		}
-		return chat.COLORS[index % (chat.COLORS.length - 1)];
-	}
-
-	String _timeStamp() => new DateTime.now().toString().substring(11, 16);
 }
 
 class NullTreeSanitizer implements NodeTreeSanitizer {
