@@ -3,7 +3,7 @@ part of coUclient;
 class Chat
 {
 	static List<String> _COLORS = ["#e85d72","#e06b56","#9d8eee","#a63924","#43761b","#4bbe2e","#d58247","#d55aef","#9b3b45","#4cc091"];
-    static List<String> _EMOTICONS;
+    static List<String> _EMOTICONS = [];
 	bool _showJoinMessages = false, _playMentionSound = true;
 	Map<String, TabContent> tabContentMap = new Map();
 	String username = "testUser"; //TODO: get actual username of logged in user;
@@ -209,7 +209,7 @@ class TabContent
 		{
 			Map map = new Map();
 			map["statusMessage"] = "hint";
-			map["message"] = "Hint :\nYou can set your chat name by typing '/setname my_name'<br><br>You can get a list of people in this chat room by typing '/list'";
+			map["message"] = 'For chat command help, click here: http://childrenofur.com/help/#commands';
 			_addmessage(map);
 		}
 		//TODO: end section
@@ -537,7 +537,7 @@ class TabContent
 	{
 		NodeValidator validator = new NodeValidatorBuilder()
   			..allowHtml5()
-        	..allowElement('a', attributes: ['href','class',])
+        	..allowElement('a', attributes: ['href','class','target'])
 			..allowElement('span');
 
 		numMessages++;
