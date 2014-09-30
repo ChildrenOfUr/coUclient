@@ -7,7 +7,8 @@ String SC_TOKEN;
 class AuthManager extends Pump {
   WebSocket _connection;
   String _authUrl = 'wss://robertmcdermot.com:8282/auth';
-
+  
+  
   AuthManager() {
     setupWebsocket(_authUrl);
     EVENT_BUS & this;
@@ -27,7 +28,8 @@ class AuthManager extends Pump {
         ..onOpen.listen((_) {
           // First event, request our tokens.
           post(new Map()
-              ..['request'] = 'tokens');
+              ..['request'] = 'tokens'
+              ..['persona'] = {'assertion':'null','audience':window.location.href});
         })
         
         ..onMessage.listen((MessageEvent message) {

@@ -9,6 +9,10 @@ dependencies:
     git:
       ref: master
       url: https://github.com/ChildrenOfUr/libld
+  persona:
+    git:
+      ref: master
+      url: https://github.com/ChildrenOfUr/dart-persona.git
   pump: any
   scproxy:
     git:

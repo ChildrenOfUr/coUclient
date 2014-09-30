@@ -398,7 +398,7 @@ void addItem(Map map)
     	item.classes.add('groundItem');
     	item.classes.add('entity');
     	item.id = map['id'];
-    	querySelector("#PlayerHolder").append(item);
+    	querySelector("#playerHolder").append(item);
 	});
 }
 
