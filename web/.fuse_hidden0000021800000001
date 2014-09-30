@@ -2027,8 +2027,10 @@ quoin graphic
 	-webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 	min-width: 180px;
-	left: 50%;
-	transform: translate(-50%,-115%);
+	/* This one needs adjusting for trees */
+	left: -30%;
+	/* This one needs a lot of adjusting for players and trees */
+	top: -100%;
 }
 .cb-content {
 	padding: 9px 14px;
