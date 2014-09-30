@@ -108,7 +108,7 @@ _setupStreetSocket(String streetName)
 			String id = plantMap["id"];
             Element element = querySelector("#$id");
             Plant plant = entities[plantMap["id"]];
-			if(element == null)
+			if(plant == null)
 				addPlant(plantMap);
 			else
 			{
@@ -127,7 +127,7 @@ _setupStreetSocket(String streetName)
 			String id = npcMap["id"];
             Element element = querySelector("#$id");
             NPC npc = entities[npcMap["id"]];
-			if(element == null)
+			if(npc == null)
 				addNPC(npcMap);
 			else
 			{
@@ -189,11 +189,21 @@ _updateChatBubble(Map map, Entity entity)
 	{
 		if(entity.chatBubble == null)
 		{
+			String heightString = entity.canvas.height.toString();
+			String translateY = entity.canvas.attributes['translateY'];
+
+			if(entity.canvas.attributes['actualHeight'] != null)
+			{
+				heightString = entity.canvas.attributes['actualHeight'];
+				int diff = entity.canvas.height - int.parse(heightString);
+				translateY = (int.parse(translateY)+diff).toString();
+			}
+
 			DivElement bubbleParent = new DivElement()
 				..style.position = 'absolute'
 				..style.width = entity.canvas.width.toString()+'px'
-				..style.height = entity.canvas.height.toString()+'px'
-				..style.transform = 'translateX(${map['x']}px) translateY(${entity.canvas.attributes['translateY']}px)';
+				..style.height = heightString+'px'
+				..style.transform = 'translateX(${map['x']}px) translateY(${translateY}px)';
 			playerHolder.append(bubbleParent);
 			entity.chatBubble = new ChatBubble(map["bubbleText"],entity,bubbleParent,autoDismiss:false,removeParent:true);
 		}
