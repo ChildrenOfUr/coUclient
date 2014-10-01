@@ -103,9 +103,6 @@ main() {
   new WindowManager();
   inputManager = new InputManager();
 
-  // Networking
-  new NetChatManager();
-
   // Test Information
   new Moment(#startChat,'Global Chat');
   new Moment(#startChat,'Local Chat');
@@ -114,7 +111,7 @@ main() {
   // This tells the game to put the start button on the loading page.
   new Moment(#doneLoading,null);
 
-	// GAME ENTRY //
-	Game game = new Game();
+  // GAME ENTRY //
+  Game game = new Game();
 
 }

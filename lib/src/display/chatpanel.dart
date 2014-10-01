@@ -319,7 +319,7 @@ class Chat {
 			map["statusMessage"] = "list";
 			map["channel"] = title;
 			map["street"] = currentStreet.label;
-			new Moment(#outChatEvent, map);
+			new Moment(#outgoingChatEvent, map);
         }
 	    else
 	    {
@@ -330,7 +330,7 @@ class Chat {
 	    	if (title == "Local Chat")
 				map["street"] = currentStreet.label;
 
-			new Moment(#outChatEvent, map);
+			new Moment(#outgoingChatEvent, map);
 
 			//display chat bubble if we're talking in local (unless it's a /me message)
 			if(map["channel"] == "Local Chat" && !(map["message"] as String).toLowerCase().startsWith("/me"))

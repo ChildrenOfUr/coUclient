@@ -4,7 +4,7 @@ part of couclient;
 // TODO Add documentation to the doc folder that outlines the format outgoing chat messages must adhere to.
 class NetChatManager {
   WebSocket _connection;
-  String _chatServerUrl = 'ws://robertmcdermot.com:8282';
+  String _chatServerUrl = 'ws://$websocketServerAddress/chat';
 
   NetChatManager() {
     //assign temporary chat handle
@@ -38,6 +38,7 @@ class NetChatManager {
           // First event, tells the server who we are.
           post(new Map()
               ..['username'] = ui.username
+              ..['street'] = currentStreet.label
               ..['statusMessage'] = 'join');
 
           // Get a List of the other players online

@@ -21,6 +21,9 @@ class Game {
 	  	.then((_) => new Street('test').load()
 	  	.then((_)
 		{
+			// Networking
+			new NetChatManager();
+
 		  	metabolics.init();
 		  	multiplayerInit();
 			CurrentPlayer = new Player();
