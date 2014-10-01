@@ -7,9 +7,13 @@ class Plant extends Entity
 	bool ready = false, firstRender = true;
 	ImageElement spritesheet;
 	Rectangle sourceRect;
+	String url;
 
 	Plant(Map map)
 	{
+		canvas = new CanvasElement();
+        canvas.id = map["id"];
+
 		numRows = map['numRows'];
 		numColumns = map['numColumns'];
 
@@ -17,7 +21,12 @@ class Plant extends Entity
 		for(int i=0; i<map['numFrames']; i++)
 			frameList.add(i);
 
-		spritesheet = new ImageElement(src:map['url'].replaceAll("\"",""));
+		url = map['url'].replaceAll("\"","");
+		HttpRequest.request('http://robertmcdermot.com:8181/getActualImageHeight?url=$url&numRows=$numRows&numColumns=$numColumns').then((HttpRequest request)
+		{
+			canvas.attributes['actualHeight'] = request.responseText;
+		});
+		spritesheet = new ImageElement(src:url);
 		spritesheet.onLoad.listen((_)
 		{
 			width = spritesheet.width~/map['numColumns'];
@@ -25,9 +34,7 @@ class Plant extends Entity
 			x = num.parse(map['x'].toString());
             y = currentStreet.bounds.height - num.parse(map['y'].toString()) - height;
 
-			canvas = new CanvasElement();
-        	canvas.id = map["id"];
-        	canvas.attributes['actions'] = JSON.encode(map['actions']);
+			canvas.attributes['actions'] = JSON.encode(map['actions']);
         	canvas.attributes['type'] = map['type'];
         	canvas.classes.add("plant");
         	canvas.classes.add('entity');

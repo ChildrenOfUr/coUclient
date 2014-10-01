@@ -115,3 +115,15 @@ String sanitizeName(String name)
 
 	return name;
 }
+
+List<String> _COLORS = ["#e85d72","#e06b56","#9d8eee","#a63924","#43761b","#4bbe2e","#d58247","#d55aef","#9b3b45","#4cc091"];
+String getUsernameColor(String username)
+{
+	int index = 0;
+	for (int i = 0; i < username.length; i++)
+		index += username.codeUnitAt(i);
+
+	return COLORS[index % (COLORS.length - 1)];
+}
+
+String getTimestampString() => new DateTime.now().toString().substring(11, 16);
