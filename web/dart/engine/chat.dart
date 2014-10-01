@@ -7,6 +7,7 @@ class Chat
 	bool _showJoinMessages = false, _playMentionSound = true;
 	Map<String, TabContent> tabContentMap = new Map();
 	String username = "testUser"; //TODO: get actual username of logged in user;
+	final _chatServerUrl = "ws://$websocketServerAddress/chat";
 
 	List<String> get EMOTICONS => _EMOTICONS;
 	List<String> get COLORS => _COLORS;
@@ -75,15 +76,21 @@ class Chat
 			(element as CheckboxInputElement).checked = getPlayMentionSound();
 		});
 
-		addChatTab("Global Chat", true);
-		addChatTab("Other Chat", false);
-		querySelector("#ChatPane").children.add(new TabContent("Local Chat", true).getDiv());
+		TabContent globalContent = addChatTab("Global Chat", true);
+		TabContent otherContent = addChatTab("Other Chat", false);
+		TabContent localContent = new TabContent("Local Chat", true);
+		querySelector("#ChatPane").children.add(localContent.getDiv());
+
+		WebSocket webSocket = setupWebSocket();
+		globalContent.webSocket = webSocket;
+		otherContent.webSocket = webSocket;
+		localContent.webSocket = webSocket;
 
 		//add touch scrolling to the channel list
 		new TouchScroller(querySelector("#ChannelList"), TouchScroller.VERTICAL);
 	}
 
-	void addChatTab(String channelName, bool checked) {
+	TabContent addChatTab(String channelName, bool checked) {
 		TabContent tabContent = new TabContent(channelName, false);
 		DivElement content = tabContent.getDiv()..className = "content";
 		DivElement tab = new DivElement()..className = "tab";
@@ -103,6 +110,73 @@ class Chat
 				..add(label)
 				..add(content);
 		querySelector("#ChatTabs").children.add(tab);
+
+		return tabContent;
+	}
+
+	WebSocket setupWebSocket()
+	{
+		WebSocket webSocket = new WebSocket(_chatServerUrl);
+		webSocket.onOpen.listen((_) {
+			webSocket.send(JSON.encode({
+				'clientVersion': clientVersion
+			}));
+			querySelector("#ChatDisconnected").hidden = true; //hide if visible
+			querySelector("#ChatBubbleDisconnect").style.display = "none";
+			querySelector("#ChatBubbleText")
+					..text = "0"
+					..hidden = false;
+
+			//let server know that we connected
+			Map map = new Map();
+			map["username"] = chat.username;
+			map["statusMessage"] = "join";
+			map["street"] = currentStreet.label;
+			map['channel'] = "Global Chat";
+			webSocket.send(JSON.encode(map));
+
+			//get list of all users connected
+			map = new Map();
+			map["hide"] = "true";
+			map["username"] = chat.username;
+			map["statusMessage"] = "list";
+			map["channel"] = "Global Chat";
+			webSocket.send(JSON.encode(map));
+		});
+		webSocket.onMessage.listen((MessageEvent messageEvent) {
+			Map map = JSON.decode(messageEvent.data);
+			if(map['channel'] != null)
+			{
+				if(map['channel'] == 'all')
+					tabContentMap.forEach((String key, TabContent content) =>
+							content.receiveMessage(map));
+				else
+					tabContentMap[map['channel']].receiveMessage(map);
+			}
+			else
+				print('channel was null for $map');
+		});
+		webSocket.onClose.listen((_) {
+			if (!reconnect) {
+				reconnect = true;
+				return;
+			}
+
+			//attempt to reconnect and display a message to the user stating so
+			querySelector("#ChatDisconnected")
+					..hidden = false
+					..text = "Disconnected from Chat, attempting to reconnect...";
+			//mobile
+			querySelector("#ChatBubbleDisconnect").style.display = "inline-block";
+			querySelector("#ChatBubbleText").hidden = true;
+
+			//wait 5 seconds and try to reconnect
+			new Timer(new Duration(seconds: 5), () {
+				setupWebSocket();
+			});
+		});
+
+		return webSocket;
 	}
 }
 
@@ -120,7 +194,6 @@ class TabContent {
 			numMessages = 0,
 			inputHistoryPointer = 0,
 			emoticonPointer = 0;
-	final _chatServerUrl = "ws://$websocketServerAddress/chat";
 
 	TabContent(this.channelName, this.useSpanForTitle) {
 		chat.tabContentMap[channelName] = this;
@@ -139,6 +212,72 @@ class TabContent {
 				..text = channelName
 				..id = "channelName-" + channelName.replaceAll(" ", "_");
 		channelList.children.add(channel);
+	}
+
+	void receiveMessage(Map map)
+	{
+		if (map['error'] != null) {
+			reconnect = false;
+			print(map['error']);
+			webSocket.close();
+			return;
+		}
+
+		if (map["message"] == "ping") //only used to keep the connection alive, ignore
+		return;
+
+		if (map["message"] == " joined.") {
+			if (!connectedUsers.contains(map["username"])) connectedUsers.add(map["username"]);
+			if (!chat.getJoinMessagesVisibility()) //ignore join messages unless the user turns them on
+			return;
+		}
+
+		if (map["message"] == " left.") {
+			connectedUsers.remove(map["username"]);
+			removeOtherPlayer(map["username"]);
+			if (!chat.getJoinMessagesVisibility()) //ignore left messages unless the user turns them on
+			return;
+		}
+
+		int prevUnread = unreadMessages;
+		if (map["statusMessage"] == null && map["channel"] == channelName) unreadMessages++;
+
+		//mobile
+		if (map["username"] != chat.username && map["channel"] == channelName) {
+			//if the conversation is not showing to the user, add an unread message to it
+			if (querySelector("#conversation-" + channelName.replaceAll(" ", "_")).style.zIndex != "1") {
+				if (prevUnread != unreadMessages) querySelector("#channelName-" + channelName.replaceAll(" ", "_")).innerHtml = channelName + " " + '<span class="Counter">' + unreadMessages.toString() + '</span>';
+			} else unreadMessages--; //if it is showing, this is a read message, un-increment counter
+
+			int totalUnread = 0;
+			chat.tabContentMap.values.forEach((TabContent tabContent) {
+				totalUnread += tabContent.unreadMessages;
+			});
+			querySelector('#ChatBubbleText').text = totalUnread.toString();
+		}
+
+		if (map["channel"] == "all") {
+			_addmessage(map);
+		} //if we're talking in local, only talk to one street at a time
+		else if (map["channel"] == "Local Chat" && map["channel"] == channelName) {
+			if (map["statusMessage"] != null) _addmessage(map); else if (map["username"] != chat.username && map["street"] == currentStreet.label) _addmessage(map);
+		} else if (map["channel"] == channelName) {
+			if (map["statusMessage"] == null) {
+				//need to replace spaces to make CSS selector work
+				String selector = "#tab-" + channelName.replaceAll(" ", "_");
+				if (!(querySelector(selector) as RadioButtonInputElement).checked) {
+					if (prevUnread != unreadMessages) {
+						//find label related to this channel's tab and add the unread count to it
+						String selector = "#label-" + channelName.replaceAll(" ", "_");
+						querySelector(selector).innerHtml = '<span class="Counter">' + unreadMessages.toString() + '</span>' + " " + channelName;
+					}
+				}
+
+				//don't add to history if the user said it
+				//we already added it before we sent it to the server
+				if (map["username"] != chat.username) _addmessage(map);
+			} else _addmessage(map);
+		}
 	}
 
 	void resetMessages([MouseEvent event]) {
@@ -183,8 +322,6 @@ class TabContent {
 			_addmessage(map);
 		}
 		//TODO: end section
-
-		setupWebSocket(chatHistory, channelName);
 
 		processInput(input);
 
@@ -326,120 +463,6 @@ class TabContent {
 		}
 
 		webSocket.send(JSON.encode(map));
-	}
-
-	void setupWebSocket(DivElement chatHistory, String channelName) {
-		webSocket = new WebSocket(_chatServerUrl);
-		webSocket.onOpen.listen((_) {
-			webSocket.send(JSON.encode({
-				'clientVersion': clientVersion
-			}));
-			querySelector("#ChatDisconnected").hidden = true; //hide if visible
-			querySelector("#ChatBubbleDisconnect").style.display = "none";
-			querySelector("#ChatBubbleText")
-					..text = "0"
-					..hidden = false;
-
-			//let server know that we connected
-			Map map = new Map();
-			map["message"] = 'userName=' + chat.username;
-			map["channel"] = channelName;
-			if (channelName == "Local Chat") map["street"] = currentStreet.label;
-			webSocket.send(JSON.encode(map));
-
-			//get list of all users connected
-			map = new Map();
-			map["hide"] = "true";
-			map["username"] = chat.username;
-			map["statusMessage"] = "list";
-			map["channel"] = channelName;
-			webSocket.send(JSON.encode(map));
-		});
-		webSocket.onMessage.listen((MessageEvent messageEvent) {
-			Map map = JSON.decode(messageEvent.data);
-
-			if (map['error'] != null) {
-				reconnect = false;
-				print(map['error']);
-				webSocket.close();
-				return;
-			}
-
-			if (map["message"] == "ping") //only used to keep the connection alive, ignore
-			return;
-
-			if (map["message"] == " joined.") {
-				if (!connectedUsers.contains(map["username"])) connectedUsers.add(map["username"]);
-				if (!chat.getJoinMessagesVisibility()) //ignore join messages unless the user turns them on
-				return;
-			}
-
-			if (map["message"] == " left.") {
-				connectedUsers.remove(map["username"]);
-				removeOtherPlayer(map["username"]);
-				if (!chat.getJoinMessagesVisibility()) //ignore left messages unless the user turns them on
-				return;
-			}
-
-			int prevUnread = unreadMessages;
-			if (map["statusMessage"] == null && map["channel"] == channelName) unreadMessages++;
-
-			//mobile
-			if (map["username"] != chat.username && map["channel"] == channelName) {
-				//if the conversation is not showing to the user, add an unread message to it
-				if (querySelector("#conversation-" + channelName.replaceAll(" ", "_")).style.zIndex != "1") {
-					if (prevUnread != unreadMessages) querySelector("#channelName-" + channelName.replaceAll(" ", "_")).innerHtml = channelName + " " + '<span class="Counter">' + unreadMessages.toString() + '</span>';
-				} else unreadMessages--; //if it is showing, this is a read message, un-increment counter
-
-				int totalUnread = 0;
-				chat.tabContentMap.values.forEach((TabContent tabContent) {
-					totalUnread += tabContent.unreadMessages;
-				});
-				querySelector('#ChatBubbleText').text = totalUnread.toString();
-			}
-
-			if (map["channel"] == "all") {
-				_addmessage(map);
-			} //if we're talking in local, only talk to one street at a time
-			else if (map["channel"] == "Local Chat" && map["channel"] == channelName) {
-				if (map["statusMessage"] != null) _addmessage(map); else if (map["username"] != chat.username && map["street"] == currentStreet.label) _addmessage(map);
-			} else if (map["channel"] == channelName) {
-				if (map["statusMessage"] == null) {
-					//need to replace spaces to make CSS selector work
-					String selector = "#tab-" + channelName.replaceAll(" ", "_");
-					if (!(querySelector(selector) as RadioButtonInputElement).checked) {
-						if (prevUnread != unreadMessages) {
-							//find label related to this channel's tab and add the unread count to it
-							String selector = "#label-" + channelName.replaceAll(" ", "_");
-							querySelector(selector).innerHtml = '<span class="Counter">' + unreadMessages.toString() + '</span>' + " " + channelName;
-						}
-					}
-
-					//don't add to history if the user said it
-					//we already added it before we sent it to the server
-					if (map["username"] != chat.username) _addmessage(map);
-				} else _addmessage(map);
-			}
-		});
-		webSocket.onClose.listen((_) {
-			if (!reconnect) {
-				reconnect = true;
-				return;
-			}
-
-			//attempt to reconnect and display a message to the user stating so
-			querySelector("#ChatDisconnected")
-					..hidden = false
-					..text = "Disconnected from Chat, attempting to reconnect...";
-			//mobile
-			querySelector("#ChatBubbleDisconnect").style.display = "inline-block";
-			querySelector("#ChatBubbleText").hidden = true;
-
-			//wait 5 seconds and try to reconnect
-			new Timer(new Duration(seconds: 5), () {
-				setupWebSocket(chatHistory, channelName);
-			});
-		});
 	}
 
 	void _addmessage(Map map) {

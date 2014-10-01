@@ -110,7 +110,7 @@ _setupStreetSocket(String streetName)
             Plant plant = entities[plantMap["id"]];
 			if(plant == null)
 				addPlant(plantMap);
-			else
+			else if(element != null)
 			{
 				element.attributes['actions'] = JSON.encode(plantMap['actions']);
 				if(plant != null)
@@ -129,7 +129,7 @@ _setupStreetSocket(String streetName)
             NPC npc = entities[npcMap["id"]];
 			if(npc == null)
 				addNPC(npcMap);
-			else
+			else if(element != null)
 			{
 				element.attributes['actions'] = JSON.encode(npcMap['actions']);
 				if(npc != null)

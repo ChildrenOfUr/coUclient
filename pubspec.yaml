@@ -7,7 +7,6 @@ dependencies:
   dnd: '>=0.1.3 <0.2.0'
   glitch_time: any
   gorgon: '>=0.13.3'
-  grinder: any
   intl: any
   libld:
     git:
