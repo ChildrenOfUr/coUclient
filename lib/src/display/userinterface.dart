@@ -170,13 +170,11 @@ class UserInterface{
       });
     });
 
-
     // Listens for the pause button
     pauseButton.onClick.listen((_) {
       pauseMenu.hidden = false;
     });
     pauseMenu.querySelector('.fa-times.close').onClick.listen((_) => pauseMenu.hidden = true);
-
 
     // Controls the volume slider and glyph
     volumeGlyph.onClick.listen((_) {

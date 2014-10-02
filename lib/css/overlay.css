@@ -4,6 +4,7 @@
 }
 
 .overlay {
+  pointer-events:auto;
   position:absolute;
   top:0%;
   left:0%;
@@ -25,6 +26,11 @@
 #pauseMenu * {
   color:#fff;
 }
+
+#pauseMenu.fa-close:hover {
+  box-shadow: 0 1px 50px 20px rgba(255,255,255,0.1);
+}
+
 #pauseMenu #pauseSkills {
   position:absolute;
   left:calc(40% - 5em);
