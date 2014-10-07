@@ -75,37 +75,7 @@
   background-color:#75992D;
   z-index:5;
 }
-#streetLoading h2 {
-  text-align:center;
-  color:#fff;
-  top:50px;
-}
-#streetLoading h2 span {
-    color:#fff;
-    font-size:2em;
-}
 
-
-#streetLoading .bar {
-  position:absolute;
-  left:20px;
-  right:20px;
-  bottom:30px;
-  height:1em;
-  border-radius:0.4em;
-  background-color:rgba(0,0,0,0.3);
-  overflow:hidden;
-}
-#streetLoading .bar .percent {
-  position:absolute;
-  left:0;
-  top:0;
-  bottom:0;
-  width:0%;
-  background-color:#5cb85c;
-  border-radius:0.4em;
-  border-bottom:5px solid rgba(0,0,0,0.2);
-}
 
 /*Loading a street*/
 .MapLoadingScreen {
@@ -120,11 +90,11 @@
 	pointer-events: none;
 
 	transition-property: opacity;
-	transition-duration: 1s;
+	transition-duration: 0.5s;
 	transition-timing-function: linear;
 	transition-delay: 0.5s;
 	-webkit-transition-property:opacity;
-	-webkit-transition-duration:1s;
+	-webkit-transition-duration:0.5s;
 	-webkit-transition-timing-function:linear;
 	-webkit-transition-delay:0.5s;
 }
@@ -138,20 +108,20 @@
 	opacity:0.0;
 	z-index:2;
 	transition-property: opacity;
-	transition-duration: 1s;
+	transition-duration: 0.5s;
 	transition-timing-function: linear;
 	-webkit-transition-property:opacity;
-	-webkit-transition-duration:1s;
+	-webkit-transition-duration:0.5s;
 	-webkit-transition-timing-function:linear;
 }
 #MapLoadingContent
 {
 	opacity:0.0;
 	transition-property: opacity;
-	transition-duration: .3s;
+	transition-duration: 0.2s;
 	transition-timing-function: linear;
 	-webkit-transition-property:opacity;
-	-webkit-transition-duration:.3s;
+	-webkit-transition-duration:0.2s;
 	-webkit-transition-timing-function:linear;
 }
 #StreetLoadingImage{
@@ -172,17 +142,19 @@
     left:10%;
     right:10%;
     bottom:5vh;
-    padding:0 10px;
+    padding:0;
 }
 #NowEntering h1{
     color:#f7ff95;
-    font-size:5vw;
+    font-size:50px;
     line-height:0px;
+    margin:0;
     text-shadow: 0px 4px rgba(0,0,0,0.3);
 }
 #NowEntering h2{
+    color:#fff;
     text-shadow: 0px 4px rgba(0,0,0,0.3);
-    font-size:3vw;
+    font-size:30px;
 }
 .LoadingGroove{
 	background-color: #e6ecee;
