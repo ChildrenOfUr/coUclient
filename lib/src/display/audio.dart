@@ -17,6 +17,8 @@ class SoundManager {
 
   SoundManager() {
     init().then((_) {
+      
+      
       new Service((Moment event) {
         if (event.isType(#playSound)) playSound(event.content); else if (event.isType(#playSong)) {
           event.content = event.content.replaceAll(' ', '');
@@ -91,6 +93,7 @@ class SoundManager {
   }
 
   Future loadNonWebAudio(Completer c) {
+    new Moment(#toast, 'Loading non-WebAudio');
     // Load all our user interface sounds.
     ui_sounds = new Batch([//iOS/safari/IE doesn't seem to like .ogg files
       //and dartium/Opera/older Firefox doesn't seem to like .mp3 files
@@ -101,6 +104,7 @@ class SoundManager {
         }).catchError((e) //in case audio does not start to load within 2 seconds
         {
           print("error while loading sounds: $e");
+          
         }).whenComplete(() //load SC song data
         {
           // Load the names and track id's of the music.json file but save actually loading the media file
@@ -185,6 +189,7 @@ class SoundManager {
   }
 
   _playSong(String name) {
+    
     /*
      * canPlayType should return:
      *    probably: if the specified type appears to be playable.

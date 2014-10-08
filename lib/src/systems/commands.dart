@@ -9,6 +9,10 @@ class CommandManager {
     COMMANDS['playsound'] = (noun) {
       new Moment(#playSound, noun);
     };
+    
+    COMMANDS['playsong'] = (noun) {
+      new Moment(#playSong, noun);
+    };
 
     COMMANDS
         ..['setname'] = setName
