@@ -44,6 +44,7 @@ part 'package:couclient/src/network/metabolics.dart';
 part 'package:couclient/src/display/userinterface.dart';
 part 'package:couclient/src/display/chatpanel.dart';
 part 'package:couclient/src/display/meters.dart';
+part 'package:couclient/src/display/toast.dart';
 part 'package:couclient/src/display/audio.dart';
 part 'package:couclient/src/display/render.dart';
 part 'package:couclient/src/display/loop.dart';
@@ -105,9 +106,9 @@ main() {
 
   // Test Information
   new Moment(#startChat,'Global Chat');
-  new Moment(#startChat,'Local Chat');
+  new Moment(#startChat,'Local Chat');  
   ui.update();
-
+  
   // This tells the game to put the start button on the loading page.
   new Moment(#doneLoading,null);
 

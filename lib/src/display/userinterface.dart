@@ -189,6 +189,8 @@ class UserInterface{
       }
     });
     
+    toastService;
+    
     new Service((Moment event)
     {
         // CHAT EVENT HANDLERS //

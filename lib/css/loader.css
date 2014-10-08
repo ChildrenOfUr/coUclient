@@ -146,6 +146,7 @@
 }
 #NowEntering h1{
     color:#f7ff95;
+    /* I'm not using 'vh' because there's no 'font-size-max' property.*/
     font-size:50px;
     line-height:0px;
     margin:0;

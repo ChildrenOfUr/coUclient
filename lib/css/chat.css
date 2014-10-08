@@ -74,7 +74,7 @@
   bottom:5px;
   left:3%;
   background-color:#eee;
-  width:80%;
+  width:93%;
   height:16px;
   border:none;
   border:2px solid rgba(0,0,0,0.1);
@@ -82,25 +82,6 @@
 }
 .conversation input:focus {
   background-color:#ffffe0;
-}
-
-.conversation .emojiButton {
-  position:absolute;
-  bottom:5px;
-  right:5px;
-  background-color:#eee;
-  width:20px;
-  height:20px;
-  border:2px solid rgba(0,0,0,0.1);
-  border-radius: 5px;
-  font-size:20px;
-}
-.emojiButton .fa {
-  position:absolute;
-  top:1%;
-  left:-57%;
-  color:rgba(0,0,0,0.5);
-  cursor: pointer;
 }
 
 .conversation .fa-chevron-down {
@@ -113,7 +94,7 @@
 	z-index: 1060;
 	position: relative;
 	padding: 1px;
-	background-color: #ffffff;
+	background-color: #fff;
 	background-clip: padding-box;
 	border: 1px solid #cccccc;
 	border: 1px solid rgba(0, 0, 0, 0.2);
@@ -144,7 +125,7 @@
 	left: 50%;
 	margin-left: -11px;
 	border-bottom-width: 0;
-	border-top-color: #999999;
+	border-top-color: #999;
 	border-top-color: rgba(0, 0, 0, 0.25);
 	bottom: -11px;
 }
@@ -155,5 +136,5 @@
 	bottom: 1px;
 	margin-left: -10px;
 	border-bottom-width: 0;
-	border-top-color: #ffffff;
+	border-top-color: #fff;
 }

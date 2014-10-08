@@ -78,7 +78,7 @@ _setupStreetSocket(String streetName)
 		}
 		if(map['itemsForSale'] != null)
 		{
-			document.body.append(new VendorWindow().call(map));
+			new VendorWindow().call(map);
 			return;
 		}
 
