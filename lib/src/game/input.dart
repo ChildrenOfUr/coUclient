@@ -146,12 +146,12 @@ class InputManager {
       } else querySelector("#$action").text = key;
     });
 
-    /*
+    
     CheckboxInputElement graphicsBlur = querySelector("#GraphicsBlur") as CheckboxInputElement;
     graphicsBlur.onChange.listen((_) {
       local["GraphicsBlur"] = graphicsBlur.checked.toString();
     });
-    */
+    
 
     //Handle player input
     //KeyUp and KeyDown are neccesary for preventing weird movement glitches

@@ -220,11 +220,6 @@ class UserInterface{
         if (event.isType(#startChat))
         {
           Chat chat = new Chat(event.content as String);
-
-          //handle chat input getting focused/unfocused so that the character doesn't move while typing
-        ElementList chatInputs = querySelectorAll('.Typing');
-        chatInputs.onFocus.listen((_) => inputManager.ignoreKeys = true);
-          chatInputs.onBlur.listen((_) => inputManager.ignoreKeys = false);
         }
 
         // MISC EVENT HANDLERS //
