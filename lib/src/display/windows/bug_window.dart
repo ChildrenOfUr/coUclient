@@ -26,7 +26,7 @@ class BugWindow extends Modal {
           w.hidden = true;
           }
           else{
-            new Moment(#err,'If you want to submit a bug, please let us know what you find wrong.');
+            new Message(#err,'If you want to submit a bug, please let us know what you find wrong.');
           }
         });
       }

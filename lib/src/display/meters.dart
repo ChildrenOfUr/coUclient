@@ -18,48 +18,24 @@ class MeterManager {
 
     COMMANDS
         ..['mood'] = (String mood) {
-          new Moment(#moodDisplayEvent, {
-            'mood': int.parse(mood)
-          });
+          updateMoodDisplay(int.parse(mood));
         }
         ..['energy'] = (String energy) {
-          new Moment(#energyDisplayEvent, {
-            'energy': int.parse(energy)
-          });
+          updateEnergyDisplay(int.parse(energy));
         }
         ..['maxmood'] = (String mood) {
-          new Moment(#moodDisplayEvent, {
-            'maxmood': int.parse(mood)
-          });
+          updateMoodDisplay(null, int.parse(mood));
         }
         ..['maxenergy'] = (String energy) {
-          new Moment(#energyDisplayEvent, {
-            'maxenergy': int.parse(energy)
-          });
+          updateEnergyDisplay(null, int.parse(energy));
         }
         ..['currants'] = (String currants) {
-          new Moment(#currantsDisplayEvent, int.parse(currants));
+          updateCurrantsDisplay(int.parse(currants));
         }
         ..['img'] = (String img) {
-          new Moment(#imgDisplayEvent, int.parse(img));
+          updateImgDisplay(int.parse(img));
         };
 
-
-
-    new Service((Moment event) {
-      if (event.isType(#imgDisplayEvent)) {
-        updateImgDisplay(event.content);
-      }
-      if (event.isType(#currantsDisplayEvent)) {
-        updateCurrantsDisplay(event.content);
-      }
-      if (event.isType(#moodDisplayEvent)) {
-        updateMoodDisplay(event.content['mood'], event.content['maxmood']);
-      }
-      if (event.isType(#energyDisplayEvent)) {
-        updateEnergyDisplay(event.content['energy'], event.content['maxenergy']);
-      }
-    });
   }
   updateImgDisplay(int newImg) {
     // Update img display

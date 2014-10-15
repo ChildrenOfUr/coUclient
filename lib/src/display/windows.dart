@@ -1,9 +1,5 @@
 part of couclient;
 
-
-
-
-
 class WindowManager {
   // Declaring all the possible popup windows
   MapWindow map = new MapWindow();
@@ -11,14 +7,12 @@ class WindowManager {
   BugWindow bugs = new BugWindow();
   BagWindow bag = new BagWindow();
   VendorWindow vendor = new VendorWindow();
-  
+
   WindowManager() {
-    new Service((Moment event) {
-      if (event.isType(#vendorWindow)){
-        vendor(event.content);      
-      }
-    }); 
-  } 
+    new Service([#vedorWindow], (Message event) {
+      vendor(event.content);
+    });
+  }
 }
 
 
@@ -55,7 +49,7 @@ abstract class Modal {
       // show intended tab
       tab.classes.add('active');
     });
-    
+
     // DRAGGING/////////////////////////////////////////
     // init vars
     int new_x = ui.mainElement.client.width ~/ 2 - 550 ~/ 2;
@@ -86,14 +80,14 @@ abstract class Modal {
       dragging = false;
     });
   }
-  
+
   openTab(String tabID) {
     Element tabView = window.querySelector('article #${tabID.toLowerCase()}');
     // hide all tabs
     for (Element t in window.querySelectorAll('article .tab-content')) t.hidden = true;
     for (Element t in window.querySelectorAll('article .tab')) t.classes.remove('active');
     tabView.hidden = false;
-    
+
   }
-  
+
 }

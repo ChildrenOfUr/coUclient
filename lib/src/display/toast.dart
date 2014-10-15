@@ -1,22 +1,19 @@
 part of couclient;
 
-Service toastService = new Service(spawnToast);
+Service toastService = new Service([#toast], spawnToast);
 
-spawnToast(Moment event) {
-  if (event.isType(#toast)) {
+spawnToast(Message event) {
+  Element toastContainer = querySelector('#toastHolder');
 
-    Element toastContainer = querySelector('#toastHolder');
+  DivElement toast = new DivElement()
+      ..classes.add('toast')
+      ..style.opacity = '0.35'
+      ..text = event.content;
 
-    DivElement toast = new DivElement()
-        ..classes.add('toast')
-        ..style.opacity = '0.35'
-        ..text = event.content;
+  new Timer(new Duration(milliseconds: 5000), () {
+    toast.style.opacity = '0';
+  });
+  new Timer(new Duration(milliseconds: 5500), toast.remove);
 
-    new Timer(new Duration(milliseconds: 5000), () {
-      toast.style.opacity = '0';
-    });
-    new Timer(new Duration(milliseconds: 5500), toast.remove);
-
-    toastContainer.append(toast);
-  }
+  toastContainer.append(toast);
 }

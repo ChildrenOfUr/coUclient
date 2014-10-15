@@ -28,7 +28,7 @@ class AuthManager {
         
         ..onMessage.listen((MessageEvent message) {
           Map data = JSON.decoder.convert(message.data);
-          if (data['statusMessage'] == 'list') new Moment(#chatListEvent, data); else new Moment(#chatEvent, data);
+          if (data['statusMessage'] == 'list') new Message(#chatListEvent, data); else new Message(#chatEvent, data);
         })
         ..onClose.listen((_) {
           //wait 5 seconds and try to reconnect
@@ -36,7 +36,7 @@ class AuthManager {
         })
         ..onError.listen((message) {
           // Send the Error to the bus.
-          new Moment(#err, 'Problem with Websocket, check console');
+          new Message(#err, 'Problem with Websocket, check console');
         });
   }
 }

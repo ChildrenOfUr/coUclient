@@ -2,6 +2,7 @@ packages
 out
 pubspec.lock
 .buildlog
+.pub
 API_KEYS.json
 web/*.js*
 build/

@@ -9,8 +9,5 @@ class BagWindow extends Modal {
     ui.inventorySearch.onClick.listen((_) {
       this.open();
     });
-
   }
-
-
 }

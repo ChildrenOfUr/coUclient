@@ -15,14 +15,11 @@ class NetChatManager {
 
     setupWebsocket(_chatServerUrl);
 
-    new Service((Moment<Map> event) {
-      // Only accepts 'OutgoingChatEvent's
-      if (event.isType(#outgoingChatEvent)) {
-        if (_connection.readyState == WebSocket.OPEN) {
-          post(event.content);
-        }
-        return;
+    new Service([#outgoingChatEvent], (Message<Map> event) {
+      if (_connection.readyState == WebSocket.OPEN) {
+        post(event.content);
       }
+      return;
     });
   }
 
@@ -50,7 +47,7 @@ class NetChatManager {
         })
         ..onMessage.listen((MessageEvent message) {
           Map data = JSON.decoder.convert(message.data);
-          if (data['statusMessage'] == 'list') new Moment(#chatListEvent, data); else new Moment(#chatEvent, data);
+          if (data['statusMessage'] == 'list') new Message(#chatListEvent, data); else new Message(#chatEvent, data);
         })
         ..onClose.listen((_) {
           //wait 5 seconds and try to reconnect
@@ -58,7 +55,7 @@ class NetChatManager {
         })
         ..onError.listen((message) {
           // Send the Error to the bus.
-          new Moment(#err, 'Problem with Websocket, check console');
+          new Message(#err, 'Problem with Websocket, check console');
         });
   }
 }

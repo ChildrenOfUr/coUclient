@@ -57,7 +57,7 @@ class Metabolics {
     if (newValue > _maxmood) return;
     _mood = newValue;
 
-    new Moment(#moodDisplayEvent, {
+    new Message(#moodDisplayEvent, {
       'mood': _mood
     });
 

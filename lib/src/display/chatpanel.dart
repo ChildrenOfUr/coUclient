@@ -291,7 +291,7 @@ class Chat {
       map["statusMessage"] = "list";
       map["channel"] = title;
       map["street"] = currentStreet.label;
-      new Moment(#outgoingChatEvent, map);
+      new Message(#outgoingChatEvent, map);
     } else {
       Map map = new Map();
       map["username"] = ui.username;
@@ -299,7 +299,7 @@ class Chat {
       map["channel"] = title;
       if (title == "Local Chat") map["street"] = currentStreet.label;
 
-      new Moment(#outgoingChatEvent, map);
+      new Message(#outgoingChatEvent, map);
 
       //display chat bubble if we're talking in local (unless it's a /me message)
       if (map["channel"] == "Local Chat" && !(map["message"] as String).toLowerCase().startsWith("/me")) {
@@ -322,7 +322,7 @@ class ChatMessage {
     message = parseUrl(message);
     message = parseEmoji(message);
 
-    if (message.toLowerCase().contains(ui.username.toLowerCase())) new Moment(#playSound, 'mention');
+    if (message.toLowerCase().contains(ui.username.toLowerCase())) new Message(#playSound, 'mention');
 
     if (player == null) {
       html = '''

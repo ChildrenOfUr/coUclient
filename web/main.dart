@@ -105,12 +105,12 @@ main() {
   inputManager = new InputManager();
 
   // Test Information
-  new Moment(#startChat,'Global Chat');
-  new Moment(#startChat,'Local Chat');  
+  new Message(#startChat,'Global Chat');
+  new Message(#startChat,'Local Chat');  
   ui.update();
   
   // This tells the game to put the start button on the loading page.
-  new Moment(#doneLoading,null);
+  new Message(#doneLoading,null);
 
   // GAME ENTRY //
   Game game = new Game();

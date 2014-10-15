@@ -164,7 +164,7 @@ class UserInterface{
     // Starts the game
     playButton.onClick.listen((_) {
       loadingScreen.style.opacity = '0';
-      new Moment(#playSound, 'game_loaded');
+      new Message(#playSound, 'game_loaded');
       new Timer(new Duration(seconds: 1), () {
         loadingScreen.remove();
       });
@@ -191,11 +191,11 @@ class UserInterface{
     
     toastService;
     
-    new Service((Moment event)
+    new Service([#chatEvent,#chatListEvent,#startChat,#timeUpdate,#doneLoading],(Message event)
     {
         // CHAT EVENT HANDLERS //
         // ChatEvents are drawn to their Conversation.
-        if (event.isType(#chatEvent))
+        if (event.type == #chatEvent)
         {
           for (Chat convo in openConversations)
           {
@@ -207,7 +207,7 @@ class UserInterface{
         }
 
         // List online players
-        if (event.isType(#chatListEvent))
+        if (event.type == #chatListEvent)
         {
           for (Chat convo in openConversations)
           {
@@ -217,20 +217,20 @@ class UserInterface{
         }
 
         // StartChat events start a Conversation
-        if (event.isType(#startChat))
+        if (event.type == #startChat)
         {
           Chat chat = new Chat(event.content as String);
         }
 
         // MISC EVENT HANDLERS //
-        if (event.isType(#timeUpdate))
+        if (event.type == #timeUpdate)
         {
           currDay.text = clock.dayofweek;
           currTime.text = clock.time;
           currDate.text = clock.day + ' of ' + clock.month;
         }
 
-        if (event.isType(#doneLoading))
+        if (event.type == #doneLoading)
         {
           // display 'Play' buttons
           for (Element button in loadingScreen.querySelectorAll('.button'))

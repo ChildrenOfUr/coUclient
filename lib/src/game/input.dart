@@ -45,7 +45,7 @@ class InputManager {
 		map["newStreetLabel"] = label;
 		map["newStreetTsid"] = tsid;
 		map["oldStreet"] = currentStreet.label;
-		new Moment(#outgoingChatEvent,map);
+		new Message(#outgoingChatEvent,map);
 
 		ui.streetLoadingImage.src = street['loading_image']['url'];
 		ui.streetLoadingImage.onLoad.first.then((_)

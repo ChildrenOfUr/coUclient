@@ -1,6 +1,7 @@
 part of couclient;
 // Handles all the engine's audio needs
 
+
 class SoundManager {
 
   Map<String, Sound> gameSounds = {};
@@ -16,11 +17,8 @@ class SoundManager {
   AudioInstance currentAudioInstance;
 
   SoundManager() {
-    init().then((_) {
-      
-      
-      new Service((Moment event) {
-        if (event.isType(#playSound)) playSound(event.content); else if (event.isType(#playSong)) {
+    init().then((_) {      
+      new Service([#playSound,#playSong],(Message event) {
           event.content = event.content.replaceAll(' ', '');
           if (songs[event.content] == null) {
             loadSong(event.content).then((_) {
@@ -29,7 +27,6 @@ class SoundManager {
           } else {
             _playSong(event.content);
           }
-        };
       });
     });
   }
@@ -92,8 +89,9 @@ class SoundManager {
 
   }
 
+  
   Future loadNonWebAudio(Completer c) {
-    new Moment(#toast, 'Loading non-WebAudio');
+    new Message(#toast, 'Loading non-WebAudio');
     // Load all our user interface sounds.
     ui_sounds = new Batch([//iOS/safari/IE doesn't seem to like .ogg files
       //and dartium/Opera/older Firefox doesn't seem to like .mp3 files

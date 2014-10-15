@@ -6,10 +6,10 @@ class ClockManager {
   ClockManager() {
     // Take each of the 'clock's streams, and when there is an event, broadcast this to the manager's subscribers.
     clock.onUpdate.listen((List timedata) {
-      new Moment(#timeUpdate,timedata);
+      new Message(#timeUpdate,timedata);
     });    
     clock.onNewDay.listen((_) {
-      new Moment(#newDay,null); // The fact the event fires is all that's important here. 
+      new Message(#newDay,null); // The fact the event fires is all that's important here. 
     });    
   }
 }
