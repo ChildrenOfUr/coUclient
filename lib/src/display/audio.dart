@@ -18,7 +18,7 @@ class SoundManager {
 
   SoundManager() {
     init().then((_) {      
-      new Service([#playSound,#playSong],(Message event) {
+      new Service([#playSong],(Message event) {
           event.content = event.content.replaceAll(' ', '');
           if (songs[event.content] == null) {
             loadSong(event.content).then((_) {
@@ -28,6 +28,9 @@ class SoundManager {
             _playSong(event.content);
           }
       });
+      new Service([#playSound],(Message event) {
+        this.playSound(event.content);        
+      });      
     });
   }
 
