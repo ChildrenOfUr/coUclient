@@ -2,7 +2,7 @@ part of couclient;
 
 UserInterface ui = new UserInterface();
 
-class UserInterface{
+class UserInterface {
 
   //NumberFormat for having commas in the currants and iMG displays
   NumberFormat commaFormatter = new NumberFormat("#,###");
@@ -14,7 +14,7 @@ class UserInterface{
   Element youWon = querySelector('#youWon');
 
   // Initial play button
-  Element playButton = querySelector('#playButton');
+  Element playButton = querySelector('#login-button');
 
   // Initial loading screen elements
   Element loadStatus = querySelector("#loading #loadstatus");
@@ -188,64 +188,25 @@ class UserInterface{
         volumeSlider.value = '0';
       }
     });
-    
-    toastService;
-    
-    new Service([#chatEvent,#chatListEvent,#startChat,#timeUpdate,#doneLoading],(Message event)
-    {
-        // CHAT EVENT HANDLERS //
-        // ChatEvents are drawn to their Conversation.
-        if (event.type == #chatEvent)
-        {
-          for (Chat convo in openConversations)
-          {
-            if(convo.title == "Local Chat" && event.content['street'] == currentStreet.label)
-              convo.processEvent(event.content);
-            else if(convo.title == event.content['channel'] && convo.title != "Local Chat")
-                convo.processEvent(event.content);
-          }
-        }
 
-        // List online players
-        if (event.type == #chatListEvent)
-        {
-          for (Chat convo in openConversations)
-          {
-              if (convo.title == event.content['channel'])
-                convo.addAlert("Players in this Channel:  ${event.content['users']}".replaceAll('[', '').replaceAll(']', ''));
-          }
-        }
-
-        // StartChat events start a Conversation
-        if (event.type == #startChat)
-        {
-          Chat chat = new Chat(event.content as String);
-        }
-
-        // MISC EVENT HANDLERS //
-        if (event.type == #timeUpdate)
-        {
-          currDay.text = clock.dayofweek;
-          currTime.text = clock.time;
-          currDate.text = clock.day + ' of ' + clock.month;
-        }
-
-        if (event.type == #doneLoading)
-        {
-          // display 'Play' buttons
-          for (Element button in loadingScreen.querySelectorAll('.button'))
-            button.hidden = false;
-        }
+    new Service([#timeUpdate], (Message event) {
+      currDay.text = clock.dayofweek;
+      currTime.text = clock.time;
+      currDate.text = clock.day + ' of ' + clock.month;
     });
-    
+
+    new Service([#doneLoading], (Message event) {
+      // display 'Play' buttons
+      for (Element button in loadingScreen.querySelectorAll('.button')) button.hidden = false;
+    });
+
 
   }
 
-	void _resize()
-	{
-	  	worldWidth = worldElement.clientWidth;
-	  	worldHeight = worldElement.clientHeight;
-	}
+  void _resize() {
+    worldWidth = worldElement.clientWidth;
+    worldHeight = worldElement.clientHeight;
+  }
 
 
 

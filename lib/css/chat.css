@@ -35,8 +35,6 @@
   right:1.5%;
   overflow-y:scroll;
   overflow-x:hidden;
-
-  font-family: 'Tahoma', 'Geneva', 'sans-serif';
   cursor: auto;
   -webkit-user-select: text;
   -moz-user-select: text;
@@ -45,6 +43,7 @@
   color: #000;
 }
 .dialog p{
+  font-family: 'Lato', sans-serif;
   padding:2px;
   margin:2px;
   font-size:12px;
@@ -55,7 +54,7 @@
   font-size:1.1em;
 }
 .dialog p *.message{
-  font-family: 'Tahoma', 'Geneva', 'sans-serif';
+  font-family: 'Lato', sans-serif;
   cursor: auto;
     color: #000;
   -webkit-user-select: text;
@@ -73,6 +72,7 @@
   position:absolute;
   bottom:5px;
   left:3%;
+  font-size:15px;
   background-color:#eee;
   width:93%;
   height:16px;
@@ -91,6 +91,7 @@
 /* Better Chat Bubbles */
 
 .chat-bubble {
+  font-family: 'Lato', sans-serif;
 	z-index: 1060;
 	position: relative;
 	padding: 1px;

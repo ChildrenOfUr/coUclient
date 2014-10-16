@@ -1,5 +1,7 @@
 *:not(input){
+  font-family: 'Fredoka One', cursive;
    cursor: default;
+  -webkit-font-smoothing: antialiased;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -12,8 +14,7 @@
   text-shadow: 0px 1px rgba(100,100,100,0.3);
 }
 html, body {
-  font-family: 'RockoFLFBold', sans-serif;
-  -webkit-font-smoothing: antialiased;
+  font-family: 'Lato', sans-serif;
   background-color:#eee;
   overflow:hidden;
   height:100%;
@@ -23,7 +24,7 @@ html, body {
 
 
 p, input, textarea{
-  font-family: 'Tahoma', 'Geneva', 'sans-serif';
+  font-family: 'Lato', sans-serif;
   cursor: auto;
   -webkit-user-select: text;
   -moz-user-select: text;
@@ -47,7 +48,6 @@ p, input, textarea{
 .soft {
    list-style-type: none;
    color: gray;
-   font-family: 'RockoFLFBold', sans-serif;
    font-size:12px;
    font-weight: 200;
 }

@@ -1,26 +1,53 @@
 part of couclient;
 
 
+Service chatService = new Service([#chatEvent], (Message event) {
+  for (Chat convo in openConversations) {
+    if (convo.title == "Local Chat" && event.content['street'] == currentStreet.label) convo.processEvent(event.content); else if (convo.title == event.content['channel'] && convo.title != "Local Chat") convo.processEvent(event.content);
+  }
+});
+
+Service chatListService = new Service([#chatListEvent], (Message event) {
+  for (Chat convo in openConversations) {
+    new Message(#debug, 'ran chatListService');
+    if (convo.title == event.content['channel']) convo.addAlert("Players in this Channel:  ${event.content['users']}".replaceAll('[', '').replaceAll(']', ''));
+  }
+});
+
+Service chatStartService = new Service([#startChat], (Message event) {
+  new Message(#debug, 'Spawned chat called ${event.content}');
+  Chat chat = new Chat(event.content as String);
+});
+
+Service outgoingChatService;
+
+
+
 // TODO Add documentation to the doc folder that outlines the format outgoing chat messages must adhere to.
 class NetChatManager {
   WebSocket _connection;
   String _chatServerUrl = 'ws://$websocketServerAddress/chat';
 
   NetChatManager() {
+    
+    new Message(#debug,'netchat is loaded');
+    
     //assign temporary chat handle
     if (localStorage["username"] != null) ui.username = localStorage["username"]; else {
       Random rand = new Random();
       ui.username += rand.nextInt(10000).toString();
+      
     }
 
     setupWebsocket(_chatServerUrl);
-
-    new Service([#outgoingChatEvent], (Message<Map> event) {
+    
+    outgoingChatService = new Service([#outgoingChatEvent], (Message<Map> event) {
       if (_connection.readyState == WebSocket.OPEN) {
         post(event.content);
       }
       return;
     });
+
   }
 
 
@@ -45,8 +72,8 @@ class NetChatManager {
               ..['statusMessage'] = 'list'
               ..['channel'] = 'Global Chat');
         })
-        ..onMessage.listen((MessageEvent message) {
-          Map data = JSON.decoder.convert(message.data);
+        ..onMessage.listen((MessageEvent event) {
+          Map data = JSON.decoder.convert(event.data);
           if (data['statusMessage'] == 'list') new Message(#chatListEvent, data); else new Message(#chatEvent, data);
         })
         ..onClose.listen((_) {

@@ -22,8 +22,9 @@ class Game {
 	  	.then((_)
 		{
 			// Networking
-			new NetChatManager();
+	    new Message(#err,'Game initialized');
 
+			
 		  	metabolics.init();
 		  	multiplayerInit();
 			CurrentPlayer = new Player();

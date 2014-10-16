@@ -55,7 +55,6 @@ quoin graphic
     font-size: x-large;
     -webkit-transition: all .2s ease-out .2s;
     transition: all .2s ease-out .2s;
-    font-family: 'RockoFLFBold', sans-serif;
     color: #fff;
 }
 .circleExpand .quoinString {

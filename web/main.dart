@@ -92,27 +92,40 @@ Storage local = window.localStorage;
 Random random = new Random();
 NumberFormat commaFormatter = new NumberFormat("#,###");
 
-main() {
-  // System
-  loadTokens();
-  new ClockManager();
-  new CommandManager();
 
-  // UI/UX
+
+
+
+
+main() {
+
+  loadTokens();
+  toastService;
+  errService;
+  
   soundManager = new SoundManager();
+  new NetChatManager();
   new MeterManager();
   new WindowManager();
   inputManager = new InputManager();
 
-  // Test Information
-  new Message(#startChat,'Global Chat');
-  new Message(#startChat,'Local Chat');  
-  ui.update();
-  
-  // This tells the game to put the start button on the loading page.
-  new Message(#doneLoading,null);
-
-  // GAME ENTRY //
   Game game = new Game();
 
+  chatService;
+  chatStartService;
+  chatListService;
+  
+  // Test Information
+  new Message(#startChat, 'Global Chat');
+  new Message(#startChat, 'Local Chat');
+  new Message(#toast,'testing toast');
+  ui.update();
+  
+  // System
+  new ClockManager();
+  new CommandManager();
+  
+  // GAME ENTRY //
+
+  
 }

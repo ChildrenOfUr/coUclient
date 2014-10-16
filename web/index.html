@@ -11,6 +11,12 @@
 
    <!--Import game css-->
    <link rel="stylesheet" href="style.css">
+   
+   <!--Import Google fonts-->
+   <link href='http://fonts.googleapis.com/css?family=Fredoka+One' rel='stylesheet' type='text/css'>
+   <link href='http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+   <link href='http://fonts.googleapis.com/css?family=Sniglet:800' rel='stylesheet' type='text/css'>
+   
   </head>
   <body>
 
@@ -18,11 +24,14 @@
   <div style="font-family: Sniglet;opacity:0;position:absolute;">.</div>
 
     <div id="loading">
+        
         <div class="splash">
-          Children of<br>
-          <img src="packages/couclient/system/logo.svg"><br>
-          <div id="playButton" class="button" hidden>PLAY</div>
+          <img src="packages/couclient/system/logo.svg" alt="Children of Ur logo"><br>
+          Please enter your Email,
+          <input type="email" id="login-email">
+          <span id="login-button" class="button" >Login</span>
         </div>
+        
         <div id="loadstatus">Loading</div>
         <br>
         <div id="loadstatus2">This Stuff</div>

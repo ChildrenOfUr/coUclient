@@ -52,7 +52,6 @@ class Chat {
   List messages;
   String lastWord = "";
   var conversationElement;
-  /// Events automatically are added to th
   int unreadMessages = 0,
       tabSearchIndex = 0,
       numMessages = 0,
@@ -284,7 +283,7 @@ class Chat {
 
 
   parseInput(String input) {
-    // if its' not a command, send it through.
+    // if its not a command, send it through.
     if (parseCommand(input)) return; else if (input.toLowerCase() == "/list") {
       Map map = {};
       map["username"] = ui.username;

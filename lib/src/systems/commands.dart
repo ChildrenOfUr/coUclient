@@ -1,5 +1,9 @@
 part of couclient;
 
+// debugging service
+Service errService = new Service([#err,#debug],(Message event){new Message(#toast,'Debug: ${event.content}');});
+
+
 // List of commandable functions
 Map<String, Function> COMMANDS = {};
 
