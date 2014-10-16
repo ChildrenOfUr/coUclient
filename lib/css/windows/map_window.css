@@ -6,6 +6,7 @@
 }
 
 #mapButton {
+  margin:8px;
   width:1.5em;
   float:right;
   padding:5px;

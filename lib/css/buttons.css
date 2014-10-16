@@ -36,8 +36,6 @@
 
 
 .button.light {
-  margin:10px;
-  padding:9px;
   background-color: #fff;
 }
 .button.light, .button.light * {
