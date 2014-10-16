@@ -7,7 +7,7 @@
   background-color: #4b2e4c;
   z-index:100;
   font-size:20px;
-  opacity:0.1;
+  opacity:1;
   -webkit-transition-property: opacity;
           transition-property: opacity;
   -webkit-transition-duration: 0.3s;

@@ -1,25 +1,6 @@
 part of couclient;
 
 
-Service chatService = new Service([#chatEvent], (Message event) {
-  for (Chat convo in openConversations) {
-    if (convo.title == "Local Chat" && event.content['street'] == currentStreet.label) convo.processEvent(event.content); else if (convo.title == event.content['channel'] && convo.title != "Local Chat") convo.processEvent(event.content);
-  }
-});
-
-Service chatListService = new Service([#chatListEvent], (Message event) {
-  for (Chat convo in openConversations) {
-    new Message(#debug, 'ran chatListService');
-    if (convo.title == event.content['channel']) convo.addAlert("Players in this Channel:  ${event.content['users']}".replaceAll('[', '').replaceAll(']', ''));
-  }
-});
-
-Service chatStartService = new Service([#startChat], (Message event) {
-  new Message(#debug, 'Spawned chat called ${event.content}');
-  Chat chat = new Chat(event.content as String);
-});
-
-Service outgoingChatService;
 
 
 
@@ -28,10 +9,7 @@ class NetChatManager {
   WebSocket _connection;
   String _chatServerUrl = 'ws://$websocketServerAddress/chat';
 
-  NetChatManager() {
-    
-    new Message(#debug,'netchat is loaded');
-    
+  NetChatManager() {    
     //assign temporary chat handle
     if (localStorage["username"] != null) ui.username = localStorage["username"]; else {
       Random rand = new Random();
@@ -40,8 +18,24 @@ class NetChatManager {
     }
 
     setupWebsocket(_chatServerUrl);
+
+    new Service([#chatEvent], (Message event) {
+      for (Chat convo in openConversations) {
+        if (convo.title == "Local Chat" && event.content['street'] == currentStreet.label) convo.processEvent(event.content); else if (convo.title == event.content['channel'] && convo.title != "Local Chat") convo.processEvent(event.content);
+      }
+    });
+
+    new Service([#chatListEvent], (Message event) {
+      for (Chat convo in openConversations) {
+        if (convo.title == event.content['channel']) convo.addAlert("Players in this Channel:  ${event.content['users']}".replaceAll('[', '').replaceAll(']', ''));
+      }
+    });
+
+    new Service([#startChat], (Message event) {
+      Chat chat = new Chat(event.content as String);
+    });
     
-    outgoingChatService = new Service([#outgoingChatEvent], (Message<Map> event) {
+    new Service([#outgoingChatEvent], (Message<Map> event) {
       if (_connection.readyState == WebSocket.OPEN) {
         post(event.content);
       }

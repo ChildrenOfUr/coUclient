@@ -34,6 +34,7 @@ class InputManager {
 
     window.onMessage.listen((MessageEvent event)
 	{
+    //if (JSON.decode(event.data)['tsid'] == null) return;
 		Map<String,dynamic> street = JSON.decode(event.data);
 		String label = street['label'];
 		String tsid = street['tsid'];

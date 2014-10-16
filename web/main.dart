@@ -27,6 +27,8 @@ import 'package:libld/libld.dart'; // Nice and simple asset loading.
 // Event Bus and Pumps // for more infomation see '/doc/pumps.md'
 import 'package:pump/pump.dart';
 
+import 'package:persona/persona_html.dart';
+
 // SYSTEMS MODULES //
 part 'package:couclient/src/systems/clock.dart';
 part 'package:couclient/src/systems/commands.dart';
@@ -91,7 +93,7 @@ Storage session = window.sessionStorage;
 Storage local = window.localStorage;
 Random random = new Random();
 NumberFormat commaFormatter = new NumberFormat("#,###");
-
+Persona nav;
 
 
 
@@ -111,9 +113,6 @@ main() {
 
   Game game = new Game();
 
-  chatService;
-  chatStartService;
-  chatListService;
   
   // Test Information
   new Message(#startChat, 'Global Chat');

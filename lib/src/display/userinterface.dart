@@ -163,11 +163,18 @@ class UserInterface {
 
     // Starts the game
     playButton.onClick.listen((_) {
-      loadingScreen.style.opacity = '0';
-      new Message(#playSound, 'game_loaded');
-      new Timer(new Duration(seconds: 1), () {
-        loadingScreen.remove();
+      String email = querySelector('#login-email').text;
+
+      Persona nav = new Persona(email, (_) {
+        loadingScreen.style.opacity = '0';
+        new Message(#playSound, 'game_loaded');
+        new Timer(new Duration(seconds: 1), () {
+          loadingScreen.remove();
+        });
+      }, (_) {
+        print('logged out');
       });
+
     });
 
     // Listens for the pause button

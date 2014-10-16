@@ -34,6 +34,11 @@ p, input, textarea{
   resize: none;
   margin:0;
 }
+input:focus {
+  background-color:#ffffe0;
+}
+
+
  a {
  cursor: auto;
  color: #4b2e4c;
