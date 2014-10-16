@@ -38,6 +38,7 @@ part 'package:couclient/src/systems/preload.dart';
 
 // NETWORKING MODULES //
 part 'package:couclient/src/network/chat.dart';
+part 'package:couclient/src/network/netdata.dart';
 part 'package:couclient/src/network/auth.dart';
 part 'package:couclient/src/network/multiplayer.dart';
 part 'package:couclient/src/network/metabolics.dart';
@@ -111,8 +112,6 @@ main() {
   new WindowManager();
   inputManager = new InputManager();
 
-  Game game = new Game();
-
   
   // Test Information
   new Message(#startChat, 'Global Chat');
@@ -125,6 +124,6 @@ main() {
   new CommandManager();
   
   // GAME ENTRY //
-
+  Game game = new Game();
   
 }

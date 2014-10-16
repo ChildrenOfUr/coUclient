@@ -133,9 +133,23 @@ class UserInterface {
 
   /////////////////////VARS//////////////////////////////////////////////////
 
+  login(String data) {
+    loadingScreen.style.opacity = '0';
+    new Message(#playSound, 'game_loaded');
+    new Timer(new Duration(seconds: 1), () {
+      loadingScreen.remove();
+    });
+  }
 
+  logout(){
+    print('loggedOut');
+  }
+  
   // start listening for events
   UserInterface() {
+
+    Persona nav = new Persona('bob@johnson.com', login,logout);
+
 
     //load emoticons
     new Asset("packages/couclient/emoticons/emoticons.json").load().then((Asset asset) => EMOTICONS = asset.get()["names"]);
@@ -163,18 +177,11 @@ class UserInterface {
 
     // Starts the game
     playButton.onClick.listen((_) {
-      String email = querySelector('#login-email').text;
+      InputElement loginEmail = querySelector('#login-email');
 
-      Persona nav = new Persona(email, (_) {
-        loadingScreen.style.opacity = '0';
-        new Message(#playSound, 'game_loaded');
-        new Timer(new Duration(seconds: 1), () {
-          loadingScreen.remove();
-        });
-      }, (_) {
-        print('logged out');
-      });
 
+
+      nav.request();
     });
 
     // Listens for the pause button

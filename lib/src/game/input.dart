@@ -32,36 +32,6 @@ class InputManager {
 
     setupKeyBindings();
 
-    window.onMessage.listen((MessageEvent event)
-	{
-    //if (JSON.decode(event.data)['tsid'] == null) return;
-		Map<String,dynamic> street = JSON.decode(event.data);
-		String label = street['label'];
-		String tsid = street['tsid'];
-
-		//send changeStreet to chat server
-		Map map = new Map();
-		map["statusMessage"] = "changeStreet";
-		map["username"] = ui.username;
-		map["newStreetLabel"] = label;
-		map["newStreetTsid"] = tsid;
-		map["oldStreet"] = currentStreet.label;
-		new Message(#outgoingChatEvent,map);
-
-		ui.streetLoadingImage.src = street['loading_image']['url'];
-		ui.streetLoadingImage.onLoad.first.then((_)
-		{
-			String hubName = new DataMaps().data_maps_hubs[street['hub_id']]()['name'];
-			ui.mapLoadingContent.style.opacity = "1.0";
-			ui.nowEntering.setInnerHtml('<h2>Entering</h2><h1>' + label + '</h1><h2>in ' + hubName/* + '</h2><h3>Home to: <ul><li>A <strong>Generic Goods Vendor</strong></li></ul>'*/);
-			new Timer(new Duration(seconds:1),()
-            {
-				new Asset.fromMap(street,label);
-                new Street(label).load();
-			});
-		});
-	});
-
     document.onClick.listen((MouseEvent event) => clickOrTouch(event,null));
     document.onTouchStart.listen((TouchEvent event) => clickOrTouch(null,event));
 

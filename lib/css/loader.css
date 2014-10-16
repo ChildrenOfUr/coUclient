@@ -3,7 +3,9 @@
   top:0;
   left:0;
   width:100%;
+  min-width:833px;
   height:100%;
+  min-height:500px;
   background-color: #4b2e4c;
   z-index:100;
   font-size:20px;
@@ -42,19 +44,9 @@
 }
 #login-button {
   position:absolute;
-  bottom:15px;
-  right:5px;
-}
-#login-email {
-  border:none;
-  border:solid 2px #ddd;
-  border-radius:5px;
-  width:305px;
-  font-size:20px;
-  position:absolute;
-  bottom:15px;
-  left:6px;
-  padding:5px;
+  bottom:25px;
+  width:150px;
+  left:calc(50% - 75px);
 }
 
 #loading #loadstatus {
