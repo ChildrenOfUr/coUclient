@@ -5,7 +5,7 @@ String SLACK_TOKEN;
 String SC_TOKEN;
 
 class AuthManager {
-  String _authUrl = 'https://robertmcdermot.com:8181/auth';
+  String _authUrl = 'http://robertmcdermot.com:8181/auth';
 
   AuthManager() {
     // Starts the game
@@ -24,15 +24,23 @@ class AuthManager {
       "content-type": "application/json"
     }, sendData: JSON.encode({
       'assertion': personaAssertion
-    })).then(ui.login());
+    })).then((HttpRequest data) {
+      print(data.response);
+      ui.login();
+    });
   }
 
   void logout() {
+    /*
     HttpRequest.request(_authUrl + "/logout", method: "POST", requestHeaders: {
       "content-type": "application/json"
     }, sendData: JSON.encode({
       'session-key': 'fake'
-    })).then(ui.logout());
+    })).then((HttpRequest data) {
+      print(data.response);
+      ui.logout();
+    });
+    */
   }
 
 }
