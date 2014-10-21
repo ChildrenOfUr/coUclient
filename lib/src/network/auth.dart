@@ -9,34 +9,39 @@ class AuthManager {
   String _authUrl = 'wss://robertmcdermot.com:8282/auth';
   
   
-  AuthManager() {
-    setupWebsocket(_authUrl);
+  AuthManager() {    
+    // Starts the game
+    Element loginButton = querySelector('#login-button');
+    Persona personaNavigator = new Persona('', setupWebsocket,ui.logout);
+    loginButton.onClick.listen((_) {
+      personaNavigator.request({'backgroundColor':'#4b2e4c','siteName':'Children of Ur'});
+      ;
+      
+    });
   }
 
-  post(Map data) {
-    _connection.sendString(JSON.encoder.convert(data));
-  }
-
-  void setupWebsocket(String url) {
-    _connection = new WebSocket(url)
+  void setupWebsocket(String personaAssertion) {
+    _connection = new WebSocket(_authUrl)
         ..onOpen.listen((_) {
           // First event, request our tokens.
           post(new Map()
-              ..['request'] = 'tokens'
-              ..['persona'] = {'assertion':'null','audience':window.location.href});
+              ..['request'] = 'login'
+              ..['persona'] = {'assertion':personaAssertion,'audience':window.location.href});
         })
         
         ..onMessage.listen((MessageEvent message) {
           Map data = JSON.decoder.convert(message.data);
-          if (data['statusMessage'] == 'list') new Message(#chatListEvent, data); else new Message(#chatEvent, data);
-        })
-        ..onClose.listen((_) {
-          //wait 5 seconds and try to reconnect
-          new Timer(new Duration(seconds: 5), () => setupWebsocket(url));
+          print(data);
+          
+          ui.login();
         })
         ..onError.listen((message) {
           // Send the Error to the bus.
-          new Message(#err, 'Problem with Websocket, check console');
+          new Message(#err, 'Problem with Authentication Socket, check console');
         });
+  }
+  
+  post(Map data) {
+    _connection.sendString(JSON.encoder.convert(data));
   }
 }

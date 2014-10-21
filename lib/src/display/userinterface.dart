@@ -13,9 +13,6 @@ class UserInterface {
   // you won! element
   Element youWon = querySelector('#youWon');
 
-  // Initial play button
-  Element playButton = querySelector('#login-button');
-
   // Initial loading screen elements
   Element loadStatus = querySelector("#loading #loadstatus");
   Element loadStatus2 = querySelector("#loading #loadstatus2");
@@ -133,23 +130,24 @@ class UserInterface {
 
   /////////////////////VARS//////////////////////////////////////////////////
 
-  login(String data) {
+  login() {
     loadingScreen.style.opacity = '0';
     new Message(#playSound, 'game_loaded');
     new Timer(new Duration(seconds: 1), () {
-      loadingScreen.remove();
+      loadingScreen.hidden = true;
     });
   }
 
   logout(){
     print('loggedOut');
+    loadingScreen.hidden = false;
+    new Timer(new Duration(seconds: 1), () {
+      loadingScreen.style.opacity = '1';
+    });
   }
   
   // start listening for events
   UserInterface() {
-
-    Persona nav = new Persona('bob@johnson.com', login,logout);
-
 
     //load emoticons
     new Asset("packages/couclient/emoticons/emoticons.json").load().then((Asset asset) => EMOTICONS = asset.get()["names"]);
@@ -174,15 +172,6 @@ class UserInterface {
     //Start listening for page resizes.
     _resize();
     window.onResize.listen((_) => _resize());
-
-    // Starts the game
-    playButton.onClick.listen((_) {
-      InputElement loginEmail = querySelector('#login-email');
-
-
-
-      nav.request();
-    });
 
     // Listens for the pause button
     pauseButton.onClick.listen((_) {

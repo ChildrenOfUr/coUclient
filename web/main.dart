@@ -94,9 +94,6 @@ Storage session = window.sessionStorage;
 Storage local = window.localStorage;
 Random random = new Random();
 NumberFormat commaFormatter = new NumberFormat("#,###");
-Persona nav;
-
-
 
 
 
@@ -106,6 +103,11 @@ main() {
   toastService;
   errService;
   
+  ui.update();
+  
+  // GAME ENTRY //
+  Game game = new Game();
+  
   soundManager = new SoundManager();
   new NetChatManager();
   new MeterManager();
@@ -113,17 +115,15 @@ main() {
   inputManager = new InputManager();
 
   
+  
   // Test Information
   new Message(#startChat, 'Global Chat');
   new Message(#startChat, 'Local Chat');
   new Message(#toast,'testing toast');
-  ui.update();
+
   
   // System
   new ClockManager();
   new CommandManager();
-  
-  // GAME ENTRY //
-  Game game = new Game();
   
 }

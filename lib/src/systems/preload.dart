@@ -3,7 +3,7 @@ part of couclient;
 
 
 loadTokens() {
-    
+    new AuthManager();
   
     SLACK_TEAM = 'cou';
     SLACK_TOKEN = 'Ey3SlsfyOlJjw0sHl0N0UuMK';
