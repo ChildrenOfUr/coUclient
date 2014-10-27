@@ -156,7 +156,7 @@ class Chat
 			else
 				print('channel was null for $map');
 		});
-		webSocket.onClose.listen((_) {
+		webSocket.onClose.listen((CloseEvent event) {
 			if (!reconnect) {
 				reconnect = true;
 				return;
@@ -172,7 +172,8 @@ class Chat
 
 			//wait 5 seconds and try to reconnect
 			new Timer(new Duration(seconds: 5), () {
-				setupWebSocket();
+				webSocket = setupWebSocket();
+				tabContentMap.forEach((String tabName, TabContent value) => value.webSocket = webSocket);
 			});
 		});
 
@@ -216,17 +217,22 @@ class TabContent {
 
 	void receiveMessage(Map map)
 	{
-		if (map['error'] != null) {
+		if (map['error'] != null)
+		{
 			reconnect = false;
 			print(map['error']);
 			webSocket.close();
 			return;
 		}
 
-		if (map["message"] == "ping") //only used to keep the connection alive, ignore
-		return;
+		if (map["statusMessage"] == "ping") //used to keep the connection alive
+		{
+			webSocket.send(JSON.encode({'statusMessage':'pong'}));
+			return;
+		}
 
-		if (map["message"] == " joined.") {
+		if (map["message"] == " joined.")
+		{
 			if (!connectedUsers.contains(map["username"])) connectedUsers.add(map["username"]);
 			if (!chat.getJoinMessagesVisibility()) //ignore join messages unless the user turns them on
 			return;

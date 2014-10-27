@@ -1,7 +1,7 @@
 part of coUclient;
 
 String websocketServerAddress = 'robertmcdermot.com:8282';
-double clientVersion = 0.07;
+double clientVersion = 0.08;
 
 // Game Screen
 Element gameScreen = querySelector('#GameScreen');
