@@ -7,22 +7,29 @@ part of couclient;
 // TODO Add documentation to the doc folder that outlines the format outgoing chat messages must adhere to.
 class NetChatManager {
   WebSocket _connection;
-  String _chatServerUrl = 'ws://$websocketServerAddress/chat';
+  String _chatServerUrl = 'ws://localhost:8282/chat';
 
-  NetChatManager() {    
+  NetChatManager() {
     //assign temporary chat handle
     if (localStorage["username"] != null) ui.username = localStorage["username"]; else {
       Random rand = new Random();
       ui.username += rand.nextInt(10000).toString();
-      
+
     }
 
     setupWebsocket(_chatServerUrl);
 
     new Service([#chatEvent], (Message event) {
-      for (Chat convo in openConversations) {
-        if (convo.title == "Local Chat" && event.content['street'] == currentStreet.label) convo.processEvent(event.content); else if (convo.title == event.content['channel'] && convo.title != "Local Chat") convo.processEvent(event.content);
-      }
+    	if (event.content["statusMessage"] == "ping") //used to keep the connection alive
+    		new Message(#outgoingChatEvent, {'statusMessage':'pong'});
+    	else
+    	{
+    		for (Chat convo in openConversations)
+    			if (convo.title == "Local Chat" && event.content['street'] == currentStreet.label)
+    				convo.processEvent(event.content);
+    			else if (convo.title == event.content['channel'] && convo.title != "Local Chat")
+    				convo.processEvent(event.content);
+    	}
     });
 
     new Service([#chatListEvent], (Message event) {
@@ -34,7 +41,7 @@ class NetChatManager {
     new Service([#startChat], (Message event) {
       Chat chat = new Chat(event.content as String);
     });
-    
+
     new Service([#outgoingChatEvent], (Message<Map> event) {
       if (_connection.readyState == WebSocket.OPEN) {
         post(event.content);
