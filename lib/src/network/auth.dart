@@ -5,7 +5,7 @@ String SLACK_TOKEN;
 String SC_TOKEN;
 
 class AuthManager {
-  String _authUrl = 'http://robertmcdermot.com:8181/auth';
+  String _authUrl = 'https://robertmcdermot.com:8383/auth';
 
   AuthManager() {
     // Starts the game
@@ -23,7 +23,7 @@ class AuthManager {
     HttpRequest.request(_authUrl + "/login", method: "POST", requestHeaders: {
       "content-type": "application/json"
     }, sendData: JSON.encode({
-      'assertion': personaAssertion
+      'assertion': personaAssertion, 'testing':true
     })).then((HttpRequest data) {
       print(data.response);
       ui.login();

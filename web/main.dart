@@ -102,28 +102,24 @@ main() {
   loadTokens();
   toastService;
   errService;
-  
+
   ui.update();
-  
+
   // GAME ENTRY //
   Game game = new Game();
-  
+
   soundManager = new SoundManager();
-  new NetChatManager();
   new MeterManager();
   new WindowManager();
   inputManager = new InputManager();
 
-  
-  
+
   // Test Information
-  new Message(#startChat, 'Global Chat');
-  new Message(#startChat, 'Local Chat');
   new Message(#toast,'testing toast');
 
-  
+
   // System
   new ClockManager();
   new CommandManager();
-  
+
 }
