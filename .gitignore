@@ -6,3 +6,4 @@ APIKEYS.dart
 web/*.js*
 build/
 *.orig
+.pub/
