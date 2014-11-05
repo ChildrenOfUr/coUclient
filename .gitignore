@@ -3,6 +3,7 @@ out
 pubspec.lock
 .buildlog
 .pub
+.idea
 API_KEYS.json
 web/*.js*
 build/

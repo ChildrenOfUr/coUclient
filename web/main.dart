@@ -100,7 +100,6 @@ NumberFormat commaFormatter = new NumberFormat("#,###");
 main() {
 
   loadTokens();
-  toastService;
   errService;
 
   ui.update();
