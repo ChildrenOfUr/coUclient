@@ -23,6 +23,7 @@ class CommandManager {
         ..['go'] = setLocationCommand
         ..['setlocation'] = setLocationCommand
         ..['toggleFps'] = toggleFps
+        ..['toast'] = toast
         ..['toggleCollisionLines'] = toggleCollisionLines
         ..['togglePhysics'] = togglePhysics;
   }

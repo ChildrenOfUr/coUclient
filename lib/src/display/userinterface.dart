@@ -130,7 +130,7 @@ class UserInterface {
 
   /////////////////////VARS//////////////////////////////////////////////////
 
-  login() {
+  loggedIn() {
     loadingScreen.style.opacity = '0';
     new Message(#playSound, 'game_loaded');
     new Timer(new Duration(seconds: 1), () {
@@ -138,12 +138,11 @@ class UserInterface {
     });
   }
 
-  logout(){
-    print('loggedOut');
-    loadingScreen.hidden = false;
-    new Timer(new Duration(seconds: 1), () {
-      loadingScreen.style.opacity = '1';
-    });
+  loggedOut(){
+      loadingScreen.hidden = false;
+      new Timer(new Duration(seconds: 1), () {
+        loadingScreen.style.opacity = '1';
+      });
   }
   
   // start listening for events
@@ -158,10 +157,10 @@ class UserInterface {
     currDate.text = clock.day + ' of ' + clock.month;
 
     // Load saved volume level
-    if (local['volume'] != null) {
-      volume = int.parse(local['volume']);
+    if (localStorage['volume'] != null) {
+      volume = int.parse(localStorage['volume']);
     } else volume = 10;
-    local['volume'] = volume.toString();
+    localStorage['volume'] = volume.toString();
     volumeSlider.value = volume.toString();
 
     // The 'you won' splash
@@ -182,11 +181,11 @@ class UserInterface {
     // Controls the volume slider and glyph
     volumeGlyph.onClick.listen((_) {
       if (muted == true) {
-        volume = int.parse(local['volume']);
+        volume = int.parse(localStorage['volume']);
         muted = false;
         volumeSlider.value = volume.toString();
       } else if (muted == false) {
-        local['volume'] = volume.toString();
+        localStorage['volume'] = volume.toString();
         muted = true;
         volumeSlider.value = '0';
       }
@@ -245,7 +244,7 @@ class UserInterface {
     }
 
     // Updates the stored volume level
-    if (volume.toString() != local['volume'] && muted == false) local['volume'] = volume.toString();
+    if (volume.toString() != localStorage['volume'] && muted == false) localStorage['volume'] = volume.toString();
 
     // Update all audioElements to the correct volume
     for (AudioElement audio in querySelectorAll('audio')) {

@@ -1,6 +1,6 @@
 part of couclient;
 
-spawnToast(String message) {
+toast(String message) {
   Element toastContainer = querySelector('#toastHolder');
 
   DivElement toast = new DivElement()

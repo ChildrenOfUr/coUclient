@@ -26,21 +26,27 @@ class AuthManager {
       'assertion': personaAssertion, 'testing':true
     })).then((HttpRequest data) {
       print(data.response);
-      ui.login();
+      Map serverdata = JSON.decode(data.response);
+
+      if (serverdata['ok'] == 'no') {
+        print('Error:Server refused the login attempt.');
+        return;
+      }
+
+      // Get our username and location from the server.
+      sessionStorage['playerName'] = serverdata['playerName'];
+      sessionStorage['playerStreet'] = serverdata['playerStreet'];
+
+
+      SLACK_TEAM = serverdata['slack-team'];
+      SLACK_TOKEN = serverdata['slack-token'];
+      SC_TOKEN = serverdata['sc-token'];
+
+      ui.loggedIn();
     });
   }
 
   void logout() {
-    /*
-    HttpRequest.request(_authUrl + "/logout", method: "POST", requestHeaders: {
-      "content-type": "application/json"
-    }, sendData: JSON.encode({
-      'session-key': 'fake'
-    })).then((HttpRequest data) {
-      print(data.response);
-      ui.logout();
-    });
-    */
   }
 
 }

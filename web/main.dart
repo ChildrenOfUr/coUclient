@@ -34,11 +34,10 @@ part 'package:couclient/src/systems/clock.dart';
 part 'package:couclient/src/systems/commands.dart';
 part 'package:couclient/src/game/input.dart';
 part 'package:couclient/src/systems/util.dart';
-part 'package:couclient/src/systems/preload.dart';
 
 // NETWORKING MODULES //
 part 'package:couclient/src/network/chat.dart';
-part 'package:couclient/src/network/netdata.dart';
+part 'package:couclient/src/network/streetservice.dart';
 part 'package:couclient/src/network/auth.dart';
 part 'package:couclient/src/network/multiplayer.dart';
 part 'package:couclient/src/network/metabolics.dart';
@@ -87,19 +86,20 @@ part 'package:couclient/src/display/ui_templates/interactions_menu.dart';
 part 'package:couclient/src/display/ui_templates/right_click_menu.dart';
 
 // Globals //
-Storage localStorage = window.localStorage;
 SoundManager soundManager;
 InputManager inputManager;
-Storage session = window.sessionStorage;
-Storage local = window.localStorage;
+Storage sessionStorage = window.sessionStorage;
+Storage localStorage = window.localStorage;
 Random random = new Random();
 NumberFormat commaFormatter = new NumberFormat("#,###");
 
 
 
 main() {
+  ui;
 
-  loadTokens();
+  new AuthManager();
+
   errService;
 
   ui.update();
@@ -114,7 +114,7 @@ main() {
 
 
   // Test Information
-  new Message(#toast,'testing toast');
+  toast('testing toast');
 
 
   // System

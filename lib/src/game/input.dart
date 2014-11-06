@@ -70,12 +70,12 @@ class InputManager {
             target.text = new String.fromCharCode(keyEvent.charCode).toUpperCase();
             keys[target.id] = keyCode;
             //store keycode and charcode
-            local[target.id] = keyCode.toString() + "." + keyEvent.charCode.toString();
+            localStorage[target.id] = keyCode.toString() + "." + keyEvent.charCode.toString();
           });
         } else {
           target.text = key;
           keys[target.id] = event.keyCode;
-          local[target.id] = event.keyCode.toString();
+          localStorage[target.id] = event.keyCode.toString();
         }
       });
     }
@@ -106,10 +106,10 @@ class InputManager {
     //set up key bindings
     keys.forEach((String action, int keyCode) {
       List<String> storedValue = null;
-      if (local[action] != null) {
-        storedValue = local[action].split(".");
+      if (localStorage[action] != null) {
+        storedValue = localStorage[action].split(".");
         keys[action] = int.parse(storedValue[0]);
-      } else local[action] = keys[action].toString();
+      } else localStorage[action] = keys[action].toString();
 
       String key = fromKeyCode(keys[action]);
       if (key == "") {
@@ -120,7 +120,7 @@ class InputManager {
     
     CheckboxInputElement graphicsBlur = querySelector("#GraphicsBlur") as CheckboxInputElement;
     graphicsBlur.onChange.listen((_) {
-      local["GraphicsBlur"] = graphicsBlur.checked.toString();
+      localStorage["GraphicsBlur"] = graphicsBlur.checked.toString();
     });
     
 
