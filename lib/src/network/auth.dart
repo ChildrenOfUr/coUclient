@@ -4,6 +4,8 @@ String SLACK_TEAM;
 String SLACK_TOKEN;
 String SC_TOKEN;
 
+String SESSION_TOKEN;
+
 class AuthManager {
   String _authUrl = 'https://robertmcdermot.com:8383/auth';
 
@@ -36,7 +38,8 @@ class AuthManager {
       // Get our username and location from the server.
       sessionStorage['playerName'] = serverdata['playerName'];
       sessionStorage['playerStreet'] = serverdata['playerStreet'];
-
+      
+      SESSION_TOKEN = serverdata['sessionToken'];
 
       SLACK_TEAM = serverdata['slack-team'];
       SLACK_TOKEN = serverdata['slack-token'];

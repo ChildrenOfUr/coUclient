@@ -12,7 +12,7 @@ class StreetService {
     HttpRequest.request(_dataUrl + "/street", method: "POST", requestHeaders: {
         "content-type": "application/json"
     }, sendData: JSON.encode({
-        'street': StreetID
+        'street': StreetID, 'sessionToken': SESSION_TOKEN
     })).then((HttpRequest data) {
       print(data.response);
       Map serverdata = JSON.decode(data.response);
