@@ -49,7 +49,7 @@ class VendorWindow extends Modal {
   call(Map vendorMap) {
 
     header.text = vendorMap['vendorName'];
-    currants.text = " ${ui.commaFormatter.format(metabolics.getCurrants())} currants";
+    currants.text = " ${view.commaFormatter.format(metabolics.getCurrants())} currants";
 
     new List.from(buy.children)..forEach((child) => child.remove());
 
@@ -104,7 +104,7 @@ class VendorWindow extends Modal {
       if (metabolics.getCurrants() < item['price'] * numToBuy) return;
       int newValue = metabolics.getCurrants() - item['price'] * numToBuy;
       metabolics.setCurrants(newValue);
-      currants.text = " ${ui.commaFormatter.format(metabolics.getCurrants())} currants";
+      currants.text = " ${view.commaFormatter.format(metabolics.getCurrants())} currants";
       sendAction("buyItem", vendorMap['id'], {
         "itemName": item['name'],
         "num": numToBuy

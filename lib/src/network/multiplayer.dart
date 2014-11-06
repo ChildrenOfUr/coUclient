@@ -23,7 +23,7 @@ void sendLeftMessage(String streetName)
 	if(streetSocket != null && streetSocket.readyState == WebSocket.OPEN)
     {
 		Map map = new Map();
-		map["username"] = ui.username;
+		map["username"] = view.username;
 		map["streetName"] = streetName;
 		map["message"] = "left";
 		streetSocket.send(JSON.encode(map));
@@ -36,7 +36,7 @@ void sendJoinedMessage(String streetName, [String tsid])
 	{
 		Map map = new Map();
 		map['clientVersion'] = clientVersion;
-		map["username"] = ui.username;
+		map["username"] = view.username;
 		map["streetName"] = streetName;
 		map["tsid"] = tsid == null ? currentStreet._data['tsid'] : tsid;
 		map["message"] = "joined";
@@ -201,7 +201,7 @@ _updateChatBubble(Map map, Entity entity)
 				..style.width = entity.canvas.width.toString()+'px'
 				..style.height = heightString+'px'
 				..style.transform = 'translateX(${map['x']}px) translateY(${translateY}px)';
-			ui.playerHolder.append(bubbleParent);
+			view.playerHolder.append(bubbleParent);
 			entity.chatBubble = new ChatBubble(map["bubbleText"],entity,bubbleParent,autoDismiss:false,removeParent:true);
 		}
 
@@ -428,7 +428,7 @@ void subtractItemFromInventory(Map map)
 {
 	String cssName = map['name'].replaceAll(" ","_");
 	int remaining = map['count'];
-	for(Element item in ui.inventory.querySelectorAll(".item-$cssName"))
+	for(Element item in view.inventory.querySelectorAll(".item-$cssName"))
 	{
 		if(remaining < 1)
 			break;
@@ -496,7 +496,7 @@ void putInInventory(ImageElement img, Map map)
 	bool found = false;
 
 	String cssName = name.replaceAll(" ","_");
-	for(Element item in ui.inventory.querySelectorAll(".item-$cssName"))
+	for(Element item in view.inventory.querySelectorAll(".item-$cssName"))
 	{
 		int count = int.parse(item.attributes['count']);
 
@@ -539,7 +539,7 @@ findNewSlot(Element item, Map map, ImageElement img)
 	int stacksTo = i['stacksTo'];
 
 	//find first free item slot
-	for(Element barSlot in ui.inventory.children)
+	for(Element barSlot in view.inventory.children)
 	{
 		if(barSlot.children.length == 0)
 		{

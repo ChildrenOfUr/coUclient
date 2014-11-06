@@ -33,7 +33,7 @@ class NPC extends Entity
             canvas.attributes['translatey'] = posY.toString();
             canvas.attributes['width'] = canvas.width.toString();
             canvas.attributes['height'] = canvas.height.toString();
-        	ui.playerHolder.append(canvas);
+        	view.playerHolder.append(canvas);
         	ready = true;
 		});
 	}

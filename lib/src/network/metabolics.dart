@@ -11,15 +11,15 @@ Metabolics metabolics = new Metabolics();
 
 class Metabolics {
   int _currants = 0;
-  int _energy = 100;
+  int _energy = 0;
   int _maxenergy = 100;
-  int _mood = 100;
+  int _mood = 0;
   int _maxmood = 100;
   int _img = 0;
-  int _emptyAngle = 10;
-  int _angleRange = 120;// Do not change!
 
-  void init() {
+  void init() {   
+    view.meters.updateAll();
+    
     //load currants (for now)
     if (localStorage["currants"] != null) setCurrants(int.parse(localStorage["currants"]));
   }
@@ -41,38 +41,52 @@ class Metabolics {
 	}*/
 
   setEnergy(int newValue) {
+    if (newValue <= 0)
+      newValue = 0;
     if (newValue > _maxenergy) return;
-
     _energy = newValue;
-    ui.currEnergyText.parent.parent.classes.toggle('changed', true);
-    Timer t = new Timer(new Duration(seconds: 1), () => ui.currEnergyText.parent.parent.classes.toggle('changed'));
-    ui.currEnergyText.text = _energy.toString();
-    String angle = ((_angleRange - (_energy / _maxenergy) * _angleRange).toInt()).toString();
-    ui.energymeterImage.style.transform = 'rotate(' + angle + 'deg)';
-    ui.energymeterImageLow.style.transform = 'rotate(' + angle + 'deg)';
-    ui.energymeterImageLow.style.opacity = ((1 - (_energy / _maxenergy))).toString();
+    view.meters.updateEnergyDisplay();
   }
 
+  setMaxEnergy(int newValue) {
+    if (newValue <= 0)
+      newValue = 0;
+    _maxenergy = newValue;
+    if (_energy > _maxenergy)
+    _energy = _maxenergy;
+    view.meters.updateEnergyDisplay();
+  }
+  
   setMood(int newValue) {
+    if (newValue <= 0)
+      newValue = 0;
     if (newValue > _maxmood) return;
     _mood = newValue;
-
-    new Message(#moodDisplayEvent, {
-      'mood': _mood
-    });
-
-    if (_mood <= 0) ui.moodmeterImageEmpty.style.opacity = 1.toString(); else ui.moodmeterImageEmpty.style.opacity = 0.toString();
+    view.meters.updateMoodDisplay();
+  }
+  
+  setMaxMood(int newValue) {
+    if (newValue <= 0)
+      newValue = 0;
+    _maxmood = newValue;
+    if (_mood > _maxmood)
+    _mood = newValue;
+    view.meters.updateMoodDisplay();
   }
 
   setCurrants(int newValue) {
+    if (newValue <= 0)
+      newValue = 0;
     _currants = newValue;
     localStorage["currants"] = newValue.toString();
-    ui.currantElement.text = commaFormatter.format(newValue);
+    view.meters.updateCurrantsDisplay();
   }
 
   setImg(int newValue) {
+    if (newValue <= 0)
+      newValue = 0;
     _img = newValue;
-    ui.imgElement.text = commaFormatter.format(newValue);
+    view.meters.updateImgDisplay();
   }
 
   int getCurrants() {
@@ -82,9 +96,15 @@ class Metabolics {
   int getEnergy() {
     return _energy;
   }
+  int getMaxEnergy() {
+    return _maxenergy;
+  }
 
   int getMood() {
     return _mood;
+  }
+  int getMaxMood() {
+    return _maxmood;
   }
 
   int getImg() {

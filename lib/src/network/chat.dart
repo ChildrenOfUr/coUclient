@@ -7,9 +7,9 @@ class NetChatManager {
 
   NetChatManager() {
     //assign temporary chat handle
-    if (localStorage["username"] != null) ui.username = localStorage["username"]; else {
+    if (localStorage["username"] != null) view.username = localStorage["username"]; else {
       Random rand = new Random();
-      ui.username += rand.nextInt(10000).toString();
+      view.username += rand.nextInt(10000).toString();
 
     }
 
@@ -58,14 +58,14 @@ class NetChatManager {
         ..onOpen.listen((_) {
           // First event, tells the server who we are.
           post(new Map()
-              ..['username'] = ui.username
+              ..['username'] = view.username
               ..['street'] = currentStreet.label
               ..['statusMessage'] = 'join');
 
           // Get a List of the other players online
           post(new Map()
               ..['hide'] = 'true'
-              ..['username'] = ui.username
+              ..['username'] = view.username
               ..['statusMessage'] = 'list'
               ..['channel'] = 'Global Chat');
         })

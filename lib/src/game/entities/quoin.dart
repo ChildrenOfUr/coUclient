@@ -51,7 +51,7 @@ class Quoin
             	parent.append(inner);
             	inner.append(content);
             	
-            	ui.playerHolder
+            	view.playerHolder
             		..append(canvas)
             		..append(circle)
             		..append(parent);

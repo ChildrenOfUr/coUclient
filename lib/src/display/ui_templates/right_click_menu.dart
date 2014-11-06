@@ -30,17 +30,17 @@ class RightClickMenu
 		{
 			num posX = CurrentPlayer.posX, posY = CurrentPlayer.posY;
 			int width = CurrentPlayer.width, height = CurrentPlayer.height;
-			num translateX = posX, translateY = ui.worldHeight - height;
-    		if(posX > currentStreet.bounds.width - width/2 - ui.worldWidth/2)
-    			translateX = posX - currentStreet.bounds.width + ui.worldWidth;
-    		else if(posX + width/2 > ui.worldWidth/2)
-    			translateX = ui.worldWidth/2 - width/2;
-    		if(posY + height/2 < ui.worldHeight/2)
+			num translateX = posX, translateY = view.worldHeight - height;
+    		if(posX > currentStreet.bounds.width - width/2 - view.worldWidth/2)
+    			translateX = posX - currentStreet.bounds.width + view.worldWidth;
+    		else if(posX + width/2 > view.worldWidth/2)
+    			translateX = view.worldWidth/2 - width/2;
+    		if(posY + height/2 < view.worldHeight/2)
     			translateY = posY;
-    		else if(posY < currentStreet.bounds.height - height/2 - ui.worldHeight/2)
-    			translateY = ui.worldHeight/2 - height/2;
+    		else if(posY < currentStreet.bounds.height - height/2 - view.worldHeight/2)
+    			translateY = view.worldHeight/2 - height/2;
     		else
-    			translateY = ui.worldHeight - (currentStreet.bounds.height - posY);
+    			translateY = view.worldHeight - (currentStreet.bounds.height - posY);
 			x = (translateX+menu.clientWidth+10)~/1;
 			y = (translateY+height/2)~/1;
 		}

@@ -7,11 +7,11 @@ class BugWindow extends Modal {
     prepare();
     // BUG REPORT LISTENERS
     bool listening = false;
-    ui.bugButton.onClick.listen((_) {
+    view.bugButton.onClick.listen((_) {
       this.open();
       Element w = this.window;
       TextAreaElement input = w.querySelector('textarea');
-      ui.bugReportMeta.text = 'UserAgent:' + window.navigator.userAgent + '\n////////////////////////////////\n';
+      view.bugReportMeta.text = 'UserAgent:' + window.navigator.userAgent + '\n////////////////////////////////\n';
 
       // Submits the Bug
       // TODO someday this should be serverside. Let's not give our keys to the client unless we have to.
@@ -19,7 +19,7 @@ class BugWindow extends Modal {
         listening = true;
         w.querySelector('.button').onClick.listen((_) {
           if (input.value.trim() != ''){
-          slack.Message m = new slack.Message('${ui.bugReportMeta.text} \n REPORT TYPE:${ui.bugReportType.value} \n ${input.value} \n ${ui.bugReportEmail.value}',username:ui.username);
+          slack.Message m = new slack.Message('${view.bugReportMeta.text} \n REPORT TYPE:${view.bugReportType.value} \n ${input.value} \n ${view.bugReportEmail.value}',username:view.username);
           slack.team = SLACK_TEAM;
           slack.token = SLACK_TOKEN;
           slack.send(m);

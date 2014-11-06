@@ -39,15 +39,15 @@ class SoundManager {
 
     new Asset('packages/couclient/audio/loading.mp3').load().then((_) {
       //start the loading music and attach it to the #LoadingScreen so that when that is removed the music stops
-      if (ui.volume > 0 && ui.muted == false) {
+      if (view.volume > 0 && view.muted == false) {
         playSound('loading', parentElement: querySelector('#LoadingScreen'), looping: false);
       }
     });
 
 
     try {
-      audioChannels['soundEffects'] = new AudioChannel("soundEffects")..gain = ui.volume / 100;
-      audioChannels['music'] = new AudioChannel("music")..gain = ui.volume / 100;
+      audioChannels['soundEffects'] = new AudioChannel("soundEffects")..gain = view.volume / 100;
+      audioChannels['music'] = new AudioChannel("music")..gain = view.volume / 100;
     } catch (e) {
       print("browser does not support web audio: $e");
       useWebAudio = false;
@@ -129,7 +129,7 @@ class SoundManager {
       } else {
         AudioElement loading = ASSET[name].get();
         loading.loop = looping;
-        loading.volume = ui.volume / 100;
+        loading.volume = view.volume / 100;
         if (parentElement != null) parentElement.append(loading);
         loading.play();
         return loading;
@@ -170,7 +170,7 @@ class SoundManager {
   Future setSong(String value) {
     Completer c = new Completer();
 
-    if (value == ui.titleElement.text) {
+    if (value == view.titleElement.text) {
       c.complete();
       return c.future;
     }
@@ -217,9 +217,9 @@ class SoundManager {
     }
 
     // Changes the ui
-    ui.SCsong = currentSong.meta['title'];
-    ui.SCartist = currentSong.meta['user']['username'];
-    ui.SClink = currentSong.meta['permalink_url'];
+    view.SCsong = currentSong.meta['title'];
+    view.SCartist = currentSong.meta['user']['username'];
+    view.SClink = currentSong.meta['permalink_url'];
   }
 
 }

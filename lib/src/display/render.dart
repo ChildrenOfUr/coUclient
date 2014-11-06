@@ -23,12 +23,12 @@ render()
 			double thisFrameFPS = 1000 / now.difference(lastUpdate).inMilliseconds;
     		fps += (thisFrameFPS - fps) / fpsFilter;
     		lastUpdate = now;
-    		ui.fpsDisplay.style.display = "block";
-    		ui.fpsDisplay.text = "fps:"+twoDigit.format(fps);
+    		view.fpsDisplay.style.display = "block";
+    		view.fpsDisplay.text = "fps:"+twoDigit.format(fps);
 		}
 	}
 	else
-		ui.fpsDisplay.style.display = "none";
+		view.fpsDisplay.style.display = "none";
 
 	//Draw Street
 	if (currentStreet is Street)

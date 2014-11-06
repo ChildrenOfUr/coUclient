@@ -45,7 +45,7 @@ class AuthManager {
       SLACK_TOKEN = serverdata['slack-token'];
       SC_TOKEN = serverdata['sc-token'];
 
-      ui.loggedIn();
+      view.loggedIn();
     });
   }
 

@@ -11,7 +11,7 @@ class SettingsWindow extends Modal {
 
     prepare();
     // SETTINGS WINDOW LISTENERS //
-    ui.settingsButton.onClick.listen((_) {
+    view.settingsButton.onClick.listen((_) {
       this.open();
     });
     //listen for onChange events so that clicking the label or the checkbox will call this method

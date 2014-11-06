@@ -52,8 +52,8 @@ abstract class Modal {
 
     // DRAGGING/////////////////////////////////////////
     // init vars
-    int new_x = ui.mainElement.client.width ~/ 2 - 550 ~/ 2;
-    int new_y = ui.mainElement.client.height ~/ 2 - 350 ~/ 2;
+    int new_x = view.mainElement.client.width ~/ 2 - 550 ~/ 2;
+    int new_y = view.mainElement.client.height ~/ 2 - 350 ~/ 2;
     window.style
         ..top = '${new_y}px'
         ..left = '${new_x}px';

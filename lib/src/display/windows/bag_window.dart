@@ -6,7 +6,7 @@ class BagWindow extends Modal {
   BagWindow() {
     prepare();
     // INVENTORY WINDOW LISTENERS
-    ui.inventorySearch.onClick.listen((_) {
+    view.inventorySearch.onClick.listen((_) {
       this.open();
     });
   }

@@ -48,7 +48,7 @@ class Plant extends Entity
         	canvas.attributes['width'] = width.toString();
         	canvas.attributes['height'] = height.toString();
     		state = map['state'];
-        	ui.playerHolder.append(canvas);
+        	view.playerHolder.append(canvas);
         	sourceRect = new Rectangle(0,0,width,height);
         	ready = true;
 		});

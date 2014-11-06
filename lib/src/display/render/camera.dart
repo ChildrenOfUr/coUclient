@@ -33,7 +33,7 @@ class Camera
 		  dirty = true;
 	  _x = newX;
 	  _y = newY;
-	  visibleRect = new Rectangle(_x,_y,ui.worldWidth,ui.worldHeight);
+	  visibleRect = new Rectangle(_x,_y,view.worldWidth,view.worldHeight);
   }
   
   int getX() => _x;

@@ -69,7 +69,7 @@ class Chat {
     conversationElement = getArchivedConversation(title);
     if (conversationElement == null) {
       // clone the template
-      conversationElement = ui.chatTemplate.querySelector('.conversation').clone(true);
+      conversationElement = view.chatTemplate.querySelector('.conversation').clone(true);
       conversationElement.querySelector('.title')..text = title;
       openConversations.add(this);
 
@@ -82,13 +82,13 @@ class Chat {
     if (title != "Local Chat") {
       if (otherChat != null) otherChat.hide();
 
-      if (localChat != null) ui.panel.insertBefore(conversationElement, localChat.conversationElement); else ui.panel.append(conversationElement);
+      if (localChat != null) view.panel.insertBefore(conversationElement, localChat.conversationElement); else view.panel.append(conversationElement);
 
       otherChat = this;
     } else if (localChat == null) //don't ever have 2 local chats
     {
       localChat = this;
-      ui.panel.append(conversationElement);
+      view.panel.append(conversationElement);
       //can't remove the local chat
       conversationElement.querySelector('.fa-chevron-down').remove();
     }
@@ -143,7 +143,7 @@ class Chat {
   hide() {
     conversationElement.classes.add("archive-${title.replaceAll(' ', '_')}");
     conversationElement.classes.remove("conversation");
-    ui.conversationArchive.append(conversationElement);
+    view.conversationArchive.append(conversationElement);
     computePanelSize();
     otherChat = null;
   }
@@ -153,7 +153,7 @@ class Chat {
 	* returns null if no conversation exists
 	**/
   Element getArchivedConversation(String title) {
-    Element conversationElement = ui.conversationArchive.querySelector('.archive-${title.replaceAll(' ', '_')}');
+    Element conversationElement = view.conversationArchive.querySelector('.archive-${title.replaceAll(' ', '_')}');
     if (conversationElement != null) {
       conversationElement.classes.remove('.archive-$title');
       conversationElement.classes.add("conversation");
@@ -162,7 +162,7 @@ class Chat {
   }
 
   void computePanelSize() {
-    List<Element> conversations = ui.panel.querySelectorAll('.conversation').toList();
+    List<Element> conversations = view.panel.querySelectorAll('.conversation').toList();
     int num = conversations.length - 1;
     conversations.forEach((Element conversation) {
       if (conversation.hidden) num--;
@@ -286,14 +286,14 @@ class Chat {
     // if its not a command, send it through.
     if (parseCommand(input)) return; else if (input.toLowerCase() == "/list") {
       Map map = {};
-      map["username"] = ui.username;
+      map["username"] = view.username;
       map["statusMessage"] = "list";
       map["channel"] = title;
       map["street"] = currentStreet.label;
       new Message(#outgoingChatEvent, map);
     } else {
       Map map = new Map();
-      map["username"] = ui.username;
+      map["username"] = view.username;
       map["message"] = input;
       map["channel"] = title;
       if (title == "Local Chat") map["street"] = currentStreet.label;
@@ -321,7 +321,7 @@ class ChatMessage {
     message = parseUrl(message);
     message = parseEmoji(message);
 
-    if (message.toLowerCase().contains(ui.username.toLowerCase())) new Message(#playSound, 'mention');
+    if (message.toLowerCase().contains(view.username.toLowerCase())) new Message(#playSound, 'mention');
 
     if (player == null) {
       html = '''

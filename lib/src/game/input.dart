@@ -83,8 +83,8 @@ class InputManager {
     //handle changing streets via exit signs
     if (target.className == "ExitLabel") {
       //make sure loading screen is visible during load
-      ui.mapLoadingScreen.className = "MapLoadingScreenIn";
-      ui.mapLoadingScreen.style.opacity = "1.0";
+      view.mapLoadingScreen.className = "MapLoadingScreenIn";
+      view.mapLoadingScreen.style.opacity = "1.0";
       ScriptElement loadStreet = new ScriptElement();
       loadStreet.src = target.attributes['url'];
       playerTeleFrom = target.attributes['from'];

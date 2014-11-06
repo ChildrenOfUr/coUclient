@@ -86,39 +86,31 @@ part 'package:couclient/src/display/ui_templates/interactions_menu.dart';
 part 'package:couclient/src/display/ui_templates/right_click_menu.dart';
 
 // Globals //
-SoundManager soundManager;
-InputManager inputManager;
 Storage sessionStorage = window.sessionStorage;
 Storage localStorage = window.localStorage;
 Random random = new Random();
-NumberFormat commaFormatter = new NumberFormat("#,###");
-
+SoundManager soundManager;
+InputManager inputManager;
 
 
 main() {
-  ui;
+  errService;
+  view;
 
   new AuthManager();
 
-  errService;
+  // System
+  new ClockManager();
+  new CommandManager();
 
-  ui.update();
+  view.update();
 
   // GAME ENTRY //
   Game game = new Game();
 
   soundManager = new SoundManager();
-  new MeterManager();
   new WindowManager();
   inputManager = new InputManager();
 
-
-  // Test Information
-  toast('testing toast');
-
-
-  // System
-  new ClockManager();
-  new CommandManager();
 
 }

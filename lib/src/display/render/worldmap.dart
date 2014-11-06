@@ -14,10 +14,10 @@ class WorldMap
     hubInfo = map.data_maps_hubs[hub_id]();
     hubMaps = map.data_maps_maps[hub_id]();
     moteInfo = map.data_maps_streets['9']();
-    ui.mapTitle.text = hubInfo['name'];
-    ui.mapImg.style.backgroundImage = 'url(' +hubInfo['bg']+ ')';
+    view.mapTitle.text = hubInfo['name'];
+    view.mapImg.style.backgroundImage = 'url(' +hubInfo['bg']+ ')';
     //mapImg.setInnerHtml('<img src="' + hubInfo['fg']+ '"/>');
-    ui.mapCanvas.context2D.clearRect(0, 0, ui.mapCanvas.width, ui.mapCanvas.height);
+    view.mapCanvas.context2D.clearRect(0, 0, view.mapCanvas.width, view.mapCanvas.height);
 
     CanvasElement lineCanvas = new CanvasElement();
     CanvasElement textCanvas = new CanvasElement();
@@ -25,11 +25,11 @@ class WorldMap
     lineCanvas.context2D.lineCap="round";
     lineCanvas.context2D.strokeStyle = "rgba(255, 255, 240, 0.5)";
 
-    textCanvas.width = ui.mapCanvas.width;
-    textCanvas.height = ui.mapCanvas.height;
+    textCanvas.width = view.mapCanvas.width;
+    textCanvas.height = view.mapCanvas.height;
     textCanvas.context2D.fillStyle = "#000000";
 
-    ui.mapCanvas.context2D.miterLimit=2;
+    view.mapCanvas.context2D.miterLimit=2;
 
     // TODO: Low priority, performance improvement
 
@@ -42,8 +42,8 @@ class WorldMap
         int streetMiddleY = ((object['y1']+object['y2'])/2).round();
 
 
-             lineCanvas.width = ui.mapCanvas.width;
-             lineCanvas.height = ui.mapCanvas.height;
+             lineCanvas.width = view.mapCanvas.width;
+             lineCanvas.height = view.mapCanvas.height;
              lineCanvas.context2D.lineCap="round";
              lineCanvas.context2D.miterLimit=2;
              lineCanvas.context2D.strokeStyle = "rgba(255, 255, 240, 0.5)";
@@ -57,7 +57,7 @@ class WorldMap
              lineCanvas.context2D.moveTo(object['x1'],object['y1']);
              lineCanvas.context2D.lineTo(object['x2'],object['y2']);
              lineCanvas.context2D.stroke();
-             ui.mapCanvas.context2D.drawImage(lineCanvas, 0, 0);
+             view.mapCanvas.context2D.drawImage(lineCanvas, 0, 0);
 
              //ui.mapCanvas.context2D.beginPath();
 
@@ -85,8 +85,8 @@ class WorldMap
 
              textCanvas.context2D.lineWidth = 3;
              textCanvas.context2D.strokeStyle = "#FFFFFF";
-             textCanvas.context2D.strokeText(streetName,(streetMiddleX - (ui.mapCanvas.context2D.measureText(streetName).width / 2)), (streetMiddleY + 4));
-             textCanvas.context2D.fillText(streetName,(streetMiddleX - (ui.mapCanvas.context2D.measureText(streetName).width / 2)), (streetMiddleY + 4));
+             textCanvas.context2D.strokeText(streetName,(streetMiddleX - (view.mapCanvas.context2D.measureText(streetName).width / 2)), (streetMiddleY + 4));
+             textCanvas.context2D.fillText(streetName,(streetMiddleX - (view.mapCanvas.context2D.measureText(streetName).width / 2)), (streetMiddleY + 4));
 
              textCanvas.context2D.restore();
 
@@ -112,38 +112,38 @@ class WorldMap
       else if (object['type'] == 'X') {
 
         // Drawing the "GO" Circle. Needs small arrow addition, math similar to text below
-        ui.mapCanvas.context2D.beginPath();
-        ui.mapCanvas.context2D.arc(object['x'], object['y'], 18, 0, 2 * PI, false);
-        ui.mapCanvas.context2D.fillStyle = map.data_maps_hubs[object['hub_id']]()['color'];
-        ui.mapCanvas.context2D.fill();
-        ui.mapCanvas.context2D.lineWidth = 2;
-        ui.mapCanvas.context2D.font = "18px Arial";
-        ui.mapCanvas.context2D.fillStyle = '#FFFFFF';
-        ui.mapCanvas.context2D.fillText('GO',object['x']-14, object['y']+7);
+        view.mapCanvas.context2D.beginPath();
+        view.mapCanvas.context2D.arc(object['x'], object['y'], 18, 0, 2 * PI, false);
+        view.mapCanvas.context2D.fillStyle = map.data_maps_hubs[object['hub_id']]()['color'];
+        view.mapCanvas.context2D.fill();
+        view.mapCanvas.context2D.lineWidth = 2;
+        view.mapCanvas.context2D.font = "18px Arial";
+        view.mapCanvas.context2D.fillStyle = '#FFFFFF';
+        view.mapCanvas.context2D.fillText('GO',object['x']-14, object['y']+7);
 
         // Drawing the name of the region, angle specified in 'label', trig to ajdust pos based on angle
-        ui.mapCanvas.context2D.font = "14px Arial";
-        ui.mapCanvas.context2D.strokeStyle = '#FFFFFF';
-        ui.mapCanvas.context2D.stroke();
-        ui.mapCanvas.context2D.lineWidth = 4;
-        ui.mapCanvas.context2D.strokeText('To: ' + map.data_maps_hubs[object['hub_id']]()['name'],
-            object['x'] + (sin(PI/180*object['label']) * 70) - ui.mapCanvas.context2D.measureText(map.data_maps_hubs[object['hub_id']]()['name']).width * .8,
+        view.mapCanvas.context2D.font = "14px Arial";
+        view.mapCanvas.context2D.strokeStyle = '#FFFFFF';
+        view.mapCanvas.context2D.stroke();
+        view.mapCanvas.context2D.lineWidth = 4;
+        view.mapCanvas.context2D.strokeText('To: ' + map.data_maps_hubs[object['hub_id']]()['name'],
+            object['x'] + (sin(PI/180*object['label']) * 70) - view.mapCanvas.context2D.measureText(map.data_maps_hubs[object['hub_id']]()['name']).width * .8,
             object['y'] - (cos(PI/180*object['label']) * 35) + 8);
-        ui.mapCanvas.context2D.lineWidth = .9;
-        ui.mapCanvas.context2D.strokeStyle = map.data_maps_hubs[object['hub_id']]()['color'];
-        ui.mapCanvas.context2D.strokeText('To: ' + map.data_maps_hubs[object['hub_id']]()['name'],
-            object['x'] + (sin(PI/180*object['label']) * 70) - ui.mapCanvas.context2D.measureText(map.data_maps_hubs[object['hub_id']]()['name']).width * .8,
+        view.mapCanvas.context2D.lineWidth = .9;
+        view.mapCanvas.context2D.strokeStyle = map.data_maps_hubs[object['hub_id']]()['color'];
+        view.mapCanvas.context2D.strokeText('To: ' + map.data_maps_hubs[object['hub_id']]()['name'],
+            object['x'] + (sin(PI/180*object['label']) * 70) - view.mapCanvas.context2D.measureText(map.data_maps_hubs[object['hub_id']]()['name']).width * .8,
             object['y'] - (cos(PI/180*object['label']) * 35) + 8);
       }
     }
-    ui.mapCanvas.context2D.drawImage(lineCanvas, 0, 0);
-    ui.mapCanvas.context2D.drawImage(textCanvas, 0, 0);
+    view.mapCanvas.context2D.drawImage(lineCanvas, 0, 0);
+    view.mapCanvas.context2D.drawImage(textCanvas, 0, 0);
 
     //scale canvas to match map window size
-    num scaleX = ui.mapCanvas.parent.clientWidth/ui.mapCanvas.clientWidth;
-    num scaleY = ui.mapCanvas.parent.clientHeight/ui.mapCanvas.clientHeight;
-    ui.mapCanvas.style.transform = 'scaleX($scaleX) scaleY($scaleY)';
-    ui.mapCanvas.style.transformOrigin = '-21px -21px';
+    num scaleX = view.mapCanvas.parent.clientWidth/view.mapCanvas.clientWidth;
+    num scaleY = view.mapCanvas.parent.clientHeight/view.mapCanvas.clientHeight;
+    view.mapCanvas.style.transform = 'scaleX($scaleX) scaleY($scaleY)';
+    view.mapCanvas.style.transformOrigin = '-21px -21px';
   }
 
   /**

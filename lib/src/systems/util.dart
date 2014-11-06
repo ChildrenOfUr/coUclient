@@ -19,7 +19,7 @@ int getNumItems(String item)
 {
 	int count = 0;
 	String cssName = item.replaceAll(" ","_");
-	for(Element item in ui.inventory.querySelectorAll(".item-$cssName"))
+	for(Element item in view.inventory.querySelectorAll(".item-$cssName"))
 		count += int.parse(item.attributes['count']);
 
     return count;
@@ -98,7 +98,7 @@ sendAction(String methodName, String entityId, [Map arguments])
 	else
 		map['type'] = entityId;
 	map['streetName'] = currentStreet.label;
-	map['username'] = ui.username;
+	map['username'] = view.username;
 	map['tsid'] = currentStreet._data['tsid'];
 	map['arguments'] = arguments;
 	streetSocket.send(JSON.encode(map));

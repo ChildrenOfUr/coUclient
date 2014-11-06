@@ -29,7 +29,7 @@ class Street
     label = _data['label'];
     hub_id = _data['hub_id'];
 
-    if(ui.username != null)
+    if(view.username != null)
     	sendLeftMessage(label);
 
     bounds = new Rectangle(_data['dynamic']['l'],
@@ -37,7 +37,7 @@ class Street
                 _data['dynamic']['l'].abs() + _data['dynamic']['r'].abs(),
                 _data['dynamic']['t'].abs());
 
-    ui.playerHolder..children.clear()
+    view.playerHolder..children.clear()
     	..style.width = bounds.width.toString()+'px'
     	..style.height = bounds.height.toString()+'px'
     	..classes.add('streetcanvas')
@@ -61,8 +61,8 @@ class Street
     Completer c = new Completer();
     // clean up old street data
     //currentStreet = null;
-    ui.layers.children.clear();
-    ui.playerHolder.children.clear(); //clear previous street's quoins and stuff
+    view.layers.children.clear();
+    view.playerHolder.children.clear(); //clear previous street's quoins and stuff
 
     // set the song loading if necessary
     if (_data['music'] != null)
@@ -122,7 +122,7 @@ class Street
       gradientCanvas.style.background = "-o-linear-gradient(#$top, #$bottom)";
 
       // Append it to the screen*/
-      ui.layers.append(gradientCanvas);
+      view.layers.append(gradientCanvas);
 
       /* //// Scenery Canvases //// */
       //For each layer on the street . . .
@@ -223,13 +223,13 @@ class Street
 		}
 
 		// Append the canvas to the screen
-		ui.layers.append(decoCanvas);
+		view.layers.append(decoCanvas);
 	}
 
-    ui.layers.append(interactionCanvas);
+    view.layers.append(interactionCanvas);
 
     //display current street name
-	ui.currLocation.text = label;
+	view.currLocation.text = label;
 
 	//make sure to redraw the screen (in case of street switching)
       camera.dirty = true;
@@ -247,17 +247,17 @@ class Street
     //only update if camera x,y have changed since last render cycle
     if(camera.dirty)
     {
-      num currentPercentX = camera.getX() / (bounds.width - ui.worldWidth);
-      num currentPercentY = camera.getY() / (bounds.height - ui.worldHeight);
+      num currentPercentX = camera.getX() / (bounds.width - view.worldWidth);
+      num currentPercentY = camera.getY() / (bounds.height - view.worldHeight);
 
       //modify left and top for parallaxing
       Map<String,DivElement> transforms = new Map();
-      for(DivElement canvas in ui.worldElement.querySelectorAll('.streetcanvas'))
+      for(DivElement canvas in view.worldElement.querySelectorAll('.streetcanvas'))
       {
         int canvasWidth = num.parse(canvas.style.width.replaceAll('px', '')).toInt();
         int canvasHeight = num.parse(canvas.style.height.replaceAll('px', '')).toInt();
-        double offsetX = (canvasWidth - ui.worldWidth) * currentPercentX;
-        double offsetY = (canvasHeight - ui.worldHeight) * currentPercentY;
+        double offsetX = (canvasWidth - view.worldWidth) * currentPercentX;
+        double offsetY = (canvasHeight - view.worldHeight) * currentPercentY;
 
         int groundY = num.parse(canvas.attributes['ground_y']).toInt();
         offsetY += groundY;
@@ -279,7 +279,7 @@ class Street
 // Initialization, loads all the streets in our master file into memory.
 Future load_streets()
 {
-  ui.loadStatus.text = "Loading Streets";
+  view.loadStatus.text = "Loading Streets";
   // allows us to load street files as though they are json files.
   jsonExtensions.add('street');
 
@@ -291,7 +291,7 @@ Future load_streets()
     // Load each street file into memory. If this gets too expensive we'll move this elsewhere.
     List toLoad = [];
     for (String url in streetList.get().values)
-      toLoad.add(new Asset(url).load(statusElement:ui.loadStatus2));
+      toLoad.add(new Asset(url).load(statusElement:view.loadStatus2));
 
     c.complete(Future.wait(toLoad));
   });
@@ -301,12 +301,12 @@ Future load_streets()
 
 setStreetLoading()
 {
-	ui.mapLoadingScreen.style.background = '-webkit-gradient(linear,left top,left bottom,color-stop(0, ' + currentStreet.street_load_color_top + '),color-stop(1, ' + currentStreet.street_load_color_btm + '))';
-	ui.mapLoadingScreen.style.background = '-o-linear-gradient(bottom, ' + currentStreet.street_load_color_top + ' 0%, ' + currentStreet.street_load_color_btm + ' 100%)';
-	ui.mapLoadingScreen.style.background = '-moz-linear-gradient(bottom, ' + currentStreet.street_load_color_top + ' 0%, ' + currentStreet.street_load_color_btm + ' 100%)';
-	ui.mapLoadingScreen.style.background = '-webkit-linear-gradient(bottom, ' + currentStreet.street_load_color_top + ' 0%, ' + currentStreet.street_load_color_btm + ' 100%)';
-	ui.mapLoadingScreen.style.background = '-ms-linear-gradient(bottom, ' + currentStreet.street_load_color_top + ' 0%, ' + currentStreet.street_load_color_btm + ' 100%)';
-	ui.mapLoadingScreen.style.background = 'linear-gradient(to bottom, ' + currentStreet.street_load_color_top + ' 0%, ' + currentStreet.street_load_color_btm + ' 100%)';
+	view.mapLoadingScreen.style.background = '-webkit-gradient(linear,left top,left bottom,color-stop(0, ' + currentStreet.street_load_color_top + '),color-stop(1, ' + currentStreet.street_load_color_btm + '))';
+	view.mapLoadingScreen.style.background = '-o-linear-gradient(bottom, ' + currentStreet.street_load_color_top + ' 0%, ' + currentStreet.street_load_color_btm + ' 100%)';
+	view.mapLoadingScreen.style.background = '-moz-linear-gradient(bottom, ' + currentStreet.street_load_color_top + ' 0%, ' + currentStreet.street_load_color_btm + ' 100%)';
+	view.mapLoadingScreen.style.background = '-webkit-linear-gradient(bottom, ' + currentStreet.street_load_color_top + ' 0%, ' + currentStreet.street_load_color_btm + ' 100%)';
+	view.mapLoadingScreen.style.background = '-ms-linear-gradient(bottom, ' + currentStreet.street_load_color_top + ' 0%, ' + currentStreet.street_load_color_btm + ' 100%)';
+	view.mapLoadingScreen.style.background = 'linear-gradient(to bottom, ' + currentStreet.street_load_color_top + ' 0%, ' + currentStreet.street_load_color_btm + ' 100%)';
 }
 
 // the callback function for our deco loading 'Batch'
@@ -319,18 +319,18 @@ setLoadingPercent(int percent)
 	{
 		//TODO: Whatever '1000' is changed to, that's how long it takes to display street image
 		new KeepingTime().delayMilliseconds(1000 - currentStreet.loadTime.elapsedMilliseconds);
-		ui.streetLoadingStatus.text = '    done! ... 100%';
-		ui.mapLoadingBar.style.width = '100%';
-		ui.mapLoadingScreen.className = "MapLoadingScreen";
-		ui.mapLoadingScreen.style.opacity = '0.0';
-		new Timer(new Duration(seconds: 1), () => ui.mapLoadingContent.style.opacity = '0.0');
+		view.streetLoadingStatus.text = '    done! ... 100%';
+		view.mapLoadingBar.style.width = '100%';
+		view.mapLoadingScreen.className = "MapLoadingScreen";
+		view.mapLoadingScreen.style.opacity = '0.0';
+		new Timer(new Duration(seconds: 1), () => view.mapLoadingContent.style.opacity = '0.0');
 		currentStreet.loadTime.stop();
 		currentStreet.loadTime.reset();
 	}
 	else
 	{
-		ui.streetLoadingStatus.text = 'reticulating splines ... ' + (percent).toString() + '%';
-		ui.mapLoadingBar.style.width = (percent).toString() + '%';
+		view.streetLoadingStatus.text = 'reticulating splines ... ' + (percent).toString() + '%';
+		view.mapLoadingBar.style.width = (percent).toString() + '%';
 	}
 }
 

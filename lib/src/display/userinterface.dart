@@ -1,6 +1,6 @@
 part of couclient;
 
-UserInterface ui = new UserInterface();
+UserInterface view = new UserInterface();
 
 class UserInterface {
 
@@ -130,6 +130,12 @@ class UserInterface {
 
   /////////////////////VARS//////////////////////////////////////////////////
 
+  // Object for manipulating meters.  
+  Meters meters = new Meters();
+  
+  
+  
+  
   loggedIn() {
     loadingScreen.style.opacity = '0';
     new Message(#playSound, 'game_loaded');
@@ -248,7 +254,7 @@ class UserInterface {
 
     // Update all audioElements to the correct volume
     for (AudioElement audio in querySelectorAll('audio')) {
-      if (audio.volume != ui.volume / 100) audio.volume = ui.volume / 100;
+      if (audio.volume != view.volume / 100) audio.volume = view.volume / 100;
     }
 
     // Update the soundcloud widget

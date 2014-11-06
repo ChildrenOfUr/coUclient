@@ -13,7 +13,7 @@ void showLineCanvas()
   		..height = currentStreet.bounds.height
   		..attributes["ground_y"] = currentStreet._data['dynamic']['ground_y'].toString()
   		..id = "lineCanvas";
-  	ui.layers.append(lineCanvas);
+  	view.layers.append(lineCanvas);
 
   	camera.dirty = true; //force a recalculation of any offset
 

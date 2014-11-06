@@ -54,7 +54,7 @@ setName(String noun)
 {
   // Fix Name
   String newName = noun.replaceAll(" ", "_");
-  String oldName = ui.username;
+  String oldName = view.username;
 
   // Is it appropriate?
   if (containsBadCharacter(newName)) {
@@ -67,7 +67,7 @@ setName(String noun)
 
   if(CurrentPlayer != null)
   	CurrentPlayer.playerName.text = noun;
-  ui.username = noun;
+  view.username = noun;
   localStorage['username'] = noun;
 
   // Prepare Server Message
@@ -100,8 +100,8 @@ setLocationCommand(String noun)
 {
 	playerTeleFrom="console";
 	noun = noun.trim();
-	ui.mapLoadingScreen.className = "MapLoadingScreenIn";
-	ui.mapLoadingScreen.style.opacity = "1.0";
+	view.mapLoadingScreen.className = "MapLoadingScreenIn";
+	view.mapLoadingScreen.style.opacity = "1.0";
 	//changes first letter to match revdancatt's code - only if it starts with an L
 	if(noun.startsWith("L"))
 		noun = noun.replaceFirst("L", "G");
