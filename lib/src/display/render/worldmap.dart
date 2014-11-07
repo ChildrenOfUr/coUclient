@@ -49,7 +49,7 @@ class WorldMap
              lineCanvas.context2D.strokeStyle = "rgba(255, 255, 240, 0.5)";
 
              // If this is the street we are on, style is slightly different
-             if (object['tsid'].substring(1) == currentStreet._data['tsid'].substring(1)) {
+             if (object['tsid'].substring(1) == currentStreet.streetData['tsid'].substring(1)) {
                lineCanvas.context2D.strokeStyle = "rgba(255, 255, 240, 1)";
              }
 
@@ -77,7 +77,7 @@ class WorldMap
              textCanvas.context2D.translate(-streetMiddleX, -streetMiddleY);
 
              // If this is the street we are on, style is slightly different
-             if (object['tsid'].substring(1) == currentStreet._data['tsid'].substring(1)) {
+             if (object['tsid'].substring(1) == currentStreet.streetData['tsid'].substring(1)) {
                textCanvas.context2D.fillStyle = "#C50101";
                textCanvas.context2D.font = "15px Arial bold";
                drawStar(textCanvas.context2D,streetMiddleX,streetMiddleY-14,10,fillColor:textCanvas.context2D.fillStyle,strokeColor:textCanvas.context2D.strokeStyle);

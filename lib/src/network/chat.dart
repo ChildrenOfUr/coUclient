@@ -59,7 +59,6 @@ class NetChatManager {
           // First event, tells the server who we are.
           post(new Map()
               ..['username'] = view.username
-              ..['street'] = currentStreet.label
               ..['statusMessage'] = 'join');
 
           // Get a List of the other players online

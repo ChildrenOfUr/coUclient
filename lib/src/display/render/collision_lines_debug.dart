@@ -11,7 +11,7 @@ void showLineCanvas()
   		..style.height = currentStreet.bounds.height.toString()+"px"
   		..width = currentStreet.bounds.width
   		..height = currentStreet.bounds.height
-  		..attributes["ground_y"] = currentStreet._data['dynamic']['ground_y'].toString()
+  		..attributes["ground_y"] = currentStreet.streetData['dynamic']['ground_y'].toString()
   		..id = "lineCanvas";
   	view.layers.append(lineCanvas);
 

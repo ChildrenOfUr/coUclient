@@ -3,6 +3,8 @@ part of couclient;
 // GAME ENTRY AND MANAGEMENT //
 class Game {
 
+  StreetService streetService = new StreetService();
+
   String username = 'null';
   String location = 'null';
 
@@ -16,29 +18,26 @@ class Game {
 
   // INITIALIZATION //
   Game() {
-    // init stuff here
-	  load_streets()
-	  	.then((_) => new Street('test').load()
-	  	.then((_)
-		{
-			// Networking
-			new NetChatManager();
-			new Message(#startChat, 'Global Chat');
-			new Message(#startChat, 'Local Chat');
+    streetService.requestStreet(sessionStorage['playerStreet'])
+    .then((_) {
+    
+    // Networking
+    new NetChatManager();
+    new Message(#startChat, 'Global Chat');
+    new Message(#startChat, 'Local Chat');
 
-	    new Message(#err,'Game initialized');
+    new Message(#err, 'Game initialized');
 
-		  	metabolics.init();
-		  	multiplayerInit();
-			CurrentPlayer = new Player();
+    metabolics.init();
+    multiplayerInit();
+    CurrentPlayer = new Player();
 
-			CurrentPlayer.loadAnimations()
-			.then((_)
-			{
-				CurrentPlayer.currentAnimation = CurrentPlayer.animations['idle'];
-			})
-			.then((_) => loop(0.0));
-		}));
+    CurrentPlayer.loadAnimations().then((_) {
+      CurrentPlayer.currentAnimation = CurrentPlayer.animations['idle'];
+    }).then((_) => loop(0.0));
+    
+    });
+    
   }
 
   // GAME LOOP //
@@ -46,7 +45,7 @@ class Game {
   DateTime startTime = new DateTime.now();
 
   loop(num delta) {
-    double dt = (delta-lastTime)/1000;
+    double dt = (delta - lastTime) / 1000;
     lastTime = delta;
 
     update(dt);

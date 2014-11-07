@@ -5,8 +5,9 @@ String playerTeleFrom = "";
 
 class Street
 {
+  
   String label;
-  Map _data;
+  Map streetData;
 
   List<Platform> platforms = new List();
   List<Ladder> ladders = new List();
@@ -21,21 +22,20 @@ class Street
 
   Rectangle bounds;
 
-  Street(String streetName)
+  Street(this.streetData)
   {
-    _data = ASSET[streetName].get();
 
     // sets the label for the street
-    label = _data['label'];
-    hub_id = _data['hub_id'];
+    label = streetData['label'];
+    hub_id = streetData['hub_id'];
 
     if(view.username != null)
     	sendLeftMessage(label);
 
-    bounds = new Rectangle(_data['dynamic']['l'],
-                _data['dynamic']['t'],
-                _data['dynamic']['l'].abs() + _data['dynamic']['r'].abs(),
-                _data['dynamic']['t'].abs());
+    bounds = new Rectangle(streetData['dynamic']['l'],
+                streetData['dynamic']['t'],
+                streetData['dynamic']['l'].abs() + streetData['dynamic']['r'].abs(),
+                streetData['dynamic']['t'].abs());
 
     view.playerHolder..children.clear()
     	..style.width = bounds.width.toString()+'px'
@@ -57,20 +57,20 @@ class Street
   }
 
   Future <List> load()
-  {
+  {    
     Completer c = new Completer();
     // clean up old street data
     //currentStreet = null;
     view.layers.children.clear();
     view.playerHolder.children.clear(); //clear previous street's quoins and stuff
-
+    
     // set the song loading if necessary
-    if (_data['music'] != null)
-      soundManager.setSong(_data['music']);
+    if (streetData['music'] != null)
+      soundManager.setSong(streetData['music']);
 
     // Collect the url's of each deco to load.
     List decosToLoad = [];
-    for (Map layer in _data['dynamic']['layers'].values)
+    for (Map layer in streetData['dynamic']['layers'].values)
     {
       for (Map deco in layer['decos'])
       {
@@ -92,7 +92,7 @@ class Street
         {
       //Decos should all be loaded at this point//
 
-      int groundY = -(_data['dynamic']['ground_y'] as num).abs();
+      int groundY = -(streetData['dynamic']['ground_y'] as num).abs();
 
       DivElement interactionCanvas = new DivElement()
         ..classes.add('streetcanvas')
@@ -114,8 +114,8 @@ class Street
       gradientCanvas.attributes['ground_y'] = "0";
 
       // Color the gradientCanvas
-      String top = _data['gradient']['top'];
-      String bottom = _data['gradient']['bottom'];
+      String top = streetData['gradient']['top'];
+      String bottom = streetData['gradient']['bottom'];
       gradientCanvas.style.background = "-webkit-linear-gradient(top, #$top, #$bottom)";
       gradientCanvas.style.background = "-moz-linear-gradient(top, #$top, #$bottom)";
       gradientCanvas.style.background = "-ms-linear-gradient(#$top, #$bottom)";
@@ -126,7 +126,7 @@ class Street
 
       /* //// Scenery Canvases //// */
       //For each layer on the street . . .
-      for(Map layer in new Map.from(_data['dynamic']['layers']).values)
+      for(Map layer in new Map.from(streetData['dynamic']['layers']).values)
       {
         DivElement decoCanvas = new DivElement()
           ..classes.add('streetcanvas');
@@ -277,7 +277,7 @@ class Street
 }
 
 // Initialization, loads all the streets in our master file into memory.
-Future load_streets()
+Future load_street()
 {
   view.loadStatus.text = "Loading Streets";
   // allows us to load street files as though they are json files.

@@ -3,12 +3,12 @@ part of couclient;
 
 class StreetService {
   String _dataUrl = 'https://robertmcdermot.com:8383/data';
-
-  StreetService() {
-
-  }
-
-  void requestStreet(String StreetID) {
+  
+ 
+  Future requestStreet(String StreetID) {
+    
+    Completer c = new Completer();
+    
     HttpRequest.request(_dataUrl + "/street", method: "POST", requestHeaders: {
         "content-type": "application/json"
     }, sendData: JSON.encode({
@@ -19,23 +19,24 @@ class StreetService {
 
       if (serverdata['ok'] == 'no') {
         print('Error: Server refused.');
-        return;
       }
 
-      prepareStreet(serverdata['streetJSON']);
+      c.complete(prepareStreet(serverdata['streetJSON']));
 
     });
+    return c.future;
   }
-
 }
 
 
-prepareStreet(String streetJSON){
+Future prepareStreet(Map streetJSON){
 
-    if (JSON.decode(streetJSON)['tsid'] == null) return;
-    Map<String,dynamic> street = JSON.decode(streetJSON);
-    String label = street['label'];
-    String tsid = street['tsid'];
+    Completer c = new Completer();
+  
+    if (streetJSON['tsid'] == null) c.complete(null);
+    Map<String,dynamic> streetAsMap = streetJSON;
+    String label = streetAsMap['label'];
+    String tsid = streetAsMap['tsid'];
 
     // TODO, this should happen automatically on the Server, since it'll know which street we're on.
     //send changeStreet to chat server
@@ -44,19 +45,20 @@ prepareStreet(String streetJSON){
     map["username"] = view.username;
     map["newStreetLabel"] = label;
     map["newStreetTsid"] = tsid;
-    map["oldStreet"] = currentStreet.label;
+    map["oldStreet"] = sessionStorage['playerStreet'];
     new Message(#outgoingChatEvent,map);
 
-    view.streetLoadingImage.src = street['loading_image']['url'];
+    view.streetLoadingImage.src = streetAsMap['loading_image']['url'];
     view.streetLoadingImage.onLoad.first.then((_)
     {
-      String hubName = new DataMaps().data_maps_hubs[street['hub_id']]()['name'];
+      String hubName = new DataMaps().data_maps_hubs[streetAsMap['hub_id']]()['name'];
       view.mapLoadingContent.style.opacity = "1.0";
       view.nowEntering.setInnerHtml('<h2>Entering</h2><h1>' + label + '</h1><h2>in ' + hubName/* + '</h2><h3>Home to: <ul><li>A <strong>Generic Goods Vendor</strong></li></ul>'*/);
       new Timer(new Duration(seconds:1),()
             {
-        new Asset.fromMap(street,label);
-                new Street(label).load();
+        new Asset.fromMap(streetAsMap,label);
+                c.complete(new Street(streetAsMap).load());
       });
     });
+    return c.future;
   }

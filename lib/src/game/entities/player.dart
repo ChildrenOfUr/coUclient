@@ -128,7 +128,7 @@ class Player
 		if(doPhysicsApply && inputManager.upKey == true)
 		{
 			bool found = false;
-			Rectangle playerRect = new Rectangle(posX,posY+currentStreet._data['dynamic']['ground_y'],width,height-15);
+			Rectangle playerRect = new Rectangle(posX,posY+currentStreet.streetData['dynamic']['ground_y'],width,height-15);
 			for(Ladder ladder in currentStreet.ladders)
 			{
 				if(intersect(ladder.bounds,playerRect))
@@ -156,7 +156,7 @@ class Player
 		if(doPhysicsApply && inputManager.downKey == true)
 		{
 			bool found = false;
-			Rectangle playerRect = new Rectangle(posX,posY+currentStreet._data['dynamic']['ground_y'],width,height);
+			Rectangle playerRect = new Rectangle(posX,posY+currentStreet.streetData['dynamic']['ground_y'],width,height);
 			for(Ladder ladder in currentStreet.ladders)
 			{
 				if(intersect(ladder.bounds,playerRect))
@@ -184,7 +184,7 @@ class Player
 		if(doPhysicsApply && inputManager.downKey == false && inputManager.upKey == false)
 		{
 			bool found = false;
-			Rectangle playerRect = new Rectangle(posX,posY+currentStreet._data['dynamic']['ground_y'],width,height);
+			Rectangle playerRect = new Rectangle(posX,posY+currentStreet.streetData['dynamic']['ground_y'],width,height);
 			for(Ladder ladder in currentStreet.ladders)
 			{
 				if(intersect(ladder.bounds,playerRect))
@@ -263,14 +263,14 @@ class Player
 
 			if(bestPlatform != null)
 			{
-				num goingTo = posY+height+currentStreet._data['dynamic']['ground_y'];
+				num goingTo = posY+height+currentStreet.streetData['dynamic']['ground_y'];
 				num slope = (bestPlatform.end.y-bestPlatform.start.y)/(bestPlatform.end.x-bestPlatform.start.x);
 				num yInt = bestPlatform.start.y - slope*bestPlatform.start.x;
 				num lineY = slope*x+yInt;
 
 				if(goingTo >= lineY)
 				{
-					posY = lineY-height-currentStreet._data['dynamic']['ground_y'];
+					posY = lineY-height-currentStreet.streetData['dynamic']['ground_y'];
 					yVel = 0;
 					jumping = false;
 				}
@@ -608,7 +608,7 @@ class Player
 	{
 		Platform bestPlatform;
 		num x = posX+width/2;
-		num feetY = cameFrom+height+currentStreet._data['dynamic']['ground_y'];
+		num feetY = cameFrom+height+currentStreet.streetData['dynamic']['ground_y'];
 		num bestDiffY = 1000;
 
 		for(Platform platform in currentStreet.platforms)

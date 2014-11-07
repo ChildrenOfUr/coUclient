@@ -92,6 +92,7 @@ Random random = new Random();
 SoundManager soundManager;
 InputManager inputManager;
 
+Game game;
 
 main() {
   errService;
@@ -104,9 +105,6 @@ main() {
   new CommandManager();
 
   view.update();
-
-  // GAME ENTRY //
-  Game game = new Game();
 
   soundManager = new SoundManager();
   new WindowManager();

@@ -38,7 +38,7 @@ void sendJoinedMessage(String streetName, [String tsid])
 		map['clientVersion'] = clientVersion;
 		map["username"] = view.username;
 		map["streetName"] = streetName;
-		map["tsid"] = tsid == null ? currentStreet._data['tsid'] : tsid;
+		map["tsid"] = tsid == null ? currentStreet.streetData['tsid'] : tsid;
 		map["message"] = "joined";
 		streetSocket.send(JSON.encode(map));
 		joined = streetName;
@@ -613,7 +613,7 @@ Map getDropMap(Map item, int count)
 		..['x'] = CurrentPlayer.posX
 		..['y'] = CurrentPlayer.posY+CurrentPlayer.height/2
 		..['streetName'] = currentStreet.label
-		..['tsid'] = currentStreet._data['tsid'];
+		..['tsid'] = currentStreet.streetData['tsid'];
 
 	return dropMap;
 }
