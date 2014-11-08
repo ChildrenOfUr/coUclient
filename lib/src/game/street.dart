@@ -5,7 +5,7 @@ String playerTeleFrom = "";
 
 class Street
 {
-  
+
   String label;
   Map streetData;
 
@@ -57,13 +57,14 @@ class Street
   }
 
   Future <List> load()
-  {    
+  {
     Completer c = new Completer();
     // clean up old street data
     //currentStreet = null;
     view.layers.children.clear();
     view.playerHolder.children.clear(); //clear previous street's quoins and stuff
-    
+    view.location = label;
+
     // set the song loading if necessary
     if (streetData['music'] != null)
       soundManager.setSong(streetData['music']);

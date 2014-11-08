@@ -21,10 +21,12 @@ class NetChatManager {
     	else
     	{
     		for (Chat convo in openConversations)
-    			if (convo.title == "Local Chat" && event.content['street'] == currentStreet.label)
+    		{
+    			if (convo.title == "Local Chat" && (event.content['channel'] == 'all' || event.content['street'] == currentStreet.label))
     				convo.processEvent(event.content);
     			else if (convo.title == event.content['channel'] && convo.title != "Local Chat")
     				convo.processEvent(event.content);
+    		}
     	}
     });
 

@@ -1,13 +1,13 @@
 part of couclient;
 
-String websocketServerAddress = 'robertmcdermot.com:8282';
+String websocketServerAddress = 'localhost:8282';
 double clientVersion = 0.08;
 
 String multiplayerServer = "ws://$websocketServerAddress/playerUpdate";
 String streetEventServer = "ws://$websocketServerAddress/streetUpdate";
 String joined = "", creatingPlayer = "";
 WebSocket streetSocket, playerSocket;
-bool reconnect = true;
+bool reconnect = true, firstConnect = true;
 Map<String,Player> otherPlayers = new Map();
 Map<String,Quoin> quoins = new Map();
 Map<String,Entity> entities = new Map();
@@ -40,8 +40,11 @@ void sendJoinedMessage(String streetName, [String tsid])
 		map["streetName"] = streetName;
 		map["tsid"] = tsid == null ? currentStreet.streetData['tsid'] : tsid;
 		map["message"] = "joined";
+		map['firstConnect'] = firstConnect;
 		streetSocket.send(JSON.encode(map));
 		joined = streetName;
+		if(firstConnect)
+			firstConnect = false;
 	}
 }
 
@@ -229,6 +232,9 @@ _setupPlayerSocket()
 			return;
 		}
 
+		if(map['username'] == view.username)
+			return;
+
 		if(map["changeStreet"] != null)
 		{
 			if(map["changeStreet"] != currentStreet.label) //someone left this street
@@ -408,7 +414,7 @@ void addItem(Map map)
     	item.classes.add('groundItem');
     	item.classes.add('entity');
     	item.id = map['id'];
-    	querySelector("#playerHolder").append(item);
+    	view.playerHolder.append(item);
 	});
 }
 

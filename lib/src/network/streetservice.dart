@@ -1,20 +1,17 @@
 part of couclient;
 
-
 class StreetService {
   String _dataUrl = 'https://robertmcdermot.com:8383/data';
-  
- 
+
   Future requestStreet(String StreetID) {
-    
+
     Completer c = new Completer();
-    
+
     HttpRequest.request(_dataUrl + "/street", method: "POST", requestHeaders: {
         "content-type": "application/json"
     }, sendData: JSON.encode({
         'street': StreetID, 'sessionToken': SESSION_TOKEN
     })).then((HttpRequest data) {
-      print(data.response);
       Map serverdata = JSON.decode(data.response);
 
       if (serverdata['ok'] == 'no') {
@@ -32,7 +29,7 @@ class StreetService {
 Future prepareStreet(Map streetJSON){
 
     Completer c = new Completer();
-  
+
     if (streetJSON['tsid'] == null) c.complete(null);
     Map<String,dynamic> streetAsMap = streetJSON;
     String label = streetAsMap['label'];
@@ -51,14 +48,15 @@ Future prepareStreet(Map streetJSON){
     view.streetLoadingImage.src = streetAsMap['loading_image']['url'];
     view.streetLoadingImage.onLoad.first.then((_)
     {
-      String hubName = new DataMaps().data_maps_hubs[streetAsMap['hub_id']]()['name'];
-      view.mapLoadingContent.style.opacity = "1.0";
-      view.nowEntering.setInnerHtml('<h2>Entering</h2><h1>' + label + '</h1><h2>in ' + hubName/* + '</h2><h3>Home to: <ul><li>A <strong>Generic Goods Vendor</strong></li></ul>'*/);
-      new Timer(new Duration(seconds:1),()
-            {
-        new Asset.fromMap(streetAsMap,label);
-                c.complete(new Street(streetAsMap).load());
-      });
-    });
-    return c.future;
+		String hubName = new DataMaps().data_maps_hubs[streetAsMap['hub_id']]()['name'];
+		view.mapLoadingContent.style.opacity = "1.0";
+		view.nowEntering.setInnerHtml('<h2>Entering</h2><h1>' + label + '</h1><h2>in ' + hubName/* + '</h2><h3>Home to: <ul><li>A <strong>Generic Goods Vendor</strong></li></ul>'*/);
+		new Timer(new Duration(seconds:1),()
+		{
+			new Asset.fromMap(streetAsMap,label);
+			c.complete(new Street(streetAsMap).load());
+		});
+	});
+
+	return c.future;
   }

@@ -1,9 +1,8 @@
 part of couclient;
 
+StreetService streetService = new StreetService();
 // GAME ENTRY AND MANAGEMENT //
 class Game {
-
-  StreetService streetService = new StreetService();
 
   String username = 'null';
   String location = 'null';
@@ -20,7 +19,7 @@ class Game {
   Game() {
     streetService.requestStreet(sessionStorage['playerStreet'])
     .then((_) {
-    
+
     // Networking
     new NetChatManager();
     new Message(#startChat, 'Global Chat');
@@ -35,9 +34,9 @@ class Game {
     CurrentPlayer.loadAnimations().then((_) {
       CurrentPlayer.currentAnimation = CurrentPlayer.animations['idle'];
     }).then((_) => loop(0.0));
-    
+
     });
-    
+
   }
 
   // GAME LOOP //

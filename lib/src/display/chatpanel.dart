@@ -111,14 +111,40 @@ class Chat {
       removeOtherPlayer(data["username"]);
     }
 
-    if (data["statusMessage"] == "changeName") {
-      if (data["success"] == "true") {
-        connectedUsers.remove(data["username"]);
-        removeOtherPlayer(data["username"]);
-        connectedUsers.add(data["newUsername"]);
-      }
+    if (data["statusMessage"] == "changeName")
+    {
+		if (data["success"] == "true")
+		{
+			removeOtherPlayer(data["username"]);
+
+			//although this message is broadcast to everyone, only change usernames
+			//if we were the one to type /setname
+			if (data["newUsername"] == view.username)
+			{
+				CurrentPlayer.username = data['newUsername'];
+				CurrentPlayer.loadAnimations();
+
+				//clear our inventory so we can get the new one
+				view.inventory.querySelectorAll('.box').forEach((Element box)
+						=> box.children.clear());
+				firstConnect = true;
+				joined = "";
+				sendJoinedMessage(currentStreet.label);
+
+				//warn multiplayer server that it will receive messages
+				//from a new name but it should be the same person
+				data['street'] = currentStreet.label;
+				playerSocket.send(JSON.encode(data));
+
+				timeLast = 5.0;
+			}
+
+			connectedUsers.remove(data["username"]);
+            connectedUsers.add(data["newUsername"]);
+		}
+
+		addMessage(data['username'], data['message']);
     }
-    addMessage(data['username'], data['message']);
   }
 
   addMessage(String player, String message) {

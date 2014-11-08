@@ -13,7 +13,7 @@ class CommandManager {
     COMMANDS['playsound'] = (noun) {
       new Message(#playSound, noun);
     };
-    
+
     COMMANDS['playsong'] = (noun) {
       new Message(#playSong, noun);
     };
@@ -66,9 +66,9 @@ setName(String noun)
   }
 
   if(CurrentPlayer != null)
-  	CurrentPlayer.playerName.text = noun;
-  view.username = noun;
-  localStorage['username'] = noun;
+		CurrentPlayer.playerName.text = noun;
+	view.username = noun;
+	localStorage['username'] = noun;
 
   // Prepare Server Message
   Map map = new Map();
