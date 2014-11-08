@@ -17,7 +17,7 @@ class SoundManager {
   AudioInstance currentAudioInstance;
 
   SoundManager() {
-    init().then((_) {      
+    init().then((_) {
       new Service([#playSong],(Message event) {
           event.content = event.content.replaceAll(' ', '');
           if (songs[event.content] == null) {
@@ -29,15 +29,15 @@ class SoundManager {
           }
       });
       new Service([#playSound],(Message event) {
-        this.playSound(event.content);        
-      });      
+        this.playSound(event.content);
+      });
     });
   }
 
   Future init() {
 
 
-    new Asset('packages/couclient/audio/loading.mp3').load().then((_) {
+    new Asset('assets/audio/loading.mp3').load().then((_) {
       //start the loading music and attach it to the #LoadingScreen so that when that is removed the music stops
       if (view.volume > 0 && view.muted == false) {
         playSound('loading', parentElement: querySelector('#LoadingScreen'), looping: false);
@@ -67,17 +67,17 @@ class SoundManager {
       try {
         //load the loading music and play when ready
         gameSounds['loading'] = new Sound(channel: audioChannels['music']);
-        futures.add(gameSounds['loading'].load("packages/couclient/audio/loading.$extension"));
+        futures.add(gameSounds['loading'].load("assets/audio/loading.$extension"));
 
         //load the sound effects
         gameSounds['quoinSound'] = new Sound(channel: audioChannels['soundEffects']);
-        futures.add(gameSounds['quoinSound'].load("packages/couclient/audio/quoinSound.$extension"));
+        futures.add(gameSounds['quoinSound'].load("assets/audio/quoinSound.$extension"));
         gameSounds['mention'] = new Sound(channel: audioChannels['soundEffects']);
-        futures.add(gameSounds['mention'].load("packages/couclient/audio/mention.$extension"));
+        futures.add(gameSounds['mention'].load("assets/audio/mention.$extension"));
         gameSounds['game_loaded'] = new Sound(channel: audioChannels['soundEffects']);
-        futures.add(gameSounds['game_loaded'].load("packages/couclient/audio/game_loaded.$extension"));
+        futures.add(gameSounds['game_loaded'].load("assets/audio/game_loaded.$extension"));
 
-        Asset soundCloudSongs = new Asset('./packages/couclient/json/music.json');
+        Asset soundCloudSongs = new Asset('./assets/json/music.json');
         futures.add(soundCloudSongs.load(statusElement: querySelector("#LoadStatus2")));
 
         return Future.wait(futures);
@@ -92,7 +92,7 @@ class SoundManager {
 
   }
 
-  
+
   Future loadNonWebAudio(Completer c) {
     new Message(#toast, 'Loading non-WebAudio');
     // Load all our user interface sounds.
@@ -101,16 +101,16 @@ class SoundManager {
       //here's a fix for dartium http://downloadsquad.switched.com/2010/06/24/play-embedded-mp3-audio-files-chromium/
       //also I updated the loadie library to attempt to find both a .mp3 file and a .ogg file at the specified location
       //this should help with browser compatibility
-      new Asset('packages/couclient/audio/mention.mp3'), new Asset('packages/couclient/audio/quoinSound.mp3'), new Asset('packages/couclient/audio/game_loaded.mp3')])..load(print, statusElement: querySelector("#LoadStatus2")).then((_) {
+      new Asset('assets/audio/mention.mp3'), new Asset('assets/audio/quoinSound.mp3'), new Asset('assets/audio/game_loaded.mp3')])..load(print, statusElement: querySelector("#LoadStatus2")).then((_) {
         }).catchError((e) //in case audio does not start to load within 2 seconds
         {
           print("error while loading sounds: $e");
-          
+
         }).whenComplete(() //load SC song data
         {
           // Load the names and track id's of the music.json file but save actually loading the media file
           // until it is requested (whether by street load or by setsong command)
-          Asset soundCloudSongs = new Asset('packages/couclient/json/music.json');
+          Asset soundCloudSongs = new Asset('assets/json/music.json');
           soundCloudSongs.load(statusElement: querySelector("#LoadStatus2")).then((_) => c.complete());
         });
     return c.future;
@@ -190,7 +190,7 @@ class SoundManager {
   }
 
   _playSong(String name) {
-    
+
     /*
      * canPlayType should return:
      *    probably: if the specified type appears to be playable.

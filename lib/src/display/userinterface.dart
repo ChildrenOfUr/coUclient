@@ -130,12 +130,12 @@ class UserInterface {
 
   /////////////////////VARS//////////////////////////////////////////////////
 
-  // Object for manipulating meters.  
+  // Object for manipulating meters.
   Meters meters = new Meters();
-  
-  
-  
-  
+
+
+
+
   loggedIn() {
     loadingScreen.style.opacity = '0';
     new Message(#playSound, 'game_loaded');
@@ -150,12 +150,12 @@ class UserInterface {
         loadingScreen.style.opacity = '1';
       });
   }
-  
+
   // start listening for events
   UserInterface() {
 
     //load emoticons
-    new Asset("packages/couclient/emoticons/emoticons.json").load().then((Asset asset) => EMOTICONS = asset.get()["names"]);
+    new Asset("assets/emoticons/emoticons.json").load().then((Asset asset) => EMOTICONS = asset.get()["names"]);
 
     // Set initial Time
     currDay.text = clock.dayofweek;
