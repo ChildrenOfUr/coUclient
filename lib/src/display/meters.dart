@@ -28,7 +28,14 @@ class Meters {
   updateCurrantsDisplay() {
     view.currantElement.text = commaFormatter.format(metabolics.getCurrants());
   }
-  
+
+  updateNameDisplay() {
+    if (game.username.length >= 17)
+      view.nameElement.text = game.username.substring(0, 15) + '...';
+    else
+      view.nameElement.text = game.username;
+  }
+
   updateAll() {
     updateCurrantsDisplay();
     updateEnergyDisplay();

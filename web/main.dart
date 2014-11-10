@@ -96,17 +96,15 @@ Game game;
 
 main() {
   errService;
-  view;
 
   new AuthManager();
 
+  view = new UserInterface();
   // System
   new ClockManager();
   new CommandManager();
 
-  view.update();
 
-  soundManager = new SoundManager();
   new WindowManager();
   inputManager = new InputManager();
 

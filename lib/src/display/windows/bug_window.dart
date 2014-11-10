@@ -19,7 +19,7 @@ class BugWindow extends Modal {
         listening = true;
         w.querySelector('.button').onClick.listen((_) {
           if (input.value.trim() != ''){
-          slack.Message m = new slack.Message('${view.bugReportMeta.text} \n REPORT TYPE:${view.bugReportType.value} \n ${input.value} \n ${view.bugReportEmail.value}',username:view.username);
+          slack.Message m = new slack.Message('${view.bugReportMeta.text} \n REPORT TYPE:${view.bugReportType.value} \n ${input.value} \n ${view.bugReportEmail.value}',username:game.username);
           slack.team = SLACK_TEAM;
           slack.token = SLACK_TOKEN;
           slack.send(m);

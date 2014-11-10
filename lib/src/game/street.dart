@@ -29,7 +29,7 @@ class Street
     label = streetData['label'];
     hub_id = streetData['hub_id'];
 
-    if(view.username != null)
+    if(game.username != null)
     	sendLeftMessage(label);
 
     bounds = new Rectangle(streetData['dynamic']['l'],

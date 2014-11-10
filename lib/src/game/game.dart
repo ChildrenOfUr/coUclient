@@ -4,8 +4,8 @@ StreetService streetService = new StreetService();
 // GAME ENTRY AND MANAGEMENT //
 class Game {
 
-  String username = 'null';
-  String location = 'null';
+  String username = sessionStorage['playerName'];
+  String location = sessionStorage['playerStreet'];
 
   int energy = 100;
   int maxenergy = 100;
@@ -17,7 +17,7 @@ class Game {
 
   // INITIALIZATION //
   Game() {
-    streetService.requestStreet(sessionStorage['playerStreet'])
+    streetService.requestStreet(location)
     .then((_) {
 
     // Networking
@@ -25,11 +25,10 @@ class Game {
     new Message(#startChat, 'Global Chat');
     new Message(#startChat, 'Local Chat');
 
-    new Message(#err, 'Game initialized');
-
     metabolics.init();
     multiplayerInit();
-    CurrentPlayer = new Player(sessionStorage['playerName']);
+    CurrentPlayer = new Player(username);
+    view.meters.updateNameDisplay();
 
     CurrentPlayer.loadAnimations().then((_) {
       CurrentPlayer.currentAnimation = CurrentPlayer.animations['idle'];

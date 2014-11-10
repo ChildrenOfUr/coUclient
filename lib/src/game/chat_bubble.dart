@@ -61,6 +61,6 @@ class ChatBubble
 
 	String _getColoredUsername()
 	{
-		return "<span style='color:${getUsernameColor(view.username)};paddingRight:4px;display:inline-block;'>${view.username}</span>";
+		return "<span style='color:${getUsernameColor(game.username)};paddingRight:4px;display:inline-block;'>${game.username}</span>";
 	}
 }

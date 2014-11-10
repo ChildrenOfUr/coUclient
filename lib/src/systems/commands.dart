@@ -54,7 +54,7 @@ setName(String noun)
 {
   // Fix Name
   String newName = noun.replaceAll(" ", "_");
-  String oldName = view.username;
+  String oldName = game.username;
 
   // Is it appropriate?
   if (containsBadCharacter(newName)) {
@@ -65,10 +65,8 @@ setName(String noun)
     return;
   }
 
-  if(CurrentPlayer != null)
-		CurrentPlayer.playerName.text = noun;
-	view.username = noun;
-	localStorage['username'] = noun;
+	game.username = noun;
+	view.meters.updateNameDisplay();
 
   // Prepare Server Message
   Map map = new Map();

@@ -1,6 +1,6 @@
 part of couclient;
 
-UserInterface view = new UserInterface();
+UserInterface view;
 
 class UserInterface {
 
@@ -118,7 +118,6 @@ class UserInterface {
 
   // Declare/Set initial variables here
   /////////////////////VARS//////////////////////////////////////////////////
-  String username = 'testUser';
 
   String location = 'null';
 
@@ -220,11 +219,6 @@ class UserInterface {
 
   // update the userinterface
   update() {
-
-    // Update name display
-    if (username.length >= 17) username = username.substring(0, 15) + '...';
-    if (username != nameElement.text) nameElement.text = username;
-
 
     // Update the location text
     if (location.length >= 20) location = location.substring(0, 17) + '...';

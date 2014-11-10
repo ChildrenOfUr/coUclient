@@ -39,7 +39,7 @@ Future prepareStreet(Map streetJSON){
     //send changeStreet to chat server
     Map map = new Map();
     map["statusMessage"] = "changeStreet";
-    map["username"] = view.username;
+    map["username"] = game.username;
     map["newStreetLabel"] = label;
     map["newStreetTsid"] = tsid;
     map["oldStreet"] = sessionStorage['playerStreet'];

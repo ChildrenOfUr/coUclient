@@ -38,7 +38,7 @@ class AuthManager {
       // Get our username and location from the server.
       sessionStorage['playerName'] = serverdata['playerName'];
       sessionStorage['playerStreet'] = serverdata['playerStreet'];
-      
+
       SESSION_TOKEN = serverdata['sessionToken'];
 
       SLACK_TEAM = serverdata['slack-team'];
@@ -46,8 +46,9 @@ class AuthManager {
       SC_TOKEN = serverdata['sc-token'];
 
       // Begin Game//
-      Game game = new Game();
-      
+      game = new Game();
+
+      soundManager = new SoundManager();
       view.loggedIn();
     });
   }

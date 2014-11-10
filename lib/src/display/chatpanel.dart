@@ -119,7 +119,7 @@ class Chat {
 
 			//although this message is broadcast to everyone, only change usernames
 			//if we were the one to type /setname
-			if (data["newUsername"] == view.username)
+			if (data["newUsername"] == game.username)
 			{
 				CurrentPlayer.username = data['newUsername'];
 				CurrentPlayer.loadAnimations();
@@ -312,14 +312,14 @@ class Chat {
     // if its not a command, send it through.
     if (parseCommand(input)) return; else if (input.toLowerCase() == "/list") {
       Map map = {};
-      map["username"] = view.username;
+      map["username"] = game.username;
       map["statusMessage"] = "list";
       map["channel"] = title;
       map["street"] = currentStreet.label;
       new Message(#outgoingChatEvent, map);
     } else {
       Map map = new Map();
-      map["username"] = view.username;
+      map["username"] = game.username;
       map["message"] = input;
       map["channel"] = title;
       if (title == "Local Chat") map["street"] = currentStreet.label;
@@ -347,7 +347,7 @@ class ChatMessage {
     message = parseUrl(message);
     message = parseEmoji(message);
 
-    if (message.toLowerCase().contains(view.username.toLowerCase())) new Message(#playSound, 'mention');
+    if (message.toLowerCase().contains(game.username.toLowerCase())) new Message(#playSound, 'mention');
 
     if (player == null) {
       html = '''

@@ -53,13 +53,13 @@ class NetChatManager {
         ..onOpen.listen((_) {
           // First event, tells the server who we are.
           post(new Map()
-              ..['username'] = view.username
+              ..['username'] = game.username
               ..['statusMessage'] = 'join');
 
           // Get a List of the other players online
           post(new Map()
               ..['hide'] = 'true'
-              ..['username'] = view.username
+              ..['username'] = game.username
               ..['statusMessage'] = 'list'
               ..['channel'] = 'Global Chat');
         })

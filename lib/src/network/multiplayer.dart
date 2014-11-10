@@ -23,7 +23,7 @@ void sendLeftMessage(String streetName)
 	if(streetSocket != null && streetSocket.readyState == WebSocket.OPEN)
     {
 		Map map = new Map();
-		map["username"] = view.username;
+		map["username"] = game.username;
 		map["streetName"] = streetName;
 		map["message"] = "left";
 		streetSocket.send(JSON.encode(map));
@@ -36,7 +36,7 @@ void sendJoinedMessage(String streetName, [String tsid])
 	{
 		Map map = new Map();
 		map['clientVersion'] = clientVersion;
-		map["username"] = view.username;
+		map["username"] = game.username;
 		map["streetName"] = streetName;
 		map["tsid"] = tsid == null ? currentStreet.streetData['tsid'] : tsid;
 		map["message"] = "joined";
@@ -232,7 +232,7 @@ _setupPlayerSocket()
 			return;
 		}
 
-		if(map['username'] == view.username)
+		if(map['username'] == game.username)
 			return;
 
 		if(map["changeStreet"] != null)
