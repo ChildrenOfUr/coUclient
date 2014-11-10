@@ -29,7 +29,7 @@ class Game {
 
     metabolics.init();
     multiplayerInit();
-    CurrentPlayer = new Player();
+    CurrentPlayer = new Player(sessionStorage['playerName']);
 
     CurrentPlayer.loadAnimations().then((_) {
       CurrentPlayer.currentAnimation = CurrentPlayer.animations['idle'];

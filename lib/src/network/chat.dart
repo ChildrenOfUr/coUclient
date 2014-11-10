@@ -6,13 +6,6 @@ class NetChatManager {
   String _chatServerUrl = 'ws://$websocketServerAddress/chat';
 
   NetChatManager() {
-    //assign temporary chat handle
-    if (localStorage["username"] != null) view.username = localStorage["username"]; else {
-      Random rand = new Random();
-      view.username += rand.nextInt(10000).toString();
-
-    }
-
     setupWebsocket(_chatServerUrl);
 
     new Service([#chatEvent], (Message event) {
