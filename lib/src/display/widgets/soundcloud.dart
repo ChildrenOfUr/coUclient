@@ -16,10 +16,6 @@ class SoundCloudWidget {
     update();
   }
   update() {
-    // Update all audioElements to the correct volume
-    for (AudioElement audio in querySelectorAll('audio')) {
-      if (audio.volume != view.slider.volume / 100) audio.volume = view.slider.volume / 100;
-    }
 
     // Update the soundcloud widget
     if (SCsong != titleElement.text) titleElement.text = SCsong;

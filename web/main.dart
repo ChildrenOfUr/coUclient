@@ -43,7 +43,7 @@ part 'package:couclient/src/network/multiplayer.dart';
 part 'package:couclient/src/network/metabolics.dart';
 
 // UI/UX MODULES //
-part 'package:couclient/src/display/userinterface.dart';
+part 'package:couclient/src/display/view.dart';
 part 'package:couclient/src/display/chatpanel.dart';
 part 'package:couclient/src/display/meters.dart';
 part 'package:couclient/src/display/toast.dart';

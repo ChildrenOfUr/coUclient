@@ -81,11 +81,6 @@ class UserInterface {
 
   String location = 'null';
 
-  bool muted = false;
-  String SCsong = '-';
-  String SCartist = '-';
-  String SClink = '';
-
   /////////////////////VARS//////////////////////////////////////////////////
 
   // Object for manipulating meters.

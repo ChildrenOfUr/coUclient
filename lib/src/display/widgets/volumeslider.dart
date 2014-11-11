@@ -57,6 +57,11 @@ class VolumeSliderWidget {
     // Updates the stored volume level
     if (volume != localStorage['volume'] && muted == false) localStorage['volume'] = volume.toString();
 
+    // Update all audioElements to the correct volume
+    for (AudioElement audio in querySelectorAll('audio')) {
+      if (audio.volume != volume / 100) audio.volume = volume / 100;
+    }
+
   }
 
 

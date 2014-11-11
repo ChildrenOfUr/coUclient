@@ -208,9 +208,9 @@ class SoundManager {
     }
 
     // Changes the ui
-    view.SCsong = currentSong.meta['title'];
-    view.SCartist = currentSong.meta['user']['username'];
-    view.SClink = currentSong.meta['permalink_url'];
+    view.soundcloud.SCsong = currentSong.meta['title'];
+    view.soundcloud.SCartist = currentSong.meta['user']['username'];
+    view.soundcloud.SClink = currentSong.meta['permalink_url'];
     view.update();
   }
 
