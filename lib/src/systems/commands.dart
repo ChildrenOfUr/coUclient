@@ -103,9 +103,7 @@ setLocationCommand(String noun)
 	//changes first letter to match revdancatt's code - only if it starts with an L
 	if(noun.startsWith("L"))
 		noun = noun.replaceFirst("L", "G");
-	ScriptElement loadStreet = new ScriptElement();
-	loadStreet.src = "http://robertmcdermot.github.io/CAT422-glitch-location-viewer/locations/$noun.callback.json";
-	document.body.append(loadStreet);
+	streetService.requestStreet(noun);
 }
 
 /**
