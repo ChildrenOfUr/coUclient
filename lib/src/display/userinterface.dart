@@ -57,11 +57,6 @@ class UserInterface {
   Element playerHolder = querySelector("#playerHolder");
   Element layers = querySelector("#layers");
 
-  // Music Meter Variables
-  Element titleElement = querySelector('#trackTitle');
-  Element artistElement = querySelector('#trackArtist');
-  AnchorElement SClinkElement = querySelector('#SCLink');
-
   //Location/Map Variables
   Element mapWindow = querySelector('#mapWindow');
   Element mapImg = querySelector('#mapImage');
@@ -96,8 +91,8 @@ class UserInterface {
   // Object for manipulating meters.
   Meters meters = new Meters();
 
-  VolumeSlider slider = new VolumeSlider();
-
+  VolumeSliderWidget slider = new VolumeSliderWidget();
+  SoundCloudWidget soundcloud = new SoundCloudWidget();
 
   loggedIn() {
     loadingScreen.style.opacity = '0';
@@ -158,24 +153,9 @@ class UserInterface {
 
   // update the userinterface
   update() {
-
     // Update the location text
     if (location.length >= 20) location = location.substring(0, 17) + '...';
     if (location != currLocation.text) currLocation.text = location;
-
-
-
-    // Update all audioElements to the correct volume
-    for (AudioElement audio in querySelectorAll('audio')) {
-      if (audio.volume != view.slider.volume / 100) audio.volume = view.slider.volume / 100;
-    }
-
-    // Update the soundcloud widget
-    if (SCsong != titleElement.text) titleElement.text = SCsong;
-    if (SCartist != artistElement.text) artistElement.text = SCartist;
-    if (SClink != SClinkElement.href) SClinkElement.href = SClink;
-
-    window.requestAnimationFrame((_) => this.update());
   }
 }
 

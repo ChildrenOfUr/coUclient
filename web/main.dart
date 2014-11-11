@@ -61,7 +61,7 @@ part 'package:couclient/src/display/windows/vendor_window.dart';
 
 // WIDGET MODULES //
 part 'package:couclient/src/display/widgets/volumeslider.dart';
-
+part 'package:couclient/src/display/widgets/soundcloud.dart';
 
 // STREET RENDERING MODULES //
 part 'package:couclient/src/display/render/camera.dart';
@@ -112,6 +112,4 @@ main() {
 
   new WindowManager();
   inputManager = new InputManager();
-
-
 }

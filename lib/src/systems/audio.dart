@@ -161,7 +161,7 @@ class SoundManager {
   Future setSong(String value) {
     Completer c = new Completer();
 
-    if (value == view.titleElement.text) {
+    if (value == view.soundcloud.titleElement.text) {
       c.complete();
       return c.future;
     }

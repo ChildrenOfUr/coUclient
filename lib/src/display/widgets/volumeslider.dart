@@ -1,13 +1,13 @@
 part of couclient;
 
-class VolumeSlider {
+class VolumeSliderWidget {
   int volume;
   bool muted;
 
   Element volumeGlyph = querySelector('#volumeGlyph');
   InputElement volumeSlider = querySelector('#volumeSlider *');
 
-  VolumeSlider() {
+  VolumeSliderWidget() {
 
     // Load saved volume level
     if (localStorage['volume'] != null) {
