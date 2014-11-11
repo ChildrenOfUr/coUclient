@@ -56,18 +56,11 @@ class UserInterface {
   Element worldElement = querySelector('#world');
   Element playerHolder = querySelector("#playerHolder");
   Element layers = querySelector("#layers");
-  int worldWidth, worldHeight;
-
 
   // Music Meter Variables
   Element titleElement = querySelector('#trackTitle');
   Element artistElement = querySelector('#trackArtist');
   AnchorElement SClinkElement = querySelector('#SCLink');
-  Element volumeGlyph = querySelector('#volumeGlyph');
-  InputElement volumeSlider = querySelector('#volumeSlider *');
-
-
-
 
   //Location/Map Variables
   Element mapWindow = querySelector('#mapWindow');
@@ -94,7 +87,6 @@ class UserInterface {
   String location = 'null';
 
   bool muted = false;
-  int volume = 0;
   String SCsong = '-';
   String SCartist = '-';
   String SClink = '';
@@ -104,7 +96,7 @@ class UserInterface {
   // Object for manipulating meters.
   Meters meters = new Meters();
 
-
+  VolumeSlider slider = new VolumeSlider();
 
 
   loggedIn() {
@@ -133,21 +125,13 @@ class UserInterface {
     currTime.text = clock.time;
     currDate.text = clock.day + ' of ' + clock.month;
 
-    // Load saved volume level
-    if (localStorage['volume'] != null) {
-      volume = int.parse(localStorage['volume']);
-    } else volume = 10;
-    localStorage['volume'] = volume.toString();
-    volumeSlider.value = volume.toString();
+
 
     // The 'you won' splash
     window.onBeforeUnload.listen((_) {
       youWon.hidden = false;
     });
 
-    //Start listening for page resizes.
-    _resize();
-    window.onResize.listen((_) => _resize());
 
     // Listens for the pause button
     pauseButton.onClick.listen((_) {
@@ -155,18 +139,7 @@ class UserInterface {
     });
     pauseMenu.querySelector('.fa-times.close').onClick.listen((_) => pauseMenu.hidden = true);
 
-    // Controls the volume slider and glyph
-    volumeGlyph.onClick.listen((_) {
-      if (muted == true) {
-        volume = int.parse(localStorage['volume']);
-        muted = false;
-        volumeSlider.value = volume.toString();
-      } else if (muted == false) {
-        localStorage['volume'] = volume.toString();
-        muted = true;
-        volumeSlider.value = '0';
-      }
-    });
+
 
     new Service([#timeUpdate], (Message event) {
       currDay.text = clock.dayofweek;
@@ -182,12 +155,6 @@ class UserInterface {
 
   }
 
-  void _resize() {
-    worldWidth = worldElement.clientWidth;
-    worldHeight = worldElement.clientHeight;
-  }
-
-
 
   // update the userinterface
   update() {
@@ -197,30 +164,10 @@ class UserInterface {
     if (location != currLocation.text) currLocation.text = location;
 
 
-    // Update the audio icon
-    if (muted == true && volumeGlyph.classes.contains('fa-volume-up')) {
-      volumeGlyph.classes
-          ..remove('fa-volume-up')
-          ..add('fa-volume-off');
-    }
-    if (muted == false && volumeGlyph.classes.contains('fa-volume-off')) {
-      volumeGlyph.classes
-          ..remove('fa-volume-off')
-          ..add('fa-volume-up');
-    }
-
-    // Update the volume slider
-    if (int.parse(volumeSlider.value) == 0) muted = true; else muted = false;
-    if (volume != int.parse(volumeSlider.value)) {
-      volume = int.parse(volumeSlider.value);
-    }
-
-    // Updates the stored volume level
-    if (volume.toString() != localStorage['volume'] && muted == false) localStorage['volume'] = volume.toString();
 
     // Update all audioElements to the correct volume
     for (AudioElement audio in querySelectorAll('audio')) {
-      if (audio.volume != view.volume / 100) audio.volume = view.volume / 100;
+      if (audio.volume != view.slider.volume / 100) audio.volume = view.slider.volume / 100;
     }
 
     // Update the soundcloud widget

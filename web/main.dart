@@ -47,7 +47,7 @@ part 'package:couclient/src/display/userinterface.dart';
 part 'package:couclient/src/display/chatpanel.dart';
 part 'package:couclient/src/display/meters.dart';
 part 'package:couclient/src/display/toast.dart';
-part 'package:couclient/src/display/audio.dart';
+part 'package:couclient/src/systems/audio.dart';
 part 'package:couclient/src/display/render.dart';
 part 'package:couclient/src/display/loop.dart';
 
@@ -58,6 +58,10 @@ part 'package:couclient/src/display/windows/bag_window.dart';
 part 'package:couclient/src/display/windows/bug_window.dart';
 part 'package:couclient/src/display/windows/map_window.dart';
 part 'package:couclient/src/display/windows/vendor_window.dart';
+
+// WIDGET MODULES //
+part 'package:couclient/src/display/widgets/volumeslider.dart';
+
 
 // STREET RENDERING MODULES //
 part 'package:couclient/src/display/render/camera.dart';
@@ -98,8 +102,6 @@ InputManager inputManager;
 Game game;
 
 main() {
-  errService;
-
   new AuthManager();
 
   view = new UserInterface();

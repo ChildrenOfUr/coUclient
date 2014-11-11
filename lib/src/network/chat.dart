@@ -1,6 +1,5 @@
 part of couclient;
 
-// TODO Add documentation to the doc folder that outlines the format outgoing chat messages must adhere to.
 class NetChatManager {
   WebSocket _connection;
   String _chatServerUrl = 'ws://$websocketServerAddress/chat';

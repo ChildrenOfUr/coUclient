@@ -1,16 +1,14 @@
 part of couclient;
 
-
-// Sends events to the bus
 class ClockManager {
   ClockManager() {
     // Take each of the 'clock's streams, and when there is an event, broadcast this to the manager's subscribers.
     clock.onUpdate.listen((List timedata) {
       new Message(#timeUpdate,timedata);
-    });    
+    });
     clock.onNewDay.listen((_) {
-      new Message(#newDay,null); // The fact the event fires is all that's important here. 
-    });    
+      new Message(#newDay,null); // The fact the event fires is all that's important here.
+    });
   }
 }
 
@@ -23,14 +21,14 @@ class Clock {
   StreamController _newdayController, _timeupdateController, _holidayController;
   Stream onUpdate, onNewDay, onHoliday;
   String _dayofweek, _year,  _day, _month, _time;
-  
+
   // Getters, so they can only be written by the Clock
   String get dayofweek => _dayofweek;
   String get year => _year;
   String get day => _day;
   String get month => _month;
   String get time => _time;
-  
+
   Clock() {
     _newdayController = new StreamController.broadcast();
     _timeupdateController = new StreamController.broadcast();
@@ -38,37 +36,37 @@ class Clock {
     onUpdate = _timeupdateController.stream;
     onNewDay = _newdayController.stream;
     onHoliday = _holidayController.stream;
-    
+
     _sendEvents();
     // Time update Timer.
     new Timer.periodic(new Duration(seconds: 10), (_) => _sendEvents());
   }
   // timer has updated, send out required events and update interfaces.
   _sendEvents() {
-    
+
     // Year, month, day, week, time
     List data = _getDate();
-    
+
     if (data[4] != time) {
-      
+
       _dayofweek = data[3];
       _time = data[4];
       _day = data[2];
       _month = data[1];
       _year = data[0];
-      
-      // Clock update stream 
-      _timeupdateController.add([time,day,dayofweek,month,year]); 
-      
+
+      // Clock update stream
+      _timeupdateController.add([time,day,dayofweek,month,year]);
+
       // New Day update stream
       if (time == '12:00am') // It's a new day!
         _newdayController.add('new day!');
-      
+
       //TODO implement holiday checking
-      
+
     }
-    
-  }  
+
+  }
 }
 
 

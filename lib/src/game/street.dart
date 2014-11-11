@@ -248,8 +248,8 @@ class Street
     //only update if camera x,y have changed since last render cycle
     if(camera.dirty)
     {
-      num currentPercentX = camera.getX() / (bounds.width - view.worldWidth);
-      num currentPercentY = camera.getY() / (bounds.height - view.worldHeight);
+      num currentPercentX = camera.getX() / (bounds.width - view.worldElement.clientWidth);
+      num currentPercentY = camera.getY() / (bounds.height - view.worldElement.clientHeight);
 
       //modify left and top for parallaxing
       Map<String,DivElement> transforms = new Map();
@@ -257,8 +257,8 @@ class Street
       {
         int canvasWidth = num.parse(canvas.style.width.replaceAll('px', '')).toInt();
         int canvasHeight = num.parse(canvas.style.height.replaceAll('px', '')).toInt();
-        double offsetX = (canvasWidth - view.worldWidth) * currentPercentX;
-        double offsetY = (canvasHeight - view.worldHeight) * currentPercentY;
+        double offsetX = (canvasWidth - view.worldElement.clientWidth) * currentPercentX;
+        double offsetY = (canvasHeight - view.worldElement.clientHeight) * currentPercentY;
 
         int groundY = num.parse(canvas.attributes['ground_y']).toInt();
         offsetY += groundY;

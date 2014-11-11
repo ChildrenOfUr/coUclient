@@ -17,7 +17,7 @@ String parseEmoji(String message) {
   RegExp regex = new RegExp(":(.+?):");
   message.splitMapJoin(regex, onMatch: (Match m) {
     String match = m[1];
-    if (EMOTICONS.contains(match)) returnString += '<img style="height:1em;" class="Emoticon" src="packages/couclient/emoticons/$match.svg"></img>'; else returnString += m[0];
+    if (EMOTICONS.contains(match)) returnString += '<img style="height:1em;" class="Emoticon" src="assets/emoticons/$match.svg"></img>'; else returnString += m[0];
   }, onNonMatch: (String s) => returnString += s);
 
   return returnString;
@@ -111,39 +111,36 @@ class Chat {
       removeOtherPlayer(data["username"]);
     }
 
-    if (data["statusMessage"] == "changeName")
-    {
-		if (data["success"] == "true")
-		{
-			removeOtherPlayer(data["username"]);
+    if (data["statusMessage"] == "changeName") {
+      if (data["success"] == "true") {
+        removeOtherPlayer(data["username"]);
 
-			//although this message is broadcast to everyone, only change usernames
-			//if we were the one to type /setname
-			if (data["newUsername"] == game.username)
-			{
-				CurrentPlayer.username = data['newUsername'];
-				CurrentPlayer.loadAnimations();
+        //although this message is broadcast to everyone, only change usernames
+        //if we were the one to type /setname
+        if (data["newUsername"] == game.username) {
+          CurrentPlayer.username = data['newUsername'];
+          CurrentPlayer.loadAnimations();
 
-				//clear our inventory so we can get the new one
-				view.inventory.querySelectorAll('.box').forEach((Element box)
-						=> box.children.clear());
-				firstConnect = true;
-				joined = "";
-				sendJoinedMessage(currentStreet.label);
+          //clear our inventory so we can get the new one
+          view.inventory.querySelectorAll('.box').forEach((Element box) => box.children.clear());
+          firstConnect = true;
+          joined = "";
+          sendJoinedMessage(currentStreet.label);
 
-				//warn multiplayer server that it will receive messages
-				//from a new name but it should be the same person
-				data['street'] = currentStreet.label;
-				playerSocket.send(JSON.encode(data));
+          //warn multiplayer server that it will receive messages
+          //from a new name but it should be the same person
+          data['street'] = currentStreet.label;
+          playerSocket.send(JSON.encode(data));
 
-				timeLast = 5.0;
-			}
+          timeLast = 5.0;
+        }
 
-			connectedUsers.remove(data["username"]);
-            connectedUsers.add(data["newUsername"]);
-		}
-
-		addMessage(data['username'], data['message']);
+        connectedUsers.remove(data["username"]);
+        connectedUsers.add(data["newUsername"]);
+      }
+    }
+    else {
+      addMessage(data['username'], data['message']);
     }
   }
 

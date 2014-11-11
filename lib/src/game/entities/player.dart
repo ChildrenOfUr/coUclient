@@ -392,39 +392,40 @@ class Player
 		else
 			prevY = 0;
 
-		num translateX = posX, translateY = view.worldHeight - height;
+		num translateX = posX, translateY = view.worldElement.clientWidth - height;
+
 		num camX = camera.getX(), camY = camera.getY();
-		if(posX > currentStreet.bounds.width - width/2 - view.worldWidth/2)
+		if(posX > currentStreet.bounds.width - width/2 - view.worldElement.clientWidth/2)
 		{
-			camX = currentStreet.bounds.width - view.worldWidth;
-			translateX = posX - currentStreet.bounds.width + view.worldWidth; //allow character to move to screen right
+			camX = currentStreet.bounds.width - view.worldElement.clientWidth;
+			translateX = posX - currentStreet.bounds.width + view.worldElement.clientWidth; //allow character to move to screen right
 		}
-		else if(posX + width/2 > view.worldWidth/2)
+		else if(posX + width/2 > view.worldElement.clientWidth/2)
 		{
-			camX = posX + width/2 - view.worldWidth/2;
-			translateX = view.worldWidth/2 - width/2; //keep character in center of screen
+			camX = posX + width/2 - view.worldElement.clientWidth/2;
+			translateX = view.worldElement.clientWidth/2 - width/2; //keep character in center of screen
 		}
 		else
 			camX = 0;
 
-		if(posY + height/2 < view.worldHeight/2)
+		if(posY + height/2 < view.worldElement.clientWidth/2)
 		{
 			camY = 0;
 			translateY = posY;
 		}
-		else if(posY < currentStreet.bounds.height - height/2 - view.worldHeight/2)
+		else if(posY < currentStreet.bounds.height - height/2 - view.worldElement.clientHeight/2)
 		{
 			num yDistanceFromBottom = currentStreet.bounds.height - posY - height/2;
-			camY = currentStreet.bounds.height - (yDistanceFromBottom + view.worldHeight/2);
-			translateY = view.worldHeight/2 - height/2;
+			camY = currentStreet.bounds.height - (yDistanceFromBottom + view.worldElement.clientHeight/2);
+			translateY = view.worldElement.clientHeight/2 - height/2;
 		}
 		else
 		{
-			camY = currentStreet.bounds.height - view.worldHeight;
-			translateY = view.worldHeight - (currentStreet.bounds.height - posY);
+			camY = currentStreet.bounds.height - view.worldElement.clientHeight;
+			translateY = view.worldElement.clientHeight - (currentStreet.bounds.height - posY);
 		}
 
-		camera.setCamera((camX~/1).toString()+','+(camY~/1).toString());
+		camera.setCameraPosition(camX~/1,camY~/1);
 
 		//translateZ forces the whole operation to be gpu accelerated (which is very good)
 		String transform = 'translateX('+translateX.toString()+'px) translateY('+translateY.toString()+'px)';

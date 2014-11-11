@@ -3,7 +3,6 @@ part of couclient;
 
 
 class SoundManager {
-
   Map<String, Sound> gameSounds = {};
   Map<String, AudioChannel> audioChannels = {};
   bool useWebAudio = true;
@@ -17,6 +16,7 @@ class SoundManager {
   AudioInstance currentAudioInstance;
 
   SoundManager() {
+
     init().then((_) {
       new Service([#playSong],(Message event) {
           event.content = event.content.replaceAll(' ', '');
@@ -37,8 +37,8 @@ class SoundManager {
   Future init() {
 
     try {
-      audioChannels['soundEffects'] = new AudioChannel("soundEffects")..gain = view.volume / 100;
-      audioChannels['music'] = new AudioChannel("music")..gain = view.volume / 100;
+      audioChannels['soundEffects'] = new AudioChannel("soundEffects")..gain = view.slider.volume / 100;
+      audioChannels['music'] = new AudioChannel("music")..gain = view.slider.volume / 100;
     } catch (e) {
       print("browser does not support web audio: $e");
       useWebAudio = false;
@@ -120,7 +120,7 @@ class SoundManager {
       } else {
         AudioElement loading = ASSET[name].get();
         loading.loop = looping;
-        loading.volume = view.volume / 100;
+        loading.volume = view.slider.volume / 100;
         if (parentElement != null) parentElement.append(loading);
         loading.play();
         return loading;
