@@ -17,5 +17,8 @@
 #SCwidget * {
   color:#777;
 }
+#SCwidget span, #SCwidget img {
+  cursor:pointer;
+}
 #SCwidget .fa {
 }
