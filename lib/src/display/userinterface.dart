@@ -3,12 +3,6 @@ part of couclient;
 UserInterface view;
 
 class UserInterface {
-
-  //NumberFormat for having commas in the currants and iMG displays
-  NumberFormat commaFormatter = new NumberFormat("#,###");
-
-  // If you need to change an element somewhere else, put the declaration in this class.
-  // You can then access it with 'ui.yourElement'. This way we keep everything in one spot
   /////////////////////ELEMENTS//////////////////////////////////////////////
   // you won! element
   Element youWon = querySelector('#youWon');
@@ -25,9 +19,6 @@ class UserInterface {
   Element mapLoadingScreen = querySelector('#MapLoadingScreen');
   Element mapLoadingContent = querySelector('#MapLoadingContent');
 
-  // Name Meter Variables
-  Element nameElement = querySelector('#playerName');
-
   // Time Meter Variables
   Element currDay = querySelector('#currDay');
   Element currTime = querySelector('#currTime');
@@ -39,12 +30,6 @@ class UserInterface {
 
   // Settings Glyph
   Element settingsButton = querySelector('#settingsGlyph');
-
-  // Currant Meter Variables
-  Element currantElement = querySelector('#currCurrants');
-
-  // Img Meter Variables
-  Element imgElement = querySelector('#currImagination');
 
   // Inventory Management
   Element inventorySearch = querySelector('#inventorySearch');
@@ -64,8 +49,6 @@ class UserInterface {
   InputElement bugReportEmail = querySelector('#bugWindow article input[type="email"]');
   SelectElement bugReportType = querySelector('#bugWindow article #reportCategory');
 
-  Element consoleText = new DivElement();//querySelector('.dialog.console');
-
   // main Element
   Element mainElement = querySelector('main');
 
@@ -84,18 +67,7 @@ class UserInterface {
   InputElement volumeSlider = querySelector('#volumeSlider *');
 
 
-  // Energy Meter Variables
-  Element energymeterImage = querySelector('#energyDisks .green');
-  Element energymeterImageLow = querySelector('#energyDisks .red');
-  Element currEnergyText = querySelector('#currEnergy');
-  Element maxEnergyText = querySelector('#maxEnergy');
 
-  // Mood Meter Variables
-  Element moodmeterImageLow = querySelector('#leftDisk .hurt');
-  Element moodmeterImageEmpty = querySelector('#leftDisk .dead');
-  Element currMoodText = querySelector('#moodMeter .fraction .curr');
-  Element maxMoodText = querySelector('#moodMeter .fraction .max');
-  Element moodPercent = querySelector('#moodMeter .percent .number');
 
   //Location/Map Variables
   Element mapWindow = querySelector('#mapWindow');

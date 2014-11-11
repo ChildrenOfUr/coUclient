@@ -7,8 +7,6 @@ class VendorWindow extends Modal {
   Element buy;
   Element currants;
 
-
-
   Element backToSell;
 
   Element backToBuy;
@@ -49,7 +47,7 @@ class VendorWindow extends Modal {
   call(Map vendorMap) {
 
     header.text = vendorMap['vendorName'];
-    currants.text = " ${view.commaFormatter.format(metabolics.getCurrants())} currants";
+    currants.text = " ${commaFormatter.format(metabolics.getCurrants())} currants";
 
     new List.from(buy.children)..forEach((child) => child.remove());
 
@@ -104,7 +102,7 @@ class VendorWindow extends Modal {
       if (metabolics.getCurrants() < item['price'] * numToBuy) return;
       int newValue = metabolics.getCurrants() - item['price'] * numToBuy;
       metabolics.setCurrants(newValue);
-      currants.text = " ${view.commaFormatter.format(metabolics.getCurrants())} currants";
+      currants.text = " ${commaFormatter.format(metabolics.getCurrants())} currants";
       sendAction("buyItem", vendorMap['id'], {
         "itemName": item['name'],
         "num": numToBuy
@@ -161,9 +159,9 @@ class VendorWindow extends Modal {
 /*
 class VendorWindow_old {
   /**
-	 * 
+	 *
 	 * Creates the UI for a vendor window and returns a reference to the root element
-	 * 
+	 *
 	 **/
   static Element create(Map vendorMap) {
     DivElement VendorWindow_old = new DivElement()
@@ -233,9 +231,9 @@ class VendorWindow_old {
   }
 
   /**
-	 * 
+	 *
 	 * Finds this window in the document and removes it
-	 * 
+	 *
 	 **/
   static void destroy() {
     Element window = querySelector("#VendorWindow_old");

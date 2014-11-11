@@ -29,6 +29,7 @@ class Game {
     multiplayerInit();
     CurrentPlayer = new Player(username);
     view.meters.updateNameDisplay();
+    audio.setSong('highlands');
 
     CurrentPlayer.loadAnimations().then((_) {
       CurrentPlayer.currentAnimation = CurrentPlayer.animations['idle'];

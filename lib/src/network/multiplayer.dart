@@ -3,6 +3,8 @@ part of couclient;
 String websocketServerAddress = 'robertmcdermot.com:8282';
 double clientVersion = 0.08;
 
+
+
 String multiplayerServer = "ws://$websocketServerAddress/playerUpdate";
 String streetEventServer = "ws://$websocketServerAddress/streetUpdate";
 String joined = "", creatingPlayer = "";

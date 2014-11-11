@@ -48,7 +48,7 @@ class AuthManager {
       // Begin Game//
       game = new Game();
 
-      soundManager = new SoundManager();
+      audio = new SoundManager();
       view.loggedIn();
     });
   }

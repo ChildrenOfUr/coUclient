@@ -67,7 +67,7 @@ class Street
 
     // set the song loading if necessary
     if (streetData['music'] != null)
-      soundManager.setSong(streetData['music']);
+      audio.setSong(streetData['music']);
 
     // Collect the url's of each deco to load.
     List decosToLoad = [];

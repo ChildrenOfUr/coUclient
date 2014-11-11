@@ -85,11 +85,14 @@ part 'package:couclient/src/game/entities/quoin.dart';
 part 'package:couclient/src/display/ui_templates/interactions_menu.dart';
 part 'package:couclient/src/display/ui_templates/right_click_menu.dart';
 
+
+
 // Globals //
 Storage sessionStorage = window.sessionStorage;
 Storage localStorage = window.localStorage;
 Random random = new Random();
-SoundManager soundManager;
+NumberFormat commaFormatter = new NumberFormat("#,###");
+SoundManager audio;
 InputManager inputManager;
 
 Game game;

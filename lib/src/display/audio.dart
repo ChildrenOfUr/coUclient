@@ -36,15 +36,6 @@ class SoundManager {
 
   Future init() {
 
-
-    new Asset('assets/audio/loading.mp3').load().then((_) {
-      //start the loading music and attach it to the #LoadingScreen so that when that is removed the music stops
-      if (view.volume > 0 && view.muted == false) {
-        playSound('loading', parentElement: querySelector('#LoadingScreen'), looping: false);
-      }
-    });
-
-
     try {
       audioChannels['soundEffects'] = new AudioChannel("soundEffects")..gain = view.volume / 100;
       audioChannels['music'] = new AudioChannel("music")..gain = view.volume / 100;
@@ -220,6 +211,7 @@ class SoundManager {
     view.SCsong = currentSong.meta['title'];
     view.SCartist = currentSong.meta['user']['username'];
     view.SClink = currentSong.meta['permalink_url'];
+    view.update();
   }
 
 }

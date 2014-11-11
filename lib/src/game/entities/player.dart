@@ -470,7 +470,7 @@ class Player
 
 		if(intersect(avatarRect,quoinRect))
 		{
-			soundManager.playSound('quoinSound');
+			audio.playSound('quoinSound');
 
 			element.attributes['collected'] = "true";
 
