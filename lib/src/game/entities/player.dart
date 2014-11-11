@@ -408,7 +408,7 @@ class Player
 		else
 			camX = 0;
 
-		if(posY + height/2 < view.worldElement.clientWidth/2)
+		if(posY + height/2 < view.worldElement.clientHeight/2)
 		{
 			camY = 0;
 			translateY = posY;
