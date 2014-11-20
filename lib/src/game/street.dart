@@ -55,7 +55,6 @@ class Street
 	// set the street.
 
     currentStreet = this;
-    print(this.streetData);
     _setupStreetSocket(currentStreet.label);
   }
 

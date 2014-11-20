@@ -25,9 +25,8 @@ class AuthManager {
     HttpRequest.request(_authUrl + "/login", method: "POST", requestHeaders: {
       "content-type": "application/json"
     }, sendData: JSON.encode({
-      'assertion': personaAssertion, 'testing':true
+      'assertion': personaAssertion
     })).then((HttpRequest data) {
-      print(data.response);
       Map serverdata = JSON.decode(data.response);
 
       if (serverdata['ok'] == 'no') {
