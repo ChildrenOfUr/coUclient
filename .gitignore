@@ -2,7 +2,9 @@ packages
 out
 pubspec.lock
 .buildlog
-APIKEYS.dart
+.pub
+.idea
+API_KEYS.json
 web/*.js*
 build/
 *.orig

@@ -1,0 +1,50 @@
+#overlayHolder {
+  width:100%;
+  height:100%;
+}
+
+.overlay {
+  pointer-events:auto;
+  position:absolute;
+  top:0%;
+  left:0%;
+  width:100%;
+  height:100%;
+  z-index: 900;
+}
+.overlay .close {
+  position:absolute;
+  top:10px;
+  font-size:1.5em;
+  left:calc(100% - 2em);
+  cursor: pointer;
+}
+
+#pauseMenu {
+  background-color:rgba(0,0,0,0.5);
+}
+#pauseMenu * {
+  color:#fff;
+}
+
+#pauseMenu.fa-close:hover {
+  box-shadow: 0 1px 50px 20px rgba(255,255,255,0.1);
+}
+
+#pauseMenu #pauseSkills {
+  position:absolute;
+  left:calc(40% - 5em);
+  top:10%;
+}
+
+#pauseMenu #pauseQuests {
+  position:absolute;
+  right:calc(50% - 3em);
+  top:10%;
+}
+
+#pauseMenu #pauseUpgrades {
+  position:absolute;
+  right:calc(35% - 6em);
+  top:10%;
+}

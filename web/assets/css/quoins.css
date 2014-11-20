@@ -1,0 +1,62 @@
+/*///////////////////////////////
+quoin graphic
+*/
+.inner {
+    /* shrink-to-fit width */
+    display: inline-block;
+    position: relative;
+    /* shift left edge of text to center */
+    left: 50%;
+}
+
+.circle {  
+    -webkit-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+    background: rgba( 255,255,255, 0.22 );
+    border-radius: 100%;
+    border: 3px solid white;
+    color: white;
+    font-family: sans-serif;
+    
+    -webkit-transform: scale( 0.01 );
+    transform: scale( 0.01 );
+    
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+}
+.parent {  
+    -webkit-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+    border-radius: 100%;
+    border: 3px solid rgba(0, 0, 0, 0);
+    color: white;
+    font-family: sans-serif;
+    
+    -webkit-transform: scale( 0.01 );
+    transform: scale( 0.01 );
+    
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+}
+
+.circleExpand {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+}
+
+.quoinString {
+    opacity: 0;
+    /* shift left edge of text half distance to left */
+    margin-left: -50%;
+    /* text should all be on one line */
+    white-space: nowrap;
+    font-size: x-large;
+    -webkit-transition: all .2s ease-out .2s;
+    transition: all .2s ease-out .2s;
+    color: #fff;
+}
+.circleExpand .quoinString {
+    opacity: 1;
+}

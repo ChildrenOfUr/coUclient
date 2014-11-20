@@ -1,0 +1,30 @@
+name: couclient
+description: 'Children of Ur :: Webclient'
+dependencies:
+  browser: any
+  dnd: any
+  gorgon: any
+  intl: any
+  libld:
+    git:
+      ref: master
+      url: https://github.com/ChildrenOfUr/libld
+  persona:
+    git:
+      ref: master
+      url: https://github.com/ChildrenOfUr/dart-persona.git
+  pump:
+    git:
+      ref: master
+      url: https://github.com/ppvk/pump.git
+  scproxy:
+    git:
+      ref: master
+      url: https://github.com/ChildrenOfUr/scproxy
+  slack:
+    git:
+      ref: master
+      url: https://github.com/ChildrenOfUr/dart-slack.git
+transformers:
+- $dart2js:
+    minify: true

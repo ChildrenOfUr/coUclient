@@ -1,0 +1,18 @@
+#toastHolder {
+  position:absolute;
+  top:55px;
+  right:280px; 
+  width:170px;
+}
+
+.toast {
+  opacity:0;
+  background:#000;
+  text-align:center;
+  color:#fff;
+  border-radius:10px;
+  font-size:12px;
+  padding:3px;
+  margin:2px;
+  transition:all 500ms;
+}
