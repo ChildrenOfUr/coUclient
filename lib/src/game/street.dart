@@ -29,8 +29,8 @@ class Street
     label = streetData['label'];
     hub_id = streetData['hub_id'];
 
-    if(game.username != null)
-    	sendLeftMessage(label);
+    if(game.username != null && currentStreet != null)
+    	sendLeftMessage(currentStreet.label);
 
     bounds = new Rectangle(streetData['dynamic']['l'],
                 streetData['dynamic']['t'],
@@ -53,7 +53,10 @@ class Street
 		otherPlayers.clear();
 
 	// set the street.
+
     currentStreet = this;
+    print(this.streetData);
+    _setupStreetSocket(currentStreet.label);
   }
 
   Future <List> load()

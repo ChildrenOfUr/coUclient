@@ -113,7 +113,7 @@ _setupStreetSocket(String streetName)
 			String id = plantMap["id"];
             Element element = querySelector("#$id");
             Plant plant = entities[plantMap["id"]];
-			if(plant == null)
+			if(element == null)
 				addPlant(plantMap);
 			else
 			{
@@ -129,7 +129,7 @@ _setupStreetSocket(String streetName)
 			String id = npcMap["id"];
             Element element = querySelector("#$id");
             NPC npc = entities[npcMap["id"]];
-			if(npc == null)
+			if(element == null)
 				addNPC(npcMap);
 			else
 			{
