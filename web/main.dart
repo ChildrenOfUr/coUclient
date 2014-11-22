@@ -102,9 +102,9 @@ AuthManager auth;
 Game game;
 
 main() {
+  view = new UserInterface();
   auth = new AuthManager();
 
-  view = new UserInterface();
   // System
   new ClockManager();
   new CommandManager();

@@ -62,4 +62,5 @@ class AuthManager {
       _personaNavigator.logout();
       window.location.reload();
   }
+
 }
