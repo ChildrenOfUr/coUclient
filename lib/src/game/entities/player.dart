@@ -65,6 +65,11 @@ class Player
 		view.worldElement.append(playerParentElement);
 	}
 
+	remove() {
+    for (Element element in this.playerParentElement.children)
+      element.remove();
+	}
+
 	Future<List<Animation>> loadAnimations()
 	{
 		//need to get background images from some server for each player based on name

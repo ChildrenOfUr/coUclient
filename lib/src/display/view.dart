@@ -69,6 +69,9 @@ class UserInterface {
 
   Element conversationArchive = querySelector("#conversationArchive");
 
+  // bugreport button
+  Element logoutButton = querySelector('#signoutGlyph');
+
 
   //fps meter
   Element fpsDisplay = querySelector('#fps');
@@ -114,6 +117,13 @@ class UserInterface {
     currDay.text = clock.dayofweek;
     currTime.text = clock.time;
     currDate.text = clock.day + ' of ' + clock.month;
+
+
+
+    // Listens for the logout button
+    logoutButton.onClick.listen((_) {
+      auth.logout();
+    });
 
 
 

@@ -98,11 +98,11 @@ Random random = new Random();
 NumberFormat commaFormatter = new NumberFormat("#,###");
 SoundManager audio;
 InputManager inputManager;
-
+AuthManager auth;
 Game game;
 
 main() {
-  new AuthManager();
+  auth = new AuthManager();
 
   view = new UserInterface();
   // System

@@ -9,12 +9,15 @@ String SESSION_TOKEN;
 class AuthManager {
   String _authUrl = 'https://robertmcdermot.com:8383/auth';
 
+  Persona _personaNavigator;
+  Element _loginButton;
+
   AuthManager() {
     // Starts the game
-    Element loginButton = querySelector('#login-button');
-    Persona personaNavigator = new Persona('', verifyWithServer, logout);
-    loginButton.onClick.listen((_) {
-      personaNavigator.request({
+    _loginButton = querySelector('#login-button');
+    _personaNavigator = new Persona('', verifyWithServer, _logout);
+    _loginButton.onClick.listen((_) {
+      _personaNavigator.request({
         'backgroundColor': '#4b2e4c',
         'siteName': 'Children of Ur'
       });
@@ -53,6 +56,13 @@ class AuthManager {
   }
 
   void logout() {
+      _personaNavigator.logout();
+      window.location.reload();
+  }
+  void _logout() {
+    if (CurrentPlayer != null)
+      CurrentPlayer.remove();
+    view.loggedOut();
   }
 
 }
