@@ -15,16 +15,18 @@ class AuthManager {
   AuthManager() {
     // Starts the game
     _loginButton = querySelector('#login-button');
-    _personaNavigator = new Persona('', verifyWithServer, _logout);
+    _personaNavigator = new Persona('', verifyWithServer, view.loggedOut);
     _loginButton.onClick.listen((_) {
       _personaNavigator.request({
         'backgroundColor': '#4b2e4c',
         'siteName': 'Children of Ur'
       });
+      _loginButton.hidden = true;
     });
   }
 
   void verifyWithServer(String personaAssertion) {
+    _loginButton.hidden = true;
     HttpRequest.request(_authUrl + "/login", method: "POST", requestHeaders: {
       "content-type": "application/json"
     }, sendData: JSON.encode({
@@ -34,6 +36,7 @@ class AuthManager {
 
       if (serverdata['ok'] == 'no') {
         print('Error:Server refused the login attempt.');
+        _loginButton.hidden = false;
         return;
       }
 
@@ -59,10 +62,4 @@ class AuthManager {
       _personaNavigator.logout();
       window.location.reload();
   }
-  void _logout() {
-    if (CurrentPlayer != null)
-      CurrentPlayer.remove();
-    view.loggedOut();
-  }
-
 }
