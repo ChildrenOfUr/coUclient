@@ -1,7 +1,7 @@
 part of couclient;
 
 List<String> EMOTICONS;
-List<String> COLORS = ["aqua", "blue", "fuchsia", "gray", "green", "lime", "maroon", "navy", "olive", "orange", "purple", "red", "teal"];
+List<String> COLORS = ["blue", "deepskyblue", "fuchsia", "gray", "green", "lime", "maroon", "navy", "olive", "orange", "purple", "red", "teal"];
 List<Chat> openConversations = [];
 
 // global functions
