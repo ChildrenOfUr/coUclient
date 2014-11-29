@@ -27,19 +27,23 @@ class AuthManager {
 
   void verifyWithServer(String personaAssertion) {
     _loginButton.hidden = true;
-    Timer tooLongTimer = new Timer(new Duration(seconds: 1),(){
+    
+    Timer tooLongTimer = new Timer(new Duration(seconds: 4),(){
       SpanElement greeting = querySelector('#greeting');
       greeting.text = '''
 Oh no!
 Looks like the server is a bit slow. 
 Please check back another time. :(''';
     });
+    
     HttpRequest.request(_authUrl + "/login", method: "POST", requestHeaders: {
       "content-type": "application/json"
     }, sendData: JSON.encode({
       'assertion': personaAssertion 
-    })).then((HttpRequest data) {
+    }))
+      ..then((HttpRequest data) {
       tooLongTimer.cancel();
+      
       Map serverdata = JSON.decode(data.response);
 
       if (serverdata['ok'] == 'no') {
