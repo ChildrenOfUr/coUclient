@@ -293,16 +293,16 @@ class Player
 			if(intersect(avatarRect,entityRect))
 			{
 				if(entities[element.id] != null)
-				entities[element.id].updateGlow(true);
+					entities[element.id].updateGlow(true);
 
 				intersectingObjects[element.id] = entityRect;
 			}
 			else
 			{
 				if(entities[element.id] != null)
-				entities[element.id].updateGlow(false);
+					entities[element.id].updateGlow(false);
 			}
-			});
+		});
 	}
 
 	void render()
@@ -392,37 +392,37 @@ class Player
 		else
 			prevY = 0;
 
-		num translateX = posX, translateY = view.worldElement.clientWidth - height;
+		num translateX = posX, translateY = view.worldElementWidth - height;
 
 		num camX = camera.getX(), camY = camera.getY();
-		if(posX > currentStreet.bounds.width - width/2 - view.worldElement.clientWidth/2)
+		if(posX > currentStreet.bounds.width - width/2 - view.worldElementWidth/2)
 		{
-			camX = currentStreet.bounds.width - view.worldElement.clientWidth;
-			translateX = posX - currentStreet.bounds.width + view.worldElement.clientWidth; //allow character to move to screen right
+			camX = currentStreet.bounds.width - view.worldElementWidth;
+			translateX = posX - currentStreet.bounds.width + view.worldElementWidth; //allow character to move to screen right
 		}
-		else if(posX + width/2 > view.worldElement.clientWidth/2)
+		else if(posX + width/2 > view.worldElementWidth/2)
 		{
-			camX = posX + width/2 - view.worldElement.clientWidth/2;
-			translateX = view.worldElement.clientWidth/2 - width/2; //keep character in center of screen
+			camX = posX + width/2 - view.worldElementWidth/2;
+			translateX = view.worldElementWidth/2 - width/2; //keep character in center of screen
 		}
 		else
 			camX = 0;
 
-		if(posY + height/2 < view.worldElement.clientHeight/2)
+		if(posY + height/2 < view.worldElementHeight/2)
 		{
 			camY = 0;
 			translateY = posY;
 		}
-		else if(posY < currentStreet.bounds.height - height/2 - view.worldElement.clientHeight/2)
+		else if(posY < currentStreet.bounds.height - height/2 - view.worldElementHeight/2)
 		{
 			num yDistanceFromBottom = currentStreet.bounds.height - posY - height/2;
-			camY = currentStreet.bounds.height - (yDistanceFromBottom + view.worldElement.clientHeight/2);
-			translateY = view.worldElement.clientHeight/2 - height/2;
+			camY = currentStreet.bounds.height - (yDistanceFromBottom + view.worldElementHeight/2);
+			translateY = view.worldElementHeight/2 - height/2;
 		}
 		else
 		{
-			camY = currentStreet.bounds.height - view.worldElement.clientHeight;
-			translateY = view.worldElement.clientHeight - (currentStreet.bounds.height - posY);
+			camY = currentStreet.bounds.height - view.worldElementHeight;
+			translateY = view.worldElementHeight - (currentStreet.bounds.height - posY);
 		}
 
 		camera.setCameraPosition(camX~/1,camY~/1);

@@ -54,6 +54,7 @@ class UserInterface {
 
   // world Element
   Element worldElement = querySelector('#world');
+  int worldElementWidth, worldElementHeight;
   Element playerHolder = querySelector("#playerHolder");
   Element layers = querySelector("#layers");
 
@@ -142,7 +143,16 @@ class UserInterface {
       for (Element button in loadingScreen.querySelectorAll('.button')) button.hidden = false;
     });
 
+    //listen for resizing of the window so we can keep track of how large the
+    //world element is so that we don't remeasure it often
+    resize();
+    window.onResize.listen((_) => resize());
+  }
 
+  resize()
+  {
+  	worldElementWidth = worldElement.clientWidth;
+  	worldElementHeight = worldElement.clientHeight;
   }
 
 

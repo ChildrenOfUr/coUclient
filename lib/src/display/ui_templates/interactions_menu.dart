@@ -5,18 +5,18 @@ class InteractionWindow
 	static Element create()
 	{
 		DivElement interactionWindow = new DivElement()..id="InteractionWindow"..className="interactionWindow";
-		
+
 		DivElement header = new DivElement()..className="PopWindowHeader handle";
 		DivElement title = new DivElement()..id="InteractionTitle"..text="Interact With...";
 		SpanElement close = new SpanElement()..id="CloseInteraction"..className="fa fa-times fa-lg red PopCloseEmblem";
 		header..append(title)..append(close);
-		
+
 		DivElement content = new DivElement()..id="InteractionContent";
-		
+
 		interactionWindow..append(header)..append(content);
-		
+
     	close.onClick.first.then((_) => inputManager.stopMenu(interactionWindow));
-    	
+
         for(String id in CurrentPlayer.intersectingObjects.keys)
 		{
 			DivElement container = new DivElement()
@@ -48,13 +48,13 @@ class InteractionWindow
 			{
 				e.stopPropagation();
 				inputManager.stopMenu(interactionWindow);
-				inputManager.interactWithObject(id);
+				entities[id].interact(id);
 			});
 			content.append(container);
 		}
-        
+
         content.children.first.classes.add("entitySelected");
-        
+
         inputManager.menuKeyListener = document.onKeyDown.listen((KeyboardEvent k)
 		{
         	Map keys = inputManager.keys;
@@ -72,7 +72,8 @@ class InteractionWindow
 			if((k.keyCode == keys["ActionBindingPrimary"] || k.keyCode == keys["ActionBindingAlt"]) && !ignoreKeys) //spacebar and not typing
 			{
 				inputManager.stopMenu(interactionWindow);
-				inputManager.interactWithObject(content.querySelector('.entitySelected').children.first.attributes['id']);
+				String id = content.querySelector('.entitySelected').children.first.attributes['id'];
+				entities[id].interact(id);
 			}
 		});
         document..onKeyUp.listen((KeyboardEvent k)
@@ -81,10 +82,10 @@ class InteractionWindow
 				inputManager.stopMenu(interactionWindow);
 		});
 		document.onClick.listen((_) => inputManager.stopMenu(interactionWindow));
-	
+
 		return interactionWindow;
 	}
-	
+
 	static void destroy()
 	{
 		querySelector("#InteractionWindow").remove();

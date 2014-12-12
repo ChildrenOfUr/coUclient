@@ -97,15 +97,6 @@ class Street
 
       int groundY = -(streetData['dynamic']['ground_y'] as num).abs();
 
-      DivElement interactionCanvas = new DivElement()
-        ..classes.add('streetcanvas')
-        ..style.pointerEvents = "auto"
-        ..id = "interractions"
-        ..style.width = bounds.width.toString() + "px"
-        ..style.height = bounds.height.toString() + "px"
-        ..style.position = 'absolute'
-        ..attributes['ground_y'] = groundY.toString();
-
       /* //// Gradient Canvas //// */
       DivElement gradientCanvas = new DivElement();
       gradientCanvas.classes.add('streetcanvas');
@@ -212,8 +203,8 @@ class Street
 
 			if(signpost['w'] != null) w = signpost['w'];
 
-			int x = signpost['x'];
-			int y = signpost['y'] - h + groundY;
+			int x = signpost['x'] - w ~/ 2;
+			int y = signpost['y'] - h;
 
 			if(layer['name'] == 'middleground')
 			{
@@ -222,14 +213,12 @@ class Street
 				x += layer['w'] ~/ 2;
 			}
 
-			new Signpost(signpost, x, y, interactionCanvas, gradientCanvas);
+			new Signpost(signpost, x, y);
 		}
 
 		// Append the canvas to the screen
 		view.layers.append(decoCanvas);
 	}
-
-    view.layers.append(interactionCanvas);
 
     //display current street name
 	view.currLocation.text = label;

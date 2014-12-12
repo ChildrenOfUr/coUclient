@@ -1,10 +1,11 @@
 part of couclient;
 
-class Signpost
+class Signpost extends Entity
 {
 	DivElement pole;
+	List<Element> signs = [];
 
-	Signpost(Map signpost, int x, int y, DivElement interactionsCanvas, DivElement gradientCanvas)
+	Signpost(Map signpost, int x, int y)
 	{
 		int h = 200, w = 100;
 		if(signpost['h'] != null)
@@ -12,14 +13,23 @@ class Signpost
 		if(signpost['w'] != null)
 			w = signpost['w'];
 		pole = new DivElement()
+	        ..className = 'entity'
+			..attributes['translateX'] = x.toString()
+			..attributes['translateY'] = y.toString()
+			..attributes['width'] = w.toString()
+			..attributes['height'] = h.toString()
 	        ..style.backgroundImage = "url('http://childrenofur.com/locodarto/scenery/sign_pole.png')"
 	        ..style.backgroundRepeat = "no-repeat"
+	        ..style.pointerEvents = "auto"
 	        ..style.width = w.toString() + "px"
 	        ..style.height = h.toString() + "px"
 	        ..style.position = "absolute"
 	        ..style.top = y.toString() + "px"
-	        ..style.left = (x-48).toString() + "px";
-		interactionsCanvas.append(pole);
+	        ..style.left = x.toString() + "px";
+
+		String id = 'pole'+random.nextInt(50).toString();
+		pole.id = id;
+		entities[id] = this;
 
 		int i=0;
 		List signposts = signpost['connects'] as List;
@@ -33,26 +43,119 @@ class Signpost
 
 			String tsid = exit['tsid'].replaceFirst("L", "G");
 			SpanElement span = new SpanElement()
-        		..style.position = "absolute"
-  				..style.top = (y+i*25+10).toString() + "px"
-  				..style.left = x.toString() + "px"
+  				..style.top = (i*25+10).toString() + "px"
   				..text = exit["label"]
   				..className = "ExitLabel"
 				..attributes['url'] = 'http://RobertMcDermot.github.io/CAT422-glitch-location-viewer/locations/$tsid.callback.json'
 				..attributes['tsid'] = tsid
-				..attributes['from'] = currentStreet.label
-				..style.transform = "rotate(-5deg)";
+				..attributes['from'] = currentStreet.label;
+
+			pole.append(span);
+			signs.add(span);
 
 			if(i %2 != 0)
 			{
-				//this is a temporary append so that we can figure out its width
-  				gradientCanvas.append(span);
-  				span.style.left = (x-span.clientWidth).toString() + "px";
+  				span.style.right = '50%';
   				span.style.transform = "rotate(5deg)";
     		}
+			else
+			{
+				span.style.left = '50%';
+				span.style.transform = "rotate(-5deg)";
+			}
 
-    		interactionsCanvas.append(span);
     		i++;
   		}
+
+		view.playerHolder.append(pole);
+	}
+
+	update(dt){}
+
+	render()
+	{
+		if(dirty)
+		{
+			if(glow)
+				pole.classes.add('hovered');
+			else
+			{
+				pole.classes.remove('hovered');
+				signs.forEach((Element sign) => sign.classes.remove('hovered'));
+			}
+
+			dirty = false;
+		}
+	}
+
+	@override
+	void interact(String id)
+	{
+		//remove the glow around the pole and put one on the first sign
+		pole.classes.remove('hovered');
+		signs[0].classes.add('hovered');
+
+		inputManager.menuKeyListener = document.onKeyDown.listen((KeyboardEvent k)
+		{
+			Map keys = inputManager.keys;
+			bool ignoreKeys = inputManager.ignoreKeys;
+
+			if((k.keyCode == keys["UpBindingPrimary"] || k.keyCode == keys["UpBindingAlt"]) && !ignoreKeys) //up arrow or w and not typing
+				selectUp();
+			if((k.keyCode == keys["DownBindingPrimary"] || k.keyCode == keys["DownBindingAlt"]) && !ignoreKeys) //down arrow or s and not typing
+				selectDown();
+			if((k.keyCode == keys["LeftBindingPrimary"] || k.keyCode == keys["LeftBindingAlt"]) && !ignoreKeys) //left arrow or a and not typing
+				inputManager.stopMenu(null);
+			if((k.keyCode == keys["RightBindingPrimary"] || k.keyCode == keys["RightBindingAlt"]) && !ignoreKeys) //right arrow or d and not typing
+				inputManager.stopMenu(null);
+			if((k.keyCode == keys["JumpBindingPrimary"] || k.keyCode == keys["JumpBindingAlt"]) && !ignoreKeys) //spacebar and not typing
+				inputManager.stopMenu(null);
+			if((k.keyCode == keys["ActionBindingPrimary"] || k.keyCode == keys["ActionBindingAlt"]) && !ignoreKeys) //spacebar and not typing
+				clickSelected();
+		});
+		document.onClick.listen((_)
+		{
+			inputManager.stopMenu(null);
+		});
+	}
+
+	void selectUp()
+	{
+		int removed = 0;
+		for(int i=0; i<signs.length; i++)
+		{
+			if(signs[i].classes.remove('hovered'))
+				removed = i;
+		}
+		if(removed == 0)
+			signs[signs.length-1].classes.add('hovered');
+		else
+			signs[removed-1].classes.add('hovered');
+	}
+
+	void selectDown()
+	{
+		int removed = signs.length-1;
+		for(int i=0; i<signs.length; i++)
+		{
+			if(signs[i].classes.remove('hovered'))
+				removed = i;
+		}
+		if(removed == signs.length-1)
+			signs[0].classes.add('hovered');
+		else
+			signs[removed+1].classes.add('hovered');
+	}
+
+	void clickSelected()
+	{
+		signs.forEach((Element sign)
+		{
+			if(sign.classes.contains('hovered'))
+			{
+				inputManager.stopMenu(null);
+				sign.click();
+			}
+		});
 	}
 }

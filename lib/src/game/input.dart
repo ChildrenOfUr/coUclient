@@ -81,7 +81,7 @@ class InputManager {
     }
 
     //handle changing streets via exit signs
-	if (target.className == "ExitLabel")
+	if (target.className.contains("ExitLabel"))
 	{
 		//make sure loading screen is visible during load
 		view.mapLoadingScreen.className = "MapLoadingScreenIn";
@@ -194,7 +194,7 @@ class InputManager {
   		{
   			if(CurrentPlayer.intersectingObjects.length == 1)
   				CurrentPlayer.intersectingObjects.forEach(
-  						(String id, Rectangle rect) => interactWithObject(id));
+  						(String id, Rectangle rect) => entities[id].interact(id));
   			else
   				createMultiEntityWindow();
   		}
@@ -207,32 +207,6 @@ class InputManager {
   			oldWindow.remove();
 
   		document.body.append(InteractionWindow.create());
-  	}
-
-  	void interactWithObject(String id)
-  	{
-  		Element element = querySelector("#$id");
-  		List<List> actions = [];
-  		bool allDisabled = true;
-  		if(element.attributes['actions'] != null)
-  		{
-  			List<Map> actionsList = JSON.decode(element.attributes['actions']);
-  			actionsList.forEach((Map actionMap)
-  			{
-  				bool enabled = actionMap['enabled'];
-  				if(enabled)
-  					allDisabled = false;
-  				String error = "";
-  				if(actionMap['requires'] != null)
-  				{
-  					enabled = hasRequirements(actionMap['requires']);
-  					error = getRequirementString(actionMap['requires']);
-  				}
-  				actions.add([capitalizeFirstLetter(actionMap['action'])+"|"+actionMap['actionWord']+"|${actionMap['timeRequired']}|$enabled|$error",element.id,"sendAction ${actionMap['action']} ${element.id}"]);
-  			});
-  		}
-  		if(!allDisabled)
-  			showClickMenu(null,element.attributes['type'],"Desc",actions);
   	}
 
 // Right-click menu functions
