@@ -66,6 +66,13 @@ class VendorWindow extends Modal {
 
       merch.onClick.listen((_) => spawnBuyDetails(item, vendorMap));
     }
+    DivElement dropTarget = querySelector("#SellDropTarget");
+    Draggable draggable = new Draggable(querySelectorAll(".inventoryItem"), avatarHandler: new CustomAvatarHandler());
+    Dropzone dropzone = new Dropzone(dropTarget, acceptor: new Acceptor.draggables([draggable]));
+    dropzone.onDrop.listen((DropzoneEvent dropEvent)
+	{
+    	spawnBuyDetails(JSON.decode(dropEvent.draggableElement.attributes['itemMap']),vendorMap);
+	});
     this.open();
   }
 
@@ -152,8 +159,26 @@ class VendorWindow extends Modal {
 
 }
 
-
-
+/*The purpose here is that because the inventory items are contained
+ * within their parent, they cannot be on a high enough z-index to appear
+ * overtop of the vendor window when dragged. Therefore we will add it to
+ * the body instead and then it can be overtop of the window.
+ *
+ * This only applies to the avatar which lasts as long as the drag
+ * operation lasts so there shouldn't be any side-effects.
+ */
+class CustomAvatarHandler extends CloneAvatarHandler
+{
+	@override
+	void dragStart(Element draggable, Point startPosition)
+	{
+		num x = draggable.getBoundingClientRect().left;
+		num y = draggable.getBoundingClientRect().top;
+		super.dragStart(draggable, startPosition);
+		document.body.append(super.avatar);
+		super.setLeftTop(new Point(x,y));
+	}
+}
 
 
 /*

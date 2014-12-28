@@ -15,6 +15,11 @@ class WindowManager {
   }
 }
 
+class AuctionWindow extends Modal
+{
+	String id = 'auctionWindow';
+	AuctionWindow(){prepare();}
+}
 
 /// A Dart interface to an html Modal
 abstract class Modal {

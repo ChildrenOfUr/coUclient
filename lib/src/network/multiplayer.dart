@@ -81,6 +81,11 @@ _setupStreetSocket(String streetName)
 			subtractItemFromInventory(map);
 			return;
 		}
+		if(map['vendorName'] == 'Auctioneer')
+		{
+			new AuctionWindow().open();
+			return;
+		}
 		if(map['itemsForSale'] != null)
 		{
 			new VendorWindow().call(map);

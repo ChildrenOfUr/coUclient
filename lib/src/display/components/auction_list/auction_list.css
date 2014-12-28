@@ -1,0 +1,92 @@
+:host {
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+
+#Results {
+	margin-top: 10px;
+	height: calc(100% - 28px);
+	width: 100%;
+	overflow: auto;
+}
+.resultsRow {
+	padding: 5px;
+	background: white;
+}
+.column {
+	margin-left: 5px;
+	margin-right: 5px;
+	display: inline-block;
+	vertical-align: middle;
+}
+.odd {
+	background: rgb(235, 238, 240);
+}
+.itemFrame {
+	border: 2px solid lightgray;
+	border-radius: 5px;
+	padding: 5px;
+	display: inline-block;
+	position: relative;
+	width: 50px;
+	height: 50px;
+}
+.itemCount {
+	position: absolute;
+	right: 5px;
+	bottom: 2px;
+}
+.amount .itemCount {
+	position: inherit;
+	font-weight: bold;
+}
+.itemText {
+	display: inline-block;
+	width: 150px;
+}
+.itemName {
+	font-size: 24px;
+	font-weight: bold;
+}
+.username {
+	font-weight: bold;
+}
+.costs {
+	display: inline-block;
+	width: 75px;
+}
+.totalCost {
+	font-weight: bold;
+}
+.unitPrice {
+	font-weight: bold;
+	display: inline;
+}
+.buyButton {
+ 	background: rgb(221, 221, 221);
+ 	color: #4b2e4c;
+	font-size: 1.2em;
+	font-weight: bold;
+	padding: 5px 20px;
+	border: 1px solid #4b2e4c;
+	border-radius: 5px;
+	display: inline-block;
+	cursor: pointer;
+	vertical-align: middle;
+	-webkit-box-shadow: -1px 1px 3px 0px #4e2b4c;
+ 	-moz-box-shadow: -1px 1px 3px 0px #4e2b4c;
+ 	-o-box-shadow: -1px 1px 3px 0px #4e2b4c;
+ 	-khtml-box-shadow: -1px 1px 3px 0px #4e2b4c;
+ 	box-shadow: -1px 1px 3px 0px #4e2b4c;
+}
+.buyButton:hover {
+	background: #4b234c;
+	color: white;
+ }
+.timing {
+	display: inline-block;
+}
+.startTime {
+	font-weight: bold;
+}

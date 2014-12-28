@@ -91,6 +91,13 @@ class Signpost extends Entity
 	@override
 	void interact(String id)
 	{
+		//if there's only one exit, go to that one immediately
+		if(signs.length == 1)
+		{
+			signs[0].click();
+			return;
+		}
+
 		//remove the glow around the pole and put one on the first sign
 		pole.classes.remove('hovered');
 		signs[0].classes.add('hovered');

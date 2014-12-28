@@ -20,6 +20,9 @@
    <!--Persona Login-->
    <script src="https://login.persona.org/include.js"></script>
 
+   <!--Polymer components-->
+   <link rel="import" href="packages/couclient/src/display/components/auction_list/auction_list.html">
+
   </head>
   <body>
 
@@ -132,7 +135,7 @@
 
         <div id="MapLoadingScreen" class="MapLoadingScreen">
 				<div id="MapLoadingContent">
-					<img id="StreetLoadingImage"></img>
+					<img id="StreetLoadingImage">
 	                <span id="NowEntering"></span>
 					<div class="LoadingGroove">&nbsp;
 						<span class="LoadingBar" id="MapLoadingBar">
@@ -232,7 +235,7 @@
             </header>
             <div class="dialog">
             </div>
-            <input class="Typing" type="text"></input>
+            <input class="Typing" type="text">
           </div>
         </div>
 
@@ -315,6 +318,13 @@
           </article>
         </div>
 
+        <div id="auctionWindow" class="window" hidden>
+          <i class="fa-li fa fa-times close"></i>
+          <header>
+            <span id="auctionsTitle">Auctions</span>
+          </header>
+          <article><auction-list></auction-list></article>
+        </div>
 
         <div id="shopWindow" class="window" hidden>
           <i class="fa-li fa fa-times close"></i>

@@ -5,6 +5,10 @@ dependencies:
   dnd: any
   gorgon: any
   intl: any
+  polymer: any
+  redstone_mapper: any
+  async_await:
+    git: https://github.com/dart-lang/async_await.git
   libld:
     git:
       ref: master
@@ -28,3 +32,5 @@ dependencies:
 transformers:
 - $dart2js:
     minify: true
+- polymer
+- async_await

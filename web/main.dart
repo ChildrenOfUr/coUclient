@@ -14,20 +14,23 @@ import 'dart:math';
 
 // LIBRARIES //
 // Used for NumberFormat
-import 'package:intl/intl.dart' show NumberFormat;
+import 'package:intl/intl.dart';
 // Slack Webhook API
 import 'package:slack/slack_html.dart' as slack;
 // SoundCloud Helper
 import 'package:scproxy/scproxy.dart';
 // Audio and Graphics
 import 'package:gorgon/gorgon.dart'; // for Webaudio api
-//import 'package:dnd/dnd.dart'; //for dragging items into vendor interface
+import 'package:dnd/dnd.dart'; //for dragging items into vendor interface
 // Asset Loading
 import 'package:libld/libld.dart'; // Nice and simple asset loading.
 // Event Bus and Pumps // for more infomation see '/doc/pumps.md'
 import 'package:pump/pump.dart';
 
 import 'package:persona/persona_html.dart';
+
+import 'package:polymer/polymer.dart';
+import 'package:redstone_mapper/mapper_factory.dart';
 
 // SYSTEMS MODULES //
 part 'package:couclient/src/systems/clock.dart';
@@ -102,15 +105,18 @@ InputManager inputManager;
 
 Game game;
 
-main() {
-  new AuthManager();
+main()
+{
+	bootstrapMapper();
+	initPolymer();
 
-  view = new UserInterface();
-  // System
-  new ClockManager();
-  new CommandManager();
+	new AuthManager();
 
+	view = new UserInterface();
+	// System
+	new ClockManager();
+	new CommandManager();
 
-  new WindowManager();
-  inputManager = new InputManager();
+	new WindowManager();
+	inputManager = new InputManager();
 }

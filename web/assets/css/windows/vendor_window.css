@@ -45,7 +45,7 @@
 }
 .cantAfford {
   color: #ba381a;
-  
+
 }
 #windowHolder .window .fa.minus{
   color: #ba381a;
@@ -139,7 +139,7 @@
 .RightColumn {
   position: absolute;
   left: 30%;
-  right: 20px;      
+  right: 20px;
 }
 .ItemName {
   font-size: 1.5em;
@@ -160,10 +160,10 @@
   height: 1.5em;
   border: none;
 }
-.NumToBuy::-webkit-inner-spin-button, 
-.NumToBuy::-webkit-outer-spin-button { 
-  -webkit-appearance: none; 
-  margin: 0; 
+.NumToBuy::-webkit-inner-spin-button,
+.NumToBuy::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 .ItemImageParent {
   text-align: center;

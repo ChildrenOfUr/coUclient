@@ -14,7 +14,7 @@ class NPC extends Entity
 		for(int i=0; i<map['numFrames']; i++)
 			frameList.add(i);
 
-		animation = new Animation(map['url'],"npc",map['numRows'],map['numColumns'],frameList);
+		animation = new Animation(map['url'],"npc",map['numRows'],map['numColumns'],frameList, loopDelay: new Duration(milliseconds:map['loopDelay']));
 		animation.load().then((_)
 		{
 			posY = currentStreet.bounds.height - num.parse(map['y'].toString()) - animation.height;
