@@ -1,0 +1,104 @@
+.conversation {
+  position:relative;
+  width:100%;
+  height:100%;
+  
+}
+.conversation header {
+  position:absolute;
+  top:6px;
+  right:10px;
+  left:10px;
+  text-align:center;
+  font-size:18px;
+}
+.conversation header span{
+  color:rgba(0,0,0,0.8);
+  float: right;
+}
+.conversation header .fa{
+  position:absolute;
+  top:0;
+  left:5px;
+  font-size:20px;
+  width:1em;
+  opacity:0.9;
+}
+.conversation .dialog {
+  position:absolute;
+  padding:2px;
+  margin:0px;
+  border-top:2px solid rgba(0,0,0,0.1);
+  border-bottom:2px solid rgba(0,0,0,0.1);
+  top:33px;
+  bottom:33px;
+  left:1.5%;
+  right:1.5%;
+  overflow-y:scroll;
+  overflow-x:hidden;
+  
+  font-family: 'Tahoma', 'Geneva', 'sans-serif';
+  cursor: auto;
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  user-select: text;
+  color: #000;
+}
+.dialog p{
+  padding:2px;
+  margin:2px;
+  font-size:12px;
+  border-left: 2px solid rgba(0,0,0,0);
+  background-color:#fff;
+}
+.dialog p *.name {
+  font-size:1.1em;
+}
+.dialog p *.message{
+  font-family: 'Tahoma', 'Geneva', 'sans-serif';
+  cursor: auto;
+    color: #000;
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  user-select: text;
+}
+.dialog p.system{
+  font-style:italic;  color: #000;
+  color:#555;
+  border-left: 2px solid #555;
+}
+
+.conversation input {
+  position:absolute;
+  bottom:5px;
+  left:3%;
+  background-color:#eee;
+  width:70%;
+  height:16px;
+  border:none;
+  border:2px solid rgba(0,0,0,0.1);
+  border-radius: 5px;
+}
+.conversation input:focus {
+  background-color:#ffffe0;
+}
+
+.conversation .emojiButton {
+  position:absolute;
+  bottom:5px;
+  right:5px;
+  background-color:#eee;
+  width:20px;
+  height:20px;
+  border:2px solid rgba(0,0,0,0.1);
+  border-radius: 5px;
+  font-size:20px;
+}
+.emojiButton .fa {
+  position:absolute;
+  top:1%;
+  left:-57%;
+  color:rgba(0,0,0,0.5);
+}
+
+

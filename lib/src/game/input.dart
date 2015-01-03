@@ -186,6 +186,76 @@ class InputManager {
 				doObjectInteraction(e,ids);
 		});
 
+		//only for mobile version
+		Joystick joystick = new Joystick(querySelector('#Joystick'),querySelector('#Knob'),deadzoneInPercent:.2);
+		joystick.onMove.listen((_)
+		{
+			//don't move during harvesting, etc.
+			if(querySelector(".fill") == null)
+			{
+				if(joystick.UP) upKey = true;
+  			else upKey = false;
+  			if(joystick.DOWN) downKey = true;
+  			else downKey = false;
+  			if(joystick.LEFT) leftKey = true;
+  			else leftKey = false;
+  			if(joystick.RIGHT) rightKey = true;
+  			else rightKey = false;
+			}
+
+			Element clickMenu = querySelector("#RightClickMenu");
+			if(clickMenu != null)
+			{
+				Element list = querySelector('#RCActionList');
+				//only select a new option once every 300ms
+				bool selectAgain = lastSelect.add(new Duration(milliseconds:300)).isBefore(new DateTime.now());
+				if(joystick.UP && selectAgain)
+					selectUp(list,"RCItemSelected");
+				if(joystick.DOWN && selectAgain)
+					selectDown(list,"RCItemSelected");
+				if(joystick.LEFT || joystick.RIGHT)
+					stopMenu(clickMenu);
+			}
+		});
+		joystick.onRelease.listen((_)
+		{
+			upKey = false; downKey = false; rightKey = false; leftKey = false;
+		});
+		document.onTouchStart.listen((TouchEvent event)
+		{
+			Element target = event.target;
+
+			if(target.id == "AButton")
+			{
+				event.preventDefault(); //to disable long press calling the context menu
+				jumpKey = true;
+			}
+
+			if(target.id == "BButton")
+			{
+				event.preventDefault(); //to disable long press calling the context menu
+				if(querySelector("#RightClickMenu") != null)
+					doAction(querySelector('#RCActionList'),querySelector("#RightClickMenu"),"RCItemSelected");
+				else
+					doObjectInteraction();
+			}
+		});
+		document.onTouchEnd.listen((TouchEvent event)
+		{
+			Element target = event.target;
+
+			if(target.id == "AButton")
+			{
+				jumpKey = false;
+			}
+		});
+
+		document.onClick.listen((MouseEvent event) => clickOrTouch(event,null));
+		document.onTouchStart.listen((TouchEvent event) => clickOrTouch(null,event));
+
+		//new TouchScroller(querySelector('#InventoryBar'),TouchScroller.HORIZONTAL);
+		//new TouchScroller(querySelector('#InventoryBag'),TouchScroller.HORIZONTAL);
+		//end mobile specific stuff
   }
 
   void doObjectInteraction([MouseEvent e, List<String> ids])

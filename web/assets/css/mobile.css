@@ -1,0 +1,17 @@
+/* Base CSS file for cou mobile */
+/*if you're adding a component to the ui, put your css in another file and import it.*/
+
+/*Resets*/
+@import url("mobile/cou_defaults.mobile.css");
+
+/*Component Imports*/
+@import url("mobile/game.mobile.css");
+@import url("mobile/loader.mobile.css");
+@import url("mobile/inventory.mobile.css");
+@import url("mobile/currants.mobile.css");
+@import url("mobile/nav.mobile.css");
+@import url("mobile/panel.mobile.css");
+@import url("mobile/chat.mobile.css");
+@import url("mobile/window.mobile.css");
+@import url("mobile/soundcloud.mobile.css");
+@import url("mobile/input.mobile.css");

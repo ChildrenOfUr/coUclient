@@ -36,6 +36,7 @@ import 'package:redstone_mapper/mapper_factory.dart';
 part 'package:couclient/src/systems/clock.dart';
 part 'package:couclient/src/systems/commands.dart';
 part 'package:couclient/src/game/input.dart';
+part 'package:couclient/src/game/joystick.dart';
 part 'package:couclient/src/systems/util.dart';
 
 // NETWORKING MODULES //

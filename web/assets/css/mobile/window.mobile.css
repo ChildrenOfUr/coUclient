@@ -1,0 +1,139 @@
+#windowHolder .window{
+  position: absolute;
+  top: 2px !important;
+  left: 2px !important;;
+  padding: 21px;
+  width: calc(100vw - 45px);
+  height: calc(100vh - 45px);
+  background-color: #eee;
+  z-index: 2;
+}
+
+#windowHolder .window header {
+  cursor:move;
+  position: absolute;
+  top: 7px;
+  left: 50px;
+  right:40px;
+  font-size: 24px;
+}
+.window article {
+  font-family: 'Tahoma', 'Geneva', 'sans-serif';
+  color: #000;
+  font-size: 12px;
+  padding: 5px;
+  position: absolute;
+  top: 45px;
+  bottom:10px;
+  left: 10px;
+  right:10px;
+  border-radius: 8px;
+  overflow: hidden;
+  background-color:rgba(0,0,0,0.1);
+  border-radius:9px;
+  border-top:1px solid rgba(0,0,0,0.1);
+}
+.window iframe {
+  border: none;
+  height: 100%;
+  width: 100%;
+  margin: -6px;
+}
+
+.window .fa-times.close {
+  color: #ba381a;
+  position: absolute;
+  top: 10px;
+  left: calc(100vw - 50px);
+  font-size: 24px;
+  cursor: pointer;
+}
+
+#settingsWindow article .tab{
+  font-size:1.5em;
+  padding: 1px 4px;
+  margin: -2px 2px;
+  background-color:#eee;
+  border-radius: 8px 8px 0px 0px;
+  float:left;
+  height:24px;
+  opacity:0.8;
+  border-bottom:1px solid rgba(0,0,0,0.2);
+}
+#settingsWindow article .tab.active {
+  opacity:1;
+  border-bottom:1px solid rgba(0,0,0,0);
+}
+
+#settingsWindow article .tab-content{
+  position:absolute;
+  background-color:#eee;
+  top:30px;
+  padding:5px;
+  bottom:0;
+  left:0;
+  right:0;
+}
+
+
+
+#bagWindow article {
+  text-align: center;
+}
+#bugWindow textarea {
+  margin: 5px;
+  width: 548px;
+}
+#bugWindow .button {
+  float: right;
+  width: 100px;
+  margin-top: 10px;
+}
+
+#bugWindow textarea {
+    margin: 5px;
+    width: 548px;
+}
+
+#bugWindow label {
+    margin-left: 5px;
+}
+
+#bugWindow p {
+    margin: 0 0 5px 5px;
+}
+
+#bugWindow #checkGroup {
+    float: right;
+}
+
+#bugWindow label {
+    vertical-align: 2px;
+}
+
+#bugWindow #reportMain {
+    height: 100px;
+}
+
+#bugWindow #reportMeta {
+    height: 80px;
+}
+
+#bugWindow input {
+    position: relative;
+    margin-left: 5px;
+    display: inline-block;
+    margin-top: 5px;
+}
+
+#bugWindow input[type="email"] {
+		width: 50%;
+		margin-top: 15px;
+}
+
+#motdFrame {
+  border: none;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+}
