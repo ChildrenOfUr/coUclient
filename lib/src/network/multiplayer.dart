@@ -1,9 +1,7 @@
 part of couclient;
 
-String websocketServerAddress = 'robertmcdermot.com:8282';
+String websocketServerAddress = 'localhost:8282';
 double clientVersion = 0.08;
-
-
 
 String multiplayerServer = "ws://$websocketServerAddress/playerUpdate";
 String streetEventServer = "ws://$websocketServerAddress/streetUpdate";
@@ -84,6 +82,12 @@ _setupStreetSocket(String streetName)
 		if(map['vendorName'] == 'Auctioneer')
 		{
 			new AuctionWindow().open();
+			return;
+		}
+		if(map['openWindow'] != null)
+		{
+			if(map['openWindow'] == 'vendorSell')
+				new VendorWindow().call(map,sellMode:true);
 			return;
 		}
 		if(map['itemsForSale'] != null)

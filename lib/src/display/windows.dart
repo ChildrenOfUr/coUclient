@@ -45,7 +45,16 @@ abstract class Modal {
     window = querySelector('#$id');
 
     // CLOSE BUTTON ////////////////////////////////////
-    window.querySelector('.fa-times.close').onClick.listen((_) => this.close());
+    window.querySelector('.fa-times.close').onClick.first.then((_) => this.close());
+    StreamSubscription escListener;
+    escListener = document.onKeyUp.listen((KeyboardEvent e)
+	{
+		if(e.keyCode == 27) //escape key
+		{
+			this.close();
+			escListener.cancel();
+		}
+	});
 
     // TABS ////////////////////////////////////////////
     window.querySelectorAll('.tab').onClick.listen((MouseEvent m) {

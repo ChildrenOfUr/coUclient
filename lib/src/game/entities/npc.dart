@@ -2,14 +2,16 @@ part of couclient;
 
 class NPC extends Entity
 {
-	int speed;
+	int speed = 0;
 	bool ready = false, facingRight = true, firstRender = true;
 	num posX = 0.0, posY = 0.0;
 	Animation animation;
 	ChatBubble chatBubble = null;
 
-	NPC(Map map,{this.speed : 75})
+	NPC(Map map)
 	{
+		speed = map['speed'];
+
 		List<int> frameList = [];
 		for(int i=0; i<map['numFrames']; i++)
 			frameList.add(i);
