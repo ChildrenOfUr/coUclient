@@ -1,19 +1,20 @@
 #enbolt {
-  position:absolute;
-  top:95px;
-  left:13px;
-  z-index:1;
+	position:absolute;
+	top:67px;
+	left:6px;
+	width: 10px;
+	z-index:1;
 }
 #energyDisks {
-  position:absolute;
-  top:51px;
-  left:22px;
-  background-color:#ccc;
-  border-bottom-right-radius: 83%;
-  width:87px;
-  height:66px;
-  z-index:1;
-  overflow:hidden;
+	position:absolute;
+	top: 38px;
+	left: 11px;
+	background-color: #ccc;
+	border-bottom-right-radius: 83%;
+	width: 54px;
+	height: 41px;
+	z-index:1;
+	overflow:hidden;
 }
 #energyDisks .green, #energyDisks .red { /* These are script-rotated together */
   position:absolute;
@@ -33,7 +34,7 @@
   -moz-transition-property: -moz-transform, opacity;
   -moz-transition-duration:1s;
   -moz-transition-timing-function:ease-in-out;
-  -moz-transition-delay:0s;    
+  -moz-transition-delay:0s;
 }
 #energyDisks .red {
   opacity:0;
@@ -48,8 +49,8 @@
 
 #energyText {
   position:absolute;
-  top:50px;
-  left:120px;
+  top:37px;
+  left:72px;
   opacity:0.5;
   z-index:1;
 }
@@ -66,8 +67,8 @@
 
 #leftDisk{
   position:absolute;
-  top:18px;
-  left:10px;
+  top:15px;
+  left:4px;
   border-radius:50%;
   overflow:hidden;
   width: 50px;
@@ -83,12 +84,12 @@
   transition-timing-function: linear;
   transition-delay: 0.5s;
   z-index: 1;
-  box-shadow: 0 0 15px 1px rgba(0,0,0,0.1); 
-  
+  box-shadow: 0 0 15px 1px rgba(0,0,0,0.1);
+
   /* this fixes the overflow:hidden in Chrome not clipping it's contents to the border-radius
   more information here: http://stackoverflow.com/questions/5736503/how-to-make-css3-rounded-corners-hide-overflow-in-chrome-opera*/
   -webkit-mask-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC);
-   
+
 }
 #portrait {
   position:absolute;
@@ -193,9 +194,10 @@
 }
 
 #moodAvatar {
-  position:relative;
-  width:80px;
-  left:-10%;
+	position:relative;
+	width: 50px;
+	transform: translateX(-50%);
+	left: 50%;
 }
 
 
@@ -205,7 +207,7 @@
   left;0;
   width: 100%;
   height: 100%;
-    
+
   background-image: url("../system/raindrop.svg");
   background-size: 20px;
   background-repeat: repeat;
@@ -250,11 +252,11 @@
     top:0;
     width: 100%;
     height: 100%;
-    
+
     -webkit-animation: spin 15s infinite linear;
     -moz-animation: spin 15s infinite linear;
     animation: spin 15s infinite linear;
-    
+
   @-webkit-keyframes spin {
     from {
       -webkit-transform: rotate(0deg);
@@ -263,7 +265,7 @@
       -webkit-transform: rotate(360deg);
     }
   }
-  
+
   @-moz-keyframes spin {
     from {
       -moz-transform: rotate(0deg);
@@ -272,7 +274,7 @@
       -moz-transform: rotate(360deg);
     }
   }
-  
+
   @keyframes spin {
     from {
       transform: rotate(0deg);

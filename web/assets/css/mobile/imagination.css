@@ -1,7 +1,7 @@
 #imaginationText {
   position:absolute;
-  top:calc(24px - 1.5em);
-  left:75px;
+  top:calc(38px - 1.5em);
+  left:76px;
 }
 #imaginationText * {
   color:#444;
@@ -17,7 +17,7 @@
 }
 #thinkButton {
   position:absolute;
-  width:20px;
+  width:18px;
   top: 5px;
   left:-23px;
   z-index:2;
