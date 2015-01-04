@@ -5,21 +5,21 @@
 @import url("assets/css/font-awesome.min.css");
 
 /*Resets*/
-@import url("assets/css/cou_defaults.css");
+/* @import url("assets/css/cou_defaults.css"); */
 
 /*Component Imports*/
-@import url("assets/css/buttons.css");
-@import url("assets/css/game.css");
-@import url("assets/css/loader.css");
-@import url("assets/css/inventory.css");
-@import url("assets/css/name.css");
-@import url("assets/css/mask.css");
-@import url("assets/css/meters.css");
-@import url("assets/css/imagination.css");
+/* @import url("assets/css/buttons.css"); */
+/* @import url("assets/css/game.css"); */
+/* @import url("assets/css/loader.css"); */
+/* @import url("assets/css/inventory.css"); */
+/* @import url("assets/css/name.css"); */
+/* @import url("assets/css/mask.css"); */
+/* @import url("assets/css/meters.css"); */
+/* @import url("assets/css/imagination.css"); */
 @import url("assets/css/overlay.css");
-@import url("assets/css/currants.css");
-@import url("assets/css/timedate.css");
-@import url("assets/css/nav.css");
+/* @import url("assets/css/currants.css"); */
+/* @import url("assets/css/timedate.css"); */
+/* @import url("assets/css/nav.css"); */
 @import url("assets/css/panel.css");
 @import url("assets/css/chat.css");
 @import url("assets/css/youwon.css");
@@ -31,7 +31,7 @@
 
 /*Popup windows*/
 @import url("assets/css/windows/window.css");
-@import url("assets/css/windows/map_window.css");
+/* @import url("assets/css/windows/map_window.css"); */
 @import url("assets/css/windows/bag_window.css");
 @import url("assets/css/windows/bug_window.css");
 @import url("assets/css/windows/settings_window.css");
