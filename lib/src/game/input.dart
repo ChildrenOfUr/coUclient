@@ -194,13 +194,13 @@ class InputManager {
 			if(querySelector(".fill") == null)
 			{
 				if(joystick.UP) upKey = true;
-  			else upKey = false;
-  			if(joystick.DOWN) downKey = true;
-  			else downKey = false;
-  			if(joystick.LEFT) leftKey = true;
-  			else leftKey = false;
-  			if(joystick.RIGHT) rightKey = true;
-  			else rightKey = false;
+	  			else upKey = false;
+	  			if(joystick.DOWN) downKey = true;
+	  			else downKey = false;
+	  			if(joystick.LEFT) leftKey = true;
+	  			else leftKey = false;
+	  			if(joystick.RIGHT) rightKey = true;
+	  			else rightKey = false;
 			}
 
 			Element clickMenu = querySelector("#RightClickMenu");
