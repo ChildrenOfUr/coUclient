@@ -1,0 +1,30 @@
+
+#mapDisplay {
+    position:absolute;
+    right: calc(7.5em +   130px);
+    width:200px;
+}
+
+#mapButton {
+  margin:5px;
+  width:1em;
+  height:1.1em;
+  float:right;
+  padding:5px;
+  padding-top:1px;
+  text-align:center;
+}
+#mapDisplay .label {
+  position:absolute;
+  top:0.3em;
+  right:4.4em;
+  font-size:0.6em;
+  opacity:0.8;
+}
+
+#currLocation {
+  position:absolute;
+  top:1em;
+  right:3.5em;
+  font-size:0.8em;
+}

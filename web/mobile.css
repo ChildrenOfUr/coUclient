@@ -1,0 +1,38 @@
+/* Base CSS file for cou */
+/*if you're adding a component to the ui, put your css in another file and import it.*/
+
+/*Fonts*/
+@import url("assets/css/mobile/font-awesome.min.css");
+
+/*Resets*/
+@import url("assets/css/mobile/cou_defaults.css");
+
+/*Component Imports*/
+@import url("assets/css/mobile/buttons.css");
+@import url("assets/css/mobile/game.css");
+@import url("assets/css/mobile/loader.css");
+@import url("assets/css/mobile/inventory.css");
+@import url("assets/css/mobile/name.css");
+@import url("assets/css/mobile/mask.css");
+@import url("assets/css/mobile/meters.css");
+@import url("assets/css/mobile/imagination.css");
+@import url("assets/css/mobile/overlay.css");
+@import url("assets/css/mobile/currants.css");
+@import url("assets/css/mobile/timedate.css");
+@import url("assets/css/mobile/nav.css");
+@import url("assets/css/mobile/panel.css");
+@import url("assets/css/mobile/chat.css");
+@import url("assets/css/mobile/youwon.css");
+@import url("assets/css/mobile/soundcloud.css");
+@import url("assets/css/mobile/exit_sign.css");
+@import url("assets/css/mobile/quoins.css");
+@import url("assets/css/mobile/interactions.css");
+@import url("assets/css/mobile/toast.css");
+
+/*Popup windows*/
+@import url("assets/css/mobile/windows/window.css");
+@import url("assets/css/mobile/windows/map_window.css");
+@import url("assets/css/mobile/windows/bag_window.css");
+@import url("assets/css/mobile/windows/bug_window.css");
+@import url("assets/css/mobile/windows/settings_window.css");
+@import url("assets/css/mobile/windows/vendor_window.css");

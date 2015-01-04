@@ -1,0 +1,94 @@
+#inventory {
+  position:absolute;
+  bottom:15px;
+  left:18px;
+  padding:1px;
+  height:60px;
+  width:calc(100% - 280px);
+  max-width:calc(100% - 40px);
+  min-width:calc(300px - 40px);
+  white-space: nowrap;
+  text-align:center;
+  background-color:rgba(0,0,0,0.1);
+  border-radius:9px;
+  border: 1px solid rgba(0,0,0,0.1);
+  border-top:2px solid rgba(0,0,0,0.1);
+  display: none;
+}
+
+ .box {
+  background-color: #fff;
+  border-radius: 8px;
+  width:40px;
+  height:40px;
+  margin:4px 0px;
+  border: 1px solid #bbb;
+  border-bottom:2px solid #bbb;
+  z-index:1;
+  box-shadow: 0 0 15px 1px rgba(0,0,0,0.1);
+  display: inline-block;
+  padding:5px;
+}
+
+.box .icon {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+  margin:auto;
+  /* Maintain aspect ratio */
+  max-height: 90%;
+  max-width: 90%;
+}
+
+.box {
+  position: relative;
+}
+
+#inventorySearch {
+  background-color:#eee;
+  width:35px;
+  height:35px;
+  border-radius:50%;
+  position:absolute;
+  bottom:45px;
+  left:0px;
+  cursor:pointer;
+  z-index:0;
+}
+#inventorySearch * {
+  color:#bbb;
+  position:absolute;
+  top:calc(40% - 0.5em);
+  right:calc(40% - 0.5em);
+  cursor:pointer;
+}
+
+#inventorySearch:hover, #inventorySearch *:hover {
+  color:#999;
+}
+
+/* this is the actual search box*/
+#invsearch {
+  width: 430px;
+  padding: 5px;
+  background-color: #fff;  border-radius: 8px;
+  border: 2px solid rgba(0,0,0,0.3);
+  z-index: 1;
+  box-shadow: 0 0 5px 1px rgba(0,0,0,0.1); display: inline-block;
+  margin-top: 80px;
+  outline: none;
+}
+#invsearch:focus {
+  box-shadow: 0 0 15px 1px rgba(0,0,0,0.1);
+}
+
+.inventoryItem {
+  cursor: pointer;
+}
+.itemCount {
+  position: absolute;
+  bottom: 0px;
+  right: 3px;
+}
