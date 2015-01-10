@@ -39,7 +39,8 @@ Please check back another time. :(''';
     HttpRequest.request(_authUrl + "/login", method: "POST", requestHeaders: {
       "content-type": "application/json"
     }, sendData: JSON.encode({
-      'assertion': personaAssertion 
+      'assertion': personaAssertion
+      //,'testing' : true
     }))
       ..then((HttpRequest data) {
       tooLongTimer.cancel();
@@ -51,9 +52,15 @@ Please check back another time. :(''';
         _loginButton.hidden = false;
         return;
       }
-
+     
+      // Have they registered? TODO: we need a way to register in-game.
+      if (serverdata['playerName'].trim() == '') {
+        window.location.href = 'http://childrenofur.com/forums/login';
+       }
+      
       // Get our username and location from the server.
       sessionStorage['playerName'] = serverdata['playerName'];
+      
       sessionStorage['playerStreet'] = serverdata['playerStreet'];
 
       SESSION_TOKEN = serverdata['sessionToken'];
