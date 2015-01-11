@@ -432,14 +432,14 @@ class Player
 		if(!facingRight)
 		{
 			transform += ' scale(-1,1)';
-			playerName.style.transform = 'translateY(calc(-100% - 34px)) scale(-1,1)';
+			playerName.style.transform = 'translateY(-100%) translateY(-34px) scale(-1,1)';
 
 			if(chatBubble != null)
 			chatBubble.textElement.style.transform = 'scale(-1,1)';
 		}
 		else
 		{
-			playerName.style.transform = 'translateY(calc(-100% - 34px)) scale(1,1)';
+			playerName.style.transform = 'translateY(-100%) translateY(-34px) scale(1,1)';
 
 			if(chatBubble != null)
 			chatBubble.textElement.style.transform = 'scale(1,1)';
