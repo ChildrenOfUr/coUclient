@@ -23,8 +23,7 @@
 	margin-right: auto;
 	left: 0;
 	right: 0;
-	transform: translateY(calc(-100% - 34px));
-	-webkit-transform: translateY(calc(-100% - 34px));
+	transform: translateY(-100%) translateY(-34px);
 }
 
 .playerCanvas {
