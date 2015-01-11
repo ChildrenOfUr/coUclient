@@ -1,0 +1,181 @@
+.well {
+  background-color:rgba(0,0,0,0.1);
+  border-radius:9px;
+  border: 1px solid rgba(0,0,0,0.1);
+  border-top:2px solid rgba(0,0,0,0.1);
+}
+
+#windowHolder .window{
+  position: absolute;
+  top: calc(40% - 170px);
+  left: calc(50% - 285px);
+  padding: 21px;
+  width: 550px;
+  height: 350px;
+  border-radius: 8px;
+  background-color: #fff;
+  -o-box-shadow: 0px 0px 0px 8px rgba(0,0,0,0.1), 0px 0px 0px 2px rgba(0,0,0,0.3);
+  -khtml-box-shadow: 0px 0px 0px 8px rgba(0,0,0,0.1), 0px 0px 0px 2px rgba(0,0,0,0.3);
+  box-shadow: 0px 0px 0px 8px rgba(0,0,0,0.1), 0px 0px 0px 2px rgba(0,0,0,0.3);
+  z-index: 2;
+  overflow: hidden;
+}
+
+#windowHolder .window header {
+  cursor:move;
+  position: absolute;
+  top: 0px;
+  left: 60px;
+  right:40px;
+  font-size: 30px;
+  color:#444;
+  text-shadow: 0px 1px rgba(100,100,100,0.3);
+  padding: 10px 0px;
+  border-radius:5px;
+}
+
+#windowHolder .window .fa {
+  padding: 10px 0px;
+  color:#444;
+}
+
+.window article {
+  font-family: 'Tahoma', 'Geneva', 'sans-serif';
+  color: #000;
+  font-size: 12px;
+  padding: 5px;
+  position: absolute;
+  top: 55px;
+  bottom:10px;
+  left: 10px;
+  right:10px;
+  border-radius: 8px;
+}
+.window iframe {
+  border: none;
+  height: 100%;
+  width: 100%;
+  margin: -6px;
+}
+
+#windowHolder .window .fa-times.close {
+  color: #ba381a;
+  position: absolute;
+  top: 0px;
+  left: 545px;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.window .footer {
+  position: absolute;
+  bottom: 5px;
+  height:15px;
+  right: 0;
+  left:0;
+}
+.window .footer *{
+  color:#444;
+  text-align: center;
+  font-size: 16px;
+  text-shadow: 0px 1px rgba(100,100,100,0.3);
+  float:right;
+}
+.window .footer img {
+  position:relative;
+  top:-5px;
+  height:25px;
+  margin:3px;
+}
+
+
+.tab {
+	cursor: pointer;
+}
+article .tab{
+  font-size:1.5em;
+  padding: 1px 4px;
+  margin: -1px 1px;
+  min-width:70px;
+  background-color:#eee;
+  color:#222;
+  border-radius: 8px 8px 0px 0px;
+  float:right;
+  position:relative;
+  top:-28px;
+  opacity:0.6;
+  height:26px;
+  text-align:center;
+  border: 1px solid rgba(0,0,0,0.3);
+}
+article .tab.active {
+  opacity: 1;
+  margin:-5px 2px;
+}
+article .tab-holder {
+  position: relative;
+  right:25px;
+}
+
+article .tab-content{
+  position:absolute;
+  top:0;
+  padding:5px;
+  background-color:#eee;
+  color:#444;
+  bottom:0px;
+  left:0;
+  right:0;
+  overflow-y:auto;
+  border-radius:9px;
+  border: 1px solid rgba(0,0,0,0.1);
+  border-top:2px solid rgba(0,0,0,0.1);
+}
+
+#motdFrame {
+  border: none;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+}
+
+/*Popup elements*/
+.PopWindow{
+  position: absolute; 
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  z-index: 2;
+  padding: 21px;
+  width:590px;
+  height:348px;
+  border-radius: 6px;
+  background-color: #fff; 
+  -o-box-shadow: 0px 0px 0px 8px rgba(0,0,0,0.1), 0px 0px 0px 2px rgba(0,0,0,0.3); 
+  -khtml-box-shadow: 0px 0px 0px 8px rgba(0,0,0,0.1), 0px 0px 0px 2px rgba(0,0,0,0.3);
+  box-shadow: 0px 0px 0px 8px rgba(0,0,0,0.1), 0px 0px 0px 2px rgba(0,0,0,0.3);
+}
+.PopWindowHeader {
+ opacity:0.8;
+ font-size:22px;   
+}
+.PopCloseEmblem {
+  cursor: pointer;
+  position:absolute;
+  top:20px;
+  right: 20px;
+}
+.PopWindowBody {
+ font-family: 'RockoFLFBold', sans-serif;
+ overflow:auto;
+ font-size:12px;
+ font-weight: normal;
+ position:absolute;
+ left:0px;
+ top:65px;
+ right:0px;
+ height:320px;
+}
+
