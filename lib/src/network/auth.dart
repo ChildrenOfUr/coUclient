@@ -40,7 +40,7 @@ Please check back another time. :(''';
       "content-type": "application/json"
     }, sendData: JSON.encode({
       'assertion': personaAssertion
-      ,'testing' : true
+      //,'testing' : true
     }))
       ..then((HttpRequest data) {
       tooLongTimer.cancel();
