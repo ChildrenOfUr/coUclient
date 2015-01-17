@@ -10,7 +10,8 @@ For more information on the original game and its licensing information, visit <
 ##Getting Started##
 1. Download the <a href="https://www.dartlang.org/">Dart Editor</a>
 2. In the Dart Editor, go to File -> "Open Existing Folder" and open this project folder
-3. Make sure you have the required dependencies specified in pubspec.yaml. If you're missing any of these, try running Tools > Pub Get.
+3. Make sure you have the required dependencies specified in pubspec.yaml. If you're missing
+any of these, try selecting a file in the project, and then running Tools > Pub Get.
 
 ###Test in Dartium###
 Right clicking on the `web/game.html` file and selecting 'Run in Dartium' will fire up the client.
