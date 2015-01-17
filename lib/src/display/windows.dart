@@ -7,6 +7,7 @@ class WindowManager {
   BugWindow bugs = new BugWindow();
   BagWindow bag = new BagWindow();
   VendorWindow vendor = new VendorWindow();
+  MotdWindow motdWindow = new MotdWindow();
 
   WindowManager() {
     new Service([#vedorWindow], (Message event) {
