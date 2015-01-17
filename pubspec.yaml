@@ -8,23 +8,23 @@ dependencies:
   libld:
     git:
       ref: master
-      url: https://github.com/ChildrenOfUr/libld
+      url: git://github.com/ChildrenOfUr/libld.git
   persona:
     git:
       ref: master
-      url: https://github.com/ChildrenOfUr/dart-persona.git
+      url: git://github.com/ChildrenOfUr/dart-persona.git
   pump:
     git:
       ref: master
-      url: https://github.com/ppvk/pump.git
+      url: git://github.com/ppvk/pump.git
   scproxy:
     git:
       ref: master
-      url: https://github.com/ChildrenOfUr/scproxy
+      url: git://github.com/ChildrenOfUr/scproxy.git
   slack:
     git:
       ref: master
-      url: https://github.com/ChildrenOfUr/dart-slack.git
+      url: git://github.com/ChildrenOfUr/dart-slack.git
 transformers:
 - $dart2js:
     minify: true
