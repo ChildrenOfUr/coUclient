@@ -17,7 +17,7 @@ The project is built in <a href="https://www.dartlang.org" target="_blank">Dart<
 
 main.dart serves as the main game loop. This class controls all functions within the game.
 
-To test the project, you will have to build an 'API_KEYS.dart' file for the /lib folder. Directions can be found <a href="https://github.com/ChildrenOfUr/coUclient/blob/ui_v2/doc/api.md" target="_blank">Here.</a>
+To test the project, you will have to build an 'API_KEYS.dart' file for the /lib folder. Directions can be found <a href="https://github.com/ChildrenOfUr/coUclient/blob/master/doc/api.md" target="_blank">Here.</a>
 With that included, simply right clicking on the index.html file and selecting 'Run in Dartium' will fire up the client.
 To test the project within other browsers, it is necessary to first compile the project.
 While using the Dart Editor, right click the index.html file and 'Run as JavaScript'.
