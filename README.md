@@ -23,10 +23,12 @@ While using the Dart Editor, right click the `web/game.html` file and 'Run as Ja
 ##General Roadmap##
 The project is built in <a href="https://www.dartlang.org" target="_blank">Dart</a>, 
 which is then compiled and minified into javascript and can run in most browsers. See our team collaboration
-site on Trello for current roadmap.
+site on Trello for the current roadmap.
 
-##Design##
+##Project Layout##
 main.dart serves as the main game loop. This class controls all functions within the game. Dart classes and
 functions are in the `lib/src` folder. Images, CSS and other web resources are in `web/assets`. More
 development documentation is in the `doc` folder.
+
+[ ![Codeship Status for ChildrenOfUr/coUclient](https://codeship.com/projects/7e85d760-15e5-0132-d849-622a88ccaa2e/status?branch=master)](https://codeship.com/projects/33763)
 
