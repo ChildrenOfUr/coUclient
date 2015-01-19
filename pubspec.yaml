@@ -32,5 +32,6 @@ dependencies:
 transformers:
 - $dart2js:
     minify: true
-- polymer
 - async_await
+- polymer:
+    entry_points: web/index.html

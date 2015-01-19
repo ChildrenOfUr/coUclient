@@ -25,9 +25,11 @@ class AuthManager {
     HttpRequest.request(_authUrl + "/login", method: "POST", requestHeaders: {
       "content-type": "application/json"
     }, sendData: JSON.encode({
-      'assertion': personaAssertion, 'testing':true
+      'assertion': personaAssertion
+      //, 'testing':true
     })).then((HttpRequest data) {
       Map serverdata = JSON.decode(data.response);
+      print(serverdata);
 
       if (serverdata['ok'] == 'no') {
         print('Error:Server refused the login attempt.');

@@ -1,5 +1,6 @@
 #SCwidget {
   position:absolute;
+  display: none;
   width:calc(10vw - 8px);
   min-width: calc(140px - 5px);
   height:42px;
@@ -13,7 +14,7 @@
   border-left:1px solid rgba(0,0,0,0.1);
   border-bottom:2px solid rgba(0,0,0,0.3);
   padding:4px;
-  box-shadow: 0 0 15px 1px rgba(0,0,0,0.1); 
+  box-shadow: 0 0 15px 1px rgba(0,0,0,0.1);
 }
 #SCwidget * {
   color:#777;

@@ -190,6 +190,7 @@ class InputManager {
 		Joystick joystick = new Joystick(querySelector('#Joystick'),querySelector('#Knob'),deadzoneInPercent:.2);
 		joystick.onMove.listen((_)
 		{
+			print('got move event');
 			//don't move during harvesting, etc.
 			if(querySelector(".fill") == null)
 			{
@@ -253,8 +254,7 @@ class InputManager {
 		document.onClick.listen((MouseEvent event) => clickOrTouch(event,null));
 		document.onTouchStart.listen((TouchEvent event) => clickOrTouch(null,event));
 
-		//new TouchScroller(querySelector('#InventoryBar'),TouchScroller.HORIZONTAL);
-		//new TouchScroller(querySelector('#InventoryBag'),TouchScroller.HORIZONTAL);
+		new TouchScroller(querySelector('#inventory'),TouchScroller.HORIZONTAL);
 		//end mobile specific stuff
   }
 

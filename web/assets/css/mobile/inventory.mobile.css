@@ -1,5 +1,9 @@
 #inventory {
-	display: none
+	position: absolute;
+	bottom: 5px;
+	left: 110px;
+	height: 70px;
+	max-width: calc(100% - 280px);
 }
 
 #inventory .box, .window .box {
@@ -29,7 +33,7 @@
 	height:35px;
 	border-radius:50%;
 	position:absolute;
-	bottom:5px;
+	bottom:70px;
 	left:0px;
 	cursor:pointer;
 	z-index:0;

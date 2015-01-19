@@ -7,18 +7,18 @@
 	}
 	#Joystick {
 		display: block;
-		width: 50px;
-		height: 50px;
+		width: 70px;
+		height: 70px;
 		border: 1px solid;
 		border-radius: 50%;
 		position: absolute;
-		bottom: 5px;
-		left: 40px;
+		bottom: 7px;
+		left: 20px;
 	}
 	#Knob {
 		position: absolute;
-		top: 9px;
-		left: 9px;
+		top: 19px;
+		left: 19px;
 		width: 30px;
 		height: 30px;
 		border: 1px solid;
@@ -36,7 +36,7 @@
 		border-radius: 50%;
 		position: absolute;
 		right: 20px;
-		bottom: 5px;
+		bottom: 15px;
 	}
 	#BButton {
 		display: block;
@@ -48,7 +48,7 @@
 		border-radius: 50%;
 		position: absolute;
 		right: 100px;
-		bottom: 5px;
+		bottom: 15px;
 	}
 }
 
