@@ -1,0 +1,13 @@
+#loading {
+	min-width: initial;
+	min-height: initial;
+}
+
+#loading .splash {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+	max-width: 70%;
+	max-height: 90%;
+}

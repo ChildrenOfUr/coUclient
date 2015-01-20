@@ -30,8 +30,7 @@ dependencies:
       ref: master
       url: https://github.com/ChildrenOfUr/dart-slack.git
 transformers:
-- $dart2js:
-    minify: true
+- redstone_mapper
 - async_await
 - polymer:
     entry_points: web/index.html

@@ -64,9 +64,18 @@ main {
   height:100%;
   max-height:750px;
   min-height:500px;
-  
+
   position:absolute;
   left:0; right:0;
   top:0; bottom:0;
   margin:auto;
+}
+
+#topRight {
+	right: 0;
+	position: absolute;
+}
+
+#time {
+	display: inline-block;
 }

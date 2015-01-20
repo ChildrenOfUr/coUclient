@@ -2,7 +2,7 @@
   position:relative;
   width:100%;
   height:100%;
-  
+
 }
 .conversation header {
   position:absolute;
@@ -36,7 +36,7 @@
   right:1.5%;
   overflow-y:scroll;
   overflow-x:hidden;
-  
+
   font-family: 'Tahoma', 'Geneva', 'sans-serif';
   cursor: auto;
   -webkit-user-select: text;
@@ -73,7 +73,6 @@
   bottom:5px;
   left:3%;
   background-color:#eee;
-  width:70%;
   height:16px;
   border:none;
   border:2px solid rgba(0,0,0,0.1);

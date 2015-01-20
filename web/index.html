@@ -82,31 +82,33 @@
       <!-- ------------------------------------------------ -->
 
 
-      <div id="mapDisplay">
-        <div class="label">
-        Current Location:</div>
-        <div id="currLocation"></div>
-
-        <div id="mapButton" class="button light">
-          <i class="fa fa-map-marker"></i>
-        </div>
-      </div>
-      <nav>
-        <i id="signoutGlyph" class="fa fa-sign-out"></i>
-        <i id="bugGlyph" class="fa fa-bug"> </i>
-        <a href="http://childrenofur.com" target="_blank">
-          <i id="questionGlyph" class="fa fa-home"> </i>
-        </a>
-        <i id="volumeGlyph" class="fa fa-volume-up"></i>
-        <span id="volumeSlider">
-          <input type="range" id="VolumeSlider" min="0" max="100" step="1">
-        </span>
-        <i id="settingsGlyph" class="fa fa-cog"></i>
-      </nav>
-
-      <span id="currDay">N</span>
-      <span id="currTime">N:NN</span>
-      <span id="currDate">Nth of N</span>
+	  <div id="topRight">
+		  <div id="mapDisplay">
+	        <div class="label">
+	        Current Location:</div>
+	        <div id="currLocation"></div>
+	      </div>
+	      <div id="mapButton" class="button light">
+	          <i class="fa fa-map-marker"></i>
+	        </div>
+	      <nav>
+	        <i id="signoutGlyph" class="fa fa-sign-out"></i>
+	        <i id="bugGlyph" class="fa fa-bug"> </i>
+	        <a href="http://childrenofur.com" target="_blank">
+	          <i id="questionGlyph" class="fa fa-home"> </i>
+	        </a>
+	        <i id="volumeGlyph" class="fa fa-volume-up"></i>
+	        <span id="volumeSlider">
+	          <input type="range" id="VolumeSlider" min="0" max="100" step="1">
+	        </span>
+	        <i id="settingsGlyph" class="fa fa-cog"></i>
+	      </nav>
+	  	<div id="time">
+	  		<div id="currDay">N</div>
+	    	<div id="currTime">N:NN</div>
+	    	<div id="currDate">Nth of N</div>
+	  	</div>
+	  </div>
 
       <div id="game">
 

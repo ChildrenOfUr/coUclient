@@ -41,10 +41,10 @@ class Joystick
 			//add an event to the stream 4 times per second even if the user does not move
 			//the knob - this will, for instance, allow the joystick to be used as a selection
 			//device (think menus) even if the user holds the knob steady at the top.
-			repeatTimer = new Timer.periodic(new Duration(milliseconds:250), (_)
+			/*repeatTimer = new Timer.periodic(new Duration(milliseconds:250), (_)
 			{
 				_moveController.add(new JoystickEvent());
-			});
+			});*/
 		});
 		knob.onTouchMove.listen((TouchEvent event)
 		{

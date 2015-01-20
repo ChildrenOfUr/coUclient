@@ -30,7 +30,12 @@ import 'package:pump/pump.dart';
 import 'package:persona/persona_html.dart';
 
 import 'package:polymer/polymer.dart';
+
+// Necessary to init the mapper in the main method
 import 'package:redstone_mapper/mapper_factory.dart';
+
+//it's necessary to import every lib that contains encodable classes
+import 'package:couclient/src/display/components/auction_list/auction.dart';
 
 // SYSTEMS MODULES //
 part 'package:couclient/src/systems/clock.dart';

@@ -190,7 +190,6 @@ class InputManager {
 		Joystick joystick = new Joystick(querySelector('#Joystick'),querySelector('#Knob'),deadzoneInPercent:.2);
 		joystick.onMove.listen((_)
 		{
-			print('got move event');
 			//don't move during harvesting, etc.
 			if(querySelector(".fill") == null)
 			{

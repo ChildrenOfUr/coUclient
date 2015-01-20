@@ -1,13 +1,13 @@
 main {
-	width:100%;
-	max-width:1300px;
-	height:100%;
-	max-height:750px;
-	position:absolute;
-	left:0; right:0;
-	top:0; bottom:0;
-	margin:auto;
-	overflow: hidden;
+	width: 100%;
+	max-width: 1300px;
+	height: 100%;
+	max-height: 750px;
+	position: absolute;
+	left: initial;
+	right: initial;
+	top: initial;
+	bottom: initial;
 }
 
 @media (min-width: 1500px) {

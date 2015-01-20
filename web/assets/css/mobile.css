@@ -7,6 +7,7 @@
 /*Component Imports*/
 @import url("mobile/game.mobile.css");
 @import url("mobile/inventory.mobile.css");
+@import url("mobile/loader.mobile.css");
 @import url("mobile/currants.mobile.css");
 @import url("mobile/nav.mobile.css");
 @import url("mobile/panel.mobile.css");
