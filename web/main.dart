@@ -66,6 +66,7 @@ part 'package:couclient/src/display/windows/settings_window.dart';
 part 'package:couclient/src/display/windows/bag_window.dart';
 part 'package:couclient/src/display/windows/bug_window.dart';
 part 'package:couclient/src/display/windows/map_window.dart';
+part 'package:couclient/src/display/windows/motd_window.dart';
 part 'package:couclient/src/display/windows/vendor_window.dart';
 
 // WIDGET MODULES //
@@ -108,7 +109,8 @@ Random random = new Random();
 NumberFormat commaFormatter = new NumberFormat("#,###");
 SoundManager audio;
 InputManager inputManager;
-
+WindowManager windowManager;
+AuthManager auth;
 Game game;
 
 main()
@@ -116,13 +118,13 @@ main()
 	bootstrapMapper();
 	initPolymer();
 
-	new AuthManager();
+  view = new UserInterface();
+  auth = new AuthManager();
 
-	view = new UserInterface();
-	// System
-	new ClockManager();
-	new CommandManager();
+  // System
+  new ClockManager();
+  new CommandManager();
 
-	new WindowManager();
-	inputManager = new InputManager();
+  windowManager = new WindowManager();
+  inputManager = new InputManager();
 }

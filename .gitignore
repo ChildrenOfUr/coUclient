@@ -8,3 +8,4 @@ API_KEYS.json
 web/*.js*
 build/
 *.orig
+.pub/

@@ -63,8 +63,10 @@ class Street
     Completer c = new Completer();
     // clean up old street data
     //currentStreet = null;
-    view.layers.children.clear();
-    view.playerHolder.children.clear(); //clear previous street's quoins and stuff
+    for (Element layer in view.layers.children)
+      layer.remove();
+    for (Element item in view.playerHolder.children)
+      item.remove(); //clear previous street's quoins and stuff
     view.location = label;
 
     // set the song loading if necessary

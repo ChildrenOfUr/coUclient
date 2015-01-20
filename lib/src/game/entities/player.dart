@@ -65,6 +65,11 @@ class Player
 		view.worldElement.append(playerParentElement);
 	}
 
+	remove() {
+    for (Element element in this.playerParentElement.children)
+      element.remove();
+	}
+
 	Future<List<Animation>> loadAnimations()
 	{
 		//need to get background images from some server for each player based on name
@@ -432,14 +437,14 @@ class Player
 		if(!facingRight)
 		{
 			transform += ' scale(-1,1)';
-			playerName.style.transform = 'translateY(calc(-100% - 34px)) scale(-1,1)';
+			playerName.style.transform = 'translateY(-100%) translateY(-34px) scale(-1,1)';
 
 			if(chatBubble != null)
 			chatBubble.textElement.style.transform = 'scale(-1,1)';
 		}
 		else
 		{
-			playerName.style.transform = 'translateY(calc(-100% - 34px)) scale(1,1)';
+			playerName.style.transform = 'translateY(-100%) translateY(-34px) scale(1,1)';
 
 			if(chatBubble != null)
 			chatBubble.textElement.style.transform = 'scale(1,1)';
