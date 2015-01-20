@@ -3,7 +3,7 @@
 	bottom: 5px;
 	left: 110px;
 	height: 70px;
-	max-width: calc(100% - 280px);
+	max-width: calc(100% - 375px);
 }
 
 #inventory .box, .window .box {

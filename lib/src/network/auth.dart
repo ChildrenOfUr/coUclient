@@ -26,8 +26,8 @@ class AuthManager {
       "content-type": "application/json"
     }, sendData: JSON.encode({
       'assertion': personaAssertion
-      , 'testing':true
-      // 'audience':'http://robertmcdermot.com/cou:80'
+      //, 'testing':true
+      , 'audience':'http://robertmcdermot.com/cou:80'
     })).then((HttpRequest data) {
       Map serverdata = JSON.decode(data.response);
       print(serverdata);
