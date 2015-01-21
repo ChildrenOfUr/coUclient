@@ -1,4 +1,5 @@
 <link rel="import" href="../../../../../../packages/polymer/polymer.html">
+<link rel="import" href="../../../../../../packages/couclient/toolkit/toolkit.html">
 <polymer-element name="auction-list">
 	<template>
 		<link rel="stylesheet" href="auction_list.css">
@@ -27,7 +28,7 @@
 						each
 					</div>
 					<div class="buyParent column">
-						<div class="buyButton">Buy</div>
+						<ur-button big="true">Buy</ur-button>
 					</div>
 					<div class="timing column">
 						<div class="startTime">{{result.value.since}} ago</div>

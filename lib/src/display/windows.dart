@@ -46,7 +46,7 @@ abstract class Modal {
     window = querySelector('#$id');
 
     // CLOSE BUTTON ////////////////////////////////////
-    window.querySelector('.fa-times.close').onClick.first.then((_) => this.close());
+    window.querySelector('.fa-times.close').onClick.listen((_) =>  this.close());
     StreamSubscription escListener;
     escListener = document.onKeyUp.listen((KeyboardEvent e)
 	{

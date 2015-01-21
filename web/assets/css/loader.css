@@ -45,7 +45,7 @@
 }
 #login-button {
   position:absolute;
-  bottom:25px;
+  bottom:50px;
   width:150px;
   left:calc(50% - 83px);
 }

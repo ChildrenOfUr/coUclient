@@ -2,12 +2,17 @@
 
 <link rel="import" href="../fonts/fonts.html"> 
 
-<polymer-element name="ur-button" attributes="theme" noscript>
+<polymer-element name="ur-button" attributes="theme big" noscript>
   <template>
     <style>
+      :host {
+        display:inline-block;
+      }
+    
       button {
         font-family: 'Fredoka One', cursive;
         position:relative;
+        min-width:30px;
         border-radius:7px;
         padding:6px;
         background-color: #4b2e4c;
@@ -47,8 +52,13 @@
       button.light, button.light * {
           color:#4b2e4c;
       }
+      
+      button[big="true"] {
+        font-size:20px;
+      }
+      
     </style>
-    <button class="{{theme}}">
+    <button class="{{theme}}{{size}}" big="{{big}}">
       <content></content>
     </button>
   </template>

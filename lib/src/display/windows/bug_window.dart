@@ -17,7 +17,7 @@ class BugWindow extends Modal {
       // TODO someday this should be serverside. Let's not give our keys to the client unless we have to.
       if (listening == false) {
         listening = true;
-        w.querySelector('.button').onClick.listen((_) {
+        w.querySelector('ur-button').onClick.listen((_) {
           if (input.value.trim() != ''){
           slack.Message m = new slack.Message('${view.bugReportMeta.text} \n REPORT TYPE:${view.bugReportType.value} \n ${input.value} \n ${view.bugReportEmail.value}',username:game.username);
           slack.team = SLACK_TEAM;

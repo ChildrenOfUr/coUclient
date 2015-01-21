@@ -63,27 +63,6 @@
 	font-weight: bold;
 	display: inline;
 }
-.buyButton {
- 	background: rgb(221, 221, 221);
- 	color: #4b2e4c;
-	font-size: 1.2em;
-	font-weight: bold;
-	padding: 5px 20px;
-	border: 1px solid #4b2e4c;
-	border-radius: 5px;
-	display: inline-block;
-	cursor: pointer;
-	vertical-align: middle;
-	-webkit-box-shadow: -1px 1px 3px 0px #4e2b4c;
- 	-moz-box-shadow: -1px 1px 3px 0px #4e2b4c;
- 	-o-box-shadow: -1px 1px 3px 0px #4e2b4c;
- 	-khtml-box-shadow: -1px 1px 3px 0px #4e2b4c;
- 	box-shadow: -1px 1px 3px 0px #4e2b4c;
-}
-.buyButton:hover {
-	background: #4b234c;
-	color: white;
- }
 .timing {
 	display: inline-block;
 }

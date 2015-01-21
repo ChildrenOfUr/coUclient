@@ -21,10 +21,13 @@
    <script src="https://login.persona.org/include.js"></script>
 
    <!--Polymer components-->
+   <link rel="import" href="packages/couclient/toolkit/toolkit.html">
    <link rel="import" href="packages/couclient/src/display/components/auction_list/auction_list.html">
 
+
+
   </head>
-  <body>
+  <body unresolved>
 
   <!--This preloads the Sniglet font so that it works correctly with the actions-->
   <div style="font-family: Sniglet;opacity:0;position:absolute;">.</div>
@@ -34,9 +37,9 @@
         <div class="splash">
           <img src="assets/system/logo.svg" alt="Children of Ur logo"><br>
           <span id="greeting">It's good to see you,</span><br>
-          <span id="login-button" class="button" >
+          <ur-button id="login-button" big="true">
             Login/Signup
-          </span>
+          </ur-button>
         </div>
 
         <div id="loadstatus">Loading</div>
@@ -88,21 +91,29 @@
 	        Current Location:</div>
 	        <div id="currLocation"></div>
 	      </div>
-	      <div id="mapButton" class="button light">
-	          <i class="fa fa-map-marker"></i>
-	        </div>
+	      <ur-button id="mapButton" theme="light" big="true">
+	          Map <i class="fa fa-map-marker"></i>
+	        </ur-button>
 	      <nav>
-	        <i id="signoutGlyph" class="fa fa-sign-out"></i>
-	        <i id="bugGlyph" class="fa fa-bug"> </i>
-	        <a href="http://childrenofur.com" target="_blank">
+	        <a href="#">
+            <i id="signoutGlyph" class="fa fa-sign-out"></i>
+          </a>
+	        <a href="#">
+            <i id="bugGlyph" class="fa fa-bug"> </i>
+	        </a>
+          <a href="http://childrenofur.com" target="_blank">
 	          <i id="questionGlyph" class="fa fa-home"> </i>
 	        </a>
+          
 	        <i id="volumeGlyph" class="fa fa-volume-up"></i>
-	        <span id="volumeSlider">
+          <span id="volumeSlider">
 	          <input type="range" id="VolumeSlider" min="0" max="100" step="1">
 	        </span>
-	        <i id="settingsGlyph" class="fa fa-cog"></i>
-	      </nav>
+          
+          <a href="#">
+	         <i id="settingsGlyph" class="fa fa-cog"></i>
+	        </a>
+        </nav>
 	  	<div id="time">
 	  		<div id="currDay">N</div>
 	    	<div id="currTime">N:NN</div>
@@ -369,9 +380,9 @@
                 <i class="minus fa fa-minus"></i>
                 <input class="NumToBuy" type="number" min="1" max="99">
                 <i class="plus fa fa-plus"></i>
-                <div class="max button light">Max</div>
+                <ur-button class="max" theme="light">Max</ur-button>
               </div>
-              <div class="BuyButton button light" style="margin-left:10px;">Buy 1 for 1000₡</div>
+              <ur-button class="BuyButton" theme="light" style="margin-left:10px;">Buy 1 for 1000₡</ur-button>
               <div class="Description"></div>
               <div class="ItemStack">
                 <span class="BlankSlot"></span>
@@ -403,9 +414,9 @@
                 <span id="MinusButton">-</span>
                 <input id="NumToBuy" type="number" min="1">
                 <span id="PlusButton">+</span>
-                <div id="MaxButton" class="button light">Max</div>
+                <ur-button id="MaxButton" theme="light">Max</ur-button>
               </div>
-              <div id="BuyButton" class="button light" style="margin-left:10px;">Sell 1 for 0₡</div>
+              <ur-button id="BuyButton" theme="light" style="margin-left:10px;">Sell 1 for 0₡</ur-button>
               <div id="Description"></div>
               <div id="ItemStack">
                 <span id="BlankSlot"></span>
@@ -477,7 +488,7 @@
               <textarea id="reportMain" placeholder="Please provide a detailed description of the problem you are experiencing or of the feature you would like us to add."></textarea>
               <textarea id="reportMeta" disabled="true"></textarea>
               <input type="email" placeholder="Email Address (optional)">
-              <div class="button">Submit Report</div>
+              <ur-button>Submit Report</ur-button>
           </article>
         </div>
 
