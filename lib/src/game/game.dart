@@ -24,9 +24,9 @@ class Game {
     new NetChatManager();
     new Message(#startChat, 'Global Chat');
     new Message(#startChat, 'Local Chat');
-    
+
     windowManager.motdWindow.open();
-    
+
     metabolics.init();
     multiplayerInit();
     CurrentPlayer = new Player(username);

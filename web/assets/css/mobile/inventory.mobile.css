@@ -1,9 +1,17 @@
+@media (orientation: landscape) /* mobile device in landscape */
+{
+	#inventory {
+
+	}
+}
+
 #inventory {
 	position: absolute;
 	bottom: 5px;
-	left: 110px;
+	left: 105px;
 	height: 70px;
-	max-width: calc(100% - 375px);
+	width: calc(100% - 262px);
+	overflow: hidden;
 }
 
 #inventory .box, .window .box {

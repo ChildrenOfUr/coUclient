@@ -35,7 +35,7 @@
 		border: 1px solid;
 		border-radius: 50%;
 		position: absolute;
-		right: 20px;
+		right: 10px;
 		bottom: 15px;
 	}
 	#BButton {
@@ -47,7 +47,7 @@
 		border: 1px solid;
 		border-radius: 50%;
 		position: absolute;
-		right: 100px;
+		right: 80px;
 		bottom: 15px;
 	}
 }

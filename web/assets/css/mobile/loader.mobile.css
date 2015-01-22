@@ -9,5 +9,23 @@
 	left: 50%;
 	transform: translate(-50%,-50%);
 	max-width: 70%;
-	max-height: 90%;
+	max-height: 80%;
+}
+
+#loading img {
+	margin-top: initial;
+}
+
+#login-button {
+	margin-top: 50px;
+	position: initial;
+	bottom: initial;
+	width: initial;
+	left: initial;
+}
+
+#splashContent {
+	position: relative;
+	top: 50%;
+	transform: translateY(-50%);
 }

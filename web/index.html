@@ -24,8 +24,6 @@
    <link rel="import" href="packages/couclient/toolkit/toolkit.html">
    <link rel="import" href="packages/couclient/src/display/components/auction_list/auction_list.html">
 
-
-
   </head>
   <body unresolved>
 
@@ -35,11 +33,13 @@
     <div id="loading">
 
         <div class="splash">
-          <img src="assets/system/logo.svg" alt="Children of Ur logo"><br>
-          <span id="greeting">It's good to see you,</span><br>
-          <ur-button id="login-button" big="true">
-            Login/Signup
-          </ur-button>
+        	<div id="splashContent">
+        	<img src="assets/system/logo.svg" alt="Children of Ur logo"><br>
+	          <span id="greeting">It's good to see you,</span><br>
+	          <ur-button id="login-button" big="true">
+	            Login/Signup
+	          </ur-button>
+        	</div>
         </div>
 
         <div id="loadstatus">Loading</div>
@@ -104,12 +104,12 @@
           <a href="http://childrenofur.com" target="_blank">
 	          <i id="questionGlyph" class="fa fa-home"> </i>
 	        </a>
-          
+
 	        <i id="volumeGlyph" class="fa fa-volume-up"></i>
           <span id="volumeSlider">
 	          <input type="range" id="VolumeSlider" min="0" max="100" step="1">
 	        </span>
-          
+
           <a href="#">
 	         <i id="settingsGlyph" class="fa fa-cog"></i>
 	        </a>
@@ -500,7 +500,7 @@
           </header>
           <article class="well">
             <H1 class="red">Attention:</H1>
-              This 'game' is very much in pre-alpha, as such everything you see or collect is temporary. 
+              This 'game' is very much in pre-alpha, as such everything you see or collect is temporary.
               Keep in mind that commands may change without warning, and things will break.
               <br>
               Report bugs at the project's page on <a href="https://github.com/ChildrenOfUr/coUclient/issues">Github</a>,
