@@ -30,16 +30,13 @@
     min-width:120px;
 }
 #loading .splash {
+  display:block;
   text-align:center;
   margin:auto;
   position:relative;
   top:calc(50% - 150px);
   width:400px;
   height:300px;
-  background-color:#fff;
-  border: 1px solid #bbb;
-  border-bottom:2px solid #bbb;
-  border-radius:10px;
   overflow:hidden;
   padding:1em;
 }

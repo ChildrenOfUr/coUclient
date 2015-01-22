@@ -183,7 +183,7 @@ class TouchScroller {
   static int HORIZONTAL = 0,
       VERTICAL = 1,
       BOTH = 2;
-  DivElement _scrollDiv;
+  Element _scrollDiv;
   int _startX, _startY, _lastX, _lastY, _direction;
 
   TouchScroller(this._scrollDiv, this._direction) {

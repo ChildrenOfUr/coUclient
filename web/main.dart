@@ -110,13 +110,14 @@ NumberFormat commaFormatter = new NumberFormat("#,###");
 SoundManager audio;
 InputManager inputManager;
 WindowManager windowManager;
+CommandManager commandManager;
 AuthManager auth;
 Game game;
 
 main()
 {
-	bootstrapMapper();
-	initPolymer();
+  bootstrapMapper();
+  initPolymer();
 
   view = new UserInterface();
   auth = new AuthManager();

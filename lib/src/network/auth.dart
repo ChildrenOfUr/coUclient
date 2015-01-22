@@ -72,7 +72,6 @@ Please check back another time. :(''';
 
       // Begin Game//
       game = new Game();
-
       audio = new SoundManager();
       view.loggedIn();
     });

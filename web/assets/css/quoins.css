@@ -47,6 +47,7 @@ quoin graphic
 }
 
 .quoinString {
+    font-family: 'Fredoka One', cursive;
     opacity: 0;
     /* shift left edge of text half distance to left */
     margin-left: -50%;

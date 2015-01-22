@@ -6,19 +6,11 @@
   right:13px;
   font-size:12px;
   line-height:15px;
-  border-radius: 8px;
   text-align:center;
-  background-color:#fff;
-  border: 1px solid #bbb;
-  border-bottom:2px solid #bbb;
-  padding:4px;
-  margin:5px;
 }
 #SCwidget * {
   color:#777;
 }
 #SCwidget span, #SCwidget img {
   cursor:pointer;
-}
-#SCwidget .fa {
 }

@@ -23,7 +23,7 @@
   <body unresolved>
 
     <div id="loading">
-        <div class="splash">
+        <ur-panel class="splash">
         	<div id="splashContent">
         	<img src="assets/system/logo.svg" alt="Children of Ur logo"><br>
 	          <span id="greeting">It's good to see you,</span><br>
@@ -31,7 +31,7 @@
 	            Login/Signup
 	          </ur-button>
         	</div>
-        </div>
+        </ur-panel>
 
         <div id="loadstatus">Loading</div>
         <br>
@@ -151,7 +151,7 @@
       <div id="inventorySearch">
         <i class="fa fa-search"></i>
       </div>
-      <div id="inventory">
+      <ur-well id="inventory">
         <div class="box"></div>
         <div class="box"></div>
         <div class="box"></div>
@@ -162,7 +162,7 @@
         <div class="box"></div>
         <div class="box"></div>
         <div class="box"></div>
-      </div>
+      </ur-well>
 
       <div id="energyText">
           <span id="currEnergy">n</span>
@@ -244,13 +244,13 @@
 
       </div>
 
-      <div id="SCwidget">
+      <ur-panel id="SCwidget">
         <div><a id="SCLink" target="_blank"><span id="trackTitle">The Song</span><br> By <span id="trackArtist">The Artist</span></a></div>
           <audio id="musicBox"></audio>
         <a href="http://www.soundcloud.com" target="_blank">
           <img src="assets/system/soundcloud.png" alt="powered by soundcloud">
         </a>
-      </div>
+      </ur-panel>
 
 
       <div id="windowHolder">

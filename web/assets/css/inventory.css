@@ -9,10 +9,6 @@
   min-width:calc(300px - 40px);
   white-space: nowrap;
   text-align:center;
-  background-color:rgba(0,0,0,0.1);
-  border-radius:9px;
-  border: 1px solid rgba(0,0,0,0.1);
-  border-top:2px solid rgba(0,0,0,0.1);
 }
 
  .box {

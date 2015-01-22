@@ -31,6 +31,8 @@ class SoundManager {
       new Service([#playSound],(Message event) {
         this.playSound(event.content);
       });
+    }) .then((_) {
+      audio.setSong('piano');
     });
   }
 
@@ -181,7 +183,6 @@ class SoundManager {
   }
 
   _playSong(String name) {
-
     /*
      * canPlayType should return:
      *    probably: if the specified type appears to be playable.

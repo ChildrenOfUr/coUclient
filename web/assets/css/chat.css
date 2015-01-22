@@ -51,6 +51,7 @@
   background-color:#fff;
 }
 .dialog p *.name {
+  font-family: 'Fredoka One', cursive;
   font-size:1.1em;
 }
 .dialog p *.message{
