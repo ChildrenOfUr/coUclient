@@ -1,4 +1,5 @@
 #game {
+	width: calc(100% - 120px);
 }
 #street-canvas {
 	position:absolute;

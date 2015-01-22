@@ -4,7 +4,7 @@
 	top:50px;
 	right:-95px;
 	width:240px;
-	height:100%;
+	height:calc(100% - 50px);
 	background-color:#eee;
 	transition-property: right;
 	transition-duration: 0.3s;
@@ -30,8 +30,8 @@
 	left:-25px;
 }
 #rightSide:active,
-#rightSide:focus {
-	right: 100px;
+#rightSide:focus, #rightSide:hover {
+	right: 0px;
 }
 
 h3 {
