@@ -12,11 +12,6 @@
    <!--Import game css-->
    <link rel="stylesheet" href="style.css">
 
-   <!--Import Google fonts-->
-   <link href='https://fonts.googleapis.com/css?family=Fredoka+One' rel='stylesheet' type='text/css'>
-   <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
-   <link href='https://fonts.googleapis.com/css?family=Sniglet:800' rel='stylesheet' type='text/css'>
-
    <!--Persona Login-->
    <script src="https://login.persona.org/include.js"></script>
 
@@ -29,11 +24,7 @@
   </head>
   <body unresolved>
 
-  <!--This preloads the Sniglet font so that it works correctly with the actions-->
-  <div style="font-family: Sniglet;opacity:0;position:absolute;">.</div>
-
     <div id="loading">
-
         <div class="splash">
           <img src="assets/system/logo.svg" alt="Children of Ur logo"><br>
           <span id="greeting">It's good to see you,</span><br>
@@ -326,9 +317,9 @@
             <i class="fa-li fa fa-map-marker"></i>
             <span id="mapTitle">Map</span>
           </header>
-          <article id="mapImage" class="well">
-          	<canvas id="MapCanvas" width="760" height="460"></canvas>
-          </article>
+          <ur-well id="mapImage">
+          	 <canvas id="MapCanvas" width="760" height="460"></canvas> 
+          </ur-well> 
         </div>
 
         <div id="auctionWindow" class="window" hidden>
@@ -443,8 +434,8 @@
             <i class="fa-li fa fa-search"></i>
             Bag
           </header>
-          <article class="well">
-          <div class="storage">
+          <article>
+          <ur-well class="storage">
             <div class="box"></div>
             <div class="box"></div>
             <div class="box"></div>
@@ -465,9 +456,9 @@
             <div class="box"></div>
             <div class="box"></div>
             <div class="box"></div>
-          </div>
+          </ur-well>
             <input type="text" placeholder="Search Inventory..." id="invsearch">
-          </article><!--Cross-Domain Asset Fix-->
+          </article>
         </div>
 
         <div id="bugWindow" class="window" hidden>
@@ -476,7 +467,7 @@
             <i class="fa-li fa fa-bug"></i>
             Bugs/Suggestions
           </header>
-          <article class="well">
+          <ur-well>
               <p>If you would like to report a bug or make a feature request, please fill this out. Your browser information is included automatically for debugging purposes. You can choose to provide an email address for further contact.</p>
               <label for="reportCategory">Choose a report type:</label>
               <select id="reportCategory">
@@ -489,7 +480,7 @@
               <textarea id="reportMeta" disabled="true"></textarea>
               <input type="email" placeholder="Email Address (optional)">
               <ur-button>Submit Report</ur-button>
-          </article>
+          </ur-well>
         </div>
 
         <div id="motdWindow" class="window" hidden>
@@ -498,7 +489,7 @@
             <i class="fa-li fa fa-gears"></i>
             Message of the Day
           </header>
-          <article class="well">
+          <ur-well>
             <H1 class="red">Attention:</H1>
               This 'game' is very much in pre-alpha, as such everything you see or collect is temporary. 
               Keep in mind that commands may change without warning, and things will break.
@@ -511,7 +502,7 @@
               That being said, I want you to know that we care about you loads and hope you'll have fun in our little world.
               <br>
               - CoU Dev Team
-          </article>
+          </ur-well> 
         </div>
 
       </div>
@@ -529,11 +520,6 @@
     <div id="youWon" hidden><br><br><br><br>
       WAIT! You were just about to win the game!
     </div>
-
-    <!--Cross-Domain Asset Fix-->
-    <script type="text/javascript">
-      function getRoom(dataJSON){window.postMessage(JSON.stringify(dataJSON),'*');}
-    </script>
 
     <!-- Start the Game up. -->
     <script type="application/dart" src="./main.dart"></script>

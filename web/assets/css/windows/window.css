@@ -1,10 +1,3 @@
-.well {
-  background-color:rgba(0,0,0,0.1);
-  border-radius:9px;
-  border: 1px solid rgba(0,0,0,0.1);
-  border-top:2px solid rgba(0,0,0,0.1);
-}
-
 #windowHolder .window{
   position: absolute;
   top: calc(40% - 170px);
@@ -39,7 +32,7 @@
   color:#444;
 }
 
-.window article {
+.window ur-well , .window article{
   font-family: 'Tahoma', 'Geneva', 'sans-serif';
   color: #000;
   font-size: 12px;
@@ -130,13 +123,6 @@ article .tab-content{
   border-radius:9px;
   border: 1px solid rgba(0,0,0,0.1);
   border-top:2px solid rgba(0,0,0,0.1);
-}
-
-#motdFrame {
-  border: none;
-  height: 100%;
-  width: 100%;
-  margin: 0;
 }
 
 /*Popup elements*/

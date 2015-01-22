@@ -45,9 +45,9 @@ class UserInterface {
 
   // bugreport button
   Element bugButton = querySelector('#bugGlyph');
-  Element bugReportMeta = querySelector('#bugWindow article #reportMeta');
-  InputElement bugReportEmail = querySelector('#bugWindow article input[type="email"]');
-  SelectElement bugReportType = querySelector('#bugWindow article #reportCategory');
+  Element bugReportMeta = querySelector('#bugWindow ur-well #reportMeta');
+  InputElement bugReportEmail = querySelector('#bugWindow ur-well input[type="email"]');
+  SelectElement bugReportType = querySelector('#bugWindow ur-well #reportCategory');
 
   // main Element
   Element mainElement = querySelector('main');
