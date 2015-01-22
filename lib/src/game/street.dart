@@ -306,6 +306,7 @@ setStreetLoading()
 // the callback function for our deco loading 'Batch'
 setLoadingPercent(int percent)
 {
+  view.streetLoadingBar.attributes['percent'] = percent.toString();
 	currentStreet.loadTime = new Stopwatch();
 	currentStreet.loadTime.start();
 
@@ -313,8 +314,8 @@ setLoadingPercent(int percent)
 	{
 		//TODO: Whatever '1000' is changed to, that's how long it takes to display street image
 		new KeepingTime().delayMilliseconds(1000 - currentStreet.loadTime.elapsedMilliseconds);
-		view.streetLoadingStatus.text = '    done! ... 100%';
-		view.mapLoadingBar.style.width = '100%';
+		view.streetLoadingBar.attributes['status'] = '    done! ... 100%';
+		view.streetLoadingBar.attributes['percent'] = '100';
 		view.mapLoadingScreen.className = "MapLoadingScreen";
 		view.mapLoadingScreen.style.opacity = '0.0';
 		new Timer(new Duration(seconds: 1), () => view.mapLoadingContent.style.opacity = '0.0');
@@ -323,8 +324,8 @@ setLoadingPercent(int percent)
 	}
 	else
 	{
-		view.streetLoadingStatus.text = 'reticulating splines ... ' + (percent).toString() + '%';
-		view.mapLoadingBar.style.width = (percent).toString() + '%';
+		view.streetLoadingBar.attributes['status'] = 'reticulating splines ... ' + (percent).toString() + '%';
+		view.streetLoadingBar.attributes['percent'] = percent.toString();
 	}
 }
 

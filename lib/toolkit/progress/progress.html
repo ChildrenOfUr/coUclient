@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<link rel="import" href="../../../../packages/polymer/polymer.html">
+<link rel="import" href="../fonts/fonts.html"> 
+
+<polymer-element name="ur-progress" attributes="percent status" noscript>
+  <template>
+    <style>    
+    :host {
+      background-color: #e6ecee;
+      display:inline-block;
+      overflow: hidden;
+      font-size:18px;
+      height:20px;
+      width:80%;
+      color:rgba(0,0,0,0.7);
+      border: 2px solid #fff;
+      -moz-border-radius: 4px;
+      border-radius: 4px;
+    }
+    #bar {
+      display:block;
+      position:relative;
+      height:18px;
+      font-family: 'Lato', sans-serif;
+      background-color: #c5dc81;      
+      width:0%;
+      border: 1px solid #fff;
+      -moz-border-radius: 5px;
+      border-radius: 5px;
+      transition-property: width;
+      transition-duration: 0.2s;
+      transition-timing-function: linear;
+      transition-delay: 0.5s;
+      -webkit-transition-property:width;
+      -webkit-transition-duration:0.2s;
+      -webkit-transition-timing-function:linear;
+      -webkit-transition-delay:0.5s;
+    }
+    #label {
+      position:relative;
+      top:-1.3em;
+      left:0.5em;
+    }
+    </style>
+    <span id="bar" style="width:{{percent}}%;"></span>
+    <span id="label">
+      {{status}}
+    </span>
+  </template>
+</polymer-element>

@@ -158,36 +158,10 @@
     text-shadow: 0px 4px rgba(0,0,0,0.3);
     font-size:30px;
 }
-.LoadingGroove{
-	background-color: #e6ecee;
-	position:absolute;
-	left:10%;
-	right:10%;
-	bottom:10%;
-	overflow: hidden;
-	font-size:18px;
-	color:rgba(0,0,0,0.7);
-	border: 2px solid #fff;
-	-moz-border-radius: 4px;
-	border-radius: 4px;
 
-}
-.LoadingBar{
-	background-color: #c5dc81;
-	position:absolute;
-	left:-2px;
-	top:-2px;
-	bottom:-2px;
-	width:0%;
-	border: 1px solid #fff;
-	-moz-border-radius: 5px;
-	border-radius: 5px;
-	transition-property: width;
-	transition-duration: 0.2s;
-	transition-timing-function: linear;
-	transition-delay: 0.5s;
-	-webkit-transition-property:width;
-	-webkit-transition-duration:0.2s;
-	-webkit-transition-timing-function:linear;
-	-webkit-transition-delay:0.5s;
+#streetLoadingBar{
+  position:absolute;
+  left:10%;
+  right:10%;
+  bottom:10%;
 }

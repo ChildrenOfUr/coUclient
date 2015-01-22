@@ -13,7 +13,7 @@ class UserInterface {
   Element loadingScreen = querySelector('#loading');
   Element loadingSpinner = querySelector('#loading .fa-spin');
   ImageElement streetLoadingImage = querySelector('#StreetLoadingImage');
-  Element streetLoadingStatus = querySelector('#StreetLoadingStatus');
+  Element streetLoadingBar = querySelector('#streetLoadingBar');
   Element nowEntering = querySelector('#NowEntering');
   Element mapLoadingBar = querySelector('#MapLoadingBar');
   Element mapLoadingScreen = querySelector('#MapLoadingScreen');

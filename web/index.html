@@ -78,11 +78,11 @@
 
 	  <div id="topRight">
 		  <div id="mapDisplay">
-	        <div class="label">
-	        Current Location:</div>
-	        <div id="currLocation"></div>
-	      </div>
-	      <ur-button id="mapButton" theme="light" big="true">
+	      <div class="label">
+	      Current Location:</div>
+	      <div id="currLocation"></div>
+	    </div>
+	      <ur-button id="mapButton" theme="light">
 	          Map <i class="fa fa-map-marker"></i>
 	        </ur-button>
 	      <nav>
@@ -140,11 +140,8 @@
         <div id="MapLoadingScreen" class="MapLoadingScreen">
 				<div id="MapLoadingContent">
 					<img id="StreetLoadingImage">
-	                <span id="NowEntering"></span>
-					<div class="LoadingGroove">&nbsp;
-						<span class="LoadingBar" id="MapLoadingBar">
-						<span id="StreetLoadingStatus"></span></span>
-					</div>
+	         <span id="NowEntering"></span>
+					<ur-progress id="streetLoadingBar" percent="0" status="Loading..."></ur-progress>
 				</div>
 			</div>
 
