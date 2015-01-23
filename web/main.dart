@@ -35,7 +35,7 @@ import 'package:polymer/polymer.dart';
 import 'package:redstone_mapper/mapper_factory.dart';
 
 //it's necessary to import every lib that contains encodable classes
-import 'package:couclient/src/display/components/auction_list/auction.dart';
+import 'package:couclient/components/auction_list/auction.dart';
 
 // SYSTEMS MODULES //
 part 'package:couclient/src/systems/clock.dart';

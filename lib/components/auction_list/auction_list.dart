@@ -4,7 +4,7 @@ import 'package:polymer/polymer.dart';
 import 'package:redstone_mapper/mapper.dart';
 import 'package:intl/intl.dart';
 
-import 'package:couclient/src/display/components/auction_list/auction.dart';
+import 'package:couclient/components/auction_list/auction.dart';
 
 import 'dart:convert';
 import 'dart:html';
