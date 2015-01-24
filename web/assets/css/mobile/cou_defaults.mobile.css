@@ -8,9 +8,3 @@ main {
 	min-width: initial;
 	overflow: hidden;
 }
-
-@media (min-width: 1500px) {
-	main {
-		margin: 0;
-	}
-}

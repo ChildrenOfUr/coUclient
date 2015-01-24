@@ -1,0 +1,46 @@
+#mapButton {
+	transform: translateY(-15%);
+	padding: initial
+}
+
+#time {
+	position: absolute;
+	top: 80%;
+	right: 5px;
+	text-align: right;
+}
+
+#nav {
+	transform: initial;
+}
+
+@media (orientation: portrait) /* mobile device in portrait */
+{
+	#mapDisplay {
+		position: relative;
+		text-align: right;
+		top: 50%;
+		display: inline-block;
+	}
+
+	#mapButton {
+		display: inline-block;
+		margin: initial;
+		padding: initial;
+	}
+
+	#nav {
+		top: 5px;
+		right: 5px;
+		width: 61px;
+	}
+
+	#time {
+		top: 55px;
+	}
+}
+
+@media (orientation: landscape)
+{
+
+}

@@ -56,7 +56,7 @@ class SettingsWindow extends Modal {
   }
   /**
         * Determines if messages like "<user> has joined" are shown to the player.
-        * 
+        *
         * Sets the visibility of join messages to [visible]
         */
   void setJoinMessagesVisibility(bool visible) {

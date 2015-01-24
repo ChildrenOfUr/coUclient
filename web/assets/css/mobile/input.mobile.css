@@ -47,27 +47,27 @@
 		border: 1px solid;
 		border-radius: 50%;
 		position: absolute;
-		right: 80px;
+		right: 70px;
 		bottom: 15px;
 	}
 }
 
 @media (orientation: portrait) /* mobile device in portrait */
 {
-				#Joystick {
+	#Joystick {
 		display: block;
-		width: 100px;
-		height: 100px;
+		width: 70px;
+		height: 70px;
 		border: 1px solid;
 		border-radius: 50%;
 		position: absolute;
-		bottom: 20px;
+		bottom: 5px;
 		left: 15px;
 	}
 	#Knob {
 		position: absolute;
-		top: 35px;
-		left: 35px;
+		top: 20px;
+		left: 20px;
 		width: 30px;
 		height: 30px;
 		border: 1px solid;
@@ -77,25 +77,25 @@
 	#AButton {
 		display: block;
 		text-align: center;
-		line-height: 60px;
-		width: 60px;
-		height: 60px;
+		line-height: 50px;
+		width: 50px;
+		height: 50px;
 		border: 1px solid;
 		border-radius: 50%;
 		position: absolute;
-		right:5px;
-		bottom: 65px;
+		right:10px;
+		bottom: 10px;
 	}
 	#BButton {
 		display: block;
 		text-align: center;
-		line-height: 60px;
-		width: 60px;
-		height: 60px;
+		line-height: 50px;
+		width: 50px;
+		height: 50px;
 		border: 1px solid;
 		border-radius: 50%;
 		position: absolute;
 		right: 70px;
-		bottom: 30px;
+		bottom: 10px;
 	}
 }

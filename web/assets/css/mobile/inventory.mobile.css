@@ -1,16 +1,10 @@
-@media (orientation: landscape) /* mobile device in landscape */
-{
-	#inventory {
-
-	}
-}
-
 #inventory {
 	position: absolute;
 	bottom: 5px;
-	left: 105px;
+	left: 98px;
 	height: 70px;
-	width: calc(100% - 262px);
+	width: calc(100% - 235px);
+	min-width: initial;
 	overflow: hidden;
 }
 

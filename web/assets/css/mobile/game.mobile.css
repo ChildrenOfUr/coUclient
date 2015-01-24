@@ -1,5 +1,6 @@
 #game {
-	width: calc(100% - 120px);
+	width: calc(70% - 24px);
+	min-width: initial;
 }
 #street-canvas {
 	position:absolute;
@@ -10,10 +11,4 @@
 #world {
 	position: absolute;
 	top: 0;
-}
-
-@media (min-width: 1500) {
-	#game {
-		width: calc(78vw);
-	}
 }

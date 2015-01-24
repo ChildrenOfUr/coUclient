@@ -5,6 +5,7 @@
 	right:-95px;
 	width:240px;
 	height:calc(100% - 50px);
+	border-radius: 10px 0 0 10px;
 	background-color:#eee;
 	transition-property: right;
 	transition-duration: 0.3s;
@@ -16,6 +17,7 @@
 	-moz-transition-duration:0.3s;
 	-moz-transition-timing-function:ease-in-out;
 }
+
 .toggleSide {
 	position:absolute;
 	line-height:73px;
@@ -31,7 +33,7 @@
 }
 #rightSide:active,
 #rightSide:focus, #rightSide:hover {
-	right: 0px;
+	right: 29%;
 }
 
 h3 {
@@ -86,8 +88,35 @@ h3 {
 	overflow:hidden;
 }
 
-@media (min-width: 2000px) {
-	#righSide {
+@media (orientation: portrait) /* mobile device in portrait */
+{
+	#rightSide {
+		width: 90px;
+		right: 0;
+		top: 115px;
+		bottom: 89px;
+		height: initial;
+	}
+
+	#panel {
+		right: 0;
+		width: 30%;
+		top: 115px;
+		bottom: 89px;
+		height: initial;
+	}
+}
+
+@media (orientation: landscape)
+{
+	#rightSide {
+		width: 29%;
+		height: calc(100% - 137px);
+		right: 0;
+	}
+
+	#panel {
+		width: 30%;
 		right: 0;
 	}
 }
