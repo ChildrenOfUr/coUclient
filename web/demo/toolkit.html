@@ -7,9 +7,14 @@
     <title>toolkit</title>
   
     <link rel="import" href="packages/couclient/toolkit/toolkit.html"> 
+    <link rel="import" href="packages/couclient/components/musicplayer/musicplayer.html">
     
   </head>
   <body unresolved>  
+  
+    <ur-musicplayer song="Bob's Song" artist="Bob" link="#"></ur-musicplayer>
+  
+    <br><br>  
   
     <ur-button>Button</ur-button>
     <ur-button><i class="fa fa-bicycle"></i></ur-button>
@@ -43,7 +48,11 @@
     
     <br><br>
     
-    <ur-panel>Or in a Panel</ur-panel>
+    <ur-panel>
+      Or in a Panel
+      <ur-button>Panel Button</ur-button>
+    
+    </ur-panel>
     
     <br><br>
     

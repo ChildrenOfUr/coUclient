@@ -1,16 +1,5 @@
 #SCwidget {
   position:absolute;
-  width:220px;
-  height:42px;
   bottom:17px;
   right:13px;
-  font-size:12px;
-  line-height:15px;
-  text-align:center;
-}
-#SCwidget * {
-  color:#777;
-}
-#SCwidget span, #SCwidget img {
-  cursor:pointer;
 }

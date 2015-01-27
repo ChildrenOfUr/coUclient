@@ -17,6 +17,7 @@
 
    <!--Polymer components-->
    <link rel="import" href="packages/couclient/toolkit/toolkit.html">
+   <link rel="import" href="packages/couclient/components/musicplayer/musicplayer.html">
    <link rel="import" href="packages/couclient/components/auction_list/auction_list.html">
 
   </head>
@@ -244,13 +245,7 @@
 
       </div>
 
-      <ur-panel id="SCwidget">
-        <div><a id="SCLink" target="_blank"><span id="trackTitle">The Song</span><br> By <span id="trackArtist">The Artist</span></a></div>
-          <audio id="musicBox"></audio>
-        <a href="http://www.soundcloud.com" target="_blank">
-          <img src="assets/system/soundcloud.png" alt="powered by soundcloud">
-        </a>
-      </ur-panel>
+      <ur-musicplayer id="SCwidget" artist="" song=""></ur-musicplayer>
 
 
       <div id="windowHolder">
