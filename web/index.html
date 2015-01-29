@@ -18,6 +18,8 @@
    <!--Polymer components-->
    <link rel="import" href="packages/couclient/toolkit/toolkit.html">
    <link rel="import" href="packages/couclient/components/musicplayer/musicplayer.html">
+   <link rel="import" href="packages/couclient/components/meters/meters.html">
+   
    <link rel="import" href="packages/couclient/components/auction_list/auction_list.html">
 
   </head>
@@ -25,13 +27,13 @@
 
     <div id="loading">
         <ur-panel class="splash">
-        	<div id="splashContent">
-        	<img src="assets/system/logo.svg" alt="Children of Ur logo"><br>
-	          <span id="greeting">It's good to see you,</span><br>
-	          <ur-button id="login-button" big="true">
-	            Login/Signup
-	          </ur-button>
-        	</div>
+          <div id="splashContent">
+          <img src="assets/system/logo.svg" alt="Children of Ur logo"><br>
+            <span id="greeting">It's good to see you,</span><br>
+            <ur-button id="login-button" big="true">
+              Login/Signup
+            </ur-button>
+          </div>
         </ur-panel>
 
         <div id="loadstatus">Loading</div>
@@ -43,75 +45,54 @@
     <main onContextMenu="return false">
     <div id="fps"></div>
      <!-- THE VARIOUS METERS AT THE TOP LEFT OF THE SCREEN -->
-      <span id="playerName"></span>
-      <div id="imaginationText">
-        <img id="thinkButton" src="assets/system/think.svg">
-        <span id="currImagination"></span><span class="smi">i</span>
-      </div>
-      <div id="energyDisks">
-        <img class="green" src="assets/system/energymeter.svg">
-        <img class="red" src="assets/system/energymeterred.svg">
-      </div>
-      <img id="topLeftMask" src="assets/system/leftcornerover.svg">
-      <img id="enbolt" src="assets/system/energybolt.svg">
-      <div id="leftDisk">
-        <div class="hurt"></div>
-        <img id="rays" src="assets/system/rays.svg">
-        <div class="dead">
-          <div id="rain"></div>
-        </div>
-        <div id="portrait">
-          <img id="moodAvatar" src="assets/sprites/avatar.png" hidden>
-        </div>
-        <div id="moodMeter">
-          <span class="percent">
-            <span class="number"></span>%
-          </span>
-          <span class="fraction">
-            <span class="curr"></span>
-            /
-            <span class="max"></span>
-          </span>
-        </div>
-      </div>
+    <ur-meters
+      playername="" 
+      mood="1" 
+      maxmood="1" 
+      energy="1" 
+      maxenergy="1"
+      imagination = "0">
+    </ur-meters>
       <!-- ------------------------------------------------ -->
+    <ur-button id="thinkButton" theme="light">
+      <i class="fa fa-bars"></i>
+    </ur-button>
 
-
-	  <div id="topRight">
-		  <div id="mapDisplay">
-	      <div class="label">
-	      Current Location:</div>
-	      <div id="currLocation"></div>
-	    </div>
-	      <ur-button id="mapButton" theme="light">
-	          Map <i class="fa fa-map-marker"></i>
-	        </ur-button>
-	      <nav>
-	        <a href="#">
+    <div id="topRight">
+      <div id="mapDisplay">
+        <div class="label">
+        Current Location:</div>
+        <div id="currLocation"></div>
+      </div>
+        <ur-button id="mapButton" theme="light">
+            Map <i class="fa fa-map-marker"></i>
+          </ur-button>
+        <nav>
+          <a href="#">
             <i id="signoutGlyph" class="fa fa-sign-out"></i>
           </a>
-	        <a href="#">
+          <a href="#">
             <i id="bugGlyph" class="fa fa-bug"> </i>
-	        </a>
+          </a>
           <a href="http://childrenofur.com" target="_blank">
-	          <i id="questionGlyph" class="fa fa-home"> </i>
-	        </a>
+            <i id="questionGlyph" class="fa fa-home"> </i>
+          </a>
 
-	        <i id="volumeGlyph" class="fa fa-volume-up"></i>
+          <i id="volumeGlyph" class="fa fa-volume-up"></i>
           <span id="volumeSlider">
-	          <input type="range" id="VolumeSlider" min="0" max="100" step="1">
-	        </span>
+            <input type="range" id="VolumeSlider" min="0" max="100" step="1">
+          </span>
 
           <a href="#">
-	         <i id="settingsGlyph" class="fa fa-cog"></i>
-	        </a>
+           <i id="settingsGlyph" class="fa fa-cog"></i>
+          </a>
         </nav>
-	  	<div id="time">
-	  		<div id="currDay">N</div>
-	    	<div id="currTime">N:NN</div>
-	    	<div id="currDate">Nth of N</div>
-	  	</div>
-	  </div>
+      <div id="time">
+        <div id="currDay">N</div>
+        <div id="currTime">N:NN</div>
+        <div id="currDate">Nth of N</div>
+      </div>
+    </div>
 
       <div id="game">
 
@@ -139,12 +120,12 @@
 
 
         <div id="MapLoadingScreen" class="MapLoadingScreen">
-				<div id="MapLoadingContent">
-					<img id="StreetLoadingImage">
-	         <span id="NowEntering"></span>
-					<ur-progress id="streetLoadingBar" percent="0" status="Loading..."></ur-progress>
-				</div>
-			</div>
+        <div id="MapLoadingContent">
+          <img id="StreetLoadingImage">
+           <span id="NowEntering"></span>
+          <ur-progress id="streetLoadingBar" percent="0" status="Loading..."></ur-progress>
+        </div>
+      </div>
 
       </div>
 
@@ -164,13 +145,6 @@
         <div class="box"></div>
         <div class="box"></div>
       </ur-well>
-
-      <div id="energyText">
-          <span id="currEnergy">n</span>
-          <span>/</span>
-          <span id="maxEnergy">n</span>
-          <div>Energy</div>
-      </div>
 
       <div id="currantBack">
         <img src="assets/system/currant.svg" id="currantEmblem">
@@ -310,7 +284,7 @@
             <span id="mapTitle">Map</span>
           </header>
           <ur-well id="mapImage">
-          	 <canvas id="MapCanvas" width="760" height="460"></canvas> 
+             <canvas id="MapCanvas" width="760" height="460"></canvas> 
           </ur-well> 
         </div>
 
@@ -499,13 +473,13 @@
 
       </div>
 
-	    <div id="JoystickParent">
-			<div id="Joystick">
-				<div id="Knob"></div>
-			</div>
-		</div>
-		<div id="AButton">A</div>
-		<div id="BButton">B</div>
+      <div id="JoystickParent">
+      <div id="Joystick">
+        <div id="Knob"></div>
+      </div>
+    </div>
+    <div id="AButton">A</div>
+    <div id="BButton">B</div>
 
     </main>
 

@@ -2,14 +2,15 @@
 #mapDisplay {
     position: relative;
     text-align: right;
-    top: 50%;
-    transform: translateY(-50%);
+    top: -10px;
     display: inline-block;
 }
 
 #mapButton {
+  position:relative;
   margin:8px;
   right: 0;
+  top:-5px;
   padding:5px;
   transform: translateY(-30%);
   text-align:center;

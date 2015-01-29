@@ -31,8 +31,6 @@ class SoundManager {
       new Service([#playSound],(Message event) {
         this.playSound(event.content);
       });
-    }) .then((_) {
-      audio.setSong('piano');
     });
   }
 

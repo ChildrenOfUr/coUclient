@@ -1,7 +1,8 @@
 nav {
 	position: relative;
 	display: inline-block;
-	top: 50%;
+	top: -3px;
+	right:5px;
 	transform: translateY(-50%);
 	font-size: 1.2em;
 }

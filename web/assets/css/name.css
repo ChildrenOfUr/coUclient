@@ -1,37 +1,31 @@
-#playerName {
-  font-size:12px;
-  position:absolute;
-  top:0.2em;
-  left:1em;
-}
 #PlayerHolder {
-	pointer-events: none;
+  pointer-events: none;
 }
 .playerParent {
-	text-align: center;
-	display: inline-block;
-	pointer-events: none;
+  text-align: center;
+  display: inline-block;
+  pointer-events: none;
 }
 .playerName {
-	text-shadow: rgba(0,0,0,0.5) 0px 1px 3px;
-	color: #fff;
-	font-size: 12px;
-	letter-spacing: 0.5px;
-	position: absolute;
-	margin-top:25px;
-	margin-left: auto;
-	margin-right: auto;
-	left: 0;
-	right: 0;
-	transform: translateY(-100%) translateY(-34px);
+  text-shadow: rgba(0,0,0,0.5) 0px 1px 3px;
+  color: #fff;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+  position: absolute;
+  margin-top:25px;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  transform: translateY(-100%) translateY(-34px);
 }
 
 .playerCanvas {
-	position: absolute;
-	left: 0;
-	top: 0;
+  position: absolute;
+  left: 0;
+  top: 0;
 }
 
 .entity, .playerCanvas, .playerParent {
-	will-change: transform;
+  will-change: transform;
 }

@@ -7,14 +7,29 @@
     <title>toolkit</title>
   
     <link rel="import" href="packages/couclient/toolkit/toolkit.html"> 
+    <link rel="import" href="packages/couclient/components/meters/meters.html"> 
     <link rel="import" href="packages/couclient/components/musicplayer/musicplayer.html">
     
   </head>
   <body unresolved>  
   
+    <ur-meters
+      playername="Paul V" 
+      mood="50" 
+      maxmood="100" 
+      energy="50" 
+      maxenergy="100"
+      imagination = "9999999999">
+    </ur-meters>
+    
+    
+    
+    <br><br>
+  
+  
     <ur-musicplayer song="Bob's Song" artist="Bob" link="#"></ur-musicplayer>
   
-    <br><br>  
+    <br><br> 
   
     <ur-button>Button</ur-button>
     <ur-button><i class="fa fa-bicycle"></i></ur-button>
