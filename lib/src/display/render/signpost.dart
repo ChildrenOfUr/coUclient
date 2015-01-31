@@ -4,6 +4,7 @@ class Signpost extends Entity
 {
 	DivElement pole;
 	List<Element> signs = [];
+	bool interacting = false;
 
 	Signpost(Map signpost, int x, int y)
 	{
@@ -98,9 +99,42 @@ class Signpost extends Entity
 			return;
 		}
 
-		//remove the glow around the pole and put one on the first sign
-		pole.classes.remove('hovered');
-		signs[0].classes.add('hovered');
+		if(!interacting)
+		{
+			//remove the glow around the pole and put one on the first sign
+			pole.classes.remove('hovered');
+			signs[0].classes.add('hovered');
+		}
+
+		interacting = true;
+		bool letGo = false;
+
+		//check for gamepad input
+		Timer gamepadLoop = new Timer.periodic(new Duration(milliseconds:17), (Timer t)
+		{
+			//only select a new option once every 300ms
+			bool selectAgain = inputManager.lastSelect.add(new Duration(milliseconds:300)).isBefore(new DateTime.now());
+			if(inputManager.controlCounts['upKey']['keyBool'] == true && selectAgain)
+				selectUp();
+			if(inputManager.controlCounts['downKey']['keyBool'] == true && selectAgain)
+				selectDown();
+			if(inputManager.controlCounts['leftKey']['keyBool'] == true ||
+				inputManager.controlCounts['rightKey']['keyBool'] == true ||
+				inputManager.controlCounts['jumpKey']['keyBool'] == true)
+			{
+				inputManager.stopMenu(null);
+				t.cancel();
+				interacting = false;
+			}
+			if(inputManager.controlCounts['actionKey']['keyBool'] == true && letGo)
+			{
+				clickSelected();
+				t.cancel();
+				interacting = false;
+			}
+			if(inputManager.controlCounts['actionKey']['keyBool'] == false)
+				letGo = true;
+		});
 
 		inputManager.menuKeyListener = document.onKeyDown.listen((KeyboardEvent k)
 		{
@@ -138,6 +172,8 @@ class Signpost extends Entity
 			signs[signs.length-1].classes.add('hovered');
 		else
 			signs[removed-1].classes.add('hovered');
+
+		inputManager.lastSelect = new DateTime.now();
 	}
 
 	void selectDown()
@@ -152,6 +188,8 @@ class Signpost extends Entity
 			signs[0].classes.add('hovered');
 		else
 			signs[removed+1].classes.add('hovered');
+
+		inputManager.lastSelect = new DateTime.now();
 	}
 
 	void clickSelected()
@@ -164,5 +202,7 @@ class Signpost extends Entity
 				sign.click();
 			}
 		});
+
+		interacting = false;
 	}
 }

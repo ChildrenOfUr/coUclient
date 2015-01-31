@@ -388,7 +388,7 @@ class InputManager {
   		document.body.append(InteractionWindow.create());
   	}
 
-// Right-click menu functions
+	// Right-click menu functions
 	hideClickMenu(Element window)
 	{
 		if(window != null)
@@ -401,7 +401,7 @@ class InputManager {
 		document.body.append(RightClickMenu.create(Click,title,description,options));
 
 		Element clickMenu = querySelector('#RightClickMenu');
-     Element list = querySelector('#RCActionList');
+		Element list = querySelector('#RCActionList');
 
 		menuKeyListener = document.onKeyDown.listen((KeyboardEvent k)
 		{
