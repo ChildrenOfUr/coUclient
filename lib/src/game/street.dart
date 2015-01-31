@@ -179,7 +179,7 @@ class Street
 				x += layer['w'] ~/ 2;
 			}
 
-			new Deco(deco, x, y, decoCanvas);
+			decoCanvas.append(new Deco(deco, x, y).image);
 		}
 
 		for(Map platformLine in layer['platformLines'])

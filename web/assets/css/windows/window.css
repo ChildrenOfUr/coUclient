@@ -55,7 +55,8 @@
   color: #ba381a;
   position: absolute;
   top: 0px;
-  left:calc(100% - 50px);
+  right: 10px;
+  left: initial;
   font-size: 24px;
   cursor: pointer;
 }
