@@ -82,6 +82,26 @@ class InputManager {
 			if(gamepad == null)
 				continue;
 
+			//don't do anything in certain situations
+			if (ignoreKeys || querySelector(".fill") != null) return;
+
+			//interact with the menu
+			Element clickMenu = querySelector("#RightClickMenu");
+			if(clickMenu != null)
+			{
+				Element list = querySelector('#RCActionList');
+				//only select a new option once every 300ms
+				bool selectAgain = lastSelect.add(new Duration(milliseconds:300)).isBefore(new DateTime.now());
+				if(controlCounts['upKey']['keyBool'] == true && selectAgain)
+					selectUp(list,"RCItemSelected");
+				if(controlCounts['downKey']['keyBool'] == true && selectAgain)
+					selectDown(list,"RCItemSelected");
+				if(controlCounts['leftKey']['keyBool'] == true ||
+					controlCounts['rightKey']['keyBool'] == true ||
+					controlCounts['jumpKey']['keyBool'] == true)
+					stopMenu(clickMenu);
+			}
+
 			if(gamepad.axes[0] > .2 || gamepad.axes[2] > .2)
 				activateControl('rightKey',true,'gamepad');
 			else
