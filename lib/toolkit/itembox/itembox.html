@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<link rel="import" href="../../../../packages/polymer/polymer.html">
+<link rel="import" href="../fonts/fonts.html"> 
+<link rel="import" href="../panel/panel.html">
+
+<polymer-element name="ur-itembox" attributes="item" draggable="true" ondragover="return true">
+  <template>
+    <style>
+    :host {
+      display:inline-block;
+    }
+    ur-panel {
+      position:relative;
+      width:40px;
+      height:40px;
+      margin:3px:
+    }
+    img {
+      position: absolute;
+      top: 0px;
+      right: 0px;
+      bottom: 0px;
+      left: 0px;
+      margin:auto;
+      /* Maintain aspect ratio */
+      max-height: 90%;
+      max-width: 90%;
+    }
+    </style>
+    <ur-panel>
+      <img _src="{{item}}" draggable="false">
+    </ur-panel>
+  </template>
+  <script type="application/dart" src="itembox.dart"></script>
+</polymer-element>
