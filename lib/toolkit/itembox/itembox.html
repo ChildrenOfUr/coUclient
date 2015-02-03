@@ -3,11 +3,13 @@
 <link rel="import" href="../fonts/fonts.html"> 
 <link rel="import" href="../panel/panel.html">
 
-<polymer-element name="ur-itembox" attributes="item">
+<polymer-element name="ur-itembox" attributes="item quantity">
   <template>
     <style>
     :host {
       display:inline-block;
+      width:46px;
+      height:46px;
     }
     ur-panel {
       position:relative;
@@ -26,13 +28,25 @@
       max-height: 90%;
       max-width: 90%;
     }
-    .noframe {
-      opacity:0;
+    #item-quantity {
+    position:absolute;
+    right:0px;
+    bottom:0;
+    z-index:1;
+    color:#444;
+    font-size:0.8em;
+    background:#fff;
+    border-radius:9px;
+    padding:0.1em;
+    padding-top:0;
+    padding-bottom:0;
     }
     </style>
     <ur-panel>
       <img _src="{{item}}" draggable="false">
+      <div id="item-quantity">{{quantity}}</div>    
     </ur-panel>
+    
   </template>
   <script type="application/dart" src="itembox.dart"></script>
 </polymer-element>
