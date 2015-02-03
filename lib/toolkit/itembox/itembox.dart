@@ -7,20 +7,16 @@ import 'package:dnd/dnd.dart'; //for dragging items into vendor interface
 @CustomTag('ur-itembox')
 class ItemBox extends PolymerElement {
   ItemBox.created() : super.created() {
-    Element box = querySelector('ur-panel');
-
-    this.onDrop.listen((MouseEvent de) {
-      item = de.dataTransfer.getData('text/html');
+    Draggable dragItem = new Draggable(this,
+        avatarHandler: new AvatarHandler.clone());
+    Dropzone dropBox = new Dropzone(this);
+    
+    dropBox.onDrop.listen((d) {
+      //if (d.dropzoneElement.attributes['item'].trim() != '') return;
+      
+      d.dropzoneElement.attributes['item'] = d.draggableElement.attributes['item'];
+      d.draggableElement.attributes['item'] = '';
     });
-
-    this.onDragStart.listen((MouseEvent de) {
-      if (item != '') {
-        print('$item != ""');
-        de.dataTransfer.setData('text/html', item);
-        return false;
-      };
-    });
-
   }
 
 

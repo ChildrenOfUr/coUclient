@@ -3,7 +3,7 @@
 <link rel="import" href="../fonts/fonts.html"> 
 <link rel="import" href="../panel/panel.html">
 
-<polymer-element name="ur-itembox" attributes="item" draggable="true" ondragover="return true">
+<polymer-element name="ur-itembox" attributes="item">
   <template>
     <style>
     :host {
@@ -13,7 +13,7 @@
       position:relative;
       width:40px;
       height:40px;
-      margin:3px:
+      margin:3px;
     }
     img {
       position: absolute;
@@ -25,6 +25,9 @@
       /* Maintain aspect ratio */
       max-height: 90%;
       max-width: 90%;
+    }
+    .noframe {
+      opacity:0;
     }
     </style>
     <ur-panel>
