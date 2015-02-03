@@ -354,7 +354,7 @@
       </div>
       <div id="moodMeter">
         <span class="percent">
-          <span class="number">{{mood ~/ maxmood * 100}}</span>%
+          <span class="number">{{(mood ~/ maxmood * 100).toInt()}}</span>%
         </span>
         <span class="fraction">
           <span class="curr">{{mood}}</span>
