@@ -3,17 +3,15 @@ library itembox;
 import 'dart:html';
 
 import 'package:dnd/dnd.dart';
-import 'package:polymer/polymer.dart'; //for dragging items into vendor interface
-
-
+import 'package:polymer/polymer.dart';
 
 @CustomTag('ur-itembox')
 class ItemBox extends PolymerElement {
   @published String item = '';
   @published int quantity = 0;
 
-  Draggable dragItem;
-  Dropzone dropBox;
+  Draggable _dragItem;
+  Dropzone _dropBox;
 
   ItemBox.created() : super.created() {
     this.attributes.putIfAbsent('item', () => '');
@@ -25,8 +23,6 @@ class ItemBox extends PolymerElement {
         shadowRoot.querySelector('#item-quantity').hidden = true;
       else 
         shadowRoot.querySelector('#item-quantity').hidden = false;
-      //resetDragDrop();
-      //updateDragDrop();
     });
   }
 
@@ -39,18 +35,18 @@ class ItemBox extends PolymerElement {
 
 
   initDragDrop() {
-    dragItem = new Draggable(this, avatarHandler: new AvatarHandler.clone());
-    dropBox = new Dropzone(this);
+    _dragItem = new Draggable(this, avatarHandler: new AvatarHandler.clone());
+    _dropBox = new Dropzone(this);
 
     // Hide the 'panel' element of our dragged object
-    dragItem.onDrag.listen((_) {
-      dragItem.avatarHandler.avatar.shadowRoot.querySelector('ur-panel').style
+    _dragItem.onDrag.listen((_) {
+      _dragItem.avatarHandler.avatar.shadowRoot.querySelector('ur-panel').style
           ..backgroundColor = 'transparent'
           ..border = 'none';
     });
 
 
-    dropBox.onDrop.listen((d) {
+    _dropBox.onDrop.listen((d) {
       // Don't drag nothingness
       if (d.draggableElement.attributes['item'] == '') return;
 

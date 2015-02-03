@@ -43,19 +43,20 @@
 
 #inventorySearch {
   background-color:#eee;
-  width:35px;
-  height:35px;
-  border-radius:50%;
+  width:40px;
+  height:40px;
+  border-radius:8px;
   position:absolute;
-  bottom:70px;
-  left:0px;
+  bottom:75px;
+  left:10px;
   cursor:pointer;
   z-index:0;
 }
 #inventorySearch * {
+  height:30px;
   color:#bbb;
   position:absolute;
-  top:calc(40% - 0.5em);
+  top:calc(40% - 0.9em);
   right:calc(40% - 0.5em);
   cursor:pointer;
 }
