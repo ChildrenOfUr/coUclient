@@ -15,6 +15,9 @@ class Bool
 		else
 			return this == other;
 	}
+
+	@override
+	int get hashCode => value.hashCode;
 }
 
 class InputManager {
