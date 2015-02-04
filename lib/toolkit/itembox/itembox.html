@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <link rel="import" href="../../../../packages/polymer/polymer.html">
-<link rel="import" href="../fonts/fonts.html"> 
+<link rel="import" href="../fonts/fonts.html">
 <link rel="import" href="../panel/panel.html">
 
 <polymer-element name="ur-itembox" attributes="item quantity">
@@ -44,9 +44,11 @@
     </style>
     <ur-panel>
       <img _src="{{item}}" draggable="false">
-      <div id="item-quantity">{{quantity}}</div>    
+      <template if="{{quantity > 1}}">
+      	<div id="item-quantity">{{quantity}}</div>
+      </template>
     </ur-panel>
-    
+
   </template>
   <script type="application/dart" src="itembox.dart"></script>
 </polymer-element>
