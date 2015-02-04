@@ -4,7 +4,8 @@ class Signpost extends Entity
 {
 	DivElement pole;
 	List<Element> signs = [];
-	bool interacting = false;
+	bool interacting = false, letGo = false;
+	StreamSubscription clickListener;
 
 	Signpost(Map signpost, int x, int y)
 	{
@@ -103,38 +104,15 @@ class Signpost extends Entity
 		{
 			//remove the glow around the pole and put one on the first sign
 			pole.classes.remove('hovered');
+			signs.forEach((Element sign) => sign.classes.remove('hovered'));
 			signs[0].classes.add('hovered');
+
+			interacting = true;
+			letGo = false;
 		}
 
-		interacting = true;
-		bool letGo = false;
-
 		//check for gamepad input
-		Timer gamepadLoop = new Timer.periodic(new Duration(milliseconds:17), (Timer t)
-		{
-			//only select a new option once every 300ms
-			bool selectAgain = inputManager.lastSelect.add(new Duration(milliseconds:300)).isBefore(new DateTime.now());
-			if(inputManager.controlCounts['upKey']['keyBool'] == true && selectAgain)
-				selectUp();
-			if(inputManager.controlCounts['downKey']['keyBool'] == true && selectAgain)
-				selectDown();
-			if(inputManager.controlCounts['leftKey']['keyBool'] == true ||
-				inputManager.controlCounts['rightKey']['keyBool'] == true ||
-				inputManager.controlCounts['jumpKey']['keyBool'] == true)
-			{
-				inputManager.stopMenu(null);
-				t.cancel();
-				interacting = false;
-			}
-			if(inputManager.controlCounts['actionKey']['keyBool'] == true && letGo)
-			{
-				clickSelected();
-				t.cancel();
-				interacting = false;
-			}
-			if(inputManager.controlCounts['actionKey']['keyBool'] == false)
-				letGo = true;
-		});
+		gamepadLoop(num);
 
 		inputManager.menuKeyListener = document.onKeyDown.listen((KeyboardEvent k)
 		{
@@ -146,18 +124,53 @@ class Signpost extends Entity
 			if((k.keyCode == keys["DownBindingPrimary"] || k.keyCode == keys["DownBindingAlt"]) && !ignoreKeys) //down arrow or s and not typing
 				selectDown();
 			if((k.keyCode == keys["LeftBindingPrimary"] || k.keyCode == keys["LeftBindingAlt"]) && !ignoreKeys) //left arrow or a and not typing
-				inputManager.stopMenu(null);
+				stop();
 			if((k.keyCode == keys["RightBindingPrimary"] || k.keyCode == keys["RightBindingAlt"]) && !ignoreKeys) //right arrow or d and not typing
-				inputManager.stopMenu(null);
+				stop();
 			if((k.keyCode == keys["JumpBindingPrimary"] || k.keyCode == keys["JumpBindingAlt"]) && !ignoreKeys) //spacebar and not typing
-				inputManager.stopMenu(null);
+				stop();
 			if((k.keyCode == keys["ActionBindingPrimary"] || k.keyCode == keys["ActionBindingAlt"]) && !ignoreKeys) //spacebar and not typing
-				clickSelected();
+			{	clickSelected();
+				stop();
+			}
 		});
-		document.onClick.listen((_)
+		clickListener = document.onClick.listen((_) => stop());
+	}
+
+	void gamepadLoop(num)
+	{
+		//only select a new option once every 300ms
+		bool selectAgain = inputManager.lastSelect.add(new Duration(milliseconds:300)).isBefore(new DateTime.now());
+		if(inputManager.controlCounts['upKey']['keyBool'] == true && selectAgain)
+			selectUp();
+		if(inputManager.controlCounts['downKey']['keyBool'] == true && selectAgain)
+			selectDown();
+		if(inputManager.controlCounts['leftKey']['keyBool'] == true ||
+			inputManager.controlCounts['rightKey']['keyBool'] == true ||
+			inputManager.controlCounts['jumpKey']['keyBool'] == true)
 		{
-			inputManager.stopMenu(null);
-		});
+			stop();
+		}
+		if(inputManager.controlCounts['actionKey']['keyBool'] == true && letGo)
+		{
+			clickSelected();
+			stop();
+		}
+		if(!letGo && inputManager.controlCounts['actionKey']['keyBool'] == false)
+		{
+			letGo = true;
+		}
+
+		if(interacting)
+			window.animationFrame.then(gamepadLoop);
+	}
+
+	void stop()
+	{
+		inputManager.stopMenu(null);
+		clickListener.cancel();
+		interacting = false;
+		letGo = false;
 	}
 
 	void selectUp()

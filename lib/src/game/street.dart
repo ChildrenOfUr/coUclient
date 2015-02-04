@@ -37,20 +37,13 @@ class Street
                 streetData['dynamic']['l'].abs() + streetData['dynamic']['r'].abs(),
                 streetData['dynamic']['t'].abs());
 
-    view.playerHolder..children.clear()
+    view.playerHolder
     	..style.width = bounds.width.toString()+'px'
     	..style.height = bounds.height.toString()+'px'
     	..classes.add('streetcanvas')
     	..style.position = "absolute"
     	..attributes["ground_y"] = "0"
     	..style.transform = "translateZ(0)";
-
-    if(entities != null)
-    	entities.clear();
-    if(quoins != null)
-    	quoins.clear();
-    if(otherPlayers != null)
-		otherPlayers.clear();
 
 	// set the street.
 
@@ -62,11 +55,13 @@ class Street
   {
     Completer c = new Completer();
     // clean up old street data
-    //currentStreet = null;
-    for (Element layer in view.layers.children)
-      layer.remove();
-    for (Element item in view.playerHolder.children)
-      item.remove(); //clear previous street's quoins and stuff
+    entities.clear();
+    quoins.clear();
+    otherPlayers.clear();
+
+    view.layers.children.clear();
+    view.playerHolder.children.clear();
+
     view.location = label;
 
     // set the song loading if necessary
