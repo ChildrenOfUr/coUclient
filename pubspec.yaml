@@ -32,4 +32,6 @@ dependencies:
 transformers:
 - redstone_mapper
 - async_await
-- polymer
+- polymer:
+    entry_points:
+      - web/index.html
