@@ -17,23 +17,22 @@
 
    <!--Polymer components-->
    <link rel="import" href="packages/couclient/toolkit/toolkit.html">
+   <link rel="import" href="packages/couclient/components/auction_list/auction_list.html">
    <link rel="import" href="packages/couclient/components/musicplayer/musicplayer.html">
    <link rel="import" href="packages/couclient/components/meters/meters.html">
-   
-   <link rel="import" href="packages/couclient/components/auction_list/auction_list.html">
 
   </head>
   <body unresolved>
 
     <div id="loading">
         <ur-panel class="splash">
-          <div id="splashContent">
-          <img src="assets/system/logo.svg" alt="Children of Ur logo"><br>
-            <span id="greeting">It's good to see you,</span><br>
-            <ur-button id="login-button" big="true">
-              Login/Signup
-            </ur-button>
-          </div>
+        	<div id="splashContent">
+        	<img src="assets/system/logo.svg" alt="Children of Ur logo"><br>
+	          <span id="greeting">It's good to see you,</span><br>
+	          <ur-button id="login-button" big="true">
+	            Login/Signup
+	          </ur-button>
+        	</div>
         </ur-panel>
 
         <div id="loadstatus">Loading</div>
@@ -46,10 +45,10 @@
     <div id="fps"></div>
      <!-- THE VARIOUS METERS AT THE TOP LEFT OF THE SCREEN -->
     <ur-meters
-      playername="" 
-      mood="1" 
-      maxmood="1" 
-      energy="1" 
+      playername=""
+      mood="1"
+      maxmood="1"
+      energy="1"
       maxenergy="1"
       imagination = "0">
     </ur-meters>
@@ -58,41 +57,42 @@
       <i class="fa fa-bars"></i>
     </ur-button>
 
-    <div id="topRight">
-      <div id="mapDisplay">
-        <div class="label">
-        Current Location:</div>
-        <div id="currLocation"></div>
-      </div>
-        <ur-button id="mapButton" theme="light">
-            Map <i class="fa fa-map-marker"></i>
-          </ur-button>
-        <nav>
-          <a href="#">
+
+	  <div id="topRight">
+		  <div id="mapDisplay">
+	      <div class="label">
+	      Current Location:</div>
+	      <div id="currLocation"></div>
+	    </div>
+	      <ur-button id="mapButton" theme="light">
+	          Map <i class="fa fa-map-marker"></i>
+	        </ur-button>
+	      <nav>
+	        <a href="#">
             <i id="signoutGlyph" class="fa fa-sign-out"></i>
           </a>
-          <a href="#">
+	        <a href="#">
             <i id="bugGlyph" class="fa fa-bug"> </i>
-          </a>
+	        </a>
           <a href="http://childrenofur.com" target="_blank">
-            <i id="questionGlyph" class="fa fa-home"> </i>
-          </a>
+	          <i id="questionGlyph" class="fa fa-home"> </i>
+	        </a>
 
-          <i id="volumeGlyph" class="fa fa-volume-up"></i>
+	        <i id="volumeGlyph" class="fa fa-volume-up"></i>
           <span id="volumeSlider">
-            <input type="range" id="VolumeSlider" min="0" max="100" step="1">
-          </span>
+	          <input type="range" id="VolumeSlider" min="0" max="100" step="1">
+	        </span>
 
           <a href="#">
-           <i id="settingsGlyph" class="fa fa-cog"></i>
-          </a>
+	         <i id="settingsGlyph" class="fa fa-cog"></i>
+	        </a>
         </nav>
-      <div id="time">
-        <div id="currDay">N</div>
-        <div id="currTime">N:NN</div>
-        <div id="currDate">Nth of N</div>
-      </div>
-    </div>
+	  	<div id="time">
+	  		<div id="currDay">N</div>
+	    	<div id="currTime">N:NN</div>
+	    	<div id="currDate">Nth of N</div>
+	  	</div>
+	  </div>
 
       <div id="game">
 
@@ -120,12 +120,12 @@
 
 
         <div id="MapLoadingScreen" class="MapLoadingScreen">
-        <div id="MapLoadingContent">
-          <img id="StreetLoadingImage">
-           <span id="NowEntering"></span>
-          <ur-progress id="streetLoadingBar" percent="0" status="Loading..."></ur-progress>
-        </div>
-      </div>
+				<div id="MapLoadingContent">
+					<img id="StreetLoadingImage">
+	         <span id="NowEntering"></span>
+					<ur-progress id="streetLoadingBar" percent="0" status="Loading..."></ur-progress>
+				</div>
+			</div>
 
       </div>
 
@@ -286,8 +286,8 @@
             <span id="mapTitle">Map</span>
           </header>
           <ur-well id="mapImage">
-             <canvas id="MapCanvas" width="760" height="460"></canvas> 
-          </ur-well> 
+          	 <canvas id="MapCanvas" width="760" height="460"></canvas>
+          </ur-well>
         </div>
 
         <div id="auctionWindow" class="window" hidden>
@@ -471,18 +471,18 @@
               That being said, I want you to know that we care about you loads and hope you'll have fun in our little world.
               <br>
               - CoU Dev Team
-          </ur-well> 
+          </ur-well>
         </div>
 
       </div>
 
-      <div id="JoystickParent">
-      <div id="Joystick">
-        <div id="Knob"></div>
-      </div>
-    </div>
-    <div id="AButton">A</div>
-    <div id="BButton">B</div>
+	    <div id="JoystickParent">
+			<div id="Joystick">
+				<div id="Knob"></div>
+			</div>
+		</div>
+		<div id="AButton">A</div>
+		<div id="BButton">B</div>
 
     </main>
 

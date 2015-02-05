@@ -1,12 +1,17 @@
 part of couclient;
 
-class Deco
+class Deco implements Comparable
 {
-	Deco(Map deco, int x, int y, DivElement attachToCanvas)
+	ImageElement _image;
+	int _zIndex, _x, _y, _w, _h;
+
+	Deco(Map deco, int x, int y)
 	{
-		int w = deco['w'];
-  		int h = deco['h'];
-  		int z = deco['z'];
+		_w = deco['w'];
+  		_h = deco['h'];
+  		_zIndex = deco['z'];
+  		_x = x;
+  		_y = y;
 
   		// only draw if the image is loaded.
   		if (ASSET[deco['filename']] != null)
@@ -16,9 +21,9 @@ class Deco
     		d.style.position = 'absolute';
 		    d.style.left = x.toString() + 'px';
 		    d.style.top = y.toString() + 'px';
-		    d.style.width = w.toString() + 'px';
-		    d.style.height = h.toString() + 'px';
-		    d.style.zIndex = z.toString();
+		    d.style.width = _w.toString() + 'px';
+		    d.style.height = _h.toString() + 'px';
+		    d.style.zIndex = _zIndex.toString();
 
 		    String transform = "";
 		    if(deco['r'] != null)
@@ -29,7 +34,17 @@ class Deco
 		    if(deco['h_flip'] != null && deco['h_flip'] == true)
 		                  transform += " scale(-1,1)";
 		    d.style.transform = transform;
-		    attachToCanvas.append(d.clone(false));
+		    _image = d.clone(false);
 		}
 	}
+
+	ImageElement get image => _image;
+
+	int get zIndex => _zIndex;
+	int get x => _x;
+	int get y => _y;
+	int get w => _w;
+	int get h => _h;
+
+	int compareTo(Deco other) => zIndex.compareTo(other.zIndex);
 }

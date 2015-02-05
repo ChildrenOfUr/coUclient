@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <link rel="import" href="../../../../packages/polymer/polymer.html">
-<link rel="import" href="../../../../packages/couclient/toolkit/toolkit.html"> 
+<link rel="import" href="../../../../packages/couclient/toolkit/toolkit.html">
 
 
 
@@ -13,7 +13,7 @@
         height:150px;
         position:relative;
       }
-    
+
       #topLeftMask {
         position:absolute;
         z-index:1;
@@ -22,7 +22,7 @@
         height:106px;
         width:130px;
       }
-    
+
       #enbolt {
         position:absolute;
         top:95px;
@@ -46,7 +46,7 @@
         left:-35px;
         width:121px;
         z-index:1;
-              
+
         transition-property: transform, opacity;
         transition-duration: 1s;
         transition-timing-function: ease-in-out;
@@ -63,14 +63,14 @@
       #energyDisks .red {
         opacity:{{1 - (energy / maxenergy)}};
       }
-      
-      
+
+
       #energyText * {
         color:#fff;
         text-shadow: 0px 0.05em rgba(0,0,0,0.5);
         font-size:13px;
       }
-      
+
       #energyText {
         position:absolute;
         top:50px;
@@ -81,14 +81,14 @@
       #energyText:hover {
           opacity:1;
       }
-      
+
       #currEnergy {
         font-size:19px;
       }
       #maxEnergy {
         font-size:15px;
       }
-      
+
       #leftDisk{
         position:absolute;
         top:18px;
@@ -109,13 +109,13 @@
         transition-delay: 0.5s;
         z-index: 1;
         box-shadow: 0 0 15px 1px rgba(0,0,0,0.1);
-      
+
         /* this fixes the overflow:hidden in Chrome not clipping it's contents to the border-radius
         more information here: http://stackoverflow.com/questions/5736503/how-to-make-css3-rounded-corners-hide-overflow-in-chrome-opera*/
         -webkit-mask-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC);
-      
+
       }
-            
+
       #portrait {
         position:absolute;
         top:0;
@@ -178,7 +178,7 @@
       #moodMeter .fraction .curr, #moodMeter .fraction .max {
           color:#fff;
       }
-      
+
       #leftDisk .hurt, #leftDisk .dead{
         transition-property: opacity;
         transition-duration: 0.2s;
@@ -217,30 +217,30 @@
         background: #6d6d6d;
         opacity:1;
       }
-      
+
       #moodAvatar {
         position:relative;
         width:80px;
         left:-10%;
       }
-      
-      
+
+
       #rain {
         position:absolute;
         top:0;
         left:0;
         width: 100%;
         height: 100%;
-      
+
         background-image: url("raindrop.svg");
         background-size: 20px;
         background-repeat: repeat;
-      
+
         -webkit-animation: rain 0.7s infinite linear;
         -moz-animation: rain 0.7s infinite linear;
         animation: rain 0.7s infinite linear;
       }
-      
+
       @-webkit-keyframes rain {
         from {
             background-position: 0px 0px;
@@ -249,7 +249,7 @@
             background-position: -20px 20px;
           }
       }
-      
+
       @-moz-keyframes rain {
         from {
             background-position: 0px 0px;
@@ -258,7 +258,7 @@
             background-position: -20px 20px;
           }
       }
-      
+
       @keyframes rain {
         from {
             background-position: 0px 0px;
@@ -267,21 +267,21 @@
             background-position: -20px 20px;
           }
       }
-      
-      
-      
+
+
+
       #rays {
           position:absolute;
           left:0;
           top:0;
           width: 100%;
           height: 100%;
-      
+
           -webkit-animation: spin 15s infinite linear;
           -moz-animation: spin 15s infinite linear;
           animation: spin 15s infinite linear;
       }
-      
+
       @-webkit-keyframes spin {
         from {
           -webkit-transform: rotate(0deg);
@@ -290,7 +290,7 @@
           -webkit-transform: rotate(360deg);
         }
       }
-      
+
       @-moz-keyframes spin {
         from {
           -moz-transform: rotate(0deg);
@@ -299,7 +299,7 @@
           -moz-transform: rotate(360deg);
         }
       }
-      
+
       @keyframes spin {
         from {
           transform: rotate(0deg);
@@ -308,7 +308,7 @@
           transform: rotate(360deg);
         }
       }
-      
+
       #playerName {
         color:#444;
         font-size:12px;
@@ -316,7 +316,7 @@
         top:0.2em;
         left:1em;
       }
-      
+
       #imaginationText {
         position:absolute;
         top:calc(24px - 0.5em);
@@ -332,7 +332,7 @@
         top:-3px;
       }
     </style>
-    
+
     <span id="playerName">{{playername}}</span>
     <div id="imaginationText">
       <span id="currImagination">{{commaFormatter.format(imagination);}}</span><span class="smi">i</span>
@@ -363,7 +363,7 @@
         </span>
       </div>
     </div>
-      
+
     <div id="energyText">
       <span id="currEnergy">{{energy}}</span>
       <span>/</span>

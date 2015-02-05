@@ -1,6 +1,6 @@
 part of couclient;
 
-class Platform
+class Platform implements Comparable
 {
   Point start, end;
   String id;

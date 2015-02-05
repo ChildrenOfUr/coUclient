@@ -49,6 +49,7 @@ class Game {
     double dt = (delta - lastTime) / 1000;
     lastTime = delta;
 
+    inputManager.updateGamepad();
     update(dt);
     render();
     window.animationFrame.then(loop);

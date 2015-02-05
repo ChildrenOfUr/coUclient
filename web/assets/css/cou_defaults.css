@@ -68,3 +68,7 @@ main {
 #time {
 	display: inline-block;
 }
+
+#AButton, #BButton {
+	display: none;
+}
