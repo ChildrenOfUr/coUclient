@@ -1,7 +1,7 @@
 part of couclient;
 
 class StreetService {
-  String _dataUrl = 'https://robertmcdermot.com:8383/data';
+  String _dataUrl = 'https://server.childrenofur.com:8383/data';
 
   Future requestStreet(String StreetID) {
 

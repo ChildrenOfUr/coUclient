@@ -14,7 +14,7 @@ import 'dart:math';
 @CustomTag('auction-list')
 class AuctionList extends PolymerElement
 {
-	String serverAddress = "http://robertmcdermot.com:8181";
+	String serverAddress = "http://server.childrenofur.com:8181";
 	@observable String searchString = '';
 	@observable List<Auction> results = toObservable([]);
 

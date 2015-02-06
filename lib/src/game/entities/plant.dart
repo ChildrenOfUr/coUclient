@@ -22,7 +22,7 @@ class Plant extends Entity
 			frameList.add(i);
 
 		url = map['url'].replaceAll("\"","");
-		HttpRequest.request('http://robertmcdermot.com:8181/getActualImageHeight?url=$url&numRows=$numRows&numColumns=$numColumns').then((HttpRequest request)
+		HttpRequest.request('http://server.childrenofur.com:8181/getActualImageHeight?url=$url&numRows=$numRows&numColumns=$numColumns').then((HttpRequest request)
 		{
 			canvas.attributes['actualHeight'] = request.responseText;
 		});

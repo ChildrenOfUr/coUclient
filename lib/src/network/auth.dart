@@ -7,7 +7,7 @@ String SC_TOKEN;
 String SESSION_TOKEN;
 
 class AuthManager {
-  String _authUrl = 'https://robertmcdermot.com:8383/auth';
+  String _authUrl = 'https://server.childrenofur.com:8383/auth';
 
   Persona _personaNavigator;
   Element _loginButton;
@@ -40,7 +40,7 @@ Please check back another time. :(''';
       "content-type": "application/json"
     }, sendData: JSON.encode({
       'assertion': personaAssertion,
-      //'audience' : 'http://localhost:8080/index.html'
+      'audience' : 'http://localhost:8080/index.html'
       //'audience':'http://robertmcdermot.com/cou:80'
     }))
       ..then((HttpRequest data) {
