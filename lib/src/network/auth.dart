@@ -25,10 +25,11 @@ class AuthManager {
     });
   }
 
+  
   void verifyWithServer(String personaAssertion) {
     _loginButton.hidden = true;
 
-    Timer tooLongTimer = new Timer(new Duration(seconds: 4),(){
+    Timer tooLongTimer = new Timer(new Duration(seconds: 5),(){
       SpanElement greeting = querySelector('#greeting');
       greeting.text = '''
 Oh no!
@@ -45,35 +46,18 @@ Please check back another time. :(''';
     }))
       ..then((HttpRequest data) {
       tooLongTimer.cancel();
-
       Map serverdata = JSON.decode(data.response);
-
-      if (serverdata['ok'] == 'no') {
-        print('Error:Server refused the login attempt.');
-        _loginButton.hidden = false;
-        return;
-      }
-
-      // Have they registered? TODO: we need a way to register in-game.
-      if (serverdata['playerName'].trim() == '') {
-        window.location.href = 'http://childrenofur.com/forums/login';
-       }
-
-      // Get our username and location from the server.
-      sessionStorage['playerName'] = serverdata['playerName'];
-
-      sessionStorage['playerStreet'] = serverdata['playerStreet'];
-
+      
       SESSION_TOKEN = serverdata['sessionToken'];
-
       SLACK_TEAM = serverdata['slack-team'];
       SLACK_TOKEN = serverdata['slack-token'];
       SC_TOKEN = serverdata['sc-token'];
-
-      // Begin Game//
-      game = new Game();
-      audio = new SoundManager();
-      view.loggedIn();
+      
+      if (serverdata['playerName'].trim() == '') {
+        setupNewUser();
+        window.location.href = 'http://childrenofur.com/forums/login';
+      }
+      else startGame(serverdata);
     });
   }
 
@@ -81,5 +65,46 @@ Please check back another time. :(''';
       _personaNavigator.logout();
       window.location.reload();
   }
+  
+  
+  startGame(Map serverdata) {
+    if (serverdata['ok'] == 'no') {
+      print('Error:Server refused the login attempt.');
+      _loginButton.hidden = false;
+      return;
+    }
+
+    // Begin Game//
+    game = new Game();
+    audio = new SoundManager();
+    view.loggedIn();
+  }
+  
+  setupNewUser() {
+    Element usernameElement = querySelector('#new-user-name');
+    Element submitButton = querySelector('#new-user-submit');
+    
+    submitButton.onClick.listen((_) {
+      submitButton.hidden = true;
+      HttpRequest.postFormData('https://server.childrenofur.com:8383/auth', {
+        'token': SESSION_TOKEN,
+        'username' : usernameElement.text
+      }).then((HttpRequest request) {
+        print(request.responseText);
+        submitButton.hidden = false;
+      });
+    });
+    
+    
+
+    
+  }
 
 }
+
+
+
+
+
+
+
