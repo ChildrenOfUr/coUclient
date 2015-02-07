@@ -48,6 +48,12 @@ Please check back another time. :(''';
       tooLongTimer.cancel();
       Map serverdata = JSON.decode(data.response);
       
+      if (serverdata['ok'] == 'no') {
+        print('Error:Server refused the login attempt.');
+        _loginButton.hidden = false;
+        return;
+      }
+      
       SESSION_TOKEN = serverdata['sessionToken'];
       SLACK_TEAM = serverdata['slack-team'];
       SLACK_TOKEN = serverdata['slack-token'];
@@ -57,7 +63,12 @@ Please check back another time. :(''';
         setupNewUser();
         window.location.href = 'http://childrenofur.com/forums/login';
       }
-      else startGame(serverdata);
+      else {
+        // Get our username and location from the server.
+        sessionStorage['playerName'] = serverdata['playerName'];
+        sessionStorage['playerStreet'] = serverdata['playerStreet'];
+        startGame(serverdata);
+      }
     });
   }
 
