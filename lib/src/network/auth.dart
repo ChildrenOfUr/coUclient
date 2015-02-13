@@ -5,29 +5,31 @@ String SLACK_TOKEN;
 String SC_TOKEN;
 
 String SESSION_TOKEN;
+String FORUM_TOKEN;
 
 class AuthManager {
   String _authUrl = 'https://server.childrenofur.com:8383/auth';
 
   Persona _personaNavigator;
-  Element _loginButton;
+  Element _loginPanel;
 
   AuthManager() {
     // Starts the game
-    _loginButton = querySelector('#login-button');
+    _loginPanel = querySelector('ur-login');
+    
     _personaNavigator = new Persona('', verifyWithServer, view.loggedOut);
-    _loginButton.onClick.listen((_) {
+    _loginPanel.on['attemptLogin'].listen((_) {
       _personaNavigator.request({
         'backgroundColor': '#4b2e4c',
         'siteName': 'Children of Ur'
       });
-      _loginButton.hidden = true;
+      //_loginButton.hidden = true;
     });
   }
 
   
   void verifyWithServer(String personaAssertion) {
-    _loginButton.hidden = true;
+    //_loginButton.hidden = true;
 
     Timer tooLongTimer = new Timer(new Duration(seconds: 5),(){
       SpanElement greeting = querySelector('#greeting');
@@ -50,7 +52,7 @@ Please check back another time. :(''';
       
       if (serverdata['ok'] == 'no') {
         print('Error:Server refused the login attempt.');
-        _loginButton.hidden = false;
+        //_loginButton.hidden = false;
         return;
       }
       
@@ -58,6 +60,7 @@ Please check back another time. :(''';
       SLACK_TEAM = serverdata['slack-team'];
       SLACK_TOKEN = serverdata['slack-token'];
       SC_TOKEN = serverdata['sc-token'];
+      
       
       if (serverdata['playerName'].trim() == '') {
         setupNewUser();
@@ -81,7 +84,7 @@ Please check back another time. :(''';
   startGame(Map serverdata) {
     if (serverdata['ok'] == 'no') {
       print('Error:Server refused the login attempt.');
-      _loginButton.hidden = false;
+      //_loginButton.hidden = false;
       return;
     }
 

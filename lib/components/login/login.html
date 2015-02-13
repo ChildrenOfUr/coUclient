@@ -4,7 +4,25 @@
 
 <polymer-element name="ur-login">
   <template>
-    <content></content>    
+    <style>
+     ur-panel {
+     width:200px;
+     padding:30px;
+     }
+     #logo {
+     width:100px;
+     }
+    </style>
+    <ur-panel class="splash" id="user-login">
+      <div id="login-content">
+        <img src="logo.svg" id="logo"><br>
+        <span id="greeting">It's good to see you,</span><br><br>
+        <ur-button id="login-button" big="true">
+        Login/Signup
+        </ur-button>
+      </div>
+    </ur-panel>    
+
   </template>
   <script type="application/dart" src="login.dart"></script>
 </polymer-element>
