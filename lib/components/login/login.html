@@ -2,25 +2,44 @@
 <link rel="import" href="../../../../packages/polymer/polymer.html">
 <link rel="import" href="../../../../packages/couclient/toolkit/toolkit.html"> 
 
-<polymer-element name="ur-login">
+<polymer-element name="ur-login" newuser="false">
   <template>
     <style>
+     div {
+     font-size:12pt;
+     font-family: 'Lato', sans-serif;
+     margin:3px;
+     }
+     .greeting {
+     font-size:14pt;
+     font-family: 'Fredoka One', cursive;
+     }
      ur-panel {
-     width:200px;
      padding:30px;
      }
-     #logo {
+     .logo {
      width:100px;
      }
     </style>
     <ur-panel class="splash" id="user-login">
-      <div id="login-content">
-        <img src="logo.svg" id="logo"><br>
-        <span id="greeting">It's good to see you,</span><br><br>
+      <div id="login-content" visible>
+        <img src="logo.svg" class="logo"><br>
+        <span class="greeting">It's good to see you,</span><br><br>
         <ur-button id="login-button" big="true">
         Login/Signup
         </ur-button>
       </div>
+      
+      <div id="signup-content" hidden>
+       <img src="logo.svg" class="logo"><br>
+      <div class="greeting">Hey, a new face!</div>
+      <div>What do you want to be called?</div><br>
+      <input type="text" id="new-user-name">
+      <ur-button theme="success" id="submit-name-button">Submit</ur-button>
+      <div>(You can always change your name later on.)</div>
+      
+      </div>
+      
     </ur-panel>    
 
   </template>

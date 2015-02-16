@@ -29,7 +29,6 @@ class AuthManager {
 
   
   void verifyWithServer(String personaAssertion) {
-    //_loginButton.hidden = true;
 
     Timer tooLongTimer = new Timer(new Duration(seconds: 5),(){
       SpanElement greeting = querySelector('#greeting');
@@ -52,7 +51,6 @@ Please check back another time. :(''';
       
       if (serverdata['ok'] == 'no') {
         print('Error:Server refused the login attempt.');
-        //_loginButton.hidden = false;
         return;
       }
       
@@ -63,8 +61,7 @@ Please check back another time. :(''';
       
       
       if (serverdata['playerName'].trim() == '') {
-        setupNewUser();
-        window.location.href = 'http://childrenofur.com/forums/login';
+        setupNewUser(serverdata);
       }
       else {
         // Get our username and location from the server.
@@ -84,34 +81,35 @@ Please check back another time. :(''';
   startGame(Map serverdata) {
     if (serverdata['ok'] == 'no') {
       print('Error:Server refused the login attempt.');
-      //_loginButton.hidden = false;
       return;
     }
 
     // Begin Game//
     game = new Game();
     audio = new SoundManager();
+    inputManager = new InputManager();
     view.loggedIn();
   }
   
-  setupNewUser() {
-    Element usernameElement = querySelector('#new-user-name');
-    Element submitButton = querySelector('#new-user-submit');
-    
-    submitButton.onClick.listen((_) {
-      submitButton.hidden = true;
+  setupNewUser(Map serverdata) {
+    Element signinElement = querySelector('ur-login');
+    signinElement.attributes['newuser'] = 'true';
+    signinElement.on['setUsername'].listen((_) {
+      
       HttpRequest.postFormData('https://server.childrenofur.com:8383/auth', {
+        'type' : 'set-username',
         'token': SESSION_TOKEN,
-        'username' : usernameElement.text
+        'username' : (signinElement.shadowRoot.querySelector('#new-user-name') as InputElement).value
       }).then((HttpRequest request) {
         print(request.responseText);
-        submitButton.hidden = false;
+        
+        if (request.responseText == '{"ok":"true"}') {
+          // now that the username has been set, refresh and auto-login.
+          window.location.reload();
+          }
       });
     });
-    
-    
 
-    
   }
 
 }
