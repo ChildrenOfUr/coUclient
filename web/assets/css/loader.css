@@ -27,7 +27,7 @@
 
 #spinny-ur {
     animation: 80s rotate infinite linear;
-    -moz-animation:80s rotate infinite linear; 
+    -moz-animation:80s rotate infinite linear;
     -webkit-animation:80s rotate infinite linear;
     width:100%;
     position:absolute;

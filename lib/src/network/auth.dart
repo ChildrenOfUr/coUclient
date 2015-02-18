@@ -32,7 +32,8 @@ class AuthManager {
 
     Timer tooLongTimer = new Timer(new Duration(seconds: 5),(){
       SpanElement greeting = querySelector('#greeting');
-      greeting.text = '''
+      if(greeting != null)
+    	  greeting.text = '''
 Oh no!
 Looks like the server is a bit slow. 
 Please check back another time. :(''';
@@ -42,7 +43,7 @@ Please check back another time. :(''';
       "content-type": "application/json"
     }, sendData: JSON.encode({
       'assertion': personaAssertion,
-      //'audience' : 'http://localhost:8080/index.html'
+      'audience' : 'http://localhost:8080/index.html'
       //'audience':'http://robertmcdermot.com/cou:80'
     }))
       ..then((HttpRequest data) {
@@ -58,7 +59,6 @@ Please check back another time. :(''';
       SLACK_TEAM = serverdata['slack-team'];
       SLACK_TOKEN = serverdata['slack-token'];
       SC_TOKEN = serverdata['sc-token'];
-
 
       if (serverdata['playerName'].trim() == '') {
         setupNewUser(serverdata);
@@ -97,14 +97,13 @@ Please check back another time. :(''';
     signinElement.attributes['newuser'] = 'true';
     signinElement.on['setUsername'].listen((_) {
 
-      HttpRequest.postFormData('https://server.childrenofur.com:8383/auth', {
+      HttpRequest.postFormData('https://server.childrenofur.com:8383/auth/setusername', {
         'type' : 'set-username',
         'token': SESSION_TOKEN,
         'username' : (signinElement.shadowRoot.querySelector('#new-user-name') as InputElement).value
       }).then((HttpRequest request) {
-        print(request.responseText);
 
-        if (request.responseText == '{"ok":"true"}') {
+        if (request.responseText == '{"ok":"yes"}') {
           // now that the username has been set, refresh and auto-login.
           window.location.reload();
           }
