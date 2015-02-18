@@ -1,7 +1,7 @@
 part of couclient;
 
 String websocketServerAddress = 'server.childrenofur.com:8282';
-double clientVersion = 0.08;
+double clientVersion = 0.09;
 
 String multiplayerServer = "ws://$websocketServerAddress/playerUpdate";
 String streetEventServer = "ws://$websocketServerAddress/streetUpdate";
@@ -37,6 +37,7 @@ void sendJoinedMessage(String streetName, [String tsid])
 		Map map = new Map();
 		map['clientVersion'] = clientVersion;
 		map["username"] = game.username;
+		map['email'] = game.email;
 		map["streetName"] = streetName;
 		map["tsid"] = tsid == null ? currentStreet.streetData['tsid'] : tsid;
 		map["message"] = "joined";

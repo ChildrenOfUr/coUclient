@@ -40,7 +40,7 @@ Please check back another time. :(''';
 
     post('login', {
       'assertion': personaAssertion,
-      'audience' : 'http://localhost:8080/index.html'
+      //'audience' : 'http://localhost:8080/index.html'
       //'audience':'http://robertmcdermot.com/cou:80'
     })
       ..then((HttpRequest data) {
@@ -51,7 +51,7 @@ Please check back another time. :(''';
         print('Error:Server refused the login attempt.');
         return;
       }
-      
+
       SESSION_TOKEN = serverdata['sessionToken'];
       SLACK_TEAM = serverdata['slack-team'];
       SLACK_TOKEN = serverdata['slack-token'];
@@ -64,6 +64,7 @@ Please check back another time. :(''';
       else {
         // Get our username and location from the server.
         sessionStorage['playerName'] = serverdata['playerName'];
+        sessionStorage['playerEmail'] = serverdata['playerEmail'];
         sessionStorage['playerStreet'] = serverdata['playerStreet'];
         startGame(serverdata);
       }
