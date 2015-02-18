@@ -38,13 +38,11 @@ Looks like the server is a bit slow.
 Please check back another time. :(''';
     });
 
-    HttpRequest.request(_authUrl + "/login", method: "POST", requestHeaders: {
-      "content-type": "application/json"
-    }, sendData: JSON.encode({
+    post({
       'assertion': personaAssertion,
       'audience' : 'http://localhost:8080/index.html'
       //'audience':'http://robertmcdermot.com/cou:80'
-    }))
+    })
       ..then((HttpRequest data) {
       tooLongTimer.cancel();
       Map serverdata = JSON.decode(data.response);
@@ -71,6 +69,12 @@ Please check back another time. :(''';
       }
     });
   }
+  
+  Future post(Map data) {
+    return HttpRequest.request(_authUrl + "/login", method: "POST", requestHeaders: {
+          "content-type": "application/json"
+        }, sendData: JSON.encode(data));
+  }
 
   void logout() {
       _personaNavigator.logout();
@@ -95,8 +99,7 @@ Please check back another time. :(''';
     Element signinElement = querySelector('ur-login');
     signinElement.attributes['newuser'] = 'true';
     signinElement.on['setUsername'].listen((_) {
-      
-      HttpRequest.postFormData('https://server.childrenofur.com:8383/auth', {
+      post({
         'type' : 'set-username',
         'token': SESSION_TOKEN,
         'username' : (signinElement.shadowRoot.querySelector('#new-user-name') as InputElement).value
