@@ -6,6 +6,7 @@ class Game {
 
   String username = sessionStorage['playerName'];
   String location = sessionStorage['playerStreet'];
+  String email = sessionStorage['playerEmail'];
 
   int energy = 100;
   int maxenergy = 100;

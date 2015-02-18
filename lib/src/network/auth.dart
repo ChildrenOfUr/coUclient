@@ -61,7 +61,7 @@ Please check back another time. :(''';
 
       // Get our username and location from the server.
       sessionStorage['playerName'] = serverdata['playerName'];
-
+      sessionStorage['playerEmail'] = serverdata['playerEmail'];
       sessionStorage['playerStreet'] = serverdata['playerStreet'];
 
       SESSION_TOKEN = serverdata['sessionToken'];

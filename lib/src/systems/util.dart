@@ -99,6 +99,7 @@ sendAction(String methodName, String entityId, [Map arguments])
 		map['type'] = entityId;
 	map['streetName'] = currentStreet.label;
 	map['username'] = game.username;
+	map['email'] = game.email;
 	map['tsid'] = currentStreet.streetData['tsid'];
 	map['arguments'] = arguments;
 	streetSocket.send(JSON.encode(map));
