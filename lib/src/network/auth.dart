@@ -38,7 +38,7 @@ Looks like the server is a bit slow.
 Please check back another time. :(''';
     });
 
-    post({
+    post('login', {
       'assertion': personaAssertion,
       'audience' : 'http://localhost:8080/index.html'
       //'audience':'http://robertmcdermot.com/cou:80'
@@ -70,8 +70,8 @@ Please check back another time. :(''';
     });
   }
   
-  Future post(Map data) {
-    return HttpRequest.request(_authUrl + "/login", method: "POST", requestHeaders: {
+  Future post(String type ,Map data) {
+    return HttpRequest.request(_authUrl + "/$type", method: "POST", requestHeaders: {
           "content-type": "application/json"
         }, sendData: JSON.encode(data));
   }
@@ -99,7 +99,7 @@ Please check back another time. :(''';
     Element signinElement = querySelector('ur-login');
     signinElement.attributes['newuser'] = 'true';
     signinElement.on['setUsername'].listen((_) {
-      post({
+      post('setusername', {
         'type' : 'set-username',
         'token': SESSION_TOKEN,
         'username' : (signinElement.shadowRoot.querySelector('#new-user-name') as InputElement).value
