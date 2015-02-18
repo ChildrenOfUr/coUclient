@@ -16,7 +16,7 @@ class AuthManager {
   AuthManager() {
     // Starts the game
     _loginPanel = querySelector('ur-login');
-    
+
     _personaNavigator = new Persona('', verifyWithServer, view.loggedOut);
     _loginPanel.on['attemptLogin'].listen((_) {
       _personaNavigator.request({
@@ -27,7 +27,7 @@ class AuthManager {
     });
   }
 
-  
+
   void verifyWithServer(String personaAssertion) {
 
     Timer tooLongTimer = new Timer(new Duration(seconds: 5),(){
@@ -42,30 +42,31 @@ Please check back another time. :(''';
       "content-type": "application/json"
     }, sendData: JSON.encode({
       'assertion': personaAssertion,
-      'audience' : 'http://localhost:8080/index.html'
+      //'audience' : 'http://localhost:8080/index.html'
       //'audience':'http://robertmcdermot.com/cou:80'
     }))
       ..then((HttpRequest data) {
       tooLongTimer.cancel();
       Map serverdata = JSON.decode(data.response);
-      
+
       if (serverdata['ok'] == 'no') {
         print('Error:Server refused the login attempt.');
         return;
       }
-      
+
       SESSION_TOKEN = serverdata['sessionToken'];
       SLACK_TEAM = serverdata['slack-team'];
       SLACK_TOKEN = serverdata['slack-token'];
       SC_TOKEN = serverdata['sc-token'];
-      
-      
+
+
       if (serverdata['playerName'].trim() == '') {
         setupNewUser(serverdata);
       }
       else {
         // Get our username and location from the server.
         sessionStorage['playerName'] = serverdata['playerName'];
+        sessionStorage['playerEmail'] = serverdata['playerEmail'];
         sessionStorage['playerStreet'] = serverdata['playerStreet'];
         startGame(serverdata);
       }
@@ -76,8 +77,8 @@ Please check back another time. :(''';
       _personaNavigator.logout();
       window.location.reload();
   }
-  
-  
+
+
   startGame(Map serverdata) {
     if (serverdata['ok'] == 'no') {
       print('Error:Server refused the login attempt.');
@@ -90,19 +91,19 @@ Please check back another time. :(''';
     inputManager = new InputManager();
     view.loggedIn();
   }
-  
+
   setupNewUser(Map serverdata) {
     Element signinElement = querySelector('ur-login');
     signinElement.attributes['newuser'] = 'true';
     signinElement.on['setUsername'].listen((_) {
-      
+
       HttpRequest.postFormData('https://server.childrenofur.com:8383/auth', {
         'type' : 'set-username',
         'token': SESSION_TOKEN,
         'username' : (signinElement.shadowRoot.querySelector('#new-user-name') as InputElement).value
       }).then((HttpRequest request) {
         print(request.responseText);
-        
+
         if (request.responseText == '{"ok":"true"}') {
           // now that the username has been set, refresh and auto-login.
           window.location.reload();
