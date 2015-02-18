@@ -40,7 +40,7 @@ Please check back another time. :(''';
       "content-type": "application/json"
     }, sendData: JSON.encode({
       'assertion': personaAssertion,
-      'audience' : 'http://localhost:8080/index.html'
+      //'audience' : 'http://localhost:8080/index.html'
       //'audience':'http://robertmcdermot.com/cou:80'
     }))
       ..then((HttpRequest data) {
