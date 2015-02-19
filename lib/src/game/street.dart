@@ -164,6 +164,7 @@ class Street
         //For each decoration in the layer, give its attributes and draw
         for(Map deco in layer['decos'])
 		{
+          try {
 			int x = deco['x'] - deco['w'] ~/ 2;
 			int y = deco['y'] - deco['h'] + groundY;
 
@@ -173,8 +174,12 @@ class Street
 				y += layer['h'];
 				x += layer['w'] ~/ 2;
 			}
-
+      
 			decoCanvas.append(new Deco(deco, x, y).image);
+          }
+          catch(error){
+            print(error);
+          }
 		}
 
 		for(Map platformLine in layer['platformLines'])
