@@ -23,7 +23,6 @@ class AuthManager {
         'backgroundColor': '#4b2e4c',
         'siteName': 'Children of Ur'
       });
-      //_loginButton.hidden = true;
     });
   }
 
@@ -37,8 +36,8 @@ class AuthManager {
 
     post('login', {
       'assertion': personaAssertion,
-      'audience' : 'http://localhost:8080/index.html'
-      //'audience':'http://robertmcdermot.com/cou:80'
+      //'audience' : 'http://localhost:8080/index.html'
+      'audience':'https://server.childrenofur.com:80'
     })
       ..then((HttpRequest data) {
       tooLongTimer.cancel();
