@@ -37,7 +37,7 @@ class AuthManager {
     post('login', {
       'assertion': personaAssertion,
       //'audience' : 'http://localhost:8080/index.html'
-      'audience':'https://server.childrenofur.com:80'
+      //'audience':'https://server.childrenofur.com:80'
     })
       ..then((HttpRequest data) {
       tooLongTimer.cancel();
