@@ -2,7 +2,7 @@
 <link rel="import" href="../../../../packages/polymer/polymer.html">
 <link rel="import" href="../../../../packages/couclient/toolkit/toolkit.html"> 
 
-<polymer-element name="ur-login" newuser="false">
+<polymer-element name="ur-login" newuser="false" timedout="false">
   <template>
     <style>
      div {
@@ -22,12 +22,21 @@
      }
     </style>
     <ur-panel class="splash" id="user-login">
-      <div id="login-content" visible>
+      <div id="login-content">
         <img src="logo.svg" class="logo"><br>
         <span class="greeting">It's good to see you,</span><br><br>
         <ur-button id="login-button" big="true">
         Login/Signup
         </ur-button>
+      </div>
+      
+      <div id="login-timeout" hidden>
+        <img src="logo.svg" class="logo"><br>
+        <span class="greeting">
+        Oh no!<br>
+        Looks like the server is a bit slow. <br>
+        Please check back another time. :(
+        </span><br><br>
       </div>
       
       <div id="signup-content" hidden>

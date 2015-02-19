@@ -31,12 +31,8 @@ class AuthManager {
   void verifyWithServer(String personaAssertion) {
 
     Timer tooLongTimer = new Timer(new Duration(seconds: 5),(){
-      SpanElement greeting = querySelector('#greeting');
-      if(greeting != null)
-    	  greeting.text = '''
-Oh no!
-Looks like the server is a bit slow. 
-Please check back another time. :(''';
+      Element signinElement = querySelector('ur-login')
+          ..attributes['timedout'] = 'true';
     });
 
     post('login', {

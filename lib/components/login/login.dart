@@ -14,6 +14,7 @@ class UrLogin extends PolymerElement {
   
   
   @published bool newUser;
+  @published bool timedout;
   
 
   UrLogin.created() : super.created() {
@@ -24,8 +25,9 @@ class UrLogin extends PolymerElement {
     submitUsernameButton = shadowRoot.querySelector('#submit-name-button');
     
     shadowRoot.addEventListener('attemptLogin', (_) {});
-    loginButton.onClick.listen((_) => 
-        shadowRoot.dispatchEvent(new CustomEvent('attemptLogin')));
+    loginButton.onClick.listen((_) {
+      loginButton.hidden = true;
+      shadowRoot.dispatchEvent(new CustomEvent('attemptLogin'));});
 
     
     shadowRoot.addEventListener('setUsername', (_) {});
@@ -42,6 +44,11 @@ class UrLogin extends PolymerElement {
         shadowRoot.querySelector('#login-content').hidden = true;
         shadowRoot.querySelector('#signup-content').hidden = false;
       }        
+      if (timedout == true) {
+        shadowRoot.querySelector('#login-timeout').hidden = false;
+        shadowRoot.querySelector('#login-content').hidden = true;
+        shadowRoot.querySelector('#signup-content').hidden = true;
+      }
     });
     
   }
