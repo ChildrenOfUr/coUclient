@@ -128,5 +128,4 @@ main()
   new CommandManager();
 
   windowManager = new WindowManager();
-  inputManager = new InputManager();
 }

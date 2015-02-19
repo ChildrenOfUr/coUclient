@@ -71,17 +71,10 @@
 }
 
 .conversation input {
-  font-family: 'Lato', sans-serif;
   position:absolute;
   bottom:5px;
   left:3%;
-  font-size:1.2em;
-  background-color:#eee;
   width:93%;
-  height:16px;
-  border:none;
-  border:2px solid rgba(0,0,0,0.1);
-  border-radius: 5px;
 }
 
 .conversation .fa-chevron-down {
