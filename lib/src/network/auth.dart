@@ -8,7 +8,7 @@ String SESSION_TOKEN;
 String FORUM_TOKEN;
 
 class AuthManager {
-  String _authUrl = 'http://localhost:8383/auth';
+  String _authUrl = 'http://server.childrenofur.com:8383/auth';
 
   Persona _personaNavigator;
   Element _loginPanel;

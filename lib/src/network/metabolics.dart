@@ -68,7 +68,7 @@ class MetabolicsService
 		if(lastUpdate == null || nextUpdate == null || nextUpdate.compareTo(new DateTime.now()) < 0)
 		{
 			//save metabolics back to server
-			HttpRequest.request("http://localhost:8181/setMetabolics?username=${game.username}",
+			HttpRequest.request("http://server.childrenofur.com:8181/setMetabolics?username=${game.username}",
 				method: "POST", requestHeaders: {"content-type": "application/json"},
 				sendData: JSON.encode(encode(metabolics)));
 
