@@ -8,7 +8,7 @@ String SESSION_TOKEN;
 String FORUM_TOKEN;
 
 class AuthManager {
-  String _authUrl = 'https://server.childrenofur.com:8383/auth';
+  String _authUrl = 'http://localhost:8383/auth';
 
   Persona _personaNavigator;
   Element _loginPanel;
@@ -65,7 +65,7 @@ Please check back another time. :(''';
         // Get our username and location from the server.
         sessionStorage['playerName'] = serverdata['playerName'];
         sessionStorage['playerEmail'] = serverdata['playerEmail'];
-        sessionStorage['playerStreet'] = serverdata['playerStreet'];
+        sessionStorage['playerStreet'] = serverdata['metabolics']['current_street'];
         startGame(serverdata);
       }
     });
@@ -90,7 +90,7 @@ Please check back another time. :(''';
     }
 
     // Begin Game//
-    game = new Game();
+    game = new Game(decode(serverdata['metabolics'],Metabolics));
     audio = new SoundManager();
     inputManager = new InputManager();
     view.loggedIn();

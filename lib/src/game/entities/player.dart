@@ -5,7 +5,7 @@ Player CurrentPlayer;
 class Player
 {
 	int width = 116, height = 137, speed = 300;
-	num posX = 1.0, posY = 0.0;
+	num posX, posY;
 	num yVel = 0, yAccel = -2400;
 	bool jumping = false, moving = false, climbingUp = false, climbingDown = false;
 	bool activeClimb = false, lastClimbStatus = false, facingRight = true, firstRender = true;
@@ -28,23 +28,29 @@ class Player
 
 	Player(this.username)
 	{
-		bool found = false;
-		Platform leftmost = null;
+		posX = metabolics.getCurrentStreetX();
+		posY = metabolics.getCurrentStreetY();
 
-		for(Platform platform in currentStreet.platforms)
+		if(posX == 1.0 && posY == 0.0)
 		{
-			if(leftmost == null || platform.start.x < leftmost.start.x)
-				leftmost = platform;
+			bool found = false;
+    		Platform leftmost = null;
 
-			if(platform.start.x == 1)
-			{
-				found = true;
-				posY = platform.start.y-height;
-			}
+    		for(Platform platform in currentStreet.platforms)
+    		{
+    			if(leftmost == null || platform.start.x < leftmost.start.x)
+    				leftmost = platform;
+
+    			if(platform.start.x == 1)
+    			{
+    				found = true;
+    				posY = platform.start.y-height;
+    			}
+    		}
+
+    		if(!found)
+    			posY = 0.0;
 		}
-
-		if(!found)
-			posY = 0.0;
 
 		playerCanvas = new CanvasElement()
 			..className = "playerCanvas"
@@ -281,6 +287,9 @@ class Player
 
 		updateAnimation(dt);
 		updateTransform();
+
+		//update server with position
+		metabolics.update();
 
 		//check for collision with quoins
 		Rectangle avatarRect = new Rectangle(posX,posY,width,height);

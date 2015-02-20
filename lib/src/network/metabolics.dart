@@ -7,107 +7,164 @@ part of couclient;
  *
 **/
 
-Metabolics metabolics = new Metabolics();
+MetabolicsService metabolics = new MetabolicsService();
 
-class Metabolics {
-  int _currants = 0;
-  int _energy = 50;
-  int _maxenergy = 100;
-  int _mood = 50;
-  int _maxmood = 100;
-  int _img = 0;
+class Metabolics
+{
+	@Field()
+	int id = -1;
 
-  void init() {
-    view.meters.updateAll();
+	@Field()
+	int mood = 50;
 
-    //load currants (for now)
-    if (localStorage["currants"] != null) setCurrants(int.parse(localStorage["currants"]));
-  }
+	@Field()
+	int max_mood = 100;
 
-  /*//will return a future containing the result of the action
-	Future<int> get(String metabolic)
+	@Field()
+	int energy = 50;
+
+	@Field()
+	int max_energy = 100;
+
+	@Field()
+	int currants = 0;
+
+	@Field()
+	int img = 0;
+
+	@Field()
+	int lifetime_img = 0;
+
+	@Field()
+	String current_street = 'LA58KK7B9O522PC';
+
+	@Field()
+	num current_street_x = 1.0;
+
+	@Field()
+	num current_street_y = 0.0;
+
+	@Field()
+	int user_id = -1;
+}
+
+DateTime lastUpdate, nextUpdate;
+
+class MetabolicsService
+{
+	Metabolics metabolics = new Metabolics();
+
+	void init(Metabolics m)
 	{
-		Completer c = new Completer();
-		new Timer(new Duration(milliseconds:100), () => c.complete(1337));
-		return c.future;
+		metabolics = m;
+		view.meters.updateAll();
 	}
 
-	//will return a future describing the success of the action
-	Future<bool> set(String metabolic, dynamic newValue)
+	update()
 	{
-		Completer c = new Completer();
-		new Timer(new Duration(milliseconds:100), () => c.complete(true));
-		return c.future;
-	}*/
+		view.meters.updateAll();
 
-  setEnergy(int newValue) {
-    if (newValue <= 0)
-      newValue = 0;
-    if (newValue > _maxenergy) return;
-    _energy = newValue;
-    view.meters.updateEnergyDisplay();
-  }
+		//to prevent server overload, only update it once every 5 seconds at most
+		if(lastUpdate == null || nextUpdate == null || nextUpdate.compareTo(new DateTime.now()) < 0)
+		{
+			//save metabolics back to server
+			HttpRequest.request("http://localhost:8181/setMetabolics?username=${game.username}",
+				method: "POST", requestHeaders: {"content-type": "application/json"},
+				sendData: JSON.encode(encode(metabolics)));
 
-  setMaxEnergy(int newValue) {
-    if (newValue <= 0)
-      newValue = 0;
-    _maxenergy = newValue;
-    if (_energy > _maxenergy)
-    _energy = _maxenergy;
-    view.meters.updateEnergyDisplay();
-  }
+			lastUpdate = new DateTime.now();
+			nextUpdate = lastUpdate.add(new Duration(seconds:5));
+		}
+	}
 
-  setMood(int newValue) {
-    if (newValue <= 0)
-      newValue = 0;
-    if (newValue > _maxmood) return;
-    _mood = newValue;
-    view.meters.updateMoodDisplay();
-  }
+	setEnergy(int newValue)
+	{
+		if (newValue <= 0)
+			newValue = 0;
+		if (newValue > metabolics.max_energy)
+			newValue = metabolics.max_energy;
 
-  setMaxMood(int newValue) {
-    if (newValue <= 0)
-      newValue = 0;
-    _maxmood = newValue;
-    if (_mood > _maxmood)
-    _mood = newValue;
-    view.meters.updateMoodDisplay();
-  }
+		metabolics.energy = newValue;
+		update();
+	}
 
-  setCurrants(int newValue) {
-    if (newValue <= 0)
-      newValue = 0;
-    _currants = newValue;
-    localStorage["currants"] = newValue.toString();
-    view.meters.updateCurrantsDisplay();
-  }
+	setMaxEnergy(int newValue)
+	{
+		if (newValue <= 0)
+			newValue = 0;
+		metabolics.max_energy = newValue;
+		if (metabolics.energy > metabolics.max_energy)
+			metabolics.energy = metabolics.max_energy;
 
-  setImg(int newValue) {
-    if (newValue <= 0)
-      newValue = 0;
-    _img = newValue;
-    view.meters.updateImgDisplay();
-  }
+		update();
+	}
 
-  int getCurrants() {
-    return _currants;
-  }
+	setMood(int newValue)
+	{
+		if (newValue <= 0)
+			newValue = 0;
+		if (newValue > metabolics.max_mood)
+			newValue = metabolics.max_mood;
 
-  int getEnergy() {
-    return _energy;
-  }
-  int getMaxEnergy() {
-    return _maxenergy;
-  }
+		metabolics.mood = newValue;
 
-  int getMood() {
-    return _mood;
-  }
-  int getMaxMood() {
-    return _maxmood;
-  }
+		update();
+	}
 
-  int getImg() {
-    return _img;
-  }
+	setMaxMood(int newValue)
+	{
+		if (newValue <= 0)
+			newValue = 0;
+		metabolics.max_mood = newValue;
+		if (metabolics.mood > metabolics.max_mood)
+			metabolics.mood = metabolics.max_mood;
+
+		update();
+	}
+
+	setCurrants(int newValue)
+	{
+		if (newValue <= 0)
+			newValue = 0;
+		metabolics.currants = newValue;
+
+		update();
+	}
+
+	setImg(int newValue)
+	{
+		if (newValue <= 0)
+			newValue = 0;
+		metabolics.img = newValue;
+
+		update();
+	}
+
+	setCurrentStreetX(num newValue)
+	{
+		metabolics.current_street_x = newValue;
+		update();
+	}
+
+	setCurrentStreetY(num newValue)
+	{
+		metabolics.current_street_y = newValue;
+		update();
+	}
+
+	int getCurrants() => metabolics.currants;
+
+	int getEnergy() => metabolics.energy;
+
+	int getMaxEnergy() => metabolics.max_energy;
+
+	int getMood() => metabolics.mood;
+
+	int getMaxMood() => metabolics.max_mood;
+
+	int getImg() => metabolics.img;
+
+	num getCurrentStreetX() => metabolics.current_street_x;
+
+	num getCurrentStreetY() => metabolics.current_street_y;
 }

@@ -8,16 +8,8 @@ class Game {
   String location = sessionStorage['playerStreet'];
   String email = sessionStorage['playerEmail'];
 
-  int energy = 100;
-  int maxenergy = 100;
-  int mood = 100;
-  int maxmood = 100;
-  int currants = 0;
-  int img = 0;
-
-
   // INITIALIZATION //
-  Game() {
+  Game(Metabolics m) {
     streetService.requestStreet(location)
     .then((_) {
 
@@ -28,7 +20,7 @@ class Game {
 
     windowManager.motdWindow.open();
 
-    metabolics.init();
+    metabolics.init(m);
     multiplayerInit();
     CurrentPlayer = new Player(username);
     view.meters.updateNameDisplay();

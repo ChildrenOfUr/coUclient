@@ -34,6 +34,7 @@ import 'package:polymer/polymer.dart';
 
 // Necessary to init the mapper in the main method
 import 'package:redstone_mapper/mapper_factory.dart';
+import 'package:redstone_mapper/mapper.dart';
 
 //it's necessary to import every lib that contains encodable classes
 import 'package:couclient/components/auction_list/auction.dart';
