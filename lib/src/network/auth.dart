@@ -23,7 +23,6 @@ class AuthManager {
         'backgroundColor': '#4b2e4c',
         'siteName': 'Children of Ur'
       });
-      //_loginButton.hidden = true;
     });
   }
 
@@ -31,18 +30,13 @@ class AuthManager {
   void verifyWithServer(String personaAssertion) {
 
     Timer tooLongTimer = new Timer(new Duration(seconds: 5),(){
-      SpanElement greeting = querySelector('#greeting');
-      if(greeting != null)
-    	  greeting.text = '''
-Oh no!
-Looks like the server is a bit slow. 
-Please check back another time. :(''';
+      Element signinElement = querySelector('ur-login')
+          ..attributes['timedout'] = 'true';
     });
 
     post('login', {
       'assertion': personaAssertion,
       //'audience' : 'http://localhost:8080/index.html'
-      //'audience':'http://robertmcdermot.com/cou:80'
     })
       ..then((HttpRequest data) {
       tooLongTimer.cancel();
