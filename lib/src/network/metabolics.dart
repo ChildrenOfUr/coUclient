@@ -12,7 +12,7 @@ MetabolicsService metabolics = new MetabolicsService();
 class Metabolics
 {
 	@Field()
-	int id = -1;
+	int id;
 
 	@Field()
 	int mood = 50;
@@ -52,7 +52,7 @@ DateTime lastServerUpdate, nextServerUpdate;
 
 class MetabolicsService
 {
-	Metabolics metabolics = new Metabolics();
+	Metabolics metabolics;
 
 	void init(Metabolics m)
 	{
@@ -65,15 +65,15 @@ class MetabolicsService
 		view.meters.updateAll();
 
 		//to prevent server overload, only update it once every 5 seconds at most
-		if(lastUpdate == null || nextServerUpdate == null || nextServerUpdate.compareTo(new DateTime.now()) < 0)
+		if(lastServerUpdate == null || nextServerUpdate == null || nextServerUpdate.compareTo(new DateTime.now()) < 0)
 		{
 			//save metabolics back to server
 			HttpRequest.request("http://server.childrenofur.com:8181/setMetabolics?username=${game.username}",
 				method: "POST", requestHeaders: {"content-type": "application/json"},
 				sendData: JSON.encode(encode(metabolics)));
 
-			lastUpdate = new DateTime.now();
-			nextServerUpdate = lastUpdate.add(new Duration(seconds:5));
+			lastServerUpdate = new DateTime.now();
+			nextServerUpdate = lastServerUpdate.add(new Duration(seconds:5));
 		}
 	}
 
@@ -140,6 +140,12 @@ class MetabolicsService
 		update();
 	}
 
+	setCurrentStreet(String newValue)
+	{
+		metabolics.current_street = newValue;
+		update();
+	}
+
 	setCurrentStreetX(num newValue)
 	{
 		metabolics.current_street_x = newValue;
@@ -170,6 +176,8 @@ class MetabolicsService
 	int getMaxMood() => metabolics.max_mood;
 
 	int getImg() => metabolics.img;
+
+	String getCurrentStreet() => metabolics.current_street;
 
 	num getCurrentStreetX() => metabolics.current_street_x;
 
