@@ -289,7 +289,7 @@ class Player
 		updateTransform();
 
 		//update server with position
-		metabolics.update();
+		metabolics.setCurrentStreetXY(posX,posY);
 
 		//check for collision with quoins
 		Rectangle avatarRect = new Rectangle(posX,posY,width,height);

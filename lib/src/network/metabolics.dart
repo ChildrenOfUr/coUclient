@@ -152,6 +152,13 @@ class MetabolicsService
 		update();
 	}
 
+	setCurrentStreetXY(num newX, num newY)
+	{
+		metabolics.current_street_x = newX;
+		metabolics.current_street_y = newY;
+        update();
+	}
+
 	int getCurrants() => metabolics.currants;
 
 	int getEnergy() => metabolics.energy;
