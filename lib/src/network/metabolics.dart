@@ -48,7 +48,7 @@ class Metabolics
 	int user_id = -1;
 }
 
-DateTime lastUpdate, nextUpdate;
+DateTime lastServerUpdate, nextServerUpdate;
 
 class MetabolicsService
 {
@@ -65,7 +65,7 @@ class MetabolicsService
 		view.meters.updateAll();
 
 		//to prevent server overload, only update it once every 5 seconds at most
-		if(lastUpdate == null || nextUpdate == null || nextUpdate.compareTo(new DateTime.now()) < 0)
+		if(lastUpdate == null || nextServerUpdate == null || nextServerUpdate.compareTo(new DateTime.now()) < 0)
 		{
 			//save metabolics back to server
 			HttpRequest.request("http://server.childrenofur.com:8181/setMetabolics?username=${game.username}",
@@ -73,7 +73,7 @@ class MetabolicsService
 				sendData: JSON.encode(encode(metabolics)));
 
 			lastUpdate = new DateTime.now();
-			nextUpdate = lastUpdate.add(new Duration(seconds:5));
+			nextServerUpdate = lastUpdate.add(new Duration(seconds:5));
 		}
 	}
 
