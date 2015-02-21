@@ -1,14 +1,12 @@
 name: couclient
 description: 'Children of Ur :: Webclient'
 dependencies:
+  async_await:
+    git: https://github.com/dart-lang/async_await.git
   browser: any
   dnd: any
   gorgon: any
   intl: any
-  polymer: any
-  redstone_mapper: any
-  async_await:
-    git: https://github.com/dart-lang/async_await.git
   libld:
     git:
       ref: master
@@ -17,10 +15,12 @@ dependencies:
     git:
       ref: master
       url: git://github.com/ChildrenOfUr/dart-persona.git
+  polymer: any
   pump:
     git:
       ref: master
       url: git://github.com/ppvk/pump.git
+  redstone_mapper: any
   scproxy:
     git:
       ref: master
@@ -34,4 +34,4 @@ transformers:
 - async_await
 - polymer:
     entry_points:
-      - web/index.html
+    - web/index.html

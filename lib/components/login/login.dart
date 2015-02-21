@@ -24,15 +24,16 @@ class UrLogin extends PolymerElement {
     emailField = shadowRoot.querySelector('#new-user-name');    
     submitUsernameButton = shadowRoot.querySelector('#submit-name-button');
     
-    shadowRoot.addEventListener('attemptLogin', (_) {});
+    shadowRoot.host.addEventListener('attemptLogin', (_) {});
     loginButton.onClick.listen((_) {
-      loginButton.hidden = true;
-      shadowRoot.dispatchEvent(new CustomEvent('attemptLogin'));});
+      //loginButton.hidden = true;
+      
+      shadowRoot.host.dispatchEvent(new CustomEvent('attemptLogin'));});
 
     
-    shadowRoot.addEventListener('setUsername', (_) {});
+    shadowRoot.host.addEventListener('setUsername', (_) {});
     submitUsernameButton.onClick.listen((_) =>
-        shadowRoot.dispatchEvent(new CustomEvent('setUsername')));
+        shadowRoot.host.dispatchEvent(new CustomEvent('setUsername')));
     
     
     changes.listen( (_) {
@@ -52,5 +53,4 @@ class UrLogin extends PolymerElement {
     });
     
   }
-
 }
