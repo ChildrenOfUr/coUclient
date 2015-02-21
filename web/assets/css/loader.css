@@ -29,7 +29,7 @@
     animation: 80s rotate infinite linear;
     -moz-animation:80s rotate infinite linear;
     -webkit-animation:80s rotate infinite linear;
-    width:100%;
+    width:85%;
     position:absolute;
     top:50%;
     left:50%;
@@ -37,8 +37,8 @@
 
 
 keyframes rotate {
-    from {-webkit-transform: translate3d(-50%,-50%,0) rotate(0deg);}
-    to {-webkit-transform: translate3d(-50%,-50%,0) rotate(360deg);}
+    from {transform: translate3d(-50%,-50%,0) rotate(0deg);}
+    to {transform: translate3d(-50%,-50%,0) rotate(360deg);}
 }
 
 
