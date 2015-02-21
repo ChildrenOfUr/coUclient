@@ -1,7 +1,7 @@
 part of couclient;
 
 String websocketServerAddress = 'server.childrenofur.com:8282';
-double clientVersion = 0.09;
+double clientVersion = 0.10;
 
 String multiplayerServer = "ws://$websocketServerAddress/playerUpdate";
 String streetEventServer = "ws://$websocketServerAddress/streetUpdate";

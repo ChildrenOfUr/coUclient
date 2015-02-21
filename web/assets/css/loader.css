@@ -31,26 +31,25 @@
     -webkit-animation:80s rotate infinite linear;
     width:100%;
     position:absolute;
-    bottom:-20%;
+    top:50%;
     left:50%;
-    margin:-50%;
 }
 
 
 keyframes rotate {
-    from {-webkit-transform: rotate(0deg);}
-    to {-webkit-transform: rotate(360deg);}
+    from {-webkit-transform: translate3d(-50%,-50%,0) rotate(0deg);}
+    to {-webkit-transform: translate3d(-50%,-50%,0) rotate(360deg);}
 }
 
 
 @-webkit-keyframes rotate {
-    from {-webkit-transform: rotate(0deg);}
-    to {-webkit-transform: rotate(360deg);}
+    from {-webkit-transform: translate3d(-50%,-50%,0) rotate(0deg);}
+    to {-webkit-transform: translate3d(-50%,-50%,0) rotate(360deg);}
 }
 
 @-moz-keyframes rotate {
-    from {-moz-transform: rotate(0deg);}
-    to {-moz-transform: rotate(360deg);}
+    from {-moz-transform: translate3d(-50%,-50%,0) rotate(0deg);}
+    to {-moz-transform: translate3d(-50%,-50%,0) rotate(360deg);}
 }
 
 

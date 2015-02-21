@@ -18,8 +18,6 @@ class StreetService {
         print('Error: Server refused.');
       }
 
-      if(metabolics.metabolics != null)
-    	  metabolics.setCurrentStreet(StreetID);
       c.complete(prepareStreet(serverdata['streetJSON']));
 
     });
