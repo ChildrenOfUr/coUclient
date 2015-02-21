@@ -16,6 +16,14 @@ class UrLogin extends PolymerElement {
   @published bool newUser;
   @published bool timedout;
   
+  
+  void loginAttempt(event, detail, target) {
+    loginButton.hidden = true;
+    shadowRoot.host.dispatchEvent(new CustomEvent('attemptLogin'));
+  }
+  
+  
+  
 
   UrLogin.created() : super.created() {
     greeter = shadowRoot.querySelector('#greeting');
@@ -26,9 +34,7 @@ class UrLogin extends PolymerElement {
     
     shadowRoot.host.addEventListener('attemptLogin', (_) {});
     loginButton.onClick.listen((_) {
-      //loginButton.hidden = true;
-      
-      shadowRoot.host.dispatchEvent(new CustomEvent('attemptLogin'));});
+});
 
     
     shadowRoot.host.addEventListener('setUsername', (_) {});

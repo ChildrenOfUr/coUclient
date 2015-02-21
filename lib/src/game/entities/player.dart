@@ -93,7 +93,7 @@ class Player
 
 		List<Future> futures = new List();
 
-		futures.add(HttpRequest.requestCrossOrigin('http://robertmcdermot.com:8181/getSpritesheets?username=$username')
+		futures.add(HttpRequest.requestCrossOrigin('http://server.childrenofur.com:8181/getSpritesheets?username=$username')
 			.then((String response)
 			{
 				Map spritesheets = JSON.decode(response);

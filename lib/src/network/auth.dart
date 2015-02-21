@@ -28,7 +28,6 @@ class AuthManager {
 
 
   void verifyWithServer(String personaAssertion) {
-    print(personaAssertion);
     Timer tooLongTimer = new Timer(new Duration(seconds: 5),(){
       Element signinElement = querySelector('ur-login')
           ..attributes['timedout'] = 'true';
