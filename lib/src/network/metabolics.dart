@@ -70,6 +70,7 @@ class MetabolicsService
 		socket.onMessage.listen((MessageEvent event)
 		{
 			Map map = JSON.decode(event.data);
+			print('got $map');
 			if(map['collectQuoin'] != null)
 				collectQuoin(map);
 			else
@@ -89,6 +90,11 @@ class MetabolicsService
 	void collectQuoin(Map map)
 	{
 		Element element = querySelector('#${map['id']}');
+		element.attributes['checking'] = 'false';
+
+		if(map['success'] == 'false')
+			return;
+
 		int amt = map['amt'];
 		String quoinType = map['quoinType'];
 
@@ -126,8 +132,6 @@ class MetabolicsService
 				// TODO : what DOES time do?
 				break;
 		}
-
-		element.attributes['checking'] = 'false';
 	}
 
 	int getCurrants() => metabolics.currants;

@@ -2,6 +2,8 @@ part of couclient;
 
 class StreetService {
   String _dataUrl = 'https://server.childrenofur.com:8383/data';
+  bool changingStreets = false;
+  String currentTsid;
 
   Future requestStreet(String StreetID) {
 
@@ -18,6 +20,8 @@ class StreetService {
         print('Error: Server refused.');
       }
 
+      changingStreets = true;
+      currentTsid = StreetID;
       c.complete(prepareStreet(serverdata['streetJSON']));
 
     });
@@ -54,7 +58,11 @@ Future prepareStreet(Map streetJSON){
 		new Timer(new Duration(seconds:1),()
 		{
 			new Asset.fromMap(streetAsMap,label);
-			c.complete(new Street(streetAsMap).load());
+			new Street(streetAsMap).load().then((_)
+			{
+				streetService.changingStreets = false;
+				c.complete();
+			});
 		});
 	});
 
