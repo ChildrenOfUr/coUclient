@@ -52,7 +52,7 @@ class MetabolicsService
 {
 	Metabolics metabolics;
 	DateTime lastUpdate, nextUpdate;
-	String url = 'ws://server.childrenofur.com:8282/metabolics';
+	String url = 'ws://$websocketServerAddress/metabolics';
 
 	void init(Metabolics m)
 	{
@@ -70,7 +70,6 @@ class MetabolicsService
 		socket.onMessage.listen((MessageEvent event)
 		{
 			Map map = JSON.decode(event.data);
-			print('got $map');
 			if(map['collectQuoin'] != null)
 				collectQuoin(map);
 			else

@@ -1,6 +1,8 @@
 part of couclient;
 
-String websocketServerAddress = 'server.childrenofur.com:8282';
+String baseAddress = 'server.childrenofur.com';
+String websocketServerAddress = '$baseAddress:8282';
+String utilServerAddress = '$baseAddress:8181';
 double clientVersion = 0.11;
 
 String multiplayerServer = "ws://$websocketServerAddress/playerUpdate";
@@ -68,7 +70,7 @@ _setupStreetSocket(String streetName)
 			return;
 		}
 
-		if(streetService.changingStreets)
+		if(map['label'] != null && currentStreet.label != map['label'])
         	return;
 
 		//check if we are receiving an item
@@ -241,9 +243,6 @@ _setupPlayerSocket()
 	});
 	playerSocket.onMessage.listen((MessageEvent event)
 	{
-		if(streetService.changingStreets)
-			return;
-
 		Map map = JSON.decode(event.data);
 		if(map['error'] != null)
 		{
@@ -252,6 +251,9 @@ _setupPlayerSocket()
 			playerSocket.close();
 			return;
 		}
+
+		if(map['label'] != null && currentStreet.label != map['label'])
+			return;
 
 		if(map['username'] == game.username)
 			return;
@@ -304,7 +306,7 @@ sendPlayerInfo()
 	map["username"] = CurrentPlayer.username;
 	map["xy"] = xy;
 	map["street"] = currentStreet.label;
-	map['tsid'] = streetService.currentTsid;
+	map['tsid'] = currentStreet.streetData['tsid'];
 	map["facingRight"] = CurrentPlayer.facingRight;
 	map['jumping'] = CurrentPlayer.jumping;
 	map['climbing'] = CurrentPlayer.climbingDown || CurrentPlayer.climbingUp;
