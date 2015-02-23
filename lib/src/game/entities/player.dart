@@ -93,7 +93,7 @@ class Player
 
 		List<Future> futures = new List();
 
-		futures.add(HttpRequest.requestCrossOrigin('http://server.childrenofur.com:8181/getSpritesheets?username=$username')
+		futures.add(HttpRequest.requestCrossOrigin('http://$utilServerAddress/getSpritesheets?username=$username')
 			.then((String response)
 			{
 				Map spritesheets = JSON.decode(response);
@@ -288,9 +288,6 @@ class Player
 		updateAnimation(dt);
 		updateTransform();
 
-		//update server with position
-		metabolics.setCurrentStreetXY(posX,posY);
-
 		//check for collision with quoins
 		Rectangle avatarRect = new Rectangle(posX,posY,width,height);
 		querySelectorAll(".quoin").forEach((Element element) => checkCollision(element));
@@ -473,8 +470,8 @@ class Player
 		//if(querySelector('#MainScreen').hidden == true)
 		//return;
 
-		if(element.attributes['collected'] == "true")
-		return;
+		if(element.attributes['collected'] == "true" || element.attributes['checking'] == "true")
+			return;
 
 		CanvasElement canvas = element as CanvasElement;
 		num left = num.parse(canvas.style.left.replaceAll("px", ""));
@@ -485,123 +482,23 @@ class Player
 
 		if(intersect(avatarRect,quoinRect))
 		{
+			//don't try to collect the same quoin again before we get a response
+			element.attributes['checking'] = 'true';
+
 			audio.playSound('quoinSound');
 
-			element.attributes['collected'] = "true";
-
-			int amt = rand.nextInt(4)+1;
-			int quoinMultiplier = 1;
-			// TODO: change 1 to the real quoin multiplier
-			amt = amt * quoinMultiplier;
-			Element quoinText = querySelector("#qq"+element.id+" .quoinString");
-
-			var quoinType = "";
-
-			if (element.classes.contains("currant")) {
-				quoinType = "currant";
-			}
-			else if (element.classes.contains("mood")) {
-				quoinType = "mood";
-			}
-			else if (element.classes.contains("energy")) {
-				quoinType = "energy";
-			}
-			else if (element.classes.contains("img")) {
-				quoinType = "img";
-			}
-			else if (element.classes.contains("favor")) {
-				quoinType = "favor";
-			}
-			else if (element.classes.contains("time")) {
-				quoinType = "time";
-			}
-			else if (element.classes.contains("mystery")) {
-				quoinType = "mystery";
-			}
-			else if (element.classes.contains("quarazy")) {
-				quoinType = "quarazy";
-			}
-
-			switch (quoinType) {
-				case "currant" :
-				if (amt == 1) {
-					quoinText.text = "+" + amt.toString() + " currant";
-				}
-				else {
-					quoinText.text = "+" + amt.toString() + " currants";
-				}
-				metabolics.setCurrants(metabolics.getCurrants()+amt);
-				break;
-
-				case "mood" :
-				quoinText.text = "+" + amt.toString() + " mood";
-				metabolics.setMood(metabolics.getMood()+amt);
-				break;
-
-				case "energy" :
-				quoinText.text = "+" + amt.toString() + " energy";
-				metabolics.setEnergy(metabolics.getEnergy()+amt);
-				break;
-
-				case "img" :
-				quoinText.text = "+" + amt.toString() + " iMG";
-				metabolics.setImg(metabolics.getImg()+amt);
-				break;
-
-				case "favor" :
-				// TODO : add code for favor
-				break;
-
-				case "time" :
-				// TODO : what DOES time do?
-				break;
-
-				case "mystery" :
-				var mystType = "";
-				var mystTypeNum = rand.nextInt(2);
-				switch (mystTypeNum) {
-					case 0 :
-					mystType = "mood";
-					quoinText.text = "+" + amt.toString() + " " + mystType;
-					metabolics.setMood(metabolics.getMood()+amt);
-					break;
-
-					case 1 :
-					mystType = "energy";
-					quoinText.text = "+" + amt.toString() + " " + mystType;
-					metabolics.setEnergy(metabolics.getEnergy()+amt);
-					break;
-
-					case 2 :
-					mystType = "iMG";
-					quoinText.text = "+" + amt.toString() + " " + mystType;
-					metabolics.setImg(metabolics.getImg()+amt);
-					break;
-
-					// TODO : add favor when favor is a thing
-					// TODO : add time when time is a thing
-					// TODO : increase random number range to include these two
-				}
-				break;
-
-				case "quarazy" :
-				amt = amt * 7;
-				quoinText.text = "+" + amt.toString() + " iMG";
-				metabolics.setImg(metabolics.getImg()+amt);
-				break;
-			}
-
 			querySelector("#q"+element.id).classes.add("circleExpand");
-			querySelector("#qq"+element.id).classes.add("circleExpand");
-			new Timer(new Duration(seconds:2), () => _removeCircleExpand(querySelector("#qq"+element.id)));
-			new Timer(new Duration(milliseconds:800), () => _removeCircleExpand(querySelector("#q"+element.id)));
-			element.style.display = "none"; //.remove() is very slow
+    		querySelector("#qq"+element.id).classes.add("circleExpand");
+    		new Timer(new Duration(seconds:2), () => _removeCircleExpand(querySelector("#qq"+element.id)));
+    		new Timer(new Duration(milliseconds:800), () => _removeCircleExpand(querySelector("#q"+element.id)));
+    		element.style.display = "none"; //.remove() is very slow
 
 			if(streetSocket != null && streetSocket.readyState == WebSocket.OPEN)
 			{
 				Map map = new Map();
 				map["remove"] = element.id;
 				map["type"] = "quoin";
+				map['username'] = game.username;
 				map["streetName"] = currentStreet.label;
 				streetSocket.send(JSON.encode(map));
 			}
@@ -612,7 +509,7 @@ class Player
 	{
 		if(element != null)
 		element.classes.remove("circleExpand");
-	}
+    }
 
 	//ONLY WORKS IF PLATFORMS ARE SORTED WITH
 	//THE HIGHEST (SMALLEST Y VALUE) FIRST IN THE LIST

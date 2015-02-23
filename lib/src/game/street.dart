@@ -48,7 +48,7 @@ class Street
 	// set the street.
 
     currentStreet = this;
-    _setupStreetSocket(currentStreet.label);
+    sendJoinedMessage(currentStreet.label);
   }
 
   Future <List> load()
@@ -174,7 +174,7 @@ class Street
 				y += layer['h'];
 				x += layer['w'] ~/ 2;
 			}
-      
+
 			decoCanvas.append(new Deco(deco, x, y).image);
           }
           catch(error){

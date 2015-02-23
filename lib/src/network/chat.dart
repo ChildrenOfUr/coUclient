@@ -52,6 +52,7 @@ class NetChatManager {
         ..onOpen.listen((_) {
           // First event, tells the server who we are.
           post(new Map()
+          	  ..['tsid'] = currentStreet.streetData['tsid']
               ..['username'] = game.username
               ..['statusMessage'] = 'join');
 

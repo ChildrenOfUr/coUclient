@@ -48,121 +48,89 @@ class Metabolics
 	int user_id = -1;
 }
 
-DateTime lastServerUpdate, nextServerUpdate;
-
 class MetabolicsService
 {
 	Metabolics metabolics;
+	DateTime lastUpdate, nextUpdate;
+	String url = 'ws://$websocketServerAddress/metabolics';
 
 	void init(Metabolics m)
 	{
 		metabolics = m;
 		view.meters.updateAll();
+
+		setupWebsocket();
 	}
 
-	update()
+	setupWebsocket()
 	{
-		view.meters.updateAll();
-
-		//to prevent server overload, only update it once every 5 seconds at most
-		if(lastServerUpdate == null || nextServerUpdate == null || nextServerUpdate.compareTo(new DateTime.now()) < 0)
+		//establish a websocket connection to listen for metabolics objects coming in
+		WebSocket socket = new WebSocket(url);
+		socket.onOpen.listen((_) => socket.send(JSON.encode({'username':game.username})));
+		socket.onMessage.listen((MessageEvent event)
 		{
-			//save metabolics back to server
-			HttpRequest.request("http://server.childrenofur.com:8181/setMetabolics?username=${game.username}",
-				method: "POST", requestHeaders: {"content-type": "application/json"},
-				sendData: JSON.encode(encode(metabolics)));
+			Map map = JSON.decode(event.data);
+			if(map['collectQuoin'] != null)
+				collectQuoin(map);
+			else
+				metabolics = decode(JSON.decode(event.data),Metabolics);
+			update();
+		});
+		socket.onClose.listen((CloseEvent e)
+		{
+			//print('socket closed: ${e.reason}');
+            //wait 5 seconds and try to reconnect
+            new Timer(new Duration(seconds: 5), () => setupWebsocket());
+		});
+	}
 
-			lastServerUpdate = new DateTime.now();
-			nextServerUpdate = lastServerUpdate.add(new Duration(seconds:5));
+	update() => view.meters.updateAll();
+
+	void collectQuoin(Map map)
+	{
+		Element element = querySelector('#${map['id']}');
+		element.attributes['checking'] = 'false';
+
+		if(map['success'] == 'false')
+			return;
+
+		int amt = map['amt'];
+		String quoinType = map['quoinType'];
+
+		element.attributes['collected'] = "true";
+
+		Element quoinText = querySelector("#qq"+element.id+" .quoinString");
+
+		switch (quoinType)
+		{
+			case "currant" :
+				if (amt == 1)
+					quoinText.text = "+" + amt.toString() + " currant";
+				else
+					quoinText.text = "+" + amt.toString() + " currants";
+				break;
+
+			case "mood" :
+				quoinText.text = "+" + amt.toString() + " mood";
+				break;
+
+			case "energy" :
+				quoinText.text = "+" + amt.toString() + " energy";
+				break;
+
+			case "quarazy" :
+			case "img" :
+				quoinText.text = "+" + amt.toString() + " iMG";
+				break;
+
+			case "favor" :
+				// TODO : add code for favor
+				break;
+
+			case "time" :
+				// TODO : what DOES time do?
+				break;
 		}
-	}
-
-	setEnergy(int newValue)
-	{
-		if (newValue <= 0)
-			newValue = 0;
-		if (newValue > metabolics.max_energy)
-			newValue = metabolics.max_energy;
-
-		metabolics.energy = newValue;
-		update();
-	}
-
-	setMaxEnergy(int newValue)
-	{
-		if (newValue <= 0)
-			newValue = 0;
-		metabolics.max_energy = newValue;
-		if (metabolics.energy > metabolics.max_energy)
-			metabolics.energy = metabolics.max_energy;
-
-		update();
-	}
-
-	setMood(int newValue)
-	{
-		if (newValue <= 0)
-			newValue = 0;
-		if (newValue > metabolics.max_mood)
-			newValue = metabolics.max_mood;
-
-		metabolics.mood = newValue;
-
-		update();
-	}
-
-	setMaxMood(int newValue)
-	{
-		if (newValue <= 0)
-			newValue = 0;
-		metabolics.max_mood = newValue;
-		if (metabolics.mood > metabolics.max_mood)
-			metabolics.mood = metabolics.max_mood;
-
-		update();
-	}
-
-	setCurrants(int newValue)
-	{
-		if (newValue <= 0)
-			newValue = 0;
-		metabolics.currants = newValue;
-
-		update();
-	}
-
-	setImg(int newValue)
-	{
-		if (newValue <= 0)
-			newValue = 0;
-		metabolics.img = newValue;
-
-		update();
-	}
-
-	setCurrentStreet(String newValue)
-	{
-		metabolics.current_street = newValue;
-		update();
-	}
-
-	setCurrentStreetX(num newValue)
-	{
-		metabolics.current_street_x = newValue;
-		update();
-	}
-
-	setCurrentStreetY(num newValue)
-	{
-		metabolics.current_street_y = newValue;
-		update();
-	}
-
-	setCurrentStreetXY(num newX, num newY)
-	{
-		metabolics.current_street_x = newX;
-		metabolics.current_street_y = newY;
-        update();
 	}
 
 	int getCurrants() => metabolics.currants;

@@ -58,7 +58,7 @@ class AuthManager {
         // Get our username and location from the server.
         sessionStorage['playerName'] = serverdata['playerName'];
         sessionStorage['playerEmail'] = serverdata['playerEmail'];
-        sessionStorage['playerStreet'] = serverdata['metabolics']['current_street'];
+        sessionStorage['playerStreet'] = decode(JSON.decode(serverdata['metabolics']),Metabolics).current_street;
         startGame(serverdata);
       }
     });
@@ -83,7 +83,7 @@ class AuthManager {
     }
 
     // Begin Game//
-    game = new Game(decode(serverdata['metabolics'],Metabolics));
+    game = new Game(decode(JSON.decode(serverdata['metabolics']),Metabolics));
     audio = new SoundManager();
     inputManager = new InputManager();
     view.loggedIn();

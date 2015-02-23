@@ -130,8 +130,7 @@ class VendorWindow extends Modal
     			sendAction("buyItem", vendorId, actionMap);
 			}
 
-			metabolics.setCurrants(newValue);
-			currants.text = " ${commaFormatter.format(metabolics.getCurrants())} currants";
+			currants.text = " ${commaFormatter.format(newValue)} currants";
 			backToBuy.click();
 		});
 

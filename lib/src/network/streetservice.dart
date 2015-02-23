@@ -18,8 +18,6 @@ class StreetService {
         print('Error: Server refused.');
       }
 
-      if(metabolics.metabolics != null)
-    	  metabolics.setCurrentStreet(StreetID);
       c.complete(prepareStreet(serverdata['streetJSON']));
 
     });
@@ -56,7 +54,7 @@ Future prepareStreet(Map streetJSON){
 		new Timer(new Duration(seconds:1),()
 		{
 			new Asset.fromMap(streetAsMap,label);
-			c.complete(new Street(streetAsMap).load());
+			new Street(streetAsMap).load().then((_) => c.complete());
 		});
 	});
 
