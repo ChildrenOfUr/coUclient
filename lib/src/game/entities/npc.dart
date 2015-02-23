@@ -7,6 +7,7 @@ class NPC extends Entity
 	num posX = 0.0, posY = 0.0;
 	Animation animation;
 	ChatBubble chatBubble = null;
+	Rectangle npcRect;
 
 	NPC(Map map)
 	{
@@ -45,7 +46,6 @@ class NPC extends Entity
 		if(!ready)
 			return;
 
-		animation.updateSourceRect(dt);
 		if(firstRender || animation.url.contains("walk") || animation.url.contains("fly"))
 		{
 			if(facingRight)
@@ -62,10 +62,14 @@ class NPC extends Entity
             canvas.attributes['translatey'] = posY.toString();
 
 			if(facingRight)
-				canvas.style.transform = "translateX(${posX}px) translateY(${posY}px) scale(1,1)";
+				canvas.style.transform = "translateX(${posX}px) translateY(${posY}px) scale3d(1,1,1)";
 			else
-				canvas.style.transform = "translateX(${posX}px) translateY(${posY}px) scale(-1,1)";
+				canvas.style.transform = "translateX(${posX}px) translateY(${posY}px) scale3d(-1,1,1)";
 		}
+
+		npcRect = new Rectangle(posX,posY,canvas.width,canvas.height);
+		if(intersect(camera.visibleRect,npcRect))
+			animation.updateSourceRect(dt);
 	}
 
 	render()
@@ -75,7 +79,6 @@ class NPC extends Entity
 			if(!firstRender)
 			{
 				//if the entity is not visible, don't render it
-				Rectangle npcRect = new Rectangle(posX,posY,canvas.width,canvas.height);
 				if(!intersect(camera.visibleRect,npcRect))
 					return;
 			}

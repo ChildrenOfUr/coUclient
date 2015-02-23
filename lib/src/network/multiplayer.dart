@@ -247,6 +247,9 @@ _setupPlayerSocket()
 			return;
 		}
 
+		if(map['label'] != null && currentStreet.label != map['label'])
+			return;
+
 		if(map['username'] == game.username)
 			return;
 

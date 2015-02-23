@@ -66,9 +66,12 @@ class Animation
 				frameNum = frameList.length -1;
 			else
 			{
+				int oldFrame = frameNum;
 				frameNum = (frameNum + timeInMillis~/(1/fps)) % frameList.length;
                 timeInMillis = 0.0;
-                dirty = true;
+
+                if(oldFrame != frameNum)
+                	dirty = true;
 
                 if(frameNum >= frameList.length -1)
                 	delayConsumed = 0.0;

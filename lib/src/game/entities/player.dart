@@ -445,18 +445,18 @@ class Player
 		String transform = 'translateX('+translateX.toString()+'px) translateY('+translateY.toString()+'px)';
 		if(!facingRight)
 		{
-			transform += ' scale(-1,1)';
-			playerName.style.transform = 'translateY(-100%) translateY(-34px) scale(-1,1)';
+			transform += ' scale3d(-1,1,1)';
+			playerName.style.transform = 'translateY(-100%) translateY(-34px) scale3d(-1,1,1)';
 
 			if(chatBubble != null)
-			chatBubble.textElement.style.transform = 'scale(-1,1)';
+			chatBubble.textElement.style.transform = 'scale3d(-1,1,1)';
 		}
 		else
 		{
-			playerName.style.transform = 'translateY(-100%) translateY(-34px) scale(1,1)';
+			playerName.style.transform = 'translateY(-100%) translateY(-34px) scale3d(1,1,1)';
 
 			if(chatBubble != null)
-			chatBubble.textElement.style.transform = 'scale(1,1)';
+			chatBubble.textElement.style.transform = 'scale3d(1,1,1)';
 		}
 
 		playerParentElement.style.transform = transform;

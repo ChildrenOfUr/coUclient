@@ -3,10 +3,10 @@ part of couclient;
 class Plant extends Entity
 {
 	int state, width, height, numRows, numColumns;
-	num x,y;
+	num x,y, left, top;
 	bool ready = false, firstRender = true;
 	ImageElement spritesheet;
-	Rectangle sourceRect;
+	Rectangle sourceRect, plantRect;
 	String url;
 
 	Plant(Map map)
@@ -33,6 +33,8 @@ class Plant extends Entity
 			height = spritesheet.height~/map['numRows'];
 			x = num.parse(map['x'].toString());
             y = currentStreet.bounds.height - num.parse(map['y'].toString()) - height;
+            left = x;
+            top = y;
 
 			canvas.attributes['actions'] = JSON.encode(map['actions']);
         	canvas.attributes['type'] = map['type'];
@@ -60,12 +62,6 @@ class Plant extends Entity
 		dirty = true;
 	}
 
-	updateGlow(bool newGlow)
-	{
-		glow = newGlow;
-		dirty = true;
-	}
-
 	update(double dt)
 	{
 		if(!ready)
@@ -75,6 +71,7 @@ class Plant extends Entity
         int row = state~/numColumns;
 
 		sourceRect = new Rectangle(column*width,row*height,width,height);
+		plantRect = new Rectangle(left,top,canvas.width,canvas.height);
 	}
 
 	render()
@@ -83,11 +80,7 @@ class Plant extends Entity
 		{
 			if(!firstRender)
 			{
-				num left = num.parse(canvas.attributes['translatex'].replaceAll("px", ""));
-        		num top = num.parse(canvas.attributes['translatey'].replaceAll("px", ""));
-        		Rectangle plantRect = new Rectangle(left,top,canvas.width,canvas.height);
-
-        		if(!intersect(camera.visibleRect,plantRect))
+				if(!intersect(camera.visibleRect,plantRect))
         			return;
 			}
 

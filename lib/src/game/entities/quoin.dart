@@ -6,17 +6,19 @@ class Quoin
 	Animation animation;
 	bool ready = false, firstRender = true;
 	CanvasElement canvas;
-	
+	Rectangle quoinRect;
+	num left, top;
+
 	Quoin(Map map)
 	{
 		String typeString = map['type'];
 		String id = map["id"];
 		int quoinValue = quoins[typeString.toLowerCase()];
-		
+
 		List<int> frameList = [];
 		for(int i=0; i<24; i++)
 			frameList.add(quoinValue*24+i);
-		
+
 		animation = new Animation(map['url'],typeString.toLowerCase(),8,24,frameList,fps:22)
 			..load().then((_)
 			{
@@ -30,7 +32,10 @@ class Quoin
                 canvas.style.bottom = map['y'].toString()+"px";
                 canvas.style.transform = "translateZ(0)";
                 canvas.attributes['collected'] = "false";
-                
+
+                left = map['x'];
+                top = currentStreet.bounds.height - map['y'] - canvas.height;
+
             	DivElement element = new DivElement();
             	DivElement circle = new DivElement()
             		..id = "q"+id
@@ -50,24 +55,26 @@ class Quoin
             	content.className = "quoinString";
             	parent.append(inner);
             	inner.append(content);
-            	
+
             	view.playerHolder
             		..append(canvas)
             		..append(circle)
             		..append(parent);
-            	
+
             	ready = true;
 			});
 	}
-	
+
 	update(double dt)
 	{
 		if(!ready)
 			return;
-		
-		animation.updateSourceRect(dt);
+
+		quoinRect = new Rectangle(left,top,canvas.width,canvas.height);
+		if(intersect(camera.visibleRect,quoinRect))
+			animation.updateSourceRect(dt);
 	}
-	
+
 	render()
 	{
 		if(ready && animation.dirty && canvas.attributes['collected'] == "false")
@@ -75,19 +82,16 @@ class Quoin
 			if(!firstRender)
 			{
 				//if the entity is not visible, don't render it
-				num left = num.parse(canvas.style.left.replaceAll("px", ""));
-	  			num top = currentStreet.bounds.height - num.parse(canvas.style.bottom.replaceAll("px", "")) - canvas.height;
-	  			Rectangle quoinRect = new Rectangle(left,top,canvas.width,canvas.height);
 				if(!intersect(camera.visibleRect,quoinRect))
 					return;
 			}
-			
+
 			firstRender = false;
-			
+
 			//fastest way to clear a canvas (without using a solid color)
 			//source: http://jsperf.com/ctx-clearrect-vs-canvas-width-canvas-width/6
 			canvas.context2D.clearRect(0, 0, animation.width, animation.height);
-			
+
     		Rectangle destRect = new Rectangle(0,0,animation.width,animation.height);
     		canvas.context2D.drawImageToRect(animation.spritesheet, destRect, sourceRect: animation.sourceRect);
     		animation.dirty = false;
