@@ -9,6 +9,7 @@ String FORUM_TOKEN;
 
 class AuthManager {
   String _authUrl = 'https://server.childrenofur.com:8383/auth';
+  String personaAudience = 'http://localhost:8080';
 
   Persona _personaNavigator;
   Element _loginPanel;
@@ -33,9 +34,10 @@ class AuthManager {
           ..attributes['timedout'] = 'true';
     });
 
-    post('login', {
+    post('login',
+	{
       'assertion': personaAssertion,
-      'audience' : 'http://localhost:8080/index.html'
+      'audience' : personaAudience
     })
       ..then((HttpRequest data) {
       tooLongTimer.cancel();

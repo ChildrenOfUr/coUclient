@@ -29,9 +29,13 @@ dependencies:
     git:
       ref: master
       url: git://github.com/ChildrenOfUr/dart-slack.git
+  barback: any
 transformers:
 - redstone_mapper
 - async_await
 - polymer:
     entry_points:
     - web/index.html
+- couclient:
+    $include: lib/src/network/auth.dart
+    audience: "http://play.childrenofur.com:80"
