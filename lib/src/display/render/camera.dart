@@ -3,7 +3,8 @@ part of couclient;
 Camera camera = new Camera();
 class Camera
 {
-  int _x,_y;
+  int _x = 0;
+  int _y = 0;
   int zoom = 0; // for future eyeballery
   bool dirty = true;
   Rectangle visibleRect;

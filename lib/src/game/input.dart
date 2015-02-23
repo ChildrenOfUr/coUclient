@@ -281,7 +281,8 @@ class InputManager {
 				xOffset = camera.getX();
 				yOffset = camera.getY();
 			}
-			num x = e.offset.x+xOffset, y = e.offset.y-groundY+yOffset;
+			num x = e.offset.x+xOffset;
+			num y = e.offset.y-groundY+yOffset;
 			List<String> ids =[];
 			CurrentPlayer.intersectingObjects.forEach((String id, Rectangle rect)
 			{
