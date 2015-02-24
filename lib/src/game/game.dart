@@ -42,7 +42,9 @@ class Game {
     double dt = (delta - lastTime) / 1000;
     lastTime = delta;
 
-    inputManager.updateGamepad();
+    try {inputManager.updateGamepad();}
+    catch(err){print('this browser does not support the gamepad API');}
+
     update(dt);
     render();
     window.animationFrame.then(loop);
