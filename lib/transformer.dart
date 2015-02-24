@@ -25,6 +25,8 @@ class AudienceTransformer extends Transformer
 				transform.addOutput(new Asset.fromString(id, newContent));
 			}));
 		}
+		else
+			c.complete();
 
 		return c.future;
 	}
