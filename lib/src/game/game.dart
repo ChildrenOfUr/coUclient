@@ -37,12 +37,23 @@ class Game {
   // GAME LOOP //
   double lastTime = 0.0;
   DateTime startTime = new DateTime.now();
+  bool ignoreGamepads = false;
 
   loop(num delta) {
     double dt = (delta - lastTime) / 1000;
     lastTime = delta;
 
-    inputManager.updateGamepad();
+    try
+    {
+    	if(!ignoreGamepads)
+    		inputManager.updateGamepad();
+    }
+    catch(err)
+    {
+    	ignoreGamepads = true;
+    	print('this browser does not support the gamepad API');
+    }
+
     update(dt);
     render();
     window.animationFrame.then(loop);
