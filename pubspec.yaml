@@ -15,7 +15,7 @@ dependencies:
     git:
       ref: master
       url: git://github.com/ChildrenOfUr/dart-persona.git
-  polymer: any
+  polymer: ">=0.12.0 <0.13.0"
   pump:
     git:
       ref: master
@@ -29,6 +29,7 @@ dependencies:
     git:
       ref: master
       url: git://github.com/ChildrenOfUr/dart-slack.git
+
 transformers:
 - redstone_mapper
 - async_await
