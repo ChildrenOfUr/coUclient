@@ -350,6 +350,7 @@ class Player
 
 	void updateAnimation(double dt)
 	{
+		Animation previous = currentAnimation;
 		bool climbing = climbingUp || climbingDown;
 		if(!moving && !jumping && !climbing)
 			currentAnimation = animations['idle'];
@@ -362,8 +363,6 @@ class Player
 			{
 				if(activeClimb != lastClimbStatus)
 				{
-					//force a player update to be sent right now
-					timeLast = 5.0;
 					lastClimbStatus = activeClimb;
 				}
 				currentAnimation = animations['climb'];
@@ -387,6 +386,12 @@ class Player
 		}
 
 		currentAnimation.updateSourceRect(dt,holdAtLastFrame:jumping);
+
+		if(previous != currentAnimation)
+		{
+			//force a player update to be sent right now
+			timeLast = 5.0;
+		}
 	}
 
 	void updateTransform()

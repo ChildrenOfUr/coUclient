@@ -3,7 +3,7 @@ part of couclient;
 String baseAddress = 'server.childrenofur.com';
 String websocketServerAddress = '$baseAddress:8282';
 String utilServerAddress = '$baseAddress:8181';
-double clientVersion = 0.11;
+double clientVersion = 0.12;
 
 String multiplayerServer = "ws://$websocketServerAddress/playerUpdate";
 String streetEventServer = "ws://$websocketServerAddress/streetUpdate";
@@ -106,7 +106,7 @@ _setupStreetSocket(String streetName)
 		{
 			if(quoinMap["remove"] == "true")
     		{
-    			Element objectToRemove = querySelector("#${quoinMap["remove"]}");
+    			Element objectToRemove = querySelector("#${quoinMap["id"]}");
     			if(objectToRemove != null)
     				objectToRemove.style.display = "none"; //.remove() is very slow
     		}

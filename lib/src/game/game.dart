@@ -51,7 +51,7 @@ class Game {
     catch(err)
     {
     	ignoreGamepads = true;
-    	print('this browser does not support the gamepad API');
+    	print('Sorry, this browser does not support the gamepad API');
     }
 
     update(dt);

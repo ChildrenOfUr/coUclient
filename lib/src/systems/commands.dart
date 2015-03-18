@@ -39,8 +39,9 @@ bool parseCommand(String command) {
   String verb = command.split(" ")[0].toLowerCase().replaceFirst('/', '');
   String noun = command.split(' ').skip(1).join(' ');
 
-  toast('parsing "$verb $noun"');
-  
+  if(command.startsWith('/'))
+	toast('parsing "$verb $noun"');
+
   if (COMMANDS.containsKey(verb)) {
     COMMANDS[verb](noun);
     return true;
