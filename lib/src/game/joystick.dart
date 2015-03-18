@@ -76,7 +76,7 @@ class Joystick
 			if(y < _neutralY-deadzoneInPixels) UP = true;
 			else UP = false;
 
-			knob.style.transform = "translateX(${x-offsetLeft}px) translateY(${y-offsetTop}px)";
+			knob.style.transform = "translateX(${x-offsetLeft}px) translateY(${y-offsetTop}px) translateZ(0)";
 
 			_moveController.add(new JoystickEvent());
 		});

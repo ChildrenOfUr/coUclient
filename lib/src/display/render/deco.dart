@@ -16,25 +16,25 @@ class Deco implements Comparable
   		// only draw if the image is loaded.
   		if (ASSET[deco['filename']] != null)
   		{
-    		ImageElement d = ASSET[deco['filename']].get();
+			ImageElement d = ASSET[deco['filename']].get();
 
-    		d.style.position = 'absolute';
-		    d.style.left = x.toString() + 'px';
-		    d.style.top = y.toString() + 'px';
-		    d.style.width = _w.toString() + 'px';
-		    d.style.height = _h.toString() + 'px';
-		    d.style.zIndex = _zIndex.toString();
+			d.style.position = 'absolute';
+			d.style.left = x.toString() + 'px';
+			d.style.top = y.toString() + 'px';
+			d.style.width = _w.toString() + 'px';
+			d.style.height = _h.toString() + 'px';
+			d.style.zIndex = _zIndex.toString();
 
-		    String transform = "";
-		    if(deco['r'] != null)
-		    {
-		      transform += "rotate("+deco['r'].toString()+"deg)";
-		      d.style.transformOrigin = "50% bottom 0";
-		    }
-		    if(deco['h_flip'] != null && deco['h_flip'] == true)
-		                  transform += " scale(-1,1)";
-		    d.style.transform = transform;
-		    _image = d.clone(false);
+			String transform = "";
+			if(deco['r'] != null)
+			{
+				transform += "rotate3d(0,0,1,"+deco['r'].toString()+"deg)";
+				d.style.transformOrigin = "50% bottom 0";
+			}
+			if(deco['h_flip'] != null && deco['h_flip'] == true)
+				transform += " scale3d(-1,1,1)";
+			d.style.transform = transform;
+			_image = d.clone(false);
 		}
 	}
 

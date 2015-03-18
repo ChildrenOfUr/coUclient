@@ -16,19 +16,19 @@ update(double dt)
 		String transform = "translateY(${y}px) translateX(${x}px) translateZ(0)";
 		if(!otherPlayer.facingRight)
 		{
-			transform += ' scale(-1,1)';
-			otherPlayer.playerName.style.transform = 'translateY(calc(-100% - 34px)) scale(-1,1)';
+			transform += ' scale3d(-1,1,1)';
+			otherPlayer.playerName.style.transform = 'translateY(calc(-100% - 34px)) scale3d(-1,1,1)';
 
 			if(otherPlayer.chatBubble != null)
-				otherPlayer.chatBubble.textElement.style.transform = 'scale(-1,1)';
+				otherPlayer.chatBubble.textElement.style.transform = 'scale3d(-1,1,1)';
 		}
 		else
 		{
-			transform += ' scale(1,1)';
-			otherPlayer.playerName.style.transform = 'translateY(calc(-100% - 34px)) scale(1,1)';
+			transform += ' scale3d(1,1,1)';
+			otherPlayer.playerName.style.transform = 'translateY(calc(-100% - 34px)) scale3d(1,1,1)';
 
 			if(otherPlayer.chatBubble != null)
-				otherPlayer.chatBubble.textElement.style.transform = 'scale(1,1)';
+				otherPlayer.chatBubble.textElement.style.transform = 'scale3d(1,1,1)';
 		}
 		otherPlayer.playerParentElement.style.transform = transform;
 	});
