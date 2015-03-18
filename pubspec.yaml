@@ -29,7 +29,6 @@ dependencies:
     git:
       ref: master
       url: git://github.com/ChildrenOfUr/dart-slack.git
-  barback: any
 transformers:
 - redstone_mapper
 - async_await
