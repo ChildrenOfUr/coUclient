@@ -115,9 +115,15 @@ WindowManager windowManager;
 CommandManager commandManager;
 AuthManager auth;
 Game game;
+DateTime startTime;
+
+
 
 main()
 {
+  // 
+  startTime = new DateTime.now();
+  
   bootstrapMapper();
   initPolymer();
 

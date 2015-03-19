@@ -6,6 +6,27 @@ part of couclient;
 //in the code, then consider putting it here, especially if you think it could be used
 //in more than one place
 
+
+/**
+ * Log an event to the bug report window. 
+ **/
+log (String message) 
+{
+  new Message(#debug, message + ' ${getUptime()}');
+}
+
+/**
+ * Get how long the window has been open.
+ **/
+String getUptime() {
+  if (startTime == null)
+    return '--:--';
+  
+  String uptime = new DateTime.now().difference(startTime).toString().split('.')[0];
+  return uptime;
+}
+
+
 /**
  *
  * Counts the number of items of type [item] that the player currently has in their pack.
