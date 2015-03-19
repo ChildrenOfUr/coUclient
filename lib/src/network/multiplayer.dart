@@ -1,6 +1,6 @@
 part of couclient;
 
-String baseAddress = 'localhost';
+String baseAddress = 'server.childrenofur.com';
 String websocketServerAddress = '$baseAddress:8282';
 String utilServerAddress = '$baseAddress:8181';
 double clientVersion = 0.12;
