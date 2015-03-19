@@ -146,6 +146,11 @@ class SoundManager {
 
   Future loadSong(String name) {
     Completer c = new Completer();
+    if (ASSET['music'].get()[name] == null) {
+      log('Song "$name" does not exist.');
+      c.complete;
+    }
+    else
     sc.load(ASSET['music'].get()[name]['scid']).then((Scound s) {
       songs[name] = s;
       c.complete();
