@@ -1,18 +1,13 @@
 import 'dart:async';
+import 'package:intl/intl.dart';
 import 'package:barback/barback.dart';
-import 'dart:math';
 
 class CacheBreakTransformer extends Transformer
 {
-	Random random = new Random();
-
 	CacheBreakTransformer.asPlugin(BarbackSettings);
 
 	@override
-	Future<bool> isPrimary(AssetId id)
-	{
-		return new Future.value(id.path.endsWith('index.html'));
-	}
+	String get allowedExtensions => ".appcache";
 
 	@override
 	Future apply(Transform transform)
@@ -21,9 +16,12 @@ class CacheBreakTransformer extends Transformer
 
 		c.complete(transform.primaryInput.readAsString().then((String content)
 		{
-			String randomParam = "index.html_bootstrap.dart.js?random=${random.nextInt(10000000)}";
+			DateTime now = new DateTime.now();
+			DateFormat formatter = new DateFormat.yMd().add_Hms();
+			String date = formatter.format(now);
+
 			AssetId id = transform.primaryInput.id;
-			String newContent = content.replaceFirst("index.html_bootstrap.dart.js", randomParam);
+			String newContent = content.replaceFirst("#", "# $date");
 			transform.addOutput(new Asset.fromString(id, newContent));
 		}));
 

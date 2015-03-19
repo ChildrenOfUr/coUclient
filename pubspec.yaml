@@ -39,5 +39,4 @@ transformers:
 - couclient/transformers/audience_transformer:
     $include: lib/src/network/auth.dart
     audience: "http://play.childrenofur.com:80"
-- $dart2js
 - couclient/transformers/cache_break_transformer
