@@ -1,6 +1,6 @@
 part of couclient;
 
-String baseAddress = 'server.childrenofur.com';
+String baseAddress = 'localhost';
 String websocketServerAddress = '$baseAddress:8282';
 String utilServerAddress = '$baseAddress:8181';
 double clientVersion = 0.12;
@@ -252,9 +252,8 @@ _setupPlayerSocket()
 			return;
 		}
 
-		print(map);
-		//if(map['label'] != null && currentStreet.label != map['label'])
-			//return;
+		if(map['street'] != null && currentStreet.label != map['street'] && map['changeStreet'] == null)
+			return;
 
 		if(map['username'] == game.username)
 			return;

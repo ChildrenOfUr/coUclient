@@ -15,7 +15,7 @@ dependencies:
     git:
       ref: master
       url: git://github.com/ChildrenOfUr/dart-persona.git
-  polymer: ">=0.12.0 <0.13.0"
+  polymer: ">=0.12.0 <0.16.0"
   pump:
     git:
       ref: master
@@ -36,6 +36,8 @@ transformers:
 - polymer:
     entry_points:
     - web/index.html
-- couclient:
+- couclient/transformers/audience_transformer:
     $include: lib/src/network/auth.dart
     audience: "http://play.childrenofur.com:80"
+- $dart2js
+- couclient/transformers/cache_break_transformer
