@@ -44,10 +44,12 @@ class AuthManager {
       Map serverdata = JSON.decode(data.response);
 
       if (serverdata['ok'] == 'no') {
+        log('Auth:Server refused the login attempt.');
         print('Error:Server refused the login attempt.');
         return;
       }
 
+      log('Auth: Setting API tokens');
       SESSION_TOKEN = serverdata['sessionToken'];
       SLACK_TEAM = serverdata['slack-team'];
       SLACK_TOKEN = serverdata['slack-token'];
@@ -61,6 +63,7 @@ class AuthManager {
         sessionStorage['playerName'] = serverdata['playerName'];
         sessionStorage['playerEmail'] = serverdata['playerEmail'];
         sessionStorage['playerStreet'] = decode(JSON.decode(serverdata['metabolics']),Metabolics).current_street;
+        log('Auth: Logged in');
         startGame(serverdata);
       }
     });
@@ -73,17 +76,13 @@ class AuthManager {
   }
 
   void logout() {
-      _personaNavigator.logout();
-      window.location.reload();
+    log('Auth: Attempting logout');
+    _personaNavigator.logout();
+    window.location.reload();
   }
 
 
   startGame(Map serverdata) {
-    if (serverdata['ok'] == 'no') {
-      print('Error:Server refused the login attempt.');
-      return;
-    }
-
     // Begin Game//
     game = new Game(decode(JSON.decode(serverdata['metabolics']),Metabolics));
     audio = new SoundManager();

@@ -66,6 +66,7 @@ _setupStreetSocket(String streetName)
 		{
 			reconnect = false;
 			print(map['error']);
+			log('Multiplayer(Street): error ${map['error']}');
 			streetSocket.close();
 			return;
 		}
@@ -188,6 +189,7 @@ _setupStreetSocket(String streetName)
 	});
 	streetSocket.onClose.listen((_)
 	{
+	  log('Multiplayer(Street): Socket closed');
 		if(!reconnect)
 		{
 			reconnect = true;
@@ -201,6 +203,9 @@ _setupStreetSocket(String streetName)
 			_setupStreetSocket(currentStreet.label);
 		});
 	});
+  streetSocket.onError.listen((ErrorEvent e) {
+    log('Multiplayer(Street): error ${e.error}');
+  });
 }
 
 _updateChatBubble(Map map, Entity entity)
@@ -248,6 +253,7 @@ _setupPlayerSocket()
 		{
 			reconnect = false;
 			print(map['error']);
+			log('Multiplayer(Player): error ${map['error']}');
 			playerSocket.close();
 			return;
 		}
@@ -284,6 +290,7 @@ _setupPlayerSocket()
 	});
 	playerSocket.onClose.listen((_)
 	{
+	  log('Multiplayer(Player): Socket closed');
 		if(!reconnect)
 		{
 			reconnect = true;
@@ -297,6 +304,9 @@ _setupPlayerSocket()
 			_setupPlayerSocket();
 		});
 	});
+  playerSocket.onError.listen((ErrorEvent e) {
+    log('Multiplayer(Player): error ${e.error}');
+  });
 }
 
 sendPlayerInfo()
