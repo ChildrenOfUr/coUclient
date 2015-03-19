@@ -49,5 +49,6 @@ update(double dt)
 
 		lastXY = xy;
 		sendPlayerInfo();
+		timeLast = 0.0;
 	}
 }

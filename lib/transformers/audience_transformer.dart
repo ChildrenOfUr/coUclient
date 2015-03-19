@@ -7,6 +7,7 @@ class AudienceTransformer extends Transformer
 
 	AudienceTransformer.asPlugin(this._settings);
 
+	@override
 	Future apply(Transform transform)
 	{
 		Completer c = new Completer();

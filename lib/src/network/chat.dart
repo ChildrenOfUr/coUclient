@@ -41,8 +41,6 @@ class NetChatManager {
 
   }
 
-
-
   post(Map data) {
     _connection.sendString(JSON.encoder.convert(data));
   }
@@ -53,6 +51,7 @@ class NetChatManager {
           // First event, tells the server who we are.
           post(new Map()
           	  ..['tsid'] = currentStreet.streetData['tsid']
+          	  ..['street'] = currentStreet.label
               ..['username'] = game.username
               ..['statusMessage'] = 'join');
 
