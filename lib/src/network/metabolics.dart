@@ -82,6 +82,9 @@ class MetabolicsService
             //wait 5 seconds and try to reconnect
             new Timer(new Duration(seconds: 5), () => setupWebsocket());
 		});
+		socket.onError.listen((ErrorEvent e) {
+		  log('Metabolics: error ${e.error}');
+		});
 	}
 
 	update() => view.meters.updateAll();

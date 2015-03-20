@@ -2,9 +2,11 @@ part of couclient;
 
 class StreetService {
   String _dataUrl = 'https://server.childrenofur.com:8383/data';
-
+  
   Future requestStreet(String StreetID) {
 
+    log('StreetService: Requesting street "$StreetID"...');
+    
     Completer c = new Completer();
 
     HttpRequest.request(_dataUrl + "/street", method: "POST", requestHeaders: {
@@ -18,6 +20,7 @@ class StreetService {
         print('Error: Server refused.');
       }
 
+      log('StreetService: "$StreetID" loaded.');
       c.complete(prepareStreet(serverdata['streetJSON']));
 
     });
@@ -27,7 +30,7 @@ class StreetService {
 
 
 Future prepareStreet(Map streetJSON){
-
+  log('StreetService: assembling Street...');
     Completer c = new Completer();
 
     if (streetJSON['tsid'] == null) c.complete(null);
@@ -54,7 +57,10 @@ Future prepareStreet(Map streetJSON){
 		new Timer(new Duration(seconds:1),()
 		{
 			new Asset.fromMap(streetAsMap,label);
-			new Street(streetAsMap).load().then((_) => c.complete());
+			new Street(streetAsMap).load().then((_) {
+			  log('StreetService: Street assembled.');
+			  c.complete();
+			});
 		});
 	});
 

@@ -71,8 +71,7 @@ class NetChatManager {
           new Timer(new Duration(seconds: 5), () => setupWebsocket(url));
         })
         ..onError.listen((message) {
-          // Send the Error to the bus.
-          new Message(#err, 'Problem with Websocket, check console');
+          log('Chat: Socket error "${message.error}"');
         });
   }
 }

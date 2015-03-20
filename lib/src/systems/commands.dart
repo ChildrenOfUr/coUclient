@@ -25,7 +25,8 @@ class CommandManager {
         ..['toggleFps'] = toggleFps
         ..['toast'] = toast
         ..['toggleCollisionLines'] = toggleCollisionLines
-        ..['togglePhysics'] = togglePhysics;
+        ..['togglePhysics'] = togglePhysics
+        ..['log'] = log;
   }
 }
 
@@ -37,13 +38,12 @@ class CommandManager {
 bool parseCommand(String command) {
   // Getting the important data
   String verb = command.split(" ")[0].toLowerCase().replaceFirst('/', '');
-  String noun = command.split(' ').skip(1).join(' ');
 
-  if(command.startsWith('/'))
-	toast('parsing "$verb $noun"');
-
+  String noun = command.split(' ').skip(1).join(' ');  
+  
   if (COMMANDS.containsKey(verb)) {
     COMMANDS[verb](noun);
+    log('Parsed valid command : "$command"');
     return true;
   } else {
     return false;
