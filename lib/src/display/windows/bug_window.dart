@@ -9,7 +9,8 @@ class BugWindow extends Modal {
     debugService = new Service([#debug], logMessage);
     
     prepare();
-    view.bugReportMeta.text = 'UserAgent:' + window.navigator.userAgent + '\n////////////////////////////////';
+    String headerDeco = "/////////////"; // prime number of forward slashes
+    view.bugReportMeta.text = headerDeco + ' USER AGENT ' + headerDeco + '\n' + window.navigator.userAgent + '\n' + headerDeco + ' CLIENT LOG ' + headerDeco;
     
     // BUG REPORT LISTENERS
     bool listening = false;
