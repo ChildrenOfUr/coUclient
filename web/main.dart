@@ -39,6 +39,8 @@ import 'package:redstone_mapper/mapper.dart';
 //it's necessary to import every lib that contains encodable classes
 import 'package:couclient/components/auction_list/auction.dart';
 
+import 'package:couclient/configs.dart';
+
 // SYSTEMS MODULES //
 part 'package:couclient/src/systems/clock.dart';
 part 'package:couclient/src/systems/commands.dart';
@@ -104,6 +106,8 @@ part 'package:couclient/src/display/ui_templates/right_click_menu.dart';
 
 
 
+
+
 // Globals //
 Storage sessionStorage = window.sessionStorage;
 Storage localStorage = window.localStorage;
@@ -119,20 +123,23 @@ DateTime startTime;
 
 
 
-main()
+void main()
 {
-  // 
-  startTime = new DateTime.now();
-  
-  bootstrapMapper();
-  initPolymer();
+	//read configs
+	Configs.init().then((_)
+	{
+		startTime = new DateTime.now();
 
-  view = new UserInterface();
-  auth = new AuthManager();
+    	bootstrapMapper();
+    	initPolymer();
 
-  // System
-  new ClockManager();
-  new CommandManager();
+    	view = new UserInterface();
+    	auth = new AuthManager();
 
-  windowManager = new WindowManager();
+    	// System
+    	new ClockManager();
+    	new CommandManager();
+
+    	windowManager = new WindowManager();
+	});
 }

@@ -3,6 +3,7 @@ library auction_list;
 import 'package:polymer/polymer.dart';
 import 'package:redstone_mapper/mapper.dart';
 import 'package:intl/intl.dart';
+import 'package:couclient/configs.dart';
 
 import 'auction.dart';
 
@@ -14,7 +15,7 @@ import 'dart:math';
 @CustomTag('auction-list')
 class AuctionList extends PolymerElement
 {
-	String serverAddress = "http://server.childrenofur.com:8181";
+	String serverAddress = "http://${Configs.utilServerAddress}";
 	@observable String searchString = '';
 	@observable List<Auction> results = toObservable([]);
 

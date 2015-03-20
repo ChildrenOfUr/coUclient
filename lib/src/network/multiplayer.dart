@@ -1,12 +1,7 @@
 part of couclient;
 
-String baseAddress = 'server.childrenofur.com';
-String websocketServerAddress = '$baseAddress:8282';
-String utilServerAddress = '$baseAddress:8181';
-double clientVersion = 0.12;
-
-String multiplayerServer = "ws://$websocketServerAddress/playerUpdate";
-String streetEventServer = "ws://$websocketServerAddress/streetUpdate";
+String multiplayerServer = "ws://${Configs.websocketServerAddress}/playerUpdate";
+String streetEventServer = "ws://${Configs.websocketServerAddress}/streetUpdate";
 String joined = "", creatingPlayer = "";
 WebSocket streetSocket, playerSocket;
 bool reconnect = true, firstConnect = true;
@@ -37,7 +32,7 @@ void sendJoinedMessage(String streetName, [String tsid])
 	if(joined != streetName && streetSocket != null && streetSocket.readyState == WebSocket.OPEN)
 	{
 		Map map = new Map();
-		map['clientVersion'] = clientVersion;
+		map['clientVersion'] = Configs.clientVersion;
 		map["username"] = game.username;
 		map['email'] = game.email;
 		map["streetName"] = streetName;
@@ -244,7 +239,7 @@ _setupPlayerSocket()
 	playerSocket = new WebSocket(multiplayerServer);
 	playerSocket.onOpen.listen((_)
 	{
-		playerSocket.send(JSON.encode({'clientVersion': clientVersion}));
+		playerSocket.send(JSON.encode({'clientVersion': Configs.clientVersion}));
 	});
 	playerSocket.onMessage.listen((MessageEvent event)
 	{

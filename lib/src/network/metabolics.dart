@@ -52,7 +52,7 @@ class MetabolicsService
 {
 	Metabolics metabolics;
 	DateTime lastUpdate, nextUpdate;
-	String url = 'ws://$websocketServerAddress/metabolics';
+	String url = 'ws://${Configs.websocketServerAddress}/metabolics';
 
 	void init(Metabolics m)
 	{

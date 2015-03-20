@@ -2,7 +2,7 @@ part of couclient;
 
 class NetChatManager {
   WebSocket _connection;
-  String _chatServerUrl = 'ws://$websocketServerAddress/chat';
+  String _chatServerUrl = 'ws://${Configs.websocketServerAddress}/chat';
 
   NetChatManager() {
     setupWebsocket(_chatServerUrl);
