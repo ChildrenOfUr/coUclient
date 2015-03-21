@@ -1,12 +1,12 @@
 part of couclient;
 
 class StreetService {
-  String _dataUrl = 'https://server.childrenofur.com:8383/data';
-  
+  String _dataUrl = 'https://${Configs.authAddress}/data';
+
   Future requestStreet(String StreetID) {
 
     log('StreetService: Requesting street "$StreetID"...');
-    
+
     Completer c = new Completer();
 
     HttpRequest.request(_dataUrl + "/street", method: "POST", requestHeaders: {

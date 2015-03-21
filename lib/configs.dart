@@ -10,9 +10,9 @@ class Configs
 
     static Future init() async
     {
-    	baseAddress = await HttpRequest.getString('server_domain.txt');
-    	utilServerAddress = '$baseAddress:8181'.trim().replaceAll('\n', '');
-        websocketServerAddress = '$baseAddress:8282'.trim().replaceAll('\n', '');
-        authAddress = '$baseAddress:8383'.trim().replaceAll('\n', '');
+    	baseAddress = (await HttpRequest.getString('server_domain.txt')).trim();
+    	utilServerAddress = '$baseAddress:8181';
+        websocketServerAddress = '$baseAddress:8282';
+        authAddress = '$baseAddress:8383';
     }
 }
