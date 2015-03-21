@@ -24,7 +24,6 @@
   -moz-transition-timing-function:ease-in-out;
 }
 
-
 #spinny-ur {
     animation: 80s rotate infinite linear;
     -moz-animation:80s rotate infinite linear;
@@ -33,8 +32,8 @@
     position:absolute;
     top:50%;
     left:50%;
+    transform: translate3d(-50%,-50%,0);
 }
-
 
 keyframes rotate {
     from {transform: translate3d(-50%,-50%,0) rotate(0deg);}
@@ -48,14 +47,9 @@ keyframes rotate {
 }
 
 @-moz-keyframes rotate {
-    from {-moz-transform: translate3d(-50%,-50%,0) rotate(0deg);}
-    to {-moz-transform: translate3d(-50%,-50%,0) rotate(360deg);}
+    from {transform: translate3d(-50%,-50%,0) rotate(0deg);}
+    to {transform: translate3d(-50%,-50%,0) rotate(360deg);}
 }
-
-
-
-
-
 
 #loading ur-login {
   display:block;
