@@ -15,6 +15,7 @@ class AuthManager {
   Element _loginPanel;
 
   AuthManager() {
+	  print("address: ${Configs.authAddress}");
     // Starts the game
     _loginPanel = querySelector('ur-login');
 

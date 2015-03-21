@@ -11,7 +11,6 @@ Map<String,Entity> entities = new Map();
 
 multiplayerInit()
 {
-	print(multiplayerServer);
 	_setupPlayerSocket();
 	_setupStreetSocket(currentStreet.label);
 }
