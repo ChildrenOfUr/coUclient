@@ -15,7 +15,7 @@ class AuthManager {
   Element _loginPanel;
 
   AuthManager() {
-	  print("address: ${Configs.authAddress}");
+	  print("address: ${Configs.authAddress.replaceAll('\n', '')}");
     // Starts the game
     _loginPanel = querySelector('ur-login');
 
