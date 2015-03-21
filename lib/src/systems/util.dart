@@ -8,9 +8,9 @@ part of couclient;
 
 
 /**
- * Log an event to the bug report window. 
+ * Log an event to the bug report window.
  **/
-log (String message) 
+log (String message)
 {
   new Message(#debug, message + ' ${getUptime()}');
 }
@@ -21,7 +21,7 @@ log (String message)
 String getUptime() {
   if (startTime == null)
     return '--:--';
-  
+
   String uptime = new DateTime.now().difference(startTime).toString().split('.')[0];
   return uptime;
 }
