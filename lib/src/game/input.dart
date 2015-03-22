@@ -162,18 +162,18 @@ class InputManager {
       switch (preset) {
         case "qwerty":
           // set WASD
-          localStorage["LeftBindingPrimary"] = "65";
-          localStorage["RightBindingPrimary"] = "68";
-          localStorage["UpBindingPrimary"] = "87";
-          localStorage["DownBindingPrimary"] = "83";
+          localStorage["LeftBindingPrimary"] = "65.97";
+          localStorage["RightBindingPrimary"] = "68.100";
+          localStorage["UpBindingPrimary"] = "87.119";
+          localStorage["DownBindingPrimary"] = "83.115";
           break;
 
         case "dvorak":
           // set ,AOE
-          localStorage["LeftBindingPrimary"] = "65";
-          localStorage["RightBindingPrimary"] = "69";
+          localStorage["LeftBindingPrimary"] = "65.97";
+          localStorage["RightBindingPrimary"] = "69.101";
           localStorage["UpBindingPrimary"] = "188.44";
-          localStorage["DownBindingPrimary"] = "79";
+          localStorage["DownBindingPrimary"] = "79.111";
           break;
       }
       // reset all other keys
