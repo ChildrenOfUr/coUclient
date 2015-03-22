@@ -162,31 +162,20 @@ class InputManager {
       switch (preset) {
         case "qwerty":
           // set WASD
-          localStorage["LeftBindingPrimary"] = "65.97";
-          localStorage["RightBindingPrimary"] = "68.100";
-          localStorage["UpBindingPrimary"] = "87.119";
-          localStorage["DownBindingPrimary"] = "83.115";
-          // update display to match
-          querySelector("#LeftBindingPrimary").text = "A";
-          querySelector("#RightBindingPrimary").text = "D";
-          querySelector("#UpBindingPrimary").text = "W";
-          querySelector("#DownBindingPrimary").text = "S";
+          localStorage["LeftBindingPrimary"] = "65";
+          localStorage["RightBindingPrimary"] = "68";
+          localStorage["UpBindingPrimary"] = "87";
+          localStorage["DownBindingPrimary"] = "83";
           break;
 
         case "dvorak":
           // set ,AOE
-          localStorage["LeftBindingPrimary"] = "65.97";
-          localStorage["RightBindingPrimary"] = "69.101";
-          localStorage["UpBindingPrimary"] = "188";
-          localStorage["DownBindingPrimary"] = "79.111";
-          // update display to match
-          querySelector("#LeftBindingPrimary").text = "A";
-          querySelector("#RightBindingPrimary").text = "E";
-          querySelector("#UpBindingPrimary").text = ",";
-          querySelector("#DownBindingPrimary").text = "O";
+          localStorage["LeftBindingPrimary"] = "65";
+          localStorage["RightBindingPrimary"] = "69";
+          localStorage["UpBindingPrimary"] = "188.44";
+          localStorage["DownBindingPrimary"] = "79";
           break;
       }
-
       // reset all other keys
       localStorage["LeftBindingAlt"] = "37";
       localStorage["RightBindingAlt"] = "39";
@@ -194,13 +183,8 @@ class InputManager {
       localStorage["DownBindingAlt"] = "40";
       localStorage["JumpBindingPrimary"] = localStorage["JumpBindingAlt"] = "32";
       localStorage["ActionBindingPrimary"] = localStorage["ActionBindingAlt"] = "13";
-      // update display to match
-      querySelector("#LeftBindingAlt").text = "left arrow";
-      querySelector("#RightBindingAlt").text = "right arrow";
-      querySelector("#UpBindingAlt").text = "up arrow";
-      querySelector("#DownBindingAlt").text = "down arrow";
-      querySelector("#JumpBindingPrimary").text = querySelector("#JumpBindingAlt").text = "space";
-      querySelector("#ActionBindingPrimary").text = querySelector("#ActionBindingAlt").text = "enter";
+      // update game vars
+      setupKeyBindings();
     }
 
     // listen for clicks on preset buttons and run above function
