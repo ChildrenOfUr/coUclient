@@ -28,8 +28,6 @@ import 'package:libld/libld.dart'; // Nice and simple asset loading.
 // Event Bus and Pumps // for more infomation see '/doc/pumps.md'
 import 'package:pump/pump.dart';
 
-import 'package:persona/persona_html.dart';
-
 import 'package:polymer/polymer.dart';
 
 // Necessary to init the mapper in the main method

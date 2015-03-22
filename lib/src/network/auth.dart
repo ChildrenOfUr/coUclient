@@ -1,45 +1,36 @@
 part of couclient;
 
-String SLACK_TEAM;
-String SLACK_TOKEN;
-String SC_TOKEN;
+String SLACK_TEAM, SLACK_TOKEN, SC_TOKEN, SESSION_TOKEN, FORUM_TOKEN;
 
-String SESSION_TOKEN;
-String FORUM_TOKEN;
+class AuthManager
+{
+	String _authUrl = 'https://${Configs.authAddress}/auth';
+	String personaAudience = 'http://localhost:8080';
+	Element _loginPanel;
 
-class AuthManager {
-  String _authUrl = 'https://${Configs.authAddress}/auth';
-  String personaAudience = 'http://localhost:8080';
-
-  Persona _personaNavigator;
-  Element _loginPanel;
-
-  AuthManager() {
-    // Starts the game
-    _loginPanel = querySelector('ur-login');
-
-    _personaNavigator = new Persona('', verifyWithServer, view.loggedOut);
-    _loginPanel.on['attemptLogin'].listen((_) {
-      _personaNavigator.request({
-        'backgroundColor': '#4b2e4c',
-        'siteName': 'Children of Ur'
-      });
-    });
-  }
-
-
-  void verifyWithServer(String personaAssertion) {
-    Timer tooLongTimer = new Timer(new Duration(seconds: 5),(){
-      Element signinElement = querySelector('ur-login')
-          ..attributes['timedout'] = 'true';
-    });
-
-    post('login',
+	AuthManager()
 	{
-      'assertion': personaAssertion,
-      'audience' : personaAudience
-    })
-      ..then((HttpRequest data) {
+		// Starts the game
+		_loginPanel = querySelector('ur-login');
+		_loginPanel.on['attemptLogin'].listen((_)
+		{
+		});
+	}
+
+	void verifyWithServer(String personaAssertion)
+	{
+		Timer tooLongTimer = new Timer(new Duration(seconds: 5),()
+		{
+			Element signinElement = querySelector('ur-login')
+				..attributes['timedout'] = 'true';
+		});
+
+		post('login',
+		{
+		  'assertion': personaAssertion,
+		  'audience' : personaAudience
+		})
+			..then((HttpRequest data) {
       tooLongTimer.cancel();
       Map serverdata = JSON.decode(data.response);
 
@@ -77,10 +68,8 @@ class AuthManager {
 
   void logout() {
     log('Auth: Attempting logout');
-    _personaNavigator.logout();
     window.location.reload();
   }
-
 
   startGame(Map serverdata) {
     // Begin Game//
@@ -107,14 +96,5 @@ class AuthManager {
           }
       });
     });
-
   }
-
 }
-
-
-
-
-
-
-
