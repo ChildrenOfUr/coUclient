@@ -1,28 +1,26 @@
 part of couclient;
 
-class Bool
-{
-	bool value = false;
+class Bool {
+  bool value = false;
 
-	Bool([this.value]);
+  Bool([this.value]);
 
-	bool operator ==(other)
-	{
-		if(other is bool)
-			return this.value == other;
-		if(other is Bool)
-			return this.value == other.value;
-		else
-			return this == other;
-	}
+  bool operator ==(other) {
+    if (other is bool) return this.value == other;
+    if (other is Bool) return this.value == other.value; else return this == other;
+  }
 
-	@override
-	int get hashCode => value.hashCode;
+  @override
+  int get hashCode => value.hashCode;
 }
 
 class InputManager {
-  Bool rightKey = new Bool(), leftKey = new Bool(), upKey = new Bool(),
-		downKey = new Bool(), jumpKey = new Bool(), actionKey = new Bool();
+  Bool rightKey = new Bool(),
+      leftKey = new Bool(),
+      upKey = new Bool(),
+      downKey = new Bool(),
+      jumpKey = new Bool(),
+      actionKey = new Bool();
   Map<String, int> keys = {
     "LeftBindingPrimary": 65,
     "LeftBindingAlt": 37,
@@ -42,107 +40,93 @@ class InputManager {
       clickUsed = false;
   StreamSubscription keyPressSub, keyDownSub, menuKeyListener;
   DateTime lastSelect = new DateTime.now();
-  Map<String,Map<String,dynamic>> controlCounts = {};
+  Map<String, Map<String, dynamic>> controlCounts = {};
 
-	InputManager()
-	{
-		controlCounts = {'leftKey':{'signals':{},'keyBool':leftKey},
-		                 'rightKey':{'signals':{},'keyBool':rightKey},
-		                 'upKey':{'signals':{},'keyBool':upKey},
-		                 'downKey':{'signals':{},'keyBool':downKey},
-		                 'jumpKey':{'signals':{},'keyBool':jumpKey},
-		                 'actionKey':{'signals':{},'keyBool':actionKey}
-		                 };
+  InputManager() {
+    controlCounts = {
+      'leftKey': {
+        'signals': {},
+        'keyBool': leftKey
+      },
+      'rightKey': {
+        'signals': {},
+        'keyBool': rightKey
+      },
+      'upKey': {
+        'signals': {},
+        'keyBool': upKey
+      },
+      'downKey': {
+        'signals': {},
+        'keyBool': downKey
+      },
+      'jumpKey': {
+        'signals': {},
+        'keyBool': jumpKey
+      },
+      'actionKey': {
+        'signals': {},
+        'keyBool': actionKey
+      }
+    };
 
-		setupKeyBindings();
+    setupKeyBindings();
 
-		document.onClick.listen((MouseEvent event) => clickOrTouch(event,null));
-		document.onTouchStart.listen((TouchEvent event) => clickOrTouch(null,event));
+    document.onClick.listen((MouseEvent event) => clickOrTouch(event, null));
+    document.onTouchStart.listen((TouchEvent event) => clickOrTouch(null, event));
+  }
+
+  activateControl(String control, bool active, String sourceName) {
+    Map<String, Map> signalsList = controlCounts[control]['signals'];
+    if (active && !signalsList.containsKey(sourceName + '-' + control)) signalsList[sourceName + '-' + control] = {
+      'sourceName': sourceName,
+      'active': active
+    }; else if (!active) signalsList.remove(sourceName + '-' + control);
+
+    if (signalsList.length <= 0) controlCounts[control]['keyBool'].value = false; else controlCounts[control]['keyBool'].value = true;
+  }
+
+  updateGamepad() {
+    //get any gamepads
+    List<Gamepad> gamepads = window.navigator.getGamepads();
+
+    for (Gamepad gamepad in gamepads) {
+      //the list of gamepads the browser returns can include nulls
+      if (gamepad == null) continue;
+
+      //don't do anything in certain situations
+      if (ignoreKeys || querySelector(".fill") != null) return;
+
+      //interact with the menu
+      Element clickMenu = querySelector("#RightClickMenu");
+      if (clickMenu != null) {
+        Element list = querySelector('#RCActionList');
+        //only select a new option once every 300ms
+        bool selectAgain = lastSelect.add(new Duration(milliseconds: 300)).isBefore(new DateTime.now());
+        if (controlCounts['upKey']['keyBool'] == true && selectAgain) selectUp(list, "RCItemSelected");
+        if (controlCounts['downKey']['keyBool'] == true && selectAgain) selectDown(list, "RCItemSelected");
+        if (controlCounts['leftKey']['keyBool'] == true || controlCounts['rightKey']['keyBool'] == true || controlCounts['jumpKey']['keyBool'] == true) stopMenu(clickMenu);
+      }
+
+      if (gamepad.axes[0] > .2 || gamepad.axes[2] > .2) activateControl('rightKey', true, 'gamepad'); else activateControl('rightKey', false, 'gamepad');
+      if (gamepad.axes[0] < -.2 || gamepad.axes[2] < -.2) activateControl('leftKey', true, 'gamepad'); else activateControl('leftKey', false, 'gamepad');
+
+      if (gamepad.axes[1] > .2 || gamepad.axes[3] > .2) activateControl('upKey', true, 'gamepad'); else activateControl('upKey', false, 'gamepad');
+      if (gamepad.axes[1] < -.2 || gamepad.axes[3] < -.2) activateControl('downKey', true, 'gamepad'); else activateControl('downKey', false, 'gamepad');
+
+      bool button0 = context['navigator'].callMethod('getGamepads')[gamepad.index]['buttons'][0]['pressed'];
+      bool button1 = context['navigator'].callMethod('getGamepads')[gamepad.index]['buttons'][1]['pressed'];
+
+      if (button0) activateControl('jumpKey', true, 'gamepad'); else activateControl('jumpKey', false, 'gamepad');
+
+      if (button1) {
+        if (controlCounts['actionKey']['keyBool'] == false) {
+          activateControl('actionKey', true, 'gamepad');
+          doObjectInteraction();
+        }
+      } else activateControl('actionKey', false, 'gamepad');
     }
-
-	activateControl(String control, bool active, String sourceName)
-	{
-		Map<String,Map> signalsList = controlCounts[control]['signals'];
-		if(active && !signalsList.containsKey(sourceName+'-'+control))
-			signalsList[sourceName+'-'+control] = {'sourceName':sourceName,'active':active};
-		else if(!active)
-			signalsList.remove(sourceName+'-'+control);
-
-		if(signalsList.length <= 0)
-			controlCounts[control]['keyBool'].value = false;
-		else
-			controlCounts[control]['keyBool'].value = true;
-	}
-
-	updateGamepad()
-	{
-		//get any gamepads
-		List<Gamepad> gamepads = window.navigator.getGamepads();
-
-		for(Gamepad gamepad in gamepads)
-		{
-			//the list of gamepads the browser returns can include nulls
-			if(gamepad == null)
-				continue;
-
-			//don't do anything in certain situations
-			if (ignoreKeys || querySelector(".fill") != null) return;
-
-			//interact with the menu
-			Element clickMenu = querySelector("#RightClickMenu");
-			if(clickMenu != null)
-			{
-				Element list = querySelector('#RCActionList');
-				//only select a new option once every 300ms
-				bool selectAgain = lastSelect.add(new Duration(milliseconds:300)).isBefore(new DateTime.now());
-				if(controlCounts['upKey']['keyBool'] == true && selectAgain)
-					selectUp(list,"RCItemSelected");
-				if(controlCounts['downKey']['keyBool'] == true && selectAgain)
-					selectDown(list,"RCItemSelected");
-				if(controlCounts['leftKey']['keyBool'] == true ||
-					controlCounts['rightKey']['keyBool'] == true ||
-					controlCounts['jumpKey']['keyBool'] == true)
-					stopMenu(clickMenu);
-			}
-
-			if(gamepad.axes[0] > .2 || gamepad.axes[2] > .2)
-				activateControl('rightKey',true,'gamepad');
-			else
-				activateControl('rightKey',false,'gamepad');
-	  		if(gamepad.axes[0] < -.2 || gamepad.axes[2] < -.2)
-	  			activateControl('leftKey',true,'gamepad');
-	  		else
-	  			activateControl('leftKey',false,'gamepad');
-
-	  		if(gamepad.axes[1] > .2 || gamepad.axes[3] > .2)
-	  			activateControl('upKey',true,'gamepad');
-	  		else
-	  			activateControl('upKey',false,'gamepad');
-	  		if(gamepad.axes[1] < -.2 || gamepad.axes[3] < -.2)
-	  			activateControl('downKey',true,'gamepad');
-	  		else
-	  			activateControl('downKey',false,'gamepad');
-
-	  		bool button0 = context['navigator'].callMethod('getGamepads')[gamepad.index]['buttons'][0]['pressed'];
-	  		bool button1 = context['navigator'].callMethod('getGamepads')[gamepad.index]['buttons'][1]['pressed'];
-
-	  		if(button0)
-	  			activateControl('jumpKey',true,'gamepad');
-	  		else
-	  			activateControl('jumpKey',false,'gamepad');
-
-	  		if(button1)
-	  		{
-	  			if(controlCounts['actionKey']['keyBool'] == false)
-	  			{
-	  				activateControl('actionKey',true,'gamepad');
-	  				doObjectInteraction();
-	  			}
-	  		}
-	  		else
-	  			activateControl('actionKey',false,'gamepad');
-	  	}
-	}
+  }
 
   clickOrTouch(MouseEvent mouseEvent, TouchEvent touchEvent) {
     // TODO: for now mobile touch targets are not included
@@ -187,19 +171,69 @@ class InputManager {
       });
     }
 
-    //handle changing streets via exit signs
-	if (target.className.contains("ExitLabel"))
-	{
-		//make sure loading screen is visible during load
-		view.mapLoadingScreen.className = "MapLoadingScreenIn";
-		view.mapLoadingScreen.style.opacity = "1.0";
-		playerTeleFrom = target.attributes['from'];
-		streetService.requestStreet(target.attributes['tsid']);
+    activatePresetBindings(String preset) {
+      // check which preset movement keys to set & apply them
+      switch (preset) {
+        case "qwerty":
+          // set WASD
+          localStorage["LeftBindingPrimary"] = "65";
+          localStorage["RightBindingPrimary"] = "68";
+          localStorage["UpBindingPrimary"] = "87";
+          localStorage["DownBindingPrimary"] = "83";
+          // update display to match
+          querySelector("#LeftBindingPrimary").text = "A";
+          querySelector("#RightBindingPrimary").text = "D";
+          querySelector("#UpBindingPrimary").text = "W";
+          querySelector("#DownBindingPrimary").text = "S";
+          break;
+
+        case "dvorak":
+          // set ,AOE
+          localStorage["LeftBindingAlt"] = "65";
+          localStorage["RightBindingAlt"] = "69";
+          localStorage["UpBindingAlt"] = "188";
+          localStorage["DownBindingAlt"] = "79";
+          // update display to match
+          querySelector("#LeftBindingPrimary").text = "A";
+          querySelector("#RightBindingPrimary").text = "E";
+          querySelector("#UpBindingPrimary").text = ",";
+          querySelector("#DownBindingPrimary").text = "O";
+          break;
+      }
+
+      // reset all other keys
+      localStorage["LeftBindingAlt"] = "37";
+      localStorage["RightBindingAlt"] = "39";
+      localStorage["UpBindingAlt"] = "38";
+      localStorage["DownBindingAlt"] = "40";
+      localStorage["JumpBindingPrimary"] = localStorage["JumpBindingAlt"] = "32";
+      localStorage["ActionBindingPrimary"] = localStorage["ActionBindingAlt"] = "13";
+      // update display to match
+      querySelector("#LeftBindingAlt").text = "left arrow";
+      querySelector("#RightBindingAlt").text = "right arrow";
+      querySelector("#UpBindingAlt").text = "up arrow";
+      querySelector("#DownBindingAlt").text = "down arrow";
+      querySelector("#JumpBindingPrimary").text = querySelector("#JumpBindingAlt").text = "space";
+      querySelector("#ActionBindingPrimary").text = querySelector("#ActionBindingAlt").text = "enter";
     }
 
-    if(target.classes.contains("chatSpawn"))
-    {
-    	new Chat(target.text);
+    // listen for clicks on preset buttons and run above function
+    var keyboardPresetQwerty = querySelector("#keyboard-preset-qwerty");
+    var keyboardPresetDvorak = querySelector("#keyboard-preset-dvorak");
+    keyboardPresetQwerty.onMouseUp.first.then((event) => activatePresetBindings("qwerty"));
+    keyboardPresetDvorak.onMouseUp.first.then((event) => activatePresetBindings("dvorak"));
+
+    //handle changing streets via exit signs
+    if (target.className.contains("ExitLabel")) {
+      //make sure loading screen is visible during load
+      view.mapLoadingScreen.className = "MapLoadingScreenIn";
+      view.mapLoadingScreen.style.opacity = "1.0";
+      playerTeleFrom = target.attributes['from'];
+      streetService.requestStreet(target.attributes['tsid']);
+    }
+
+    if (target.classes.contains("chatSpawn")) {
+      new Chat(target.text);
     }
   }
 
@@ -237,15 +271,15 @@ class InputManager {
       if (ignoreKeys || menuKeyListener != null || querySelector(".fill") != null) return;
 
       if ((k.keyCode == keys["UpBindingPrimary"] || k.keyCode == keys["UpBindingAlt"])) //up arrow or w
-    	  activateControl('upKey',true,'keyboard');
+      activateControl('upKey', true, 'keyboard');
       if ((k.keyCode == keys["DownBindingPrimary"] || k.keyCode == keys["DownBindingAlt"])) //down arrow or s
-    	  activateControl('downKey',true,'keyboard');
+      activateControl('downKey', true, 'keyboard');
       if ((k.keyCode == keys["LeftBindingPrimary"] || k.keyCode == keys["LeftBindingAlt"])) //left arrow or a
-    	  activateControl('leftKey',true,'keyboard');
+      activateControl('leftKey', true, 'keyboard');
       if ((k.keyCode == keys["RightBindingPrimary"] || k.keyCode == keys["RightBindingAlt"])) //right arrow or d
-    	  activateControl('rightKey',true,'keyboard');
+      activateControl('rightKey', true, 'keyboard');
       if ((k.keyCode == keys["JumpBindingPrimary"] || k.keyCode == keys["JumpBindingAlt"])) //spacebar
-    	  activateControl('jumpKey',true,'keyboard');
+      activateControl('jumpKey', true, 'keyboard');
       if ((k.keyCode == keys["ActionBindingPrimary"] || k.keyCode == keys["ActionBindingAlt"])) //enter
       {
         doObjectInteraction();
@@ -256,234 +290,182 @@ class InputManager {
       if (ignoreKeys) return;
 
       if ((k.keyCode == keys["UpBindingPrimary"] || k.keyCode == keys["UpBindingAlt"])) //up arrow or w
-    	  activateControl('upKey',false,'keyboard');
+      activateControl('upKey', false, 'keyboard');
       if ((k.keyCode == keys["DownBindingPrimary"] || k.keyCode == keys["DownBindingAlt"])) //down arrow or s
-    	  activateControl('downKey',false,'keyboard');
+      activateControl('downKey', false, 'keyboard');
       if ((k.keyCode == keys["LeftBindingPrimary"] || k.keyCode == keys["LeftBindingAlt"])) //left arrow or a
-    	  activateControl('leftKey',false,'keyboard');
+      activateControl('leftKey', false, 'keyboard');
       if ((k.keyCode == keys["RightBindingPrimary"] || k.keyCode == keys["RightBindingAlt"])) //right arrow or d
-    	  activateControl('rightKey',false,'keyboard');
+      activateControl('rightKey', false, 'keyboard');
       if ((k.keyCode == keys["JumpBindingPrimary"] || k.keyCode == keys["JumpBindingAlt"])) //spacebar
-    	  activateControl('jumpKey',false,'keyboard');
+      activateControl('jumpKey', false, 'keyboard');
       if ((k.keyCode == keys["ActionBindingPrimary"] || k.keyCode == keys["ActionBindingAlt"])) //enter
-    	  activateControl('actionKey',false,'keyboard');
+      activateControl('actionKey', false, 'keyboard');
     });
 
 //listen for right-clicks on entities that we're close to
-		document.body.onContextMenu.listen((MouseEvent e)
-		{
-			Element element = e.target as Element;
-			int groundY = 0, xOffset = 0, yOffset = 0;
-			if(element.attributes['ground_y'] != null)
-				groundY = int.parse(element.attributes['ground_y']);
-			else
-			{
-				xOffset = camera.getX();
-				yOffset = camera.getY();
-			}
-			num x = e.offset.x+xOffset;
-			num y = e.offset.y-groundY+yOffset;
-			List<String> ids =[];
-			CurrentPlayer.intersectingObjects.forEach((String id, Rectangle rect)
-			{
-				if(x > rect.left && x < rect.right && y > rect.top && y < rect.bottom)
-					ids.add(id);
-			});
+    document.body.onContextMenu.listen((MouseEvent e) {
+      Element element = e.target as Element;
+      int groundY = 0,
+          xOffset = 0,
+          yOffset = 0;
+      if (element.attributes['ground_y'] != null) groundY = int.parse(element.attributes['ground_y']); else {
+        xOffset = camera.getX();
+        yOffset = camera.getY();
+      }
+      num x = e.offset.x + xOffset;
+      num y = e.offset.y - groundY + yOffset;
+      List<String> ids = [];
+      CurrentPlayer.intersectingObjects.forEach((String id, Rectangle rect) {
+        if (x > rect.left && x < rect.right && y > rect.top && y < rect.bottom) ids.add(id);
+      });
 
-			if(ids.length > 0)
-				doObjectInteraction(e,ids);
-		});
+      if (ids.length > 0) doObjectInteraction(e, ids);
+    });
 
-		//only for mobile version
-		Joystick joystick = new Joystick(querySelector('#Joystick'),querySelector('#Knob'),deadzoneInPercent:.2);
-		joystick.onMove.listen((_)
-		{
-			//don't move during harvesting, etc.
-			if(querySelector(".fill") == null)
-			{
-				if(joystick.UP) activateControl('upKey',true,'joystick');
-  				else activateControl('upKey',false,'joystick');
-	  			if(joystick.DOWN) activateControl('downKey',true,'joystick');
-	  			else activateControl('downKey',false,'joystick');
-	  			if(joystick.LEFT) activateControl('leftKey',true,'joystick');
-	  			else activateControl('leftKey',false,'joystick');
-	  			if(joystick.RIGHT) activateControl('rightKey',true,'joystick');
-  				else activateControl('rightKey',false,'joystick');
-			}
+    //only for mobile version
+    Joystick joystick = new Joystick(querySelector('#Joystick'), querySelector('#Knob'), deadzoneInPercent: .2);
+    joystick.onMove.listen((_) {
+      //don't move during harvesting, etc.
+      if (querySelector(".fill") == null) {
+        if (joystick.UP) activateControl('upKey', true, 'joystick'); else activateControl('upKey', false, 'joystick');
+        if (joystick.DOWN) activateControl('downKey', true, 'joystick'); else activateControl('downKey', false, 'joystick');
+        if (joystick.LEFT) activateControl('leftKey', true, 'joystick'); else activateControl('leftKey', false, 'joystick');
+        if (joystick.RIGHT) activateControl('rightKey', true, 'joystick'); else activateControl('rightKey', false, 'joystick');
+      }
 
-			Element clickMenu = querySelector("#RightClickMenu");
-			if(clickMenu != null)
-			{
-				Element list = querySelector('#RCActionList');
-				//only select a new option once every 300ms
-				bool selectAgain = lastSelect.add(new Duration(milliseconds:300)).isBefore(new DateTime.now());
-				if(joystick.UP && selectAgain)
-					selectUp(list,"RCItemSelected");
-				if(joystick.DOWN && selectAgain)
-					selectDown(list,"RCItemSelected");
-				if(joystick.LEFT || joystick.RIGHT)
-					stopMenu(clickMenu);
-			}
-		});
-		joystick.onRelease.listen((_)
-		{
-			activateControl('upKey',false,'joystick');
-			activateControl('downKey',false,'joystick');
-			activateControl('rightKey',false,'joystick');
-			activateControl('leftKey',false,'joystick');
-		});
-		document.onTouchStart.listen((TouchEvent event)
-		{
-			Element target = event.target;
+      Element clickMenu = querySelector("#RightClickMenu");
+      if (clickMenu != null) {
+        Element list = querySelector('#RCActionList');
+        //only select a new option once every 300ms
+        bool selectAgain = lastSelect.add(new Duration(milliseconds: 300)).isBefore(new DateTime.now());
+        if (joystick.UP && selectAgain) selectUp(list, "RCItemSelected");
+        if (joystick.DOWN && selectAgain) selectDown(list, "RCItemSelected");
+        if (joystick.LEFT || joystick.RIGHT) stopMenu(clickMenu);
+      }
+    });
+    joystick.onRelease.listen((_) {
+      activateControl('upKey', false, 'joystick');
+      activateControl('downKey', false, 'joystick');
+      activateControl('rightKey', false, 'joystick');
+      activateControl('leftKey', false, 'joystick');
+    });
+    document.onTouchStart.listen((TouchEvent event) {
+      Element target = event.target;
 
-			if(target.id == "AButton")
-			{
-				event.preventDefault(); //to disable long press calling the context menu
-				activateControl('jumpKey',true,'keyboard');
-			}
+      if (target.id == "AButton") {
+        event.preventDefault(); //to disable long press calling the context menu
+        activateControl('jumpKey', true, 'keyboard');
+      }
 
-			if(target.id == "BButton")
-			{
-				event.preventDefault(); //to disable long press calling the context menu
-				doObjectInteraction();
-			}
-		});
-		document.onTouchEnd.listen((TouchEvent event)
-		{
-			Element target = event.target;
+      if (target.id == "BButton") {
+        event.preventDefault(); //to disable long press calling the context menu
+        doObjectInteraction();
+      }
+    });
+    document.onTouchEnd.listen((TouchEvent event) {
+      Element target = event.target;
 
-			if(target.id == "AButton")
-			{
-				activateControl('jumpKey',false,'keyboard');
-			}
-		});
+      if (target.id == "AButton") {
+        activateControl('jumpKey', false, 'keyboard');
+      }
+    });
 
-		document.onClick.listen((MouseEvent event) => clickOrTouch(event,null));
-		document.onTouchStart.listen((TouchEvent event) => clickOrTouch(null,event));
+    document.onClick.listen((MouseEvent event) => clickOrTouch(event, null));
+    document.onTouchStart.listen((TouchEvent event) => clickOrTouch(null, event));
 
-		new TouchScroller(querySelector('#inventory'),TouchScroller.HORIZONTAL);
-		//end mobile specific stuff
+    new TouchScroller(querySelector('#inventory'), TouchScroller.HORIZONTAL);
+    //end mobile specific stuff
   }
 
-	void doObjectInteraction([MouseEvent e, List<String> ids])
-	{
-		if(querySelector("#RightClickMenu") != null)
-	  	{
-      		doAction(querySelector('#RCActionList'),querySelector("#RightClickMenu"),"RCItemSelected");
-      		return;
-	  	}
+  void doObjectInteraction([MouseEvent e, List<String> ids]) {
+    if (querySelector("#RightClickMenu") != null) {
+      doAction(querySelector('#RCActionList'), querySelector("#RightClickMenu"), "RCItemSelected");
+      return;
+    }
 
-  		if(CurrentPlayer.intersectingObjects.length > 0 && querySelector('#RightClickMenu') == null && querySelector(".fill") == null)
-  		{
-  			if(CurrentPlayer.intersectingObjects.length == 1)
-  				CurrentPlayer.intersectingObjects.forEach(
-  						(String id, Rectangle rect) => entities[id].interact(id));
-  			else
-  				createMultiEntityWindow();
-  		}
-	}
+    if (CurrentPlayer.intersectingObjects.length > 0 && querySelector('#RightClickMenu') == null && querySelector(".fill") == null) {
+      if (CurrentPlayer.intersectingObjects.length == 1) CurrentPlayer.intersectingObjects.forEach((String id, Rectangle rect) => entities[id].interact(id)); else createMultiEntityWindow();
+    }
+  }
 
-  	void createMultiEntityWindow()
-  	{
-  		Element oldWindow = querySelector("#InteractionWindow");
-  		if(oldWindow != null)
-  			oldWindow.remove();
+  void createMultiEntityWindow() {
+    Element oldWindow = querySelector("#InteractionWindow");
+    if (oldWindow != null) oldWindow.remove();
 
-  		document.body.append(InteractionWindow.create());
-  	}
+    document.body.append(InteractionWindow.create());
+  }
 
-	// Right-click menu functions
-	hideClickMenu(Element window)
-	{
-		if(window != null)
-			window.remove();
-	}
+  // Right-click menu functions
+  hideClickMenu(Element window) {
+    if (window != null) window.remove();
+  }
 
-	showClickMenu(MouseEvent Click, String title, String description, List<List> options)
-	{
-		hideClickMenu(querySelector('#RightClickMenu'));
-		document.body.append(RightClickMenu.create(Click,title,description,options));
+  showClickMenu(MouseEvent Click, String title, String description, List<List> options) {
+    hideClickMenu(querySelector('#RightClickMenu'));
+    document.body.append(RightClickMenu.create(Click, title, description, options));
 
-		Element clickMenu = querySelector('#RightClickMenu');
-		Element list = querySelector('#RCActionList');
+    Element clickMenu = querySelector('#RightClickMenu');
+    Element list = querySelector('#RCActionList');
 
-		menuKeyListener = document.onKeyDown.listen((KeyboardEvent k)
-		{
-			if((k.keyCode == keys["UpBindingPrimary"] || k.keyCode == keys["UpBindingAlt"]) && !ignoreKeys) //up arrow or w and not typing
-				selectUp(list,"RCItemSelected");
-			if((k.keyCode == keys["DownBindingPrimary"] || k.keyCode == keys["DownBindingAlt"]) && !ignoreKeys) //down arrow or s and not typing
-				selectDown(list,"RCItemSelected");
-			if((k.keyCode == keys["LeftBindingPrimary"] || k.keyCode == keys["LeftBindingAlt"]) && !ignoreKeys) //left arrow or a and not typing
-				stopMenu(clickMenu);
-			if((k.keyCode == keys["RightBindingPrimary"] || k.keyCode == keys["RightBindingAlt"]) && !ignoreKeys) //right arrow or d and not typing
-				stopMenu(clickMenu);
-			if((k.keyCode == keys["JumpBindingPrimary"] || k.keyCode == keys["JumpBindingAlt"]) && !ignoreKeys) //spacebar and not typing
-				stopMenu(clickMenu);
-			if((k.keyCode == keys["ActionBindingPrimary"] || k.keyCode == keys["ActionBindingAlt"]) && !ignoreKeys) //spacebar and not typing
-				doAction(list,clickMenu,"RCItemSelected");
-		});
-		document.onClick.listen((_)
-		{
-			stopMenu(clickMenu);
-		});
-	}
+    menuKeyListener = document.onKeyDown.listen((KeyboardEvent k) {
+      if ((k.keyCode == keys["UpBindingPrimary"] || k.keyCode == keys["UpBindingAlt"]) && !ignoreKeys) //up arrow or w and not typing
+      selectUp(list, "RCItemSelected");
+      if ((k.keyCode == keys["DownBindingPrimary"] || k.keyCode == keys["DownBindingAlt"]) && !ignoreKeys) //down arrow or s and not typing
+      selectDown(list, "RCItemSelected");
+      if ((k.keyCode == keys["LeftBindingPrimary"] || k.keyCode == keys["LeftBindingAlt"]) && !ignoreKeys) //left arrow or a and not typing
+      stopMenu(clickMenu);
+      if ((k.keyCode == keys["RightBindingPrimary"] || k.keyCode == keys["RightBindingAlt"]) && !ignoreKeys) //right arrow or d and not typing
+      stopMenu(clickMenu);
+      if ((k.keyCode == keys["JumpBindingPrimary"] || k.keyCode == keys["JumpBindingAlt"]) && !ignoreKeys) //spacebar and not typing
+      stopMenu(clickMenu);
+      if ((k.keyCode == keys["ActionBindingPrimary"] || k.keyCode == keys["ActionBindingAlt"]) && !ignoreKeys) //spacebar and not typing
+      doAction(list, clickMenu, "RCItemSelected");
+    });
+    document.onClick.listen((_) {
+      stopMenu(clickMenu);
+    });
+  }
 
-	void selectUp(Element menu, String className)
-	{
-		List<Element> options = menu.children;
-		int removed = 0;
-		for(int i=0; i<options.length; i++)
-		{
-			if(options[i].classes.remove(className))
-				removed = i;
-		}
-		if(removed == 0)
-			options[options.length-1].classes.add(className);
-		else
-			options[removed-1].classes.add(className);
+  void selectUp(Element menu, String className) {
+    List<Element> options = menu.children;
+    int removed = 0;
+    for (int i = 0; i < options.length; i++) {
+      if (options[i].classes.remove(className)) removed = i;
+    }
+    if (removed == 0) options[options.length - 1].classes.add(className); else options[removed - 1].classes.add(className);
 
-		lastSelect = new DateTime.now();
-	}
+    lastSelect = new DateTime.now();
+  }
 
-	void selectDown(Element menu, String className)
-	{
-		List<Element> options = menu.children;
-		int removed = options.length-1;
-		for(int i=0; i<options.length; i++)
-		{
-			if(options[i].classes.remove(className))
-				removed = i;
-		}
-		if(removed == options.length-1)
-			options[0].classes.add(className);
-		else
-			options[removed+1].classes.add(className);
+  void selectDown(Element menu, String className) {
+    List<Element> options = menu.children;
+    int removed = options.length - 1;
+    for (int i = 0; i < options.length; i++) {
+      if (options[i].classes.remove(className)) removed = i;
+    }
+    if (removed == options.length - 1) options[0].classes.add(className); else options[removed + 1].classes.add(className);
 
-		lastSelect = new DateTime.now();
-	}
+    lastSelect = new DateTime.now();
+  }
 
-	void stopMenu(Element window)
-	{
-		if(menuKeyListener != null)
-		{
-			menuKeyListener.cancel();
-			menuKeyListener = null;
-		}
-     hideClickMenu(window);
-	}
+  void stopMenu(Element window) {
+    if (menuKeyListener != null) {
+      menuKeyListener.cancel();
+      menuKeyListener = null;
+    }
+    hideClickMenu(window);
+  }
 
-	void doAction(Element list, Element window, String className)
-	{
-		for(Element element in list.children)
-		{
-			if(element.classes.contains(className))
-			{
-				element.click();
-				break;
-			}
-		}
-		stopMenu(window);
-	}
+  void doAction(Element list, Element window, String className) {
+    for (Element element in list.children) {
+      if (element.classes.contains(className)) {
+        element.click();
+        break;
+      }
+    }
+    stopMenu(window);
+  }
 
   String fromKeyCode(int keyCode) {
     String keyPressed = "";
