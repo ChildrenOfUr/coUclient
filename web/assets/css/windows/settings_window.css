@@ -15,7 +15,3 @@
   border-radius:5px;
   float:right;
 }
-#settingsWindow #keyboard.tab-content {
-  /* prevent useless scrollbar */
-  overflow-y: hidden; 
-}
