@@ -157,6 +157,58 @@ class InputManager {
 
     if (mouseEvent != null) target = mouseEvent.target; else target = touchEvent.target;
 
+    activatePresetBindings(String preset) {
+      // check which preset movement keys to set & apply them
+      switch (preset) {
+        case "qwerty":
+          // set WASD
+          localStorage["LeftBindingPrimary"] = "65.97";
+          localStorage["RightBindingPrimary"] = "68.100";
+          localStorage["UpBindingPrimary"] = "87.119";
+          localStorage["DownBindingPrimary"] = "83.115";
+          // update display to match
+          querySelector("#LeftBindingPrimary").text = "A";
+          querySelector("#RightBindingPrimary").text = "D";
+          querySelector("#UpBindingPrimary").text = "W";
+          querySelector("#DownBindingPrimary").text = "S";
+          break;
+
+        case "dvorak":
+          // set ,AOE
+          localStorage["LeftBindingPrimary"] = "65.97";
+          localStorage["RightBindingPrimary"] = "69.101";
+          localStorage["UpBindingPrimary"] = "188";
+          localStorage["DownBindingPrimary"] = "79.111";
+          // update display to match
+          querySelector("#LeftBindingPrimary").text = "A";
+          querySelector("#RightBindingPrimary").text = "E";
+          querySelector("#UpBindingPrimary").text = ",";
+          querySelector("#DownBindingPrimary").text = "O";
+          break;
+      }
+
+      // reset all other keys
+      localStorage["LeftBindingAlt"] = "37";
+      localStorage["RightBindingAlt"] = "39";
+      localStorage["UpBindingAlt"] = "38";
+      localStorage["DownBindingAlt"] = "40";
+      localStorage["JumpBindingPrimary"] = localStorage["JumpBindingAlt"] = "32";
+      localStorage["ActionBindingPrimary"] = localStorage["ActionBindingAlt"] = "13";
+      // update display to match
+      querySelector("#LeftBindingAlt").text = "left arrow";
+      querySelector("#RightBindingAlt").text = "right arrow";
+      querySelector("#UpBindingAlt").text = "up arrow";
+      querySelector("#DownBindingAlt").text = "down arrow";
+      querySelector("#JumpBindingPrimary").text = querySelector("#JumpBindingAlt").text = "space";
+      querySelector("#ActionBindingPrimary").text = querySelector("#ActionBindingAlt").text = "enter";
+    }
+
+    // listen for clicks on preset buttons and run above function
+    var keyboardPresetQwerty = querySelector("#keyboard-preset-qwerty");
+    var keyboardPresetDvorak = querySelector("#keyboard-preset-dvorak");
+    keyboardPresetQwerty.onMouseUp.first.then((event) => activatePresetBindings("qwerty"));
+    keyboardPresetDvorak.onMouseUp.first.then((event) => activatePresetBindings("dvorak"));
+    
     //handle key re-binds
     if (target.classes.contains("KeyBindingOption")) {
       if (!clickUsed) setupKeyBindings();
