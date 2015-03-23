@@ -157,6 +157,42 @@ class InputManager {
 
     if (mouseEvent != null) target = mouseEvent.target; else target = touchEvent.target;
 
+    activatePresetBindings(String preset) {
+      // check which preset movement keys to set & apply them
+      switch (preset) {
+        case "qwerty":
+          // set WASD
+          localStorage["LeftBindingPrimary"] = "65.97";
+          localStorage["RightBindingPrimary"] = "68.100";
+          localStorage["UpBindingPrimary"] = "87.119";
+          localStorage["DownBindingPrimary"] = "83.115";
+          break;
+
+        case "dvorak":
+          // set ,AOE
+          localStorage["LeftBindingPrimary"] = "65.97";
+          localStorage["RightBindingPrimary"] = "69.101";
+          localStorage["UpBindingPrimary"] = "188.44";
+          localStorage["DownBindingPrimary"] = "79.111";
+          break;
+      }
+      // reset all other keys
+      localStorage["LeftBindingAlt"] = "37";
+      localStorage["RightBindingAlt"] = "39";
+      localStorage["UpBindingAlt"] = "38";
+      localStorage["DownBindingAlt"] = "40";
+      localStorage["JumpBindingPrimary"] = localStorage["JumpBindingAlt"] = "32";
+      localStorage["ActionBindingPrimary"] = localStorage["ActionBindingAlt"] = "13";
+      // update game vars
+      setupKeyBindings();
+    }
+
+    // listen for clicks on preset buttons and run above function
+    var keyboardPresetQwerty = querySelector("#keyboard-preset-qwerty");
+    var keyboardPresetDvorak = querySelector("#keyboard-preset-dvorak");
+    keyboardPresetQwerty.onMouseUp.first.then((event) => activatePresetBindings("qwerty"));
+    keyboardPresetDvorak.onMouseUp.first.then((event) => activatePresetBindings("dvorak"));
+    
     //handle key re-binds
     if (target.classes.contains("KeyBindingOption")) {
       if (!clickUsed) setupKeyBindings();
