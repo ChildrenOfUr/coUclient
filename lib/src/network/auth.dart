@@ -45,6 +45,12 @@ class AuthManager
 		}, sendData: JSON.encode(data));
 	}
 
+	void logout()
+	{
+ 		log('Auth: Attempting logout');
+		window.location.reload();
+	}
+
 	startGame(Map serverdata)
 	{
 		// Begin Game//
