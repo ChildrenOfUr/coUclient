@@ -1,0 +1,12 @@
+<Files "index.html">
+	Header set Cache-Control "max-age=0, must-revalidate"
+</Files>
+<Files "index.html_bootstrap.dart.js">
+	Header set Cache-Control "max-age=0, must-revalidate"
+</Files>
+<Files "main.dart.js">
+	Header set Cache-Control "max-age=0, must-revalidate"
+</Files>
+<Files "style.css">
+	Header set Cache-Control "max-age=0, must-revalidate"
+</Files>
