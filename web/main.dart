@@ -2,8 +2,6 @@ library couclient;
 /*
  *  THE CHILDREN OF UR WEBCLIENT
  *  http://www.childrenofur.com
- *
- *
 */
 
 // DART //
@@ -102,10 +100,6 @@ part 'package:couclient/src/game/entities/grounditem.dart';
 part 'package:couclient/src/display/ui_templates/interactions_menu.dart';
 part 'package:couclient/src/display/ui_templates/right_click_menu.dart';
 
-
-
-
-
 // Globals //
 Storage sessionStorage = window.sessionStorage;
 Storage localStorage = window.localStorage;
@@ -119,10 +113,15 @@ AuthManager auth;
 Game game;
 DateTime startTime;
 
-
-
 void main()
 {
+	//make sure the application cache is up to date
+	window.applicationCache.onUpdateReady.first.then((_)
+	{
+		window.applicationCache.swapCache();
+		window.location.reload();
+	});
+
 	//read configs
 	Configs.init().then((_)
 	{
