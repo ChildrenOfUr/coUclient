@@ -105,12 +105,12 @@ class UrLogin extends PolymerElement
 			Map map = JSON.decode(event.data);
 			if(map['result'] == 'success')
 			{
-				if(map['serverdata']['username'].trim() != '')
+				if(map['serverdata']['playerName'].trim() != '')
 				{
 					//email already exists, make them choose a password
 					existingUser = true;
 					newUser = true;
-					newUsername = map['serverdata']['username'].trim();
+					newUsername = map['serverdata']['playerName'].trim();
 					serverdata = map['serverdata'];
 				}
 				else
