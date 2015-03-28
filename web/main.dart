@@ -118,6 +118,8 @@ void main()
 	//make sure the application cache is up to date
 	window.applicationCache.onUpdateReady.first.then((_)
 	{
+		log('Application cache updated, swapping and reloading page');
+		print('Application cache updated, swapping and reloading page');
 		window.applicationCache.swapCache();
 		window.location.reload();
 	});
