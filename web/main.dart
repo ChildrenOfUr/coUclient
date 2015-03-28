@@ -115,6 +115,7 @@ DateTime startTime;
 
 void main()
 {
+	print('hello Andy');
 	//make sure the application cache is up to date
 	handleAppCache();
 
