@@ -1,0 +1,19 @@
+div {
+	font-size:12pt;
+	font-family: 'Lato', sans-serif;
+	margin:3px;
+}
+.greeting {
+	font-size:14pt;
+	font-family: 'Fredoka One', cursive;
+}
+ur-panel {
+	padding:30px;
+}
+.logo {
+	width:100px;
+}
+.waiting {
+	opacity: .4;
+	pointer-events: none;
+}

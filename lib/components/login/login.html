@@ -3,54 +3,59 @@
 <link rel="import" href="../../../../packages/couclient/toolkit/toolkit.html">
 
 <polymer-element name="ur-login" newuser="false" timedout="false">
-  <template>
-    <style>
-     div {
-     font-size:12pt;
-     font-family: 'Lato', sans-serif;
-     margin:3px;
-     }
-     .greeting {
-     font-size:14pt;
-     font-family: 'Fredoka One', cursive;
-     }
-     ur-panel {
-     padding:30px;
-     }
-     .logo {
-     width:100px;
-     }
-    </style>
-    <ur-panel class="splash" id="user-login">
-      <div id="login-content">
-        <img src="logo.svg" class="logo"><br>
-        <span class="greeting">It's good to see you,</span><br><br>
-        <ur-button id="login-button" big="true" on-click="{{loginAttempt}}">
-        Login/Signup
-        </ur-button>
-      </div>
+	<template>
+		<link rel="stylesheet" href="login.css">
 
-      <div id="login-timeout" hidden>
-        <img src="logo.svg" class="logo"><br>
-        <span class="greeting">
-        Oh no!<br>
-        Looks like the server is a bit slow. <br>
-        Please check back another time. :(
-        </span><br><br>
-      </div>
+		<ur-panel class="splash" id="user-login">
 
-      <div id="signup-content" hidden>
-       <img src="logo.svg" class="logo"><br>
-      <div class="greeting">Hey, a new face!</div>
-      <div>What do you want to be called?</div><br>
-      <input type="text" id="new-user-name">
-      <ur-button theme="success" id="submit-name-button">Submit</ur-button>
-      <div>(You can always change your name later on.)</div>
+			<template if="{{!newUser && !newSignup}}">
+				<div id="login-content">
+					<img src="logo.svg" class="logo"><br>
+					<span class="greeting">It's good to see you,</span><br><br>
+					<label>Email<input type="text" value="{{email}}"></label>
+					<label>Password<input type="password" value="{{password}}"></label>
+					<ur-button id="login-button" big="true" class="{{waiting?'waiting':''}}" on-click="{{loginAttempt}}">Login</ur-button>
+					<div>OR</div>
+					<ur-button id="signup" on-click="{{signup}}">Signup</ur-button>
+				</div>
+			</template>
 
-      </div>
+			<template if="{{!newUser && newSignup}}">
+				<div id="login-new-email">
+					<div>Enter an email address to get started</div>
+					<label>Email<input type="text" value="{{newEmail}}"></label>
+					<ur-button big="true" class="{{waiting?'waiting':''}}" on-click="{{verifyEmail}}">Send Confirmation</ur-button>
+					<template if="{{waiting}}">
+						<div>Please check your email</div>
+					</template>
+				</div>
+			</template>
 
-    </ur-panel>
+			<template if="{{timedout}}">
+				<div id="login-timeout" hidden>
+					<img src="logo.svg" class="logo"><br>
+					<span class="greeting">
+					Oh no!<br>
+					Looks like the server is a bit slow. <br>
+					Please check back another time. :(
+					</span><br><br>
+				</div>
+			</template>
 
-  </template>
-  <script type="application/dart" src="login.dart"></script>
+			<template if="{{newUser}}">
+				<div id="signup-content">
+					<img src="logo.svg" class="logo"><br>
+					<div class="greeting">Hey, a new face!</div>
+					<div>What do you want to be called?</div><br>
+					<input type="text" id="new-user-name" value="{{newUsername}}"><br>
+					<input type="text" value="{{newEmail}}" disabled>
+					<input type="password" value="{{newPassword}}">
+					<ur-button theme="success" id="submit-name-button" on-click="{{usernameSubmit}}">Submit</ur-button>
+					<div>(You can always change your name later on.)</div>
+				</div>
+			</template>
+
+		</ur-panel>
+	</template>
+	<script type="application/dart" src="login.dart"></script>
 </polymer-element>

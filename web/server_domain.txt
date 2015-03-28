@@ -1,1 +1,1 @@
-server.childrenofur.com
+localhost
