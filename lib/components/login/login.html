@@ -9,19 +9,19 @@
 		<ur-panel class="splash" id="user-login">
 
 			<template if="{{!newUser && !newSignup}}">
-				<div id="login-content">
+				<div>
 					<img src="logo.svg" class="logo"><br>
 					<span class="greeting">It's good to see you,</span><br><br>
 					<label>Email<input type="text" value="{{email}}"></label>
 					<label>Password<input type="password" value="{{password}}"></label>
-					<ur-button id="login-button" big="true" class="{{waiting?'waiting':''}}" on-click="{{loginAttempt}}">Login</ur-button>
+					<ur-button big="true" class="{{waiting?'waiting':''}}" on-click="{{loginAttempt}}">Login</ur-button>
 					<div>OR</div>
-					<ur-button id="signup" on-click="{{signup}}">Signup</ur-button>
+					<ur-button on-click="{{signup}}">Signup</ur-button>
 				</div>
 			</template>
 
 			<template if="{{!newUser && newSignup}}">
-				<div id="login-new-email">
+				<div>
 					<div>Enter an email address to get started</div>
 					<label>Email<input type="text" value="{{newEmail}}"></label>
 					<ur-button big="true" class="{{waiting?'waiting':''}}" on-click="{{verifyEmail}}">Send Confirmation</ur-button>
@@ -32,7 +32,7 @@
 			</template>
 
 			<template if="{{timedout}}">
-				<div id="login-timeout" hidden>
+				<div>
 					<img src="logo.svg" class="logo"><br>
 					<span class="greeting">
 					Oh no!<br>
@@ -43,14 +43,14 @@
 			</template>
 
 			<template if="{{newUser}}">
-				<div id="signup-content">
+				<div>
 					<img src="logo.svg" class="logo"><br>
 					<div class="greeting">Hey, a new face!</div>
 					<div>What do you want to be called?</div><br>
-					<input type="text" id="new-user-name" value="{{newUsername}}"><br>
+					<input type="text" value="{{newUsername}}" disabled?="{{existingUser}}"><br>
 					<input type="text" value="{{newEmail}}" disabled>
 					<input type="password" value="{{newPassword}}">
-					<ur-button theme="success" id="submit-name-button" on-click="{{usernameSubmit}}">Submit</ur-button>
+					<ur-button theme="success" on-click="{{usernameSubmit}}">Submit</ur-button>
 					<div>(You can always change your name later on.)</div>
 				</div>
 			</template>

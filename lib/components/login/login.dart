@@ -13,9 +13,10 @@ class UrLogin extends PolymerElement
 {
 	String _authUrl = 'https://${Configs.authAddress}/auth';
 	@published bool newUser;
-	@observable bool timedout, newSignup = false, waiting = false;
+	@observable bool timedout, newSignup = false, waiting = false, existingUser = false;
 	@observable String email, password, newEmail = '', newUsername = '', newPassword = '';
 	Firebase firebase;
+	Map serverdata;
 
 	UrLogin.created() : super.created()
 	{
@@ -30,7 +31,10 @@ class UrLogin extends PolymerElement
     	try
     	{
     		Map response = await firebase.authWithPassword(credentials);
-    		print('user logged in: $response');
+    		HttpRequest request = await HttpRequest.request(_authUrl + "/getSession", method: "POST",
+            				requestHeaders: {"content-type": "application/json"},
+            				sendData: JSON.encode({'email':email}));
+    		dispatchEvent(new CustomEvent('loginSuccess', detail: JSON.decode(request.response)));
     	}
     	catch(err)
     	{
@@ -50,7 +54,14 @@ class UrLogin extends PolymerElement
 		try
     	{
 			await firebase.createUser({'email':newEmail,'password':newPassword});
-			dispatchEvent(new CustomEvent('setUsername', detail: newUsername));
+			if(existingUser)
+			{
+				dispatchEvent(new CustomEvent('loginSuccess', detail: serverdata));
+			}
+			else
+			{
+				dispatchEvent(new CustomEvent('setUsername', detail: newUsername));
+			}
     	}
     	catch(err)
     	{
@@ -89,12 +100,23 @@ class UrLogin extends PolymerElement
 			Map map = {'email':newEmail};
 			ws.send(JSON.encode(map));
 		});
-		ws.onMessage.first.then((MessageEvent event)
+		ws.onMessage.first.then((MessageEvent event) async
 		{
 			Map map = JSON.decode(event.data);
 			if(map['result'] == 'success')
 			{
-				dispatchEvent(new CustomEvent('loginSuccess', detail: map['serverdata']));
+				if(map['serverdata']['username'].trim() != '')
+				{
+					//email already exists, make them choose a password
+					existingUser = true;
+					newUser = true;
+					newUsername = map['serverdata']['username'].trim();
+					serverdata = map['serverdata'];
+				}
+				else
+				{
+					dispatchEvent(new CustomEvent('loginSuccess', detail: map['serverdata']));
+				}
 			}
 			else
 			{

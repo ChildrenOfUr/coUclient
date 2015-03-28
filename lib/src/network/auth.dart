@@ -14,13 +14,16 @@ class AuthManager
 		_loginPanel.on['loginSuccess'].listen((e)
 		{
 			Map serverdata = e.detail;
-			print(serverdata);
 
 			log('Auth: Setting API tokens');
 			SESSION_TOKEN = serverdata['sessionToken'];
 			SLACK_TEAM = serverdata['slack-team'];
 			SLACK_TOKEN = serverdata['slack-token'];
 			SC_TOKEN = serverdata['sc-token'];
+
+			sessionStorage['playerName'] = serverdata['playerName'];
+			sessionStorage['playerEmail'] = serverdata['playerEmail'];
+			sessionStorage['playerStreet'] = decode(JSON.decode(serverdata['metabolics']),Metabolics).current_street;
 
 			if(serverdata['playerName'].trim() == '')
 			{
@@ -29,33 +32,27 @@ class AuthManager
 			else
 			{
 				// Get our username and location from the server.
-				sessionStorage['playerName'] = serverdata['playerName'];
-				sessionStorage['playerEmail'] = serverdata['playerEmail'];
-				sessionStorage['playerStreet'] = decode(JSON.decode(serverdata['metabolics']),Metabolics).current_street;
 				log('Auth: Logged in');
 				startGame(serverdata);
 			}
 		});
 	}
 
-  Future post(String type ,Map data) {
-    return HttpRequest.request(_authUrl + "/$type", method: "POST", requestHeaders: {
+	Future post(String type ,Map data)
+	{
+		return HttpRequest.request(_authUrl + "/$type", method: "POST", requestHeaders: {
           "content-type": "application/json"
-        }, sendData: JSON.encode(data));
-  }
+		}, sendData: JSON.encode(data));
+	}
 
-  void logout() {
-    log('Auth: Attempting logout');
-    window.location.reload();
-  }
-
-  startGame(Map serverdata) {
-    // Begin Game//
-    game = new Game(decode(JSON.decode(serverdata['metabolics']),Metabolics));
-    audio = new SoundManager();
-    inputManager = new InputManager();
-    view.loggedIn();
-  }
+	startGame(Map serverdata)
+	{
+		// Begin Game//
+		game = new Game(decode(JSON.decode(serverdata['metabolics']),Metabolics));
+		audio = new SoundManager();
+		inputManager = new InputManager();
+		view.loggedIn();
+	}
 
 	setupNewUser(Map serverdata)
 	{
@@ -71,8 +68,8 @@ class AuthManager
 			{
 				if(request.responseText == '{"ok":"yes"}')
 				{
-					// now that the username has been set, refresh and auto-login.
-					window.location.reload();
+					// now that the username has been set, start the game
+					startGame(serverdata);
 				}
 			});
 		});
