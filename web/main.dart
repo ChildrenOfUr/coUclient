@@ -116,13 +116,7 @@ DateTime startTime;
 void main()
 {
 	//make sure the application cache is up to date
-	window.applicationCache.onUpdateReady.first.then((_)
-	{
-		log('Application cache updated, swapping and reloading page');
-		print('Application cache updated, swapping and reloading page');
-		window.applicationCache.swapCache();
-		window.location.reload();
-	});
+	handleAppCache();
 
 	//read configs
 	Configs.init().then((_)
@@ -141,4 +135,18 @@ void main()
 
     	windowManager = new WindowManager();
 	});
+}
+
+void handleAppCache()
+{
+	if(window.applicationCache.status == ApplicationCache.UPDATEREADY)
+	{
+		log('Application cache updated, swapping and reloading page');
+        print('Application cache updated, swapping and reloading page');
+	    window.applicationCache.swapCache();
+	    window.location.reload();
+	    return;
+	}
+
+	window.applicationCache.onUpdateReady.listen((_) => handleAppCache());
 }
