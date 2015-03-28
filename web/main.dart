@@ -148,5 +148,5 @@ void handleAppCache()
 	    return;
 	}
 
-	window.applicationCache.onUpdateReady.listen((_) => handleAppCache());
+	window.applicationCache.onUpdateReady.first.then((_) => handleAppCache());
 }

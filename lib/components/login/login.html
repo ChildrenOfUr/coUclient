@@ -7,10 +7,10 @@
 		<link rel="stylesheet" href="login.css">
 
 		<ur-panel class="splash" id="user-login">
+			<img src="logo.svg" class="logo"><br>
 
 			<template if="{{!newUser && !newSignup}}">
-				<div>
-					<img src="logo.svg" class="logo"><br>
+				<div on-keydown="{{loginAttempt}}">
 					<span class="greeting">It's good to see you,</span><br><br>
 					<label>Email<input type="text" value="{{email}}"></label>
 					<label>Password<input type="password" value="{{password}}"></label>
@@ -21,7 +21,7 @@
 			</template>
 
 			<template if="{{!newUser && newSignup}}">
-				<div>
+				<div on-keydown="{{verifyEmail}}">
 					<div>Enter an email address to get started</div>
 					<label>Email<input type="text" value="{{newEmail}}"></label>
 					<ur-button big="true" class="{{waiting?'waiting':''}}" on-click="{{verifyEmail}}">Send Confirmation</ur-button>
@@ -33,7 +33,6 @@
 
 			<template if="{{timedout}}">
 				<div>
-					<img src="logo.svg" class="logo"><br>
 					<span class="greeting">
 					Oh no!<br>
 					Looks like the server is a bit slow. <br>
@@ -43,8 +42,7 @@
 			</template>
 
 			<template if="{{newUser}}">
-				<div>
-					<img src="logo.svg" class="logo"><br>
+				<div on-keydown="{{usernameSubmit}}">
 					<div class="greeting">Hey, a new face!</div>
 					<div>What do you want to be called?</div><br>
 					<input type="text" value="{{newUsername}}" disabled?="{{existingUser}}"><br>

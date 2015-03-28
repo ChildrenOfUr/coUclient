@@ -23,8 +23,24 @@ class UrLogin extends PolymerElement
 		firebase = new Firebase("https://blinding-fire-920.firebaseio.com");
 	}
 
+	bool _enterKey(event)
+	{
+		//detect enter key
+		if(event is KeyboardEvent)
+		{
+			int code = (event as KeyboardEvent).keyCode;
+			if(code != 13)
+				return false;
+		}
+
+		return true;
+	}
+
 	loginAttempt(event, detail, target) async
 	{
+		if(!_enterKey(event))
+			return;
+
 		waiting = true;
 		Map<String,String> credentials = {'email':email,'password':password};
 
@@ -48,6 +64,9 @@ class UrLogin extends PolymerElement
 
 	usernameSubmit(event, detail, target) async
 	{
+		if(!_enterKey(event))
+        	return;
+
 		if(newUsername == '' || newPassword == '')
 			return;
 
@@ -76,6 +95,12 @@ class UrLogin extends PolymerElement
 
 	verifyEmail(event, detail, target) async
 	{
+		if(!_enterKey(event))
+        	return;
+
+		if(newEmail == '')
+			return;
+
 		waiting = true;
 
 		Timer tooLongTimer = new Timer(new Duration(seconds: 5),() => timedout = true);
