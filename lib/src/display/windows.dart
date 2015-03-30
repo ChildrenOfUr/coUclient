@@ -27,6 +27,14 @@ abstract class Modal {
 	Element window;
 	String id;
 	open() {
+		bool first = true;
+		for(Element t in window.querySelectorAll('article .tab-content'))
+		{
+			if(first)
+				first = false;
+			else
+				t.hidden = true;
+		}
 		window.hidden = false;
 		this.focus();
 	}
@@ -65,7 +73,7 @@ abstract class Modal {
 		window.querySelectorAll('input, textarea').onBlur.listen((_) {
 			inputManager.ignoreKeys = false;
 			});
-		
+
 		// TABS ////////////////////////////////////////////
 		window.querySelectorAll('.tab').onClick.listen((MouseEvent m) {
 			Element tab = m.target as Element;

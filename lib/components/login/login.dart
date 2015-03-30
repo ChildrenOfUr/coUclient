@@ -13,14 +13,36 @@ class UrLogin extends PolymerElement
 {
 	String _authUrl = 'https://${Configs.authAddress}/auth';
 	@published bool newUser;
-	@observable bool timedout, newSignup = false, waiting = false, existingUser = false;
-	@observable String email, password, newEmail = '', newUsername = '', newPassword = '';
+	@observable bool timedout, newSignup = false, waiting = false, existingUser = false, loggedIn = false;
+	@observable String username, email, password, newEmail = '', newUsername = '', newPassword = '';
 	Firebase firebase;
 	Map serverdata;
 
 	UrLogin.created() : super.created()
 	{
 		firebase = new Firebase("https://blinding-fire-920.firebaseio.com");
+		if(window.localStorage.containsKey('username'))
+		{
+			loggedIn = true;
+			username = window.localStorage['username'];
+			new Timer(new Duration(seconds:1),()=>relogin());
+		}
+	}
+
+	relogin() async
+	{
+		try
+		{
+			String token = window.localStorage['authToken'];
+			String email = window.localStorage['authEmail'];
+			await firebase.authWithCustomToken(token);
+
+			HttpRequest request = await HttpRequest.request(_authUrl + "/getSession", method: "POST",
+                        				requestHeaders: {"content-type": "application/json"},
+                        				sendData: JSON.encode({'email':email}));
+    		dispatchEvent(new CustomEvent('loginSuccess', detail: JSON.decode(request.response)));
+		}
+		catch(err){print('error relogin(): $err');}
 	}
 
 	bool _enterKey(event)
@@ -50,7 +72,12 @@ class UrLogin extends PolymerElement
     		HttpRequest request = await HttpRequest.request(_authUrl + "/getSession", method: "POST",
             				requestHeaders: {"content-type": "application/json"},
             				sendData: JSON.encode({'email':email}));
-    		dispatchEvent(new CustomEvent('loginSuccess', detail: JSON.decode(request.response)));
+    		window.localStorage['authToken'] = firebase.getAuth()['token'];
+    		window.localStorage['authEmail'] = email;
+    		Map sessionMap = JSON.decode(request.response);
+    		if(sessionMap['playerName'] != '')
+    			window.localStorage['username'] = sessionMap['playerName'];
+    		dispatchEvent(new CustomEvent('loginSuccess', detail: sessionMap));
     	}
     	catch(err)
     	{
@@ -132,10 +159,12 @@ class UrLogin extends PolymerElement
 			{
 				if(map['serverdata']['playerName'].trim() != '')
 				{
+					username = map['serverdata']['playerName'].trim();
+					window.localStorage['username'] = username;
 					//email already exists, make them choose a password
 					existingUser = true;
 					newUser = true;
-					newUsername = map['serverdata']['playerName'].trim();
+					newUsername = username;
 					serverdata = map['serverdata'];
 				}
 				else

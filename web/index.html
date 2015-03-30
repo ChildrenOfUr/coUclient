@@ -6,11 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes"> <!--iOS-->
     <meta name="mobile-web-app-capable" content="yes"> <!--Chrome for android-->
-    <link rel="icon" type="image/png" href="assets/system/favicon.ico">
+    <link rel="icon" type="image/png" href="files/system/favicon.ico">
     <title>CoU - children of Ur</title>
 
    <!--Import game css-->
    <link rel="stylesheet" href="style.css">
+   <link id="MobileStyle" rel="stylesheet" href="files/css/mobile.css" disabled>
 
    <!--Firebase Login-->
    <script src="https://cdn.firebase.com/js/client/2.2.2/firebase.js"></script>
@@ -29,7 +30,7 @@
   <div style="font-family: Sniglet;opacity:0;position:absolute;">.</div>
 
     <div id="loading">
-    <img src="assets/system/earf.png" id="spinny-ur">
+    <img src="files/system/earf.png" id="spinny-ur">
       <ur-login>
       </ur-login>
 
@@ -132,7 +133,7 @@
 
 
       <div id="inventorySearch">
-        <img src="assets/system/bag.svg">
+        <img src="files/system/bag.svg">
       </div>
 
 
@@ -150,7 +151,7 @@
       </ur-well>
 
       <div id="currantBack">
-        <img src="assets/system/currant.svg" id="currantEmblem">
+        <img src="files/system/currant.svg" id="currantEmblem">
         <div id="currantText">
           <div id="currCurrants">n</div>
           <div id="currantLabel">Currants</div>
@@ -236,24 +237,10 @@
           <article>
 
           <div class= "tab-holder">
-            <span class="tab active">Keyboard</span>
-            <span class="tab">Graphics</span>
             <span class="tab">Chat</span>
-          </div>
-
-          <div id="graphics" class="tab-content">
-          <div class="content settingsContent">
-            <label class="ChatSettingsOption"><input id="GraphicsBlur" type="checkbox" class="ChatSettingsCheckbox">Enable Scenery Blur</label>
-          </div>
-          </div>
-
-          <div id="chat" class="tab-content">
-          <div class="content settingsContent">
-            <label class="ChatSettingsOption"><input id="ShowJoinMessages" type="checkbox" class="ChatSettingsCheckbox">Show Join Messages</label>
-            <br>
-            <label class="ChatSettingsOption"><input id="PlayMentionSound" type="checkbox" class="ChatSettingsCheckbox">Play Mention Sound</label>
-            <br>
-          </div>
+            <span class="tab">Sound</span>
+            <span class="tab">Graphics</span>
+            <span class="tab active">Keyboard</span>
           </div>
 
           <div id="keyboard" class="tab-content">
@@ -281,6 +268,28 @@
               <ur-button id="keyboard-preset-dvorak" theme="light" title="There are dozens of us! DOZENS!">Dvorak</ur-button>
             </div>
 
+          </div>
+
+          <div id="graphics" class="tab-content">
+          <div class="content settingsContent">
+            <label class="ChatSettingsOption"><input id="GraphicsBlur" type="checkbox" class="ChatSettingsCheckbox">Enable Scenery Blur</label>
+          </div>
+          </div>
+
+          <div id="chat" class="tab-content">
+          <div class="content settingsContent">
+            <label class="ChatSettingsOption"><input id="ShowJoinMessages" type="checkbox" class="ChatSettingsCheckbox">Show Join Messages</label>
+            <br>
+            <label class="ChatSettingsOption"><input id="PlayMentionSound" type="checkbox" class="ChatSettingsCheckbox">Play Mention Sound</label>
+            <br>
+          </div>
+          </div>
+
+          <div id="sound" class="tab-content">
+          	<div class="content settingsContent">
+          		<label>Music:<br><ur-slider id="MusicSlider"></ur-slider></label><br>
+          		<label>Sound Effects:<br><ur-slider id="EffectSlider"></ur-slider></label>
+          	</div>
           </div>
 
 
@@ -319,7 +328,7 @@
 
           <div id="sell" class="tab-content">
             <div id="SellDropTarget"></div>
-            <img src="assets/system/callout_dropitem.png" id="SellCallout">
+            <img src="files/system/callout_dropitem.png" id="SellCallout">
           </div>
 
           <div id="buy" class="tab-content">
@@ -396,7 +405,7 @@
 
           <div class="footer">
             <span class="qty">???</span>
-            <img src="assets/system/currant.svg">
+            <img src="files/system/currant.svg">
             <span>You have </span>
           </div>
           </article>
@@ -497,6 +506,18 @@
     <div id="youWon" hidden><br><br><br><br>
       WAIT! You were just about to win the game!
     </div>
+
+	<script type="application/javascript">
+		function hasTouchSupport()
+		{
+			try
+			{
+                document.createEvent("TouchEvent");
+                return true;
+            }
+			catch(e){return false;}
+		}
+	</script>
 
     <!-- Start the Game up. -->
     <script type="application/dart" src="main.dart"></script>

@@ -100,10 +100,10 @@ class Player
 				String idle, base, jump, climb;
 				if(spritesheets['base'] == null)
 				{
-					idle = 'assets/sprites/idle.png';
-					base = 'assets/sprites/base.png';
-					jump = 'assets/sprites/jump.png';
-					climb = 'assets/sprites/climb.png';
+					idle = 'files/sprites/idle.png';
+					base = 'files/sprites/base.png';
+					jump = 'files/sprites/jump.png';
+					climb = 'files/sprites/climb.png';
 				}
 				else
 				{

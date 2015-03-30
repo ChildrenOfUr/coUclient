@@ -27,6 +27,7 @@ import 'package:libld/libld.dart'; // Nice and simple asset loading.
 import 'package:pump/pump.dart';
 
 import 'package:polymer/polymer.dart';
+import 'package:couclient/toolkit/slider/slider.dart';
 
 // Necessary to init the mapper in the main method
 import 'package:redstone_mapper/mapper_factory.dart';
@@ -113,9 +114,18 @@ AuthManager auth;
 Game game;
 DateTime startTime;
 
+bool get hasTouchSupport => context.callMethod('hasTouchSupport');
+
 void main()
 {
-	print('hello Andy can you read this?');
+	//if the device is capable of touch events, assume the touch ui
+	//unless the user has explicitly turned it off in the options
+	if(!hasTouchSupport)
+	{
+		print('device does not have touch support, turning off mobile style');
+		(querySelector("#MobileStyle") as StyleElement).disabled = true;
+	}
+
 	//make sure the application cache is up to date
 	handleAppCache();
 
@@ -125,16 +135,25 @@ void main()
 		startTime = new DateTime.now();
 
     	bootstrapMapper();
-    	initPolymer();
+    	initPolymer().then((Zone zone)
+    	{
+    		zone.run(()
+    		{
+    			Polymer.onReady.then((_)
+    			{
+    				view = new UserInterface();
+                	auth = new AuthManager();
 
-    	view = new UserInterface();
-    	auth = new AuthManager();
+                	// System
+                	new ClockManager();
+                	new CommandManager();
 
-    	// System
-    	new ClockManager();
-    	new CommandManager();
-
-    	windowManager = new WindowManager();
+                	inputManager = new InputManager();
+                	audio = new SoundManager();
+                	windowManager = new WindowManager();
+				});
+			});
+    	});
 	});
 }
 

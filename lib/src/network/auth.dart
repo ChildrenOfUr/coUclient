@@ -55,8 +55,7 @@ class AuthManager
 	{
 		// Begin Game//
 		game = new Game(decode(JSON.decode(serverdata['metabolics']),Metabolics));
-		audio = new SoundManager();
-		inputManager = new InputManager();
+		audio.sc = new SC(SC_TOKEN);
 		view.loggedIn();
 	}
 
@@ -66,6 +65,7 @@ class AuthManager
 		_loginPanel.on['setUsername'].listen((e)
 		{
 			String username = e.detail;
+			localStorage['username'] = username;
 			Map data = {'type' : 'set-username',
 						'token': SESSION_TOKEN,
 						'username' : username

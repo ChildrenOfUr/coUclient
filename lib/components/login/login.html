@@ -9,9 +9,12 @@
 		<ur-panel class="splash" id="user-login">
 			<img src="logo.svg" class="logo"><br>
 
-			<template if="{{!newUser && !newSignup}}">
+			<template if="{{loggedIn}}">
+				<span class="greeting">It's good to see you, {{username}}</span>
+			</template>
+
+			<template if="{{!newUser && !newSignup && !loggedIn}}">
 				<div on-keydown="{{loginAttempt}}">
-					<span class="greeting">It's good to see you,</span><br><br>
 					<label>Email<input type="text" value="{{email}}"></label>
 					<label>Password<input type="password" value="{{password}}"></label>
 					<ur-button big="true" class="{{waiting?'waiting':''}}" on-click="{{loginAttempt}}">Login</ur-button>
@@ -20,7 +23,7 @@
 				</div>
 			</template>
 
-			<template if="{{!newUser && newSignup}}">
+			<template if="{{!newUser && newSignup && !loggedIn}}">
 				<div on-keydown="{{verifyEmail}}">
 					<div>Enter an email address to get started</div>
 					<label>Email<input type="text" value="{{newEmail}}"></label>
