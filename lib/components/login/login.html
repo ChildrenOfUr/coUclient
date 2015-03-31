@@ -15,7 +15,7 @@
 
 			<template if="{{!newUser && !newSignup && !loggedIn}}">
 				<div on-keydown="{{loginAttempt}}">
-					<label>Email<input type="text" value="{{email}}"></label>
+					<label>Email<input type="email" value="{{email}}"></label>
 					<label>Password<input type="password" value="{{password}}"></label>
 					<ur-button big="true" class="{{waiting?'waiting':''}}" on-click="{{loginAttempt}}">Login</ur-button>
 					<div>OR</div>
@@ -26,7 +26,7 @@
 			<template if="{{!newUser && newSignup && !loggedIn}}">
 				<div on-keydown="{{verifyEmail}}">
 					<div>Enter an email address to get started</div>
-					<label>Email<input type="text" value="{{newEmail}}"></label>
+					<label>Email<input type="email" value="{{newEmail}}"></label>
 					<ur-button big="true" class="{{waiting?'waiting':''}}" on-click="{{verifyEmail}}">Send Confirmation</ur-button>
 					<template if="{{waiting}}">
 						<div>Please check your email</div>
