@@ -58,6 +58,38 @@ class UrLogin extends PolymerElement
 		return true;
 	}
 
+	oauthLogin(event, detail, Element target) async
+	{
+		String provider = target.attributes['provider'];
+		String scope = 'email';
+		if(provider == 'github')
+			scope = 'user:email';
+		if(provider == "facebook" || provider == "twitter")
+		{
+			window.alert("Coming Soon");
+			return;
+		}
+
+		waiting = true;
+		try
+    	{
+    		Map response = await firebase.authWithOAuthPopup(provider,scope:scope);
+    		print('user logged in with $provider: $response');
+
+    		String email = response[provider]['email'];
+    		Map sessionMap = await getSession(email);
+			dispatchEvent(new CustomEvent('loginSuccess', detail: sessionMap));
+    	}
+    	catch(err)
+    	{
+    		print('failed login with $provider: $err');
+    	}
+    	finally
+    	{
+    		waiting = false;
+    	}
+	}
+
 	loginAttempt(event, detail, target) async
 	{
 		if(!_enterKey(event))
@@ -68,15 +100,8 @@ class UrLogin extends PolymerElement
 
     	try
     	{
-    		Map response = await firebase.authWithPassword(credentials);
-    		HttpRequest request = await HttpRequest.request(_authUrl + "/getSession", method: "POST",
-            				requestHeaders: {"content-type": "application/json"},
-            				sendData: JSON.encode({'email':email}));
-    		window.localStorage['authToken'] = firebase.getAuth()['token'];
-    		window.localStorage['authEmail'] = email;
-    		Map sessionMap = JSON.decode(request.response);
-    		if(sessionMap['playerName'] != '')
-    			window.localStorage['username'] = sessionMap['playerName'];
+    		await firebase.authWithPassword(credentials);
+    		Map sessionMap = await getSession(email);
     		dispatchEvent(new CustomEvent('loginSuccess', detail: sessionMap));
     	}
     	catch(err)
@@ -87,6 +112,20 @@ class UrLogin extends PolymerElement
     	{
     		waiting = false;
     	}
+	}
+
+	Future<Map> getSession(String email) async
+	{
+		HttpRequest request = await HttpRequest.request(_authUrl + "/getSession", method: "POST",
+                    				requestHeaders: {"content-type": "application/json"},
+                    				sendData: JSON.encode({'email':email}));
+		window.localStorage['authToken'] = firebase.getAuth()['token'];
+		window.localStorage['authEmail'] = email;
+		Map sessionMap = JSON.decode(request.response);
+		if(sessionMap['playerName'] != '')
+			window.localStorage['username'] = sessionMap['playerName'];
+
+		return sessionMap;
 	}
 
 	usernameSubmit(event, detail, target) async

@@ -33,6 +33,7 @@ class AuthManager
 			{
 				// Get our username and location from the server.
 				log('Auth: Logged in');
+				inputManager = new InputManager();
 				startGame(serverdata);
 			}
 		});
