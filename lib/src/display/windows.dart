@@ -27,14 +27,6 @@ abstract class Modal {
 	Element window;
 	String id;
 	open() {
-		bool first = true;
-		for(Element t in window.querySelectorAll('article .tab-content'))
-		{
-			if(first)
-				first = false;
-			else
-				t.hidden = true;
-		}
 		window.hidden = false;
 		this.focus();
 	}
