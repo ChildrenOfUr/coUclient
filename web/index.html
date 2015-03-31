@@ -510,12 +510,7 @@
 	<script type="application/javascript">
 		function hasTouchSupport()
 		{
-			try
-			{
-                document.createEvent("TouchEvent");
-                return true;
-            }
-			catch(e){return false;}
+			return 'ontouchstart' in window;
 		}
 	</script>
 

@@ -120,6 +120,7 @@ void main()
 {
 	//if the device is capable of touch events, assume the touch ui
 	//unless the user has explicitly turned it off in the options
+	print('testing touch support');
 	if(!hasTouchSupport)
 	{
 		print('device does not have touch support, turning off mobile style');
