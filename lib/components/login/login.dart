@@ -64,17 +64,12 @@ class UrLogin extends PolymerElement
 		String scope = 'email';
 		if(provider == 'github')
 			scope = 'user:email';
-		if(provider == "facebook" || provider == "twitter")
-		{
-			window.alert("Coming Soon");
-			return;
-		}
 
 		waiting = true;
 		try
     	{
     		Map response = await firebase.authWithOAuthPopup(provider,scope:scope);
-    		print('user logged in with $provider: $response');
+    		//print('user logged in with $provider: $response');
 
     		String email = response[provider]['email'];
     		Map sessionMap = await getSession(email);

@@ -24,6 +24,11 @@ class Game {
     multiplayerInit();
     CurrentPlayer = new Player(username);
     view.meters.updateNameDisplay();
+
+    //stop the loading music
+    audio.stopSound(audio.currentAudioInstance);
+
+    //play appropriate song for street (or just highlands for now)
     audio.setSong('highlands');
 
     CurrentPlayer.loadAnimations().then((_) {

@@ -1,68 +1,53 @@
 part of couclient;
 
-class VolumeSliderWidget {
-  int volume;
-  bool muted;
+class VolumeSliderWidget
+{
+	bool muted = false;
+	Element volumeGlyph = querySelector('#volumeGlyph');
 
-  Element volumeGlyph = querySelector('#volumeGlyph');
-  InputElement volumeSlider = querySelector('#volumeSlider *');
+	VolumeSliderWidget()
+	{
+		//load current mute state
+		if(localStorage.containsKey('mute') && localStorage['mute'] == 'true')
+		{
+			muted = true;
+			volumeGlyph.classes
+	            ..remove('fa-volume-up')
+	            ..add('fa-volume-off');
+		}
 
-  VolumeSliderWidget() {
+		//click toggles mute
+		volumeGlyph.onClick.listen((_)
+		{
+			if(muted == true)
+				muted = false;
+			else
+				muted = true;
 
-    // Load saved volume level
-    if (localStorage['volume'] != null) {
-      volume = int.parse(localStorage['volume']);
-    } else volume = 10;
-    localStorage['volume'] = volume.toString();
-    volumeSlider.value = volume.toString();
+			update();
+		});
+	}
 
-    // Controls the volume slider and glyph
-    volumeGlyph.onClick.listen((_) {
-      if (muted == true) {
-        volume = int.parse(localStorage['volume']);
-        muted = false;
-        volumeSlider.value = volume.toString();
-      } else if (muted == false) {
-        localStorage['volume'] = volume.toString();
-        muted = true;
-        volumeSlider.value = '0';
-      }
-      update();
-    });
+	update()
+	{
+    	// Update the audio icon
+		if (muted == true)
+		{
+			volumeGlyph.classes
+				..remove('fa-volume-up')
+				..add('fa-volume-off');
+		}
+		else
+		{
+			volumeGlyph.classes
+				..remove('fa-volume-off')
+				..add('fa-volume-up');
+		}
 
-    volumeSlider.onMouseMove.listen((_) {
-      update();
-    });
-  }
+		// Updates the stored mute state
+		localStorage['mute'] = muted.toString();
 
-  update() {
-    // Update the volume slider
-    if (int.parse(volumeSlider.value) == 0) muted = true; else muted = false;
-    if (volume != int.parse(volumeSlider.value)) {
-      volume = int.parse(volumeSlider.value);
-
-      // Update the audio icon
-      if (muted == true && volumeGlyph.classes.contains('fa-volume-up')) {
-        volumeGlyph.classes
-            ..remove('fa-volume-up')
-            ..add('fa-volume-off');
-      }
-      if (muted == false && volumeGlyph.classes.contains('fa-volume-off')) {
-        volumeGlyph.classes
-            ..remove('fa-volume-off')
-            ..add('fa-volume-up');
-      }
-    }
-
-    // Updates the stored volume level
-    if (volume != localStorage['volume'] && muted == false) localStorage['volume'] = volume.toString();
-
-    // Update all audioElements to the correct volume
-    for (AudioElement audio in querySelectorAll('audio')) {
-      if (audio.volume != volume / 100) audio.volume = volume / 100;
-    }
-
-  }
-
-
+		// Update the audio mute state
+		audio.setMute(muted);
+	}
 }

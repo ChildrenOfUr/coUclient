@@ -35,14 +35,20 @@ class SoundManager
 		});
 	}
 
-	Future init()
+	init() async
 	{
 		try
 		{
+			num effectsVolume = 50, musicVolume = 50;
+			if(localStorage.containsKey('effectsVolume'))
+				effectsVolume = num.parse(localStorage['effectsVolume']);
+			if(localStorage.containsKey('musicVolume'))
+            	musicVolume = num.parse(localStorage['musicVolume']);
+
 			audioChannels['soundEffects'] = new AudioChannel("soundEffects")
-				..gain = view.slider.volume / 100;
+				..gain = effectsVolume / 100;
 			audioChannels['music'] = new AudioChannel("music")
-				..gain = view.slider.volume / 100;
+				..gain = musicVolume / 100;
 		}
 		catch (e)
 		{
@@ -50,11 +56,8 @@ class SoundManager
 			useWebAudio = false;
 		}
 
-		final c = new Completer();
-
 		if(useWebAudio)
 		{
-			List<Future> futures = [];
 			String extension = "ogg";
 
 			//if canPlayType returns the empty string, that format is not compatible
@@ -68,35 +71,34 @@ class SoundManager
 			{
 				//load the loading music and play when ready
 				gameSounds['loading'] = new Sound(channel: audioChannels['music']);
-				futures.add(gameSounds['loading'].load("files/audio/loading.$extension"));
+				await gameSounds['loading'].load("files/audio/loading.$extension");
+				gameSounds['loading'].play(looping:true);
 
 				//load the sound effects
 				gameSounds['quoinSound'] = new Sound(channel: audioChannels['soundEffects']);
-				futures.add(gameSounds['quoinSound'].load("files/audio/quoinSound.$extension"));
+				await gameSounds['quoinSound'].load("files/audio/quoinSound.$extension");
 				gameSounds['mention'] = new Sound(channel: audioChannels['soundEffects']);
-				futures.add(gameSounds['mention'].load("files/audio/mention.$extension"));
+				await gameSounds['mention'].load("files/audio/mention.$extension");
 				gameSounds['game_loaded'] = new Sound(channel: audioChannels['soundEffects']);
-				futures.add(gameSounds['game_loaded'].load("files/audio/game_loaded.$extension"));
+				await gameSounds['game_loaded'].load("files/audio/game_loaded.$extension");
 
 				Asset soundCloudSongs = new Asset('./files/json/music.json');
-				futures.add(soundCloudSongs.load(statusElement: querySelector("#LoadStatus2")));
-
-				return Future.wait(futures);
+				await soundCloudSongs.load(statusElement: querySelector("#LoadStatus2"));
 			}
 			catch (e)
 			{
 				print("there was a problem: $e");
 				useWebAudio = false;
-				return loadNonWebAudio(c);
+				await loadNonWebAudio();
 			}
 		}
 		else
 		{
-			return loadNonWebAudio(c);
+			await loadNonWebAudio();
 		}
 	}
 
-	loadNonWebAudio(Completer c) async
+	loadNonWebAudio() async
 	{
 		new Message(#toast, 'Loading non-WebAudio');
 		// Load all our user interface sounds.
@@ -128,7 +130,10 @@ class SoundManager
 			if(useWebAudio)
 			{
 				if(asset)
-					return gameSounds[name].play(looping: looping);
+				{
+					currentAudioInstance = gameSounds[name].play(looping: looping);
+					return currentAudioInstance;
+				}
 				else
 				{
 					//if we say it's not an asset then load a new sound and play it as music
@@ -141,7 +146,10 @@ class SoundManager
 			{
 				AudioElement loading = ASSET[name].get();
 				loading.loop = looping;
-				loading.volume = view.slider.volume / 100;
+				if(asset)
+					loading.volume = int.parse(localStorage['effectsVolume']) / 100;
+				else
+					loading.volume = int.parse(localStorage['musicVolume']) / 100;
 
 				if(parentElement != null)
 					parentElement.append(loading);
@@ -174,6 +182,18 @@ class SoundManager
 		catch(err)
 		{
 			print('error stopping sound: $err');
+		}
+	}
+
+	void setMute(bool mute)
+	{
+		audioChannels.forEach((String channelName, AudioChannel channel)
+		{
+			channel.mute = mute;
+		});
+		for (AudioElement audio in querySelectorAll('audio'))
+		{
+			audio.muted = mute;
 		}
 	}
 
