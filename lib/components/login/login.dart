@@ -42,7 +42,14 @@ class UrLogin extends PolymerElement
                         				sendData: JSON.encode({'email':email}));
     		dispatchEvent(new CustomEvent('loginSuccess', detail: JSON.decode(request.response)));
 		}
-		catch(err){print('error relogin(): $err');}
+		catch(err)
+		{
+			print('error relogin(): $err');
+
+			//maybe the auth token has expired, present the prompt again
+			loggedIn = false;
+			window.localStorage.remove('username');
+		}
 	}
 
 	bool _enterKey(event)
