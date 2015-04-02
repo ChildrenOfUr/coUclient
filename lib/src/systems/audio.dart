@@ -1,6 +1,7 @@
 part of couclient;
 // Handles all the engine's audio needs
 
+
 class SoundManager
 {
 	Map<String, Sound> gameSounds = {};
@@ -15,6 +16,8 @@ class SoundManager
 	Scound currentSong;
 	AudioInstance currentAudioInstance;
 
+	AudioInstance loadingSound;
+	
 	SoundManager()
 	{
 		log('SoundManager: starting up');
@@ -72,8 +75,8 @@ class SoundManager
 				//load the loading music and play when ready
 				gameSounds['loading'] = new Sound(channel: audioChannels['music']);
 				await gameSounds['loading'].load("files/audio/loading.$extension");
-				gameSounds['loading'].play(looping:true);
-
+				loadingSound = gameSounds['loading'].play(looping:true);
+				
 				//load the sound effects
 				gameSounds['quoinSound'] = new Sound(channel: audioChannels['soundEffects']);
 				await gameSounds['quoinSound'].load("files/audio/quoinSound.$extension");
@@ -84,17 +87,18 @@ class SoundManager
 
 				Asset soundCloudSongs = new Asset('./files/json/music.json');
 				await soundCloudSongs.load(statusElement: querySelector("#LoadStatus2"));
+				
 			}
 			catch (e)
 			{
 				print("there was a problem: $e");
 				useWebAudio = false;
-				await loadNonWebAudio();
+				loadNonWebAudio();
 			}
 		}
 		else
 		{
-			await loadNonWebAudio();
+			loadNonWebAudio();
 		}
 	}
 
@@ -170,6 +174,7 @@ class SoundManager
 		{
 			if(useWebAudio)
 			{
+			  assert (soundObjectToStop is AudioInstance);
 				(soundObjectToStop as AudioInstance).stop();
 			}
 			else

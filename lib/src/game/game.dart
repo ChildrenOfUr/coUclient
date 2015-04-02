@@ -1,39 +1,40 @@
 part of couclient;
 
 StreetService streetService = new StreetService();
-// GAME ENTRY AND MANAGEMENT //
-class Game {
 
+
+// GAME ENTRY AND MANAGEMENT //
+class Game {    
   String username = sessionStorage['playerName'];
   String location = sessionStorage['playerStreet'];
   String email = sessionStorage['playerEmail'];
 
   // INITIALIZATION //
   Game(Metabolics m) {
+    
     streetService.requestStreet(location)
     .then((_) {
-
-    // Networking
-    new NetChatManager();
-    new Message(#startChat, 'Global Chat');
-    new Message(#startChat, 'Local Chat');
-
-    windowManager.motdWindow.open();
-
-    metabolics.init(m);
-    multiplayerInit();
-    CurrentPlayer = new Player(username);
-    view.meters.updateNameDisplay();
-
-    //stop the loading music
-    audio.stopSound(audio.currentAudioInstance);
-
-    //play appropriate song for street (or just highlands for now)
-    audio.setSong('highlands');
-
-    CurrentPlayer.loadAnimations().then((_) {
-      CurrentPlayer.currentAnimation = CurrentPlayer.animations['idle'];
-    }).then((_) => loop(0.0));
+      // Networking
+      new NetChatManager();
+      new Message(#startChat, 'Global Chat');
+      new Message(#startChat, 'Local Chat');
+  
+      windowManager.motdWindow.open();
+  
+      metabolics.init(m);
+      multiplayerInit();
+      CurrentPlayer = new Player(username);
+      view.meters.updateNameDisplay();
+  
+      //play appropriate song for street (or just highlands for now)
+      audio.setSong('highlands');
+  
+      CurrentPlayer.loadAnimations().then((_) {
+        CurrentPlayer.currentAnimation = CurrentPlayer.animations['idle'];
+      }).then((_) { 
+        loop(0.0);
+        audio.loadingSound.stop();  
+      });
 
     });
 
