@@ -2,7 +2,6 @@ part of couclient;
 
 StreetService streetService = new StreetService();
 
-
 // GAME ENTRY AND MANAGEMENT //
 class Game
 {
