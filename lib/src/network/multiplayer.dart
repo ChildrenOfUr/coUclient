@@ -622,7 +622,7 @@ findNewSlot(Element item, Map map, ImageElement img)
 
 	//there was no space in the player's pack, drop the item on the ground instead
 	if(!found)
-		sendAction("drop",i['name'].replaceAll(" ",""),getDropMap(i,1));
+		sendAction("drop",i['name'],getDropMap(i,1));
 }
 
 Map getDropMap(Map item, int count)
