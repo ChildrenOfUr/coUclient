@@ -4,64 +4,79 @@ StreetService streetService = new StreetService();
 
 
 // GAME ENTRY AND MANAGEMENT //
-class Game {    
-  String username = sessionStorage['playerName'];
-  String location = sessionStorage['playerStreet'];
-  String email = sessionStorage['playerEmail'];
+class Game
+{
+	String username, location, email;
+	double lastTime = 0.0;
+	DateTime startTime = new DateTime.now();
+	bool ignoreGamepads = false;
 
-  // INITIALIZATION //
-  Game(Metabolics m) {
-    
-    streetService.requestStreet(location)
-    .then((_) {
-      // Networking
-      new NetChatManager();
-      new Message(#startChat, 'Global Chat');
-      new Message(#startChat, 'Local Chat');
-  
-      windowManager.motdWindow.open();
-  
-      metabolics.init(m);
-      multiplayerInit();
-      CurrentPlayer = new Player(username);
-      view.meters.updateNameDisplay();
-  
-      //play appropriate song for street (or just highlands for now)
-      audio.setSong('highlands');
-  
-      CurrentPlayer.loadAnimations().then((_) {
-        CurrentPlayer.currentAnimation = CurrentPlayer.animations['idle'];
-      }).then((_) { 
-        loop(0.0);
-        audio.loadingSound.stop();  
-      });
+	// INITIALIZATION //
+	Game(Metabolics m)
+	{
+		username = sessionStorage['playerName'];
+		location = sessionStorage['playerStreet'];
+		email = sessionStorage['playerEmail'];
+		_init(m);
+	}
 
-    });
+	_init(Metabolics m) async
+	{
+		//load the player's street from the server
+		await streetService.requestStreet(location);
 
-  }
+		//setup the chat and open two initial channels
+		new NetChatManager();
+		new Message(#startChat, 'Global Chat');
+		new Message(#startChat, 'Local Chat');
 
-  // GAME LOOP //
-  double lastTime = 0.0;
-  DateTime startTime = new DateTime.now();
-  bool ignoreGamepads = false;
+		//show the message of the day
+		windowManager.motdWindow.open();
 
-  loop(num delta) {
-    double dt = (delta - lastTime) / 1000;
-    lastTime = delta;
+		//init the players metabolcs
+		metabolics.init(m);
 
-    try
-    {
-    	if(!ignoreGamepads)
-    		inputManager.updateGamepad();
-    }
-    catch(err)
-    {
-    	ignoreGamepads = true;
-    	print('Sorry, this browser does not support the gamepad API');
-    }
+		//setup the communications for multiplayer events
+		multiplayerInit();
 
-    update(dt);
-    render();
-    window.animationFrame.then(loop);
-  }
+		//create the player entity and display their name in the UI
+		CurrentPlayer = new Player(username);
+		view.meters.updateNameDisplay();
+
+		//load the player's animation spritesheets then set them to idle
+		await CurrentPlayer.loadAnimations();
+		CurrentPlayer.currentAnimation = CurrentPlayer.animations['idle'];
+
+		//stop loading sounds and load the street's song
+        audio.loadingSound.stop();
+        new Message(#playSound, 'game_loaded');
+		//play appropriate song for street (or just highlands for now)
+		await audio.setSong('highlands');
+
+		//finally start the main game loop
+		loop(0.0);
+	}
+
+	// GAME LOOP //
+	loop(num delta)
+	{
+		double dt = (delta - lastTime) / 1000;
+		lastTime = delta;
+
+		//if the gamepad api isn't supported, don't continue to try to get updates from it
+		try
+		{
+			if(!ignoreGamepads)
+				inputManager.updateGamepad();
+		}
+		catch(err)
+		{
+			ignoreGamepads = true;
+			print('Sorry, this browser does not support the gamepad API');
+		}
+
+		update(dt);
+		render();
+		window.animationFrame.then(loop);
+	}
 }

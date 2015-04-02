@@ -95,7 +95,6 @@ class UserInterface {
 
   loggedIn() {
     loadingScreen.style.opacity = '0';
-    new Message(#playSound, 'game_loaded');
     new Timer(new Duration(seconds: 1), () {
       loadingScreen.hidden = true;
     });

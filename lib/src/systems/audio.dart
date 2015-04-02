@@ -14,10 +14,8 @@ class SoundManager
 	SC sc = new SC(SC_TOKEN);
 	Map songs = new Map();
 	Scound currentSong;
-	AudioInstance currentAudioInstance;
+	AudioInstance currentAudioInstance, loadingSound;
 
-	AudioInstance loadingSound;
-	
 	SoundManager()
 	{
 		log('SoundManager: starting up');
@@ -76,7 +74,7 @@ class SoundManager
 				gameSounds['loading'] = new Sound(channel: audioChannels['music']);
 				await gameSounds['loading'].load("files/audio/loading.$extension");
 				loadingSound = gameSounds['loading'].play(looping:true);
-				
+
 				//load the sound effects
 				gameSounds['quoinSound'] = new Sound(channel: audioChannels['soundEffects']);
 				await gameSounds['quoinSound'].load("files/audio/quoinSound.$extension");
@@ -87,7 +85,7 @@ class SoundManager
 
 				Asset soundCloudSongs = new Asset('./files/json/music.json');
 				await soundCloudSongs.load(statusElement: querySelector("#LoadStatus2"));
-				
+
 			}
 			catch (e)
 			{
@@ -135,8 +133,7 @@ class SoundManager
 			{
 				if(asset)
 				{
-					currentAudioInstance = gameSounds[name].play(looping: looping);
-					return currentAudioInstance;
+					return gameSounds[name].play(looping: looping);
 				}
 				else
 				{
@@ -250,9 +247,10 @@ class SoundManager
 			print('SoundCloud: Your browser may or may not fully support mp3s');
 
 		//stop any current song
-		if(useWebAudio && currentAudioInstance != null)
-			stopSound(currentAudioInstance);
-		else if(currentSong != null)
+		//if(useWebAudio && currentAudioInstance != null)
+		//	stopSound(currentAudioInstance);
+		//else
+		if(currentSong != null)
 			currentSong.pause();
 
 		//play a new song

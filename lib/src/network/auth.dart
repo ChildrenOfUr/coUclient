@@ -54,10 +54,11 @@ class AuthManager
 
 	startGame(Map serverdata)
 	{
+		view.loggedIn();
+		audio.sc = new SC(SC_TOKEN);
+
 		// Begin Game//
 		game = new Game(decode(JSON.decode(serverdata['metabolics']),Metabolics));
-		audio.sc = new SC(SC_TOKEN);
-		view.loggedIn();
 	}
 
 	setupNewUser(Map serverdata)
