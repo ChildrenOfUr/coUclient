@@ -3,20 +3,20 @@ description: 'Children of Ur :: Webclient'
 dependencies:
   browser: any
   dnd: any
+  firebase: '>=0.5.0 <0.6.0'
   gorgon: any
   intl: any
   libld:
     git:
       ref: master
       url: git://github.com/ChildrenOfUr/libld.git
-  polymer: ">=0.16.0+7 < 0.17.0"
-  paper_elements: ">=0.6.2+3 <0.7.0"
-  firebase: ">=0.5.0 <0.6.0"
+  paper_elements: '>=0.6.2+3 <0.7.0'
+  polymer: '>=0.16.0+7 < 0.17.0'
   pump:
     git:
       ref: master
       url: git://github.com/ppvk/pump.git
-  redstone_mapper: ">=0.1.13 <0.2.0"
+  redstone_mapper: '>=0.1.13 <0.2.0'
   scproxy:
     git:
       ref: master
@@ -25,7 +25,6 @@ dependencies:
     git:
       ref: master
       url: git://github.com/ChildrenOfUr/dart-slack.git
-
 transformers:
 - redstone_mapper
 - polymer:
