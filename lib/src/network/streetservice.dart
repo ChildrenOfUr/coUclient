@@ -2,11 +2,14 @@ part of couclient;
 
 class StreetService
 {
-	String _dataUrl = 'https://${Configs.authAddress}/data';
+	String _dataUrl = '${Configs.authAddress}/data';
 
 	requestStreet(String StreetID) async
 	{
 		log('StreetService: Requesting street "$StreetID"...');
+
+		String prefix = Configs.authAddress.contains('localhost')?'http://':'https://';
+		_dataUrl = prefix+_dataUrl;
 
 		HttpRequest data = await HttpRequest.request(_dataUrl + "/street", method: "POST",
     		requestHeaders: {"content-type": "application/json"},

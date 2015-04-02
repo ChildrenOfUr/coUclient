@@ -11,7 +11,7 @@ import 'package:couclient/configs.dart';
 @CustomTag('ur-login')
 class UrLogin extends PolymerElement
 {
-	String _authUrl = 'https://${Configs.authAddress}/auth';
+	String _authUrl, prefix;
 	@published bool newUser;
 	@observable bool timedout, newSignup = false, waiting = false, existingUser = false, loggedIn = false;
 	@observable String username, email, password, newEmail = '', newUsername = '', newPassword = '';
@@ -20,6 +20,9 @@ class UrLogin extends PolymerElement
 
 	UrLogin.created() : super.created()
 	{
+		prefix = Configs.authAddress.contains('localhost')?'http://':'https://';
+		_authUrl = prefix+'${Configs.authAddress}/auth';
+
 		firebase = new Firebase("https://blinding-fire-920.firebaseio.com");
 		if(window.localStorage.containsKey('username'))
 		{
