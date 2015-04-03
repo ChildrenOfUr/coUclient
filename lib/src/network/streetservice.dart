@@ -4,12 +4,15 @@ class StreetService
 {
 	String _dataUrl = '${Configs.authAddress}/data';
 
+	StreetService()
+	{
+		String prefix = Configs.authAddress.contains('localhost')?'http://':'https://';
+		_dataUrl = prefix+_dataUrl;
+	}
+
 	requestStreet(String StreetID) async
 	{
 		log('StreetService: Requesting street "$StreetID"...');
-
-		String prefix = Configs.authAddress.contains('localhost')?'http://':'https://';
-		_dataUrl = prefix+_dataUrl;
 
 		HttpRequest data = await HttpRequest.request(_dataUrl + "/street", method: "POST",
     		requestHeaders: {"content-type": "application/json"},

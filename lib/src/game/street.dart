@@ -58,6 +58,8 @@ class Street
     entities.clear();
     quoins.clear();
     otherPlayers.clear();
+    if(CurrentPlayer != null)
+      CurrentPlayer.intersectingObjects.clear();
 
     view.layers.children.clear();
     view.playerHolder.children.clear();
