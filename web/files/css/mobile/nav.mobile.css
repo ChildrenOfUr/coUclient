@@ -1,0 +1,17 @@
+nav {
+	position: relative;
+	display: inline-block;
+	top: -4px;
+	right:5px;
+	transform: translateY(-50%);
+	font-size: 1em;
+}
+
+nav * {
+  cursor: pointer;
+}
+
+nav .fa {
+  width: 17px;
+  height: 17px;
+}

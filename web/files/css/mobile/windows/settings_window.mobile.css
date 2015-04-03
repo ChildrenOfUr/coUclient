@@ -1,0 +1,20 @@
+#settingsWindow article .tab-content * {
+  font-family: 'Tahoma', 'Geneva', 'sans-serif';
+  color:#444;
+}
+#settingsWindow article .tab-content div {
+  font-size:1em;
+  margin:9px;
+}
+#settingsWindow article .tab-content div kbd {
+  background-color:#4b2e4c;
+  color:#eee;
+  font-family: 'Tahoma', 'Geneva', 'sans-serif';
+  padding:3px;
+  text-align:right;
+  border-radius:5px;
+  float:right;
+}
+#settingsWindow #keyboard.tab-content {
+  overflow-y: scroll;
+}
