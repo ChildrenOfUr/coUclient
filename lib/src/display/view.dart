@@ -75,9 +75,6 @@ class UserInterface
 	Element logoutButton = querySelector('#signoutGlyph');
 
 
-	//fps meter
-	Element fpsDisplay = querySelector('#fps');
-
 	/////////////////////ELEMENTS//////////////////////////////////////////////
 
 

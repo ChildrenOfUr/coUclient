@@ -10,6 +10,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:math';
 import 'dart:js';
+import 'dart:profiler';
 
 // LIBRARIES //
 // Used for NumberFormat
@@ -141,15 +142,14 @@ void main()
     		{
     			Polymer.onReady.then((_)
     			{
+    				audio = new SoundManager();
     				view = new UserInterface();
+					windowManager = new WindowManager();
                 	auth = new AuthManager();
 
                 	// System
                 	new ClockManager();
                 	new CommandManager();
-
-                	audio = new SoundManager();
-                	windowManager = new WindowManager();
 				});
 			});
     	});

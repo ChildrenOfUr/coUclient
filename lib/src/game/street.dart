@@ -257,14 +257,9 @@ class Street
         offsetY += groundY;
 
         //translateZ(0) forces the gpu to render the transform
-        transforms[canvas.id+"translateZ(0) translateX("+(-offsetX).toString()+"px) translateY("+(-offsetY).toString()+"px)"] = canvas;
+        canvas.style.transform = "translateZ(0) translateX(${-offsetX}px) translateY(${-offsetY}px)";
       }
-      //try to bundle DOM writes together for performance.
-      transforms.forEach((String transform, DivElement canvas)
-      {
-        transform = transform.replaceAll(canvas.id, '');
-        canvas.style.transform = transform;
-      });
+
       camera.dirty = false;
     }
   }

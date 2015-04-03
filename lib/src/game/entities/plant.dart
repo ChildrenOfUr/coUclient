@@ -2,17 +2,18 @@ part of couclient;
 
 class Plant extends Entity
 {
-	int state, width, height, numRows, numColumns;
-	num x,y, left, top;
+	int state, numRows, numColumns;
+	num x,y;
 	bool ready = false, firstRender = true;
 	ImageElement spritesheet;
-	Rectangle sourceRect, plantRect;
+	Rectangle sourceRect;
 	String url;
 
 	Plant(Map map)
 	{
 		canvas = new CanvasElement();
         canvas.id = map["id"];
+		id = map['id'];
 
 		numRows = map['numRows'];
 		numColumns = map['numColumns'];
@@ -62,25 +63,28 @@ class Plant extends Entity
 		dirty = true;
 	}
 
+	@override
 	update(double dt)
 	{
 		if(!ready)
 			return;
 
+		super.update(dt);
+
 		int column = state%numColumns;
         int row = state~/numColumns;
 
 		sourceRect = new Rectangle(column*width,row*height,width,height);
-		plantRect = new Rectangle(left,top,canvas.width,canvas.height);
 	}
 
+	@override
 	render()
 	{
 		if(ready && dirty)
 		{
 			if(!firstRender)
 			{
-				if(!intersect(camera.visibleRect,plantRect))
+				if(!intersect(camera.visibleRect,entityRect))
         			return;
 			}
 
@@ -105,7 +109,6 @@ class Plant extends Entity
             	canvas.context2D.shadowOffsetY = 0;
             }
 
-    		Rectangle destRect = new Rectangle(0,0,width,height);
     		canvas.context2D.drawImageToRect(spritesheet, destRect, sourceRect: sourceRect);
     		dirty = false;
 		}

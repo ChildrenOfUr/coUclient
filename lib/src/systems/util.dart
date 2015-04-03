@@ -6,6 +6,16 @@ part of couclient;
 //in the code, then consider putting it here, especially if you think it could be used
 //in more than one place
 
+/**
+ * Determine if Rectangle [a] intersects with [b]
+ */
+bool intersect(Rectangle a, Rectangle b)
+{
+	return (a.left <= b.right &&
+	        b.left <= a.right &&
+	        a.top <= b.bottom &&
+	        b.top <= a.bottom);
+}
 
 /**
  * Log an event to the bug report window.
