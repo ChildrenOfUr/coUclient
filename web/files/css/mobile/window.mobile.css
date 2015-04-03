@@ -28,7 +28,6 @@
   left: 10px;
   right:10px;
   border-radius: 8px;
-  overflow: hidden;
   background-color:rgba(0,0,0,0.1);
   border-radius:9px;
   border-top:1px solid rgba(0,0,0,0.1);
@@ -136,4 +135,11 @@
   height: 100%;
   width: 100%;
   margin: 0;
+}
+
+article .tab-holder {
+  position: relative;
+  right: 25px;
+  top: 30px;
+  left: 10px;
 }

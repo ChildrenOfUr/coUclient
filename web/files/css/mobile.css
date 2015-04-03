@@ -15,3 +15,6 @@
 @import url("mobile/soundcloud.mobile.css");
 @import url("mobile/input.mobile.css");
 @import url("mobile/topright.mobile.css");
+@import url("mobile/nav.mobile.css");
+@import url("mobile/windows/map_window.mobile.css");
+@import url("mobile/windows/settings_window.mobile.css");
