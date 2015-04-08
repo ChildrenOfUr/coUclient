@@ -59,45 +59,47 @@ class Game
 	// GAME LOOP //
 	loop(num delta)
 	{
-		UserTag loopTag = new UserTag('gameloop');
-		UserTag previousTag = loopTag.makeCurrent();
+		//UserTag loopTag = new UserTag('gameloop');
+		//UserTag previousTag = loopTag.makeCurrent();
 
 		double dt = (delta - lastTime) / 1000;
 		lastTime = delta;
 
 		//if the gamepad api isn't supported, don't continue to try to get updates from it
-		try
+		if(!ignoreGamepads)
 		{
-			UserTag gamepadTag = new UserTag('gamepad');
-			UserTag prev = gamepadTag.makeCurrent();
+			try
+			{
+				//UserTag gamepadTag = new UserTag('gamepad');
+				//UserTag prev = gamepadTag.makeCurrent();
 
-			if(!ignoreGamepads)
 				inputManager.updateGamepad();
 
-			prev.makeCurrent();
-		}
-		catch(err)
-		{
-			ignoreGamepads = true;
-			print('Sorry, this browser does not support the gamepad API');
+				//prev.makeCurrent();
+			}
+			catch(err)
+			{
+				ignoreGamepads = true;
+				print('Sorry, this browser does not support the gamepad API');
+			}
 		}
 
-		UserTag updateTag = new UserTag('update');
-		UserTag prev = updateTag.makeCurrent();
+		//UserTag updateTag = new UserTag('update');
+		//UserTag prev = updateTag.makeCurrent();
 
 		update(dt);
 
-		prev.makeCurrent();
+		//prev.makeCurrent();
 
-		UserTag renderTag = new UserTag('render');
-		prev = renderTag.makeCurrent();
+		//UserTag renderTag = new UserTag('render');
+		//prev = renderTag.makeCurrent();
 
 		render();
 
-		prev.makeCurrent();
+		//prev.makeCurrent();
 
 		window.animationFrame.then(loop);
 
-		previousTag.makeCurrent();
+		//previousTag.makeCurrent();
 	}
 }

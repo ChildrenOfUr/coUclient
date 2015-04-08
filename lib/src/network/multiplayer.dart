@@ -70,18 +70,16 @@ _setupStreetSocket(String streetName)
         	return;
 
 		//check if we are receiving our inventory
+		if(map['inventory'] != null)
 		{
-			if(map['inventory'] != null)
-			{
-				Map items = map['items'] as Map<String,Map>;
-				items.forEach((String name, Map item)
+			Map items = map['items'] as Map<String,Map>;
+			items.forEach((String name, Map item)
+			              {
+				              for(int i=0; i<item['count']; i++)
 				              {
-					              for(int i=0; i<item['count']; i++)
-					              {
-						              addItemToInventory({'item':item});
-					              }
-				              });
-			}
+					              addItemToInventory({'item':item});
+				              }
+			              });
 			return;
 		}
 		//check if we are receiving an item

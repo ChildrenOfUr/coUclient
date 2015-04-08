@@ -43,6 +43,8 @@ class Street
     	..classes.add('streetcanvas')
     	..style.position = "absolute"
     	..attributes["ground_y"] = "0"
+        ..attributes['width'] = bounds.width.toString()
+        ..attributes['height'] = bounds.height.toString()
     	..style.transform = "translateZ(0)";
 
 	// set the street.
@@ -105,6 +107,8 @@ class Street
       gradientCanvas.style.height = bounds.height.toString() + "px";
       gradientCanvas.style.position = 'absolute';
       gradientCanvas.attributes['ground_y'] = "0";
+      gradientCanvas.attributes['width'] = bounds.width.toString();
+      gradientCanvas.attributes['height'] = bounds.height.toString();
 
       // Color the gradientCanvas
       String top = streetData['gradient']['top'];
@@ -130,6 +134,8 @@ class Street
         decoCanvas.style.height = layer['h'].toString() + 'px';
         decoCanvas.style.position = 'absolute';
         decoCanvas.attributes['ground_y'] = groundY.toString();
+        decoCanvas.attributes['width'] = bounds.width.toString();
+        decoCanvas.attributes['height'] = bounds.height.toString();
 
         List<String> filters = new List();
         new Map.from(layer['filters']).forEach((String filterName, int value)
@@ -243,22 +249,21 @@ class Street
     //only update if camera x,y have changed since last render cycle
     if(camera.dirty)
     {
-      num currentPercentX = camera.getX() / (bounds.width - view.worldElement.clientWidth);
-      num currentPercentY = camera.getY() / (bounds.height - view.worldElement.clientHeight);
+      num currentPercentX = camera.getX() / (bounds.width - view.worldElementWidth);
+      num currentPercentY = camera.getY() / (bounds.height - view.worldElementHeight);
 
       //modify left and top for parallaxing
-      Map<String,DivElement> transforms = new Map();
       for(DivElement canvas in view.worldElement.querySelectorAll('.streetcanvas'))
       {
-        int canvasWidth = num.parse(canvas.style.width.replaceAll('px', '')).toInt();
-        int canvasHeight = num.parse(canvas.style.height.replaceAll('px', '')).toInt();
-        double offsetX = (canvasWidth - view.worldElement.clientWidth) * currentPercentX;
-        double offsetY = (canvasHeight - view.worldElement.clientHeight) * currentPercentY;
+        Map attributes = canvas.attributes;
+        num canvasWidth = num.parse(attributes['width']);
+        num canvasHeight = num.parse(attributes['height']);
+        num offsetX = (canvasWidth - view.worldElementWidth) * currentPercentX;
+        num offsetY = (canvasHeight - view.worldElementHeight) * currentPercentY;
 
-        int groundY = num.parse(canvas.attributes['ground_y']).toInt();
+        num groundY = num.parse(attributes['ground_y']);
         offsetY += groundY;
 
-        //translateZ(0) forces the gpu to render the transform
         canvas.style.transform = "translateZ(0) translateX(${-offsetX}px) translateY(${-offsetY}px)";
       }
 
