@@ -17,3 +17,56 @@ ur-panel {
 	opacity: .4;
 	pointer-events: none;
 }
+
+input {
+	margin-bottom: 5px;
+	display: block;
+	width: 100%;
+}
+
+#loginscreen {
+	display: flex;
+	flex-direction: column;
+}
+
+#top,
+#bottom {
+	display: flex;
+	flex-direction: row;
+}
+
+#login {
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#loginsubmit {
+	display: flex;
+	flex-direction: row;
+}
+
+#loginsubmit ur-button {
+	flex: 1;
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+#social {
+	flex: 1;
+	padding-top: 10px;
+	border-top: 1px solid #ccc;
+}
+
+#social > ur-button {
+	display: inline;
+}
+
+#social #facebook {
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+#createuser input {
+	margin-left: auto;
+	margin-right: auto;
+}

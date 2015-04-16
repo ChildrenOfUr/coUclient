@@ -14,7 +14,7 @@ class UrLogin extends PolymerElement
 	String _authUrl, prefix;
 	@published bool newUser;
 	@observable bool timedout, newSignup = false, waiting = false, existingUser = false, loggedIn = false;
-	@observable String username, email, password, newEmail = '', newUsername = '', newPassword = '';
+	@observable String username, email, password, newUsername = '', newPassword = '';
 	Firebase firebase;
 	Map serverdata;
 
@@ -143,7 +143,7 @@ class UrLogin extends PolymerElement
 
 		try
     	{
-			await firebase.createUser({'email':newEmail,'password':newPassword});
+			await firebase.createUser({'email':email,'password':newPassword});
 			if(existingUser)
 			{
 				dispatchEvent(new CustomEvent('loginSuccess', detail: serverdata));
@@ -169,7 +169,7 @@ class UrLogin extends PolymerElement
 		if(!_enterKey(event))
         	return;
 
-		if(newEmail == '')
+		if(email == '')
 			return;
 
 		waiting = true;
@@ -178,7 +178,7 @@ class UrLogin extends PolymerElement
 
 		HttpRequest request = await HttpRequest.request(_authUrl + "/verifyEmail", method: "POST",
 				requestHeaders: {"content-type": "application/json"},
-				sendData: JSON.encode({'email':newEmail}));
+				sendData: JSON.encode({'email':email}));
 
 		tooLongTimer.cancel();
 
@@ -193,7 +193,7 @@ class UrLogin extends PolymerElement
 		WebSocket ws = new WebSocket("ws://${Configs.authWebsocket}/awaitVerify");
 		ws.onOpen.first.then((_)
 		{
-			Map map = {'email':newEmail};
+			Map map = {'email':email};
 			ws.send(JSON.encode(map));
 		});
 		ws.onMessage.first.then((MessageEvent event) async
