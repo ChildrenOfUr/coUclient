@@ -30,4 +30,3 @@ transformers:
 - polymer:
     entry_points:
     - web/index.html
-    - web/demo/toolkit.html
