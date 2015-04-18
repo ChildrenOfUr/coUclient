@@ -1,4 +1,4 @@
-library auction_list;
+library auction_house;
 
 import 'package:polymer/polymer.dart';
 import 'package:redstone_mapper/mapper.dart';
@@ -12,14 +12,14 @@ import 'dart:html';
 import 'dart:async';
 import 'dart:math';
 
-@CustomTag('auction-list')
-class AuctionList extends PolymerElement
+@CustomTag('auction-house')
+class AuctionHouse extends PolymerElement
 {
 	String serverAddress = "http://${Configs.utilServerAddress}";
 	@observable String searchString = '';
 	@observable List<Auction> results = toObservable([]);
 
-	AuctionList.created() : super.created()
+	AuctionHouse.created() : super.created()
 	{
 		generateNewAuctions().then((_) => getAuctions({}));
 	}
