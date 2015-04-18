@@ -8,6 +8,7 @@ class WindowManager {
 	BagWindow bag = new BagWindow();
 	VendorWindow vendor = new VendorWindow();
 	MotdWindow motdWindow = new MotdWindow();
+	GoWindow goWindow = new GoWindow();
 
 	WindowManager() {
 		new Service([#vedorWindow], (Message event) {

@@ -21,9 +21,12 @@
 							<input type="email" value="{{email}}" placeholder="Email">
 							<input type="password" value="{{password}}" placeholder="Password">
 							<div id="loginsubmit">
-								<ur-button class="{{waiting?'waiting':''}}" on-click="{{loginAttempt}}"><i class="fa fa-sign-in"></i> Log In</ur-button>
+								<ur-button id="loginbutton" class="{{waiting?'waiting':''}}" on-click="{{loginAttempt}}"><i class="fa fa-sign-in"></i> Log In</ur-button>
 								<ur-button class="{{waiting?'waiting':''}}" on-click="{{verifyEmail}}"><i class="fa fa-pencil"></i> Sign Up</ur-button>
 							</div>
+							<template if="{{waiting}}">
+								<div id="msg">Please check your email.</div>
+							</template>
 						</div>
 						<!-- <div id="signup">
 							<input type="email" value="{{newEmail}}" placeholder="Email">
@@ -57,11 +60,10 @@
 				<div on-keydown="{{usernameSubmit}}" id="createuser">
 					<div class="greeting">Hey, a new face!</div>
 					<div>What do you want to be called?</div><br>
-					<input type="text" placeholder="Username" value="{{newUsername}}" disabled?="{{existingUser}}">
-					<input type="text" placeholder="Email" value="{{newEmail}}" disabled>
+					<input type="text" placeholder="Username (You can change this later)" value="{{newUsername}}" disabled?="{{existingUser}}">
+					<input type="text" placeholder="Email" value="{{email}}" disabled>
 					<input type="password" placeholder="Create Password" value="{{newPassword}}">
-					<ur-button big="true" theme="success" on-click="{{usernameSubmit}}">Submit</ur-button>
-					<div>(You can always change your name later on.)</div>
+					<ur-button id="createuserbutton" big="true" theme="success" on-click="{{usernameSubmit}}">Submit</ur-button>
 				</div>
 			</template>
 
