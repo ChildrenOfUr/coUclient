@@ -10,8 +10,7 @@ dependencies:
     git:
       ref: master
       url: git://github.com/ChildrenOfUr/libld.git
-  paper_elements:
-    path: paper_elements
+  paper_elements: ">=0.7.0 <0.8.0"
   polymer: '>=0.16.1+4 < 0.17.0'
   pump:
     git:
