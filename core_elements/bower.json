@@ -1,0 +1,13 @@
+{
+  "name": "core-elements-dart",
+  "version": "0.0.0",
+  "homepage": "https://github.com/dart-lang/core-elements",
+  "authors": [
+    "Polymer.dart Authors <web-ui-dev@dartlang.org>"
+  ],
+  "private": true,
+  "dependencies": {
+    "polymer": "polymer/polymer#0.5.5",
+    "core-elements": "polymer/core-elements#0.5.5"
+  }
+}

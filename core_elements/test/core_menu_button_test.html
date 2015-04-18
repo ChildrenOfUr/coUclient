@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<!--
+Copyright (c) 2014 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<html>
+  <head>
+    <title>core-menu-button</title>
+
+    <script src="packages/unittest/test_controller.js"></script>
+    <link rel="import" href="packages/core_elements/core_dropdown.html">
+    <link rel="import" href="packages/core_elements/core_item.html">
+    <link rel="import" href="packages/core_elements/core_menu_button.html">
+
+    <style>
+      core-collapse {
+        border: 1px solid black;
+      }
+  </style>
+  </head>
+  <body unresolved>
+
+  <!-- overlay should be removed when button is removed while opened -->
+  <template id="removeOpenedOverlay" is="auto-binding-dart">
+    <template if="{{showButton}}">
+      <core-menu-button icon="menu" id="menuButton" selected="0">
+        <core-dropdown id="dropdown" class="dropdown">
+          <core-item id="1" label="Menu1"></core-item>
+          <core-item id="2" label="Menu2"></core-item>
+          <core-item id="3" label="Menu3"></core-item>
+          <core-item id="4" label="Menu4"></core-item>
+        </core-dropdown>
+      </core-menu-button>
+    </template>
+  </template>
+
+    <script type="application/dart" src="core_menu_button_test.dart"></script>
+  </body>
+</html>

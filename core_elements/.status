@@ -1,0 +1,35 @@
+# Copyright (c) 2014, the Dart project authors.  Please see the AUTHORS file
+# for details. All rights reserved. Use of this source code is governed by a
+# BSD-style license that can be found in the LICENSE file.
+
+# Don't run any test-like files that show up in packages directories. It
+# shouldn't be necessary to run "pub install" in these packages, but if you do
+# it shouldn't break the tests.
+*/packages/*/*: Skip
+*/*/packages/*/*: Skip
+*/*/*/packages/*/*: Skip
+*/*/*/*/packages/*/*: Skip
+*/*/*/*/*/packages/*/*: Skip
+
+# core_media_query_dialog_test is actually launched in a window by
+# core_media_query_test:
+test/core_media_query_dialog_test: Skip
+build/test/core_media_query_dialog_test: Skip
+
+[ $runtime == dartium || $runtime == drt ]
+test/core_media_query_test: Skip # Flaky
+build/test/core_media_query_test: Skip # Flaky
+build/test/core_collapse_test: Skip # Flaky
+test/core_ajax_dart_test: Pass, Timeout
+build/test/core_ajax_dart_test: Pass, Timeout
+test/core_dropdown_test: Pass, RuntimeError # Flaky
+build/test/core_dropdown_test: Pass, RuntimeError # Flaky
+
+
+[ $compiler == dart2js ]
+test/*: Skip  # raw tests only meant to be run in dartium. Other browsers run
+              # the output of pub-build
+              
+[ $runtime == vm || $runtime == jsshell || $runtime == d8 ]
+build/test/*: Skip  # All tests are meant to run in a browser
+test/*: Skip  # All tests are meant to run in a browser

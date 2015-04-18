@@ -1,0 +1,63 @@
+<!doctype html>
+<!--
+Copyright (c) 2014 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>core-dropdown basic tests</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <script src="packages/unittest/test_controller.js"></script>
+
+  <link href="packages/core_elements/core_dropdown.html" rel="import">
+
+  <style>
+    body {
+      text-align: center;
+      margin-top: 200px;
+    }
+  </style>
+
+</head>
+<body unresolved>
+
+  <div relative id="trigger1">
+    tap
+    <core-dropdown id="dropdown1">Hello World!</core-dropdown>
+  </div>
+
+  <div relative id="trigger2">
+    tap
+    <core-dropdown id="dropdown2" valign="bottom">Hello World!</core-dropdown>
+  </div>
+
+  <div relative id="trigger3">
+    tap
+    <core-dropdown id="dropdown3" halign="right">Hello World!</core-dropdown>
+  </div>
+
+  <div relative id="trigger4">
+    tap
+    <core-dropdown id="dropdown4" layered>Hello World!</core-dropdown>
+  </div>
+
+  <div relative id="trigger5">
+    tap
+    <core-dropdown id="dropdown5" layered valign="bottom">Hello World!</core-dropdown>
+  </div>
+
+  <div relative id="trigger6">
+    tap
+    <core-dropdown id="dropdown6" layered halign="right">Hello World!</core-dropdown>
+  </div>
+
+  <script type="application/dart" src="core_dropdown_test.dart"></script>
+
+</body>
+</html>

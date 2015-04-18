@@ -1,0 +1,133 @@
+# Configuration for running tool/generate_dart_api.dart
+files_to_generate:
+  - core-a11y-keys/core-a11y-keys.html
+  - core-animated-pages/core-animated-pages.html:
+      # subdir imports don't work.
+      omit_imports:
+        - transitions/hero-transition.html
+        - transitions/cross-fade.html
+  - core-animated-pages/transitions/cascade-transition.html:
+      omit_imports:
+        - core-transition-pages.html
+  - core-animated-pages/transitions/core-transition-pages.html:
+      extends_import: ../../core_transition.dart
+  - core-animated-pages/transitions/hero-transition.html:
+      omit_imports:
+        - core-transition-pages.html
+  - core-animated-pages/transitions/cross-fade.html:
+      omit_imports:
+        - core-transition-pages.html
+  - core-animated-pages/transitions/list-cascade.html:
+      omit_imports:
+        - core-transition-pages.html
+  - core-animated-pages/transitions/scale-up.html:
+      omit_imports:
+        - core-transition-pages.html
+  - core-animated-pages/transitions/slide-down.html:
+      omit_imports:
+        - core-transition-pages.html
+  - core-animated-pages/transitions/slide-from-bottom.html:
+      omit_imports:
+        - core-transition-pages.html
+  - core-animated-pages/transitions/slide-from-right.html:
+      omit_imports:
+        - core-transition-pages.html
+  - core-animated-pages/transitions/slide-up.html:
+      omit_imports:
+        - core-transition-pages.html
+  - core-animated-pages/transitions/tile-cascade.html:
+      omit_imports:
+        - core-transition-pages.html
+  - core-animation/core-animation.html:
+      name_substitutions:
+        offset: animationOffset
+  - core-animation/core-animation-group.html
+  - core-animation/web-animations.html
+  - core-collapse/core-collapse.html
+  - core-drag-drop/core-drag-drop.html
+  - core-drawer-panel/core-drawer-panel.html
+  - core-dropdown/core-dropdown.html
+  - core-dropdown/core-dropdown-base.html
+  - core-dropdown-menu/core-dropdown-menu.html
+  - core-field/core-field.html
+  - core-focusable/core-focusable.html
+  - core-header-panel/core-header-panel.html
+  - core-icon/core-icon.html
+  - core-icon-button/core-icon-button.html
+  - core-icons/av-icons.html
+  - core-icons/communication-icons.html
+  - core-icons/core-icons.html
+  - core-icons/device-icons.html
+  - core-icons/editor-icons.html
+  - core-icons/hardware-icons.html
+  - core-icons/image-icons.html
+  - core-icons/maps-icons.html
+  - core-icons/notification-icons.html
+  - core-icons/social-icons.html
+  - core-iconset/core-iconset.html
+  - core-iconset-svg/core-iconset-svg.html
+  - core-image/core-image.html
+  - core-input/core-input.html
+  - core-item/core-item.html
+  - core-label/core-label.html:
+      name_substitutions:
+        for: htmlFor
+  - core-layout-grid/core-layout-grid.html
+  - core-layout-trbl/core-layout-trbl.html
+  - core-layout-trbl/core-slide.html
+  - core-media-query/core-media-query.html:
+      name_substitutions:
+        query: mediaQuery
+  - core-menu/core-menu.html
+  - core-menu/core-submenu.html
+  - core-menu-button/core-menu-button.html
+  - core-meta/core-meta.html
+  - core-overlay/core-key-helper.html
+  - core-overlay/core-overlay.html
+  - core-overlay/core-overlay-layer.html
+  - core-pages/core-pages.html
+  - core-range/core-range.html
+  - core-resizable/core-resizable.html:
+      file_overrides:
+        core_resizer:
+          - CoreResizer
+  - core-scaffold/core-scaffold.html
+  - core-scroll-header-panel/core-scroll-header-panel.html
+  - core-scroll-threshold/core-scroll-threshold.html
+  - core-selection/core-selection.html
+  - core-selector/core-selector.html
+  - core-shared-lib/core-shared-lib.html
+  - core-signals/core-signals.html
+  - core-splitter/core-splitter.html
+  - core-style/core-style.html
+  - core-toolbar/core-toolbar.html
+  - core-tooltip/core-tooltip.html
+  - core-transition/core-transition-css.html
+  - core-transition/core-transition.html
+  - font-roboto/roboto.html
+deletion_patterns:
+  - metadata\.html$
+  - index\.html$
+  - bower\.json$
+  - demo\.html$
+  - demos$
+  - README\.md$
+  - ^context-free-parser$
+  - ^core-bind$
+  - ^core-component-page$
+  - ^core-doc-viewer$
+  - ^core-docs$
+  - ^core-tests$
+  - ^google-code-prettify$
+  - ^highlightjs$
+  - ^highlightjs-element$
+  - ^marked$
+  - ^marked-element$
+  - ^platform$
+  - ^polymer$
+  - ^polymer-test-tools$
+  - ^prettify-element$
+  # Uncomment these and rerun to run the demos under lib/src
+  - ^webcomponentsjs$
+  - ^paper-.*$
+  - .gitignore$

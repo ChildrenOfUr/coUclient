@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<!--
+Copyright (c) 2014 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<html>
+  <head>
+    <title>core-list</title>
+    <script src="packages/unittest/test_controller.js"></script>
+    <link rel="import" href="packages/core_elements/core_list_dart.html">
+    <style>
+      body {
+        margin: 0;
+        height: 100%;
+      }
+      core-list {
+        display: block;
+        height: 100%;
+        margin: 0 auto;
+      }
+      input {
+        width: 20px;
+      }
+      .item {
+        height: 80px;
+        background: lightblue;
+      }
+      .item.selected {
+        background: orange;
+      }
+  </style>
+  </head>
+  <body fit unresolved>
+    <core-list-dart fit id="list">
+      <template>
+        <div class="item {{ selected ? 'selected' : '' }}">
+          <span id="index">{{index}}</span><br>
+          <span id="id">{{model.id}}</span><br>
+          <input id="checkbox" type="checkbox" checked="{{model.checked}}">
+          <input id="input" type="number" _value="{{model.value}}" class="narrow">
+          <select id="select" selectedIndex="{{model.type}}"><option>a</option><option>b</option><option>c</option></select>
+        </div>
+      </template>
+    </core-list-dart>
+    <script type="application/dart" src="core_list_dart_basic_test.dart"></script>
+  </body>
+</html>

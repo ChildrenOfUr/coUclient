@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<!--
+Copyright (c) 2014 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<html>
+  <head>
+    <title>core-selector-basic</title>
+
+    <script src="packages/unittest/test_controller.js"></script>
+    <style>
+      .core-selected {
+        background: #ccc;
+      }
+    </style>
+  </head>
+  <body unresolved>
+
+    <polymer-element name="test-core-selector" attributes="selected">
+      <template>
+        <core-selector id="selector" selected="{{selected}}" valueattr="id">
+          <content></content>
+        </core-selector>
+      </template>
+    </polymer-element>
+
+    <test-core-selector selected="item0">
+      <div id="item0">item0</div>
+      <div id="item1">item1</div>
+      <div id="item2">item2</div>
+      <div id="item3">item3</div>
+    </test-core-selector>
+
+    <script type='application/dart' src='core_selector_content_test.dart'></script>
+  </body>
+</html>

@@ -1,0 +1,90 @@
+# Configuration for running tool/update.dart
+package_mappings:
+  - core-: core_elements
+  - web-animations: core_elements
+  # For mixin classes
+  - Core: core_elements
+files_to_generate:
+  - font-roboto/roboto.html
+  - paper-button/paper-button.html
+  - paper-button/paper-button-base.html
+  - paper-checkbox/paper-checkbox.html
+  - paper-dialog/paper-action-dialog.html
+  - paper-dialog/paper-dialog.html
+  - paper-dialog/paper-dialog-base.html
+  - paper-dialog/paper-dialog-transition.html
+  - paper-dropdown/paper-dropdown.html
+  - paper-dropdown/paper-dropdown-transition.html
+  - paper-dropdown-menu/paper-dropdown-menu.html
+  - paper-fab/paper-fab.html
+  - paper-icon-button/paper-icon-button.html
+  - paper-input/paper-autogrow-textarea.html
+  - paper-input/paper-char-counter.html
+  - paper-input/paper-input.html
+  - paper-input/paper-input-decorator.html
+  - paper-item/paper-item.html
+  - paper-menu-button/paper-menu-button.html
+  - paper-progress/paper-progress.html
+  - paper-radio-button/paper-radio-button.html
+  - paper-radio-group/paper-radio-group.html
+  - paper-ripple/paper-ripple.html
+  - paper-shadow/paper-shadow.html
+  - paper-slider/paper-slider.html
+  - paper-spinner/paper-spinner.html
+  - paper-tabs/paper-tab.html
+  - paper-tabs/paper-tabs.html
+  - paper-toast/paper-toast.html
+  - paper-toggle-button/paper-toggle-button.html
+  - sampler-scaffold/sampler-scaffold.html
+stubs_to_generate:
+  core_elements:
+    - core-a11y-keys/core-a11y-keys.html
+    - core-animation/core-animation.html
+    - core-animation/core-animation-group.html
+    - core-animation/web-animations.html
+    - core-collapse/core-collapse.html
+    - core-component-page/core-component-page.html
+    - core-drawer-panel/core-drawer-panel.html
+    - core-dropdown/core-dropdown.html
+    - core-dropdown/core-dropdown-base.html
+    - core-field/core-field.html
+    - core-focusable/core-focusable.html
+    - core-header-panel/core-header-panel.html
+    - core-icon/core-icon.html
+    - core-icon-button/core-icon-button.html
+    - core-icons/core-icons.html
+    - core-iconset/core-iconset.html
+    - core-iconset-svg/core-iconset-svg.html
+    - core-input/core-input.html
+    - core-item/core-item.html
+    - core-media-query/core-media-query.html
+    - core-menu/core-menu.html
+    - core-menu/core-submenu.html
+    - core-meta/core-meta.html
+    - core-overlay/core-key-helper.html
+    - core-overlay/core-overlay.html
+    - core-overlay/core-overlay-layer.html
+    - core-range/core-range.html
+    - core-resizable/core-resizable.html
+    - core-scroll-header-panel/core-scroll-header-panel.html
+    - core-selection/core-selection.html
+    - core-selector/core-selector.html
+    - core-style/core-style.html
+    - core-toolbar/core-toolbar.html
+    - core-transition/core-transition.html
+    - core-transition/core-transition-css.html
+deletion_patterns:
+  - metadata\.html$
+  - index\.html$
+  - bower\.json$
+  - README\.md$
+  - demo\.html$
+  - demos$
+  - ^core-
+  - ^platform$
+  - ^polymer$
+  - ^webcomponentsjs$
+# Loaded for Element/Mixin definitions but no generated files.
+files_to_load:
+  - package:core_elements/src/core-focusable/core-focusable.html
+  - package:core_elements/src/core-resizable/core-resizable.html

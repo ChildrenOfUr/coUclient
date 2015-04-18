@@ -1,0 +1,199 @@
+<!--
+Copyright (c) 2014 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<!--
+`core-list-dart` displays a virtual, 'infinite' list. The template inside the
+`core-list-dart` element represents the DOM to create for each list item. The
+`data` property specifies an array of list item data.
+
+For performance reasons, not every item in the list is rendered at once; instead
+a small subset of actual template elements (enough to fill the viewport) are
+rendered and reused as the user scrolls.  As such, it is important that all
+state of the list template be bound to the model driving it, since the view
+may be reused with a new model at any time.  Particularly, any state that
+may change as the result of a user interaction with the list item must be
+bound to the model to avoid view state inconsistency.
+
+### Template model
+
+List item templates bind to a template model with the following structure:
+
+    class _ListModel extends Observable {
+      @observable int index;     // data index for this item
+      @observable bool selected; // selection state for this item
+      @observable var model;     // user data corresponding to data[index]
+      ...
+    }
+
+For example, given the following data:
+
+    data = toObservable([
+      new Person('Bob', true),
+      new Person('Tim', false),
+      ...
+    ])
+
+where `Person` is a model defined as:
+
+    class Person extends Observable{
+      @observable String name;
+      @observable bool checked;
+      Person(this.name, this.checked);
+    }
+
+The following code would render the list (note the `name` and `checked`
+properties are bound from the `model` object provided to the template
+scope):
+
+    <core-list-dart data="{{data}}">
+      <template>
+        <div class="row {{ {selected: selected} }}" style="height: 80px">
+          List row: {{index}}, User data from model: {{model.name}}
+          <input type="checkbox" checked="{{model.checked}}">
+        </div>
+      </template>
+    </core-list-dart>
+
+### Selection
+
+By default, the list supports selection via tapping. Styling selected items
+should be done via binding to the `selected` property of each model (see examples
+above.  The data model for the selected item (for single-selection) or array of
+models (for multi-selection) is published to the `selection` property.
+
+### Grouping **(experimental)**
+
+`core-list` supports showing dividers between groups of data by setting the
+`groups` property to an array containing group information.  An element with
+a `divider` attribute set should be supplied a the top level of the template
+next to the template item to provide the divider template.  The template model
+contains extra fields when `groups` is used, as follows:
+
+    class _ListModel extends Observable {
+      @observable int index;          // data index for this item
+      @observable int groupIndex:     // group index for this item
+      @observable int groupItemIndex: // index within group for this item
+      @observable bool selected;      // selection state for this item
+      @observable var model;          // user data corresponding to data[index]
+      @observable var groupModel:     // user group data corresponding to groups[index]
+      ...
+    }
+
+Groups may be specified one of two ways (users should choose the data format
+that closest matches their source data, to avoid the performance impact of
+needing to transform data to fit the required structure):
+
+1. Flat data array - In this scenario, the `data` array is provided as
+a flat list of models.  Group lengths are determined by the `length` property
+on each group object, with the `data` property providing user-specified group
+data, typically for binding to dividers.  For example:
+
+        data = [
+          { 'name': 'Adam' },
+          { 'name': 'Alex' },
+          { 'name': 'Bob' },
+          { 'name': 'Chuck' },
+          { 'name': 'Cathy' },
+          ...
+        ];
+
+        groups = [
+          new CoreListGroup(2, {'letter': 'A'}),
+          new CoreListGroup(1, {'letter': 'B'}),
+          new CoreListGroup(2, {'letter': 'C'}),
+          ...
+        ];
+
+        <core-list data="{{data}}" groups="{{groups}}">
+          <template>
+            <div divider class="divider">{{groupModel['letter']}}</div>
+            <div class="item">{{model['name']}}</div>
+          </template>
+        </core-list>
+
+2. Nested data array - In this scenario, the `data` array is a nested
+array of arrays of models, where each array determines the length of the
+group, and the `groups` models provide the user-specified data directly.
+For example:
+
+        data = toObservable([
+          [ { 'name': 'Adam' }, { 'name': 'Alex' } ],
+          [ { 'name': 'Bob' } ],
+          [ { 'name': 'Chuck' }, { 'name': 'Cathy' } ],
+          ...
+        ]);
+
+        groups = toObservable([
+          { 'letter': 'A' },
+          { 'letter': 'B' },
+          { 'letter': 'C' },
+          ...
+        ]);
+
+        <core-list data="{{data}}" groups="{{groups}}">
+          <template>
+            <div divider class="divider">{{groupModel['letter']}}</div>
+            <div class="item">{{model['name']}}</div>
+          </template>
+        </core-list>
+
+### Grid layout **(experimental)**
+
+`core-list` supports a grid layout in addition to linear layout by setting
+the `grid` attribute.  In this case, the list template item must have both fixed
+width and height (e.g. via CSS), with the desired width of each grid item
+specified by the `width` attribute.  Based on this, the number of items
+per row are determined automatically based on the size of the list viewport.
+
+### Non-native scrollers **(experimental)**
+
+By default, core-list assumes the `scrollTarget` (if set) is a native scrollable
+element (e.g. `overflow:auto` or `overflow:y`) that fires the `scroll` event and
+whose scroll position can be read/set via the `scrollTop` property.
+`core-list` provides experimental support for setting `scrollTarget`
+to a custom scroller element (e.g. a JS-based scroller) as long as it provides
+the following abstract API:
+
+  - `int get scrollTop()` - returns the current scroll position
+  - `set scrollTop(int value)` - sets the current scroll position
+  - Fires a `scroll` event indicating when the scroll position has changed
+
+Important Notes:
+
+1. As shown in the example above, the content of a core-list-dart element must
+   have a single child <template> element, which contains a single child element
+   of its own.
+
+2. All elements in the `data` list must be compatible with Expando (see
+   http://goo.gl/Pu2Xx4). Specifically this means you can not pass in lists
+   containing numbers, strings, booleans, or nulls. You must create a class to
+   wrap these values, and make a list of those instead:
+
+     class MyModel {
+       final String value;
+       MyModel(String this.value);
+     }
+
+     List<MyModel> myDataList =
+         toObservable([new MyModel("foo"), new MyModel("bar)])
+
+@group Polymer Core Elements
+@element core-list-dart
+-->
+<link rel="import" href="../../packages/polymer/polymer.html">
+<link rel="import" href="core_selection_nodart.html">
+
+<polymer-element name="core-list-dart" on-tap="{{tapHandler}}">
+  <template>
+    <core-selection id="selection" multi="{{multi}}"
+        on-core-select="{{selectedHandler}}"></core-selection>
+    <link rel="stylesheet" href="src/core-list/core-list.css">
+    <div id="viewport" class="core-list-viewport"><content></content></div>
+  </template>
+</polymer-element>
