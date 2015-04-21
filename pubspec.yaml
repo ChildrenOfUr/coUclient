@@ -25,6 +25,11 @@ dependencies:
     git:
       ref: master
       url: git://github.com/ChildrenOfUr/dart-slack.git
+  cou_auction_house:
+    git:
+      ref: master
+      url: git://github.com/ChildrenOfUr/auction_house.git
+
 transformers:
 - redstone_mapper
 - polymer:
