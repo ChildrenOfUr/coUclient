@@ -1,0 +1,15 @@
+<link rel="import" href="../../../../../packages/polymer/polymer.html">
+
+<polymer-element name="item-detail-view">
+    <template>
+        <link rel="stylesheet" href="item_detail_view.css">
+
+		<img _src="{{item['iconUrl']}}">
+        <span>{{item['name']}}</span>
+        <div>{{item['description']}}</div>
+        <span>Base Price: {{item['price']}}</span>
+        <span>Stacks To: {{item['stacksTo']}}</span>
+
+    </template>
+    <script type="application/dart" src="item_detail_view.dart"></script>
+</polymer-element>

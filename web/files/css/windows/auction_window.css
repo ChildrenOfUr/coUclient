@@ -1,0 +1,6 @@
+#windowHolder #auctionWindow {
+    width: 800px;
+    height: 450px;
+    max-width: 90%;
+    max-height: 90%;
+}

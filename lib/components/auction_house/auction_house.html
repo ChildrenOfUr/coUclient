@@ -1,41 +1,65 @@
-<link rel="import" href="../../../../packages/couclient/toolkit/toolkit.html">
+<link rel="import" href="../../toolkit/button/button.html">
+<link rel="import" href="auction_search/auction_search.html">
+<link rel="import" href="item_lists/auction_result_list/auction_result_list.html">
+<link rel="import" href="item_lists/search_result_list/search_result_list.html">
+<link rel="import" href="item_lists/favorite_list/favorite_list.html">
+<link rel="import" href="item_detail_view/item_detail_view.html">
+<link rel="import" href="item_browse/item_browse.html">
+<link rel="import" href="../../../../packages/paper_elements/paper_tabs.html">
+<link rel="import" href="../../../../packages/core_elements/core_pages.html">
+
 <polymer-element name="auction-house">
-	<template>
-		<link rel="stylesheet" href="auction_house.css">
-		<div>
-			<input id="SearchBox" type="text" placeholder="Search all auctions..." value="{{searchString}}" on-keyup="{{doSearch}}">
-		</div>
-		<div id="Results">
-			<template repeat="{{result in results | enumerate}}">
-				<div class="resultsRow {{result.index%2==0?'odd':'even'}}">
-					<div class="itemFrame column">
-						<div class="itemImage" style="{{result.value.style}}"></div>
-						<div class="itemCount">{{result.value.item_count}}</div>
-					</div>
-					<div class="itemText column">
-						<div class="itemName">{{result.value.item_name}}</div>
-						Seller:
-						<span class="username">{{result.value.username}}</span>
-					</div>
-					<div class="costs column">
-						<div class="amount">
-							<span class="itemCount">{{result.value.item_count}}</span>
-							 for
-							<span class="totalCost">{{result.value.total_cost}}</span>
-						</div>
-						<div class="unitPrice">{{result.value.unit_price}}</div>
-						each
-					</div>
-					<div class="buyParent column">
-						<ur-button big="true">Buy</ur-button>
-					</div>
-					<div class="timing column">
-						<div class="startTime">{{result.value.since}} ago</div>
-						<div class="endTime">Ends in {{result.value.until}}</div>
-					</div>
-				</div>
-			</template>
-		</div>
-	</template>
-	<script type="application/dart" src="auction_house.dart"></script>
+    <template>
+        <link rel="stylesheet" href="auction_house.css">
+        <div id="container">
+            <div id="leftColumn">
+                <paper-tabs selected="{{leftSelected}}" noink>
+                    <paper-tab>Browse</paper-tab>
+                    <paper-tab>Search</paper-tab>
+                    <paper-tab>Favorites</paper-tab>
+                </paper-tabs>
+                <core-pages selected="{{leftSelected}}">
+                    <item-browse></item-browse>
+                    <div>
+                        <auction-search></auction-search>
+                        <search-result-list></search-result-list>
+                    </div>
+                    <favorite-list></favorite-list>
+                </core-pages>
+            </div>
+            <div id="rightColumn">
+                <div id="topRight">
+                    <div id="details">
+                        <paper-tabs selected="{{rightSelected}}" noink>
+                            <paper-tab>Details</paper-tab>
+                            <paper-tab>Tab 2</paper-tab>
+                        </paper-tabs>
+                        <core-pages selected="{{rightSelected}}">
+                            <item-detail-view></item-detail-view>
+                            <div></div>
+                        </core-pages>
+                    </div>
+                </div>
+                <div id="bottomRight">
+                    <paper-tabs selected="{{dataSelected}}" noink>
+                        <paper-tab>Sellers</paper-tab>
+                        <paper-tab>Buyers</paper-tab>
+                        <paper-tab>Price History</paper-tab>
+                    </paper-tabs>
+                    <core-pages selected="{{dataSelected}}">
+                        <div id="sellers">
+                            <auction-result-list></auction-result-list>
+                        </div>
+                        <div id="Buyers">
+                            No one yet
+                        </div>
+                        <div>
+                            No data yet
+                        </div>
+                    </core-pages>
+                </div>
+            </div>
+        </div>
+    </template>
+    <script type="application/dart" src="auction_house.dart"></script>
 </polymer-element>

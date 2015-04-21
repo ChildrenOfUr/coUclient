@@ -1,0 +1,52 @@
+:host {
+    display: block;
+    height: 100%;
+    width: 100%;
+}
+
+#Results {
+    margin-top: 10px;
+    height: calc(100% - 28px);
+    width: 100%;
+    overflow: auto;
+}
+
+.resultsRow {
+    -webkit-columns: initial;
+    -moz-columns: initial;
+    columns: initial;
+    cursor: initial;
+}
+
+.column {
+    margin-left: 5px;
+    margin-right: 5px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.username {
+    font-weight: bold;
+}
+
+.costs {
+    display: inline-block;
+    width: 75px;
+}
+
+.totalCost {
+    font-weight: bold;
+}
+
+.unitPrice {
+    font-weight: bold;
+    display: inline;
+}
+
+.timing {
+    display: inline-block;
+}
+
+.startTime {
+    font-weight: bold;
+}

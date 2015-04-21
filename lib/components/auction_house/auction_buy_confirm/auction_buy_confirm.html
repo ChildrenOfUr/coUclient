@@ -1,0 +1,20 @@
+<link rel="import" href="../../../../../packages/couclient/toolkit/button/button.html">
+<polymer-element name="auction-buy-confirm">
+	<template>
+		<link rel="stylesheet" href="popup_dialog.css">
+
+		<div class="popup">
+			Are you sure you wish to buy
+			<div class="itemFrame column">
+				<div class="itemImage" style="{{item_style}}"></div>
+				<div class="itemCount">{{item_count}}</div>
+			</div>
+			for {{total_cost}} currants?
+			<div id="buttons">
+				<ur-button on-click="{{buyItem}}">Yes</ur-button>
+				<ur-button on-click="{{dismiss}}">No</ur-button>
+			</div>
+		</div>
+	</template>
+	<script type="application/dart" src="auction_buy_confirm.dart"></script>
+</polymer-element>

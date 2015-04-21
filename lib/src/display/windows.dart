@@ -13,29 +13,34 @@ class WindowManager {
 	WindowManager() {
 		new Service([#vedorWindow], (Message event) {
 			vendor(event.content);
-			});
+		});
 	}
 }
 
-class AuctionWindow extends Modal
-{
+class AuctionWindow extends Modal {
 	String id = 'auctionWindow';
-	AuctionWindow(){prepare();}
+
+	AuctionWindow() {
+		prepare();
+	}
 }
 
 /// A Dart interface to an html Modal
 abstract class Modal {
 	Element window;
 	String id;
+
 	open() {
 		window.hidden = false;
 		this.focus();
 	}
+
 	close() {
 		window.hidden = true;
 	}
+
 	focus() {
-		for (Element others in querySelectorAll('.window')) {
+		for(Element others in querySelectorAll('.window')) {
 			others.style.zIndex = '2';
 		}
 		this.window.style.zIndex = '3';
@@ -47,25 +52,22 @@ abstract class Modal {
 		window = querySelector('#$id');
 
 		// CLOSE BUTTON ////////////////////////////////////
-		window.querySelector('.fa-times.close').onClick.listen((_) =>  this.close());
+		window.querySelector('.fa-times.close').onClick.listen((_) => this.close());
 		StreamSubscription escListener;
-		escListener = document.onKeyUp.listen((KeyboardEvent e)
-		{
-			if(e.keyCode == 27) //escape key
-			{
+		escListener = document.onKeyUp.listen((KeyboardEvent e) {
+			if(e.keyCode == 27) {  //escape key
 				this.close();
 				escListener.cancel();
 			}
-
-			});
+		});
 
 		// PREVENT PLAYER MOVEMENT WHILE WINDOW IS FOCUSED /
 		window.querySelectorAll('input, textarea').onFocus.listen((_) {
 			inputManager.ignoreKeys = true;
-			});
+		});
 		window.querySelectorAll('input, textarea').onBlur.listen((_) {
 			inputManager.ignoreKeys = false;
-			});
+		});
 
 		// TABS ////////////////////////////////////////////
 		window.querySelectorAll('.tab').onClick.listen((MouseEvent m) {
@@ -73,45 +75,39 @@ abstract class Modal {
 			openTab(tab.text);
 			// show intended tab
 			tab.classes.add('active');
-			});
+		});
 
 		// DRAGGING ////////////////////////////////////////
 		// init vars
-		int new_x = view.mainElement.client.width ~/ 2 - 550 ~/ 2;
-		int new_y = view.mainElement.client.height ~/ 2 - 350 ~/ 2;
-		window.style
-		..top = '${new_y}px'
-		..left = '${new_x}px';
+		int new_x = 0, new_y = 0;
 		bool dragging = false;
 
 		// mouse down listeners
 		window.onMouseDown.listen((_) => this.focus());
+		window.querySelector('header').onMouseDown.listen((_) => dragging = true);
 
-		window.querySelector('header').onMouseDown.listen((_) {
-			dragging = true;
-			});
 		// mouse is moving
 		document.onMouseMove.listen((MouseEvent m) {
-			if (dragging == true) {
+			if(dragging == true) {
 				new_x += m.movement.x;
 				new_y += m.movement.y;
 				window.style
-				..top = '${new_y}px'
-				..left = '${new_x}px';
+					..top = 'calc(50% + ${new_y}px)'
+					..left = 'calc(50% + ${new_x}px)';
 			}
-			});
+		});
+
 		// mouseUp listener
-		document.onMouseUp.listen((_) {
-			dragging = false;
-			});
+		document.onMouseUp.listen((_) => dragging = false);
 	}
 
 	openTab(String tabID) {
 		Element tabView = window.querySelector('article #${tabID.toLowerCase()}');
 		// hide all tabs
-		for (Element t in window.querySelectorAll('article .tab-content')) t.hidden = true;
-		for (Element t in window.querySelectorAll('article .tab')) t.classes.remove('active');
+		for(Element t in window.querySelectorAll('article .tab-content'))
+			t.hidden = true;
+		for(Element t in window.querySelectorAll('article .tab'))
+			t.classes.remove('active');
 		tabView.hidden = false;
-
 	}
 }

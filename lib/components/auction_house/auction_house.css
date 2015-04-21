@@ -1,71 +1,29 @@
-:host {
-  display: block;
-  height: 100%;
-  width: 100%;
+#leftColumn {
+    display: inline-block;
+    vertical-align: top;
+    width: 30%;
 }
 
-#Results {
-	margin-top: 10px;
-	height: calc(100% - 28px);
-	width: 100%;
-	overflow: auto;
+#rightColumn {
+    display: inline-block;
+    vertical-align: top;
+    width: 68%;
 }
-.resultsRow {
-	padding: 5px;
-	background: white;
+
+#topRight {
+    height: 165px;
 }
-.column {
-	margin-left: 5px;
-	margin-right: 5px;
-	display: inline-block;
-	vertical-align: middle;
+
+paper-tabs.pink::shadow #selectionBar {
+    background-color: #ff4081;
 }
-.odd {
-	background: rgb(235, 238, 240);
+
+paper-tabs {
+    background-color: #4b2e4c;
+    color: #fff;
+    box-shadow: 0px 3px 2px rgba(0, 0, 0, 0.2);
 }
-.itemFrame {
-	border: 2px solid lightgray;
-	border-radius: 5px;
-	padding: 5px;
-	display: inline-block;
-	position: relative;
-	width: 50px;
-	height: 50px;
-}
-.itemCount {
-	position: absolute;
-	right: 5px;
-	bottom: 2px;
-}
-.amount .itemCount {
-	position: inherit;
-	font-weight: bold;
-}
-.itemText {
-	display: inline-block;
-	width: 150px;
-}
-.itemName {
-	font-size: 24px;
-	font-weight: bold;
-}
-.username {
-	font-weight: bold;
-}
-.costs {
-	display: inline-block;
-	width: 75px;
-}
-.totalCost {
-	font-weight: bold;
-}
-.unitPrice {
-	font-weight: bold;
-	display: inline;
-}
-.timing {
-	display: inline-block;
-}
-.startTime {
-	font-weight: bold;
+
+core-pages {
+    margin: 5px;
 }

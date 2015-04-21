@@ -1,0 +1,16 @@
+<link rel="import" href="../../../../../packages/couclient/toolkit/button/button.html">
+
+<polymer-element name="item-browse">
+    <template>
+        <link rel="stylesheet" href="item_browse.css">
+        <template repeat="{{category in items.keys}}">
+            {{category}}
+            <ul>
+                <template repeat="{{item in items[category]}}">
+                    <li on-click="{{search}}">{{item}}</li>
+                </template>
+            </ul>
+        </template>
+    </template>
+    <script type="application/dart" src="item_browse.dart"></script>
+</polymer-element>

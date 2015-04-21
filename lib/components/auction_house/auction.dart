@@ -1,9 +1,12 @@
-library auction;
+library auctions;
 
 import "package:redstone_mapper/mapper.dart";
 
 class Auction
 {
+	@Field()
+	int auction_id;
+
 	@Field()
 	String item_name;
 
