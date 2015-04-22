@@ -5,7 +5,7 @@ abstract class Entity
 	bool glow = false, dirty = true;
 	ChatBubble chatBubble = null;
 	CanvasElement canvas;
-	num left, top, width, height;
+	num left = 0, top = 0, width = 0, height = 0;
 	String id;
 	MutableRectangle _entityRect, _destRect;
 

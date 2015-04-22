@@ -25,6 +25,14 @@ class AuctionWindow extends Modal {
 	}
 }
 
+class MailboxWindow extends Modal {
+	String id = 'mailboxWindow';
+
+	MailboxWindow() {
+		prepare();
+	}
+}
+
 /// A Dart interface to an html Modal
 abstract class Modal {
 	Element window;

@@ -103,6 +103,8 @@ _setupStreetSocket(String streetName)
 		{
 			if(map['openWindow'] == 'vendorSell')
 				new VendorWindow().call(map,sellMode:true);
+			if(map['openWindow'] == 'mailbox')
+				new MailboxWindow().open();
 			return;
 		}
 		if(map['itemsForSale'] != null)

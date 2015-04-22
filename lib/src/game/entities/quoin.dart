@@ -1,7 +1,6 @@
 part of couclient;
 
-class Quoin
-{
+class Quoin {
 	Map <String, int> quoins = {"img":0, "mood":1, "energy":2, "currant":3, "mystery":4, "favor":5, "time":6, "quarazy":7};
 	Animation animation;
 	bool ready = false, firstRender = true, collected = false, checking = false;
@@ -11,13 +10,11 @@ class Quoin
 	num left, top;
 	String id;
 
-	Quoin(Map map)
-	{
+	Quoin(Map map) {
 		init(map);
 	}
 
-	init(Map map)
-	async
+	init(Map map) async
 	{
 		String typeString = map['type'];
 		id = map["id"];
@@ -71,8 +68,7 @@ class Quoin
 		ready = true;
 	}
 
-	update(double dt)
-	{
+	update(double dt) {
 		if(!ready)
 			return;
 
@@ -86,16 +82,14 @@ class Quoin
 			animation.updateSourceRect(dt);
 	}
 
-	bool _checkPlayerCollision()
-	{
+	bool _checkPlayerCollision() {
 		if(collected || checking)
 			return false;
 
 		return intersect(CurrentPlayer.avatarRect, quoinRect);
 	}
 
-	void _sendToServer()
-	{
+	void _sendToServer() {
 		//don't try to collect the same quoin again before we get a response
 		checking = true;
 
@@ -107,8 +101,7 @@ class Quoin
 		new Timer(new Duration(milliseconds:800), () => _removeCircleExpand(circle));
 		canvas.style.display = "none"; //.remove() is very slow
 
-		if(streetSocket != null && streetSocket.readyState == WebSocket.OPEN)
-		{
+		if(streetSocket != null && streetSocket.readyState == WebSocket.OPEN) {
 			Map map = new Map();
 			map["remove"] = id;
 			map["type"] = "quoin";
@@ -118,18 +111,14 @@ class Quoin
 		}
 	}
 
-	void _removeCircleExpand(Element element)
-	{
+	void _removeCircleExpand(Element element) {
 		if(element != null)
 			element.classes.remove("circleExpand");
 	}
 
-	render()
-	{
-		if(ready && animation.dirty && canvas.attributes['collected'] == "false")
-		{
-			if(!firstRender)
-			{
+	render() {
+		if(ready && animation.dirty && canvas.attributes['collected'] == "false") {
+			if(!firstRender) {
 				//if the entity is not visible, don't render it
 				if(!intersect(camera.visibleRect, quoinRect))
 					return;

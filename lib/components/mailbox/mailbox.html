@@ -1,0 +1,52 @@
+<link rel="import" href="../../../../packages/polymer/polymer.html">
+<link rel="import" href="../../../../packages/core_elements/core_pages.html">
+<link rel="import" href="../../../../packages/couclient/toolkit/toolkit.html">
+
+<polymer-element name="ur-mailbox">
+    <template>
+        <link rel="stylesheet" href="mailbox.css">
+
+        <core-pages selected="{{selected}}" valueattr="id">
+            <!--Compose a new message-->
+            <div id="compose">
+                <input type="text" placeholder="To" value="{{toField}}">
+                <br>
+                <input type="text" placeholder="Subject" value="{{toSubject}}">
+                <br>
+                <textarea placeholder="Message" value="{{toBody}}"></textarea>
+                <ur-button on-click="{{sendMessage}}">Send</ur-button>
+                <ur-button on-click="{{closeMessage}}">Discard</ur-button>
+            </div>
+
+            <!--Read a message-->
+            <div id="read">
+                <div>From: {{fromField}}</div>
+                <div>Subject: {{fromSubject}}</div>
+                <div>{{fromBody}}</div>
+                <ur-button on-click="{{closeMessage}}">Close</ur-button>
+            </div>
+
+            <!--View the inbox-->
+            <div id="inbox">
+                <ur-button on-click="{{refresh}}">Refresh</ur-button>
+                <table>
+                    <thead>
+                    <tr>
+                        <td>From</td>
+                        <td>Subject</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr template repeat="{{message in messages}}" on-click="{{read}}" data-message-id="{{message.id}}">
+                        <td>{{message.from_user}}</td>
+                        <td>{{message.subject}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <ur-button on-click="{{compose}}">Compose</ur-button>
+            </div>
+        </core-pages>
+
+    </template>
+    <script type="application/dart" src="mailbox.dart"></script>
+</polymer-element>

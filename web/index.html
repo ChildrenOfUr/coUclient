@@ -19,11 +19,7 @@
     <script src="https://cdn.firebase.com/js/client/2.2.2/firebase.js"></script>
 
     <!--Polymer components-->
-    <link rel="import" href="packages/couclient/toolkit/toolkit.html">
-    <link rel="import" href="packages/cou_auction_house/auction_house/auction_house.html">
-    <link rel="import" href="packages/couclient/components/musicplayer/musicplayer.html">
-    <link rel="import" href="packages/couclient/components/meters/meters.html">
-    <link rel="import" href="packages/couclient/components/login/login.html">
+    <link rel="import" href="packages/couclient/components/components_import.html">
 
 </head>
 <body unresolved>
@@ -331,6 +327,16 @@
             </header>
             <article>
                 <auction-house></auction-house>
+            </article>
+        </div>
+
+        <div id="mailboxWindow" class="window" hidden>
+            <i class="fa-li fa fa-times close"></i>
+            <header>
+                <span id="auctionsTitle">Mailbox</span>
+            </header>
+            <article>
+                <ur-mailbox></ur-mailbox>
             </article>
         </div>
 
