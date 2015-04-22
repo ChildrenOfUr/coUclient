@@ -29,15 +29,10 @@ import 'package:pump/pump.dart';
 
 import 'package:polymer/polymer.dart';
 import 'package:couclient/toolkit/slider/slider.dart';
-
-// Necessary to init the mapper in the main method
-import 'package:redstone_mapper/mapper_factory.dart';
-import 'package:redstone_mapper/mapper.dart';
-
-//it's necessary to import every lib that contains encodable classes
-import 'package:cou_auction_house/auction_house/auction.dart';
-
 import 'package:couclient/configs.dart';
+
+import 'package:redstone_mapper/mapper.dart';
+import 'package:redstone_mapper/mapper_factory.dart';
 
 // SYSTEMS MODULES //
 part 'package:couclient/src/systems/clock.dart';
@@ -135,26 +130,22 @@ void main()
 	Configs.init().then((_)
 	{
 		startTime = new DateTime.now();
-
-    	bootstrapMapper();
-    	initPolymer().then((Zone zone)
-    	{
-    		zone.run(()
-    		{
-    			Polymer.onReady.then((_)
-    			{
-    				audio = new SoundManager();
-    				view = new UserInterface();
-					windowManager = new WindowManager();
-                	auth = new AuthManager();
-
-                	// System
-                	new ClockManager();
-                	new CommandManager();
-				});
-			});
-    	});
+		bootstrapMapper();
+    	initPolymer();
 	});
+}
+
+@whenPolymerReady
+initMethod()
+{
+	audio = new SoundManager();
+	view = new UserInterface();
+	windowManager = new WindowManager();
+	auth = new AuthManager();
+
+	// System
+	new ClockManager();
+	new CommandManager();
 }
 
 void handleAppCache()
