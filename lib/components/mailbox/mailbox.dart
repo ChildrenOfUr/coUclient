@@ -2,6 +2,7 @@ library mailbox;
 
 import 'dart:convert';
 import 'dart:html';
+import 'dart:async';
 
 import "package:polymer/polymer.dart";
 import "package:couclient/configs.dart";
@@ -10,50 +11,70 @@ import "package:redstone_mapper/mapper.dart";
 @CustomTag("ur-mailbox")
 class Mailbox extends PolymerElement {
 	@observable List<Message> messages = toObservable([]);
-	@observable String selected="inbox", toField, toSubject, toBody, fromField, fromSubject, fromBody;
+	@observable String selected = "inbox", toField, toSubject, toBody, fromField, fromSubject, fromBody;
+	@observable int fromId;
 	String serverAddress;
 
-	Mailbox.created() : super.created()
-	{
+	Mailbox.created() : super.created() {
 		serverAddress = 'http://${Configs.utilServerAddress}';
 	}
 
 	refresh() async {
 		String user = window.sessionStorage['playerName'];
-		HttpRequest request = await HttpRequest.request(serverAddress + "/getMail", method: "POST",
-		                                                requestHeaders: {"content-type": "application/json"},
-		                                                sendData: JSON.encode({'user':user}));
+		HttpRequest request = await postRequest(serverAddress + '/getMail', {'user':user});
 		messages = decode(JSON.decode(request.responseText), Message);
 	}
 
-	read(Event event, var detail, Element target){
+	read(Event event, var detail, Element target) {
 		selected = "read";
 		int id = int.parse(target.attributes['data-message-id']);
 		Message message = messages.singleWhere((Message m) => m.id == id);
 		fromField = message.from_user;
 		fromSubject = message.subject;
 		fromBody = message.body;
+		fromId = message.id;
+	}
+
+	reply(Event event, var detail, Element target) {
+		int id = int.parse(target.attributes['data-message-id']);
+		Message message = messages.singleWhere((Message m) => m.id == id);
+		toField = message.from_user;
+		toSubject = "Re: " + message.subject;
+		selected = "compose";
 	}
 
 	compose() => selected = "compose";
 
 	closeMessage() => selected = "inbox";
 
-	sendMessage() async
-	{
+	sendMessage() async {
 		Message message = new Message();
 		message.to_user = toField;
 		message.from_user = window.sessionStorage['playerName'];
 		message.body = toBody;
 		message.subject = toSubject;
-		print(encode(message));
 
-		HttpRequest request = await HttpRequest.request(serverAddress + "/sendMail", method: "POST",
-		                                                requestHeaders: {"content-type": "application/json"},
-		                                                sendData: JSON.encode(encode(message)));
-
+		HttpRequest request = await postRequest(serverAddress + '/sendMail', encode(message));
 		if(request.responseText == "OK")
 			selected = "inbox";
+	}
+
+	deleteMessage(Event event, var detail, Element element) async {
+		event.stopPropagation(); //don't 'click' on the message and go to the view screen
+
+		int id = int.parse(element.attributes['data-message-id']);
+		HttpRequest request = await postRequest(serverAddress + '/deleteMail', {'id':id});
+
+		if(request.responseText == "OK")
+			messages.removeWhere((Message m) => m.id == id);
+
+		messages = toObservable(new List.from(messages)); //list not updating without this
+	}
+
+	Future<HttpRequest> postRequest(String url, var data, [Map requestHeaders]) {
+		if(requestHeaders == null)
+			requestHeaders = {"content-type": "application/json"};
+		return HttpRequest.request(url, method: "POST", requestHeaders:requestHeaders, sendData: JSON.encode(data));
 	}
 }
 
