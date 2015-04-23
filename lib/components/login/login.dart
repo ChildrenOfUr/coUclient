@@ -201,6 +201,7 @@ class UrLogin extends PolymerElement
 			Map map = JSON.decode(event.data);
 			if(map['result'] == 'success')
 			{
+				newPassword = password;
 				if(map['serverdata']['playerName'].trim() != '')
 				{
 					username = map['serverdata']['playerName'].trim();
