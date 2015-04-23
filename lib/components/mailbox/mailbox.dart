@@ -25,7 +25,7 @@ class Mailbox extends PolymerElement {
 		messages = decode(JSON.decode(request.responseText), Message);
 	}
 
-	read(Event event, var detail, Element target) {
+	read(Event event, var detail, Element target) async {
 		selected = "read";
 		int id = int.parse(target.attributes['data-message-id']);
 		Message message = messages.singleWhere((Message m) => m.id == id);
@@ -33,6 +33,9 @@ class Mailbox extends PolymerElement {
 		fromSubject = message.subject;
 		fromBody = message.body;
 		fromId = message.id;
+
+		//mark message read on server
+		await postRequest(serverAddress+'/readMail',encode(message));
 	}
 
 	reply(Event event, var detail, Element target) {
@@ -89,4 +92,6 @@ class Message {
 	String subject;
 	@Field()
 	String body;
+	@Field()
+	bool read;
 }
