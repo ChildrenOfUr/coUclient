@@ -18,7 +18,7 @@ class Configs {
 		//set the ur-login components addresses
 		String prefix = baseAddress.contains('localhost')?'http://':'https://';
 		Element urLogin = querySelector('ur-login');
-		urLogin.attributes['serveraddress'] = prefix+authAddress+'/auth';
+		urLogin.attributes['serveraddress'] = prefix+authAddress;
 		urLogin.attributes['serverwebsocket'] = 'ws://'+websocketServerAddress;
 	}
 }

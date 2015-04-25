@@ -1,3 +1,57 @@
+
+html, body {
+    font-family: 'Fredoka One', cursive;
+    background-color:#eee;
+    color: #4b2e4c;
+    overflow:hidden;
+    height:100%;
+    margin:0;
+    padding:0;
+}
+
+
+p, input, textarea{
+    font-family: 'Lato', sans-serif;
+    cursor: auto;
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
+    color: #000;
+    resize: none;
+    margin:0;
+}
+
+input:focus {
+    background-color:#ffffe0;
+}
+
+input {
+    font-size:15px;
+    background-color:#eee;
+    height:16px;
+    border:2px solid rgba(0,0,0,0.1);
+    border-radius: 5px;
+}
+
+a {
+    cursor: auto;
+    color: #4b2e4c;
+    text-decoration:none;
+}
+
+.primary {color: #4b2e4c;}
+.red {color: #ba381a;}
+.white{color: #fff;}
+.big {font-size:20px;}
+.small {font-size:15px;}
+.soft {
+    list-style-type: none;
+    color: gray;
+    font-size:12px;
+    font-weight: 200;
+}
+
 *:not(input){
    cursor: default;
   -webkit-font-smoothing: antialiased;
@@ -10,40 +64,6 @@
   -moz-user-drag: none;
   user-drag: none;
   text-shadow: 0px 1px rgba(100,100,100,0.3);
-}
-
-p, input, textarea{
-  font-family: 'Lato', sans-serif;
-  cursor: auto;
-  -webkit-user-select: text;
-  -moz-user-select: text;
-  -ms-user-select: text;
-      user-select: text;
-  color: #000;
-  resize: none;
-  margin:0;
-}
-input:focus {
-  background-color:#ffffe0;
-}
-
-
- a {
- cursor: auto;
- color: #4b2e4c;
- text-decoration:none;
-}
-
-.primary, #SCLink {color: #4b2e4c;}
-.red {color: #ba381a;}
-.white{color: #fff;}
-.big {font-size:20px;}
-.small {font-size:15px;}
-.soft {
-   list-style-type: none;
-   color: gray;
-   font-size:12px;
-   font-weight: 200;
 }
 
 main {
