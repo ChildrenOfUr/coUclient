@@ -20,5 +20,9 @@ class Configs {
 		Element urLogin = querySelector('ur-login');
 		urLogin.attributes['serveraddress'] = prefix+authAddress;
 		urLogin.attributes['serverwebsocket'] = 'ws://'+websocketServerAddress;
+
+		//same for auction-house
+		Element auctionHouse = querySelector('auction-house');
+		auctionHouse.attributes['serverAddress'] = 'http://$utilServerAddress';
 	}
 }
