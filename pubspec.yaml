@@ -32,11 +32,11 @@ dependencies:
   cou_toolkit:
       git:
         ref: master
-        url: https://github.com/ChildrenOfUr/cou_toolkit.git
+        url: git://github.com/ChildrenOfUr/cou_toolkit.git
   cou_login:
       git:
         ref: master
-        url: https://github.com/ChildrenOfUr/cou_login.git
+        url: git://github.com/ChildrenOfUr/cou_login.git
 
 transformers:
 - redstone_mapper
