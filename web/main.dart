@@ -28,7 +28,7 @@ import 'package:libld/libld.dart'; // Nice and simple asset loading.
 import 'package:pump/pump.dart';
 
 import 'package:polymer/polymer.dart';
-import 'package:couclient/toolkit/slider/slider.dart';
+import 'package:cou_toolkit/toolkit/slider/slider.dart';
 import 'package:couclient/configs.dart';
 
 import 'package:redstone_mapper/mapper.dart';

@@ -1,9 +1,0 @@
-paper-slider::shadow #sliderBar::shadow #activeProgress {
-  background-color: #4b2e4c;
-}
-paper-slider::shadow #sliderKnobInner {
-  background-color: #4b2e4c;
-}
-paper-slider::shadow #sliderKnobInner::before {
-  background-color: #4b2e4c;
-}
