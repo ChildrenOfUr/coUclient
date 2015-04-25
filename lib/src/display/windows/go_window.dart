@@ -17,6 +17,8 @@ class GoWindow extends Modal {
     search.onInput.listen((e) {
       filter(search.value.toLowerCase());
     });
+    
+    view.tpButton.onClick.listen((_) => this.open());
   }
 
   go(tsid) {

@@ -43,6 +43,8 @@ class UserInterface
 	// settings window elements
 	ElementList tabs = querySelectorAll('article .tab');
 
+	// teleport window
+	Element tpButton = querySelector("#tpGlyph");
 
 	// bugreport button
 	Element bugButton = querySelector('#bugGlyph');
