@@ -11,7 +11,14 @@ class MapWindow extends Modal {
       this.open();
       worldMap = new WorldMap(currentStreet.hub_id);
     });
-  }
 
+    document.onKeyDown.listen((KeyboardEvent k) {
+    	if (k.keyCode == inputManager.keys["MapBinding"] && !inputManager.ignoreKeys) {
+    		this.open();
+    		worldMap = new WorldMap(currentStreet.hub_id);
+    	}
+    });
+
+  }
 
 }

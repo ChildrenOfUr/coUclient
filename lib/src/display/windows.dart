@@ -65,7 +65,7 @@ abstract class Modal {
 		escListener = document.onKeyUp.listen((KeyboardEvent e) {
 			if(e.keyCode == 27) {  //escape key
 				this.close();
-				escListener.cancel();
+				// COMMENTED TO ALLOW PRESSING ESC TO CLOSE ANY WINDOW // escListener.cancel();
 			}
 		});
 

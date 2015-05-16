@@ -35,7 +35,8 @@ class InputManager {
     "JumpBindingPrimary": 32,
     "JumpBindingAlt": 32,
     "ActionBindingPrimary": 13,
-    "ActionBindingAlt": 13
+    "ActionBindingAlt": 13,
+    "MapBinding": 77.109
   };
   bool ignoreKeys = false,
       touched = false,
