@@ -10,7 +10,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:math';
 import 'dart:js';
-import 'dart:profiler';
+// (unused) // import 'dart:profiler';
 
 // LIBRARIES //
 // Used for NumberFormat
@@ -88,6 +88,7 @@ part 'package:couclient/src/game/entities/player.dart';
 part 'package:couclient/src/game/animation.dart';
 part 'package:couclient/src/game/chat_bubble.dart';
 part 'package:couclient/src/game/entities/entity.dart';
+part 'package:couclient/src/game/entities/wormhole.dart';
 part 'package:couclient/src/game/entities/npc.dart';
 part 'package:couclient/src/game/entities/plant.dart';
 part 'package:couclient/src/game/street.dart';

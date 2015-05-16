@@ -9,43 +9,56 @@
         <core-pages selected="{{selected}}" valueattr="id">
             <!--Compose a new message-->
             <div id="compose">
-                <input type="text" placeholder="To" value="{{toField}}">
+                <input type="text" placeholder="To" value="{{toField}}" id="input_to" class="input_text input_line">
                 <br>
-                <input type="text" placeholder="Subject" value="{{toSubject}}">
+                <input type="text" placeholder="Subject" value="{{toSubject}}" id="input_subject" class="input_text input_line">
                 <br>
-                <textarea placeholder="Message" value="{{toBody}}"></textarea>
-                <ur-button on-click="{{sendMessage}}">Send</ur-button>
-                <ur-button on-click="{{closeMessage}}">Discard</ur-button>
+                <textarea placeholder="Message" value="{{toBody}}" id="input_message" class="input_text input_box"></textarea>
+                <div id="send_actions">
+                    <ur-button on-click="{{sendMessage}}" id="action_send">&emsp;<i class="fa fa-paper-plane"></i> Send Message&emsp;</ur-button>
+                    <ur-button on-click="{{closeMessage}}" id="action_discard">&emsp;<i class="fa fa-trash"></i> Discard&emsp;</ur-button>
+                </div>
             </div>
 
             <!--Read a message-->
             <div id="read">
-                <div>From: {{fromField}}</div>
-                <div>Subject: {{fromSubject}}</div>
-                <div>{{fromBody}}</div>
-                <ur-button on-click="{{reply}}" data-message-id="{{fromId}}">Reply</ur-button>
-                <ur-button on-click="{{closeMessage}}">Close</ur-button>
+                <h1 id="from">A message from {{fromField}}...</h1>
+                <h2 id="subject">{{fromSubject}}</h2>
+                <p id="message">{{fromBody}}</p>
+                <div id="read_actions">
+                    <ur-button on-click="{{reply}}" data-message-id="{{fromId}}" id="btn_reply">&emsp;Reply&emsp;</ur-button>
+                    <ur-button on-click="{{closeMessage}}" id="btn_close">&emsp;Close&emsp;</ur-button>
+                </div>
             </div>
 
             <!--View the inbox-->
             <div id="inbox">
-                <ur-button on-click="{{refresh}}">Refresh</ur-button>
-                <table>
+                <ur-button on-click="{{compose}}" id="btn_compose">&emsp;Compose&emsp;</ur-button>
+                <ur-button on-click="{{refresh}}" id="btn_refresh">&emsp;Refresh&emsp;</ur-button>
+                <table id="message_list" cellpadding="0" cellspacing="0">
                     <thead>
-                    <tr>
-                        <td>From</td>
-                        <td>Subject</td>
-                    </tr>
+                        <td id="thead_from">From</td>
+                        <td id="thead_subject">Subject</td>
+                        <td id="thead_delete">&nbsp;</td>
                     </thead>
                     <tbody>
-                    <tr template repeat="{{message in messages}}" on-click="{{read}}" data-message-id="{{message.id}}">
-                        <td>{{message.from_user}}</td>
-                        <td>{{message.subject}}</td>
-                        <td><ur-button on-click="{{deleteMessage}}" data-message-id="{{message.id}}">Delete</ur-button></td>
-                    </tr>
+                        <tr template
+                        repeat="{{message in messages}}"
+                        data-message-id="{{message.id}}"
+                        class="inbox_message">
+                            <td class="tbody_from">{{message.from_user}}</td>
+                            <td class="tbody_subject">
+                                <a href="#" on-click="{{read}}" data-message-id="{{message.id}}">{{message.subject}}</a>
+                            </td>
+                            <td class="tbody_delete">
+                                <ur-button
+                                on-click="{{deleteMessage}}"
+                                data-message-id="{{message.id}}"
+                                class="btn_delete">Delete</ur-button>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
-                <ur-button on-click="{{compose}}">Compose</ur-button>
             </div>
         </core-pages>
 
