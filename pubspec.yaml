@@ -16,7 +16,7 @@ dependencies:
     git:
       ref: master
       url: git://github.com/ppvk/pump.git
-  redstone_mapper: '>=0.1.13 <0.2.0'
+  redstone_mapper: '0.2.0-beta.1'
   scproxy:
     git:
       ref: master

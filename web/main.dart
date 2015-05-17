@@ -31,6 +31,8 @@ import 'package:polymer/polymer.dart';
 import 'package:cou_toolkit/toolkit/slider/slider.dart';
 import 'package:couclient/configs.dart';
 
+import 'package:cou_auction_house/auction_house/encodes.dart';
+
 import 'package:redstone_mapper/mapper.dart';
 import 'package:redstone_mapper/mapper_factory.dart';
 
