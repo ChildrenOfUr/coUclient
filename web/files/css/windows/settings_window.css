@@ -1,20 +1,45 @@
 #settingsWindow article .tab-content * {
-  font-family: 'Tahoma', 'Geneva', 'sans-serif';
-  color:#444;
+    font-family: 'Tahoma', 'Geneva', 'sans-serif';
+    color: #444;
 }
+
 #settingsWindow article .tab-content div {
-  font-size:1em;
-  margin:9px;
+    font-size: 1em;
+    margin: 9px;
 }
+
 #settingsWindow article .tab-content div kbd {
-  background-color:#4b2e4c;
-  color:#eee;
-  font-family: 'Tahoma', 'Geneva', 'sans-serif';
-  padding:3px;
-  text-align:right;
-  border-radius:5px;
-  float:right;
+    background-color: #4b2e4c;
+    color: #eee;
+    font-family: 'Tahoma', 'Geneva', 'sans-serif';
+    padding: 3px;
+    text-align: right;
+    border-radius: 5px;
+    margin-left: 5px;
 }
+
 #settingsWindow #keyboard.tab-content {
-  overflow-y: scroll;
+    overflow-y: scroll;
+}
+
+#keyboard #heading {
+    display: flex;
+    justify-content: flex-end;
+}
+
+#keyboard .keyboardRow {
+    display: flex;
+}
+
+#keyboard .keyboardRow span {
+    flex-grow: 1;
+}
+
+#keyboard #heading span {
+    width: 100px;
+    display: inline-block;
+}
+
+.KeyBindingOption {
+    width: 150px;
 }
