@@ -16,6 +16,5 @@
   float:right;
 }
 #settingsWindow #keyboard.tab-content {
-  /* prevent useless scrollbar */
-  overflow-y: hidden; 
+  overflow-y: scroll;
 }
