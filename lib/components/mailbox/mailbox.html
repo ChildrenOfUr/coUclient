@@ -35,29 +35,35 @@
             <div id="inbox">
                 <ur-button on-click="{{compose}}" id="btn_compose">&emsp;Compose&emsp;</ur-button>
                 <ur-button on-click="{{refresh}}" id="btn_refresh">&emsp;Refresh&emsp;</ur-button>
-                <table id="message_list" cellpadding="0" cellspacing="0">
-                    <tr class="thead">
-                        <td id="thead_from">From</td>
-                        <td id="thead_subject">Subject</td>
-                        <td id="thead_delete">&nbsp;</td>
-                    </tr>
-                    <tbody>
-                        <tr template
-                        repeat="{{message in messages}}"
-                        data-message-id="{{message.id}}"
-                        class="{{!message.read?'inbox_message unread':'inbox_message'}}">
-                            <td class="tbody_from">{{message.from_user}}</td>
-                            <td class="tbody_subject">
-                                <a href="#" on-click="{{read}}" data-message-id="{{message.id}}">{{message.subject}}</a>
-                            </td>
-                            <td class="tbody_delete">
-                                <ur-button on-click="{{deleteMessage}}"
-                                           class="btn_delete"
-                                           data-message-id="{{message.id}}">Delete</ur-button>
-                            </td>
+                <template if="{{userHasMessages}}">
+                    <table id="message_list" cellpadding="0" cellspacing="0" visible?="{{userHasMessages}}">
+                        <tr class="thead">
+                            <td id="thead_from">From</td>
+                            <td id="thead_subject">Subject</td>
+                            <td id="thead_delete">&nbsp;</td>
                         </tr>
-                    </tbody>
-                </table>
+                        <tbody>
+                            <tr template
+                            repeat="{{message in messages}}"
+                            data-message-id="{{message.id}}"
+                            class="{{!message.read?'inbox_message unread':'inbox_message'}}">
+                                <td class="tbody_from">{{message.from_user}}</td>
+                                <td class="tbody_subject">
+                                    <a href="#" on-click="{{read}}" data-message-id="{{message.id}}">{{message.subject}}</a>
+                                </td>
+                                <td class="tbody_delete">
+                                    <ur-button on-click="{{deleteMessage}}"
+                                               class="btn_delete"
+                                               data-message-id="{{message.id}}">Delete</ur-button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </template>
+                <template if="{{!userHasMessages}}"><div id="emptyinbox">
+                        <p><b>You have no messages.</b></p>
+                        <p>Why don't you be a nice friend and <a href="#" on-click="{{compose}}">write one</a>?</p>
+                </div></template>
             </div>
         </core-pages>
 

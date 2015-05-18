@@ -51,8 +51,8 @@ table {
 
 td {
     border-bottom: 2px solid #4b2e4c;
-    padding-top: 5px;
-    padding-bottom: 5px;
+    padding: 5px;
+    font-size: 16px;
 }
 
 .thead {
@@ -93,6 +93,12 @@ ur-button#btn_refresh {
 }
 
 .unread {
+    background: rgba(75, 46, 76, 0.2);
     font-weight: bold;
-    background: rgba(75, 46, 76, 0.32);
+}
+
+#emptyinbox {
+    font-size: 20px;
+    margin-top: 80px;
+    text-align: center;
 }
