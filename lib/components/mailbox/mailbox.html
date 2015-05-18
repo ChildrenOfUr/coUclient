@@ -45,7 +45,7 @@
                         <tr template
                         repeat="{{message in messages}}"
                         data-message-id="{{message.id}}"
-                        class="inbox_message">
+                        class="{{!message.read?'inbox_message unread':'inbox_message'}}">
                             <td class="tbody_from">{{message.from_user}}</td>
                             <td class="tbody_subject">
                                 <a href="#" on-click="{{read}}" data-message-id="{{message.id}}">{{message.subject}}</a>

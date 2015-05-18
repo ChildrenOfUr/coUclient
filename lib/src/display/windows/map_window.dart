@@ -15,9 +15,9 @@ class MapWindow extends Modal {
 		document.onKeyDown.listen((KeyboardEvent k) {
 			if(inputManager == null)
 				return;
-			
-			if(k.keyCode == inputManager.keys["MapBindingPrimary"]
-			   || k.keyCode == inputManager.keys["MapBindingAlt"]
+
+			if((k.keyCode == inputManager.keys["MapBindingPrimary"]
+			   || k.keyCode == inputManager.keys["MapBindingAlt"])
 			      && !inputManager.ignoreKeys) {
 				if(this.window.hidden) {
 					this.open();
