@@ -8,9 +8,11 @@ import "package:polymer/polymer.dart";
 import "package:couclient/configs.dart";
 import "package:redstone_mapper/mapper.dart";
 
+import "mail.dart";
+
 @CustomTag("ur-mailbox")
 class Mailbox extends PolymerElement {
-	@observable List<Message> messages = toObservable([]);
+	@observable List<Mail> messages = toObservable([]);
 	@observable String selected = "inbox", toField, toSubject, toBody, fromField, fromSubject, fromBody;
 	@observable int fromId;
 	String serverAddress;
@@ -22,13 +24,13 @@ class Mailbox extends PolymerElement {
 	refresh() async {
 		String user = window.sessionStorage['playerName'];
 		HttpRequest request = await postRequest(serverAddress + '/getMail', {'user':user});
-		messages = decode(JSON.decode(request.responseText), Message);
+		messages = decode(JSON.decode(request.responseText), Mail);
 	}
 
 	read(Event event, var detail, Element target) async {
 		selected = "read";
 		int id = int.parse(target.attributes['data-message-id']);
-		Message message = messages.singleWhere((Message m) => m.id == id);
+		Mail message = messages.singleWhere((Mail m) => m.id == id);
 		fromField = message.from_user;
 		fromSubject = message.subject;
 		fromBody = message.body;
@@ -40,7 +42,7 @@ class Mailbox extends PolymerElement {
 
 	reply(Event event, var detail, Element target) {
 		int id = int.parse(target.attributes['data-message-id']);
-		Message message = messages.singleWhere((Message m) => m.id == id);
+		Mail message = messages.singleWhere((Mail m) => m.id == id);
 		toField = message.from_user;
 		toSubject = "Re: " + message.subject;
 		selected = "compose";
@@ -51,15 +53,21 @@ class Mailbox extends PolymerElement {
 	closeMessage() => selected = "inbox";
 
 	sendMessage() async {
-		Message message = new Message();
+		Mail message = new Mail();
 		message.to_user = toField;
 		message.from_user = window.sessionStorage['playerName'];
 		message.body = toBody;
 		message.subject = toSubject;
 
 		HttpRequest request = await postRequest(serverAddress + '/sendMail', encode(message));
-		if(request.responseText == "OK")
+		if(request.responseText == "OK") {
+			//clear sending fields (for next message)
+
+			toField = "";
+			toBody = "";
+			toSubject = "";
 			selected = "inbox";
+		}
 	}
 
 	deleteMessage(Event event, var detail, Element element) async {
@@ -69,7 +77,7 @@ class Mailbox extends PolymerElement {
 		HttpRequest request = await postRequest(serverAddress + '/deleteMail', {'id':id});
 
 		if(request.responseText == "OK")
-			messages.removeWhere((Message m) => m.id == id);
+			messages.removeWhere((Mail m) => m.id == id);
 
 		messages = toObservable(new List.from(messages)); //list not updating without this
 	}
@@ -79,19 +87,4 @@ class Mailbox extends PolymerElement {
 			requestHeaders = {"content-type": "application/json"};
 		return HttpRequest.request(url, method: "POST", requestHeaders:requestHeaders, sendData: JSON.encode(data));
 	}
-}
-
-class Message {
-	@Field()
-	int id;
-	@Field()
-	String to_user;
-	@Field()
-	String from_user;
-	@Field()
-	String subject;
-	@Field()
-	String body;
-	@Field()
-	bool read;
 }

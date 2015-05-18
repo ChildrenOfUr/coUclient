@@ -31,6 +31,17 @@ class MailboxWindow extends Modal {
 	MailboxWindow() {
 		prepare();
 	}
+
+	open() {
+		(querySelector("ur-mailbox") as Mailbox).refresh();
+		inputManager.ignoreKeys = true;
+		super.open();
+	}
+
+	close() {
+		inputManager.ignoreKeys = false;
+		super.close();
+	}
 }
 
 /// A Dart interface to an html Modal

@@ -55,7 +55,7 @@ td {
 	padding-bottom: 5px;
 }
 
-thead {
+.thead {
 	font-weight: bold;
 }
 
@@ -65,12 +65,12 @@ a:visited {
 	color: #4b2e4c;
 }
 
-td.#thead_from {
+#thead_from {
 	min-width: 100px;
 	max-width: 200px;
 }
 
-td.#thead_subject {
+#thead_subject {
 	min-width: 200px;
 }
 
@@ -79,8 +79,8 @@ td.tbody_subject {
 	overflow: hidden;
 }
 
-td#thead_delete
-td.tbody_delete {
+td #thead_delete
+td .tbody_delete {
 	width: 60px;
 }
 
