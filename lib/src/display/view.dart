@@ -112,7 +112,7 @@ class UserInterface {
   UserInterface() {
 
     //load emoticons
-    new Asset("assets/emoticons/emoticons.json").load().then((Asset asset) => EMOTICONS = asset.get()["names"]);
+    new Asset("files/emoticons/emoticons.json").load().then((Asset asset) => EMOTICONS = asset.get()["names"]);
 
     // Set initial Time
     currDay.text = clock.dayofweek;

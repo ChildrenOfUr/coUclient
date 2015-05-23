@@ -17,7 +17,7 @@ String parseEmoji(String message) {
   RegExp regex = new RegExp(":(.+?):");
   message.splitMapJoin(regex, onMatch: (Match m) {
     String match = m[1];
-    if (EMOTICONS.contains(match)) returnString += '<img style="height:1em;" class="Emoticon" src="assets/emoticons/$match.svg"></img>'; else returnString += m[0];
+    if (EMOTICONS.contains(match)) returnString += '<img style="height:1em;" class="Emoticon" src="files/emoticons/$match.svg"></img>'; else returnString += m[0];
   }, onNonMatch: (String s) => returnString += s);
 
   return returnString;
