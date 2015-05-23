@@ -70,6 +70,7 @@ part 'package:couclient/src/display/windows/map_window.dart';
 part 'package:couclient/src/display/windows/motd_window.dart';
 part 'package:couclient/src/display/windows/vendor_window.dart';
 part 'package:couclient/src/display/windows/go_window.dart';
+part 'package:couclient/src/display/windows/calendar_window.dart';
 
 // WIDGET MODULES //
 part 'package:couclient/src/display/widgets/volumeslider.dart';

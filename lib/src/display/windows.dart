@@ -9,6 +9,7 @@ class WindowManager {
 	VendorWindow vendor = new VendorWindow();
 	MotdWindow motdWindow = new MotdWindow();
 	GoWindow goWindow = new GoWindow();
+	CalendarWindow calendarWindow = new CalendarWindow();
 
 	WindowManager() {
 		new Service([#vedorWindow], (Message event) {
