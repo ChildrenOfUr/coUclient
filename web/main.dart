@@ -149,8 +149,8 @@ void main()
 @whenPolymerReady
 initMethod()
 {
-	audio = new SoundManager();
 	view = new UserInterface();
+	audio = new SoundManager();
 	windowManager = new WindowManager();
 	auth = new AuthManager();
 
