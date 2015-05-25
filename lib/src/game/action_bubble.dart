@@ -1,7 +1,11 @@
 part of couclient;
 
 class ActionBubble {
-  ActionBubble(String text, int duration) {
+  int duration;
+
+  SpanElement outline = new SpanElement();
+  SpanElement fill = new SpanElement()
+  ActionBubble(String text, this.duration) {
     // Position the action bubble
     num posX = CurrentPlayer.posX;
     num posY = CurrentPlayer.posY;
@@ -18,18 +22,18 @@ class ActionBubble {
       translateY = view.worldElement.clientHeight/2 - height/2;
     else
       translateY = view.worldElement.clientHeight - (currentStreet.bounds.height - posY);
-    x = (translateX+menu.clientWidth+10)~/1;
-    y = (translateY+height/2)~/1;
+    int x = (translateX+menu.clientWidth+10)~/1;
+    int y = (translateY+height/2)~/1;
 
-    SpanElement outline = new SpanElement()
+    outline
       ..text = (option[0] as String).split("|")[1]
       ..className = "border"
       ..style.top  = '$y' 'px'
       ..style.left = '$x' 'px';
-    SpanElement fill = new SpanElement()
+    fill
       ..text = (option[0] as String).split("|")[1]
       ..className = "fill" + " " + (option[0] as String).split("|")[1]
-      ..style.transition = "width ${timeRequired/1000}s linear"
+      ..style.transition = "width ${duration/1000}s linear"
       ..style.top  = '$y' 'px'
       ..style.left = '$x' 'px';
 
@@ -37,30 +41,33 @@ class ActionBubble {
 
     //start the "fill animation"
     fill.style.width = outline.clientWidth.toString()+"px";
+  }
+
+  Future get wait {
 
     StreamSubscription escListener;
     Timer miningTimer = new Timer(new Duration(milliseconds:duration+300), ()
     {
       outline.remove();
       fill.remove();
-      Map arguments = null;
-      if(option.length > 3)
-        arguments = option[3];
-      sendAction((option[0] as String).split("|")[0].toLowerCase(),option[1],arguments);
+
+      // DONE
+
       escListener.cancel();
-      destroy();
     });
+
     escListener = document.onKeyUp.listen((KeyboardEvent k)
     {
       if(k.keyCode == 27)
       {
+
+        // DONE
+
         outline.remove();
         fill.remove();
         escListener.cancel();
         miningTimer.cancel();
       }
     });
-
-
   }
 }
