@@ -1,591 +1,112 @@
 <!DOCTYPE html>
 <html>
-<head>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        
+        <!--iOS-->
+        <meta name="mobile-web-app-capable" content="yes">
+        
+        <!--Chrome for android-->
+        <link rel="icon" type="image/png" href="files/system/favicon.ico">
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <!--iOS-->
-    <meta name="mobile-web-app-capable" content="yes">
-    <!--Chrome for android-->
-    <link rel="icon" type="image/png" href="files/system/favicon.ico">
-    <title>CoU - children of Ur</title>
+        <!-- Display Page Title -->
+        <title>CoU - children of Ur</title>
+        
+        <!--Import game css-->
+        <link rel="stylesheet" href="style.css">
+        <link id="MobileStyle" rel="stylesheet" href="files/css/mobile.css" disabled>
 
-    <!--Import game css-->
-    <link rel="stylesheet" href="style.css">
-    <link id="MobileStyle" rel="stylesheet" href="files/css/mobile.css" disabled>
+        <!--Firebase Login-->
+        <script src="https://cdn.firebase.com/js/client/2.2.2/firebase.js"></script>
 
-    <!--Firebase Login-->
-    <script src="https://cdn.firebase.com/js/client/2.2.2/firebase.js"></script>
+        <!--Polymer components-->
+        <link rel="import" href="packages/couclient/components/components_import.html">
 
-    <!--Polymer components-->
-    <link rel="import" href="packages/couclient/components/components_import.html">
-
-    <!-- Google Analytics -->
-    <script>
-        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-                    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        <!-- Google Analytics -->
+        <script>
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
                 m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-        ga('create', 'UA-54732442-4', 'auto');
-        ga('send', 'pageview');
-    </script>
-</head>
-<body unresolved>
+            ga('create', 'UA-54732442-4', 'auto');
+            ga('send', 'pageview');
+        </script>
+    </head>
+    <body unresolved>
+        
+        <!--This preloads the Sniglet font so that it works correctly with the actions-->
+        <div style="font-family: Sniglet;opacity:0;position:absolute;">.</div>
 
-<!--This preloads the Sniglet font so that it works correctly with the actions-->
-<div style="font-family: Sniglet;opacity:0;position:absolute;">.</div>
+        <div id="loading">
+            <img src="files/system/earf.png" id="spinny-ur">
+            <ur-login></ur-login>
+            <div id="loadstatus">Loading</div>
+            <br>
+            <div id="loadstatus2">This Stuff</div>
+        </div>
 
-<div id="loading">
-    <img src="files/system/earf.png" id="spinny-ur">
-    <ur-login></ur-login>
+        <main onContextMenu="return false">
+            
+            <!-- THE VARIOUS METERS AT THE TOP LEFT OF THE SCREEN -->
+            <ur-meters playername="" mood="1" maxmood="1" energy="1" maxenergy="1" imagination="0"></ur-meters>
+            <!-- ------------------------------------------------ -->
 
+            <ur-button id="thinkButton" theme="light">
+                <i class="fa fa-bars"></i>
+            </ur-button>
 
-    <div id="loadstatus">Loading</div>
-    <br>
+            <!-- Option Buttons -->
+            <link rel="import" href="files/html/topright.html">
 
-    <div id="loadstatus2">This Stuff</div>
-</div>
+            <!-- Game Container -->
+            <link rel="import" href="files/html/game.html">
 
+            <!-- Inventory slots, search, and currants -->
+            <link rel="import" href="files/html/inventory.html">
 
-<main onContextMenu="return false">
-    <!-- THE VARIOUS METERS AT THE TOP LEFT OF THE SCREEN -->
-    <ur-meters
-            playername=""
-            mood="1"
-            maxmood="1"
-            energy="1"
-            maxenergy="1"
-            imagination="0">
-    </ur-meters>
-    <!-- ------------------------------------------------ -->
-    <ur-button id="thinkButton" theme="light">
-        <i class="fa fa-bars"></i>
-    </ur-button>
+            <!-- Toasts -->
+            <div id="toastHolder"></div>
 
+            <!-- Right chat pane -->
+            <link rel="import" href="files/html/chat.html">
 
-    <div id="topRight">
-        <div id="mapDisplay">
-            <div class="label">
-                Current Location:
+            <!-- SoundCloud -->
+            <ur-musicplayer id="SCwidget" artist="" song=""></ur-musicplayer>
+
+            <!-- Windows -->
+            <div id="windowHolder">
+                <link rel="import" href="files/html/settingswindow.html">
+                <link rel="import" href="files/html/mapwindow.html">
+                <link rel="import" href="files/html/auctionwindow.html">
+                <link rel="import" href="files/html/mailboxwindow.html">
+                <link rel="import" href="files/html/shopwindow.html">
+                <link rel="import" href="files/html/bagwindow.html">
+                <link rel="import" href="files/html/bugwindow.html">
+                <link rel="import" href="files/html/motdwindow.html">
+                <link rel="import" href="files/html/gowindow.html">
             </div>
-            <div id="currLocation"></div>
-        </div>
-        <ur-button id="mapButton" theme="light">
-            Map <i class="fa fa-map-marker"></i>
-        </ur-button>
-        <nav>
-            <a href="#" title="Teleport">
-                <i id="tpGlyph" class="fa fa-street-view"></i>
-            </a>
-            <a href="#" title="Log Out">
-                <i id="signoutGlyph" class="fa fa-sign-out"></i>
-            </a>
-            <a href="#" title="Send Feedback">
-                <i id="bugGlyph" class="fa fa-bug"> </i>
-            </a>
-            <a href="http://childrenofur.com" target="_blank" title="CoU Homepage">
-                <i id="questionGlyph" class="fa fa-home"> </i>
-            </a>
-            <i id="volumeGlyph" class="fa fa-volume-up" title="Volume"></i>
-            <a href="#" title="Settings">
-                <i id="settingsGlyph" class="fa fa-cog"></i>
-            </a>
-        </nav>
-        <div id="time">
-            <div id="currDay">N</div>
-            <div id="currTime">N:NN</div>
-            <div id="currDate">Nth of N</div>
-        </div>
-    </div>
 
-    <div id="game">
-
-        <div id="world">
-            <div id="street">
-                <div id="layers"></div>
-                <div id="playerHolder"></div>
-            </div>
-        </div>
-
-        <div id="overlayHolder">
-            <div id="pauseMenu" class="overlay" hidden>
-                <div id="pauseSkills">
-                    <h2>Skills</h2>
-                </div>
-                <div id="pauseQuests">
-                    <h2>Quests</h2>
-                </div>
-                <div id="pauseUpgrades">
-                    <h2>Upgrades</h2>
-                </div>
-                <i class="fa-li fa fa-times close"></i>
-            </div>
-        </div>
-
-
-        <div id="MapLoadingScreen" class="MapLoadingScreen">
-            <div id="MapLoadingContent">
-                <img id="StreetLoadingImage">
-                <span id="NowEntering"></span>
-                <ur-progress id="streetLoadingBar" percent="0" status="Loading..."></ur-progress>
-            </div>
-        </div>
-
-    </div>
-
-
-    <div id="inventorySearch">
-        <img src="files/system/bag.svg">
-    </div>
-
-
-    <ur-well id="inventory">
-        <div class="box"></div>
-        <div class="box"></div>
-        <div class="box"></div>
-        <div class="box"></div>
-        <div class="box"></div>
-        <div class="box"></div>
-        <div class="box"></div>
-        <div class="box"></div>
-        <div class="box"></div>
-        <div class="box"></div>
-    </ur-well>
-
-    <div id="currantBack">
-        <img src="files/system/currant.svg" id="currantEmblem">
-
-        <div id="currantText">
-            <div id="currCurrants">n</div>
-            <div id="currantLabel">Currants</div>
-        </div>
-    </div>
-
-    <div id="toastHolder">
-    </div>
-
-    <div id="rightSide">
-        <div class="toggleSide">
-            <i class="fa fa-chevron-left"></i>
-        </div>
-
-        <ul id="miscList" class="fa-ul">
-            <li class="chatSpawn"><i class="fa-li fa fa-question"></i>
-                Live Help
-            </li>
-            <li class="chatSpawn"><i class="fa-li fa fa-asterisk"></i>
-                Global Chat
-            </li>
-        </ul>
-
-        <h3>Groups</h3>
-        <ul id="groupList" class="fa-ul">
-            <li class="online chatSpawn"><i class="fa-li fa fa-square"></i>
-                Glitchen of Doo
-            </li>
-            <li class="online chatSpawn"><i class="fa-li fa fa-square"></i>
-                Monster Hunters
-            </li>
-            <li class="online chatSpawn"><i class="fa-li fa fa-square"></i>
-                Swimming
-            </li>
-        </ul>
-
-        <h3>Friends</h3>
-        <ul id="friendsList" class="fa-ul">
-            <li class="online chatSpawn"><i class="fa-li fa fa-user"></i>
-                Friendly
-            </li>
-            <li class="offline chatSpawn"><i class="fa-li fa fa-user"></i>
-                Mab
-            </li>
-            <li class="busy chatSpawn"><i class="fa-li fa fa-user"></i>
-                Zille
-            </li>
-        </ul>
-
-    </div>
-
-    <div id="panel">
-
-
-        <div id="conversationTemplate" hidden>
-            <div class="conversation">
-                <header>
-                    <i class="fa-li fa fa-chevron-down"></i>
-                    <span class="title"></span>
-                </header>
-                <div class="dialog">
-                </div>
-                <input class="Typing" type="text">
-            </div>
-        </div>
-
-        <div id="conversationArchive" hidden></div>
-
-    </div>
-
-    <ur-musicplayer id="SCwidget" artist="" song=""></ur-musicplayer>
-
-
-    <div id="windowHolder">
-
-        <div id="settingsWindow" class="window" hidden>
-            <i class="fa-li fa fa-times close"></i>
-            <header>
-                <i class="fa-li fa fa-gears"></i>
-                Settings
-            </header>
-            <article>
-
-                <div class="tab-holder">
-                    <span class="tab">Chat</span>
-                    <span class="tab">Sound</span>
-                    <span class="tab">Graphics</span>
-                    <span class="tab active" id="keyboard-settings-tab">Keyboard</span>
-                </div>
-
-                <div id="keyboard" class="tab-content">
-                    <div id="heading">
-                        <span>Primary</span>
-                        <span>Secondary</span>
-                    </div>
-                    <div class="keyboardRow">
-                        <span>Move Left</span>
-                        <kbd class="KeyBindingOption" id="LeftBindingPrimary">A</kbd>
-                        <kbd class="KeyBindingOption" id="LeftBindingAlt">left_arrow</kbd>
-                    </div>
-
-                    <div class="keyboardRow">
-                        <span>Move Right</span>
-                        <kbd class="KeyBindingOption" id="RightBindingPrimary">D</kbd>
-                        <kbd class="KeyBindingOption" id="RightBindingAlt">right_arrow</kbd>
-                    </div>
-
-                    <div class="keyboardRow">
-                        <span>Move Up</span>
-                        <kbd class="KeyBindingOption" id="UpBindingPrimary">W</kbd>
-                        <kbd class="KeyBindingOption" id="UpBindingAlt">up_arrow</kbd>
-                    </div>
-
-                    <div class="keyboardRow">
-                        <span>Move Down</span>
-                        <kbd class="KeyBindingOption" id="DownBindingPrimary">S</kbd>
-                        <kbd class="KeyBindingOption" id="DownBindingAlt">down_arrow</kbd>
-                    </div>
-
-                    <div class="keyboardRow">
-                        <span>Jump</span>
-                        <kbd class="KeyBindingOption" id="JumpBindingPrimary">S</kbd>
-                        <kbd class="KeyBindingOption" id="JumpBindingAlt">down_arrow</kbd>
-                    </div>
-
-                    <div class="keyboardRow">
-                        <span>Action</span>
-                        <kbd class="KeyBindingOption" id="ActionBindingPrimary">enger</kbd>
-                        <kbd class="KeyBindingOption" id="ActionBindingAlt">enter</kbd>
-                    </div>
-
-                    <div class="keyboardRow">
-                        <span>Open Map</span>
-                        <kbd class="KeyBindingOption" id="MapBindingPrimary">M</kbd>
-                        <kbd class="KeyBindingOption" id="MapBindingAlt">M</kbd>
-                    </div>
-
-                    <div id="keyboard-presets">
-                        <span>Presets: </span>
-                        <ur-button id="keyboard-preset-qwerty" theme="light">Qwerty</ur-button>
-                        <ur-button id="keyboard-preset-dvorak" theme="light" title="There are dozens of us! DOZENS!">
-                            Dvorak
-                        </ur-button>
-                    </div>
-
-                </div>
-
-                <div id="graphics" class="tab-content" hidden>
-                    <div class="content settingsContent">
-                        <label class="ChatSettingsOption"><input id="GraphicsBlur" type="checkbox"
-                                                                 class="ChatSettingsCheckbox">Enable Scenery
-                            Blur</label>
-                    </div>
-                </div>
-
-                <div id="chat" class="tab-content" hidden>
-                    <div class="content settingsContent">
-                        <label class="ChatSettingsOption"><input id="ShowJoinMessages" type="checkbox"
-                                                                 class="ChatSettingsCheckbox">Show Join Messages</label>
-                        <br>
-                        <label class="ChatSettingsOption"><input id="PlayMentionSound" type="checkbox"
-                                                                 class="ChatSettingsCheckbox">Play Mention Sound</label>
-                        <br>
-                    </div>
-                </div>
-
-                <div id="sound" class="tab-content" hidden>
-                    <div class="content settingsContent">
-                        <label>Music:<br>
-                            <ur-slider id="MusicSlider"></ur-slider>
-                        </label><br>
-                        <label>Sound Effects:<br>
-                            <ur-slider id="EffectSlider"></ur-slider>
-                        </label>
-                    </div>
-                </div>
-
-
-            </article>
-        </div>
-
-        <div id="mapWindow" class="window" hidden>
-            <i class="fa-li fa fa-times close"></i>
-            <header>
-                <i class="fa-li fa fa-map-marker"></i>
-                <span id="mapTitle">Map</span>
-            </header>
-            <ur-well id="mapImage">
-                <canvas id="MapCanvas" width="760" height="460"></canvas>
-            </ur-well>
-        </div>
-
-        <div id="auctionWindow" class="window" hidden>
-            <i class="fa-li fa fa-times close"></i>
-            <header>
-                <span id="auctionsTitle">Auctions</span>
-            </header>
-            <article>
-                <auction-house></auction-house>
-            </article>
-        </div>
-
-        <div id="mailboxWindow" class="window" hidden>
-            <i class="fa-li fa fa-times close"></i>
-            <header>
-                <i class="fa-li fa fa-envelope"></i><span id="mailboxTitle">Mailbox</span>
-            </header>
-            <article style="overflow-y: scroll;">
-                <ur-mailbox></ur-mailbox>
-            </article>
-        </div>
-
-        <div id="shopWindow" class="window" hidden>
-            <i class="fa-li fa fa-times close"></i>
-            <header>
-                Vendor
-            </header>
-            <article>
-                <div class="tab-holder">
-                    <span id="SellTab" class="tab">Sell</span>
-                    <span id="BuyTab" class="tab active">Buy</span>
-                </div>
-
-                <div id="sell" class="tab-content">
-                    <div id="SellDropTarget"></div>
-                    <img src="files/system/callout_dropitem.png" id="SellCallout">
-                </div>
-
-                <div id="buy" class="tab-content">
-                </div>
-
-                <div id="buy-qty" class="tab-content" hidden>
-                    <div class="back">
-                        <i class="fa fa-chevron-left"></i>
-                        Back
-                    </div>
-                    <div class="LeftColumn">
-                        <div class="ItemImageParent">
-                            <img src="" class="ItemImage">
-                            <span class="ItemPrice">ADB</span>
-                        </div>
-                        <div class="ItemCount">
-                            <span style="color:gray;vertical-align:middle">You have </span>
-                            <span class="ItemNum itemDetailNum">0</span>
-                            <span style="color:gray;vertical-align:middle"> of these</span>
-                        </div>
-                    </div>
-                    <div class="RightColumn">
-                        <div class="ItemName"></div>
-                        <div class="QuantityParent">
-                            <i class="minus fa fa-minus"></i>
-                            <input class="NumToBuy" type="number" min="1" max="99">
-                            <i class="plus fa fa-plus"></i>
-                            <ur-button class="max" theme="light">Max</ur-button>
-                        </div>
-                        <ur-button class="BuyButton" theme="light" style="margin-left:10px;">Buy 1 for 1000₡</ur-button>
-                        <div class="Description"></div>
-                        <div class="ItemStack">
-                            <span class="BlankSlot"></span>
-                            <span style="color:gray;vertical-align:middle">Fits up to </span>
-                            <span class="StackNum itemDetailNum"></span>
-                            <span style="color:gray;vertical-align:middle"> in an inventory slot</span>
-                        </div>
-                    </div>
-
-                </div>
-
-                <div id="sell-qty" class="tab-content" hidden>
-                    <div class="back">
-                        <i class="fa fa-chevron-left"></i>
-                        Back
-                    </div>
-                    <div id="LeftColumn">
-                        <div id="ItemImageParent">
-                            <img src="" id="ItemImage">
-                            <span id="ItemPrice">Price 1₡</span>
-                        </div>
-                        <div id="ItemCount">
-
-                        </div>
-                    </div>
-                    <div id="RightColumn">
-                        <div id="ItemName"></div>
-                        <div id="QuantityParent">
-                            <span id="MinusButton">-</span>
-                            <input id="NumToBuy" type="number" min="1">
-                            <span id="PlusButton">+</span>
-                            <ur-button id="MaxButton" theme="light">Max</ur-button>
-                        </div>
-                        <ur-button id="BuyButton" theme="light" style="margin-left:10px;">Sell 1 for 0₡</ur-button>
-                        <div id="Description"></div>
-                        <div id="ItemStack">
-                            <span id="BlankSlot"></span>
-                            <span style="color:gray;vertical-align:middle">Fits up to </span>
-                            <span id="StackNum" class="itemDetailNum"></span>
-                            <span style="color:gray;vertical-align:middle"> in an inventory slot</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="footer">
-                    <span class="qty">???</span>
-                    <img src="files/system/currant.svg">
-                    <span>You have </span>
-                </div>
-            </article>
-        </div>
-
-
-        <div id="bagWindow" class="window" hidden>
-            <i class="fa-li fa fa-times close"></i>
-            <header>
-                Bag
-            </header>
-            <article>
-                Ignore me, I'm broken.
-                <ur-well class="storage">
-                    <div class="box"></div>
-                    <div class="box"></div>
-                    <div class="box"></div>
-                    <div class="box"></div>
-                    <div class="box"></div>
-                    <div class="box"></div>
-                    <div class="box"></div>
-                    <div class="box"></div>
-                    <div class="box"></div>
-                    <div class="box"></div>
-                    <br>
-
-                    <div class="box"></div>
-                    <div class="box"></div>
-                    <div class="box"></div>
-                    <div class="box"></div>
-                    <div class="box"></div>
-                    <div class="box"></div>
-                    <div class="box"></div>
-                    <div class="box"></div>
-                    <div class="box"></div>
-                    <div class="box"></div>
-                </ur-well>
-                <input type="text" placeholder="Search Inventory..." id="invsearch">
-            </article>
-        </div>
-
-        <div id="bugWindow" class="window" hidden>
-            <i class="fa-li fa fa-times close"></i>
-            <header>
-                <i class="fa-li fa fa-bug"></i>
-                Bugs/Suggestions
-            </header>
-            <ur-well>
-                <p>If you would like to report a bug or make a feature request, please fill this out. Your browser
-                    information is included automatically for debugging purposes. You can choose to provide an email
-                    address for further contact.</p>
-                <label for="reportCategory">Choose a report type:</label>
-                <select id="reportCategory">
-                    <option value="generic_other">Generic or Other</option>
-                    <option value="bug_prob_incomp">Bug, Problem, Incompatibility</option>
-                    <option value="sugg_feat_req">Suggestion or Feature Request</option>
-                </select>
-
-                <textarea id="reportMain"
-                          placeholder="Please provide a detailed description of the problem you are experiencing or of the feature you would like us to add."></textarea>
-                <textarea id="reportMeta" disabled="true"></textarea>
-                <input type="email" placeholder="Email Address (optional)">
-                <ur-button>Submit Report</ur-button>
-            </ur-well>
-        </div>
-
-        <div id="motdWindow" class="window" hidden>
-            <i class="fa-li fa fa-times close"></i>
-            <header>
-                <i class="fa-li fa fa-gears"></i>
-                Message of the Day
-            </header>
-            <ur-well>
-                <H1 class="red">Attention:</H1>
-                This 'game' is very much in pre-alpha, as such everything you see or collect is temporary.
-                Keep in mind that commands may change without warning, and things will break.
-                <br>
-                Report bugs at the project's page on <a
-                    href="https://github.com/ChildrenOfUr/coUclient/issues">Github</a>,
-                <br>
-                and send us suggestions by clicking the little <i class="fa fa-bug"></i> icon in the top right.
-                <br>
-                <br>
-                That being said, I want you to know that we care about you loads and hope you'll have fun in our little
-                world.
-                <br>
-                - CoU Dev Team
-            </ur-well>
-        </div>
-
-        <div id="goWindow" class="window" style="width: 230px;" hidden>
-            <i class="fa-li fa fa-times close"></i>
-            <header>
-                <i class="fa-li fa fa-street-view"></i>
-                Teleport
-            </header>
-            <ur-well>
-                <input type="text" placeholder="Search Locations">
-                <div id="locations"><link rel="import" href="files/locations/streetlist.html"></div>
-            </ur-well>
-        </div>
-
-    </div>
-
-    <div id="JoystickParent">
-        <div id="Joystick">
-            <div id="Knob"></div>
-        </div>
-    </div>
-    <div id="AButton">A</div>
-    <div id="BButton">B</div>
-
-</main>
-
-<div id="youWon" hidden><br><br><br><br>
-    WAIT! You were just about to win the game!
-</div>
-
-<script type="application/javascript">
-    function hasTouchSupport() {
-        return 'ontouchstart' in window;
-    }
-</script>
-
-<!-- Start the Game up. -->
-<script type="application/dart" src="main.dart"></script>
-<script src="packages/browser/dart.js"></script>
-</body>
+            <!-- Mobile Control -->
+            <div id="JoystickParent"><div id="Joystick"><div id="Knob"></div></div></div>
+            <div id="AButton">A</div><div id="BButton">B</div>
+
+        </main>
+
+        <!-- Be mean to new players -->
+        <div id="youWon" hidden><br><br><br><br>WAIT! You were just about to win the game!</div>
+
+        <!-- Check for touch capability -->
+        <script type="application/javascript">
+            function hasTouchSupport() {
+                return 'ontouchstart' in window;
+            }
+        </script>
+
+        <!-- Start the Game up. -->
+        <script type="application/dart" src="main.dart"></script>
+        <script src="packages/browser/dart.js"></script>
+    </body>
 </html>
