@@ -29,8 +29,8 @@ class Player
 
 	Player(this.username)
 	{
-		posX = metabolics.getCurrentStreetX();
-		posY = metabolics.getCurrentStreetY();
+		posX = metabolics.currentStreetX;
+		posY = metabolics.currentStreetY;
 
 		if(posX == 1.0 && posY == 0.0)
 		{

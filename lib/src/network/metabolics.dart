@@ -50,13 +50,13 @@ class Metabolics
 
 class MetabolicsService
 {
-	Metabolics metabolics;
+	Metabolics playerMetabolics;
 	DateTime lastUpdate, nextUpdate;
 	String url = 'ws://${Configs.websocketServerAddress}/metabolics';
 
 	void init(Metabolics m)
 	{
-		metabolics = m;
+		playerMetabolics = m;
 		view.meters.updateAll();
 
 		setupWebsocket();
@@ -73,7 +73,7 @@ class MetabolicsService
 			if(map['collectQuoin'] != null)
 				collectQuoin(map);
 			else
-				metabolics = decode(JSON.decode(event.data),Metabolics);
+				playerMetabolics = decode(JSON.decode(event.data),Metabolics);
 			update();
 		});
 		socket.onClose.listen((CloseEvent e)
@@ -136,21 +136,21 @@ class MetabolicsService
 		}
 	}
 
-	int getCurrants() => metabolics.currants;
+	int get currants => playerMetabolics.currants;
 
-	int getEnergy() => metabolics.energy;
+	int get energy => playerMetabolics.energy;
 
-	int getMaxEnergy() => metabolics.max_energy;
+	int get maxEnergy => playerMetabolics.max_energy;
 
-	int getMood() => metabolics.mood;
+	int get mood => playerMetabolics.mood;
 
-	int getMaxMood() => metabolics.max_mood;
+	int get maxMood => playerMetabolics.max_mood;
 
-	int getImg() => metabolics.img;
+	int get img => playerMetabolics.img;
 
-	String getCurrentStreet() => metabolics.current_street;
+	String get currentStreet => playerMetabolics.current_street;
 
-	num getCurrentStreetX() => metabolics.current_street_x;
+	num get currentStreetX => playerMetabolics.current_street_x;
 
-	num getCurrentStreetY() => metabolics.current_street_y;
+	num get currentStreetY => playerMetabolics.current_street_y;
 }

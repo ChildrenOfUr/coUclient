@@ -42,6 +42,7 @@ class Meters extends PolymerElement
 		// update energy disk angles and opacities
 		greenDisk.style.transform = 'rotate(${120 - (energy / maxenergy) * 120}deg)';
 		redDisk.style.transform = 'rotate(${120 - (energy / maxenergy) * 120}deg)';
+		redDisk.style.opacity = (1 - energy/maxenergy).toString();
 		hurtDisk.style.backfaceVisibility = 'visible';
 		hurtDisk.style.opacity = '${0.7 - (mood / maxmood)}';
 		deadDisk.style.opacity = (mood <= 0 ? 1 : 0).toString();
