@@ -422,6 +422,7 @@ class InputManager {
 		Element clickMenu = querySelector('#RightClickMenu');
 		Element list = querySelector('#RCActionList');
 
+
 		menuKeyListener = document.onKeyDown.listen((KeyboardEvent k) {
 			if((k.keyCode == keys["UpBindingPrimary"] || k.keyCode == keys["UpBindingAlt"]) && !ignoreKeys) //up arrow or w and not typing
 				selectUp(list, "RCItemSelected");
@@ -436,6 +437,8 @@ class InputManager {
 			if((k.keyCode == keys["ActionBindingPrimary"] || k.keyCode == keys["ActionBindingAlt"]) && !ignoreKeys) //spacebar and not typing
 				doAction(list, clickMenu, "RCItemSelected");
 		});
+
+
 		document.onClick.listen((_) {
 			stopMenu(clickMenu);
 		});

@@ -36,7 +36,7 @@ class VendorWindow extends Modal
 	call(Map vendorMap, {bool sellMode:false})
 	{
 		header.text = vendorMap['vendorName'];
-		currants.text = " ${commaFormatter.format(metabolics.getCurrants())} currants";
+		currants.text = " ${commaFormatter.format(metabolics.currants)} currants";
 
 		new List.from(buy.children)..forEach((child) => child.remove());
 
@@ -48,7 +48,7 @@ class VendorWindow extends Modal
 				..text = '${item['price']}₡'
 				..className = 'price-tag');
 
-			if (item['price'] > metabolics.getCurrants())
+			if (item['price'] > metabolics.currants)
 				price.classes.add("cantAfford");
 
 			//DivElement tooltip = new DivElement()..className = "vendorItemTooltip";
@@ -118,15 +118,15 @@ class VendorWindow extends Modal
 				if(numToBuy > getNumItems(item['name']))
 					return;
 
-				newValue = metabolics.getCurrants() + (item['price'] * numToBuy * .7) ~/ 1;
+				newValue = metabolics.currants + (item['price'] * numToBuy * .7) ~/ 1;
 				sendAction("sellItem", vendorId, actionMap);
 			}
 			else
 			{
-				if(metabolics.getCurrants() < item['price'] * numToBuy)
+				if(metabolics.currants < item['price'] * numToBuy)
     				return;
 
-    			newValue = metabolics.getCurrants() - item['price'] * numToBuy;
+    			newValue = metabolics.currants - item['price'] * numToBuy;
     			sendAction("buyItem", vendorId, actionMap);
 			}
 
@@ -160,7 +160,7 @@ class VendorWindow extends Modal
 				if(sellMode)
 					newNum = min((item['stacksTo']).toInt(),getNumItems(item['name']));
 				else
-					newNum = min((item['stacksTo']).toInt(), (metabolics.getCurrants() / item['price']) ~/ 1);
+					newNum = min((item['stacksTo']).toInt(), (metabolics.currants / item['price']) ~/ 1);
 				numToBuy = _updateNumToBuy(item, newNum, sellMode:sellMode);
 			}
 			catch (e) {}

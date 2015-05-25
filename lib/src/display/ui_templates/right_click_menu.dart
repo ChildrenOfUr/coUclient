@@ -4,6 +4,7 @@ class RightClickMenu
 {
 	static Element create(MouseEvent Click, String title, String description, List<List> options)
 	{
+    destroy();
 		DivElement menu = new DivElement()..id="RightClickMenu";
 
 		DivElement infoButton = new DivElement()..className="InfoButton fa fa-info-circle";
@@ -14,11 +15,14 @@ class RightClickMenu
 
 		menu..append(infoButton)..append(titleElement)..append(br)..append(desc)..append(actionList);
 
+
 		int x,y;
+
+
 		if(Click != null)
 		{
 			if (Click.page.y > window.innerHeight/2)
-    			y = Click.page.y - 55 - (options.length * 30);
+    			y = Click.page.y - menu.clientHeight;
     		else
     			y = Click.page.y - 10;
     		if (Click.page.x > window.innerWidth/2)
@@ -44,6 +48,8 @@ class RightClickMenu
 			x = (translateX+menu.clientWidth+10)~/1;
 			y = (translateY+height/2)~/1;
 		}
+
+
 		List <Element> newOptions = new List();
 		for (List option in options)
 		{
@@ -56,43 +62,8 @@ class RightClickMenu
 				{
 		        	int timeRequired = int.parse((option[0] as String).split("|")[2]);
 
-					SpanElement outline = new SpanElement()
-						..text = (option[0] as String).split("|")[1]
-						..className = "border"
-						..style.top  = '$y' 'px'
-                        ..style.left = '$x' 'px';
-					SpanElement fill = new SpanElement()
-						..text = (option[0] as String).split("|")[1]
-						..className = "fill" + " " + (option[0] as String).split("|")[1]
-						..style.transition = "width ${timeRequired/1000}s linear"
-						..style.top  = '$y' 'px'
-                        ..style.left = '$x' 'px';
-					document.body..append(outline)..append(fill);
-					//start the "fill animation"
-					fill.style.width = outline.clientWidth.toString()+"px";
 
-					StreamSubscription escListener;
-					Timer miningTimer = new Timer(new Duration(milliseconds:timeRequired+300), ()
-					{
-						outline.remove();
-						fill.remove();
-						Map arguments = null;
-						if(option.length > 3)
-							arguments = option[3];
-						sendAction((option[0] as String).split("|")[0].toLowerCase(),option[1],arguments);
-						escListener.cancel();
-						destroy();
-					});
-					escListener = document.onKeyUp.listen((KeyboardEvent k)
-					{
-						if(k.keyCode == 27)
-						{
-							outline.remove();
-                        	fill.remove();
-                        	escListener.cancel();
-                        	miningTimer.cancel();
-						}
-					});
+
 				})
 				..onMouseOver.listen((_)
     			{
@@ -126,7 +97,8 @@ class RightClickMenu
 			..top  = '$y' 'px'
 			..left = '$x' 'px';
 
-    	return menu;
+    document.onClick.first.then((_) => destroy());
+    return menu;
 	}
 
 	static void destroy()

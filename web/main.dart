@@ -97,6 +97,7 @@ part 'package:couclient/src/game/game.dart';
 part 'package:couclient/src/game/entities/player.dart';
 part 'package:couclient/src/game/animation.dart';
 part 'package:couclient/src/game/chat_bubble.dart';
+part 'package:couclient/src/game/action_bubble.dart';
 part 'package:couclient/src/game/entities/entity.dart';
 part 'package:couclient/src/game/entities/wormhole.dart';
 part 'package:couclient/src/game/entities/npc.dart';
