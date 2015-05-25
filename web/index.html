@@ -33,7 +33,7 @@
                 window.doNotTrack == "yes"      ||
                 window.doNotTrack == "1"        ||
                 window.msDoNotTrack == "1"      ){
-                document.write("Respecting Do-Not-Track request, disabling Google Analytics.");
+                console.log("Respecting Do-Not-Track request, disabling Google Analytics.");
             }
             else {
                 (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
