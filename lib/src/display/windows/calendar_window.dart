@@ -5,6 +5,7 @@ class CalendarWindow extends Modal {
 
   CalendarWindow() {
     prepare();
+    
     querySelector("#time").onClick.listen((_) {
       this.open();
     });
