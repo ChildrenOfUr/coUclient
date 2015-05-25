@@ -58,7 +58,7 @@ class RightClickMenu
 
 					SpanElement outline = new SpanElement()
 						..text = (option[0] as String).split("|")[1]
-						..className = "border"
+						..className = "border" + " " + (option[0] as String).split("|")[1]
 						..style.top  = '$y' 'px'
                         ..style.left = '$x' 'px';
 					SpanElement fill = new SpanElement()
