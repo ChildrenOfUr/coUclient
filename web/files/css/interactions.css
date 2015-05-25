@@ -1,9 +1,9 @@
 .fill {
-	width: 0px;
+	width: 0;
 	position:absolute;
 	color: #4b2e4c;
 	opacity: 0.7;
-	overflow: hidden;
+    overflow: hidden;
 	display: inline-block;
 	font-family: "Sniglet", "RockoFLFBold", Arial, Helvetica, sans-serif;
 	font-weight: 800;
@@ -28,19 +28,59 @@
 	color: #823917;
 }
 .border {
-	position:absolute;
-	color: #d3d3d3;
-	opacity: 0.9;
-	text-shadow:
-	-1px -1px 0 #fff,
-	1px -1px 0 #fff,
-	-1px 1px 0 #fff,
-	1px 1px 0 #fff;
-	-webkit-font-smoothing: antialiased;
-	display: inline-block;
-	font-family: "Sniglet", "RockoFLFBold", Arial, Helvetica, sans-serif;
-	font-weight: 800;
-	font-size: 36px;
+    position:absolute;
+    color: #d3d3d3;
+    opacity: 0.9;
+    text-shadow:
+    -1px -1px 0 #fff,
+    1px -1px 0 #fff,
+    -1px 1px 0 #fff,
+    1px 1px 0 #fff;
+    -webkit-font-smoothing: antialiased;
+    display: inline-block;
+    font-family: "Sniglet", "RockoFLFBold", Arial, Helvetica, sans-serif;
+    font-weight: 800;
+    font-size: 36px;
+}
+.border::after {
+    width: 1em;
+    height: 1em;
+    -webkit-filter: drop-shadow(0 0 2px rgba(255,255,255,1));
+    position: absolute;
+    opacity: 1;
+}
+
+.border.mining::after {
+    content: url(http://c2.glitch.bz/items/2012-12-06/fancy_pick__x1_iconic_png_1354831492.png);
+    -webkit-animation: 2s mine infinite linear;
+}
+.border.harvesting::after {
+    content: url('');
+}
+.border.watering::after {
+    content: url('');
+}
+.border.petting::after {
+    content: url('');
+}
+.border.nibbling::after {
+    content: url('');
+}
+.border.digging::after {
+    content: url('');
+}
+@-webkit-keyframes mine {
+    0% {
+        transform: translate3d(13px,0,0) rotate(-45deg);
+    }
+
+    50% {
+        transform: translate3d(13px,0,0) rotate(45deg);
+    }
+
+    100% {
+        transform: translate3d(13px,0,0) rotate(-45deg);
+    }
 }
 
 .item {
@@ -179,12 +219,12 @@
   transform: translateX(-50%) translateY(-50%);
   border-radius: 6px;
   background-color: #eee;
-  -o-box-shadow: 0px 0px 0px 8px rgba(0,0,0,0.1), 0px 0px 0px 2px rgba(0,0,0,0.3);
-  -khtml-box-shadow: 0px 0px 0px 8px rgba(0,0,0,0.1), 0px 0px 0px 2px rgba(0,0,0,0.3);
-  box-shadow: 0px 0px 0px 8px rgba(0,0,0,0.1), 0px 0px 0px 2px rgba(0,0,0,0.3);
+  -o-box-shadow: 0 0 0 8px rgba(0,0,0,0.1), 0 0 0 2px rgba(0,0,0,0.3);
+  -khtml-box-shadow: 0 0 0 8px rgba(0,0,0,0.1), 0 0 0 2px rgba(0,0,0,0.3);
+  box-shadow: 0 0 0 8px rgba(0,0,0,0.1), 0 0 0 2px rgba(0,0,0,0.3);
 }
 .entityContainer {
-  border: 1px solid eee;
+  border: 1px solid #eee;
   color: black;
 }
 .entitySelected {

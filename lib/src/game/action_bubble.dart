@@ -4,8 +4,8 @@ class ActionBubble {
   int duration;
 
   SpanElement outline = new SpanElement();
-  SpanElement fill = new SpanElement()
-  ActionBubble(String text, this.duration) {
+  SpanElement fill = new SpanElement();
+  ActionBubble(List action, this.duration) {
     // Position the action bubble
     num posX = CurrentPlayer.posX;
     num posY = CurrentPlayer.posY;
@@ -22,17 +22,17 @@ class ActionBubble {
       translateY = view.worldElement.clientHeight/2 - height/2;
     else
       translateY = view.worldElement.clientHeight - (currentStreet.bounds.height - posY);
-    int x = (translateX+menu.clientWidth+10)~/1;
+    int x = (translateX);
     int y = (translateY+height/2)~/1;
 
     outline
-      ..text = (option[0] as String).split("|")[1]
-      ..className = "border"
+      ..text = (action[0] as String).split("|")[1]
+      ..className = "border" + " " + (action[0] as String).split("|")[1]
       ..style.top  = '$y' 'px'
       ..style.left = '$x' 'px';
     fill
-      ..text = (option[0] as String).split("|")[1]
-      ..className = "fill" + " " + (option[0] as String).split("|")[1]
+      ..text = (action[0] as String).split("|")[1]
+      ..className = "fill" + " " + (action[0] as String).split("|")[1]
       ..style.transition = "width ${duration/1000}s linear"
       ..style.top  = '$y' 'px'
       ..style.left = '$x' 'px';
@@ -44,30 +44,27 @@ class ActionBubble {
   }
 
   Future get wait {
-
+    Completer completer = new Completer();
     StreamSubscription escListener;
     Timer miningTimer = new Timer(new Duration(milliseconds:duration+300), ()
     {
       outline.remove();
       fill.remove();
-
-      // DONE
-
       escListener.cancel();
+      completer.complete();
     });
 
     escListener = document.onKeyUp.listen((KeyboardEvent k)
     {
       if(k.keyCode == 27)
       {
-
-        // DONE
-
         outline.remove();
         fill.remove();
         escListener.cancel();
         miningTimer.cancel();
+        completer.complete();
       }
     });
+    return completer.future;
   }
 }
