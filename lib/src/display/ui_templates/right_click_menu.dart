@@ -21,7 +21,6 @@ class RightClickMenu
 
 		int x,y;
 
-
 		List <Element> newOptions = new List();
 		for (List option in options)
 		{
@@ -34,11 +33,15 @@ class RightClickMenu
 				{
           int timeRequired = int.parse((option[0] as String).split("|")[2]);
 
-          Map arguments = null;
-          if(option.length > 3)
-            arguments = option[3];
-          sendAction((option[0] as String).split("|")[0].toLowerCase(),option[1],arguments);
+          new ActionBubble(option, timeRequired)
+            ..wait.then( (_) {
 
+              Map arguments = null;
+              if(option.length > 3)
+                arguments = option[3];
+              sendAction((option[0] as String).split("|")[0].toLowerCase(),option[1],arguments);
+
+          });
 				})
 				  ..onMouseOver.listen((_)
         {
