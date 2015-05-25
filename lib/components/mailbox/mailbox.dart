@@ -47,6 +47,7 @@ class Mailbox extends PolymerElement {
 
 		//mark message read on server
 		await postRequest(serverAddress+'/readMail',encode(message));
+		refresh();
 	}
 
 	reply(Event event, var detail, Element target) {
