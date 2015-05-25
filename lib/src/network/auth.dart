@@ -5,7 +5,7 @@ String SLACK_TEAM, SLACK_TOKEN, SC_TOKEN, SESSION_TOKEN, FORUM_TOKEN;
 class AuthManager
 {
 	String _authUrl = 'https://${Configs.authAddress}/auth';
-	Element _loginPanel;
+	UrLogin _loginPanel;
 
 	AuthManager()
 	{
@@ -49,6 +49,8 @@ class AuthManager
 	void logout()
 	{
  		log('Auth: Attempting logout');
+		localStorage.remove('username');
+		_loginPanel.firebase.unauth();
 		window.location.reload();
 	}
 
