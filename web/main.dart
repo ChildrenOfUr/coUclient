@@ -12,6 +12,17 @@ import 'dart:math';
 import 'dart:js';
 // (unused) // import 'dart:profiler';
 
+
+// POLYMER COMPONENTS //
+import 'package:polymer/polymer.dart';
+import 'package:couclient/components/mailbox/mailbox.dart';
+import 'package:cou_auction_house/auction_house/encodes.dart';
+import 'package:couclient/components/mailbox/mail.dart';
+import 'package:cou_toolkit/toolkit/slider/slider.dart';
+import 'package:cou_login/login/login.dart';
+
+
+
 // LIBRARIES //
 // Used for NumberFormat
 import 'package:intl/intl.dart';
@@ -27,13 +38,7 @@ import 'package:libld/libld.dart'; // Nice and simple asset loading.
 // Event Bus and Pumps // for more infomation see '/doc/pumps.md'
 import 'package:pump/pump.dart';
 
-import 'package:polymer/polymer.dart';
-import 'package:cou_toolkit/toolkit/slider/slider.dart';
 import 'package:couclient/configs.dart';
-
-import 'package:couclient/components/mailbox/mailbox.dart';
-import 'package:cou_auction_house/auction_house/encodes.dart';
-import 'package:couclient/components/mailbox/mail.dart';
 
 import 'package:redstone_mapper/mapper.dart';
 import 'package:redstone_mapper/mapper_factory.dart';
@@ -70,6 +75,7 @@ part 'package:couclient/src/display/windows/map_window.dart';
 part 'package:couclient/src/display/windows/motd_window.dart';
 part 'package:couclient/src/display/windows/vendor_window.dart';
 part 'package:couclient/src/display/windows/go_window.dart';
+part 'package:couclient/src/display/windows/calendar_window.dart';
 
 // WIDGET MODULES //
 part 'package:couclient/src/display/widgets/volumeslider.dart';

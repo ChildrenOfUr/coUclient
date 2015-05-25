@@ -16,6 +16,7 @@ class Mailbox extends PolymerElement {
 	@observable String selected = "inbox", toField, toSubject, toBody, fromField, fromSubject, fromBody;
 	@observable int fromId;
 	String serverAddress;
+	@observable bool userHasMessages;
 
 	Mailbox.created() : super.created() {
 		serverAddress = 'http://${Configs.utilServerAddress}';
@@ -25,6 +26,14 @@ class Mailbox extends PolymerElement {
 		String user = window.sessionStorage['playerName'];
 		HttpRequest request = await postRequest(serverAddress + '/getMail', {'user':user});
 		messages = decode(JSON.decode(request.responseText), Mail);
+		if (messages.isNotEmpty) {
+			userHasMessages = true;
+			print("User's mailbox is not empty.");
+		}
+		else {
+			userHasMessages = false;
+			print("User's mailbox is empty.");
+		}
 	}
 
 	read(Event event, var detail, Element target) async {
