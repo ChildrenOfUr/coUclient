@@ -13,7 +13,7 @@ class Game
 	// INITIALIZATION //
 	Game(Metabolics m)
 	{
-		username = sessionStorage['playerName'];
+		username = localStorage['username'];
 		location = sessionStorage['playerStreet'];
 		email = sessionStorage['playerEmail'];
 		_init(m);
