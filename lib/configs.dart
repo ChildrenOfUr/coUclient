@@ -19,7 +19,7 @@ class Configs {
 		String prefix = baseAddress.contains('localhost')?'http://':'https://';
 		Element urLogin = querySelector('ur-login');
 		urLogin.attributes['serveraddress'] = prefix+authAddress;
-		urLogin.attributes['serverwebsocket'] = 'ws://'+websocketServerAddress;
+		urLogin.attributes['serverwebsocket'] = 'ws://'+authWebsocket;
 
 		//same for auction-house
 		Element auctionHouse = querySelector('auction-house');
