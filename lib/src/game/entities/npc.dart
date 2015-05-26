@@ -4,10 +4,8 @@ class NPC extends Entity
 {
 	int speed = 0;
 	bool ready = false, facingRight = true, firstRender = true;
-	num posX = 0.0, posY = 0.0;
 	Animation animation;
 	ChatBubble chatBubble = null;
-	Rectangle npcRect;
 
 	NPC(Map map)
 	{
@@ -20,8 +18,11 @@ class NPC extends Entity
 		animation = new Animation(map['url'],"npc",map['numRows'],map['numColumns'],frameList, loopDelay: new Duration(milliseconds:map['loopDelay']));
 		animation.load().then((_)
 		{
-			posY = currentStreet.bounds.height - num.parse(map['y'].toString()) - animation.height;
-			posX = num.parse(map['x'].toString());
+			top = currentStreet.bounds.height - num.parse(map['y'].toString()) - animation.height;
+			left = num.parse(map['x'].toString());
+			width = map['width'];
+			height = map['height'];
+			id = map['id'];
 
 			canvas = new CanvasElement();
         	canvas.id = map["id"];
@@ -32,8 +33,8 @@ class NPC extends Entity
         	canvas.width = map["width"];
         	canvas.height = map["height"];
         	canvas.style.position = "absolute";
-        	canvas.attributes['translatex'] = posX.toString();
-            canvas.attributes['translatey'] = posY.toString();
+        	canvas.attributes['translatex'] = left.toString();
+            canvas.attributes['translatey'] = top.toString();
             canvas.attributes['width'] = canvas.width.toString();
             canvas.attributes['height'] = canvas.height.toString();
         	view.playerHolder.append(canvas);
@@ -46,29 +47,30 @@ class NPC extends Entity
 		if(!ready)
 			return;
 
+		super.update(dt);
+
 		if(firstRender || animation.url.contains("walk") || animation.url.contains("fly"))
 		{
 			if(facingRight)
-				posX += speed*dt;
+				left += speed*dt;
 			else
-				posX -= speed*dt;
+				left -= speed*dt;
 
-			if(posX < 0)
-				posX = 0.0;
-			if(posX > currentStreet.bounds.width-canvas.width)
-				posX = (currentStreet.bounds.width-canvas.width).toDouble();
+			if(left < 0)
+				left = 0.0;
+			if(left > currentStreet.bounds.width-canvas.width)
+				left = (currentStreet.bounds.width-canvas.width).toDouble();
 
-			canvas.attributes['translatex'] = posX.toString();
-            canvas.attributes['translatey'] = posY.toString();
+			canvas.attributes['translatex'] = left.toString();
+            canvas.attributes['translatey'] = top.toString();
 
 			if(facingRight)
-				canvas.style.transform = "translateX(${posX}px) translateY(${posY}px) scale3d(1,1,1)";
+				canvas.style.transform = "translateX(${left}px) translateY(${top}px) scale3d(1,1,1)";
 			else
-				canvas.style.transform = "translateX(${posX}px) translateY(${posY}px) scale3d(-1,1,1)";
+				canvas.style.transform = "translateX(${left}px) translateY(${top}px) scale3d(-1,1,1)";
 		}
 
-		npcRect = new Rectangle(posX,posY,canvas.width,canvas.height);
-		if(intersect(camera.visibleRect,npcRect))
+		if(intersect(camera.visibleRect,entityRect))
 			animation.updateSourceRect(dt);
 	}
 
@@ -79,7 +81,7 @@ class NPC extends Entity
 			if(!firstRender)
 			{
 				//if the entity is not visible, don't render it
-				if(!intersect(camera.visibleRect,npcRect))
+				if(!intersect(camera.visibleRect,entityRect))
 					return;
 			}
 
@@ -103,7 +105,7 @@ class NPC extends Entity
             	canvas.context2D.shadowOffsetX = 0;
             	canvas.context2D.shadowOffsetY = 0;
             }
-    		Rectangle destRect = new Rectangle(0,0,animation.width,animation.height);
+
     		canvas.context2D.drawImageToRect(animation.spritesheet, destRect, sourceRect: animation.sourceRect);
     		animation.dirty = false;
 		}

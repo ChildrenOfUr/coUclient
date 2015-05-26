@@ -2,8 +2,6 @@ library couclient;
 /*
  *  THE CHILDREN OF UR WEBCLIENT
  *  http://www.childrenofur.com
- *
- *
 */
 
 // DART //
@@ -12,6 +10,18 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:math';
 import 'dart:js';
+// (unused) // import 'dart:profiler';
+
+
+// POLYMER COMPONENTS //
+import 'package:polymer/polymer.dart';
+import 'package:couclient/components/mailbox/mailbox.dart';
+import 'package:cou_auction_house/auction_house/encodes.dart';
+import 'package:couclient/components/mailbox/mail.dart';
+import 'package:cou_toolkit/toolkit/slider/slider.dart';
+import 'package:cou_login/login/login.dart';
+
+
 
 // LIBRARIES //
 // Used for NumberFormat
@@ -28,18 +38,10 @@ import 'package:libld/libld.dart'; // Nice and simple asset loading.
 // Event Bus and Pumps // for more infomation see '/doc/pumps.md'
 import 'package:pump/pump.dart';
 
-import 'package:persona/persona_html.dart';
-
-import 'package:polymer/polymer.dart';
-
-// Necessary to init the mapper in the main method
-import 'package:redstone_mapper/mapper_factory.dart';
-import 'package:redstone_mapper/mapper.dart';
-
-//it's necessary to import every lib that contains encodable classes
-import 'package:couclient/components/auction_list/auction.dart';
-
 import 'package:couclient/configs.dart';
+
+import 'package:redstone_mapper/mapper.dart';
+import 'package:redstone_mapper/mapper_factory.dart';
 
 // SYSTEMS MODULES //
 part 'package:couclient/src/systems/clock.dart';
@@ -72,6 +74,8 @@ part 'package:couclient/src/display/windows/bug_window.dart';
 part 'package:couclient/src/display/windows/map_window.dart';
 part 'package:couclient/src/display/windows/motd_window.dart';
 part 'package:couclient/src/display/windows/vendor_window.dart';
+part 'package:couclient/src/display/windows/go_window.dart';
+part 'package:couclient/src/display/windows/calendar_window.dart';
 
 // WIDGET MODULES //
 part 'package:couclient/src/display/widgets/volumeslider.dart';
@@ -93,7 +97,9 @@ part 'package:couclient/src/game/game.dart';
 part 'package:couclient/src/game/entities/player.dart';
 part 'package:couclient/src/game/animation.dart';
 part 'package:couclient/src/game/chat_bubble.dart';
+part 'package:couclient/src/game/action_bubble.dart';
 part 'package:couclient/src/game/entities/entity.dart';
+part 'package:couclient/src/game/entities/wormhole.dart';
 part 'package:couclient/src/game/entities/npc.dart';
 part 'package:couclient/src/game/entities/plant.dart';
 part 'package:couclient/src/game/street.dart';
@@ -103,10 +109,6 @@ part 'package:couclient/src/game/entities/grounditem.dart';
 // UI PIECES //
 part 'package:couclient/src/display/ui_templates/interactions_menu.dart';
 part 'package:couclient/src/display/ui_templates/right_click_menu.dart';
-
-
-
-
 
 // Globals //
 Storage sessionStorage = window.sessionStorage;
@@ -121,25 +123,53 @@ AuthManager auth;
 Game game;
 DateTime startTime;
 
-
+bool get hasTouchSupport => context.callMethod('hasTouchSupport');
 
 void main()
 {
+	//if the device is capable of touch events, assume the touch ui
+	//unless the user has explicitly turned it off in the options
+	if(!hasTouchSupport)
+	{
+		print('device does not have touch support, turning off mobile style');
+		(querySelector("#MobileStyle") as StyleElement).disabled = true;
+	}
+
+	//make sure the application cache is up to date
+	handleAppCache();
+
 	//read configs
 	Configs.init().then((_)
 	{
 		startTime = new DateTime.now();
-
-    	bootstrapMapper();
+		bootstrapMapper();
     	initPolymer();
-
-    	view = new UserInterface();
-    	auth = new AuthManager();
-
-    	// System
-    	new ClockManager();
-    	new CommandManager();
-
-    	windowManager = new WindowManager();
 	});
+}
+
+@whenPolymerReady
+initMethod()
+{
+	view = new UserInterface();
+	audio = new SoundManager();
+	windowManager = new WindowManager();
+	auth = new AuthManager();
+
+	// System
+	new ClockManager();
+	new CommandManager();
+}
+
+void handleAppCache()
+{
+	if(window.applicationCache.status == ApplicationCache.UPDATEREADY)
+	{
+		log('Application cache updated, swapping and reloading page');
+        print('Application cache updated, swapping and reloading page');
+	    window.applicationCache.swapCache();
+	    window.location.reload();
+	    return;
+	}
+
+	window.applicationCache.onUpdateReady.first.then((_) => handleAppCache());
 }

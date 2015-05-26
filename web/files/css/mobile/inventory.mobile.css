@@ -5,7 +5,14 @@
 	height: 70px;
 	width: calc(100% - 235px);
 	min-width: initial;
-	overflow: hidden;
+	overflow-x: hidden;
+	overflow-y: hidden;
+}
+
+@media(max-width: 900px) {
+  #inventory {
+    overflow-x: scroll;
+  }
 }
 
 #inventory .box, .window .box {

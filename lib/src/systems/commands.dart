@@ -22,7 +22,6 @@ class CommandManager {
         ..['setname'] = setName
         ..['go'] = setLocationCommand
         ..['setlocation'] = setLocationCommand
-        ..['toggleFps'] = toggleFps
         ..['toast'] = toast
         ..['toggleCollisionLines'] = toggleCollisionLines
         ..['togglePhysics'] = togglePhysics
@@ -39,8 +38,8 @@ bool parseCommand(String command) {
   // Getting the important data
   String verb = command.split(" ")[0].toLowerCase().replaceFirst('/', '');
 
-  String noun = command.split(' ').skip(1).join(' ');  
-  
+  String noun = command.split(' ').skip(1).join(' ');
+
   if (COMMANDS.containsKey(verb)) {
     COMMANDS[verb](noun);
     log('Parsed valid command : "$command"');
@@ -107,17 +106,6 @@ setLocationCommand(String noun)
 	if(noun.startsWith("L"))
 		noun = noun.replaceFirst("L", "G");
 	streetService.requestStreet(noun);
-}
-
-/**
- * Toggles the display of the fps counter
- */
-toggleFps(var nothing)
-{
-	if(showFps)
-		showFps = false;
-	else
-		showFps = true;
 }
 
 toggleCollisionLines(var nothing)

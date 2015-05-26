@@ -1,82 +1,124 @@
 part of couclient;
 
-class SettingsWindow extends Modal {
-  String id = 'settingsWindow';
+class SettingsWindow extends Modal
+{
+	String id = 'settingsWindow';
 
-  // SETTINGS BOOLS
-  bool _showJoinMessages = false,
-      _playMentionSound = true;
+	// SETTINGS BOOLS
+	bool _showJoinMessages = false, _playMentionSound = true;
 
-  SettingsWindow() {
+	SettingsWindow()
+	{
+		prepare();
+		// SETTINGS WINDOW LISTENERS //
+		view.settingsButton.onClick.listen((_) => this.open());
 
-    prepare();
-    // SETTINGS WINDOW LISTENERS //
-    view.settingsButton.onClick.listen((_) {
-      this.open();
-    });
-    //listen for onChange events so that clicking the label or the checkbox will call this method
-    querySelectorAll('.ChatSettingsCheckbox').onChange.listen((Event event) {
-      CheckboxInputElement checkbox = event.target as CheckboxInputElement;
-      if (checkbox.id == "ShowJoinMessages") setJoinMessagesVisibility(checkbox.checked);
-      if (checkbox.id == "PlayMentionSound") setPlayMentionSound(checkbox.checked);
-    });
+		//listen for onChange events so that clicking the label or the checkbox will call this method
+		querySelectorAll('.ChatSettingsCheckbox').onChange.listen((Event event)
+		{
+			CheckboxInputElement checkbox = event.target as CheckboxInputElement;
+			if(checkbox.id == "ShowJoinMessages")
+				setJoinMessagesVisibility(checkbox.checked);
+			if(checkbox.id == "PlayMentionSound")
+				setPlayMentionSound(checkbox.checked);
+		});
 
-    //setup saved variables
-    if (localStorage["showJoinMessages"] != null) {
-      //ugly because there is no method to parse bool from string in dart?
-      if (localStorage["showJoinMessages"] == "true") setJoinMessagesVisibility(true); else setJoinMessagesVisibility(false);
-    } else {
-      localStorage["showJoinMessages"] = "false";
-      setJoinMessagesVisibility(false);
-    }
-    querySelectorAll("#ShowJoinMessages").forEach((Element element) {
-      (element as CheckboxInputElement).checked = getJoinMessagesVisibility();
-    });
+		//setup saved variables
+		if (localStorage["showJoinMessages"] != null)
+		{
+			//ugly because there is no method to parse bool from string in dart?
+			if(localStorage["showJoinMessages"] == "true")
+				setJoinMessagesVisibility(true);
+			else
+				setJoinMessagesVisibility(false);
+		}
+		else
+		{
+			localStorage["showJoinMessages"] = "false";
+			setJoinMessagesVisibility(false);
+		}
 
-    if (localStorage["playMentionSound"] != null) {
-      if (localStorage["playMentionSound"] == "true") setPlayMentionSound(true); else setPlayMentionSound(false);
-    } else {
-      localStorage["playMentionSound"] = "true";
-      setJoinMessagesVisibility(true);
-    }
+		(querySelector("#ShowJoinMessages") as CheckboxInputElement).checked = joinMessagesVisibility;
 
-    querySelectorAll("#PlayMentionSound").forEach((Element element) {
-      (element as CheckboxInputElement).checked = getPlayMentionSound();
-    });
+		if(localStorage["playMentionSound"] != null)
+		{
+			if(localStorage["playMentionSound"] == "true")
+				setPlayMentionSound(true);
+			else
+				setPlayMentionSound(false);
+		}
+		else
+		{
+			localStorage["playMentionSound"] = "true";
+			setJoinMessagesVisibility(true);
+		}
 
-    // set graphicsblur
-    CheckboxInputElement graphicsBlur = querySelector("#GraphicsBlur") as CheckboxInputElement;
-    if (localStorage["GraphicsBlur"] != null) {
-      if (localStorage["GraphicsBlur"] == "true") graphicsBlur.checked = true; else graphicsBlur.checked = false;
-    }
-    graphicsBlur.onChange.listen((_) {
-      localStorage["GraphicsBlur"] = graphicsBlur.checked.toString();
-    });
+		(querySelector("#PlayMentionSound") as CheckboxInputElement).checked = playMentionSound;
 
-  }
-  /**
-        * Determines if messages like "<user> has joined" are shown to the player.
-        *
-        * Sets the visibility of join messages to [visible]
-        */
-  void setJoinMessagesVisibility(bool visible) {
-    _showJoinMessages = visible;
-    localStorage["showJoinMessages"] = visible.toString();
-  }
+		// set graphicsblur
+		CheckboxInputElement graphicsBlur = querySelector("#GraphicsBlur") as CheckboxInputElement;
+		if(localStorage["GraphicsBlur"] != null)
+		{
+			if(localStorage["GraphicsBlur"] == "true")
+				graphicsBlur.checked = true;
+			else
+				graphicsBlur.checked = false;
+		}
 
-  /**
-        * Returns the visibility of messages like "<user> has joined"
-        */
-  bool getJoinMessagesVisibility() => _showJoinMessages;
+		graphicsBlur.onChange.listen((_) => localStorage["GraphicsBlur"] = graphicsBlur.checked.toString());
 
-  void setPlayMentionSound(bool enabled) {
-    _playMentionSound = enabled;
-    localStorage["playMentionSound"] = enabled.toString();
-  }
+		//setup volume controls
+		UrSlider musicSlider = querySelector("#MusicSlider") as UrSlider;
+		UrSlider effectSlider = querySelector("#EffectSlider") as UrSlider;
+		try
+		{
+			musicSlider.value = int.parse(localStorage['musicVolume']);
+			effectSlider.value = int.parse(localStorage['effectsVolume']);
+		}
+		catch(e){}
+		musicSlider.on['immediate-value-change'].listen((Event event)
+		{
+			num volume = musicSlider.value;
+			audio.audioChannels['music'].gain = volume/100;
+		});
+		musicSlider.on['core-change'].listen((Event event)
+		{
+			num volume = musicSlider.value;
+			localStorage['musicVolume'] = volume.toString();
+		});
+		effectSlider.on['immediate-value-change'].listen((Event event)
+		{
+			num volume = effectSlider.value;
+			audio.audioChannels['soundEffects'].gain = volume/100;
+		});
+		effectSlider.on['core-change'].listen((Event event)
+		{
+			num volume = effectSlider.value;
+			localStorage['effectsVolume'] = volume.toString();
+		});
+	}
 
-  bool getPlayMentionSound() => _playMentionSound;
+	/**
+	* Determines if messages like "<user> has joined" are shown to the player.
+	*
+	* Sets the visibility of join messages to [visible]
+	*/
+	void setJoinMessagesVisibility(bool visible)
+	{
+		_showJoinMessages = visible;
+		localStorage["showJoinMessages"] = visible.toString();
+	}
 
+	/**
+    * Returns the visibility of messages like "<user> has joined"
+    */
+	bool get joinMessagesVisibility => _showJoinMessages;
 
+	void setPlayMentionSound(bool enabled)
+	{
+		_playMentionSound = enabled;
+		localStorage["playMentionSound"] = enabled.toString();
+	}
 
-
+	bool get playMentionSound => _playMentionSound;
 }

@@ -1,0 +1,72 @@
+<link rel="import" href="../../../../packages/polymer/polymer.html">
+<link rel="import" href="../../../../packages/core_elements/core_pages.html">
+<link rel="import" href="../../../../packages/cou_toolkit/toolkit/toolkit.html">
+
+<polymer-element name="ur-mailbox">
+    <template>
+        <link rel="stylesheet" href="mailbox.css">
+
+        <core-pages selected="{{selected}}" valueattr="id">
+            <!--Compose a new message-->
+            <div id="compose">
+                <input type="text" placeholder="To" value="{{toField}}" id="input_to" class="input_text input_line">
+                <br>
+                <input type="text" placeholder="Subject" value="{{toSubject}}" id="input_subject" class="input_text input_line">
+                <br>
+                <textarea placeholder="Message" value="{{toBody}}" id="input_message" class="input_text input_box"></textarea>
+                <div id="send_actions">
+                    <ur-button on-click="{{sendMessage}}" id="action_send">&emsp;<i class="fa fa-paper-plane"></i> Send Message&emsp;</ur-button>
+                    <ur-button on-click="{{closeMessage}}" id="action_discard">&emsp;<i class="fa fa-trash"></i> Discard&emsp;</ur-button>
+                </div>
+            </div>
+
+            <!--Read a message-->
+            <div id="read">
+                <h1 id="from">A message from {{fromField}}...</h1>
+                <h2 id="subject">{{fromSubject}}</h2>
+                <p id="message">{{fromBody}}</p>
+                <div id="read_actions">
+                    <ur-button on-click="{{reply}}" data-message-id="{{fromId}}" id="btn_reply">&emsp;Reply&emsp;</ur-button>
+                    <ur-button on-click="{{closeMessage}}" id="btn_close">&emsp;Close&emsp;</ur-button>
+                </div>
+            </div>
+
+            <!--View the inbox-->
+            <div id="inbox">
+                <ur-button on-click="{{compose}}" id="btn_compose">&emsp;Compose&emsp;</ur-button>
+                <ur-button on-click="{{refresh}}" id="btn_refresh">&emsp;Refresh&emsp;</ur-button>
+                <template if="{{userHasMessages}}">
+                    <table id="message_list" cellpadding="0" cellspacing="0" visible?="{{userHasMessages}}">
+                        <tr class="thead">
+                            <td id="thead_from">From</td>
+                            <td id="thead_subject">Subject</td>
+                            <td id="thead_delete">&nbsp;</td>
+                        </tr>
+                        <tbody>
+                            <tr template
+                            repeat="{{message in messages}}"
+                            data-message-id="{{message.id}}"
+                            class="{{!message.read?'inbox_message unread':'inbox_message'}}">
+                                <td class="tbody_from">{{message.from_user}}</td>
+                                <td class="tbody_subject">
+                                    <a href="#" on-click="{{read}}" data-message-id="{{message.id}}">{{message.subject}}</a>
+                                </td>
+                                <td class="tbody_delete">
+                                    <ur-button on-click="{{deleteMessage}}"
+                                               class="btn_delete"
+                                               data-message-id="{{message.id}}">Delete</ur-button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </template>
+                <template if="{{!userHasMessages}}"><div id="emptyinbox">
+                        <p><b>You have no messages.</b></p>
+                        <p>Why don't you be a nice friend and <a href="#" on-click="{{compose}}">write one</a>?</p>
+                </div></template>
+            </div>
+        </core-pages>
+
+    </template>
+    <script type="application/dart" src="mailbox.dart"></script>
+</polymer-element>

@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <link rel="import" href="../../../../packages/polymer/polymer.html">
-<link rel="import" href="../../../../packages/couclient/toolkit/toolkit.html"> 
-
-
+<link rel="import" href="../../../../packages/cou_toolkit/toolkit/toolkit.html">
 
 <polymer-element name="ur-musicplayer" attributes="artist song link" noscript>
   <template>
@@ -19,16 +17,16 @@
         font-size:12px;
         line-height:15px;
         text-align:center;
-        display:block;
+        display:inline-block;
       }
     </style>
-    
+
       <ur-panel id="widget">
         <div>
           <a id="SCLink" target="{{link}}">
             <span>{{song}}</span>
             <br>
-             By 
+             By
             <span>{{artist}}</span></a>
         </div>
         <a href="http://www.soundcloud.com" target="_blank">

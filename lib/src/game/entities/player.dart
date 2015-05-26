@@ -17,6 +17,7 @@ class Player
 	String username;
 	int jumpcount = 0;
 	Timer jumpTimer;
+	Rectangle avatarRect;
 
 	//for testing purposes
 	//if false, player can move around with wasd and arrows, no falling
@@ -28,8 +29,8 @@ class Player
 
 	Player(this.username)
 	{
-		posX = metabolics.getCurrentStreetX();
-		posY = metabolics.getCurrentStreetY();
+		posX = metabolics.currentStreetX;
+		posY = metabolics.currentStreetY;
 
 		if(posX == 1.0 && posY == 0.0)
 		{
@@ -227,17 +228,23 @@ class Player
 		//primitive jumping
 		if (inputManager.jumpKey == true && !jumping && !climbingUp && !climbingDown)
 		{
-			if(jumpTimer != null)
-				jumpTimer.cancel();
+			if(jumpTimer == null)
+				jumpTimer = new Timer(new Duration(seconds:3), ()
+				{
+					jumpcount = 0;
+					jumpTimer.cancel();
+					jumpTimer = null;
+				});
 			if(jumpcount == 2)
 			{
 				yVel = -1500;
 				jumpcount = 0;
+				jumpTimer.cancel();
+				jumpTimer = null;
 			}
 			else
 			{
 				jumpcount++;
-				jumpTimer = new Timer(new Duration(seconds:4), () => jumpcount = 0);
 				yVel = -1000;
 			}
 			jumping = true;
@@ -288,32 +295,8 @@ class Player
 		updateAnimation(dt);
 		updateTransform();
 
-		//check for collision with quoins
-		Rectangle avatarRect = new Rectangle(posX,posY,width,height);
-		querySelectorAll(".quoin").forEach((Element element) => checkCollision(element));
-
-		intersectingObjects = {};
-		querySelectorAll(".entity").forEach((Element element)
-		{
-			num left = num.parse(element.attributes['translatex'].replaceAll("px", ""));
-			num top = num.parse(element.attributes['translatey'].replaceAll("px", ""));
-			num width = num.parse(element.attributes['width']);
-			num height = num.parse(element.attributes['height']);
-			Rectangle entityRect = new Rectangle(left,top,width,height);
-
-			if(intersect(avatarRect,entityRect))
-			{
-				if(entities[element.id] != null)
-					entities[element.id].updateGlow(true);
-
-				intersectingObjects[element.id] = entityRect;
-			}
-			else
-			{
-				if(entities[element.id] != null)
-					entities[element.id].updateGlow(false);
-			}
-		});
+		//update the avatarRect so that other entities know if the player is colliding with them
+		avatarRect = new Rectangle(posX,posY,width,height);
 	}
 
 	void render()
@@ -396,18 +379,6 @@ class Player
 
 	void updateTransform()
 	{
-		String xattr = playerParentElement.attributes['translateX'];
-		String yattr = playerParentElement.attributes['translateY'];
-		num prevX, prevY, prevCamX = camera.getX(), prevCamY = camera.getY();
-		if(xattr != null)
-			prevX = num.parse(xattr);
-		else
-			prevX = 0;
-		if(yattr != null)
-			prevY = num.parse(yattr);
-		else
-			prevY = 0;
-
 		num translateX = posX, translateY = view.worldElementWidth - height;
 
 		num camX = camera.getX(), camY = camera.getY();
@@ -443,8 +414,8 @@ class Player
 
 		camera.setCameraPosition(camX~/1,camY~/1);
 
-		//translateZ forces the whole operation to be gpu accelerated (which is very good)
-		String transform = 'translateX('+translateX.toString()+'px) translateY('+translateY.toString()+'px)';
+		//translateZ forces the whole operation to be gpu accelerated
+		String transform = 'translateX('+translateX.toString()+'px) translateY('+translateY.toString()+'px) translateZ(0)';
 		if(!facingRight)
 		{
 			transform += ' scale3d(-1,1,1)';
@@ -464,57 +435,7 @@ class Player
 		playerParentElement.style.transform = transform;
 		playerParentElement.attributes['translateX'] = translateX.toString();
 		playerParentElement.attributes['translateY'] = translateY.toString();
-		num diffX = translateX-prevX, diffY = translateY-prevY;
 	}
-
-	void checkCollision(Element element)
-	{
-		//if the main screen is hidden don't check for quoin collection
-		//this should avoid a bug where the player can pick up all the quoins
-		//on a street at once because the bounding boxes all squish together
-		//if(querySelector('#MainScreen').hidden == true)
-		//return;
-
-		if(element.attributes['collected'] == "true" || element.attributes['checking'] == "true")
-			return;
-
-		CanvasElement canvas = element as CanvasElement;
-		num left = num.parse(canvas.style.left.replaceAll("px", ""));
-		num top = currentStreet.bounds.height - num.parse(canvas.style.bottom.replaceAll("px", "")) - canvas.height;
-		Rectangle quoinRect = new Rectangle(left,top,canvas.width,canvas.height);
-
-		Rectangle avatarRect = new Rectangle(posX,posY,width,height);
-
-		if(intersect(avatarRect,quoinRect))
-		{
-			//don't try to collect the same quoin again before we get a response
-			element.attributes['checking'] = 'true';
-
-			audio.playSound('quoinSound');
-
-			querySelector("#q"+element.id).classes.add("circleExpand");
-    		querySelector("#qq"+element.id).classes.add("circleExpand");
-    		new Timer(new Duration(seconds:2), () => _removeCircleExpand(querySelector("#qq"+element.id)));
-    		new Timer(new Duration(milliseconds:800), () => _removeCircleExpand(querySelector("#q"+element.id)));
-    		element.style.display = "none"; //.remove() is very slow
-
-			if(streetSocket != null && streetSocket.readyState == WebSocket.OPEN)
-			{
-				Map map = new Map();
-				map["remove"] = element.id;
-				map["type"] = "quoin";
-				map['username'] = game.username;
-				map["streetName"] = currentStreet.label;
-				streetSocket.send(JSON.encode(map));
-			}
-		}
-	}
-
-	void _removeCircleExpand(Element element)
-	{
-		if(element != null)
-		element.classes.remove("circleExpand");
-    }
 
 	//ONLY WORKS IF PLATFORMS ARE SORTED WITH
 	//THE HIGHEST (SMALLEST Y VALUE) FIRST IN THE LIST
@@ -549,12 +470,4 @@ class Player
 
 		return bestPlatform;
 	}
-}
-
-bool intersect(Rectangle a, Rectangle b)
-{
-	return (a.left <= b.right &&
-		b.left <= a.right &&
-		a.top <= b.bottom &&
-		b.top <= a.bottom);
 }

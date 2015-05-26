@@ -5,9 +5,17 @@
 
 #time {
 	position: absolute;
-	top: 80%;
+	top: 15px;
 	right: 5px;
 	text-align: right;
+}
+
+#time > #currDay, #time > #currTime {
+  display: inline;
+}
+
+#time > * {
+  font-size: 10px;
 }
 
 #nav {

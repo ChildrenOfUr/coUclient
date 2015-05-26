@@ -1,23 +1,36 @@
 part of couclient;
 
 Camera camera = new Camera();
+
 class Camera
 {
-  int _x = 0;
-  int _y = 0;
-  int zoom = 0; // for future eyeballery
-  bool dirty = true;
-  Rectangle visibleRect;
+	int _x = 0, _y = 0, zoom = 0;
 
-  void setCameraPosition(int newX, int newY)
-  {
-	  if(newX != _x || newY != _y)
-		  dirty = true;
-	  _x = newX;
-	  _y = newY;
-	  visibleRect = new Rectangle(_x,_y,view.worldElement.clientWidth ,view.worldElement.clientHeight);
-  }
+	// for future eyeballery
+	bool dirty = true;
+	MutableRectangle visibleRect;
 
-  int getX() => _x;
-  int getY() => _y;
+	void setCameraPosition(int newX, int newY)
+	{
+		if(newX != _x || newY != _y)
+			dirty = true;
+		_x = newX;
+		_y = newY;
+
+		if(visibleRect == null)
+		{
+			visibleRect = new MutableRectangle(_x, _y, view.worldElementWidth, view.worldElementHeight);
+		}
+		else
+		{
+			visibleRect.left = _x;
+			visibleRect.top = _y;
+			visibleRect.width = view.worldElementWidth;
+			visibleRect.height = view.worldElementHeight;
+		}
+	}
+
+	int getX() => _x;
+
+	int getY() => _y;
 }

@@ -7,6 +7,12 @@ class GroundItem extends Entity
 		ImageElement item = new ImageElement(src:map['iconUrl']);
     	item.onLoad.first.then((_)
     	{
+		    left = map['x'];
+		    top = map['y'];
+		    width = item.width;
+		    height = item.height;
+		    id = map['id'];
+
     		item.style.transform = "translateX(${map['x']}px) translateY(${map['y']}px)";
     		item.style.position = "absolute";
         	item.attributes['translatex'] = map['x'].toString();
@@ -22,6 +28,5 @@ class GroundItem extends Entity
     	});
 	}
 
-	update(double dt){}
 	render(){}
 }

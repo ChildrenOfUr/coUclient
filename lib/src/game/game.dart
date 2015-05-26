@@ -1,61 +1,105 @@
 part of couclient;
 
 StreetService streetService = new StreetService();
+
 // GAME ENTRY AND MANAGEMENT //
-class Game {
+class Game
+{
+	String username, location, email;
+	double lastTime = 0.0;
+	DateTime startTime = new DateTime.now();
+	bool ignoreGamepads = false;
 
-  String username = sessionStorage['playerName'];
-  String location = sessionStorage['playerStreet'];
-  String email = sessionStorage['playerEmail'];
+	// INITIALIZATION //
+	Game(Metabolics m)
+	{
+		username = sessionStorage['playerName'];
+		location = sessionStorage['playerStreet'];
+		email = sessionStorage['playerEmail'];
+		_init(m);
+	}
 
-  // INITIALIZATION //
-  Game(Metabolics m) {
-    streetService.requestStreet(location)
-    .then((_) {
+	_init(Metabolics m) async
+	{
+		//load the player's street from the server
+		await streetService.requestStreet(location);
 
-    // Networking
-    new NetChatManager();
-    new Message(#startChat, 'Global Chat');
-    new Message(#startChat, 'Local Chat');
+		//setup the chat and open two initial channels
+		new NetChatManager();
+		new Message(#startChat, 'Global Chat');
+		new Message(#startChat, 'Local Chat');
 
-    windowManager.motdWindow.open();
+		//show the message of the day
+		windowManager.motdWindow.open();
 
-    metabolics.init(m);
-    multiplayerInit();
-    CurrentPlayer = new Player(username);
-    view.meters.updateNameDisplay();
-    audio.setSong('highlands');
+		//init the players metabolcs
+		metabolics.init(m);
 
-    CurrentPlayer.loadAnimations().then((_) {
-      CurrentPlayer.currentAnimation = CurrentPlayer.animations['idle'];
-    }).then((_) => loop(0.0));
+		//setup the communications for multiplayer events
+		multiplayerInit();
 
-    });
+		//create the player entity and display their name in the UI
+		CurrentPlayer = new Player(username);
+		view.meters.updateNameDisplay();
 
-  }
+		//load the player's animation spritesheets then set them to idle
+		await CurrentPlayer.loadAnimations();
+		CurrentPlayer.currentAnimation = CurrentPlayer.animations['idle'];
 
-  // GAME LOOP //
-  double lastTime = 0.0;
-  DateTime startTime = new DateTime.now();
-  bool ignoreGamepads = false;
+		//stop loading sounds and load the street's song
+        audio.loadingSound.stop();
+        new Message(#playSound, 'game_loaded');
+		//play appropriate song for street (or just highlands for now)
+		await audio.setSong('highlands');
 
-  loop(num delta) {
-    double dt = (delta - lastTime) / 1000;
-    lastTime = delta;
+		//finally start the main game loop
+		loop(0.0);
+	}
 
-    try
-    {
-    	if(!ignoreGamepads)
-    		inputManager.updateGamepad();
-    }
-    catch(err)
-    {
-    	ignoreGamepads = true;
-    	print('Sorry, this browser does not support the gamepad API');
-    }
+	// GAME LOOP //
+	loop(num delta)
+	{
+		//UserTag loopTag = new UserTag('gameloop');
+		//UserTag previousTag = loopTag.makeCurrent();
 
-    update(dt);
-    render();
-    window.animationFrame.then(loop);
-  }
+		double dt = (delta - lastTime) / 1000;
+		lastTime = delta;
+
+		//if the gamepad api isn't supported, don't continue to try to get updates from it
+		if(!ignoreGamepads)
+		{
+			try
+			{
+				//UserTag gamepadTag = new UserTag('gamepad');
+				//UserTag prev = gamepadTag.makeCurrent();
+
+				inputManager.updateGamepad();
+
+				//prev.makeCurrent();
+			}
+			catch(err)
+			{
+				ignoreGamepads = true;
+				print('Sorry, this browser does not support the gamepad API');
+			}
+		}
+
+		//UserTag updateTag = new UserTag('update');
+		//UserTag prev = updateTag.makeCurrent();
+
+		update(dt);
+
+		//prev.makeCurrent();
+
+		//UserTag renderTag = new UserTag('render');
+		//prev = renderTag.makeCurrent();
+
+		render();
+
+		//prev.makeCurrent();
+
+		window.animationFrame.then(loop);
+
+		//previousTag.makeCurrent();
+	}
 }

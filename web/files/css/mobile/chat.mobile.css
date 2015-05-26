@@ -14,7 +14,6 @@
 }
 .conversation header span{
   color:rgba(0,0,0,0.8);
-  float: right;
 }
 .conversation header .fa{
   position:absolute;

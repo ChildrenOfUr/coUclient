@@ -69,6 +69,19 @@ _setupStreetSocket(String streetName)
 		if(map['label'] != null && currentStreet.label != map['label'])
         	return;
 
+		//check if we are receiving our inventory
+		if(map['inventory'] != null)
+		{
+			Map items = map['items'] as Map<String,Map>;
+			items.forEach((String name, Map item)
+			              {
+				              for(int i=0; i<item['count']; i++)
+				              {
+					              addItemToInventory({'item':item});
+				              }
+			              });
+			return;
+		}
 		//check if we are receiving an item
 		if(map['giveItem'] != null)
 		{
@@ -90,6 +103,8 @@ _setupStreetSocket(String streetName)
 		{
 			if(map['openWindow'] == 'vendorSell')
 				new VendorWindow().call(map,sellMode:true);
+			if(map['openWindow'] == 'mailbox')
+				new MailboxWindow().open();
 			return;
 		}
 		if(map['itemsForSale'] != null)
@@ -622,7 +637,7 @@ findNewSlot(Element item, Map map, ImageElement img)
 
 	//there was no space in the player's pack, drop the item on the ground instead
 	if(!found)
-		sendAction("drop",i['name'].replaceAll(" ",""),getDropMap(i,1));
+		sendAction("drop",i['name'],getDropMap(i,1));
 }
 
 Map getDropMap(Map item, int count)

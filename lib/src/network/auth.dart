@@ -1,120 +1,87 @@
 part of couclient;
 
-String SLACK_TEAM;
-String SLACK_TOKEN;
-String SC_TOKEN;
+String SLACK_TEAM, SLACK_TOKEN, SC_TOKEN, SESSION_TOKEN, FORUM_TOKEN;
 
-String SESSION_TOKEN;
-String FORUM_TOKEN;
+class AuthManager
+{
+	String _authUrl = 'https://${Configs.authAddress}/auth';
+	UrLogin _loginPanel;
 
-class AuthManager {
-  String _authUrl = 'https://${Configs.authAddress}/auth';
-  String personaAudience = 'http://localhost:8080';
-
-  Persona _personaNavigator;
-  Element _loginPanel;
-
-  AuthManager() {
-    // Starts the game
-    _loginPanel = querySelector('ur-login');
-
-    _personaNavigator = new Persona('', verifyWithServer, view.loggedOut);
-    _loginPanel.on['attemptLogin'].listen((_) {
-      _personaNavigator.request({
-        'backgroundColor': '#4b2e4c',
-        'siteName': 'Children of Ur'
-      });
-    });
-  }
-
-
-  void verifyWithServer(String personaAssertion) {
-    Timer tooLongTimer = new Timer(new Duration(seconds: 5),(){
-      Element signinElement = querySelector('ur-login')
-          ..attributes['timedout'] = 'true';
-    });
-
-    post('login',
+	AuthManager()
 	{
-      'assertion': personaAssertion,
-      'audience' : personaAudience
-    })
-      ..then((HttpRequest data) {
-      tooLongTimer.cancel();
-      Map serverdata = JSON.decode(data.response);
+		// Starts the game
+		_loginPanel = querySelector('ur-login');
+		_loginPanel.on['loginSuccess'].listen((e)
+		{
+			Map serverdata = e.detail;
 
-      if (serverdata['ok'] == 'no') {
-        log('Auth:Server refused the login attempt.');
-        print('Error:Server refused the login attempt.');
-        return;
-      }
+			log('Auth: Setting API tokens');
+			SESSION_TOKEN = serverdata['sessionToken'];
+			SLACK_TEAM = serverdata['slack-team'];
+			SLACK_TOKEN = serverdata['slack-token'];
+			SC_TOKEN = serverdata['sc-token'];
 
-      log('Auth: Setting API tokens');
-      SESSION_TOKEN = serverdata['sessionToken'];
-      SLACK_TEAM = serverdata['slack-team'];
-      SLACK_TOKEN = serverdata['slack-token'];
-      SC_TOKEN = serverdata['sc-token'];
+			sessionStorage['playerName'] = serverdata['playerName'];
+			sessionStorage['playerEmail'] = serverdata['playerEmail'];
+			sessionStorage['playerStreet'] = decode(JSON.decode(serverdata['metabolics']),Metabolics).current_street;
 
-      if (serverdata['playerName'].trim() == '') {
-        setupNewUser(serverdata);
-      }
-      else {
-        // Get our username and location from the server.
-        sessionStorage['playerName'] = serverdata['playerName'];
-        sessionStorage['playerEmail'] = serverdata['playerEmail'];
-        sessionStorage['playerStreet'] = decode(JSON.decode(serverdata['metabolics']),Metabolics).current_street;
-        log('Auth: Logged in');
-        startGame(serverdata);
-      }
-    });
-  }
+			if(serverdata['playerName'].trim() == '')
+			{
+				setupNewUser(serverdata);
+			}
+			else
+			{
+				// Get our username and location from the server.
+				log('Auth: Logged in');
+				inputManager = new InputManager();
+				startGame(serverdata);
+			}
+		});
+	}
 
-  Future post(String type ,Map data) {
-    return HttpRequest.request(_authUrl + "/$type", method: "POST", requestHeaders: {
+	Future post(String type ,Map data)
+	{
+		return HttpRequest.request(_authUrl + "/$type", method: "POST", requestHeaders: {
           "content-type": "application/json"
-        }, sendData: JSON.encode(data));
-  }
+		}, sendData: JSON.encode(data));
+	}
 
-  void logout() {
-    log('Auth: Attempting logout');
-    _personaNavigator.logout();
-    window.location.reload();
-  }
+	void logout()
+	{
+ 		log('Auth: Attempting logout');
+		localStorage.remove('username');
+		_loginPanel.firebase.unauth();
+		window.location.reload();
+	}
 
+	startGame(Map serverdata)
+	{
+		view.loggedIn();
+		audio.sc = new SC(SC_TOKEN);
 
-  startGame(Map serverdata) {
-    // Begin Game//
-    game = new Game(decode(JSON.decode(serverdata['metabolics']),Metabolics));
-    audio = new SoundManager();
-    inputManager = new InputManager();
-    view.loggedIn();
-  }
+		// Begin Game//
+		game = new Game(decode(JSON.decode(serverdata['metabolics']),Metabolics));
+	}
 
-  setupNewUser(Map serverdata) {
-    Element signinElement = querySelector('ur-login');
-    signinElement.attributes['newuser'] = 'true';
-    signinElement.on['setUsername'].listen((_) {
-
-    	post('setusername', {
-        'type' : 'set-username',
-        'token': SESSION_TOKEN,
-        'username' : (signinElement.shadowRoot.querySelector('#new-user-name') as InputElement).value
-      }).then((HttpRequest request) {
-
-        if (request.responseText == '{"ok":"yes"}') {
-          // now that the username has been set, refresh and auto-login.
-          window.location.reload();
-          }
-      });
-    });
-
-  }
-
+	setupNewUser(Map serverdata)
+	{
+		_loginPanel.attributes['newUser'] = 'true';
+		_loginPanel.on['setUsername'].listen((e)
+		{
+			String username = e.detail;
+			localStorage['username'] = username;
+			Map data = {'type' : 'set-username',
+						'token': SESSION_TOKEN,
+						'username' : username
+						};
+			post('setusername', data).then((HttpRequest request)
+			{
+				if(request.responseText == '{"ok":"yes"}')
+				{
+					// now that the username has been set, start the game
+					startGame(serverdata);
+				}
+			});
+		});
+	}
 }
-
-
-
-
-
-
-

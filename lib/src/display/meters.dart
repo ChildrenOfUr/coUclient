@@ -5,21 +5,21 @@ class Meters {
   Element currantElement = querySelector('#currCurrants');
 
   updateImgDisplay() {
-    meter.attributes['imagination'] = commaFormatter.format(metabolics.getImg());
+    meter.attributes['imagination'] = metabolics.img.toString();
   }
 
   updateEnergyDisplay() {
-    meter.attributes['energy'] = metabolics.getEnergy().toString();
-    meter.attributes['maxenergy'] = metabolics.getMaxEnergy().toString();
+    meter.attributes['energy'] = metabolics.energy.toString();
+    meter.attributes['maxenergy'] = metabolics.maxEnergy.toString();
   }
 
   updateMoodDisplay() {
-    meter.attributes['mood'] = metabolics.getMood().toString();
-    meter.attributes['maxmood'] = metabolics.getMaxMood().toString();
+    meter.attributes['mood'] = metabolics.mood.toString();
+    meter.attributes['maxmood'] = metabolics.maxMood.toString();
   }
 
   updateCurrantsDisplay() {
-    currantElement.text = commaFormatter.format(metabolics.getCurrants());
+    currantElement.text = commaFormatter.format(metabolics.currants);
   }
 
   updateNameDisplay() {

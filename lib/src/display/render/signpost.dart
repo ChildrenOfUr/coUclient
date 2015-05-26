@@ -14,6 +14,9 @@ class Signpost extends Entity
 			h = signpost['h'];
 		if(signpost['w'] != null)
 			w = signpost['w'];
+
+		left = x; top = y; width = w; height = h;
+
 		pole = new DivElement()
 	        ..className = 'entity'
 			..attributes['translateX'] = x.toString()
@@ -29,7 +32,7 @@ class Signpost extends Entity
 	        ..style.top = y.toString() + "px"
 	        ..style.left = x.toString() + "px";
 
-		String id = 'pole'+random.nextInt(50).toString();
+		id = 'pole'+random.nextInt(50).toString();
 		pole.id = id;
 		entities[id] = this;
 
@@ -72,8 +75,13 @@ class Signpost extends Entity
 		view.playerHolder.append(pole);
 	}
 
-	update(dt){}
+	@override
+	update(dt)
+	{
+		super.update(dt);
+	}
 
+	@override
 	render()
 	{
 		if(dirty)

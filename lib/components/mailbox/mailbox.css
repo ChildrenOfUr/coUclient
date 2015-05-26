@@ -1,0 +1,104 @@
+* {
+    font-family: "Lato", sans-serif;
+}
+
+/* Composing */
+
+.input_text {
+    width: calc(100% - 15px);
+    font-size: 15px;
+    background-color: #eee;
+    border: 2px solid rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    padding: 5px;
+    margin-bottom: 5px;
+}
+
+.input_box {
+    resize: none;
+    height: 190px;
+}
+
+#action_discard {
+    float: right;
+}
+
+*,
+*:active,
+*:focus {
+    outline: none;
+}
+
+/* Reading */
+
+#btn_close {
+    float: right;
+}
+
+#read_actions {
+    border-top: 2px solid #4b2e4c;
+    padding-top: 10px;
+}
+
+/* Listing */
+
+table {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 100%;
+    font-size: 14px;
+}
+
+td {
+    border-bottom: 2px solid #4b2e4c;
+    padding: 5px;
+    font-size: 16px;
+}
+
+.thead {
+    font-weight: bold;
+}
+
+a,
+a:active,
+a:visited {
+    color: #4b2e4c;
+}
+
+#thead_from {
+    min-width: 100px;
+    max-width: 200px;
+}
+
+#thead_subject {
+    min-width: 200px;
+}
+
+td.tbody_from,
+td.tbody_subject {
+    overflow: hidden;
+}
+
+td #thead_delete,
+td .tbody_delete {
+    width: 60px;
+}
+
+ur-button.btn_delete {
+    float: right;
+}
+
+ur-button#btn_refresh {
+    float: right;
+}
+
+.unread {
+    background: rgba(75, 46, 76, 0.2);
+    font-weight: bold;
+}
+
+#emptyinbox {
+    font-size: 20px;
+    margin-top: 80px;
+    text-align: center;
+}

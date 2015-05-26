@@ -1,0 +1,21 @@
+#goWindow input[type="text"] {
+  width: calc(100% - 5px);
+}
+
+#locations {
+  overflow-y: scroll;
+  margin-top: 5px;
+  height: calc(100% - 25px);
+}
+
+#locations a {
+  display: block;
+}
+
+#locations ul {
+  padding-left: 0;
+}
+
+#locations ul li {
+  list-style-type: none;
+}

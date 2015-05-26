@@ -87,7 +87,8 @@ class Joystick
 			UP = false; DOWN = false; LEFT = false; RIGHT = false; //reset
 
 			_releaseController.add(new JoystickEvent());
-			repeatTimer.cancel();
+			if(repeatTimer != null)
+				repeatTimer.cancel();
 		});
 	}
 
