@@ -36,7 +36,9 @@ class InputManager {
 		"ActionBindingPrimary": 13,
 		"ActionBindingAlt": 13,
 		"MapBindingPrimary": 77,
-		"MapBindingAlt":77
+		"MapBindingAlt":77,
+		"ChatFocusBindingPrimary": 9,
+		"ChatFocusBindingAlt": 9
 	};
 	bool ignoreKeys = false,
 	touched = false,
@@ -280,9 +282,10 @@ class InputManager {
 				activateControl('rightKey', true, 'keyboard');
 			if((k.keyCode == keys["JumpBindingPrimary"] || k.keyCode == keys["JumpBindingAlt"])) //spacebar
 				activateControl('jumpKey', true, 'keyboard');
-			if((k.keyCode == keys["ActionBindingPrimary"] || k.keyCode == keys["ActionBindingAlt"])) { //enter
+			if((k.keyCode == keys["ActionBindingPrimary"] || k.keyCode == keys["ActionBindingAlt"])) //enter
 				doObjectInteraction();
-			}
+			if (k.keyCode == keys["ChatFocusBindingPrimary"] || k.keyCode == keys["ChatFocusBindingAlt"]) //tab
+				advanceChatFocus(k);
 		});
 
 		document.onKeyUp.listen((KeyboardEvent k) {
