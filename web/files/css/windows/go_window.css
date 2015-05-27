@@ -1,5 +1,6 @@
 #goWindow input[type="text"] {
   width: calc(100% - 5px);
+  margin-bottom: 5px;
 }
 
 #locations {
@@ -14,6 +15,7 @@
 
 #locations ul {
   padding-left: 0;
+  margin: 0;
 }
 
 #locations ul li {

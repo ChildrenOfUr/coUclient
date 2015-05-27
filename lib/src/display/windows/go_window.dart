@@ -30,7 +30,15 @@ class GoWindow extends Modal {
     streetService.requestStreet(tsid);
   }
 
+  ElementList hubheadings = querySelectorAll("#locations h2");
+
   filter(input) {
+    if (input != "") {
+      hubheadings.style.display = "none";
+    } else {
+      hubheadings.style.display = "block";
+    }
+
     streets.forEach((link) {
       if (link.text.toLowerCase().contains(input) == false) {
         link.style.display = "none";
