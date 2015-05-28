@@ -8,18 +8,18 @@ List<Chat> openConversations = [];
 
 void advanceChatFocus(KeyboardEvent k) {
 	k.preventDefault();
+	k.stopImmediatePropagation();
 
 	bool found = false;
 	for (int i = 0; i < openConversations.length; i++) {
 		Chat convo = openConversations[i];
 		if (convo.focused) {
-			// catches a chat that is focused
-			found = true;
-			if (i != openConversations.length - 1) {
+			//unfocus the current
+			convo.blur();
+			if (i < openConversations.length-1) {
 				// not last chat in list
-				openConversations[i+1].conversationElement.querySelector("input").focus();
-			}
-			else {
+				openConversations[i+1].focus();
+			} else {
 				// last chat in list
 				// focus game
 				querySelector("#gameselector").focus();
@@ -27,13 +27,14 @@ void advanceChatFocus(KeyboardEvent k) {
 					openConversations[i].blur();
 				}
 			}
+			found = true;
+			break;
 		}
 	}
 
 	if (!found) {
-		// game is focused
-		// focus first chat
-		openConversations[0].conversationElement.querySelector("input").focus();
+		// game is focused, focus first chat
+		openConversations[0].focus();
 	}
 
 }
@@ -99,6 +100,7 @@ class Chat {
 
 	void focus() {
 		this.focused = true;
+		conversationElement.querySelector("input").focus();
 	}
 
 	void blur() {

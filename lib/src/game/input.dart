@@ -270,7 +270,7 @@ class InputManager {
 		//KeyUp and KeyDown are neccesary for preventing weird movement glitches
 		//keyCode's could be configurable in the future
 		document.onKeyDown.listen((KeyboardEvent k) {
-			if(ignoreKeys || menuKeyListener != null || querySelector(".fill") != null) return;
+			//if(ignoreKeys || menuKeyListener != null || querySelector(".fill") != null) return;
 
 			if((k.keyCode == keys["UpBindingPrimary"] || k.keyCode == keys["UpBindingAlt"])) //up arrow or w
 				activateControl('upKey', true, 'keyboard');

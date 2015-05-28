@@ -92,7 +92,7 @@ class MetabolicsService
 	void collectQuoin(Map map)
 	{
 		Element element = querySelector('#${map['id']}');
-		element.attributes['checking'] = 'false';
+		quoins[map['id']].checking = false;
 
 		if(map['success'] == 'false')
 			return;
@@ -100,7 +100,7 @@ class MetabolicsService
 		int amt = map['amt'];
 		String quoinType = map['quoinType'];
 
-		element.attributes['collected'] = "true";
+		quoins[map['id']].collected = true;
 
 		Element quoinText = querySelector("#qq"+element.id+" .quoinString");
 

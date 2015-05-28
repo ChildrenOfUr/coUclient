@@ -130,7 +130,7 @@ _setupStreetSocket(String streetName)
 				else if(element.style.display == "none")
 				{
 					element.style.display = "block";
-					element.attributes['collected'] = "false";
+					quoins[id].collected = false;
 				}
 			}
 		});
