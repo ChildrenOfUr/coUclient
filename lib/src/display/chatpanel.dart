@@ -120,8 +120,17 @@ class Chat {
 
 			//handle chat input getting focused/unfocused so that the character doesn't move while typing
 			InputElement chatInput = conversationElement.querySelector('input');
-			chatInput.onFocus.listen((_) => inputManager.ignoreKeys = true);
-			chatInput.onBlur.listen((_) => inputManager.ignoreKeys = false);
+			chatInput.onFocus.listen((_) {
+				inputManager.ignoreKeys = true;
+				//need to set the focued variable to true and false for all the others
+				openConversations.forEach((Chat c) => c.blur());
+				focus();
+			});
+			chatInput.onBlur.listen((_){
+				inputManager.ignoreKeys = false;
+				//we'll want to set the focused to false for this chat
+				blur();
+			});
 		}
 
 		if (title != "Local Chat") {
