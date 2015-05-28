@@ -81,7 +81,7 @@ String parseUrl(String message) {
 
 // Chats and Chat functions
 class Chat {
-	String title, lastWord = "", lastTabInsert = "";
+	String title, lastWord = "";
 	bool online, focused = false, tabInserted = false;
 	List messages;
 	Element conversationElement;
@@ -336,7 +336,10 @@ class Chat {
 		//if we don't get a hit and k=[tab], we will re-fire
 		k.stopImmediatePropagation();
 
-		String url = 'http://'+Configs.utilServerAddress+"/listUsers?channel=$title";
+		String channel = 'Global Chat';
+		if(title != channel)
+			channel = currentStreet.label;
+		String url = 'http://'+Configs.utilServerAddress+"/listUsers?channel=$channel";
 		connectedUsers = JSON.decode(await HttpRequest.getString(url));
 
 		int startIndex = input.value.lastIndexOf(" ") == -1 ? 0 : input.value.lastIndexOf(" ") + 1;
@@ -344,7 +347,6 @@ class Chat {
 			String name = connectedUsers.elementAt(i);
 			if (input.value.endsWith(name)) {
 				input.value = input.value.substring(0, input.value.lastIndexOf(name));
-				lastTabInsert = name;
 				break;
 			}
 		}
@@ -356,7 +358,6 @@ class Chat {
 			if (username.toLowerCase().startsWith(lastWord.toLowerCase())) {
 				input.value = input.value.substring(0, input.value.lastIndexOf(" ") + 1) + username;
 				tabInserted = true;
-				lastTabInsert = username;
 				tabSearchIndex++;
 				break;
 			}
@@ -369,14 +370,13 @@ class Chat {
 				if (username.toLowerCase().startsWith(lastWord.toLowerCase())) {
 					input.value = input.value.substring(0, input.value.lastIndexOf(" ") + 1) + username;
 					tabInserted = true;
-					lastTabInsert = username;
 					tabSearchIndex = index + 1;
 					break;
 				}
 			}
 		}
 
-		print('tabInserted=$tabInserted');
+		print('tabInserted=$tabInserted, users: $connectedUsers');
 		if(!tabInserted && k.keyCode==9) {
 			advanceChatFocus(k);
 		}
