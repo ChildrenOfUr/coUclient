@@ -5,13 +5,21 @@ toast(String message) {
 
   DivElement toast = new DivElement()
       ..classes.add('toast')
-      ..style.opacity = '0.35'
+      ..style.opacity = '0.5'
       ..text = message;
 
-  new Timer(new Duration(milliseconds: 5000), () {
+  int textTime = 1000 + (toast.text.length * 100);
+  if (textTime > 30000) {
+    textTime = 30000;
+  }
+
+  Duration timeOpacity = new Duration(milliseconds: textTime);
+  Duration timeHide = new Duration(milliseconds: timeOpacity.inMilliseconds + 500);
+
+  new Timer(timeOpacity, () {
     toast.style.opacity = '0';
   });
-  new Timer(new Duration(milliseconds: 5500), toast.remove);
+  new Timer(timeHide, toast.remove);
 
   toastContainer.append(toast);
 }

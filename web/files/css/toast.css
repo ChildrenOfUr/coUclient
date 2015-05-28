@@ -14,5 +14,10 @@
   font-size:12px;
   padding:3px;
   margin:2px;
+  width: 170px;
   transition:all 500ms;
+}
+
+.toast:hover {
+  opacity: 1 !important;
 }
