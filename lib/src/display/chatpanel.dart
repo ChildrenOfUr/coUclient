@@ -6,9 +6,8 @@ List<Chat> openConversations = [];
 
 // global functions
 
-void advanceChatFocus(KeyboardEvent k) {
+bool advanceChatFocus(KeyboardEvent k) {
 	k.preventDefault();
-	k.stopImmediatePropagation();
 
 	bool found = false;
 	for (int i = 0; i < openConversations.length; i++) {
@@ -37,6 +36,7 @@ void advanceChatFocus(KeyboardEvent k) {
 		openConversations[0].focus();
 	}
 
+	return true;
 }
 
 String getColorFromUsername(String username) {
@@ -81,22 +81,14 @@ String parseUrl(String message) {
 
 // Chats and Chat functions
 class Chat {
-	String title;
-	bool online;
-	bool focused = false;
+	String title, lastWord = "", lastTabInsert = "";
+	bool online, focused = false, tabInserted = false;
 	List messages;
-	String lastWord = "";
 	Element conversationElement;
-	int unreadMessages = 0,
-	tabSearchIndex = 0,
-	numMessages = 0,
-	inputHistoryPointer = 0,
-	emoticonPointer = 0;
-	static Chat otherChat = null,
-	localChat = null;
-	List<String> connectedUsers = new List();
-	List<String> inputHistory = new List();
-	bool tabInserted = false;
+	int unreadMessages = 0,	tabSearchIndex = 0,	numMessages = 0;
+	int inputHistoryPointer = 0, emoticonPointer = 0;
+	static Chat otherChat = null, localChat = null;
+	List<String> connectedUsers = new List(), inputHistory = new List();
 
 	void focus() {
 		this.focused = true;
@@ -157,7 +149,9 @@ class Chat {
 
 		processEvent(Map data) {
 			if (data["message"] == " joined.") {
-				if (!connectedUsers.contains(data["username"])) connectedUsers.add(data["username"]);
+				if (!connectedUsers.contains(data["username"])) {
+					connectedUsers.add(data["username"]);
+				}
 			}
 
 			if (data["message"] == " left.") {
@@ -260,103 +254,138 @@ class Chat {
 				if (inputHistoryPointer > 0) {
 					inputHistoryPointer--;
 					input.value = inputHistory.elementAt(inputHistoryPointer);
-					} else input.value = "";
+				} else {
+					input.value = "";
 				}
-				if (input.text != "" && key.keyCode == 9) //tab key, try to complete a user's name or an emoticon
+			}
+			if (input.value != "" && key.keyCode == 9) //tab key, try to complete a user's name or an emoticon
+			{
+				key.preventDefault();
+
+				if (input.value.endsWith(":")) //look for an emoticon instead of a username
 				{
-					key.preventDefault();
-
-					if (input.value.endsWith(":")) //look for an emoticon instead of a username
+					String value = input.value;
+					if (value.length > 1 && value.substring(value.lastIndexOf(":") - 1).startsWith(" :") || value.length == 1 && value.startsWith(":")) //start of new emoticon
 					{
-						String value = input.value;
-						if (value.length > 1 && value.substring(value.lastIndexOf(":") - 1).startsWith(" :") || value.length == 1 && value.startsWith(":")) //start of new emoticon
-						{
-							input.value = value.substring(0, value.lastIndexOf(":") + 1) + EMOTICONS.elementAt(emoticonPointer) + ":";
-							emoticonPointer++;
-							if (emoticonPointer == EMOTICONS.length) emoticonPointer = 0;
-							} else if (value.length > 1 && !value.substring(value.lastIndexOf(":") - 1).startsWith(" :")) //change existing emoticon choice
-							{
-								int lastColon = value.lastIndexOf(":"),
-								count = 0;
-								bool setNext = false;
-								while (count < EMOTICONS.length * 2) {
-									String name = EMOTICONS.elementAt(count % EMOTICONS.length);
-									if (setNext) {
-										input.value = value.substring(0, lastColon - EMOTICONS.elementAt(emoticonPointer).length) + name + ":";
-										emoticonPointer++;
-										if (emoticonPointer == EMOTICONS.length) emoticonPointer = 0;
-										break;
-									}
-
-									if (value.substring(lastColon - name.length, lastColon) != -1 && value.substring(lastColon - name.length, lastColon) == name) {
-										setNext = true;
-										emoticonPointer = count % EMOTICONS.length;
-									}
-									count++;
-								}
-							}
-
-							return;
-						}
-
-						int startIndex = input.value.lastIndexOf(" ") == -1 ? 0 : input.value.lastIndexOf(" ") + 1;
-						for (int i = 0; i < connectedUsers.length; i++) {
-							String name = connectedUsers.elementAt(i);
-							if (input.value.endsWith(name)) {
-								input.value = input.value.substring(0, input.value.lastIndexOf(name));
+						input.value = value.substring(0, value.lastIndexOf(":") + 1) + EMOTICONS.elementAt(emoticonPointer) + ":";
+						emoticonPointer++;
+						if (emoticonPointer == EMOTICONS.length)
+							emoticonPointer = 0;
+					} else if (value.length > 1 && !value.substring(value.lastIndexOf(":") - 1).startsWith(" :")) //change existing emoticon choice
+					{
+						int lastColon = value.lastIndexOf(":"),
+						count = 0;
+						bool setNext = false;
+						while (count < EMOTICONS.length * 2) {
+							String name = EMOTICONS.elementAt(count % EMOTICONS.length);
+							if (setNext) {
+								input.value = value.substring(0, lastColon - EMOTICONS.elementAt(emoticonPointer).length) + name + ":";
+								emoticonPointer++;
+								if (emoticonPointer == EMOTICONS.length) emoticonPointer = 0;
 								break;
 							}
-						}
-						if (!tabInserted) lastWord = input.value.substring(startIndex);
-						for ( ; tabSearchIndex < connectedUsers.length; tabSearchIndex++) {
-							String username = connectedUsers.elementAt(tabSearchIndex);
-							if (username.toLowerCase().startsWith(lastWord.toLowerCase())) {
-								input.value = input.value.substring(0, input.value.lastIndexOf(" ") + 1) + username;
-								tabInserted = true;
-								tabSearchIndex++;
-								break;
-							}
-						}
-						//if we didn't find it yet and the tabSearchIndex was not 0, let's look at the beginning of the array as well
-						//otherwise the user will have to press the tab key again
-						if (!tabInserted) {
-							for (int index = 0; index < tabSearchIndex; index++) {
-								String username = connectedUsers.elementAt(index);
-								if (username.toLowerCase().startsWith(lastWord.toLowerCase())) {
-									input.value = input.value.substring(0, input.value.lastIndexOf(" ") + 1) + username;
-									tabInserted = true;
-									tabSearchIndex = index + 1;
-									break;
-								}
-							}
-						}
 
-						if (tabSearchIndex == connectedUsers.length) //wrap around for next time
-						tabSearchIndex = 0;
-
-						return;
+							if (value.substring(lastColon - name.length, lastColon) != -1 && value.substring(lastColon - name.length, lastColon) == name) {
+								setNext = true;
+								emoticonPointer = count % EMOTICONS.length;
+							}
+							count++;
+						}
 					}
-					});
 
-input.onKeyUp.listen((KeyboardEvent key) {
-	if (key.keyCode != 9) tabInserted = false;
+					return;
+				}
 
-	if (key.keyCode != 13) //listen for enter key
-	return;
+				//let's suggest players to tab complete
+				tabComplete(input,key);
 
-	if (input.value.trim().length == 0) //don't allow for blank messages
-	return;
+				return;
+			}
+		});
 
-	parseInput(input.value);
+		input.onKeyUp.listen((KeyboardEvent key) {
+			if (key.keyCode != 9) {
+				tabInserted = false;
+			}
 
-	inputHistory.insert(0, input.value); //add to beginning of list
-	inputHistoryPointer = 0; //point to beginning of list
-	if (inputHistory.length > 50) //don't allow the list to grow forever
-	inputHistory.removeLast();
+			if (key.keyCode != 13) {
+				//listen for enter key
+				return;
+			}
 
-	input.value = '';
-	});
-}
+			if (input.value.trim().length == 0) {
+				//don't allow for blank messages
+				return;
+			}
+
+			parseInput(input.value);
+
+			inputHistory.insert(0, input.value); //add to beginning of list
+			inputHistoryPointer = 0; //point to beginning of list
+			if (inputHistory.length > 50) {
+				//don't allow the list to grow forever
+				inputHistory.removeLast();
+			}
+
+			input.value = '';
+		});
+	}
+
+	tabComplete(TextInputElement input, KeyboardEvent k) async {
+		//don't allow a key like tab to change to a different chat
+		//if we don't get a hit and k=[tab], we will re-fire
+		k.stopImmediatePropagation();
+
+		String url = 'http://'+Configs.utilServerAddress+"/listUsers?channel=$title";
+		connectedUsers = JSON.decode(await HttpRequest.getString(url));
+
+		int startIndex = input.value.lastIndexOf(" ") == -1 ? 0 : input.value.lastIndexOf(" ") + 1;
+		for (int i = 0; i < connectedUsers.length; i++) {
+			String name = connectedUsers.elementAt(i);
+			if (input.value.endsWith(name)) {
+				input.value = input.value.substring(0, input.value.lastIndexOf(name));
+				lastTabInsert = name;
+				break;
+			}
+		}
+		if (!tabInserted) {
+			lastWord = input.value.substring(startIndex);
+		}
+		for ( ; tabSearchIndex < connectedUsers.length; tabSearchIndex++) {
+			String username = connectedUsers.elementAt(tabSearchIndex);
+			if (username.toLowerCase().startsWith(lastWord.toLowerCase())) {
+				input.value = input.value.substring(0, input.value.lastIndexOf(" ") + 1) + username;
+				tabInserted = true;
+				lastTabInsert = username;
+				tabSearchIndex++;
+				break;
+			}
+		}
+		//if we didn't find it yet and the tabSearchIndex was not 0, let's look at the beginning of the array as well
+		//otherwise the user will have to press the tab key again
+		if (!tabInserted) {
+			for (int index = 0; index < tabSearchIndex; index++) {
+				String username = connectedUsers.elementAt(index);
+				if (username.toLowerCase().startsWith(lastWord.toLowerCase())) {
+					input.value = input.value.substring(0, input.value.lastIndexOf(" ") + 1) + username;
+					tabInserted = true;
+					lastTabInsert = username;
+					tabSearchIndex = index + 1;
+					break;
+				}
+			}
+		}
+
+		print('tabInserted=$tabInserted');
+		if(!tabInserted && k.keyCode==9) {
+			advanceChatFocus(k);
+		}
+
+		if (tabSearchIndex == connectedUsers.length) {
+			//wrap around for next time
+			tabSearchIndex = 0;
+		}
+	}
 
 
 parseInput(String input) {

@@ -268,13 +268,17 @@ class InputManager {
 
 		//Handle player input
 		//KeyUp and KeyDown are neccesary for preventing weird movement glitches
-		//keyCode's could be configurable in the future
 		document.onKeyDown.listen((KeyboardEvent k) {
-			//check for chat focus stuff before deciding on ignore keys
-			if (k.keyCode == keys["ChatFocusBindingPrimary"] || k.keyCode == keys["ChatFocusBindingAlt"]) //tab
-				advanceChatFocus(k);
+			if(menuKeyListener != null) {
+				return;
+			}
 
-			if(ignoreKeys || menuKeyListener != null || querySelector(".fill") != null) return;
+			//check for chat focus stuff before deciding on ignore keys
+			if (k.keyCode == keys["ChatFocusBindingPrimary"] || k.keyCode == keys["ChatFocusBindingAlt"]) {
+				advanceChatFocus(k);
+			}
+
+			if(ignoreKeys || querySelector(".fill") != null) return;
 
 			if((k.keyCode == keys["UpBindingPrimary"] || k.keyCode == keys["UpBindingAlt"])) //up arrow or w
 				activateControl('upKey', true, 'keyboard');
@@ -291,7 +295,9 @@ class InputManager {
 		});
 
 		document.onKeyUp.listen((KeyboardEvent k) {
-			if(ignoreKeys) return;
+			if(ignoreKeys) {
+				return;
+			}
 
 			if((k.keyCode == keys["UpBindingPrimary"] || k.keyCode == keys["UpBindingAlt"])) //up arrow or w
 				activateControl('upKey', false, 'keyboard');
@@ -307,7 +313,7 @@ class InputManager {
 				activateControl('actionKey', false, 'keyboard');
 		});
 
-//listen for right-clicks on entities that we're close to
+		//listen for right-clicks on entities that we're close to
 		document.body.onContextMenu.listen((MouseEvent e) {
 			Element element = e.target as Element;
 			int groundY = 0, xOffset = 0, yOffset = 0;

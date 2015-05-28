@@ -37,6 +37,12 @@ class StreetService
 		Map<String,dynamic> streetAsMap = streetJSON;
 		String label = streetAsMap['label'];
 		String tsid = streetAsMap['tsid'];
+		String oldLabel = "";
+		String oldTsid = "";
+		if(currentStreet != null) {
+			oldLabel = currentStreet.label;
+			oldTsid = currentStreet.tsid;
+		}
 
 		// TODO, this should happen automatically on the Server, since it'll know which street we're on.
 		//send changeStreet to chat server
@@ -45,7 +51,8 @@ class StreetService
 		map["username"] = game.username;
 		map["newStreetLabel"] = label;
 		map["newStreetTsid"] = tsid;
-		map["oldStreet"] = sessionStorage['playerStreet'];
+		map["oldStreetTsid"] = oldTsid;
+		map["oldStreetLabel"] = oldLabel;
 		new Message(#outgoingChatEvent,map);
 
 		view.streetLoadingImage.src = streetAsMap['loading_image']['url'];
