@@ -25,8 +25,10 @@ class AuthManager
 			sessionStorage['playerEmail'] = serverdata['playerEmail'];
 			sessionStorage['playerStreet'] = decode(JSON.decode(serverdata['metabolics']),Metabolics).current_street;
 
+			print('serverdata playername' + serverdata['playerName']);
 			if(serverdata['playerName'].trim() == '')
 			{
+				print('name not set');
 				setupNewUser(serverdata);
 			}
 			else
@@ -65,10 +67,14 @@ class AuthManager
 
 	setupNewUser(Map serverdata)
 	{
-		_loginPanel.attributes['newUser'] = 'true';
+		print('setupNewUser');
+		_loginPanel.newUser = true;
 		_loginPanel.on['setUsername'].listen((e)
 		{
+			print('setUsername event');
 			String username = e.detail;
+			print('setting name to ${e.detail}');
+
 			localStorage['username'] = username;
 			Map data = {'type' : 'set-username',
 						'token': SESSION_TOKEN,
@@ -80,6 +86,9 @@ class AuthManager
 				{
 					// now that the username has been set, start the game
 					startGame(serverdata);
+				}
+				else {
+					print('name change failed');
 				}
 			});
 		});
