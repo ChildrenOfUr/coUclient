@@ -13,6 +13,8 @@ class AuthManager
 		_loginPanel = querySelector('ur-login');
 		_loginPanel.on['loginSuccess'].listen((e)
 		{
+			inputManager = new InputManager();
+
 			Map serverdata = e.detail;
 
 			log('Auth: Setting API tokens');
@@ -35,7 +37,6 @@ class AuthManager
 			{
 				// Get our username and location from the server.
 				log('Auth: Logged in');
-				inputManager = new InputManager();
 				startGame(serverdata);
 			}
 		});
