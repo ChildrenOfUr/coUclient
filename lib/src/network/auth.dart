@@ -27,7 +27,6 @@ class AuthManager
 			sessionStorage['playerEmail'] = serverdata['playerEmail'];
 			sessionStorage['playerStreet'] = decode(JSON.decode(serverdata['metabolics']),Metabolics).current_street;
 
-			print('serverdata playername' + serverdata['playerName']);
 			if(serverdata['playerName'].trim() == '')
 			{
 				print('name not set');
