@@ -11,9 +11,11 @@ class AuthManager
 	{
 		// Starts the game
 		_loginPanel = querySelector('ur-login');
+
 		_loginPanel.on['loginSuccess'].listen((e)
 		{
 			inputManager = new InputManager();
+
 
 			Map serverdata = e.detail;
 
@@ -76,6 +78,8 @@ class AuthManager
 			print('setting name to ${e.detail}');
 
 			localStorage['username'] = username;
+      sessionStorage['playerName'] = username;
+      sessionStorage['playerEmail'] = serverdata['playerEmail'];
 			Map data = {'type' : 'set-username',
 						'token': SESSION_TOKEN,
 						'username' : username
