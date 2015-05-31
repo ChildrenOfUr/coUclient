@@ -117,7 +117,7 @@ class UserInterface
 
 		//load emoticons
 		new Asset("files/emoticons/emoticons.json").load().then((Asset asset)
-		                                                        => EMOTICONS = asset.get()["names"]);
+		=> EMOTICONS = asset.get()["names"]);
 
 		// Set initial Time
 		currDay.text = clock.dayofweek;
@@ -127,25 +127,25 @@ class UserInterface
 
 		// Listens for the logout button
 		logoutButton.onClick.listen((_)
-		                            {
-			                            auth.logout();
-		                            });
+		{
+			auth.logout();
+		});
 
 
 		// The 'you won' splash
 		window.onBeforeUnload.listen((_)
-		                             {
-			                             youWon.hidden = false;
-		                             });
+		{
+			youWon.hidden = false;
+		});
 
 
 		// Listens for the pause button
 		pauseButton.onClick.listen((_)
-		                           {
-			                           pauseMenu.hidden = false;
-		                           });
+		{
+			pauseMenu.hidden = false;
+		});
 		pauseMenu.querySelector('.fa-times.close').onClick.listen((_)
-		                                                          => pauseMenu.hidden = true);
+		=> pauseMenu.hidden = true);
 
 
 		new Service([#timeUpdate], (Message event)
@@ -166,7 +166,7 @@ class UserInterface
 		//world element is so that we don't remeasure it often
 		resize();
 		window.onResize.listen((_)
-		                       => resize());
+		=> resize());
 	}
 
 	resize()
@@ -200,22 +200,22 @@ class TouchScroller
 	TouchScroller(this._scrollDiv, this._direction)
 	{
 		_scrollDiv.onTouchStart.listen((TouchEvent event)
-		                               {
-			                               event.stopPropagation();
-			                               _startX = event.changedTouches.first.client.x;
-			                               _startY = event.changedTouches.first.client.y;
-			                               _lastX = _startX;
-			                               _lastY = _startY;
-		                               });
+		{
+			event.stopPropagation();
+			_startX = event.changedTouches.first.client.x;
+			_startY = event.changedTouches.first.client.y;
+			_lastX = _startX;
+			_lastY = _startY;
+		});
 		_scrollDiv.onTouchMove.listen((TouchEvent event)
-		                              {
-			                              event.preventDefault();
-			                              int diffX = _lastX - event.changedTouches.single.client.x;
-			                              int diffY = _lastY - event.changedTouches.single.client.y;
-			                              _lastX = event.changedTouches.single.client.x;
-			                              _lastY = event.changedTouches.single.client.y;
-			                              if(_direction == HORIZONTAL || _direction == BOTH) _scrollDiv.scrollLeft = _scrollDiv.scrollLeft + diffX;
-			                              if(_direction == VERTICAL || _direction == BOTH) _scrollDiv.scrollTop = _scrollDiv.scrollTop + diffY;
-		                              });
+		{
+			event.preventDefault();
+			int diffX = _lastX - event.changedTouches.single.client.x;
+			int diffY = _lastY - event.changedTouches.single.client.y;
+			_lastX = event.changedTouches.single.client.x;
+			_lastY = event.changedTouches.single.client.y;
+			if(_direction == HORIZONTAL || _direction == BOTH) _scrollDiv.scrollLeft = _scrollDiv.scrollLeft + diffX;
+			if(_direction == VERTICAL || _direction == BOTH) _scrollDiv.scrollTop = _scrollDiv.scrollTop + diffY;
+		});
 	}
 }

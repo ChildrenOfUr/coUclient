@@ -1,10 +1,10 @@
 nav {
-	position: relative;
-	display: inline-block;
-	top: -3px;
-	right:5px;
-	transform: translateY(-50%);
-	font-size: 1.2em;
+  position: relative;
+  display: inline-block;
+  top: -3px;
+  right:5px;
+  transform: translateY(-50%);
+  font-size: 1.2em;
 }
 
 nav * {

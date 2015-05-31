@@ -16,7 +16,6 @@ class AuthManager
 		{
 			inputManager = new InputManager();
 
-
 			Map serverdata = e.detail;
 
 			log('Auth: Setting API tokens');
@@ -31,7 +30,6 @@ class AuthManager
 
 			if(serverdata['playerName'].trim() == '')
 			{
-				print('name not set');
 				setupNewUser(serverdata);
 			}
 			else
@@ -89,6 +87,7 @@ class AuthManager
 				if(request.responseText == '{"ok":"yes"}')
 				{
 					// now that the username has been set, start the game
+					inputManager = new InputManager();
 					startGame(serverdata);
 				}
 				else {

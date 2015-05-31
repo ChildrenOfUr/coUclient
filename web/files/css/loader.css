@@ -37,13 +37,13 @@
 
 @keyframes rotate {
 
-from {
-    transform: translate3d(-50%, -50%, 0) rotate(0deg);
-}
+    from {
+        transform: translate3d(-50%, -50%, 0) rotate(0deg);
+    }
 
-to {
-    transform: translate3d(-50%, -50%, 0) rotate(360deg);
-}
+    to {
+        transform: translate3d(-50%, -50%, 0) rotate(360deg);
+    }
 
 }
 
