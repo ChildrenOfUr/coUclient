@@ -35,7 +35,7 @@ dependencies:
         url: git://github.com/ChildrenOfUr/cou_toolkit.git
   cou_login:
       git:
-        ref: dev
+        ref: master
         url: https://github.com/ChildrenOfUr/cou_login.git
 
 transformers:
