@@ -49,6 +49,7 @@
   font-size:12px;
   border-left: 2px solid rgba(0,0,0,0);
   background-color:#fff;
+  word-wrap: break-word;
 }
 .dialog p *.name {
   font-family: 'Fredoka One', cursive;
