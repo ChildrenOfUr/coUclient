@@ -5,7 +5,7 @@ class SettingsWindow extends Modal
 	String id = 'settingsWindow';
 
 	// SETTINGS BOOLS
-	bool _showJoinMessages = false, _playMentionSound = true;
+	bool _showJoinMessages = false, _playMentionSound = true, _closeTpWindowOnClick = true;
 
 	SettingsWindow()
 	{
@@ -21,6 +21,8 @@ class SettingsWindow extends Modal
 				setJoinMessagesVisibility(checkbox.checked);
 			if(checkbox.id == "PlayMentionSound")
 				setPlayMentionSound(checkbox.checked);
+			if(checkbox.id == "CloseTpWindowOnClick")
+				setcloseTpWindowOnClick(checkbox.checked);
 		});
 
 		//setup saved variables
@@ -66,6 +68,18 @@ class SettingsWindow extends Modal
 		}
 
 		graphicsBlur.onChange.listen((_) => localStorage["GraphicsBlur"] = graphicsBlur.checked.toString());
+
+		// set tp window closing
+
+		CheckboxInputElement closeTpWindow = querySelector("#CloseTpWindowOnClick") as CheckboxInputElement;
+		if(localStorage["closeTpWindowOnClick"] == null) {
+			localStorage["closeTpWindowOnClick"] = "true";
+		} else {
+			if (localStorage["closeTpWindowOnClick"] == "true")
+				closeTpWindow.checked = true;
+			else
+				closeTpWindow.checked = false;
+		}
 
 		//setup volume controls
 		UrSlider musicSlider = querySelector("#MusicSlider") as UrSlider;
@@ -121,4 +135,15 @@ class SettingsWindow extends Modal
 	}
 
 	bool get playMentionSound => _playMentionSound;
+
+	/**
+	 * Controls whether or not to close the teleport window after clicking a street
+	 */
+
+	bool get closeTpWindowOnClick => _closeTpWindowOnClick;
+
+	void setcloseTpWindowOnClick(bool enabled) {
+		_closeTpWindowOnClick = enabled;
+		localStorage["closeTpWindowOnClick"] = enabled.toString();
+	}
 }

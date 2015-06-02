@@ -28,6 +28,9 @@ class GoWindow extends Modal {
     //changes first letter to match revdancatt's code - only if it starts with an L
     if (tsid.startsWith("L")) tsid = tsid.replaceFirst("L", "G");
     streetService.requestStreet(tsid);
+    if (localStorage['closeTpWindowOnClick'] == "true") {
+      this.close();
+    }
   }
 
   ElementList hubheadings = querySelectorAll("#locations h2");
