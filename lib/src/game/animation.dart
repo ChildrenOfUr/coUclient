@@ -10,9 +10,9 @@ class Animation
 	ImageElement spritesheet;
 	double timeInMillis = 0.0, delayConsumed = 0.0;
 	Rectangle sourceRect;
-	bool dirty = true, delayInitially = false, paused = false, loaded = false;
+	bool dirty = true, delayInitially = false, paused = false, loaded = false, loops;
 
-	Animation(this.url,this.animationName,this.numRows,this.numColumns,this.frameList,{this.fps : 30, this.loopDelay : null, this.delayInitially : false});
+	Animation(this.url,this.animationName,this.numRows,this.numColumns,this.frameList,{this.fps : 30, this.loopDelay : null, this.delayInitially : false, this.loops : true});
 
 	Future<Animation> load()
 	{
@@ -62,7 +62,7 @@ class Animation
 		if(timeInMillis > 1/fps && delayConsumed >= loopDelay.inMilliseconds)
 		{
 			//advance the frame cycling around if necessary
-			if(frameNum >= frameList.length -1 && holdAtLastFrame)
+			if(frameNum >= frameList.length -1 && (holdAtLastFrame || !loops))
 				frameNum = frameList.length -1;
 			else
 			{

@@ -6,8 +6,18 @@ class NPC extends Entity
 	bool ready = false, facingRight = true, firstRender = true;
 	Animation animation;
 	ChatBubble chatBubble = null;
+	StreamController _animationLoaded = new StreamController.broadcast();
 
-	NPC(Map map)
+	Stream get onAnimationLoaded => _animationLoaded.stream;
+
+	factory NPC(Map map) {
+		if(map['type'].contains('Street Spirit')) {
+			return new StreetSpirit(map);
+		}
+		return new NPC._NPC(map);
+	}
+
+	NPC._NPC(Map map)
 	{
 		speed = map['speed'];
 
@@ -15,7 +25,7 @@ class NPC extends Entity
 		for(int i=0; i<map['numFrames']; i++)
 			frameList.add(i);
 
-		animation = new Animation(map['url'],"npc",map['numRows'],map['numColumns'],frameList, loopDelay: new Duration(milliseconds:map['loopDelay']));
+		animation = new Animation(map['url'],"npc",map['numRows'],map['numColumns'],frameList, loopDelay: new Duration(milliseconds:map['loopDelay']), loops: map['loops']);
 		animation.load().then((_)
 		{
 			top = currentStreet.bounds.height - num.parse(map['y'].toString()) - animation.height;
@@ -39,6 +49,7 @@ class NPC extends Entity
             canvas.attributes['height'] = canvas.height.toString();
         	view.playerHolder.append(canvas);
         	ready = true;
+			_animationLoaded.add(true);
 		});
 	}
 

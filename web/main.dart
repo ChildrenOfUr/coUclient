@@ -105,6 +105,7 @@ part 'package:couclient/src/game/entities/plant.dart';
 part 'package:couclient/src/game/street.dart';
 part 'package:couclient/src/game/entities/quoin.dart';
 part 'package:couclient/src/game/entities/grounditem.dart';
+part 'package:couclient/src/game/entities/street_spirit.dart';
 
 // UI PIECES //
 part 'package:couclient/src/display/ui_templates/interactions_menu.dart';
