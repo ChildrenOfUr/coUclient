@@ -43,3 +43,10 @@
 .KeyBindingOption {
     width: 150px;
 }
+
+.settingsContent input[type="checkbox"] {
+    position: relative;
+    top: 5px;
+    margin-right: 10px;
+    margin-bottom: 20px;
+}
