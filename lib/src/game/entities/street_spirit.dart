@@ -18,10 +18,10 @@ class StreetSpirit extends NPC {
 		}
 		//make street spirits bob up and down
 		if(bobbingUp) {
-			top -= sin(top/bobUpper)*speed/3*dt;
+			top -= speed.abs()/3*dt;
 		}
 		if(!bobbingUp) {
-			top += sin(top/bobLower)*speed/3*dt;
+			top += speed.abs()/3*dt;
 		}
 
 		if(top < bobLower) {

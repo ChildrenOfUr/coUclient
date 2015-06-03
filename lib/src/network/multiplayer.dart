@@ -170,7 +170,11 @@ _setupStreetSocket(String streetName)
                   		for(int i=0; i<npcMap['numFrames']; i++)
                   			frameList.add(i);
 
-                  		npc.animation = new Animation(npcMap['url'],"npc",npcMap['numRows'],npcMap['numColumns'],frameList);
+//				        if(npcMap['animation_name'] == "turn") {
+//					        print(npcMap);
+//					        //print('${npcMap['animation_name']}: loops=${map['loops']}');
+//				        }
+                  		npc.animation = new Animation(npcMap['url'],"npc",npcMap['numRows'],npcMap['numColumns'],frameList,loops:npcMap['loops']);
                   		npc.animation.load().then((_) => npc.ready = true);
       				}
 

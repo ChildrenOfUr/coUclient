@@ -60,7 +60,8 @@ class NPC extends Entity
 
 		super.update(dt);
 
-		if(firstRender || animation.url.contains("walk") || animation.url.contains("fly"))
+		RegExp movementWords = new RegExp(r'(walk|fly|move)');
+		if(firstRender || animation.url.contains(movementWords))
 		{
 			if(facingRight)
 				left += speed*dt;
