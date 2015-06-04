@@ -21,10 +21,7 @@ dependencies:
     git:
       ref: master
       url: git://github.com/ChildrenOfUr/scproxy.git
-  slack:
-    git:
-      ref: master
-      url: git://github.com/ChildrenOfUr/dart-slack.git
+  slack: "1.2.1+1"
   cou_auction_house:
     git:
       ref: master
