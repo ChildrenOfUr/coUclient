@@ -27,7 +27,7 @@ import 'package:cou_login/login/login.dart';
 // Used for NumberFormat
 import 'package:intl/intl.dart';
 // Slack Webhook API
-import 'package:slack/slack_html.dart' as slack;
+import 'package:slack/html/slack.dart' as slack;
 // SoundCloud Helper
 import 'package:scproxy/scproxy.dart';
 // Audio and Graphics
