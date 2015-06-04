@@ -3,6 +3,7 @@ part of couclient;
 class VendorWindow extends Modal
 {
 	String id = 'shopWindow';
+	String npcId = '';
 	Element header, buy, sell, currants, backToSell, backToBuy, buyPlus, buyMinus;
 	Element buyMax, buyButton, buyItemCount, buyPriceTag, buyDescription, buyStacksTo;
 	ImageElement buyItemImage;
@@ -32,9 +33,17 @@ class VendorWindow extends Modal
 		buyPriceTag = this.window.querySelector('#buy-qty .ItemPrice');
 	}
 
+	@override
+	close() {
+		sendAction("close", npcId, {});
+		super.close();
+	}
+
 	// Calling the modal with a vendorMap opens a vendor window
 	call(Map vendorMap, {bool sellMode:false})
 	{
+		npcId = vendorMap['id'];
+		print(npcId);
 		header.text = vendorMap['vendorName'];
 		currants.text = " ${commaFormatter.format(metabolics.currants)} currants";
 

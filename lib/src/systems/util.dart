@@ -20,9 +20,10 @@ bool intersect(Rectangle a, Rectangle b)
 /**
  * Log an event to the bug report window.
  **/
-log (String message)
-{
-  new Message(#debug, message + ' ${getUptime()}');
+log (String message) {
+	String text = localStorage['username'] + ' ' + message + ' ' + getUptime();
+	new Message(#debug, text);
+	print('logged: $text');
 }
 
 /**
@@ -118,6 +119,16 @@ String getRequirementString(List<Map> requires)
  **/
 sendAction(String methodName, String entityId, [Map arguments])
 {
+	if(methodName == null || methodName.trim == "") {
+		log("methodName must be provided, got: '$methodName'");
+		return;
+	}
+	if(entityId == null || entityId.trim == "") {
+		log("entityId must be provided, got: '$entityId'");
+		return;
+	}
+
+	log("sending $methodName to $entityId (${entities[entityId].runtimeType})");
 	Element entity = querySelector("#${entityId}");
 	Map map = {};
 	map['callMethod'] = methodName;
