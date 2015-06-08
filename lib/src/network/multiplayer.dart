@@ -53,7 +53,9 @@ _setupStreetSocket(String streetName)
 	streetSocket.onOpen.listen((_)
 	{
 		querySelector('#server-down').hidden = true;
-		if (serverDown = true) window.location.reload();
+		if (serverDown) {
+			window.location.reload();
+		}
 		sendJoinedMessage(streetName);
 	});
 	streetSocket.onMessage.listen((MessageEvent event)
@@ -203,7 +205,7 @@ _setupStreetSocket(String streetName)
 			}
 		});
 	});
-	streetSocket.onClose.listen((_)
+	streetSocket.onClose.listen((CloseEvent e)
 	{
 	  log('Multiplayer(Street): Socket closed');
 		if(!reconnect)
