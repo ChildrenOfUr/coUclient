@@ -21,9 +21,9 @@ bool intersect(Rectangle a, Rectangle b)
  * Log an event to the bug report window.
  **/
 log (String message) {
-	String text = localStorage['username'] + ' ' + message + ' ' + getUptime();
+	String text = message + ' ' + getUptime();
 	new Message(#debug, text);
-	print('logged: $text');
+	print('$text');
 }
 
 /**

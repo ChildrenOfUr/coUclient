@@ -1,4 +1,4 @@
-#youWon {
+#youWon{
     font-size:1.5em;
     text-align: center;
     overflow:hidden;
@@ -11,4 +11,19 @@
     height:100%;
     z-index:5;
     opacity:0.6;
+}
+
+#server-down {
+    font-size:1.5em;
+    text-align: center;
+    overflow:hidden;
+    top:0px;
+    left:0px;
+    background-color: #000;
+    color:#fff;
+    position:absolute;
+    width:100%;
+    height:100%;
+    z-index:7;
+    opacity:0.9;
 }

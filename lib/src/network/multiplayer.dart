@@ -4,7 +4,7 @@ String multiplayerServer = "ws://${Configs.websocketServerAddress}/playerUpdate"
 String streetEventServer = "ws://${Configs.websocketServerAddress}/streetUpdate";
 String joined = "", creatingPlayer = "";
 WebSocket streetSocket, playerSocket;
-bool reconnect = true, firstConnect = true;
+bool reconnect = true, firstConnect = true, serverDown = false;
 Map<String,Player> otherPlayers = new Map();
 Map<String,Quoin> quoins = new Map();
 Map<String,Entity> entities = new Map();
@@ -52,6 +52,8 @@ _setupStreetSocket(String streetName)
 
 	streetSocket.onOpen.listen((_)
 	{
+		querySelector('#server-down').hidden = true;
+		if (serverDown = true) window.location.reload();
 		sendJoinedMessage(streetName);
 	});
 	streetSocket.onMessage.listen((MessageEvent event)
@@ -206,6 +208,8 @@ _setupStreetSocket(String streetName)
 	  log('Multiplayer(Street): Socket closed');
 		if(!reconnect)
 		{
+			querySelector('#server-down').hidden = false;
+			serverDown = true;
 			reconnect = true;
 			return;
 		}
@@ -217,8 +221,8 @@ _setupStreetSocket(String streetName)
 			_setupStreetSocket(currentStreet.label);
 		});
 	});
-  streetSocket.onError.listen((ErrorEvent e) {
-    log('Multiplayer(Street): error ${e.error}');
+  streetSocket.onError.listen((Event e) {
+    log('Multiplayer(Street): error ${e}');
   });
 }
 
@@ -318,8 +322,8 @@ _setupPlayerSocket()
 			_setupPlayerSocket();
 		});
 	});
-  playerSocket.onError.listen((ErrorEvent e) {
-    log('Multiplayer(Player): error ${e.error}');
+  playerSocket.onError.listen((Event e) {
+    log('Multiplayer(Player): error ${e}');
   });
 }
 
