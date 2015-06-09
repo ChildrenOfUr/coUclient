@@ -23,3 +23,12 @@
 .text-red .fa {
     color: rgb(134, 0, 25) !important;
 }
+
+.window-container a {
+    cursor: pointer;
+    color: teal;
+}
+
+.window-container a:hover {
+    text-decoration: underline;
+}
