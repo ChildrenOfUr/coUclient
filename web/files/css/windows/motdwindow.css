@@ -1,0 +1,25 @@
+.window-container {
+    margin-top: 40px;
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 9px;
+    padding: 5px 10px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-top: 2px solid rgba(0, 0, 0, 0.1);
+}
+
+.window-container .fa {
+    padding: 0 !important;
+}
+
+.window-container p {
+    margin: 16px 0;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-red,
+.text-red .fa {
+    color: rgb(134, 0, 25) !important;
+}
