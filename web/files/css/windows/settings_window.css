@@ -1,5 +1,5 @@
 #settingsWindow article .tab-content * {
-    font-family: 'Tahoma', 'Geneva', 'sans-serif';
+    font-family: "Lato", 'Tahoma', 'Geneva', 'sans-serif';
     color: #444;
 }
 
@@ -11,7 +11,7 @@
 #settingsWindow article .tab-content div kbd {
     background-color: #4b2e4c;
     color: #eee;
-    font-family: 'Tahoma', 'Geneva', 'sans-serif';
+    font-family: "Lato", 'Tahoma', 'Geneva', 'sans-serif';
     padding: 3px;
     text-align: right;
     border-radius: 5px;
@@ -44,9 +44,28 @@
     width: 150px;
 }
 
-.settingsContent input[type="checkbox"] {
+#settingsWindow input[type="checkbox"] {
     position: relative;
     top: 5px;
     margin-right: 10px;
     margin-bottom: 20px;
+    margin-left: 15px;
+}
+
+.pane-2-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.pane-2-container > div {
+    flex: 1;
+    min-height: 275px;
+}
+
+.pane-2-left {
+    border-right: 1px solid #aaa;
+}
+
+.pane-2-right {
+    max-width: 200px;
 }

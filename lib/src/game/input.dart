@@ -81,45 +81,56 @@ class InputManager {
 
 		for(Gamepad gamepad in gamepads) {
 			//the list of gamepads the browser returns can include nulls
-			if(gamepad == null)
+			if (gamepad == null)
 				continue;
 
 			//don't do anything in certain situations
-			if(ignoreKeys || querySelector(".fill") != null) return;
+			if (ignoreKeys || querySelector(".fill") != null) return;
 
 			//interact with the menu
 			Element clickMenu = querySelector("#RightClickMenu");
-			if(clickMenu != null) {
+			if (clickMenu != null) {
 				Element list = querySelector('#RCActionList');
 				//only select a new option once every 300ms
 				bool selectAgain = lastSelect.add(new Duration(milliseconds:300)).isBefore(new DateTime.now());
-				if(controlCounts['upKey']['keyBool'] == true && selectAgain)
+				if (controlCounts['upKey']['keyBool'] == true && selectAgain) {
 					selectUp(list, "RCItemSelected");
-				if(controlCounts['downKey']['keyBool'] == true && selectAgain)
+				}
+
+				if (controlCounts['downKey']['keyBool'] == true && selectAgain) {
 					selectDown(list, "RCItemSelected");
-				if(controlCounts['leftKey']['keyBool'] == true ||
-				   controlCounts['rightKey']['keyBool'] == true ||
-				   controlCounts['jumpKey']['keyBool'] == true)
+				}
+				if (
+					controlCounts['leftKey']['keyBool'] == true ||
+					controlCounts['rightKey']['keyBool'] == true ||
+					controlCounts['jumpKey']['keyBool'] == true) {
 					stopMenu(clickMenu);
+				}
 			}
 
-			if(gamepad.axes[0] > .2 || gamepad.axes[2] > .2)
+			if (gamepad.axes[0] > .2 || gamepad.axes[2] > .2) {
 				activateControl('rightKey', true, 'gamepad');
-			else
+			} else {
 				activateControl('rightKey', false, 'gamepad');
-			if(gamepad.axes[0] < -.2 || gamepad.axes[2] < -.2)
-				activateControl('leftKey', true, 'gamepad');
-			else
-				activateControl('leftKey', false, 'gamepad');
+			}
 
-			if(gamepad.axes[1] > .2 || gamepad.axes[3] > .2)
+			if (gamepad.axes[0] < -.2 || gamepad.axes[2] < -.2) {
+				activateControl('leftKey', true, 'gamepad');
+			} else {
+				activateControl('leftKey', false, 'gamepad');
+			}
+
+			if(gamepad.axes[1] > .2 || gamepad.axes[3] > .2) {
 				activateControl('upKey', true, 'gamepad');
-			else
+			} else {
 				activateControl('upKey', false, 'gamepad');
-			if(gamepad.axes[1] < -.2 || gamepad.axes[3] < -.2)
+			}
+
+			if(gamepad.axes[1] < -.2 || gamepad.axes[3] < -.2) {
 				activateControl('downKey', true, 'gamepad');
-			else
+			} else {
 				activateControl('downKey', false, 'gamepad');
+			}
 
 			bool button0 = context['navigator'].callMethod('getGamepads')[gamepad.index]['buttons'][0]['pressed'];
 			bool button1 = context['navigator'].callMethod('getGamepads')[gamepad.index]['buttons'][1]['pressed'];

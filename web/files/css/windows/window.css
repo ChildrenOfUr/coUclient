@@ -8,7 +8,7 @@
   height: 350px;
   border-radius: 8px;
   background-color: #fff;
-  box-shadow: 0px 0px 0px 8px rgba(0, 0, 0, 0.1), 0px 0px 0px 2px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 0 8px rgba(0, 0, 0, 0.1), 0 0 0 2px rgba(0, 0, 0, 0.3);
   z-index: 2;
   overflow: hidden;
 }
@@ -16,18 +16,18 @@
 #windowHolder .window header {
   cursor: move;
   position: absolute;
-  top: 0px;
+  top: 0;
   left: 60px;
   right: 40px;
   font-size: 30px;
   color: #444;
-  text-shadow: 0px 1px rgba(100, 100, 100, 0.3);
-  padding: 10px 0px;
+  text-shadow: 0 1px rgba(100, 100, 100, 0.3);
+  padding: 10px 0;
   border-radius: 5px;
 }
 
 #windowHolder .window .fa {
-  padding: 10px 0px;
+  padding: 10px 0;
   color: #444;
 }
 
@@ -54,8 +54,8 @@
 #windowHolder .window .fa-times.close {
   color: #ba381a;
   position: absolute;
-  top: 0px;
-  right: 0px;
+  top: 0;
+  right: 0;
   left: initial;
   font-size: 24px;
   cursor: pointer;
@@ -73,7 +73,7 @@
   color: #444;
   text-align: center;
   font-size: 16px;
-  text-shadow: 0px 1px rgba(100, 100, 100, 0.3);
+  text-shadow: 0 1px rgba(100, 100, 100, 0.3);
   float: right;
 }
 
@@ -95,7 +95,7 @@ article .tab {
   min-width: 70px;
   background-color: #eee;
   color: #222;
-  border-radius: 8px 8px 0px 0px;
+  border-radius: 8px 8px 0 0;
   float: right;
   position: relative;
   top: -28px;
@@ -103,6 +103,7 @@ article .tab {
   height: 26px;
   text-align: center;
   border: 1px solid rgba(0, 0, 0, 0.3);
+  font-family: "Lato", sans-serif;
 }
 
 article .tab.active {
@@ -121,7 +122,7 @@ article .tab-content {
   padding: 5px;
   background-color: #eee;
   color: #444;
-  bottom: 0px;
+  bottom: 0;
   left: 0;
   right: 0;
   overflow-y: auto;
@@ -144,7 +145,7 @@ article .tab-content {
   height: 348px;
   border-radius: 6px;
   background-color: #fff;
-  box-shadow: 0px 0px 0px 8px rgba(0, 0, 0, 0.1), 0px 0px 0px 2px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 0 8px rgba(0, 0, 0, 0.1), 0 0 0 2px rgba(0, 0, 0, 0.3);
 }
 
 .PopWindowHeader {
@@ -165,8 +166,8 @@ article .tab-content {
   font-size: 12px;
   font-weight: normal;
   position: absolute;
-  left: 0px;
+  left: 0;
   top: 65px;
-  right: 0px;
+  right: 0;
   height: 320px;
 }

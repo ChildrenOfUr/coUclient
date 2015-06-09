@@ -7,10 +7,8 @@
     <article>
 
         <div class="tab-holder">
-            <span class="tab">Chat</span>
-            <span class="tab">Sound</span>
-            <span class="tab">Graphics</span>
-            <span class="tab active" id="keyboard-settings-tab">Keyboard</span>
+            <span class="tab" id="keyboard-settings-tab">Keyboard</span>
+            <span class="tab active" id="general-settings-tab">General</span>
         </div>
 
         <div id="keyboard" class="tab-content">
@@ -70,43 +68,57 @@
                 <span>Presets: </span>
                 <ur-button id="keyboard-preset-qwerty" theme="light">Qwerty</ur-button>
                 <ur-button id="keyboard-preset-dvorak" theme="light" title="There are dozens of us! DOZENS!">
-                Dvorak
-            </ur-button>
+                    Dvorak
+                </ur-button>
+            </div>
+
         </div>
 
-    </div>
+        <div id="general" class="tab-content">
+            <div class="pane-2-container">
 
-    <div id="graphics" class="tab-content" hidden>
-        <div class="content settingsContent">
-            <label class="ChatSettingsOption">
-                <input id="GraphicsBlur" type="checkbox" class="ChatSettingsCheckbox">Enable Scenery Blur
-            </label>
-            <br>
-            <label class="ChatSettingsOption">
-                <input id="CloseTpWindowOnClick" type="checkbox" class="ChatSettingsCheckbox">Close teleport window after teleporting
-            </label>
-           </div>
-       </div>
+                <div class="pane-2-left">
 
-       <div id="chat" class="tab-content" hidden>
-        <div class="content settingsContent">
-            <label class="ChatSettingsOption"><input id="ShowJoinMessages" type="checkbox"
-               class="ChatSettingsCheckbox">Show Join Messages</label>
-               <br>
-               <label class="ChatSettingsOption"><input id="PlayMentionSound" type="checkbox"
-                   class="ChatSettingsCheckbox">Play Mention Sound</label>
-                   <br>
-               </div>
-           </div>
+                    <!-- Interface -->
+                    <h1 class="pane-title">Interface</h1>
+                    <label class="ChatSettingsOption">
+                        <input id="CloseTpWindowOnClick" type="checkbox" class="ChatSettingsCheckbox">
+                        Close teleport window after teleporting
+                    </label>
 
-           <div id="sound" class="tab-content" hidden>
-            <div class="content settingsContent">
-                <label>Music:<br>
-                    <ur-slider id="MusicSlider"></ur-slider>
-                </label><br>
-                <label>Sound Effects:<br>
-                    <ur-slider id="EffectSlider"></ur-slider>
-                </label>
+                    <!-- Chat -->
+                    <h1 class="pane-title">Chat</h1>
+                    <label class="ChatSettingsOption">
+                        <input id="ShowJoinMessages" type="checkbox" class="ChatSettingsCheckbox">
+                        Show Join Messages
+                    </label>
+                    <br>
+                    <label class="ChatSettingsOption">
+                        <input id="PlayMentionSound" type="checkbox" class="ChatSettingsCheckbox">
+                        Play Mention Sound
+                    </label>
+
+                </div>
+
+                <div class="pane-2-right">
+
+                    <!-- Sound -->
+                    <h1 class="pane-title">Sound</h1>
+                    <label>Music:<br>
+                        <ur-slider id="MusicSlider"></ur-slider>
+                    </label><br>
+                    <label>Sound Effects:<br>
+                        <ur-slider id="EffectSlider"></ur-slider>
+                    </label>
+
+                    <!-- Graphics -->
+                    <h1 class="pane-title">Graphics</h1>
+                    <label class="ChatSettingsOption">
+                        <input id="GraphicsBlur" type="checkbox" class="ChatSettingsCheckbox">Enable Scenery Blur
+                    </label>
+
+                </div>
+
             </div>
         </div>
 
