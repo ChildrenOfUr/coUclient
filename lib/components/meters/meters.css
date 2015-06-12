@@ -54,7 +54,7 @@
 
 #energyText * {
     color:#fff;
-    text-shadow: 0px 0.05em rgba(0,0,0,0.5);
+    text-shadow: 0 0.05em rgba(0,0,0,0.5);
     font-size:13px;
 }
 
@@ -139,7 +139,7 @@
     -moz-transition-property: opacity;
     -moz-transition-duration: 0.2s;
     -moz-transition-timing-function: linear;
-    text-shadow: 0px 0.05em rgba(0,0,0,0.3);
+    text-shadow: 0 0.05em rgba(0,0,0,0.3);
 }
 #moodMeter .percent {
     position:absolute;
@@ -230,7 +230,7 @@
 
 @-webkit-keyframes rain {
     from {
-        background-position: 0px 0px;
+        background-position: 0 0;
     }
     to {
         background-position: -20px 20px;
@@ -239,7 +239,7 @@
 
 @-moz-keyframes rain {
     from {
-        background-position: 0px 0px;
+        background-position: 0 0;
     }
     to {
         background-position: -20px 20px;
@@ -248,7 +248,7 @@
 
 @keyframes rain {
     from {
-        background-position: 0px 0px;
+        background-position: 0 0;
     }
     to {
         background-position: -20px 20px;
@@ -302,6 +302,13 @@
     position:absolute;
     top:0.2em;
     left:1em;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#playerName:hover {
+    opacity: 0.5;
+    text-decoration: underline;
 }
 
 #imaginationText {
@@ -311,7 +318,7 @@
 }
 #imaginationText * {
     color:#444;
-    text-shadow: 0px 1px rgba(100,100,100,0.3);
+    text-shadow: 0 1px rgba(100,100,100,0.3);
 }
 #imaginationText .smi {
     position:relative;

@@ -6,7 +6,7 @@
     <template>
         <link rel="stylesheet" href="meters.css">
 
-        <span id="playerName">{{playername}}</span>
+        <a id="playerName" title="Open Profile Page" _href="http://childrenofur.com/profile?username={{playername}}" target="_blank">{{playername}}</a>
 
         <div id="imaginationText">
             <span id="currImagination">{{commaFormatter.format(imagination)}}</span><span class="smi">i</span>
