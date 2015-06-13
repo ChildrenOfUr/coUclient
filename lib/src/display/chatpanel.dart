@@ -244,6 +244,24 @@ class Chat {
 		//scroll to the bottom
 	}
 
+	displayList(List<String> users) {
+		String alert = "Players in this channel:";
+
+		for (int i = 0; i != users.length; i++) {
+			users[i] = '<a href="http://childrenofur.com/profile?username=' + users[i] + '" target="_blank">' + users[i] + '</a>';
+			alert = alert + " " + users[i];
+		}
+
+		String text = '''
+			<p class="system">
+			$alert
+			</p>
+			''';
+		conversationElement.querySelector('.dialog').appendHtml(text);
+		conversationElement.querySelector('.dialog').scrollTop = conversationElement
+		.querySelector('.dialog').scrollHeight; //scroll to the bottom
+	}
+
 	/**
 	 * Archive the conversation (detach it from the chat panel) so that we may reattach
 	 * it later with the history intact.

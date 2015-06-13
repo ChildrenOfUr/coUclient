@@ -2,7 +2,6 @@
   position:relative;
   width:100%;
   height:100%;
-
 }
 .conversation header {
   position:absolute;
@@ -76,6 +75,15 @@
   bottom:5px;
   left:3%;
   width:93%;
+}
+
+.dialog a {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.dialog a:hover {
+  opacity: 0.5;
 }
 
 .conversation .fa-chevron-down {

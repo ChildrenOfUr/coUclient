@@ -23,7 +23,7 @@ class NetChatManager {
 		new Service([#chatListEvent], (Message event) {
 			for(Chat convo in openConversations) {
 				if(convo.title == event.content['channel']) {
-					convo.addAlert("Players in this Channel:  ${event.content['users']}".replaceAll('[', '').replaceAll(']', ''));
+					convo.displayList(event.content['users']);
 				}
 			}
 		});
