@@ -48,10 +48,17 @@ void sendJoinedMessage(String streetName, [String tsid]) {
 }
 
 _setupStreetSocket(String streetName) {
+
+  //start a timer for a few seconds and then show the server down message if not canceled
+  Timer serverDownTimer = new Timer(new Duration(seconds:2),(){
+    querySelector('#server-down').hidden = false;
+    serverDown = true;
+  });
   streetSocket = new WebSocket(streetEventServer);
 
   streetSocket.onOpen.listen((_) {
     querySelector('#server-down').hidden = true;
+    serverDownTimer.cancel();
     if (serverDown) {
       window.location.reload();
     }
