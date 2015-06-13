@@ -1,0 +1,42 @@
+#weatherLayer {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 2;
+}
+
+.drop {
+    /*gradients are slow to render*/
+    /*background:-webkit-gradient(linear,0% 0%,0% 100%, from(rgba(13,52,58,1) ), to(rgba(255,255,255,0.6))  );*/
+    /*background: -moz-linear-gradient(top, rgba(13,52,58,1) 0%, rgba(255,255,255,.6) 100%);*/
+    background: rgb(21,26,73);
+    width:1px;
+    height:50px;
+    position: absolute;
+    -webkit-animation: fall .63s linear infinite;
+    -moz-animation: fall .63s linear infinite;
+}
+
+/* animate the drops*/
+@-webkit-keyframes fall {
+    to {transform: translateY(900px);}
+}
+@-moz-keyframes fall {
+    to {transform: translateY(900px);}
+}
+
+paper-radio-button::shadow #ink[checked] {
+    color: #4b2e4c;
+}
+paper-radio-button::shadow #onRadio {
+    background-color: #4b2e4c;
+}
+paper-radio-button[checked]::shadow #offRadio {
+    border-color: #4b2e4c;
+}
+paper-radio-button::shadow #ink {
+    color: rgba(75, 46, 76, 0.38);
+}
+paper-radio-button::shadow #offRadio {
+    border-color: rgba(75, 46, 76, 0.38);
+}

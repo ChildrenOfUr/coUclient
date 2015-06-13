@@ -20,7 +20,7 @@ import 'package:cou_auction_house/auction_house/encodes.dart';
 import 'package:couclient/components/mailbox/mail.dart';
 import 'package:cou_toolkit/toolkit/slider/slider.dart';
 import 'package:cou_login/login/login.dart';
-
+import 'package:paper_elements/paper_radio_group.dart';
 
 
 // LIBRARIES //
@@ -45,6 +45,7 @@ import 'package:redstone_mapper/mapper_factory.dart';
 
 // SYSTEMS MODULES //
 part 'package:couclient/src/systems/clock.dart';
+part 'package:couclient/src/systems/weather.dart';
 part 'package:couclient/src/systems/commands.dart';
 part 'package:couclient/src/game/input.dart';
 part 'package:couclient/src/game/joystick.dart';
@@ -117,6 +118,7 @@ Storage localStorage = window.localStorage;
 Random random = new Random();
 NumberFormat commaFormatter = new NumberFormat("#,###");
 SoundManager audio;
+WeatherManager weather;
 InputManager inputManager;
 WindowManager windowManager;
 CommandManager commandManager;
@@ -155,6 +157,7 @@ initMethod()
 	audio = new SoundManager();
 	windowManager = new WindowManager();
 	auth = new AuthManager();
+	weather = new WeatherManager();
 
 	// System
 	new ClockManager();

@@ -69,6 +69,30 @@ class SettingsWindow extends Modal
 
 		graphicsBlur.onChange.listen((_) => localStorage["GraphicsBlur"] = graphicsBlur.checked.toString());
 
+		// set weather effects
+		CheckboxInputElement weatherEffects = querySelector("#WeatherEffectsEnabled") as CheckboxInputElement;
+		if(localStorage["WeatherEffectsEnabled"] != null) {
+			if(localStorage["WeatherEffectsEnabled"] == "true") {
+				weatherEffects.checked = true;
+			} else {
+				weatherEffects.checked = false;
+			}
+		}
+
+		weatherEffects.onChange.listen((_) => WeatherManager.enabled = weatherEffects.checked);
+
+		PaperRadioGroup intensityGroup = querySelector("#WeatherEffectsIntensityGroup") as PaperRadioGroup;
+		if(localStorage["WeatherEffectsIntensity"] != null) {
+			List<String> intensities = ["light","medium","heavy"];
+			try {
+				int index = int.parse(localStorage["WeatherEffectsIntensity"]);
+				intensityGroup.selected = intensities[index];
+			} catch(err) {
+				print("Error setting intensity selection: $err");
+			}
+		}
+		intensityGroup.on['core-activate'].listen((_) => WeatherManager.intensity = WeatherIntensity.values[intensityGroup.selectedIndex]);
+
 		// set tp window closing
 
 		CheckboxInputElement closeTpWindow = querySelector("#CloseTpWindowOnClick") as CheckboxInputElement;
