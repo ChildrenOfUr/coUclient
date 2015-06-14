@@ -10,17 +10,18 @@ class ClockManager {
       new Message(#newDay,null); // The fact the event fires is all that's important here.
     });
   }
-}
 
+}
 
 // Everything below this is for ^that^ //
 
 Clock clock = new Clock();
 /// You can make a new clock, but one's already made. It's 'clock'
 class Clock {
-  StreamController _newdayController, _timeupdateController, _holidayController;
+  StreamController _newdayController, _timeupdateController;
   Stream onUpdate, onNewDay, onHoliday;
   String _dayofweek, _year,  _day, _month, _time;
+  int _dayInt, _monthInt;
 
   // Getters, so they can only be written by the Clock
   String get dayofweek => _dayofweek;
@@ -29,20 +30,34 @@ class Clock {
   String get month => _month;
   String get time => _time;
 
+  List _dPM = [29, 3, 53, 17, 73, 19, 13, 37, 5, 47, 11, 1];
+  List get daysPerMonth => _dPM;
+
+  List<String> _currentHolidays = [];
+  List<String> get currentHolidays => _currentHolidays;
+
+  // Integer versions
+  int get dayInt => _dayInt;
+  int get monthInt => _monthInt;
+
   Clock() {
     _newdayController = new StreamController.broadcast();
     _timeupdateController = new StreamController.broadcast();
-    _holidayController = new StreamController.broadcast();
     onUpdate = _timeupdateController.stream;
     onNewDay = _newdayController.stream;
-    onHoliday = _holidayController.stream;
 
     _sendEvents();
     // Time update Timer.
     new Timer.periodic(new Duration(seconds: 10), (_) => _sendEvents());
   }
+
+  Future <List <String>> getHolidays(int month, int day) async {
+    List<String> currentHolidays = JSON.decode(await HttpRequest.getString(Configs.utilServerAddress + '/getHolidays?month=${month}&day=${day}'));
+    return currentHolidays;
+  }
+
   // timer has updated, send out required events and update interfaces.
-  _sendEvents() {
+  _sendEvents() async {
 
     // Year, month, day, week, time
     List data = _getDate();
@@ -55,19 +70,27 @@ class Clock {
       _month = data[1];
       _year = data[0];
 
+      _dayInt = data[5];
+      _monthInt = data[6];
+
       // Clock update stream
-      _timeupdateController.add([time,day,dayofweek,month,year]);
+      _timeupdateController.add([time,day,dayofweek,month,year,dayInt,monthInt]);
 
       // New Day update stream
-      if (time == '12:00am') // It's a new day!
+      if (time == '12:00am') {
+        List updatedHolidays = await getHolidays(clock.monthInt, clock.dayInt);
+
+        // Alert for new Holidays
+        for (String holiday in updatedHolidays)
+          if (!_currentHolidays.contains(holiday));
+
+        // Alert for left Holidays
+        for (String holiday in _currentHolidays)
+          if (!updatedHolidays.contains(holiday));
+
+        _currentHolidays = updatedHolidays;
         _newdayController.add('new day!');
-
-      //TODO implement holiday checking
-
-
-
-
-
+      }
     }
 
   }
@@ -82,7 +105,6 @@ class Clock {
     // there are 600 real seconds in a game hour
     // there are 10 real seconds in a game minute
     //
-
 
     //
     // how many real seconds have elapsed since game epoch?
@@ -141,13 +163,8 @@ class Clock {
     if (h == '0') h = (12).toString();
     String CurrentTime = (h + ':' + m + ampm);
 
-
-
-    return ['Year ' + year.toString(), _Months[MonthAndDay[0] - 1], MonthAndDay[1].toString() + suffix, _Days_of_Week[day_of_week], CurrentTime];
+    return ['Year ' + year.toString(), _Months[MonthAndDay[0] - 1], MonthAndDay[1].toString() + suffix, _Days_of_Week[day_of_week], CurrentTime, MonthAndDay[1], MonthAndDay[0]];
   }
-
-  List _dPM = [29, 3, 53, 17, 73, 19, 13, 37, 5, 47, 11, 1];
-  List get daysPerMonth => _dPM;
 
   List _day_to_md(id) {
 
