@@ -25,7 +25,7 @@ class CommandManager {
         ..['toast'] = toast
         ..['toggleCollisionLines'] = toggleCollisionLines
         ..['togglePhysics'] = togglePhysics
-        ..['log'] = log
+        ..['log'] = log;
   }
 }
 
