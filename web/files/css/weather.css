@@ -14,10 +14,13 @@
     /*gradients are slow to render*/
     /*background:-webkit-gradient(linear,0% 0%,0% 100%, from(rgba(13,52,58,1) ), to(rgba(255,255,255,0.6))  );*/
     /*background: -moz-linear-gradient(top, rgba(13,52,58,1) 0%, rgba(255,255,255,.6) 100%);*/
-    background: white;
+    /*background: white;*/
+    background-image: url('../system/raindrop.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
     opacity: .4;
-    width:1px;
-    height:50px;
+    width: 10px !important;
+    height: 20px !important;
     position: absolute;
     -webkit-animation: fall .63s linear infinite;
     -moz-animation: fall .63s linear infinite;
@@ -25,7 +28,7 @@
 
 /* animate the drops*/
 @-webkit-keyframes fall {
-    to {transform: translateX(-100%) translateY(900px);}
+    to {transform: translateY(900px);}
 }
 @-moz-keyframes fall {
     to {transform: translateY(900px);}
