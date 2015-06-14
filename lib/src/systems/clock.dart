@@ -52,7 +52,7 @@ class Clock {
   }
 
   Future <List <String>> getHolidays(int month, int day) async {
-    List<String> currentHolidays = JSON.decode(await HttpRequest.getString(Configs.utilServerAddress + '/getHolidays?month=${month}&day=${day}'));
+    List<String> currentHolidays = JSON.decode(await HttpRequest.requestCrossOrigin('http://' + Configs.utilServerAddress + '/getHolidays?month=${month}&day=${day}'));
     return currentHolidays;
   }
 
@@ -77,7 +77,7 @@ class Clock {
       _timeupdateController.add([time,day,dayofweek,month,year,dayInt,monthInt]);
 
       // New Day update stream
-      if (time == '12:00am') {
+      if (time == '1:03am') {
         getHolidays(clock.monthInt, clock.dayInt).then((List updatedHolidays) {
           // Alert for new Holidays
           for (String holiday in updatedHolidays)
@@ -151,7 +151,7 @@ class Clock {
     // Fix am pm times
     //
 
-    String h = (hour).toString();
+    String h = hour.toString();
     String m = minute.toString();
     String ampm = 'am';
     if (minute < 10) m = '0' + minute.toString();
