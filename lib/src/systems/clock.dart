@@ -64,104 +64,106 @@ class Clock {
 
       //TODO implement holiday checking
 
+
+
+
+
     }
 
   }
-}
+
+  List _Months = const ['Primuary', 'Spork', 'Bruise', 'Candy', 'Fever', 'Junuary', 'Septa', 'Remember', 'Doom', 'Widdershins', 'Eleventy', 'Recurse'];
+  List _Days_of_Week = const ['Hairday', 'Moonday', 'Twoday', 'Weddingday', 'Theday', 'Fryday', 'Standday', 'Fabday'];
+
+  List _getDate() {
+    //
+    // there are 4435200 real seconds in a game year
+    // there are 14400 real seconds in a game day
+    // there are 600 real seconds in a game hour
+    // there are 10 real seconds in a game minute
+    //
+
+
+    //
+    // how many real seconds have elapsed since game epoch?
+    //
+    int ts = (new DateTime.now().millisecondsSinceEpoch * 0.001).floor();
+    int sec = ts - 1238562000;
+
+    int year = (sec / 4435200).floor();
+    sec -= year * 4435200;
+
+    int day_of_year = (sec / 14400).floor();
+    sec -= day_of_year * 14400;
+
+    int hour = (sec / 600).floor();
+    sec -= hour * 600;
+
+    int minute = (sec / 10).floor();
+    sec -= minute * 10;
+
+
+    //
+    // turn the 0-based day-of-year into a day & month
+    //
+
+    List MonthAndDay = _day_to_md(day_of_year);
+
+
+    //
+    // get day-of-week
+    //
+
+    int days_since_epoch = day_of_year + (307 * year);
+
+    int day_of_week = days_since_epoch % 8;
 
 
 
-List _Months = const ['Primuary', 'Spork', 'Bruise', 'Candy', 'Fever', 'Junuary', 'Septa', 'Remember', 'Doom', 'Widdershins', 'Eleventy', 'Recurse'];
-List _Days_of_Week = const ['Hairday', 'Moonday', 'Twoday', 'Weddingday', 'Theday', 'Fryday', 'Standday', 'Fabday'];
+    //
+    // Append to our day_of_month
+    //
+    String suffix;
+    if (MonthAndDay[1].toString().endsWith('1')) suffix = 'st'; else if (MonthAndDay[1].toString().endsWith('2')) suffix = 'nd'; else if (MonthAndDay[1].toString().endsWith('3')) suffix = 'rd'; else suffix = 'th';
 
-List _getDate() {
-  //
-  // there are 4435200 real seconds in a game year
-  // there are 14400 real seconds in a game day
-  // there are 600 real seconds in a game hour
-  // there are 10 real seconds in a game minute
-  //
+    //
+    // Fix am pm times
+    //
 
-
-  //
-  // how many real seconds have elapsed since game epoch?
-  //
-  int ts = (new DateTime.now().millisecondsSinceEpoch * 0.001).floor();
-  int sec = ts - 1238562000;
-
-  int year = (sec / 4435200).floor();
-  sec -= year * 4435200;
-
-  int day_of_year = (sec / 14400).floor();
-  sec -= day_of_year * 14400;
-
-  int hour = (sec / 600).floor();
-  sec -= hour * 600;
-
-  int minute = (sec / 10).floor();
-  sec -= minute * 10;
-
-
-  //
-  // turn the 0-based day-of-year into a day & month
-  //
-
-  List MonthAndDay = _day_to_md(day_of_year);
-
-
-  //
-  // get day-of-week
-  //
-
-  int days_since_epoch = day_of_year + (307 * year);
-
-  int day_of_week = days_since_epoch % 8;
-
-
-
-  //
-  // Append to our day_of_month
-  //
-  String suffix;
-  if (MonthAndDay[1].toString().endsWith('1')) suffix = 'st'; else if (MonthAndDay[1].toString().endsWith('2')) suffix = 'nd'; else if (MonthAndDay[1].toString().endsWith('3')) suffix = 'rd'; else suffix = 'th';
-
-  //
-  // Fix am pm times
-  //
-
-  String h = (hour).toString();
-  String m = minute.toString();
-  String ampm = 'am';
-  if (minute < 10) m = '0' + minute.toString();
-  if (hour >= 12) {
-    ampm = 'pm';
-    if (hour > 12) h = (hour - 12).toString();
-  }
-  if (h == '0') h = (12).toString();
-  String CurrentTime = (h + ':' + m + ampm);
-
-
-
-  return ['Year ' + year.toString(), _Months[MonthAndDay[0] - 1], MonthAndDay[1].toString() + suffix, _Days_of_Week[day_of_week], CurrentTime];
-}
-
-List _dPM = [29, 3, 53, 17, 73, 19, 13, 37, 5, 47, 11, 1];
-List get daysPerMonth => _dPM;
-
-List _day_to_md(id) {
-
-  int cd = 0;
-
-  int daysinMonths = daysPerMonth[0] + daysPerMonth[1] + daysPerMonth[2] + daysPerMonth[3] + daysPerMonth[4] + daysPerMonth[5] + daysPerMonth[6] + daysPerMonth[7] + daysPerMonth[8] + daysPerMonth[9] + daysPerMonth[10] + daysPerMonth[11];
-
-  for (int i = 0; i < (daysinMonths); i++) {
-    cd += daysPerMonth[i];
-    if (cd > id) {
-      int m = i + 1;
-      int d = id + 1 - (cd - daysPerMonth[i]);
-      return [m, d];
+    String h = (hour).toString();
+    String m = minute.toString();
+    String ampm = 'am';
+    if (minute < 10) m = '0' + minute.toString();
+    if (hour >= 12) {
+      ampm = 'pm';
+      if (hour > 12) h = (hour - 12).toString();
     }
+    if (h == '0') h = (12).toString();
+    String CurrentTime = (h + ':' + m + ampm);
+
+
+
+    return ['Year ' + year.toString(), _Months[MonthAndDay[0] - 1], MonthAndDay[1].toString() + suffix, _Days_of_Week[day_of_week], CurrentTime];
   }
 
-  return [0, 0];
+  List _dPM = [29, 3, 53, 17, 73, 19, 13, 37, 5, 47, 11, 1];
+  List get daysPerMonth => _dPM;
+
+  List _day_to_md(id) {
+
+    int cd = 0;
+
+    int daysinMonths = daysPerMonth[0] + daysPerMonth[1] + daysPerMonth[2] + daysPerMonth[3] + daysPerMonth[4] + daysPerMonth[5] + daysPerMonth[6] + daysPerMonth[7] + daysPerMonth[8] + daysPerMonth[9] + daysPerMonth[10] + daysPerMonth[11];
+
+    for (int i = 0; i < (daysinMonths); i++) {
+      cd += daysPerMonth[i];
+      if (cd > id) {
+        int m = i + 1;
+        int d = id + 1 - (cd - daysPerMonth[i]);
+        return [m, d];
+      }
+    }
+
+    return [0, 0];
+  }
 }
