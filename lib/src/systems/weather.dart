@@ -23,13 +23,16 @@ class WeatherManager {
 
 			if(localStorage["WeatherEffectsEnabled"] == "false") {
 				_enabled = false;
-			} else if(localStorage["WeatherEffectsEnabled"] == "tre") {
+			} else if(localStorage["WeatherEffectsEnabled"] == "true") {
 				_createRain();
 			}
 
 			//need a service to listen to time events and respond by coloring the
 			//weather overlay as needed (possibly change the background gradient?
-			new Service([#timeUpdateMe],_changeAmbientColor);
+			new Service([#timeUpdate],_changeAmbientColor);
+
+			//update on start
+			new Message(#timeUpdate,[clock.time,clock.day,clock.dayofweek,clock.month,clock.year]);
 		}
 	}
 
@@ -42,7 +45,6 @@ class WeatherManager {
 	}
 
 	static void _changeAmbientColor(Message m) {
-		print(m.content);
 		List<dynamic> timePieces = m.content;
 		String time = timePieces[0];
 		bool am = time.contains('am');

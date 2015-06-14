@@ -52,6 +52,9 @@ class Game
 		//play appropriate song for street (or just highlands for now)
 		await audio.setSong('highlands');
 
+		//start time based colors (and rain)
+		weather = new WeatherManager();
+
 		//finally start the main game loop
 		loop(0.0);
 	}
