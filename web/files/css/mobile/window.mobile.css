@@ -1,12 +1,6 @@
 #windowHolder .window{
-  position: absolute;
-  top: 2px !important;
-  left: 2px !important;;
-  padding: 21px;
   width: calc(100vw - 45px);
   height: calc(100vh - 45px);
-  background-color: #eee;
-  z-index: 2;
 }
 
 #windowHolder .window header {

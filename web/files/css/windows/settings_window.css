@@ -50,6 +50,11 @@
     margin-right: 10px;
     margin-bottom: 20px;
     margin-left: 15px;
+    cursor: pointer;
+}
+
+.ChatSettingsOption {
+    cursor: pointer;
 }
 
 .pane-2-container {

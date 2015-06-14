@@ -56,15 +56,14 @@ class WeatherManager {
 
 		if(!am) {
 			if(hour >= 6 && hour < 8) {
-				//go towards rgba(218,150,45,.15) from 255,255,255,0
-				//there's 180 minutes, what minute are we at
 				int currentMinute = (8-hour)*60-minute;
 				num percent = 1-currentMinute/120;
+				//daylight to sunset
 				rgba = _tweenColor([255,255,255,0],[218,150,45,.15],percent);
 			} else if(hour >= 8 && hour < 12){
-				//go towards rgba(17,17,47,.5) from 218,150,45,.15
 				int currentMinute = (12-hour)*60-minute;
 				num percent = 1-currentMinute/240;
+				//sunset to night
 				rgba = _tweenColor([218,150,45,.15],[17,17,47,.5],percent);
 				_setStreetGradient(percent);
 			}
@@ -75,10 +74,12 @@ class WeatherManager {
 			}else if(hour >= 5 && hour < 7) {
 				int currentMinute = (7-hour)*60-minute;
 				num percent = 1-currentMinute/120;
+				//night to sunrise
 				rgba = _tweenColor([17,17,47,.5],[218,150,45,.15],percent);
 			} else if(hour >= 7 && hour < 9) {
 				int currentMinute = (9-hour)*60-minute;
 				num percent = 1-currentMinute/120;
+				//sunrise to daylight
 				rgba = _tweenColor([218,150,45,.15],[255,255,255,0],percent);
 			}
 		}

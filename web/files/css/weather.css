@@ -26,8 +26,8 @@
     background-size: contain;
     background-repeat: no-repeat;
     opacity: .4;
-    width: 10px !important;
-    height: 20px !important;
+    width: 10px;
+    height: 20px;
     position: absolute;
     -webkit-animation: fall .63s linear infinite;
     -moz-animation: fall .63s linear infinite;
