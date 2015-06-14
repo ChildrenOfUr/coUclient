@@ -109,8 +109,8 @@ class WeatherManager {
 
 			DivElement raindrop = new DivElement()
 				..className = 'drop'
-				..style.width = '${random.nextInt(2)+1}px'
-				..style.height = '${random.nextInt(30)+20}px'
+				//..style.width = '${random.nextInt(2)+1}px'
+				//..style.height = '${random.nextInt(30)+20}px'
 				..style.left = '${dropLeft}px'
 				..style.top = '${dropTop}px';
 
