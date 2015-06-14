@@ -145,19 +145,20 @@ List _getDate() {
   return ['Year ' + year.toString(), _Months[MonthAndDay[0] - 1], MonthAndDay[1].toString() + suffix, _Days_of_Week[day_of_week], CurrentTime];
 }
 
+List _dPM = [29, 3, 53, 17, 73, 19, 13, 37, 5, 47, 11, 1];
+List get daysPerMonth => _dPM;
 
 List _day_to_md(id) {
 
-  List months = [29, 3, 53, 17, 73, 19, 13, 37, 5, 47, 11, 1];
   int cd = 0;
 
-  int daysinMonths = months[0] + months[1] + months[2] + months[3] + months[4] + months[5] + months[6] + months[7] + months[8] + months[9] + months[10] + months[11];
+  int daysinMonths = daysPerMonth[0] + daysPerMonth[1] + daysPerMonth[2] + daysPerMonth[3] + daysPerMonth[4] + daysPerMonth[5] + daysPerMonth[6] + daysPerMonth[7] + daysPerMonth[8] + daysPerMonth[9] + daysPerMonth[10] + daysPerMonth[11];
 
   for (int i = 0; i < (daysinMonths); i++) {
-    cd += months[i];
+    cd += daysPerMonth[i];
     if (cd > id) {
       int m = i + 1;
-      int d = id + 1 - (cd - months[i]);
+      int d = id + 1 - (cd - daysPerMonth[i]);
       return [m, d];
     }
   }
