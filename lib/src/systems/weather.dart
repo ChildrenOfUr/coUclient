@@ -30,6 +30,9 @@ class WeatherManager {
 			//need a service to listen to time events and respond by coloring the
 			//weather overlay as needed (possibly change the background gradient?
 			new Service([#timeUpdate],_changeAmbientColor);
+
+			//update on start
+			new Message(#timeUpdate,[clock.time,clock.day,clock.dayofweek,clock.month,clock.year]);
 		}
 	}
 
@@ -51,28 +54,30 @@ class WeatherManager {
 		List<num> rgba = [255,255,255,0];
 
 		if(!am) {
-			if(hour >= 6 && hour <= 9) {
+			if(hour >= 6 && hour < 8) {
 				//go towards rgba(218,150,45,.15) from 255,255,255,0
 				//there's 180 minutes, what minute are we at
-				currentMinute = (9-hour)*60+minute;
-				num percent = currentMinute/180;
+				int currentMinute = (8-hour)*60-minute;
+				num percent = 1-currentMinute/120;
 				rgba = _tweenColor([255,255,255,0],[218,150,45,.15],percent);
-			} else if(hour >= 9){
+			} else if(hour >= 8 && hour < 12){
 				//go towards rgba(17,17,47,.5) from 218,150,45,.15
-				currentMinute = (12-hour)*60+minute;
-				num percent = currentMinute/180;
-				rgba = _tweenColor([218,150,45.15],[17,17,47,.5],percent);
+				int currentMinute = (12-hour)*60-minute;
+				num percent = 1-currentMinute/240;
+				rgba = _tweenColor([218,150,45,.15],[17,17,47,.5],percent);
+				_setStreetGradient(percent);
 			}
 		} else {
-			if(hour < 5) {
+			if(hour < 5 || hour == 12) {
 				rgba = [17,17,47,.5];
-			}else if(hour >= 5 && hour <= 7) {
-				currentMinute = (7-hour)*60+minute;
-				num percent = currentMinute/180;
+				_setStreetGradient(1);
+			}else if(hour >= 5 && hour < 7) {
+				int currentMinute = (7-hour)*60-minute;
+				num percent = 1-currentMinute/120;
 				rgba = _tweenColor([17,17,47,.5],[218,150,45,.15],percent);
 			} else if(hour >= 7 && hour < 9) {
-				currentMinute = (9-hour)*60+minute;
-				num percent = currentMinute/180;
+				int currentMinute = (9-hour)*60-minute;
+				num percent = 1-currentMinute/120;
 				rgba = _tweenColor([218,150,45,.15],[255,255,255,0],percent);
 			}
 		}
@@ -80,11 +85,40 @@ class WeatherManager {
 		_weatherLayer.style.backgroundColor = 'rgba(${rgba[0]},${rgba[1]},${rgba[2]},${rgba[3]})';
 	}
 
+	static void _setStreetGradient(num percent) {
+		String streetTop = '#'+currentStreet.streetData['gradient']['top'];
+		String streetBottom = '#'+currentStreet.streetData['gradient']['bottom'];
+
+		List topTween = _tweenColor(hex2rgb(streetTop),[19,0,5,1],percent);
+		List bottomTween = _tweenColor(hex2rgb(streetBottom),[19,0,5,1],percent);
+		String top = rgb2hex(topTween);
+		String bottom = rgb2hex(bottomTween);
+
+		DivElement gradientCanvas = querySelector('#gradient');
+		gradientCanvas.style.background = "-webkit-linear-gradient(top, $top, $bottom)";
+		gradientCanvas.style.background = "-moz-linear-gradient(top, $top, $bottom)";
+		gradientCanvas.style.background = "-ms-linear-gradient($top, $bottom)";
+		gradientCanvas.style.background = "-o-linear-gradient($top, $bottom)";
+	}
+
+	static List<int> hex2rgb(String hex) {
+		List result = new List(4);
+		result[0] = int.parse(hex.substring(1, 3), radix: 16);
+		result[1] = int.parse(hex.substring(3, 5), radix: 16);
+		result[2] = int.parse(hex.substring(5, 7), radix: 16);
+		result[3] = 1;
+		return result;
+	}
+
+	static String rgb2hex(List rgb) {
+		return '#' + rgb[0].toRadixString(16).padLeft(2,'0') + rgb[1].toRadixString(16).padLeft(2,'0') + rgb[2].toRadixString(16).padLeft(2,'0');
+	}
+
 	static List<num> _tweenColor(List<num> start, List<num> end, num percent) {
-		num r = percent*((start[0]-end[0]).abs());
-		num g = percent*((start[1]-end[1]).abs());
-		num b = percent*((start[2]-end[2]).abs());
-		num a = percent*((start[3]-end[3]).abs());
+		num r = start[0]-(percent*(start[0]-end[0])).toInt();
+		num g = start[1]-(percent*(start[1]-end[1])).toInt();
+		num b = start[2]-(percent*(start[2]-end[2])).toInt();
+		num a = start[3]-percent*(start[3]-end[3]);
 		return [r,g,b,a];
 	}
 

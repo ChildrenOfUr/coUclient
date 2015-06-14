@@ -157,7 +157,6 @@ initMethod()
 	audio = new SoundManager();
 	windowManager = new WindowManager();
 	auth = new AuthManager();
-	weather = new WeatherManager();
 
 	// System
 	new ClockManager();

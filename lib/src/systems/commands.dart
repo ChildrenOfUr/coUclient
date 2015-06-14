@@ -25,7 +25,7 @@ class CommandManager {
         ..['toast'] = toast
         ..['toggleCollisionLines'] = toggleCollisionLines
         ..['togglePhysics'] = togglePhysics
-        ..['log'] = log;
+        ..['log'] = log
   }
 }
 
@@ -48,7 +48,6 @@ bool parseCommand(String command) {
     return false;
   }
 }
-
 
 // COMMAND FUNCTIONS BELOW  //
 

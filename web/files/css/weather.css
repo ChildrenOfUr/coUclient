@@ -15,7 +15,7 @@
     /*background:-webkit-gradient(linear,0% 0%,0% 100%, from(rgba(13,52,58,1) ), to(rgba(255,255,255,0.6))  );*/
     /*background: -moz-linear-gradient(top, rgba(13,52,58,1) 0%, rgba(255,255,255,.6) 100%);*/
     /*background: white;*/
-    background-image: url('../../assets/system/raindrop.svg');
+    background-image: url('../system/raindrop.svg');
     background-size: contain;
     background-repeat: no-repeat;
     opacity: .4;
