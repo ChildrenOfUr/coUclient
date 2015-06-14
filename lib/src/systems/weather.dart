@@ -35,10 +35,10 @@ class WeatherManager {
 
 			//need a service to listen to time events and respond by coloring the
 			//weather overlay as needed (possibly change the background gradient?
-			new Service([#timeUpdateFake], _changeAmbientColor);
+			new Service([#timeUpdate], _changeAmbientColor);
 
 			//update on start
-			new Message(#timeUpdateFake, [clock.time, clock.day, clock.dayofweek, clock.month, clock.year]);
+			new Message(#timeUpdate, [clock.time, clock.day, clock.dayofweek, clock.month, clock.year]);
 		}
 
 		_setupWebsocket();
