@@ -6,12 +6,13 @@ enum WeatherIntensity {
 
 class WeatherManager {
 	static WeatherManager _weatherManager;
-	static DivElement _weatherLayer;
+	static DivElement _weatherLayer, _cloudLayer;
 	static WeatherIntensity _intensity = WeatherIntensity.MEDIUM;
 	static bool _enabled = true;
 
 	WeatherManager.getInstance() {
 		_weatherLayer = querySelector("#weatherLayer");
+		_cloudLayer = querySelector("#cloudLayer");
 
 		if(localStorage["WeatherEffectsEnabled"] != null) {
 			//if we can't pull out the intensity, that's ok, we have a default
@@ -129,9 +130,9 @@ class WeatherManager {
 		}
 		log('raining: $_intensity');
 
-		//set the sky to cloudy
-		if(!_weatherLayer.classes.contains('cloudy')) {
-			_weatherLayer.classes.add('cloudy');
+		//set the sky to cloudy if
+		if(!_cloudLayer.classes.contains('cloudy')) {
+			_cloudLayer.classes.add('cloudy');
 		}
 
 		Random random = new Random();
@@ -155,7 +156,7 @@ class WeatherManager {
 	//clear rain from screen
 	static void clearRain() {
 		_weatherLayer.children.clear();
-		_weatherLayer.classes.remove('cloudy');
+		_cloudLayer.classes.remove('cloudy');
 	}
 
 	static bool get enabled => _enabled;
