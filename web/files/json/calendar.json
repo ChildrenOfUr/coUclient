@@ -1,0 +1,90 @@
+{
+  "months": {
+    "Primuary": 29,
+    "Spork": 3,
+    "Bruise": 53,
+    "Candy": 17,
+    "Fever": 73,
+    "Junuary": 19,
+    "Septa": 13,
+    "Remember": 37,
+    "Doom": 5,
+    "Widdershins": 47,
+    "Eleventy": 11,
+    "Recurse": 1
+  },
+
+  "start_day_skip": {
+    "Primuary": 2,
+    "Spork": 1,
+    "Bruise": 4,
+    "Candy": 3,
+    "Fever": 2,
+    "Junuary": 3,
+    "Septa": 4,
+    "Remember": 5,
+    "Doom": 0,
+    "Widdershins": 5,
+    "Eleventy": 4,
+    "Recurse": 3
+  },
+
+  "holidays": {
+    "Primuary": {
+      "5": "AlphaCon"
+    },
+
+    "Spork": {
+      "2": "Lemadan"
+    },
+
+    "Bruise": {
+      "3": "Pot Twoday"
+    },
+
+    "Candy": {
+      "2": "Root",
+      "3": "Root",
+      "4": "Root",
+      "11": "Sprinkling"
+    },
+
+    "Fever": {},
+
+    "Junuary": {
+      "17": "Croppaday"
+    },
+
+    "Septa": {
+      "1": "Belabor Day"
+    },
+
+    "Remember": {
+      "25": "Zilloween",
+      "26": "Zilloween",
+      "27": "Zilloween",
+      "28": "Zilloween",
+      "29": "Zilloween",
+      "30": "Zilloween",
+      "31": "Zilloween",
+      "32": "Zilloween",
+      "33": "Zilloween",
+      "34": "Zilloween",
+      "35": "Zilloween",
+      "36": "Zilloween",
+      "37": "Zilloween"
+    },
+
+    "Doom": {},
+
+    "Widdershins": {},
+
+    "Eleventy": {
+      "11": "Recurse Eve"
+    },
+
+    "Recurse": {
+      "1": "Recurse"
+    }
+  }
+}

@@ -26,7 +26,7 @@
 		overflow-y: scroll;
 	}
 
-	month {
+	.month {
 		display: flex;
 		flex-direction: column;
 	}
@@ -39,17 +39,17 @@
 		padding: 3px;
 	}
 
-	week {
+	.week {
 		flex: 1;
 		display: flex;
 		flex-direction: row;
 	}
 
-	day:empty {
+	.day:empty {
 		border: 1px solid rgba(0, 0, 0, 0);
 	}
 
-	day {
+	.day {
 		flex: 1;
 		padding: 5px;
 		margin: 3px;
@@ -57,12 +57,12 @@
 		min-height: 50px;
 	}
 
-	day[now] {
+	.day.today {
 		background: rgba(75, 46, 76, 0.2);
 		border: 1px solid #4b2e4c;
 	}
 
-	day div {
+	.day div {
 		border: 1px solid #8f7590;
 		position: relative;
 		top: -6px;
@@ -73,7 +73,7 @@
 		text-align: center;
 	}
 
-	day:empty div {
+	.day:empty div {
 		display: none;
 		width: 0;
 		height: 0;

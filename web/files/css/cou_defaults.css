@@ -89,6 +89,10 @@ main {
 	display: inline-block;
 }
 
+#time * {
+    cursor: pointer;
+}
+
 #AButton, #BButton {
 	display: none;
 }
