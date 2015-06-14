@@ -57,7 +57,7 @@ class Clock {
   }
 
   // timer has updated, send out required events and update interfaces.
-  _sendEvents() async {
+  _sendEvents() {
 
     // Year, month, day, week, time
     List data = _getDate();
@@ -78,21 +78,20 @@ class Clock {
 
       // New Day update stream
       if (time == '12:00am') {
-        List updatedHolidays = await getHolidays(clock.monthInt, clock.dayInt);
+        getHolidays(clock.monthInt, clock.dayInt).then((List updatedHolidays) {
+          // Alert for new Holidays
+          for (String holiday in updatedHolidays)
+            if (!_currentHolidays.contains(holiday));
 
-        // Alert for new Holidays
-        for (String holiday in updatedHolidays)
-          if (!_currentHolidays.contains(holiday));
+          // Alert for left Holidays
+          for (String holiday in _currentHolidays)
+            if (!updatedHolidays.contains(holiday));
 
-        // Alert for left Holidays
-        for (String holiday in _currentHolidays)
-          if (!updatedHolidays.contains(holiday));
-
-        _currentHolidays = updatedHolidays;
+          _currentHolidays = updatedHolidays;
+        });
         _newdayController.add('new day!');
       }
     }
-
   }
 
   List _Months = const ['Primuary', 'Spork', 'Bruise', 'Candy', 'Fever', 'Junuary', 'Septa', 'Remember', 'Doom', 'Widdershins', 'Eleventy', 'Recurse'];
