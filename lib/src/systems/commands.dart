@@ -27,7 +27,8 @@ class CommandManager {
 			..['toast'] = toast
 			..['toggleCollisionLines'] = toggleCollisionLines
 			..['togglePhysics'] = togglePhysics
-			..['log'] = log;
+			..['log'] = log
+			..['settime'] = setTime;
 	}
 }
 
@@ -51,6 +52,13 @@ bool parseCommand(String command) {
 }
 
 // COMMAND FUNCTIONS BELOW  //
+
+setTime(String noun) {
+	new Message(#timeUpdateFake,[noun]);
+	if(noun == '6:00am') {
+		new Message(#newDayFake,null);
+	}
+}
 
 setName(String noun) {
 	// Fix Name
