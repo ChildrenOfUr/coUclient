@@ -5,13 +5,20 @@
     z-index: 2;
 }
 
+.cloudy {
+    background: black;
+    opacity: .3;
+}
+
 .drop {
     /*gradients are slow to render*/
     /*background:-webkit-gradient(linear,0% 0%,0% 100%, from(rgba(13,52,58,1) ), to(rgba(255,255,255,0.6))  );*/
     /*background: -moz-linear-gradient(top, rgba(13,52,58,1) 0%, rgba(255,255,255,.6) 100%);*/
-    background: rgb(21,26,73);
-    width:1px;
-    height:50px;
+    /*background: white;*/
+    background-image: url('../system/raindrop.svg');
+    /*opacity: .4;*/
+    width:10px !important;
+    height:10px !important;
     position: absolute;
     -webkit-animation: fall .63s linear infinite;
     -moz-animation: fall .63s linear infinite;
@@ -19,7 +26,7 @@
 
 /* animate the drops*/
 @-webkit-keyframes fall {
-    to {transform: translateY(900px);}
+    to {transform: translateX(-100%) translateY(900px);}
 }
 @-moz-keyframes fall {
     to {transform: translateY(900px);}
