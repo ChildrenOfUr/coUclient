@@ -25,7 +25,8 @@ class CommandManager {
         ..['toast'] = toast
         ..['toggleCollisionLines'] = toggleCollisionLines
         ..['togglePhysics'] = togglePhysics
-        ..['log'] = log;
+        ..['log'] = log
+        ..['settime'] = settime;
   }
 }
 
@@ -47,6 +48,11 @@ bool parseCommand(String command) {
   } else {
     return false;
   }
+}
+
+settime(String noun) {
+  List timedata = [noun,6,1,'bruise','11'];
+  new Message(#timeUpdateMe,timedata);
 }
 
 
