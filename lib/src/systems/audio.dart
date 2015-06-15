@@ -75,14 +75,14 @@ class SoundManager {
 			} catch(e) {
 				print("there was a problem: $e");
 				useWebAudio = false;
-				loadNonWebAudio();
+				await loadNonWebAudio();
 			}
 		} else {
-			loadNonWebAudio();
+			await loadNonWebAudio();
 		}
 	}
 
-	loadNonWebAudio() async {
+	Future loadNonWebAudio() async {
 		new Message(#toast, 'Loading non-WebAudio');
 		// Load all our user interface sounds.
 
@@ -115,8 +115,8 @@ class SoundManager {
 							fadeInDuration = new Duration(seconds:5);
 						}
 						double currentPercentOfFade = 0.0;
-						new Timer.periodic(new Duration(milliseconds:100),(Timer t){
-							currentPercentOfFade += 100/fadeInDuration.inMilliseconds;
+						new Timer.periodic(new Duration(milliseconds:100), (Timer t) {
+							currentPercentOfFade += 100 / fadeInDuration.inMilliseconds;
 							audio.gain = currentPercentOfFade;
 							if(audio.gain >= 1.0) {
 								t.cancel();
@@ -147,7 +147,7 @@ class SoundManager {
 		}
 	}
 
-	void stopSound(soundObjectToStop,{bool fadeOut:false, Duration fadeOutDuration}) {
+	void stopSound(soundObjectToStop, {bool fadeOut:false, Duration fadeOutDuration}) {
 		try {
 			if(useWebAudio) {
 				assert (soundObjectToStop is AudioInstance);
@@ -157,8 +157,8 @@ class SoundManager {
 						fadeOutDuration = new Duration(seconds:5);
 					}
 					double currentPercentOfFade = 0.0;
-					new Timer.periodic(new Duration(milliseconds:100),(Timer t){
-						currentPercentOfFade += 100/fadeOutDuration.inMilliseconds;
+					new Timer.periodic(new Duration(milliseconds:100), (Timer t) {
+						currentPercentOfFade += 100 / fadeOutDuration.inMilliseconds;
 						audio.gain = 1.0 - currentPercentOfFade;
 						if(audio.gain <= 0.0) {
 							audio.stop();
@@ -187,11 +187,15 @@ class SoundManager {
 		}
 	}
 
-	loadSong(String name) async {
-		if(ASSET['music'].get()[name] == null) log('Song "$name" does not exist.'); else {
-			Scound s = await sc.load(ASSET['music'].get()[name]['scid']);
-			songs[name] = s;
-		}
+	Future loadSong(String name) async {
+		try{
+			if(ASSET['music'].get()[name] == null) {
+				log('Song "$name" does not exist.');
+			} else {
+				Scound s = await sc.load(ASSET['music'].get()[name]['scid']);
+				songs[name] = s;
+			}
+		} catch(err) {print(err);}
 	}
 
 	/**
@@ -199,13 +203,17 @@ class SoundManager {
 	 * If [value] is already playing, this method has no effect.
 	 */
 	setSong(String value) async {
-		if(value == view.soundcloud.musicPlayerElement.attributes['song']) return;
+		if(value == view.soundcloud.musicPlayerElement.attributes['song']) {
+			return;
+		}
 
 		value = value.replaceAll(' ', '');
 		if(songs[value] == null) {
 			await loadSong(value);
 			_playSong(value);
-		} else _playSong(value);
+		} else {
+			_playSong(value);
+		}
 	}
 
 	_playSong(String name) {

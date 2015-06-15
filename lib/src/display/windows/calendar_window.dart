@@ -146,7 +146,7 @@ class CalendarWindow extends Modal {
         if (weekLengthSF == 6) {
           // week is full, add it and start a new one //
           if (week.querySelectorAll(".day").length < 6) {
-            int missingDays = 6 - week.querySelectorAll(".day");
+            int missingDays = 6 - week.querySelectorAll(".day").length;
             for (int m = 0; m != missingDays; m++) {
               week.append(new DivElement()..classes = ['day']);
             }
