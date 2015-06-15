@@ -1,0 +1,131 @@
+#newday {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 2;
+    text-align: center;
+    background: rgb(219,211,162);
+    background: -moz-radial-gradient(bottom, ellipse cover, rgb(219,211,162) 0%, rgb(166,168,181) 100%);
+    background: -webkit-gradient(radial, center bottom, 0px, center center, 100%, color-stop(0%,rgb(219,211,162)), color-stop(100%,rgb(166,168,181)));
+    background: -webkit-radial-gradient(bottom, ellipse cover, rgb(219,211,162) 0%,rgb(166,168,181) 100%);
+    background: -o-radial-gradient(bottom, ellipse cover, rgb(219,211,162) 0%,rgb(166,168,181) 100%);
+    background: -ms-radial-gradient(bottom, ellipse cover, rgb(219,211,162) 0%,rgb(166,168,181) 100%);
+    background: radial-gradient(ellipse at bottom, rgb(219,211,162) 0%,rgb(166,168,181) 100%);
+}
+
+@-webkit-keyframes rotatesun {
+    from {
+        -webkit-transform: translateX(-50%) translateY(50%) rotate(0deg);
+    }
+    to {
+        -webkit-transform: translateX(-50%) translateY(50%) rotate(360deg);
+    }
+}
+
+#newday-sun {
+    width: 1024px;
+    height: 1024px;
+    position: absolute;
+    left: 50%;
+    bottom: -1024px;
+    background-image: url(../system/newdaysun.svg);
+    background-size: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    -webkit-animation: rotatesun 20s infinite;
+    -webkit-animation-timing-function: linear;
+    z-index: -100;
+    transition: bottom 2s;
+}
+
+#newday-sun.up {
+    bottom: 0;
+}
+
+#newday-mountain {
+    width: 100%;
+    height: 300px;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    background-image: url(../system/newdaymountain.svg);
+    background-size: 100%;
+    background-position: bottom;
+    background-repeat: no-repeat;
+}
+
+#newday-date {
+    font-size: 40px;
+    font-family: "Lato", sans-serif;
+    margin-bottom: 0;
+    margin-top: 80px;
+}
+
+#newday-title {
+    font-size: 100px;
+    color: white;
+    margin-top: 0;
+    margin-bottom: 0;
+    text-transform: uppercase;
+}
+
+#newday-refill {
+    font-size: 15px;
+    padding-left: 100px;
+}
+
+#newday-yesterday {
+    margin-top: 50px;
+}
+
+.teal {
+    color: teal;
+}
+
+#newday-button {
+    margin-top: 30px;
+}
+
+#newday-energy-holder {
+    height: 80px;
+    width: 80px;
+    position: relative;
+    top: 35px;
+    left: 5px;
+}
+
+#newday-energy-disc {
+    height: 75px;
+    width: 75px;
+    display: inline;
+    position: relative;
+    left: -72px;
+    top: 34px;
+    z-index: -1;
+    transition: transform 3s;
+    transition-timing-function: cubic-bezier(0.5, -0.5, 0.5, 1.5);
+}
+
+#newday-energy-disc.full {
+    transform: rotate(180deg);
+}
+
+#newday-refill-1,
+#newday-refill-2 {
+    font-family: "Lato", sans-serif;
+    text-align: center;
+    color: white;
+}
+
+#newday-refill-1 {
+    position: relative;
+    left: -128px;
+    color: white;
+}
+
+#newday-refill-2 {
+    color: #62934c;
+    font-size: 12px;
+}

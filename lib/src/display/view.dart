@@ -38,7 +38,6 @@ class UserInterface
 
 	// Pause button
 	Element pauseButton = querySelector('#thinkButton');
-	Element pauseMenu = querySelector('#pauseMenu');
 
 	// settings window elements
 	ElementList tabs = querySelectorAll('article .tab');
@@ -142,10 +141,8 @@ class UserInterface
 		// Listens for the pause button
 		pauseButton.onClick.listen((_)
 		{
-			pauseMenu.hidden = false;
+			imgMenu.open();
 		});
-		pauseMenu.querySelector('.fa-times.close').onClick.listen((_)
-		=> pauseMenu.hidden = true);
 
 
 		new Service([#timeUpdate], (Message event)
@@ -167,6 +164,8 @@ class UserInterface
 		resize();
 		window.onResize.listen((_)
 		=> resize());
+
+		setUpOverlays();
 	}
 
 	resize()
