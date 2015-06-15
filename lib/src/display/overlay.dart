@@ -38,20 +38,21 @@ class NewDayOverlay extends Overlay {
   }
 
   open() {
-    int energy = 1000; // tmp
+    //TODO: get real value
+    int energy = 100;
     overlay.querySelector("#newday-date").text = clock.dayofweek + ", the " + clock.day + " of " + clock.month;
     overlay.querySelector("#newday-refill-1").text = energy.toString();
     overlay.querySelector("#newday-refill-2").text = energy.toString();
     overlay.hidden = false;
     new Timer(new Duration (milliseconds: 100), () {
       overlay.querySelector("#newday-sun").classes.add("up");
-      overlay.querySelector("#newday-energy-disc").classes.add("full");
+      overlay.querySelector("#newday-refill-disc").classes.add("full");
     });
   }
 
   close() {
     overlay.hidden = true;
     overlay.querySelector("#newday-sun").classes.remove("up");
-    overlay.querySelector("#newday-energy-disc").classes.remove("full");
+    overlay.querySelector("#newday-refill-disc").classes.remove("full");
   }
 }

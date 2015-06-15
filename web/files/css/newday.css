@@ -23,6 +23,30 @@
         -webkit-transform: translateX(-50%) translateY(50%) rotate(360deg);
     }
 }
+@-moz-keyframes rotatesun {
+    from {
+        -moz-transform: translateX(-50%) translateY(50%) rotate(0deg);
+    }
+    to {
+        -moz-transform: translateX(-50%) translateY(50%) rotate(360deg);
+    }
+}
+@-o-keyframes rotatesun {
+    from {
+        -o-transform: translateX(-50%) translateY(50%) rotate(0deg);
+    }
+    to {
+        -o-transform: translateX(-50%) translateY(50%) rotate(360deg);
+    }
+}
+@keyframes rotatesun {
+    from {
+        transform: translateX(-50%) translateY(50%) rotate(0deg);
+    }
+    to {
+        transform: translateX(-50%) translateY(50%) rotate(360deg);
+    }
+}
 
 #newday-sun {
     width: 1024px;
@@ -34,8 +58,10 @@
     background-size: 100%;
     background-position: center;
     background-repeat: no-repeat;
-    -webkit-animation: rotatesun 20s infinite;
-    -webkit-animation-timing-function: linear;
+    -webkit-animation: rotatesun 20s linear 0s infinite;
+    -moz-animation: rotatesun 20s linear 0s infinite;
+    -o-animation: rotatesun 20s linear 0s infinite;
+    animation: rotatesun 20s linear 0s infinite;
     z-index: -100;
     transition: bottom 2s;
 }
@@ -60,7 +86,7 @@
     font-size: 40px;
     font-family: "Lato", sans-serif;
     margin-bottom: 0;
-    margin-top: 80px;
+    margin-top: 60px;
 }
 
 #newday-title {
@@ -73,11 +99,16 @@
 
 #newday-refill {
     font-size: 15px;
-    padding-left: 100px;
+}
+
+#newday-refill-label {
+    padding-right: 10px;
+    position: relative;
+    top: 12px;
 }
 
 #newday-yesterday {
-    margin-top: 50px;
+    margin-top: 30px;
 }
 
 .teal {
@@ -85,43 +116,82 @@
 }
 
 #newday-button {
-    margin-top: 30px;
+    margin-top: 20px;
 }
 
-#newday-energy-holder {
+@-webkit-keyframes refillenergy {
+    0%, 10% {
+        -webkit-animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+        animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    30%, 53%, 80%, 100% {
+        -webkit-animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+        animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+        -webkit-transform: rotate(180deg);
+        transform: rotate(180deg);
+    }
+
+    40%, 43% {
+        -webkit-animation-timing-function: cubic-bezier(0.755, 0.050, 0.855, 0.060);
+        animation-timing-function: cubic-bezier(0.755, 0.050, 0.855, 0.060);
+        -webkit-transform: rotate(150deg);
+        transform: rotate(150deg);
+    }
+
+    70% {
+        -webkit-animation-timing-function: cubic-bezier(0.755, 0.050, 0.855, 0.060);
+        animation-timing-function: cubic-bezier(0.755, 0.050, 0.855, 0.060);
+        -webkit-transform: rotate(165deg);
+        transform: rotate(165deg);
+    }
+
+    90% {
+        -webkit-transform: rotate(176deg);
+        transform: rotate(176deg);
+    }
+}
+
+#newday-refill-container {
     height: 80px;
     width: 80px;
+    text-align: center;
+    display: inline-block;
+}
+
+#newday-refill-container img {
+    width: 80px;
+    height: 80px;
+    position: absolute;
+    z-index: 50;
+}
+
+#newday-refill-disc.full {
+    -webkit-animation: refillenergy 3s linear 0s 1;
+    -webkit-animation-fill-mode: forwards;
+}
+
+#newday-refill-image {
     position: relative;
-    top: 35px;
-    left: 5px;
+    left: -39px;
 }
 
-#newday-energy-disc {
-    height: 75px;
-    width: 75px;
-    display: inline;
-    position: relative;
-    left: -72px;
-    top: 34px;
-    z-index: -1;
-    transition: transform 3s;
-    transition-timing-function: cubic-bezier(0.5, -0.5, 0.5, 1.5);
-}
-
-#newday-energy-disc.full {
-    transform: rotate(180deg);
-}
-
-#newday-refill-1,
-#newday-refill-2 {
+#newday-refill-text {
     font-family: "Lato", sans-serif;
     text-align: center;
     color: white;
+    z-index: 100;
+    position: relative;
+    display: inline-block;
+    top: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 80px;
 }
 
+
 #newday-refill-1 {
-    position: relative;
-    left: -128px;
     color: white;
 }
 
