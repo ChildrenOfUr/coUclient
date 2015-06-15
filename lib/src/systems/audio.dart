@@ -33,7 +33,6 @@ class SoundManager {
 	}
 
 	init() async {
-		print('in init');
 		try {
 			num effectsVolume = 50, musicVolume = 50;
 			if(localStorage.containsKey('effectsVolume')) effectsVolume = num.parse(localStorage['effectsVolume']);
@@ -51,7 +50,6 @@ class SoundManager {
 		}
 
 		if(useWebAudio) {
-			print('can use web audio');
 			//if canPlayType returns the empty string, that format is not compatible
 			if(new AudioElement().canPlayType('audio/ogg') == "") {
 				print("ogg not supported, using mp3s instead");
@@ -80,13 +78,11 @@ class SoundManager {
 				await loadNonWebAudio();
 			}
 		} else {
-			print('cant use web audio');
 			await loadNonWebAudio();
 		}
 	}
 
 	Future loadNonWebAudio() async {
-		print('loading non-web audio');
 		new Message(#toast, 'Loading non-WebAudio');
 		// Load all our user interface sounds.
 
