@@ -17,7 +17,7 @@ class Player
 	String username;
 	int jumpcount = 0;
 	Timer jumpTimer;
-	Rectangle avatarRect;
+	MutableRectangle avatarRect = new MutableRectangle(0,0,0,0);
 
 	//for testing purposes
 	//if false, player can move around with wasd and arrows, no falling
@@ -296,7 +296,11 @@ class Player
 		updateTransform();
 
 		//update the avatarRect so that other entities know if the player is colliding with them
-		avatarRect = new Rectangle(posX,posY,width,height);
+		avatarRect
+			..left = posX
+			..top = posY
+			..width = width
+			..height = height;
 	}
 
 	void render()
