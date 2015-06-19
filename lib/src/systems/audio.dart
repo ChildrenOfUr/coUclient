@@ -63,12 +63,20 @@ class SoundManager {
 				loadingSound = gameSounds['loading'].play(looping:true);
 
 				//load the sound effects
+
 				gameSounds['quoinSound'] = new Sound(channel: audioChannels['soundEffects']);
 				await gameSounds['quoinSound'].load("files/audio/quoinSound.$extension");
+
 				gameSounds['mention'] = new Sound(channel: audioChannels['soundEffects']);
 				await gameSounds['mention'].load("files/audio/mention.$extension");
+
 				gameSounds['game_loaded'] = new Sound(channel: audioChannels['soundEffects']);
 				await gameSounds['game_loaded'].load("files/audio/game_loaded.$extension");
+
+				gameSounds['tripleJump'] = new Sound(channel: audioChannels['soundEffects']);
+				await gameSounds['tripleJump'].load("files/audio/tripleJump.$extension");
+
+				// TODO: new day screen sound
 
 				Asset soundCloudSongs = new Asset('./files/json/music.json');
 				await soundCloudSongs.load(statusElement: querySelector("#LoadStatus2"));
@@ -92,7 +100,13 @@ class SoundManager {
 		//also I updated the loadie library to attempt to find both a .mp3 file and a .ogg file at the specified location
 		//this should help with browser compatibility
 		try {
-			ui_sounds = new Batch([new Asset('files/audio/mention.mp3'), new Asset('files/audio/quoinSound.mp3'), new Asset('files/audio/game_loaded.mp3')]);
+			ui_sounds = new Batch([
+				new Asset('files/audio/mention.mp3'),
+				new Asset('files/audio/quoinSound.mp3'),
+				new Asset('files/audio/game_loaded.mp3'),
+				new Asset('files/audio/tripleJump.mp3')
+				// TODO: new day screen sound
+			]);
 			await ui_sounds.load(() {
 			});
 			// Load the names and track id's of the music.json file but save actually loading the media file

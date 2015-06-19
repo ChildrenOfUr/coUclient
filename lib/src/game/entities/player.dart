@@ -231,19 +231,23 @@ class Player
 			if(jumpTimer == null)
 				jumpTimer = new Timer(new Duration(seconds:3), ()
 				{
+					// normal jump
 					jumpcount = 0;
 					jumpTimer.cancel();
 					jumpTimer = null;
 				});
 			if(jumpcount == 2)
 			{
+				// triple jump
 				yVel = -1500;
 				jumpcount = 0;
 				jumpTimer.cancel();
 				jumpTimer = null;
+				audio.playSound('tripleJump');
 			}
 			else
 			{
+				// normal jump
 				jumpcount++;
 				yVel = -1000;
 			}

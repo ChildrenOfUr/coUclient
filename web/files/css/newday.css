@@ -258,6 +258,10 @@
     height: 80px;
     position: absolute;
     z-index: 50;
+    -webkit-filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.3));
+    -moz-filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.3));
+    -o-filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.3));
+    filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.3));
 }
 
 #newday-refill-disc.full {
@@ -297,4 +301,6 @@
 #newday-refill-2 {
     color: #62934c;
     font-size: 12px;
+    position: relative;
+    top: -4px;
 }
