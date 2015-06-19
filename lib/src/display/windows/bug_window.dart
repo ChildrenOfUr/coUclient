@@ -29,6 +29,7 @@ class BugWindow extends Modal {
           slack.Message m = new slack.Message('${view.bugReportMeta.text} \n REPORT TYPE:${view.bugReportType.value} \n ${input.value} \n ${view.bugReportEmail.value}',username:game.username);
           s.send(m);
           w.hidden = true;
+          toast("Report sent");
         });
       }
     });

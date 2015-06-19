@@ -136,6 +136,11 @@ class SettingsWindow extends Modal
 		});
 	}
 
+	close() {
+		querySelector("#${id}").hidden = true;
+		toast("Settings saved");
+	}
+
 	/**
 	* Determines if messages like "<user> has joined" are shown to the player.
 	*

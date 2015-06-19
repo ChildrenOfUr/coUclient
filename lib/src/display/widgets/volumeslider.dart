@@ -19,10 +19,13 @@ class VolumeSliderWidget
 		//click toggles mute
 		volumeGlyph.onClick.listen((_)
 		{
-			if(muted == true)
+			if(muted == true) {
 				muted = false;
-			else
+				toast("Sound unmuted");
+			} else {
 				muted = true;
+				toast("Sound muted");
+			}
 
 			update();
 		});
