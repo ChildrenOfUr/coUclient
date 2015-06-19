@@ -1,0 +1,50 @@
+#shrineWindow ur-well *:not(.fa) {
+    font-family: "Lato", sans-serif;
+}
+
+#shrine-window-top {
+    height: 110px;
+}
+
+#donate-drop {
+    margin-left: 50px;
+    margin-top: 60px;
+}
+
+#DonateDropTarget {
+    background: white;
+    border: 2px dashed #999;
+    width: 75px;
+    height: 75px;
+    border-radius: 5px;
+}
+
+#shrine-window-confirm {
+    margin-top: 5px;
+}
+
+#shrine-window-confirm /deep/ button {
+    width: 78px;
+}
+
+#DonateHelp {
+    max-width: 300px;
+    position: relative;
+    top: -122px;
+    left: 200px;
+}
+
+#shrine-window-bottom ur-progress {
+    position: absolute;
+    bottom: 5px;
+    width: calc(100% - 14px);
+    height: 30px;
+}
+
+#shrine-window-bottom ur-progress /deep/ #bar {
+    height: 28px;
+}
+
+#shrine-window-bottom ur-progress /deep/ #label {
+    top: -26px;
+}

@@ -239,7 +239,7 @@ class Player
 			if(jumpcount == 2)
 			{
 				// triple jump
-				yVel = -1500;
+				yVel = -1560;
 				jumpcount = 0;
 				jumpTimer.cancel();
 				jumpTimer = null;

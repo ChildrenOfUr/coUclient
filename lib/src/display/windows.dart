@@ -10,6 +10,7 @@ class WindowManager {
 	MotdWindow motdWindow = new MotdWindow();
 	GoWindow goWindow = new GoWindow();
 	CalendarWindow calendarWindow = new CalendarWindow();
+	ShrineWindow shrineWindow = new ShrineWindow();
 
 	WindowManager() {
 		new Service([#vedorWindow], (Message event) {

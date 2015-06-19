@@ -89,50 +89,75 @@ class MetabolicsService
 
 	update() => view.meters.updateAll();
 
-	void collectQuoin(Map map)
-	{
+	void collectQuoin(Map map) {
 		Element element = querySelector('#${map['id']}');
 		quoins[map['id']].checking = false;
 
-		if(map['success'] == 'false')
+		if (map['success'] == 'false')
 			return;
 
 		int amt = map['amt'];
 		String quoinType = map['quoinType'];
 
-		quoins[map['id']].collected = true;
+		bool fullEnergy = playerMetabolics.energy >= playerMetabolics.max_energy;
+		bool fullMood = playerMetabolics.mood >= playerMetabolics.max_mood;
+		bool energyQuoin = quoinType == "energy";
+		bool moodQuoin = quoinType == "mood";
+		bool allowQuoin = false;
 
-		Element quoinText = querySelector("#qq"+element.id+" .quoinString");
+		if (energyQuoin && playerMetabolics.energy + amt > playerMetabolics.max_energy) {
+			amt = playerMetabolics.max_energy - playerMetabolics.energy;
+		}
 
-		switch (quoinType)
-		{
-			case "currant" :
-				if (amt == 1)
-					quoinText.text = "+" + amt.toString() + " currant";
-				else
-					quoinText.text = "+" + amt.toString() + " currants";
-				break;
+		if (moodQuoin && playerMetabolics.mood + amt > playerMetabolics.max_mood) {
+			amt = playerMetabolics.max_mood - playerMetabolics.mood;
+		}
 
-			case "mood" :
-				quoinText.text = "+" + amt.toString() + " mood";
-				break;
+		if (energyQuoin && !fullEnergy) {
+			allowQuoin = true;
+		} else if (moodQuoin && !fullMood) {
+			allowQuoin = true;
+		} else if (!energyQuoin && !moodQuoin) {
+			allowQuoin = true;
+		}
 
-			case "energy" :
-				quoinText.text = "+" + amt.toString() + " energy";
-				break;
+		if (allowQuoin) {
+			quoins[map['id']].collected = true;
 
-			case "quarazy" :
-			case "img" :
-				quoinText.text = "+" + amt.toString() + " iMG";
-				break;
+			Element quoinText = querySelector("#qq" + element.id + " .quoinString");
 
-			case "favor" :
-				// TODO : add code for favor
-				break;
+			switch (quoinType) {
+				case "currant" :
+					if (amt == 1)
+						quoinText.text = "+" + amt.toString() + " currant";
+					else
+						quoinText.text = "+" + amt.toString() + " currants";
+					break;
 
-			case "time" :
-				// TODO : what DOES time do?
-				break;
+				case "mood" :
+					quoinText.text = "+" + amt.toString() + " mood";
+					break;
+
+				case "energy" :
+					quoinText.text = "+" + amt.toString() + " energy";
+					break;
+
+				case "quarazy" :
+				case "img" :
+					quoinText.text = "+" + amt.toString() + " iMG";
+					break;
+
+				case "favor" :
+					quoinText.text = "+" + amt.toString() + " favor";
+					break;
+
+				case "time" :
+					quoinText.text = "Nothing Collected";
+					// TODO : update this later
+					break;
+			}
+		} else {
+
 		}
 	}
 
