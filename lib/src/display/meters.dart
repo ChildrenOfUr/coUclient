@@ -36,7 +36,7 @@ class Meters {
         String imageUrl = spritesheets['base'];
         avatarDisplay.style.backgroundImage = 'url(' + imageUrl + ')';
 
-        Image portrait = new ImageElement();
+        ImageElement portrait = new ImageElement();
         portrait.src = imageUrl;
         int nWidth = portrait.naturalWidth;
 

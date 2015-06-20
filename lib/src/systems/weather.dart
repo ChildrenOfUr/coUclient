@@ -42,6 +42,11 @@ class WeatherManager {
 		}
 
 		_setupWebsocket();
+
+		window.onResize.listen((_) {
+			_clearRain();
+			_createRain();
+		});
 	}
 
 	factory WeatherManager() {
