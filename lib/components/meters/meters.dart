@@ -18,7 +18,7 @@ class Meters extends PolymerElement
 
 	NumberFormat commaFormatter = new NumberFormat("#,###");
 	Element greenDisk, redDisk, hurtDisk, deadDisk;
-	Element avatarDisplay = querySelector("ur-meters /deep/ #moodAvatar");
+	Element avatarDisplay = querySelector(":host /deep/ #moodAvatar");
 
 	Meters.created() : super.created()
 	{

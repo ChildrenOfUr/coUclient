@@ -21,3 +21,9 @@
 .toast:hover {
   opacity: 1 !important;
 }
+
+#toastDivider {
+  border: 1px solid rgba(255,255,255,0.3);
+  position: relative;
+  left: 5px;
+}
