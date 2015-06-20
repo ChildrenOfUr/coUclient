@@ -31,7 +31,7 @@ class Meters {
   updateAvatarDisplay() {
     if (runCount == 0 || runCount % 5 == 0) {
       // run on load, and once every 5 refreshes afterward to avoid overloading the server
-      HttpRequest.requestCrossOrigin('http://' + Configs.utilServerAddress + '/getSpritesheets?username=Thaderator&i=' + game.username).then((String response) {
+      HttpRequest.requestCrossOrigin('http://' + Configs.utilServerAddress + '/getSpritesheets?username=' + game.username).then((String response) {
         Map spritesheets = JSON.decode(response);
         avatarDisplay.style.backgroundImage = 'url(' + spritesheets['base'] + ')';
         avatarDisplay.style.backgroundSize = '';
