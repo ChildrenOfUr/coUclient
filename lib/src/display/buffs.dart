@@ -1,11 +1,11 @@
 part of couclient;
 
+bool fullOfPie, doubleQuoins;
+
 buff(String type) {
   Element buffContainer = querySelector('#buffHolder');
   String message, messageInfo, iconUrl;
   int length;
-  int numBuffs = 0;
-  bool fullOfPie, doubleQuoins;
 
   switch (type) {
     case 'pie':
@@ -15,15 +15,13 @@ buff(String type) {
       length = 30;
       break;
     case 'quoin':
-      message = "Double Quoin";
+      message = "Double Quoins";
       messageInfo = "Quoin values are doubled";
       doubleQuoins = true;
       length = 600;
       break;
     default:
-      message = "";
-      messageInfo = "";
-      length = 0;
+      return;
       break;
   }
 
@@ -37,13 +35,14 @@ buff(String type) {
   ImageElement icon = new ImageElement()
     ..src = "";
   SpanElement text = new SpanElement()
-    ..text = '<span>' + message + '</span><br><span>' + messageInfo + '</span>';
+    ..innerHtml = message
+    ..title = messageInfo;
   buff.append(icon);
   buff.append(text);
-  numBuffs++;
 
-  removeBuff(Element buff) {
-    buff.remove;
+  updateNotifs(DivElement buff) {
+    buff.remove();
+
     switch (type) {
       case 'pie':
         fullOfPie = false;
@@ -52,19 +51,24 @@ buff(String type) {
         doubleQuoins = false;
         break;
     }
-    numBuffs--;
+
+    if (querySelector("#buffHolder").children.length > 0 && querySelector("#toastHolder").children.length > 0) {
+      querySelector("#toastDivider").style.display = "block";
+    } else {
+      querySelector("#toastDivider").style.display = "none";
+    }
   }
 
-  if (numBuffs > 0) {
-    querySelector("#toastDivider").style.visibility = "visible";
-  } else {
-    querySelector("#toastDivider").style.visibility = "hidden";
-  }
-
-  Duration timeOpacity = new Duration(milliseconds: length);
+  Duration timeOpacity = new Duration(seconds: length);
   Duration timeHide = new Duration(milliseconds: timeOpacity.inMilliseconds + 500);
   new Timer(timeOpacity, () { buff.style.opacity = '0'; });
-  new Timer(timeHide, removeBuff(buff));
+  new Timer(timeHide, updateNotifs(buff));
 
   buffContainer.append(buff);
+
+  if (querySelector("#buffHolder").children.length > 0 && querySelector("#toastHolder").children.length > 0) {
+    querySelector("#toastDivider").style.display = "block";
+  } else {
+    querySelector("#toastDivider").style.display = "none";
+  }
 }

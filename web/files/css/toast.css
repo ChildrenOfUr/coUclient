@@ -1,4 +1,4 @@
-#toastHolder {
+#toastPanel {
   position:absolute;
   top:55px;
   right:280px; 
@@ -26,4 +26,5 @@
   border: 1px solid rgba(255,255,255,0.3);
   position: relative;
   left: 5px;
+  display: none;
 }

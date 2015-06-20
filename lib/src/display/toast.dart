@@ -13,13 +13,23 @@ toast(String message) {
     textTime = 30000;
   }
 
+  updateNotifs(DivElement toast) {
+    toast.remove();
+
+    if (querySelector("#buffHolder").children.length > 0 && querySelector("#toastHolder").children.length > 0) {
+      querySelector("#toastDivider").style.display = "block";
+    } else {
+      querySelector("#toastDivider").style.display = "none";
+    }
+  }
+
   Duration timeOpacity = new Duration(milliseconds: textTime);
   Duration timeHide = new Duration(milliseconds: timeOpacity.inMilliseconds + 500);
 
   new Timer(timeOpacity, () {
     toast.style.opacity = '0';
   });
-  new Timer(timeHide, toast.remove);
+  new Timer(timeHide, updateNotifs(toast));
 
   toastContainer.append(toast);
 }

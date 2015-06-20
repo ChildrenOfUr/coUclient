@@ -228,6 +228,14 @@ class Player
 		//primitive jumping
 		if (inputManager.jumpKey == true && !jumping && !climbingUp && !climbingDown)
 		{
+			num jumpMultiplier;
+			if (fullOfPie) {
+				jumpMultiplier = 0.5;
+				print("pie");
+			} else {
+				jumpMultiplier = 1;
+			}
+
 			if(jumpTimer == null)
 				jumpTimer = new Timer(new Duration(seconds:3), ()
 				{
@@ -239,7 +247,7 @@ class Player
 			if(jumpcount == 2)
 			{
 				// triple jump
-				yVel = -1560;
+				yVel = -1560 * jumpMultiplier;
 				jumpcount = 0;
 				jumpTimer.cancel();
 				jumpTimer = null;
@@ -249,7 +257,7 @@ class Player
 			{
 				// normal jump
 				jumpcount++;
-				yVel = -1000;
+				yVel = -1000 * jumpMultiplier;
 			}
 			jumping = true;
 		}
