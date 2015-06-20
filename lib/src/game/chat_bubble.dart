@@ -11,8 +11,9 @@ class ChatBubble
 	ChatBubble(this.text,this.hostObject,this.parent,{this.autoDismiss : true, this.removeParent : false, bool addUsername : false})
 	{
 		timeToLive = (text.length * 0.05) + 3; //minimum 3s plus 0.05 per character
-		if(timeToLive > 10) //max 10s
+		if(timeToLive > 10) { //max 10s
 			timeToLive = 10; //messages over 10s will only display for 10s
+		}
 
 		NodeValidator validator = new NodeValidatorBuilder()
 			..allowHtml5()
