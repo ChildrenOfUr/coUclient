@@ -111,6 +111,7 @@ class MetabolicsService {
       case "mood":
         if (amt == 0) {
           quoinText.text = "Full mood!";
+          toast("You collected a mood quoin, but you already had full mood.");
         } else {
           quoinText.text = "+" + amt.toString() + " mood";
         }
@@ -119,6 +120,7 @@ class MetabolicsService {
       case "energy":
         if (amt == 0) {
           quoinText.text = "Full energy!";
+          toast("You collected an energy quoin, but your energy tank was already full.");
         } else {
           quoinText.text = "+" + amt.toString() + " energy";
         }

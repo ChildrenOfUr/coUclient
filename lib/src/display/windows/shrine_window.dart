@@ -6,9 +6,9 @@ class ShrineWindow extends Modal {
   ShrineWindow() {
     prepare();
 
-    String giantName = "Alph";
-    int favor = 300;
-    int maxFavor = 1000;
+    String giantName = "Alph"; // TODO: make this dynamic
+    int favor = 300; // TODO: make this dynamic
+    int maxFavor = 1000; // TODO: make this dynamic
 
     List<Element> insertGiantName = querySelectorAll(".insert-giantname").toList();
     insertGiantName.forEach((placeholder) => placeholder.text = giantName);

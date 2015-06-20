@@ -1,0 +1,23 @@
+{
+  "tips": [
+    "Adjust music and sound effect volumes in Settings.",
+    "Buy a pick from a vendor to mine rocks.",
+    "Buy a shovel from a vendor to dig dirt.",
+    "Click a player's name in chat to open their profile page.",
+    "Collect quoins to gain energy, mood, currants, imagination, and more.",
+    "Find a mailbox to send messages to anyone, even if they are offline.",
+    "Get a list of players in a chat channel by typing <code>/list</code>",
+    "Have a Dvorak keyboard layout? Quickly set your controls in Settings.",
+    "Report bugs by clicking on the <i class=\"fa fa-bug\"></i> icon at the top right.",
+    "Sell items to vendors to get currants.",
+    "Teleport anywhere in the world by clicking the <i class=\"fa fa-street-view\"></i> icon at the top right.",
+    "Turn on weather effects in Settings for a more interesting world."
+  ],
+
+  "": [
+    "Please add tips in alphabetical order!",
+    "",
+    "Tips listed here are not used in-game yet, but they will eventually be located in the MOTD window",
+    "when the game is out of alpha."
+  ]
+}
