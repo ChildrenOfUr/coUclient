@@ -52,6 +52,6 @@ class RockWindow extends Modal {
     initConvo("start");
     initConvo("motd");
     initConvo("cmds");
-    //initConvo("bugs");
+    initConvo("bugs");
   }
 }

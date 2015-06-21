@@ -33,6 +33,14 @@ class BugWindow extends Modal {
         });
       }
     });
+
+    querySelector("#rwc-bugwindow").onClick.listen((_) {
+      view.bugButton.click();
+    });
+
+    querySelector("#rwc-bugwindow-icon").onClick.listen((_) {
+      view.bugButton.click();
+    });
   }
 
   logMessage(Message message) {

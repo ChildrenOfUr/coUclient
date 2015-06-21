@@ -60,11 +60,88 @@
                 <div class="flex-row rwc-exit"><a class="rwc-button" goto="6">Okay, talk to you later.</a></div>
             </div>
         </div>
-        <div class="rockWindowContent convo" id="rwc-cmds" endphrase="6" style="display: none;">
+        <div class="rockWindowContent convo" id="rwc-cmds" endphrase="10" style="display: none;">
             <a class="go-rwc"><i class="fa fa-caret-left"></i> Back</a>
             <div id="rwc-cmds-1">
                 <p>There are a few commands you can run in chat to do things.</p>
-                <div class="flex-row rwc-exit"><a class="rwc-button" goto="2">Alrighty then...</a></div>
+                <div class="flex-row rwc-exit"><a class="rwc-button" goto="2">Like?</a></div>
+                <div class="flex-row rwc-exit"><a class="rwc-button" goto="10">Shut up, I read the help page already.</a></div>
+            </div>
+            <div id="rwc-cmds-2">
+                <p>The easiest to run is <code>/list</code>. It will list the players in any chat you run it in.</p>
+                <div class="flex-row rwc-exit"><a class="rwc-button" goto="3">That sounds useful.</a></div>
+            </div>
+            <div id="rwc-cmds-3">
+                <p>The next one is purely for fun: <code>/me</code>. You can run it in any chat and it will tell everyone that you did something.</p>
+                <p>If Hectaku runs <code>/me is sleepy</code>, it will say <code>Hectaku is sleepy</code>.</p>
+                <div class="flex-row rwc-exit"><a class="rwc-button" goto="4">I might use that sometime.</a></div>
+            </div>
+            <div id="rwc-cmds-4">
+                <p>If you want to go somewhere else, you just have to run <code>/go</code> or <code>/setlocation</code> followed by the ID (not the name). Both commands do the same thing.</p>
+                <p>You can look up the ID on the <a href="http://glitchthegame.com/locations" target="_blank">Glitch Encyclopedia</a> by going to a street page and looking at the last part of the URL.</p>
+                <p>Running <code>/go LCRTTKP69DO1MG0</code> or <code>/setlocation LCRTTKP69DO1MG0</code> will take you to Fern End.</p>
+                <p>However, if this sounds annoying, just click the <a id="rwc-gowindow"><i class="fa fa-street-view"></i></a> icon at the top right and start typing a name, then click the street you want to go to. Easier, no?</p>
+                <div class="flex-row rwc-exit"><a class="rwc-button" goto="5">I don't even need this command!</a></div>
+            </div>
+            <div id="rwc-cmds-5">
+                <p>Yeah, but knowing things is good sometimes.</p>
+                <div class="flex-row rwc-exit"><a class="rwc-button" goto="6">Like when?</a></div>
+            </div>
+            <div id="rwc-cmds-6">
+                <p>All times. Now stop interrupting.</p>
+                <div class="flex-row rwc-exit"><a class="rwc-button" goto="7">Okay, fine.</a></div>
+            </div>
+            <div id="rwc-cmds-7">
+                <p>We're almost done. The next command is <code>/setname</code>. It, like you would imagine, changes your name.</p>
+                <p>Just use it like <code>/setname Hectaku</code> to change your name to <code>Hectaku</code>. You'll probably need to refresh the page to apply it.</p>
+                <div class="flex-row rwc-exit"><a class="rwc-button" goto="8">Talk about stolen identity.</a></div>
+            </div>
+            <div id="rwc-cmds-8">
+                <p>Last command. I can tell you're bored, but everyone else seems to really like this one.</p>
+                <p>The <code>/playsong</code> command will, obviously, play a song. You run it like <code>/playsong highlands</code>.
+                <p>The song can be: <code>piano</code>, <code>horns</code>, <code>ilmenskie</code>, <code>firebog</code>, <code>ancestral</code>, <code>ancient</code>, <code>enchanted</code>, <code>highlands</code>, <code>rube</code>, <code>uralia2</code>, <code>uralia3</code>, <code>kloroandhaoma</code>, <code>nottis</code>, <code>crowns</code>, <code>urwok</code>, <code>dream</code>, <code>rainbow</code>, or <code>lullaby</code>.</p>
+                <div class="flex-row rwc-exit"><a class="rwc-button" goto="9">I like music.</a></div>
+            </div>
+            <div id="rwc-cmds-9">
+                <p>Well that's it. You can always get this information again by asking me, or on the <a href="http://childrenofur.com/help/#commands" target="_blank">help page</a>.</p>
+                <div class="flex-row rwc-exit"><a class="rwc-button" goto="10">Are you done talking yet?</a></div>
+            </div>
+        </div>
+        <div class="rockWindowContent convo" id="rwc-bugs" endphrase="7" style="display: none;">
+            <a class="go-rwc"><i class="fa fa-caret-left"></i> Back</a>
+            <div id="rwc-bugs-1">
+                <p>So let's say you find something wrong in the game (or maybe you already have). How do you report it?</p>
+                <div class="flex-row rwc-exit"><a class="rwc-button" goto="2">You're going to tell me whether I know it or not, so let's just say I don't know.</a></div>
+            </div>
+            <div id="rwc-bugs-2">
+                <p>Good point. But you use the bug window!</p>
+                <p>I'm about to open it for you. It it appears on top of me, just drag it away by the header.</p>
+                <p>You can open it whenever you want by clicking the <a id="rwc-bugwindow-icon"><i class="fa fa-bug"></i></a> in the top right.</p>
+                <div class="flex-row rwc-exit"><a id="rwc-bugwindow" class="rwc-button" goto="3">Open away.</a></div>
+            </div>
+            <div id="rwc-bugs-3">
+                <p>So this is it.</p>
+                <p>The first thing you need to do is select the report type. Is it a problem or a feature request? Don't tell me, I can't help you. Just pick the correct option.</p>
+                <div class="flex-row rwc-exit"><a class="rwc-button" goto="4">I'm not telling you anyway, it's a secret.</a></div>
+            </div>
+            <div id="rwc-bugs-4">
+                <p>Now I want to know.</p>
+                <p>The second thing is to type in a description of the feature or problem. Be specific (though note that we know where you are in the game, and have a log).</p>
+                <p>That being said, the CoU dev team wants you to know that they care about you loads and hope you'll have fun in this little world.</p>
+                <div class="flex-row rwc-exit"><a class="rwc-button" goto="5">Well that's a bit creepy.</a></div>
+            </div>
+            <div id="rwc-bugs-5">
+                <p><em>In the game.</em> They know where you are <em>in the game</em>.</p>
+                <p>And it's really not that much information, you can read everything it sends in the second box.</p>
+                <p>The last thing you (don't) have to do is enter your email address. You don't have to, but it's a good idea to do, especially if you want us to reply someday.</p>
+                <div class="flex-row rwc-exit"><a class="rwc-button" goto="6">That's not hard at all!</a></div>
+            </div>
+            <div id="rwc-bugs-6">
+                <p>No, it's not. Not nearly as hard as fixing them.</p>
+                <p>Just make sure to report any bugs you find.</p>
+                <p>It's okay to ask for features that were in the original game if you really miss them.</p>
+                <p>You can <a href="http://childrenofur.com/help/#contact" target="_blank">contact the devs directly</a> if you need personal help.</p>
+                <div class="flex-row rwc-exit"><a class="rwc-button" goto="7">I'm off to play now, bye.</a></div>
             </div>
         </div>
     </div>

@@ -19,6 +19,7 @@ class GoWindow extends Modal {
     });
     
     view.tpButton.onClick.listen((_) => this.open());
+    querySelector("#rwc-gowindow").onClick.listen((_) => this.open());
   }
 
   go(tsid) {

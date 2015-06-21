@@ -9,19 +9,18 @@ import 'dart:convert';
 import "package:couclient/configs.dart";
 
 @CustomTag('ur-meters')
-class Meters extends PolymerElement
-{
+class Meters extends PolymerElement {
 	@published String playername;
 	@published int mood, maxmood, energy, maxenergy, imagination;
 	@published bool debug;
-	int runCount = 0;
+	int runCount;
 
 	NumberFormat commaFormatter = new NumberFormat("#,###");
-	Element greenDisk, redDisk, hurtDisk, deadDisk;
-	Element avatarDisplay = querySelector(":host /deep/ #moodAvatar");
+	Element greenDisk, redDisk, hurtDisk, deadDisk, avatarDisplay;
 
-	Meters.created() : super.created()
-	{
+	Meters.created() : super.created() {
+		runCount = 0;
+		avatarDisplay = shadowRoot.querySelector("#moodAvatar");
 		greenDisk = shadowRoot.querySelector('#energyDisks .green');
 		redDisk = shadowRoot.querySelector('#energyDisks .red');
 		hurtDisk = shadowRoot.querySelector('#leftDisk .hurt');
@@ -29,11 +28,9 @@ class Meters extends PolymerElement
 
 		changes.listen((_) => update());
 
-		if(debug == true)
-		{
+		if(debug == true) {
 			Random r = new Random();
-			new Timer.periodic(new Duration(seconds:1), (_)
-			{
+			new Timer.periodic(new Duration(seconds:1), (_) {
 				energy = r.nextInt(maxenergy);
 				mood = r.nextInt(maxmood);
 				imagination = r.nextInt(999999);
@@ -42,7 +39,7 @@ class Meters extends PolymerElement
 	}
 
 	updateAvatarDisplay() {
-		if (runCount == 0 || runCount % 5 == 0) {
+		if (runCount < 5 || runCount % 5 == 0) {
 			// run on load, and once every 5 refreshes afterward to avoid overloading the server
 			HttpRequest.requestCrossOrigin('http://' + Configs.utilServerAddress + '/getSpritesheets?username=' + playername).then((String response) {
 				Map spritesheets = JSON.decode(response);
@@ -69,8 +66,7 @@ class Meters extends PolymerElement
 		}
 	}
 
-	update()
-	{
+	update() {
 		// update energy disk angles and opacities
 		greenDisk.style.transform = 'rotate(${120 - (energy / maxenergy) * 120}deg)';
 		redDisk.style.transform = 'rotate(${120 - (energy / maxenergy) * 120}deg)';
@@ -81,5 +77,6 @@ class Meters extends PolymerElement
 		// updates portrait
 		updateAvatarDisplay();
 		runCount++;
+		print(runCount.toString());
 	}
 }

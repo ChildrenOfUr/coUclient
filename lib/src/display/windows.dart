@@ -77,7 +77,7 @@ abstract class Modal {
 		window.querySelector('.fa-times.close').onClick.listen((_) => this.close());
 		StreamSubscription escListener;
 		escListener = document.onKeyUp.listen((KeyboardEvent e) {
-			if(e.keyCode == 27) {  //escape key
+			if(window.hidden == false && e.keyCode == 27) {  //escape key
 				this.close();
 				// COMMENTED TO ALLOW PRESSING ESC TO CLOSE ANY WINDOW // escListener.cancel();
 			}
