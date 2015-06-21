@@ -25,26 +25,33 @@ class RockWindow extends Modal {
       switchContent("rwc");
     });
 
-    // Open MOTD
-    querySelector("#go-motd").onClick.listen((_) {
-      switchContent("rwc-motd");
-    });
+    initConvo(String convo) {
+      querySelector("#go-" + convo).onClick.listen((_) {
+        querySelectorAll("#rwc-" + convo + " > div").style.display = "none";
+        querySelector("#rwc-" + convo + "-1").style.display = "block";
+        querySelector("#rwc-" + convo + " .go-rwc").scrollIntoView();
+        switchContent("rwc-" + convo);
+      });
 
-    // Getting Started
-    querySelector("#go-start").onClick.listen((_) {
-      switchContent(("rwc-start"));
-    });
+      querySelectorAll("#rwc-" + convo + " .rwc-button").onClick.listen((e) {
+        String id = e.target.getAttribute("goto");
+        if (id == querySelector("#rwc-" + convo).getAttribute("endphrase")) {
+          switchContent("rwc");
+          super.close();
+          querySelectorAll("#rwc-" + convo + " > div").style.display = "none";
+          querySelector("#rwc-" + convo + "-1").style.display = "block";
+          querySelector("#rwc-" + convo + " .go-rwc").scrollIntoView();
+        } else {
+          querySelectorAll("#rwc-" + convo + " > div").style.display = "none";
+          querySelector("#rwc-" + convo + "-" + id).style.display = "block";
+          querySelector("#rwc-" + convo + " .go-rwc").scrollIntoView();
+        }
+      });
+    }
 
-    querySelectorAll("#rwc-start .rwc-button").onClick.listen((e) {
-      String id = e.target.getAttribute("goto");
-      if (id == "6") {
-        switchContent("rwc");
-        this.close();
-      } else {
-        querySelectorAll("#rwc-start > div").style.display = "none";
-        querySelector("#rwc-start-" + id).style.display = "block";
-        querySelector("#rwc-start .go-rwc").scrollIntoView();
-      }
-    });
+    initConvo("start");
+    initConvo("motd");
+    initConvo("cmds");
+    //initConvo("bugs");
   }
 }

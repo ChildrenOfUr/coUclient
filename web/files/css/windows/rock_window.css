@@ -107,7 +107,7 @@ a.go-rwc:hover {
 }
 
 .rockWindowContent p {
-    margin: 16px 0;
+    margin: 10px 0;
 }
 
 .rockWindowContent::-webkit-scrollbar {
@@ -128,9 +128,13 @@ a.go-rwc:hover {
     background-color: rgb(189, 189, 0);
 }
 
+.rockWindowContent.convo .go-rwc {
+    display: none;
+}
+
 a.rwc-button {
     cursor: pointer;
-    background-color: transparent;
+    background-color: rgba(136, 136, 0, 0.3);
     border: 4px solid rgb(136, 136, 0);
     border-radius: 8px;
     padding: 5px;
@@ -154,6 +158,7 @@ a.rwc-button:active {
 .flex-row {
     display: flex;
     flex-direction: row;
+    margin-bottom: 5px;
 }
 
 .flex-row > * {
@@ -161,5 +166,12 @@ a.rwc-button:active {
 }
 
 .center {
+    text-align: center;
+}
+
+.rwc-exit {
+    margin-top: 10px;
+    padding-top: 20px;
+    margin-bottom: 10px;
     text-align: center;
 }
