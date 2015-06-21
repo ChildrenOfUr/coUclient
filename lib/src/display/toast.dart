@@ -40,6 +40,11 @@ buff(String type) {
       messageInfo = "Quoin values doubled";
       length = 600; // 10 minutes
       break;
+    case 'spinach':
+      message = "Spinach";
+      messageInfo = "Jump height increased";
+      length = 60; // 1 minute
+      break;
     default:
       return;
   }

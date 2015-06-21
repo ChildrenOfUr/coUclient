@@ -229,8 +229,12 @@ class Player
 		if (inputManager.jumpKey == true && !jumping && !climbingUp && !climbingDown)
 		{
 			num jumpMultiplier;
-			if (querySelector("#buff-pie") != null) {
+			if (querySelector("#buff-pie") != null && querySelector("#buff-spinach") != null) {
+				jumpMultiplier = 1;
+			} else if (querySelector("#buff-pie") != null) {
 				jumpMultiplier = 0.65;
+			} else if (querySelector("#buff-spinach") != null) {
+				jumpMultiplier = 1.65;
 			} else {
 				jumpMultiplier = 1;
 			}
