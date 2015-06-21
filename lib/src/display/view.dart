@@ -2,8 +2,7 @@ part of couclient;
 
 UserInterface view;
 
-class UserInterface
-{
+class UserInterface {
 	/////////////////////ELEMENTS//////////////////////////////////////////////
 	// you won! element
 	Element youWon = querySelector('#youWon');
@@ -92,31 +91,25 @@ class UserInterface
 	VolumeSliderWidget slider = new VolumeSliderWidget();
 	SoundCloudWidget soundcloud = new SoundCloudWidget();
 
-	loggedIn()
-	{
+	loggedIn() {
 		loadingScreen.style.opacity = '0';
-		new Timer(new Duration(seconds: 1), ()
-		{
+		new Timer(new Duration(seconds: 1), () {
 			loadingScreen.hidden = true;
 		});
 	}
 
-	loggedOut()
-	{
+	loggedOut() {
 		loadingScreen.hidden = false;
-		new Timer(new Duration(seconds: 1), ()
-		{
+		new Timer(new Duration(seconds: 1), () {
 			loadingScreen.style.opacity = '1';
 		});
 	}
 
 	// start listening for events
-	UserInterface()
-	{
+	UserInterface() {
 
 		//load emoticons
-		new Asset("files/emoticons/emoticons.json").load().then((Asset asset)
-		=> EMOTICONS = asset.get()["names"]);
+		new Asset("files/emoticons/emoticons.json").load().then((Asset asset) => EMOTICONS = asset.get()["names"]);
 
 		// Set initial Time
 		currDay.text = clock.dayofweek;
@@ -125,35 +118,30 @@ class UserInterface
 
 
 		// Listens for the logout button
-		logoutButton.onClick.listen((_)
-		{
+		logoutButton.onClick.listen((_) {
 			auth.logout();
 		});
 
 
 		// The 'you won' splash
-		window.onBeforeUnload.listen((_)
-		{
+		window.onBeforeUnload.listen((_) {
 			youWon.hidden = false;
 		});
 
 
 		// Listens for the pause button
-		pauseButton.onClick.listen((_)
-		{
+		pauseButton.onClick.listen((_) {
 			imgMenu.open();
 		});
 
 
-		new Service([#timeUpdate], (Message event)
-		{
+		new Service([#timeUpdate], (Message event) {
 			currDay.text = clock.dayofweek;
 			currTime.text = clock.time;
 			currDate.text = clock.day + ' of ' + clock.month;
 		});
 
-		new Service([#doneLoading], (Message event)
-		{
+		new Service([#doneLoading], (Message event) {
 			// display 'Play' buttons
 			for(Element button in loadingScreen.querySelectorAll('.button'))
 				button.hidden = false;
@@ -162,23 +150,21 @@ class UserInterface
 		//listen for resizing of the window so we can keep track of how large the
 		//world element is so that we don't remeasure it often
 		resize();
-		window.onResize.listen((_)
-		=> resize());
+		window.onResize.listen((_) => resize());
 
 		setUpOverlays();
 	}
 
-	resize()
-	{
+	resize() {
 		worldElementWidth = worldElement.clientWidth;
 		worldElementHeight = worldElement.clientHeight;
+		new Message(#windowResized,null);
 	}
 
 
 	// update the userinterface
-	update()
-	{
-	  // Update the location text
+	update() {
+		// Update the location text
 		if(location.length >= 20) location = location.substring(0, 17) + '...';
 		if(location != currLocation.text) currLocation.text = location;
 	}
@@ -188,26 +174,22 @@ class UserInterface
 // This is Robert's touchscroller class for handling
 // touchscreen scroll compatability.
 /////////////////////TOUCHSCROLLER///////////////////////////////////////
-class TouchScroller
-{
+class TouchScroller {
 	static int HORIZONTAL = 0,
 	VERTICAL = 1,
 	BOTH = 2;
 	Element _scrollDiv;
 	int _startX, _startY, _lastX, _lastY, _direction;
 
-	TouchScroller(this._scrollDiv, this._direction)
-	{
-		_scrollDiv.onTouchStart.listen((TouchEvent event)
-		{
+	TouchScroller(this._scrollDiv, this._direction) {
+		_scrollDiv.onTouchStart.listen((TouchEvent event) {
 			event.stopPropagation();
 			_startX = event.changedTouches.first.client.x;
 			_startY = event.changedTouches.first.client.y;
 			_lastX = _startX;
 			_lastY = _startY;
 		});
-		_scrollDiv.onTouchMove.listen((TouchEvent event)
-		{
+		_scrollDiv.onTouchMove.listen((TouchEvent event) {
 			event.preventDefault();
 			int diffX = _lastX - event.changedTouches.single.client.x;
 			int diffY = _lastY - event.changedTouches.single.client.y;
