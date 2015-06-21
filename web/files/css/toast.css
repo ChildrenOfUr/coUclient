@@ -22,9 +22,53 @@
   opacity: 1 !important;
 }
 
+.toast:not(.buff):last-child {
+  margin-bottom: 15px;
+}
+
 #toastDivider {
   border: 1px solid rgba(255,255,255,0.3);
   position: relative;
   left: 5px;
   display: none;
+}
+
+.buff {
+  height: 40px;
+}
+
+.buff img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  position: relative;
+  left: -65px;
+  bottom: -5px;
+}
+
+.buff span {
+  display: block;
+  position: relative;
+  text-align: left;
+}
+
+.buff span.title {
+  font-size: 16px;
+  text-align: left;
+  padding-left: 45px;
+  top: -30px;
+}
+
+.buff span.desc {
+  font-family: "Lato", sans-serif;
+  font-size: 10px;
+  top: -30px;
+  padding-left: 45px;
+}
+
+.buff .buff-progress {
+  height: 40px;
+  background-color: #93cc93;
+  border-radius: 8px;
+  position: absolute;
 }

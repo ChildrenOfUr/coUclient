@@ -229,9 +229,8 @@ class Player
 		if (inputManager.jumpKey == true && !jumping && !climbingUp && !climbingDown)
 		{
 			num jumpMultiplier;
-			if (fullOfPie) {
-				jumpMultiplier = 0.5;
-				print("pie");
+			if (querySelector("#buff-pie") != null) {
+				jumpMultiplier = 0.65;
 			} else {
 				jumpMultiplier = 1;
 			}

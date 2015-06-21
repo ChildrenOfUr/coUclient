@@ -89,6 +89,10 @@ class MetabolicsService {
     if (map['success'] == 'false') return;
 
     int amt = map['amt'];
+    if (querySelector("#buff-quoin") != null) {
+      amt*=2;
+      // TODO: implement server-side so that this amount actually gets awarded
+    }
     String quoinType = map['quoinType'];
 
     if (quoinType == "energy" && playerMetabolics.energy + amt > playerMetabolics.max_energy) {
@@ -139,6 +143,9 @@ class MetabolicsService {
         quoinText.text = "Nothing Collected";
         // TODO : update this later
         break;
+      case "mystery":
+        quoinText.text = "Nothing Collected";
+        // TODO : update this later
     }
   }
 
