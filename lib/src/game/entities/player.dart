@@ -250,7 +250,11 @@ class Player
 			if(jumpcount == 2)
 			{
 				// triple jump
-				yVel = -1560 * jumpMultiplier;
+				if (querySelector("#buff-pie") == null && querySelector("#buff-spinach") == null) {
+					yVel = -1560;
+				} else {
+					yVel = -1000 * jumpMultiplier;
+				}
 				jumpcount = 0;
 				jumpTimer.cancel();
 				jumpTimer = null;

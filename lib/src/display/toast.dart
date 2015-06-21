@@ -43,7 +43,7 @@ buff(String type) {
     case 'spinach':
       message = "Spinach";
       messageInfo = "Jump height increased";
-      length = 60; // 1 minute
+      length = 30; // 30 seconds
       break;
     default:
       return;
@@ -77,14 +77,15 @@ buff(String type) {
   new Timer(timeOpacity, () { buff.style.opacity = '0'; });
   new Timer(timeHide, buff.remove);
   Stopwatch uStopwatch = new Stopwatch();
-  new Timer.periodic(new Duration(seconds: 1), (Timer t) {
+  Timer uTimer;
+  uTimer = new Timer.periodic(new Duration(seconds: 1), (Timer t) {
     int seconds = uStopwatch.elapsed.inSeconds;
     if (seconds < length) {
-      int width = 100 - ((100 / length) * seconds).ceil();
+      num width = 100 - ((100 / length) * seconds).round();
       progress.style.width = width.toString() + "%";
     } else {
       uStopwatch.stop();
-      //uTimer.cancel();
+      uTimer.cancel();
     }
   });
 

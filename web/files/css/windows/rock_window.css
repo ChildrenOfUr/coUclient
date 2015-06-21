@@ -1,0 +1,101 @@
+/* Magic Rock */
+
+@-webkit-keyframes magic-rock-idle {
+    from  {   background-position-x: 0;       }
+    to    {   background-position-x: 15633px; }
+}
+@-moz-keyframes magic-rock-idle {
+    from  {   background-position-x: 0;       }
+    to    {   background-position-x: 15633px; }
+}
+@-o-keyframes magic-rock-idle {
+    from  {   background-position-x: 0;       }
+    to    {   background-position-x: 15633px; }
+}
+@keyframes magic-rock-idle {
+    from  {   background-position-x: 0;       }
+    to    {   background-position-x: 15633px; }
+}
+
+#petrock {
+    width: 81px;
+    height: 102px;
+    background-image: url(../../system/rock_idle.png);
+    -webkit-animation: magic-rock-idle 16s steps(193, end) infinite;
+    -moz-animation: magic-rock-idle 16s steps(193, end) infinite;
+    -o-animation: magic-rock-idle 16s steps(193, end) infinite;
+    animation: magic-rock-idle 16s steps(193, end) infinite;
+    display: block;
+    position: absolute;
+    left: 40%;
+    transform: translateX(-50%);
+    z-index: 4;
+}
+
+#petrock:hover {
+    -webkit-filter: drop-shadow(0 1px 2px cyan);
+    -moz-filter: drop-shadow(0 1px 2px cyan);
+    -o-filter: drop-shadow(0 1px 2px cyan);
+    filter: drop-shadow(0 1px 2px cyan);
+    cursor: pointer;
+}
+
+#petrock:active {
+    -webkit-filter: drop-shadow(0 1px 1px cyan);
+    -moz-filter: drop-shadow(0 1px 1px cyan);
+    -o-filter: drop-shadow(0 1px 1px cyan);
+    filter: drop-shadow(0 1px 1px cyan);
+    cursor: pointer;
+}
+
+/* Window */
+
+#rockWindow {
+    background-color: rgba(15, 39, 39, 0.8) !important;
+    border: 8px solid rgba(15, 39, 39, 0.4) !important;
+    box-shadow: none !important;
+    top: 240px !important;
+    left: 40% !important;
+    width: 350px !important;
+    height: 250px !important;
+}
+
+#rockWindow * {
+    color: white !important;
+}
+
+#rockWindow .close {
+    display: none !important;
+}
+
+#rockWindowContent {
+    height: 100%;
+    overflow-y: scroll;
+    padding-right: 12px;
+}
+
+#rockWindowContent .fa {
+    padding: 0 !important;
+}
+
+#rockWindowContent p {
+    margin: 16px 0;
+}
+
+#rockWindowContent::-webkit-scrollbar {
+    width:6px;
+}
+
+#rockWindowContent::-webkit-scrollbar-track {
+    background: rgba(15, 39, 39, 0.8);
+    border:none;
+}
+
+#rockWindowContent::-webkit-scrollbar-thumb {
+    background-color: rgb(136, 136, 0);
+    border-radius:3px;
+}
+
+#rockWindowContent::-webkit-scrollbar-thumb:hover {
+    background-color: rgb(189, 189, 0);
+}

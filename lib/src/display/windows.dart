@@ -11,6 +11,7 @@ class WindowManager {
 	GoWindow goWindow = new GoWindow();
 	CalendarWindow calendarWindow = new CalendarWindow();
 	ShrineWindow shrineWindow = new ShrineWindow();
+	RockWindow rockWindow = new RockWindow();
 
 	WindowManager() {
 		new Service([#vedorWindow], (Message event) {
@@ -100,26 +101,28 @@ abstract class Modal {
 
 		// DRAGGING ////////////////////////////////////////
 		// init vars
-		int new_x = 0, new_y = 0;
-		bool dragging = false;
+		if (window.querySelector('header') != null) {
+			int new_x = 0, new_y = 0;
+			bool dragging = false;
 
-		// mouse down listeners
-		window.onMouseDown.listen((_) => this.focus());
-		window.querySelector('header').onMouseDown.listen((_) => dragging = true);
+			// mouse down listeners
+			window.onMouseDown.listen((_) => this.focus());
+			window.querySelector('header').onMouseDown.listen((_) => dragging = true);
 
-		// mouse is moving
-		document.onMouseMove.listen((MouseEvent m) {
-			if(dragging == true) {
-				new_x += m.movement.x;
-				new_y += m.movement.y;
-				window.style
-					..top = 'calc(50% + ${new_y}px)'
-					..left = 'calc(50% + ${new_x}px)';
-			}
-		});
+			// mouse is moving
+			document.onMouseMove.listen((MouseEvent m) {
+				if(dragging == true) {
+					new_x += m.movement.x;
+					new_y += m.movement.y;
+					window.style
+						..top = 'calc(50% + ${new_y}px)'
+						..left = 'calc(50% + ${new_x}px)';
+				}
+			});
 
-		// mouseUp listener
-		document.onMouseUp.listen((_) => dragging = false);
+			// mouseUp listener
+			document.onMouseUp.listen((_) => dragging = false);
+		}
 	}
 
 	openTab(String tabID) {
