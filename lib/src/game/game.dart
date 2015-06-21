@@ -30,7 +30,7 @@ class Game
 		new Message(#startChat, 'Local Chat');
 
 		//show the message of the day
-		windowManager.motdWindow.open();
+		//windowManager.motdWindow.open();
 
 		//init the players metabolcs
 		metabolics.init(m);
