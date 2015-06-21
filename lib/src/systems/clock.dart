@@ -64,7 +64,7 @@ class Clock {
 	}
 
 	// timer has updated, send out required events and update interfaces.
-	_sendEvents() {
+	void _sendEvents() {
 
 		// Year, month, day, week, time
 		List data = _getDate();
@@ -87,15 +87,21 @@ class Clock {
 		}
 	}
 
-	void updateHolidays() async {
+	Future updateHolidays() async {
 		List updatedHolidays = await getHolidays(clock.monthInt, clock.dayInt);
 		// Alert for new Holidays
-		for(String holiday in updatedHolidays)
-			if(!_currentHolidays.contains(holiday));
+		for(String holiday in updatedHolidays) {
+			if(!_currentHolidays.contains(holiday)) {
+
+			}
+		}
 
 		// Alert for left Holidays
-		for(String holiday in _currentHolidays)
-			if(!updatedHolidays.contains(holiday));
+		for(String holiday in _currentHolidays) {
+			if(!updatedHolidays.contains(holiday)) {
+
+			}
+		}
 
 		_currentHolidays = updatedHolidays;
 	}

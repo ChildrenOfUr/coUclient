@@ -43,9 +43,17 @@ class WeatherManager {
 
 		_setupWebsocket();
 
-		window.onResize.listen((_) {
-			_clearRain();
-			_createRain();
+		Timer resizeTimer;
+		new Service([#windowResized], (Message m) {
+			//we only want to respond to the last event of this in a series
+			//so we'll wait until 200ms have gone by without one of these events
+			//and then we'll do our real work
+
+			if(resizeTimer != null && resizeTimer.isActive) {
+				resizeTimer.cancel();
+			}
+
+			resizeTimer = new Timer(new Duration(milliseconds:200), _recalculateRain);
 		});
 	}
 
@@ -55,6 +63,13 @@ class WeatherManager {
 		}
 
 		return _weatherManager;
+	}
+
+	static void _recalculateRain() {
+		if(enabled && _currentState == WeatherState.RAINING) {
+			_clearRain();
+			_createRain();
+		}
 	}
 
 	static void _changeAmbientColor(Message m) {
