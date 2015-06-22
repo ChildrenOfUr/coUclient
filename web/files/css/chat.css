@@ -104,7 +104,7 @@
 	border-radius: 6px;
 	-webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-	min-width: 180px;
+	min-width: 200px;
 	left: 50%;
 	transform: translate(-50%,-190%);
 }
@@ -183,6 +183,50 @@
 .username.red {
   color: red;
 }
-.username.tea {
-  color: tea;
+.username.teal {
+  color: teal;
+}
+
+/* Entity Interaction Completion */
+
+.cb-content .awarded {
+  margin-top: 8px;
+}
+
+.cb-content .awarded span {
+  padding: 0 4px 2px 4px;
+  display: inline-block;
+  margin: 0 1px;
+  border-radius: 10px;
+}
+
+.cb-content .awarded span.energy {
+  background-color: #E9CFCD;
+  color: #620400;
+}
+
+.cb-content .awarded span.mood {
+  background-color: #CCD795;
+  color: #25340B;
+}
+
+.cb-content .awarded span.img {
+  background-color: rgb(239, 179, 255);
+  color: rgb(71, 1, 71);
+}
+
+.cb-content .awarded span img {
+  position: relative;
+}
+
+.cb-content .awarded span.energy img {
+  margin-right: 1px;
+}
+
+.cb-content .awarded span.mood img {
+  top: 3px;
+}
+
+.cb-content .awarded span.img img {
+  top: 2px;
 }
