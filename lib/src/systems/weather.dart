@@ -123,6 +123,11 @@ class WeatherManager {
 		String streetTop = '#' + currentStreet.streetData['gradient']['top'];
 		String streetBottom = '#' + currentStreet.streetData['gradient']['bottom'];
 
+		//make sure the street has a gradient before trying to modify it
+		if(streetTop.length < 7 || streetBottom.length < 7) {
+			return;
+		}
+
 		List topTween = _tweenColor(hex2rgb(streetTop), [19, 0, 5, 1], percent);
 		List bottomTween = _tweenColor(hex2rgb(streetBottom), [19, 0, 5, 1], percent);
 		String top = rgb2hex(topTween);
