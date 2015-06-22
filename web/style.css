@@ -26,7 +26,6 @@
 @import url("files/css/newday.css");
 
 /*Popup windows*/
-@import url("files/css/windows/rock_window.css");
 @import url("files/css/windows/window.css");
 @import url("files/css/windows/map_window.css");
 @import url("files/css/windows/bag_window.css");
@@ -38,3 +37,5 @@
 @import url("files/css/windows/calendar_window.css");
 @import url("files/css/windows/motdwindow.css");
 @import url("files/css/windows/shrine_window.css");
+@import url("files/css/windows/rock_window.css");
+@import url("files/css/windows/item_window.css");

@@ -12,6 +12,7 @@ class WindowManager {
 	CalendarWindow calendarWindow = new CalendarWindow();
 	ShrineWindow shrineWindow = new ShrineWindow();
 	RockWindow rockWindow = new RockWindow();
+	ItemWindow itemWindow = new ItemWindow();
 
 	WindowManager() {
 		new Service([#vedorWindow], (Message event) {

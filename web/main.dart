@@ -80,6 +80,7 @@ part 'package:couclient/src/display/windows/go_window.dart';
 part 'package:couclient/src/display/windows/calendar_window.dart';
 part 'package:couclient/src/display/windows/shrine_window.dart';
 part 'package:couclient/src/display/windows/rock_window.dart';
+part 'package:couclient/src/display/windows/item_window.dart';
 
 // WIDGET MODULES //
 part 'package:couclient/src/display/widgets/volumeslider.dart';

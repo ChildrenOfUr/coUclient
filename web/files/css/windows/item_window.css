@@ -1,0 +1,58 @@
+#itemWindow ur-well * {
+    font-family: "Lato", sans-serif;
+    font-size: 18px;
+}
+
+#iw-left {
+    float: left;
+    width: 200px;
+}
+
+#iw-image {
+    width: 200px;
+    height: 200px;
+}
+
+#iw-info {
+    margin-left: 210px;
+    height: 100%;
+}
+
+#iw-meta {
+    position: absolute;
+    bottom: 10px;
+    color: #666;
+}
+
+#iw-icon-currants {
+    height: 20px;
+    width: 20px;
+    margin-right: 7px;
+    position: relative;
+    top: 4px;
+}
+
+#iw-icon-slot {
+    width: 18px;
+    height: 18px;
+    margin-right: 5px;
+    background-color: white;
+    display: inline-block;
+    position: relative;
+    top: 4px;
+    border-radius: 5px;
+    border: 2px dotted #aaa;
+}
+
+.gap {
+    height: 5px;
+}
+
+#iw-left span.img {
+    background-color: rgb(239, 179, 255);
+    color: rgb(71, 1, 71);
+    padding: 0 4px 2px 4px;
+    display: inline-block;
+    margin: 0 1px;
+    border-radius: 10px;
+}
