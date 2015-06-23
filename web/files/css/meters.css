@@ -11,4 +11,5 @@ ur-meters {
   left:90px;
   z-index:2;
   cursor: pointer;
+  display: none; /* until we have the menu set up */
 }
