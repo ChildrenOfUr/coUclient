@@ -1,23 +1,29 @@
 part of couclient;
 
 class ShrineWindow extends Modal {
-  String id = 'shrineWindow';
+	static ShrineWindow shrineWindow;
+	String id = 'shrineWindow', giantName;
+	int favor, maxFavor;
 
-  ShrineWindow() {
-    prepare();
+	factory ShrineWindow(String giantName, int favor, int maxFavor) {
+		if(shrineWindow == null) {
+			shrineWindow = new ShrineWindow._(giantName,favor,maxFavor);
+		}
 
-    String giantName = "Alph"; // TODO: make this dynamic
-    int favor = 300; // TODO: make this dynamic
-    int maxFavor = 1000; // TODO: make this dynamic
+		return shrineWindow;
+	}
 
-    List<Element> insertGiantName = querySelectorAll(".insert-giantname").toList();
-    insertGiantName.forEach((placeholder) => placeholder.text = giantName);
+	ShrineWindow._(this.giantName,this.favor,this.maxFavor) {
+		prepare();
 
-    int percent = ((100 / maxFavor) * favor).round();
-    Map<String,String> progressAttributes = {
-      "percent": percent.toString(),
-      "status": favor.toString() + " of " + maxFavor.toString() + " favor towards an Emblem of " + giantName
-    };
-    querySelector("#shrine-window-favor").attributes = progressAttributes;
-  }
+		List<Element> insertGiantName = querySelectorAll(".insert-giantname").toList();
+		insertGiantName.forEach((placeholder) => placeholder.text = giantName);
+
+		int percent = favor ~/ maxFavor;
+		Map<String, String> progressAttributes = {
+			"percent": percent.toString(),
+			"status": favor.toString() + " of " + maxFavor.toString() + " favor towards an Emblem of " + giantName
+		};
+		querySelector("#shrine-window-favor").attributes = progressAttributes;
+	}
 }

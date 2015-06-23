@@ -97,7 +97,6 @@ class NPC extends Entity {
 			canvas.context2D.clearRect(0, 0, animation.width, animation.height);
 
 			if(glow) {
-				print(canvas.attributes);
 				canvas.context2D.shadowColor = "rgba(0, 0, 255, 0.2)";
 				canvas.context2D.shadowBlur = 20;
 				canvas.context2D.shadowOffsetX = 0;

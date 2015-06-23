@@ -10,7 +10,6 @@ class WindowManager {
 	MotdWindow motdWindow = new MotdWindow();
 	GoWindow goWindow = new GoWindow();
 	CalendarWindow calendarWindow = new CalendarWindow();
-	ShrineWindow shrineWindow = new ShrineWindow();
 	RockWindow rockWindow = new RockWindow();
 	ItemWindow itemWindow = new ItemWindow();
 
