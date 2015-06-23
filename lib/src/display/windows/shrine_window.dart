@@ -25,5 +25,12 @@ class ShrineWindow extends Modal {
 			"status": favor.toString() + " of " + maxFavor.toString() + " favor towards an Emblem of " + giantName
 		};
 		querySelector("#shrine-window-favor").attributes = progressAttributes;
+
+		DivElement dropTarget = querySelector("#DonateDropTarget");
+		Draggable draggable = new Draggable(querySelectorAll(".inventoryItem"), avatarHandler: new CustomAvatarHandler());
+		Dropzone dropzone = new Dropzone(dropTarget, acceptor: new Acceptor.draggables([draggable]));
+		dropzone.onDrop.listen((DropzoneEvent dropEvent) {
+			// ...
+		});
 	}
 }
