@@ -1,13 +1,14 @@
 part of couclient;
 
 class RightClickMenu {
-	static Element create(MouseEvent Click, String title, String description, List<List> options) {
+	static Element create(MouseEvent Click, String title, String description, List<List> options, {String itemName: ''}) {
 		destroy();
 		DivElement menu = new DivElement()
 			..id = "RightClickMenu";
-
 		DivElement infoButton = new DivElement()
-			..className = "InfoButton fa fa-info-circle";
+			..id = "openItemWindow"
+			..className = "InfoButton fa fa-info-circle"
+			..onClick.listen((_) { windowManager.itemWindow.displayItem(itemName); });
 		SpanElement titleElement = new SpanElement()
 			..id = "ClickTitle"
 			..text = title;
@@ -15,16 +16,19 @@ class RightClickMenu {
 		SpanElement desc = new SpanElement()
 			..id = "ClickDesc"
 			..className = "soft"
-			..text = description;
+			..text = itemName;
 		DivElement actionList = new DivElement()
 			..id = "RCActionList";
 
-		menu
-			..append(infoButton)
-			..append(titleElement)
-			..append(br)
-			..append(desc)
-			..append(actionList);
+		if (itemName != '') {
+			infoButton.setAttribute('item-name', itemName);
+		}
+
+		if (itemName != '') menu.append(infoButton);
+		menu.append(titleElement);
+		menu.append(br);
+		if (itemName != '') menu.append(desc);
+		menu.append(actionList);
 
 		int x, y;
 

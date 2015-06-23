@@ -554,7 +554,7 @@ findNewSlot(Element item, Map map, ImageElement img) {
           });
         }
         if (!allDisabled) document.body.append(
-            RightClickMenu.create(event, "Options", i['description'], actions));
+            RightClickMenu.create(event, "Options", i['description'], actions, itemName: i['name']));
       });
       barSlot.append(item);
 

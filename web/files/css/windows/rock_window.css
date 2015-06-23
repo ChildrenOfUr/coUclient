@@ -65,12 +65,12 @@
 }
 
 #rockWindow a:not(.rwc-button):not(.go-rwc) {
-    color: rgb(136, 136, 0);
+    color: rgb(65, 139, 104);
     cursor: pointer;
 }
 
 #rockWindow a:hover:not(.rwc-button):not(.go-rwc) {
-    color: rgb(189, 189, 0);
+    color: rgb(130, 171, 152);
     text-decoration: underline;
 }
 
@@ -120,12 +120,12 @@ a.go-rwc:hover {
 }
 
 .rockWindowContent::-webkit-scrollbar-thumb {
-    background-color: rgb(136, 136, 0);
+    background-color: rgb(65, 139, 104);
     border-radius:3px;
 }
 
 .rockWindowContent::-webkit-scrollbar-thumb:hover {
-    background-color: rgb(189, 189, 0);
+    background-color: rgb(130, 171, 152);
 }
 
 .rockWindowContent.convo .go-rwc {
@@ -134,8 +134,8 @@ a.go-rwc:hover {
 
 a.rwc-button {
     cursor: pointer;
-    background-color: rgba(136, 136, 0, 0.3);
-    border: 4px solid rgb(136, 136, 0);
+    background-color: rgba(65, 139, 104, 0.3);
+    border: 4px solid rgb(65, 139, 104);
     border-radius: 8px;
     padding: 5px;
     text-align: center;
@@ -146,13 +146,13 @@ a.rwc-button {
 }
 
 a.rwc-button:hover {
-    background-color: rgb(136, 136, 0);
-    border: 4px solid rgb(136, 136, 0);
+    background-color: rgb(65, 139, 104);
+    border: 4px solid rgb(65, 139, 104);
 }
 
 a.rwc-button:active {
-    background-color: rgb(189, 189, 0);
-    border: 4px solid rgb(189, 189, 0);
+    background-color: rgb(130, 171, 152);
+    border: 4px solid rgb(130, 171, 152);
 }
 
 .flex-row {
