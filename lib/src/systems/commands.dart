@@ -21,6 +21,7 @@ class CommandManager {
 		};
 
 		COMMANDS
+			..['desktop'] = forceDesktopView
 			..['setname'] = setName
 			..['go'] = setLocationCommand
 			..['setlocation'] = setLocationCommand
@@ -136,3 +137,6 @@ togglePhysics(var nothing) {
 		CurrentPlayer.doPhysicsApply = true;
 }
 
+forceDesktopView(var nothing) {
+	(querySelector("#MobileStyle") as StyleElement).disabled = true;
+}
