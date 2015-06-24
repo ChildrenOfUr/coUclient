@@ -137,6 +137,12 @@ togglePhysics(var nothing) {
 		CurrentPlayer.doPhysicsApply = true;
 }
 
+// Allows switching to desktop view on touchscreen laptops
+
 forceDesktopView(var nothing) {
 	(querySelector("#MobileStyle") as StyleElement).disabled = true;
+	new Message(#chatEvent, {
+		'channel': 'Global Chat',
+		'message': 'Switched to desktop view'
+	});
 }

@@ -136,10 +136,10 @@ void main()
 {
 	//if the device is capable of touch events, assume the touch ui
 	//unless the user has explicitly turned it off in the options
-	if(!hasTouchSupport)
-	{
-		print('device does not have touch support, turning off mobile style');
+	if(!hasTouchSupport) {
 		(querySelector("#MobileStyle") as StyleElement).disabled = true;
+	} else {
+		print('Device has touch support, using mobile layout. Run /desktop in Global Chat to use the desktop view.');
 	}
 
 	//make sure the application cache is up to date

@@ -25,6 +25,18 @@ class StreetService
 
 		log('StreetService: "$StreetID" loaded.');
 		await prepareStreet(serverdata['streetJSON']);
+
+		if (otherPlayers.length > 0) {
+			String playerList;
+			for (int i = 0; i != users.length; i++) {
+				playerList += users[i];
+				if (i != users.length) {
+					playerList += ', ';
+				}
+			}
+			playerList = playerList.substring(0, playerList.length - 2);
+			toast("Other players on this street: " + playerList);
+		}
 	}
 
 	prepareStreet(Map streetJSON) async

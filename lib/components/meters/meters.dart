@@ -77,6 +77,5 @@ class Meters extends PolymerElement {
 		// updates portrait
 		updateAvatarDisplay();
 		runCount++;
-		print(runCount.toString());
 	}
 }

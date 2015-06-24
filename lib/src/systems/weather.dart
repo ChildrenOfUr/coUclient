@@ -200,11 +200,11 @@ class WeatherManager {
 
 	//clear rain from screen
 	static void _clearRain() {
-		print('clearing the rain');
+//		print('clearing the rain');
 		_weatherLayer.children.clear();
 		_cloudLayer.classes.remove('cloudy');
 		if(rainSound != null) {
-			print('stopping the sound');
+//			print('stopping the sound');
 			audio.stopSound(rainSound, fadeOut:true);
 		}
 	}
