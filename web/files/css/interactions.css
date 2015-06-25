@@ -50,37 +50,119 @@
     opacity: 1;
 }
 
+/* MINING ANIMATION */
+
+@-webkit-keyframes miningAnimation {
+    from    {   background-position-x: 3729px;  }
+    to      {   background-position-x: 0;       }
+}
+@-moz-keyframes miningAnimation {
+    from    {   background-position-x: 3729px;  }
+    to      {   background-position-x: 0;       }
+}
+@-o-keyframes miningAnimation {
+    from    {   background-position-x: 3729px;  }
+    to      {   background-position-x: 0;       }
+}
+@keyframes miningAnimation {
+    from    {   background-position-x: 3729px;  }
+    to      {   background-position-x: 0;       }
+}
+
+/* DIGGING ANIMATION */
+
+@-webkit-keyframes diggingAnimation {
+    from    {   background-position-x: 3445px;  }
+    to      {   background-position-x: 0;       }
+}
+@-moz-keyframes diggingAnimation {
+    from    {   background-position-x: 3445px;  }
+    to      {   background-position-x: 0;       }
+}
+@-o-keyframes diggingAnimation {
+    from    {   background-position-x: 3445px;  }
+    to      {   background-position-x: 0;       }
+}
+@keyframes diggingAnimation {
+    from    {   background-position-x: 3445px;  }
+    to      {   background-position-x: 0;       }
+}
+
+/* WATERING ANIMATION */
+
+@-webkit-keyframes wateringAnimation {
+    from    {   background-position-x: 2730px;  }
+    to      {   background-position-x: 0;       }
+}
+@-moz-keyframes wateringAnimation {
+    from    {   background-position-x: 2730px;  }
+    to      {   background-position-x: 0;       }
+}
+@-o-keyframes wateringAnimation {
+    from    {   background-position-x: 2730px;  }
+    to      {   background-position-x: 0;       }
+}
+@keyframes wateringAnimation {
+    from    {   background-position-x: 2730px;  }
+    to      {   background-position-x: 0;       }
+}
+
+/* ASSIGN ANIMATIONS */
+
 .border.mining::after {
-    content: url(http://c2.glitch.bz/items/2012-12-06/fancy_pick__x1_iconic_png_1354831492.png);
-    -webkit-animation: 2s mine infinite linear;
+    content: '';
+    left: 50%;
+    transform: translateX(-50%);
+    top: -60px;
+    display: inline-block;
+    width: 113px;
+    height: 63px;
+    background-image: url(../system/actions/using_pick.png);
+    -webkit-animation: miningAnimation 1.5s steps(33, end) infinite;
+    -moz-animation: miningAnimation 1.5s steps(33, end) infinite;
+    -o-animation: miningAnimation 1.5s steps(33, end) infinite;
+    animation: miningAnimation 1.5s steps(33, end) infinite;
 }
+
 .border.harvesting::after {
-    content: url('');
+
 }
+
 .border.watering::after {
-    content: url('');
+    content: '';
+    left: 50%;
+    transform: translateX(-50%);
+    top: -90px;
+    display: inline-block;
+    width: 91px;
+    height: 78px;
+    background-image: url(../system/actions/using_watering.png);
+    -webkit-animation: wateringAnimation 1.5s steps(30, end) infinite;
+    -moz-animation: wateringAnimation 1.5s steps(30, end) infinite;
+    -o-animation: wateringAnimation 1.5s steps(30, end) infinite;
+    animation: wateringAnimation 1.5s steps(30, end) infinite;
 }
+
 .border.petting::after {
-    content: url('');
+
 }
+
 .border.nibbling::after {
-    content: url('');
+
 }
 .border.digging::after {
-    content: url('');
-}
-@-webkit-keyframes mine {
-    0% {
-        transform: translate3d(13px,0,0) rotate(-45deg);
-    }
-
-    50% {
-        transform: translate3d(13px,0,0) rotate(45deg);
-    }
-
-    100% {
-        transform: translate3d(13px,0,0) rotate(-45deg);
-    }
+    content: '';
+    left: 50%;
+    transform: translateX(-50%);
+    top: -90px;
+    display: inline-block;
+    width: 65px;
+    height: 82px;
+    background-image: url(../system/actions/using_shovel.png);
+    -webkit-animation: diggingAnimation 1.5s steps(53, end) infinite;
+    -moz-animation: diggingAnimation 1.5s steps(53, end) infinite;
+    -o-animation: diggingAnimation 1.5s steps(53, end) infinite;
+    animation: diggingAnimation 1.5s steps(53, end) infinite;
 }
 
 .item {
