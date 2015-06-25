@@ -25,12 +25,14 @@ class CommandManager {
 			..['setname'] = setName
 			..['go'] = setLocationCommand
 			..['setlocation'] = setLocationCommand
+			..['tp'] = setLocationCommand
 			..['toast'] = toast
 			..['buff'] = buff
 			..['toggleCollisionLines'] = toggleCollisionLines
 			..['togglePhysics'] = togglePhysics
 			..['log'] = log
-			..['settime'] = setTime;
+			..['settime'] = setTime
+			..['setcurrants'] = setCurrants;
 	}
 }
 
@@ -55,12 +57,16 @@ bool parseCommand(String command) {
 
 // COMMAND FUNCTIONS BELOW  //
 
+// Changes the clock for the current player
+
 setTime(String noun) {
 	new Message(#timeUpdateFake,[noun]);
 	if(noun == '6:00am') {
 		new Message(#newDayFake,null);
 	}
 }
+
+// Changes the name of the current player
 
 setName(String noun) {
 	// Fix Name
@@ -89,12 +95,10 @@ setName(String noun) {
 	// Send new name to server
 	new Message(#outgoingChatEvent, map);
 
-	// Alert the Player
-	new Message(#chatEvent, {
-		'channel': 'Global Chat',
-		'message': "Name changed to $noun"
-	});
+	toast('Name changed to ' + noun);
 }
+
+// Tests if the username is valid
 
 bool containsBadCharacter(String newName) {
 	List<String> badChars = "! @ \$ % ^ & * ( ) + = , . / ' ; : \" ? > < [ ] \\ { } | ` #".split(" ");
@@ -105,44 +109,56 @@ bool containsBadCharacter(String newName) {
 	return false;
 }
 
+// Teleports the player
+
 setLocationCommand(String noun) {
 	playerTeleFrom = "console";
 	noun = noun.trim();
 	view.mapLoadingScreen.className = "MapLoadingScreenIn";
 	view.mapLoadingScreen.style.opacity = "1.0";
 	//changes first letter to match revdancatt's code - only if it starts with an L
-	if(noun.startsWith("L"))
+	if(noun.startsWith("L")) {
 		noun = noun.replaceFirst("L", "G");
+	}
 	streetService.requestStreet(noun);
 }
+
+// Shows or hides collision lines on platforms
 
 toggleCollisionLines(var nothing) {
 	if(showCollisionLines) {
 		showCollisionLines = false;
 		hideLineCanvas();
+		toast('Collision lines hidden');
 	}
 	else {
 		showCollisionLines = true;
 		showLineCanvas();
+		toast('Collision lines shown');
 	}
 }
 
-/**
- * Toggles physics on the current player
- */
+// Toggles physics for the current player
+
 togglePhysics(var nothing) {
-	if(CurrentPlayer.doPhysicsApply)
+	if(CurrentPlayer.doPhysicsApply) {
 		CurrentPlayer.doPhysicsApply = false;
-	else
+		toast('Physics no longer apply to you');
+	} else {
 		CurrentPlayer.doPhysicsApply = true;
+		toast('Physics apply to you');
+	}
 }
 
 // Allows switching to desktop view on touchscreen laptops
 
 forceDesktopView(var nothing) {
 	(querySelector("#MobileStyle") as StyleElement).disabled = true;
-	new Message(#chatEvent, {
-		'channel': 'Global Chat',
-		'message': 'Switched to desktop view'
-	});
+	toast('Switched to desktop view');
+}
+
+// Explain why /setcurrants won't work
+
+setCurrants(var amt) {
+	toast('/setcurrants ' + amt + ' does not work anymore because you can collect quoins now. Ask a dev nicely and they may give you some starting-off money.');
 }

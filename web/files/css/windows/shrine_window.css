@@ -17,20 +17,22 @@
     width: 75px;
     height: 75px;
     border-radius: 5px;
+    background-repeat: no-repeat;
+    background-position: center center;
 }
 
-#shrine-window-confirm {
+#shrine-window-buttons > * {
     margin-top: 5px;
 }
 
-#shrine-window-confirm /deep/ button {
+#shrine-window-buttons > * /deep/ button {
     width: 78px;
 }
 
 #DonateHelp {
     max-width: 300px;
     position: relative;
-    top: -122px;
+    top: -160px;
     left: 200px;
 }
 
