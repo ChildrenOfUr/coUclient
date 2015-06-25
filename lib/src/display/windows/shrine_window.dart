@@ -33,7 +33,7 @@ class ShrineWindow extends Modal {
 		int percent = favor ~/ maxFavor;
 		Map<String, String> progressAttributes = {
 			"percent": percent.toString(),
-			"status": favor.toString() + " of " + maxFavor.toString() + " favor towards an Emblem of " + giantName
+			"status": favor.toString() + " of " + maxFavor.toString() + " favor towards a currant reward"
 		};
 		querySelector("#shrine-window-favor").attributes = progressAttributes;
 
