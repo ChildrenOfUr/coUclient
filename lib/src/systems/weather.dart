@@ -167,11 +167,11 @@ class WeatherManager {
 			return;
 		}
 
-		log('raining: $_intensity');
+		log('Raining: $_intensity');
 
 		_playRainSound();
 
-		//set the sky to cloudy if
+		//set the sky to cloudy
 		if(!_cloudLayer.classes.contains('cloudy')) {
 			_cloudLayer.classes.add('cloudy');
 		}
@@ -192,6 +192,35 @@ class WeatherManager {
 		}
 	}
 
+	// function to generate snowflakes
+	static void _createSnow() {
+		if(!_enabled) {
+			return;
+		}
+
+		log('Snowing: $_intensity');
+
+		//set the sky to cloudy
+		if(!_cloudLayer.classes.contains('cloudy')) {
+			_cloudLayer.classes.add('cloudy');
+		}
+
+		Random random = new Random();
+		int numFlakes = (500 * ((intensity.index + 1) / WeatherIntensity.values.length)).toInt();
+
+		for(int i = 0; i < numFlakes; i++) {
+			var flakeLeft = random.nextInt(view.worldElementWidth);
+			var flakeTop = random.nextInt(2400) - 1000;
+
+			DivElement snowflake = new DivElement()
+				..className = 'flake'
+				..style.left = '${flakeLeft}px'
+				..style.top = '${flakeTop}px';
+
+			_weatherLayer.append(snowflake);
+		}
+	}
+
 	static _playRainSound() async {
 		audio.gameSounds['rainSound'] = new Sound(channel: audio.audioChannels['soundEffects']);
 		await audio.gameSounds['rainSound'].load("files/audio/rain.${audio.extension}");
@@ -200,13 +229,17 @@ class WeatherManager {
 
 	//clear rain from screen
 	static void _clearRain() {
-//		print('clearing the rain');
 		_weatherLayer.children.clear();
 		_cloudLayer.classes.remove('cloudy');
 		if(rainSound != null) {
-//			print('stopping the sound');
 			audio.stopSound(rainSound, fadeOut:true);
 		}
+	}
+
+	//clear snow from screen
+	static void _clearSnow() {
+		_weatherLayer.children.clear();
+		_cloudLayer.classes.remove('cloudy');
 	}
 
 	static bool get enabled => _enabled;
@@ -241,12 +274,20 @@ class WeatherManager {
 			WeatherState previousState = _currentState;
 			_currentState = WeatherState.values[map['state']];
 
-			if(_currentState != WeatherState.RAINING) {
+			if (_currentState != WeatherState.RAINING) {
 				_clearRain();
 			}
 
-			if(previousState != WeatherState.RAINING && _currentState == WeatherState.RAINING) {
+			if (previousState != WeatherState.RAINING && _currentState == WeatherState.RAINING) {
 				_createRain();
+			}
+
+			if (_currentState != WeatherState.SNOWING) {
+				_clearSnow();
+			}
+
+			if (previousState != WeatherState.SNOWING && _currentState == WeatherState.SNOWING) {
+				_createSnow();
 			}
 		});
 		socket.onClose.listen((CloseEvent e) {

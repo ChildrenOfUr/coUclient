@@ -33,6 +33,17 @@
     -moz-animation: fall .63s linear infinite;
 }
 
+.flake {
+    opacity: .4;
+    width: 15px;
+    height: 15px;
+    position: absolute;
+    border-radius: 50%;
+    background-color: white;
+    -webkit-animation: fall 1s linear infinite;
+    -moz-animation: fall 1s linear infinite;
+}
+
 /* animate the drops*/
 @-webkit-keyframes fall {
     to {transform: translateY(900px);}

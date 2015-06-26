@@ -32,12 +32,19 @@ class CommandManager {
 			..['togglePhysics'] = togglePhysics
 			..['log'] = log
 			..['settime'] = setTime
-			..['setcurrants'] = setCurrants;
+			..['setcurrants'] = setCurrants
+			..['snow'] = createSnow;
 	}
 }
 
 
 /////////////////////////////////// COMMAND FUNCTIONS /////////////////////////////////////////////
+
+void createSnow(var nothing) {
+	WeatherManager._createSnow();
+}
+
+///
 
 
 bool parseCommand(String command) {
