@@ -200,19 +200,90 @@ class WorldMap
     view.mapTitle.text = "World Map";
     view.mapImg.style.backgroundImage = 'url(files/system/worldmap.png)';
     Element WorldMap = querySelector("#WorldMapLayer");
+    WorldMap.setInnerHtml('');
     WorldMap.hidden = false;
-    // TODO: get from server or files/json/hubs.json
+    // TODO: get from server
     String json = '''
 {
+  "alakol": {
+    "name": "Alakol",
+    "x": 360,
+    "y": 129
+  },
+  "andra": {
+    "name": "Andra",
+    "x": 314,
+    "y": 98
+  },
+  "aranna": {
+    "name": "Aranna",
+    "x": 397,
+    "y": 24
+  },
   "balzare": {
     "name": "Balzare",
     "x": 80,
     "y": 90
   },
+  "baqala": {
+    "name": "Baqala",
+    "x": 355,
+    "y": 78
+  },
+  "besara": {
+    "name": "Besara",
+    "x": 404,
+    "y": 46
+  },
+  "bortola": {
+    "name": "Bortola",
+    "x": 405,
+    "y": 99
+  },
+  "brillah": {
+    "name": "Brillah",
+    "x": 497,
+    "y": 74
+  },
+  "callopee": {
+    "name": "Callopee",
+    "x": 449,
+    "y": 43
+  },
+  "cauda": {
+    "name": "Cauda",
+    "x": 416,
+    "y": 256
+  },
   "chakraphool": {
     "name": "Chakra Phool",
     "x": 200,
     "y": 240
+  },
+  "choru": {
+    "name": "Choru",
+    "x": 354,
+    "y": 56
+  },
+  "drifa": {
+    "name": "Drifa",
+    "x": 390,
+    "y": -2
+  },
+  "fenneq": {
+    "name": "Fenneq",
+    "x": 431,
+    "y": 225
+  },
+  "firozi": {
+    "name": "Firozi",
+    "x": 375,
+    "y": 156
+  },
+  "folivoria": {
+    "name": "Folivoria",
+    "x": 258,
+    "y": 63
   },
   "groddleforest": {
     "name": "Groddle Forest",
@@ -222,31 +293,91 @@ class WorldMap
   "groddleheights": {
     "name": "Groddle Heights",
     "x": 310,
-    "y": 168
+    "y": 171
   },
   "groddlemeadow": {
     "name": "Groddle Meadow",
     "x": 293,
     "y": 194
   },
+  "haoma": {
+    "name": "Haoma",
+    "x": 78,
+    "y": 118
+  },
+  "haraiva": {
+    "name": "Haraiva",
+    "x": 519,
+    "y": 122
+  },
   "ix": {
     "name": "Ix",
     "x": 122,
     "y": 53
+  },
+  "jal": {
+    "name": "Jal",
+    "x": 332,
+    "y": 151
   },
   "jethimadh": {
     "name": "Jethimadh",
     "x": 241,
     "y": 248
   },
+  "kajuu": {
+    "name": "Kajuu",
+    "x": 358,
+    "y": 102
+  },
   "kalavana": {
     "name": "Kalavana",
     "x": 196,
     "y": 266
   },
+  "karnata": {
+    "name": "Karnata",
+    "x": 497,
+    "y": 100
+  },
+  "kloro": {
+    "name": "Kloro",
+    "x": 71,
+    "y": 143
+  },
+  "lida": {
+    "name": "Lida",
+    "x": 451,
+    "y": 117
+  },
+  "massadoe": {
+    "name": "Massadoe",
+    "x": 446,
+    "y": 19
+  },
+  "muufo": {
+    "name": "Muufo",
+    "x": 451,
+    "y": 92
+  },
+  "nottis": {
+    "name": "Nottis",
+    "x": 344,
+    "y": 9
+  },
+  "ormonos": {
+    "name": "Ormonos",
+    "x": 407,
+    "y": 125
+  },
+  "pollokoo": {
+    "name": "Pollokoo",
+    "x": 445,
+    "y": 66
+  },
   "rasana": {
     "name": "Rasana",
-    "x": 287,
+    "x": 261,
     "y": 122
   },
   "roobrik": {
@@ -254,15 +385,55 @@ class WorldMap
     "x": 120,
     "y": 100
   },
+  "salatu": {
+    "name": "Salatu",
+    "x": 313,
+    "y": 121
+  },
+  "samudra": {
+    "name": "Samudra",
+    "x": 285,
+    "y": 147
+  },
   "shimlamirch": {
     "name": "Shimla Mirch",
     "x": 238,
     "y": 219
   },
+  "sura": {
+    "name": "Sura",
+    "x": 461,
+    "y": 256
+  },
+  "tahli": {
+    "name": "Tahli",
+    "x": 263,
+    "y": 94
+  },
+  "tamila": {
+    "name": "Tamila",
+    "x": 400,
+    "y": 72
+  },
   "uralia": {
     "name": "Uralia",
     "x": 125,
     "y": 125
+  },
+  "vantalu": {
+    "name": "Vantalu",
+    "x": 353,
+    "y": 35
+  },
+  "xalanga": {
+    "name": "Xalanga",
+    "x": 305,
+    "y": 43
+  },
+  "zhambu": {
+    "name": "Zhambu",
+    "x": 306,
+    "y": 74
   }
 }
     ''';
