@@ -6,8 +6,8 @@
 .overlay {
   pointer-events:auto;
   position:absolute;
-  top:0%;
-  left:0%;
+  top:0;
+  left:0;
   width:100%;
   height:100%;
   z-index: 900;
@@ -19,6 +19,8 @@
   left:calc(100% - 2em);
   cursor: pointer;
 }
+
+/* iMG Menu */
 
 #pauseMenu {
   background-color:rgba(0,0,0,0.5);

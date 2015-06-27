@@ -324,10 +324,14 @@
 .entityContainer {
   border: 1px solid #eee;
   color: black;
+  border-radius: 3px;
+  cursor: pointer;
 }
 
+.entityContainer:hover,
 .entitySelected {
   border: 1px solid orange;
+  background-color: #F8F2E1;
   color: orange;
 }
 
@@ -375,9 +379,12 @@
   border: 1px solid #eee;
 }
 
+.RCItem:hover,
 .RCItemSelected {
-  cursor: pointer;  color: #d79035;
+  cursor: pointer;
+  color: #d79035;
   border: 1px solid #d79035;
+  background-color: #F8F2E1;
 }
 
 .RCItemDisabled {

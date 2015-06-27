@@ -315,7 +315,7 @@
 #imaginationText {
     position:absolute;
     top:calc(24px - 0.5em);
-    left:130px;
+    left:165px;
 }
 #imaginationText * {
     color:#444;
