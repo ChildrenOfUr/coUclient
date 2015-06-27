@@ -29,9 +29,13 @@
 }
 
 #mapTitle {
-    cursor: move;
+    cursor: inherit;
     position: relative;
     left: -75px;
+}
+
+#mapTitle:active {
+    cursor: inherit;
 }
 
 #map-window-world {

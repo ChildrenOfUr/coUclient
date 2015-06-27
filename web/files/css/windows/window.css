@@ -14,7 +14,6 @@
 }
 
 #windowHolder .window header {
-  cursor: move;
   position: absolute;
   top: 0;
   left: 60px;
@@ -24,6 +23,20 @@
   text-shadow: 0 1px rgba(100, 100, 100, 0.3);
   padding: 10px 0;
   border-radius: 5px;
+}
+
+#windowHolder .window header,
+#windowHolder .window header > span,
+#windowHolder .window header > i {
+  cursor: move;
+  cursor: -webkit-grab;
+}
+
+#windowHolder .window header:active,
+#windowHolder .window header > span:active,
+#windowHolder .window header > i:active {
+  cursor: move;
+  cursor: -webkit-grabbing;
 }
 
 #windowHolder .window .fa {
