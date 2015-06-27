@@ -57,6 +57,11 @@ class MetabolicsService {
     view.meters.updateAll();
 
     setupWebsocket();
+
+    new Service([#newDay], (Message event) {
+      m.energy = m.max_energy;
+      // TODO: send to server
+    });
   }
 
   setupWebsocket() {
@@ -71,7 +76,7 @@ class MetabolicsService {
       update();
     });
     socket.onClose.listen((CloseEvent e) {
-      //print('socket closed: ${e.reason}');
+      log('Metabolics: Websocket closed: ${e.reason}');
       //wait 5 seconds and try to reconnect
       new Timer(new Duration(seconds: 5), () => setupWebsocket());
     });
