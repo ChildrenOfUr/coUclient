@@ -31,21 +31,12 @@ class CommandManager {
 			..['toggleCollisionLines'] = toggleCollisionLines
 			..['togglePhysics'] = togglePhysics
 			..['log'] = log
-			..['settime'] = setTime
-			..['setcurrants'] = setCurrants
-			..['snow'] = createSnow;
+			..['setcurrants'] = setCurrants;
 	}
 }
 
 
 /////////////////////////////////// COMMAND FUNCTIONS /////////////////////////////////////////////
-
-void createSnow(var nothing) {
-	WeatherManager._createSnow();
-}
-
-///
-
 
 bool parseCommand(String command) {
 	// Getting the important data

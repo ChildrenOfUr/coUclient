@@ -201,8 +201,8 @@ class WeatherManager {
 		log('Snowing: $_intensity');
 
 		//set the sky to cloudy
-		if(!_cloudLayer.classes.contains('cloudy')) {
-			_cloudLayer.classes.add('cloudy');
+		if(!_cloudLayer.classes.contains('snowy')) {
+			_cloudLayer.classes.add('snowy');
 		}
 
 		Random random = new Random();

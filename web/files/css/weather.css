@@ -17,6 +17,17 @@
     opacity: .3;
 }
 
+.snowy {
+    background: white;
+    /* For future editing: http://www.colorzilla.com/gradient-editor/#ffffff+0,ffffff+90,ffffff+100&0.3+0,0.9+90,1+100 */
+    background: -moz-linear-gradient(top, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0.9) 90%, rgba(255,255,255,1) 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,0.3)), color-stop(90%,rgba(255,255,255,0.9)), color-stop(100%,rgba(255,255,255,1)));
+    background: -webkit-linear-gradient(top, rgba(255,255,255,0.3) 0%,rgba(255,255,255,0.9) 90%,rgba(255,255,255,1) 100%);
+    background: -o-linear-gradient(top, rgba(255,255,255,0.3) 0%,rgba(255,255,255,0.9) 90%,rgba(255,255,255,1) 100%);
+    background: -ms-linear-gradient(top, rgba(255,255,255,0.3) 0%,rgba(255,255,255,0.9) 90%,rgba(255,255,255,1) 100%);
+    background: linear-gradient(to bottom, rgba(255,255,255,0.3) 0%,rgba(255,255,255,0.9) 90%,rgba(255,255,255,1) 100%);
+}
+
 .drop {
     /*gradients are slow to render*/
     /*background:-webkit-gradient(linear,0% 0%,0% 100%, from(rgba(13,52,58,1) ), to(rgba(255,255,255,0.6))  );*/
@@ -34,14 +45,13 @@
 }
 
 .flake {
-    opacity: .4;
-    width: 15px;
-    height: 15px;
+    width: 10px;
+    height: 10px;
     position: absolute;
     border-radius: 50%;
     background-color: white;
-    -webkit-animation: fall 1s linear infinite;
-    -moz-animation: fall 1s linear infinite;
+    -webkit-animation: fall 2s linear infinite;
+    -moz-animation: fall 2s linear infinite;
 }
 
 /* animate the drops*/
