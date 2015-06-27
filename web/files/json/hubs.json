@@ -1,0 +1,62 @@
+{
+  "balzare": {
+    "name": "Balzare",
+    "x": 80,
+    "y": 90
+  },
+  "chakraphool": {
+    "name": "Chakra Phool",
+    "x": 200,
+    "y": 240
+  },
+  "groddleforest": {
+    "name": "Groddle Forest",
+    "x": 340,
+    "y": 191
+  },
+  "groddleheights": {
+    "name": "Groddle Heights",
+    "x": 310,
+    "y": 168
+  },
+  "groddlemeadow": {
+    "name": "Groddle Meadow",
+    "x": 293,
+    "y": 194
+  },
+  "ix": {
+    "name": "Ix",
+    "x": 122,
+    "y": 53
+  },
+  "jethimadh": {
+    "name": "Jethimadh",
+    "x": 241,
+    "y": 248
+  },
+  "kalavana": {
+    "name": "Kalavana",
+    "x": 196,
+    "y": 266
+  },
+  "rasana": {
+    "name": "Rasana",
+    "x": 287,
+    "y": 122
+  },
+  "roobrik": {
+    "name": "Roobrik",
+    "x": 120,
+    "y": 100
+  },
+  "shimlamirch": {
+    "name": "Shimla Mirch",
+    "x": 238,
+    "y": 219
+  },
+  "uralia": {
+    "name": "Uralia",
+    "x": 125,
+    "y": 125
+  }
+}

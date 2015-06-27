@@ -22,6 +22,12 @@
   opacity:0.8;
 }
 
+#mapImage {
+    background-size: 572px 327px;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+}
+
 #mapTitle {
     cursor: move;
     position: relative;
@@ -41,4 +47,40 @@
 #map-window-world /deep/ .fa {
     padding: 0 !important;
     cursor: pointer;
+}
+
+#WorldMapLayer {
+    width: 100%;
+    height: 100%;
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.wml-hub {
+    width: 50px;
+    height: 25px;
+    display: block;
+    background-image: url(../../system/hubmarker.svg);
+    background-repeat: no-repeat;
+    background-position: top left;
+    background-size: 100%;
+    position: absolute;
+    padding: 6px 3px 3px 3px;
+    text-align: center;
+    color: rgba(0,0,0,0);
+    text-shadow: none;
+    font-family: "Lato", sans-serif;
+    font-weight: bold;
+    font-size: 12px;
+    cursor: pointer;
+    line-height: 10px;
+    z-index: 10;
+}
+
+.wml-hub:hover {
+    color: white;
+    text-shadow: 0 0 10px #000;
+    z-index: 11;
 }

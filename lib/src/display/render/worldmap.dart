@@ -10,6 +10,8 @@ class WorldMap
 
   DataMaps map = new DataMaps();
 
+  bool worldMapVisible = false;
+
   WorldMap(String hub_id){
     hubInfo = map.data_maps_hubs[hub_id]();
     hubMaps = map.data_maps_maps[hub_id]();
@@ -144,6 +146,24 @@ class WorldMap
     num scaleY = view.mapCanvas.parent.clientHeight/view.mapCanvas.clientHeight;
     view.mapCanvas.style.transform = 'scaleX($scaleX) scaleY($scaleY)';
     view.mapCanvas.style.transformOrigin = '-21px -21px';
+
+    worldMapVisible = true;
+
+    // toggle main and hub maps
+
+    Element toggleMapView = querySelector("#map-window-world");
+    toggleMapView.onClick.listen((_) {
+      if (worldMapVisible) {
+        // go to current hub
+        toggleMapView.setInnerHtml('<i class="fa fa-fw fa-globe"></i>');
+        worldMapVisible = false;
+      } else {
+        // go to world map
+        mainMap();
+        toggleMapView.setInnerHtml('<i class="fa fa-fw fa-map-marker"></i>');
+        worldMapVisible = true;
+      }
+    });
   }
 
   /**
@@ -173,5 +193,98 @@ class WorldMap
       ctx.fill();
       ctx.stroke();
       ctx.restore();
+  }
+
+  void mainMap() {
+    view.mapCanvas.context2D.clearRect(0, 0, view.mapCanvas.width, view.mapCanvas.height);
+    view.mapTitle.text = "World Map";
+    view.mapImg.style.backgroundImage = 'url(files/system/worldmap.png)';
+    Element WorldMap = querySelector("#WorldMapLayer");
+    WorldMap.hidden = false;
+    // TODO: get from server or files/json/hubs.json
+    String json = '''
+{
+  "balzare": {
+    "name": "Balzare",
+    "x": 80,
+    "y": 90
+  },
+  "chakraphool": {
+    "name": "Chakra Phool",
+    "x": 200,
+    "y": 240
+  },
+  "groddleforest": {
+    "name": "Groddle Forest",
+    "x": 340,
+    "y": 191
+  },
+  "groddleheights": {
+    "name": "Groddle Heights",
+    "x": 310,
+    "y": 168
+  },
+  "groddlemeadow": {
+    "name": "Groddle Meadow",
+    "x": 293,
+    "y": 194
+  },
+  "ix": {
+    "name": "Ix",
+    "x": 122,
+    "y": 53
+  },
+  "jethimadh": {
+    "name": "Jethimadh",
+    "x": 241,
+    "y": 248
+  },
+  "kalavana": {
+    "name": "Kalavana",
+    "x": 196,
+    "y": 266
+  },
+  "rasana": {
+    "name": "Rasana",
+    "x": 287,
+    "y": 122
+  },
+  "roobrik": {
+    "name": "Roobrik",
+    "x": 120,
+    "y": 100
+  },
+  "shimlamirch": {
+    "name": "Shimla Mirch",
+    "x": 238,
+    "y": 219
+  },
+  "uralia": {
+    "name": "Uralia",
+    "x": 125,
+    "y": 125
+  }
+}
+    ''';
+
+    Map hubs = JSON.decode(json);
+    hubs.forEach((key, value) {
+      DivElement hub = new DivElement()
+        ..className = "wml-hub"
+        ..id = "hub-" + key
+        ..style.left = value['x'].toString() + 'px'
+        ..style.top = value['y'].toString() + 'px'
+        ..text = value['name'];
+      WorldMap.append(hub);
+    });
+
+  }
+
+  void hubMap() {
+    // TODO: return to hub actions
+    view.mapCanvas.context2D.clearRect(0, 0, view.mapCanvas.width, view.mapCanvas.height); // repopulate
+    view.mapTitle.text = "World Map"; // set to hub
+    view.mapImg.style.backgroundImage = 'url(files/system/worldmap.png)'; // set to hub
+    querySelector("#WorldMapLayer").hidden = true;
   }
 }

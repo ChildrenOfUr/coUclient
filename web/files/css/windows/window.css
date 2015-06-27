@@ -31,6 +31,19 @@
   color: #444;
 }
 
+.window:not(.noDrag)::before {
+  content: '';
+  display: inline-block;
+  background-image: url(../../system/windowhandle.svg);
+  background-size: 40px 8px;
+  width: 40px;
+  height: 8px;
+  position: absolute;
+  left: calc(50% - 20px);
+  top: 5px;
+  opacity: 0.5;
+}
+
 .window ur-well, .window article {
   font-family: 'Tahoma', 'Geneva', 'sans-serif';
   color: #000;
