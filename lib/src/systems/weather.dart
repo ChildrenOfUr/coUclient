@@ -35,7 +35,10 @@ class WeatherManager {
 
 			//need a service to listen to time events and respond by coloring the
 			//weather overlay as needed (possibly change the background gradient?
-			new Service([#timeUpdate], _changeAmbientColor);
+			new Service([#timeUpdate, #timeUpdateFake], _changeAmbientColor);
+
+			//service for debugging weather
+			new Service([#setWeatherFake], (Message m) {_processMessage(m.content);});
 
 			//update on start
 			new Message(#timeUpdate, [clock.time, clock.day, clock.dayofweek, clock.month, clock.year]);
@@ -65,10 +68,14 @@ class WeatherManager {
 		return _weatherManager;
 	}
 
+	static bool get enabled => _enabled;
+	static WeatherIntensity get intensity => _intensity;
+	static WeatherState get currentState => _currentState;
+
 	static void _recalculateRain() {
-		if(enabled && _currentState == WeatherState.RAINING) {
-			_clearRain();
-			_createRain();
+		if(enabled && currentState == WeatherState.RAINING) {
+			_clearWeather();
+			_createWeather(currentState);
 		}
 	}
 
@@ -162,18 +169,27 @@ class WeatherManager {
 	}
 
 	// function to generate drops
-	static void _createRain() {
+	static void _createWeather(WeatherState createState) {
 		if(!_enabled) {
 			return;
 		}
+		
+		log('${currentState.toString()}: $_intensity');
 
-		log('Raining: $_intensity');
+		String precipitationClass = '';
+		if(createState == WeatherState.RAINING) {
+			_playRainSound();
+			precipitationClass = 'drop';
 
-		_playRainSound();
+			if(!_cloudLayer.classes.contains('cloudy')) {
+				_cloudLayer.classes.add('cloudy');
+			}
+		} else if (createState == WeatherState.SNOWING) {
+			precipitationClass = 'flake';
 
-		//set the sky to cloudy
-		if(!_cloudLayer.classes.contains('cloudy')) {
-			_cloudLayer.classes.add('cloudy');
+			if(!_cloudLayer.classes.contains('snowy')) {
+				_cloudLayer.classes.add('snowy');
+			}
 		}
 
 		Random random = new Random();
@@ -183,41 +199,12 @@ class WeatherManager {
 			var dropLeft = random.nextInt(view.worldElementWidth);
 			var dropTop = random.nextInt(2400) - 1000;
 
-			DivElement raindrop = new DivElement()
-				..className = 'drop'
+			DivElement particle = new DivElement()
+				..className = precipitationClass
 				..style.left = '${dropLeft}px'
 				..style.top = '${dropTop}px';
 
-			_weatherLayer.append(raindrop);
-		}
-	}
-
-	// function to generate snowflakes
-	static void _createSnow() {
-		if(!_enabled) {
-			return;
-		}
-
-		log('Snowing: $_intensity');
-
-		//set the sky to cloudy
-		if(!_cloudLayer.classes.contains('snowy')) {
-			_cloudLayer.classes.add('snowy');
-		}
-
-		Random random = new Random();
-		int numFlakes = (500 * ((intensity.index + 1) / WeatherIntensity.values.length)).toInt();
-
-		for(int i = 0; i < numFlakes; i++) {
-			var flakeLeft = random.nextInt(view.worldElementWidth);
-			var flakeTop = random.nextInt(2400) - 1000;
-
-			DivElement snowflake = new DivElement()
-				..className = 'flake'
-				..style.left = '${flakeLeft}px'
-				..style.top = '${flakeTop}px';
-
-			_weatherLayer.append(snowflake);
+			_weatherLayer.append(particle);
 		}
 	}
 
@@ -227,40 +214,37 @@ class WeatherManager {
 		rainSound = await audio.playSound('rainSound', looping:true, fadeIn:true);
 	}
 
-	//clear rain from screen
-	static void _clearRain() {
+	static void _clearWeather() {
 		_weatherLayer.children.clear();
-		_cloudLayer.classes.remove('cloudy');
+		_cloudLayer.classes
+			..remove('cloudy')
+			..remove('snowy');
 		if(rainSound != null) {
 			audio.stopSound(rainSound, fadeOut:true);
 		}
 	}
 
-	//clear snow from screen
-	static void _clearSnow() {
-		_weatherLayer.children.clear();
-		_cloudLayer.classes.remove('cloudy');
-	}
-
-	static bool get enabled => _enabled;
-
 	static void set enabled(bool enabled) {
 		localStorage["WeatherEffectsEnabled"] = enabled.toString();
 		_enabled = enabled;
-		_clearRain();
-		if(_enabled && _currentState == WeatherState.RAINING) {
-			_createRain();
+		_clearWeather();
+		if(_enabled && currentState != WeatherState.CLEAR) {
+			_createWeather(currentState);
+		}
+		if(enabled && currentState == WeatherState.SNOWING) {
+			_createWeather(currentState);
 		}
 	}
-
-	static WeatherIntensity get intensity => _intensity;
 
 	static set intensity(WeatherIntensity intensity) {
 		_intensity = intensity;
 		localStorage["WeatherEffectsIntensity"] = _intensity.index.toString();
-		_clearRain();
-		if(enabled && _currentState == WeatherState.RAINING) {
-			_createRain();
+		_clearWeather();
+		if(enabled && currentState == WeatherState.RAINING) {
+			_createWeather(currentState);
+		}
+		if(enabled && currentState == WeatherState.SNOWING) {
+			_createWeather(currentState);
 		}
 	}
 
@@ -271,24 +255,7 @@ class WeatherManager {
 		socket.onMessage.listen((MessageEvent event) {
 			Map map = JSON.decode(event.data);
 
-			WeatherState previousState = _currentState;
-			_currentState = WeatherState.values[map['state']];
-
-			if (_currentState != WeatherState.RAINING) {
-				_clearRain();
-			}
-
-			if (previousState != WeatherState.RAINING && _currentState == WeatherState.RAINING) {
-				_createRain();
-			}
-
-			if (_currentState != WeatherState.SNOWING) {
-				_clearSnow();
-			}
-
-			if (previousState != WeatherState.SNOWING && _currentState == WeatherState.SNOWING) {
-				_createSnow();
-			}
+			_processMessage(map);
 		});
 		socket.onClose.listen((CloseEvent e) {
 			log('weather socket closed: ${e.reason}');
@@ -298,5 +265,18 @@ class WeatherManager {
 		socket.onError.listen((ErrorEvent e) {
 			log('Weather: error ${e.error}');
 		});
+	}
+
+	static void _processMessage(Map map) {
+		WeatherState previousState = currentState;
+		_currentState = WeatherState.values[map['state']];
+
+		print(map);
+		if (currentState != previousState) {
+			_clearWeather();
+			if(currentState != WeatherState.CLEAR) {
+				_createWeather(currentState);
+			}
+		}
 	}
 }

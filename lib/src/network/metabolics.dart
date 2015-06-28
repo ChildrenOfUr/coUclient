@@ -57,11 +57,6 @@ class MetabolicsService {
     view.meters.updateAll();
 
     setupWebsocket();
-
-    new Service([#newDay], (Message event) {
-      m.energy = m.max_energy;
-      // TODO: send to server
-    });
   }
 
   setupWebsocket() {

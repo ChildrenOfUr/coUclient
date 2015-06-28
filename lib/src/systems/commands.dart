@@ -31,7 +31,9 @@ class CommandManager {
 			..['toggleCollisionLines'] = toggleCollisionLines
 			..['togglePhysics'] = togglePhysics
 			..['log'] = log
-			..['setcurrants'] = setCurrants;
+			..['setcurrants'] = setCurrants
+			..['settime'] = setTime
+			..['setweather'] = setWeather;
 	}
 }
 
@@ -61,6 +63,16 @@ setTime(String noun) {
 	new Message(#timeUpdateFake,[noun]);
 	if(noun == '6:00am') {
 		new Message(#newDayFake,null);
+	}
+}
+
+setWeather(String noun) {
+	if(noun == 'snow') {
+		new Message(#setWeatherFake,{'state':WeatherState.SNOWING.index});
+	} else if(noun == 'rain') {
+		new Message(#setWeatherFake,{'state':WeatherState.RAINING.index});
+	} else if(noun == 'clear') {
+		new Message(#setWeatherFake, {'state':WeatherState.CLEAR.index});
 	}
 }
 
