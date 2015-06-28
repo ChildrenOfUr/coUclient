@@ -198,7 +198,7 @@ class WorldMap
   void mainMap() {
     view.mapCanvas.context2D.clearRect(0, 0, view.mapCanvas.width, view.mapCanvas.height);
     view.mapTitle.text = "World Map";
-    view.mapImg.style.backgroundImage = 'url(files/system/worldmap.png)';
+    view.mapImg.style.backgroundImage = 'url(files/system/windows/worldmap.png)';
     Element WorldMap = querySelector("#WorldMapLayer");
     WorldMap.setInnerHtml('');
     WorldMap.hidden = false;

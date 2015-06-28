@@ -33,6 +33,12 @@
     cursor: pointer;
 }
 
+@media (max-width: 1024px) {
+    #petrock {
+        left: 30%;
+    }
+}
+
 #petrock:hover {
     -webkit-filter: drop-shadow(0 1px 2px cyan);
     -moz-filter: drop-shadow(0 1px 2px cyan);
