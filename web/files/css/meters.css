@@ -9,8 +9,8 @@ ur-meters {
   width: 70px;
   height: 50px;
   position: absolute;
-  /*display: inline;*/
-  display: none; /* until we have the menu set up */
+  display: inline;
+  /*display: none; /!* until we have the menu set up *!/*/
   left: 90px;
   cursor: pointer;
 }

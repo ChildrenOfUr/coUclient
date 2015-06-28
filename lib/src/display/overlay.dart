@@ -3,7 +3,6 @@ part of couclient;
 class Overlay {
   Overlay(String id) {
     overlay = querySelector("#" + id);
-    overlay.querySelector(".closeButton").onClick.listen((_) => close());
   }
 
   Element overlay;

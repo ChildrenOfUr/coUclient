@@ -130,10 +130,14 @@ class UserInterface {
 
 
 		// Listens for the pause button
+		Element pauseMenu = querySelector("#pauseMenu");
 		pauseButton.onClick.listen((_) {
-			imgMenu.open();
+			if (pauseMenu.hidden) {
+				imgMenu.open();
+			} else {
+				imgMenu.close();
+			}
 		});
-
 
 		new Service([#timeUpdate], (Message event) {
 			currDay.text = clock.dayofweek;

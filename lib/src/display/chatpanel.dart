@@ -538,13 +538,13 @@ class ChatMessage {
 			message = message.replaceFirst('/me ', '');
 			html = '''
 				<p class="me" style="color:${getColorFromUsername(player)};">
-				$player $message
+				<i><a class="noUnderline" href="http://childrenofur.com/profiles?username=${player}" target="_blank" title="Open Profile Page">$player</a> $message</i>
 				</p>
 				''';
 		} else {
 			html = '''
 					<p>
-					<span class="name" style="color:${getColorFromUsername(player)};">$player:</span>
+					<span class="name"><a class="noUnderline" href="http://childrenofur.com/profiles?username=${player}" target="_blank" title="Open Profile Page" style="color:${getColorFromUsername(player)};">$player</a>:</span>
 					<span class="message">$message</span>
 					</p>
 					''';
