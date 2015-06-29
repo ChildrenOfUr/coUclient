@@ -126,108 +126,57 @@ class Player
 		return Future.wait(futures);
 	}
 
-	update(double dt)
-	{
+	update(double dt) {
 		num cameFrom = posY;
 
 		//show chat message if it exists and decrement it's timeToLive
-		if(chatBubble != null)
+		if(chatBubble != null) {
 			chatBubble.update(dt);
-
-		if(doPhysicsApply && inputManager.upKey == true)
-		{
-			bool found = false;
-			Rectangle playerRect = new Rectangle(posX,posY+currentStreet.streetData['dynamic']['ground_y'],width,height-15);
-			for(Ladder ladder in currentStreet.ladders)
-			{
-				if(intersect(ladder.bounds,playerRect))
-				{
-					//if our feet are above the ladder, stop climbing
-					if(playerRect.top+playerRect.height < ladder.bounds.top)
-						break;
-
-					posY -= speed/4 * dt;
-					climbingUp = true;
-					activeClimb = true;
-					jumping = false;
-					found = true;
-					break;
-				}
-			}
-			if(!found)
-			{
-				climbingUp = false;
-				climbingDown = false;
-				activeClimb = false;
-			}
 		}
 
-		if(doPhysicsApply && inputManager.downKey == true)
-		{
+		updateLadderStatus(dt);
+
+		if(doPhysicsApply && inputManager.downKey == false && inputManager.upKey == false) {
+			// not moving up or down
+
 			bool found = false;
 			Rectangle playerRect = new Rectangle(posX,posY+currentStreet.streetData['dynamic']['ground_y'],width,height);
-			for(Ladder ladder in currentStreet.ladders)
-			{
-				if(intersect(ladder.bounds,playerRect))
-				{
-					//if our feet are below the ladder, stop climbing
-					if(playerRect.top+playerRect.height > ladder.bounds.top+ladder.bounds.height)
-					break;
-
-					posY += speed/4 * dt;
-					climbingDown = true;
-					activeClimb = true;
-					jumping = false;
+			for(Ladder ladder in currentStreet.ladders) {
+				if(intersect(ladder.bounds,playerRect)) {
+					// touching a ladder
 					found = true;
 					break;
 				}
 			}
-			if(!found)
-			{
-				climbingDown = false;
-				climbingUp = false;
-				activeClimb = false;
-			}
-		}
-
-		if(doPhysicsApply && inputManager.downKey == false && inputManager.upKey == false)
-		{
-			bool found = false;
-			Rectangle playerRect = new Rectangle(posX,posY+currentStreet.streetData['dynamic']['ground_y'],width,height);
-			for(Ladder ladder in currentStreet.ladders)
-			{
-				if(intersect(ladder.bounds,playerRect))
-				{
-					found = true;
-					break;
-				}
-			}
-			if(!found)
-			{
+			if(!found) {
+				// not touching a ladder
 				climbingDown = false;
 				climbingUp = false;
 			}
 			activeClimb = false;
 		}
 
-		if(inputManager.rightKey == true)
-		{
+		if(inputManager.rightKey == true) {
+			// moving right
 			posX += speed * dt;
 			facingRight = true;
 			moving = true;
+			updateLadderStatus(dt);
 		}
-		else if(inputManager.leftKey == true)
-		{
+		else if(inputManager.leftKey == true) {
+			// moving left
 			posX -= speed * dt;
 			facingRight = false;
 			moving = true;
+			updateLadderStatus(dt);
 		}
-		else
+		else {
+			// not moving
 			moving = false;
+		}
 
 		//primitive jumping
-		if (inputManager.jumpKey == true && !jumping && !climbingUp && !climbingDown)
-		{
+		if (inputManager.jumpKey == true && !jumping && !climbingUp && !climbingDown) {
 			num jumpMultiplier;
 			if (querySelector("#buff-pie") != null && querySelector("#buff-spinach") != null) {
 				jumpMultiplier = 1;
@@ -239,16 +188,16 @@ class Player
 				jumpMultiplier = 1;
 			}
 
-			if(jumpTimer == null)
-				jumpTimer = new Timer(new Duration(seconds:3), ()
-				{
-					// normal jump
-					jumpcount = 0;
-					jumpTimer.cancel();
-					jumpTimer = null;
+			if(jumpTimer == null) {
+				// start timer
+				jumpTimer = new Timer(new Duration(seconds:3), () {
+				// normal jump
+				jumpcount = 0;
+				jumpTimer.cancel();
+				jumpTimer = null;
 				});
-			if(jumpcount == 2)
-			{
+			}
+			if(jumpcount == 2) {
 				// triple jump
 				if (querySelector("#buff-pie") == null && querySelector("#buff-spinach") == null) {
 					yVel = -1560;
@@ -260,8 +209,7 @@ class Player
 				jumpTimer = null;
 				audio.playSound('tripleJump');
 			}
-			else
-			{
+			else {
 				// normal jump
 				jumpcount++;
 				yVel = -1000 * jumpMultiplier;
@@ -271,39 +219,37 @@ class Player
 
 		//needs acceleration, some gravity const somewhere
 		//for jumps/falling
-		if(doPhysicsApply && !climbingUp && !climbingDown)
-		{
+		if(doPhysicsApply && !climbingUp && !climbingDown) {
+			// walking
 			yVel -= yAccel * dt;
 			posY += yVel * dt;
-		}
-		else
-		{
+		} else {
+			// climbing
 			if(inputManager.downKey == true)
 				posY += speed * dt;
 			if(inputManager.upKey == true)
 				posY -= speed * dt;
 		}
 
-		if(posX < 0)
+		if(posX < 0) {
 			posX = 0.0;
-		if(posX > currentStreet.bounds.width - width)
+		}
+		if(posX > currentStreet.bounds.width - width) {
 			posX = currentStreet.bounds.width - width;
+		}
 
 		//check for collisions with platforms
-		if(doPhysicsApply && !climbingDown && !climbingUp && yVel >= 0)
-		{
+		if(doPhysicsApply && !climbingDown && !climbingUp && yVel >= 0) {
 			num x = posX+width/2;
 			Platform bestPlatform = _getBestPlatform(cameFrom);
 
-			if(bestPlatform != null)
-			{
+			if(bestPlatform != null) {
 				num goingTo = posY+height+currentStreet.streetData['dynamic']['ground_y'];
 				num slope = (bestPlatform.end.y-bestPlatform.start.y)/(bestPlatform.end.x-bestPlatform.start.x);
 				num yInt = bestPlatform.start.y - slope*bestPlatform.start.x;
 				num lineY = slope*x+yInt;
 
-				if(goingTo >= lineY)
-				{
+				if(goingTo >= lineY) {
 					posY = lineY-height-currentStreet.streetData['dynamic']['ground_y'];
 					yVel = 0;
 					jumping = false;
@@ -320,6 +266,79 @@ class Player
 			..top = posY
 			..width = width
 			..height = height;
+	}
+
+	updateLadderStatus(double dt) {
+		if(doPhysicsApply && inputManager.upKey == true) {
+			// moving up
+
+			bool found = false;
+			Rectangle playerRect = new Rectangle(posX,posY+currentStreet.streetData['dynamic']['ground_y'],width,height-15);
+			for(Ladder ladder in currentStreet.ladders) {
+				if(intersect(ladder.bounds,playerRect)) {
+					// touching a ladder
+
+					if(playerRect.top+playerRect.height < ladder.bounds.top) {
+						//if our feet are above the ladder, stop climbing
+						break;
+					}
+
+					posY -= speed/4 * dt;
+					climbingUp = true;
+					activeClimb = true;
+					jumping = false;
+					found = true;
+					break;
+				}
+			}
+			if(!found) {
+				// not touching a ladder
+				climbingUp = false;
+				climbingDown = false;
+				activeClimb = false;
+			}
+		}
+
+		if(doPhysicsApply && inputManager.downKey == true) {
+			// moving down
+
+			bool found = false;
+			Rectangle playerRect = new Rectangle(posX,posY+currentStreet.streetData['dynamic']['ground_y'],width,height);
+			for(Ladder ladder in currentStreet.ladders) {
+				if(intersect(ladder.bounds,playerRect)) {
+					// touching a ladder
+
+					if(playerRect.top+playerRect.height > ladder.bounds.top+ladder.bounds.height) {
+						//if our feet are below the ladder, stop climbing
+						break;
+					}
+
+					posY += speed/4 * dt;
+					climbingDown = true;
+					activeClimb = true;
+					jumping = false;
+					found = true;
+					break;
+				}
+			}
+			if(!found) {
+				// not touching a ladder
+				climbingDown = false;
+				climbingUp = false;
+				activeClimb = false;
+			}
+		}
+
+		if(inputManager.rightKey == true || inputManager.leftKey == true) {
+			Rectangle playerRect = new Rectangle(posX,posY+currentStreet.streetData['dynamic']['ground_y'],width + 20,height + 20);
+			for(Ladder ladder in currentStreet.ladders) {
+				if (!intersect(ladder.bounds, playerRect)) {
+					climbingDown = false;
+					climbingUp = false;
+					activeClimb = false;
+				}
+			}
+		}
 	}
 
 	void render()
