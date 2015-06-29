@@ -11,6 +11,7 @@ class WorldMap
   DataMaps map = new DataMaps();
 
   bool worldMapVisible = false;
+  Element WorldMapDiv = querySelector("#WorldMapLayer");
 
   WorldMap(String hub_id){
     hubInfo = map.data_maps_hubs[hub_id]();
@@ -199,8 +200,8 @@ class WorldMap
     view.mapCanvas.context2D.clearRect(0, 0, view.mapCanvas.width, view.mapCanvas.height);
     view.mapTitle.text = "World Map";
     view.mapImg.style.backgroundImage = 'url(files/system/windows/worldmap.png)';
-    WorldMap.setInnerHtml('');
-    WorldMap.hidden = false;
+    WorldMapDiv.setInnerHtml('');
+    WorldMapDiv.hidden = false;
     // TODO: get from server
     String json = '''
 {
@@ -437,7 +438,6 @@ class WorldMap
 }
     ''';
 
-    Element WorldMapDiv = querySelector("#WorldMapLayer");
     Map hubs = JSON.decode(json);
     hubs.forEach((key, value) {
       DivElement hub = new DivElement()
@@ -456,6 +456,6 @@ class WorldMap
     view.mapCanvas.context2D.clearRect(0, 0, view.mapCanvas.width, view.mapCanvas.height); // repopulate
     view.mapTitle.text = "World Map"; // set to hub
     view.mapImg.style.backgroundImage = 'url(files/system/worldmap.png)'; // set to hub
-    querySelector("#WorldMapLayer").hidden = true;
+    WorldMapDiv.hidden = true;
   }
 }

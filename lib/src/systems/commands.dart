@@ -21,15 +21,15 @@ class CommandManager {
 		};
 
 		COMMANDS
-			..['desktop'] = forceDesktopView
+			..['interface'] = changeInterface
 			..['setname'] = setName
 			..['go'] = setLocationCommand
 			..['setlocation'] = setLocationCommand
 			..['tp'] = setLocationCommand
 			..['toast'] = toast
 			..['buff'] = buff
-			..['toggleCollisionLines'] = toggleCollisionLines
-			..['togglePhysics'] = togglePhysics
+			..['collisions'] = toggleCollisionLines
+			..['physics'] = togglePhysics
 			..['log'] = log
 			..['setcurrants'] = setCurrants
 			..['settime'] = setTime
@@ -162,9 +162,18 @@ togglePhysics(var nothing) {
 
 // Allows switching to desktop view on touchscreen laptops
 
-forceDesktopView(var nothing) {
-	(querySelector("#MobileStyle") as StyleElement).disabled = true;
-	toast('Switched to desktop view');
+changeInterface(var type) {
+	if (type == "desktop") {
+		(querySelector("#MobileStyle") as StyleElement).disabled = true;
+		localStorage['interface'] = 'desktop';
+		toast('Switched to desktop view');
+	} else if (type == "mobile") {
+		(querySelector("#MobileStyle") as StyleElement).disabled = false;
+		localStorage['interface'] = 'mobile';
+		toast('Switched to mobile view');
+	} else {
+		toast('Interface type must be either desktop or mobile, ' + type + ' is invalid');
+	}
 }
 
 // Explain why /setcurrants won't work

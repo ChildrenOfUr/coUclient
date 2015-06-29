@@ -137,10 +137,19 @@ void main()
 {
 	//if the device is capable of touch events, assume the touch ui
 	//unless the user has explicitly turned it off in the options
-	if(!hasTouchSupport) {
+	if (localStorage['interface'] == 'desktop') {
+		// desktop already preferred
 		(querySelector("#MobileStyle") as StyleElement).disabled = true;
-	} else {
-		print('Device has touch support, using mobile layout. Run /desktop in Global Chat to use the desktop view.');
+	} else if (localStorage['interface'] == 'mobile') {
+		// mobile already preferred
+		(querySelector("#MobileStyle") as StyleElement).disabled = false;
+	} else if (hasTouchSupport) {
+		// no preference, touch support, use mobile view
+		(querySelector("#MobileStyle") as StyleElement).disabled = false;
+		log('Device has touch support, using mobile layout. Run /desktop in Global Chat to use the desktop view.');
+	} else if (!hasTouchSupport) {
+		// no preference, no touch support, use desktop view
+		(querySelector("#MobileStyle") as StyleElement).disabled = true;
 	}
 
 	//make sure the application cache is up to date

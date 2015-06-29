@@ -73,7 +73,8 @@
     z-index: 10;
 }
 
-.wml-hub:hover {
+.wml-hub:hover,
+.wml-hub.currentlocationhub {
     color: white;
     text-shadow: 0 0 10px #000;
     z-index: 11;

@@ -330,6 +330,7 @@ class Player
 		}
 
 		if(inputManager.rightKey == true || inputManager.leftKey == true) {
+			// left or right on a ladder
 			Rectangle playerRect = new Rectangle(posX,posY+currentStreet.streetData['dynamic']['ground_y'],width + 20,height + 20);
 			for(Ladder ladder in currentStreet.ladders) {
 				if (!intersect(ladder.bounds, playerRect)) {

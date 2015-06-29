@@ -231,7 +231,7 @@ class Street {
 			num currentPercentY = camera.getY() / (bounds.height - view.worldElementHeight);
 
 			//modify left and top for parallaxing
-			for(DivElement canvas in view.worldElement.querySelectorAll('.streetcanvas')) {
+			for(Element canvas in view.worldElement.querySelectorAll('.streetcanvas')) {
 				Map attributes = canvas.attributes;
 				num canvasWidth = num.parse(attributes['width']);
 				num canvasHeight = num.parse(attributes['height']);
