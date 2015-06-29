@@ -71,21 +71,22 @@ class WorldMap
              // For name of each street
              textCanvas.context2D.save();
              textCanvas.context2D.miterLimit=2;
-             textCanvas.context2D.font = "13px Arial bold";
+             textCanvas.context2D.font = "normal 13px Lato";
 
              textCanvas.context2D.moveTo(0,0);
              textCanvas.context2D.translate(streetMiddleX, streetMiddleY);
              textCanvas.context2D.rotate(atan((object['y2']-object['y1'])/(object['x2']-object['x1'])));
-             textCanvas.context2D.translate(-streetMiddleX, -streetMiddleY);
+             textCanvas.context2D.translate(-streetMiddleX - (1.2 * streetName.length), -streetMiddleY);
 
              // If this is the street we are on, style is slightly different
              if (object['tsid'].substring(1) == currentStreet.streetData['tsid'].substring(1)) {
                textCanvas.context2D.fillStyle = "#C50101";
-               textCanvas.context2D.font = "15px Arial bold";
-               drawStar(textCanvas.context2D,streetMiddleX,streetMiddleY-14,10,fillColor:textCanvas.context2D.fillStyle,strokeColor:textCanvas.context2D.strokeStyle);
+               textCanvas.context2D.font = "bold 15px Lato";
+               // disabled until it is positioned correctly
+//               drawStar(textCanvas.context2D,streetMiddleX,streetMiddleY-14,10,fillColor:textCanvas.context2D.fillStyle,strokeColor:textCanvas.context2D.strokeStyle);
              }
 
-             textCanvas.context2D.lineWidth = 3;
+             textCanvas.context2D.lineWidth = 2;
              textCanvas.context2D.strokeStyle = "#FFFFFF";
              textCanvas.context2D.strokeText(streetName,(streetMiddleX - (view.mapCanvas.context2D.measureText(streetName).width / 2)), (streetMiddleY + 4));
              textCanvas.context2D.fillText(streetName,(streetMiddleX - (view.mapCanvas.context2D.measureText(streetName).width / 2)), (streetMiddleY + 4));
@@ -112,19 +113,18 @@ class WorldMap
 
       // Exit Objects
       else if (object['type'] == 'X') {
-
         // Drawing the "GO" Circle. Needs small arrow addition, math similar to text below
         view.mapCanvas.context2D.beginPath();
         view.mapCanvas.context2D.arc(object['x'], object['y'], 18, 0, 2 * PI, false);
         view.mapCanvas.context2D.fillStyle = map.data_maps_hubs[object['hub_id']]()['color'];
         view.mapCanvas.context2D.fill();
         view.mapCanvas.context2D.lineWidth = 2;
-        view.mapCanvas.context2D.font = "18px Arial";
+        view.mapCanvas.context2D.font = "normal 18px Fredoka One";
         view.mapCanvas.context2D.fillStyle = '#FFFFFF';
         view.mapCanvas.context2D.fillText('GO',object['x']-14, object['y']+7);
 
         // Drawing the name of the region, angle specified in 'label', trig to ajdust pos based on angle
-        view.mapCanvas.context2D.font = "14px Arial";
+        view.mapCanvas.context2D.font = "normal 14px Lato";
         view.mapCanvas.context2D.strokeStyle = '#FFFFFF';
         view.mapCanvas.context2D.stroke();
         view.mapCanvas.context2D.lineWidth = 4;
@@ -199,7 +199,6 @@ class WorldMap
     view.mapCanvas.context2D.clearRect(0, 0, view.mapCanvas.width, view.mapCanvas.height);
     view.mapTitle.text = "World Map";
     view.mapImg.style.backgroundImage = 'url(files/system/windows/worldmap.png)';
-    Element WorldMap = querySelector("#WorldMapLayer");
     WorldMap.setInnerHtml('');
     WorldMap.hidden = false;
     // TODO: get from server
@@ -438,6 +437,7 @@ class WorldMap
 }
     ''';
 
+    Element WorldMapDiv = querySelector("#WorldMapLayer");
     Map hubs = JSON.decode(json);
     hubs.forEach((key, value) {
       DivElement hub = new DivElement()
@@ -446,7 +446,7 @@ class WorldMap
         ..style.left = value['x'].toString() + 'px'
         ..style.top = value['y'].toString() + 'px'
         ..text = value['name'];
-      WorldMap.append(hub);
+      WorldMapDiv.append(hub);
     });
 
   }

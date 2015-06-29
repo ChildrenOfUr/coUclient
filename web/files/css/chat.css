@@ -204,9 +204,20 @@ p.me {
   border-radius: 10px;
 }
 
+.cb-content .awarded span::after {
+  display: inline-block;
+  position: relative;
+  left: 2px;
+}
+
 .cb-content .awarded span.energy {
   background-color: #E9CFCD;
   color: #620400;
+}
+
+.cb-content .awarded span.energy::after {
+  content: url(../system/icons/interaction_energy.svg);
+  margin-right: 2px;
 }
 
 .cb-content .awarded span.mood {
@@ -214,26 +225,22 @@ p.me {
   color: #25340B;
 }
 
+.cb-content .awarded span.mood::after {
+  content: url(../system/icons/interaction_mood.svg);
+  top: 2px;
+}
+
 .cb-content .awarded span.img {
   background-color: rgb(239, 179, 255);
   color: rgb(71, 1, 71);
 }
 
-.cb-content .awarded span img {
-  position: relative;
-}
-
-.cb-content .awarded span.energy img {
-  margin-right: 1px;
-}
-
-.cb-content .awarded span.mood img {
-  top: 3px;
-}
-
-.cb-content .awarded span.img img {
+.cb-content .awarded span.img::after {
+  content: url(../system/icons/interaction_img.svg);
   top: 2px;
 }
+
+/* don't underline username links, looks bad */
 
 a.noUnderline {
   text-decoration: none;

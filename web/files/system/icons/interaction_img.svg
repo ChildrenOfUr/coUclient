@@ -83,11 +83,11 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="22.4"
-     inkscape:cx="8.5106367"
-     inkscape:cy="5.519886"
+     inkscape:zoom="11.2"
+     inkscape:cx="8.6906489"
+     inkscape:cy="10.645063"
      inkscape:document-units="px"
-     inkscape:current-layer="g5697"
+     inkscape:current-layer="text5679"
      showgrid="false"
      showguides="false"
      units="px"
@@ -95,11 +95,11 @@
      fit-margin-left="0"
      fit-margin-right="0"
      fit-margin-bottom="0"
-     inkscape:window-width="1861"
-     inkscape:window-height="1056"
-     inkscape:window-x="1499"
-     inkscape:window-y="24"
-     inkscape:window-maximized="1" />
+     inkscape:window-width="750"
+     inkscape:window-height="384"
+     inkscape:window-x="1813"
+     inkscape:window-y="193"
+     inkscape:window-maximized="0" />
   <metadata
      id="metadata5115">
     <rdf:RDF>
@@ -108,7 +108,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -131,19 +131,15 @@
            id="path5669"
            inkscape:connector-curvature="0"
            sodipodi:nodetypes="csscacacacascascssc" />
-        <text
-           xml:space="preserve"
+        <g
+           transform="scale(1.0419521,0.95973701)"
            style="font-style:normal;font-weight:normal;font-size:120.18895721px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-           x="591.18854"
-           y="529.10168"
-           id="text5679"
-           sodipodi:linespacing="125%"
-           transform="scale(1.0419521,0.95973701)"><tspan
-             sodipodi:role="line"
-             id="tspan5681"
-             x="591.18854"
-             y="529.10168"
-             style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:rockoflf-bold-webfont;-inkscape-font-specification:'rockoflf-bold-webfont Bold';fill:#ffffff;fill-opacity:1;stroke:none">i</tspan></text>
+           id="text5679">
+          <path
+             d="m 594.53364,521.41382 q 0,3.11036 2.28875,5.39911 2.28876,2.28875 5.51649,2.28875 3.11036,0 5.4578,-2.23006 2.40613,-2.23007 2.40613,-5.4578 l 0,-45.07086 q 0,-3.11036 -2.34744,-5.4578 -2.34744,-2.34744 -5.51649,-2.34744 -3.11036,0 -5.4578,2.34744 -2.34744,2.34744 -2.34744,5.4578 l 0,45.07086 z m 0,-69.01476 q 0,3.22773 2.34744,5.4578 2.34744,2.23007 5.4578,2.23007 3.11036,0 5.4578,-2.17138 2.40613,-2.23007 2.40613,-5.51649 0,-3.22773 -2.34744,-5.4578 -2.34744,-2.23006 -5.51649,-2.23006 -3.11036,0 -5.4578,2.23006 -2.34744,2.23007 -2.34744,5.4578 z"
+             style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:RockoFLFBold;-inkscape-font-specification:'RockoFLFBold Bold';fill:#ffffff;fill-opacity:1;stroke:none"
+             id="path4222" />
+        </g>
       </g>
     </g>
   </g>

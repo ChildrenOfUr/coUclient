@@ -18,11 +18,16 @@ class ChatBubble {
 		textElement = new DivElement()
 			..classes.add("cb-content");
 
-		if (false) {
-			textElement.setInnerHtml(_getColoredUsername() + ":</span> " + text);
-		} else {
-			textElement.setInnerHtml(text);
-		}
+// Template for interactions:
+//
+// {{text}}
+// <div class="awarded">
+// 	<span class="energy">-0</span>
+//	<span class="mood">+0</span>
+//	<span class="img">+0</span>
+// </div>
+
+		textElement.setInnerHtml(text);
 
 		arrowElement = new DivElement()
 			..classes.add("cb-arrow");
