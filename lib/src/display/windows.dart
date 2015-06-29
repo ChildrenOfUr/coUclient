@@ -1,19 +1,19 @@
 part of couclient;
 
 class WindowManager {
-	// Declaring all the possible popup windows
-	MapWindow map = new MapWindow();
-	SettingsWindow settings = new SettingsWindow();
-	BugWindow bugs = new BugWindow();
-	BagWindow bag = new BagWindow();
-	VendorWindow vendor = new VendorWindow();
-	MotdWindow motdWindow = new MotdWindow();
-	GoWindow goWindow = new GoWindow();
-	CalendarWindow calendarWindow = new CalendarWindow();
-	RockWindow rockWindow = new RockWindow();
-	ItemWindow itemWindow = new ItemWindow();
-
 	WindowManager() {
+		// Declaring all the possible popup windows
+		MapWindow map = new MapWindow();
+		SettingsWindow settings = new SettingsWindow();
+		BugWindow bugs = new BugWindow();
+		BagWindow bag = new BagWindow();
+		VendorWindow vendor = new VendorWindow();
+		MotdWindow motdWindow = new MotdWindow();
+		GoWindow goWindow = new GoWindow();
+		CalendarWindow calendarWindow = new CalendarWindow();
+		RockWindow rockWindow = new RockWindow();
+		ItemWindow itemWindow = new ItemWindow();
+
 		new Service([#vedorWindow], (Message event) {
 			vendor(event.content);
 		});
@@ -77,7 +77,8 @@ abstract class Modal {
 		window.querySelector('.fa-times.close').onClick.listen((_) => this.close());
 		StreamSubscription escListener;
 		escListener = document.onKeyUp.listen((KeyboardEvent e) {
-			if(window.hidden == false && e.keyCode == 27) {  //escape key
+			if(window.hidden == false && e.keyCode == 27) {
+				//escape key
 				this.close();
 				// COMMENTED TO ALLOW PRESSING ESC TO CLOSE ANY WINDOW // escListener.cancel();
 			}
@@ -101,7 +102,7 @@ abstract class Modal {
 
 		// DRAGGING ////////////////////////////////////////
 		// init vars
-		if (window.querySelector('header') != null) {
+		if(window.querySelector('header') != null) {
 			int new_x = 0, new_y = 0;
 			bool dragging = false;
 

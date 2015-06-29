@@ -1,50 +1,59 @@
 part of couclient;
 
 class ItemWindow extends Modal {
-  String id = 'itemWindow';
+	String id = 'itemWindow';
+	static ItemWindow instance;
 
-  Element titleE = querySelector("#iw-title");
-  Element imageE = querySelector("#iw-image");
-  Element descE = querySelector("#iw-desc");
-  Element priceE = querySelector("#iw-currants");
-  Element slotE = querySelector("#iw-slot");
-  Element imgnumE = querySelector("#iw-imgnum");
-  Element discoverE = querySelector("#iw-newItem");
+	Element titleE = querySelector("#iw-title");
+	Element imageE = querySelector("#iw-image");
+	Element descE = querySelector("#iw-desc");
+	Element priceE = querySelector("#iw-currants");
+	Element slotE = querySelector("#iw-slot");
+	Element imgnumE = querySelector("#iw-imgnum");
+	Element discoverE = querySelector("#iw-newItem");
 
-  ItemWindow() {
-    prepare();
-  }
+	factory ItemWindow() {
+		if(instance == null) {
+			instance = new ItemWindow._();
+		}
 
-  displayItem(itemName) async {
-    String response = await HttpRequest.requestCrossOrigin('http://' + Configs.utilServerAddress + '/getItems?name=' + itemName);
-    Map<String, String> json = JSON.decode(response)[0];
+		return instance;
+	}
 
-    String title = json['name'];
-    String image = json['iconUrl'];
-    String desc = json['description'];
-    int price = (json['price'] as int);
-    int slot = (json['stacksTo'] as int);
-    int newImg = 0;
+	ItemWindow._() {
+		prepare();
+	}
 
-    titleE.text = title;
-    imageE.setAttribute('src', image);
-    descE.text = desc;
+	displayItem(itemName) async {
+		String response = await HttpRequest.requestCrossOrigin('http://' + Configs.utilServerAddress + '/getItems?name=' + itemName);
+		Map<String, String> json = JSON.decode(response)[0];
 
-    if (price != -1) {
-      priceE.setInnerHtml('This item sells for about <b>' + price.toString() + '</b> currants');
-    } else {
-      priceE.text = 'Vendors will not buy this item';
-    }
+		String title = json['name'];
+		String image = json['iconUrl'];
+		String desc = json['description'];
+		int price = (json['price'] as int);
+		int slot = (json['stacksTo'] as int);
+		int newImg = 0;
 
-    slotE.setInnerHtml('Fits up to <b>' + slot.toString() + '</b> in a backpack slot');
+		titleE.text = title;
+		imageE.setAttribute('src', image);
+		descE.text = desc;
 
-    if (newImg > 0) {
-      discoverE.style.display = 'block';
-      imgnumE.text = '+' + newImg.toString();
-    } else {
-      discoverE.style.display = 'none';
-    }
+		if(price != -1) {
+			priceE.setInnerHtml('This item sells for about <b>' + price.toString() + '</b> currants');
+		} else {
+			priceE.text = 'Vendors will not buy this item';
+		}
 
-    this.open();
-  }
+		slotE.setInnerHtml('Fits up to <b>' + slot.toString() + '</b> in a backpack slot');
+
+		if(newImg > 0) {
+			discoverE.style.display = 'block';
+			imgnumE.text = '+' + newImg.toString();
+		} else {
+			discoverE.style.display = 'none';
+		}
+
+		this.open();
+	}
 }

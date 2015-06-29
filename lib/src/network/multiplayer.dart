@@ -473,15 +473,18 @@ void putInInventory(ImageElement img, Map map) {
 		if(count < stacksTo) {
 			count++;
 			int offset = count;
-			if(i['iconNum'] != null && i['iconNum'] < count) offset = i['iconNum'];
+			if(i['iconNum'] != null && i['iconNum'] < count) {
+				offset = i['iconNum'];
+			}
 
 			num width = img.width / i['iconNum'];
-			item.style.backgroundPosition =
-			"calc(100% / ${i['iconNum'] - 1} * ${offset - 1}";
+			item.style.backgroundPosition = "calc(100% / ${i['iconNum'] - 1} * ${offset - 1}";
 			item.attributes['count'] = count.toString();
 
 			Element itemCount = item.parent.querySelector(".itemCount");
-			if(itemCount != null) itemCount.text = count.toString();
+			if(itemCount != null) {
+				itemCount.text = count.toString();
+			}
 			else {
 				SpanElement itemCount = new SpanElement()
 					..text = count.toString()
@@ -511,10 +514,11 @@ findNewSlot(Element item, Map map, ImageElement img) {
 
 			//determine what we need to scale the sprite image to in order to fit
 			num scale = 1;
-			if(img.height > img.width / i['iconNum']) scale =
-			(barSlot.contentEdge.height - 10) / img.height;
-			else scale =
-			(barSlot.contentEdge.width - 10) / (img.width / i['iconNum']);
+			if(img.height > img.width / i['iconNum']) {
+				scale = (barSlot.contentEdge.height - 10) / img.height;
+			} else {
+				scale = (barSlot.contentEdge.width - 10) / (img.width / i['iconNum']);
+			}
 
 			item.style.width = (barSlot.contentEdge.width - 10).toString() + "px";
 			item.style.height = (barSlot.contentEdge.height - 10).toString() + "px";

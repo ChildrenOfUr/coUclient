@@ -8,7 +8,9 @@ class RightClickMenu {
 		DivElement infoButton = new DivElement()
 			..id = "openItemWindow"
 			..className = "InfoButton fa fa-info-circle"
-			..onClick.listen((_) { windowManager.itemWindow.displayItem(itemName); });
+			..onClick.listen((_) {
+			new ItemWindow().displayItem(itemName);
+		});
 		SpanElement titleElement = new SpanElement()
 			..id = "ClickTitle"
 			..text = title;
@@ -20,14 +22,14 @@ class RightClickMenu {
 		DivElement actionList = new DivElement()
 			..id = "RCActionList";
 
-		if (itemName != '') {
+		if(itemName != '') {
 			infoButton.setAttribute('item-name', itemName);
 		}
 
-		if (itemName != '') menu.append(infoButton);
+		if(itemName != '') menu.append(infoButton);
 		menu.append(titleElement);
 		menu.append(br);
-		if (itemName != '') menu.append(desc);
+		if(itemName != '') menu.append(desc);
 		menu.append(actionList);
 
 		int x, y;
