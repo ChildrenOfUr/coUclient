@@ -7,7 +7,7 @@ class ChatBubble {
 	var hostObject;
 	bool autoDismiss,removeParent;
 
-	ChatBubble(this.text,this.hostObject,this.parent,{this.autoDismiss : true, this.removeParent : false, bool addUsername : false}) {
+	ChatBubble(this.text,this.hostObject,this.parent,{this.autoDismiss : true, this.removeParent : false, bool addUsername : false, Map gains : null}) {
 		timeToLive = (text.length * 0.05) + 3; //minimum 3s plus 0.05 per character
 		if(timeToLive > 10) { //max 10s
 			timeToLive = 10; //messages over 10s will only display for 10s
@@ -28,10 +28,24 @@ class ChatBubble {
 //	<span class="currants">+0</span>
 // </div>
 
-		textElement.setInnerHtml(text);
+		textElement.text = text;
 
 		arrowElement = new DivElement()
 			..classes.add("cb-arrow");
+
+		if(gains != null) {
+			print(gains);
+			DivElement awarded = new DivElement()..className = 'awarded';
+			gains.forEach((String metabolic, int value) {
+				if(value != 0) {
+					SpanElement span = new SpanElement()..className = metabolic;
+					String textValue = value > 0 ? '+' + value.toString() : value.toString();
+					span.text = textValue;
+					awarded.append(span);
+				}
+			});
+			textElement.append(awarded);
+		}
 
 		bubble.append(textElement);
 		bubble.append(arrowElement);

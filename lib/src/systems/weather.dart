@@ -95,11 +95,12 @@ class WeatherManager {
 				percent = 1 - currentMinute / 120;
 				//daylight to sunset
 				rgba = _tweenColor([255, 255, 255, 0], [218, 150, 45, .15], percent);
-			} else if(hour >= 7 && hour <= 12) {
+			} else if(hour >= 7 && hour < 12) {
 				int currentMinute = (12 - hour) * 60 - minute;
 				percent = 1 - currentMinute / 240;
 				//sunset to night
 				rgba = _tweenColor([218, 150, 45, .15], [17, 17, 47, .5], percent);
+				percent = percent/2 +.5;
 			} else {
 				percent = 0;
 			}
@@ -112,11 +113,13 @@ class WeatherManager {
 				percent = 1 - currentMinute / 120;
 				//night to sunrise
 				rgba = _tweenColor([17, 17, 47, .5], [218, 150, 45, .15], percent);
+				percent = 1-percent;
 			} else if(hour >= 7 && hour < 9) {
 				int currentMinute = (9 - hour) * 60 - minute;
 				percent = 1 - currentMinute / 120;
 				//sunrise to daylight
 				rgba = _tweenColor([218, 150, 45, .15], [255, 255, 255, 0], percent);
+				percent = .5-percent/2;
 			} else {
 				percent = 0;
 			}
