@@ -1,6 +1,6 @@
 part of couclient;
 
-String SLACK_WEBHOOK, SC_TOKEN, SESSION_TOKEN, FORUM_TOKEN;
+String SLACK_WEBHOOK, SLACK_BUG_WEBHOOK, SC_TOKEN, SESSION_TOKEN, FORUM_TOKEN;
 
 class AuthManager
 {
@@ -21,6 +21,7 @@ class AuthManager
 			log('Auth: Setting API tokens');
 			SESSION_TOKEN = serverdata['sessionToken'];
 			SLACK_WEBHOOK = serverdata['slack-webhook'];
+			SLACK_BUG_WEBHOOK = serverdata['slack-bug-webhook'];
 			SC_TOKEN = serverdata['sc-token'];
 
 			sessionStorage['playerName'] = serverdata['playerName'];
