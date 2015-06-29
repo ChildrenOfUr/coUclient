@@ -81,12 +81,12 @@ class SettingsWindow extends Modal
 
 		weatherEffects.onChange.listen((_) => WeatherManager.enabled = weatherEffects.checked);
 
-		Element intensityGroup = querySelector("#WeatherEffectsIntensityGroup");
+		PaperRadioGroup intensityGroup = querySelector("#WeatherEffectsIntensityGroup") as PaperRadioGroup;
 		if(localStorage["WeatherEffectsIntensity"] != null) {
 			List<String> intensities = ["light","medium","heavy"];
 			try {
 				int index = int.parse(localStorage["WeatherEffectsIntensity"]);
-				intensityGroup.attributes['selected'] = intensities[index];
+				intensityGroup.selected = intensities[index];
 			} catch(err) {
 				print("Error setting intensity selection: $err");
 			}
