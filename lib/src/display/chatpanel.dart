@@ -544,7 +544,7 @@ class ChatMessage {
 		} else {
 			html = '''
 					<p>
-					<span class="name"><a class="noUnderline" href="http://childrenofur.com/profiles?username=${player}" target="_blank" title="Open Profile Page" style="color:${getColorFromUsername(player)};">$player</a>:</span>
+					<span class="name" style="color:${getColorFromUsername(player)};"><a class="noUnderline" href="http://childrenofur.com/profiles?username=${player}" target="_blank" title="Open Profile Page">$player</a>:</span>
 					<span class="message">$message</span>
 					</p>
 					''';

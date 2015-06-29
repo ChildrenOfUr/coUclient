@@ -17,18 +17,18 @@ class SoundManager {
 	AudioInstance currentAudioInstance, loadingSound;
 
 	SoundManager() {
-		log('SoundManager: starting up');
+		log('[SoundManager] Starting up...');
 		init().then((_) {
 			new Service([#playSong], (Message event) {
 				event.content = event.content.replaceAll(' ', '');
-				if(songs[event.content] == null) {
+				if (songs[event.content] == null) {
 					loadSong(event.content).then((_) => _playSong(event.content));
 				} else _playSong(event.content);
 			});
 
 			new Service([#playSound], (Message event) => this.playSound(event.content));
 
-			log('SoundManager: Registered services');
+			log('[SoundManager] Registered services');
 		});
 	}
 
@@ -43,7 +43,7 @@ class SoundManager {
 			audioChannels['music'] = new AudioChannel("music")
 				..gain = musicVolume / 100;
 		} catch(e) {
-			print("browser does not support web audio: $e");
+			log("[SoundManager] Browser does not support web audio: $e");
 			useWebAudio = false;
 		} finally {
 			setMute(view.slider.muted);
@@ -52,15 +52,17 @@ class SoundManager {
 		if(useWebAudio) {
 			//if canPlayType returns the empty string, that format is not compatible
 			if(new AudioElement().canPlayType('audio/ogg') == "") {
-				print("ogg not supported, using mp3s instead");
+				log("[SoundManager] Ogg not supported, using mp3s instead");
 				extension = "mp3";
 			}
 
 			try {
 				//load the loading music and play when ready
-				gameSounds['loading'] = new Sound(channel: audioChannels['music']);
-				await gameSounds['loading'].load("files/audio/loading.$extension");
-				loadingSound = gameSounds['loading'].play(looping:true);
+				if (localStorage['mute'] != 'true') {
+					gameSounds['loading'] = new Sound(channel: audioChannels['music']);
+					await gameSounds['loading'].load("files/audio/loading.$extension");
+					loadingSound = gameSounds['loading'].play(looping:true);
+				}
 
 				//load the sound effects
 
@@ -81,7 +83,7 @@ class SoundManager {
 				Asset soundCloudSongs = new Asset('./files/json/music.json');
 				await soundCloudSongs.load(statusElement: querySelector("#LoadStatus2"));
 			} catch(e) {
-				print("there was a problem: $e");
+				log("[SoundManager] There was a problem: $e");
 				useWebAudio = false;
 				await loadNonWebAudio();
 			}
@@ -114,7 +116,7 @@ class SoundManager {
 			Asset soundCloudSongs = new Asset('files/json/music.json');
 			await soundCloudSongs.load(statusElement: querySelector("#LoadStatus2"));
 		} catch(e) {
-			print("error while loading sounds: $e");
+			log("[SoundManager] Error while loading sounds: $e");
 		}
 	}
 
@@ -157,7 +159,7 @@ class SoundManager {
 				return loading;
 			}
 		} catch(err) {
-			print('error playing sound: $err');
+			log('[SoundManager] Error playing sound: $err');
 		}
 	}
 
@@ -188,7 +190,7 @@ class SoundManager {
 				audio.remove();
 			}
 		} catch(err) {
-			print('error stopping sound: $err');
+			log('[SoundManager] Error stopping sound: $err');
 		}
 	}
 
@@ -209,7 +211,7 @@ class SoundManager {
 				Scound s = await sc.load(ASSET['music'].get()[name]['scid']);
 				songs[name] = s;
 			}
-		} catch(err) {print(err);}
+		} catch(err) {log('[SoundManager] ' + err);}
 	}
 
 	/**
@@ -239,10 +241,10 @@ class SoundManager {
 		 */
 		String testResult = new AudioElement().canPlayType('audio/mp3');
 		if(testResult == '') {
-			print('SoundCloud: Your browser doesnt like mp3s :(');
+			log('[SoundManager] SoundCloud: Your browser doesnt like mp3s :(');
 			//return;
 		} else if(testResult == 'maybe') //give warning message but proceed anyway
-			print('SoundCloud: Your browser may or may not fully support mp3s');
+			log('[SoundManager] SoundCloud: Your browser may or may not fully support mp3s');
 
 		//stop any current song
 		//if(useWebAudio && currentAudioInstance != null)

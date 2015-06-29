@@ -48,7 +48,7 @@ class ShrineWindow extends Modal {
 
 		confirmButton.onClick.listen((_) {
 			Map actionMap = {"itemName": item['name'], "num": 1};
-			sendAction("donateItem", shrineId, actionMap);
+			sendAction("donate", shrineId, actionMap);
 			resetShrineWindow();
 		});
 
