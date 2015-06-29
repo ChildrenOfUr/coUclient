@@ -220,7 +220,7 @@ _updateChatBubble(Map map, Entity entity) {
 			view.playerHolder.append(bubbleParent);
 			entity.chatBubble = new ChatBubble(
 				map["bubbleText"], entity, bubbleParent,
-				autoDismiss: false, removeParent: true);
+				autoDismiss: false, removeParent: true, gains:map['gains']);
 		}
 
 		entity.chatBubble.update(1.0);

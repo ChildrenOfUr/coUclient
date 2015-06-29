@@ -128,7 +128,7 @@ sendAction(String methodName, String entityId, [Map arguments])
 		return;
 	}
 
-	log("sending $methodName to $entityId (${entities[entityId].runtimeType})");
+	log("sending $methodName to entity: $entityId (${entities[entityId].runtimeType}) with arguments: $arguments");
 	Element entity = querySelector("#${entityId}");
 	Map map = {};
 	map['callMethod'] = methodName;

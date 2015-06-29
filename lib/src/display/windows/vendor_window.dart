@@ -1,7 +1,6 @@
 part of couclient;
 
-class VendorWindow extends Modal
-{
+class VendorWindow extends Modal {
 	String id = 'shopWindow';
 	String npcId = '';
 	Element header, buy, sell, currants, backToSell, backToBuy, buyPlus, buyMinus;
@@ -9,8 +8,7 @@ class VendorWindow extends Modal
 	ImageElement buyItemImage;
 	InputElement buyNum;
 
-	VendorWindow()
-	{
+	VendorWindow() {
 		prepare();
 
 		header = this.window.querySelector('header');
@@ -40,24 +38,25 @@ class VendorWindow extends Modal
 	}
 
 	// Calling the modal with a vendorMap opens a vendor window
-	call(Map vendorMap, {bool sellMode:false})
-	{
+	call(Map vendorMap, {bool sellMode:false}) {
 		npcId = vendorMap['id'];
 		print(npcId);
 		header.text = vendorMap['vendorName'];
 		currants.text = " ${commaFormatter.format(metabolics.currants)} currants";
 
-		new List.from(buy.children)..forEach((child) => child.remove());
+		new List.from(buy.children)
+			..forEach((child) => child.remove());
 
-		for (Map item in vendorMap['itemsForSale'] as List)
-		{
-			Element merch = buy.append(new DivElement()..className = 'box');
-			merch.append(new ImageElement(src: item['iconUrl'])..className = "icon");
+		for(Map item in vendorMap['itemsForSale'] as List) {
+			Element merch = buy.append(new DivElement()
+				                           ..className = 'box');
+			merch.append(new ImageElement(src: item['iconUrl'])
+				             ..className = "icon");
 			Element price = merch.append(new DivElement()
-				..text = '${item['price']}₡'
-				..className = 'price-tag');
+				                             ..text = '${item['price']}₡'
+				                             ..className = 'price-tag');
 
-			if (item['price'] > metabolics.currants)
+			if(item['price'] > metabolics.currants)
 				price.classes.add("cantAfford");
 
 			//DivElement tooltip = new DivElement()..className = "vendorItemTooltip";
@@ -71,9 +70,8 @@ class VendorWindow extends Modal
 		DivElement dropTarget = querySelector("#SellDropTarget");
 		Draggable draggable = new Draggable(querySelectorAll(".inventoryItem"), avatarHandler: new CustomAvatarHandler());
 		Dropzone dropzone = new Dropzone(dropTarget, acceptor: new Acceptor.draggables([draggable]));
-		dropzone.onDrop.listen((DropzoneEvent dropEvent)
-		{
-			spawnBuyDetails(JSON.decode(dropEvent.draggableElement.attributes['itemMap']),vendorMap['id'],sellMode:true);
+		dropzone.onDrop.listen((DropzoneEvent dropEvent) {
+			spawnBuyDetails(JSON.decode(dropEvent.draggableElement.attributes['itemMap']), vendorMap['id'], sellMode:true);
 		});
 
 		if(sellMode)
@@ -83,8 +81,7 @@ class VendorWindow extends Modal
 		this.open();
 	}
 
-	spawnBuyDetails(Map item, String vendorId, {bool sellMode: false})
-	{
+	spawnBuyDetails(Map item, String vendorId, {bool sellMode: false}) {
 		// toggle the tabs
 		buy.hidden = true;
 		this.window.querySelector('#buy-qty').hidden = false;
@@ -107,76 +104,68 @@ class VendorWindow extends Modal
 		buyPriceTag.text = "${item['price']}\u20a1";
 
 		// set up button listeners
-		buyNum.onInput.listen((_)
-		{
-			try
-			{
-			    int newNum = buyNum.valueAsNumber.toInt();
-			    numToBuy = _updateNumToBuy(item, newNum, sellMode:sellMode);
+		buyNum.onInput.listen((_) {
+			try {
+				int newNum = buyNum.valueAsNumber.toInt();
+				numToBuy = _updateNumToBuy(item, newNum, sellMode:sellMode);
 			}
-			catch (e) {}
+			catch(e) {
+			}
 		});
 
-		StreamSubscription bb = buyButton.onClick.listen((_)
-		{
+		StreamSubscription bb = buyButton.onClick.listen((_) {
 			int newValue;
-			Map actionMap = {"itemName": item['name'],"num": numToBuy};
+			Map actionMap = {"itemName": item['name'], "num": numToBuy};
 
-			if(sellMode)
-			{
+			if(sellMode) {
 				if(numToBuy > getNumItems(item['name']))
 					return;
 
 				newValue = metabolics.currants + (item['price'] * numToBuy * .7) ~/ 1;
 				sendAction("sellItem", vendorId, actionMap);
 			}
-			else
-			{
+			else {
 				if(metabolics.currants < item['price'] * numToBuy)
-    				return;
+					return;
 
-    			newValue = metabolics.currants - item['price'] * numToBuy;
-    			sendAction("buyItem", vendorId, actionMap);
+				newValue = metabolics.currants - item['price'] * numToBuy;
+				sendAction("buyItem", vendorId, actionMap);
 			}
 
 			currants.text = " ${commaFormatter.format(newValue)} currants";
 			backToBuy.click();
 		});
 
-		StreamSubscription bplus = buyPlus.onClick.listen((_)
-		{
-			try
-			{
+		StreamSubscription bplus = buyPlus.onClick.listen((_) {
+			try {
 				int newNum = (++buyNum.valueAsNumber).toInt();
 				numToBuy = _updateNumToBuy(item, newNum, sellMode:sellMode);
 			}
-			catch (e) {}
+			catch(e) {
+			}
 		});
-		StreamSubscription bminus = buyMinus.onClick.listen((_)
-		{
-			try
-			{
+		StreamSubscription bminus = buyMinus.onClick.listen((_) {
+			try {
 				int newNum = (--buyNum.valueAsNumber).toInt();
 				numToBuy = _updateNumToBuy(item, newNum, sellMode:sellMode);
 			}
-			catch (e) {}
+			catch(e) {
+			}
 		});
-		StreamSubscription bmax = buyMax.onClick.listen((_)
-		{
-			try
-			{
+		StreamSubscription bmax = buyMax.onClick.listen((_) {
+			try {
 				int newNum;
 				if(sellMode)
-					newNum = min((item['stacksTo']).toInt(),getNumItems(item['name']));
+					newNum = min((item['stacksTo']).toInt(), getNumItems(item['name']));
 				else
 					newNum = min((item['stacksTo']).toInt(), (metabolics.currants / item['price']) ~/ 1);
 				numToBuy = _updateNumToBuy(item, newNum, sellMode:sellMode);
 			}
-			catch (e) {}
+			catch(e) {
+			}
 		});
 
-		backToBuy.onClick.first.then((_)
-		{
+		backToBuy.onClick.first.then((_) {
 			// Clean up our event listeners
 			bb.cancel();
 			bminus.cancel();
@@ -191,13 +180,12 @@ class VendorWindow extends Modal
 		});
 	}
 
-	int _updateNumToBuy(Map item, int newNum, {bool sellMode: false})
-	{
-		if (newNum < 1) newNum = 1;
-		if (newNum >= 99) newNum = 99;
+	int _updateNumToBuy(Map item, int newNum, {bool sellMode: false}) {
+		if(newNum < 1) newNum = 1;
+		if(newNum >= 99) newNum = 99;
 
 		if(sellMode)
-			newNum = min(newNum,getNumItems(item['name']));
+			newNum = min(newNum, getNumItems(item['name']));
 
 		buyNum.valueAsNumber = newNum;
 		int value = item['price'] * newNum;
@@ -221,15 +209,13 @@ class VendorWindow extends Modal
  * This only applies to the avatar which lasts as long as the drag
  * operation lasts so there shouldn't be any side-effects.
  */
-class CustomAvatarHandler extends CloneAvatarHandler
-{
+class CustomAvatarHandler extends CloneAvatarHandler {
 	@override
-	void dragStart(Element draggable, Point startPosition)
-	{
+	void dragStart(Element draggable, Point startPosition) {
 		num x = draggable.getBoundingClientRect().left;
 		num y = draggable.getBoundingClientRect().top;
 		super.dragStart(draggable, startPosition);
 		document.body.append(super.avatar);
-		super.setLeftTop(new Point(x,y));
+		super.setLeftTop(new Point(x, y));
 	}
 }
