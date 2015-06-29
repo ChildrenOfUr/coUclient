@@ -106,7 +106,8 @@ _setupStreetSocket(String streetName) {
 			return;
 		}
 		if(map['giantName'] != null) {
-			new ShrineWindow(map['giantName'], map['favor'], map['maxFavor']).open();
+			print(map);
+			new ShrineWindow(map['giantName'], map['favor'], map['maxFavor'], map['id']).open();
 			return;
 		}
 

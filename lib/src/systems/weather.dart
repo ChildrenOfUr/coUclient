@@ -190,7 +190,7 @@ class WeatherManager {
 		} else if (createState == WeatherState.SNOWING) {
 			precipitationClass = 'flake';
 
-			if(!_cloudLayer.classes.contains('snowy')) {
+			if(!_cloudLayer.classes.contains('snowy') && _intensity != WeatherIntensity.LIGHT) {
 				_cloudLayer.classes.add('snowy');
 			}
 		}

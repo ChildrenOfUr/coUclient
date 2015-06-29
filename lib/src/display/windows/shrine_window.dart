@@ -4,16 +4,17 @@ class ShrineWindow extends Modal {
 	static ShrineWindow shrineWindow;
 	String id = 'shrineWindow', giantName;
 	int favor, maxFavor;
+	String shrineId;
 
-	factory ShrineWindow(String giantName, int favor, int maxFavor) {
+	factory ShrineWindow(String giantName, int favor, int maxFavor, String shrineId) {
 		if(shrineWindow == null) {
-			shrineWindow = new ShrineWindow._(giantName,favor,maxFavor);
+			shrineWindow = new ShrineWindow._(giantName,favor,maxFavor, shrineId);
 		}
 
 		return shrineWindow;
 	}
 
-	ShrineWindow._(this.giantName,this.favor,this.maxFavor) {
+	ShrineWindow._(this.giantName,this.favor,this.maxFavor,this.shrineId) {
 		prepare();
 
 		List<Element> insertGiantName = querySelectorAll(".insert-giantname").toList();
@@ -46,7 +47,8 @@ class ShrineWindow extends Modal {
 		});
 
 		confirmButton.onClick.listen((_) {
-			// donate
+			Map actionMap = {"itemName": item['name'], "num": 1};
+			sendAction("donateItem", shrineId, actionMap);
 			resetShrineWindow();
 		});
 

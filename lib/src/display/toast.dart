@@ -56,7 +56,7 @@ buff(String type) {
     ..style.opacity = '0.5';
   ImageElement icon = new ImageElement()
     ..classes.add('buffIcon')
-    ..src = 'files/system/buff_' + type + '.png';
+    ..src = 'files/system/buffs/buff_' + type + '.png';
   SpanElement title = new SpanElement()
     ..classes.add('title')
     ..text = message;
