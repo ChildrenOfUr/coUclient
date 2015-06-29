@@ -3,17 +3,7 @@
     text-align: right;
     top: -10px;
     display: inline-block;
-}
-
-#mapButton {
-  position:relative;
-  margin:8px;
-  right: 0;
-  top:-5px;
-  padding:5px;
-  transform: translateY(-30%);
-  text-align:center;
-  display: inline-block;
+    margin-right: 15px;
 }
 
 #mapDisplay .label {
