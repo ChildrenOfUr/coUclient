@@ -25,6 +25,7 @@ class ChatBubble {
 // 	<span class="energy">-0</span>
 //	<span class="mood">+0</span>
 //	<span class="img">+0</span>
+//	<span class="currants">+0</span>
 // </div>
 
 		textElement.setInnerHtml(text);

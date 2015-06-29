@@ -108,7 +108,7 @@ p.me {
 	border-radius: 6px;
 	-webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-	min-width: 200px;
+	min-width: 250px;
 	left: 50%;
 	transform: translate(-50%,-190%);
 }
@@ -200,7 +200,7 @@ p.me {
 .cb-content .awarded span {
   padding: 0 4px 2px 4px;
   display: inline-block;
-  margin: 0 1px;
+  margin: 0 1px 3px 0;
   border-radius: 10px;
 }
 
@@ -237,6 +237,16 @@ p.me {
 
 .cb-content .awarded span.img::after {
   content: url(../system/icons/interaction_img.svg);
+  top: 2px;
+}
+
+.cb-content .awarded span.currants {
+  background-color: rgb(240, 208, 158);
+  color: rgb(86, 53, 16);
+}
+
+.cb-content .awarded span.currants::after {
+  content: url(../system/icons/interaction_currants.svg);
   top: 2px;
 }
 
