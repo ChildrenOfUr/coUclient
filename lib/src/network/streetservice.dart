@@ -12,7 +12,7 @@ class StreetService
 
 	requestStreet(String StreetID) async
 	{
-		log('StreetService: Requesting street "$StreetID"...');
+		log('[StreetService] Requesting street "$StreetID"...');
 
 		HttpRequest data = await HttpRequest.request(_dataUrl + "/street", method: "POST",
     		requestHeaders: {"content-type": "application/json"},
@@ -23,25 +23,26 @@ class StreetService
 		if(serverdata['ok'] == 'no')
 			print('Error: Server refused.');
 
-		log('StreetService: "$StreetID" loaded.');
+		log('[StreetService] "$StreetID" loaded.');
 		await prepareStreet(serverdata['streetJSON']);
-
+    String playerList = '';
+    List<String> otherPlayers = JSON.decode(await HttpRequest.getString('http://' + Configs.utilServerAddress + '/listUsers?channel=' + currentStreet.label));
+    print(otherPlayers.toString());
 		if (otherPlayers.length > 0) {
-			String playerList;
-			for (int i = 0; i != users.length; i++) {
-				playerList += users[i];
-				if (i != users.length) {
+			for (int i = 0; i != otherPlayers.length; i++) {
+				playerList += otherPlayers[i];
+				if (i != otherPlayers.length) {
 					playerList += ', ';
 				}
 			}
 			playerList = playerList.substring(0, playerList.length - 2);
-			toast("Other players on this street: " + playerList);
+			toast("Players on this street: " + playerList);
 		}
 	}
 
 	prepareStreet(Map streetJSON) async
 	{
-		log('StreetService: assembling Street...');
+		log('[StreetService] Assembling Street...');
 
 		if (streetJSON['tsid'] == null)
 			return;
@@ -78,6 +79,6 @@ class StreetService
 		await new Future.delayed(new Duration(seconds: 1));
 		new Asset.fromMap(streetAsMap,label);
 		await new Street(streetAsMap).load();
-		log('StreetService: Street assembled.');
+		log('[StreetService] Street assembled.');
 	}
 }

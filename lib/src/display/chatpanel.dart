@@ -224,10 +224,14 @@ class Chat {
 		}
 	}
 
+  NodeValidator validator = new NodeValidatorBuilder()
+    ..allowHtml5()
+    ..allowElement('span', attributes: ['style']);
+
 	addMessage(String player, String message) {
 		ChatMessage chat = new ChatMessage(player, message);
 		Element dialog = conversationElement.querySelector('.dialog');
-		dialog.appendHtml(chat.toHtml());
+		dialog.appendHtml(chat.toHtml(), validator: validator);
 		dialog.scrollTop = dialog.scrollHeight;
 		//scroll to the bottom
 	}

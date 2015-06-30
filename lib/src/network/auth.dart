@@ -18,7 +18,7 @@ class AuthManager
 
 			Map serverdata = e.detail;
 
-			log('Auth: Setting API tokens');
+			log('[AuthManager] Setting API tokens');
 			SESSION_TOKEN = serverdata['sessionToken'];
 			SLACK_WEBHOOK = serverdata['slack-webhook'];
 			SLACK_BUG_WEBHOOK = serverdata['slack-bug-webhook'];
