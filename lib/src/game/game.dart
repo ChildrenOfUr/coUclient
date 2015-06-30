@@ -47,7 +47,9 @@ class Game
 		CurrentPlayer.currentAnimation = CurrentPlayer.animations['idle'];
 
 		//stop loading sounds and load the street's song
-        audio.loadingSound.stop();
+        if(audio.loadingSound != null) {
+	        audio.loadingSound.stop();
+        }
         new Message(#playSound, 'game_loaded');
 		//play appropriate song for street (or just highlands for now)
 		await audio.setSong('highlands');

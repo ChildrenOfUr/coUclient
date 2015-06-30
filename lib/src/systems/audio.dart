@@ -5,7 +5,7 @@ part of couclient;
 class SoundManager {
 	Map<String, Sound> gameSounds = {};
 	Map<String, AudioChannel> audioChannels = {};
-	bool useWebAudio = true;
+	bool useWebAudio = true, muted = false;
 	String extension = 'ogg';
 
 	// Stores all the loaded user interface sounds.
@@ -57,8 +57,8 @@ class SoundManager {
 			}
 
 			try {
-				//load the loading music and play when ready
-				if (localStorage['mute'] != 'true') {
+				if(!muted) {
+					//load the loading music and play when ready
 					gameSounds['loading'] = new Sound(channel: audioChannels['music']);
 					await gameSounds['loading'].load("files/audio/loading.$extension");
 					loadingSound = gameSounds['loading'].play(looping:true);
@@ -121,6 +121,9 @@ class SoundManager {
 	}
 
 	Future playSound(String name, {bool asset: true, bool looping: false, bool fadeIn: false, Duration fadeInDuration, Element parentElement: null}) async {
+		if(muted) {
+			return null;
+		}
 		try {
 			if(useWebAudio) {
 				if(asset) {
@@ -195,6 +198,7 @@ class SoundManager {
 	}
 
 	void setMute(bool mute) {
+		muted = mute;
 		audioChannels.forEach((String channelName, AudioChannel channel) {
 			channel.mute = mute;
 		});
