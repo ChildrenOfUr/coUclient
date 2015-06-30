@@ -11,6 +11,8 @@ class ItemWindow extends Modal {
 	Element slotE = querySelector("#iw-slot");
 	Element imgnumE = querySelector("#iw-imgnum");
 	Element discoverE = querySelector("#iw-newItem");
+  Element wearContainer = querySelector("#iw-wear-container");
+  Element wearE = querySelector("#iw-wear");
 
 	factory ItemWindow() {
 		if(instance == null) {
@@ -33,6 +35,14 @@ class ItemWindow extends Modal {
 		String desc = json['description'];
 		int price = (json['price'] as int);
 		int slot = (json['stacksTo'] as int);
+    bool showWear;
+    int wear;
+    if (json['durability'] != null) {
+      showWear = true;
+      wear = (json['durability'] as int);
+    } else {
+      showWear = false;
+    }
 		int newImg = 0;
 
 		titleE.text = title;
@@ -53,6 +63,15 @@ class ItemWindow extends Modal {
 		} else {
 			discoverE.style.display = 'none';
 		}
+
+    if (showWear) {
+      wearContainer.hidden = false;
+      wearE.setInnerHtml('Durable for about <b>' + wear.toString() + '</b> units of wear');
+      descE.classes.add('withWear');
+    } else {
+      wearContainer.hidden = true;
+      descE.classes.remove('withWear');
+    }
 
 		this.open();
 	}

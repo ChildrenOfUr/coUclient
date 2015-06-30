@@ -27,7 +27,6 @@ class StreetService
 		await prepareStreet(serverdata['streetJSON']);
     String playerList = '';
     List<String> otherPlayers = JSON.decode(await HttpRequest.getString('http://' + Configs.utilServerAddress + '/listUsers?channel=' + currentStreet.label));
-    print(otherPlayers.toString());
 		if (otherPlayers.length > 0) {
 			for (int i = 0; i != otherPlayers.length; i++) {
 				playerList += otherPlayers[i];

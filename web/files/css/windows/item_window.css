@@ -36,6 +36,10 @@
     overflow-y: scroll;
 }
 
+#iw-desc.withWear {
+    height: calc(100% - 100px);
+}
+
 #iw-meta {
     position: absolute;
     bottom: 10px;
@@ -43,14 +47,14 @@
 }
 
 #iw-icon-currants {
-    height: 20px;
-    width: 20px;
-    margin-right: 7px;
+    height: 22px;
+    width: 22px;
+    margin-right: 5px;
     position: relative;
     top: 4px;
 }
 
-#iw-icon-slot {
+.iw-icon-css {
     width: 18px;
     height: 18px;
     margin-right: 5px;
@@ -59,7 +63,36 @@
     position: relative;
     top: 4px;
     border-radius: 5px;
+}
+
+#iw-icon-slot {
     border: 2px dotted #aaa;
+}
+
+#iw-icon-wear {
+    border: 2px solid #aaa;
+    z-index: 10;
+}
+
+#iw-icon-wear::before,
+#iw-icon-wear::after {
+    content: '';
+    display: inline-block;
+    height: 5px;
+    position: absolute;
+    bottom: 2px;
+    left: 2px;
+    z-index: 11;
+}
+
+#iw-icon-wear::before {
+    background-color: #BBDADF;
+    width: 14px;
+}
+
+#iw-icon-wear::after {
+    background-color: #277D8D;
+    width: 9px;
 }
 
 .gap {
