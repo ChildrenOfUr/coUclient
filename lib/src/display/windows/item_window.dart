@@ -50,7 +50,13 @@ class ItemWindow extends Modal {
 		descE.text = desc;
 
 		if(price != -1) {
-			priceE.setInnerHtml('This item sells for about <b>' + price.toString() + '</b> currants');
+      if (price == 1) {
+        // not plural
+        priceE.setInnerHtml('This item sells for about <b>' + price.toString() + '</b> currant');
+      } else {
+        // plural
+        priceE.setInnerHtml('This item sells for about <b>' + price.toString() + '</b> currants');
+      }
 		} else {
 			priceE.text = 'Vendors will not buy this item';
 		}

@@ -10,17 +10,20 @@
 	font-family: "Sniglet", "RockoFLFBold", Arial, Helvetica, sans-serif;
 	font-weight: 800;
 	font-size: 36px;
+    z-index: 133346;
 }
 
 .fill.harvesting {
 	color: #ed7e00;
 }
 
-.fill.watering {
+.fill.watering,
+.fill.milking {
 	color: #5f8ddd;
 }
 
-.fill.petting {
+.fill.petting,
+.fill.massaging {
 	color: #f98686;
 }
 
@@ -32,7 +35,8 @@
 	color: #5e5e5e;
 }
 
-.fill.digging {
+.fill.digging,
+.fill.squeezing {
 	color: #823917;
 }
 
@@ -50,6 +54,7 @@
     font-family: "Sniglet", "RockoFLFBold", Arial, Helvetica, sans-serif;
     font-weight: 800;
     font-size: 36px;
+    z-index: 133348;
 }
 
 .border::after {
