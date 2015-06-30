@@ -70,6 +70,10 @@
   border-left: 2px solid #444;
 }
 
+.dialog p *.name > a {
+    color: inherit;
+}
+
 p.me {
   font-size: 14px;
 }
