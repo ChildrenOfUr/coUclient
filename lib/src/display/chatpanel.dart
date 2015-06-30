@@ -226,7 +226,8 @@ class Chat {
 
   NodeValidator validator = new NodeValidatorBuilder()
     ..allowHtml5()
-    ..allowElement('span', attributes: ['style']);
+    ..allowElement('span', attributes: ['style'])
+	..allowElement('a', attributes: ['href']);
 
 	addMessage(String player, String message) {
 		ChatMessage chat = new ChatMessage(player, message);
@@ -243,7 +244,7 @@ class Chat {
 			</p>
 			''';
 		Element dialog = conversationElement.querySelector('.dialog');
-		dialog.appendHtml(text);
+		dialog.appendHtml(text, validator: validator);
 		dialog.scrollTop = dialog.scrollHeight;
 		//scroll to the bottom
 	}
@@ -261,7 +262,7 @@ class Chat {
 			$alert
 			</p>
 			''';
-		conversationElement.querySelector('.dialog').appendHtml(text);
+		conversationElement.querySelector('.dialog').appendHtml(text,validator:validator);
 		conversationElement.querySelector('.dialog').scrollTop = conversationElement
 		.querySelector('.dialog').scrollHeight; //scroll to the bottom
 	}
@@ -439,7 +440,7 @@ class Chat {
 			channel = currentStreet.label;
 		}
 		String url = 'http://' + Configs.utilServerAddress + "/listUsers?channel=$channel";
-		connectedUsers = JSON.decode(await HttpRequest.getString(url));
+		connectedUsers = JSON.decode(await HttpRequest.requestCrossOrigin(url));
 
 		int startIndex = input.value.lastIndexOf(" ") == -1 ? 0 : input.value.lastIndexOf(" ") + 1;
 		String localLastWord = input.value.substring(startIndex);
@@ -523,7 +524,9 @@ class ChatMessage {
 	ChatMessage(this.player, this.message);
 
 	String toHtml() {
-		if(message is String == false) return '';
+		if(message is! String) {
+			return '';
+		}
 		String html;
 
 		message = parseUrl(message);
@@ -542,13 +545,13 @@ class ChatMessage {
 			message = message.replaceFirst('/me ', '');
 			html = '''
 				<p class="me" style="color:${getColorFromUsername(player)};">
-				<i><a class="noUnderline" href="http://childrenofur.com/profiles?username=${player}" target="_blank" title="Open Profile Page">$player</a> $message</i>
+				<i><a class="noUnderline" href="http://childrenofur.com/profile?username=${player}" target="_blank" title="Open Profile Page">$player</a> $message</i>
 				</p>
 				''';
 		} else {
 			html = '''
 					<p>
-					<span class="name" style="color:${getColorFromUsername(player)};"><a class="noUnderline" href="http://childrenofur.com/profiles?username=${player}" target="_blank" title="Open Profile Page">$player</a>:</span>
+					<span class="name" style="color:${getColorFromUsername(player)};"><a class="noUnderline" href="http://childrenofur.com/profile?username=${player}" target="_blank" title="Open Profile Page">$player</a>:</span>
 					<span class="message">$message</span>
 					</p>
 					''';
