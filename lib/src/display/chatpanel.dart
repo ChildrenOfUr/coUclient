@@ -286,7 +286,7 @@ class Chat {
 	Element getArchivedConversation(String title) {
 		Element conversationElement = view.conversationArchive.querySelector('.archive-${title.replaceAll(' ', '_')}');
 		if(conversationElement != null) {
-			conversationElement.classes.remove('.archive-$title');
+			conversationElement.classes.remove('.archive-${title.replaceAll(' ', '_')}');
 			conversationElement.classes.add("conversation");
 		}
 		return conversationElement;
