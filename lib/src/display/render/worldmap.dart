@@ -13,7 +13,11 @@ class WorldMap
   bool worldMapVisible = false;
   Element WorldMapDiv = querySelector("#WorldMapLayer");
 
-  WorldMap(String hub_id){
+  WorldMap(String hub_id) {
+    loadhub(hub_id);
+  }
+
+  loadhub(String hub_id){
     hubInfo = map.data_maps_hubs[hub_id]();
     hubMaps = map.data_maps_maps[hub_id]();
     moteInfo = map.data_maps_streets['9']();
@@ -148,7 +152,7 @@ class WorldMap
     view.mapCanvas.style.transform = 'scaleX($scaleX) scaleY($scaleY)';
     view.mapCanvas.style.transformOrigin = '-21px -21px';
 
-    worldMapVisible = true;
+    worldMapVisible = false;
 
     // toggle main and hub maps
 
@@ -156,13 +160,12 @@ class WorldMap
     toggleMapView.onClick.listen((_) {
       if (worldMapVisible) {
         // go to current hub
+        hubMap();
         toggleMapView.setInnerHtml('<i class="fa fa-fw fa-globe"></i>');
-        worldMapVisible = false;
-      } else {
+      } else if (!worldMapVisible) {
         // go to world map
         mainMap();
         toggleMapView.setInnerHtml('<i class="fa fa-fw fa-map-marker"></i>');
-        worldMapVisible = true;
       }
     });
   }
@@ -197,10 +200,10 @@ class WorldMap
   }
 
   void mainMap() {
-    view.mapCanvas.context2D.clearRect(0, 0, view.mapCanvas.width, view.mapCanvas.height);
+    view.mapCanvas.hidden = true;
     view.mapTitle.text = "World Map";
     view.mapImg.style.backgroundImage = 'url(files/system/windows/worldmap.png)';
-    WorldMapDiv.setInnerHtml('');
+    WorldMapDiv.children.clear();
     WorldMapDiv.hidden = false;
     // TODO: get from server
     String json = '''
@@ -447,15 +450,26 @@ class WorldMap
         ..style.top = value['y'].toString() + 'px'
         ..text = value['name'];
       WorldMapDiv.append(hub);
+      worldMapVisible = true;
     });
 
   }
 
-  void hubMap() {
-    // TODO: return to hub actions
-    view.mapCanvas.context2D.clearRect(0, 0, view.mapCanvas.width, view.mapCanvas.height); // repopulate
-    view.mapTitle.text = "World Map"; // set to hub
-    view.mapImg.style.backgroundImage = 'url(files/system/worldmap.png)'; // set to hub
+  void hubMap({String hub_id, String hub_name}) {
+    if (hub_id == null) {
+      // current location hub
+      view.mapTitle.text = currentStreet.hub_name;
+      view.mapImg.style.backgroundImage = 'url(' + map.data_maps_hubs[currentStreet.hub_id]()['bg'] + ')';
+      view.mapTitle.text = map.data_maps_hubs[currentStreet.hub_id]()['name'];
+    } else {
+      // selected hub
+      loadhub(hub_id);
+      view.mapTitle.text = hub_name;
+      view.mapImg.style.backgroundImage = 'url(' + map.data_maps_hubs[hub_id]()['bg'] + ')';
+      view.mapTitle.text = map.data_maps_hubs[hub_id]()['name'];
+    }
     WorldMapDiv.hidden = true;
+    worldMapVisible = false;
+    view.mapCanvas.hidden = false;
   }
 }
