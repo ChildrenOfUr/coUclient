@@ -32,6 +32,7 @@ abstract class Wormhole extends Entity
 		street = street.trim();
 		view.mapLoadingScreen.className = "MapLoadingScreenIn";
 		view.mapLoadingScreen.style.opacity = "1.0";
+    minimap.containerE.hidden = true;
 		
 		if (street.startsWith("L"))
 		{

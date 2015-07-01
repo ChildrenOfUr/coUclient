@@ -116,6 +116,7 @@ part 'package:couclient/src/game/entities/street_spirit.dart';
 part 'package:couclient/src/display/ui_templates/interactions_menu.dart';
 part 'package:couclient/src/display/ui_templates/right_click_menu.dart';
 part 'package:couclient/src/display/ui_templates/howmany.dart';
+part 'package:couclient/src/display/minimap.dart';
 
 // Globals //
 Storage sessionStorage = window.sessionStorage;
@@ -130,6 +131,7 @@ CommandManager commandManager;
 AuthManager auth;
 Game game;
 DateTime startTime;
+Minimap minimap = new Minimap();
 
 bool get hasTouchSupport => context.callMethod('hasTouchSupport');
 

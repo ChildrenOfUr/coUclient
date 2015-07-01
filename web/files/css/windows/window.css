@@ -101,6 +101,7 @@
   font-size: 16px;
   text-shadow: 0 1px rgba(100, 100, 100, 0.3);
   float: right;
+    font-family: "Lato", sans-serif;
 }
 
 .window .footer img {

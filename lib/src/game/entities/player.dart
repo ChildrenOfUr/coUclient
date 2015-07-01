@@ -70,6 +70,10 @@ class Player
 		playerParentElement.append(playerName);
 		playerParentElement.append(playerCanvas);
 		view.worldElement.append(playerParentElement);
+
+    if (username == game.username) {
+      new Message(#playerLoaded, null);
+    }
 	}
 
 	remove() {

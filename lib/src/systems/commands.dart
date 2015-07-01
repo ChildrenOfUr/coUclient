@@ -21,6 +21,7 @@ class CommandManager {
 		};
 
 		COMMANDS
+      ..['minimap'] = updateMinimap
 			..['interface'] = changeInterface
 			..['setname'] = setName
 			..['go'] = setLocationCommand
@@ -58,6 +59,10 @@ bool parseCommand(String command) {
 // COMMAND FUNCTIONS BELOW  //
 
 // Changes the clock for the current player
+
+updateMinimap(var nothing) {
+  minimap.updateObjects();
+}
 
 setTime(String noun) {
 	new Message(#timeUpdateFake,[noun]);
@@ -126,6 +131,7 @@ setLocationCommand(String noun) {
 	noun = noun.trim();
 	view.mapLoadingScreen.className = "MapLoadingScreenIn";
 	view.mapLoadingScreen.style.opacity = "1.0";
+  minimap.containerE.hidden = true;
 	//changes first letter to match revdancatt's code - only if it starts with an L
 	if(noun.startsWith("L")) {
 		noun = noun.replaceFirst("L", "G");

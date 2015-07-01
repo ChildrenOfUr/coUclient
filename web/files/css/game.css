@@ -38,3 +38,10 @@
   font-size: 1.5em;
   color: greenyellow;
 }
+
+#game-column-right {
+    position:absolute;
+    top:55px;
+    right:280px;
+    width:170px;
+}

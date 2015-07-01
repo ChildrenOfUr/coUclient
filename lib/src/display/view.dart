@@ -168,9 +168,7 @@ class UserInterface {
 
 	// update the userinterface
 	update() {
-		// Update the location text
-//		if(location.length >= 20) location = location.substring(0, 17) + '...';
-		if(location != currLocation.text) currLocation.text = location;
+
 	}
 }
 

@@ -238,6 +238,7 @@ class InputManager {
 			//make sure loading screen is visible during load
 			view.mapLoadingScreen.className = "MapLoadingScreenIn";
 			view.mapLoadingScreen.style.opacity = "1.0";
+      minimap.containerE.hidden = true;
 			playerTeleFrom = target.attributes['from'];
 			streetService.requestStreet(target.attributes['tsid']);
 		}

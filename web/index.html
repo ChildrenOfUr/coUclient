@@ -81,10 +81,24 @@
             <!-- Inventory slots, search, and currants -->
             <link rel="import" href="files/html/inventory.html">
 
-            <!-- Toasts -->
-            <div id="toastPanel">
-                <div id="toastHolder"></div>
-                <div id="buffHolder"></div>
+            <div id="game-column-right">
+
+                <!-- Minimap -->
+                <div id="minimap-container" hidden>
+                    <div id="minimap">
+                        <img id="minimap-img" src="">
+                        <div id="minimap-objects"></div>
+                        <div id="minimap-label"></div>
+                    </div>
+                    <div id="minimap-toggle"><i class="fa fa-chevron-up"></i></div>
+                </div>
+
+                <!-- Toasts -->
+                <div id="toastPanel">
+                    <div id="toastHolder"></div>
+                    <div id="buffHolder"></div>
+                </div>
+
             </div>
 
             <!-- Right chat pane -->

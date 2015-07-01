@@ -1,8 +1,5 @@
 #toastPanel {
-  position:absolute;
-  top:55px;
-  right:280px; 
-  width:170px;
+    z-index: 4;
 }
 
 .toast {
