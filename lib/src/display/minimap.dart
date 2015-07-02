@@ -54,13 +54,13 @@ class Minimap {
 
 		new Service(['streetLoaded'], (_) {
 			// enable/disable expanding
-			int collapsedHeight = street['loading_image']['h'] ~/ currentStreet.bounds.height;
-			int expandedHeight = street['main_image']['h'] ~/ currentStreet.bounds.height;
+			num collapsedHeight = street['loading_image']['h'] / currentStreet.bounds.height;
+			num expandedHeight = street['main_image']['h'] / currentStreet.bounds.height;
 			if(collapsedHeight > expandedHeight) {
 				// street is wider than it is tall
 				toggleE.hidden = true;
 				expand();
-			} else {
+			} else if (collapsedHeight < expandedHeight) {
 				// street is taller than it is wide
 				toggleE.hidden = false;
 				collapse();

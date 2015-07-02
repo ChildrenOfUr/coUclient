@@ -9,7 +9,7 @@ class WindowManager {
 		BagWindow bag = new BagWindow();
 		VendorWindow vendor = new VendorWindow();
 		MotdWindow motdWindow = new MotdWindow();
-		GoWindow goWindow = new GoWindow();
+		//GoWindow goWindow = new GoWindow();
 		CalendarWindow calendarWindow = new CalendarWindow();
 		RockWindow rockWindow = new RockWindow();
 		ItemWindow itemWindow = new ItemWindow();

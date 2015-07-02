@@ -72,6 +72,7 @@ class WorldMap
           ..style.top = streetPlacement['y1'].toString() + 'px'
           ..style.width = streetPlacement['length'].toString() + 'px'
           ..style.transform = 'rotate(' + streetPlacement['deg'].toString() + 'rad)';
+        print(streetName + ' ' + streetPlacement.toString());
 
         if (object['tsid'].substring(1) == currentStreet.streetData['tsid'].substring(1)) {
           // current street
@@ -93,7 +94,7 @@ class WorldMap
       if (tsid.startsWith("L")) tsid = tsid.replaceFirst("L", "G");
       streetService.requestStreet(tsid);
       querySelector('.hm-street.hm-street-current').classes.remove('hm-street-current');
-      new Service([#streetLoaded], (_) {
+      new Service(['streetLoaded'], (_) {
         loadhubdiv(currentStreet.hub_id);
       });
     });
@@ -106,31 +107,26 @@ class WorldMap
   }
 
   getStreetAngle (Map street) {
-    Rectangle streetBox = new Rectangle(street['x1'], street['y1'], street['x2'] - street['x1'], street['y2'] - street['y1']);
-    DivElement box = new DivElement()
-      ..style.height = streetBox.height.toString() + 'px'
-      ..style.width = streetBox.width.toString() + 'px'
-      ..style.border = '1px solid black'
-      ..style.position = 'absolute'
-      ..style.top = streetBox.top.toString() + 'px'
-      ..style.left = streetBox.left.toString() + 'px';
-    HubMabDiv.append(box);
-    //
-    num angle;
-    if (street['y1'] >= street['y2']) {
-      // problem
-      angle = atan2 (streetBox.width, streetBox.height);
-    } else {
-      angle = atan2 (streetBox.height, streetBox.width);
+    num radians;
+    if (street['y1'] < street['y2']) {
+      Rectangle streetBox = new Rectangle(street['x1'], street['y1'], street['x2'] - street['x1'], street['y2'] - street['y1']);
+      radians = (PI / 2) - atan2 (streetBox.width, streetBox.height);
+    } else if (street['y1'] > street['y2']){
+      Rectangle streetBox = new Rectangle(street['x1'], street['y1'], street['x2'] - street['x1'], street['y1'] - street['y2']);
+      radians = atan2 (streetBox.width, streetBox.height);
+      if (streetBox.width > streetBox.height) {
+        radians -= (PI / 2);
+      }
+      radians = - atan2 (streetBox.height, streetBox.width);
     }
-    return angle;
+    return radians;
   }
 
   getStreetLength (Map street) {
     num base = street['x2'] - street['x1'];
     num height = street['y2'] - street['y1'];
     num hyp = (base * base) + (height * height);
-    return sqrt(hyp);
+    return sqrt(hyp) + 8;
   }
 
   loadhub(String hub_id){
