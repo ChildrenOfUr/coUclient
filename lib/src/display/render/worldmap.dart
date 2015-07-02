@@ -119,7 +119,7 @@ class WorldMap
     num angle;
     if (street['y1'] >= street['y2']) {
       // problem
-      angle = atan2 (streetBox.height, streetBox.width) + 90;
+      angle = atan2 (streetBox.width, streetBox.height);
     } else {
       angle = atan2 (streetBox.height, streetBox.width);
     }
