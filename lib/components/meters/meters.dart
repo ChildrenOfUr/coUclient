@@ -10,8 +10,8 @@ import "package:couclient/configs.dart";
 
 @CustomTag('ur-meters')
 class Meters extends PolymerElement {
-	@published String playername;
-	@published int mood, maxmood, energy, maxenergy, imagination;
+	@published String playername = '', serverAddress;
+	@published int mood = 1, maxmood = 1, energy = 1, maxenergy = 1, imagination = 0;
 	@published bool debug;
 	int runCount;
 
@@ -41,7 +41,7 @@ class Meters extends PolymerElement {
 	updateAvatarDisplay() {
 		if (runCount < 5 || runCount % 5 == 0) {
 			// run on load, and once every 5 refreshes afterward to avoid overloading the server
-			HttpRequest.requestCrossOrigin('http://' + Configs.utilServerAddress + '/getSpritesheets?username=' + playername).then((String response) {
+			HttpRequest.requestCrossOrigin('$serverAddress/getSpritesheets?username=' + playername).then((String response) {
 				Map spritesheets = JSON.decode(response);
 				String imageUrl = spritesheets['base'];
 				avatarDisplay.style.backgroundImage = 'url(' + imageUrl + ')';
