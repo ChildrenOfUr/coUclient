@@ -73,7 +73,6 @@ class Minimap {
 			return;
 		}
 
-		// clear old data
 		objectsE.children.clear();
 
 		// new data
