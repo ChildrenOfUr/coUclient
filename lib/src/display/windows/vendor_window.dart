@@ -52,12 +52,22 @@ class VendorWindow extends Modal {
 				                           ..className = 'box');
 			merch.append(new ImageElement(src: item['iconUrl'])
 				             ..className = "icon");
-			Element price = merch.append(new DivElement()
-				                             ..text = '${item['price']}₡'
-				                             ..className = 'price-tag');
 
-			if(item['price'] > metabolics.currants)
-				price.classes.add("cantAfford");
+      Element price;
+
+      if (item['price'] < 9999) {
+        price = merch.append(new DivElement()
+          ..text = '${item['price']}₡'
+          ..className = 'price-tag');
+      } else {
+        price = merch.append(new DivElement()
+          ..text = 'A Lot'
+          ..className = 'price-tag');
+      }
+
+			if(item['price'] > metabolics.currants) {
+        price.classes.add("cantAfford");
+      }
 
 			//DivElement tooltip = new DivElement()..className = "vendorItemTooltip";
 			//DivElement priceParent = new DivElement()..style.textAlign="center"..append(price);

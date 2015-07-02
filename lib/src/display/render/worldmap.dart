@@ -12,9 +12,125 @@ class WorldMap
 
   bool worldMapVisible = false;
   Element WorldMapDiv = querySelector("#WorldMapLayer");
+  Element HubMabDiv = querySelector("#HubMapLayer");
 
   WorldMap(String hub_id) {
-    loadhub(hub_id);
+    loadhubdiv(hub_id);
+
+    // toggle main and hub maps
+    Element toggleMapView = querySelector("#map-window-world");
+    toggleMapView.onClick.listen((_) {
+      if (worldMapVisible) {
+        // go to current hub
+        hubMap();
+        toggleMapView.setInnerHtml('<i class="fa fa-fw fa-globe"></i>');
+      } else if (!worldMapVisible) {
+        // go to world map
+        mainMap();
+        toggleMapView.setInnerHtml('<i class="fa fa-fw fa-map-marker"></i>');
+      }
+    });
+  }
+
+  loadhubdiv (String hub_id) {
+    // read in street data
+    hubInfo = map.data_maps_hubs[hub_id]();
+    hubMaps = map.data_maps_maps[hub_id]();
+    moteInfo = map.data_maps_streets['9']();
+
+    // prepare ui elements
+    view.mapTitle.text = hubInfo['name'];
+    view.mapImg.style.backgroundImage = 'url(' +hubInfo['bg']+ ')';
+    HubMabDiv.children.clear();
+
+    // render
+    for (Map object in hubMaps['objs'].values) {
+      // streets
+      if (object['type'] == 'S') {
+        String streetName = moteInfo[hub_id][object['tsid']];
+
+        Map streetPlacement = {
+          "x1": object["x1"],
+          "x2": object["x2"],
+          "y1": object["y1"],
+          "y2": object["y2"],
+          "deg": 0,
+          "length": 0,
+        };
+        streetPlacement['deg'] = getStreetAngle(streetPlacement);
+        streetPlacement['length'] = getStreetLength(streetPlacement);
+        Map customAttributes = {
+          "tsid": object['tsid']
+        };
+
+        DivElement street = new DivElement()
+          ..classes.add('hm-street')
+          ..text = streetName
+          ..title = "Teleport to " + streetName
+          ..attributes.addAll(customAttributes)
+          ..style.left = streetPlacement['x1'].toString() + 'px'
+          ..style.top = streetPlacement['y1'].toString() + 'px'
+          ..style.width = streetPlacement['length'].toString() + 'px'
+          ..style.transform = 'rotate(' + streetPlacement['deg'].toString() + 'rad)';
+
+        if (object['tsid'].substring(1) == currentStreet.streetData['tsid'].substring(1)) {
+          // current street
+          street.classes.add('hm-street-current');
+        }
+
+        if (street.text.contains('Machine Room') == false) {
+          HubMabDiv.append(street);
+        }
+      }
+    }
+
+    HubMabDiv.onClick.listen((e) {
+      String tsid = e.target.attributes['tsid'];
+      view.mapLoadingScreen.className = "MapLoadingScreenIn";
+      view.mapLoadingScreen.style.opacity = "1.0";
+      minimap.containerE.hidden = true;
+      //changes first letter to match revdancatt's code - only if it starts with an L
+      if (tsid.startsWith("L")) tsid = tsid.replaceFirst("L", "G");
+      streetService.requestStreet(tsid);
+      querySelector('.hm-street.hm-street-current').classes.remove('hm-street-current');
+      new Service([#streetLoaded], (_) {
+        loadhubdiv(currentStreet.hub_id);
+      });
+    });
+
+    HubMabDiv.classes.add('scaled');
+
+    worldMapVisible = false;
+    HubMabDiv.hidden = false;
+    WorldMapDiv.hidden = true;
+  }
+
+  getStreetAngle (Map street) {
+    Rectangle streetBox = new Rectangle(street['x1'], street['y1'], street['x2'] - street['x1'], street['y2'] - street['y1']);
+    DivElement box = new DivElement()
+      ..style.height = streetBox.height.toString() + 'px'
+      ..style.width = streetBox.width.toString() + 'px'
+      ..style.border = '1px solid black'
+      ..style.position = 'absolute'
+      ..style.top = streetBox.top.toString() + 'px'
+      ..style.left = streetBox.left.toString() + 'px';
+    HubMabDiv.append(box);
+    //
+    num angle;
+    if (street['y1'] >= street['y2']) {
+      // problem
+      angle = atan2 (streetBox.height, streetBox.width) + 90;
+    } else {
+      angle = atan2 (streetBox.height, streetBox.width);
+    }
+    return angle;
+  }
+
+  getStreetLength (Map street) {
+    num base = street['x2'] - street['x1'];
+    num height = street['y2'] - street['y1'];
+    num hyp = (base * base) + (height * height);
+    return sqrt(hyp);
   }
 
   loadhub(String hub_id){
@@ -153,21 +269,6 @@ class WorldMap
     view.mapCanvas.style.transformOrigin = '-21px -21px';
 
     worldMapVisible = false;
-
-    // toggle main and hub maps
-
-    Element toggleMapView = querySelector("#map-window-world");
-    toggleMapView.onClick.listen((_) {
-      if (worldMapVisible) {
-        // go to current hub
-        hubMap();
-        toggleMapView.setInnerHtml('<i class="fa fa-fw fa-globe"></i>');
-      } else if (!worldMapVisible) {
-        // go to world map
-        mainMap();
-        toggleMapView.setInnerHtml('<i class="fa fa-fw fa-map-marker"></i>');
-      }
-    });
   }
 
   /**
@@ -200,240 +301,239 @@ class WorldMap
   }
 
   void mainMap() {
-    view.mapCanvas.hidden = true;
+    WorldMapDiv.hidden = true;
+    HubMabDiv.hidden = true;
     view.mapTitle.text = "World Map";
     view.mapImg.style.backgroundImage = 'url(files/system/windows/worldmap.png)';
     WorldMapDiv.children.clear();
-    WorldMapDiv.hidden = false;
-    // TODO: get from server
     String json = '''
 {
-  "alakol": {
+  "76": {
     "name": "Alakol",
     "x": 360,
     "y": 129
   },
-  "andra": {
+  "89": {
     "name": "Andra",
     "x": 314,
     "y": 98
   },
-  "aranna": {
+  "101": {
     "name": "Aranna",
     "x": 397,
     "y": 24
   },
-  "balzare": {
+  "128": {
     "name": "Balzare",
     "x": 80,
     "y": 90
   },
-  "baqala": {
+  "86": {
     "name": "Baqala",
     "x": 355,
     "y": 78
   },
-  "besara": {
+  "98": {
     "name": "Besara",
     "x": 404,
     "y": 46
   },
-  "bortola": {
+  "75": {
     "name": "Bortola",
     "x": 405,
     "y": 99
   },
-  "brillah": {
+  "112": {
     "name": "Brillah",
     "x": 497,
     "y": 74
   },
-  "callopee": {
+  "107": {
     "name": "Callopee",
     "x": 449,
     "y": 43
   },
-  "cauda": {
+  "120": {
     "name": "Cauda",
     "x": 416,
     "y": 256
   },
-  "chakraphool": {
+  "72": {
     "name": "Chakra Phool",
     "x": 200,
     "y": 240
   },
-  "choru": {
+  "90": {
     "name": "Choru",
     "x": 354,
     "y": 56
   },
-  "drifa": {
+  "141": {
     "name": "Drifa",
     "x": 390,
     "y": -2
   },
-  "fenneq": {
+  "123": {
     "name": "Fenneq",
     "x": 431,
     "y": 225
   },
-  "firozi": {
+  "114": {
     "name": "Firozi",
     "x": 375,
     "y": 156
   },
-  "folivoria": {
+  "119": {
     "name": "Folivoria",
     "x": 258,
     "y": 63
   },
-  "groddleforest": {
+  "56": {
     "name": "Groddle Forest",
     "x": 340,
     "y": 191
   },
-  "groddleheights": {
+  "64": {
     "name": "Groddle Heights",
     "x": 310,
     "y": 171
   },
-  "groddlemeadow": {
+  "58": {
     "name": "Groddle Meadow",
     "x": 293,
     "y": 194
   },
-  "haoma": {
+  "131": {
     "name": "Haoma",
     "x": 78,
     "y": 118
   },
-  "haraiva": {
+  "116": {
     "name": "Haraiva",
     "x": 519,
     "y": 122
   },
-  "ix": {
+  "27": {
     "name": "Ix",
     "x": 122,
     "y": 53
   },
-  "jal": {
+  "136": {
     "name": "Jal",
     "x": 332,
     "y": 151
   },
-  "jethimadh": {
+  "71": {
     "name": "Jethimadh",
     "x": 241,
     "y": 248
   },
-  "kajuu": {
+  "85": {
     "name": "Kajuu",
     "x": 358,
     "y": 102
   },
-  "kalavana": {
+  "99": {
     "name": "Kalavana",
     "x": 196,
     "y": 266
   },
-  "karnata": {
+  "88": {
     "name": "Karnata",
     "x": 497,
     "y": 100
   },
-  "kloro": {
+  "133": {
     "name": "Kloro",
     "x": 71,
     "y": 143
   },
-  "lida": {
+  "105": {
     "name": "Lida",
     "x": 451,
     "y": 117
   },
-  "massadoe": {
+  "110": {
     "name": "Massadoe",
     "x": 446,
     "y": 19
   },
-  "muufo": {
+  "97": {
     "name": "Muufo",
     "x": 451,
     "y": 92
   },
-  "nottis": {
+  "137": {
     "name": "Nottis",
     "x": 344,
     "y": 9
   },
-  "ormonos": {
+  "102": {
     "name": "Ormonos",
     "x": 407,
     "y": 125
   },
-  "pollokoo": {
+  "106": {
     "name": "Pollokoo",
     "x": 445,
     "y": 66
   },
-  "rasana": {
+  "109": {
     "name": "Rasana",
     "x": 261,
     "y": 122
   },
-  "roobrik": {
+  "126": {
     "name": "Roobrik",
     "x": 120,
     "y": 100
   },
-  "salatu": {
+  "93": {
     "name": "Salatu",
     "x": 313,
     "y": 121
   },
-  "samudra": {
+  "140": {
     "name": "Samudra",
     "x": 285,
     "y": 147
   },
-  "shimlamirch": {
+  "63": {
     "name": "Shimla Mirch",
     "x": 238,
     "y": 219
   },
-  "sura": {
+  "121": {
     "name": "Sura",
     "x": 461,
     "y": 256
   },
-  "tahli": {
+  "113": {
     "name": "Tahli",
     "x": 263,
     "y": 94
   },
-  "tamila": {
+  "92": {
     "name": "Tamila",
     "x": 400,
     "y": 72
   },
-  "uralia": {
+  "51": {
     "name": "Uralia",
     "x": 125,
     "y": 125
   },
-  "vantalu": {
+  "100": {
     "name": "Vantalu",
     "x": 353,
     "y": 35
   },
-  "xalanga": {
+  "95": {
     "name": "Xalanga",
     "x": 305,
     "y": 43
   },
-  "zhambu": {
+  "91": {
     "name": "Zhambu",
     "x": 306,
     "y": 74
@@ -443,33 +543,35 @@ class WorldMap
 
     Map hubs = JSON.decode(json);
     hubs.forEach((key, value) {
+      Map customAttributes = {
+        "hub": key
+      };
       DivElement hub = new DivElement()
         ..className = "wml-hub"
-        ..id = "hub-" + key
+        ..attributes.addAll(customAttributes)
         ..style.left = value['x'].toString() + 'px'
         ..style.top = value['y'].toString() + 'px'
         ..text = value['name'];
       WorldMapDiv.append(hub);
-      worldMapVisible = true;
     });
+    WorldMapDiv.hidden = false;
+    worldMapVisible = true;
 
+    WorldMapDiv.onClick.listen((e) {
+      loadhubdiv(e.target.attributes['hub']);
+      querySelector("#map-window-world").setInnerHtml('<i class="fa fa-fw fa-globe"></i>');
+    });
   }
 
   void hubMap({String hub_id, String hub_name}) {
     if (hub_id == null) {
-      // current location hub
-      view.mapTitle.text = currentStreet.hub_name;
-      view.mapImg.style.backgroundImage = 'url(' + map.data_maps_hubs[currentStreet.hub_id]()['bg'] + ')';
-      view.mapTitle.text = map.data_maps_hubs[currentStreet.hub_id]()['name'];
-    } else {
-      // selected hub
-      loadhub(hub_id);
-      view.mapTitle.text = hub_name;
-      view.mapImg.style.backgroundImage = 'url(' + map.data_maps_hubs[hub_id]()['bg'] + ')';
-      view.mapTitle.text = map.data_maps_hubs[hub_id]()['name'];
+      hub_id = currentStreet.hub_id;
     }
-    WorldMapDiv.hidden = true;
+    loadhubdiv(hub_id);
+    view.mapTitle.text = hub_name;
+    view.mapImg.style.backgroundImage = 'url(' + map.data_maps_hubs[hub_id]()['bg'] + ')';
+    view.mapTitle.text = map.data_maps_hubs[hub_id]()['name'];
     worldMapVisible = false;
-    view.mapCanvas.hidden = false;
+    HubMabDiv.hidden = false;
   }
 }

@@ -28,6 +28,45 @@
     cursor: inherit;
 }
 
+.maplayer {
+    width: 100%;
+    height: 100%;
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+/* Map Renderer, Div Edition */
+
+.hm-street {
+    position: absolute;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 7px;
+    height: 14px;
+    text-align: center;
+    color: #444;
+    font-size: 12px;
+    cursor: pointer;
+    -webkit-transform-origin: 0% 50%;
+    -moz-transform-origin: 0% 50%;
+    -ms-transform-origin: 0% 50%;
+    -o-transform-origin: 0% 50%;
+    transform-origin: 0% 50%;
+}
+
+.hm-street.hm-street-current {
+    color: #c42323;
+    font-weight: bold;
+}
+
+.maplayer.scaled {
+    transform: scaleX(0.752631578947368) scaleY(0.710869565217391);
+    transform-origin: -21px -21px 0px;
+}
+
+/* Full World Map */
+
 #map-window-world {
     position: relative;
     top: -5px;
@@ -41,15 +80,6 @@
 #map-window-world /deep/ .fa {
     padding: 0 !important;
     cursor: pointer;
-}
-
-#WorldMapLayer {
-    width: 100%;
-    height: 100%;
-    display: block;
-    position: absolute;
-    top: 0;
-    left: 0;
 }
 
 .wml-hub {
