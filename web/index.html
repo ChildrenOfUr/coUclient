@@ -63,7 +63,7 @@
         <main onContextMenu="return false">
             
             <!-- THE VARIOUS METERS AT THE TOP LEFT OF THE SCREEN -->
-            <ur-meters playername="" mood="1" maxmood="1" energy="1" maxenergy="1" imagination="0"></ur-meters>
+            <ur-meters></ur-meters>
             <!-- ------------------------------------------------ -->
 
             <!-- iMG Button -->
@@ -144,7 +144,8 @@
         </script>
 
         <!-- Start the Game up. -->
-        <script type="application/dart" src="main.dart"></script>
-        <script src="packages/browser/dart.js"></script>
+        <!--<script type="application/dart">export 'package:polymer/init.dart';</script>-->
+        <script type="application/dart">export 'main.dart';</script>
+        <!--<script src="packages/browser/dart.js"></script>-->
     </body>
 </html>

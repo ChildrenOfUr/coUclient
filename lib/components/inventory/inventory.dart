@@ -1,7 +1,6 @@
 library inventory;
 
-import 'dart:html';
-import 'package:couclient/toolkit/itembox/itembox.dart';
+import 'package:cou_toolkit/toolkit/itembox/itembox.dart';
 import 'package:polymer/polymer.dart';
 
 @CustomTag('ur-inventory')

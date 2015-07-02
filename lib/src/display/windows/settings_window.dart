@@ -1,56 +1,52 @@
 part of couclient;
 
-class SettingsWindow extends Modal
-{
+class SettingsWindow extends Modal {
 	String id = 'settingsWindow';
 
 	// SETTINGS BOOLS
 	bool _showJoinMessages = false, _playMentionSound = true, _closeTpWindowOnClick = true;
 
-	SettingsWindow()
-	{
+	SettingsWindow() {
 		prepare();
 		// SETTINGS WINDOW LISTENERS //
 		view.settingsButton.onClick.listen((_) => this.open());
 
 		//listen for onChange events so that clicking the label or the checkbox will call this method
-		querySelectorAll('.ChatSettingsCheckbox').onChange.listen((Event event)
-		{
+		querySelectorAll('.ChatSettingsCheckbox').onChange.listen((Event event) {
 			CheckboxInputElement checkbox = event.target as CheckboxInputElement;
-			if(checkbox.id == "ShowJoinMessages")
+			if(checkbox.id == "ShowJoinMessages") {
 				setJoinMessagesVisibility(checkbox.checked);
-			if(checkbox.id == "PlayMentionSound")
+			}
+			if(checkbox.id == "PlayMentionSound") {
 				setPlayMentionSound(checkbox.checked);
-			if(checkbox.id == "CloseTpWindowOnClick")
+			}
+			if(checkbox.id == "CloseTpWindowOnClick") {
 				setcloseTpWindowOnClick(checkbox.checked);
+			}
 		});
 
 		//setup saved variables
-		if (localStorage["showJoinMessages"] != null)
-		{
+		if(localStorage["showJoinMessages"] != null) {
 			//ugly because there is no method to parse bool from string in dart?
-			if(localStorage["showJoinMessages"] == "true")
+			if(localStorage["showJoinMessages"] == "true") {
 				setJoinMessagesVisibility(true);
-			else
+			} else {
 				setJoinMessagesVisibility(false);
-		}
-		else
-		{
+			}
+		} else {
 			localStorage["showJoinMessages"] = "false";
 			setJoinMessagesVisibility(false);
 		}
 
 		(querySelector("#ShowJoinMessages") as CheckboxInputElement).checked = joinMessagesVisibility;
 
-		if(localStorage["playMentionSound"] != null)
-		{
-			if(localStorage["playMentionSound"] == "true")
+		if(localStorage["playMentionSound"] != null) {
+			if(localStorage["playMentionSound"] == "true") {
 				setPlayMentionSound(true);
-			else
+			} else {
 				setPlayMentionSound(false);
-		}
-		else
-		{
+			}
+		} else {
 			localStorage["playMentionSound"] = "true";
 			setJoinMessagesVisibility(true);
 		}
@@ -59,12 +55,12 @@ class SettingsWindow extends Modal
 
 		// set graphicsblur
 		CheckboxInputElement graphicsBlur = querySelector("#GraphicsBlur") as CheckboxInputElement;
-		if(localStorage["GraphicsBlur"] != null)
-		{
-			if(localStorage["GraphicsBlur"] == "true")
+		if(localStorage["GraphicsBlur"] != null) {
+			if(localStorage["GraphicsBlur"] == "true") {
 				graphicsBlur.checked = true;
-			else
+			} else {
 				graphicsBlur.checked = false;
+			}
 		}
 
 		graphicsBlur.onChange.listen((_) => localStorage["GraphicsBlur"] = graphicsBlur.checked.toString());
@@ -83,7 +79,7 @@ class SettingsWindow extends Modal
 
 		PaperRadioGroup intensityGroup = querySelector("#WeatherEffectsIntensityGroup") as PaperRadioGroup;
 		if(localStorage["WeatherEffectsIntensity"] != null) {
-			List<String> intensities = ["light","medium","heavy"];
+			List<String> intensities = ["light", "medium", "heavy"];
 			try {
 				int index = int.parse(localStorage["WeatherEffectsIntensity"]);
 				intensityGroup.selected = intensities[index];
@@ -99,38 +95,34 @@ class SettingsWindow extends Modal
 		if(localStorage["closeTpWindowOnClick"] == null) {
 			localStorage["closeTpWindowOnClick"] = "true";
 		} else {
-			if (localStorage["closeTpWindowOnClick"] == "true")
+			if(localStorage["closeTpWindowOnClick"] == "true") {
 				closeTpWindow.checked = true;
-			else
+			} else {
 				closeTpWindow.checked = false;
+			}
 		}
 
 		//setup volume controls
 		UrSlider musicSlider = querySelector("#MusicSlider") as UrSlider;
 		UrSlider effectSlider = querySelector("#EffectSlider") as UrSlider;
-		try
-		{
+		try {
 			musicSlider.value = int.parse(localStorage['musicVolume']);
 			effectSlider.value = int.parse(localStorage['effectsVolume']);
+		} catch(e) {
 		}
-		catch(e){}
-		musicSlider.on['immediate-value-change'].listen((Event event)
-		{
+		musicSlider.on['immediate-value-change'].listen((Event event) {
 			num volume = musicSlider.value;
-			audio.audioChannels['music'].gain = volume/100;
+			audio.audioChannels['music'].gain = volume / 100;
 		});
-		musicSlider.on['core-change'].listen((Event event)
-		{
+		musicSlider.on['core-change'].listen((Event event) {
 			num volume = musicSlider.value;
 			localStorage['musicVolume'] = volume.toString();
 		});
-		effectSlider.on['immediate-value-change'].listen((Event event)
-		{
+		effectSlider.on['immediate-value-change'].listen((Event event) {
 			num volume = effectSlider.value;
-			audio.audioChannels['soundEffects'].gain = volume/100;
+			audio.audioChannels['soundEffects'].gain = volume / 100;
 		});
-		effectSlider.on['core-change'].listen((Event event)
-		{
+		effectSlider.on['core-change'].listen((Event event) {
 			num volume = effectSlider.value;
 			localStorage['effectsVolume'] = volume.toString();
 		});
@@ -142,23 +134,21 @@ class SettingsWindow extends Modal
 	}
 
 	/**
-	* Determines if messages like "<user> has joined" are shown to the player.
-	*
-	* Sets the visibility of join messages to [visible]
-	*/
-	void setJoinMessagesVisibility(bool visible)
-	{
+	 * Determines if messages like "<user> has joined" are shown to the player.
+	 *
+	 * Sets the visibility of join messages to [visible]
+	 */
+	void setJoinMessagesVisibility(bool visible) {
 		_showJoinMessages = visible;
 		localStorage["showJoinMessages"] = visible.toString();
 	}
 
 	/**
-    * Returns the visibility of messages like "<user> has joined"
-    */
+	 * Returns the visibility of messages like "<user> has joined"
+	 */
 	bool get joinMessagesVisibility => _showJoinMessages;
 
-	void setPlayMentionSound(bool enabled)
-	{
+	void setPlayMentionSound(bool enabled) {
 		_playMentionSound = enabled;
 		localStorage["playMentionSound"] = enabled.toString();
 	}

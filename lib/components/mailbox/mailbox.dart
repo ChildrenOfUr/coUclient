@@ -6,7 +6,7 @@ import 'dart:async';
 
 import "package:polymer/polymer.dart";
 import "package:couclient/configs.dart";
-import "package:redstone_mapper/mapper.dart";
+import 'package:jsonx/jsonx.dart';
 
 import "mail.dart";
 
@@ -25,7 +25,7 @@ class Mailbox extends PolymerElement {
 	refresh() async {
 		String user = window.sessionStorage['playerName'];
 		HttpRequest request = await postRequest(serverAddress + '/getMail', {'user':user});
-		messages = decode(JSON.decode(request.responseText), Mail);
+		messages = decode(JSON.decode(request.responseText), type: const TypeHelper<List<Mail>>().type);
 		if (messages.isNotEmpty) {
 			userHasMessages = true;
 			print("User's mailbox is not empty.");

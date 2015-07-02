@@ -16,12 +16,9 @@ import 'dart:js';
 // POLYMER COMPONENTS //
 import 'package:polymer/polymer.dart';
 import 'package:couclient/components/mailbox/mailbox.dart';
-import 'package:cou_auction_house/auction_house/encodes.dart';
-import 'package:couclient/components/mailbox/mail.dart';
 import 'package:cou_toolkit/toolkit/slider/slider.dart';
 import 'package:cou_login/login/login.dart';
 import 'package:paper_elements/paper_radio_group.dart';
-
 
 // LIBRARIES //
 // Used for NumberFormat
@@ -31,17 +28,21 @@ import 'package:slack/html/slack.dart' as slack;
 // SoundCloud Helper
 import 'package:scproxy/scproxy.dart';
 // Audio and Graphics
-import 'package:gorgon/gorgon.dart'; // for Webaudio api
-import 'package:dnd/dnd.dart'; //for dragging items into vendor interface
+import 'package:gorgon/gorgon.dart';
+// for Webaudio api
+import 'package:dnd/dnd.dart';
+//for dragging items into vendor interface
 // Asset Loading
-import 'package:libld/libld.dart'; // Nice and simple asset loading.
+import 'package:libld/libld.dart';
+// Nice and simple asset loading.
 // Event Bus and Pumps // for more infomation see '/doc/pumps.md'
 import 'package:pump/pump.dart';
+//converting JSON to Dart objects and back
+import 'package:jsonx/jsonx.dart';
 
 import 'package:couclient/configs.dart';
 
-import 'package:redstone_mapper/mapper.dart';
-import 'package:redstone_mapper/mapper_factory.dart';
+export 'package:polymer/init.dart';
 
 // SYSTEMS MODULES //
 part 'package:couclient/src/systems/clock.dart';
@@ -135,21 +136,21 @@ Minimap minimap = new Minimap();
 
 bool get hasTouchSupport => context.callMethod('hasTouchSupport');
 
-void main()
-{
+@whenPolymerReady
+afterPolymer() async {
 	//if the device is capable of touch events, assume the touch ui
 	//unless the user has explicitly turned it off in the options
-	if (localStorage['interface'] == 'desktop') {
+	if(localStorage['interface'] == 'desktop') {
 		// desktop already preferred
 		(querySelector("#MobileStyle") as StyleElement).disabled = true;
-	} else if (localStorage['interface'] == 'mobile') {
+	} else if(localStorage['interface'] == 'mobile') {
 		// mobile already preferred
 		(querySelector("#MobileStyle") as StyleElement).disabled = false;
-	} else if (hasTouchSupport) {
+	} else if(hasTouchSupport) {
 		// no preference, touch support, use mobile view
 		(querySelector("#MobileStyle") as StyleElement).disabled = false;
 		log('Device has touch support, using mobile layout. Run /desktop in Global Chat to use the desktop view.');
-	} else if (!hasTouchSupport) {
+	} else if(!hasTouchSupport) {
 		// no preference, no touch support, use desktop view
 		(querySelector("#MobileStyle") as StyleElement).disabled = true;
 	}
@@ -158,17 +159,8 @@ void main()
 	handleAppCache();
 
 	//read configs
-	Configs.init().then((_)
-	{
-		startTime = new DateTime.now();
-		bootstrapMapper();
-    	initPolymer();
-	});
-}
-
-@whenPolymerReady
-initMethod()
-{
+	await Configs.init();
+	startTime = new DateTime.now();
 	view = new UserInterface();
 	audio = new SoundManager();
 	windowManager = new WindowManager();
@@ -179,15 +171,12 @@ initMethod()
 	new CommandManager();
 }
 
-void handleAppCache()
-{
-	if(window.applicationCache.status == ApplicationCache.UPDATEREADY)
-	{
+void handleAppCache() {
+	if(window.applicationCache.status == ApplicationCache.UPDATEREADY) {
 		log('Application cache updated, swapping and reloading page');
-        print('Application cache updated, swapping and reloading page');
-	    window.applicationCache.swapCache();
-	    window.location.reload();
-	    return;
+		window.applicationCache.swapCache();
+		window.location.reload();
+		return;
 	}
 
 	window.applicationCache.onUpdateReady.first.then((_) => handleAppCache());
