@@ -26,8 +26,8 @@ class Game
 
 		//setup the chat and open two initial channels
 		new NetChatManager();
-		new Message(#startChat, 'Global Chat');
-		new Message(#startChat, 'Local Chat');
+		transmit('startChat', 'Global Chat');
+		transmit('startChat', 'Local Chat');
 
 		//show the message of the day
 		//windowManager.motdWindow.open();
@@ -45,12 +45,13 @@ class Game
 		//load the player's animation spritesheets then set them to idle
 		await CurrentPlayer.loadAnimations();
 		CurrentPlayer.currentAnimation = CurrentPlayer.animations['idle'];
+		transmit('playerLoaded', null);
 
 		//stop loading sounds and load the street's song
         if(audio.loadingSound != null) {
 	        audio.loadingSound.stop();
         }
-        new Message(#playSound, 'game_loaded');
+        transmit('playSound', 'game_loaded');
 		//play appropriate song for street (or just highlands for now)
 		await audio.setSong('highlands');
 

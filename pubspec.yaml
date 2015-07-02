@@ -13,10 +13,10 @@ dependencies:
       url: git://github.com/ChildrenOfUr/libld.git
   paper_elements: ">=0.7.0 <0.8.0"
   polymer: '>=0.16.1 < 0.17.0'
-  pump:
-    git:
-      ref: master
-      url: git://github.com/ppvk/pump.git
+  transmit:
+      git:
+        ref: master
+        url: git://github.com/ChildrenOfUr/transmit.git
   scproxy:
     git:
       ref: master
@@ -31,9 +31,7 @@ dependencies:
         ref: master
         url: git://github.com/ChildrenOfUr/cou_toolkit.git
   cou_login:
-      git:
-        ref: master
-        url: https://github.com/ChildrenOfUr/cou_login.git
+      path: ../cou_login
 
 transformers:
 - couclient/transformers/configs_transformer

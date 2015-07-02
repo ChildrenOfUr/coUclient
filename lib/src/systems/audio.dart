@@ -19,14 +19,14 @@ class SoundManager {
 	SoundManager() {
 		log('[SoundManager] Starting up...');
 		init().then((_) {
-			new Service([#playSong], (Message event) {
-				event.content = event.content.replaceAll(' ', '');
-				if (songs[event.content] == null) {
-					loadSong(event.content).then((_) => _playSong(event.content));
-				} else _playSong(event.content);
+			new Service(['playSong'], (event) {
+				event = event.replaceAll(' ', '');
+				if (songs[event] == null) {
+					loadSong(event).then((_) => _playSong(event));
+				} else _playSong(event);
 			});
 
-			new Service([#playSound], (Message event) => this.playSound(event.content));
+			new Service(['playSound'], (event) => this.playSound(event));
 
 			log('[SoundManager] Registered services');
 		});
@@ -93,7 +93,7 @@ class SoundManager {
 	}
 
 	Future loadNonWebAudio() async {
-		new Message(#toast, 'Loading non-WebAudio');
+		transmit('toast', 'Loading non-WebAudio');
 		// Load all our user interface sounds.
 
 		//iOS/safari/IE doesn't seem to like .ogg files

@@ -1,8 +1,8 @@
 part of couclient;
 
 // debugging service
-Service errService = new Service([#err, #debug], (Message event) {
-	new Message(#toast, 'Debug: ${event.content}');
+Service errService = new Service(['err', 'debug'], (event) {
+	transmit('toast', 'Debug: ${event.content}');
 });
 
 
@@ -13,11 +13,11 @@ class CommandManager {
 	CommandManager() {
 
 		COMMANDS['playsound'] = (noun) {
-			new Message(#playSound, noun);
+			transmit('playSound', noun);
 		};
 
 		COMMANDS['playsong'] = (noun) {
-			new Message(#playSong, noun);
+			transmit('playSong', noun);
 		};
 
 		COMMANDS
@@ -65,19 +65,19 @@ updateMinimap(var nothing) {
 }
 
 setTime(String noun) {
-	new Message(#timeUpdateFake,[noun]);
+	transmit('timeUpdateFake',[noun]);
 	if(noun == '6:00am') {
-		new Message(#newDayFake,null);
+		transmit('newDayFake',null);
 	}
 }
 
 setWeather(String noun) {
 	if(noun == 'snow') {
-		new Message(#setWeatherFake,{'state':WeatherState.SNOWING.index});
+		transmit('setWeatherFake',{'state':WeatherState.SNOWING.index});
 	} else if(noun == 'rain') {
-		new Message(#setWeatherFake,{'state':WeatherState.RAINING.index});
+		transmit('setWeatherFake',{'state':WeatherState.RAINING.index});
 	} else if(noun == 'clear') {
-		new Message(#setWeatherFake, {'state':WeatherState.CLEAR.index});
+		transmit('setWeatherFake', {'state':WeatherState.CLEAR.index});
 	}
 }
 
@@ -90,7 +90,7 @@ setName(String noun) {
 
 	// Is it appropriate?
 	if(containsBadCharacter(newName)) {
-		new Message(#chatEvent, {
+		transmit('chatEvent', {
 			'channel': 'Global Chat',
 			'message': "Sorry, you can't use the following characters in your name<br>~ ! @ \$ % ^ & * ( ) + = , . / ' ; : \" ? > < [ ] \ { } | ` #"
 		});
@@ -108,7 +108,7 @@ setName(String noun) {
 	map["channel"] = 'Global Chat';
 
 	// Send new name to server
-	new Message(#outgoingChatEvent, map);
+	transmit('outgoingChatEvent', map);
 
 	toast('Name changed to ' + noun);
 }

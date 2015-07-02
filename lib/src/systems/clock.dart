@@ -4,11 +4,11 @@ class ClockManager {
 	ClockManager() {
 		// Take each of the 'clock's streams, and when there is an event, broadcast this to the manager's subscribers.
 		clock.onUpdate.listen((List timedata) {
-			new Message(#timeUpdate, timedata);
+			transmit('timeUpdate', timedata);
 		});
 		clock.onNewDay.listen((_) {
 			clock.updateHolidays();
-			new Message(#newDay, null);
+			transmit('newDay', null);
 			// The fact the event fires is all that's important here.
 		});
 	}

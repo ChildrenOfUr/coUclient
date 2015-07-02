@@ -14,7 +14,7 @@ class WindowManager {
 		RockWindow rockWindow = new RockWindow();
 		ItemWindow itemWindow = new ItemWindow();
 
-		new Service([#vedorWindow], (Message event) {
+		new Service(['vendorWindow'], (event) {
 			vendor(event.content);
 		});
 	}

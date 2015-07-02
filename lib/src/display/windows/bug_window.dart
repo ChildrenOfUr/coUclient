@@ -6,7 +6,7 @@ class BugWindow extends Modal {
   Service debugService;
   
   BugWindow() {
-    debugService = new Service([#debug], logMessage);
+    debugService = new Service(['debug'], logMessage);
     
     prepare();
     String headerDeco = "/////////////"; // prime number of forward slashes
@@ -43,8 +43,8 @@ class BugWindow extends Modal {
     });
   }
 
-  logMessage(Message message) {
-    log(message.content);
+  logMessage(var message) {
+    log(message);
   }
   
   log(String text) {

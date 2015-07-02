@@ -139,13 +139,13 @@ class UserInterface {
 			}
 		});
 
-		new Service([#timeUpdate], (Message event) {
+		new Service(['timeUpdate'], (event) {
 			currDay.text = clock.dayofweek;
 			currTime.text = clock.time;
 			currDate.text = clock.day + ' of ' + clock.month;
 		});
 
-		new Service([#doneLoading], (Message event) {
+		new Service(['doneLoading'], (event) {
 			// display 'Play' buttons
 			for(Element button in loadingScreen.querySelectorAll('.button'))
 				button.hidden = false;
@@ -162,7 +162,7 @@ class UserInterface {
 	resize() {
 		worldElementWidth = worldElement.clientWidth;
 		worldElementHeight = worldElement.clientHeight;
-		new Message(#windowResized,null);
+		transmit('windowResized',null);
 	}
 
 

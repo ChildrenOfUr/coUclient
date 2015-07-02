@@ -1,22 +1,19 @@
 part of couclient;
 
-class StreetService
-{
+class StreetService {
 	String _dataUrl = '${Configs.authAddress}/data';
 
-	StreetService()
-	{
-		String prefix = Configs.authAddress.contains('localhost')?'http://':'https://';
-		_dataUrl = prefix+_dataUrl;
+	StreetService() {
+		String prefix = Configs.authAddress.contains('localhost') ? 'http://' : 'https://';
+		_dataUrl = prefix + _dataUrl;
 	}
 
-	requestStreet(String StreetID) async
-	{
+	requestStreet(String StreetID) async {
 		log('[StreetService] Requesting street "$StreetID"...');
 
 		HttpRequest data = await HttpRequest.request(_dataUrl + "/street", method: "POST",
-    		requestHeaders: {"content-type": "application/json"},
-    		sendData: JSON.encode({'street': StreetID, 'sessionToken': SESSION_TOKEN}));
+		                                             requestHeaders: {"content-type": "application/json"},
+		                                             sendData: JSON.encode({'street': StreetID, 'sessionToken': SESSION_TOKEN}));
 
 		Map serverdata = JSON.decode(data.response);
 
@@ -25,12 +22,12 @@ class StreetService
 
 		log('[StreetService] "$StreetID" loaded.');
 		await prepareStreet(serverdata['streetJSON']);
-    String playerList = '';
-    List<String> otherPlayers = JSON.decode(await HttpRequest.getString('http://' + Configs.utilServerAddress + '/listUsers?channel=' + currentStreet.label));
-		if (otherPlayers.length > 0) {
-			for (int i = 0; i != otherPlayers.length; i++) {
+		String playerList = '';
+		List<String> otherPlayers = JSON.decode(await HttpRequest.getString('http://' + Configs.utilServerAddress + '/listUsers?channel=' + currentStreet.label));
+		if(otherPlayers.length > 0) {
+			for(int i = 0; i != otherPlayers.length; i++) {
 				playerList += otherPlayers[i];
-				if (i != otherPlayers.length) {
+				if(i != otherPlayers.length) {
 					playerList += ', ';
 				}
 			}
@@ -43,10 +40,10 @@ class StreetService
 	{
 		log('[StreetService] Assembling Street...');
 
-		if (streetJSON['tsid'] == null)
+		if(streetJSON['tsid'] == null)
 			return;
 
-		Map<String,dynamic> streetAsMap = streetJSON;
+		Map<String, dynamic> streetAsMap = streetJSON;
 		String label = streetAsMap['label'];
 		String tsid = streetAsMap['tsid'];
 		String oldLabel = "";
@@ -56,8 +53,8 @@ class StreetService
 			oldTsid = currentStreet.tsid;
 		}
 
-    // send data to minimap
-    minimap.changeStreet(streetAsMap);
+		// send data to minimap
+		minimap.changeStreet(streetAsMap);
 
 		// TODO, this should happen automatically on the Server, since it'll know which street we're on.
 		//send changeStreet to chat server
@@ -68,21 +65,21 @@ class StreetService
 		map["newStreetTsid"] = tsid;
 		map["oldStreetTsid"] = oldTsid;
 		map["oldStreetLabel"] = oldLabel;
-		new Message(#outgoingChatEvent,map);
+		transmit('outgoingChatEvent', map);
 
 		view.streetLoadingImage.src = streetAsMap['loading_image']['url'];
-        await view.streetLoadingImage.onLoad.first;
+		await view.streetLoadingImage.onLoad.first;
 
-        String hubName = new DataMaps().data_maps_hubs[streetAsMap['hub_id']]()['name'];
+		String hubName = new DataMaps().data_maps_hubs[streetAsMap['hub_id']]()['name'];
 		view.mapLoadingContent.style.opacity = "1.0";
 		view.nowEntering.setInnerHtml('<h2>Entering</h2><h1>' + label + '</h1><h2>in ' + hubName/* + '</h2><h3>Home to: <ul><li>A <strong>Generic Goods Vendor</strong></li></ul>'*/);
 
 		//wait for 1 second before loading the street (so that the preview text can be read)
 		await new Future.delayed(new Duration(seconds: 1));
-		new Asset.fromMap(streetAsMap,label);
+		new Asset.fromMap(streetAsMap, label);
 		await new Street(streetAsMap).load();
 		log('[StreetService] Street assembled.');
-    // notify minimap to update
-    new Message(#streetLoaded, null);
+		// notify minimap to update
+		transmit('streetLoaded', null);
 	}
 }

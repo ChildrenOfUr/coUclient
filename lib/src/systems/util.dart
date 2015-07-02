@@ -22,7 +22,7 @@ bool intersect(Rectangle a, Rectangle b)
  **/
 log (String message) {
 	String text = message + ' ' + getUptime();
-	new Message(#debug, text);
+	transmit('debug', text);
 	print('$text');
 }
 
@@ -129,7 +129,7 @@ sendAction(String methodName, String entityId, [Map arguments])
 	}
 
 	log("sending $methodName to entity: $entityId (${entities[entityId].runtimeType}) with arguments: $arguments");
-	Element entity = querySelector("#${entityId}");
+	Element entity = querySelector("#$entityId");
 	Map map = {};
 	map['callMethod'] = methodName;
 	if(entity != null)

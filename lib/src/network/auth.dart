@@ -11,6 +11,10 @@ class AuthManager {
 		_loginPanel = querySelector('ur-login');
 
 		_loginPanel.on['loginSuccess'].listen((e) {
+			print('got success, firing back');
+			//fire acknowledgement event
+			transmit('loginAcknowledged',null);
+
 			inputManager = new InputManager();
 
 			Map serverdata = e.detail;

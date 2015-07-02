@@ -28,7 +28,7 @@ void setUpOverlays() {
 
 class NewDayOverlay extends Overlay {
 	NewDayOverlay(String id):super(id) {
-		new Service([#newDay, #newDayFake], (Message event) {
+		new Service(['newDay', 'newDayFake'], (event) {
 			open();
 		});
 	}

@@ -10,7 +10,7 @@ class CalendarWindow extends Modal {
 
     var daynum;
 
-    new Service([#timeUpdate], (Message event) {
+    new Service(['timeUpdate'], (event) {
       querySelector("#calCurrDay").text = clock.dayofweek;
       querySelector("#calCurrTime").text = clock.time;
       querySelector("#calCurrDate").text = clock.day + ' of ' + clock.month;

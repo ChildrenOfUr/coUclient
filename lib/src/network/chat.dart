@@ -7,34 +7,34 @@ class NetChatManager {
 	NetChatManager() {
 		setupWebsocket(_chatServerUrl);
 
-		new Service([#chatEvent], (Message event) {
-			if(event.content["statusMessage"] == "ping") //used to keep the connection alive
-				new Message(#outgoingChatEvent, {'statusMessage':'pong'});
+		new Service(['chatEvent'], (event) {
+			if(event["statusMessage"] == "ping") //used to keep the connection alive
+				transmit('outgoingChatEvent', {'statusMessage':'pong'});
 			else {
 				for(Chat convo in openConversations) {
-					if(convo.title == "Local Chat" && (event.content['channel'] == 'all' || event.content['street'] == currentStreet.label))
-						convo.processEvent(event.content);
-					else if(convo.title == event.content['channel'] && convo.title != "Local Chat")
-						convo.processEvent(event.content);
+					if(convo.title == "Local Chat" && (event['channel'] == 'all' || event['street'] == currentStreet.label))
+						convo.processEvent(event);
+					else if(convo.title == event['channel'] && convo.title != "Local Chat")
+						convo.processEvent(event);
 				}
 			}
 		});
 
-		new Service([#chatListEvent], (Message event) {
+		new Service(['chatListEvent'], (event) {
 			for(Chat convo in openConversations) {
-				if(convo.title == event.content['channel']) {
-					convo.displayList(event.content['users']);
+				if(convo.title == event['channel']) {
+					convo.displayList(event['users']);
 				}
 			}
 		});
 
-		new Service([#startChat], (Message event) {
-			Chat chat = new Chat(event.content as String);
+		new Service(['startChat'], (event) {
+			Chat chat = new Chat(event as String);
 		});
 
-		new Service([#outgoingChatEvent], (Message<Map> event) {
+		new Service(['outgoingChatEvent'], (event) {
 			if(_connection.readyState == WebSocket.OPEN) {
-				post(event.content);
+				post(event);
 			}
 			return;
 		});
@@ -65,9 +65,9 @@ class NetChatManager {
 			..onMessage.listen((MessageEvent event) {
 			Map data = JSON.decoder.convert(event.data);
 			if(data['statusMessage'] == 'list') {
-				new Message(#chatListEvent, data);
+				transmit('chatListEvent', data);
 			} else {
-				new Message(#chatEvent, data);
+				transmit('chatEvent', data);
 			}
 		})
 			..onClose.listen((_) {

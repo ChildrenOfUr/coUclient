@@ -36,7 +36,7 @@ import 'package:dnd/dnd.dart';
 import 'package:libld/libld.dart';
 // Nice and simple asset loading.
 // Event Bus and Pumps // for more infomation see '/doc/pumps.md'
-import 'package:pump/pump.dart';
+import 'package:transmit/transmit.dart';
 //converting JSON to Dart objects and back
 import 'package:jsonx/jsonx.dart';
 
@@ -132,7 +132,7 @@ CommandManager commandManager;
 AuthManager auth;
 Game game;
 DateTime startTime;
-Minimap minimap = new Minimap();
+Minimap minimap;
 
 bool get hasTouchSupport => context.callMethod('hasTouchSupport');
 
@@ -165,6 +165,7 @@ afterPolymer() async {
 	audio = new SoundManager();
 	windowManager = new WindowManager();
 	auth = new AuthManager();
+	minimap = new Minimap();
 
 	// System
 	new ClockManager();

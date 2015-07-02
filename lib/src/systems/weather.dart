@@ -35,19 +35,19 @@ class WeatherManager {
 
 			//need a service to listen to time events and respond by coloring the
 			//weather overlay as needed (possibly change the background gradient?
-			new Service([#timeUpdate, #timeUpdateFake], _changeAmbientColor);
+			new Service(['timeUpdate', 'timeUpdateFake'], _changeAmbientColor);
 
 			//service for debugging weather
-			new Service([#setWeatherFake], (Message m) {_processMessage(m.content);});
+			new Service(['setWeatherFake'], (m) {_processMessage(m);});
 
 			//update on start
-			new Message(#timeUpdate, [clock.time, clock.day, clock.dayofweek, clock.month, clock.year]);
+			transmit('timeUpdate', [clock.time, clock.day, clock.dayofweek, clock.month, clock.year]);
 		}
 
 		_setupWebsocket();
 
 		Timer resizeTimer;
-		new Service([#windowResized], (Message m) {
+		new Service(['windowResized'], (m) {
 			//we only want to respond to the last event of this in a series
 			//so we'll wait until 200ms have gone by without one of these events
 			//and then we'll do our real work
@@ -79,8 +79,8 @@ class WeatherManager {
 		}
 	}
 
-	static void _changeAmbientColor(Message m) {
-		List<dynamic> timePieces = m.content;
+	static void _changeAmbientColor(m) {
+		List<dynamic> timePieces = m;
 		String time = timePieces[0];
 		bool am = time.contains('am');
 		List<String> hourmin = time.substring(0, time.length - 2).split(':');
@@ -92,7 +92,7 @@ class WeatherManager {
 		if(!am) {
 			if(hour >= 5 && hour < 7) {
 				int currentMinute = (7 - hour) * 60 - minute;
-				percent = 1 - currentMinute / 120;
+				percent = (1 - currentMinute / 120)/2;
 				//daylight to sunset
 				rgba = _tweenColor([255, 255, 255, 0], [218, 150, 45, .15], percent);
 			} else if(hour >= 7 && hour < 12) {
@@ -110,7 +110,7 @@ class WeatherManager {
 				rgba = [17, 17, 47, .5];
 			} else if(hour >= 5 && hour < 7) {
 				int currentMinute = (7 - hour) * 60 - minute;
-				percent = 1 - currentMinute / 120;
+				percent = (1 - currentMinute / 120)/2;
 				//night to sunrise
 				rgba = _tweenColor([17, 17, 47, .5], [218, 150, 45, .15], percent);
 				percent = 1-percent;
