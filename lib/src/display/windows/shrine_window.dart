@@ -5,38 +5,60 @@ class ShrineWindow extends Modal {
 	String id = 'shrineWindow', giantName;
 	int favor, maxFavor;
 	String shrineId;
+	Element buttonHolder, confirmButton, cancelButton, dropTarget, favorProgress;
+	Map item;
 
 	factory ShrineWindow(String giantName, int favor, int maxFavor, String shrineId) {
 		if(shrineWindow == null) {
 			shrineWindow = new ShrineWindow._(giantName,favor,maxFavor, shrineId);
+		} else {
+			shrineWindow
+				..giantName = giantName
+				..favor = favor
+				..maxFavor = maxFavor
+				..shrineId = shrineId;
 		}
 
 		return shrineWindow;
 	}
 
-	ShrineWindow._(this.giantName,this.favor,this.maxFavor,this.shrineId) {
-		prepare();
+	@override
+	open() {
+		resetShrineWindow();
+		populateShrineWindow();
+		super.open();
+	}
 
+	void resetShrineWindow() {
+		buttonHolder.style.visibility = 'hidden';
+		dropTarget.style.backgroundImage = 'none';
+		item.clear();
+	}
+
+	void populateShrineWindow() {
 		List<Element> insertGiantName = querySelectorAll(".insert-giantname").toList();
 		insertGiantName.forEach((placeholder) => placeholder.text = giantName);
-		Element buttonHolder = querySelector('#shrine-window-buttons');
-		Element confirmButton = querySelector('#shrine-window-confirm');
-		Element cancelButton = querySelector('#shrine-window-cancel');
-		DivElement dropTarget = querySelector("#DonateDropTarget");
-		Map item = new Map();
-
-		resetShrineWindow() {
-			buttonHolder.style.visibility = 'hidden';
-			dropTarget.style.backgroundImage = 'none';
-			item.clear();
-		}
 
 		int percent = favor ~/ maxFavor;
 		Map<String, String> progressAttributes = {
+			'id': 'shrine-window-favor',
 			"percent": percent.toString(),
 			"status": favor.toString() + " of " + maxFavor.toString() + " favor towards a currant reward"
 		};
-		querySelector("#shrine-window-favor").attributes = progressAttributes;
+		favorProgress.attributes = progressAttributes;
+	}
+
+	ShrineWindow._(this.giantName,this.favor,this.maxFavor,this.shrineId) {
+		prepare();
+
+		buttonHolder = querySelector('#shrine-window-buttons');
+		confirmButton = querySelector('#shrine-window-confirm');
+		cancelButton = querySelector('#shrine-window-cancel');
+		dropTarget = querySelector("#DonateDropTarget");
+		favorProgress = querySelector("#shrine-window-favor");
+		item = new Map();
+
+		populateShrineWindow();
 
 		Draggable draggable = new Draggable(querySelectorAll(".inventoryItem"), avatarHandler: new CustomAvatarHandler());
 		Dropzone dropzone = new Dropzone(dropTarget, acceptor: new Acceptor.draggables([draggable]));

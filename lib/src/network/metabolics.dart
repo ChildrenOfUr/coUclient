@@ -13,7 +13,7 @@ class Metabolics {
 	int id, mood = 50, max_mood = 100, energy = 50, max_energy = 100;
 	int currants = 0, img = 0, lifetime_img = 0, user_id = -1;
 	int AlphFavor = 0, CosmaFavor = 0, FriendlyFavor = 0, GrendalineFavor = 0;
-	int HumbabaFavor = 0, LemFavor = 0, MabFavor = 0,PotFavor = 0, SprigganFavor = 0;
+	int HumbabaFavor = 0, LemFavor = 0, MabFavor = 0, PotFavor = 0, SprigganFavor = 0;
 	int TiiFavor = 0, ZilleFavor = 0;
 	num current_street_x = 1.0, current_street_y = 0.0;
 	String current_street = 'LA58KK7B9O522PC';
@@ -78,7 +78,7 @@ class MetabolicsService {
 
 		Element quoinText = querySelector("#qq" + element.id + " .quoinString");
 
-    // TODO: enable this when the server supports it
+		// TODO: enable this when the server supports it
 //    if (quoinType == "mystery") {
 //      switch (new Random().nextInt(5)) {
 //        case 0:
@@ -102,11 +102,11 @@ class MetabolicsService {
 //      }
 //    }
 
-    switch (quoinType) {
-      case "currant":
-        if (amt == 1) quoinText.text = "+" + amt.toString() + " currant";
-        else quoinText.text = "+" + amt.toString() + " currants";
-        break;
+		switch(quoinType) {
+			case "currant":
+				if(amt == 1) quoinText.text = "+" + amt.toString() + " currant";
+				else quoinText.text = "+" + amt.toString() + " currants";
+				break;
 
 			case "mood":
 				if(amt == 0) {
@@ -135,15 +135,15 @@ class MetabolicsService {
 				quoinText.text = "+" + amt.toString() + " favor";
 				break;
 
-      case "time":
-        quoinText.text = "No time like the present";
-        // TODO : update this later
-        break;
-      case "mystery":
-        quoinText.text = "+" + amt.toString() + " brownie points";
-        break;
-    }
-  }
+			case "time":
+				quoinText.text = "No time like the present";
+				// TODO : update this later
+				break;
+			case "mystery":
+				quoinText.text = "+" + amt.toString() + " brownie points";
+				break;
+		}
+	}
 
 	int get currants => playerMetabolics.currants;
 
