@@ -17,6 +17,8 @@
                 <div id="send_actions">
                     <ur-button on-click="{{sendMessage}}" id="action_send">&emsp;<i class="fa fa-paper-plane"></i> Send Message&emsp;</ur-button>
                     <ur-button on-click="{{closeMessage}}" id="action_discard">&emsp;<i class="fa fa-trash"></i> Discard&emsp;</ur-button>
+                    <img class="currant-img" src="../../../../files/system/icons/currant.svg">
+                    <input id="sendCurrants" class="input_text input_line" placeholder="Send currants?" type="number" min="0" value="{{toCurrants}}" max="{{userCurrants}}">
                 </div>
             </div>
 
