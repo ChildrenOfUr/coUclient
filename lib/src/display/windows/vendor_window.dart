@@ -3,7 +3,8 @@ part of couclient;
 class VendorWindow extends Modal {
 	String id = 'shopWindow';
 	String npcId = '';
-	Element header, name, buy, sell, currants, backToSell, backToBuy, buyPlus, buyMinus, buyMax, buyButton, buyItemCount, buyPriceTag, buyDescription, buyStacksTo;
+	Element header, name, buy, sell, currants, backToSell, backToBuy, buyPlus, buyMinus;
+	Element buyMax, buyButton, buyItemCount, buyPriceTag, buyDescription, buyStacksTo;
 	ImageElement buyItemImage;
 	InputElement buyNum;
 
@@ -14,7 +15,7 @@ class VendorWindow extends Modal {
 		buy = this.window.querySelector('#buy');
 		sell = this.window.querySelector('#sell');
 		currants = this.window.querySelector('.qty');
-    name = this.window.querySelector(".ItemName");
+		name = this.window.querySelector(".ItemName");
 
 		backToBuy = this.window.querySelector('#buy-qty .back');
 		backToSell = this.window.querySelector('#sell-qty .back');
@@ -40,7 +41,6 @@ class VendorWindow extends Modal {
 	// Calling the modal with a vendorMap opens a vendor window
 	call(Map vendorMap, {bool sellMode:false}) {
 		npcId = vendorMap['id'];
-		print(npcId);
 		header.innerHtml = '<i class="fa-li fa fa-shopping-cart"></i>' + vendorMap['vendorName'];
 		currants.text = " ${commaFormatter.format(metabolics.currants)} currants";
 
@@ -53,21 +53,21 @@ class VendorWindow extends Modal {
 			merch.append(new ImageElement(src: item['iconUrl'])
 				             ..className = "icon");
 
-      Element price;
+			Element price;
 
-      if (item['price'] < 9999) {
-        price = merch.append(new DivElement()
-          ..text = '${item['price']}₡'
-          ..className = 'price-tag');
-      } else {
-        price = merch.append(new DivElement()
-          ..text = 'A Lot'
-          ..className = 'price-tag');
-      }
+			if(item['price'] < 9999) {
+				price = merch.append(new DivElement()
+					                     ..text = '${item['price']}₡'
+					                     ..className = 'price-tag');
+			} else {
+				price = merch.append(new DivElement()
+					                     ..text = 'A Lot'
+					                     ..className = 'price-tag');
+			}
 
 			if(item['price'] > metabolics.currants) {
-        price.classes.add("cantAfford");
-      }
+				price.classes.add("cantAfford");
+			}
 
 			//DivElement tooltip = new DivElement()..className = "vendorItemTooltip";
 			//DivElement priceParent = new DivElement()..style.textAlign="center"..append(price);
@@ -112,7 +112,7 @@ class VendorWindow extends Modal {
 		buyItemImage.src = '${item['iconUrl']}';
 		buyDescription.text = item['description'];
 		buyPriceTag.text = "${item['price']}\u20a1";
-    name.text = item['name'];
+		name.text = item['name'];
 
 		// set up button listeners
 		buyNum.onInput.listen((_) {
@@ -126,7 +126,7 @@ class VendorWindow extends Modal {
 
 		StreamSubscription bb = buyButton.onClick.listen((_) {
 			int newValue;
-			Map actionMap = {"itemName": item['id'], "num": numToBuy};
+			Map actionMap = {"itemType": item['itemType'], "num": numToBuy};
 
 			if(sellMode) {
 				if(numToBuy > getNumItems(item['name']))
