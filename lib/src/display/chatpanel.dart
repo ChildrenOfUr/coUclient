@@ -450,8 +450,7 @@ class Chat {
 
 		for(; tabSearchIndex < connectedUsers.length; tabSearchIndex++) {
 			String username = connectedUsers.elementAt(tabSearchIndex);
-			if(username.toLowerCase().startsWith(lastWord.toLowerCase()) &&
-			   username.toLowerCase() != localLastWord.toLowerCase()) {
+			if(username.toLowerCase().startsWith(lastWord.toLowerCase()) && username.toLowerCase() != localLastWord.toLowerCase()) {
 				input.value = input.value.substring(0,input.value.lastIndexOf(" ") + 1) + username;
 				tabInserted = true;
 				inserted = true;
@@ -494,25 +493,25 @@ class Chat {
 			map["statusMessage"] = "list";
 			map["channel"] = title;
 			map["street"] = currentStreet.label;
-			new Message(#outgoingChatEvent, map);
+			transmit('outgoingChatEvent', map);
 		} else {
 			Map map = new Map();
 			map["username"] = game.username;
 			map["message"] = input;
 			map["channel"] = title;
-			if(title == "Local Chat") map["street"] = currentStreet.label;
+			if(title == "Local Chat") {
+				map["street"] = currentStreet.label;
+			}
 
-			new Message(#outgoingChatEvent, map);
+			transmit('outgoingChatEvent', map);
 
 			//display chat bubble if we're talking in local (unless it's a /me message)
-			if(map["channel"] == "Local Chat" &&
-			   !(map["message"] as String).toLowerCase().startsWith("/me")) {
+			if(map["channel"] == "Local Chat" && !(map["message"] as String).toLowerCase().startsWith("/me")) {
 				//remove any existing bubble
-				if(CurrentPlayer.chatBubble != null &&
-				   CurrentPlayer.chatBubble.bubble !=
-				   null) CurrentPlayer.chatBubble.bubble.remove();
-				CurrentPlayer.chatBubble = new ChatBubble(parseEmoji(map["message"]),
-				                                          CurrentPlayer, CurrentPlayer.playerParentElement);
+				if(CurrentPlayer.chatBubble != null && CurrentPlayer.chatBubble.bubble != null){
+					CurrentPlayer.chatBubble.bubble.remove();
+				}
+				CurrentPlayer.chatBubble = new ChatBubble(parseEmoji(map["message"]), CurrentPlayer, CurrentPlayer.playerParentElement);
 			}
 		}
 	}
@@ -532,8 +531,9 @@ class ChatMessage {
 		message = parseUrl(message);
 		message = parseEmoji(message);
 
-		if(message.toLowerCase().contains(
-			game.username.toLowerCase())) new Message(#playSound, 'mention');
+		if(message.toLowerCase().contains(game.username.toLowerCase())){
+			transmit('playSound', 'mention');
+		}
 
 		if(player == null) {
 			html = '''

@@ -10,7 +10,7 @@ class AuthManager {
 		// Starts the game
 		_loginPanel = querySelector('ur-login');
 
-		_loginPanel.on['loginSuccess'].listen((e) {
+		_loginPanel.on['loginSuccess'].first.then((e) {
 			print('got success, firing back');
 			//fire acknowledgement event
 			transmit('loginAcknowledged',null);

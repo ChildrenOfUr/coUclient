@@ -130,6 +130,11 @@ class WeatherManager {
 	}
 
 	static void _setStreetGradient(num percent) {
+		DivElement gradientCanvas = querySelector('#gradient');
+		if(gradientCanvas == null) {
+			return;
+		}
+
 		String streetTop = '#' + currentStreet.streetData['gradient']['top'];
 		String streetBottom = '#' + currentStreet.streetData['gradient']['bottom'];
 
@@ -143,7 +148,6 @@ class WeatherManager {
 		String top = rgb2hex(topTween);
 		String bottom = rgb2hex(bottomTween);
 
-		DivElement gradientCanvas = querySelector('#gradient');
 		gradientCanvas.style.background = "-webkit-linear-gradient(top, $top, $bottom)";
 		gradientCanvas.style.background = "-moz-linear-gradient(top, $top, $bottom)";
 		gradientCanvas.style.background = "-ms-linear-gradient($top, $bottom)";

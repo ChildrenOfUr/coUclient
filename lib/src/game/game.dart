@@ -3,24 +3,21 @@ part of couclient;
 StreetService streetService = new StreetService();
 
 // GAME ENTRY AND MANAGEMENT //
-class Game
-{
+class Game {
 	String username, location, email;
 	double lastTime = 0.0;
 	DateTime startTime = new DateTime.now();
 	bool ignoreGamepads = false;
 
 	// INITIALIZATION //
-	Game(Metabolics m)
-	{
+	Game(Metabolics m) {
 		username = localStorage['username'];
 		location = sessionStorage['playerStreet'];
 		email = sessionStorage['playerEmail'];
 		_init(m);
 	}
 
-	_init(Metabolics m) async
-	{
+	_init(Metabolics m) async {
 		//load the player's street from the server
 		await streetService.requestStreet(location);
 
@@ -48,10 +45,10 @@ class Game
 		transmit('playerLoaded', null);
 
 		//stop loading sounds and load the street's song
-        if(audio.loadingSound != null) {
-	        audio.loadingSound.stop();
-        }
-        transmit('playSound', 'game_loaded');
+		if(audio.loadingSound != null) {
+			audio.loadingSound.stop();
+		}
+		transmit('playSound', 'game_loaded');
 		//play appropriate song for street (or just highlands for now)
 		await audio.setSong('highlands');
 
@@ -63,8 +60,7 @@ class Game
 	}
 
 	// GAME LOOP //
-	loop(num delta)
-	{
+	loop(num delta) {
 		//UserTag loopTag = new UserTag('gameloop');
 		//UserTag previousTag = loopTag.makeCurrent();
 
@@ -72,10 +68,8 @@ class Game
 		lastTime = delta;
 
 		//if the gamepad api isn't supported, don't continue to try to get updates from it
-		if(!ignoreGamepads)
-		{
-			try
-			{
+		if(!ignoreGamepads) {
+			try {
 				//UserTag gamepadTag = new UserTag('gamepad');
 				//UserTag prev = gamepadTag.makeCurrent();
 
@@ -83,8 +77,7 @@ class Game
 
 				//prev.makeCurrent();
 			}
-			catch(err)
-			{
+			catch(err) {
 				ignoreGamepads = true;
 				print('Sorry, this browser does not support the gamepad API');
 			}
