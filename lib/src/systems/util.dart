@@ -120,15 +120,15 @@ String getRequirementString(List<Map> requires)
 sendAction(String methodName, String entityId, [Map arguments])
 {
 	if(methodName == null || methodName.trim == "") {
-		log("methodName must be provided, got: '$methodName'");
+		log("[Server Communication] methodName must be provided, got: '$methodName'");
 		return;
 	}
 	if(entityId == null || entityId.trim == "") {
-		log("entityId must be provided, got: '$entityId'");
+		log("[Server Communication] entityId must be provided, got: '$entityId'");
 		return;
 	}
 
-	log("sending $methodName to entity: $entityId (${entities[entityId].runtimeType}) with arguments: $arguments");
+	log("[Server Communication] Sending $methodName to entity: $entityId (${entities[entityId].runtimeType}) with arguments: $arguments");
 	Element entity = querySelector("#$entityId");
 	Map map = {};
 	map['callMethod'] = methodName;

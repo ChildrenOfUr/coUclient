@@ -181,7 +181,7 @@ class WeatherManager {
 			return;
 		}
 		
-		log('${currentState.toString()}: $_intensity');
+		log('[Weather] ${currentState.toString()}: $_intensity');
 
 		String precipitationClass = '';
 		if(createState == WeatherState.RAINING) {
@@ -265,12 +265,12 @@ class WeatherManager {
 			_processMessage(map);
 		});
 		socket.onClose.listen((CloseEvent e) {
-			log('weather socket closed: ${e.reason}');
+			log('[Weather] Socket closed: ${e.reason}');
 			//wait 5 seconds and try to reconnect
 			new Timer(new Duration(seconds: 5), () => _setupWebsocket());
 		});
 		socket.onError.listen((ErrorEvent e) {
-			log('Weather: error ${e.error}');
+			log('[Weather] Error ${e.error}');
 		});
 	}
 

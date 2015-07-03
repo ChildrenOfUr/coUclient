@@ -43,12 +43,12 @@ class MetabolicsService {
 			update();
 		});
 		socket.onClose.listen((CloseEvent e) {
-			log('Metabolics: Websocket closed: ${e.reason}');
+			log('[Metabolics] Websocket closed: ${e.reason}');
 			//wait 5 seconds and try to reconnect
 			new Timer(new Duration(seconds: 5), () => setupWebsocket());
 		});
 		socket.onError.listen((ErrorEvent e) {
-			log('Metabolics: error ${e.error}');
+			log('[Metabolics] Error ${e.error}');
 		});
 	}
 

@@ -27,5 +27,9 @@ class MapWindow extends Modal {
 				}
 			}
 		});
+
+    new Service(['teleportByMapWindow'], (event) {
+      this.close();
+    });
 	}
 }

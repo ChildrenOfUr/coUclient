@@ -33,7 +33,7 @@ class AuthManager {
 				setupNewUser(serverdata);
 			} else {
 				// Get our username and location from the server.
-				log('Auth: Logged in');
+				log('[AuthManager] Logged in');
 				startGame(serverdata);
 			}
 		});
@@ -46,7 +46,7 @@ class AuthManager {
 	}
 
 	void logout() {
-		log('Auth: Attempting logout');
+		log('[AuthManager] Attempting logout');
 		localStorage.remove('username');
 		_loginPanel.firebase.unauth();
 		window.location.reload();

@@ -84,6 +84,7 @@ class WorldMap {
 					if(tsid.startsWith("L")) {
 						tsid = tsid.replaceFirst("L", "G");
 					}
+          mapWindow.close();
 					streetService.requestStreet(tsid);
 					loadhubdiv(currentStreet.hub_id);
 				});

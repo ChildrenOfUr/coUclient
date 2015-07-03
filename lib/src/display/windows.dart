@@ -3,8 +3,8 @@ part of couclient;
 class WindowManager {
 	WindowManager() {
 		// Declaring all the possible popup windows
-		MapWindow map = new MapWindow();
 		SettingsWindow settings = new SettingsWindow();
+    mapWindow = new MapWindow();
 		BugWindow bugs = new BugWindow();
 		BagWindow bag = new BagWindow();
 		//VendorWindow vendor = new VendorWindow();
