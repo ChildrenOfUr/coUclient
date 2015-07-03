@@ -1,6 +1,7 @@
 part of couclient;
 
 class VendorWindow extends Modal {
+	static VendorWindow vendorWindow;
 	String id = 'shopWindow';
 	String npcId = '';
 	Element header, name, buy, sell, currants, backToSell, backToBuy, buyPlus, buyMinus;
@@ -8,7 +9,15 @@ class VendorWindow extends Modal {
 	ImageElement buyItemImage;
 	InputElement buyNum;
 
-	VendorWindow() {
+	factory VendorWindow() {
+		if(vendorWindow == null) {
+			vendorWindow = new VendorWindow._();
+		}
+
+		return vendorWindow;
+	}
+
+	VendorWindow._() {
 		prepare();
 
 		header = this.window.querySelector('header');

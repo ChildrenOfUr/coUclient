@@ -8,7 +8,7 @@ class StreetService {
 		_dataUrl = prefix + _dataUrl;
 	}
 
-	requestStreet(String StreetID) async {
+	Future requestStreet(String StreetID) async {
 		log('[StreetService] Requesting street "$StreetID"...');
 
 		HttpRequest data = await HttpRequest.request(_dataUrl + "/street", method: "POST",
@@ -21,7 +21,8 @@ class StreetService {
 			print('Error: Server refused.');
 
 		log('[StreetService] "$StreetID" loaded.');
-		await prepareStreet(serverdata['streetJSON']);
+		await _prepareStreet(serverdata['streetJSON']);
+
 		String playerList = '';
 		List<String> otherPlayers = JSON.decode(await HttpRequest.getString('http://' + Configs.utilServerAddress + '/listUsers?channel=' + currentStreet.label));
 		if(otherPlayers.length > 0) {
@@ -36,7 +37,7 @@ class StreetService {
 		}
 	}
 
-	prepareStreet(Map streetJSON) async
+	Future _prepareStreet(Map streetJSON) async
 	{
 		log('[StreetService] Assembling Street...');
 

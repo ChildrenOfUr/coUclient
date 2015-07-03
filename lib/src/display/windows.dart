@@ -7,16 +7,12 @@ class WindowManager {
 		SettingsWindow settings = new SettingsWindow();
 		BugWindow bugs = new BugWindow();
 		BagWindow bag = new BagWindow();
-		//VendorWindow vendor = new VendorWindow();
+		VendorWindow vendor = new VendorWindow();
 		MotdWindow motdWindow = new MotdWindow();
 		//GoWindow goWindow = new GoWindow();
 		CalendarWindow calendarWindow = new CalendarWindow();
 		RockWindow rockWindow = new RockWindow();
 		ItemWindow itemWindow = new ItemWindow();
-
-		new Service(['vendorWindow'], (event) {
-			vendor(event.content);
-		});
 	}
 }
 
