@@ -3,8 +3,7 @@ part of couclient;
 class VendorWindow extends Modal {
 	String id = 'shopWindow';
 	String npcId = '';
-	Element header, buy, sell, currants, backToSell, backToBuy, buyPlus, buyMinus;
-	Element buyMax, buyButton, buyItemCount, buyPriceTag, buyDescription, buyStacksTo;
+	Element header, name, buy, sell, currants, backToSell, backToBuy, buyPlus, buyMinus, buyMax, buyButton, buyItemCount, buyPriceTag, buyDescription, buyStacksTo;
 	ImageElement buyItemImage;
 	InputElement buyNum;
 
@@ -15,6 +14,7 @@ class VendorWindow extends Modal {
 		buy = this.window.querySelector('#buy');
 		sell = this.window.querySelector('#sell');
 		currants = this.window.querySelector('.qty');
+    name = this.window.querySelector(".ItemName");
 
 		backToBuy = this.window.querySelector('#buy-qty .back');
 		backToSell = this.window.querySelector('#sell-qty .back');
@@ -41,7 +41,7 @@ class VendorWindow extends Modal {
 	call(Map vendorMap, {bool sellMode:false}) {
 		npcId = vendorMap['id'];
 		print(npcId);
-		header.text = vendorMap['vendorName'];
+		header.innerHtml = '<i class="fa-li fa fa-shopping-cart"></i>' + vendorMap['vendorName'];
 		currants.text = " ${commaFormatter.format(metabolics.currants)} currants";
 
 		new List.from(buy.children)
@@ -112,6 +112,7 @@ class VendorWindow extends Modal {
 		buyItemImage.src = '${item['iconUrl']}';
 		buyDescription.text = item['description'];
 		buyPriceTag.text = "${item['price']}\u20a1";
+    name.text = item['name'];
 
 		// set up button listeners
 		buyNum.onInput.listen((_) {
@@ -125,7 +126,7 @@ class VendorWindow extends Modal {
 
 		StreamSubscription bb = buyButton.onClick.listen((_) {
 			int newValue;
-			Map actionMap = {"itemName": item['name'], "num": numToBuy};
+			Map actionMap = {"itemName": item['id'], "num": numToBuy};
 
 			if(sellMode) {
 				if(numToBuy > getNumItems(item['name']))

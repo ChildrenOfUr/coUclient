@@ -13,6 +13,7 @@ class WorldMap
   bool worldMapVisible = false;
   Element WorldMapDiv = querySelector("#WorldMapLayer");
   Element HubMabDiv = querySelector("#HubMapLayer");
+  Element HubMapFG = querySelector("#HubMapLayerFG");
 
   WorldMap(String hub_id) {
     loadhubdiv(hub_id);
@@ -40,13 +41,15 @@ class WorldMap
 
     // prepare ui elements
     view.mapTitle.text = hubInfo['name'];
-    view.mapImg.style.backgroundImage = 'url(' +hubInfo['bg']+ ')';
+    view.mapImg.style.backgroundImage = 'url(' + hubInfo['bg'] + ')';
+    HubMapFG.style.backgroundImage = "url(" + hubInfo['fg'] + ")";
     HubMabDiv.children.clear();
 
     // render
     for (Map object in hubMaps['objs'].values) {
-      // streets
       if (object['type'] == 'S') {
+        // STREETS
+
         String streetName = moteInfo[hub_id][object['tsid']];
 
         Map streetPlacement = {
@@ -65,44 +68,83 @@ class WorldMap
 
         DivElement street = new DivElement()
           ..classes.add('hm-street')
-          ..text = streetName
           ..title = "Teleport to " + streetName
+          ..text = streetName
           ..attributes.addAll(customAttributes)
           ..style.left = streetPlacement['x1'].toString() + 'px'
           ..style.top = streetPlacement['y1'].toString() + 'px'
           ..style.width = streetPlacement['length'].toString() + 'px'
           ..style.transform = 'rotate(' + streetPlacement['deg'].toString() + 'rad)';
-        print(streetName + ' ' + streetPlacement.toString());
 
         if (object['tsid'].substring(1) == currentStreet.streetData['tsid'].substring(1)) {
           // current street
           street.classes.add('hm-street-current');
         }
 
-        if (street.text.contains('Machine Room') == false) {
+        // do not show streets with this in their name
+        List<String> streetFilter = [
+          "machine room",
+          "the forgotten floor",
+          "towers"
+        ];
+        if (streetFilter.contains(street.text.toLowerCase()) == false) {
           HubMabDiv.append(street);
         }
+
+        // END STREETS
+      } else if (object['type'] == 'X') {
+        // GO CIRCLES
+
+        Map goPlacement = {
+          "x": object["x"],
+          "y": object["y"],
+          "id": object["hub_id"],
+          "name": map.data_maps_hubs[object["hub_id"]]()["name"],
+          "color": map.data_maps_hubs[object["hub_id"]]()["color"]
+        };
+        Map customAttributes = {
+          "tohub": goPlacement["id"]
+        };
+        DivElement go = new DivElement()
+          ..classes.add('hm-go')
+          ..text = 'GO'
+          ..title = 'Go to ' + goPlacement["name"]
+          ..attributes.addAll(customAttributes)
+          ..style.left = (goPlacement["x"] - 20).toString() + 'px'
+          ..style.top = (goPlacement["y"] - 20).toString() + 'px'
+          ..style.backgroundColor = goPlacement["color"];
+        HubMabDiv.append(go);
+
+        // END GO CIRCLES
       }
     }
 
-    HubMabDiv.onClick.listen((e) {
-      String tsid = e.target.attributes['tsid'];
-      view.mapLoadingScreen.className = "MapLoadingScreenIn";
-      view.mapLoadingScreen.style.opacity = "1.0";
-      minimap.containerE.hidden = true;
-      //changes first letter to match revdancatt's code - only if it starts with an L
-      if (tsid.startsWith("L")) tsid = tsid.replaceFirst("L", "G");
-      streetService.requestStreet(tsid);
-      querySelector('.hm-street.hm-street-current').classes.remove('hm-street-current');
-      new Service(['streetLoaded'], (_) {
+    HubMabDiv.onClick.first.then((e) async {
+      e.stopPropagation();
+      if (e.target.classes.contains('hm-street')) {
+        // Clicked on a street
+        String tsid = e.target.attributes['tsid'];
+        view.mapLoadingScreen.className = "MapLoadingScreenIn";
+        view.mapLoadingScreen.style.opacity = "1.0";
+        minimap.containerE.hidden = true;
+        //changes first letter to match revdancatt's code - only if it starts with an L
+        if (tsid.startsWith("L")) tsid = tsid.replaceFirst("L", "G");
+        await streetService.requestStreet(tsid);
         loadhubdiv(currentStreet.hub_id);
-      });
+      } else if (e.target.classes.contains('hm-go')) {
+        // Clicked on a GO marker
+        querySelector("body").style.cursor = "progress";
+        loadhubdiv(e.target.attributes['tohub']);
+        querySelector("body").style.cursor = "pointer";
+      }
     });
 
     HubMabDiv.classes.add('scaled');
+    HubMapFG.classes.add('scaled');
 
     worldMapVisible = false;
     HubMabDiv.hidden = false;
+    HubMapFG.hidden = false;
     WorldMapDiv.hidden = true;
   }
 
@@ -548,9 +590,13 @@ class WorldMap
         ..style.left = value['x'].toString() + 'px'
         ..style.top = value['y'].toString() + 'px'
         ..text = value['name'];
+      if (currentStreet.hub_id == key) {
+        hub.classes.add('currentlocationhub');
+      }
       WorldMapDiv.append(hub);
     });
     WorldMapDiv.hidden = false;
+    HubMapFG.hidden = true;
     worldMapVisible = true;
 
     WorldMapDiv.onClick.listen((e) {
@@ -569,5 +615,6 @@ class WorldMap
     view.mapTitle.text = map.data_maps_hubs[hub_id]()['name'];
     worldMapVisible = false;
     HubMabDiv.hidden = false;
+    HubMapFG.hidden = false;
   }
 }

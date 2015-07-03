@@ -42,11 +42,15 @@
 .hm-street {
     position: absolute;
     background-color: rgba(255, 255, 255, 0.5);
-    border-radius: 7px;
-    height: 14px;
+    border-radius: 4px;
+    height: 8px;
     text-align: center;
-    color: #444;
-    font-size: 12px;
+    font-family: "Lato", sans-serif;
+    color: #222;
+    line-height: 8px;
+    font-weight: bold;
+    font-size: 14px;
+    text-shadow: 0 0 4px white;
     cursor: pointer;
     -webkit-transform-origin: 0% 50%;
     -moz-transform-origin: 0% 50%;
@@ -63,6 +67,32 @@
 .maplayer.scaled {
     transform: scaleX(0.752631578947368) scaleY(0.710869565217391);
     transform-origin: -21px -21px 0px;
+}
+
+.hm-go {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 3px solid white;
+    color: white;
+    text-align: center;
+    font-family: "Fredoka One", "Lato", sans-serif;
+    font-size: 24px;
+    line-height: 40px;
+    cursor: pointer;
+    background-color: #aaa;
+}
+
+#HubMapLayerFG {
+    content: '';
+    width: 100%;
+    height: 100%;
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none;
 }
 
 /* Full World Map */

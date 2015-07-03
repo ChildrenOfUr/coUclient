@@ -63,7 +63,16 @@
   width:100px;
   border: 1px solid lightgray;
   border-radius: 5px;
+    float: left;
+    margin-right: 20px;
+    margin-bottom: 20px;
 }
+
+.float-right {
+    float: right;
+    width: 64%;
+}
+
 .ItemImage {
   display: block;
   margin: auto;
@@ -77,10 +86,6 @@
   font-family: 'RockoFLFBold', sans-serif;
   font-size:20px;
 }
-
-
-
-
 
 .vendorItemTooltip {
   display: none;
@@ -142,8 +147,11 @@
   right: 20px;
 }
 .ItemName {
-  font-size: 1.5em;
+  font-size: 2em;
   margin-bottom: 5px;
+    font-family: "Lato", sans-serif;
+    display: inline;
+    font-weight: bold;
 }
 .incrementDecrement {
   cursor: pointer;
@@ -168,7 +176,7 @@
 .ItemImageParent {
   text-align: center;
   background: white;
-  border: 1px solid rgb(228, 228, 228);
+  border: 1px solid lightgrey;
   border-radius: 5px;
   padding: 10px 20px;
   display: inline-block;
@@ -187,14 +195,24 @@
   margin-left: 5px;
   box-shadow: none;
 }
+
+ur-button.max {
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 10px;
+}
+
 .BuyButton {
-  display: inline-block;
+  display: block;
   margin: 0;
   box-shadow: none;
+    margin-top: 10px;
 }
 .Description {
-  margin-top: 10px;
-  margin-bottom: 15px;
+  text-align: justify;
+    clear: both;
+
 }
 .BlankSlot {
   width: 1em;
@@ -216,4 +234,7 @@
 .incrementDisabled {
   opacity: 0.3;
   cursor: not-allowed;
+}
+.ItemStack {
+    padding-top: 10px;
 }
