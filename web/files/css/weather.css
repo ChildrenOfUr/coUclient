@@ -1,8 +1,25 @@
+/* Day/Night Cycles */
+
 #weatherLayer {
     width: 100%;
     height: 100%;
     position: absolute;
     z-index: 2;
+}
+
+/* Rain/Snow */
+
+@-webkit-keyframes fall {
+    to {transform: translateY(900px);}
+}
+@-moz-keyframes fall {
+    to {transform: translateY(900px);}
+}
+@-o-keyframes fall {
+    to {transform: translateY(900px);}
+}
+@keyframes fall {
+    to {transform: translateY(900px);}
 }
 
 #cloudLayer {
@@ -12,21 +29,11 @@
     z-index: 2;
 }
 
+/* Rain */
+
 .cloudy {
     background: black;
     opacity: .3;
-}
-
-.snowy {
-    background: white;
-    box-shadow: inset 0 0 50px 20px rgba(255,255,255,0.6);
-    background: linear-gradient(to bottom,
-        rgba(255,255,255,0.1)   0%,
-        rgba(255,255,255,0.5)   90%,
-        rgba(255,255,255,0.8)   95%,
-        rgba(255,255,255,1)     100%
-    );
-    opacity: 0.9;
 }
 
 .drop {
@@ -43,6 +50,22 @@
     position: absolute;
     -webkit-animation: fall .63s linear infinite;
     -moz-animation: fall .63s linear infinite;
+    -o-animation: fall .63s linear infinite;
+    animation: fall .63s linear infinite;
+}
+
+/* Snow */
+
+.snowy {
+    background: white;
+    box-shadow: inset 0 0 50px 20px rgba(255,255,255,0.6);
+    background: linear-gradient(to bottom,
+    rgba(255,255,255,0.1)   0%,
+    rgba(255,255,255,0.5)   90%,
+    rgba(255,255,255,0.8)   95%,
+    rgba(255,255,255,1)     100%
+    );
+    opacity: 0.9;
 }
 
 .flake {
@@ -53,15 +76,22 @@
     background-color: white;
     -webkit-animation: fall 2s linear infinite;
     -moz-animation: fall 2s linear infinite;
+    -o-animation: fall 2s linear infinite;
+    animation: fall 2s linear infinite;
 }
 
-/* animate the drops*/
-@-webkit-keyframes fall {
-    to {transform: translateY(900px);}
+/* Urthquakes */
+
+@-webkit-keyframes urthquake {
+    0%      {   transform: translateX(-8px) translateY(-4px);   }
+    100%    {   transform: translateX(8px) translateY(8px);     }
 }
-@-moz-keyframes fall {
-    to {transform: translateY(900px);}
+
+.urthquake {
+    -webkit-animation: urthquake 0.08s linear infinite;
 }
+
+/* Settings */
 
 paper-radio-button::shadow #ink[checked] {
     color: #4b2e4c;

@@ -1,80 +1,101 @@
-	#cal-container,
-	#cal-container * {
-		font-family: "Lato", sans-serif;
-	}
+#cal-container,
+#cal-container * {
+    font-family: "Lato", sans-serif;
+}
 
-	/* Current Time Display */
+/* Current Time Display */
 
-	#calendar-time {
-		color: #8f7590;
-		font-size: 20px;
-		font-weight: bold;
-		padding-top: 5px;
-		text-align: center;
-	}
+#calendar-time {
+    color: #8f7590;
+    font-size: 20px;
+    font-weight: bold;
+    padding-top: 5px;
+    text-align: center;
+}
 
-	#calendar-time > span {
-		color: #4b2e4c;
-	}
+#calendar-time > span {
+    color: #4b2e4c;
+}
 
-	/* Calendar Display */
+/* Calendar Display */
 
-	#calendar-view {
-		margin-top: 10px;
-		width: 100%;
-		height: 275px;
-		overflow-y: scroll;
-	}
+#calendar-view {
+    margin-top: 10px;
+    width: 100%;
+    height: 275px;
+    overflow-y: scroll;
+}
 
-	.month {
-		display: flex;
-		flex-direction: column;
-	}
+.month {
+    display: flex;
+    flex-direction: column;
+}
 
-	.month-name {
-		margin: 3px;
-		font-size: 20px;
-		font-weight: bold;
-		text-align: center;
-		padding: 3px;
-	}
+.month-name {
+    margin: 3px;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    padding: 3px;
+}
 
-	.week {
-		flex: 1;
-		display: flex;
-		flex-direction: row;
-	}
+.week {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+}
 
-	.day:empty {
-		border: 1px solid rgba(0, 0, 0, 0);
-	}
+.day:empty {
+    border: 1px solid rgba(0, 0, 0, 0);
+}
 
-	.day {
-		flex: 1;
-		padding: 5px;
-		margin: 3px;
-		border: 1px solid #8f7590;
-		min-height: 50px;
-	}
+.day {
+    flex: 1;
+    padding: 5px;
+    margin: 3px;
+    border: 1px solid #8f7590;
+    min-height: 50px;
+}
 
-	.day.today {
-		background: rgba(75, 46, 76, 0.2);
-		border: 1px solid #4b2e4c;
-	}
+.day.today {
+    background: rgba(75, 46, 76, 0.2);
+    border: 1px solid #4b2e4c;
+}
 
-	.day div {
-		border: 1px solid #8f7590;
-		position: relative;
-		top: -6px;
-		left: -6px;
-		display: inline-block;
-		padding: 2px;
-		width: 18px;
-		text-align: center;
-	}
+.day div {
+    border: 1px solid #8f7590;
+    position: relative;
+    top: -6px;
+    left: -6px;
+    display: inline-block;
+    padding: 2px;
+    width: 18px;
+    text-align: center;
+}
 
-	.day:empty div {
-		display: none;
-		width: 0;
-		height: 0;
-	}
+.day:empty div {
+    display: none;
+    width: 0;
+    height: 0;
+}
+
+#cal-nothing {
+    padding-top: 15px;
+    font-size: 40px;
+    text-align: center;
+}
+
+#cal-nothing p {
+    color: inherit;
+    font-size: inherit;
+}
+
+p.italic {
+    font-style: italic;
+}
+
+#cal-nothing img {
+    width: 125px;
+    height: 125px;
+    margin-top: 15px;
+}

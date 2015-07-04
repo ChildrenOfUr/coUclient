@@ -26,10 +26,12 @@ class Minimap {
 
 	void collapse() {
 		imageE.src = loadingImgUrl;
-		objectsE.hidden = true;
-		toggleE.querySelector('i.fa').classes.remove('fa-chevron-up');
-		toggleE.querySelector('i.fa').classes.add('fa-chevron-down');
-		collapsed = true;
+    imageE.onLoad.listen((_) {
+      objectsE.hidden = true;
+      toggleE.querySelector('i.fa').classes.remove('fa-chevron-up');
+      toggleE.querySelector('i.fa').classes.add('fa-chevron-down');
+      collapsed = true;
+    });
 	}
 
 	void expand() {

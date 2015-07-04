@@ -33,7 +33,7 @@
     text-align: center;
 }
 
-#pauseMenu p {
+#pm-nothing p {
     color: inherit;
     font-size: inherit;
     text-shadow: 0 0 10px #666;
@@ -43,7 +43,7 @@ p.italic {
     font-style: italic;
 }
 
-#pauseMenu img {
+#pm-nothing img {
     width: 225px;
     height: 225px;
     margin-top: 20px;
