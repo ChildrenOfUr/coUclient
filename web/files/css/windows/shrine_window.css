@@ -45,8 +45,15 @@
 
 #shrine-window-bottom ur-progress /deep/ #bar {
     height: 28px;
+    left: -1px;
 }
 
 #shrine-window-bottom ur-progress /deep/ #label {
     top: -26px;
+}
+
+#shrine-window-qty {
+    position: absolute;
+    top: 105px;
+    left: 205px;
 }

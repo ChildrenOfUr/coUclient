@@ -34,10 +34,13 @@ class Minimap {
 
 	void expand() {
 		imageE.src = mainImgUrl;
-		objectsE.hidden = false;
-		toggleE.querySelector('i.fa').classes.remove('fa-chevron-down');
-		toggleE.querySelector('i.fa').classes.add('fa-chevron-up');
-		collapsed = false;
+    imageE.onLoad.listen((_) {
+      updateObjects();
+      objectsE.hidden = false;
+      toggleE.querySelector('i.fa').classes.remove('fa-chevron-down');
+      toggleE.querySelector('i.fa').classes.add('fa-chevron-up');
+      collapsed = false;
+    });
 	}
 
 	void changeStreet(Map street) {
