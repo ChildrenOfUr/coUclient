@@ -44,6 +44,7 @@ class Mailbox extends PolymerElement {
 	}
 
 	read(Event event, var detail, Element target) async {
+		refresh();
 		selected = "read";
 		int id = int.parse(target.attributes['data-message-id']);
 		Mail message = messages.singleWhere((Mail m) => m.id == id);
@@ -52,22 +53,29 @@ class Mailbox extends PolymerElement {
 		fromBody = message.body;
 		fromId = message.id;
 		fromCurrants = message.currants;
+		currants_taken = message.currants_taken;
 		if(fromCurrants > 0) {
-			if (message.currants_taken) {
+			// currants sent with message
+			if (currants_taken) {
+				// server knows currants are already taken
 				currantDisplay.classes.add('taken');
 				currants_taken = true;
 			} else {
+				// not yet taken
 				currants_taken = false;
 				currantDisplay.classes.remove('taken');
+				// take currants on click
 				currantDisplay.onClick.first.then((_) async {
 					await postRequest(serverAddress + '/collectCurrants', encode(message), encode:false);
 					currantDisplay.classes.add('taken');
 					currants_taken = true;
 				});
 			}
+			// taken or not
 			currantDisplay.querySelector('#fromCurrantsNum').text = commaFormatter.format(fromCurrants).toString();
 			currantDisplay.hidden = false;
 		} else {
+			// no currants sent with message
 			currantDisplay.hidden = true;
 		}
 
@@ -94,7 +102,11 @@ class Mailbox extends PolymerElement {
 		Mail message = new Mail();
 		message.to_user = toField;
 		message.from_user = window.sessionStorage['playerName'];
-		message.body = toBody;
+		if (message.body != null) {
+			message.body = toBody;
+		} else {
+			message.body = "";
+		}
 		message.subject = toSubject;
 		message.currants = toCurrants;
 
