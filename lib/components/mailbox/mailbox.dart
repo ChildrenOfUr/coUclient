@@ -5,8 +5,9 @@ import 'dart:html';
 import 'dart:async';
 
 import "package:polymer/polymer.dart";
-import "package:couclient/configs.dart";
 import 'package:jsonx/jsonx.dart';
+import 'package:transmit/transmit.dart';
+import 'package:couclient/src/network/metabolics.dart';
 
 import "mail.dart";
 
@@ -14,19 +15,21 @@ import "mail.dart";
 class Mailbox extends PolymerElement {
 	@observable List<Mail> messages = toObservable([]);
 	@observable String selected = "inbox", toField, toSubject, toBody, fromField, fromSubject, fromBody;
-	@observable int fromId, userCurrants, toCurrants, fromCurrants;
-	String serverAddress;
+	@observable int fromId, userCurrants, toCurrants = 0;
+	@published String serverAddress;
 	@observable bool userHasMessages;
 
 	Mailbox.created() : super.created() {
-		serverAddress = 'http://${Configs.utilServerAddress}';
+		new Service(['metabolicsUpdated'],(Metabolics metabolics){
+			userCurrants = metabolics.currants;
+		});
 	}
 
 	refresh() async {
 		String user = window.sessionStorage['playerName'];
 		HttpRequest request = await postRequest(serverAddress + '/getMail', {'user':user});
-		messages = decode(JSON.decode(request.responseText), type: const TypeHelper<List<Mail>>().type);
-		if (messages.isNotEmpty) {
+		messages = decode(request.responseText, type: const TypeHelper<List<Mail>>().type);
+		if(messages.isNotEmpty) {
 			userHasMessages = true;
 			print("User's mailbox is not empty.");
 		}
@@ -42,14 +45,14 @@ class Mailbox extends PolymerElement {
 		Mail message = messages.singleWhere((Mail m) => m.id == id);
 		fromField = message.from_user;
 		fromSubject = message.subject;
-    if (fromCurrants > 0) {
-      fromBody += '\n\n<img src="../../../../files/system/icons/currant.svg" class="currant-img"> <b>' + fromCurrants.toString() + '</b>';
-    }
 		fromBody = message.body;
 		fromId = message.id;
+		if(message.currants > 0) {
+			fromBody += '\n\n<img src="../../../../files/system/icons/currant.svg" class="currant-img"> <b>' + message.currants.toString() + '</b>';
+		}
 
 		//mark message read on server
-		await postRequest(serverAddress+'/readMail',encode(message));
+		await postRequest(serverAddress + '/readMail', encode(message), encode:false);
 		refresh();
 	}
 
@@ -62,10 +65,8 @@ class Mailbox extends PolymerElement {
 	}
 
 	compose() {
-    selected = "compose";
-    //userCurrants = metabolics.currants(); //TODO
-    userCurrants = 0;
-  }
+		selected = "compose";
+	}
 
 	closeMessage() => selected = "inbox";
 
@@ -75,16 +76,16 @@ class Mailbox extends PolymerElement {
 		message.from_user = window.sessionStorage['playerName'];
 		message.body = toBody;
 		message.subject = toSubject;
-    message.currants = toCurrants;
+		message.currants = toCurrants;
 
-		HttpRequest request = await postRequest(serverAddress + '/sendMail', encode(message));
+		HttpRequest request = await postRequest(serverAddress + '/sendMail', encode(message), encode:false);
 		if(request.responseText == "OK") {
 			//clear sending fields (for next message)
 
 			toField = "";
 			toBody = "";
 			toSubject = "";
-      toCurrants = 0;
+			toCurrants = 0;
 			selected = "inbox";
 		}
 	}
@@ -95,15 +96,21 @@ class Mailbox extends PolymerElement {
 		int id = int.parse(element.attributes['data-message-id']);
 		HttpRequest request = await postRequest(serverAddress + '/deleteMail', {'id':id});
 
-		if(request.responseText == "OK")
+		if(request.responseText == "OK") {
 			messages.removeWhere((Mail m) => m.id == id);
+		}
 
-		messages = toObservable(new List.from(messages)); //list not updating without this
+		messages = toObservable(new List.from(messages));
+		//list not updating without this
 	}
 
-	Future<HttpRequest> postRequest(String url, var data, [Map requestHeaders]) {
-		if(requestHeaders == null)
+	Future<HttpRequest> postRequest(String url, var data, {Map requestHeaders : null, bool encode : true}) {
+		if(requestHeaders == null) {
 			requestHeaders = {"content-type": "application/json"};
-		return HttpRequest.request(url, method: "POST", requestHeaders:requestHeaders, sendData: JSON.encode(data));
+		}
+		if(encode) {
+			data = JSON.encode(data);
+		}
+		return HttpRequest.request(url, method: "POST", requestHeaders:requestHeaders, sendData: data);
 	}
 }

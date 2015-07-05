@@ -40,6 +40,9 @@ class ConfigsTransformer extends Transformer
 		if(newContent.contains('<ur-meters>')) {
 			newContent = newContent.replaceAll('<ur-meters>','<ur-meters serverAddress="http://$utilServerAddress">');
 		}
+		if(newContent.contains('<ur-mailbox>')) {
+			newContent = newContent.replaceAll('<ur-mailbox>','<ur-mailbox serverAddress="http://$utilServerAddress">');
+		}
 
 		AssetId id = transform.primaryInput.id;
 		transform.addOutput(new Asset.fromString(id, newContent));

@@ -20,6 +20,8 @@ import 'package:cou_toolkit/toolkit/slider/slider.dart';
 import 'package:cou_login/login/login.dart';
 import 'package:paper_elements/paper_radio_group.dart';
 
+import 'package:couclient/src/network/metabolics.dart';
+
 // LIBRARIES //
 // Used for NumberFormat
 import 'package:intl/intl.dart';
@@ -57,7 +59,7 @@ part 'package:couclient/src/network/chat.dart';
 part 'package:couclient/src/network/streetservice.dart';
 part 'package:couclient/src/network/auth.dart';
 part 'package:couclient/src/network/multiplayer.dart';
-part 'package:couclient/src/network/metabolics.dart';
+part 'package:couclient/src/network/metabolics_service.dart';
 
 // UI/UX MODULES //
 part 'package:couclient/src/display/view.dart';
