@@ -34,12 +34,15 @@ class MetabolicsService {
 	setupWebsocket() {
 		//establish a websocket connection to listen for metabolics objects coming in
 		WebSocket socket = new WebSocket(url);
-		socket.onOpen
-		.listen((_) => socket.send(JSON.encode({'username': game.username})));
+		socket.onOpen.listen((_) => socket.send(JSON.encode({'username': game.username})));
 		socket.onMessage.listen((MessageEvent event) {
 			Map map = JSON.decode(event.data);
-			if(map['collectQuoin'] != null) collectQuoin(map);
-			else playerMetabolics = decode(event.data, type:Metabolics);
+			if(map['collectQuoin'] != null) {
+				collectQuoin(map);
+			} else {
+				playerMetabolics = decode(event.data, type:Metabolics);
+				transmit('metabolicsUpdated',playerMetabolics);
+			}
 			update();
 		});
 		socket.onClose.listen((CloseEvent e) {

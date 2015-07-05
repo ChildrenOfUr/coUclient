@@ -40,6 +40,10 @@ class ShrineWindow extends Modal {
 		insertGiantName.forEach((placeholder) => placeholder.text = giantName);
 
 		int percent = favor ~/ maxFavor;
+		_setFavorProgress(percent);
+	}
+
+	void _setFavorProgress(int percent) {
 		Map<String, String> progressAttributes = {
 			'id': 'shrine-window-favor',
 			"percent": percent.toString(),
@@ -59,6 +63,8 @@ class ShrineWindow extends Modal {
 		item = new Map();
 
 		populateShrineWindow();
+
+		new Service(['metabolicsUpdated'],(metabolics) => _setFavorProgress(metabolics.favor ~/ metabolics.maxFavor));
 
 		Draggable draggable = new Draggable(querySelectorAll(".inventoryItem"), avatarHandler: new CustomAvatarHandler());
 		Dropzone dropzone = new Dropzone(dropTarget, acceptor: new Acceptor.draggables([draggable]));
