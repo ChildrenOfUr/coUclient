@@ -429,12 +429,14 @@
 }
 
 .RCItem {
-  font-family: 'Lato', sans-serif;
-  font-size:14px;
-  color: #333;
-  width: 95%;
-  border-radius: 3px;
-  border: 1px solid #eee;
+    font-family: 'Lato', sans-serif;
+    font-size: 14px;
+    color: #333;
+    width: calc(100% - 8px);
+    border-radius: 3px;
+    border: 1px solid #eee;
+    margin: 2px 0;
+    padding: 2px;
 }
 
 .RCItem:hover,
@@ -449,6 +451,7 @@
   color: grey;
   cursor: default;
   border: none;
+    pointer-events: none;
 }
 
 /* HOW MANY... SELECTOR */

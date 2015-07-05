@@ -23,64 +23,28 @@
 /* iMG Menu */
 
 #pauseMenu {
-  background-color:rgba(0,0,0,0.5);
-  padding: 30px 10px 0 10px;
-  width: calc(100% - 20px);
-}
-#pauseMenu * {
-  color:#fff;
+    background-color: rgba(0, 0, 0, 0.75);
+    color: white;
 }
 
-#pauseMenu.fa-close:hover {
-  box-shadow: 0 1px 50px 20px rgba(255,255,255,0.1);
+#pm-nothing {
+    padding-top: 100px;
+    font-size: 50px;
+    text-align: center;
 }
 
-.pm-row {
-  display: flex;
-  flex-direction: row;
-  width: calc(100% - 8px);
-  height: calc(100% - 150px);
+#pm-nothing p {
+    color: inherit;
+    font-size: inherit;
+    text-shadow: 0 0 10px #666;
 }
 
-.pm-row .pm-item {
-  flex: 1;
+p.italic {
+    font-style: italic;
 }
 
-.pm-item h1 {
-  text-align: center;
-}
-
-.pm-list {
-  overflow-y: scroll;
-  background-color: rgba(0,0,0,0.5);
-  width: calc(100% - 30px);
-  height: 100%;
-  margin: 0 10px;
-  border: 5px solid black;
-  border-radius: 8px;
-  padding: 5px;
-}
-
-.pm-list::-webkit-scrollbar {
-  width: 6px;
-}
-
-.pm-list::-webkit-scrollbar-track {
-  background: rgba(0,0,0,0.5);
-  border:none;
-}
-
-.pm-list::-webkit-scrollbar-thumb {
-  background-color: rgb(65, 139, 104);
-}
-
-.pm-list::-webkit-scrollbar-thumb:hover {
-  background-color: rgb(130, 171, 152);
-}
-
-.pm-empty {
-  text-align: center;
-  margin-top: 20%;
-  font-style: italic;
-  font-size: 30px;
+#pm-nothing img {
+    width: 225px;
+    height: 225px;
+    margin-top: 20px;
 }

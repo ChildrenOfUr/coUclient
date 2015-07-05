@@ -5,12 +5,12 @@ class ShrineWindow extends Modal {
 	String id = 'shrineWindow', giantName;
 	int favor, maxFavor;
 	String shrineId;
-	Element buttonHolder, confirmButton, cancelButton, dropTarget, favorProgress;
+	Element buttonHolder, confirmButton, cancelButton, dropTarget, favorProgress, numSelectorContainer, helpText;
 	Map item;
 
 	factory ShrineWindow(String giantName, int favor, int maxFavor, String shrineId) {
 		if(shrineWindow == null) {
-			shrineWindow = new ShrineWindow._(giantName,favor,maxFavor, shrineId);
+			shrineWindow = new ShrineWindow._(giantName, favor, maxFavor, shrineId);
 		} else {
 			shrineWindow
 				..giantName = giantName
@@ -32,6 +32,8 @@ class ShrineWindow extends Modal {
 	void resetShrineWindow() {
 		buttonHolder.style.visibility = 'hidden';
 		dropTarget.style.backgroundImage = 'none';
+		helpText.innerHtml = 'Drop an item here from your inventory to donate it to ' + giantName + ' for favor.';
+		numSelectorContainer.hidden = true;
 		item.clear();
 	}
 
@@ -47,12 +49,12 @@ class ShrineWindow extends Modal {
 		Map<String, String> progressAttributes = {
 			'id': 'shrine-window-favor',
 			"percent": percent.toString(),
-			"status": favor.toString() + " of " + maxFavor.toString() + " favor towards a currant reward"
+			"status": favor.toString() + " of " + maxFavor.toString() + " favor towards an Emblem of " + giantName
 		};
 		favorProgress.attributes = progressAttributes;
 	}
 
-	ShrineWindow._(this.giantName,this.favor,this.maxFavor,this.shrineId) {
+	ShrineWindow._(this.giantName, this.favor, this.maxFavor, this.shrineId) {
 		prepare();
 
 		buttonHolder = querySelector('#shrine-window-buttons');
@@ -60,11 +62,13 @@ class ShrineWindow extends Modal {
 		cancelButton = querySelector('#shrine-window-cancel');
 		dropTarget = querySelector("#DonateDropTarget");
 		favorProgress = querySelector("#shrine-window-favor");
+		numSelectorContainer = querySelector("#shrine-window-qty");
+		helpText = querySelector("#DonateHelp");
 		item = new Map();
 
 		populateShrineWindow();
 
-		new Service(['metabolicsUpdated'],(metabolics) => _setFavorProgress(metabolics.favor ~/ metabolics.maxFavor));
+		new Service(['metabolicsUpdated'], (metabolics) => _setFavorProgress(metabolics.favor ~/ metabolics.maxFavor));
 
 		Draggable draggable = new Draggable(querySelectorAll(".inventoryItem"), avatarHandler: new CustomAvatarHandler());
 		Dropzone dropzone = new Dropzone(dropTarget, acceptor: new Acceptor.draggables([draggable]));
@@ -72,12 +76,30 @@ class ShrineWindow extends Modal {
 			buttonHolder.style.visibility = 'visible';
 			item = JSON.decode(dropEvent.draggableElement.attributes['itemMap']);
 			dropTarget.style.backgroundImage = 'url(' + item['iconUrl'] + ')';
+			helpText.innerHtml = 'Donate how many?';
+			numSelectorContainer.hidden = false;
 		});
 
 		confirmButton.onClick.listen((_) {
-			Map actionMap = {"itemName": item['name'], "num": 1};
+			Map actionMap = {"itemType": item['itemType'], "num": 1};
 			sendAction("donate", shrineId, actionMap);
 			resetShrineWindow();
+
+			// TODO: I was trying to auto-update the favor bar
+			/// The server is running this after donation:
+			///    Map addedFavorMap = {};
+			///    map['donateComplete'] = true;
+			///    map['addedFavor'] = favAmt;
+			///    userSocket.add(JSON.encode(addedFavorMap));
+			StreamSubscription waitForNewFavor;
+			waitForNewFavor = streetSocket.onMessage.listen((e) {
+				if((JSON.decode(e.data.toString()) as Map)['donateComplete'] == true) {
+					print(e.data.toString());
+					favorProgress.attributes['percent'] += JSON.decode(e.data.toString())[''];
+					waitForNewFavor.cancel();
+				}
+			});
+			/// end my broken code
 		});
 
 		cancelButton.onClick.listen((_) {

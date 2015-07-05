@@ -14,7 +14,7 @@ import "mail.dart";
 class Mailbox extends PolymerElement {
 	@observable List<Mail> messages = toObservable([]);
 	@observable String selected = "inbox", toField, toSubject, toBody, fromField, fromSubject, fromBody;
-	@observable int fromId;
+	@observable int fromId, userCurrants, toCurrants, fromCurrants;
 	String serverAddress;
 	@observable bool userHasMessages;
 
@@ -42,6 +42,9 @@ class Mailbox extends PolymerElement {
 		Mail message = messages.singleWhere((Mail m) => m.id == id);
 		fromField = message.from_user;
 		fromSubject = message.subject;
+    if (fromCurrants > 0) {
+      fromBody += '\n\n<img src="../../../../files/system/icons/currant.svg" class="currant-img"> <b>' + fromCurrants.toString() + '</b>';
+    }
 		fromBody = message.body;
 		fromId = message.id;
 
@@ -58,7 +61,11 @@ class Mailbox extends PolymerElement {
 		selected = "compose";
 	}
 
-	compose() => selected = "compose";
+	compose() {
+    selected = "compose";
+    //userCurrants = metabolics.currants(); //TODO
+    userCurrants = 0;
+  }
 
 	closeMessage() => selected = "inbox";
 
@@ -68,6 +75,7 @@ class Mailbox extends PolymerElement {
 		message.from_user = window.sessionStorage['playerName'];
 		message.body = toBody;
 		message.subject = toSubject;
+    message.currants = toCurrants;
 
 		HttpRequest request = await postRequest(serverAddress + '/sendMail', encode(message));
 		if(request.responseText == "OK") {
@@ -76,6 +84,7 @@ class Mailbox extends PolymerElement {
 			toField = "";
 			toBody = "";
 			toSubject = "";
+      toCurrants = 0;
 			selected = "inbox";
 		}
 	}

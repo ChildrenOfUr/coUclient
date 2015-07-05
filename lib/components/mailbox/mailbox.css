@@ -19,14 +19,25 @@
     height: 190px;
 }
 
-#action_discard {
-    float: right;
-}
-
 *,
 *:active,
 *:focus {
     outline: none;
+}
+
+#sendCurrants {
+    display: inline;
+    width: 150px;
+    position: absolute;
+    right: 1px;
+    margin-bottom: 0;
+}
+
+.currant-img {
+    position: absolute;
+    right: 170px;
+    width: 32px;
+    height: 32px;
 }
 
 /* Reading */

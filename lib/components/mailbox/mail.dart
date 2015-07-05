@@ -1,7 +1,7 @@
 library mail;
 
 class Mail {
-	int id;
+	int id, currants;
 	String to_user, from_user, subject, body;
 	bool read;
 }

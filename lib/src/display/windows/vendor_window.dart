@@ -50,7 +50,11 @@ class VendorWindow extends Modal {
 	// Calling the modal with a vendorMap opens a vendor window
 	call(Map vendorMap, {bool sellMode:false}) {
 		npcId = vendorMap['id'];
-		header.innerHtml = '<i class="fa-li fa fa-shopping-cart"></i>' + vendorMap['vendorName'];
+    String windowTitle = vendorMap['vendorName'];
+    if (windowTitle.contains('Street Spirit:')) {
+      windowTitle = windowTitle.substring(15);
+    }
+		header.innerHtml = '<i class="fa-li fa fa-shopping-cart"></i>' + windowTitle;
 		currants.text = " ${commaFormatter.format(metabolics.currants)} currants";
 
 		new List.from(buy.children)

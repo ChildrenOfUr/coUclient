@@ -14,7 +14,13 @@
                     <ur-button id="shrine-window-cancel" theme="warn">Cancel</ur-button>
                 </div>
             </div>
-            <h2 id="DonateHelp">Drop an item here from your inventory to donate it to <span class="insert-giantname"></span> for favor.</h2>
+            <h2 id="DonateHelp"></h2>
+            <div id="shrine-window-qty" class="QuantityParent" hidden>
+                <i class="minus fa fa-minus"></i>
+                <input class="NumToBuy" type="number" min="1" max="99">
+                <i class="plus fa fa-plus"></i>
+                <ur-button class="max" theme="light">Max</ur-button>
+            </div>
         </div>
         <div id="shrine-window-bottom">
             <ur-progress id="shrine-window-favor" percent="0" status=""></ur-progress>
