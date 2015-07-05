@@ -406,7 +406,7 @@ void addItemToInventory(Map map) {
 }
 
 void subtractItemFromInventory(Map map) {
-	String cssName = map['name'].replaceAll(" ", "_");
+	String cssName = map['itemType'].replaceAll(" ", "_");
 	int remaining = map['count'];
 	for(Element item in view.inventory.querySelectorAll(".item-$cssName")) {
 		if(remaining < 1) break;
