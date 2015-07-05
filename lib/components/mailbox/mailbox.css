@@ -51,6 +51,39 @@
     padding-top: 10px;
 }
 
+#fromCurrants {
+    border: 2px solid grey;
+    display: inline-block;
+    padding: 5px;
+    background-color: #eee;
+    border-radius: 5px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#fromCurrants.taken {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+#fromCurrants::before {
+    content: '';
+    width: 20px;
+    height: 20px;
+    background-image: url('../../../web/files/system/icons/currant.svg');
+    display: inline-block;
+    background-size: 20px 20px;
+    position: relative;
+    top: 2px;
+    margin-right: 4px;
+}
+
+#fromCurrantsNum {
+    position: relative;
+    top: -3px;
+}
+
 /* Listing */
 
 table {

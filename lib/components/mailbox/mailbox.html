@@ -27,6 +27,7 @@
                 <h1 id="from">A message from {{fromField}}...</h1>
                 <h2 id="subject">{{fromSubject}}</h2>
                 <p id="message">{{fromBody}}</p>
+                <p id="fromCurrants" hidden><span id="fromCurrantsNum">{{fromCurrants}}</span></p>
                 <div id="read_actions">
                     <ur-button on-click="{{reply}}" data-message-id="{{fromId}}" id="btn_reply">&emsp;Reply&emsp;</ur-button>
                     <ur-button on-click="{{closeMessage}}" id="btn_close">&emsp;Close&emsp;</ur-button>

@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'dart:html';
 import 'dart:async';
 
+import 'package:intl/intl.dart';
 import "package:polymer/polymer.dart";
 import 'package:jsonx/jsonx.dart';
 import 'package:transmit/transmit.dart';
@@ -15,14 +16,17 @@ import "mail.dart";
 class Mailbox extends PolymerElement {
 	@observable List<Mail> messages = toObservable([]);
 	@observable String selected = "inbox", toField, toSubject, toBody, fromField, fromSubject, fromBody;
-	@observable int fromId, userCurrants, toCurrants = 0;
+	@observable int fromId, userCurrants, toCurrants = 0, fromCurrants;
 	@published String serverAddress;
-	@observable bool userHasMessages;
+	@observable bool userHasMessages, currants_taken;
+	Element currantDisplay;
+	NumberFormat commaFormatter = new NumberFormat("#,###");
 
 	Mailbox.created() : super.created() {
 		new Service(['metabolicsUpdated'],(Metabolics metabolics){
 			userCurrants = metabolics.currants;
 		});
+		currantDisplay = shadowRoot.querySelector("#fromCurrants");
 	}
 
 	refresh() async {
@@ -47,8 +51,24 @@ class Mailbox extends PolymerElement {
 		fromSubject = message.subject;
 		fromBody = message.body;
 		fromId = message.id;
-		if(message.currants > 0) {
-			fromBody += '\n\n<img src="../../../../files/system/icons/currant.svg" class="currant-img"> <b>' + message.currants.toString() + '</b>';
+		fromCurrants = message.currants;
+		if(fromCurrants > 0) {
+			if (message.currants_taken) {
+				currantDisplay.classes.add('taken');
+				currants_taken = true;
+			} else {
+				currants_taken = false;
+				currantDisplay.classes.remove('taken');
+				currantDisplay.onClick.first.then((_) async {
+					await postRequest(serverAddress + '/collectCurrants', encode(message), encode:false);
+					currantDisplay.classes.add('taken');
+					currants_taken = true;
+				});
+			}
+			currantDisplay.querySelector('#fromCurrantsNum').text = commaFormatter.format(fromCurrants).toString();
+			currantDisplay.hidden = false;
+		} else {
+			currantDisplay.hidden = true;
 		}
 
 		//mark message read on server
