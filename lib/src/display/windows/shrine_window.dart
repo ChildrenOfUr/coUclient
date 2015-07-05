@@ -58,14 +58,14 @@ class ShrineWindow extends Modal {
 		_setFavorProgress(percent);
 	}
 
-  void populateQtySelector(String itemName) {
+  void populateQtySelector(String itemType) {
     QtyContainer = this.window.querySelector("#shrine-window-qty");
     plusBtn = this.window.querySelector(".plus");
     minusBtn = this.window.querySelector(".minus");
     maxBtn = this.window.querySelector(".max");
     numBox = this.window.querySelector(".NumToDonate");
 
-    numBox.attributes['max'] = getNumItems(itemName).toString();
+    numBox.attributes['max'] = getNumItems(itemType).toString();
     numBox.valueAsNumber = 1;
   }
 
@@ -116,7 +116,7 @@ class ShrineWindow extends Modal {
 			helpText.innerHtml = 'Donate how many?';
 
 			numSelectorContainer.hidden = false;
-      populateQtySelector(item['name']);
+      populateQtySelector(item['itemType']);
 
       plusClicked = plusBtn.onClick.listen((_) {
         if (numBox.valueAsNumber + 1 > num.parse(numBox.max)) {
