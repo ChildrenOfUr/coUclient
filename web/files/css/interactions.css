@@ -447,11 +447,14 @@
   background-color: #F8F2E1;
 }
 
-.RCItemDisabled {
+.RCItemDisabled,
+.RCItemDisabled:hover {
   color: grey;
-  cursor: default;
-  border: none;
-    pointer-events: none;
+    background-color: transparent;
+}
+
+.RCItemDisabled:hover {
+    border: 1px solid lightgrey;
 }
 
 /* HOW MANY... SELECTOR */

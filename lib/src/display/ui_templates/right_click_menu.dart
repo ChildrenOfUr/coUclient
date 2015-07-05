@@ -54,12 +54,13 @@ class RightClickMenu {
 
 					});
 				});
-				menuitem.onMouseOver.listen((_) {
-					actionList.children.forEach((Element child) {
-						if(child != menuitem)
-							child.classes.remove("RCItemSelected");
-					});
-					menuitem.classes.add("RCItemSelected");
+
+				menuitem.onMouseOver.listen((e) {
+					e.target.classes.add("RCItemSelected");
+				});
+
+				menuitem.onMouseOut.listen((e) {
+					e.target.classes.remove("RCItemSelected");
 				});
 
 				document.onKeyUp.listen((KeyboardEvent k) {
@@ -70,7 +71,9 @@ class RightClickMenu {
 			else {
 				menuitem
 					..classes.add('RCItemDisabled')
-					..onMouseOver.listen((_) => desc.text = (option[0] as String).split("|")[4]);
+					..onMouseOver.listen((_) {
+						desc.text = (option[0] as String).split("|")[4];
+					});
 			}
 			newOptions.add(menuitem);
 		}
