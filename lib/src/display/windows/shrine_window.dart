@@ -7,6 +7,9 @@ class ShrineWindow extends Modal {
 	String shrineId;
 	Element buttonHolder, confirmButton, cancelButton, dropTarget, favorProgress, numSelectorContainer, helpText;
 	Map item;
+  StreamSubscription plusClicked, minusClicked, maxClicked;
+  NumberInputElement numBox;
+  Element QtyContainer, plusBtn, minusBtn, maxBtn;
 
 	factory ShrineWindow(String giantName, int favor, int maxFavor, String shrineId) {
 		if(shrineWindow == null) {
@@ -36,6 +39,15 @@ class ShrineWindow extends Modal {
 		helpText.innerHtml = 'Drop an item here from your inventory to donate it to ' + giantName + ' for favor.';
 		numSelectorContainer.hidden = true;
 		item.clear();
+    if (
+      plusClicked != null &&
+      minusClicked != null &&
+      maxClicked != null
+    ) {
+      plusClicked.cancel();
+      minusClicked.cancel();
+      maxClicked.cancel();
+    }
 	}
 
 	void populateShrineWindow() {
@@ -45,6 +57,17 @@ class ShrineWindow extends Modal {
 		int percent = 100 * favor ~/ maxFavor;
 		_setFavorProgress(percent);
 	}
+
+  void populateQtySelector(String itemName) {
+    QtyContainer = this.window.querySelector("#shrine-window-qty");
+    plusBtn = this.window.querySelector(".plus");
+    minusBtn = this.window.querySelector(".minus");
+    maxBtn = this.window.querySelector(".max");
+    numBox = this.window.querySelector(".NumToDonate");
+
+    numBox.attributes['max'] = getNumItems(itemName).toString();
+    numBox.valueAsNumber = 1;
+  }
 
 	void makeDraggables() {
 		Draggable draggable = new Draggable(querySelectorAll(".inventoryItem"), avatarHandler: new CustomAvatarHandler());
@@ -76,7 +99,6 @@ class ShrineWindow extends Modal {
 		item = new Map();
 
 		populateShrineWindow();
-		makeDraggables();
 
 		new Service(['favorUpdate'], (favorMap) {
 			favor = favorMap['favor'];
@@ -85,8 +107,42 @@ class ShrineWindow extends Modal {
 			_setFavorProgress(percent);
 		});
 
+		Draggable draggable = new Draggable(querySelectorAll(".inventoryItem"), avatarHandler: new CustomAvatarHandler());
+		Dropzone dropzone = new Dropzone(dropTarget, acceptor: new Acceptor.draggables([draggable]));
+		dropzone.onDrop.listen((DropzoneEvent dropEvent) {
+			buttonHolder.style.visibility = 'visible';
+			item = JSON.decode(dropEvent.draggableElement.attributes['itemMap']);
+			dropTarget.style.backgroundImage = 'url(' + item['iconUrl'] + ')';
+			helpText.innerHtml = 'Donate how many?';
+
+			numSelectorContainer.hidden = false;
+      populateQtySelector(item['name']);
+
+      plusClicked = plusBtn.onClick.listen((_) {
+        if (numBox.valueAsNumber + 1 > num.parse(numBox.max)) {
+          numBox.valueAsNumber = num.parse(numBox.max);
+        } else {
+          numBox.valueAsNumber = numBox.valueAsNumber + 1;
+        }
+      });
+
+      minusClicked = minusBtn.onClick.listen((_) {
+        numBox.valueAsNumber = numBox.valueAsNumber - 1;
+        if (numBox.valueAsNumber - 1 < num.parse(numBox.min)) {
+          numBox.valueAsNumber = num.parse(numBox.min);
+        } else {
+          numBox.valueAsNumber = numBox.valueAsNumber - 1;
+        }
+      });
+
+      maxClicked = maxBtn.onClick.listen((_) {
+        numBox.valueAsNumber = num.parse(numBox.max);
+      });
+
+		});
+
 		confirmButton.onClick.listen((_) {
-			Map actionMap = {"itemType": item['itemType'], "num": 1};
+			Map actionMap = {"itemType": item['itemType'], "num": numBox.valueAsNumber.toInt()};
 			sendAction("donate", shrineId, actionMap);
 			resetShrineWindow();
 		});

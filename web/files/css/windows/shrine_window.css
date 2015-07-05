@@ -29,6 +29,23 @@
     width: 78px;
 }
 
+#shrineWindow ur-well /deep/ .NumToDonate {
+    margin: 0 5px;
+    width: 40px;
+    text-align: center;
+}
+
+#shrineWindow ur-well /deep/ .NumToDonate::-webkit-inner-spin-button,
+#shrineWindow ur-well /deep/ .NumToDonate::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+#shrineWindow ur-well /deep/ .plus,
+#shrineWindow ur-well /deep/ .minus {
+    cursor: pointer;
+}
+
 #DonateHelp {
     max-width: 300px;
     position: relative;
@@ -56,4 +73,10 @@
     position: absolute;
     top: 105px;
     left: 205px;
+}
+
+#shrine-window-icon {
+    width: 1em;
+    top: 10px;
+    left: -45px;
 }

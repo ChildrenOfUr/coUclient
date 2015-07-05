@@ -81,16 +81,48 @@ main {
 }
 
 #topRight {
-	right: 0;
-	position: absolute;
+    right: 10px;
+    top: 10px;
+    position: absolute;
+    width: 245px;
 }
 
 #time {
-	display: inline-block;
+    background-color: #eee;
+    border-radius: 0 10px 0 0;
+    position: absolute;
+    bottom: 85px;
+    left: 20px;
+    padding: 5px;
+    z-index: 4;
+    text-align: center;
 }
 
 #time * {
     cursor: pointer;
+}
+
+#time::before,
+#time::after {
+    content: '';
+    background-image: url(../system/corner.svg);
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    position: absolute;
+    background-size: 20px;
+}
+
+#time::before {
+    left: 0;
+    top: -20px;
+    transform: rotate(90deg);
+}
+
+#time::after {
+    right: -20px;
+    transform: rotate(90deg);
+    bottom: 5px;
 }
 
 #AButton, #BButton {

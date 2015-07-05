@@ -1,20 +1,25 @@
 nav {
-  position: relative;
-  display: inline-block;
-  top: -3px;
-  right:5px;
-  transform: translateY(-50%);
-  font-size: 1.2em;
+    position: relative;
+    font-size: 1em;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 2px;
+    display: flex;
+    flex-direction: row;
 }
 
-nav * {
-  cursor: pointer;
+nav a {
+    flex: 1;
+    text-align: center;
+    padding-bottom: 5px;
+    cursor: default;
+}
+
+nav a:hover {
+    border-bottom: 2px solid #4b2e4c;
 }
 
 nav .fa {
-  height: 17px;
-}
-
-#volumeGlyph {
-  width: 17px;
+    font-size: 24px;
+    cursor: pointer;
 }
