@@ -57,6 +57,15 @@ int getNumItems(String item)
     return count;
 }
 
+int getBlankSlots() {
+  int count = 0;
+  int slots = 10;
+  view.inventory.querySelectorAll(".inventoryItem").forEach((_) {
+    count++;
+  });
+  return slots - count;
+}
+
 /**
  *
  * A simple function to capitalize the first letter of a string.
