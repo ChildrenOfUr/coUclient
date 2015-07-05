@@ -26,6 +26,7 @@ class ShrineWindow extends Modal {
 	open() {
 		resetShrineWindow();
 		populateShrineWindow();
+		makeDraggables();
 		super.open();
 	}
 
@@ -45,9 +46,21 @@ class ShrineWindow extends Modal {
 		_setFavorProgress(percent);
 	}
 
+	void makeDraggables() {
+		Draggable draggable = new Draggable(querySelectorAll(".inventoryItem"), avatarHandler: new CustomAvatarHandler());
+		Dropzone dropzone = new Dropzone(dropTarget, acceptor: new Acceptor.draggables([draggable]));
+		dropzone.onDrop.listen((DropzoneEvent dropEvent) {
+			buttonHolder.style.visibility = 'visible';
+			item = JSON.decode(dropEvent.draggableElement.attributes['itemMap']);
+			dropTarget.style.backgroundImage = 'url(' + item['iconUrl'] + ')';
+			helpText.innerHtml = 'Donate how many?';
+			numSelectorContainer.hidden = false;
+		});
+	}
+
 	void _setFavorProgress(int percent) {
-		favorProgress.setAttribute('percent',percent.toString());
-		favorProgress.setAttribute('status',"$favor of $maxFavor favor towards an Emblem of $giantName");
+		favorProgress.setAttribute('percent', percent.toString());
+		favorProgress.setAttribute('status', "$favor of $maxFavor favor towards an Emblem of $giantName");
 	}
 
 	ShrineWindow._(this.giantName, this.favor, this.maxFavor, this.shrineId) {
@@ -63,22 +76,13 @@ class ShrineWindow extends Modal {
 		item = new Map();
 
 		populateShrineWindow();
+		makeDraggables();
 
 		new Service(['favorUpdate'], (favorMap) {
 			favor = favorMap['favor'];
 			maxFavor = favorMap['maxFavor'];
 			int percent = 100 * favorMap['favor'] ~/ favorMap['maxFavor'];
 			_setFavorProgress(percent);
-		});
-
-		Draggable draggable = new Draggable(querySelectorAll(".inventoryItem"), avatarHandler: new CustomAvatarHandler());
-		Dropzone dropzone = new Dropzone(dropTarget, acceptor: new Acceptor.draggables([draggable]));
-		dropzone.onDrop.listen((DropzoneEvent dropEvent) {
-			buttonHolder.style.visibility = 'visible';
-			item = JSON.decode(dropEvent.draggableElement.attributes['itemMap']);
-			dropTarget.style.backgroundImage = 'url(' + item['iconUrl'] + ')';
-			helpText.innerHtml = 'Donate how many?';
-			numSelectorContainer.hidden = false;
 		});
 
 		confirmButton.onClick.listen((_) {

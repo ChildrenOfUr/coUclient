@@ -110,7 +110,6 @@ _setupStreetSocket(String streetName) {
 			return;
 		}
 		if(map['favorUpdate'] != null) {
-			print('favor update!');
 			transmit('favorUpdate',map);
 			return;
 		}
@@ -466,7 +465,7 @@ Future animate(ImageElement i, Map map) {
 
 void putInInventory(ImageElement img, Map map) {
 	Map i = map['item'];
-	String name = i['name'];
+	String name = i['itemType'];
 	int stacksTo = i['stacksTo'];
 	Element item;
 	bool found = false;
@@ -514,7 +513,7 @@ findNewSlot(Element item, Map map, ImageElement img) {
 	//find first free item slot
 	for(Element barSlot in view.inventory.children) {
 		if(barSlot.children.length == 0) {
-			String cssName = i['name'].replaceAll(" ", "_");
+			String cssName = i['itemType'].replaceAll(" ", "_");
 			item = new DivElement();
 
 			//determine what we need to scale the sprite image to in order to fit
@@ -533,7 +532,7 @@ findNewSlot(Element item, Map map, ImageElement img) {
 			item.style.backgroundPosition = "0 50%";
 			item.style.margin = "auto";
 			item.className = 'item-$cssName inventoryItem';
-			item.attributes['name'] = cssName;
+			item.attributes['name'] = i['name'].replaceAll(' ','');
 			item.attributes['count'] = "1";
 			item.attributes['itemMap'] = JSON.encode(i);
 

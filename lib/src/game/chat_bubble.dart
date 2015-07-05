@@ -34,7 +34,6 @@ class ChatBubble {
 			..classes.add("cb-arrow");
 
 		if(gains != null) {
-			print(gains);
 			DivElement awarded = new DivElement()..className = 'awarded';
 			gains.forEach((String metabolic, int value) {
 				if(value != 0) {

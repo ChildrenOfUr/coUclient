@@ -9,8 +9,7 @@ part of couclient;
 /**
  * Determine if Rectangle [a] intersects with [b]
  */
-bool intersect(Rectangle a, Rectangle b)
-{
+bool intersect(Rectangle a, Rectangle b) {
 	return (a.left <= b.right &&
 	        b.left <= a.right &&
 	        a.top <= b.bottom &&
@@ -20,7 +19,7 @@ bool intersect(Rectangle a, Rectangle b)
 /**
  * Log an event to the bug report window.
  **/
-log (String message) {
+log(String message) {
 	String text = message + ' ' + getUptime();
 	transmit('debug', text);
 	print('$text');
@@ -30,11 +29,11 @@ log (String message) {
  * Get how long the window has been open.
  **/
 String getUptime() {
-  if (startTime == null)
-    return '--:--';
+	if(startTime == null)
+		return '--:--';
 
-  String uptime = new DateTime.now().difference(startTime).toString().split('.')[0];
-  return uptime;
+	String uptime = new DateTime.now().difference(startTime).toString().split('.')[0];
+	return uptime;
 }
 
 
@@ -47,23 +46,22 @@ String getUptime() {
  * For example, if the player has 50 Chunks of Beryl in 3 slots, then this will return 150
  *
  **/
-int getNumItems(String item)
-{
+int getNumItems(String item) {
 	int count = 0;
-	String cssName = item.replaceAll(" ","_");
+	String cssName = item.replaceAll(" ", "_");
 	for(Element item in view.inventory.querySelectorAll(".item-$cssName"))
 		count += int.parse(item.attributes['count']);
 
-    return count;
+	return count;
 }
 
 int getBlankSlots() {
-  int count = 0;
-  int slots = 10;
-  view.inventory.querySelectorAll(".inventoryItem").forEach((_) {
-    count++;
-  });
-  return slots - count;
+	int count = 0;
+	int slots = 10;
+	view.inventory.querySelectorAll(".inventoryItem").forEach((_) {
+		count++;
+	});
+	return slots - count;
 }
 
 /**
@@ -71,9 +69,8 @@ int getBlankSlots() {
  * A simple function to capitalize the first letter of a string.
  *
  **/
-String capitalizeFirstLetter(String string)
-{
-    return string[0].toUpperCase() + string.substring(1);
+String capitalizeFirstLetter(String string) {
+	return string[0].toUpperCase() + string.substring(1);
 }
 
 /**
@@ -88,17 +85,22 @@ String capitalizeFirstLetter(String string)
  * to perform the action.
  *
  **/
-bool hasRequirements(List<Map> requires)
-{
+bool hasRequirements(List<Map> requires) {
 	//there may be one or more requirements
 	//each requirement has a number associated with it and a list of 1 or more items that fullfill it
 	//if the list is more than one, it is taken to mean that either one or the other is appropriate or a combination
-	for(Map requirement in requires)
-	{
+	for(Map requirement in requires) {
 		int have = 0;
 		int num = requirement['num'];
 		List<String> items = requirement['of'];
-		items.forEach((String item) => have += getNumItems(item));
+		items.forEach((String item) {
+			if(item == 'energy') {
+				have = metabolics.energy;
+			} else {
+				have += getNumItems(item);
+			}
+		});
+
 		if(have < num)
 			return false;
 	}
@@ -110,14 +112,13 @@ bool hasRequirements(List<Map> requires)
  * This function will generate a string that shows what the requirements are for a certain action.
  *
  **/
-String getRequirementString(List<Map> requires)
-{
+String getRequirementString(List<Map> requires) {
 	String error = "Requires:";
-	requires.forEach((Map requirement)
-	{
+	requires.forEach((Map requirement) {
 		error += " ${requirement['num']} of ${requirement['of']},";
 	});
-	return error.substring(0,error.length-1); //remove trailing comma
+	return error.substring(0, error.length - 1);
+	//remove trailing comma
 }
 
 /**
@@ -126,8 +127,7 @@ String getRequirementString(List<Map> requires)
  * with optional [arguments]
  *
  **/
-sendAction(String methodName, String entityId, [Map arguments])
-{
+sendAction(String methodName, String entityId, [Map arguments]) {
 	if(methodName == null || methodName.trim == "") {
 		log("[Server Communication] methodName must be provided, got: '$methodName'");
 		return;
@@ -141,10 +141,9 @@ sendAction(String methodName, String entityId, [Map arguments])
 	Element entity = querySelector("#$entityId");
 	Map map = {};
 	map['callMethod'] = methodName;
-	if(entity != null)
-	{
+	if(entity != null) {
 		map['id'] = entityId;
-        map['type'] = entity.className;
+		map['type'] = entity.className;
 	}
 	else
 		map['type'] = entityId;
@@ -159,8 +158,7 @@ sendAction(String methodName, String entityId, [Map arguments])
 /**
  * Get a name that will work as a css selector by replacing all invalid characters with an underscore
  **/
-String sanitizeName(String name)
-{
+String sanitizeName(String name) {
 	List<String> badChars = "! @ \$ % ^ & * ( ) + = , . / ' ; : \" ? > < [ ] \\ { } | ` #".split(" ");
 	for(String char in badChars)
 		name = name.replaceAll(char, '_');
@@ -168,11 +166,11 @@ String sanitizeName(String name)
 	return name;
 }
 
-List<String> _COLORS = ["#e85d72","#e06b56","#9d8eee","#a63924","#43761b","#4bbe2e","#d58247","#d55aef","#9b3b45","#4cc091"];
-String getUsernameColor(String username)
-{
+List<String> _COLORS = ["#e85d72", "#e06b56", "#9d8eee", "#a63924", "#43761b", "#4bbe2e", "#d58247", "#d55aef", "#9b3b45", "#4cc091"];
+
+String getUsernameColor(String username) {
 	int index = 0;
-	for (int i = 0; i < username.length; i++)
+	for(int i = 0; i < username.length; i++)
 		index += username.codeUnitAt(i);
 
 	return COLORS[index % (COLORS.length - 1)];

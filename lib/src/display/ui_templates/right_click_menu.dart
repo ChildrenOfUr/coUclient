@@ -41,8 +41,7 @@ class RightClickMenu {
 				..classes.add('RCItem')
 				..text = (option[0] as String).split("|")[0];
 			if((option[0] as String).split("|")[3] == "true") {
-				menuitem
-					..onClick.listen((_) {
+				menuitem.onClick.listen((_) {
 					int timeRequired = int.parse((option[0] as String).split("|")[2]);
 
 					new ActionBubble(option, timeRequired)
@@ -54,8 +53,8 @@ class RightClickMenu {
 						sendAction((option[0] as String).split("|")[0].toLowerCase(), option[1], arguments);
 
 					});
-				})
-					..onMouseOver.listen((_) {
+				});
+				menuitem.onMouseOver.listen((_) {
 					actionList.children.forEach((Element child) {
 						if(child != menuitem)
 							child.classes.remove("RCItemSelected");
