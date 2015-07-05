@@ -41,7 +41,7 @@ class MetabolicsService {
 				collectQuoin(map);
 			} else {
 				playerMetabolics = decode(event.data, type:Metabolics);
-				transmit('metabolicsUpdated',playerMetabolics);
+				transmit('metabolicsUpdated', playerMetabolics);
 			}
 			update();
 		});

@@ -41,17 +41,13 @@ class ShrineWindow extends Modal {
 		List<Element> insertGiantName = querySelectorAll(".insert-giantname").toList();
 		insertGiantName.forEach((placeholder) => placeholder.text = giantName);
 
-		int percent = favor ~/ maxFavor;
+		int percent = 100 * favor ~/ maxFavor;
 		_setFavorProgress(percent);
 	}
 
 	void _setFavorProgress(int percent) {
-		Map<String, String> progressAttributes = {
-			'id': 'shrine-window-favor',
-			"percent": percent.toString(),
-			"status": favor.toString() + " of " + maxFavor.toString() + " favor towards an Emblem of " + giantName
-		};
-		favorProgress.attributes = progressAttributes;
+		favorProgress.setAttribute('percent',percent.toString());
+		favorProgress.setAttribute('status',"$favor of $maxFavor favor towards an Emblem of $giantName");
 	}
 
 	ShrineWindow._(this.giantName, this.favor, this.maxFavor, this.shrineId) {
@@ -68,7 +64,12 @@ class ShrineWindow extends Modal {
 
 		populateShrineWindow();
 
-		new Service(['metabolicsUpdated'], (metabolics) => _setFavorProgress(metabolics.favor ~/ metabolics.maxFavor));
+		new Service(['favorUpdate'], (favorMap) {
+			favor = favorMap['favor'];
+			maxFavor = favorMap['maxFavor'];
+			int percent = 100 * favorMap['favor'] ~/ favorMap['maxFavor'];
+			_setFavorProgress(percent);
+		});
 
 		Draggable draggable = new Draggable(querySelectorAll(".inventoryItem"), avatarHandler: new CustomAvatarHandler());
 		Dropzone dropzone = new Dropzone(dropTarget, acceptor: new Acceptor.draggables([draggable]));
@@ -84,22 +85,6 @@ class ShrineWindow extends Modal {
 			Map actionMap = {"itemType": item['itemType'], "num": 1};
 			sendAction("donate", shrineId, actionMap);
 			resetShrineWindow();
-
-			// TODO: I was trying to auto-update the favor bar
-			/// The server is running this after donation:
-			///    Map addedFavorMap = {};
-			///    map['donateComplete'] = true;
-			///    map['addedFavor'] = favAmt;
-			///    userSocket.add(JSON.encode(addedFavorMap));
-			StreamSubscription waitForNewFavor;
-			waitForNewFavor = streetSocket.onMessage.listen((e) {
-				if((JSON.decode(e.data.toString()) as Map)['donateComplete'] == true) {
-					print(e.data.toString());
-					favorProgress.attributes['percent'] += JSON.decode(e.data.toString())[''];
-					waitForNewFavor.cancel();
-				}
-			});
-			/// end my broken code
 		});
 
 		cancelButton.onClick.listen((_) {

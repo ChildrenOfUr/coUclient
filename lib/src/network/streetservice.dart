@@ -17,23 +17,24 @@ class StreetService {
 
 		Map serverdata = JSON.decode(data.response);
 
-		if(serverdata['ok'] == 'no')
+		if(serverdata['ok'] == 'no') {
 			print('Error: Server refused.');
+		} else {
+			log('[StreetService] "$StreetID" loaded.');
+			await _prepareStreet(serverdata['streetJSON']);
 
-		log('[StreetService] "$StreetID" loaded.');
-		await _prepareStreet(serverdata['streetJSON']);
-
-		String playerList = '';
-		List<String> otherPlayers = JSON.decode(await HttpRequest.getString('http://' + Configs.utilServerAddress + '/listUsers?channel=' + currentStreet.label));
-		if(otherPlayers.length > 0) {
-			for(int i = 0; i != otherPlayers.length; i++) {
-				playerList += otherPlayers[i];
-				if(i != otherPlayers.length) {
-					playerList += ', ';
+			String playerList = '';
+			List<String> otherPlayers = JSON.decode(await HttpRequest.getString('http://' + Configs.utilServerAddress + '/listUsers?channel=' + currentStreet.label));
+			if(otherPlayers.length > 0) {
+				for(int i = 0; i != otherPlayers.length; i++) {
+					playerList += otherPlayers[i];
+					if(i != otherPlayers.length) {
+						playerList += ', ';
+					}
 				}
+				playerList = playerList.substring(0, playerList.length - 2);
+				toast("Players on this street: " + playerList);
 			}
-			playerList = playerList.substring(0, playerList.length - 2);
-			toast("Players on this street: " + playerList);
 		}
 	}
 

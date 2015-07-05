@@ -109,6 +109,11 @@ _setupStreetSocket(String streetName) {
 			new ShrineWindow(map['giantName'], map['favor'], map['maxFavor'], map['id']).open();
 			return;
 		}
+		if(map['favorUpdate'] != null) {
+			print('favor update!');
+			transmit('favorUpdate',map);
+			return;
+		}
 
 		(map["quoins"] as List).forEach((Map quoinMap) {
 			if(quoinMap["remove"] == "true") {
