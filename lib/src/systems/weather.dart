@@ -278,7 +278,6 @@ class WeatherManager {
 		WeatherState previousState = currentState;
 		_currentState = WeatherState.values[map['state']];
 
-		print(map);
 		if (currentState != previousState) {
 			_clearWeather();
 			if(currentState != WeatherState.CLEAR) {

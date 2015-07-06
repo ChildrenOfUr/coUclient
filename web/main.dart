@@ -59,6 +59,7 @@ part 'package:couclient/src/network/chat.dart';
 part 'package:couclient/src/network/streetservice.dart';
 part 'package:couclient/src/network/auth.dart';
 part 'package:couclient/src/network/multiplayer.dart';
+part 'package:couclient/src/network/item_action.dart';
 part 'package:couclient/src/network/metabolics_service.dart';
 
 // UI/UX MODULES //

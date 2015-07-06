@@ -39,7 +39,7 @@ class VendorWindow extends Modal {
 		buyDescription = this.window.querySelector('#buy-qty .Description');
 		buyStacksTo = this.window.querySelector('#buy-qty .StackNum');
 		buyPriceTag = this.window.querySelector('#buy-qty .ItemPrice');
-    amtSelector = this.window.querySelector('.QuantityParent');
+		amtSelector = this.window.querySelector('.QuantityParent');
 	}
 
 	@override
@@ -51,10 +51,10 @@ class VendorWindow extends Modal {
 	// Calling the modal with a vendorMap opens a vendor window
 	call(Map vendorMap, {bool sellMode:false}) {
 		npcId = vendorMap['id'];
-    String windowTitle = vendorMap['vendorName'];
-    if (windowTitle.contains('Street Spirit:')) {
-      windowTitle = windowTitle.substring(15);
-    }
+		String windowTitle = vendorMap['vendorName'];
+		if(windowTitle.contains('Street Spirit:')) {
+			windowTitle = windowTitle.substring(15);
+		}
 		header.innerHtml = '<i class="fa-li fa fa-shopping-cart"></i>' + windowTitle;
 		currants.text = " ${commaFormatter.format(metabolics.currants)} currants";
 
@@ -117,29 +117,29 @@ class VendorWindow extends Modal {
 		_updateNumToBuy(item, numToBuy, sellMode:sellMode);
 
 		// update the image and numbers
-    if(sellMode) {
-      amtSelector.style.opacity = 'initial';
-      amtSelector.style.pointerEvents = 'initial';
-      buyButton.style.opacity = 'initial';
-      buyButton.style.pointerEvents = 'initial';
-      buyButton.text = "Sell 1 for ${(item['price'] * .7) ~/ 1}\u20a1";
-    } else {
-      if (getBlankSlots() == 0) {
-        amtSelector.style.opacity = '0.5';
-        amtSelector.style.pointerEvents = 'none';
-        buyButton.style.opacity = '0.5';
-        buyButton.text = 'No inventory space';
-        buyButton.style.pointerEvents = 'none';
-      } else {
-        amtSelector.style.opacity = 'initial';
-        amtSelector.style.pointerEvents = 'initial';
-        buyButton.style.opacity = 'initial';
-        buyButton.style.pointerEvents = 'initial';
-        buyButton.text = "Buy 1 for ${item['price']}\u20a1";
-      }
-    }
+		if(sellMode) {
+			amtSelector.style.opacity = 'initial';
+			amtSelector.style.pointerEvents = 'initial';
+			buyButton.style.opacity = 'initial';
+			buyButton.style.pointerEvents = 'initial';
+			buyButton.text = "Sell 1 for ${(item['price'] * .7) ~/ 1}\u20a1";
+		} else {
+			if(getBlankSlots() == 0) {
+				amtSelector.style.opacity = '0.5';
+				amtSelector.style.pointerEvents = 'none';
+				buyButton.style.opacity = '0.5';
+				buyButton.text = 'No inventory space';
+				buyButton.style.pointerEvents = 'none';
+			} else {
+				amtSelector.style.opacity = 'initial';
+				amtSelector.style.pointerEvents = 'initial';
+				buyButton.style.opacity = 'initial';
+				buyButton.style.pointerEvents = 'initial';
+				buyButton.text = "Buy 1 for ${item['price']}\u20a1";
+			}
+		}
 
-		buyItemCount.text = getNumItems(item['name']).toString();
+		buyItemCount.text = getNumItems(item['itemType']).toString();
 		buyItemImage.src = '${item['iconUrl']}';
 		buyDescription.text = item['description'];
 		buyPriceTag.text = "${item['price']}\u20a1";
@@ -160,7 +160,7 @@ class VendorWindow extends Modal {
 			Map actionMap = {"itemType": item['itemType'], "num": numToBuy};
 
 			if(sellMode) {
-				if(numToBuy > getNumItems(item['name']))
+				if(numToBuy > getNumItems(item['itemType']))
 					return;
 
 				newValue = metabolics.currants + (item['price'] * numToBuy * .7) ~/ 1;
@@ -198,7 +198,7 @@ class VendorWindow extends Modal {
 			try {
 				int newNum;
 				if(sellMode)
-					newNum = min(getBlankSlots(), min((item['stacksTo']).toInt(), getNumItems(item['name'])));
+					newNum = min(getBlankSlots(), min((item['stacksTo']).toInt(), getNumItems(item['itemType'])));
 				else
 					newNum = min((item['stacksTo']).toInt(), (metabolics.currants / item['price']) ~/ 1);
 				numToBuy = _updateNumToBuy(item, newNum, sellMode:sellMode);
@@ -227,7 +227,7 @@ class VendorWindow extends Modal {
 		if(newNum >= 99) newNum = 99;
 
 		if(sellMode)
-			newNum = min(newNum, getNumItems(item['name']));
+			newNum = min(newNum, getNumItems(item['itemType']));
 
 		buyNum.valueAsNumber = newNum;
 		int value = item['price'] * newNum;

@@ -77,13 +77,14 @@ _setupStreetSocket(String streetName) {
 			Map items = map['items'] as Map<String, Map>;
 			items.forEach((String name, Map item) {
 				for(int i = 0; i < item['count']; i++) {
-					addItemToInventory({'item': item});
+					addItemToInventory({'item': item['item']});
 				}
 			});
 			return;
 		}
 		//check if we are receiving an item
 		if(map['giveItem'] != null) {
+			print(map);
 			for(int i = 0; i < map['num']; i++)
 				addItemToInventory(map);
 			return;
@@ -110,7 +111,7 @@ _setupStreetSocket(String streetName) {
 			return;
 		}
 		if(map['favorUpdate'] != null) {
-			transmit('favorUpdate',map);
+			transmit('favorUpdate', map);
 			return;
 		}
 
@@ -173,13 +174,18 @@ _setupStreetSocket(String streetName) {
 		});
 		(map['groundItems'] as List).forEach((Map itemMap) {
 			String id = itemMap['id'];
+			print('got ground item $id from server');
 			Element element = querySelector("#$id");
-			if(element == null) addItem(itemMap);
-			else {
+			if(element == null) {
+				addItem(itemMap);
+			} else {
 				if(itemMap['onGround'] == false) {
 					element.remove();
 					entities.remove(id);
-				} else element.attributes['actions'] = JSON.encode(itemMap['actions']);
+					CurrentPlayer.intersectingObjects.clear();
+				} else {
+					element.attributes['actions'] = JSON.encode(itemMap['actions']);
+				}
 			}
 		});
 	});
@@ -390,7 +396,9 @@ void addPlant(Map map) {
 }
 
 void addItem(Map map) {
-	if(currentStreet == null) return;
+	if(currentStreet == null) {
+		return;
+	}
 
 	entities[map['id']] = new GroundItem(map);
 }
@@ -532,36 +540,36 @@ findNewSlot(Element item, Map map, ImageElement img) {
 			item.style.backgroundPosition = "0 50%";
 			item.style.margin = "auto";
 			item.className = 'item-$cssName inventoryItem';
-			item.attributes['name'] = i['name'].replaceAll(' ','');
+			item.attributes['name'] = i['name'].replaceAll(' ', '');
 			item.attributes['count'] = "1";
 			item.attributes['itemMap'] = JSON.encode(i);
 
 			item.onContextMenu.listen((MouseEvent event) {
 				List<List> actions = [];
-				bool allDisabled = true;
 				if(i['actions'] != null) {
-					List<Map> actionsList = i['actions'];
-					actionsList.forEach((Map actionMap) {
-						bool enabled = actionMap['enabled'];
-						if(enabled) allDisabled = false;
+					List<Action> actionsList = decode(JSON.encode(i['actions']), type: const TypeHelper<List<Action>>().type);
+					bool enabled = false;
+					actionsList.forEach((Action action) {
+						print(action);
 						String error = "";
-						if(actionMap['requires'] != null) {
-							enabled = hasRequirements(actionMap['requires']);
-							error = getRequirementString(actionMap['requires']);
+						List<Map> requires = [];
+						action.itemRequirements.all.forEach((String item) => requires.add({'num':1, 'of':[item]}));
+						if(action.itemRequirements.any.length > 0) {
+							requires.add({'num':1, 'of':action.itemRequirements.any});
 						}
+						enabled = hasRequirements(requires);
+						error = getRequirementString(requires);
 						actions.add([
-							            capitalizeFirstLetter(actionMap['action']) +
-							            "|" +
-							            actionMap['actionWord'] +
-							            "|${actionMap['timeRequired']}|$enabled|$error",
+							            capitalizeFirstLetter(action.name) + '|' +
+							            action.name + '|0|$enabled|$error',
 							            i['itemType'],
-							            "sendAction ${actionMap['action']} ${i['id']}",
+							            "sendAction ${action.name} ${i['id']}",
 							            getDropMap(i, 1)
 						            ]);
 					});
 				}
-				if(!allDisabled) document.body.append(
-					RightClickMenu.create(event, "Options", i['description'], actions, itemName: i['name']));
+				Element menu = RightClickMenu.create(event, "Options", i['description'], actions, itemName: i['name']);
+				document.body.append(menu);
 			});
 			barSlot.append(item);
 

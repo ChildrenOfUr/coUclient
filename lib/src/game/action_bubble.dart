@@ -1,62 +1,62 @@
 part of couclient;
 
 class ActionBubble {
-  int duration;
+	int duration;
 
-  SpanElement outline = new SpanElement();
-  SpanElement fill = new SpanElement();
-  ActionBubble(List action, this.duration) {
-    // Position the action bubble
-    num posX = CurrentPlayer.posX;
-    num posY = CurrentPlayer.posY;
-    int width = CurrentPlayer.width;
-    int height = CurrentPlayer.height;
+	SpanElement outline = new SpanElement();
+	SpanElement fill = new SpanElement();
 
-    int x = posX.toInt() - width~/2;
-    int y = posY.toInt() - 60;
+	ActionBubble(List action, this.duration) {
+		// Position the action bubble
+		num posX = CurrentPlayer.posX;
+		num posY = CurrentPlayer.posY;
+		int width = CurrentPlayer.width;
+		int height = CurrentPlayer.height;
 
-    outline
-      ..text = (action[0] as String).split("|")[1]
-      ..className = "border" + " " + (action[0] as String).split("|")[1]
-      ..style.top  = '$y' 'px'
-      ..style.left = '$x' 'px'
-      ..style.zIndex = '99';
-    fill
-      ..text = (action[0] as String).split("|")[1]
-      ..className = "fill" + " " + (action[0] as String).split("|")[1]
-      ..style.transition = "width ${duration/1000}s linear"
-      ..style.top  = '$y' 'px'
-      ..style.left = '$x' 'px'
-      ..style.zIndex = '99';
+		int x = posX.toInt() - width ~/ 2;
+		int y = posY.toInt() - 60;
 
-    view.playerHolder..append(outline)..append(fill);
+		outline
+			..text = (action[0] as String).split("|")[1]
+			..className = "border" + " " + (action[0] as String).split("|")[1]
+			..style.top = '$y' 'px'
+			..style.left = '$x' 'px'
+			..style.zIndex = '99';
+		fill
+			..text = (action[0] as String).split("|")[1]
+			..className = "fill" + " " + (action[0] as String).split("|")[1]
+			..style.transition = "width ${duration / 1000}s linear"
+			..style.top = '$y' 'px'
+			..style.left = '$x' 'px'
+			..style.zIndex = '99';
 
-    //start the "fill animation"
-    fill.style.width = outline.clientWidth.toString()+"px";
-  }
+		view.playerHolder
+			..append(outline)
+			..append(fill);
 
-  Future get wait {
-    Completer completer = new Completer();
-    StreamSubscription escListener;
-    Timer miningTimer = new Timer(new Duration(milliseconds:duration+300), ()
-    {
-      outline.remove();
-      fill.remove();
-      escListener.cancel();
-      completer.complete();
-    });
+		//start the "fill animation"
+		fill.style.width = outline.clientWidth.toString() + "px";
+	}
 
-    escListener = document.onKeyUp.listen((KeyboardEvent k)
-    {
-      if(k.keyCode == 27)
-      {
-        outline.remove();
-        fill.remove();
-        escListener.cancel();
-        miningTimer.cancel();
-        completer.complete();
-      }
-    });
-    return completer.future;
-  }
+	Future get wait {
+		Completer completer = new Completer();
+		StreamSubscription escListener;
+		Timer miningTimer = new Timer(new Duration(milliseconds:duration + 300), () {
+			outline.remove();
+			fill.remove();
+			escListener.cancel();
+			completer.complete();
+		});
+
+		escListener = document.onKeyUp.listen((KeyboardEvent k) {
+			if(k.keyCode == 27) {
+				outline.remove();
+				fill.remove();
+				escListener.cancel();
+				miningTimer.cancel();
+				completer.complete();
+			}
+		});
+		return completer.future;
+	}
 }

@@ -416,18 +416,19 @@ class InputManager {
 		}
 
 		if(CurrentPlayer.intersectingObjects.length > 0 && querySelector('#RightClickMenu') == null && querySelector(".fill") == null) {
-			if(CurrentPlayer.intersectingObjects.length == 1)
-				CurrentPlayer.intersectingObjects.forEach(
-						(String id, Rectangle rect) => entities[id].interact(id));
-			else
+			if(CurrentPlayer.intersectingObjects.length == 1) {
+				CurrentPlayer.intersectingObjects.forEach((String id, Rectangle rect) => entities[id].interact(id));
+			} else {
 				createMultiEntityWindow();
+			}
 		}
 	}
 
 	void createMultiEntityWindow() {
 		Element oldWindow = querySelector("#InteractionWindow");
-		if(oldWindow != null)
+		if(oldWindow != null) {
 			oldWindow.remove();
+		}
 
 		document.body.append(InteractionWindow.create());
 	}
@@ -438,9 +439,9 @@ class InputManager {
 			window.remove();
 	}
 
-	showClickMenu(MouseEvent Click, String title, String description, List<List> options) {
+	showClickMenu(MouseEvent Click, String title, String description, List<List> options, {String itemName : ''}) {
 		hideClickMenu(querySelector('#RightClickMenu'));
-		document.body.append(RightClickMenu.create(Click, title, description, options));
+		document.body.append(RightClickMenu.create(Click, title, description, options, itemName:itemName));
 
 		Element clickMenu = querySelector('#RightClickMenu');
 		Element list = querySelector('#RCActionList');

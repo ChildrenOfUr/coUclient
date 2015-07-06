@@ -5,6 +5,10 @@ String lastXY = "";
 // Our gameloop
 update(double dt)
 {
+	if(serverDown) {
+		return;
+	}
+
 	CurrentPlayer.update(dt);
 
 	otherPlayers.forEach((String username, Player otherPlayer)

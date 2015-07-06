@@ -19,7 +19,8 @@ class GroundItem extends Entity
         	item.attributes['translatey'] = map['y'].toString();
         	item.attributes['width'] = item.width.toString();
             item.attributes['height'] = item.height.toString();
-        	item.attributes['type'] = map['name'];
+        	item.attributes['type'] = map['itemType'];
+		    item.attributes['description'] = map['description'];
         	item.attributes['actions'] = JSON.encode(map['actions']);
         	item.classes.add('groundItem');
         	item.classes.add('entity');
@@ -29,4 +30,33 @@ class GroundItem extends Entity
 	}
 
 	render(){}
+
+	@override
+	void interact(String id) {
+		Element element = querySelector("#$id");
+		List<List> actions = [];
+
+		if(element.attributes['actions'] != null) {
+			List<Action> actionsList = decode(element.attributes['actions'], type: const TypeHelper<List<Action>>().type);
+			bool enabled = false;
+			actionsList.forEach((Action action) {
+				String error = "";
+				List<Map> requires = [];
+				action.itemRequirements.all.forEach((String item) => requires.add({'num':1, 'of':[item]}));
+				if(action.itemRequirements.any.length > 0) {
+					requires.add({'num':1, 'of':action.itemRequirements.any});
+				}
+				enabled = hasRequirements(requires);
+				error = getRequirementString(requires);
+				actions.add([
+					            capitalizeFirstLetter(action.name) + '|' +
+					            '|0|$enabled|$error',
+					            id,
+					            "sendAction ${action.name} $id"
+				            ]);
+			});
+		}
+
+		inputManager.showClickMenu(null, element.attributes['type'], "Desc", actions, itemName:element.attributes['type']);
+	}
 }

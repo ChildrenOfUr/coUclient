@@ -18,7 +18,7 @@ class RightClickMenu {
 		SpanElement desc = new SpanElement()
 			..id = "ClickDesc"
 			..className = "soft"
-			..text = itemName;
+			..text = title;
 		DivElement actionList = new DivElement()
 			..id = "RCActionList";
 
@@ -26,10 +26,12 @@ class RightClickMenu {
 			infoButton.setAttribute('item-name', itemName);
 		}
 
-		if(itemName != '') menu.append(infoButton);
+		if(itemName != '') {
+			menu.append(infoButton);
+		}
 		menu.append(titleElement);
 		menu.append(br);
-		if(itemName != '') menu.append(desc);
+		menu.append(desc);
 		menu.append(actionList);
 
 		int x, y;
@@ -41,18 +43,17 @@ class RightClickMenu {
 				..classes.add('RCItem')
 				..text = (option[0] as String).split("|")[0];
 			if((option[0] as String).split("|")[3] == "true") {
-				menuitem.onClick.listen((_) {
+				menuitem.onClick.listen((_) async {
 					int timeRequired = int.parse((option[0] as String).split("|")[2]);
 
-					new ActionBubble(option, timeRequired)
-						..wait.then((_) {
+					ActionBubble actionBubble = new ActionBubble(option, timeRequired);
+					await actionBubble.wait;
 
-						Map arguments = null;
-						if(option.length > 3)
-							arguments = option[3];
-						sendAction((option[0] as String).split("|")[0].toLowerCase(), option[1], arguments);
-
-					});
+					Map arguments = null;
+					if(option.length > 3) {
+						arguments = option[3];
+					}
+					sendAction((option[0] as String).split("|")[0].toLowerCase(), option[1], arguments);
 				});
 
 				menuitem.onMouseOver.listen((e) {
@@ -67,18 +68,18 @@ class RightClickMenu {
 					if(k.keyCode == 27)
 						destroy();
 				});
-			}
-			else {
+			} else {
 				menuitem
 					..classes.add('RCItemDisabled')
 					..onMouseOver.listen((_) {
-						desc.text = (option[0] as String).split("|")[4];
-					});
+					desc.text = (option[0] as String).split("|")[4];
+				});
 			}
 			newOptions.add(menuitem);
 		}
-		if(newOptions.length > 0 && !newOptions[0].classes.contains("RCItemDisabled"))
+		if(newOptions.length > 0 && !newOptions[0].classes.contains("RCItemDisabled")) {
 			newOptions[0].classes.toggle("RCItemSelected");
+		}
 
 
 		document.body.append(menu);
