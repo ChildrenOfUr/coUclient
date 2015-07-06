@@ -70,20 +70,21 @@ class Quoin {
 	}
 
 	update(double dt) {
-		if(!ready)
+		if(!ready) {
 			return;
+		}
 
 		quoinRect = new Rectangle(left, top, canvas.width, canvas.height);
 
 		//if a player collides with us, tell the server
-		if (!hit) {
-			if (_checkPlayerCollision()) {
+		if(!hit) {
+			if(_checkPlayerCollision()) {
 
 				new Timer(new Duration(seconds: 1), () => hit = false);
 
-				if (typeString == 'mood' && metabolics.playerMetabolics.mood == metabolics.playerMetabolics.max_mood) {
+				if(typeString == 'mood' && metabolics.playerMetabolics.mood == metabolics.playerMetabolics.max_mood) {
 					toast("You tried to collect a mood quoin, but your mood was already full.");
-				} else if (typeString == 'energy' && metabolics.playerMetabolics.energy == metabolics.playerMetabolics.max_energy) {
+				} else if(typeString == 'energy' && metabolics.playerMetabolics.energy == metabolics.playerMetabolics.max_energy) {
 					toast("You tried to collect an energy quoin, but your energy tank was already full.");
 				} else {
 					_sendToServer();
@@ -99,8 +100,9 @@ class Quoin {
 	}
 
 	bool _checkPlayerCollision() {
-		if(collected || checking)
+		if(collected || checking) {
 			return false;
+		}
 
 		return intersect(CurrentPlayer.avatarRect, quoinRect);
 	}

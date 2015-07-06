@@ -84,7 +84,7 @@ class WorldMap {
 					if(tsid.startsWith("L")) {
 						tsid = tsid.replaceFirst("L", "G");
 					}
-          mapWindow.close();
+					mapWindow.close();
 					streetService.requestStreet(tsid);
 					loadhubdiv(currentStreet.hub_id);
 				});
@@ -95,21 +95,10 @@ class WorldMap {
 				}
 
 				// do not show streets with this in their name
-//				List<String> streetFilter = [
-//					"machine room",
-//					"the forgotten floor",
-//					"towers"
-//				];
-//				bool breaksFilter = true;
-//				streetFilter.forEach((String phrase) {
-//					if (street.text.contains(phrase)) {
-//						breaksFilter = true;
-//					}
-//				});
-//				if(breaksFilter) {
-//					HubMabDiv.append(street);
-//				}
-//				if(text.contains(new RegExp(r'[towers|machine room]'))){}
+				RegExp streetFilter = new RegExp(r'(towers|machine room|the forgotten floor)', caseSensitive:false);
+				if(!street.text.contains(streetFilter)) {
+					HubMabDiv.append(street);
+				}
 
 				// END STREETS
 			} else if(object['type'] == 'X') {
