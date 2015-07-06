@@ -110,6 +110,21 @@ class SettingsWindow extends Modal {
 			num volume = effectSlider.value;
 			localStorage['effectsVolume'] = volume.toString();
 		});
+
+		document.onKeyDown.listen((KeyboardEvent k) {
+			if(inputManager == null)
+				return;
+
+			if((k.keyCode == inputManager.keys["SettingsBindingPrimary"]
+			|| k.keyCode == inputManager.keys["SettingsBindingAlt"])
+			&& !inputManager.ignoreKeys) {
+				if(this.window.hidden) {
+					this.open();
+				} else {
+					this.close();
+				}
+			}
+		});
 	}
 
 	close() {

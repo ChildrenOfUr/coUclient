@@ -2,8 +2,9 @@ part of couclient;
 
 class Quoin {
 	Map <String, int> quoins = {"img":0, "mood":1, "energy":2, "currant":3, "mystery":4, "favor":5, "time":6, "quarazy":7};
+	String typeString;
 	Animation animation;
-	bool ready = false, firstRender = true, collected = false, checking = false;
+	bool ready = false, firstRender = true, collected = false, checking = false, hit = false;
 	CanvasElement canvas;
 	DivElement circle, parent;
 	Rectangle quoinRect;
@@ -16,7 +17,7 @@ class Quoin {
 
 	init(Map map) async
 	{
-		String typeString = map['type'];
+		typeString = map['type'];
 		id = map["id"];
 		int quoinValue = quoins[typeString.toLowerCase()];
 
@@ -75,11 +76,26 @@ class Quoin {
 		quoinRect = new Rectangle(left, top, canvas.width, canvas.height);
 
 		//if a player collides with us, tell the server
-		if(_checkPlayerCollision())
-			_sendToServer();
+		if (!hit) {
+			if (_checkPlayerCollision()) {
 
-		if(intersect(camera.visibleRect, quoinRect))
+				new Timer(new Duration(seconds: 1), () => hit = false);
+
+				if (typeString == 'mood' && metabolics.playerMetabolics.mood == metabolics.playerMetabolics.max_mood) {
+					toast("You tried to collect a mood quoin, but your mood was already full.");
+				} else if (typeString == 'energy' && metabolics.playerMetabolics.energy == metabolics.playerMetabolics.max_energy) {
+					toast("You tried to collect an energy quoin, but your energy tank was already full.");
+				} else {
+					_sendToServer();
+				}
+
+				hit = true;
+			}
+		}
+
+		if(intersect(camera.visibleRect, quoinRect)) {
 			animation.updateSourceRect(dt);
+		}
 	}
 
 	bool _checkPlayerCollision() {

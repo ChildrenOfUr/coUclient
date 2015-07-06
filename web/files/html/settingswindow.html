@@ -2,7 +2,7 @@
     <i class="fa-li fa fa-times close"></i>
     <header>
         <i class="fa-li fa fa-gears"></i>
-        Settings
+        Preferences
     </header>
     <article>
 
@@ -59,17 +59,27 @@
             </div>
 
             <div class="keyboardRow">
+                <span>Open Calendar</span>
+                <kbd class="KeyBindingOption" id="CalendarBindingPrimary">C</kbd>
+                <kbd class="KeyBindingOption" id="CalendarBindingAlt">C</kbd>
+            </div>
+
+            <div class="keyboardRow">
+                <span>Open Settings</span>
+                <kbd class="KeyBindingOption" id="SettingsBindingPrimary">P</kbd>
+                <kbd class="KeyBindingOption" id="SettingsBindingAlt">P</kbd>
+            </div>
+
+            <div class="keyboardRow">
                 <span>Change Focus</span>
                 <kbd class="KeyBindingOption" id="ChatFocusBindingPrimary">tab</kbd>
                 <kbd class="KeyBindingOption" id="ChatFocusBindingAlt">tab</kbd>
             </div>
 
             <div id="keyboard-presets">
-                <span>Presets: </span>
+                <span>Movement Presets: </span>
                 <ur-button id="keyboard-preset-qwerty" theme="light">Qwerty</ur-button>
-                <ur-button id="keyboard-preset-dvorak" theme="light" title="There are dozens of us! DOZENS!">
-                    Dvorak
-                </ur-button>
+                <ur-button id="keyboard-preset-dvorak" theme="light" title="There are dozens of us! DOZENS!">Dvorak</ur-button>
             </div>
 
         </div>

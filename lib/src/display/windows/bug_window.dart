@@ -26,7 +26,7 @@ class BugWindow extends Modal {
         listening = true;
         w.querySelector('ur-button').onClick.listen((_) {
           slack.Slack s = new slack.Slack(SLACK_BUG_WEBHOOK);
-          slack.Message m = new slack.Message('${view.bugReportMeta.text} \n REPORT TYPE:${view.bugReportType.value} \n ${input.value} \n ${view.bugReportEmail.value}',username:game.username);
+          slack.Message m = new slack.Message('${view.bugReportMeta.text}\n\nReport Type: ${view.bugReportType.value}\n\nComments:${input.value}\n\nEmail: ${game.email}\n', username:game.username);
           s.send(m);
           w.hidden = true;
           toast("Report sent");

@@ -180,8 +180,10 @@ class VendorWindow extends Modal {
 
 		StreamSubscription bplus = buyPlus.onClick.listen((_) {
 			try {
-				int newNum = (++buyNum.valueAsNumber).toInt();
-				numToBuy = _updateNumToBuy(item, newNum, sellMode:sellMode);
+				if (!sellMode && buyNum.valueAsNumber + 1 <= getBlankSlots()) {
+					int newNum = (++buyNum.valueAsNumber).toInt();
+					numToBuy = _updateNumToBuy(item, newNum, sellMode:sellMode);
+				}
 			}
 			catch(e) {
 			}

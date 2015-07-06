@@ -30,8 +30,10 @@ class RightClickMenu {
 			menu.append(infoButton);
 		}
 		menu.append(titleElement);
-		menu.append(br);
-		menu.append(desc);
+		if (titleElement.text != desc.text) {
+			menu.append(br);
+			menu.append(desc);
+		}
 		menu.append(actionList);
 
 		int x, y;

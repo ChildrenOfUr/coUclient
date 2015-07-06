@@ -37,6 +37,10 @@ class InputManager {
 		"ActionBindingAlt": 13,
 		"MapBindingPrimary": 77,
 		"MapBindingAlt":77,
+		"CalendarBindingPrimary": 67,
+		"CalendarBindingAlt":  67,
+		"SettingsBindingPrimary": 80,
+		"SettingsBindingAlt": 80,
 		"ChatFocusBindingPrimary": 9,
 		"ChatFocusBindingAlt": 9
 	};
@@ -169,7 +173,7 @@ class InputManager {
 			// check which preset movement keys to set & apply them
 			switch(preset) {
 				case "qwerty":
-				// set WASD
+					// set WASD
 					localStorage["LeftBindingPrimary"] = "65.97";
 					localStorage["RightBindingPrimary"] = "68.100";
 					localStorage["UpBindingPrimary"] = "87.119";
@@ -177,7 +181,7 @@ class InputManager {
 					break;
 
 				case "dvorak":
-				// set ,AOE
+					// set ,AOE
 					localStorage["LeftBindingPrimary"] = "65.97";
 					localStorage["RightBindingPrimary"] = "69.101";
 					localStorage["UpBindingPrimary"] = "188.44";

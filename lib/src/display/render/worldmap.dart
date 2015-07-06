@@ -95,14 +95,21 @@ class WorldMap {
 				}
 
 				// do not show streets with this in their name
-				List<String> streetFilter = [
-					"machine room",
-					"the forgotten floor",
-					"towers"
-				];
-				if(streetFilter.contains(street.text.toLowerCase()) == false) {
-					HubMabDiv.append(street);
-				}
+//				List<String> streetFilter = [
+//					"machine room",
+//					"the forgotten floor",
+//					"towers"
+//				];
+//				bool breaksFilter = true;
+//				streetFilter.forEach((String phrase) {
+//					if (street.text.contains(phrase)) {
+//						breaksFilter = true;
+//					}
+//				});
+//				if(breaksFilter) {
+//					HubMabDiv.append(street);
+//				}
+//				if(text.contains(new RegExp(r'[towers|machine room]'))){}
 
 				// END STREETS
 			} else if(object['type'] == 'X') {

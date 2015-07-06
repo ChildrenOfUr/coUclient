@@ -5,24 +5,7 @@ class CalendarWindow extends Modal {
 
   CalendarWindow() {
     prepare();
-    Element clockE = querySelector("#calendar-time");
     Element calendarE = querySelector("#calendar-view");
-
-    // display current date and time //
-
-    var daynum;
-
-    new Service(['timeUpdate'], (event) {
-      clockE.querySelector("#calCurrDay").text = clock.dayofweek;
-      clockE.querySelector("#calCurrTime").text = clock.time;
-      clockE.querySelector("#calCurrDate").text = clock.day + ' of ' + clock.month;
-
-      // format day for today checking //
-      String daynumtext = clock.day;
-      daynumtext = daynumtext.substring(0, daynumtext.length - 2);
-      daynum = int.parse(daynumtext);
-      assert(daynum is int);
-    });
 
     // get calendar data //
 
@@ -38,6 +21,21 @@ class CalendarWindow extends Modal {
 
     querySelector("#time").onClick.listen((_) {
       this.open();
+    });
+
+    document.onKeyDown.listen((KeyboardEvent k) {
+	    if(inputManager == null)
+		    return;
+
+	    if((k.keyCode == inputManager.keys["CalendarBindingPrimary"]
+	    || k.keyCode == inputManager.keys["CalendarBindingAlt"])
+	    && !inputManager.ignoreKeys) {
+		    if(this.window.hidden) {
+			    this.open();
+		    } else {
+			    this.close();
+		    }
+	    }
     });
   }
 }

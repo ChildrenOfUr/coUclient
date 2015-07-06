@@ -186,13 +186,13 @@ class WeatherManager {
 		String precipitationClass = '';
 		if(createState == WeatherState.RAINING) {
 			_playRainSound();
-			precipitationClass = 'drop';
+			precipitationClass = 'raindrop';
 
 			if(!_cloudLayer.classes.contains('cloudy')) {
 				_cloudLayer.classes.add('cloudy');
 			}
 		} else if (createState == WeatherState.SNOWING) {
-			precipitationClass = 'flake';
+			precipitationClass = 'snowflake';
 
 			if(!_cloudLayer.classes.contains('snowy') && _intensity != WeatherIntensity.LIGHT) {
 				_cloudLayer.classes.add('snowy');
