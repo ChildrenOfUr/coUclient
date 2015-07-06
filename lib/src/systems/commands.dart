@@ -5,7 +5,6 @@ Service errService = new Service(['err', 'debug'], (event) {
 	transmit('toast', 'Debug: ${event.content}');
 });
 
-
 // List of commandable functions
 Map<String, Function> COMMANDS = {};
 
@@ -21,25 +20,25 @@ class CommandManager {
 		};
 
 		COMMANDS
-      ..['minimap'] = updateMinimap
+			// ENABLED:
 			..['interface'] = changeInterface
+			// DEPRECATED:
+			..['setcurrants'] = setCurrants
 			..['setname'] = setName
 			..['go'] = setLocationCommand
 			..['setlocation'] = setLocationCommand
-			..['tp'] = setLocationCommand
-			..['toast'] = toast
-			..['buff'] = buff
-			..['collisions'] = toggleCollisionLines
-			..['physics'] = togglePhysics
-			..['log'] = log
-			..['setcurrants'] = setCurrants
-			..['settime'] = setTime
-			..['setweather'] = setWeather;
+			..['teleport'] = setLocationCommand
+			..['tp'] = setLocationCommand;
+		  // REMOVED OR ONLY USED WHEN TESTING:
+//			..['toast'] = toast
+//			..['buff'] = buff
+//			..['collisions'] = toggleCollisionLines
+//			..['physics'] = togglePhysics
+//			..['log'] = log
+//			..['settime'] = setTime
+//			..['setweather'] = setWeather
 	}
 }
-
-
-/////////////////////////////////// COMMAND FUNCTIONS /////////////////////////////////////////////
 
 bool parseCommand(String command) {
 	// Getting the important data
@@ -56,118 +55,9 @@ bool parseCommand(String command) {
 	}
 }
 
-// COMMAND FUNCTIONS BELOW  //
-
-// Changes the clock for the current player
-
-updateMinimap(var nothing) {
-  minimap.updateObjects();
-}
-
-setTime(String noun) {
-	transmit('timeUpdateFake',[noun]);
-	if(noun == '6:00am') {
-		transmit('newDayFake',null);
-	}
-}
-
-setWeather(String noun) {
-	if(noun == 'snow') {
-		transmit('setWeatherFake',{'state':WeatherState.SNOWING.index});
-	} else if(noun == 'rain') {
-		transmit('setWeatherFake',{'state':WeatherState.RAINING.index});
-	} else if(noun == 'clear') {
-		transmit('setWeatherFake', {'state':WeatherState.CLEAR.index});
-	}
-}
-
-// Changes the name of the current player
-
-setName(String noun) {
-	// Fix Name
-	String newName = noun.replaceAll(" ", "_");
-	String oldName = game.username;
-
-	// Is it appropriate?
-	if(containsBadCharacter(newName)) {
-		transmit('chatEvent', {
-			'channel': 'Global Chat',
-			'message': "Sorry, you can't use the following characters in your name<br>~ ! @ \$ % ^ & * ( ) + = , . / ' ; : \" ? > < [ ] \ { } | ` #"
-		});
-		return;
-	}
-
-	game.username = noun;
-	view.meters.updateNameDisplay();
-
-	// Prepare Server Message
-	Map map = new Map();
-	map["statusMessage"] = "changeName";
-	map["username"] = oldName;
-	map["newUsername"] = noun;
-	map["channel"] = 'Global Chat';
-
-	// Send new name to server
-	transmit('outgoingChatEvent', map);
-
-	toast('Name changed to ' + noun);
-}
-
-// Tests if the username is valid
-
-bool containsBadCharacter(String newName) {
-	List<String> badChars = "! @ \$ % ^ & * ( ) + = , . / ' ; : \" ? > < [ ] \\ { } | ` #".split(" ");
-	for(String char in badChars) {
-		if(newName.contains(char)) return true;
-	}
-
-	return false;
-}
-
-// Teleports the player
-
-setLocationCommand(String noun) {
-	playerTeleFrom = "console";
-	noun = noun.trim();
-	view.mapLoadingScreen.className = "MapLoadingScreenIn";
-	view.mapLoadingScreen.style.opacity = "1.0";
-  minimap.containerE.hidden = true;
-	//changes first letter to match revdancatt's code - only if it starts with an L
-	if(noun.startsWith("L")) {
-		noun = noun.replaceFirst("L", "G");
-	}
-	streetService.requestStreet(noun);
-}
-
-// Shows or hides collision lines on platforms
-
-toggleCollisionLines(var nothing) {
-	if(showCollisionLines) {
-		showCollisionLines = false;
-		hideLineCanvas();
-		toast('Collision lines hidden');
-	}
-	else {
-		showCollisionLines = true;
-		showLineCanvas();
-		toast('Collision lines shown');
-	}
-}
-
-// Toggles physics for the current player
-
-togglePhysics(var nothing) {
-	if(CurrentPlayer.doPhysicsApply) {
-		CurrentPlayer.doPhysicsApply = false;
-		toast('Physics no longer apply to you');
-	} else {
-		CurrentPlayer.doPhysicsApply = true;
-		toast('Physics apply to you');
-	}
-}
+/////////////////////////////////// ENABLED
 
 // Allows switching to desktop view on touchscreen laptops
-
 changeInterface(var type) {
 	if (type == "desktop") {
 		(querySelector("#MobileStyle") as StyleElement).disabled = true;
@@ -182,8 +72,62 @@ changeInterface(var type) {
 	}
 }
 
-// Explain why /setcurrants won't work
+/////////////////////////////////// DEPRECATED
 
-setCurrants(var amt) {
-	toast('/setcurrants ' + amt + ' does not work anymore because you can collect quoins now. Ask a dev nicely and they may give you some starting-off money.');
+setLocationCommand(_) {
+	toast('Teleporting through commands has been disabled. Click on streets on the map instead.');
 }
+
+setCurrants(_) {
+	toast('/setcurrants does not work anymore because you can collect quoins or sell things now.');
+}
+
+setName(_) {
+	toast('To change your name, click it at the top left, log in to the site, and use the Account section of your profile page.');
+}
+
+/////////////////////////////////// TESTING ONLY, ENABLE AS NEEDED
+
+//// [LOCAL ONLY] Changes the time temporarily
+//setTime(String noun) {
+//	transmit('timeUpdateFake',[noun]);
+//	if(noun == '6:00am') {
+//		transmit('newDayFake',null);
+//	}
+//}
+//
+//// [LOCAL ONLY] Changes the weather temporarily
+//setWeather(String noun) {
+//	if(noun == 'snow') {
+//		transmit('setWeatherFake',{'state':WeatherState.SNOWING.index});
+//	} else if(noun == 'rain') {
+//		transmit('setWeatherFake',{'state':WeatherState.RAINING.index});
+//	} else if(noun == 'clear') {
+//		transmit('setWeatherFake', {'state':WeatherState.CLEAR.index});
+//	}
+//}
+//
+//// [LOCAL ONLY] Shows or hides collision lines on platforms
+//toggleCollisionLines(var nothing) {
+//	if(showCollisionLines) {
+//		showCollisionLines = false;
+//		hideLineCanvas();
+//		toast('Collision lines hidden');
+//	}
+//	else {
+//		showCollisionLines = true;
+//		showLineCanvas();
+//		toast('Collision lines shown');
+//	}
+//}
+//
+//// [LOCAL ONLY] Enables 'flying'
+//togglePhysics(var nothing) {
+//	if(CurrentPlayer.doPhysicsApply) {
+//		CurrentPlayer.doPhysicsApply = false;
+//		toast('Physics no longer apply to you');
+//	} else {
+//		CurrentPlayer.doPhysicsApply = true;
+//		toast('Physics apply to you');
+//	}
+//}
