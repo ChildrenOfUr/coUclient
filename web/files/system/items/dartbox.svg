@@ -1,0 +1,501 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 744.09448819 1052.3622047"
+   id="svg5910"
+   version="1.1"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="dartbox.svg">
+  <defs
+     id="defs5912">
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="1285.0726 : 1204.3918 : 1"
+       inkscape:vp_y="-5.7089327e-13 : -5138.1606 : 0"
+       inkscape:vp_z="-1873.6924 : 836.35503 : 1"
+       inkscape:persp3d-origin="-104.20534 : 1605.4311 : 1"
+       id="perspective4227" />
+    <filter
+       style="color-interpolation-filters:sRGB;"
+       inkscape:label="Drop Shadow"
+       id="filter6528">
+      <feFlood
+         flood-opacity="1"
+         flood-color="rgb(170,170,170)"
+         result="flood"
+         id="feFlood6530" />
+      <feComposite
+         in="flood"
+         in2="SourceGraphic"
+         operator="in"
+         result="composite1"
+         id="feComposite6532" />
+      <feGaussianBlur
+         in="composite1"
+         stdDeviation="2"
+         result="blur"
+         id="feGaussianBlur6534" />
+      <feOffset
+         dx="0"
+         dy="2"
+         result="offset"
+         id="feOffset6536" />
+      <feComposite
+         in="SourceGraphic"
+         in2="offset"
+         operator="over"
+         result="composite2"
+         id="feComposite6538" />
+    </filter>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.4"
+     inkscape:cx="299.43353"
+     inkscape:cy="517.77178"
+     inkscape:document-units="px"
+     inkscape:current-layer="g6508"
+     showgrid="false"
+     inkscape:window-width="1397"
+     inkscape:window-height="826"
+     inkscape:window-x="1643"
+     inkscape:window-y="104"
+     inkscape:window-maximized="0" />
+  <metadata
+     id="metadata5915">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <g
+       sodipodi:type="inkscape:box3d"
+       id="g4229"
+       style="display:inline;opacity:1;fill:#eeeeee;fill-opacity:1;fill-rule:nonzero;stroke:#4b2e4c;stroke-width:0.05;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:0;stroke-dasharray:none;stroke-opacity:1;filter:url(#filter5854)"
+       inkscape:perspectiveID="#perspective4227"
+       inkscape:corner0="0.47762511 : 0.312171 : 0 : 1"
+       inkscape:corner7="0.41042564 : 0.25535027 : 0.094395827 : 1">
+      <path
+         sodipodi:type="inkscape:box3dside"
+         id="path4241"
+         style="fill:#eeeeee;fill-opacity:1;fill-rule:evenodd;stroke:#4b2e4c;stroke-width:0.05;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:0;stroke-dasharray:none;stroke-opacity:1"
+         inkscape:box3dsidetype="11"
+         d="m 211.64404,635.29235 -47.93515,35.15873 0,-194.0124 47.93515,-26.86525 z"
+         points="163.70889,670.45108 163.70889,476.43868 211.64404,449.57343 211.64404,635.29235 " />
+      <path
+         sodipodi:type="inkscape:box3dside"
+         id="path4231"
+         style="fill:#eeeeee;fill-opacity:1;fill-rule:evenodd;stroke:#4b2e4c;stroke-width:0.05;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:0;stroke-dasharray:none;stroke-opacity:1"
+         inkscape:box3dsidetype="6"
+         d="m 344.86257,662.07774 0,-197.58329 -133.21853,-14.92102 0,185.71892 z"
+         points="344.86257,464.49445 211.64404,449.57343 211.64404,635.29235 344.86257,662.07774 " />
+      <path
+         sodipodi:type="inkscape:box3dside"
+         id="path4233"
+         style="fill:#eeeeee;fill-opacity:1;fill-rule:evenodd;stroke:#4b2e4c;stroke-width:0.05;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:0;stroke-dasharray:none;stroke-opacity:1"
+         inkscape:box3dsidetype="5"
+         d="m 344.86257,662.07774 -44.79613,38.788 -136.35755,-30.41466 47.93515,-35.15873 z"
+         points="300.06644,700.86574 163.70889,670.45108 211.64404,635.29235 344.86257,662.07774 " />
+      <path
+         sodipodi:type="inkscape:box3dside"
+         id="path4239"
+         style="fill:#eeeeee;fill-opacity:1;fill-rule:evenodd;stroke:#4b2e4c;stroke-width:0.05;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:0;stroke-dasharray:none;stroke-opacity:1"
+         inkscape:box3dsidetype="13"
+         d="m 344.86257,464.49445 -44.79613,29.37418 -136.35755,-17.42995 47.93515,-26.86525 z"
+         points="300.06644,493.86863 163.70889,476.43868 211.64404,449.57343 344.86257,464.49445 " />
+      <path
+         sodipodi:type="inkscape:box3dside"
+         id="path4237"
+         style="fill:#eeeeee;fill-opacity:1;fill-rule:evenodd;stroke:#4b2e4c;stroke-width:0.05;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:0;stroke-dasharray:none;stroke-opacity:1"
+         inkscape:box3dsidetype="14"
+         d="m 300.06644,700.86574 0,-206.99711 -136.35755,-17.42995 0,194.0124 z"
+         points="300.06644,493.86863 163.70889,476.43868 163.70889,670.45108 300.06644,700.86574 " />
+      <path
+         sodipodi:type="inkscape:box3dside"
+         id="path4235"
+         style="fill:#eeeeee;fill-opacity:1;fill-rule:evenodd;stroke:#4b2e4c;stroke-width:0.05;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:0;stroke-dasharray:none;stroke-opacity:1"
+         inkscape:box3dsidetype="3"
+         d="m 344.86257,662.07774 -44.79613,38.788 0,-206.99711 44.79613,-29.37418 z"
+         points="300.06644,700.86574 300.06644,493.86863 344.86257,464.49445 344.86257,662.07774 " />
+    </g>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:2.32777739px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="183.56467"
+       y="428.26456"
+       id="text6548"
+       sodipodi:linespacing="125%"
+       transform="matrix(0.9400082,0.14684564,-0.01232678,1.0618948,0,0)"><tspan
+         sodipodi:role="line"
+         id="tspan6550"
+         x="183.56467"
+         y="428.26456"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1">part of couclient;</tspan><tspan
+         sodipodi:role="line"
+         x="183.56467"
+         y="431.17429"
+         id="tspan6552"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1" /><tspan
+         sodipodi:role="line"
+         x="183.56467"
+         y="434.08401"
+         id="tspan6554"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1">double timeLast = 0.0;</tspan><tspan
+         sodipodi:role="line"
+         x="183.56467"
+         y="436.99371"
+         id="tspan6556"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1">String lastXY = &quot;&quot;;</tspan><tspan
+         sodipodi:role="line"
+         x="183.56467"
+         y="439.90344"
+         id="tspan6558"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1">// Our gameloop</tspan><tspan
+         sodipodi:role="line"
+         x="183.56467"
+         y="442.81317"
+         id="tspan6560"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1">update(double dt)</tspan><tspan
+         sodipodi:role="line"
+         x="183.56467"
+         y="445.7229"
+         id="tspan6562"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1">{</tspan><tspan
+         sodipodi:role="line"
+         x="183.56467"
+         y="448.6326"
+         id="tspan6564"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1">	if(serverDown) {</tspan><tspan
+         sodipodi:role="line"
+         x="183.56467"
+         y="451.54233"
+         id="tspan6566"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1">		return;</tspan><tspan
+         sodipodi:role="line"
+         x="183.56467"
+         y="454.45206"
+         id="tspan6568"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1">	}</tspan><tspan
+         sodipodi:role="line"
+         x="183.56467"
+         y="457.36179"
+         id="tspan6570"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1" /><tspan
+         sodipodi:role="line"
+         x="183.56467"
+         y="460.27148"
+         id="tspan6572"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1">	CurrentPlayer.update(dt);</tspan><tspan
+         sodipodi:role="line"
+         x="183.56467"
+         y="463.18121"
+         id="tspan6574"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1" /><tspan
+         sodipodi:role="line"
+         x="183.56467"
+         y="466.09094"
+         id="tspan6576"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1">	otherPlayers.forEach((String username, Player otherPlayer)</tspan><tspan
+         sodipodi:role="line"
+         x="183.56467"
+         y="469.00067"
+         id="tspan6578"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1">	{</tspan><tspan
+         sodipodi:role="line"
+         x="183.56467"
+         y="471.91037"
+         id="tspan6580"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1">		if(otherPlayer.currentAnimation != null)</tspan><tspan
+         sodipodi:role="line"
+         x="183.56467"
+         y="474.8201"
+         id="tspan6582"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1">			otherPlayer.currentAnimation.updateSourceRect(dt);</tspan><tspan
+         sodipodi:role="line"
+         x="183.56467"
+         y="477.72983"
+         id="tspan6584"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1">		double x = otherPlayer.posX;</tspan><tspan
+         sodipodi:role="line"
+         x="183.56467"
+         y="480.63956"
+         id="tspan6586"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1">		double y = otherPlayer.posY;</tspan><tspan
+         sodipodi:role="line"
+         x="183.56467"
+         y="483.54926"
+         id="tspan6588"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1">		String transform = &quot;translateY(${y}px) translateX(${x}px) translateZ(0)&quot;;</tspan><tspan
+         sodipodi:role="line"
+         x="183.56467"
+         y="486.45898"
+         id="tspan6590"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1">		if(!otherPlayer.facingRight)</tspan><tspan
+         sodipodi:role="line"
+         x="183.56467"
+         y="489.36871"
+         id="tspan6592"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1">		{</tspan><tspan
+         sodipodi:role="line"
+         x="183.56467"
+         y="492.27844"
+         id="tspan6594"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1">			transform += ' scale3d(-1,1,1)';</tspan><tspan
+         sodipodi:role="line"
+         x="183.56467"
+         y="495.18817"
+         id="tspan6596"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1">			otherPlayer.playerName.style.transform = 'translateY(calc(-100% - 34px)) scale3d(-1,1,1)';</tspan><tspan
+         sodipodi:role="line"
+         x="183.56467"
+         y="498.09787"
+         id="tspan6598"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1" /><tspan
+         sodipodi:role="line"
+         x="183.56467"
+         y="501.0076"
+         id="tspan6600"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1">			if(otherPlayer.chatBubble != null)</tspan><tspan
+         sodipodi:role="line"
+         x="183.56467"
+         y="503.91733"
+         id="tspan6602"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1">				otherPlayer.chatBubble.textElement.style.transform = 'scale3d(-1,1,1)';</tspan><tspan
+         sodipodi:role="line"
+         x="183.56467"
+         y="506.82706"
+         id="tspan6604"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1">		}</tspan><tspan
+         sodipodi:role="line"
+         x="183.56467"
+         y="509.73679"
+         id="tspan6606"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1">		else</tspan><tspan
+         sodipodi:role="line"
+         x="183.56467"
+         y="512.64648"
+         id="tspan6608"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1">		{</tspan><tspan
+         sodipodi:role="line"
+         x="183.56467"
+         y="515.55615"
+         id="tspan6610"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1">			transform += ' scale3d(1,1,1)';</tspan><tspan
+         sodipodi:role="line"
+         x="183.56467"
+         y="518.46588"
+         id="tspan6612"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1">			otherPlayer.playerName.style.transform = 'translateY(calc(-100% - 34px)) scale3d(1,1,1)';</tspan><tspan
+         sodipodi:role="line"
+         x="183.56467"
+         y="521.37561"
+         id="tspan6614"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1" /><tspan
+         sodipodi:role="line"
+         x="183.56467"
+         y="524.28534"
+         id="tspan6616"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1">			if(otherPlayer.chatBubble != null)</tspan><tspan
+         sodipodi:role="line"
+         x="183.56467"
+         y="527.19507"
+         id="tspan6618"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1">				otherPlayer.chatBubble.textElement.style.transform = 'scale3d(1,1,1)';</tspan><tspan
+         sodipodi:role="line"
+         x="183.56467"
+         y="530.1048"
+         id="tspan6620"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1">		}</tspan><tspan
+         sodipodi:role="line"
+         x="183.56467"
+         y="533.01453"
+         id="tspan6622"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1">		otherPlayer.playerParentElement.style.transform = transform;</tspan><tspan
+         sodipodi:role="line"
+         x="183.56467"
+         y="535.92426"
+         id="tspan6624"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1">	});</tspan><tspan
+         sodipodi:role="line"
+         x="183.56467"
+         y="538.83392"
+         id="tspan6626"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1" /><tspan
+         sodipodi:role="line"
+         x="183.56467"
+         y="541.74365"
+         id="tspan6628"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1">	quoins.forEach((String id, Quoin quoin) =&gt; quoin.update(dt));</tspan><tspan
+         sodipodi:role="line"
+         x="183.56467"
+         y="544.65338"
+         id="tspan6630"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1">	entities.forEach((String id, Entity entity) =&gt; entity.update(dt));</tspan><tspan
+         sodipodi:role="line"
+         x="183.56467"
+         y="547.56311"
+         id="tspan6632"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1" /><tspan
+         sodipodi:role="line"
+         x="183.56467"
+         y="550.47284"
+         id="tspan6634"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1">	//update the other clients with our position &amp; street</tspan><tspan
+         sodipodi:role="line"
+         x="183.56467"
+         y="553.38257"
+         id="tspan6636"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1">	timeLast += dt;</tspan><tspan
+         sodipodi:role="line"
+         x="183.56467"
+         y="556.2923"
+         id="tspan6638"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1">	if(timeLast &gt; .03 &amp;&amp; playerSocket != null &amp;&amp; playerSocket.readyState == WebSocket.OPEN)</tspan><tspan
+         sodipodi:role="line"
+         x="183.56467"
+         y="559.20203"
+         id="tspan6640"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1">	{</tspan><tspan
+         sodipodi:role="line"
+         x="183.56467"
+         y="562.11176"
+         id="tspan6642"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1">		String xy = CurrentPlayer.posX.toString()+&quot;,&quot;+CurrentPlayer.posY.toString();</tspan><tspan
+         sodipodi:role="line"
+         x="183.56467"
+         y="565.02142"
+         id="tspan6644"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1">		if(xy == lastXY) //don't send updates when the player doesn't move - except once every 5 seconds</tspan><tspan
+         sodipodi:role="line"
+         x="183.56467"
+         y="567.93115"
+         id="tspan6646"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1">		{</tspan><tspan
+         sodipodi:role="line"
+         x="183.56467"
+         y="570.84088"
+         id="tspan6648"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1">			if(timeLast &lt; 5)</tspan><tspan
+         sodipodi:role="line"
+         x="183.56467"
+         y="573.75061"
+         id="tspan6650"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1">				return;</tspan><tspan
+         sodipodi:role="line"
+         x="183.56467"
+         y="576.66034"
+         id="tspan6652"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1">		}</tspan><tspan
+         sodipodi:role="line"
+         x="183.56467"
+         y="579.57007"
+         id="tspan6654"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1" /><tspan
+         sodipodi:role="line"
+         x="183.56467"
+         y="582.4798"
+         id="tspan6656"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1">		lastXY = xy;</tspan><tspan
+         sodipodi:role="line"
+         x="183.56467"
+         y="585.38953"
+         id="tspan6658"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1">		sendPlayerInfo();</tspan><tspan
+         sodipodi:role="line"
+         x="183.56467"
+         y="588.29919"
+         id="tspan6660"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1">		timeLast = 0.0;</tspan><tspan
+         sodipodi:role="line"
+         x="183.56467"
+         y="591.20892"
+         id="tspan6662"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1">	}</tspan><tspan
+         sodipodi:role="line"
+         x="183.56467"
+         y="594.11865"
+         id="tspan6664"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1" /><tspan
+         sodipodi:role="line"
+         x="183.56467"
+         y="597.02838"
+         id="tspan6666"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1">	//update minimap</tspan><tspan
+         sodipodi:role="line"
+         x="183.56467"
+         y="599.93811"
+         id="tspan6668"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1">	minimap.updateObjects();</tspan><tspan
+         sodipodi:role="line"
+         x="183.56467"
+         y="602.84784"
+         id="tspan6670"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1">}</tspan></text>
+    <g
+       id="g6508"
+       transform="matrix(1.0318054,0.15310674,-0.00644536,0.9682185,0.80353226,-6.0292941)"
+       style="filter:url(#filter6528)">
+      <rect
+         y="507.40457"
+         x="193.28419"
+         height="49.93573"
+         width="99.93573"
+         id="rect6494"
+         style="opacity:1;fill:#aaefe5;fill-opacity:1;fill-rule:nonzero;stroke:#4a2e4c;stroke-width:0.06426925;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:0;stroke-dasharray:none;stroke-opacity:1" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text6504"
+         y="546.07843"
+         x="205.3185"
+         style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         xml:space="preserve"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:RockoFLFBold;-inkscape-font-specification:'RockoFLFBold Bold'"
+           y="546.07843"
+           x="205.3185"
+           id="tspan6506"
+           sodipodi:role="line">Dart</tspan></text>
+      <rect
+         y="715.60535"
+         x="359.5722"
+         height="50.185135"
+         width="36.574894"
+         id="rect6494-6"
+         style="opacity:1;fill:#aaefe5;fill-opacity:1;fill-rule:nonzero;stroke:#4a2e4c;stroke-width:0.0389777;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:0;stroke-dasharray:none;stroke-opacity:1"
+         transform="matrix(0.81565826,-0.57853401,2.7433924e-5,1,0,0)" />
+    </g>
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot6540"
+       style="fill:black;stroke:none;stroke-opacity:1;stroke-width:1px;stroke-linejoin:miter;stroke-linecap:butt;fill-opacity:1;font-family:Sans;font-style:normal;font-weight:normal;font-size:40px;line-height:125%;letter-spacing:0px;word-spacing:0px"><flowRegion
+         id="flowRegion6542"><rect
+           id="rect6544"
+           width="79.64286"
+           height="158.57143"
+           x="172.5"
+           y="488.79077" /></flowRegion><flowPara
+         id="flowPara6546"></flowPara></flowRoot>  </g>
+</svg>
