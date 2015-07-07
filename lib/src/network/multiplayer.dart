@@ -174,7 +174,6 @@ _setupStreetSocket(String streetName) {
 		});
 		(map['groundItems'] as List).forEach((Map itemMap) {
 			String id = itemMap['id'];
-			print('got ground item $id from server');
 			Element element = querySelector("#$id");
 			if(element == null) {
 				addItem(itemMap);

@@ -45,7 +45,11 @@ class GroundItem extends Entity {
 					requires.add({'num':1, 'of':action.itemRequirements.any});
 				}
 				enabled = hasRequirements(requires);
-				error = getRequirementString(requires);
+				if(enabled) {
+					error = action.description;
+				} else {
+					error = getRequirementString(requires);
+				}
 				actions.add([
 					            capitalizeFirstLetter(action.name) + '|' +
 					            '|0|$enabled|$error',
