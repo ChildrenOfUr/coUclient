@@ -9,6 +9,7 @@ class ItemRequirements {
 class Action {
 	String name;
 	String description;
+	int timeRequired;
 	ItemRequirements itemRequirements = new ItemRequirements();
 	SkillRequirements skillRequirements = new SkillRequirements();
 

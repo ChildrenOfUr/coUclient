@@ -576,7 +576,7 @@ findNewSlot(Element item, Map map, ImageElement img) {
 						}
 						actions.add([
 							            capitalizeFirstLetter(action.name) + '|' +
-							            action.name + '|0|$enabled|$error',
+							            action.name + '|${action.timeRequired}|$enabled|$error',
 							            i['itemType'],
 							            "sendAction ${action.name} ${i['id']}",
 							            getDropMap(i, 1)
