@@ -59,6 +59,6 @@ class GroundItem extends Entity {
 			});
 		}
 
-		inputManager.showClickMenu(null, element.attributes['type'], "Desc", actions, itemName:element.attributes['type']);
+		inputManager.showClickMenu(null, element.attributes['type'], element.attributes['description'], actions, itemName:element.attributes['type']);
 	}
 }
