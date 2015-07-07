@@ -44,8 +44,10 @@ class RightClickMenu {
 				menuitem.onClick.listen((_) async {
 					int timeRequired = int.parse((option[0] as String).split("|")[2]);
 
-					ActionBubble actionBubble = new ActionBubble(option, timeRequired);
-					await actionBubble.wait;
+					if(timeRequired > 0) {
+						ActionBubble actionBubble = new ActionBubble(option, timeRequired);
+						await actionBubble.wait;
+					}
 
 					Map arguments = null;
 					if(option.length > 3) {
@@ -83,7 +85,7 @@ class RightClickMenu {
 
 		document.body.append(menu);
 		if(Click != null) {
-			x = Click.page.x - (menu.clientWidth / 2);
+			x = Click.page.x - (menu.clientWidth ~/ 2);
 			y = Click.page.y - (40 + (options.length * 30));
 		} else {
 			num posX = CurrentPlayer.posX, posY = CurrentPlayer.posY;
