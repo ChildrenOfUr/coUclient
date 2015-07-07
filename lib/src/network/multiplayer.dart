@@ -550,7 +550,6 @@ findNewSlot(Element item, Map map, ImageElement img) {
 					List<Action> actionsList = decode(JSON.encode(i['actions']), type: const TypeHelper<List<Action>>().type);
 					bool enabled = false;
 					actionsList.forEach((Action action) {
-						print(action);
 						String error = "";
 						List<Map> requires = [];
 						action.itemRequirements.all.forEach((String item) => requires.add({'num':1, 'of':[item]}));
@@ -558,7 +557,11 @@ findNewSlot(Element item, Map map, ImageElement img) {
 							requires.add({'num':1, 'of':action.itemRequirements.any});
 						}
 						enabled = hasRequirements(requires);
-						error = getRequirementString(requires);
+						if(enabled) {
+							error = action.description;
+						} else {
+							error = getRequirementString(requires);
+						}
 						actions.add([
 							            capitalizeFirstLetter(action.name) + '|' +
 							            action.name + '|0|$enabled|$error',
@@ -583,7 +586,9 @@ findNewSlot(Element item, Map map, ImageElement img) {
 	}
 
 	//there was no space in the player's pack, drop the item on the ground instead
-	if(!found) sendAction("drop", i['name'], getDropMap(i, 1));
+	if(!found){
+		sendAction("drop", i['name'], getDropMap(i, 1));
+	}
 }
 
 Map getDropMap(Map item, int count) {

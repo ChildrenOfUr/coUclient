@@ -473,31 +473,41 @@ class InputManager {
 	}
 
 	void selectUp(Element menu, String className) {
-		List<Element> options = menu.children;
+		List<Element> options = menu.querySelectorAll('.RCItem');
 		int removed = 0;
 		for(int i = 0; i < options.length; i++) {
-			if(options[i].classes.remove(className))
+			options[i].classes.remove('action_hover');
+			if(options[i].classes.remove(className)) {
 				removed = i;
+			}
 		}
-		if(removed == 0)
+		if(removed == 0) {
 			options[options.length - 1].classes.add(className);
-		else
+			options[options.length - 1].classes.add('action_hover');
+		} else {
 			options[removed - 1].classes.add(className);
+			options[removed - 1].classes.add('action_hover');
+		}
 
 		lastSelect = new DateTime.now();
 	}
 
 	void selectDown(Element menu, String className) {
-		List<Element> options = menu.children;
+		List<Element> options = menu.querySelectorAll('.RCItem');
 		int removed = options.length - 1;
 		for(int i = 0; i < options.length; i++) {
-			if(options[i].classes.remove(className))
+			options[i].classes.remove('action_hover');
+			if(options[i].classes.remove(className)) {
 				removed = i;
+			}
 		}
-		if(removed == options.length - 1)
+		if(removed == options.length - 1) {
 			options[0].classes.add(className);
-		else
+			options[0].classes.add('action_hover');
+		} else {
 			options[removed + 1].classes.add(className);
+			options[removed + 1].classes.add('action_hover');
+		}
 
 		lastSelect = new DateTime.now();
 	}
@@ -511,7 +521,7 @@ class InputManager {
 	}
 
 	void doAction(Element list, Element window, String className) {
-		for(Element element in list.children) {
+		for(Element element in list.querySelectorAll('.RCItem')) {
 			if(element.classes.contains(className)) {
 				element.click();
 				break;

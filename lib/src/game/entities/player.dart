@@ -151,14 +151,14 @@ class Player {
 			posX += speed * dt;
 			facingRight = true;
 			moving = true;
-			//updateLadderStatus(dt);
+			updateLadderStatus(dt);
 		}
 		else if(inputManager.leftKey == true) {
 			// moving left
 			posX -= speed * dt;
 			facingRight = false;
 			moving = true;
-			//updateLadderStatus(dt);
+			updateLadderStatus(dt);
 		}
 		else {
 			// not moving
