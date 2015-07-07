@@ -1,0 +1,982 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 744.09448819 1052.3622047"
+   id="svg5910"
+   version="1.1"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="htmlbox.svg">
+  <defs
+     id="defs5912">
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="1285.0726 : 1204.3918 : 1"
+       inkscape:vp_y="-5.7089327e-13 : -5138.1606 : 0"
+       inkscape:vp_z="-1873.6924 : 836.35503 : 1"
+       inkscape:persp3d-origin="-104.20534 : 1605.4311 : 1"
+       id="perspective4227" />
+    <filter
+       style="color-interpolation-filters:sRGB;"
+       inkscape:label="Drop Shadow"
+       id="filter6528">
+      <feFlood
+         flood-opacity="1"
+         flood-color="rgb(170,170,170)"
+         result="flood"
+         id="feFlood6530" />
+      <feComposite
+         in="flood"
+         in2="SourceGraphic"
+         operator="in"
+         result="composite1"
+         id="feComposite6532" />
+      <feGaussianBlur
+         in="composite1"
+         stdDeviation="2"
+         result="blur"
+         id="feGaussianBlur6534" />
+      <feOffset
+         dx="0"
+         dy="2"
+         result="offset"
+         id="feOffset6536" />
+      <feComposite
+         in="SourceGraphic"
+         in2="offset"
+         operator="over"
+         result="composite2"
+         id="feComposite6538" />
+    </filter>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="2.8"
+     inkscape:cx="234.90985"
+     inkscape:cy="472.63261"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1397"
+     inkscape:window-height="826"
+     inkscape:window-x="1647"
+     inkscape:window-y="90"
+     inkscape:window-maximized="0" />
+  <metadata
+     id="metadata5915">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <g
+       sodipodi:type="inkscape:box3d"
+       id="g4229"
+       style="display:inline;opacity:1;fill:#eeeeee;fill-opacity:1;fill-rule:nonzero;stroke:#4b2e4c;stroke-width:0.05;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:0;stroke-dasharray:none;stroke-opacity:1;filter:url(#filter5854)"
+       inkscape:perspectiveID="#perspective4227"
+       inkscape:corner0="0.47762511 : 0.312171 : 0 : 1"
+       inkscape:corner7="0.41042564 : 0.25535027 : 0.094395827 : 1">
+      <path
+         sodipodi:type="inkscape:box3dside"
+         id="path4241"
+         style="fill:#eeeeee;fill-opacity:1;fill-rule:evenodd;stroke:#4b2e4c;stroke-width:0.05;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:0;stroke-dasharray:none;stroke-opacity:1"
+         inkscape:box3dsidetype="11"
+         d="m 211.64404,635.29235 -47.93515,35.15873 0,-194.0124 47.93515,-26.86525 z"
+         points="163.70889,670.45108 163.70889,476.43868 211.64404,449.57343 211.64404,635.29235 " />
+      <path
+         sodipodi:type="inkscape:box3dside"
+         id="path4231"
+         style="fill:#eeeeee;fill-opacity:1;fill-rule:evenodd;stroke:#4b2e4c;stroke-width:0.05;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:0;stroke-dasharray:none;stroke-opacity:1"
+         inkscape:box3dsidetype="6"
+         d="m 344.86257,662.07774 0,-197.58329 -133.21853,-14.92102 0,185.71892 z"
+         points="344.86257,464.49445 211.64404,449.57343 211.64404,635.29235 344.86257,662.07774 " />
+      <path
+         sodipodi:type="inkscape:box3dside"
+         id="path4233"
+         style="fill:#eeeeee;fill-opacity:1;fill-rule:evenodd;stroke:#4b2e4c;stroke-width:0.05;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:0;stroke-dasharray:none;stroke-opacity:1"
+         inkscape:box3dsidetype="5"
+         d="m 344.86257,662.07774 -44.79613,38.788 -136.35755,-30.41466 47.93515,-35.15873 z"
+         points="300.06644,700.86574 163.70889,670.45108 211.64404,635.29235 344.86257,662.07774 " />
+      <path
+         sodipodi:type="inkscape:box3dside"
+         id="path4239"
+         style="fill:#eeeeee;fill-opacity:1;fill-rule:evenodd;stroke:#4b2e4c;stroke-width:0.05;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:0;stroke-dasharray:none;stroke-opacity:1"
+         inkscape:box3dsidetype="13"
+         d="m 344.86257,464.49445 -44.79613,29.37418 -136.35755,-17.42995 47.93515,-26.86525 z"
+         points="300.06644,493.86863 163.70889,476.43868 211.64404,449.57343 344.86257,464.49445 " />
+      <path
+         sodipodi:type="inkscape:box3dside"
+         id="path4237"
+         style="fill:#eeeeee;fill-opacity:1;fill-rule:evenodd;stroke:#4b2e4c;stroke-width:0.05;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:0;stroke-dasharray:none;stroke-opacity:1"
+         inkscape:box3dsidetype="14"
+         d="m 300.06644,700.86574 0,-206.99711 -136.35755,-17.42995 0,194.0124 z"
+         points="300.06644,493.86863 163.70889,476.43868 163.70889,670.45108 300.06644,700.86574 " />
+      <path
+         sodipodi:type="inkscape:box3dside"
+         id="path4235"
+         style="fill:#eeeeee;fill-opacity:1;fill-rule:evenodd;stroke:#4b2e4c;stroke-width:0.05;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:0;stroke-dasharray:none;stroke-opacity:1"
+         inkscape:box3dsidetype="3"
+         d="m 344.86257,662.07774 -44.79613,38.788 0,-206.99711 44.79613,-29.37418 z"
+         points="300.06644,700.86574 300.06644,493.86863 344.86257,464.49445 344.86257,662.07774 " />
+    </g>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:1.24137104px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="138.50424"
+       y="588.82861"
+       id="text6548"
+       sodipodi:linespacing="125%"
+       transform="matrix(1.2978456,0.21962779,-0.01701928,0.76762759,0,0)"><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="588.82861"
+         id="tspan6670"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1">&lt;!DOCTYPE html&gt;</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="590.38031"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8749">&lt;html&gt;</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="591.93207"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8751">&lt;head&gt;</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="593.48376"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8753">    &lt;meta charset=&quot;utf-8&quot;&gt;</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="595.03546"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8755">    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0, user-scalable=no&quot;&gt;</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="596.58716"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8757">    &lt;meta name=&quot;apple-mobile-web-app-capable&quot; content=&quot;yes&quot;&gt;</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="598.13892"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8759"></tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="599.69061"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8761">    &lt;!--iOS--&gt;</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="601.24231"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8763">    &lt;meta name=&quot;mobile-web-app-capable&quot; content=&quot;yes&quot;&gt;</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="602.79407"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8765"></tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="604.34576"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8767">    &lt;!--Chrome for android--&gt;</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="605.89746"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8769">    &lt;link rel=&quot;icon&quot; type=&quot;image/png&quot; href=&quot;files/system/favicon.ico&quot;&gt;</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="607.44916"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8771"></tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="609.00092"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8773">    &lt;!-- Display Page Title --&gt;</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="610.55261"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8775">    &lt;title&gt;CoU - children of Ur&lt;/title&gt;</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="612.10431"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8777"></tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="613.65601"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8779">    &lt;!--Import game css--&gt;</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="615.20776"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8781">    &lt;link rel=&quot;stylesheet&quot; href=&quot;style.css&quot;&gt;</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="616.75946"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8783">    &lt;link id=&quot;MobileStyle&quot; rel=&quot;stylesheet&quot; href=&quot;files/css/mobile.css&quot; disabled&gt;</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="618.31116"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8785"></tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="619.86292"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8787">    &lt;!--Firebase Login--&gt;</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="621.41461"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8789">    &lt;script src=&quot;https://cdn.firebase.com/js/client/2.2.2/firebase.js&quot;&gt;&lt;/script&gt;</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="622.96631"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8791"></tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="624.51801"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8793">    &lt;!--Polymer components--&gt;</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="626.06976"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8795">    &lt;link rel=&quot;import&quot; href=&quot;packages/couclient/components/components_import.html&quot;&gt;</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="627.62146"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8797"></tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="629.17316"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8799">    &lt;!-- Google Analytics --&gt;</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="630.72491"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8801">    &lt;script&gt;</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="632.27661"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8803">        if (</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="633.82831"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8805">                navigator.doNotTrack == &quot;yes&quot;   ||</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="635.38"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8807">                navigator.doNotTrack == &quot;1&quot;     ||</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="636.93176"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8809">                navigator.msDoNotTrack == &quot;1&quot;   ||</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="638.48346"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8811">                window.doNotTrack == &quot;yes&quot;      ||</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="640.03516"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8813">                window.doNotTrack == &quot;1&quot;        ||</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="641.58685"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8815">                window.msDoNotTrack == &quot;1&quot;      ){</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="643.13861"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8817">                console.info(&quot;Respecting Do-Not-Track request, disabling Google Analytics.&quot;);</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="644.69031"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8819">            }</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="646.242"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8821">            else {</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="647.79376"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8823">                (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="649.34546"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8825">                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="650.89716"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8827">                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="652.44885"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8829">                })(window,document,'script','//www.google-analytics.com/analytics.js','ga');</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="654.00061"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8831"></tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="655.55231"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8833">                ga('create', 'UA-54732442-4', 'auto');</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="657.104"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8835">                ga('send', 'pageview');</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="658.65576"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8837">            }</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="660.20746"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8839">        &lt;/script&gt;</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="661.75916"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8841">    &lt;/head&gt;</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="663.31085"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8843">    &lt;body unresolved&gt;</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="664.86261"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8845">        </tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="666.41431"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8847">        &lt;!--This preloads the Sniglet font so that it works correctly with the actions--&gt;</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="667.966"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8849">        &lt;div style=&quot;font-family: Sniglet;opacity:0;position:absolute;&quot;&gt;.&lt;/div&gt;</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="669.5177"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8851"></tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="671.06946"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8853">        &lt;!-- Loading Screen --&gt;</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="672.62115"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8855">        &lt;div id=&quot;loading&quot;&gt;</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="674.17285"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8857">            &lt;img src=&quot;files/system/earf.png&quot; id=&quot;spinny-ur&quot;&gt;</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="675.72461"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8859">            &lt;ur-login&gt;&lt;/ur-login&gt;</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="677.27631"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8861">            &lt;div id=&quot;loadstatus&quot;&gt;Loading&lt;/div&gt;</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="678.828"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8863">            &lt;br&gt;</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="680.3797"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8865">            &lt;div id=&quot;loadstatus2&quot;&gt;This Stuff&lt;/div&gt;</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="681.93146"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8867">        &lt;/div&gt;</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="683.48315"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8869"></tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="685.03485"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8871">        &lt;main onContextMenu=&quot;return false&quot;&gt;</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="686.58661"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8873">            </tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="688.13831"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8875">            &lt;!-- THE VARIOUS METERS AT THE TOP LEFT OF THE SCREEN --&gt;</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="689.69"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8877">            &lt;ur-meters&gt;&lt;/ur-meters&gt;</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="691.2417"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8879">            &lt;!-- ------------------------------------------------ --&gt;</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="692.79346"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8881"></tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="694.34515"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8883">            &lt;!-- iMG Button --&gt;</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="695.89685"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8885">            &lt;div id=&quot;thinkButton&quot;&gt;&lt;/div&gt;</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="697.44861"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8887"></tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="699.00031"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8889">            &lt;!-- Option Buttons --&gt;</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="700.552"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8891">            &lt;link rel=&quot;import&quot; href=&quot;files/html/topright.html&quot;&gt;</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="702.1037"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8893"></tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="703.65546"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8895">            &lt;!-- Magic Rock --&gt;</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="705.20715"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8897">            &lt;div id=&quot;petrock&quot;&gt;&lt;/div&gt;</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="706.75885"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8899"></tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="708.31055"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8901">            &lt;!-- Game Container --&gt;</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="709.8623"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8903">            &lt;link rel=&quot;import&quot; href=&quot;files/html/game.html&quot;&gt;</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="711.414"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8905"></tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="712.9657"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8907">            &lt;!-- Clock --&gt;</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="714.51746"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8909">            &lt;div id=&quot;time&quot; title=&quot;Click to open calendar&quot;&gt;</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="716.06915"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8911">                &lt;div id=&quot;currDay&quot;&gt;N&lt;/div&gt;</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="717.62085"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8913">                &lt;div id=&quot;currTime&quot;&gt;N:NN&lt;/div&gt;</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="719.17255"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8915">                &lt;div id=&quot;currDate&quot;&gt;Nth of N&lt;/div&gt;</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="720.7243"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8917">            &lt;/div&gt;</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="722.276"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8919"></tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="723.8277"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8921">            &lt;!-- Inventory slots, search, and currants --&gt;</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="725.37946"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8923">            &lt;link rel=&quot;import&quot; href=&quot;files/html/inventory.html&quot;&gt;</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="726.93115"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8925"></tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="728.48285"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8927">            &lt;div id=&quot;game-column-right&quot;&gt;</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="730.03455"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8929"></tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="731.5863"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8931">                &lt;!-- Minimap --&gt;</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="733.138"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8933">                &lt;div id=&quot;minimap-container&quot; hidden&gt;</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="734.6897"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8935">                    &lt;div id=&quot;minimap&quot;&gt;</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="736.24139"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8937">                        &lt;img id=&quot;minimap-img&quot; src=&quot;&quot;&gt;</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="737.79315"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8939">                        &lt;div id=&quot;minimap-objects&quot;&gt;&lt;/div&gt;</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="739.34485"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8941">                        &lt;div id=&quot;minimap-label&quot;&gt;&lt;/div&gt;</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="740.89655"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8943">                    &lt;/div&gt;</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="742.4483"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8945">                    &lt;div id=&quot;minimap-toggle&quot;&gt;&lt;i class=&quot;fa fa-chevron-up&quot;&gt;&lt;/i&gt;&lt;/div&gt;</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="744"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8947">                &lt;/div&gt;</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="745.5517"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8949"></tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="747.10339"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8951">                &lt;!-- Toasts --&gt;</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="748.65515"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8953">                &lt;div id=&quot;toastPanel&quot;&gt;</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="750.20685"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8955">                    &lt;div id=&quot;toastHolder&quot;&gt;&lt;/div&gt;</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="751.75854"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8957">                    &lt;div id=&quot;buffHolder&quot;&gt;&lt;/div&gt;</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="753.3103"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8959">                &lt;/div&gt;</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="754.862"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8961"></tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="756.4137"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8963">            &lt;/div&gt;</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="757.96539"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8965"></tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="759.51715"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8967">            &lt;!-- Right chat pane --&gt;</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="761.06885"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8969">            &lt;link rel=&quot;import&quot; href=&quot;files/html/chat.html&quot;&gt;</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="762.62054"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8971"></tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="764.1723"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8973">            &lt;!-- SoundCloud --&gt;</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="765.724"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8975">            &lt;ur-musicplayer id=&quot;SCwidget&quot; artist=&quot;&quot; song=&quot;&quot;&gt;&lt;/ur-musicplayer&gt;</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="767.2757"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8977"></tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="768.82739"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8979">            &lt;!-- Windows --&gt;</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="770.37915"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8981">            &lt;div id=&quot;windowHolder&quot;&gt;</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="771.93085"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8983">                &lt;link rel=&quot;import&quot; href=&quot;files/html/settingswindow.html&quot;&gt;</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="773.48254"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8985">                &lt;link rel=&quot;import&quot; href=&quot;files/html/mapwindow.html&quot;&gt;</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="775.03424"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8987">                &lt;link rel=&quot;import&quot; href=&quot;files/html/auctionwindow.html&quot;&gt;</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="776.586"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8989">                &lt;link rel=&quot;import&quot; href=&quot;files/html/mailboxwindow.html&quot;&gt;</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="778.1377"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8991">                &lt;link rel=&quot;import&quot; href=&quot;files/html/shopwindow.html&quot;&gt;</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="779.68939"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8993">                &lt;link rel=&quot;import&quot; href=&quot;files/html/bagwindow.html&quot;&gt;</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="781.24115"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8995">                &lt;link rel=&quot;import&quot; href=&quot;files/html/bugwindow.html&quot;&gt;</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="782.79285"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8997">                &lt;link rel=&quot;import&quot; href=&quot;files/html/motdwindow.html&quot;&gt;</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="784.34454"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan8999">                &lt;link rel=&quot;import&quot; href=&quot;files/html/calendarwindow.html&quot;&gt;</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="785.89624"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan9001">                &lt;link rel=&quot;import&quot; href=&quot;files/html/shrinewindow.html&quot;&gt;</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="787.448"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan9003">                &lt;link rel=&quot;import&quot; href=&quot;files/html/rockwindow.html&quot;&gt;</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="788.99969"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan9005">                &lt;link rel=&quot;import&quot; href=&quot;files/html/itemwindow.html&quot;&gt;</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="790.55139"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan9007">            &lt;/div&gt;</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="792.10315"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan9009"></tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="793.65485"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan9011">            &lt;!-- Mobile Control --&gt;</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="795.20654"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan9013">            &lt;div id=&quot;JoystickParent&quot;&gt;&lt;div id=&quot;Joystick&quot;&gt;&lt;div id=&quot;Knob&quot;&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="796.75824"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan9015">            &lt;div id=&quot;AButton&quot;&gt;A&lt;/div&gt;&lt;div id=&quot;BButton&quot;&gt;B&lt;/div&gt;</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="798.31"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan9017"></tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="799.86169"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan9019">        &lt;/main&gt;</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="801.41339"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan9021"></tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="802.96509"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan9023">        &lt;!-- Be mean to new players --&gt;</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="804.51685"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan9025">        &lt;div id=&quot;youWon&quot; hidden&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;WAIT! You were just about to win the game!&lt;/div&gt;</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="806.06854"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan9027"></tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="807.62024"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan9029">        &lt;!-- Explain why it won't load sometimes --&gt;</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="809.172"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan9031">        &lt;div id=&quot;server-down&quot; hidden&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;Oh dear! Looks like the server is down.&lt;br&gt;Please try again later.&lt;/div&gt;</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="810.72369"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan9033"></tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="812.27539"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan9035">        &lt;!-- Check for touch capability --&gt;</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="813.82709"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan9037">        &lt;script type=&quot;application/javascript&quot;&gt;</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="815.37885"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan9039">            function hasTouchSupport() {</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="816.93054"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan9041">                return 'ontouchstart' in window;</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="818.48224"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan9043">            }</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="820.034"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan9045">        &lt;/script&gt;</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="821.58569"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan9047"></tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="823.13739"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan9049">        &lt;!-- Start the Game up. --&gt;</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="824.68909"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan9051">        &lt;!--&lt;script type=&quot;application/dart&quot;&gt;export 'package:polymer/init.dart';&lt;/script&gt;--&gt;</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="826.24084"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan9053">        &lt;script type=&quot;application/dart&quot;&gt;export 'main.dart';&lt;/script&gt;</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="827.79254"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan9055">        &lt;!--&lt;script src=&quot;packages/browser/dart.js&quot;&gt;&lt;/script&gt;--&gt;</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="829.34424"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan9057">    &lt;/body&gt;</tspan><tspan
+         sodipodi:role="line"
+         x="138.50424"
+         y="830.89594"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Courier New';-inkscape-font-specification:'Courier New';fill:#000000;fill-opacity:1"
+         id="tspan9059">&lt;/html&gt;</tspan></text>
+    <g
+       id="g6508"
+       transform="matrix(1.0318054,0.15310674,-0.00644536,0.9682185,0.80353226,-6.0292941)"
+       style="filter:url(#filter6528)">
+      <rect
+         y="507.40457"
+         x="193.28419"
+         height="49.93573"
+         width="99.93573"
+         id="rect6494"
+         style="opacity:1;fill:#241fa7;fill-opacity:1;fill-rule:nonzero;stroke:#4a2e4c;stroke-width:0.06426925;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:0;stroke-dasharray:none;stroke-opacity:1" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text6504"
+         y="526.13879"
+         x="201.22328"
+         style="font-style:normal;font-weight:normal;font-size:38.72476196px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         xml:space="preserve"
+         transform="matrix(0.968183,0.01023873,4.0445891e-4,1.0328669,0,0)"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:RockoFLFBold;-inkscape-font-specification:'RockoFLFBold Bold';fill:#ffffff;fill-opacity:1"
+           y="526.13879"
+           x="201.22328"
+           id="tspan6506"
+           sodipodi:role="line">HTML</tspan></text>
+      <rect
+         y="715.60535"
+         x="359.5722"
+         height="50.185135"
+         width="36.574894"
+         id="rect6494-6"
+         style="opacity:1;fill:#241fa7;fill-opacity:1;fill-rule:nonzero;stroke:#4a2e4c;stroke-width:0.0389777;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:0;stroke-dasharray:none;stroke-opacity:1"
+         transform="matrix(0.81565826,-0.57853401,2.7433924e-5,1,0,0)" />
+    </g>
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot6540"
+       style="fill:black;stroke:none;stroke-opacity:1;stroke-width:1px;stroke-linejoin:miter;stroke-linecap:butt;fill-opacity:1;font-family:Sans;font-style:normal;font-weight:normal;font-size:40px;line-height:125%;letter-spacing:0px;word-spacing:0px"><flowRegion
+         id="flowRegion6542"><rect
+           id="rect6544"
+           width="79.64286"
+           height="158.57143"
+           x="172.5"
+           y="488.79077" /></flowRegion><flowPara
+         id="flowPara6546"></flowPara></flowRoot>  </g>
+</svg>
