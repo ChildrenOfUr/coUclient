@@ -571,7 +571,7 @@ findNewSlot(Element item, Map map, ImageElement img) {
 						            ]);
 					});
 				}
-				Element menu = RightClickMenu.create(event, "Options", i['description'], actions, itemName: i['name']);
+				Element menu = RightClickMenu.create(event, i['name'], i['description'], actions, itemName: i['name']);
 				document.body.append(menu);
 			});
 			barSlot.append(item);
