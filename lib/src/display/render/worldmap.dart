@@ -77,8 +77,6 @@ class WorldMap {
 				street.onClick.first.then((_) {
 					// Clicked on a street
 					String tsid = street.attributes['tsid'];
-					view.mapLoadingScreen.className = "MapLoadingScreenIn";
-					view.mapLoadingScreen.style.opacity = "1.0";
 					minimap.containerE.hidden = true;
 					//changes first letter to match revdancatt's code - only if it starts with an L
 					if(tsid.startsWith("L")) {

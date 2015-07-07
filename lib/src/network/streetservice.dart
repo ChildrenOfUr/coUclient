@@ -9,6 +9,10 @@ class StreetService {
 	}
 
 	Future requestStreet(String StreetID) async {
+		//make sure loading screen is visible during load
+		view.mapLoadingScreen.className = "MapLoadingScreenIn";
+		view.mapLoadingScreen.style.opacity = "1.0";
+
 		log('[StreetService] Requesting street "$StreetID"...');
 
 		HttpRequest data = await HttpRequest.request(_dataUrl + "/street", method: "POST",

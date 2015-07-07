@@ -114,10 +114,6 @@ _setupStreetSocket(String streetName) {
 			transmit('favorUpdate', map);
 			return;
 		}
-		if(map['gotoStreet'] != null) {
-			streetService.requestStreet(map['tsid']);
-			return;
-		}
 
 		(map["quoins"] as List).forEach((Map quoinMap) {
 			if(quoinMap["remove"] == "true") {
@@ -255,6 +251,11 @@ _setupPlayerSocket() {
 			return;
 		}
 
+		if(map['gotoStreet'] != null) {
+			streetService.requestStreet(map['tsid']);
+			return;
+		}
+
 		if(map['street'] != null &&
 		   currentStreet.label != map['street'] &&
 		   map['changeStreet'] == null) return;
@@ -314,7 +315,9 @@ sendPlayerInfo() {
 }
 
 void createOtherPlayer(Map map) {
-	if(creatingPlayer == map['username']) return;
+	if(creatingPlayer == map['username']) {
+		return;
+	}
 
 	creatingPlayer = map['username'];
 	Player otherPlayer = new Player(map["username"]);
@@ -596,7 +599,7 @@ findNewSlot(Element item, Map map, ImageElement img) {
 
 	//there was no space in the player's pack, drop the item on the ground instead
 	if(!found){
-		sendAction("drop", i['name'], getDropMap(i, 1));
+		sendAction("drop", i['itemType'], getDropMap(i, 1));
 	}
 }
 

@@ -38,7 +38,7 @@ class InputManager {
 		"MapBindingPrimary": 77,
 		"MapBindingAlt":77,
 		"CalendarBindingPrimary": 67,
-		"CalendarBindingAlt":  67,
+		"CalendarBindingAlt": 67,
 		"SettingsBindingPrimary": 80,
 		"SettingsBindingAlt": 80,
 		"ChatFocusBindingPrimary": 9,
@@ -85,40 +85,40 @@ class InputManager {
 
 		for(Gamepad gamepad in gamepads) {
 			//the list of gamepads the browser returns can include nulls
-			if (gamepad == null)
+			if(gamepad == null)
 				continue;
 
 			//don't do anything in certain situations
-			if (ignoreKeys || querySelector(".fill") != null) return;
+			if(ignoreKeys || querySelector(".fill") != null) return;
 
 			//interact with the menu
 			Element clickMenu = querySelector("#RightClickMenu");
-			if (clickMenu != null) {
+			if(clickMenu != null) {
 				Element list = querySelector('#RCActionList');
 				//only select a new option once every 300ms
 				bool selectAgain = lastSelect.add(new Duration(milliseconds:300)).isBefore(new DateTime.now());
-				if (controlCounts['upKey']['keyBool'] == true && selectAgain) {
+				if(controlCounts['upKey']['keyBool'] == true && selectAgain) {
 					selectUp(list.querySelectorAll('.RCItem'), "RCItemSelected");
 				}
 
-				if (controlCounts['downKey']['keyBool'] == true && selectAgain) {
+				if(controlCounts['downKey']['keyBool'] == true && selectAgain) {
 					selectDown(list.querySelectorAll('.RCItem'), "RCItemSelected");
 				}
-				if (
-					controlCounts['leftKey']['keyBool'] == true ||
-					controlCounts['rightKey']['keyBool'] == true ||
-					controlCounts['jumpKey']['keyBool'] == true) {
+				if(
+				controlCounts['leftKey']['keyBool'] == true ||
+				controlCounts['rightKey']['keyBool'] == true ||
+				controlCounts['jumpKey']['keyBool'] == true) {
 					stopMenu(clickMenu);
 				}
 			}
 
-			if (gamepad.axes[0] > .2 || gamepad.axes[2] > .2) {
+			if(gamepad.axes[0] > .2 || gamepad.axes[2] > .2) {
 				activateControl('rightKey', true, 'gamepad');
 			} else {
 				activateControl('rightKey', false, 'gamepad');
 			}
 
-			if (gamepad.axes[0] < -.2 || gamepad.axes[2] < -.2) {
+			if(gamepad.axes[0] < -.2 || gamepad.axes[2] < -.2) {
 				activateControl('leftKey', true, 'gamepad');
 			} else {
 				activateControl('leftKey', false, 'gamepad');
@@ -173,7 +173,7 @@ class InputManager {
 			// check which preset movement keys to set & apply them
 			switch(preset) {
 				case "qwerty":
-					// set WASD
+				// set WASD
 					localStorage["LeftBindingPrimary"] = "65.97";
 					localStorage["RightBindingPrimary"] = "68.100";
 					localStorage["UpBindingPrimary"] = "87.119";
@@ -181,7 +181,7 @@ class InputManager {
 					break;
 
 				case "dvorak":
-					// set ,AOE
+				// set ,AOE
 					localStorage["LeftBindingPrimary"] = "65.97";
 					localStorage["RightBindingPrimary"] = "69.101";
 					localStorage["UpBindingPrimary"] = "188.44";
@@ -219,7 +219,8 @@ class InputManager {
 				keyDownSub.cancel();
 				String key = fromKeyCode(event.keyCode);
 				int keyCode = event.keyCode;
-				if(key == "") { //it was not a special key
+				if(key == "") {
+					//it was not a special key
 					keyPressSub = document.body.onKeyPress.listen((KeyboardEvent event) {
 						keyPressSub.cancel();
 						KeyEvent keyEvent = new KeyEvent.wrap(event);
@@ -239,10 +240,7 @@ class InputManager {
 
 		//handle changing streets via exit signs
 		if(target.className.contains("ExitLabel")) {
-			//make sure loading screen is visible during load
-			view.mapLoadingScreen.className = "MapLoadingScreenIn";
-			view.mapLoadingScreen.style.opacity = "1.0";
-      minimap.containerE.hidden = true;
+			minimap.containerE.hidden = true;
 			playerTeleFrom = target.attributes['from'];
 			streetService.requestStreet(target.attributes['tsid']);
 		}
@@ -290,7 +288,7 @@ class InputManager {
 			}
 
 			//check for chat focus stuff before deciding on ignore keys
-			if (k.keyCode == keys["ChatFocusBindingPrimary"] || k.keyCode == keys["ChatFocusBindingAlt"]) {
+			if(k.keyCode == keys["ChatFocusBindingPrimary"] || k.keyCode == keys["ChatFocusBindingAlt"]) {
 				advanceChatFocus(k);
 			}
 

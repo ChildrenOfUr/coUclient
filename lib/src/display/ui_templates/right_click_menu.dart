@@ -81,7 +81,7 @@ class RightClickMenu {
 				menuitem.classes.add('RCItemDisabled');
 			}
 
-			menuitem.onMouseOver.listen((_) => showActionError(tooltip, (option[0] as String).split("|")[4]));
+			showActionError(tooltip, (option[0] as String).split("|")[4]);
 
 			wrapper.append(menuitem);
 			wrapper.append(tooltip);

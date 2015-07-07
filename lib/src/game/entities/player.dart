@@ -105,6 +105,7 @@ class Player {
 			}
 			animations['idle'] = new Animation(idle, "idle", 2, 29, idleFrames, loopDelay:new Duration(seconds:10), delayInitially:true);
 			animations['base'] = new Animation(base, "base", 1, 15, baseFrames);
+			animations['die'] = new Animation(base, "die", 1, 15, [12,13], loops:false);
 			animations['jumpup'] = new Animation(jump, "jumpup", 1, 33, jumpUpFrames);
 			animations['falldown'] = new Animation(jump, "falldown", 1, 33, fallDownFrames);
 			animations['land'] = new Animation(jump, "land", 1, 33, landFrames);
