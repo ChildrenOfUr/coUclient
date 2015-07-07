@@ -113,12 +113,19 @@ bool hasRequirements(List<Map> requires) {
  *
  **/
 String getRequirementString(List<Map> requires) {
-	String error = "Requires:";
+	String error = '';
+
 	requires.forEach((Map requirement) {
-		error += " ${requirement['num']} of ${requirement['of']},";
+		if (requirement["of"].contains("energy")) {
+			if (metabolics.energy < requirement["num"]) {
+				error += "\n" + requirement["error"];
+			}
+		} else {
+			error += "\n" + requirement["error"];
+		}
 	});
-	return error.substring(0, error.length - 1);
-	//remove trailing comma
+
+	return error;
 }
 
 /**

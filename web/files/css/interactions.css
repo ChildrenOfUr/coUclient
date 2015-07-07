@@ -554,7 +554,8 @@
 }
 
 .action_wrapper .action_error_tooltip {
-    background: #1496bb;
+    background-color: rgba(15, 39, 39, 0.8);
+    border-radius: 8px;
     bottom: 100%;
     color: #fff;
     display: block;
@@ -570,11 +571,10 @@
     box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.28);
 }
 
-/* CSS Triangles - see Trevor's post */
 .action_wrapper .action_error_tooltip:after {
     border-left: solid transparent 10px;
     border-right: solid transparent 10px;
-    border-top: solid #1496bb 10px;
+    border-top: solid rgba(15, 39, 39, 0.8) 10px;
     bottom: -10px;
     content: " ";
     height: 0;
@@ -584,7 +584,9 @@
     width: 0;
 }
 
-.action_hover, .action_wrapper:hover .action_error_tooltip {
+.action_hover a,
+.action_wrapper:hover .action_error_tooltip,
+.RCItemDisabled.RCItemSelected + .action_error_tooltip {
     opacity: 1;
     pointer-events: auto;
     transform: translateY(0px);

@@ -14,11 +14,6 @@ class RightClickMenu {
 		SpanElement titleElement = new SpanElement()
 			..id = "ClickTitle"
 			..text = title;
-		BRElement br = new BRElement();
-		SpanElement desc = new SpanElement()
-			..id = "ClickDesc"
-			..className = "soft"
-			..text = description;
 		DivElement actionList = new DivElement()
 			..id = "RCActionList";
 
@@ -31,11 +26,6 @@ class RightClickMenu {
 		}
 		menu.append(titleElement);
 		menu.append(actionList);
-
-		if(description != "Desc") {
-			menu.append(br);
-			menu.append(desc);
-		}
 
 		int x, y;
 
