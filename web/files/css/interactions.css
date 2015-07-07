@@ -40,6 +40,14 @@
     color: #823917;
 }
 
+.fill.levitate,
+.fill.focusEnergy,
+.fill.focusMood,
+.fill.radiate,
+.fill.meditate {
+    color: #B2DFDB;
+}
+
 .border {
     position: absolute;
     color: #d3d3d3;
@@ -497,10 +505,15 @@
     padding: 6px;
     font-size: 14px;
     z-index: 5;
-    top: -100%;
-    left: -100%;
+    top: 0;
+    left: 0;
     border-radius: 8px;
     border-bottom: 2px solid rgba(0, 0, 0, 0.3);
+    -webkit-transform-origin: bottom center;
+    -moz-transform-origin: bottom center;
+    -ms-transform-origin: bottom center;
+    -o-transform-origin: bottom center;
+    transform-origin: bottom center;
 }
 
 .InfoButton {
