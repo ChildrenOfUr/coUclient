@@ -31,16 +31,19 @@ class StreetService {
 			await _prepareStreet(serverdata['streetJSON']);
 
 			String playerList = '';
-			List<String> otherPlayers = JSON.decode(await HttpRequest.getString('http://' + Configs.utilServerAddress + '/listUsers?channel=' + currentStreet.label));
-			if(otherPlayers.length > 0) {
-				for(int i = 0; i != otherPlayers.length; i++) {
-					playerList += otherPlayers[i];
-					if(i != otherPlayers.length) {
+			List<String> players = JSON.decode(await HttpRequest.getString('http://' + Configs.utilServerAddress + '/listUsers?channel=' + currentStreet.label));
+			// don't list if it's just you
+			if(players.length > 1) {
+				for(int i = 0; i != players.length; i++) {
+					playerList += players[i];
+					if(i != players.length) {
 						playerList += ', ';
 					}
 				}
 				playerList = playerList.substring(0, playerList.length - 2);
 				toast("Players on this street: " + playerList);
+			} else {
+				toast("Nobody else is on this street");
 			}
 		}
 	}

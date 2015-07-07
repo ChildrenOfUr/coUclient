@@ -83,16 +83,8 @@ class RightClickMenu {
 
 		document.body.append(menu);
 		if(Click != null) {
-			if(Click.page.y > window.innerHeight / 2) {
-				y = Click.page.y - menu.clientHeight;
-			} else {
-				y = Click.page.y - 10;
-			}
-			if(Click.page.x > window.innerWidth / 2) {
-				x = Click.page.x - 120;
-			} else {
-				x = Click.page.x - 10;
-			}
+			x = Click.page.x - (menu.clientWidth / 2);
+			y = Click.page.y - (40 + (options.length * 30));
 		} else {
 			num posX = CurrentPlayer.posX, posY = CurrentPlayer.posY;
 			int width = CurrentPlayer.width, height = CurrentPlayer.height;
@@ -116,9 +108,7 @@ class RightClickMenu {
 		actionList.children.addAll(newOptions);
 		menu.style
 			..opacity = '1.0'
-			..position = 'absolute'
-			..top = '$y' 'px'
-			..left = '$x' 'px';
+			..transform = 'translateX(' + x.toString() + 'px) translateY(' + y.toString() + 'px)';
 
 		document.onClick.first.then((_) => destroy());
 		return menu;
