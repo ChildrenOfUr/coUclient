@@ -9,6 +9,9 @@ class StreetService {
 	}
 
 	Future requestStreet(String StreetID) async {
+		//hide the minimap if it's showing
+		minimap.containerE.hidden = true;
+
 		//make sure loading screen is visible during load
 		view.mapLoadingScreen.className = "MapLoadingScreenIn";
 		view.mapLoadingScreen.style.opacity = "1.0";

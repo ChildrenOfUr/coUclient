@@ -205,22 +205,22 @@ class Street {
 
 					new Signpost(signpost, x, y);
 
-          // show signpost in minimap {
+					// show signpost in minimap {
 
-          List<String> connects = signpost['connects'];
-          List<String> streets = new List();
+					List<String> connects = signpost['connects'];
+					List<String> streets = new List();
 
-          for (Map exit in connects) {
-            streets.add(exit['label']);
-          }
+					for(Map exit in connects) {
+						streets.add(exit['label']);
+					}
 
-          minimap.currentStreetExits.add({
-            "streets": streets,
-            "x": x,
-            "y": y
-          });
+					minimap.currentStreetExits.add({
+						                               "streets": streets,
+						                               "x": x,
+						                               "y": y
+					                               });
 
-          // } end minimap code
+					// } end minimap code
 
 				}
 
@@ -307,7 +307,7 @@ setLoadingPercent(int percent) {
 		view.streetLoadingBar.attributes['percent'] = '100';
 		view.mapLoadingScreen.className = "MapLoadingScreen";
 		view.mapLoadingScreen.style.opacity = '0.0';
-    minimap.containerE.hidden = false;
+		minimap.containerE.hidden = false;
 		new Timer(new Duration(seconds: 1), () => view.mapLoadingContent.style.opacity = '0.0');
 		currentStreet.loadTime.stop();
 		currentStreet.loadTime.reset();

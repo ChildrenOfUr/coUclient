@@ -25,11 +25,6 @@ abstract class Wormhole extends Entity {
 	void goToLocation(String street) {
 		playerTeleFrom = "wormhole";
 		street = street.trim();
-		minimap.containerE.hidden = true;
-
-		if(street.startsWith("L")) {
-			street = street.replaceFirst("L", "G");
-		}
 
 		streetService.requestStreet(street);
 	}

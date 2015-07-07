@@ -240,7 +240,6 @@ class InputManager {
 
 		//handle changing streets via exit signs
 		if(target.className.contains("ExitLabel")) {
-			minimap.containerE.hidden = true;
 			playerTeleFrom = target.attributes['from'];
 			streetService.requestStreet(target.attributes['tsid']);
 		}

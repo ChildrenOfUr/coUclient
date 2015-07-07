@@ -77,11 +77,6 @@ class WorldMap {
 				street.onClick.first.then((_) {
 					// Clicked on a street
 					String tsid = street.attributes['tsid'];
-					minimap.containerE.hidden = true;
-					//changes first letter to match revdancatt's code - only if it starts with an L
-					if(tsid.startsWith("L")) {
-						tsid = tsid.replaceFirst("L", "G");
-					}
 					mapWindow.close();
 					streetService.requestStreet(tsid);
 					loadhubdiv(currentStreet.hub_id);
