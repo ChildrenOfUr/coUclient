@@ -559,14 +559,14 @@
     bottom: 100%;
     color: #fff;
     display: block;
-    left: -25px;
+    left: 50%;
     margin-bottom: 15px;
     opacity: 0;
     padding: 20px;
     pointer-events: none;
     position: absolute;
     width: 100%;
-    transform: translateY(10px);
+    transform: translateX(-50%) translateY(10px);
     transition: all .25s ease-out;
     box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.28);
 }
@@ -589,7 +589,8 @@
 .RCItemDisabled.RCItemSelected + .action_error_tooltip {
     opacity: 1;
     pointer-events: auto;
-    transform: translateY(0px);
+    left: 50%;
+    transform: translateX(-50%) translateY(0px);
 }
 
 /* HOW MANY... SELECTOR */
