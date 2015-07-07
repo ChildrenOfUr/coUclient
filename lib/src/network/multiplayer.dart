@@ -114,6 +114,10 @@ _setupStreetSocket(String streetName) {
 			transmit('favorUpdate', map);
 			return;
 		}
+		if(map['gotoStreet'] != null) {
+			streetService.requestStreet(map['tsid']);
+			return;
+		}
 
 		(map["quoins"] as List).forEach((Map quoinMap) {
 			if(quoinMap["remove"] == "true") {
@@ -325,14 +329,19 @@ void createOtherPlayer(Map map) {
 }
 
 updateOtherPlayer(Map map, Player otherPlayer) {
-	if(otherPlayer.currentAnimation == null) otherPlayer.currentAnimation =
-	otherPlayer.animations[map["animation"]];
+	if(otherPlayer.currentAnimation == null) {
+		otherPlayer.currentAnimation = otherPlayer.animations[map["animation"]];
+	}
 
 	//set movement bools
-	if(map['jumping'] != null) otherPlayer.jumping = map['jumping'];
-	if(map['climbing'] == true) otherPlayer.currentAnimation.paused =
-	!map['activeClimb'];
-	else otherPlayer.currentAnimation.paused = false;
+	if(map['jumping'] != null) {
+		otherPlayer.jumping = map['jumping'];
+	}
+	if(map['climbing'] == true) {
+		otherPlayer.currentAnimation.paused = !map['activeClimb'];
+	} else {
+		otherPlayer.currentAnimation.paused = false;
+	}
 
 	//set animation state
 	if(map["animation"] != otherPlayer.currentAnimation.animationName) {
@@ -340,8 +349,7 @@ updateOtherPlayer(Map map, Player otherPlayer) {
 		otherPlayer.currentAnimation = otherPlayer.animations[map["animation"]];
 	}
 
-	otherPlayer.playerParentElement.id =
-	"player-" + sanitizeName(map["username"].replaceAll(' ', '_'));
+	otherPlayer.playerParentElement.id = "player-" + sanitizeName(map["username"].replaceAll(' ', '_'));
 	otherPlayer.playerParentElement.style.position = "absolute";
 	if(map['username'] != otherPlayer.username) {
 		otherPlayer.username = map['username'];
@@ -353,8 +361,9 @@ updateOtherPlayer(Map map, Player otherPlayer) {
 	otherPlayer.posY = double.parse(map["xy"].split(',')[1]);
 
 	if(map["bubbleText"] != null) {
-		if(otherPlayer.chatBubble == null) otherPlayer.chatBubble = new ChatBubble(
-			map["bubbleText"], otherPlayer, otherPlayer.playerParentElement);
+		if(otherPlayer.chatBubble == null) {
+			otherPlayer.chatBubble = new ChatBubble(map["bubbleText"], otherPlayer, otherPlayer.playerParentElement);
+		}
 		otherPlayer.playerParentElement.append(otherPlayer.chatBubble.bubble);
 	} else if(otherPlayer.chatBubble != null) {
 		otherPlayer.chatBubble.bubble.remove();
@@ -362,8 +371,9 @@ updateOtherPlayer(Map map, Player otherPlayer) {
 	}
 
 	bool facingRight = false;
-	if(map["facingRight"] == "true" || map['facingRight'] == true) facingRight =
-	true;
+	if(map["facingRight"] == "true" || map['facingRight'] == true) {
+		facingRight = true;
+	}
 	otherPlayer.facingRight = facingRight;
 }
 

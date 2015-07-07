@@ -98,11 +98,11 @@ class InputManager {
 				//only select a new option once every 300ms
 				bool selectAgain = lastSelect.add(new Duration(milliseconds:300)).isBefore(new DateTime.now());
 				if (controlCounts['upKey']['keyBool'] == true && selectAgain) {
-					selectUp(list, "RCItemSelected");
+					selectUp(list.querySelectorAll('.RCItem'), "RCItemSelected");
 				}
 
 				if (controlCounts['downKey']['keyBool'] == true && selectAgain) {
-					selectDown(list, "RCItemSelected");
+					selectDown(list.querySelectorAll('.RCItem'), "RCItemSelected");
 				}
 				if (
 					controlCounts['leftKey']['keyBool'] == true ||
@@ -372,9 +372,9 @@ class InputManager {
 				//only select a new option once every 300ms
 				bool selectAgain = lastSelect.add(new Duration(milliseconds:300)).isBefore(new DateTime.now());
 				if(joystick.UP && selectAgain)
-					selectUp(list, "RCItemSelected");
+					selectUp(list.querySelectorAll('.RCItem'), "RCItemSelected");
 				if(joystick.DOWN && selectAgain)
-					selectDown(list, "RCItemSelected");
+					selectDown(list.querySelectorAll('.RCItem'), "RCItemSelected");
 				if(joystick.LEFT || joystick.RIGHT)
 					stopMenu(clickMenu);
 			}
@@ -453,9 +453,9 @@ class InputManager {
 
 		menuKeyListener = document.onKeyDown.listen((KeyboardEvent k) {
 			if((k.keyCode == keys["UpBindingPrimary"] || k.keyCode == keys["UpBindingAlt"]) && !ignoreKeys) //up arrow or w and not typing
-				selectUp(list, "RCItemSelected");
+				selectUp(list.querySelectorAll('.RCItem'), "RCItemSelected");
 			if((k.keyCode == keys["DownBindingPrimary"] || k.keyCode == keys["DownBindingAlt"]) && !ignoreKeys) //down arrow or s and not typing
-				selectDown(list, "RCItemSelected");
+				selectDown(list.querySelectorAll('.RCItem'), "RCItemSelected");
 			if((k.keyCode == keys["LeftBindingPrimary"] || k.keyCode == keys["LeftBindingAlt"]) && !ignoreKeys) //left arrow or a and not typing
 				stopMenu(clickMenu);
 			if((k.keyCode == keys["RightBindingPrimary"] || k.keyCode == keys["RightBindingAlt"]) && !ignoreKeys) //right arrow or d and not typing
@@ -472,8 +472,7 @@ class InputManager {
 		});
 	}
 
-	void selectUp(Element menu, String className) {
-		List<Element> options = menu.querySelectorAll('.RCItem');
+	void selectUp(List<Element> options, String className) {
 		int removed = 0;
 		for(int i = 0; i < options.length; i++) {
 			options[i].classes.remove('action_hover');
@@ -492,8 +491,7 @@ class InputManager {
 		lastSelect = new DateTime.now();
 	}
 
-	void selectDown(Element menu, String className) {
-		List<Element> options = menu.querySelectorAll('.RCItem');
+	void selectDown(List<Element> options, String className) {
 		int removed = options.length - 1;
 		for(int i = 0; i < options.length; i++) {
 			options[i].classes.remove('action_hover');

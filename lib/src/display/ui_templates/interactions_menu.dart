@@ -77,11 +77,11 @@ class InteractionWindow {
 			}
 			//left arrow or a and not typing
 			if((k.keyCode == keys["LeftBindingPrimary"] || k.keyCode == keys["LeftBindingAlt"]) && !ignoreKeys) {
-				inputManager.selectUp(content, "entitySelected");
+				inputManager.selectUp(content.querySelectorAll('.entityContainer'), "entitySelected");
 			}
 			//right arrow or d and not typing
 			if((k.keyCode == keys["RightBindingPrimary"] || k.keyCode == keys["RightBindingAlt"]) && !ignoreKeys) {
-				inputManager.selectDown(content, "entitySelected");
+				inputManager.selectDown(content.querySelectorAll('.entityContainer'), "entitySelected");
 			}
 			//spacebar and not typing
 			if((k.keyCode == keys["JumpBindingPrimary"] || k.keyCode == keys["JumpBindingAlt"]) && !ignoreKeys) {
