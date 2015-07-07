@@ -144,7 +144,7 @@
 
 #minimap-container {
     z-index: 1;
-    width: calc(100% + 4px);
+    width: 100%;
     margin-bottom: 40px;
 }
 
@@ -156,7 +156,7 @@
 }
 
 #minimap-img {
-    width: 170px;
+    width: 166px;
     height: auto;
     border-radius: 5px 5px 0 0;
 }
