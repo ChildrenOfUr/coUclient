@@ -26,6 +26,12 @@ class ShrineWindow extends Modal {
 	}
 
 	@override
+	close() {
+		sendAction("close", shrineId, {});
+		super.close();
+	}
+
+	@override
 	open() {
 		resetShrineWindow();
 		populateShrineWindow();
