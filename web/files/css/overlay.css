@@ -27,6 +27,15 @@
     color: white;
 }
 
+#pauseMenu .close {
+    cursor: pointer;
+    position: absolute;
+    left: 28%;
+    top: 15px;
+    font-size: 20px;
+    color: white;
+}
+
 #pm-nothing {
     padding-top: 100px;
     font-size: 50px;

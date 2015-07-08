@@ -3,7 +3,7 @@ nav {
     font-size: 1em;
     left: 50%;
     transform: translateX(-50%);
-    top: 2px;
+    top: 6px;
     display: flex;
     flex-direction: row;
 }
@@ -12,7 +12,7 @@ nav a {
     flex: 1;
     text-align: center;
     padding-bottom: 5px;
-    cursor: default;
+    cursor: pointer;
 }
 
 nav a:hover {
@@ -20,6 +20,6 @@ nav a:hover {
 }
 
 nav .fa {
-    font-size: 24px;
+    font-size: 20px;
     cursor: pointer;
 }

@@ -4,6 +4,7 @@ class VolumeSliderWidget
 {
 	bool muted = false;
 	Element volumeGlyph = querySelector('#volumeGlyph');
+	Element volumeIcon = querySelector('#volumeGlyph > i');
 
 	VolumeSliderWidget()
 	{
@@ -11,7 +12,7 @@ class VolumeSliderWidget
 		if(localStorage.containsKey('mute') && localStorage['mute'] == 'true')
 		{
 			muted = true;
-			volumeGlyph.classes
+			volumeIcon.classes
 	            ..remove('fa-volume-up')
 	            ..add('fa-volume-off');
 		}
@@ -36,13 +37,13 @@ class VolumeSliderWidget
     	// Update the audio icon
 		if (muted == true)
 		{
-			volumeGlyph.classes
+			volumeIcon.classes
 				..remove('fa-volume-up')
 				..add('fa-volume-off');
 		}
 		else
 		{
-			volumeGlyph.classes
+			volumeIcon.classes
 				..remove('fa-volume-off')
 				..add('fa-volume-up');
 		}
