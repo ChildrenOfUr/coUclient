@@ -36,6 +36,10 @@
     color: white;
 }
 
+#pauseMenu .close .fa {
+    cursor: pointer;
+}
+
 #pm-nothing {
     padding-top: 100px;
     font-size: 50px;
