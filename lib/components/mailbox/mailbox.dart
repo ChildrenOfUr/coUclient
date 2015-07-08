@@ -27,6 +27,15 @@ class Mailbox extends PolymerElement {
 			userCurrants = metabolics.currants;
 		});
 		currantDisplay = shadowRoot.querySelector("#fromCurrants");
+
+		shadowRoot.querySelectorAll('input, textarea').onFocus.listen((_) {
+			transmit('disableChatFocus',true);
+			transmit('disableInputKeys',true);
+		});
+		shadowRoot.querySelectorAll('input, textarea').onBlur.listen((_) {
+			transmit('disableChatFocus',false);
+			transmit('disableInputKeys',false);
+		});
 	}
 
 	refresh() async {

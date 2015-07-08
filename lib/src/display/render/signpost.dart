@@ -143,6 +143,9 @@ class Signpost extends Entity {
 				clickSelected();
 				stop();
 			}
+			if(k.keyCode == 27) {
+				stop();
+			}
 		});
 		clickListener = document.onClick.listen((_) => stop());
 	}
@@ -176,6 +179,7 @@ class Signpost extends Entity {
 		clickListener.cancel();
 		interacting = false;
 		letGo = false;
+		signs.forEach((Element sign) => sign.classes.remove('hovered'));
 	}
 
 	void selectUp() {

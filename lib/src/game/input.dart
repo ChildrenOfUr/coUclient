@@ -44,7 +44,7 @@ class InputManager {
 		"ChatFocusBindingPrimary": 9,
 		"ChatFocusBindingAlt": 9
 	};
-	bool ignoreKeys = false,
+	bool ignoreKeys = false, ignoreChatFocus = false,
 	touched = false,
 	clickUsed = false;
 	StreamSubscription keyPressSub, keyDownSub, menuKeyListener;
@@ -61,6 +61,9 @@ class InputManager {
 		};
 
 		setupKeyBindings();
+
+		new Service(['disableInputKeys'],(bool value) => ignoreKeys = value);
+		new Service(['disableChatFocus'],(bool value) => ignoreChatFocus = value);
 
 		document.onClick.listen((MouseEvent event) => clickOrTouch(event, null));
 		document.onTouchStart.listen((TouchEvent event) => clickOrTouch(null, event));
@@ -283,6 +286,10 @@ class InputManager {
 		//KeyUp and KeyDown are neccesary for preventing weird movement glitches
 		document.onKeyDown.listen((KeyboardEvent k) {
 			if(menuKeyListener != null) {
+				return;
+			}
+
+			if(ignoreChatFocus) {
 				return;
 			}
 

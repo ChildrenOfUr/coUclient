@@ -83,9 +83,11 @@ abstract class Modal {
 		// PREVENT PLAYER MOVEMENT WHILE WINDOW IS FOCUSED /
 		window.querySelectorAll('input, textarea').onFocus.listen((_) {
 			inputManager.ignoreKeys = true;
+			inputManager.ignoreChatFocus = true;
 		});
 		window.querySelectorAll('input, textarea').onBlur.listen((_) {
 			inputManager.ignoreKeys = false;
+			inputManager.ignoreChatFocus = false;
 		});
 
 		// TABS ////////////////////////////////////////////
