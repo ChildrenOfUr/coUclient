@@ -564,7 +564,7 @@ findNewSlot(Element item, Map map, ImageElement img) {
 					actionsList.forEach((Action action) {
 						String error = "";
 						List<Map> requires = [];
-						action.itemRequirements.all.forEach((String item) => requires.add({'num':1, 'of':[item]}));
+						action.itemRequirements.all.forEach((String item, int num) => requires.add({'num':num, 'of':[item]}));
 						if(action.itemRequirements.any.length > 0) {
 							requires.add({'num':1, 'of':action.itemRequirements.any});
 						}

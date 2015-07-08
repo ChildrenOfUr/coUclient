@@ -4,7 +4,8 @@ class SkillRequirements {
 	Map<String,int> requiredSkillLevels = {};
 }
 class ItemRequirements {
-	List<String> any = [], all = [];
+	List<String> any = [];
+	Map<String, int> all = {};
 }
 class Action {
 	String name;

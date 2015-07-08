@@ -40,12 +40,30 @@
     color: #823917;
 }
 
+/* Focusing Orb */
+
 .fill.levitate,
-.fill.focusEnergy,
-.fill.focusMood,
+.fill.focus_energy,
+.fill.focus_mood,
 .fill.radiate,
 .fill.meditate {
-    color: #B2DFDB;
+    color: #9EB7D3;
+}
+
+/* Emblems */
+
+.fill.caress,
+.fill.consider,
+.fill.contemplate {
+    color: #AD8F42;
+}
+
+/* Icons */
+
+.fill.ruminate,
+.fill.revere,
+.fill.reflect {
+    color: #725e2b;
 }
 
 .border {
@@ -68,6 +86,9 @@
     width: 1em;
     height: 1em;
     -webkit-filter: drop-shadow(0 0 2px rgba(255, 255, 255, 1));
+    -moz-filter: drop-shadow(0 0 2px rgba(255, 255, 255, 1));
+    -o-filter: drop-shadow(0 0 2px rgba(255, 255, 255, 1));
+    filter: drop-shadow(0 0 2px rgba(255, 255, 255, 1));
     position: absolute;
     opacity: 1;
 }

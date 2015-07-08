@@ -116,6 +116,9 @@ String getRequirementString(List<Map> requires) {
 	String error = '';
 
 	requires.forEach((Map requirement) {
+		if (requirement["error"] == null) {
+			requirement["error"] = "You can't do this right now";
+		}
 		if (requirement["of"].contains("energy")) {
 			if (metabolics.energy < requirement["num"]) {
 				error += "\n" + requirement["error"];

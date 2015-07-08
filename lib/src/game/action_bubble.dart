@@ -18,13 +18,13 @@ class ActionBubble {
 
 		outline
 			..text = (action[0] as String).split("|")[1]
-			..className = "border" + " " + (action[0] as String).split("|")[1]
+			..className = "border" + " " + (action[0] as String).split("|")[1].toLowerCase().replaceAll(' ', '_')
 			..style.top = '$y' 'px'
 			..style.left = '$x' 'px'
 			..style.zIndex = '99';
 		fill
 			..text = (action[0] as String).split("|")[1]
-			..className = "fill" + " " + (action[0] as String).split("|")[1]
+			..className = "fill" + " " + (action[0] as String).split("|")[1].toLowerCase().replaceAll(' ', '_')
 			..style.transition = "width ${duration / 1000}s linear"
 			..style.top = '$y' 'px'
 			..style.left = '$x' 'px'
