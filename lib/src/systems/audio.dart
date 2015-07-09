@@ -17,7 +17,7 @@ class SoundManager {
 	AudioInstance currentAudioInstance, loadingSound;
 
 	SoundManager() {
-		log('[SoundManager] Starting up...');
+		logmessage('[SoundManager] Starting up...');
 		init().then((_) {
 			new Service(['playSong'], (event) {
 				event = event.replaceAll(' ', '');
@@ -28,7 +28,7 @@ class SoundManager {
 
 			new Service(['playSound'], (event) => this.playSound(event));
 
-			log('[SoundManager] Registered services');
+			logmessage('[SoundManager] Registered services');
 		});
 	}
 
@@ -43,7 +43,7 @@ class SoundManager {
 			audioChannels['music'] = new AudioChannel("music")
 				..gain = musicVolume / 100;
 		} catch(e) {
-			log("[SoundManager] Browser does not support web audio: $e");
+			logmessage("[SoundManager] Browser does not support web audio: $e");
 			useWebAudio = false;
 		} finally {
 			setMute(view.slider.muted);
@@ -52,7 +52,7 @@ class SoundManager {
 		if(useWebAudio) {
 			//if canPlayType returns the empty string, that format is not compatible
 			if(new AudioElement().canPlayType('audio/ogg') == "") {
-				log("[SoundManager] Ogg not supported, using mp3s instead");
+				logmessage("[SoundManager] Ogg not supported, using mp3s instead");
 				extension = "mp3";
 			}
 
@@ -83,7 +83,7 @@ class SoundManager {
 				Asset soundCloudSongs = new Asset('./files/json/music.json');
 				await soundCloudSongs.load(statusElement: querySelector("#LoadStatus2"));
 			} catch(e) {
-				log("[SoundManager] There was a problem: $e");
+				logmessage("[SoundManager] There was a problem: $e");
 				useWebAudio = false;
 				await loadNonWebAudio();
 			}
@@ -116,7 +116,7 @@ class SoundManager {
 			Asset soundCloudSongs = new Asset('files/json/music.json');
 			await soundCloudSongs.load(statusElement: querySelector("#LoadStatus2"));
 		} catch(e) {
-			log("[SoundManager] Error while loading sounds: $e");
+			logmessage("[SoundManager] Error while loading sounds: $e");
 		}
 	}
 
@@ -162,7 +162,7 @@ class SoundManager {
 				return loading;
 			}
 		} catch(err) {
-			log('[SoundManager] Error playing sound: $err');
+			logmessage('[SoundManager] Error playing sound: $err');
 		}
 	}
 
@@ -193,7 +193,7 @@ class SoundManager {
 				audio.remove();
 			}
 		} catch(err) {
-			log('[SoundManager] Error stopping sound: $err');
+			logmessage('[SoundManager] Error stopping sound: $err');
 		}
 	}
 
@@ -210,12 +210,12 @@ class SoundManager {
 	Future loadSong(String name) async {
 		try{
 			if(ASSET['music'].get()[name] == null) {
-				log('Song "$name" does not exist.');
+				logmessage('Song "$name" does not exist.');
 			} else {
 				Scound s = await sc.load(ASSET['music'].get()[name]['scid']);
 				songs[name] = s;
 			}
-		} catch(err) {log('[SoundManager] ' + err);}
+		} catch(err) {logmessage('[SoundManager] ' + err);}
 	}
 
 	/**
@@ -245,10 +245,10 @@ class SoundManager {
 		 */
 		String testResult = new AudioElement().canPlayType('audio/mp3');
 		if(testResult == '') {
-			log('[SoundManager] SoundCloud: Your browser doesnt like mp3s :(');
+			logmessage('[SoundManager] SoundCloud: Your browser doesnt like mp3s :(');
 			//return;
 		} else if(testResult == 'maybe') //give warning message but proceed anyway
-			log('[SoundManager] SoundCloud: Your browser may or may not fully support mp3s');
+			logmessage('[SoundManager] SoundCloud: Your browser may or may not fully support mp3s');
 
 		//stop any current song
 		//if(useWebAudio && currentAudioInstance != null)

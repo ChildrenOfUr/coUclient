@@ -19,7 +19,7 @@ bool intersect(Rectangle a, Rectangle b) {
 /**
  * Log an event to the bug report window.
  **/
-log(String message) {
+logmessage(String message) {
 	String text = message + ' ' + getUptime();
 	transmit('debug', text);
 	print('$text');
@@ -139,15 +139,15 @@ String getRequirementString(List<Map> requires) {
  **/
 sendAction(String methodName, String entityId, [Map arguments]) {
 	if(methodName == null || methodName.trim == "") {
-		log("[Server Communication] methodName must be provided, got: '$methodName'");
+		logmessage("[Server Communication] methodName must be provided, got: '$methodName'");
 		return;
 	}
 	if(entityId == null || entityId.trim == "") {
-		log("[Server Communication] entityId must be provided, got: '$entityId'");
+		logmessage("[Server Communication] entityId must be provided, got: '$entityId'");
 		return;
 	}
 
-	log("[Server Communication] Sending $methodName to entity: $entityId (${entities[entityId].runtimeType}) with arguments: $arguments");
+	logmessage("[Server Communication] Sending $methodName to entity: $entityId (${entities[entityId].runtimeType}) with arguments: $arguments");
 	Element entity = querySelector("#$entityId");
 	Map map = {};
 	map['callMethod'] = methodName;

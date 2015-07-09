@@ -153,7 +153,7 @@ afterPolymer() async {
 	} else if(hasTouchSupport) {
 		// no preference, touch support, use mobile view
 		(querySelector("#MobileStyle") as StyleElement).disabled = false;
-		log('[Loader] Device has touch support, using mobile layout. Run /desktop in Global Chat to use the desktop view.');
+		logmessage('[Loader] Device has touch support, using mobile layout. Run /desktop in Global Chat to use the desktop view.');
 	} else if(!hasTouchSupport) {
 		// no preference, no touch support, use desktop view
 		(querySelector("#MobileStyle") as StyleElement).disabled = true;
@@ -178,7 +178,7 @@ afterPolymer() async {
 
 void handleAppCache() {
 	if(window.applicationCache.status == ApplicationCache.UPDATEREADY) {
-		log('[Loader] Application cache updated, swapping and reloading page');
+		logmessage('[Loader] Application cache updated, swapping and reloading page');
 		window.applicationCache.swapCache();
 		window.location.reload();
 		return;

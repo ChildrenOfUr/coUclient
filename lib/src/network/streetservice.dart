@@ -16,7 +16,7 @@ class StreetService {
 		view.mapLoadingScreen.className = "MapLoadingScreenIn";
 		view.mapLoadingScreen.style.opacity = "1.0";
 
-		log('[StreetService] Requesting street "$StreetID"...');
+		logmessage('[StreetService] Requesting street "$StreetID"...');
 
 		HttpRequest data = await HttpRequest.request(_dataUrl + "/street", method: "POST",
 		                                             requestHeaders: {"content-type": "application/json"},
@@ -27,7 +27,7 @@ class StreetService {
 		if(serverdata['ok'] == 'no') {
 			print('Error: Server refused.');
 		} else {
-			log('[StreetService] "$StreetID" loaded.');
+			logmessage('[StreetService] "$StreetID" loaded.');
 			await _prepareStreet(serverdata['streetJSON']);
 
 			String playerList = '';
@@ -50,7 +50,7 @@ class StreetService {
 
 	Future _prepareStreet(Map streetJSON) async
 	{
-		log('[StreetService] Assembling Street...');
+		logmessage('[StreetService] Assembling Street...');
 
 		if(streetJSON['tsid'] == null)
 			return;
@@ -90,7 +90,7 @@ class StreetService {
 		await new Future.delayed(new Duration(seconds: 1));
 		new Asset.fromMap(streetAsMap, label);
 		await new Street(streetAsMap).load();
-		log('[StreetService] Street assembled.');
+		logmessage('[StreetService] Street assembled.');
 		// notify minimap to update
 		transmit('streetLoaded', null);
 	}

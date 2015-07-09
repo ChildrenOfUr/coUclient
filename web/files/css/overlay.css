@@ -61,3 +61,63 @@ p.italic {
     height: 225px;
     margin-top: 20px;
 }
+
+#pm-level-info {
+    height: calc(100% - 215px);
+    position: absolute;
+    top: 90px;
+    background-color: #eee;
+    border-radius: 0 8px 8px 0;
+    border: 2px solid #eee;
+    border-left: none;
+    width: 200px;
+    left: -150px;
+    transition: left 0.5s;
+}
+
+#pm-level-info:hover {
+    left: 0;
+}
+
+#pm-level-text {
+    width: 134px;
+    padding: 8px;
+    text-align: center;
+}
+
+#pm-level-container {
+    width: 50px;
+    box-shadow: 0 0 9px 5px #aaa inset;
+    height: 100%;
+    position: absolute;
+    left: 150px;
+    top: 0;
+    background-color: #eee;
+    border-radius: 0 6px 6px 0;
+}
+
+#pm-level-bar {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    border-radius: 0 6px 6px 0;
+    background-color: #4b2e4c;
+    z-index: 10;
+}
+
+#pm-level-label {
+    position: absolute;
+    bottom: 2.5em;
+    width: 100%;
+    z-index: 12;
+    text-align: center;
+}
+
+#pm-level-num {
+    z-index: 12;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    font-size: 35px;
+}

@@ -48,7 +48,7 @@ bool parseCommand(String command) {
 
 	if(COMMANDS.containsKey(verb)) {
 		COMMANDS[verb](noun);
-		log('[Chat] Parsed valid command: "$command"');
+		logmessage('[Chat] Parsed valid command: "$command"');
 		return true;
 	} else {
 		return false;

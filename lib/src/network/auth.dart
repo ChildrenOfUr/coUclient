@@ -19,7 +19,7 @@ class AuthManager {
 
 			Map serverdata = e.detail;
 
-			log('[AuthManager] Setting API tokens');
+			logmessage('[AuthManager] Setting API tokens');
 			SESSION_TOKEN = serverdata['sessionToken'];
 			SLACK_WEBHOOK = serverdata['slack-webhook'];
 			SLACK_BUG_WEBHOOK = serverdata['slack-bug-webhook'];
@@ -33,7 +33,7 @@ class AuthManager {
 				setupNewUser(serverdata);
 			} else {
 				// Get our username and location from the server.
-				log('[AuthManager] Logged in');
+				logmessage('[AuthManager] Logged in');
 				startGame(serverdata);
 			}
 		});
@@ -46,7 +46,7 @@ class AuthManager {
 	}
 
 	void logout() {
-		log('[AuthManager] Attempting logout');
+		logmessage('[AuthManager] Attempting logout');
 		localStorage.remove('username');
 		_loginPanel.firebase.unauth();
 		window.location.reload();

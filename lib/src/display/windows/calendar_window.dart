@@ -20,7 +20,11 @@ class CalendarWindow extends Modal {
     // launch //
 
     querySelector("#time").onClick.listen((_) {
-      this.open();
+        if (this.window.hidden) {
+	        this.open();
+        } else {
+	        this.close();
+        }
     });
 
     document.onKeyDown.listen((KeyboardEvent k) {

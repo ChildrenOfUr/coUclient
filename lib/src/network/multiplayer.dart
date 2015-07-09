@@ -63,7 +63,7 @@ _setupStreetSocket(String streetName) {
 		if(map['error'] != null) {
 			reconnect = false;
 			print(map['error']);
-			log('[Multiplayer (Street)] Error ${map['error']}');
+			logmessage('[Multiplayer (Street)] Error ${map['error']}');
 			streetSocket.close();
 			return;
 		}
@@ -189,7 +189,7 @@ _setupStreetSocket(String streetName) {
 		});
 	});
 	streetSocket.onClose.listen((CloseEvent e) {
-		log('[Multiplayer (Street)] Socket closed');
+		logmessage('[Multiplayer (Street)] Socket closed');
 		if(!reconnect) {
 			querySelector('#server-down').hidden = false;
 			serverDown = true;
@@ -204,7 +204,7 @@ _setupStreetSocket(String streetName) {
 		});
 	});
 	streetSocket.onError.listen((Event e) {
-		log('[Multiplayer (Street)] Error ${e}');
+		logmessage('[Multiplayer (Street)] Error ${e}');
 	});
 }
 
@@ -246,7 +246,7 @@ _setupPlayerSocket() {
 		if(map['error'] != null) {
 			reconnect = false;
 			print(map['error']);
-			log('[Multiplayer (Player)] Error ${map['error']}');
+			logmessage('[Multiplayer (Player)] Error ${map['error']}');
 			playerSocket.close();
 			return;
 		}
@@ -279,7 +279,7 @@ _setupPlayerSocket() {
 		}
 	});
 	playerSocket.onClose.listen((_) {
-		log('[Multiplayer (Player)] Socket closed');
+		logmessage('[Multiplayer (Player)] Socket closed');
 		if(!reconnect) {
 			reconnect = true;
 			return;
@@ -292,7 +292,7 @@ _setupPlayerSocket() {
 		});
 	});
 	playerSocket.onError.listen((Event e) {
-		log('[Multiplayer (Player)] Error ${e}');
+		logmessage('[Multiplayer (Player)] Error ${e}');
 	});
 }
 

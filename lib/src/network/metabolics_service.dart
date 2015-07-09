@@ -13,6 +13,10 @@ class MetabolicsService {
 	Metabolics playerMetabolics;
 	DateTime lastUpdate, nextUpdate;
 	String url = 'ws://${Configs.websocketServerAddress}/metabolics';
+	Map<int, int> levels = {
+		1: 0,
+		60: 2147483647
+	};
 
 	void init(Metabolics m) {
 		playerMetabolics = m;
@@ -36,12 +40,12 @@ class MetabolicsService {
 			update();
 		});
 		socket.onClose.listen((CloseEvent e) {
-			log('[Metabolics] Websocket closed: ${e.reason}');
+			logmessage('[Metabolics] Websocket closed: ${e.reason}');
 			//wait 5 seconds and try to reconnect
 			new Timer(new Duration(seconds: 5), () => setupWebsocket());
 		});
 		socket.onError.listen((ErrorEvent e) {
-			log('[Metabolics] Error ${e.error}');
+			logmessage('[Metabolics] Error ${e.error}');
 		});
 	}
 
@@ -148,9 +152,30 @@ class MetabolicsService {
 
 	int get img => playerMetabolics.img;
 
+	int get lifetime_img => playerMetabolics.lifetime_img;
+
 	String get currentStreet => playerMetabolics.current_street;
 
 	num get currentStreetX => playerMetabolics.current_street_x;
 
 	num get currentStreetY => playerMetabolics.current_street_y;
+
+	int get level {
+		if (lifetime_img > 0) {
+			double lvlRaw;
+			lvlRaw = lifetime_img.toDouble();
+			lvlRaw = log(lvlRaw) / log(1.43064593669);
+			return lvlRaw.floor();
+		} else {
+			return 1;
+		}
+	}
+
+	int get img_current {
+		return pow(level, 1.43064593669).round();
+	}
+
+	int get img_next {
+		return pow(level + 1, 1.43064593669).round();
+	}
 }

@@ -35,7 +35,33 @@ Overlay imgMenu;
 
 void setUpOverlays() {
 	newDay = new NewDayOverlay("newday");
-	imgMenu = new Overlay("pauseMenu");
+	imgMenu = new ImgOverlay("pauseMenu");
+}
+
+class ImgOverlay extends Overlay {
+	Element bar, levelNum;
+	ImgOverlay(String id):super(id) {
+		bar = querySelector("#pm-level-bar");
+		levelNum = querySelector("#pm-level-num");
+	}
+
+	open() {
+//		// Calculate level/img stats
+//		int currimg = metabolics.img;
+//		int allimg = metabolics.lifetime_img;
+//		int level = metabolics.level;
+//		int levelimg = metabolics.img_current;
+//		int nextimg = metabolics.img_next;
+//		int imgtonext = nextimg - allimg;
+//		num pcToNext = ((100 / nextimg) * levelimg);
+//
+//		// Display img bar
+//		bar.style.height = pcToNext.toString() + '%';
+//		levelNum.text = level.toString();
+
+		// Show
+		overlay.hidden = false;
+	}
 }
 
 class NewDayOverlay extends Overlay {
