@@ -11,13 +11,8 @@ class ActionBubble {
 		num posX = CurrentPlayer.posX;
 		num posY = CurrentPlayer.posY;
 		int width = CurrentPlayer.width;
-		int height = CurrentPlayer.height;
 
 		String text = (action[0] as String).split('|')[1];
-		if (text.contains("Focus ")) {
-			text = "Focus";
-		}
-
 		int x = posX.toInt() - width ~/ 2;
 		int y = posY.toInt() - 60;
 
@@ -33,7 +28,8 @@ class ActionBubble {
 			..style.transition = "width ${duration / 1000}s linear"
 			..style.top = '$y' 'px'
 			..style.left = '$x' 'px'
-			..style.zIndex = '99';
+			..style.zIndex = '99'
+		..style.whiteSpace = 'nowrap';
 
 		view.playerHolder
 			..append(outline)
