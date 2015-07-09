@@ -169,10 +169,10 @@ class MetabolicsService {
 	}
 
 	int get img_req_for_curr_lvl {
-		return pow(lvlLog, level).ceil();
+		return pow(level, lvlLog).ceil();
 	}
 
 	int get img_req_for_next_lvl {
-		return pow(lvlLog, level + 1).ceil();
+		return pow(level + 1, lvlLog).ceil();
 	}
 }
