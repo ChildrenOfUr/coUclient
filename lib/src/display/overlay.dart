@@ -39,25 +39,28 @@ void setUpOverlays() {
 }
 
 class ImgOverlay extends Overlay {
-	Element bar, levelNum;
+	Element bar, levelNum, imgtonextE, nextlvlE;
 	ImgOverlay(String id):super(id) {
 		bar = querySelector("#pm-level-bar");
 		levelNum = querySelector("#pm-level-num");
+		imgtonextE = querySelector("#pm-img-req");
+		nextlvlE = querySelector("#pm-next-lvlnum");
 	}
 
 	open() {
-//		// Calculate level/img stats
-//		int currimg = metabolics.img;
-//		int allimg = metabolics.lifetime_img;
-//		int level = metabolics.level;
-//		int levelimg = metabolics.img_current;
-//		int nextimg = metabolics.img_next;
-//		int imgtonext = nextimg - allimg;
-//		num pcToNext = ((100 / nextimg) * levelimg);
-//
-//		// Display img bar
-//		bar.style.height = pcToNext.toString() + '%';
-//		levelNum.text = level.toString();
+		// Calculate level/img stats
+		int allimg = metabolics.lifetime_img;
+		int level = metabolics.level;
+		int levelimg = metabolics.img_req_for_curr_lvl;
+		int nextimg = metabolics.img_req_for_next_lvl;
+		int imgtonext = nextimg - allimg;
+		num percentOfNext = ((100 / nextimg) * (levelimg - allimg));
+
+		// Display img bar
+		bar.style.height = percentOfNext.toString() + '%';
+		levelNum.text = level.toString();
+		imgtonextE.text = commaFormatter.format(imgtonext);
+		nextlvlE.text = (level + 1).toString();
 
 		// Show
 		overlay.hidden = false;

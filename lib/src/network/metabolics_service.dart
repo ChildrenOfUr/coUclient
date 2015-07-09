@@ -13,10 +13,7 @@ class MetabolicsService {
 	Metabolics playerMetabolics;
 	DateTime lastUpdate, nextUpdate;
 	String url = 'ws://${Configs.websocketServerAddress}/metabolics';
-	Map<int, int> levels = {
-		1: 0,
-		60: 2147483647
-	};
+	final num lvlLog = 1.43064593669;
 
 	void init(Metabolics m) {
 		playerMetabolics = m;
@@ -31,7 +28,7 @@ class MetabolicsService {
 		socket.onOpen.listen((_) => socket.send(JSON.encode({'username': game.username})));
 		socket.onMessage.listen((MessageEvent event) {
 			Map map = JSON.decode(event.data);
-			if(map['collectQuoin'] != null) {
+			if (map['collectQuoin'] != null) {
 				collectQuoin(map);
 			} else {
 				playerMetabolics = decode(event.data, type:Metabolics);
@@ -55,20 +52,20 @@ class MetabolicsService {
 		Element element = querySelector('#${map['id']}');
 		quoins[map['id']].checking = false;
 
-		if(map['success'] == 'false') return;
+		if (map['success'] == 'false') return;
 
 		int amt = map['amt'];
-		if(querySelector("#buff-quoin") != null) {
+		if (querySelector("#buff-quoin") != null) {
 			amt *= 2;
 			// TODO: implement server-side so that this amount actually gets awarded
 		}
 		String quoinType = map['quoinType'];
 
-		if(quoinType == "energy" && playerMetabolics.energy + amt > playerMetabolics.max_energy) {
+		if (quoinType == "energy" && playerMetabolics.energy + amt > playerMetabolics.max_energy) {
 			amt = playerMetabolics.max_energy - playerMetabolics.energy;
 		}
 
-		if(quoinType == "mood" && playerMetabolics.mood + amt > playerMetabolics.max_mood) {
+		if (quoinType == "mood" && playerMetabolics.mood + amt > playerMetabolics.max_mood) {
 			amt = playerMetabolics.max_mood - playerMetabolics.mood;
 		}
 		quoins[map['id']].collected = true;
@@ -99,14 +96,14 @@ class MetabolicsService {
 //      }
 //    }
 
-		switch(quoinType) {
+		switch (quoinType) {
 			case "currant":
-				if(amt == 1) quoinText.text = "+" + amt.toString() + " currant";
+				if (amt == 1) quoinText.text = "+" + amt.toString() + " currant";
 				else quoinText.text = "+" + amt.toString() + " currants";
 				break;
 
 			case "mood":
-				if(amt == 0) {
+				if (amt == 0) {
 					quoinText.text = "Full mood!";
 				} else {
 					quoinText.text = "+" + amt.toString() + " mood";
@@ -114,7 +111,7 @@ class MetabolicsService {
 				break;
 
 			case "energy":
-				if(amt == 0) {
+				if (amt == 0) {
 					quoinText.text = "Full energy!";
 				} else {
 					quoinText.text = "+" + amt.toString() + " energy";
@@ -164,18 +161,18 @@ class MetabolicsService {
 		if (lifetime_img > 0) {
 			double lvlRaw;
 			lvlRaw = lifetime_img.toDouble();
-			lvlRaw = log(lvlRaw) / log(1.43064593669);
+			lvlRaw = logb(lvlRaw, base: lvlLog);
 			return lvlRaw.floor();
 		} else {
 			return 1;
 		}
 	}
 
-	int get img_current {
-		return pow(level, 1.43064593669).round();
+	int get img_req_for_curr_lvl {
+		return pow(lvlLog, level);
 	}
 
-	int get img_next {
-		return pow(level + 1, 1.43064593669).round();
+	int get img_req_for_next_lvl {
+		return pow(lvlLog, level + 1);
 	}
 }

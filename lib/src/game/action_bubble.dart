@@ -13,17 +13,22 @@ class ActionBubble {
 		int width = CurrentPlayer.width;
 		int height = CurrentPlayer.height;
 
+		String text = (action[0] as String).split('|')[1];
+		if (text.contains("Focus ")) {
+			text = "Focus";
+		}
+
 		int x = posX.toInt() - width ~/ 2;
 		int y = posY.toInt() - 60;
 
 		outline
-			..text = (action[0] as String).split("|")[1]
+			..text = text
 			..className = "border" + " " + (action[0] as String).split("|")[1].toLowerCase().replaceAll(' ', '_')
 			..style.top = '$y' 'px'
 			..style.left = '$x' 'px'
 			..style.zIndex = '99';
 		fill
-			..text = (action[0] as String).split("|")[1]
+			..text = text
 			..className = "fill" + " " + (action[0] as String).split("|")[1].toLowerCase().replaceAll(' ', '_')
 			..style.transition = "width ${duration / 1000}s linear"
 			..style.top = '$y' 'px'

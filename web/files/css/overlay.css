@@ -72,11 +72,12 @@ p.italic {
     border-left: none;
     width: 200px;
     left: -150px;
-    transition: left 0.5s;
+    transition: left 0.5s ease-in-out, box-shadow 0.2s linear;
 }
 
 #pm-level-info:hover {
     left: 0;
+    box-shadow: 0 0 10px 0 #eee;
 }
 
 #pm-level-text {
@@ -120,4 +121,14 @@ p.italic {
     width: 100%;
     text-align: center;
     font-size: 35px;
+}
+
+#pm-next-lvlnum {
+    font-weight: bold;
+}
+
+#pm-img-req {
+    font-weight: bold;
+    font-size: 24px;
+    margin-top: 20px;
 }

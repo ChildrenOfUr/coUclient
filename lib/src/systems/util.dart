@@ -187,3 +187,9 @@ String getUsernameColor(String username) {
 }
 
 String getTimestampString() => new DateTime.now().toString().substring(11, 16);
+
+/// Log base function using the change of base formula
+
+double logb (num number, {num base: 10}) {
+	return log(number) / log(base);
+}
