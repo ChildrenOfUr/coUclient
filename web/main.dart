@@ -73,7 +73,6 @@ part 'package:couclient/src/display/loop.dart';
 
 //  WINDOW MODULES //
 part 'package:couclient/src/display/windows/windows.dart';
-part 'package:couclient/src/display/overlay.dart';
 part 'package:couclient/src/display/windows/settings_window.dart';
 part 'package:couclient/src/display/windows/bag_window.dart';
 part 'package:couclient/src/display/windows/bug_window.dart';
@@ -85,6 +84,11 @@ part 'package:couclient/src/display/windows/calendar_window.dart';
 part 'package:couclient/src/display/windows/shrine_window.dart';
 part 'package:couclient/src/display/windows/rock_window.dart';
 part 'package:couclient/src/display/windows/item_window.dart';
+
+// OVERLAYS //
+part 'package:couclient/src/display/overlays/overlay.dart';
+part 'package:couclient/src/display/overlays/newdayscreen.dart';
+part 'package:couclient/src/display/overlays/imgmenu.dart';
 
 // WIDGET MODULES //
 part 'package:couclient/src/display/widgets/volumeslider.dart';

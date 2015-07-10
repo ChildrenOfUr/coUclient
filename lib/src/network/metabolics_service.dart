@@ -13,7 +13,69 @@ class MetabolicsService {
 	Metabolics playerMetabolics;
 	DateTime lastUpdate, nextUpdate;
 	String url = 'ws://${Configs.websocketServerAddress}/metabolics';
-	final num lvlLog = 1.43064593669;
+
+	Map <int, int> imgLevels = {
+		1: 100,
+		2: 125,
+		3: 156,
+		4: 195,
+		5: 244,
+		6: 305,
+		7: 381,
+		8: 476,
+		9: 595,
+		10: 744,
+		11: 930,
+		12: 1163,
+		13: 1454,
+		14: 1818,
+		15: 2273,
+		16: 2841,
+		17: 3551,
+		18: 4439,
+		19: 5549,
+		20: 6936,
+		21: 8670,
+		22: 10838,
+		23: 13548,
+		24: 16935,
+		25: 21169,
+		26: 26461,
+		27: 33076,
+		28: 41345,
+		29: 51681,
+		30: 64601,
+		31: 80751,
+		32: 100939,
+		33: 126174,
+		34: 157718,
+		35: 197148,
+		36: 246435,
+		37: 308044,
+		38: 385055,
+		39: 481319,
+		40: 601649,
+		41: 752061,
+		42: 940076,
+		43: 1175095,
+		44: 1468869,
+		45: 1836086,
+		46: 2295108,
+		47: 2868885,
+		48: 3586106,
+		49: 4482633,
+		50: 5603291,
+		51: 7004114,
+		52: 8755143,
+		53: 10943929,
+		54: 13679911,
+		55: 17099889,
+		56: 21374861,
+		57: 26718576,
+		58: 33398220,
+		59: 41747775,
+		60: 52184719,
+	};
 
 	void init(Metabolics m) {
 		playerMetabolics = m;
@@ -158,21 +220,21 @@ class MetabolicsService {
 	num get currentStreetY => playerMetabolics.current_street_y;
 
 	int get level {
-		if (lifetime_img > 0) {
-			double lvlRaw;
-			lvlRaw = lifetime_img.toDouble();
-			lvlRaw = logb(lvlRaw, base: lvlLog);
-			return lvlRaw.floor();
-		} else {
-			return 1;
+		int lvl = 0;
+		for (int levelNum in imgLevels.keys) {
+			if (imgLevels[levelNum] > lifetime_img) {
+				lvl = levelNum - 1;
+				break;
+			}
 		}
+		return lvl;
 	}
 
 	int get img_req_for_curr_lvl {
-		return pow(level, lvlLog).ceil();
+		return imgLevels[level];
 	}
 
 	int get img_req_for_next_lvl {
-		return pow(level + 1, lvlLog).ceil();
+		return imgLevels[level + 1];
 	}
 }
