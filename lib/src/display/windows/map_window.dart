@@ -8,8 +8,13 @@ class MapWindow extends Modal {
 		prepare();
 		// MAPWINDOW LISTENERS //
 		view.mapButton.onClick.listen((_) {
-			this.open();
-			worldMap = new WorldMap(currentStreet.hub_id);
+			if(this.window.hidden) {
+				this.open();
+				worldMap = new WorldMap(currentStreet.hub_id);
+				worldMap = new WorldMap(currentStreet.hub_id);
+			} else {
+				this.close();
+			}
 		});
 
 		document.onKeyDown.listen((KeyboardEvent k) {

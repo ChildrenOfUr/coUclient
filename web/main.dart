@@ -72,7 +72,7 @@ part 'package:couclient/src/display/render.dart';
 part 'package:couclient/src/display/loop.dart';
 
 //  WINDOW MODULES //
-part 'package:couclient/src/display/windows.dart';
+part 'package:couclient/src/display/windows/windows.dart';
 part 'package:couclient/src/display/overlay.dart';
 part 'package:couclient/src/display/windows/settings_window.dart';
 part 'package:couclient/src/display/windows/bag_window.dart';

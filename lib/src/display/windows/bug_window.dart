@@ -15,23 +15,27 @@ class BugWindow extends Modal {
     // BUG REPORT LISTENERS
     bool listening = false;
     view.bugButton.onClick.listen((_) {
-      this.open();
-      Element w = this.window;
-      TextAreaElement input = w.querySelector('textarea');
-      input.value = '';
-      
-      // Submits the Bug
-      // TODO someday this should be serverside. Let's not give our keys to the client unless we have to.
-      if (listening == false) {
-        listening = true;
-        w.querySelector('ur-button').onClick.listen((_) {
-          slack.Slack s = new slack.Slack(SLACK_BUG_WEBHOOK);
-          slack.Message m = new slack.Message('${view.bugReportMeta.text}\n\nReport Type: ${view.bugReportType.value}\n\nComments:${input.value}\n\nEmail: ${game.email}\n', username:game.username);
-          s.send(m);
-          w.hidden = true;
-          toast("Report sent");
-        });
-      }
+	    if(this.window.hidden) {
+		    this.open();
+		    Element w = this.window;
+		    TextAreaElement input = w.querySelector('textarea');
+		    input.value = '';
+
+		    // Submits the Bug
+		    // TODO someday this should be serverside. Let's not give our keys to the client unless we have to.
+		    if (listening == false) {
+			    listening = true;
+			    w.querySelector('ur-button').onClick.listen((_) {
+				    slack.Slack s = new slack.Slack(SLACK_BUG_WEBHOOK);
+				    slack.Message m = new slack.Message('${view.bugReportMeta.text}\n\nReport Type: ${view.bugReportType.value}\n\nComments:${input.value}\n\nEmail: ${game.email}\n', username:game.username);
+				    s.send(m);
+				    w.hidden = true;
+				    toast("Report sent");
+			    });
+		    }
+	    } else {
+		    this.close();
+	    }
     });
 
     querySelector("#rwc-bugwindow").onClick.listen((_) {

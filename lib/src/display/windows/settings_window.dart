@@ -9,7 +9,6 @@ class SettingsWindow extends Modal {
 	SettingsWindow() {
 		prepare();
 		// SETTINGS WINDOW LISTENERS //
-		view.settingsButton.onClick.listen((_) => this.open());
 
 		//listen for onChange events so that clicking the label or the checkbox will call this method
 		querySelectorAll('.ChatSettingsCheckbox').onChange.listen((Event event) {
@@ -123,6 +122,14 @@ class SettingsWindow extends Modal {
 				} else {
 					this.close();
 				}
+			}
+		});
+
+		view.settingsButton.onClick.listen((_) {
+			if(this.window.hidden) {
+				this.open();
+			} else {
+				this.close();
 			}
 		});
 	}
