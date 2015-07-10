@@ -111,7 +111,7 @@ class Mailbox extends PolymerElement {
 		Mail message = new Mail();
 		message.to_user = toField;
 		message.from_user = window.sessionStorage['playerName'];
-		if (message.body != null) {
+		if (toBody != null) {
 			message.body = toBody;
 		} else {
 			message.body = "";
