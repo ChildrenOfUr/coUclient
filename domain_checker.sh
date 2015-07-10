@@ -1,4 +1,4 @@
-branch="$(git rev-parse --abbrev-ref HEAD)"
+branch=$CI_BRANCH
 if [ "$branch" == "master" ]
 then
     echo "server.childrenofur.com" > web/server_domain.txt
