@@ -89,6 +89,7 @@ part 'package:couclient/src/display/windows/item_window.dart';
 part 'package:couclient/src/display/overlays/overlay.dart';
 part 'package:couclient/src/display/overlays/newdayscreen.dart';
 part 'package:couclient/src/display/overlays/imgmenu.dart';
+part 'package:couclient/src/display/overlays/levelup.dart';
 
 // WIDGET MODULES //
 part 'package:couclient/src/display/widgets/volumeslider.dart';

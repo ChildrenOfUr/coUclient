@@ -74,7 +74,7 @@ class MetabolicsService {
 		57: 26718576,
 		58: 33398220,
 		59: 41747775,
-		60: 52184719,
+		60: 52184719
 	};
 
 	void init(Metabolics m) {

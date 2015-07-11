@@ -17,15 +17,17 @@ class NewDayOverlay extends Overlay {
 			overlay.querySelector("#newday-sun").classes.add("up");
 			overlay.querySelector("#newday-refill-disc").classes.add("full");
 		});
+		inputManager.ignoreKeys = true;
 		overlay.querySelector("#newday-button").onClick.first.then((_) => close());
 		// TODO: new day screen sound
 	}
 
 	close() {
 		overlay.hidden = true;
+		inputManager.ignoreKeys = false;
 		overlay.querySelector("#newday-sun").classes.remove("up");
 		overlay.querySelector("#newday-refill-disc").classes.remove("full");
 	}
 }
 
-Overlay newDay;
+NewDayOverlay newDay;

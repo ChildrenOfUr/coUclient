@@ -21,14 +21,17 @@ class Overlay {
 
 	open() {
 		overlay.hidden = false;
+		inputManager.ignoreKeys = true;
 	}
 
 	close() {
 		overlay.hidden = true;
+		inputManager.ignoreKeys = false;
 	}
 }
 
 void setUpOverlays() {
 	newDay = new NewDayOverlay("newday");
 	imgMenu = new ImgOverlay("pauseMenu");
+	levelUp = new LevelUpOverlay("levelup");
 }

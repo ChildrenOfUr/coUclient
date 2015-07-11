@@ -78,6 +78,9 @@ class SoundManager {
 				gameSounds['tripleJump'] = new Sound(channel: audioChannels['soundEffects']);
 				await gameSounds['tripleJump'].load("files/audio/tripleJump.$extension");
 
+				gameSounds['levelUp'] = new Sound(channel: audioChannels['soundEffects']);
+				await gameSounds['levelUp'].load("files/audio/levelUp.$extension");
+
 				// TODO: new day screen sound
 
 				Asset soundCloudSongs = new Asset('./files/json/music.json');
@@ -106,7 +109,8 @@ class SoundManager {
 				new Asset('files/audio/mention.mp3'),
 				new Asset('files/audio/quoinSound.mp3'),
 				new Asset('files/audio/game_loaded.mp3'),
-				new Asset('files/audio/tripleJump.mp3')
+				new Asset('files/audio/tripleJump.mp3'),
+				new Asset('files/audio/levelUp.mp3')
 				// TODO: new day screen sound
 			]);
 			await ui_sounds.load(() {
