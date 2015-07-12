@@ -62,23 +62,23 @@
 }
 
 @-webkit-keyframes pulsetext {
-    0%, 100% { transform: rotate(-30deg) scale(1); }
-    50% { transform: rotate(-30deg) scale(1.5); }
+    0%, 100% { transform: rotate(-30deg) scale(0.5); }
+    50% { transform: rotate(-30deg) scale(1); }
 }
 
 @-moz-keyframes pulsetext {
-    0%, 100% { transform: rotate(-30deg) scale(1); }
-    50% { transform: rotate(-30deg) scale(1.5); }
+    0%, 100% { transform: rotate(-30deg) scale(0.5); }
+    50% { transform: rotate(-30deg) scale(1); }
 }
 
 @-o-keyframes pulsetext {
-    0%, 100% { transform: rotate(-30deg) scale(1); }
-    50% { transform: rotate(-30deg) scale(1.5); }
+    0%, 100% { transform: rotate(-30deg) scale(0.5); }
+    50% { transform: rotate(-30deg) scale(1); }
 }
 
 @keyframes pulsetext {
-    0%, 100% { transform: rotate(-30deg) scale(1); }
-    50% { transform: rotate(-30deg) scale(1.5); }
+    0%, 100% { transform: rotate(-30deg) scale(0.5); }
+    50% { transform: rotate(-30deg) scale(1); }
 }
 
 #lu-desc {
@@ -87,7 +87,7 @@
     transform: rotate(-30deg);
     color: teal;
     text-shadow: 0 0 10px white;
-    font-size: 50px;
+    font-size: 75px;
     -webkit-animation: pulsetext 0.8s linear infinite;
     -moz-animation: pulsetext 0.8s linear infinite;
     -o-animation: pulsetext 0.8s linear infinite;

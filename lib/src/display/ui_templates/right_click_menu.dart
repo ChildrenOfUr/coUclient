@@ -79,8 +79,19 @@ class RightClickMenu {
 			wrapper.append(tooltip);
 			newOptions.add(wrapper);
 		}
-		if(newOptions.length > 0 && !newOptions[0].children[0].classes.contains("RCItemDisabled")) {
-			newOptions[0].children[0].classes.toggle("RCItemSelected");
+		if (!newOptions[0].children[0].classes.contains("RCItemDisabled")) {
+			if(newOptions.length > 1) {
+				menu.onKeyPress.listen((e) {
+					if (e.keyCode == 40) { // down arrow
+						newOptions[0].children[0].classes.toggle("RCItemSelected");
+					}
+					if (e.keyCode == 38) { // up arrow
+						newOptions[0].children[newOptions.length].classes.toggle("RCItemSelected");
+					}
+				});
+			} else if (newOptions.length == 1) {
+				newOptions[0].children[0].classes.toggle("RCItemSelected");
+			}
 		}
 
 		document.body.append(menu);

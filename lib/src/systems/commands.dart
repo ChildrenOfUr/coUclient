@@ -88,6 +88,17 @@ setName(_) {
 
 /////////////////////////////////// TESTING ONLY, ENABLE AS NEEDED
 
+//// Teleports
+go(String tsid) {
+	tsid = tsid.trim();
+	view.mapLoadingScreen.className = "MapLoadingScreenIn";
+	view.mapLoadingScreen.style.opacity = "1.0";
+	minimap.containerE.hidden = true;
+	//changes first letter to match revdancatt's code - only if it starts with an L
+	if (tsid.startsWith("L")) tsid = tsid.replaceFirst("L", "G");
+	streetService.requestStreet(tsid);
+}
+
 //// [LOCAL ONLY] Changes the time temporarily
 //setTime(String noun) {
 //	transmit('timeUpdateFake',[noun]);

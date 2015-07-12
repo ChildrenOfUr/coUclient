@@ -40,6 +40,14 @@
     color: #823917;
 }
 
+.fill.scraping {
+    color: #c9c5b3;
+}
+
+.fill.squishing {
+    color: #567238;
+}
+
 /* Focusing Orb */
 
 .fill.levitate,
