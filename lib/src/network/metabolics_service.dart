@@ -134,30 +134,6 @@ class MetabolicsService {
 
 		Element quoinText = querySelector("#qq" + element.id + " .quoinString");
 
-		// TODO: enable this when the server supports it
-//    if (quoinType == "mystery") {
-//      switch (new Random().nextInt(5)) {
-//        case 0:
-//          quoinType = "currant";
-//          break;
-//        case 1:
-//          quoinType = "mood";
-//          break;
-//        case 2:
-//          quoinType = "energy";
-//          break;
-//        case 3:
-//          quoinType = "img";
-//          break;
-//        case 4:
-//          quoinType = "favor";
-//          break;
-//        case 5:
-//          quoinType = "time";
-//          break;
-//      }
-//    }
-
 		switch (quoinType) {
 			case "currant":
 				if (amt == 1) quoinText.text = "+" + amt.toString() + " currant";
@@ -190,11 +166,7 @@ class MetabolicsService {
 				break;
 
 			case "time":
-				quoinText.text = "No time like the present";
-				// TODO : update this later
-				break;
-			case "mystery":
-				quoinText.text = "+" + amt.toString() + " brownie points";
+				quoinText.text = "+" + amt.toString() + " time";
 				break;
 		}
 	}

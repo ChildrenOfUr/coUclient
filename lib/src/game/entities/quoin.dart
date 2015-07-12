@@ -18,6 +18,10 @@ class Quoin {
 	init(Map map) async
 	{
 		typeString = map['type'];
+
+		// Don't show mystery quoins
+		if (typeString == 'mystery') return;
+
 		id = map["id"];
 		int quoinValue = quoins[typeString.toLowerCase()];
 
