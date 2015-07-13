@@ -192,7 +192,9 @@ class Player {
 				jumpcount = 0;
 				jumpTimer.cancel();
 				jumpTimer = null;
-				audio.playSound('tripleJump');
+				if(!activeClimb) {
+					audio.playSound('tripleJump');
+				}
 			}
 			else {
 				// normal jump
