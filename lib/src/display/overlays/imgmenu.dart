@@ -12,6 +12,7 @@ class ImgOverlay extends Overlay {
 	}
 
 	open() {
+		print('level: ' + metabolics.level.toString());
 		if (metabolics.lifetime_img < 52184719) {
 			// Calculate level/img stats
 			int imgToward = metabolics.lifetime_img - metabolics.img_req_for_curr_lvl;
@@ -40,7 +41,14 @@ class ImgOverlay extends Overlay {
 		}
 
 		overlay.hidden = false;
+		querySelector("#thinkButton").classes.add("pressed");
 		inputManager.ignoreKeys = true;
+	}
+
+	close() {
+		overlay.hidden = true;
+		querySelector("#thinkButton").classes.remove("pressed");
+		inputManager.ignoreKeys = false;
 	}
 }
 

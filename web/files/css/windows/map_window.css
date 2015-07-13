@@ -188,67 +188,67 @@
     box-shadow: 0 0 10px rgb(255, 255, 113);
 }
 
-.minimap-player[chat-color~="deepskyblue"] {
+.minimap-player[chat-color="deepskyblue"] {
     background-color: deepskyblue;
     border: 2px solid black;
 }
 
-.minimap-player[chat-color~="fuchsia"] {
+.minimap-player[chat-color="fuchsia"] {
     background-color: fuchsia;
     border: 2px solid black;
 }
 
-.minimap-player[chat-color~="gray"] {
+.minimap-player[chat-color="gray"] {
     background-color: gray;
     border: 2px solid black;
 }
 
-.minimap-player[chat-color~="orange"] {
+.minimap-player[chat-color="orange"] {
     background-color: orange;
     border: 2px solid black;
 }
 
-.minimap-player[chat-color~="red"] {
+.minimap-player[chat-color="red"] {
     background-color: red;
     border: 2px solid black;
 }
 
-.minimap-player[chat-color~="blue"] {
+.minimap-player[chat-color="blue"] {
     background-color: blue;
     border: 2px solid white;
 }
 
-.minimap-player[chat-color~="green"] {
+.minimap-player[chat-color="green"] {
     background-color: green;
     border: 2px solid white;
 }
 
-.minimap-player[chat-color~="maroon"] {
+.minimap-player[chat-color="maroon"] {
     background-color: maroon;
     border: 2px solid white;
 }
 
-.minimap-player[chat-color~="navy"] {
+.minimap-player[chat-color="navy"] {
     background-color: navy;
     border: 2px solid white;
 }
 
-.minimap-player[chat-color~="olive"] {
+.minimap-player[chat-color="olive"] {
     background-color: olive;
     border: 2px solid white;
 }
 
-.minimap-player[chat-color~="olivedrab"] {
+.minimap-player[chat-color="olivedrab"] {
     background-color: olivedrab;
     border: 2px solid white;
 }
 
-.minimap-player[chat-color~="purple"] {
+.minimap-player[chat-color="purple"] {
     background-color: purple;
     border: 2px solid white;
 }
 
-.minimap-player[chat-color~="teal"]  {
+.minimap-player[chat-color="teal"]  {
     background-color: teal;
     border: 2px solid white;
 }

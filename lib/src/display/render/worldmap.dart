@@ -12,7 +12,7 @@ class WorldMap {
 	bool worldMapVisible = false;
 	Element WorldMapDiv = querySelector("#WorldMapLayer");
 	Element HubMabDiv = querySelector("#HubMapLayer");
-	Element HubMapFG = querySelector("#HubMapLayerFG");
+	//Element HubMapFG = querySelector("#HubMapLayerFG");
 
 	WorldMap(String hub_id) {
 		loadhubdiv(hub_id);
@@ -41,7 +41,7 @@ class WorldMap {
 		// prepare ui elements
 		view.mapTitle.text = hubInfo['name'];
 		view.mapImg.style.backgroundImage = 'url(' + hubInfo['bg'] + ')';
-		HubMapFG.style.backgroundImage = "url(" + hubInfo['fg'] + ")";
+		//HubMapFG.style.backgroundImage = "url(" + hubInfo['fg'] + ")";
 		HubMabDiv.children.clear();
 
 		// render
@@ -128,11 +128,11 @@ class WorldMap {
 		}
 
 		HubMabDiv.classes.add('scaled');
-		HubMapFG.classes.add('scaled');
+		//HubMapFG.classes.add('scaled');
 
 		worldMapVisible = false;
 		HubMabDiv.hidden = false;
-		HubMapFG.hidden = false;
+		//HubMapFG.hidden = false;
 		WorldMapDiv.hidden = true;
 	}
 
@@ -582,7 +582,7 @@ class WorldMap {
 			WorldMapDiv.append(hub);
 		});
 		WorldMapDiv.hidden = false;
-		HubMapFG.hidden = true;
+		//HubMapFG.hidden = true;
 		worldMapVisible = true;
 
 		WorldMapDiv.onClick.listen((e) {
@@ -601,6 +601,6 @@ class WorldMap {
 		view.mapTitle.text = map.data_maps_hubs[hub_id]()['name'];
 		worldMapVisible = false;
 		HubMabDiv.hidden = false;
-		HubMapFG.hidden = false;
+		//HubMapFG.hidden = false;
 	}
 }
