@@ -40,6 +40,10 @@
   padding:5px;
 }
 
+.box:empty {
+    background-color: #ddd;
+}
+
 .box .icon {
   position: absolute;
   top: 0px;
