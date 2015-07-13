@@ -47,7 +47,8 @@
     font-size: 400px;
     text-align: center;
     padding-top: 20%;
-    text-shadow: 0 -10px 70px #4b2e4c;
+    padding-left: 0.025em;
+    text-shadow: -0.05em -0.05em 0 #ddd;
     -webkit-animation: dropleveltext 3s linear 0s 1;
     -moz-animation: dropleveltext 3s linear 0s 1;
     -o-animation: dropleveltext 3s linear 0s 1;
