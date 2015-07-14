@@ -550,7 +550,17 @@ class Chat {
 
 class ChatMessage {
   String player, message;
-  List<String> devs = ["Klikini", "Lead", "Paal", "Thaderator"];
+  List<String> devs = [
+	  // slack usernames
+	  "courtneybreid",
+	  "klikini",
+	  "paul",
+	  "robertmcdermot",
+	  // game usernames
+	  "lead",
+	  "paal",
+	  "thaderator"
+  ];
 
   ChatMessage(this.player, this.message);
 
@@ -580,7 +590,7 @@ class ChatMessage {
 			<i><a class="noUnderline" href="http://childrenofur.com/profile?username=${player}" target="_blank" title="Open Profile Page">$player</a> $message</i>
 		</p>
 				''';
-    } else if (devs.contains(player)) {
+    } else if (devs.contains(player.toLowerCase())) {
       html = '''
 		<p>
 			<span class="name dev" style="color:${getColorFromUsername(player)};"><a class="noUnderline" href="http://childrenofur.com/profile?username=${player}" target="_blank" title="Open Profile Page">$player</a>:</span>
