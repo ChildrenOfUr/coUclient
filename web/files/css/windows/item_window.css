@@ -32,12 +32,13 @@
 }
 
 #iw-desc {
-    height: calc(100% - 60px);
+    height: 132px;
+    line-height: 22px;
     overflow-y: scroll;
 }
 
 #iw-desc.withWear {
-    height: calc(100% - 100px);
+    height: 110px;
 }
 
 #iw-meta {
