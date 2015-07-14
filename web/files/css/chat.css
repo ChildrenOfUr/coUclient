@@ -259,3 +259,13 @@ p.me {
 a.noUnderline {
   text-decoration: none;
 }
+
+span.name.dev::before {
+    border: 2px solid #C9F4D8;
+    border-radius: 4px;
+    content: "dev";
+    font-family: "Lato", sans-serif;
+    color: grey;
+    margin-right: 3px;
+    padding: 0 2px;
+}

@@ -279,3 +279,36 @@
     position: relative;
     top: -2px;
 }
+
+#mapButton {
+    background-size: 25px 25px;
+    background-repeat: no-repeat;
+    width: 25px;
+    height: 25px;
+    position: relative;
+    bottom: 15px;
+    left: -8px;
+    cursor: pointer;
+}
+
+#mapButton.closed {
+    background-image: url(../../system/icons/zoom-in.svg);
+}
+
+#mapButton.open {
+    background-image: url(../../system/icons/zoom-out.svg);
+}
+
+#mapButton:hover {
+    -webkit-filter: drop-shadow(0 1px 2px cyan);
+    -moz-filter: drop-shadow(0 1px 2px cyan);
+    -o-filter: drop-shadow(0 1px 2px cyan);
+    filter: drop-shadow(0 1px 2px cyan);
+}
+
+#mapButton:active {
+    -webkit-filter: drop-shadow(0 1px 1px cyan);
+    -moz-filter: drop-shadow(0 1px 1px cyan);
+    -o-filter: drop-shadow(0 1px 1px cyan);
+    filter: drop-shadow(0 1px 1px cyan);
+}

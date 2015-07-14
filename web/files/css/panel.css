@@ -87,16 +87,8 @@ h3 {
   overflow:hidden;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+#bottomList {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}

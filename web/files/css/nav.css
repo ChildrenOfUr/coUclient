@@ -1,11 +1,11 @@
 nav {
-    position: relative;
+    position: absolute;
     font-size: 1em;
-    left: 50%;
-    transform: translateX(-50%);
-    top: 6px;
+    top: 15px;
+    right: 0;
     display: flex;
     flex-direction: row;
+    width: 100px;
 }
 
 nav a {

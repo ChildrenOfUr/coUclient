@@ -1,14 +1,54 @@
 #currDay{
-    font-size:13px;
+    font-size:12px;
     opacity:0.7;
-    width: 130px;
 }
+
 #currTime{
-    font-size:15px;
-    width: 130px;
+    font-size:14px;
 }
+
 #currDate{
     opacity:0.7;
-    font-size:13px;
-    width: 130px;
+    font-size:12px;
 }
+
+#time {
+    text-align: center;
+    position: relative;
+    width: 145px;
+    top: 2px;
+    border-radius: 8px;
+}
+
+#time:hover {
+    background-color: rgba(75, 46, 76, 0.08);
+}
+
+#time * {
+    cursor: pointer;
+}
+
+/*
+#time::before,
+#time::after {
+    content: '';
+    background-image: url(../system/corner.svg);
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    position: absolute;
+    background-size: 20px;
+}
+
+#time::before {
+    left: 0;
+    top: -20px;
+    transform: rotate(90deg);
+}
+
+#time::after {
+    right: -20px;
+    transform: rotate(90deg);
+    bottom: 5px;
+}
+*/
