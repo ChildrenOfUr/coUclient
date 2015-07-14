@@ -269,3 +269,7 @@ span.name.dev::before {
     margin-right: 3px;
     padding: 0 2px;
 }
+
+.message .Emoticon {
+    height: 1em;
+}

@@ -69,7 +69,7 @@ String parseEmoji(String message) {
     String match = m[1];
     if (EMOTICONS.contains(match)) {
       returnString +=
-          '<img style="height:1em;" class="Emoticon" src="files/emoticons/$match.svg"></img>';
+          '<img class="Emoticon" src="files/emoticons/$match.svg"></img>';
     } else {
       returnString += m[0];
     }
@@ -559,6 +559,7 @@ class ChatMessage {
 	  // game usernames
 	  "lead",
 	  "paal",
+	  "ppvk",
 	  "thaderator"
   ];
 
