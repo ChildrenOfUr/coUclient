@@ -2,15 +2,16 @@
 /*if you're adding a component to the ui, put your css in another file and import it.*/
 
 /*Resets*/
+
 @import url("files/css/cou_defaults.css");
 
 /*Component Imports*/
+
 @import url("files/css/game.css");
 @import url("files/css/loader.css");
 @import url("files/css/inventory.css");
 @import url("files/css/name.css");
 @import url("files/css/meters.css");
-@import url("files/css/overlay.css");
 @import url("files/css/currants.css");
 @import url("files/css/timedate.css");
 @import url("files/css/nav.css");
@@ -23,10 +24,9 @@
 @import url("files/css/interactions.css");
 @import url("files/css/toast.css");
 @import url("files/css/weather.css");
-@import url("files/css/newday.css");
-@import url("files/css/levelup.css");
 
-/*Popup windows*/
+/* Popup windows */
+
 @import url("files/css/windows/window.css");
 @import url("files/css/windows/map_window.css");
 @import url("files/css/windows/bag_window.css");
@@ -40,3 +40,10 @@
 @import url("files/css/windows/shrine_window.css");
 @import url("files/css/windows/rock_window.css");
 @import url("files/css/windows/item_window.css");
+
+/* Overlays */
+
+@import url("files/css/overlays/overlay.css");
+@import url("files/css/overlays/newday.css");
+@import url("files/css/overlays/imgmenu.css");
+@import url("files/css/overlays/levelup.css");

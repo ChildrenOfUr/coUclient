@@ -12,7 +12,6 @@ class ImgOverlay extends Overlay {
 	}
 
 	open() {
-		print('level: ' + metabolics.level.toString());
 		if (metabolics.lifetime_img < 52184719) {
 			// Calculate level/img stats
 			int imgToward = metabolics.lifetime_img - metabolics.img_req_for_curr_lvl;

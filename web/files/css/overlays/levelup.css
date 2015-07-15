@@ -1,5 +1,6 @@
 #levelup {
-    background-color: rgb(211, 201, 187);
+    background: rgb(211, 201, 187);
+    background: radial-gradient(ellipse at center, rgba(219,211,162,1) 0%,rgba(182,191,175,1) 100%);
     padding-top: 100px;
     text-align: center;
 }
@@ -34,7 +35,7 @@
 }
 
 #lu-dropper {
-    background-image: url(../../files/system/imgmenu/levelupdropper.svg);
+    background-image: url(../../system/imgmenu/levelupdropper.svg);
     background-repeat: no-repeat;
     width: 1024px;
     height: 768px;

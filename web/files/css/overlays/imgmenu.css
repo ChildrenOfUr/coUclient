@@ -1,27 +1,3 @@
-#overlayHolder {
-  width:100%;
-  height:100%;
-}
-
-.overlay {
-  pointer-events:auto;
-  position:absolute;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  z-index: 900;
-}
-.overlay .close {
-  position:absolute;
-  top:10px;
-  font-size:1.5em;
-  left:calc(100% - 2em);
-  cursor: pointer;
-}
-
-/* iMG Menu */
-
 #pauseMenu {
     background-color: rgba(0, 0, 0, 0.75);
     color: white;
@@ -133,7 +109,7 @@ p.italic {
 
 #pm-level-bar::before {
     content: '';
-    background-image: url(../../files/system/imgmenu/imgbubbles.svg);
+    background-image: url(../../system/imgmenu/imgbubbles.svg);
     background-repeat: repeat-y;
     width: 50px;
     height: 100%;
@@ -150,7 +126,7 @@ p.italic {
 
 #pm-level-bar.done::before {
     content: '';
-    background-image: url(../../files/system/imgmenu/imgbubbles.svg);
+    background-image: url(../../system/imgmenu/imgbubbles.svg);
     background-repeat: repeat-y;
     width: 50px;
     height: 100%;

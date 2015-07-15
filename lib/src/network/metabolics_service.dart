@@ -13,6 +13,7 @@ class MetabolicsService {
 	Metabolics playerMetabolics;
 	DateTime lastUpdate, nextUpdate;
 	String url = 'ws://${Configs.websocketServerAddress}/metabolics';
+	int webSocketMessages = 0;
 
 	Map <int, int> imgLevels = {
 		1: 0,
@@ -93,10 +94,15 @@ class MetabolicsService {
 			if (map['collectQuoin'] != null) {
 				collectQuoin(map);
 			} else {
+				int oldLevel = level;
 				playerMetabolics = decode(event.data, type:Metabolics);
+				if (oldLevel < level && webSocketMessages > 0) {
+					levelUp.open();
+				}
 				transmit('metabolicsUpdated', playerMetabolics);
 			}
 			update();
+			webSocketMessages++;
 		});
 		socket.onClose.listen((CloseEvent e) {
 			logmessage('[Metabolics] Websocket closed: ${e.reason}');
