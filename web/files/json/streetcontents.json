@@ -1,0 +1,3442 @@
+{
+  "Aava Plies": {
+    "shrine": "",
+    "vendor": "gardening"
+  },
+  "Aavani Avenue": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Abesh Litcha": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Abhiman Himan": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Adanac": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Addingfoot Trip": {
+    "shrine": "",
+    "vendor": "gardening"
+  },
+  "Addysshot Croft": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Adeno Sierra": {
+    "shrine": "",
+    "vendor": "kitchen"
+  },
+  "Afar Whence": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Afra Maf": {
+    "shrine": "",
+    "vendor": "groceries"
+  },
+  "Agala Axis": {
+    "shrine": "",
+    "vendor": "kitchen"
+  },
+  "Agraha Yana": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Ahtria Ahcalla": {
+    "shrine": "",
+    "vendor": "toy"
+  },
+  "Aippasi Massy": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Ajiboo Hood": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Akaki Cape": {
+    "shrine": "",
+    "vendor": "gardening"
+  },
+  "Akalet Moves": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Akas Apparata": {
+    "shrine": "",
+    "vendor": "gardening"
+  },
+  "Akkawwi Wails": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Akki Blocks": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Alecha Kolo": {
+    "shrine": "",
+    "vendor": "mining"
+  },
+  "Alikos Alder": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Alpine Vista": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Amant Kudos": {
+    "shrine": "",
+    "vendor": "mining"
+  },
+  "Ambo Aims": {
+    "shrine": "",
+    "vendor": "kitchen"
+  },
+  "Ambu Jal": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Amerran Huddles": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Amika Forca": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Amlou Amoo": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Anaka Azimuth": {
+    "shrine": "",
+    "vendor": "gardening"
+  },
+  "Ander Zen": {
+    "shrine": "",
+    "vendor": "gardening"
+  },
+  "Angla Mangle": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Anista Mista": {
+    "shrine": "",
+    "vendor": "gardening"
+  },
+  "Annam Angst": {
+    "shrine": "",
+    "vendor": "kitchen"
+  },
+  "Anor Sapro": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Anrasan Glance": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Anu Afzelii": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Anulis Trisc": {
+    "shrine": "",
+    "vendor": "gardening"
+  },
+  "Appam Almost": {
+    "shrine": "",
+    "vendor": "kitchen"
+  },
+  "Appin Shol": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Arago Thaum": {
+    "shrine": "",
+    "vendor": "gardening"
+  },
+  "Aratikaya Kaya": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Archimedes Acres": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Arisa Annex": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Arisi Amble": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Arju Podi": {
+    "shrine": "",
+    "vendor": "kitchen"
+  },
+  "Arjun Plunge": {
+    "shrine": "",
+    "vendor": "mining"
+  },
+  "Arkose Gabbro": {
+    "shrine": "",
+    "vendor": "gardening"
+  },
+  "Arom Runce": {
+    "shrine": "",
+    "vendor": "toy"
+  },
+  "Arupu Rupu": {
+    "shrine": "",
+    "vendor": "kitchen"
+  },
+  "Asubo Bolda": {
+    "shrine": "",
+    "vendor": "groceries"
+  },
+  "Asvina Vet": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Atsas Gaque": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Awagni Walk": {
+    "shrine": "",
+    "vendor": "kitchen"
+  },
+  "Awasa Wash": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Awn Terio": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Azifa Ayib": {
+    "shrine": "",
+    "vendor": "mining"
+  },
+  "Baavai Buraq": {
+    "shrine": "",
+    "vendor": "kitchen"
+  },
+  "Baddam Haddam": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Badvi Bist": {
+    "shrine": "",
+    "vendor": "toy"
+  },
+  "Baharat Sat": {
+    "shrine": "",
+    "vendor": "gardening"
+  },
+  "Bailestorth Shin": {
+    "shrine": "",
+    "vendor": "gardening"
+  },
+  "Bakean Stutter": {
+    "shrine": "",
+    "vendor": "kitchen"
+  },
+  "Bakti Mahar": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Balbemo Ghee": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Balcam Stacks": {
+    "shrine": "",
+    "vendor": "gardening"
+  },
+  "Balin Bastion": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Balkao Blvd": {
+    "shrine": "",
+    "vendor": "kitchen"
+  },
+  "Balleet Berm": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Balliure Heath": {
+    "shrine": "",
+    "vendor": "groceries"
+  },
+  "Bangala Bristles": {
+    "shrine": "",
+    "vendor": "kitchen"
+  },
+  "Bankati Bist": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Banya Banya ": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Bar Bara": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Baram Sum": {
+    "shrine": "",
+    "vendor": "gardening"
+  },
+  "Barrak Oak": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Barthigai Broke": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Basabasa": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Basalt Syen": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Basma Asma": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Batata Tata": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Batre Yrarg": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Bayadd Yadding": {
+    "shrine": "",
+    "vendor": "groceries"
+  },
+  "Bebingka Bridge": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Becca Guille": {
+    "shrine": "",
+    "vendor": "groceries"
+  },
+  "Beesfast Heave": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Belan Bends": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "BereBere Scald": {
+    "shrine": "",
+    "vendor": "gardening"
+  },
+  "Berecroy Woods": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Berunj Mari": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Bhadra Pada": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Bij Arsul": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Billore Crys": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Bishop's Arch": {
+    "shrine": "",
+    "vendor": "gardening"
+  },
+  "Blackberry Glebe": {
+    "shrine": "",
+    "vendor": "groceries"
+  },
+  "Blottnass": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Blue Mountain Bore": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Boan Stravenue": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Bobo Mondo": {
+    "shrine": "",
+    "vendor": "kitchen"
+  },
+  "Boda Apta": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Bolesan Ambitions": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Bon'thu Bins": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Bonebottle Sands": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Bonelington Hole": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Bongul Beat": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Boonbi Books": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Boorgal Broods": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Borem Summon": {
+    "shrine": "",
+    "vendor": "groceries"
+  },
+  "Botchi Etta": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Briarset Croft": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Bright Day": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Brilyn Chelyn": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Brinlow Vale": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Broxhurst Green": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Brunnan Bafflings": {
+    "shrine": "",
+    "vendor": "toy"
+  },
+  "Buckward Vale": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Budae Bada": {
+    "shrine": "",
+    "vendor": "gardening"
+  },
+  "Bukovs Gossan": {
+    "shrine": "",
+    "vendor": "groceries"
+  },
+  "Bulaa Clacks": {
+    "shrine": "",
+    "vendor": "kitchen"
+  },
+  "Bullic Craik": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Buna Belt": {
+    "shrine": "",
+    "vendor": "groceries"
+  },
+  "Burbere Keba": {
+    "shrine": "",
+    "vendor": "groceries"
+  },
+  "Burnabee": {
+    "shrine": "",
+    "vendor": "gardening"
+  },
+  "Buticha Quach": {
+    "shrine": "",
+    "vendor": "mining"
+  },
+  "Camsteeple Strat": {
+    "shrine": "",
+    "vendor": "kitchen"
+  },
+  "Canary Send": {
+    "shrine": "",
+    "vendor": "toy"
+  },
+  "Cancrin Psam": {
+    "shrine": "",
+    "vendor": "groceries"
+  },
+  "Candy Cane Lane": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Canjeero Cambe": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Canjeero Crams ": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Chalan Vaara": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Chamuc Chance": {
+    "shrine": "",
+    "vendor": "kitchen"
+  },
+  "Chamuss Knurl": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Chandrika Chimes": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Chapati Rooti": {
+    "shrine": "",
+    "vendor": "gardening"
+  },
+  "Chari Chalks": {
+    "shrine": "",
+    "vendor": "groceries"
+  },
+  "Charnoc Slag": {
+    "shrine": "",
+    "vendor": "kitchen"
+  },
+  "Chavila Checker": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Chego Chase": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Chengaav Gavel": {
+    "shrine": "",
+    "vendor": "groceries"
+  },
+  "Chermoo Lama": {
+    "shrine": "",
+    "vendor": "gardening"
+  },
+  "Chettar Lings": {
+    "shrine": "",
+    "vendor": "groceries"
+  },
+  "Chettia Churns": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Chilling Light": {
+    "shrine": "",
+    "vendor": "kitchen"
+  },
+  "Chingam Chai": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Chiti Tiga": {
+    "shrine": "",
+    "vendor": "gardening"
+  },
+  "Chueo Vegae": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Churni Sanctum": {
+    "shrine": "",
+    "vendor": "mining"
+  },
+  "Clam Calumny": {
+    "shrine": "",
+    "vendor": "kitchen"
+  },
+  "Clamber Crag": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Clarbeare Voya": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Coci Muttah": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Coldham Shift": {
+    "shrine": "",
+    "vendor": "gardening"
+  },
+  "Coldthorp Lam": {
+    "shrine": "",
+    "vendor": "kitchen"
+  },
+  "Community Gardens": {
+    "shrine": "",
+    "vendor": "gardening"
+  },
+  "Corniss Sember": {
+    "shrine": "",
+    "vendor": "mining"
+  },
+  "Cotton Cross": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Cranbury Coppice": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Crillic Crit": {
+    "shrine": "",
+    "vendor": "gardening"
+  },
+  "Cryptocrin": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Curling Lake": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Curving Clusters": {
+    "shrine": "",
+    "vendor": "kitchen"
+  },
+  "Cynque Dent": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Dalsan Detach": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Dark Cavern": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Darnefree Air": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Darwin Char": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Dasha Mula": {
+    "shrine": "",
+    "vendor": "kitchen"
+  },
+  "Davana Drive": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Deodak Nabak": {
+    "shrine": "",
+    "vendor": "kitchen"
+  },
+  "Derjo Jo": {
+    "shrine": "",
+    "vendor": "kitchen"
+  },
+  "Deucher Rudd": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Devi Drape": {
+    "shrine": "",
+    "vendor": "mining"
+  },
+  "Dhab Habit": {
+    "shrine": "",
+    "vendor": "kitchen"
+  },
+  "Dhalakk Dalliance": {
+    "shrine": "",
+    "vendor": "mining"
+  },
+  "Dhanu Dhani": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Diami Quarry": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Difo Dabo": {
+    "shrine": "",
+    "vendor": "mining"
+  },
+  "Ding a Lingers": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Dingal Lin": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Djur Rhomb": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Dobak Fathom": {
+    "shrine": "",
+    "vendor": "mining"
+  },
+  "Dodol Dwells": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Dofsan Vex": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Dokk Rokk": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Dolla Holla": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Doolshe Teff": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Doon Way": {
+    "shrine": "",
+    "vendor": "gardening"
+  },
+  "Doora Dooms": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Dorajii Nakji": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Dore Valore": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Dosaka Moda": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Drooping Drift": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Dunlin Roble": {
+    "shrine": "",
+    "vendor": "kitchen"
+  },
+  "Durva Dell": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Dusa Tanad": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Dyran Notion": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Echin Gross": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Edavam Vam": {
+    "shrine": "",
+    "vendor": "kitchen"
+  },
+  "Eglesgown Wanks": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Egret Taun": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Ekorran Roughs": {
+    "shrine": "",
+    "vendor": "kitchen"
+  },
+  "Elia Sec": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Elios Durr": {
+    "shrine": "",
+    "vendor": "gardening"
+  },
+  "Elysian Slope": {
+    "shrine": "",
+    "vendor": "groceries"
+  },
+  "Ensete Sets": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Eosphr Meso": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Erra Kandi": {
+    "shrine": "",
+    "vendor": "kitchen"
+  },
+  "Erupekku Rumple": {
+    "shrine": "",
+    "vendor": "gardening"
+  },
+  "Essec Zyte": {
+    "shrine": "",
+    "vendor": "kitchen"
+  },
+  "Estevan Hummock": {
+    "shrine": "",
+    "vendor": "kitchen"
+  },
+  "Estevan Meadows": {
+    "shrine": "",
+    "vendor": "groceries"
+  },
+  "Evanfell Craine": {
+    "shrine": "",
+    "vendor": "kitchen"
+  },
+  "Evi Effect": {
+    "shrine": "",
+    "vendor": "kitchen"
+  },
+  "Fairgower Lane": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Fanfoot Flare": {
+    "shrine": "",
+    "vendor": "kitchen"
+  },
+  "Felin Pryde": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Feman Falters": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Fern End": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Ferncaster End": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Fesenjan Freeq": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Firabiz Flaunts": {
+    "shrine": "",
+    "vendor": "groceries"
+  },
+  "Firdaus Finds": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Firfire Frees": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Fitadara Fry": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Fjarcke": {
+    "shrine": "",
+    "vendor": "groceries"
+  },
+  "Flogan Shames": {
+    "shrine": "",
+    "vendor": "gardening"
+  },
+  "Fluore Vaes": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Flurry Piles": {
+    "shrine": "",
+    "vendor": "groceries"
+  },
+  "Follybottom Stritt": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Footlands Heath": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Fort Aban Don": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Fosolia Flaps": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Froughtful Fen": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Frysta Virki": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Fyran Descant": {
+    "shrine": "",
+    "vendor": "gardening"
+  },
+  "Gaare Grims": {
+    "shrine": "",
+    "vendor": "groceries"
+  },
+  "Gabouta Bouts": {
+    "shrine": "",
+    "vendor": "groceries"
+  },
+  "Garama Sala": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Garillis Fill": {
+    "shrine": "",
+    "vendor": "gardening"
+  },
+  "Gashaalo Lora": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Gavvalu Gasp": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Gedeo Grails": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Geeze Bets": {
+    "shrine": "",
+    "vendor": "gardening"
+  },
+  "Gehsho Nuff": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Gemyan Guome": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Gersal Gemony": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Getan Tenets": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Ghara Gulley": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Ghora Chani": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Gibba Gant": {
+    "shrine": "",
+    "vendor": "gardening"
+  },
+  "Gigha Glow": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Gimbap Bop": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Glarus Thora": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Glatour Stooir": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Glenti Bulgee": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Goli Grabs": {
+    "shrine": "",
+    "vendor": "kitchen"
+  },
+  "Gomed Essoni": {
+    "shrine": "",
+    "vendor": "toy"
+  },
+  "Gomen Grap": {
+    "shrine": "",
+    "vendor": "mining"
+  },
+  "Gondata Moo": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Gongura Gamble": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Gooliv Naven": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Goorsh Gam": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Gopra Byle": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Gori Blear": {
+    "shrine": "",
+    "vendor": "mining"
+  },
+  "Grand Mile": {
+    "shrine": "",
+    "vendor": "groceries"
+  },
+  "Greenvern Mend": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Gregarious Grange": {
+    "shrine": "",
+    "vendor": "groceries"
+  },
+  "Grimssea Bottom": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Groddle Forest Junction": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Gueis Pumice": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Gummadi Gad": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Gurag Green": {
+    "shrine": "",
+    "vendor": "gardening"
+  },
+  "Guraibe Gran": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Hackfast Quicks": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Hamli Egza": {
+    "shrine": "",
+    "vendor": "gardening"
+  },
+  "Hammar Steadies": {
+    "shrine": "",
+    "vendor": "groceries"
+  },
+  "Haqiq Cedony": {
+    "shrine": "",
+    "vendor": "kitchen"
+  },
+  "Harbinger Heath": {
+    "shrine": "",
+    "vendor": "gardening"
+  },
+  "Hareesh Sook": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Hari Haring": {
+    "shrine": "",
+    "vendor": "mining"
+  },
+  "Hariali Alley": {
+    "shrine": "",
+    "vendor": "gardening"
+  },
+  "Harkan Idiom": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Harrisa Hara": {
+    "shrine": "",
+    "vendor": "gardening"
+  },
+  "Hauki Seeks": {
+    "shrine": "",
+    "vendor": "gardening"
+  },
+  "Hayden Seek Alley": {
+    "shrine": "",
+    "vendor": "toy"
+  },
+  "Hechey Track": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Heckes": {
+    "shrine": "",
+    "vendor": "gardening"
+  },
+  "Heera Amond": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Hellenturret Pass": {
+    "shrine": "",
+    "vendor": "gardening"
+  },
+  "Hellinum Dum": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Hidro Bluu": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Highland Fling": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Hillet Fillet": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Hoari Furgg": {
+    "shrine": "",
+    "vendor": "gardening"
+  },
+  "Hullis Dalb": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Humus Hollow": {
+    "shrine": "",
+    "vendor": "kitchen"
+  },
+  "Iable Var": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Ianara Straight": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Icicle Dangles": {
+    "shrine": "",
+    "vendor": "gardening"
+  },
+  "Idan Frisk": {
+    "shrine": "",
+    "vendor": "kitchen"
+  },
+  "Iljoki Ease": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Ilmoilan Sequence": {
+    "shrine": "",
+    "vendor": "kitchen"
+  },
+  "Inari Deeps": {
+    "shrine": "",
+    "vendor": "gardening"
+  },
+  "Injeba Wedge": {
+    "shrine": "",
+    "vendor": "kitchen"
+  },
+  "Injeer Asour": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Injera Nitre": {
+    "shrine": "",
+    "vendor": "gardening"
+  },
+  "Inkeis Shag": {
+    "shrine": "",
+    "vendor": "kitchen"
+  },
+  "Intate Treats": {
+    "shrine": "",
+    "vendor": "groceries"
+  },
+  "Irron Lavi": {
+    "shrine": "",
+    "vendor": "gardening"
+  },
+  "Isalan Interval": {
+    "shrine": "",
+    "vendor": "gardening"
+  },
+  "Iso Roine": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Ivalo Trims": {
+    "shrine": "",
+    "vendor": "gardening"
+  },
+  "Jacob's Climb": {
+    "shrine": "",
+    "vendor": "toy"
+  },
+  "Jadraan Fix": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Jameeda Meds": {
+    "shrine": "",
+    "vendor": "kitchen"
+  },
+  "Jamsan Jag": {
+    "shrine": "",
+    "vendor": "kitchen"
+  },
+  "Janagi Elations": {
+    "shrine": "",
+    "vendor": "mining"
+  },
+  "Jantik Jog": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Jappa Chae": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Jarjai Binq": {
+    "shrine": "",
+    "vendor": "toy"
+  },
+  "Jazi Kaya": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Jeban Journey": {
+    "shrine": "",
+    "vendor": "gardening"
+  },
+  "Jee Guru": {
+    "shrine": "",
+    "vendor": "groceries"
+  },
+  "Jellow Diaspora": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Jigoree Galbee": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Jiireesh Risen": {
+    "shrine": "",
+    "vendor": "groceries"
+  },
+  "Joklin Seddin": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Jolkan Jank": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Jonku Impressions": {
+    "shrine": "",
+    "vendor": "groceries"
+  },
+  "Jonna Jinx": {
+    "shrine": "",
+    "vendor": "kitchen"
+  },
+  "Jullis Junc": {
+    "shrine": "",
+    "vendor": "gardening"
+  },
+  "Juom Guson": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Jutuan Central": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Kaavi Kannot": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Kaavin Kit": {
+    "shrine": "",
+    "vendor": "toy"
+  },
+  "Kaha Haha": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Kaiya Kit": {
+    "shrine": "",
+    "vendor": "toy"
+  },
+  "Kakkasi Uni": {
+    "shrine": "",
+    "vendor": "gardening"
+  },
+  "Kala Close": {
+    "shrine": "",
+    "vendor": "kitchen"
+  },
+  "Kalix Follows": {
+    "shrine": "",
+    "vendor": "gardening"
+  },
+  "Kalla Chase": {
+    "shrine": "",
+    "vendor": "gardening"
+  },
+  "Kalp Clips": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Kanji Sink": {
+    "shrine": "",
+    "vendor": "groceries"
+  },
+  "Kanni Climb": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Kanuka Saus": {
+    "shrine": "",
+    "vendor": "gardening"
+  },
+  "Karka Dakam": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Kartika Crams": {
+    "shrine": "",
+    "vendor": "kitchen"
+  },
+  "Kash Brah": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Kategna Kibe": {
+    "shrine": "",
+    "vendor": "mining"
+  },
+  "Katela Ameth": {
+    "shrine": "",
+    "vendor": "groceries"
+  },
+  "Kattil Natron": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Kebra Glories": {
+    "shrine": "",
+    "vendor": "groceries"
+  },
+  "Keidler Caims": {
+    "shrine": "",
+    "vendor": "groceries"
+  },
+  "Kelba Vallu": {
+    "shrine": "",
+    "vendor": "groceries"
+  },
+  "Kenora Gigoki": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Kerivepa Vili": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Keywot Whot": {
+    "shrine": "",
+    "vendor": "mining"
+  },
+  "Khanda Jarra": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Khat Massives": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Khoul Bheens": {
+    "shrine": "",
+    "vendor": "gardening"
+  },
+  "Khubbani Siggara": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Kiehiman Course": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Kifti Crown": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Kiiminki Stretch": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Kikal Kalzo": {
+    "shrine": "",
+    "vendor": "mining"
+  },
+  "Kilamu Lamme": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Kinche Klap": {
+    "shrine": "",
+    "vendor": "mining"
+  },
+  "Kipacre Greens": {
+    "shrine": "",
+    "vendor": "gardening"
+  },
+  "Kitfo Lega": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Kitkaa Carom": {
+    "shrine": "",
+    "vendor": "gardening"
+  },
+  "Klikka Kawer": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Knaphre Crag": {
+    "shrine": "",
+    "vendor": "gardening"
+  },
+  "Kobbaya Shii": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Kohanger Hang": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Koita Clutter": {
+    "shrine": "",
+    "vendor": "kitchen"
+  },
+  "Kolan Presence": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Konemaen Jaunt": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Kongu Hop": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Konka Brink": {
+    "shrine": "",
+    "vendor": "gardening"
+  },
+  "Konkan Carom": {
+    "shrine": "",
+    "vendor": "gardening"
+  },
+  "Koozh Sidestep": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Kosi Aracana": {
+    "shrine": "",
+    "vendor": "toy"
+  },
+  "Kotteletti Kota": {
+    "shrine": "",
+    "vendor": "mining"
+  },
+  "Kottima Cast": {
+    "shrine": "",
+    "vendor": "gardening"
+  },
+  "Koulato Cluster": {
+    "shrine": "",
+    "vendor": "kitchen"
+  },
+  "Koumbahm Bahm": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Kouris Kauri": {
+    "shrine": "",
+    "vendor": "kitchen"
+  },
+  "Kratoch Emer": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Krios Palm": {
+    "shrine": "",
+    "vendor": "kitchen"
+  },
+  "Kura Kura": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Kuri Chil": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Kymi Abyss": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Kyron Kreep": {
+    "shrine": "",
+    "vendor": "gardening"
+  },
+  "Kyy Queries": {
+    "shrine": "",
+    "vendor": "gardening"
+  },
+  "La Kama": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Lacier Landare": {
+    "shrine": "",
+    "vendor": "gardening"
+  },
+  "Ladag Mach": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Lagan Lark": {
+    "shrine": "",
+    "vendor": "kitchen"
+  },
+  "Lampaan Avert": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Langden Abbey": {
+    "shrine": "",
+    "vendor": "groceries"
+  },
+  "Lapix Lora": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Larceny Ladder": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Laroo Ledge": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Larvik Skarn": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Lavaku Lore": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Lavu Lane": {
+    "shrine": "",
+    "vendor": "gardening"
+  },
+  "Lebben Laps": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Leeteg": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Leetha Beetha": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Leffe Weff": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Leftmost Graze": {
+    "shrine": "",
+    "vendor": "gardening"
+  },
+  "Lemmen Connect": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Lentua Lane": {
+    "shrine": "",
+    "vendor": "kitchen"
+  },
+  "Lethensome Lift": {
+    "shrine": "",
+    "vendor": "kitchen"
+  },
+  "Levyn Gahne": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Likomärkä": {
+    "shrine": "",
+    "vendor": "kitchen"
+  },
+  "Limmu Later": {
+    "shrine": "",
+    "vendor": "mining"
+  },
+  "Livo Farce": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Loimi Linger": {
+    "shrine": "",
+    "vendor": "kitchen"
+  },
+  "Loksa Laarb": {
+    "shrine": "",
+    "vendor": "groceries"
+  },
+  "Lolime Kakaneeli": {
+    "shrine": "",
+    "vendor": "gardening"
+  },
+  "Lonkari Line": {
+    "shrine": "",
+    "vendor": "kitchen"
+  },
+  "Lorme Rush": {
+    "shrine": "",
+    "vendor": "kitchen"
+  },
+  "Lotha Harte": {
+    "shrine": "",
+    "vendor": "toy"
+  },
+  "Louise Pasture": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Lowan Len": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Lowland Slough": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Luiro Run": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Lulu Lim": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Luminous Night": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Lunu Lane": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Lustan Cautions": {
+    "shrine": "",
+    "vendor": "groceries"
+  },
+  "Lutto Lisp": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Luump Yasa": {
+    "shrine": "",
+    "vendor": "gardening"
+  },
+  "Maaku Mills": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Maale Bads": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Machaboos Mess": {
+    "shrine": "",
+    "vendor": "kitchen"
+  },
+  "Macsaaro Fimto": {
+    "shrine": "",
+    "vendor": "mining"
+  },
+  "Magha Shank": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Maiwiwi Don": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Maka Murh": {
+    "shrine": "",
+    "vendor": "gardening"
+  },
+  "Makaram Maker": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Malaba Summit": {
+    "shrine": "",
+    "vendor": "gardening"
+  },
+  "Maladii Trik": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Malaren Urge": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Malika Whim": {
+    "shrine": "",
+    "vendor": "mining"
+  },
+  "Mallos Means": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Manak Ruba": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Mandu Passo": {
+    "shrine": "",
+    "vendor": "gardening"
+  },
+  "Mangane Gaps": {
+    "shrine": "",
+    "vendor": "groceries"
+  },
+  "Manggai Mile": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Manggal Haste": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Manya Man": {
+    "shrine": "",
+    "vendor": "gardening"
+  },
+  "Marga Mooch": {
+    "shrine": "",
+    "vendor": "kitchen"
+  },
+  "Margazhi Gazzi": {
+    "shrine": "",
+    "vendor": "groceries"
+  },
+  "Markas Maarkas": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Marl Pegma": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Marlan Bias": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Maroni Aloe": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Marrakesh Meadow": {
+    "shrine": "",
+    "vendor": "kitchen"
+  },
+  "Marylpole Mount": {
+    "shrine": "",
+    "vendor": "toy"
+  },
+  "Masi Step": {
+    "shrine": "",
+    "vendor": "toy"
+  },
+  "Masod Match": {
+    "shrine": "",
+    "vendor": "mining"
+  },
+  "Masquff Greets": {
+    "shrine": "",
+    "vendor": "groceries"
+  },
+  "Matara Ara": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Matsia Tia": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Maybe Marsh": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Mayspeek Moar": {
+    "shrine": "",
+    "vendor": "gardening"
+  },
+  "Meade Weeds": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Meadow's Edge": {
+    "shrine": "",
+    "vendor": "gardening"
+  },
+  "Medam Mads": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Meenam Seer": {
+    "shrine": "",
+    "vendor": "groceries"
+  },
+  "Meera Dhala": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Megna Burrow": {
+    "shrine": "",
+    "vendor": "mining"
+  },
+  "Meion Nsut": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Mercia Mersey": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Mesekel Maybes": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Meskel Move": {
+    "shrine": "",
+    "vendor": "groceries"
+  },
+  "Mesob Medium": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Metch Morass": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Mica Nephe": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Middle Arbor": {
+    "shrine": "",
+    "vendor": "gardening"
+  },
+  "Middle Valley Clearing": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Midtunam Tunam": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Mien Evoke": {
+    "shrine": "",
+    "vendor": "gardening"
+  },
+  "Mina Misses": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Mincedoathe Formation": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Minichii Chia": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Mino Kree": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Mira Mesh": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "MitMit Meets": {
+    "shrine": "",
+    "vendor": "mining"
+  },
+  "Mmumawwa Wala": {
+    "shrine": "",
+    "vendor": "gardening"
+  },
+  "Modati Modes": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Mokkar Mill": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Monas Mopane": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Moonga Coral": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Moonlit Grove": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Moraba Plains": {
+    "shrine": "",
+    "vendor": "kitchen"
+  },
+  "Morben Kin": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Mossed Lim": {
+    "shrine": "",
+    "vendor": "groceries"
+  },
+  "Mossystep": {
+    "shrine": "",
+    "vendor": "groceries"
+  },
+  "Motala Dun": {
+    "shrine": "",
+    "vendor": "kitchen"
+  },
+  "Moti Peral": {
+    "shrine": "",
+    "vendor": "kitchen"
+  },
+  "Mrandeya Minds": {
+    "shrine": "",
+    "vendor": "groceries"
+  },
+  "Mrozia ": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Mucid Memes": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Mullangi Meda": {
+    "shrine": "",
+    "vendor": "kitchen"
+  },
+  "Mullat": {
+    "shrine": "",
+    "vendor": "kitchen"
+  },
+  "Murrukku Meander": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Musaka Sakes": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Musta Hafsum": {
+    "shrine": "",
+    "vendor": "gardening"
+  },
+  "Mutta Maart": {
+    "shrine": "",
+    "vendor": "groceries"
+  },
+  "Muuja Jah": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Myndun Snun": {
+    "shrine": "",
+    "vendor": "gardening"
+  },
+  "Naata Garth": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Naatamo Way": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Naera Needs": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Nagam Truth": {
+    "shrine": "",
+    "vendor": "groceries"
+  },
+  "Nagrjuna Junta": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Nagu Keel": {
+    "shrine": "",
+    "vendor": "gardening"
+  },
+  "Nalla Duva": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Nana Null": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Nandak Intention": {
+    "shrine": "",
+    "vendor": "mining"
+  },
+  "Nandu Pitha": {
+    "shrine": "",
+    "vendor": "kitchen"
+  },
+  "Narasiha Seeha": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Natan Noks": {
+    "shrine": "",
+    "vendor": "groceries"
+  },
+  "Navran Dissent": {
+    "shrine": "",
+    "vendor": "kitchen"
+  },
+  "Nawiwa Wend": {
+    "shrine": "",
+    "vendor": "mining"
+  },
+  "Neelam Saff": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Neurph Turf": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Newcot Close": {
+    "shrine": "",
+    "vendor": "groceries"
+  },
+  "Nia Sra": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Nicosa False": {
+    "shrine": "",
+    "vendor": "kitchen"
+  },
+  "Nightshade Woods": {
+    "shrine": "",
+    "vendor": "kitchen"
+  },
+  "Niiske Kook": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Nila Nila": {
+    "shrine": "",
+    "vendor": "groceries"
+  },
+  "Nilpsama": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Nipigon Banc": {
+    "shrine": "",
+    "vendor": "toy"
+  },
+  "Nohmin Cents": {
+    "shrine": "",
+    "vendor": "kitchen"
+  },
+  "Northwest Passage": {
+    "shrine": "",
+    "vendor": "kitchen"
+  },
+  "Ojan Repine": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Ojangi Chimi": {
+    "shrine": "",
+    "vendor": "kitchen"
+  },
+  "Olani Ohm": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Onkamo Ward": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Onoma Peas": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Onto Parada": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Ora Soon": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Ortolana": {
+    "shrine": "",
+    "vendor": "groceries"
+  },
+  "Otterlane": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Oulanka End": {
+    "shrine": "",
+    "vendor": "toy"
+  },
+  "Ounaas Means": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Ovgos Lam": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Oyas Yeh": {
+    "shrine": "",
+    "vendor": "groceries"
+  },
+  "Ozacosta Avenue": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Paala Latte": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Paatol Press": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Paats Yield": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Paaviri Vent": {
+    "shrine": "",
+    "vendor": "gardening"
+  },
+  "Pacca Pax": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Pachi Preach": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Pahsmeq Diggs": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Paijanne Feign": {
+    "shrine": "",
+    "vendor": "groceries"
+  },
+  "Pakodi Prim": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Palguna Muna": {
+    "shrine": "",
+    "vendor": "gardening"
+  },
+  "Pallur Runnar": {
+    "shrine": "",
+    "vendor": "gardening"
+  },
+  "Palsa Mosch": {
+    "shrine": "",
+    "vendor": "groceries"
+  },
+  "Pandhal Pegs": {
+    "shrine": "",
+    "vendor": "toy"
+  },
+  "Pandu Chepa": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Panguni Ploy": {
+    "shrine": "",
+    "vendor": "gardening"
+  },
+  "Panna Meral": {
+    "shrine": "",
+    "vendor": "gardening"
+  },
+  "Pannaa Marrim": {
+    "shrine": "",
+    "vendor": "kitchen"
+  },
+  "Pansanu Insanu": {
+    "shrine": "",
+    "vendor": "kitchen"
+  },
+  "Paodoo Lets": {
+    "shrine": "",
+    "vendor": "mining"
+  },
+  "Parinosa Apix": {
+    "shrine": "",
+    "vendor": "kitchen"
+  },
+  "Parvana Pungence": {
+    "shrine": "",
+    "vendor": "kitchen"
+  },
+  "Pasha's Place": {
+    "shrine": "",
+    "vendor": "kitchen"
+  },
+  "Pasque Ridge": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Patomi Bunya": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Peatland Moors": {
+    "shrine": "",
+    "vendor": "toy"
+  },
+  "Pedieos Fig": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Peero Peers": {
+    "shrine": "",
+    "vendor": "gardening"
+  },
+  "Pendala Pax": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Penglais Nuht": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Pental Leave": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Perhoni Flim": {
+    "shrine": "",
+    "vendor": "groceries"
+  },
+  "Petrif Willow": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Phrood Kulm": {
+    "shrine": "",
+    "vendor": "kitchen"
+  },
+  "Pielis Pass": {
+    "shrine": "",
+    "vendor": "groceries"
+  },
+  "Piene Question": {
+    "shrine": "",
+    "vendor": "kitchen"
+  },
+  "Pikku Precedent": {
+    "shrine": "",
+    "vendor": "gardening"
+  },
+  "Pilnjan Plink": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Pinhigh Prose": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Pinnan Glimpse": {
+    "shrine": "",
+    "vendor": "gardening"
+  },
+  "Pipit Throat": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Pitika Parse": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Pitonia Lood": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Piyaz Prone": {
+    "shrine": "",
+    "vendor": "groceries"
+  },
+  "Pokhraj Topa": {
+    "shrine": "",
+    "vendor": "groceries"
+  },
+  "PokiPok Press": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Polapat Patron": {
+    "shrine": "",
+    "vendor": "kitchen"
+  },
+  "Polenta Qado": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Ponghal Pleats": {
+    "shrine": "",
+    "vendor": "kitchen"
+  },
+  "Poorna Plea": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Poro Nella": {
+    "shrine": "",
+    "vendor": "groceries"
+  },
+  "Pradera Passo": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Prashura Sure": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Prestnash Thrash": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Prutki Pardons": {
+    "shrine": "",
+    "vendor": "gardening"
+  },
+  "Puckell Peck": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Punar Grotta": {
+    "shrine": "",
+    "vendor": "mining"
+  },
+  "Pungent Ponds": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Punpun Snug": {
+    "shrine": "",
+    "vendor": "mining"
+  },
+  "Puran Pills": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Puttu Petty": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Qaado Barrus": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Qabena Quaint": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Quinmchary": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Quluuwaa Luwa": {
+    "shrine": "",
+    "vendor": "mining"
+  },
+  "Quozee Quanta": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Raagi Road": {
+    "shrine": "",
+    "vendor": "groceries"
+  },
+  "Radin Ralis": {
+    "shrine": "",
+    "vendor": "kitchen"
+  },
+  "Rai Ram": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Ramavata Vata": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Ramfeon Cima": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Ramsley Sway": {
+    "shrine": "",
+    "vendor": "gardening"
+  },
+  "Ramyeon Kon": {
+    "shrine": "",
+    "vendor": "groceries"
+  },
+  "Rangu Mumu": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Rappam Rolls": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Rasal Hanoo": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Ratin Jot Jog": {
+    "shrine": "",
+    "vendor": "kitchen"
+  },
+  "Raudan Rasp": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Raudan Sparkle": {
+    "shrine": "",
+    "vendor": "groceries"
+  },
+  "Rausa Repent": {
+    "shrine": "",
+    "vendor": "groceries"
+  },
+  "Rekan Flux": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Revdyo Rake": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Rhyol Dolo": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Rikki Regard": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Ritzrock Rise": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Robenaa Range": {
+    "shrine": "",
+    "vendor": "gardening"
+  },
+  "Rocher Joch": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Rookthills Lay": {
+    "shrine": "",
+    "vendor": "gardening"
+  },
+  "Rudna Barthii": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Rumina Ruma": {
+    "shrine": "",
+    "vendor": "kitchen"
+  },
+  "Rushlane Steading": {
+    "shrine": "",
+    "vendor": "groceries"
+  },
+  "Rutyle Scheel": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Saafed Leek": {
+    "shrine": "",
+    "vendor": "groceries"
+  },
+  "Saani Shim": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Sabudana Drama": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Sadam Savanna": {
+    "shrine": "",
+    "vendor": "gardening"
+  },
+  "Saker Mank": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Sakinalu Shreds": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Samak Shun": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Sambara Stack": {
+    "shrine": "",
+    "vendor": "toy"
+  },
+  "Sambossa Bossa": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Sankrit Sul": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Sanna Salts": {
+    "shrine": "",
+    "vendor": "kitchen"
+  },
+  "Sappatu Slinks": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Sapslow Tweeds": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Sarda Rapt": {
+    "shrine": "",
+    "vendor": "mining"
+  },
+  "Savi Sense": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Savren Sutch": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Scaup Low": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Sculdent Shill": {
+    "shrine": "",
+    "vendor": "kitchen"
+  },
+  "Seela Latta": {
+    "shrine": "",
+    "vendor": "gardening"
+  },
+  "Seeyam Far": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Seldom Squish": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Selsi Loss": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Semsan Simile": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Senaga Siren": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Senna Karup": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Seugal Elba": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Seva Opens": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Shak Shales": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Sheba Shales": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Shillrigg Tiers": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Shimbra Asa": {
+    "shrine": "",
+    "vendor": "mining"
+  },
+  "Shinso Ello": {
+    "shrine": "",
+    "vendor": "gardening"
+  },
+  "Shiro Siga": {
+    "shrine": "",
+    "vendor": "mining"
+  },
+  "Sickle Nappo": {
+    "shrine": "",
+    "vendor": "groceries"
+  },
+  "Simean Dims": {
+    "shrine": "",
+    "vendor": "kitchen"
+  },
+  "Simo Steer": {
+    "shrine": "",
+    "vendor": "groceries"
+  },
+  "Simpele Slip": {
+    "shrine": "",
+    "vendor": "groceries"
+  },
+  "Sini Shake": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Sinig Safes": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Sintin Sess": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Siuruan Untold": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Slappao Kalt": {
+    "shrine": "",
+    "vendor": "groceries"
+  },
+  "Sliding Skimmers": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Slippery Climb": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Smallend High": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Smew Yew": {
+    "shrine": "",
+    "vendor": "groceries"
+  },
+  "Smy Mod": {
+    "shrine": "",
+    "vendor": "kitchen"
+  },
+  "Snullin Ballin": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Soggy Bottoms": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Sohan Sheer": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Solachi Slims": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Somewhat Sump": {
+    "shrine": "",
+    "vendor": "kitchen"
+  },
+  "Sorrel Snag": {
+    "shrine": "",
+    "vendor": "groceries"
+  },
+  "Spagh Federa": {
+    "shrine": "",
+    "vendor": "gardening"
+  },
+  "Spitze Summit": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Squatter's Quag": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Sri Holik": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Stafli Joli": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Steeha Sham": {
+    "shrine": "",
+    "vendor": "kitchen"
+  },
+  "Stenina Jora": {
+    "shrine": "",
+    "vendor": "kitchen"
+  },
+  "Stopan Winnow": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Stora Rede": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Stornur Sezzez": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Strucote Stacks": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Subarna Spells": {
+    "shrine": "",
+    "vendor": "mining"
+  },
+  "Sulten Kepp": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Sultri Sim": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Sunela Citrine": {
+    "shrine": "",
+    "vendor": "kitchen"
+  },
+  "Sunsitara Stona": {
+    "shrine": "",
+    "vendor": "kitchen"
+  },
+  "Suruta Serendipity": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Surx Upx": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Svarta Swale": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Switchback": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Sylvan Grove": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Sysma Link": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Taboon Tribute": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Tachai Tanbur": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Tachyl Grit": {
+    "shrine": "",
+    "vendor": "kitchen"
+  },
+  "Tadaa Track": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Taftan Raves": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Takioueen Ween": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Tallama Trends": {
+    "shrine": "",
+    "vendor": "kitchen"
+  },
+  "Tallish Crest": {
+    "shrine": "",
+    "vendor": "groceries"
+  },
+  "Tallus Gardens": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Tamar Garna": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Tambra Tiss": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Tammer Path": {
+    "shrine": "",
+    "vendor": "groceries"
+  },
+  "Tamota Trill": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Tana Trample": {
+    "shrine": "",
+    "vendor": "groceries"
+  },
+  "Tandem Flush": {
+    "shrine": "",
+    "vendor": "groceries"
+  },
+  "Tejj Trades": {
+    "shrine": "",
+    "vendor": "toy"
+  },
+  "Telanga Tops": {
+    "shrine": "",
+    "vendor": "toy"
+  },
+  "Tella Hella": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Tennio Spur": {
+    "shrine": "",
+    "vendor": "kitchen"
+  },
+  "Tenten Fure": {
+    "shrine": "",
+    "vendor": "gardening"
+  },
+  "Teobocci Shasha": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Tepen Heel": {
+    "shrine": "",
+    "vendor": "kitchen"
+  },
+  "Tephr Scoria": {
+    "shrine": "",
+    "vendor": "groceries"
+  },
+  "Tharon Spelunk": {
+    "shrine": "",
+    "vendor": "mining"
+  },
+  "The Great Hole to Ix": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "The Landing": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "The Other Drop": {
+    "shrine": "",
+    "vendor": "mining"
+  },
+  "Thicket": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Thiruvan Thrive": {
+    "shrine": "",
+    "vendor": "toy"
+  },
+  "Thithi Thrust": {
+    "shrine": "",
+    "vendor": "kitchen"
+  },
+  "Thorai Theme": {
+    "shrine": "",
+    "vendor": "gardening"
+  },
+  "Thornfad Layers": {
+    "shrine": "",
+    "vendor": "kitchen"
+  },
+  "Thulam Twist": {
+    "shrine": "",
+    "vendor": "gardening"
+  },
+  "Tibsii Wibbs": {
+    "shrine": "",
+    "vendor": "mining"
+  },
+  "Tigrinni Grins": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Tii Street": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Tillymurry Hurry": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Tilssii Sill": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Timtim Timm": {
+    "shrine": "",
+    "vendor": "mining"
+  },
+  "Tistel Stock": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Tlemcen": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Toisi Trappings": {
+    "shrine": "",
+    "vendor": "kitchen"
+  },
+  "Tokali Kola": {
+    "shrine": "",
+    "vendor": "groceries"
+  },
+  "Toma Traverse": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Tondak Tracks": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Tonga Trips": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Tonki Toe": {
+    "shrine": "",
+    "vendor": "gardening"
+  },
+  "Toppa Tre": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Torpan Cleft": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Totakuru Trample": {
+    "shrine": "",
+    "vendor": "gardening"
+  },
+  "Tower St East": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Tower St North": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Tower St South": {
+    "shrine": "",
+    "vendor": "gardening"
+  },
+  "Tower St West": {
+    "shrine": "",
+    "vendor": "groceries"
+  },
+  "Trabriz Tale": {
+    "shrine": "",
+    "vendor": "gardening"
+  },
+  "Tree Mas": {
+    "shrine": "",
+    "vendor": "gardening"
+  },
+  "Tremit Rub": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Trikatu ": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Tripping Ledges": {
+    "shrine": "",
+    "vendor": "gardening"
+  },
+  "Tsava Tsokola": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Tsiree Tsira": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Tumera Hilda": {
+    "shrine": "",
+    "vendor": "gardening"
+  },
+  "Tunglio Bru": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Tuntsa Coze": {
+    "shrine": "",
+    "vendor": "gardening"
+  },
+  "Turmali Tourma": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Twaye Monte": {
+    "shrine": "",
+    "vendor": "groceries"
+  },
+  "Ubas Gracilis": {
+    "shrine": "",
+    "vendor": "groceries"
+  },
+  "Uko Grips": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Ukon Cognate": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Undermine Hollows": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Uplands Verge": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Upper Valley Heights": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Uppma Uplands": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Uskela Passage": {
+    "shrine": "",
+    "vendor": "groceries"
+  },
+  "Vaaka Kala": {
+    "shrine": "",
+    "vendor": "groceries"
+  },
+  "Vaala Vina": {
+    "shrine": "",
+    "vendor": "kitchen"
+  },
+  "Vada Widens": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Vaikasi Rise": {
+    "shrine": "",
+    "vendor": "gardening"
+  },
+  "Vaisakha Sack": {
+    "shrine": "",
+    "vendor": "kitchen"
+  },
+  "Valia Shede": {
+    "shrine": "",
+    "vendor": "gardening"
+  },
+  "Valmiki Vall": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Vamanda Van": {
+    "shrine": "",
+    "vendor": "gardening"
+  },
+  "Vanil Noir": {
+    "shrine": "",
+    "vendor": "kitchen"
+  },
+  "Varana Na": {
+    "shrine": "",
+    "vendor": "toy"
+  },
+  "Vartula Lura": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Vasko Shift": {
+    "shrine": "",
+    "vendor": "groceries"
+  },
+  "Vatch Val": {
+    "shrine": "",
+    "vendor": "kitchen"
+  },
+  "Vattuu Vains": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Vekke Vets": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Velata Lang": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Veldt Balm": {
+    "shrine": "",
+    "vendor": "gardening"
+  },
+  "Venet Root": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Venkate Kate": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Verdant Green": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Veruppu Vellums": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Via Firozi": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Via Velaya": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Vibrant Banks": {
+    "shrine": "",
+    "vendor": "toy"
+  },
+  "Viini Vital": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Vilong Hari": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Vina Dosh": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Vindel Frowns": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Viscid Pud": {
+    "shrine": "",
+    "vendor": "gardening"
+  },
+  "Vragan Boost": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Vrish Chi": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Vuoksi Vale": {
+    "shrine": "",
+    "vendor": "toy"
+  },
+  "Vuos Bosca": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Waagel Scad": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Wali Hoppers": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Watta Wayward": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Wawa West": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Waylon Way": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Welldale": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Wettish Walk": {
+    "shrine": "",
+    "vendor": "hardware"
+  },
+  "Wickdoon Mood": {
+    "shrine": "",
+    "vendor": "groceries"
+  },
+  "Wieser Wedge": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Wilhem Borough": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Willim Broun": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Willis Brone": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Willo Let": {
+    "shrine": "",
+    "vendor": "kitchen"
+  },
+  "Wolbane Barrel": {
+    "shrine": "",
+    "vendor": "gardening"
+  },
+  "Wooky Fleet": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Wychwood Leed": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Xacut Cross": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Xhola Mades": {
+    "shrine": "",
+    "vendor": "alchemical"
+  },
+  "Yan Jaggery": {
+    "shrine": "",
+    "vendor": "groceries"
+  },
+  "Yariam Jam": {
+    "shrine": "",
+    "vendor": "groceries"
+  },
+  "Yebeg Yobs": {
+    "shrine": "",
+    "vendor": "mining"
+  },
+  "Yeoman's Bluff": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Yeopsul Mumal": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Yuca Litt": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Yugadi Yearns": {
+    "shrine": "",
+    "vendor": "groceries"
+  },
+  "Zalaib Labra": {
+    "shrine": "",
+    "vendor": "kitchen"
+  },
+  "Zatar Matar": {
+    "shrine": "",
+    "vendor": "produce"
+  },
+  "Zayffuun Zona ": {
+    "shrine": "",
+    "vendor": "gardening"
+  },
+  "Zaytuun Xalwo": {
+    "shrine": "",
+    "vendor": "kitchen"
+  },
+  "Zigni Zags": {
+    "shrine": "",
+    "vendor": "mining"
+  },
+  "ZilZiil Zeal": {
+    "shrine": "",
+    "vendor": "animal"
+  },
+  "Zug Zug": {
+    "shrine": "",
+    "vendor": "kitchen"
+  }
+}
