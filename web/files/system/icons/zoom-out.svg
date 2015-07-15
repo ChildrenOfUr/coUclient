@@ -165,18 +165,14 @@
        cx="589.88123"
        cy="858.9588"
        r="8.4648619" />
-    <text
-       xml:space="preserve"
+    <g
+       transform="scale(1.163316,0.85961165)"
        style="font-style:normal;font-weight:normal;font-size:38.81914902px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:url(#radialGradient4307);fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="501.94662"
-       y="1006.7314"
-       id="text4297"
-       sodipodi:linespacing="125%"
-       transform="scale(1.163316,0.85961165)"><tspan
-         sodipodi:role="line"
-         id="tspan4299"
-         x="501.94662"
-         y="1006.7314"
-         style="font-style:normal;font-variant:normal;font-weight:900;font-stretch:normal;font-size:24.26197052px;font-family:Roboto;-inkscape-font-specification:'Roboto Heavy';fill:url(#radialGradient4307);fill-opacity:1">-</tspan></text>
+       id="text4297">
+      <path
+         d="m 510.86716,1000.8436 -7.11984,0 0,-3.09199 7.11984,0 0,3.09199 z"
+         style="font-style:normal;font-variant:normal;font-weight:900;font-stretch:normal;font-size:24.26197052px;font-family:Roboto;-inkscape-font-specification:'Roboto Heavy';fill:url(#radialGradient4307);fill-opacity:1"
+         id="path4162" />
+    </g>
   </g>
 </svg>

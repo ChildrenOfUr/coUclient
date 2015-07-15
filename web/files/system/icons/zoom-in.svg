@@ -115,9 +115,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1"
-     inkscape:cx="32.676719"
-     inkscape:cy="11.362988"
+     inkscape:zoom="11.313708"
+     inkscape:cx="16.182091"
+     inkscape:cy="13.135975"
      inkscape:document-units="px"
      inkscape:current-layer="layer2"
      showgrid="false"
@@ -139,7 +139,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -165,17 +165,13 @@
        cx="589.88123"
        cy="858.9588"
        r="8.4648619" />
-    <text
-       xml:space="preserve"
+    <g
        style="font-style:normal;font-weight:normal;font-size:23.38212204px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:url(#radialGradient4307);fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="586.06335"
-       y="863.72803"
-       id="text4297"
-       sodipodi:linespacing="125%"><tspan
-         sodipodi:role="line"
-         id="tspan4299"
-         x="586.06335"
-         y="863.72803"
-         style="font-style:normal;font-variant:normal;font-weight:900;font-stretch:normal;font-size:14.61382771px;font-family:Roboto;-inkscape-font-specification:'Roboto Heavy';fill:url(#radialGradient4307);fill-opacity:1">+</tspan></text>
+       id="text4297">
+      <path
+         d="m 591.07259,857.83397 2.43326,0 0,2.06221 -2.43326,0 0,2.79004 -2.24774,0 0,-2.79004 -2.44039,0 0,-2.06221 2.44039,0 0,-2.71155 2.24774,0 0,2.71155 z"
+         style="font-style:normal;font-variant:normal;font-weight:900;font-stretch:normal;font-size:14.61382771px;font-family:Roboto;-inkscape-font-specification:'Roboto Heavy';fill:url(#radialGradient4307);fill-opacity:1"
+         id="path4730" />
+    </g>
   </g>
 </svg>
