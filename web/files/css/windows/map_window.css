@@ -312,3 +312,47 @@
     -o-filter: drop-shadow(0 1px 1px cyan);
     filter: drop-shadow(0 1px 1px cyan);
 }
+
+/* Street Content Icons */
+
+.street-contents-indicators {
+    width: 100%;
+    height: 15px;
+    position: absolute;
+    bottom: 12px;
+    text-align: center;
+}
+
+.street-contents-indicators > div {
+    width: 15px;
+    height: 15px;
+    background-repeat: no-repeat;
+    background-size: 15px 15px;
+    -webkit-filter: drop-shadow(0 0 4px white);
+    -moz-filter: drop-shadow(0 0 4px white);
+    -o-filter: drop-shadow(0 0 4px white);
+    filter: drop-shadow(0 0 4px white);
+    cursor: help;
+    display: inline-block;
+    padding: 0 3px;
+}
+
+.street-contents-indicators > .sci-vendor {
+    background-image: url(../../system/windows/indicator_vendor.svg);
+}
+
+.street-contents-indicators > .sci-shrine {
+    background-image: url(../../system/windows/indicator_shrine.svg);
+}
+
+.street-contents-indicators > .sci-mailbox {
+    background-image: url(../../system/windows/indicator_mailbox.svg);
+}
+
+.street-contents-indicators > .sci-bureau {
+    background-image: url(../../system/windows/indicator_bureaucratichall.svg);
+}
+
+.street-contents-indicators > .sci-machines {
+    background-image: url(../../system/windows/indicator_machine.svg);
+}

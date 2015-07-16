@@ -3,244 +3,320 @@ part of couclient;
 WorldMap worldMap;
 
 class WorldMap {
-	Map<String, String> hubInfo;
-	Map<String, Map> hubMaps;
-	Map<String, String> moteInfo;
+  Map<String, String> hubInfo;
+  Map<String, Map> hubMaps;
+  Map<String, String> moteInfo;
 
-	DataMaps map = new DataMaps();
+  DataMaps map = new DataMaps();
 
-	bool worldMapVisible = false;
-	Element WorldMapDiv = querySelector("#WorldMapLayer");
-	Element HubMabDiv = querySelector("#HubMapLayer");
-	//Element HubMapFG = querySelector("#HubMapLayerFG");
+  bool worldMapVisible = false;
+  Element WorldMapDiv = querySelector("#WorldMapLayer");
+  Element HubMabDiv = querySelector("#HubMapLayer");
+  //Element HubMapFG = querySelector("#HubMapLayerFG");
 
-	WorldMap(String hub_id) {
-		loadhubdiv(hub_id);
+  WorldMap(String hub_id) {
+    loadhubdiv(hub_id);
 
-		// toggle main and hub maps
-		Element toggleMapView = querySelector("#map-window-world");
-		toggleMapView.onClick.listen((_) {
-			if(worldMapVisible) {
-				// go to current hub
-				hubMap();
-				toggleMapView.setInnerHtml('<i class="fa fa-fw fa-globe"></i>');
-			} else if(!worldMapVisible) {
-				// go to world map
-				mainMap();
-				toggleMapView.setInnerHtml('<i class="fa fa-fw fa-map-marker"></i>');
-			}
-		});
-	}
+    // toggle main and hub maps
+    Element toggleMapView = querySelector("#map-window-world");
+    toggleMapView.onClick.listen((_) {
+      if (worldMapVisible) {
+        // go to current hub
+        hubMap();
+        toggleMapView.setInnerHtml('<i class="fa fa-fw fa-globe"></i>');
+      } else if (!worldMapVisible) {
+        // go to world map
+        mainMap();
+        toggleMapView.setInnerHtml('<i class="fa fa-fw fa-map-marker"></i>');
+      }
+    });
+  }
 
-	loadhubdiv(String hub_id) {
-		// read in street data
-		hubInfo = map.data_maps_hubs[hub_id]();
-		hubMaps = map.data_maps_maps[hub_id]();
-		moteInfo = map.data_maps_streets['9']();
+  loadhubdiv(String hub_id) {
+    // read in street data
+    hubInfo = map.data_maps_hubs[hub_id]();
+    hubMaps = map.data_maps_maps[hub_id]();
+    moteInfo = map.data_maps_streets['9']();
 
-		// prepare ui elements
-		view.mapTitle.text = hubInfo['name'];
-		view.mapImg.style.backgroundImage = 'url(' + hubInfo['bg'] + ')';
-		//HubMapFG.style.backgroundImage = "url(" + hubInfo['fg'] + ")";
-		HubMabDiv.children.clear();
+    // prepare ui elements
+    view.mapTitle.text = hubInfo['name'];
+    view.mapImg.style.backgroundImage = 'url(' + hubInfo['bg'] + ')';
+    //HubMapFG.style.backgroundImage = "url(" + hubInfo['fg'] + ")";
+    HubMabDiv.children.clear();
 
-		// render
-		for(Map object in hubMaps['objs'].values) {
-			if(object['type'] == 'S') {
-				// STREETS
+    // render
+    for (Map object in hubMaps['objs'].values) {
+      if (object['type'] == 'S') {
+        // STREETS
 
-				String streetName = moteInfo[hub_id][object['tsid']];
+        String streetName = moteInfo[hub_id][object['tsid']];
 
-				Map streetPlacement = {
-					"x1": object["x1"],
-					"x2": object["x2"],
-					"y1": object["y1"],
-					"y2": object["y2"],
-					"deg": 0,
-					"length": 0,
-				};
-				streetPlacement['deg'] = getStreetAngle(streetPlacement);
-				streetPlacement['length'] = getStreetLength(streetPlacement);
-				Map customAttributes = {
-					"tsid": object['tsid']
-				};
+        Map streetPlacement = {
+          "x1": object["x1"],
+          "x2": object["x2"],
+          "y1": object["y1"],
+          "y2": object["y2"],
+          "deg": 0,
+          "length": 0,
+        };
+        streetPlacement['deg'] = getStreetAngle(streetPlacement);
+        streetPlacement['length'] = getStreetLength(streetPlacement);
+        Map customAttributes = {"tsid": object['tsid']};
 
-				DivElement street = new DivElement()
-					..classes.add('hm-street')
-					..title = "Teleport to " + streetName
-					..text = streetName
-					..attributes.addAll(customAttributes)
-					..style.left = streetPlacement['x1'].toString() + 'px'
-					..style.top = streetPlacement['y1'].toString() + 'px'
-					..style.width = streetPlacement['length'].toString() + 'px'
-					..style.transform = 'rotate(' + streetPlacement['deg'].toString() + 'rad)';
-				street.onClick.first.then((_) {
-					// Clicked on a street
-					String tsid = street.attributes['tsid'];
-					mapWindow.close();
-					streetService.requestStreet(tsid);
-					loadhubdiv(currentStreet.hub_id);
-				});
+        DivElement street = new DivElement()
+          ..classes.add('hm-street')
+          ..title = "Teleport to " + streetName
+          ..text = streetName
+          ..attributes.addAll(customAttributes)
+          ..style.left = streetPlacement['x1'].toString() + 'px'
+          ..style.top = streetPlacement['y1'].toString() + 'px'
+          ..style.width = streetPlacement['length'].toString() + 'px'
+          ..style.transform =
+          'rotate(' + streetPlacement['deg'].toString() + 'rad)';
+        street.onClick.first.then((_) {
+          // Clicked on a street
+          String tsid = street.attributes['tsid'];
+          mapWindow.close();
+          streetService.requestStreet(tsid);
+          loadhubdiv(currentStreet.hub_id);
+        });
 
-				if(object['tsid'].substring(1) == currentStreet.streetData['tsid'].substring(1)) {
-					// current street
-					street.classes.add('hm-street-current');
-				}
+        if (object['tsid'].substring(1) ==
+            currentStreet.streetData['tsid'].substring(1)) {
+          // current street
+          street.classes.add('hm-street-current');
+        }
 
-				// do not show streets with this in their name
-				RegExp streetFilter = new RegExp(r'(towers|machine room|the forgotten floor)', caseSensitive:false);
-				if(!street.text.contains(streetFilter)) {
-					HubMabDiv.append(street);
-				}
+        if (streetContentsData[streetName] == null) {
+          logmessage("[Map] Street contents not available for " + streetName);
+        } else {
+          DivElement indicators = new DivElement()
+            ..classes.add("street-contents-indicators");
 
-				// END STREETS
-			} else if(object['type'] == 'X') {
-				// GO CIRCLES
+          // show vendor symbol if vendor is on street
+          if (streetContentsData[streetName]["vendor"] != null) {
+            String ref;
+            String text = streetContentsData[streetName]["vendor"];
+            if (text.toLowerCase().startsWith("a") ||
+                text.toLowerCase().startsWith("e") ||
+                text.toLowerCase().startsWith("i") ||
+                text.toLowerCase().startsWith("o") ||
+                text.toLowerCase().startsWith("u")) {
+              ref = "an";
+            } else {
+              ref = "a";
+            }
+            DivElement vendorIndicator = new DivElement()
+              ..classes.add("sci-vendor")
+              ..title = streetName +
+                  " has " +
+                  ref +
+                  " " +
+                  streetContentsData[streetName]["vendor"] +
+                  " Vendor";
+            indicators.append(vendorIndicator);
+          }
 
-				Map goPlacement = {
-					"x": object["x"],
-					"y": object["y"],
-					"id": object["hub_id"],
-					"name": map.data_maps_hubs[object["hub_id"]]()["name"],
-					"color": map.data_maps_hubs[object["hub_id"]]()["color"]
-				};
-				Map customAttributes = {
-					"tohub": goPlacement["id"]
-				};
-				DivElement go = new DivElement()
-					..classes.add('hm-go')
-					..text = 'GO'
-					..title = 'Go to ' + goPlacement["name"]
-					..attributes.addAll(customAttributes)
-					..style.left = (goPlacement["x"] - 20).toString() + 'px'
-					..style.top = (goPlacement["y"] - 20).toString() + 'px'
-					..style.backgroundColor = goPlacement["color"];
-				go.onClick.first.then((_) {
-					// Clicked on a GO marker
-					querySelector("body").style.cursor = "progress";
-					loadhubdiv(go.attributes['tohub']);
-					querySelector("body").style.cursor = "pointer";
-				});
-				HubMabDiv.append(go);
+          // show shrine symbol if shrine is on street
+          if (streetContentsData[streetName]["shrine"] != null) {
+            DivElement shrineIndicator = new DivElement()
+              ..classes.add("sci-shrine")
+              ..title = streetName +
+                  " has a shrine to " +
+                  streetContentsData[streetName]["shrine"];
+            indicators.append(shrineIndicator);
+          }
 
-				// END GO CIRCLES
-			}
-		}
+          // show block symbol if machine room is on street
+          if (streetContentsData[streetName]["machine_room"] == true) {
+            DivElement machinesIndicator = new DivElement()
+              ..classes.add("sci-machines")
+              ..title = streetName + " has a machine room";
+            indicators.append(machinesIndicator);
+          }
 
-		HubMabDiv.classes.add('scaled');
-		//HubMapFG.classes.add('scaled');
+          // show gavel symbol if bureaucratic hall is on street
+          if (streetContentsData[streetName]["bureaucratic_hall"] == true) {
+            DivElement bureauIndicator = new DivElement()
+              ..classes.add("sci-bureau")
+              ..title = streetName + " has a bureaucratic hall";
+            indicators.append(bureauIndicator);
+          }
 
-		worldMapVisible = false;
-		HubMabDiv.hidden = false;
-		//HubMapFG.hidden = false;
-		WorldMapDiv.hidden = true;
-	}
+          // show mailbox symbol if mailbox is on street
+          if (streetContentsData[streetName]["mailbox"] == true) {
+            DivElement mailboxIndicator = new DivElement()
+              ..classes.add("sci-mailbox")
+              ..title = streetName + " has a mailbox";
+            indicators.append(mailboxIndicator);
+          }
 
-	getStreetAngle(Map street) {
-		num radians;
-		if(street['y1'] < street['y2']) {
-			Rectangle streetBox = new Rectangle(street['x1'], street['y1'], street['x2'] - street['x1'], street['y2'] - street['y1']);
-			radians = (PI / 2) - atan2(streetBox.width, streetBox.height);
-		} else if(street['y1'] > street['y2']) {
-			Rectangle streetBox = new Rectangle(street['x1'], street['y1'], street['x2'] - street['x1'], street['y1'] - street['y2']);
-			radians = atan2(streetBox.width, streetBox.height);
-			if(streetBox.width > streetBox.height) {
-				radians -= (PI / 2);
-			}
-			radians = -atan2(streetBox.height, streetBox.width);
-		}
-		return radians;
-	}
+          street.append(indicators);
+        }
 
-	getStreetLength(Map street) {
-		num base = street['x2'] - street['x1'];
-		num height = street['y2'] - street['y1'];
-		num hyp = (base * base) + (height * height);
-		return sqrt(hyp) + 8;
-	}
+        // do not show streets with this in their name
+        RegExp streetFilter = new RegExp(
+            r'(towers|machine room|the forgotten floor)', caseSensitive: false);
+        if (!street.text.contains(streetFilter)) {
+          HubMabDiv.append(street);
+        }
 
-	loadhub(String hub_id) {
-		hubInfo = map.data_maps_hubs[hub_id]();
-		hubMaps = map.data_maps_maps[hub_id]();
-		moteInfo = map.data_maps_streets['9']();
-		view.mapTitle.text = hubInfo['name'];
-		view.mapImg.style.backgroundImage = 'url(' + hubInfo['bg'] + ')';
-		//mapImg.setInnerHtml('<img src="' + hubInfo['fg']+ '"/>');
-		view.mapCanvas.context2D.clearRect(0, 0, view.mapCanvas.width, view.mapCanvas.height);
+        // END STREETS
+      } else if (object['type'] == 'X') {
+        // GO CIRCLES
 
-		CanvasElement lineCanvas = new CanvasElement();
-		CanvasElement textCanvas = new CanvasElement();
+        Map goPlacement = {
+          "x": object["x"],
+          "y": object["y"],
+          "id": object["hub_id"],
+          "name": map.data_maps_hubs[object["hub_id"]]()["name"],
+          "color": map.data_maps_hubs[object["hub_id"]]()["color"]
+        };
+        Map customAttributes = {"tohub": goPlacement["id"]};
+        DivElement go = new DivElement()
+          ..classes.add('hm-go')
+          ..text = 'GO'
+          ..title = 'Go to ' + goPlacement["name"]
+          ..attributes.addAll(customAttributes)
+          ..style.left = (goPlacement["x"] - 20).toString() + 'px'
+          ..style.top = (goPlacement["y"] - 20).toString() + 'px'
+          ..style.backgroundColor = goPlacement["color"];
+        go.onClick.first.then((_) {
+          // Clicked on a GO marker
+          querySelector("body").style.cursor = "progress";
+          loadhubdiv(go.attributes['tohub']);
+          querySelector("body").style.cursor = "pointer";
+        });
+        HubMabDiv.append(go);
 
-		lineCanvas.context2D.lineCap = "round";
-		lineCanvas.context2D.strokeStyle = "rgba(255, 255, 240, 0.5)";
+        // END GO CIRCLES
+      }
+    }
 
-		textCanvas.width = view.mapCanvas.width;
-		textCanvas.height = view.mapCanvas.height;
-		textCanvas.context2D.fillStyle = "#000000";
+    HubMabDiv.classes.add('scaled');
+    //HubMapFG.classes.add('scaled');
 
-		view.mapCanvas.context2D.miterLimit = 2;
+    worldMapVisible = false;
+    HubMabDiv.hidden = false;
+    //HubMapFG.hidden = false;
+    WorldMapDiv.hidden = true;
+  }
 
-		// TODO: Low priority, performance improvement
+  getStreetAngle(Map street) {
+    num radians;
+    if (street['y1'] < street['y2']) {
+      Rectangle streetBox = new Rectangle(street['x1'], street['y1'],
+          street['x2'] - street['x1'], street['y2'] - street['y1']);
+      radians = (PI / 2) - atan2(streetBox.width, streetBox.height);
+    } else if (street['y1'] > street['y2']) {
+      Rectangle streetBox = new Rectangle(street['x1'], street['y1'],
+          street['x2'] - street['x1'], street['y1'] - street['y2']);
+      radians = atan2(streetBox.width, streetBox.height);
+      if (streetBox.width > streetBox.height) {
+        radians -= (PI / 2);
+      }
+      radians = -atan2(streetBox.height, streetBox.width);
+    }
+    return radians;
+  }
 
-		for(Map object in hubMaps['objs'].values) {
+  getStreetLength(Map street) {
+    num base = street['x2'] - street['x1'];
+    num height = street['y2'] - street['y1'];
+    num hyp = (base * base) + (height * height);
+    return sqrt(hyp) + 8;
+  }
 
-			// Street Objects
-			if(object['type'] == 'S') {
-				String streetName = moteInfo[hub_id][object['tsid']];
-				int streetMiddleX = ((object['x1'] + object['x2']) / 2).round();
-				int streetMiddleY = ((object['y1'] + object['y2']) / 2).round();
+  loadhub(String hub_id) {
+    hubInfo = map.data_maps_hubs[hub_id]();
+    hubMaps = map.data_maps_maps[hub_id]();
+    moteInfo = map.data_maps_streets['9']();
+    view.mapTitle.text = hubInfo['name'];
+    view.mapImg.style.backgroundImage = 'url(' + hubInfo['bg'] + ')';
+    //mapImg.setInnerHtml('<img src="' + hubInfo['fg']+ '"/>');
+    view.mapCanvas.context2D.clearRect(
+        0, 0, view.mapCanvas.width, view.mapCanvas.height);
 
+    CanvasElement lineCanvas = new CanvasElement();
+    CanvasElement textCanvas = new CanvasElement();
 
-				lineCanvas.width = view.mapCanvas.width;
-				lineCanvas.height = view.mapCanvas.height;
-				lineCanvas.context2D.lineCap = "round";
-				lineCanvas.context2D.miterLimit = 2;
-				lineCanvas.context2D.strokeStyle = "rgba(255, 255, 240, 0.5)";
+    lineCanvas.context2D.lineCap = "round";
+    lineCanvas.context2D.strokeStyle = "rgba(255, 255, 240, 0.5)";
 
-				// If this is the street we are on, style is slightly different
-				if(object['tsid'].substring(1) == currentStreet.streetData['tsid'].substring(1)) {
-					lineCanvas.context2D.strokeStyle = "rgba(255, 255, 240, 1)";
-				}
+    textCanvas.width = view.mapCanvas.width;
+    textCanvas.height = view.mapCanvas.height;
+    textCanvas.context2D.fillStyle = "#000000";
 
-				lineCanvas.context2D.lineWidth = 5;
-				lineCanvas.context2D.moveTo(object['x1'], object['y1']);
-				lineCanvas.context2D.lineTo(object['x2'], object['y2']);
-				lineCanvas.context2D.stroke();
-				view.mapCanvas.context2D.drawImage(lineCanvas, 0, 0);
+    view.mapCanvas.context2D.miterLimit = 2;
 
-				//ui.mapCanvas.context2D.beginPath();
+    // TODO: Low priority, performance improvement
 
-				// Rotates the canvas to the slope of the street's line. Translate to center of text, rotate around that point
+    for (Map object in hubMaps['objs'].values) {
 
-				//streetHitBox.style.transform = "rotate("+ (atan((object['y2']-object['y1'])/(object['x2']-object['x1']))).toString() +"deg)";
-				//TODO: draw shrine and vendor icons here
+      // Street Objects
+      if (object['type'] == 'S') {
+        String streetName = moteInfo[hub_id][object['tsid']];
+        int streetMiddleX = ((object['x1'] + object['x2']) / 2).round();
+        int streetMiddleY = ((object['y1'] + object['y2']) / 2).round();
 
-				// For name of each street
-				textCanvas.context2D.save();
-				textCanvas.context2D.miterLimit = 2;
-				textCanvas.context2D.font = "normal 13px Lato";
+        lineCanvas.width = view.mapCanvas.width;
+        lineCanvas.height = view.mapCanvas.height;
+        lineCanvas.context2D.lineCap = "round";
+        lineCanvas.context2D.miterLimit = 2;
+        lineCanvas.context2D.strokeStyle = "rgba(255, 255, 240, 0.5)";
 
-				textCanvas.context2D.moveTo(0, 0);
-				textCanvas.context2D.translate(streetMiddleX, streetMiddleY);
-				textCanvas.context2D.rotate(atan((object['y2'] - object['y1']) / (object['x2'] - object['x1'])));
-				textCanvas.context2D.translate(-streetMiddleX - (1.2 * streetName.length), -streetMiddleY);
+        // If this is the street we are on, style is slightly different
+        if (object['tsid'].substring(1) ==
+            currentStreet.streetData['tsid'].substring(1)) {
+          lineCanvas.context2D.strokeStyle = "rgba(255, 255, 240, 1)";
+        }
 
-				// If this is the street we are on, style is slightly different
-				if(object['tsid'].substring(1) == currentStreet.streetData['tsid'].substring(1)) {
-					textCanvas.context2D.fillStyle = "#C50101";
-					textCanvas.context2D.font = "bold 15px Lato";
-					// disabled until it is positioned correctly
+        lineCanvas.context2D.lineWidth = 5;
+        lineCanvas.context2D.moveTo(object['x1'], object['y1']);
+        lineCanvas.context2D.lineTo(object['x2'], object['y2']);
+        lineCanvas.context2D.stroke();
+        view.mapCanvas.context2D.drawImage(lineCanvas, 0, 0);
+
+        //ui.mapCanvas.context2D.beginPath();
+
+        // Rotates the canvas to the slope of the street's line. Translate to center of text, rotate around that point
+
+        //streetHitBox.style.transform = "rotate("+ (atan((object['y2']-object['y1'])/(object['x2']-object['x1']))).toString() +"deg)";
+        //TODO: draw shrine and vendor icons here
+
+        // For name of each street
+        textCanvas.context2D.save();
+        textCanvas.context2D.miterLimit = 2;
+        textCanvas.context2D.font = "normal 13px Lato";
+
+        textCanvas.context2D.moveTo(0, 0);
+        textCanvas.context2D.translate(streetMiddleX, streetMiddleY);
+        textCanvas.context2D.rotate(atan(
+            (object['y2'] - object['y1']) / (object['x2'] - object['x1'])));
+        textCanvas.context2D.translate(
+            -streetMiddleX - (1.2 * streetName.length), -streetMiddleY);
+
+        // If this is the street we are on, style is slightly different
+        if (object['tsid'].substring(1) ==
+            currentStreet.streetData['tsid'].substring(1)) {
+          textCanvas.context2D.fillStyle = "#C50101";
+          textCanvas.context2D.font = "bold 15px Lato";
+          // disabled until it is positioned correctly
 //               drawStar(textCanvas.context2D,streetMiddleX,streetMiddleY-14,10,fillColor:textCanvas.context2D.fillStyle,strokeColor:textCanvas.context2D.strokeStyle);
-				}
+        }
 
-				textCanvas.context2D.lineWidth = 2;
-				textCanvas.context2D.strokeStyle = "#FFFFFF";
-				textCanvas.context2D.strokeText(streetName, (streetMiddleX - (view.mapCanvas.context2D.measureText(streetName).width / 2)), (streetMiddleY + 4));
-				textCanvas.context2D.fillText(streetName, (streetMiddleX - (view.mapCanvas.context2D.measureText(streetName).width / 2)), (streetMiddleY + 4));
+        textCanvas.context2D.lineWidth = 2;
+        textCanvas.context2D.strokeStyle = "#FFFFFF";
+        textCanvas.context2D.strokeText(streetName, (streetMiddleX -
+                (view.mapCanvas.context2D.measureText(streetName).width / 2)),
+            (streetMiddleY + 4));
+        textCanvas.context2D.fillText(streetName, (streetMiddleX -
+                (view.mapCanvas.context2D.measureText(streetName).width / 2)),
+            (streetMiddleY + 4));
 
-				textCanvas.context2D.restore();
+        textCanvas.context2D.restore();
 
-				/* TODO: WIP, working towards onClick events like with street signs, not far along
+        /* TODO: WIP, working towards onClick events like with street signs, not far along
         //String tsid = exit['tsid'].replaceFirst("L", "G");
           SpanElement streetHitBox = new SpanElement()
           * //width is length of street line
@@ -255,82 +331,95 @@ class WorldMap {
               //              ..attributes['url'] = 'http://RobertMcDermot.github.io/CAT422-glitch-location-viewer/locations/' + moteInfo[hub_id][object['tsid']] +'.callback.json'
               //              ..attributes['tsid'] = moteInfo[hub_id][object['tsid']];
         */
-				//mapCanvas.append(streetHitBox);
-			}
+        //mapCanvas.append(streetHitBox);
+      }
 
-			// Exit Objects
-			else if(object['type'] == 'X') {
-				// Drawing the "GO" Circle. Needs small arrow addition, math similar to text below
-				view.mapCanvas.context2D.beginPath();
-				view.mapCanvas.context2D.arc(object['x'], object['y'], 18, 0, 2 * PI, false);
-				view.mapCanvas.context2D.fillStyle = map.data_maps_hubs[object['hub_id']]()['color'];
-				view.mapCanvas.context2D.fill();
-				view.mapCanvas.context2D.lineWidth = 2;
-				view.mapCanvas.context2D.font = "normal 18px Fredoka One";
-				view.mapCanvas.context2D.fillStyle = '#FFFFFF';
-				view.mapCanvas.context2D.fillText('GO', object['x'] - 14, object['y'] + 7);
+      // Exit Objects
+      else if (object['type'] == 'X') {
+        // Drawing the "GO" Circle. Needs small arrow addition, math similar to text below
+        view.mapCanvas.context2D.beginPath();
+        view.mapCanvas.context2D.arc(
+            object['x'], object['y'], 18, 0, 2 * PI, false);
+        view.mapCanvas.context2D.fillStyle =
+            map.data_maps_hubs[object['hub_id']]()['color'];
+        view.mapCanvas.context2D.fill();
+        view.mapCanvas.context2D.lineWidth = 2;
+        view.mapCanvas.context2D.font = "normal 18px Fredoka One";
+        view.mapCanvas.context2D.fillStyle = '#FFFFFF';
+        view.mapCanvas.context2D.fillText(
+            'GO', object['x'] - 14, object['y'] + 7);
 
-				// Drawing the name of the region, angle specified in 'label', trig to ajdust pos based on angle
-				view.mapCanvas.context2D.font = "normal 14px Lato";
-				view.mapCanvas.context2D.strokeStyle = '#FFFFFF';
-				view.mapCanvas.context2D.stroke();
-				view.mapCanvas.context2D.lineWidth = 4;
-				view.mapCanvas.context2D.strokeText('To: ' + map.data_maps_hubs[object['hub_id']]()['name'],
-				                                    object['x'] + (sin(PI / 180 * object['label']) * 70) - view.mapCanvas.context2D.measureText(map.data_maps_hubs[object['hub_id']]()['name']).width * .8,
-				                                    object['y'] - (cos(PI / 180 * object['label']) * 35) + 8);
-				view.mapCanvas.context2D.lineWidth = .9;
-				view.mapCanvas.context2D.strokeStyle = map.data_maps_hubs[object['hub_id']]()['color'];
-				view.mapCanvas.context2D.strokeText('To: ' + map.data_maps_hubs[object['hub_id']]()['name'],
-				                                    object['x'] + (sin(PI / 180 * object['label']) * 70) - view.mapCanvas.context2D.measureText(map.data_maps_hubs[object['hub_id']]()['name']).width * .8,
-				                                    object['y'] - (cos(PI / 180 * object['label']) * 35) + 8);
-			}
-		}
-		view.mapCanvas.context2D.drawImage(lineCanvas, 0, 0);
-		view.mapCanvas.context2D.drawImage(textCanvas, 0, 0);
+        // Drawing the name of the region, angle specified in 'label', trig to ajdust pos based on angle
+        view.mapCanvas.context2D.font = "normal 14px Lato";
+        view.mapCanvas.context2D.strokeStyle = '#FFFFFF';
+        view.mapCanvas.context2D.stroke();
+        view.mapCanvas.context2D.lineWidth = 4;
+        view.mapCanvas.context2D.strokeText('To: ' +
+            map.data_maps_hubs[object['hub_id']]()['name'], object['x'] +
+            (sin(PI / 180 * object['label']) * 70) -
+            view.mapCanvas.context2D.measureText(
+                    map.data_maps_hubs[object['hub_id']]()['name']).width *
+                .8, object['y'] - (cos(PI / 180 * object['label']) * 35) + 8);
+        view.mapCanvas.context2D.lineWidth = .9;
+        view.mapCanvas.context2D.strokeStyle =
+            map.data_maps_hubs[object['hub_id']]()['color'];
+        view.mapCanvas.context2D.strokeText('To: ' +
+            map.data_maps_hubs[object['hub_id']]()['name'], object['x'] +
+            (sin(PI / 180 * object['label']) * 70) -
+            view.mapCanvas.context2D.measureText(
+                    map.data_maps_hubs[object['hub_id']]()['name']).width *
+                .8, object['y'] - (cos(PI / 180 * object['label']) * 35) + 8);
+      }
+    }
+    view.mapCanvas.context2D.drawImage(lineCanvas, 0, 0);
+    view.mapCanvas.context2D.drawImage(textCanvas, 0, 0);
 
-		//scale canvas to match map window size
-		num scaleX = view.mapCanvas.parent.clientWidth / view.mapCanvas.clientWidth;
-		num scaleY = view.mapCanvas.parent.clientHeight / view.mapCanvas.clientHeight;
-		view.mapCanvas.style.transform = 'scaleX($scaleX) scaleY($scaleY)';
-		view.mapCanvas.style.transformOrigin = '-21px -21px';
+    //scale canvas to match map window size
+    num scaleX = view.mapCanvas.parent.clientWidth / view.mapCanvas.clientWidth;
+    num scaleY =
+        view.mapCanvas.parent.clientHeight / view.mapCanvas.clientHeight;
+    view.mapCanvas.style.transform = 'scaleX($scaleX) scaleY($scaleY)';
+    view.mapCanvas.style.transformOrigin = '-21px -21px';
 
-		worldMapVisible = false;
-	}
+    worldMapVisible = false;
+  }
 
-	/**
+  /**
 	 * Taken from http://programmingthomas.wordpress.com/2012/05/16/drawing-stars-with-html5-canvas/
 	 *
 	 * You call the function by using star(context, x of center, y of center, radius)
 	 *
 	 **/
-	void drawStar(CanvasRenderingContext2D ctx, num xOfCenter, num yOfCenter, num radius,
-	              {num numPoints : 5, num insetFraction : .5, String fillColor : "#ffff00",
-	              String strokeColor: "#000000", num strokeWidth : 2}) {
-		ctx.save();
-		ctx.fillStyle = fillColor;
-		ctx.strokeStyle = strokeColor;
-		ctx.lineWidth = strokeWidth;
-		ctx.beginPath();
-		ctx.translate(xOfCenter, yOfCenter);
-		ctx.moveTo(0, 0 - radius);
-		for(var i = 0; i < numPoints; i++) {
-			ctx.rotate(PI / numPoints);
-			ctx.lineTo(0, 0 - (radius * insetFraction));
-			ctx.rotate(PI / numPoints);
-			ctx.lineTo(0, 0 - radius);
-		}
-		ctx.fill();
-		ctx.stroke();
-		ctx.restore();
-	}
+  void drawStar(
+      CanvasRenderingContext2D ctx, num xOfCenter, num yOfCenter, num radius,
+      {num numPoints: 5, num insetFraction: .5, String fillColor: "#ffff00",
+      String strokeColor: "#000000", num strokeWidth: 2}) {
+    ctx.save();
+    ctx.fillStyle = fillColor;
+    ctx.strokeStyle = strokeColor;
+    ctx.lineWidth = strokeWidth;
+    ctx.beginPath();
+    ctx.translate(xOfCenter, yOfCenter);
+    ctx.moveTo(0, 0 - radius);
+    for (var i = 0; i < numPoints; i++) {
+      ctx.rotate(PI / numPoints);
+      ctx.lineTo(0, 0 - (radius * insetFraction));
+      ctx.rotate(PI / numPoints);
+      ctx.lineTo(0, 0 - radius);
+    }
+    ctx.fill();
+    ctx.stroke();
+    ctx.restore();
+  }
 
-	void mainMap() {
-		WorldMapDiv.hidden = true;
-		HubMabDiv.hidden = true;
-		view.mapTitle.text = "World Map";
-		view.mapImg.style.backgroundImage = 'url(files/system/windows/worldmap.png)';
-		WorldMapDiv.children.clear();
-		String json = '''
+  void mainMap() {
+    WorldMapDiv.hidden = true;
+    HubMabDiv.hidden = true;
+    view.mapTitle.text = "World Map";
+    view.mapImg.style.backgroundImage =
+        'url(files/system/windows/worldmap.png)';
+    WorldMapDiv.children.clear();
+    String json = '''
 {
   "76": {
     "name": "Alakol",
@@ -565,42 +654,42 @@ class WorldMap {
 }
     ''';
 
-		Map hubs = JSON.decode(json);
-		hubs.forEach((key, value) {
-			Map customAttributes = {
-				"hub": key
-			};
-			DivElement hub = new DivElement()
-				..className = "wml-hub"
-				..attributes.addAll(customAttributes)
-				..style.left = value['x'].toString() + 'px'
-				..style.top = value['y'].toString() + 'px'
-				..text = value['name'];
-			if(currentStreet.hub_id == key) {
-				hub.classes.add('currentlocationhub');
-			}
-			WorldMapDiv.append(hub);
-		});
-		WorldMapDiv.hidden = false;
-		//HubMapFG.hidden = true;
-		worldMapVisible = true;
+    Map hubs = JSON.decode(json);
+    hubs.forEach((key, value) {
+      Map customAttributes = {"hub": key};
+      DivElement hub = new DivElement()
+        ..className = "wml-hub"
+        ..attributes.addAll(customAttributes)
+        ..style.left = value['x'].toString() + 'px'
+        ..style.top = value['y'].toString() + 'px'
+        ..text = value['name'];
+      if (currentStreet.hub_id == key) {
+        hub.classes.add('currentlocationhub');
+      }
+      WorldMapDiv.append(hub);
+    });
+    WorldMapDiv.hidden = false;
+    //HubMapFG.hidden = true;
+    worldMapVisible = true;
 
-		WorldMapDiv.onClick.listen((e) {
-			loadhubdiv(e.target.attributes['hub']);
-			querySelector("#map-window-world").setInnerHtml('<i class="fa fa-fw fa-globe"></i>');
-		});
-	}
+    WorldMapDiv.onClick.listen((e) {
+      loadhubdiv(e.target.attributes['hub']);
+      querySelector("#map-window-world")
+          .setInnerHtml('<i class="fa fa-fw fa-globe"></i>');
+    });
+  }
 
-	void hubMap({String hub_id, String hub_name}) {
-		if(hub_id == null) {
-			hub_id = currentStreet.hub_id;
-		}
-		loadhubdiv(hub_id);
-		view.mapTitle.text = hub_name;
-		view.mapImg.style.backgroundImage = 'url(' + map.data_maps_hubs[hub_id]()['bg'] + ')';
-		view.mapTitle.text = map.data_maps_hubs[hub_id]()['name'];
-		worldMapVisible = false;
-		HubMabDiv.hidden = false;
-		//HubMapFG.hidden = false;
-	}
+  void hubMap({String hub_id, String hub_name}) {
+    if (hub_id == null) {
+      hub_id = currentStreet.hub_id;
+    }
+    loadhubdiv(hub_id);
+    view.mapTitle.text = hub_name;
+    view.mapImg.style.backgroundImage =
+        'url(' + map.data_maps_hubs[hub_id]()['bg'] + ')';
+    view.mapTitle.text = map.data_maps_hubs[hub_id]()['name'];
+    worldMapVisible = false;
+    HubMabDiv.hidden = false;
+    //HubMapFG.hidden = false;
+  }
 }
