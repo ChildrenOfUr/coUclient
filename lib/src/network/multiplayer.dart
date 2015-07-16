@@ -115,6 +115,11 @@ _setupStreetSocket(String streetName) {
 			return;
 		}
 
+		if(map['gotoStreet'] != null) {
+			streetService.requestStreet(map['tsid']);
+			return;
+		}
+
 		(map["quoins"] as List).forEach((Map quoinMap) {
 			if(quoinMap["remove"] == "true") {
 				Element objectToRemove = querySelector("#${quoinMap["id"]}");
@@ -129,6 +134,18 @@ _setupStreetSocket(String streetName) {
 					element.style.display = "block";
 					quoins[id].collected = false;
 				}
+			}
+		});
+		(map["doors"] as List).forEach((Map doorMap) {
+			String id = doorMap["id"];
+			Element element = querySelector("#$id");
+			Door door = entities[doorMap["id"]];
+			if(element == null) {
+				addDoor(doorMap);
+			}
+			else {
+				element.attributes['actions'] = JSON.encode(doorMap['actions']);
+				_updateChatBubble(doorMap, door);
 			}
 		});
 		(map["plants"] as List).forEach((Map plantMap) {
@@ -407,6 +424,14 @@ void addPlant(Map map) {
 	entities[map['id']] = new Plant(map);
 }
 
+void addDoor(Map map) {
+	if(currentStreet == null) {
+		return;
+	} else {
+		entities[map['id']] = new Door(map);
+	}
+}
+
 void addItem(Map map) {
 	if(currentStreet == null) {
 		return;
@@ -598,7 +623,7 @@ findNewSlot(Element item, Map map, ImageElement img) {
 	}
 
 	//there was no space in the player's pack, drop the item on the ground instead
-	if(!found){
+	if(!found) {
 		sendAction("drop", i['itemType'], getDropMap(i, 1));
 	}
 }

@@ -116,6 +116,7 @@ part 'package:couclient/src/game/entities/entity.dart';
 part 'package:couclient/src/game/entities/wormhole.dart';
 part 'package:couclient/src/game/entities/npc.dart';
 part 'package:couclient/src/game/entities/plant.dart';
+part 'package:couclient/src/game/entities/door.dart';
 part 'package:couclient/src/game/street.dart';
 part 'package:couclient/src/game/entities/quoin.dart';
 part 'package:couclient/src/game/entities/grounditem.dart';
