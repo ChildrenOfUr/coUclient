@@ -71,10 +71,4 @@ class ChatBubble {
         if(removeParent)
         	parent.remove();
 	}
-
-	String _getColoredUsername() {
-		return '<span class="username ' + getUsernameColor(game.username) + '">' + game.username;
-		//; font-weight: bold; padding-right:4px; display:inline-block;"
-		print(getUsernameColor(game.username));
-	}
 }

@@ -9,7 +9,7 @@ class RightClickMenu {
 			..id = "openItemWindow"
 			..className = "InfoButton fa fa-info-circle"
 			..onClick.listen((_) {
-			new ItemWindow().displayItem(itemName);
+			new ItemWindow(itemName).displayItem();
 		});
 		SpanElement titleElement = new SpanElement()
 			..id = "ClickTitle"

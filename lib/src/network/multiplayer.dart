@@ -526,7 +526,6 @@ void putInInventory(ImageElement img, Map map) {
 				offset = i['iconNum'];
 			}
 
-			num width = img.width / i['iconNum'];
 			item.style.backgroundPosition = "calc(100% / ${i['iconNum'] - 1} * ${offset - 1}";
 			item.attributes['count'] = count.toString();
 
@@ -553,7 +552,6 @@ void putInInventory(ImageElement img, Map map) {
 findNewSlot(Element item, Map map, ImageElement img) {
 	bool found = false;
 	Map i = map['item'];
-	int stacksTo = i['stacksTo'];
 
 	//find first free item slot
 	for(Element barSlot in view.inventory.children) {

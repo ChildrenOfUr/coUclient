@@ -6,7 +6,6 @@ import 'dart:html';
 import 'dart:async';
 import 'dart:math' show Random;
 import 'dart:convert';
-import "package:couclient/configs.dart";
 
 @CustomTag('ur-meters')
 class Meters extends PolymerElement {

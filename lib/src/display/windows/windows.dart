@@ -4,7 +4,7 @@ class WindowManager {
 	WindowManager() {
 		// Declaring all the possible popup windows
 		SettingsWindow settings = new SettingsWindow();
-    mapWindow = new MapWindow();
+		mapWindow = new MapWindow();
 		BugWindow bugs = new BugWindow();
 		BagWindow bag = new BagWindow();
 		VendorWindow vendor = new VendorWindow();
@@ -12,7 +12,7 @@ class WindowManager {
 		//GoWindow goWindow = new GoWindow();
 		CalendarWindow calendarWindow = new CalendarWindow();
 		RockWindow rockWindow = new RockWindow();
-		ItemWindow itemWindow = new ItemWindow();
+//		ItemWindow itemWindow = new ItemWindow();
 	}
 }
 

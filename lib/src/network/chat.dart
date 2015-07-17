@@ -29,7 +29,7 @@ class NetChatManager {
 		});
 
 		new Service(['startChat'], (event) {
-			Chat chat = new Chat(event as String);
+			new Chat(event as String);
 		});
 
 		new Service(['outgoingChatEvent'], (event) {
