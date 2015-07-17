@@ -2707,6 +2707,7 @@ Map<String, Map<String, String>> streetContentsData = {
 		"vendor": "Gardening Goods"
 	},
 	"Toppa Tre": {
+		"shrine": "Cosma",
 		"vendor": "Hardware"
 	},
 	"Torpan Cleft": {
