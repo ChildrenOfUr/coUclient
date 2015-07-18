@@ -92,13 +92,17 @@ class UserInterface {
 	SoundCloudWidget soundcloud = new SoundCloudWidget();
 
 	loggedIn() {
-		loadingScreen.style.opacity = '0';
-		new Timer(new Duration(seconds: 1), () {
-			loadingScreen.hidden = true;
+		loadStatus2.text = "Preparing world...";
+		new Service(['streetLoaded'], (_) {
+			loadingScreen.style.opacity = '0';
+			new Timer(new Duration(seconds: 1), () {
+				loadingScreen.hidden = true;
+			});
 		});
 	}
 
 	loggedOut() {
+		loadStatus2.text = "Chatting with server...";
 		loadingScreen.hidden = false;
 		new Timer(new Duration(seconds: 1), () {
 			loadingScreen.style.opacity = '1';

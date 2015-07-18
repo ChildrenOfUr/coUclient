@@ -1,5 +1,4 @@
-.itemWindow ur-well *,
-#itemWindow ur-well * {
+.itemWindow ur-well * {
     font-family: "Lato", sans-serif;
     font-size: 18px;
 }
@@ -21,6 +20,10 @@
     left: 50%;
     top: 50%;
     transform: translateX(-50%) translateY(-50%);
+}
+
+.iw-newitem {
+    text-align: center;
 }
 
 .iw-info {

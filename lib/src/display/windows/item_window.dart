@@ -1,30 +1,24 @@
 part of couclient;
 
 class ItemWindow extends Modal {
-	String id = 'itemWindow', itemName;
+	String id = 'itemWindow' + random.nextInt(9999999).toString(), itemName;
 	static Map<String, ItemWindow> instances = {};
 
-	Element titleE = querySelector(".iw-title");
-	Element imageE = querySelector(".iw-image");
-	Element descE = querySelector(".iw-desc");
-	Element priceE = querySelector(".iw-currants");
-	Element slotE = querySelector(".iw-slot");
-	Element imgnumE = querySelector(".iw-imgnum");
-	Element discoverE = querySelector(".iw-newItem");
-	Element wearContainer = querySelector(".iw-wear-container");
-	Element wearE = querySelector(".iw-wear");
+	String priceText, slotText, wearText;
 
 	factory ItemWindow(String itemName) {
 		if(instances[itemName] == null) {
 			instances[itemName] = new ItemWindow._(itemName);
+		} else {
+			instances[itemName].window.hidden = false;
 		}
 		return instances[itemName];
 	}
 
 	ItemWindow._(this.itemName) {
-		prepare();
 		displayItem().then((Element el) {
 			querySelector("#windowHolder").append(el);
+			prepare();
 		});
 	}
 
@@ -48,45 +42,25 @@ class ItemWindow extends Modal {
 		}
 		int newImg = 0;
 
-		titleE.text = title;
-		imageE.setAttribute('src', image);
-		descE.text = desc;
-
 		if(price != -1) {
 			if(price == 0) {
 				// worthless
-				priceE.setInnerHtml('This item is priceless.');
+				priceText = 'This item is priceless.';
 			} else if(price == 1) {
 				// not plural
-				priceE.setInnerHtml('This item sells for about <b>' +
-				                    price.toString() +
-				                    '</b> currant');
+				priceText = 'This item sells for about <b>' + price.toString() + '</b> currant';
 			} else {
 				// plural
-				priceE.setInnerHtml('This item sells for about <b>' +
-				                    price.toString() +
-				                    '</b> currants');
+				priceText = 'This item sells for about <b>' + price.toString() + '</b> currants';
 			}
 		} else {
-			priceE.text = 'Vendors will not buy this item';
+			priceText = 'Vendors will not buy this item';
 		}
 
-		slotE.setInnerHtml(
-			'Fits up to <b>' + slot.toString() + '</b> in a backpack slot');
-
-		if(newImg > 0) {
-			discoverE.style.display = 'block';
-			imgnumE.text = '+' + newImg.toString();
-		} else {
-			discoverE.style.display = 'none';
-		}
+		slotText = 'Fits up to <b>' + slot.toString() + '</b> in a backpack slot';
 
 		if(showWear) {
-			wearContainer.hidden = false;
-			wearE.setInnerHtml(
-				'Durable for about <b>' + wear.toString() + '</b> units of wear');
-		} else {
-			wearContainer.hidden = true;
+			wearText = 'Durable for about <b>' + wear.toString() + '</b> units of wear';
 		}
 
 		// // // // // // // // // // // // // // // // // // // // // // // // //
@@ -109,7 +83,7 @@ class ItemWindow extends Modal {
 
 		SpanElement titleSpan = new SpanElement()
 			..classes.add("iw-title")
-			..text = itemName;
+			..text = title;
 
 		Element header = new Element.header()
 			..append(icon)
@@ -118,7 +92,8 @@ class ItemWindow extends Modal {
 		// Image (Left Column)
 
 		ImageElement leftImage = new ImageElement()
-			..classes.add("iw-image");
+			..classes.add("iw-image")
+			..src = image;
 
 		Element imageContainer = new DivElement()
 			..classes.add('iw-image-container')
@@ -127,7 +102,7 @@ class ItemWindow extends Modal {
 		// New Item Message (Left Column)
 
 		ImageElement imgIcon = new ImageElement()
-			..src = "../system/icons/interaction_img.svg";
+			..src = "../web/files/system/icons/interaction_img.svg";
 
 		SpanElement imgAward = new SpanElement()
 			..classes.add("img")
@@ -141,8 +116,11 @@ class ItemWindow extends Modal {
 
 		DivElement left = new DivElement()
 			..classes.add("iw-left")
-			..append(imageContainer)
-			..append(newItem);
+			..append(imageContainer);
+
+		if (newImg > 0) {
+			left.append(newItem);
+		}
 
 		// Information (Right Column)
 
@@ -154,11 +132,11 @@ class ItemWindow extends Modal {
 
 		ImageElement currantIcon = new ImageElement()
 			..classes.add("iw-icon-currants")
-			..src = "../system/icons/currant.svg";
+			..src = "../web/files/system/icons/currant.svg";
 
 		SpanElement currantNum = new SpanElement()
 			..classes.add("iw-currants")
-			..text = price.toString();
+			..innerHtml = priceText;
 
 		// Fit in slot
 
@@ -166,8 +144,8 @@ class ItemWindow extends Modal {
 			..classes.add("iw-icon-css")
 			..classes.add("iw-icon-slot");
 
-		DivElement slotNum = new DivElement()
-			..text = slot.toString();
+		SpanElement slotNum = new SpanElement()
+			..innerHtml = slotText;
 
 		// Wear
 
@@ -179,7 +157,7 @@ class ItemWindow extends Modal {
 				..classes.add("iw-icon-wear");
 
 			wearNum = new SpanElement()
-				..text = json['durability'].toString();
+				..innerHtml = wearText;
 		} else {
 			showWear = false;
 		}
@@ -188,11 +166,13 @@ class ItemWindow extends Modal {
 			..classes.add("iw-meta")
 			..append(currantIcon)
 			..append(currantNum)
+			..append(new BRElement())
 			..append(slotIcon)
 			..append(slotNum);
 
 		if(showWear) {
 			meta
+				..append(new BRElement())
 				..append(wearIcon)
 				..append(wearNum);
 		}
@@ -209,8 +189,9 @@ class ItemWindow extends Modal {
 			..append(right);
 
 		DivElement window = new DivElement()
-			..classes.add("itemWindow")
+			..id = id
 			..classes.add("window")
+			..classes.add("itemWindow")
 			..append(closeButton)
 			..append(header)
 			..append(well);
@@ -218,9 +199,7 @@ class ItemWindow extends Modal {
 		return(window);
 	}
 
-	open() {
-	}
-
 	close() {
+		instances[itemName].window.hidden = true;
 	}
 }
