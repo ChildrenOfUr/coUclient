@@ -43,55 +43,84 @@ class MailboxWindow extends Modal {
 	}
 }
 
+Map<String,Modal> modals = {};
+
 /// A Dart interface to an html Modal
 abstract class Modal {
-	Element window;
+	Element modalWindow;
 	String id;
+	StreamSubscription escListener;
 
 	open() {
-		window.hidden = false;
+		modalWindow.hidden = false;
 		this.focus();
 	}
 
 	close() {
-		window.hidden = true;
+		_destroyEscListener();
+		modalWindow.hidden = true;
+
+		//see if there's another window that we want to focus
+		for(Element modal in querySelectorAll('.window')) {
+			if(!modal.hidden) {
+				modals[modal.id].focus();
+			}
+		}
 	}
 
 	focus() {
 		for(Element others in querySelectorAll('.window')) {
 			others.style.zIndex = '2';
 		}
-		this.window.style.zIndex = '3';
-		window.focus();
+		this.modalWindow.style.zIndex = '3';
+		modalWindow.focus();
+	}
+
+	_createEscListener() {
+		if(escListener != null) {
+			return;
+		}
+
+		escListener = document.onKeyUp.listen((KeyboardEvent e) {
+			//27 == esc key
+			if(e.keyCode == 27) {
+				close();
+			}
+		});
+	}
+
+	_destroyEscListener() {
+		if(escListener != null) {
+			escListener.cancel();
+			escListener = null;
+		}
 	}
 
 	prepare() {
 		// GET 'window' ////////////////////////////////////
-		window = querySelector('#$id');
+		modalWindow = querySelector('#$id');
 
 		// CLOSE BUTTON ////////////////////////////////////
-		window.querySelector('.fa-times.close').onClick.listen((_) => this.close());
-		StreamSubscription escListener;
-		escListener = document.onKeyUp.listen((KeyboardEvent e) {
-			if(e.keyCode == 27 && window.hidden == false) {
-				//escape key
-				this.close();
-				// COMMENTED TO ALLOW PRESSING ESC TO CLOSE ANY WINDOW // escListener.cancel();
-			}
-		});
+		modalWindow.querySelector('.fa-times.close').onClick.listen((_) => this.close());
 
 		// PREVENT PLAYER MOVEMENT WHILE WINDOW IS FOCUSED /
-		window.querySelectorAll('input, textarea').onFocus.listen((_) {
+		modalWindow.querySelectorAll('input, textarea').onFocus.listen((_) {
 			inputManager.ignoreKeys = true;
 			inputManager.ignoreChatFocus = true;
 		});
-		window.querySelectorAll('input, textarea').onBlur.listen((_) {
+		modalWindow.querySelectorAll('input, textarea').onBlur.listen((_) {
 			inputManager.ignoreKeys = false;
 			inputManager.ignoreChatFocus = false;
 		});
 
+		//make div focusable. see: http://stackoverflow.com/questions/11280379/is-it-possible-to-write-onfocus-lostfocus-handler-for-a-div-using-js-or-jquery
+		modalWindow.tabIndex = -1;
+
+		modalWindow.onFocus.listen((_) => _createEscListener());
+		modalWindow.onBlur.listen((_) => _destroyEscListener());
+
 		// TABS ////////////////////////////////////////////
-		window.querySelectorAll('.tab').onClick.listen((MouseEvent m) {
+		modalWindow.querySelectorAll('.tab').onClick.listen((MouseEvent m) {
 			Element tab = m.target as Element;
 			openTab(tab.text);
 			// show intended tab
@@ -100,20 +129,20 @@ abstract class Modal {
 
 		// DRAGGING ////////////////////////////////////////
 		// init vars
-		if(window.querySelector('header') != null) {
+		if(modalWindow.querySelector('header') != null) {
 			int new_x = 0, new_y = 0;
 			bool dragging = false;
 
 			// mouse down listeners
-			window.onMouseDown.listen((_) => this.focus());
-			window.querySelector('header').onMouseDown.listen((_) => dragging = true);
+			modalWindow.onMouseDown.listen((_) => this.focus());
+			modalWindow.querySelector('header').onMouseDown.listen((_) => dragging = true);
 
 			// mouse is moving
 			document.onMouseMove.listen((MouseEvent m) {
 				if(dragging == true) {
 					new_x += m.movement.x;
 					new_y += m.movement.y;
-					window.style
+					modalWindow.style
 						..top = 'calc(50% + ${new_y}px)'
 						..left = 'calc(50% + ${new_x}px)';
 				}
@@ -121,15 +150,17 @@ abstract class Modal {
 
 			// mouseUp listener
 			document.onMouseUp.listen((_) => dragging = false);
+
+			modals[id] = this;
 		}
 	}
 
 	openTab(String tabID) {
-		Element tabView = window.querySelector('article #${tabID.toLowerCase()}');
+		Element tabView = modalWindow.querySelector('article #${tabID.toLowerCase()}');
 		// hide all tabs
-		for(Element t in window.querySelectorAll('article .tab-content'))
+		for(Element t in modalWindow.querySelectorAll('article .tab-content'))
 			t.hidden = true;
-		for(Element t in window.querySelectorAll('article .tab'))
+		for(Element t in modalWindow.querySelectorAll('article .tab'))
 			t.classes.remove('active');
 		tabView.hidden = false;
 	}

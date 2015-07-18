@@ -10,7 +10,7 @@ class ItemWindow extends Modal {
 		if(instances[itemName] == null) {
 			instances[itemName] = new ItemWindow._(itemName);
 		} else {
-			instances[itemName].window.hidden = false;
+			instances[itemName].open();
 		}
 		return instances[itemName];
 	}
@@ -19,6 +19,7 @@ class ItemWindow extends Modal {
 		displayItem().then((Element el) {
 			querySelector("#windowHolder").append(el);
 			prepare();
+			open();
 		});
 	}
 
@@ -199,7 +200,9 @@ class ItemWindow extends Modal {
 		return(window);
 	}
 
+	@override
 	close() {
-		instances[itemName].window.hidden = true;
+		instances[itemName].modalWindow.hidden = true;
+		super.close();
 	}
 }

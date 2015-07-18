@@ -117,7 +117,7 @@ class SettingsWindow extends Modal {
 			if((k.keyCode == inputManager.keys["SettingsBindingPrimary"]
 			|| k.keyCode == inputManager.keys["SettingsBindingAlt"])
 			&& !inputManager.ignoreKeys) {
-				if(this.window.hidden) {
+				if(this.modalWindow.hidden) {
 					this.open();
 				} else {
 					this.close();
@@ -126,7 +126,7 @@ class SettingsWindow extends Modal {
 		});
 
 		view.settingsButton.onClick.listen((_) {
-			if(this.window.hidden) {
+			if(this.modalWindow.hidden) {
 				this.open();
 			} else {
 				this.close();
@@ -134,9 +134,11 @@ class SettingsWindow extends Modal {
 		});
 	}
 
+	@override
 	close() {
 		querySelector("#${id}").hidden = true;
 		toast("Settings saved");
+		super.close();
 	}
 
 	/**

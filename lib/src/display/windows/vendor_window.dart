@@ -20,26 +20,26 @@ class VendorWindow extends Modal {
 	VendorWindow._() {
 		prepare();
 
-		header = this.window.querySelector('header');
-		buy = this.window.querySelector('#buy');
-		sell = this.window.querySelector('#sell');
-		currants = this.window.querySelector('.qty');
-		name = this.window.querySelector(".ItemName");
+		header = this.modalWindow.querySelector('header');
+		buy = this.modalWindow.querySelector('#buy');
+		sell = this.modalWindow.querySelector('#sell');
+		currants = this.modalWindow.querySelector('.qty');
+		name = this.modalWindow.querySelector(".ItemName");
 
-		backToBuy = this.window.querySelector('#buy-qty .back');
-		backToSell = this.window.querySelector('#sell-qty .back');
+		backToBuy = this.modalWindow.querySelector('#buy-qty .back');
+		backToSell = this.modalWindow.querySelector('#sell-qty .back');
 
-		buyPlus = this.window.querySelector('#buy-qty .plus');
-		buyMinus = this.window.querySelector('#buy-qty .minus');
-		buyMax = this.window.querySelector('#buy-qty .max');
-		buyButton = this.window.querySelector('#buy-qty .BuyButton');
-		buyNum = this.window.querySelector('#buy-qty .NumToBuy');
-		buyItemCount = this.window.querySelector('#buy-qty .ItemNum');
-		buyItemImage = this.window.querySelector('#buy-qty .ItemImage');
-		buyDescription = this.window.querySelector('#buy-qty .Description');
-		buyStacksTo = this.window.querySelector('#buy-qty .StackNum');
-		buyPriceTag = this.window.querySelector('#buy-qty .ItemPrice');
-		amtSelector = this.window.querySelector('.QuantityParent');
+		buyPlus = this.modalWindow.querySelector('#buy-qty .plus');
+		buyMinus = this.modalWindow.querySelector('#buy-qty .minus');
+		buyMax = this.modalWindow.querySelector('#buy-qty .max');
+		buyButton = this.modalWindow.querySelector('#buy-qty .BuyButton');
+		buyNum = this.modalWindow.querySelector('#buy-qty .NumToBuy');
+		buyItemCount = this.modalWindow.querySelector('#buy-qty .ItemNum');
+		buyItemImage = this.modalWindow.querySelector('#buy-qty .ItemImage');
+		buyDescription = this.modalWindow.querySelector('#buy-qty .Description');
+		buyStacksTo = this.modalWindow.querySelector('#buy-qty .StackNum');
+		buyPriceTag = this.modalWindow.querySelector('#buy-qty .ItemPrice');
+		amtSelector = this.modalWindow.querySelector('.QuantityParent');
 	}
 
 	@override
@@ -99,16 +99,16 @@ class VendorWindow extends Modal {
 		});
 
 		if(sellMode)
-			this.window.querySelector('#SellTab').click();
+			this.modalWindow.querySelector('#SellTab').click();
 		else
-			this.window.querySelector('#BuyTab').click();
+			this.modalWindow.querySelector('#BuyTab').click();
 		this.open();
 	}
 
 	spawnBuyDetails(Map item, String vendorId, {bool sellMode: false}) {
 		// toggle the tabs
 		buy.hidden = true;
-		this.window.querySelector('#buy-qty').hidden = false;
+		this.modalWindow.querySelector('#buy-qty').hidden = false;
 
 		buyStacksTo.text = item['stacksTo'].toString();
 
@@ -216,7 +216,7 @@ class VendorWindow extends Modal {
 			bplus.cancel();
 			bmax.cancel();
 
-			this.window.querySelector('#buy-qty').hidden = true;
+			this.modalWindow.querySelector('#buy-qty').hidden = true;
 			if(sellMode)
 				sell.hidden = false;
 			else

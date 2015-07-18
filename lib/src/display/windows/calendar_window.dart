@@ -20,7 +20,7 @@ class CalendarWindow extends Modal {
     // launch //
 
     querySelector("#time").onClick.listen((_) {
-        if (this.window.hidden) {
+        if (this.modalWindow.hidden) {
 	        this.open();
         } else {
 	        this.close();
@@ -34,7 +34,7 @@ class CalendarWindow extends Modal {
 	    if((k.keyCode == inputManager.keys["CalendarBindingPrimary"]
 	    || k.keyCode == inputManager.keys["CalendarBindingAlt"])
 	    && !inputManager.ignoreKeys) {
-		    if(this.window.hidden) {
+		    if(this.modalWindow.hidden) {
 			    this.open();
 		    } else {
 			    this.close();
