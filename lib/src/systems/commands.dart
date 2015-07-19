@@ -32,7 +32,7 @@ class CommandManager {
 		  // REMOVED OR ONLY USED WHEN TESTING:
 //			..['toast'] = toast
 //			..['buff'] = buff
-//			..['collisions'] = toggleCollisionLines
+			..['collisions'] = toggleCollisionLines
 			..['physics'] = togglePhysics;
 //			..['log'] = log
 //			..['settime'] = setTime

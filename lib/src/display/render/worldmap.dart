@@ -277,7 +277,7 @@ class WorldMap {
 		];
 		if(metabolics.energy >= 50) {
 			options[1]["enabled"] = true;
-			options[1]["error"] = "Spend 50 energy to get here right now";
+			options[1]["description"] = "Spend 50 energy to get here right now";
 		}
 		new Timer(new Duration(milliseconds: 50), () {
 			document.body.append(RightClickMenu.create2(e, streetName, options));
