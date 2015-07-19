@@ -10,18 +10,34 @@ class Street {
 	List<Ladder> ladders = new List();
 	List<Wall> walls = new List();
 
-	String hub_id, hub_name, label, tsid;
+	String hub_id, hub_name, _tsid;
 	String street_load_color_top;
 	String street_load_color_btm;
+
+	DataMaps map = new DataMaps();
+
+	String get tsid {
+		if(_tsid.startsWith('G')) {
+			_tsid = _tsid.replaceFirst('G','L');
+		}
+		return _tsid;
+	}
+
+	String get label {
+		String hub_id = currentStreet.hub_id;
+		String currentStreetName;
+		Map<int,Map<String,String>> moteInfo = map.data_maps_streets['9']();
+		currentStreetName = moteInfo[hub_id][tsid];
+
+		return currentStreetName;
+	}
 
 	Stopwatch loadTime;
 
 	Rectangle bounds;
 
 	Street(this.streetData) {
-		// sets the label for the street
-		label = streetData['label'];
-		tsid = streetData['tsid'];
+		_tsid = streetData['tsid'];
 		hub_id = streetData['hub_id'];
 
 		if(game.username != null && currentStreet != null)

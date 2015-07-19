@@ -15,7 +15,8 @@ class RightClickMenu {
 		 *     "description": <description in tooltip>,
 		 *     "enabled": <true|false, will determine if the option can be selected>,
 		 *     "timeRequired": <number, seconds the action takes (instant if not defined)>,
-		 *     "callback": <function>,
+		 *     "serverCallback": <function name for server entity>,
+		 *     "clientCallback": <a no-argument function>,
 		 *     "entityId": <entity summoning the menu>,
 		 *     "arguments": <Map of arguments the option takes>
 		 *   },
@@ -88,16 +89,25 @@ class RightClickMenu {
 				menuitem.onClick.listen((_) async {
 					int timeRequired = option["timeRequired"];
 
+					bool completed = true;
 					if(timeRequired > 0) {
-						ActionBubble actionBubble = new ActionBubble(option, timeRequired);
-						await actionBubble.wait;
+						ActionBubble actionBubble = new ActionBubble(option['name'], timeRequired);
+						completed = await actionBubble.wait;
 					}
 
-					Map arguments = null;
-					if(option["arguments"] != null) {
-						arguments = option["arguments"];
+					if(completed) {
+						Map arguments = null;
+						if(option["arguments"] != null) {
+							arguments = option["arguments"];
+						}
+
+						if(option.containsKey('serverCallback')) {
+							sendAction(option["serverCallback"].toLowerCase(), option["entityId"], arguments);
+						}
+						if(option.containsKey('clientCallback')) {
+							option['clientCallback']();
+						}
 					}
-					sendAction(option["callback"].toLowerCase(), option["entityId"], arguments);
 				});
 
 				menuitem.onMouseOver.listen((e) {
@@ -125,7 +135,6 @@ class RightClickMenu {
 			wrapper.append(tooltip);
 			newOptions.add(wrapper);
 		}
-		options.addAll(newOptions);
 
 		// keyboard navigation
 
@@ -220,16 +229,19 @@ class RightClickMenu {
 				menuitem.onClick.listen((_) async {
 					int timeRequired = int.parse((option[0] as String).split("|")[2]);
 
+					bool completed = true;
 					if(timeRequired > 0) {
-						ActionBubble actionBubble = new ActionBubble(option, timeRequired);
-						await actionBubble.wait;
+						ActionBubble actionBubble = new ActionBubble((option[0] as String).split("|")[1], timeRequired);
+						completed = await actionBubble.wait;
 					}
 
-					Map arguments = null;
-					if(option.length > 3) {
-						arguments = option[3];
+					if(completed) {
+						Map arguments = null;
+						if(option.length > 3) {
+							arguments = option[3];
+						}
+						sendAction((option[0] as String).split("|")[0].toLowerCase(), option[1], arguments);
 					}
-					sendAction((option[0] as String).split("|")[0].toLowerCase(), option[1], arguments);
 				});
 
 				menuitem.onMouseOver.listen((e) {

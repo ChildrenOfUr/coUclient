@@ -26,4 +26,9 @@ render() {
 
 	//draw other players
 	otherPlayers.forEach((String name, Player player) => player.render());
+
+	//update minimap
+	minimap.updateObjects();
+	// update gps
+	gpsIndicator.update();
 }

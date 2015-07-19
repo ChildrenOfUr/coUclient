@@ -1,22 +1,5 @@
 part of couclient;
 
-class GPS {
-	// The indicator needs these, everything else is up to you:
-	String nextStreetName, destinationName;
-	bool active = false;
-	// // // // // // // // // // // // // // // // // // // //
-
-	GPS() {
-		navigate("Groddle Forest Junction"); // testing indicator
-	}
-
-	navigate(String toStreet) {
-		destinationName = toStreet;
-		nextStreetName = "Mira Mesh"; // testing indicator
-		active = true;
-	}
-}
-
 class GpsIndicator {
 	Element containerE = querySelector("#gps-container");
 	Element closeButtonE = querySelector("#gps-cancel");
@@ -29,16 +12,16 @@ class GpsIndicator {
 	}
 
 	update() {
-		if (gps.active) {
-			nextStreetE.text = gps.nextStreetName;
-			destinationE.text = gps.destinationName;
+		if (GPS.active) {
+			containerE.hidden = false;
+			nextStreetE.text = GPS.nextStreetName;
+			destinationE.text = GPS.destinationName;
 			arrowE.style.transform = "rotate(${calculateArrowDirection()}rad)";
-		} else {
-			this.cancel();
 		}
 	}
 
 	cancel() {
+		GPS.active = false;
 		containerE.hidden = true;
 		nextStreetE.text = destinationE.text = null;
 		arrowE.style.transform = null;
@@ -51,7 +34,7 @@ class GpsIndicator {
 		num playerY = CurrentPlayer.posY;
 
 		for(Map exit in minimap.currentStreetExits) {
-			if (exit["streets"].contains(gps.nextStreetName)) {
+			if (exit["streets"].contains(GPS.nextStreetName)) {
 				if (exit["streets"].length > 1) { // signs on both sides
 					exitX = exit["x"] + 100;
 				} else {

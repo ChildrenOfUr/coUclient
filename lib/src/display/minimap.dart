@@ -50,7 +50,7 @@ class Minimap {
     mainImgUrl = street['main_image']['url'];
     loadingImgUrl = street['loading_image']['url'];
     imageE.src = mainImgUrl;
-    labelE.text = street['label'];
+    labelE.text = currentStreet.label;
     imageE.onLoad.listen((_) {
       objectsE
         ..style.width = imageE.width.toString() + 'px'

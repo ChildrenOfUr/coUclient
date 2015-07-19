@@ -66,9 +66,6 @@ class StreetService {
 			oldTsid = currentStreet.tsid;
 		}
 
-		// send data to minimap
-		minimap.changeStreet(streetAsMap);
-
 		// TODO, this should happen automatically on the Server, since it'll know which street we're on.
 		//send changeStreet to chat server
 		Map map = new Map();
@@ -92,6 +89,9 @@ class StreetService {
 		new Asset.fromMap(streetAsMap, label);
 		await new Street(streetAsMap).load();
 		logmessage('[StreetService] Street assembled.');
+
+		// send data to minimap
+		minimap.changeStreet(streetAsMap);
 		// notify minimap to update
 		transmit('streetLoaded', null);
 	}

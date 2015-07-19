@@ -23,6 +23,24 @@ class Graph {
 
 class GPS {
 	static Graph _worldGraph;
+	static List<String> currentRoute = [];
+	static bool active = false;
+	static String get nextStreetName {
+		if(currentRoute.indexOf(currentStreet.label) == -1) {
+			return "You're off the path";
+		} else if(currentRoute.indexOf(currentStreet.label) < currentRoute.length-1) {
+			return currentRoute[currentRoute.indexOf(currentStreet.label)+1];
+		} else {
+			return "You have arrived";
+		}
+	}
+	static String get destinationName {
+		if(currentRoute.length > 0) {
+			return currentRoute[currentRoute.length-1];
+		} else {
+			return "No current destination";
+		}
+	}
 
 	static set worldGraph(Graph g) {
 		_worldGraph = g;
@@ -33,7 +51,9 @@ class GPS {
 	}
 
 	static List<String> getRoute(String from, String to) {
-		return _dijkstra(_worldGraph,from,to);
+		active = true;
+		currentRoute = _dijkstra(_worldGraph,from,to);
+		return currentRoute;
 	}
 
 	static _dijkstra(Graph graph, String source, String target) {
@@ -65,7 +85,6 @@ class GPS {
 		String u;
 		int lastLength = Q.length;
 		while(Q.length > 0) {
-			print(Q.length);
 			num min = double.INFINITY;
 			Q.forEach((String vertex) {
 				if(dist[vertex] < min) {
@@ -76,7 +95,7 @@ class GPS {
 
 			Q.remove(u);
 			if(Q.length == lastLength) {
-				print("Couldn't find path to $target");
+				print("Couldn't find path from $source to $target");
 				return [];
 			} else {
 				lastLength = Q.length;

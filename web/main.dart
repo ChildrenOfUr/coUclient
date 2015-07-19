@@ -146,7 +146,6 @@ AuthManager auth;
 Game game;
 DateTime startTime;
 Minimap minimap;
-GPS gps = new GPS();
 GpsIndicator gpsIndicator = new GpsIndicator();
 
 bool get hasTouchSupport => context.callMethod('hasTouchSupport');
