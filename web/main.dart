@@ -48,6 +48,7 @@ export 'package:polymer/init.dart';
 
 // SYSTEMS MODULES //
 part 'package:couclient/src/systems/clock.dart';
+part 'package:couclient/src/systems/gps.dart';
 part 'package:couclient/src/systems/weather.dart';
 part 'package:couclient/src/systems/commands.dart';
 part 'package:couclient/src/game/input.dart';
@@ -180,6 +181,7 @@ afterPolymer() async {
 	windowManager = new WindowManager();
 	auth = new AuthManager();
 	minimap = new Minimap();
+	GPS.initWorldGraph();
 
 	// System
 	new ClockManager();
