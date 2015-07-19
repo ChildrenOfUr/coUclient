@@ -1,0 +1,170 @@
+#minimap-container {
+    z-index: 1;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+#minimap {
+    border: 2px solid #eee;
+    border-radius: 8px;
+    font-family: "Lato", sans-serif;
+    background-color: #eee;
+}
+
+#minimap-img {
+    width: 166px;
+    height: auto;
+    border-radius: 5px 5px 0 0;
+}
+
+#minimap-objects {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+}
+
+#minimap-label {
+    text-align: center;
+    color: #444;
+    font-weight: bold;
+    position: relative;
+    top: -2px;
+}
+
+.minimap-player {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background-color: white;
+    border-radius: 50%;
+    border: 2px solid black;
+}
+
+.minimap-player.minimap-me {
+    box-shadow: 0 0 10px rgb(255, 255, 113);
+}
+
+.minimap-player[chat-color="deepskyblue"] {
+    background-color: deepskyblue;
+    border: 2px solid black;
+}
+
+.minimap-player[chat-color="fuchsia"] {
+    background-color: fuchsia;
+    border: 2px solid black;
+}
+
+.minimap-player[chat-color="gray"] {
+    background-color: gray;
+    border: 2px solid black;
+}
+
+.minimap-player[chat-color="orange"] {
+    background-color: orange;
+    border: 2px solid black;
+}
+
+.minimap-player[chat-color="red"] {
+    background-color: red;
+    border: 2px solid black;
+}
+
+.minimap-player[chat-color="blue"] {
+    background-color: blue;
+    border: 2px solid white;
+}
+
+.minimap-player[chat-color="green"] {
+    background-color: green;
+    border: 2px solid white;
+}
+
+.minimap-player[chat-color="maroon"] {
+    background-color: maroon;
+    border: 2px solid white;
+}
+
+.minimap-player[chat-color="navy"] {
+    background-color: navy;
+    border: 2px solid white;
+}
+
+.minimap-player[chat-color="olive"] {
+    background-color: olive;
+    border: 2px solid white;
+}
+
+.minimap-player[chat-color="olivedrab"] {
+    background-color: olivedrab;
+    border: 2px solid white;
+}
+
+.minimap-player[chat-color="purple"] {
+    background-color: purple;
+    border: 2px solid white;
+}
+
+.minimap-player[chat-color="teal"]  {
+    background-color: teal;
+    border: 2px solid white;
+}
+
+.minimap-exit {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    background-image: url(../../system/icons/signpost.svg);
+    background-repeat: no-repeat;
+    background-size: 20px 20px;
+}
+
+#minimap-toggle {
+    width: 40px;
+    height: 20px;
+    background-color: #eee;
+    border-radius: 0 0 5px 5px;
+    text-align: center;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    cursor: pointer;
+}
+
+#minimap-toggle .fa {
+    cursor: pointer;
+    position: relative;
+    top: -2px;
+}
+
+#mapButton {
+    background-size: 25px 25px;
+    background-repeat: no-repeat;
+    width: 25px;
+    height: 25px;
+    position: relative;
+    bottom: 15px;
+    left: -8px;
+    cursor: pointer;
+}
+
+#mapButton.closed {
+    background-image: url(../../system/icons/zoom-in.svg);
+}
+
+#mapButton.open {
+    background-image: url(../../system/icons/zoom-out.svg);
+}
+
+#mapButton:hover {
+    -webkit-filter: drop-shadow(0 1px 2px cyan);
+    -moz-filter: drop-shadow(0 1px 2px cyan);
+    -o-filter: drop-shadow(0 1px 2px cyan);
+    filter: drop-shadow(0 1px 2px cyan);
+}
+
+#mapButton:active {
+    -webkit-filter: drop-shadow(0 1px 1px cyan);
+    -moz-filter: drop-shadow(0 1px 1px cyan);
+    -o-filter: drop-shadow(0 1px 1px cyan);
+    filter: drop-shadow(0 1px 1px cyan);
+}

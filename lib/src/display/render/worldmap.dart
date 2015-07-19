@@ -33,6 +33,16 @@ class WorldMap {
     });
   }
 
+  navigate(String tsid) {
+	  print("Navigating to " + tsid);
+  }
+
+  teleport(String tsid) {
+	  mapWindow.close();
+      streetService.requestStreet(tsid);
+	  loadhubdiv(currentStreet.hub_id);
+  }
+
   loadhubdiv(String hub_id) {
     // read in street data
     hubInfo = map.data_maps_hubs[hub_id]();
@@ -74,16 +84,33 @@ class WorldMap {
           ..style.width = streetPlacement['length'].toString() + 'px'
           ..style.transform =
           'rotate(' + streetPlacement['deg'].toString() + 'rad)';
-        street.onClick.first.then((_) {
-          // Clicked on a street
+        street.onContextMenu.first.then((e) {
+          // Right clicked on a street
           String tsid = street.attributes['tsid'];
-          mapWindow.close();
-          streetService.requestStreet(tsid);
-          loadhubdiv(currentStreet.hub_id);
+          List<Map> options = [
+	          {
+		          "name": "Navigate",
+		          "description": "Get walking directions",
+		          "enabled": true,
+		          "timeRequired": 0,
+		          "callback": 'navigate(' + streetName + ')'
+	          },
+	          {
+		          "name": "Teleport",
+		          "description": "You need at least 50 energy to teleport",
+		          "enabled": false,
+		          "timeRequired": 0,
+		          "callback": 'teleport(' + tsid + ')'
+	          }
+          ];
+          if (metabolics.energy >= 50) {
+	          options[1]["enabled"] = true;
+	          options[1]["error"] = "Spend 50 energy to get here right now";
+          }
+          document.append(RightClickMenu.create2(e, streetName, options));
         });
 
-        if (object['tsid'].substring(1) ==
-            currentStreet.streetData['tsid'].substring(1)) {
+        if (object['tsid'].substring(1) == currentStreet.streetData['tsid'].substring(1)) {
           // current street
           street.classes.add('hm-street-current');
         }

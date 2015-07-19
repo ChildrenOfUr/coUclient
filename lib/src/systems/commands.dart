@@ -28,12 +28,12 @@ class CommandManager {
 			..['go'] = setLocationCommand
 			..['setlocation'] = setLocationCommand
 			..['teleport'] = setLocationCommand
-			..['tp'] = setLocationCommand;
+			..['tp'] = setLocationCommand
 		  // REMOVED OR ONLY USED WHEN TESTING:
 //			..['toast'] = toast
 //			..['buff'] = buff
 //			..['collisions'] = toggleCollisionLines
-//			..['physics'] = togglePhysics
+			..['physics'] = togglePhysics;
 //			..['log'] = log
 //			..['settime'] = setTime
 //			..['setweather'] = setWeather
@@ -86,9 +86,10 @@ setName(_) {
 	toast('To change your name, click it at the top left, log in to the site, and use the Account section of your profile page.');
 }
 
-/////////////////////////////////// TESTING ONLY, ENABLE AS NEEDED
+/////////////////////////////////// TESTING ONLY
 
 //// Teleports
+
 go(String tsid) {
 	tsid = tsid.trim();
 	view.mapLoadingScreen.className = "MapLoadingScreenIn";
@@ -100,45 +101,49 @@ go(String tsid) {
 }
 
 //// [LOCAL ONLY] Changes the time temporarily
-//setTime(String noun) {
-//	transmit('timeUpdateFake',[noun]);
-//	if(noun == '6:00am') {
-//		transmit('newDayFake',null);
-//	}
-//}
-//
+
+setTime(String noun) {
+	transmit('timeUpdateFake',[noun]);
+	if(noun == '6:00am') {
+		transmit('newDayFake',null);
+	}
+}
+
 //// [LOCAL ONLY] Changes the weather temporarily
-//setWeather(String noun) {
-//	if(noun == 'snow') {
-//		transmit('setWeatherFake',{'state':WeatherState.SNOWING.index});
-//	} else if(noun == 'rain') {
-//		transmit('setWeatherFake',{'state':WeatherState.RAINING.index});
-//	} else if(noun == 'clear') {
-//		transmit('setWeatherFake', {'state':WeatherState.CLEAR.index});
-//	}
-//}
-//
+
+setWeather(String noun) {
+	if(noun == 'snow') {
+		transmit('setWeatherFake',{'state':WeatherState.SNOWING.index});
+	} else if(noun == 'rain') {
+		transmit('setWeatherFake',{'state':WeatherState.RAINING.index});
+	} else if(noun == 'clear') {
+		transmit('setWeatherFake', {'state':WeatherState.CLEAR.index});
+	}
+}
+
 //// [LOCAL ONLY] Shows or hides collision lines on platforms
-//toggleCollisionLines(var nothing) {
-//	if(showCollisionLines) {
-//		showCollisionLines = false;
-//		hideLineCanvas();
-//		toast('Collision lines hidden');
-//	}
-//	else {
-//		showCollisionLines = true;
-//		showLineCanvas();
-//		toast('Collision lines shown');
-//	}
-//}
-//
-//// [LOCAL ONLY] Enables 'flying'
-//togglePhysics(var nothing) {
-//	if(CurrentPlayer.doPhysicsApply) {
-//		CurrentPlayer.doPhysicsApply = false;
-//		toast('Physics no longer apply to you');
-//	} else {
-//		CurrentPlayer.doPhysicsApply = true;
-//		toast('Physics apply to you');
-//	}
-//}
+
+toggleCollisionLines(var nothing) {
+	if(showCollisionLines) {
+		showCollisionLines = false;
+		hideLineCanvas();
+		toast('Collision lines hidden');
+	}
+	else {
+		showCollisionLines = true;
+		showLineCanvas();
+		toast('Collision lines shown');
+	}
+}
+
+//// Enables 'flying'
+
+togglePhysics(var nothing) {
+	if(CurrentPlayer.doPhysicsApply) {
+		CurrentPlayer.doPhysicsApply = false;
+		toast('Physics no longer apply to you');
+	} else {
+		CurrentPlayer.doPhysicsApply = true;
+		toast('Physics apply to you');
+	}
+}

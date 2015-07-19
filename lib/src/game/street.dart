@@ -308,6 +308,7 @@ setLoadingPercent(int percent) {
 		view.mapLoadingScreen.className = "MapLoadingScreen";
 		view.mapLoadingScreen.style.opacity = '0.0';
 		minimap.containerE.hidden = false;
+		querySelector("#gps-container").hidden = false;
 		new Timer(new Duration(seconds: 1), () => view.mapLoadingContent.style.opacity = '0.0');
 		currentStreet.loadTime.stop();
 		currentStreet.loadTime.reset();

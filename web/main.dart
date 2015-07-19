@@ -53,6 +53,7 @@ part 'package:couclient/src/systems/commands.dart';
 part 'package:couclient/src/game/input.dart';
 part 'package:couclient/src/game/joystick.dart';
 part 'package:couclient/src/systems/util.dart';
+part 'package:couclient/src/display/gps.dart';
 
 // NETWORKING MODULES //
 part 'package:couclient/src/network/chat.dart';
@@ -144,6 +145,8 @@ AuthManager auth;
 Game game;
 DateTime startTime;
 Minimap minimap;
+GPS gps = new GPS();
+GpsIndicator gpsIndicator = new GpsIndicator();
 
 bool get hasTouchSupport => context.callMethod('hasTouchSupport');
 
