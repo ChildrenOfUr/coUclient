@@ -89,33 +89,8 @@ class WorldMap {
 					..style.transform =
 				'rotate(' + streetPlacement['deg'].toString() + 'rad)';
 
-				// // // // INTERACTIVITY // // // //
-				street.onContextMenu.first.then((e) {
-					// Right clicked on a street
-					String tsid = street.attributes['tsid'];
-					List<Map> options = [
-						{
-							"name": "Navigate",
-							"description": "Get walking directions",
-							"enabled": true,
-							"timeRequired": 0,
-							"clientCallback": (){navigate(streetName);}
-						},
-						{
-							"name": "Teleport",
-							"description": "You need at least 50 energy to teleport",
-							"enabled": false,
-							"timeRequired": 0,
-							"clientCallback": (){teleport(tsid);}
-						}
-					];
-					if(metabolics.energy >= 50) {
-						options[1]["enabled"] = true;
-						options[1]["error"] = "Spend 50 energy to get here right now";
-					}
-					document.body.append(RightClickMenu.create2(e, streetName, options));
-				});
-				// // // // END INTERACTIVITY // // // //
+				street.onClick.listen((e) => createStreetMenu(e, street));
+				street.onContextMenu.listen((e) => createStreetMenu(e, street));
 
 				if(object['tsid'].substring(1) == currentStreet.streetData['tsid'].substring(1)) {
 					// current street
@@ -265,6 +240,32 @@ class WorldMap {
 		num height = street['y2'] - street['y1'];
 		num hyp = (base * base) + (height * height);
 		return sqrt(hyp) + 8;
+	}
+
+	createStreetMenu(Event e, Element street) {
+		String tsid = street.attributes['tsid'];
+		String streetName = street.text;
+		List<Map> options = [
+			{
+				"name": "Navigate",
+				"description": "Get walking directions",
+				"enabled": true,
+				"timeRequired": 0,
+				"clientCallback": (){navigate(streetName);}
+			},
+			{
+				"name": "Teleport",
+				"description": "You need at least 50 energy to teleport",
+				"enabled": false,
+				"timeRequired": 0,
+				"clientCallback": (){teleport(tsid);}
+			}
+		];
+		if(metabolics.energy >= 50) {
+			options[1]["enabled"] = true;
+			options[1]["error"] = "Spend 50 energy to get here right now";
+		}
+		document.body.append(RightClickMenu.create2(e, streetName, options));
 	}
 
 	/**
