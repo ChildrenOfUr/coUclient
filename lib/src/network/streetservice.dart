@@ -11,7 +11,7 @@ class StreetService {
 	Future requestStreet(String StreetID) async {
 		//hide the minimap if it's showing
 		minimap.containerE.hidden = true;
-		querySelector("#gps-container").hidden = true;
+		gpsIndicator.loadingNew = true;
 
 		//make sure loading screen is visible during load
 		view.mapLoadingScreen.className = "MapLoadingScreenIn";

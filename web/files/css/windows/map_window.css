@@ -64,6 +64,11 @@
     font-weight: bold;
 }
 
+.hm-street.hm-street-route {
+    color: #236EC4;
+    font-weight: bold;
+}
+
 .maplayer.scaled {
     transform: scaleX(0.752631578947368) scaleY(0.710869565217391);
     transform-origin: -21px -21px 0px;

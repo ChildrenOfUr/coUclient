@@ -6,7 +6,7 @@ class WorldMap {
 	Map<String, String> hubInfo;
 	Map<String, Map> hubMaps;
 	Map<String, String> moteInfo;
-	RegExp streetFilter = new RegExp(r'(towers|machine room|the forgotten floor|manor)', caseSensitive: false);
+	String showingHub;
 
 	DataMaps map = new DataMaps();
 
@@ -36,6 +36,7 @@ class WorldMap {
 
 	navigate(String toStreetName) {
 		GPS.getRoute(currentStreet.label,toStreetName);
+		loadhubdiv(showingHub);
 	}
 
 	teleport(String tsid) {
@@ -45,6 +46,8 @@ class WorldMap {
 	}
 
 	loadhubdiv(String hub_id) {
+		showingHub = hub_id;
+
 		// read in street data
 		hubInfo = map.data_maps_hubs[hub_id]();
 		hubMaps = map.data_maps_maps[hub_id]();
@@ -77,7 +80,7 @@ class WorldMap {
 
 				DivElement street = new DivElement()
 					..classes.add('hm-street')
-					..title = "Teleport to " + streetName
+					..title = streetName
 					..text = streetName
 					..attributes.addAll(customAttributes)
 					..style.left = streetPlacement['x1'].toString() + 'px'
@@ -85,6 +88,8 @@ class WorldMap {
 					..style.width = streetPlacement['length'].toString() + 'px'
 					..style.transform =
 				'rotate(' + streetPlacement['deg'].toString() + 'rad)';
+
+				// // // // INTERACTIVITY // // // //
 				street.onContextMenu.first.then((e) {
 					// Right clicked on a street
 					String tsid = street.attributes['tsid'];
@@ -110,10 +115,18 @@ class WorldMap {
 					}
 					document.body.append(RightClickMenu.create2(e, streetName, options));
 				});
+				// // // // END INTERACTIVITY // // // //
 
 				if(object['tsid'].substring(1) == currentStreet.streetData['tsid'].substring(1)) {
 					// current street
 					street.classes.add('hm-street-current');
+				}
+
+				for (String streetNameOnRoute in GPS.currentRoute) {
+					if (streetNameOnRoute.substring(1) == streetName.substring(1)) {
+						street.classes.add('hm-street-route');
+						break;
+					}
 				}
 
 				if(streetContentsData[streetName] == null) {
@@ -184,7 +197,7 @@ class WorldMap {
 				}
 
 				// do not show streets with this in their name
-				if(!street.text.contains(streetFilter)) {
+				if(!street.text.contains(new RegExp(r'(towers|machine room|the forgotten floor|manor|' + hubInfo['name'] + ' Start)', caseSensitive: false))) {
 					HubMabDiv.append(street);
 				}
 

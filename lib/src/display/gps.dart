@@ -6,17 +6,28 @@ class GpsIndicator {
 	Element nextStreetE = querySelector("#gps-next");
 	Element destinationE = querySelector("#gps-destination");
 	Element arrowE = querySelector("#gps-direction");
+	bool loadingNew;
 
 	GpsIndicator() {
 		closeButtonE.onClick.listen((_) => this.cancel());
 	}
 
 	update() {
-		if (GPS.active) {
-			containerE.hidden = false;
-			nextStreetE.text = GPS.nextStreetName;
-			destinationE.text = GPS.destinationName;
-			arrowE.style.transform = "rotate(${calculateArrowDirection()}rad)";
+		if (!loadingNew) {
+			if (GPS.active) {
+				containerE.hidden = false;
+				nextStreetE.text = GPS.nextStreetName;
+				destinationE.text = GPS.destinationName;
+				if (GPS.nextStreetName == "You're off the path") {
+					GPS.getRoute(currentStreet.label, GPS.destinationName);
+				} else {
+					arrowE.style.transform = "rotate(${calculateArrowDirection()}rad)";
+				}
+			} else {
+				cancel();
+			}
+		} else {
+			containerE.hidden = true;
 		}
 	}
 
