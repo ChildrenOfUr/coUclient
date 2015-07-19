@@ -9,24 +9,24 @@ class NewDayOverlay extends Overlay {
 
 	open() {
 		String maxenergy = metabolics.maxEnergy.toString();
-		overlay.querySelector("#newday-date").text = clock.dayofweek + ", the " + clock.day + " of " + clock.month;
-		overlay.querySelector("#newday-refill-1").text = maxenergy;
-		overlay.querySelector("#newday-refill-2").text = maxenergy;
-		overlay.hidden = false;
+		displayElement.querySelector("#newday-date").text = clock.dayofweek + ", the " + clock.day + " of " + clock.month;
+		displayElement.querySelector("#newday-refill-1").text = maxenergy;
+		displayElement.querySelector("#newday-refill-2").text = maxenergy;
+		displayElement.hidden = false;
 		new Timer(new Duration (milliseconds: 100), () {
-			overlay.querySelector("#newday-sun").classes.add("up");
-			overlay.querySelector("#newday-refill-disc").classes.add("full");
+			displayElement.querySelector("#newday-sun").classes.add("up");
+			displayElement.querySelector("#newday-refill-disc").classes.add("full");
 		});
 		inputManager.ignoreKeys = true;
-		overlay.querySelector("#newday-button").onClick.first.then((_) => close());
+		displayElement.querySelector("#newday-button").onClick.first.then((_) => close());
 		// TODO: new day screen sound
 	}
 
 	close() {
-		overlay.hidden = true;
+		displayElement.hidden = true;
 		inputManager.ignoreKeys = false;
-		overlay.querySelector("#newday-sun").classes.remove("up");
-		overlay.querySelector("#newday-refill-disc").classes.remove("full");
+		displayElement.querySelector("#newday-sun").classes.remove("up");
+		displayElement.querySelector("#newday-refill-disc").classes.remove("full");
 	}
 }
 

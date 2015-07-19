@@ -8,7 +8,7 @@ class RockWindow extends Modal {
 
     // Toggle window by clicking rock
     querySelector("#petrock").onClick.listen((_) {
-      if (this.modalWindow.hidden == true) {
+      if (this.displayElement.hidden == true) {
         this.open();
       } else {
         this.close();

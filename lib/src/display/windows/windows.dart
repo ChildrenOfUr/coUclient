@@ -46,19 +46,20 @@ class MailboxWindow extends Modal {
 Map<String,Modal> modals = {};
 
 /// A Dart interface to an html Modal
-abstract class Modal {
-	Element modalWindow;
+abstract class Modal extends InformationDisplay {
 	String id;
 	StreamSubscription escListener;
 
 	open() {
-		modalWindow.hidden = false;
+		displayElement.hidden = false;
+		elementOpen = true;
 		this.focus();
 	}
 
 	close() {
 		_destroyEscListener();
-		modalWindow.hidden = true;
+		displayElement.hidden = true;
+		elementOpen = false;
 
 		//see if there's another window that we want to focus
 		for(Element modal in querySelectorAll('.window')) {
@@ -72,8 +73,8 @@ abstract class Modal {
 		for(Element others in querySelectorAll('.window')) {
 			others.style.zIndex = '2';
 		}
-		this.modalWindow.style.zIndex = '3';
-		modalWindow.focus();
+		this.displayElement.style.zIndex = '3';
+		displayElement.focus();
 	}
 
 	_createEscListener() {
@@ -98,29 +99,29 @@ abstract class Modal {
 
 	prepare() {
 		// GET 'window' ////////////////////////////////////
-		modalWindow = querySelector('#$id');
+		displayElement = querySelector('#$id');
 
 		// CLOSE BUTTON ////////////////////////////////////
-		modalWindow.querySelector('.fa-times.close').onClick.listen((_) => this.close());
+		displayElement.querySelector('.fa-times.close').onClick.listen((_) => this.close());
 
 		// PREVENT PLAYER MOVEMENT WHILE WINDOW IS FOCUSED /
-		modalWindow.querySelectorAll('input, textarea').onFocus.listen((_) {
+		displayElement.querySelectorAll('input, textarea').onFocus.listen((_) {
 			inputManager.ignoreKeys = true;
 			inputManager.ignoreChatFocus = true;
 		});
-		modalWindow.querySelectorAll('input, textarea').onBlur.listen((_) {
+		displayElement.querySelectorAll('input, textarea').onBlur.listen((_) {
 			inputManager.ignoreKeys = false;
 			inputManager.ignoreChatFocus = false;
 		});
 
 		//make div focusable. see: http://stackoverflow.com/questions/11280379/is-it-possible-to-write-onfocus-lostfocus-handler-for-a-div-using-js-or-jquery
-		modalWindow.tabIndex = -1;
+		displayElement.tabIndex = -1;
 
-		modalWindow.onFocus.listen((_) => _createEscListener());
-		modalWindow.onBlur.listen((_) => _destroyEscListener());
+		displayElement.onFocus.listen((_) => _createEscListener());
+		displayElement.onBlur.listen((_) => _destroyEscListener());
 
 		// TABS ////////////////////////////////////////////
-		modalWindow.querySelectorAll('.tab').onClick.listen((MouseEvent m) {
+		displayElement.querySelectorAll('.tab').onClick.listen((MouseEvent m) {
 			Element tab = m.target as Element;
 			openTab(tab.text);
 			// show intended tab
@@ -129,20 +130,20 @@ abstract class Modal {
 
 		// DRAGGING ////////////////////////////////////////
 		// init vars
-		if(modalWindow.querySelector('header') != null) {
+		if(displayElement.querySelector('header') != null) {
 			int new_x = 0, new_y = 0;
 			bool dragging = false;
 
 			// mouse down listeners
-			modalWindow.onMouseDown.listen((_) => this.focus());
-			modalWindow.querySelector('header').onMouseDown.listen((_) => dragging = true);
+			displayElement.onMouseDown.listen((_) => this.focus());
+			displayElement.querySelector('header').onMouseDown.listen((_) => dragging = true);
 
 			// mouse is moving
 			document.onMouseMove.listen((MouseEvent m) {
 				if(dragging == true) {
 					new_x += m.movement.x;
 					new_y += m.movement.y;
-					modalWindow.style
+					displayElement.style
 						..top = 'calc(50% + ${new_y}px)'
 						..left = 'calc(50% + ${new_x}px)';
 				}
@@ -156,11 +157,11 @@ abstract class Modal {
 	}
 
 	openTab(String tabID) {
-		Element tabView = modalWindow.querySelector('article #${tabID.toLowerCase()}');
+		Element tabView = displayElement.querySelector('article #${tabID.toLowerCase()}');
 		// hide all tabs
-		for(Element t in modalWindow.querySelectorAll('article .tab-content'))
+		for(Element t in displayElement.querySelectorAll('article .tab-content'))
 			t.hidden = true;
-		for(Element t in modalWindow.querySelectorAll('article .tab'))
+		for(Element t in displayElement.querySelectorAll('article .tab'))
 			t.classes.remove('active');
 		tabView.hidden = false;
 	}

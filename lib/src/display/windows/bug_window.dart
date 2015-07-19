@@ -15,9 +15,9 @@ class BugWindow extends Modal {
     // BUG REPORT LISTENERS
     bool listening = false;
     view.bugButton.onClick.listen((_) {
-	    if(this.modalWindow.hidden) {
+	    if(this.displayElement.hidden) {
 		    this.open();
-		    Element w = this.modalWindow;
+		    Element w = this.displayElement;
 		    TextAreaElement input = w.querySelector('textarea');
 		    input.value = '';
 

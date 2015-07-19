@@ -110,23 +110,10 @@ class SettingsWindow extends Modal {
 			localStorage['effectsVolume'] = volume.toString();
 		});
 
-		document.onKeyDown.listen((KeyboardEvent k) {
-			if(inputManager == null)
-				return;
-
-			if((k.keyCode == inputManager.keys["SettingsBindingPrimary"]
-			|| k.keyCode == inputManager.keys["SettingsBindingAlt"])
-			&& !inputManager.ignoreKeys) {
-				if(this.modalWindow.hidden) {
-					this.open();
-				} else {
-					this.close();
-				}
-			}
-		});
+		setupKeyBinding("Settings");
 
 		view.settingsButton.onClick.listen((_) {
-			if(this.modalWindow.hidden) {
+			if(this.displayElement.hidden) {
 				this.open();
 			} else {
 				this.close();

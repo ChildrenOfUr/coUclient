@@ -72,6 +72,7 @@ part 'package:couclient/src/display/toast.dart';
 part 'package:couclient/src/systems/audio.dart';
 part 'package:couclient/src/display/render.dart';
 part 'package:couclient/src/display/loop.dart';
+part 'package:couclient/src/display/information_display.dart';
 
 //  WINDOW MODULES //
 part 'package:couclient/src/display/windows/windows.dart';

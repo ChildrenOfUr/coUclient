@@ -8,10 +8,10 @@ class LevelUpOverlay extends Overlay {
 
 	open() {
 		dropper.text = metabolics.level.toString();
-		overlay.hidden = false;
+		displayElement.hidden = false;
 		audio.playSound('levelUp');
 		inputManager.ignoreKeys = true;
-		overlay.querySelector("#lu-button").onClick.first.then((_) => close());
+		displayElement.querySelector("#lu-button").onClick.first.then((_) => close());
 	}
 }
 

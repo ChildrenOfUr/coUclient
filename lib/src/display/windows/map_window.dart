@@ -8,33 +8,23 @@ class MapWindow extends Modal {
 		prepare();
 		// MAPWINDOW LISTENERS //
 		view.mapButton.onClick.listen((_) {
-			if(this.modalWindow.hidden) {
+			if(this.displayElement.hidden) {
 				this.open();
-				worldMap = new WorldMap(currentStreet.hub_id);
-				worldMap = new WorldMap(currentStreet.hub_id);
+				_drawWorldMap();
 			} else {
 				this.close();
 			}
 		});
 
-		document.onKeyDown.listen((KeyboardEvent k) {
-			if(inputManager == null) return;
-
-			if((k.keyCode == inputManager.keys["MapBindingPrimary"] ||
-			    k.keyCode == inputManager.keys["MapBindingAlt"]) &&
-			   !inputManager.ignoreKeys) {
-				if(this.modalWindow.hidden) {
-					this.open();
-					worldMap = new WorldMap(currentStreet.hub_id);
-				} else {
-					this.close();
-				}
-			}
-		});
+		setupKeyBinding("Map",openCallback:_drawWorldMap);
 
 		new Service(['teleportByMapWindow'], (event) {
 			this.close();
 		});
+	}
+
+	_drawWorldMap() {
+		worldMap = new WorldMap(currentStreet.hub_id);
 	}
 
 	@override

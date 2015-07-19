@@ -202,7 +202,7 @@ class ItemWindow extends Modal {
 
 	@override
 	close() {
-		instances[itemName].modalWindow.hidden = true;
+		instances[itemName].displayElement.hidden = true;
 		super.close();
 	}
 }

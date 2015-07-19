@@ -9,8 +9,11 @@ class ImgOverlay extends Overlay {
 		nextlvlE = querySelector("#pm-next-lvlnum");
 		lifetimeImgE = querySelector("#pm-lt-img");
 		tooltip = querySelector("#pm-level-tooltip");
+
+		setupKeyBinding("ImgMenu");
 	}
 
+	@override
 	open() {
 		if (metabolics.lifetime_img < 52184719) {
 			// Calculate level/img stats
@@ -39,15 +42,16 @@ class ImgOverlay extends Overlay {
 			tooltip.classes.add("done");
 		}
 
-		overlay.hidden = false;
 		querySelector("#thinkButton").classes.add("pressed");
-		inputManager.ignoreKeys = true;
+
+		super.open();
 	}
 
+	@override
 	close() {
-		overlay.hidden = true;
 		querySelector("#thinkButton").classes.remove("pressed");
-		inputManager.ignoreKeys = false;
+
+		super.close();
 	}
 }
 

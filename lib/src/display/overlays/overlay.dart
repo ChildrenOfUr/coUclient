@@ -1,31 +1,31 @@
 part of couclient;
 
-class Overlay {
+class Overlay extends InformationDisplay {
 	Overlay(String id) {
-		overlay = querySelector("#" + id);
+		displayElement = querySelector("#" + id);
 
 		// closing
-		if (overlay.querySelector(".close") != null) {
-			overlay.querySelector(".close").onClick.listen((_) {
+		if (displayElement.querySelector(".close") != null) {
+			displayElement.querySelector(".close").onClick.listen((_) {
 				this.close();
 			});
 		}
 		document.onKeyUp.listen((KeyboardEvent e) {
-			if (!overlay.hidden && e.keyCode == 27) {
+			if (!displayElement.hidden && e.keyCode == 27) {
 				this.close();
 			}
 		});
 	}
 
-	Element overlay;
-
 	open() {
-		overlay.hidden = false;
+		displayElement.hidden = false;
+		elementOpen = true;
 		inputManager.ignoreKeys = true;
 	}
 
 	close() {
-		overlay.hidden = true;
+		displayElement.hidden = true;
+		elementOpen = false;
 		inputManager.ignoreKeys = false;
 	}
 }
