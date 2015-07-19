@@ -57,6 +57,7 @@ class StreetService {
 			return;
 
 		Map<String, dynamic> streetAsMap = streetJSON;
+
 		String label = streetAsMap['label'];
 		String tsid = streetAsMap['tsid'];
 		String oldLabel = "";
@@ -78,8 +79,7 @@ class StreetService {
 		transmit('outgoingChatEvent', map);
 
 		view.streetLoadingImage.src = streetAsMap['loading_image']['url'];
-		await view.streetLoadingImage.onLoad.first;
-
+//		await view.streetLoadingImage.onLoad.first;
 		DataMaps maps = new DataMaps();
 		String hubName = maps.data_maps_hubs[streetAsMap['hub_id']]()['name'];
 		Map<int,Map<String,String>> moteInfo = maps.data_maps_streets['9']();
@@ -93,12 +93,16 @@ class StreetService {
 
 		//wait for 1 second before loading the street (so that the preview text can be read)
 		await new Future.delayed(new Duration(seconds: 1));
-		new Asset.fromMap(streetAsMap, label);
-		await new Street(streetAsMap).load();
-		logmessage('[StreetService] Street assembled.');
+
+		Street street = new Street(streetAsMap);
 
 		// send data to minimap
 		minimap.changeStreet(streetAsMap);
+
+		new Asset.fromMap(streetAsMap, label);
+		await street.load();
+		logmessage('[StreetService] Street assembled.');
+
 		// notify minimap to update
 		transmit('streetLoaded', null);
 	}

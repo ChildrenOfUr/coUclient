@@ -145,27 +145,35 @@ _setupStreetSocket(String streetName) {
 			}
 			else {
 				element.attributes['actions'] = JSON.encode(doorMap['actions']);
-				_updateChatBubble(doorMap, door);
+				if(door != null) {
+					_updateChatBubble(doorMap, door);
+				}
 			}
 		});
 		(map["plants"] as List).forEach((Map plantMap) {
 			String id = plantMap["id"];
 			Element element = querySelector("#$id");
 			Plant plant = entities[plantMap["id"]];
-			if(element == null) addPlant(plantMap);
+			if(element == null) {
+				addPlant(plantMap);
+			}
 			else {
 				element.attributes['actions'] = JSON.encode(plantMap['actions']);
-				if(plant != null && plant.state != plantMap['state']) plant
-				.updateState(plantMap['state']);
-
-				_updateChatBubble(plantMap, plant);
+				if(plant != null) {
+					if(plant.state != plantMap['state']) {
+						plant.updateState(plantMap['state']);
+					}
+					_updateChatBubble(plantMap, plant);
+				}
 			}
 		});
 		(map["npcs"] as List).forEach((Map npcMap) {
 			String id = npcMap["id"];
 			Element element = querySelector("#$id");
 			NPC npc = entities[npcMap["id"]];
-			if(element == null) addNPC(npcMap);
+			if(element == null) {
+				addNPC(npcMap);
+			}
 			else {
 				element.attributes['actions'] = JSON.encode(npcMap['actions']);
 				if(npc != null) {
@@ -226,6 +234,9 @@ _setupStreetSocket(String streetName) {
 }
 
 _updateChatBubble(Map map, Entity entity) {
+	if(entity == null) {
+		return;
+	}
 	if(map["bubbleText"] != null) {
 		if(entity.chatBubble == null) {
 			String heightString = entity.canvas.height.toString();
@@ -250,7 +261,9 @@ _updateChatBubble(Map map, Entity entity) {
 		}
 
 		entity.chatBubble.update(1.0);
-	} else if(entity.chatBubble != null) entity.chatBubble.removeBubble();
+	} else if(entity.chatBubble != null) {
+		entity.chatBubble.removeBubble();
+	}
 }
 
 _setupPlayerSocket() {

@@ -9,6 +9,7 @@ class Street {
 	List<Platform> platforms = new List();
 	List<Ladder> ladders = new List();
 	List<Wall> walls = new List();
+	List<Signpost> signposts = new List();
 
 	String hub_id, hub_name, _tsid;
 	String street_load_color_top;
@@ -233,7 +234,7 @@ class Street {
 					minimap.currentStreetExits.add({
 						                               "streets": streets,
 						                               "x": x,
-						                               "y": y
+						                               "y": y + groundY
 					                               });
 
 					// } end minimap code
