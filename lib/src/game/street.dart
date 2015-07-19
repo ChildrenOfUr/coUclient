@@ -15,6 +15,8 @@ class Street {
 	String street_load_color_top;
 	String street_load_color_btm;
 
+	bool loaded = false;
+
 	DataMaps map = new DataMaps();
 
 	String get tsid {
@@ -60,7 +62,7 @@ class Street {
 			..style.transform = "translateZ(0)";
 
 		// set the street.
-
+		loaded = false;
 		currentStreet = this;
 		sendJoinedMessage(currentStreet.label);
 	}
@@ -247,6 +249,7 @@ class Street {
 
 			//make sure to redraw the screen (in case of street switching)
 			camera.dirty = true;
+			loaded = true;
 			c.complete(this);
 			//sendJoinedMessage(label,_data['tsid']);
 		});

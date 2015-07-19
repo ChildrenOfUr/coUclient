@@ -79,7 +79,7 @@ class StreetService {
 		transmit('outgoingChatEvent', map);
 
 		view.streetLoadingImage.src = streetAsMap['loading_image']['url'];
-//		await view.streetLoadingImage.onLoad.first;
+		await view.streetLoadingImage.onLoad.first;
 		DataMaps maps = new DataMaps();
 		String hubName = maps.data_maps_hubs[streetAsMap['hub_id']]()['name'];
 		Map<int,Map<String,String>> moteInfo = maps.data_maps_streets['9']();

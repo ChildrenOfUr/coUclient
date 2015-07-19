@@ -21,11 +21,12 @@ class GpsIndicator {
 				if (GPS.nextStreetName == "You're off the path") {
 					GPS.getRoute(currentStreet.label, GPS.destinationName);
 				} else if(GPS.nextStreetName == "You have arrived") {
-					if(arriveFade) {
+					if(arriveFade || !currentStreet.loaded) {
 						return;
 					}
+					arriveFade = true;
 					new Timer(new Duration(seconds:3),(){
-						arriveFade = true;
+						arriveFade = false;
 						cancel();
 					});
 				}else {
