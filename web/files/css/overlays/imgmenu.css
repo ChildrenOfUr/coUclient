@@ -181,7 +181,7 @@ p.italic {
     pointer-events: none;
     position: relative;
     top: 0;
-    width: 125px;
+    width: 150px;
     height: 110px;
     transform: translateY(-50%);
     transition: all .25s ease-out;
