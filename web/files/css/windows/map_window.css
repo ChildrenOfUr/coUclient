@@ -61,12 +61,17 @@
 
 .hm-street.hm-street-current {
     color: #c42323;
-    font-weight: bold;
+    font-weight: bolder;
 }
 
 .hm-street.hm-street-route {
     color: #236EC4;
-    font-weight: bold;
+    font-weight: bolder;
+}
+
+.hm-street.hm-street-current.hm-street-route {
+    color: #8323C4;
+    font-weight: bolder;
 }
 
 .maplayer.scaled {

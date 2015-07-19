@@ -32,6 +32,20 @@ class WorldMap {
 				toggleMapView.setInnerHtml('<i class="fa fa-fw fa-map-marker"></i>');
 			}
 		});
+
+		new Service(['streetLoaded'], (_) {
+			if (!worldMapVisible) {
+				// hub visible
+				loadhubdiv(showingHub);
+			}
+		});
+
+		new Service(['gpsCancel'], (_) {
+			if (!worldMapVisible) {
+				// hub visible
+				loadhubdiv(showingHub);
+			}
+		});
 	}
 
 	navigate(String toStreetName) {
@@ -42,7 +56,7 @@ class WorldMap {
 	teleport(String tsid) {
 		mapWindow.close();
 		streetService.requestStreet(tsid);
-		loadhubdiv(currentStreet.hub_id);
+		loadhubdiv(showingHub);
 	}
 
 	loadhubdiv(String hub_id) {
@@ -265,7 +279,9 @@ class WorldMap {
 			options[1]["enabled"] = true;
 			options[1]["error"] = "Spend 50 energy to get here right now";
 		}
-		document.body.append(RightClickMenu.create2(e, streetName, options));
+		new Timer(new Duration(milliseconds: 50), () {
+			document.body.append(RightClickMenu.create2(e, streetName, options));
+		});
 	}
 
 	/**
