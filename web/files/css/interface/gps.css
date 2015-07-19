@@ -1,0 +1,67 @@
+#gps-container {
+    background-color: #eee;
+    width: 100%;
+    z-index: 1;
+    margin-bottom: 40px;
+    border-radius: 8px;
+}
+
+#gps-cancel,
+#gps-direction {
+    background-color: white;
+    border-radius: 50%;
+}
+
+#gps-cancel,
+#gps-cancel .fa {
+    cursor: pointer;
+    position: relative;
+    top: -1px;
+}
+
+#gps-cancel {
+    width: 20px;
+    height: 20px;
+    position: relative;
+    top: -10px;
+    right: -160px;
+}
+
+#gps-direction {
+    width: 40px;
+    height: 40px;
+    position: relative;
+    top: -10px;
+    left: 10px;
+    float: left;
+    margin: 0 10px 5px 0;
+}
+
+#gps-direction .fa {
+    margin-top: 3px;
+}
+
+#gps-text {
+    font-family: "Lato", sans-serif;
+    width: 150px;
+    position: relative;
+    top: -15px;
+    left: 10px;
+}
+
+#gps-next,
+#gps-destination {
+    font-weight: bold;
+}
+
+#gps-title {
+    margin-bottom: 10px;
+    position: relative;
+    top: 5px;
+}
+
+#gps-bottom {
+    position: relative;
+    bottom: -5px;
+    font-size: 12px;
+}

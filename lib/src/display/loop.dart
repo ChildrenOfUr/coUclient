@@ -58,4 +58,6 @@ update(double dt)
 
 	//update minimap
 	minimap.updateObjects();
+	// update gps
+	gpsIndicator.update();
 }

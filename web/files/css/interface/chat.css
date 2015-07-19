@@ -220,7 +220,7 @@ p.me {
 }
 
 .cb-content .awarded span.energy::after {
-  content: url(../system/icons/interaction_energy.svg);
+  content: url(../../system/icons/interaction_energy.svg);
   margin-right: 2px;
 }
 
@@ -230,7 +230,7 @@ p.me {
 }
 
 .cb-content .awarded span.mood::after {
-  content: url(../system/icons/interaction_mood.svg);
+  content: url(../../system/icons/interaction_mood.svg);
   top: 2px;
 }
 
@@ -240,7 +240,7 @@ p.me {
 }
 
 .cb-content .awarded span.img::after {
-  content: url(../system/icons/interaction_img.svg);
+  content: url(../../system/icons/interaction_img.svg);
   top: 2px;
 }
 
@@ -250,7 +250,7 @@ p.me {
 }
 
 .cb-content .awarded span.currants::after {
-  content: url(../system/icons/interaction_currants.svg);
+  content: url(../../system/icons/interaction_currants.svg);
   top: 2px;
 }
 

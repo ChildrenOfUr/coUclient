@@ -1,31 +1,36 @@
-/* Base CSS file for cou */
-/*if you're adding a component to the ui, put your css in another file and import it.*/
+/* Base CSS file for CoU */
+/* If you're adding a component to the ui, put your CSS in the css folder and import it. */
 
-/*Resets*/
+/* Resets */
 
 @import url("files/css/cou_defaults.css");
 
-/*Component Imports*/
+/* Interface */
+
+@import url("files/css/interface/inventory.css");
+@import url("files/css/interface/meters.css");
+@import url("files/css/interface/currants.css");
+@import url("files/css/interface/timedate.css");
+@import url("files/css/interface/nav.css");
+@import url("files/css/interface/panel.css");
+@import url("files/css/interface/chat.css");
+@import url("files/css/interface/youwon.css");
+@import url("files/css/interface/soundcloud.css");
+@import url("files/css/interface/toast.css");
+@import url("files/css/interface/minimap.css");
+@import url("files/css/interface/gps.css");
+
+/* Game */
 
 @import url("files/css/game.css");
 @import url("files/css/loader.css");
-@import url("files/css/inventory.css");
 @import url("files/css/name.css");
-@import url("files/css/meters.css");
-@import url("files/css/currants.css");
-@import url("files/css/timedate.css");
-@import url("files/css/nav.css");
-@import url("files/css/panel.css");
-@import url("files/css/chat.css");
-@import url("files/css/youwon.css");
-@import url("files/css/soundcloud.css");
 @import url("files/css/exit_sign.css");
 @import url("files/css/quoins.css");
 @import url("files/css/interactions.css");
-@import url("files/css/toast.css");
 @import url("files/css/weather.css");
 
-/* Popup windows */
+/* Windows */
 
 @import url("files/css/windows/window.css");
 @import url("files/css/windows/map_window.css");
