@@ -273,7 +273,9 @@ class WorldMap {
 				"description": "You need at least 50 energy to teleport",
 				"enabled": false,
 				"timeRequired": 0,
-				"clientCallback": (){teleport(tsid);}
+				"clientCallback": (){
+					sendGlobalAction('teleport',{'tsid':tsid});
+				}
 			}
 		];
 		if(metabolics.energy >= 50) {

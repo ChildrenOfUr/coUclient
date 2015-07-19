@@ -114,9 +114,12 @@ _setupStreetSocket(String streetName) {
 			transmit('favorUpdate', map);
 			return;
 		}
-
 		if(map['gotoStreet'] != null) {
 			streetService.requestStreet(map['tsid']);
+			return;
+		}
+		if(map['toast'] != null) {
+			toast(map['message']);
 			return;
 		}
 

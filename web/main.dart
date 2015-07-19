@@ -54,7 +54,7 @@ part 'package:couclient/src/systems/commands.dart';
 part 'package:couclient/src/game/input.dart';
 part 'package:couclient/src/game/joystick.dart';
 part 'package:couclient/src/systems/util.dart';
-part 'package:couclient/src/display/gps.dart';
+part 'package:couclient/src/display/gps_display.dart';
 
 // NETWORKING MODULES //
 part 'package:couclient/src/network/chat.dart';

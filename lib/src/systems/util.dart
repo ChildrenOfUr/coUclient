@@ -166,6 +166,29 @@ sendAction(String methodName, String entityId, [Map arguments]) {
 }
 
 /**
+ *
+ * Send a message to the server that you want to perform [methodName]
+ * that does not belong to a specific entity with optional [arguments]
+ *
+ **/
+sendGlobalAction(String methodName, [Map arguments]) {
+	if(methodName == null || methodName.trim == "") {
+		logmessage("[Server Communication] methodName must be provided, got: '$methodName'");
+		return;
+	}
+
+	Map map = {};
+	map['callMethod'] = methodName;
+	map['id'] = 'global_action_monster';
+	map['streetName'] = currentStreet.label;
+	map['username'] = game.username;
+	map['email'] = game.email;
+	map['tsid'] = currentStreet.streetData['tsid'];
+	map['arguments'] = arguments;
+	streetSocket.send(JSON.encode(map));
+}
+
+/**
  * Get a name that will work as a css selector by replacing all invalid characters with an underscore
  **/
 String sanitizeName(String name) {

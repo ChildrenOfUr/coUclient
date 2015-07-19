@@ -28,12 +28,12 @@ class CommandManager {
 			..['go'] = setLocationCommand
 			..['setlocation'] = setLocationCommand
 			..['teleport'] = setLocationCommand
-			..['tp'] = setLocationCommand
+			..['tp'] = setLocationCommand;
 		  // REMOVED OR ONLY USED WHEN TESTING:
 //			..['toast'] = toast
 //			..['buff'] = buff
-			..['collisions'] = toggleCollisionLines
-			..['physics'] = togglePhysics;
+//			..['collisions'] = toggleCollisionLines
+//			..['physics'] = togglePhysics
 //			..['log'] = log
 //			..['settime'] = setTime
 //			..['setweather'] = setWeather
