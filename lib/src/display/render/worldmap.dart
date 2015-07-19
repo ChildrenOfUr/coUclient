@@ -57,6 +57,7 @@ class WorldMap {
 		mapWindow.close();
 		streetService.requestStreet(tsid);
 		loadhubdiv(showingHub);
+		mapWindow.close();
 	}
 
 	loadhubdiv(String hub_id) {
