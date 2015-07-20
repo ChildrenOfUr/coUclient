@@ -87,6 +87,7 @@ part 'package:couclient/src/display/windows/calendar_window.dart';
 part 'package:couclient/src/display/windows/shrine_window.dart';
 part 'package:couclient/src/display/windows/rock_window.dart';
 part 'package:couclient/src/display/windows/item_window.dart';
+part 'package:couclient/src/display/windows/emoticon_picker.dart';
 
 // OVERLAYS //
 part 'package:couclient/src/display/overlays/overlay.dart';

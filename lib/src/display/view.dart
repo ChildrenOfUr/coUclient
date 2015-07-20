@@ -112,9 +112,6 @@ class UserInterface {
 	// start listening for events
 	UserInterface() {
 
-		//load emoticons
-		new Asset("files/emoticons/emoticons.json").load().then((Asset asset) => EMOTICONS = asset.get()["names"]);
-
 		// Set initial Time
 		currDay.text = clock.dayofweek;
 		currTime.text = clock.time;

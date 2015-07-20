@@ -119,9 +119,7 @@ class WorldMap {
 					}
 				}
 
-				if(streetContentsData[streetName] == null) {
-					logmessage("[Map] Street contents not available for " + streetName);
-				} else {
+				if(streetContentsData[streetName] != null) {
 					DivElement indicators = new DivElement()
 						..classes.add("street-contents-indicators");
 

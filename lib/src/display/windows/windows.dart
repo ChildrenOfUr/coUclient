@@ -13,6 +13,7 @@ class WindowManager {
 		CalendarWindow calendarWindow = new CalendarWindow();
 		RockWindow rockWindow = new RockWindow();
 //		ItemWindow itemWindow = new ItemWindow();
+		EmoticonPicker emoticonPicker = new EmoticonPicker();
 	}
 }
 

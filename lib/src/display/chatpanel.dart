@@ -138,9 +138,9 @@ class Chat {
     conversationElement = getArchivedConversation(title);
     if (conversationElement == null) {
       // clone the template
-      conversationElement =
-          view.chatTemplate.querySelector('.conversation').clone(true);
+      conversationElement = view.chatTemplate.querySelector('.conversation').clone(true);
       conversationElement.querySelector('.title')..text = title;
+      conversationElement.querySelector(".insertemoji").onClick.listen((_) => transmit('insertEmoji', null));
       openConversations.add(this);
 
       //handle chat input getting focused/unfocused so that the character doesn't move while typing

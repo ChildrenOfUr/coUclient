@@ -1911,6 +1911,9 @@ Map<String, Map<String, String>> streetContentsData = {
 		"vendor": "Kitchen Tools",
 		"shrine": "Spriggan"
 	},
+	"Level 2 East": {
+		"vendor": "Meal"
+	},
 	"Level 2 West": {
 		"shrine": "Zille"
 	},
