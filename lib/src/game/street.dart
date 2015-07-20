@@ -15,6 +15,7 @@ class Street {
 	String street_load_color_top;
 	String street_load_color_btm;
 
+	int groundY;
 	bool loaded = false;
 
 	DataMaps map = new DataMaps();
@@ -49,7 +50,7 @@ class Street {
 		bounds = new Rectangle(streetData['dynamic']['l'],
 		                       streetData['dynamic']['t'],
 		                       streetData['dynamic']['l'].abs() + streetData['dynamic']['r'].abs(),
-		                       streetData['dynamic']['t'].abs());
+		                       (streetData['dynamic']['t']-streetData['dynamic']['b']).abs());
 
 		view.playerHolder
 			..style.width = bounds.width.toString() + 'px'
@@ -105,7 +106,7 @@ class Street {
 		decos.load(setLoadingPercent).then((_) {
 			//Decos should all be loaded at this point//
 
-			int groundY = -(streetData['dynamic']['ground_y'] as num).abs();
+			groundY = -(streetData['dynamic']['ground_y'] as num).abs();
 
 			/* //// Gradient Canvas //// */
 			DivElement gradientCanvas = new DivElement();
@@ -199,8 +200,12 @@ class Street {
 				for(Map ladder in layer['ladders'])
 					ladders.add(new Ladder(ladder, layer, groundY));
 
-				for(Map wall in layer['walls'])
+				for(Map wall in layer['walls']) {
+					if(wall['pc_perm'] == 0) {
+						continue;
+					}
 					walls.add(new Wall(wall, layer, groundY));
+				}
 
 				if(showCollisionLines)
 					showLineCanvas();
