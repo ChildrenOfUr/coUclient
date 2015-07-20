@@ -69,7 +69,7 @@ String parseEmoji(String message) {
     String match = m[1];
     if (EMOTICONS.contains(match)) {
       returnString +=
-          '<img class="Emoticon" src="files/emoticons/$match.svg"></img>';
+          '<img class="Emoticon" title="$match" src="files/emoticons/$match.svg"></img>';
     } else {
       returnString += m[0];
     }

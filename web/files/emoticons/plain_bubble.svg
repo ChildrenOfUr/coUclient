@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- Generator: Adobe Illustrator 15.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="flash0.ai" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="37.35px" height="37.35px" viewBox="0 0 37.35 37.35" style="enable-background:new 0 0 37.35 37.35;" xml:space="preserve"
+	>
+<symbol  id="flash0.ai_x5F_10_x2F_Layer_8_x2F__x3C_Path_x3E_" viewBox="0.425 -17.957 28.732 17.957">
+	<g id="Layer_1_3_">
+		<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#FFFFFF;" d="M29,0c0.333-1.9,0.133-4.033-0.6-6.4
+			c-1.433-4.7-4.783-8.167-10.05-10.4c-3.967-1.667-8.217-1.534-12.75,0.4c-2.056,0.907-3.78,1.932-5.175,3.075
+			c1.039-0.796,2.447-1.471,4.225-2.025c4.033-1.233,8.434-0.983,13.2,0.75c4.3,1.533,7.45,4.434,9.45,8.7
+			C28.3-3.8,28.867-1.833,29,0z"/>
+	</g>
+</symbol>
+<symbol  id="flash0.ai_x5F_10_x2F_Layer_8_x2F__x3C_Path_x3E__x5F_3" viewBox="0 -37.35 37.35 37.35">
+	<g id="Layer_1_2_">
+		<path style="fill-rule:evenodd;clip-rule:evenodd;fill:none;stroke:#FFFFFF;stroke-width:0.5;" d="M37.1-18.7
+			c0-5.066-1.8-9.4-5.4-13c-3.6-3.6-7.95-5.4-13.05-5.4c-5.066,0-9.4,1.8-13,5.4c-3.6,3.6-5.4,7.934-5.4,13
+			c0,5.1,1.8,9.45,5.4,13.05s7.934,5.4,13,5.4c5.1,0,9.45-1.8,13.05-5.4C35.3-9.25,37.1-13.6,37.1-18.7z"/>
+	</g>
+</symbol>
+<radialGradient id="SVGID_1_" cx="25.8096" cy="0.1416" r="15.3796" gradientTransform="matrix(0.7071 0.7071 0.7071 -0.7071 -0.2002 0.1999)" gradientUnits="userSpaceOnUse">
+	<stop  offset="0" style="stop-color:#E8F4F7"/>
+	<stop  offset="0.4627" style="stop-color:#E6F3F6"/>
+	<stop  offset="0.7137" style="stop-color:#DEEFF3"/>
+	<stop  offset="0.9098" style="stop-color:#D0E8EE"/>
+	<stop  offset="1" style="stop-color:#C7E4EB"/>
+</radialGradient>
+<path style="fill-rule:evenodd;clip-rule:evenodd;fill:url(#SVGID_1_);" d="M37.1,18.7c0,5.066-1.8,9.399-5.399,13
+	C28.1,35.3,23.75,37.1,18.65,37.1c-5.067,0-9.4-1.8-13-5.399c-3.6-3.601-5.4-7.934-5.4-13c0-5.1,1.8-9.45,5.4-13.05
+	s7.934-5.4,13-5.4c5.1,0,9.449,1.8,13.05,5.4C35.3,9.25,37.1,13.6,37.1,18.7z"/>
+<use xlink:href="#flash0.ai_x5F_10_x2F_Layer_8_x2F__x3C_Path_x3E__x5F_3"  width="37.35" height="37.35" y="-37.35" transform="matrix(1 0 0 -1 0 0)" style="overflow:visible;opacity:0.6719;enable-background:new    ;"/>
+<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#FFFFFF;" d="M9.05,6.9c2.467,0.067,2.784,1.25,0.95,3.55
+	c-1.933,2.433-3.267,3.25-4,2.45c-0.667-0.7-0.617-1.867,0.15-3.5C6.917,7.7,7.883,6.867,9.05,6.9z"/>
+<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#FFFFFF;" d="M5.05,14.7c0.633,0.133,0.833,0.6,0.6,1.4
+	c-0.233,0.833-0.583,1.1-1.05,0.8c-0.4-0.3-0.533-0.767-0.4-1.4C4.367,14.9,4.65,14.633,5.05,14.7z"/>
+<use xlink:href="#flash0.ai_x5F_10_x2F_Layer_8_x2F__x3C_Path_x3E_"  width="28.732" height="17.957" x="0.425" y="-17.957" transform="matrix(1 0 0 -1 5.6001 16.3501)" style="overflow:visible;opacity:0.3398;enable-background:new    ;"/>
+</svg>

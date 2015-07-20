@@ -1,73 +1,82 @@
 .conversation {
-  position:relative;
-  width:100%;
-  height:100%;
+    position: relative;
+    width: 100%;
+    height: 100%;
 }
+
 .conversation header {
-  position:absolute;
-  top:6px;
-  right:10px;
-  left:10px;
-  text-align:center;
-  font-size:18px;
+    position: absolute;
+    top: 6px;
+    right: 10px;
+    left: 10px;
+    text-align: center;
+    font-size: 18px;
 }
-.conversation header span{
-  color:rgba(0,0,0,0.8);
+
+.conversation header span {
+    color: rgba(0, 0, 0, 0.8);
 }
-.conversation header .fa{
-  position:absolute;
-  top:0;
-  left:5px;
-  font-size:20px;
-  width:1em;
-  opacity:0.9;
+
+.conversation header .fa {
+    position: absolute;
+    top: 0;
+    left: 5px;
+    font-size: 20px;
+    width: 1em;
+    opacity: 0.9;
 }
+
 .conversation .dialog {
-  position:absolute;
-  padding:2px;
-  margin:0px;
-  border-top:2px solid rgba(0,0,0,0.1);
-  border-bottom:2px solid rgba(0,0,0,0.1);
-  top:33px;
-  bottom:33px;
-  left:1.5%;
-  right:1.5%;
-  overflow-y:scroll;
-  overflow-x:hidden;
-  cursor: auto;
-  -webkit-user-select: text;
-  -moz-user-select: text;
-  -ms-user-select: text;
-      user-select: text;
-  color: #000;
-}
-.dialog p{
-  font-family: 'Lato', sans-serif;
-  padding:2px;
-  margin:2px;
-  font-size:12px;
-  border-left: 2px solid rgba(0,0,0,0);
-  background-color:#fff;
-  word-wrap: break-word;
-}
-.dialog p *.name {
-  font-family: 'Fredoka One', cursive;
-  font-size:1.1em;
-}
-.dialog p *.message{
-  font-family: 'Lato', sans-serif;
-  cursor: auto;
+    position: absolute;
+    padding: 2px;
+    margin: 0px;
+    border-top: 2px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+    top: 33px;
+    bottom: 33px;
+    left: 1.5%;
+    right: 1.5%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    cursor: auto;
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
     color: #000;
-    font-size:1.2em;
-  -webkit-user-select: text;
-  -moz-user-select: text;
-  -ms-user-select: text;
-      user-select: text;
 }
-.dialog p.system{
-  font-style:italic;  color: #000;
-  color:#444;
-  border-left: 2px solid #444;
+
+.dialog p {
+    font-family: 'Lato', sans-serif;
+    padding: 2px;
+    margin: 2px;
+    font-size: 12px;
+    border-left: 2px solid rgba(0, 0, 0, 0);
+    background-color: #fff;
+    word-wrap: break-word;
+}
+
+.dialog p *.name {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.1em;
+}
+
+.dialog p *.message {
+    font-family: 'Lato', sans-serif;
+    cursor: auto;
+    color: #000;
+    font-size: 1.2em;
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
+}
+
+.dialog p.system {
+    font-style: italic;
+    color: #000;
+    color: #444;
+    border-left: 2px solid #444;
 }
 
 .dialog p *.name > a {
@@ -75,189 +84,206 @@
 }
 
 p.me {
-  font-size: 14px;
+    font-size: 14px;
 }
 
 .conversation input {
-  position:absolute;
-  bottom:5px;
-  left:3%;
-  width:93%;
+    position: absolute;
+    bottom: 5px;
+    left: 3%;
+    width: calc(93% - 22px);
+    padding-right: 22px;
 }
 
 .dialog a {
-  cursor: pointer;
-  text-decoration: underline;
+    cursor: pointer;
+    text-decoration: underline;
 }
 
 .dialog a:hover {
-  opacity: 0.5;
+    opacity: 0.5;
 }
 
 .conversation .fa-chevron-down {
-  cursor: pointer;
+    cursor: pointer;
 }
 
 /* Better Chat Bubbles */
 
 .chat-bubble {
-  font-family: 'Lato', sans-serif;
-	z-index: 1060;
-	position: relative;
-	padding: 1px;
-	background-color: #fff;
-	background-clip: padding-box;
-	border: 1px solid #cccccc;
-	border: 1px solid rgba(0, 0, 0, 0.2);
-	border-radius: 6px;
-	-webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-	min-width: 250px;
-	left: 50%;
-	transform: translate(-50%,-190%);
+    font-family: 'Lato', sans-serif;
+    z-index: 1060;
+    position: relative;
+    padding: 1px;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #cccccc;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 6px;
+    -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    min-width: 250px;
+    left: 50%;
+    transform: translate(-50%, -190%);
 }
+
 .cb-content {
-	padding: 9px 14px;
-	text-align: center;
-	overflow: hidden;
-	word-wrap: break-word;
+    padding: 9px 14px;
+    text-align: center;
+    overflow: hidden;
+    word-wrap: break-word;
 }
+
 .chat-bubble > .cb-arrow,
 .chat-bubble > .cb-arrow:after {
-	position: absolute;
-	display: block;
-	width: 0;
-	height: 0;
-	border-color: transparent;
-	border-style: solid;
+    position: absolute;
+    display: block;
+    width: 0;
+    height: 0;
+    border-color: transparent;
+    border-style: solid;
 }
+
 .chat-bubble > .cb-arrow {
-	border-width: 11px;
-	left: 50%;
-	margin-left: -11px;
-	border-bottom-width: 0;
-	border-top-color: #999;
-	border-top-color: rgba(0, 0, 0, 0.25);
-	bottom: -10px;
+    border-width: 11px;
+    left: 50%;
+    margin-left: -11px;
+    border-bottom-width: 0;
+    border-top-color: #999;
+    border-top-color: rgba(0, 0, 0, 0.25);
+    bottom: -10px;
 }
+
 .chat-bubble > .cb-arrow:after {
-	border-width: 10px;
-	content: "";
-	content: " ";
-	bottom: 1px;
-	margin-left: -10px;
-	border-bottom-width: 0;
-	border-top-color: #fff;
+    border-width: 10px;
+    content: "";
+    content: " ";
+    bottom: 1px;
+    margin-left: -10px;
+    border-bottom-width: 0;
+    border-top-color: #fff;
 }
 
 .username {
-  font-weight: bold;
-  display: inline-block;
+    font-weight: bold;
+    display: inline-block;
 }
 
 .username.blue {
-  color: blue;
+    color: blue;
 }
+
 .username.deepskyblue {
-  color: deepskyblue;
+    color: deepskyblue;
 }
+
 .username.fuchsia {
-  color: fuchsia;
+    color: fuchsia;
 }
+
 .username.gray {
-  color: gray;
+    color: gray;
 }
+
 .username.green {
-  color: green;
+    color: green;
 }
+
 .username.olivedrab {
-  color: olivedrab;
+    color: olivedrab;
 }
+
 .username.maroon {
-  color: maroon;
+    color: maroon;
 }
+
 .username.navy {
-  color: navy;
+    color: navy;
 }
+
 .username.olive {
-  color: olive;
+    color: olive;
 }
+
 .username.orange {
-  color: orange;
+    color: orange;
 }
+
 .username.purple {
-  color: purple;
+    color: purple;
 }
+
 .username.red {
-  color: red;
+    color: red;
 }
+
 .username.teal {
-  color: teal;
+    color: teal;
 }
 
 /* Entity Interaction Completion */
 
 .cb-content .awarded {
-  margin-top: 8px;
+    margin-top: 8px;
 }
 
 .cb-content .awarded span {
-  padding: 0 4px 2px 4px;
-  display: inline-block;
-  margin: 0 1px 3px 0;
-  border-radius: 10px;
+    padding: 0 4px 2px 4px;
+    display: inline-block;
+    margin: 0 1px 3px 0;
+    border-radius: 10px;
 }
 
 .cb-content .awarded span::after {
-  display: inline-block;
-  position: relative;
-  left: 2px;
+    display: inline-block;
+    position: relative;
+    left: 2px;
 }
 
 .cb-content .awarded span.energy {
-  background-color: #E9CFCD;
-  color: #620400;
+    background-color: #E9CFCD;
+    color: #620400;
 }
 
 .cb-content .awarded span.energy::after {
-  content: url(../../system/icons/interaction_energy.svg);
-  margin-right: 2px;
+    content: url(../../system/icons/interaction_energy.svg);
+    margin-right: 2px;
 }
 
 .cb-content .awarded span.mood {
-  background-color: #CCD795;
-  color: #25340B;
+    background-color: #CCD795;
+    color: #25340B;
 }
 
 .cb-content .awarded span.mood::after {
-  content: url(../../system/icons/interaction_mood.svg);
-  top: 2px;
+    content: url(../../system/icons/interaction_mood.svg);
+    top: 2px;
 }
 
 .cb-content .awarded span.img {
-  background-color: rgb(239, 179, 255);
-  color: rgb(71, 1, 71);
+    background-color: rgb(239, 179, 255);
+    color: rgb(71, 1, 71);
 }
 
 .cb-content .awarded span.img::after {
-  content: url(../../system/icons/interaction_img.svg);
-  top: 2px;
+    content: url(../../system/icons/interaction_img.svg);
+    top: 2px;
 }
 
 .cb-content .awarded span.currants {
-  background-color: rgb(240, 208, 158);
-  color: rgb(86, 53, 16);
+    background-color: rgb(240, 208, 158);
+    color: rgb(86, 53, 16);
 }
 
 .cb-content .awarded span.currants::after {
-  content: url(../../system/icons/interaction_currants.svg);
-  top: 2px;
+    content: url(../../system/icons/interaction_currants.svg);
+    top: 2px;
 }
 
 /* don't underline username links, looks bad */
 
 a.noUnderline {
-  text-decoration: none;
+    text-decoration: none;
 }
 
 span.name.dev::before {
@@ -271,5 +297,8 @@ span.name.dev::before {
 }
 
 .message .Emoticon {
-    height: 1em;
+    max-height: 2em;
+    max-width: 2em;
+    vertical-align: middle;
+    margin: 0 2px;
 }

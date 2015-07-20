@@ -110,8 +110,8 @@ class Minimap {
 
 			DivElement exit = new DivElement()
 				..classes.add('minimap-exit')
-				..style.top = ((data["y"] * factorHeight) - 8).toString() + 'px'
-				..style.left = ((data["x"] * factorWidth) - 6).toString() + 'px'
+				..style.top = ((data["y"] * factorHeight)).toString() + 'px'
+				..style.left = ((data["x"] * factorWidth) - 4).toString() + 'px'
 				..title = title;
 
 			objectsE.append(exit);

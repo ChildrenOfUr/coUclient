@@ -280,7 +280,7 @@ class WorldMap {
 			options[1]["enabled"] = true;
 			options[1]["description"] = "Spend 50 energy to get here right now";
 		}
-		new Timer(new Duration(milliseconds: 50), () {
+		new Timer(new Duration(milliseconds: 500), () {
 			document.body.append(RightClickMenu.create2(e, streetName, options));
 		});
 	}
