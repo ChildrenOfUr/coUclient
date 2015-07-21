@@ -1,3 +1,5 @@
+/* Basics */
+
 #pauseMenu {
     background-color: rgba(0, 0, 0, 0.75);
     color: white;
@@ -15,6 +17,8 @@
 #pauseMenu .close .fa {
     cursor: pointer;
 }
+
+/* Placeholder */
 
 #pm-nothing {
     padding-top: 100px;
@@ -221,4 +225,31 @@ p.italic {
 
 #pm-level-container:hover #pm-level-tooltip {
     opacity: 1;
+}
+
+/* Exit button */
+
+#pm-exit-button {
+    cursor: pointer;
+    background-image: url(../../system/imgmenu/close.svg);
+    width: 30px;
+    height: 30px;
+    background-size: 30px 30px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+#pm-exit-button:hover {
+    -webkit-filter: drop-shadow(0 1px 2px cyan);
+    -moz-filter: drop-shadow(0 1px 2px cyan);
+    -o-filter: drop-shadow(0 1px 2px cyan);
+    filter: drop-shadow(0 1px 2px cyan);
+}
+
+#pm-exit-button:active {
+    -webkit-filter: drop-shadow(0 1px 1px cyan);
+    -moz-filter: drop-shadow(0 1px 1px cyan);
+    -o-filter: drop-shadow(0 1px 1px cyan);
+    filter: drop-shadow(0 1px 1px cyan);
 }

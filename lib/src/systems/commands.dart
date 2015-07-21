@@ -25,7 +25,7 @@ class CommandManager {
 			// DEPRECATED:
 			..['setcurrants'] = setCurrants
 			..['setname'] = setName
-			..['go'] = setLocationCommand
+			..['go'] = go
 			..['setlocation'] = setLocationCommand
 			..['teleport'] = setLocationCommand
 			..['tp'] = setLocationCommand;
