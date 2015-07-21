@@ -28,10 +28,12 @@ class Platform implements Comparable {
 		bounds = new Rectangle(start.x,start.y,width,height);
 	}
 
+	@override
 	String toString() {
-		return "(${start.x},${start.y})->(${end.x},${end.y})";
+		return "(${start.x},${start.y})->(${end.x},${end.y}) ceiling=$ceiling";
 	}
 
+	@override
 	int compareTo(Platform other) {
 		return other.start.y - start.y;
 	}

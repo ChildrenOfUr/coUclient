@@ -232,23 +232,43 @@ class Player {
 			moving = true;
 		}
 
+		//check for collisions with walls
+		if(doPhysicsApply && (inputManager.leftKey == true || inputManager.rightKey == true)) {
+			Rectangle playerRect;
+			if(facingRight) {
+				playerRect = new Rectangle(posX+width/2, posY + currentStreet.groundY + 15, width/2, height - 35);
+			} else {
+				playerRect = new Rectangle(posX, posY + currentStreet.groundY + 15, width/2, height - 35);
+			}
+			for(Wall wall in currentStreet.walls) {
+				if(playerRect.intersects(wall.bounds)) {
+					if(facingRight) {
+						if(playerRect.right >= wall.bounds.left) {
+							posX = wall.bounds.left - width - 1;
+						}
+					} else {
+						if(playerRect.left < wall.bounds.left) {
+							posX = wall.bounds.right + 1;
+						}
+					}
+				}
+			}
+		}
+
 		//check for collisions with platforms
 		if (doPhysicsApply && !climbingDown && !climbingUp && yVel >= 0) {
 			num x = posX + width / 2;
 			Platform bestPlatform = _getBestPlatform(cameFrom);
-
 			if (bestPlatform != null) {
-				if(!bestPlatform.ceiling) {
-					num goingTo = posY + height + currentStreet.groundY;
-					num slope = (bestPlatform.end.y - bestPlatform.start.y) / (bestPlatform.end.x - bestPlatform.start.x);
-					num yInt = bestPlatform.start.y - slope * bestPlatform.start.x;
-					num lineY = slope * x + yInt;
+				num goingTo = posY + height + currentStreet.groundY;
+				num slope = (bestPlatform.end.y - bestPlatform.start.y) / (bestPlatform.end.x - bestPlatform.start.x);
+				num yInt = bestPlatform.start.y - slope * bestPlatform.start.x;
+				num lineY = slope * x + yInt;
 
-					if (goingTo >= lineY) {
-						posY = lineY - height - currentStreet.groundY;
-						yVel = 0;
-						jumping = false;
-					}
+				if (goingTo >= lineY) {
+					posY = lineY - height - currentStreet.groundY;
+					yVel = 0;
+					jumping = false;
 				}
 			}
 		}
@@ -266,23 +286,6 @@ class Player {
 					yVel = 0;
 
 					break;
-				}
-			}
-		}
-
-		if(doPhysicsApply && (inputManager.leftKey == true || inputManager.rightKey == true)) {
-			Rectangle playerRect = new Rectangle(posX, posY + currentStreet.groundY-15, width, height-15);
-			for(Wall wall in currentStreet.walls) {
-				if(playerRect.intersects(wall.bounds)) {
-					if(facingRight) {
-						if(playerRect.left < wall.bounds.left) {
-							posX = wall.bounds.left - width - 1;
-						}
-					} else {
-						if(playerRect.left < wall.bounds.left) {
-							posX = wall.bounds.right + 1;
-						}
-					}
 				}
 			}
 		}
@@ -498,7 +501,7 @@ class Player {
 		Platform bestPlatform;
 		num x = posX + width / 2;
 		num feetY = cameFrom + height + currentStreet.groundY;
-		num bestDiffY = 1000;
+		num bestDiffY = double.INFINITY;
 
 		for (Platform platform in currentStreet.platforms) {
 			if(platform.ceiling) {
@@ -511,42 +514,12 @@ class Player {
 				num lineY = slope * x + yInt;
 				num diffY = (feetY - lineY).abs();
 
-				if (bestPlatform == null)
-					bestPlatform = platform;
-				else {
-					if ((lineY >= feetY || !jumping && feetY > lineY && feetY - (height / 2) < lineY) && diffY < bestDiffY) {
-						bestPlatform = platform;
-						bestDiffY = diffY;
-					}
-				}
-			}
-		}
-
-		return bestPlatform;
-	}
-
-	Platform _getBestCeiling(num cameFrom) {
-		Platform bestPlatform;
-		num x = posX + width / 2;
-		num headY = posY;
-		num bestDiffY = 1000;
-
-		for (Platform platform in currentStreet.platforms) {
-			if(!platform.ceiling) {
-				continue;
-			}
-
-			if (x >= platform.start.x && x <= platform.end.x) {
-				num slope = (platform.end.y - platform.start.y) / (platform.end.x - platform.start.x);
-				num yInt = platform.start.y - slope * platform.start.x;
-				num lineY = slope * x + yInt;
-				num diffY = (headY - lineY).abs();
-
 				if (bestPlatform == null) {
 					bestPlatform = platform;
+					bestDiffY = diffY;
 				}
 				else {
-					if (lineY < headY && diffY < bestDiffY) {
+					if ((lineY >= feetY || !jumping && feetY > lineY && feetY - (height / 2) < lineY) && diffY < bestDiffY) {
 						bestPlatform = platform;
 						bestDiffY = diffY;
 					}

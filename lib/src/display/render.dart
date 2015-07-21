@@ -7,15 +7,15 @@ DateTime now, lastUpdate = new DateTime.now();
 
 // Our renderloop
 render() {
-	if(serverDown) {
+	if (serverDown) {
 		return;
 	}
 
 	//Draw Street
-	if(currentStreet is Street)
+	if (currentStreet is Street)
 		currentStreet.render();
 	//Draw Player
-	if(CurrentPlayer is Player)
+	if (CurrentPlayer is Player)
 		CurrentPlayer.render();
 
 	//draw quoins
@@ -31,4 +31,8 @@ render() {
 	minimap.updateObjects();
 	// update gps
 	gpsIndicator.update();
+
+	if (showCollisionLines) {
+		showPlayerRect();
+	}
 }
