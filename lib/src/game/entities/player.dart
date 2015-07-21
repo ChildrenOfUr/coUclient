@@ -232,22 +232,22 @@ class Player {
 			moving = true;
 		}
 
+		Rectangle collisionsRect;
+		if(facingRight) {
+			collisionsRect = new Rectangle(posX+width/2, posY + currentStreet.groundY, width/2, height - 35);
+		} else {
+			collisionsRect = new Rectangle(posX, posY + currentStreet.groundY, width/2, height - 35);
+		}
 		//check for collisions with walls
 		if(doPhysicsApply && (inputManager.leftKey == true || inputManager.rightKey == true)) {
-			Rectangle playerRect;
-			if(facingRight) {
-				playerRect = new Rectangle(posX+width/2, posY + currentStreet.groundY + 15, width/2, height - 35);
-			} else {
-				playerRect = new Rectangle(posX, posY + currentStreet.groundY + 15, width/2, height - 35);
-			}
 			for(Wall wall in currentStreet.walls) {
-				if(playerRect.intersects(wall.bounds)) {
+				if(collisionsRect.intersects(wall.bounds)) {
 					if(facingRight) {
-						if(playerRect.right >= wall.bounds.left) {
+						if(collisionsRect.right >= wall.bounds.left) {
 							posX = wall.bounds.left - width - 1;
 						}
 					} else {
-						if(playerRect.left < wall.bounds.left) {
+						if(collisionsRect.left < wall.bounds.left) {
 							posX = wall.bounds.right + 1;
 						}
 					}
@@ -276,7 +276,7 @@ class Player {
 		//check for collisions with ceilings
 		if (doPhysicsApply && !climbingDown && !climbingUp && yVel < 0) {
 			for(Platform platform in currentStreet.platforms) {
-				if(platform.ceiling && intersect(platform.bounds,avatarRect)) {
+				if(platform.ceiling && intersect(platform.bounds,collisionsRect)) {
 					num x = posX + width / 2;
 					num slope = (platform.end.y - platform.start.y) / (platform.end.x - platform.start.x);
 					num yInt = platform.start.y - slope * platform.start.x;

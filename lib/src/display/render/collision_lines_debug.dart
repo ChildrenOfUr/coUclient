@@ -28,22 +28,32 @@ void hideLineCanvas() {
 		lineCanvas.remove();
 }
 
-void repaint(CanvasElement lineCanvas, [Platform temporary]) {
+void repaint(CanvasElement lineCanvas) {
 	lineCanvasContext = lineCanvas.context2D;
 	lineCanvasContext.clearRect(0, 0, lineCanvas.width, lineCanvas.height);
 	lineCanvasContext.lineWidth = 3;
 	lineCanvasContext.strokeStyle = "#ffff00";
 	lineCanvasContext.beginPath();
 	for (Platform platform in currentStreet.platforms) {
-		lineCanvasContext.moveTo(platform.start.x, platform.start.y - 1.5);
-		lineCanvasContext.lineTo(platform.end.x, platform.end.y - 1.5);
+		//if it's a ceiling, put the yellow on top, else put the red on top
+		num yOffset = 1.5;
+		if(platform.ceiling) {
+			yOffset = -1.5;
+		}
+		lineCanvasContext.moveTo(platform.start.x, platform.start.y + yOffset);
+		lineCanvasContext.lineTo(platform.end.x, platform.end.y + yOffset);
 	}
 	lineCanvasContext.stroke();
 	lineCanvasContext.beginPath();
 	lineCanvasContext.strokeStyle = "#ff0000";
 	for (Platform platform in currentStreet.platforms) {
-		lineCanvasContext.moveTo(platform.start.x, platform.start.y + 1.5);
-		lineCanvasContext.lineTo(platform.end.x, platform.end.y + 1.5);
+		//if it's a ceiling, put the red on bottom, else put the red on bottom
+		num yOffset = -1.5;
+		if(platform.ceiling) {
+			yOffset = 1.5;
+		}
+		lineCanvasContext.moveTo(platform.start.x, platform.start.y + yOffset);
+		lineCanvasContext.lineTo(platform.end.x, platform.end.y + yOffset);
 	}
 	lineCanvasContext.stroke();
 	lineCanvasContext.beginPath();
@@ -81,11 +91,11 @@ showPlayerRect() {
 	Rectangle playerRect;
 	if(CurrentPlayer.facingRight) {
 		playerRect = new Rectangle(CurrentPlayer.posX + CurrentPlayer.width / 2,
-		                           CurrentPlayer.posY + currentStreet.groundY + 15,
+		                           CurrentPlayer.posY + currentStreet.groundY,
 		                           CurrentPlayer.width / 2, CurrentPlayer.height - 35);
 	} else {
 		playerRect = new Rectangle(CurrentPlayer.posX,
-		                           CurrentPlayer.posY + currentStreet.groundY + 15,
+		                           CurrentPlayer.posY + currentStreet.groundY,
 		                           CurrentPlayer.width / 2, CurrentPlayer.height - 35);
 	}
 
