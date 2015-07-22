@@ -64,6 +64,7 @@
     left:120px;
     opacity:0.5;
     z-index:1;
+    width: 100px;
 }
 #energyText:hover {
     opacity:1;
