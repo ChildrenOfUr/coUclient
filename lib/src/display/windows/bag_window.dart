@@ -1,13 +1,10 @@
 part of couclient;
 
 class BagWindow extends Modal {
-  String id = 'bagWindow';
+	String id = 'bagWindow';
 
-  BagWindow() {
-    prepare();
-    // INVENTORY WINDOW LISTENERS
-    view.inventorySearch.onClick.listen((_) {
-      this.open();
-    });
-  }
+	BagWindow() {
+		prepare();
+		setupUiButton(view.inventorySearch);
+	}
 }

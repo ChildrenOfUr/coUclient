@@ -110,15 +110,8 @@ class SettingsWindow extends Modal {
 			localStorage['effectsVolume'] = volume.toString();
 		});
 
+		setupUiButton(view.settingsButton);
 		setupKeyBinding("Settings");
-
-		view.settingsButton.onClick.listen((_) {
-			if(this.displayElement.hidden) {
-				this.open();
-			} else {
-				this.close();
-			}
-		});
 	}
 
 	@override

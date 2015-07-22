@@ -6,16 +6,8 @@ class MapWindow extends Modal {
 
 	MapWindow() {
 		prepare();
-		// MAPWINDOW LISTENERS //
-		view.mapButton.onClick.listen((_) {
-			if(this.displayElement.hidden) {
-				this.open();
-				_drawWorldMap();
-			} else {
-				this.close();
-			}
-		});
 
+		setupUiButton(view.mapButton,openCallback:_drawWorldMap);
 		setupKeyBinding("Map",openCallback:_drawWorldMap);
 
 		new Service(['teleportByMapWindow'], (event) {

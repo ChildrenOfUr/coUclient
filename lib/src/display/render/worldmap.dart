@@ -57,7 +57,6 @@ class WorldMap {
 		mapWindow.close();
 		streetService.requestStreet(tsid);
 		loadhubdiv(showingHub);
-		mapWindow.close();
 	}
 
 	loadhubdiv(String hub_id) {
@@ -209,7 +208,7 @@ class WorldMap {
 					..style.left = (goPlacement["x"] - 20).toString() + 'px'
 					..style.top = (goPlacement["y"] - 20).toString() + 'px'
 					..style.backgroundColor = goPlacement["color"];
-				go.onClick.first.then((_) {
+				go.onClick.listen((_) {
 					// Clicked on a GO marker
 					querySelector("body").style.cursor = "progress";
 					loadhubdiv(go.attributes['tohub']);
@@ -280,9 +279,7 @@ class WorldMap {
 			options[1]["enabled"] = true;
 			options[1]["description"] = "Spend 50 energy to get here right now";
 		}
-		new Timer(new Duration(milliseconds: 500), () {
-			document.body.append(RightClickMenu.create2(e, streetName, options));
-		});
+		document.body.append(RightClickMenu.create2(e, streetName, options));
 	}
 
 	/**

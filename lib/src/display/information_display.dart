@@ -27,6 +27,22 @@ abstract class InformationDisplay {
 		});
 	}
 
+	setupUiButton(Element uiOpenCloseElement, {Function openCallback, Function closeCallback}) {
+		uiOpenCloseElement.onClick.listen((_) {
+			if(displayElement.hidden) {
+				open();
+				if(openCallback != null) {
+					openCallback();
+				}
+			} else {
+				close();
+				if(closeCallback != null) {
+					closeCallback();
+				}
+			}
+		});
+	}
+
 	open();
 
 	close();

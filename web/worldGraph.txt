@@ -1466,7 +1466,7 @@
             "weight": 1
         },
         {
-            "start": "Silssii Sill",
+            "start": "Tilssii Sill",
             "end": "Bayadd Yadding",
             "weight": 1
         },
@@ -1551,22 +1551,22 @@
             "weight": 1
         },
         {
-            "start": "r",
+            "start": "Kinche Klap",
             "end": "Mayspeek Moar",
             "weight": 1
         },
         {
-            "start": "r",
+            "start": "Kinche Klap",
             "end": "Boorgal Broods",
             "weight": 1
         },
         {
-            "start": "r",
+            "start": "Kinche Klap",
             "end": "Vekke Vets",
             "weight": 1
         },
         {
-            "start": "r",
+            "start": "Kinche Klap",
             "end": "Limmu Later",
             "weight": 1
         },
@@ -1581,12 +1581,12 @@
             "weight": 1
         },
         {
-            "start": "r3",
+            "start": "Vekke Vets",
             "end": "PokiPok Press",
             "weight": 1
         },
         {
-            "start": "r3",
+            "start": "Vekke Vets",
             "end": "Nawiwa Wend",
             "weight": 1
         },
@@ -1916,22 +1916,22 @@
             "weight": 1
         },
         {
-            "start": "Gersal Gemony",
+            "start": "Jameeda Meds",
             "end": "Akkawwi Wails",
             "weight": 1
         },
         {
-            "start": "Gersal Gemony",
+            "start": "Jameeda Meds",
             "end": "Qaado Barrus",
             "weight": 1
         },
         {
-            "start": "Gersal Gemony",
+            "start": "Jameeda Meds",
             "end": "Banya Banya ",
             "weight": 1
         },
         {
-            "start": "Gersal Gemony",
+            "start": "Jameeda Meds",
             "end": "Injeer Asour",
             "weight": 1
         },

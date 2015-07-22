@@ -19,14 +19,7 @@ class CalendarWindow extends Modal {
 
 		// launch //
 
-		querySelector("#time").onClick.listen((_) {
-			if(this.displayElement.hidden) {
-				this.open();
-			} else {
-				this.close();
-			}
-		});
-
+		setupUiButton(querySelector("#time"));
 		setupKeyBinding("Calendar");
 	}
 }
