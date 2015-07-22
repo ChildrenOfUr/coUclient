@@ -287,13 +287,25 @@ a.noUnderline {
 }
 
 span.name.dev::before {
-    border: 2px solid #C9F4D8;
+    border: 2px solid #4b2e4c;
     border-radius: 4px;
     content: "dev";
     font-family: "Lato", sans-serif;
-    color: grey;
+    color: #444;
     margin-right: 3px;
     padding: 0 2px;
+    opacity: 0.75;
+}
+
+span.name.guide::before {
+    border: 2px solid teal;
+    border-radius: 4px;
+    content: "guide";
+    font-family: "Lato", sans-serif;
+    color: #444;
+    margin-right: 3px;
+    padding: 0 2px;
+    opacity: 0.75;
 }
 
 .message .Emoticon {
