@@ -308,7 +308,7 @@ span.name.guide::before {
     opacity: 0.75;
 }
 
-.message .Emoticon {
+.Emoticon {
     max-height: 2em;
     max-width: 2em;
     vertical-align: middle;
