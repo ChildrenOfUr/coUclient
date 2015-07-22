@@ -103,7 +103,7 @@ class ItemWindow extends Modal {
 		// New Item Message (Left Column)
 
 		ImageElement imgIcon = new ImageElement()
-			..src = "../web/files/system/icons/interaction_img.svg";
+			..src = "files/system/icons/interaction_img.svg";
 
 		SpanElement imgAward = new SpanElement()
 			..classes.add("img")
@@ -133,7 +133,7 @@ class ItemWindow extends Modal {
 
 		ImageElement currantIcon = new ImageElement()
 			..classes.add("iw-icon-currants")
-			..src = "../web/files/system/icons/currant.svg";
+			..src = "files/system/icons/currant.svg";
 
 		SpanElement currantNum = new SpanElement()
 			..classes.add("iw-currants")
