@@ -41,12 +41,14 @@ class GpsIndicator {
 	}
 
 	cancel() {
-		GPS.currentRoute.clear();
-		GPS.active = false;
-		containerE.hidden = true;
-		nextStreetE.text = destinationE.text = null;
-		arrowE.style.transform = null;
-		transmit('gpsCancel', null);
+		if (GPS.active) {
+			GPS.currentRoute.clear();
+			GPS.active = false;
+			transmit('gpsCancel', null);
+			containerE.hidden = true;
+			nextStreetE.text = destinationE.text = null;
+			arrowE.style.transform = null;
+		}
 	}
 
 	num calculateArrowDirection() {

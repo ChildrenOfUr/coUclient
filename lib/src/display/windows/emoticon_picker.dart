@@ -2,14 +2,15 @@ part of couclient;
 
 class EmoticonPicker extends Modal {
 	String id = 'emoticonPicker';
-	Element window;
+	Element window, well, grid;
+	InputElement search;
 	String lastFocusedChannel;
 
 	EmoticonPicker() {
 		window = querySelector("#$id");
-		Element well = window.querySelector("#emoticonPicker ur-well");
-		InputElement search = well.querySelector("#ep-search");
-		Element grid = well.querySelector("#ep-grid");
+		well = window.querySelector("#emoticonPicker ur-well");
+		search = well.querySelector("#ep-search");
+		grid = well.querySelector("#ep-grid");
 
 		prepare();
 
@@ -33,7 +34,7 @@ class EmoticonPicker extends Modal {
 			});
 		});
 
-		new Service(["insertEmoji"], (_) => window.hidden = false);
+		new Service(["insertEmoji"], (_) => this.open());
 
 		search.onInput.listen((_) {
 			grid.querySelectorAll(".ep-emoticonButton").forEach((Element button) {
@@ -44,5 +45,12 @@ class EmoticonPicker extends Modal {
 				}
 			});
 		});
+	}
+
+	@override
+	open() {
+		displayElement.hidden = false;
+		search.focus();
+		elementOpen = true;
 	}
 }
