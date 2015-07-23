@@ -9,42 +9,59 @@ class RockWindow extends Modal {
 		// Toggle window by clicking rock
 		setupUiButton(querySelector("#petrock"));
 
+		// Open given conversation ////////////////////////////////////////////////////////////////////
+
 		switchContent(String id) {
-			querySelectorAll("#rwc-holder .rockWindowContent").style.display = "none";
-			querySelector("#" + id).style.display = "block";
+			querySelectorAll("#rwc-holder .rockWindowContent").forEach((Element el) => el.hidden = true);
+			querySelector("#" + id).hidden = false;
 		}
 
-		// Back to main menu
-		querySelectorAll("a.go-rwc").onClick.listen((_) {
-			switchContent("rwc");
-		});
+		// Set up conversations ///////////////////////////////////////////////////////////////////////
 
-		initConvo(String convo) {
-			querySelector("#go-" + convo).onClick.listen((_) {
-				querySelectorAll("#rwc-" + convo + " > div").style.display = "none";
-				querySelector("#rwc-" + convo + "-1").style.display = "block";
-				querySelector("#rwc-" + convo + " .go-rwc").scrollIntoView();
-				switchContent("rwc-" + convo);
-			});
+		initConvo(String convo, {bool userTriggered: true}) {
+			if (userTriggered) {
+				querySelector("#go-" + convo).onClick.listen((_) {
+					querySelectorAll("#rwc-" + convo + " > div").forEach((Element el) => el.hidden = true);
+					querySelector("#rwc-" + convo + "-1").hidden = false;
+					switchContent("rwc-" + convo);
+				});
+			}
 
 			querySelectorAll("#rwc-" + convo + " .rwc-button").onClick.listen((e) {
-				String id = e.target.getAttribute("goto");
-				if (id == querySelector("#rwc-" + convo).getAttribute("endphrase")) {
+				String id = e.target.dataset["goto"];
+				if (id == querySelector("#rwc-" + convo).dataset["endphrase"]) {
 					switchContent("rwc");
 					super.close();
-					querySelectorAll("#rwc-" + convo + " > div").style.display = "none";
-					querySelector("#rwc-" + convo + "-1").style.display = "block";
-					querySelector("#rwc-" + convo + " .go-rwc").scrollIntoView();
+					querySelectorAll("#rwc-" + convo + " > div").forEach((Element el) => el.hidden = true);
+					querySelector("#rwc-" + convo + "-1").hidden = false;
 				} else {
-					querySelectorAll("#rwc-" + convo + " > div").style.display = "none";
-					querySelector("#rwc-" + convo + "-" + id).style.display = "block";
-					querySelector("#rwc-" + convo + " .go-rwc").scrollIntoView();
+					querySelectorAll("#rwc-" + convo + " > div").forEach((Element el) => el.hidden = true);
+					querySelector("#rwc-" + convo + "-" + id).hidden = false;
 				}
 			});
 		}
 
+		// Define conversations ///////////////////////////////////////////////////////////////////////
+
+		// Triggered by user clicking menu options
 		initConvo("start");
 		initConvo("motd");
 		initConvo("bugs");
+
+		// Triggered by incoming message from server (user dying)
+		initConvo("dead", userTriggered: false);
+
+		// Trigger conversations //////////////////////////////////////////////////////////////////////
+
+		// On death
+		new Service(["dead"], (_) {
+			// Start conversation
+			switchContent("dead");
+			open();
+
+			// Disable inventory
+			querySelector("#inventory /deep/ #disableinventory").hidden = false;
+		});
+
 	}
 }

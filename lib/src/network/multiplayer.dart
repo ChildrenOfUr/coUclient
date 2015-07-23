@@ -62,7 +62,6 @@ _setupStreetSocket(String streetName) {
 		Map map = JSON.decode(event.data);
 		if(map['error'] != null) {
 			reconnect = false;
-			print(map['error']);
 			logmessage('[Multiplayer (Street)] Error ${map['error']}');
 			streetSocket.close();
 			return;
@@ -84,7 +83,6 @@ _setupStreetSocket(String streetName) {
 		}
 		//check if we are receiving an item
 		if(map['giveItem'] != null) {
-			print(map);
 			for(int i = 0; i < map['num']; i++)
 				addItemToInventory(map);
 			return;
@@ -115,6 +113,10 @@ _setupStreetSocket(String streetName) {
 			return;
 		}
 		if(map['gotoStreet'] != null) {
+			if (map['dead'] != null) {
+				transmit("dead", null);
+			}
+
 			streetService.requestStreet(map['tsid']);
 			return;
 		}
@@ -278,7 +280,6 @@ _setupPlayerSocket() {
 		Map map = JSON.decode(event.data);
 		if(map['error'] != null) {
 			reconnect = false;
-			print(map['error']);
 			logmessage('[Multiplayer (Player)] Error ${map['error']}');
 			playerSocket.close();
 			return;
@@ -498,7 +499,7 @@ Future animate(ImageElement i, Map map) {
 	item.style.transformOrigin = "50% 50%";
 	item.style.backgroundImage = 'url(${map['url']})';
 	item.style.transform = "translate(${fromX}px,${fromY}px)";
-	print("from: " + item.style.transform);
+	//print("from: " + item.style.transform);
 	querySelector("#GameScreen").append(item);
 
 	//animation seems to happen instantaneously if there isn't a delay
@@ -508,7 +509,7 @@ Future animate(ImageElement i, Map map) {
 		Element playerParent = querySelector(".playerParent");
 		item.style.transform =
 		"translate(${playerParent.attributes['translatex']}px,${playerParent.attributes['translatey']}px) scale(2)";
-		print("to: " + item.style.transform);
+		//print("to: " + item.style.transform);
 	});
 	new Timer(new Duration(seconds: 2), () {
 		item.style.transform =
