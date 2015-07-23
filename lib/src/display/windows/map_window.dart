@@ -21,6 +21,7 @@ class MapWindow extends Modal {
 
 	@override
 	open() {
+		print('opening map');
 		super.open();
 		trigger.classes.remove('closed');
 		trigger.classes.add('open');
@@ -28,6 +29,7 @@ class MapWindow extends Modal {
 
 	@override
 	close() {
+		print('closing map');
 		super.close();
 		trigger.classes.remove('open');
 		trigger.classes.add('closed');
