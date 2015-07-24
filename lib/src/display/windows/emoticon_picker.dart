@@ -4,7 +4,7 @@ class EmoticonPicker extends Modal {
 	String id = 'emoticonPicker';
 	Element window, well, grid;
 	InputElement search;
-	String lastFocusedChannel;
+	InputElement target;
 
 	EmoticonPicker() {
 		window = querySelector("#$id");
@@ -31,10 +31,22 @@ class EmoticonPicker extends Modal {
 					e.dataTransfer.setData("text/plain", ":$emoticon:");
 					e.dataTransfer.setDragImage(emoticonButton, emoticonButton.clientWidth ~/ 2, -10);
 				});
+
+				emoticonButton.onClick.listen((_) {
+					if (target.value == "" || target.value.substring(target.value.length - 1) == " ") {
+						target.value += ":$emoticon:";
+					} else {
+						target.value += " :$emoticon:";
+					}
+				});
 			});
 		});
 
-		new Service(["insertEmoji"], (_) => this.open());
+		new Service(["insertEmoji"], (Map<String, dynamic> args) {
+			target = args["input"];
+			querySelector("#ep-channelname").text = args["title"];
+			this.open();
+		});
 
 		search.onInput.listen((_) {
 			grid.querySelectorAll(".ep-emoticonButton").forEach((Element button) {
