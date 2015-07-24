@@ -86,24 +86,24 @@ class Street {
 		if (streetData['music'] != null)
 			audio.setSong(streetData['music']);
 
-		// Collect the url's of each deco to load.
-		List decosToLoad = [];
-		for (Map layer in streetData['dynamic']['layers'].values) {
-			for (Map deco in layer['decos']) {
-				if (!decosToLoad.contains('http://childrenofur.com/locodarto/scenery/' + deco['filename'] + '.png'))
-					decosToLoad.add('http://childrenofur.com/locodarto/scenery/' + deco['filename'] + '.png');
-			}
-		}
-
-		// turn them into assets
-		List assetsToLoad = [];
-		for (String deco in decosToLoad) {
-			assetsToLoad.add(new Asset(deco));
-		}
-
-		// Load each of them, and then continue.
-		Batch decos = new Batch(assetsToLoad);
-		decos.load(setLoadingPercent).then((_) {
+//		// Collect the url's of each deco to load.
+//		List decosToLoad = [];
+//		for (Map layer in streetData['dynamic']['layers'].values) {
+//			for (Map deco in layer['decos']) {
+//				if (!decosToLoad.contains('http://childrenofur.com/locodarto/scenery/' + deco['filename'] + '.png'))
+//					decosToLoad.add('http://childrenofur.com/locodarto/scenery/' + deco['filename'] + '.png');
+//			}
+//		}
+//
+//		// turn them into assets
+//		List assetsToLoad = [];
+//		for (String deco in decosToLoad) {
+//			assetsToLoad.add(new Asset(deco));
+//		}
+//
+//		// Load each of them, and then continue.
+//		Batch decos = new Batch(assetsToLoad);
+//		decos.load(setLoadingPercent).then((_) {
 			//Decos should all be loaded at this point//
 
 			groundY = -(streetData['dynamic']['ground_y'] as num).abs();
@@ -173,24 +173,27 @@ class Street {
 				});
 				decoCanvas.style.filter = filters.join(' ');
 
-				//For each decoration in the layer, give its attributes and draw
-				for (Map deco in layer['decos']) {
-					try {
-						int x = deco['x'] - deco['w'] ~/ 2;
-						int y = deco['y'] - deco['h'] + groundY;
+//				//For each decoration in the layer, give its attributes and draw
+//				for (Map deco in layer['decos']) {
+//					try {
+//						int x = deco['x'] - deco['w'] ~/ 2;
+//						int y = deco['y'] - deco['h'] + groundY;
+//
+//						if (layer['name'] == 'middleground') {
+//							//middleground has different layout needs
+//							y += layer['h'];
+//							x += layer['w'] ~/ 2;
+//						}
+//
+//						decoCanvas.append(new Deco(deco, x, y).image);
+//					}
+//					catch (error) {
+//						print(error);
+//					}
+//				}
 
-						if (layer['name'] == 'middleground') {
-							//middleground has different layout needs
-							y += layer['h'];
-							x += layer['w'] ~/ 2;
-						}
-
-						decoCanvas.append(new Deco(deco, x, y).image);
-					}
-					catch (error) {
-						print(error);
-					}
-				}
+				//put the one layer image in
+				decoCanvas.append(new ImageElement(src:'http://childrenofur.com/assets/streetLayers/$tsid/${layer['name']}.png'));
 
 				for (Map platformLine in layer['platformLines'])
 					platforms.add(new Platform(platformLine, layer, groundY));
@@ -257,7 +260,7 @@ class Street {
 			loaded = true;
 			c.complete(this);
 			//sendJoinedMessage(label,_data['tsid']);
-		});
+//		});
 		// Done initializing street.
 		return c.future;
 	}
