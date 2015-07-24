@@ -107,7 +107,7 @@ part 'package:couclient/src/display/render/wall.dart';
 part 'package:couclient/src/display/render/platform.dart';
 part 'package:couclient/src/display/render/signpost.dart';
 part 'package:couclient/src/display/render/collision_lines_debug.dart';
-part 'package:couclient/src/display/render/worldmap_streetdata.dart';
+part 'package:couclient/src/display/render/worldmapdata.dart';
 part 'package:couclient/src/display/render/worldmap.dart';
 part 'package:couclient/src/display/render/maps_data.dart';
 
