@@ -197,20 +197,20 @@
 #mapwindow-search {
     position: absolute;
     right: 10px;
-    top: 14px;
+    top: 20px;
     padding-left: 2px;
-    width: 200px;
+    width: 212px;
 }
 
 #map-window-search-results {
-    width: 206px;
+    width: 240px;
     background-color: white;
     z-index: 109;
     border-radius: 8px 8px;
     box-shadow: 0 5px 10px rgba(68, 68, 68, 0.5);
     position: absolute;
-    right: 10px;
-    top: 36px;
+    right: -1px;
+    top: 42px;
     max-height: 325px;
     overflow: hidden;
 }
@@ -225,6 +225,10 @@
 
 #map-window-search-results ul li {
     padding: 5px 10px;
+}
+
+#map-window-search-results ul li,
+#map-window-search-results ul li * {
     cursor: pointer;
 }
 

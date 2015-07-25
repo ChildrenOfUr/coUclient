@@ -2,7 +2,7 @@ part of couclient;
 
 // PART 1: WORLD MAP HUB POSITIONS ////////////////////////////////////////////////////////////////
 
-Map<String, dynamic> hubPositions = {
+final Map<String, dynamic> hubPositions = {
 	"76": {
 		"name": "Alakol",
 		"x": 360,
@@ -247,7 +247,7 @@ Keys:
 - "vendor": "Vendor Type"
 */
 
-Map<String, Map<String, String>> streetContentsData = {
+final Map<String, Map<String, dynamic>> streetContentsData = {
 	"Aava Plies": {
 		"shrine": "Alph",
 		"vendor": "Gardening Goods"

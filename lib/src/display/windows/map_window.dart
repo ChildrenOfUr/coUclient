@@ -57,18 +57,31 @@ class MapWindow extends Modal {
 
 		// Limit the list to 13 items
 		int streetsLimit = 0;
-		for (String streetname in streetContentsData.keys.where((String streetname) => streetname.contains(entry.toLowerCase()))) {
+		for (String streetname in streetContentsData.keys.where((String streetname) => streetname.toLowerCase().contains(entry.toLowerCase()))) {
 			if (streetsLimit < 13) {
+
 				// Display hub to the right
 				SpanElement hubName = new SpanElement()
-					..text = "";
+					..text = "Hub Name Here";
+
+				// Bold matching parts
+				String outName;
+				outName = streetname.replaceAll(entry, "<b>$entry</b>");
+
+				// Mark if current street
+				if (currentStreet.label == streetname) {
+					outName = "<i>$outName</i>";
+				}
+
 				// Selectable item
 				LIElement result = new LIElement()
-					..text = streetname
+					..setInnerHtml(outName)
 					..append(hubName)
 					..onClick.listen((_) => print("clicked $streetname"));
+
 				// Add to list
 				searchResults.append(result);
+
 				streetsLimit++;
 			} else {
 				// Stop the loop, no need to waste time
