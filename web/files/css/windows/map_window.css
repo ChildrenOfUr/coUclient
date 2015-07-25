@@ -193,3 +193,55 @@
 .street-contents-indicators > .sci-machines {
     background-image: url(../../system/windows/indicator_machine.svg);
 }
+
+#mapwindow-search {
+    position: absolute;
+    right: 10px;
+    top: 14px;
+    padding-left: 2px;
+    width: 200px;
+}
+
+#map-window-search-results {
+    width: 206px;
+    background-color: white;
+    z-index: 109;
+    border-radius: 8px 8px;
+    box-shadow: 0 5px 10px rgba(68, 68, 68, 0.5);
+    position: absolute;
+    right: 10px;
+    top: 36px;
+    max-height: 325px;
+    overflow: hidden;
+}
+
+#map-window-search-results ul {
+    margin: 0;
+    font-size: 12px;
+    font-family: "Lato", sans-serif;
+    list-style-type: none;
+    padding: 0;
+}
+
+#map-window-search-results ul li {
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+#map-window-search-results ul li span {
+    color: #999;
+    float: right;
+}
+
+#map-window-search-results ul li:first-child:hover {
+    border-radius: 8px 8px 0 0;
+}
+
+#map-window-search-results ul li:last-child:hover {
+    border-radius: 0 0 8px 8px;
+}
+
+#map-window-search-results ul li:hover {
+    background-color: #4b2e4c;
+    color: white;
+}
