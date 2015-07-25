@@ -95,7 +95,7 @@ class GPS {
 
 			Q.remove(u);
 			if(Q.length == lastLength) {
-				print("Couldn't find path from $source to $target");
+				logmessage("[GPS] Couldn't find path from $source to $target");
 				return [];
 			} else {
 				lastLength = Q.length;

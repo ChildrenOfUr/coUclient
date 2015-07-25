@@ -44,11 +44,11 @@ class Mailbox extends PolymerElement {
 		messages = decode(request.responseText, type: const TypeHelper<List<Mail>>().type);
 		if(messages.isNotEmpty) {
 			userHasMessages = true;
-			print("User's mailbox is not empty.");
+//			print("User's mailbox is not empty.");
 		}
 		else {
 			userHasMessages = false;
-			print("User's mailbox is empty.");
+//			print("User's mailbox is empty.");
 		}
 	}
 

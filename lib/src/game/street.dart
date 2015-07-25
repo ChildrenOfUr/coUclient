@@ -188,7 +188,7 @@ class Street {
 						decoCanvas.append(new Deco(deco, x, y).image);
 					}
 					catch (error) {
-						print(error);
+						logmessage("[StreetService] Rendering street: " + error);
 					}
 				}
 

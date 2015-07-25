@@ -12,7 +12,7 @@ class AuthManager {
 		_loginPanel = querySelector('ur-login');
 
 		_loginPanel.on['loginSuccess'].first.then((e) {
-			print('got success, firing back');
+//			print('got success, firing back');
 			//fire acknowledgement event
 			transmit('loginAcknowledged',null);
 
@@ -62,12 +62,12 @@ class AuthManager {
 	}
 
 	setupNewUser(Map serverdata) {
-		print('setupNewUser');
+//		print('setupNewUser');
 		_loginPanel.newUser = true;
 		_loginPanel.on['setUsername'].listen((e) {
-			print('setUsername event');
+//			print('setUsername event');
 			String username = e.detail;
-			print('setting name to ${e.detail}');
+//			print('setting name to ${e.detail}');
 
 			localStorage['username'] = username;
 			sessionStorage['playerName'] = username;
@@ -82,7 +82,7 @@ class AuthManager {
 					inputManager = new InputManager();
 					startGame(serverdata);
 				} else {
-					print('name change failed');
+//					print('name change failed');
 				}
 			});
 		});

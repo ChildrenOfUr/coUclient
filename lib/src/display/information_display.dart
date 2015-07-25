@@ -3,10 +3,11 @@ part of couclient;
 abstract class InformationDisplay {
 	Element displayElement;
 	bool elementOpen = false;
+	bool ignoreShortcuts = false;
 
 	setupKeyBinding(String keyName, {Function openCallback, Function closeCallback}) {
 		document.onKeyDown.listen((KeyboardEvent k) {
-			if(inputManager == null)
+			if(inputManager == null || ignoreShortcuts)
 				return;
 
 			if((k.keyCode == inputManager.keys["${keyName}BindingPrimary"]

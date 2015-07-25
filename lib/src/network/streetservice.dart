@@ -26,7 +26,7 @@ class StreetService {
 		Map serverdata = JSON.decode(data.response);
 
 		if(serverdata['ok'] == 'no') {
-			print('Error: Server refused.');
+			logmessage('[StreetService] Server refused');
 		} else {
 			logmessage('[StreetService] "$StreetID" loaded.');
 			await _prepareStreet(serverdata['streetJSON']);

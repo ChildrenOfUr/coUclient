@@ -13,7 +13,7 @@ abstract class Wormhole extends Entity {
 		if(intersect(CurrentPlayer.avatarRect, entityRect)) {
 			CurrentPlayer.intersectingObjects[id] = entityRect;
 			destinationTSID = entityMap[id];
-			print("hit object " + id + " / " + destinationTSID);
+//			print("hit object " + id + " / " + destinationTSID);
 			goToLocation(destinationTSID);
 		}
 
