@@ -62,22 +62,18 @@ class MapWindow extends Modal {
 
 				// Display hub to the right
 				SpanElement hubName = new SpanElement()
-					..text = "Hub Name Here";
-
-				// Bold matching parts
-				String outName;
-				outName = streetname.replaceAll(entry, "<b>$entry</b>");
+					..text = "";
 
 				// Mark if current street
 				if (currentStreet.label == streetname) {
-					outName = "<i>$outName</i>";
+					hubName = "<i>$hubName</i>";
 				}
 
 				// Selectable item
 				LIElement result = new LIElement()
-					..setInnerHtml(outName)
+					..setInnerHtml(hubName)
 					..append(hubName)
-					..onClick.listen((_) => print("clicked $streetname"));
+					..onClick.listen((_) => print("Clicked $streetname"));
 
 				// Add to list
 				searchResults.append(result);
