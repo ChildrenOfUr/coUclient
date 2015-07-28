@@ -47,8 +47,9 @@ class UserInterface {
 	// bugreport button
 	Element bugButton = querySelector('#bugGlyph');
 	Element bugReportMeta = querySelector('#bugWindow ur-well #reportMeta');
-	InputElement bugReportEmail = querySelector('#bugWindow ur-well input[type="email"]');
-	SelectElement bugReportType = querySelector('#bugWindow ur-well #reportCategory');
+	InputElement bugReportTitle = querySelector('#bugWindow /deep/ #reportTitle');
+	FileUploadInputElement bugReportImage = querySelector('#bugWindow /deep/ #reportImg');
+	SelectElement bugReportType = querySelector('#bugWindow /deep/ #reportCategory');
 
 	// main Element
 	Element mainElement = querySelector('main');

@@ -30,7 +30,7 @@
 }
 
 #bugWindow #reportMain {
-  height: 100px;
+  height: 90px;
 }
 
 #bugWindow #reportMeta {
@@ -47,4 +47,8 @@
 #bugWindow input[type="email"] {
   width: 50%;
   margin-top: 2px;
+}
+
+input[type="file"] {
+  height: initial;
 }

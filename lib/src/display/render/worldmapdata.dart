@@ -1150,7 +1150,9 @@ final Map<String, Map<String, dynamic>> streetContentsData = {
 		"shrine": "Mab"
 	},
 	"East Spice": {},
-	"Eastern Approach": {},
+	"Eastern Approach": {
+		"subway_station": true
+	},
 	"Ebijab Preserve": {},
 	"Echin Gross": {
 		"vendor": "Produce",

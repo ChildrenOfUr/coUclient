@@ -11,12 +11,10 @@
             <p class="text-center"><em>What can I help you with?</em></p>
             <div class="flex-row">
                 <a class="rwc-button" id="go-motd">Alpha Notice</a>
+                <a class="rwc-button" id="rock-rescue">Rescue Me!</a>
             </div>
             <div class="flex-row">
                 <a class="rwc-button" id="go-start">Getting Started</a>
-            </div>
-            <div class="flex-row">
-                <a class="rwc-button" id="go-bugs">Reporting Bugs</a>
             </div>
         </div>
         
@@ -70,43 +68,8 @@
                 <div class="flex-row rwc-exit"><a class="rwc-button" data-goto="6">Okay, talk to you later.</a></div>
             </div>
         </div>
-        
-        <!-- Reporting Bugs -->
-        
-        <div class="rockWindowContent convo" id="rwc-bugs" data-endphrase="7" hidden>
-            <div id="rwc-bugs-1">
-                <p>So let's say you find something wrong in the game (or maybe you already have). How do you report it?</p>
-                <div class="flex-row rwc-exit"><a class="rwc-button" data-goto="2">You're going to tell me whether I know it or not, so let's just say I don't know.</a></div>
-            </div>
-            <div id="rwc-bugs-2">
-                <p>Good point. But you use the bug window!</p>
-                <p>I'm about to open it for you. It it appears on top of me, just drag it away by the header (unless you use Firefox, in that case, I'm sorry).</p>
-                <p>You can open it whenever you want by clicking the <a id="rwc-bugwindow-icon"><i class="fa fa-bug"></i></a> in the top right.</p>
-                <div class="flex-row rwc-exit"><a id="rwc-bugwindow" class="rwc-button" data-goto="3">Open away.</a></div>
-            </div>
-            <div id="rwc-bugs-3">
-                <p>So this is it.</p>
-                <p>The first thing you need to do is select the report type. Is it a problem or a feature request? Don't tell me, I can't help you. Just pick the correct option.</p>
-                <div class="flex-row rwc-exit"><a class="rwc-button" data-goto="4">I'm not telling you anyway, it's a secret.</a></div>
-            </div>
-            <div id="rwc-bugs-4">
-                <p>Now I want to know.</p>
-                <p>The second thing is to type in a description of the feature or problem. Be specific (though note that the devs know where you are in the game, and have a log).</p>
-                <div class="flex-row rwc-exit"><a class="rwc-button" data-goto="5">Well that's a bit creepy.</a></div>
-            </div>
-            <div id="rwc-bugs-5">
-                <p><em>In the game.</em> They know where you are <em>in the game</em>.</p>
-                <p>It's really not that much information, you can read everything it sends in the second box.</p>
-                <div class="flex-row rwc-exit"><a class="rwc-button" data-goto="6">That's not bad at all!</a></div>
-            </div>
-            <div id="rwc-bugs-6">
-                <p>No, it's not. Not nearly as hard as fixing bugs sometimes.</p>
-                <p>Just make sure to report any bugs you find.</p>
-                <p>It's okay to ask for features that were in the original game that you really miss and you want us to prioritize them.</p>
-                <p>You can <a href="http://childrenofur.com/help/#contact" target="_blank">contact the devs directly</a> if you need personal help.</p>
-                <div class="flex-row rwc-exit"><a class="rwc-button" data-goto="7">I'm off to play now, bye.</a></div>
-            </div>
-        </div>
+
+        <!-- Death -->
         
         <div class="rockWindowContent convo" id="rwc-dead" data-endphrase="5" hidden>
             <div id="rwc-dead-1">
@@ -129,6 +92,16 @@
             <div id="rwc-dead-4">
                 <p>As long as it takes. Now get started!</p>
                 <div class="flex-row rwc-exit"><a class="rwc-button" data-goto="5">I'll start now.</a></div>
+            </div>
+        </div>
+
+        <!-- Broken Streets -->
+
+        <div class="rockWindowContent convo" id="rwc-badstreet" data-endphrase="2" hidden>
+            <div id="rwc-badstreet-1">
+                <p>Ugh. This street. It's broken in some places.</p>
+                <p>If you're stuck and can't get out, click on me, then the <b>rescue</b> button.</p>
+                <div class="flex-row rwc-exit"><a class="rwc-button" data-goto="2">Consider me warned.</a></div>
             </div>
         </div>
         

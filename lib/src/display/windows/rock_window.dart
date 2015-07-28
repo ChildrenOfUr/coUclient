@@ -2,9 +2,19 @@ part of couclient;
 
 class RockWindow extends Modal {
 	String id = 'rockWindow';
+	Element rescueButton;
+	StreamSubscription rescueClick;
+	List<String> badTsids = [
+		"LHH12E1QP611OPA", // The Drop
+		"LLI1D5DO1671QPA" // The Other Drop
+	];
 
 	RockWindow() {
 		prepare();
+
+		// Rescue function
+		rescueButton = querySelector("#rock-rescue")
+			..hidden = true;
 
 		// Toggle window by clicking rock
 		setupUiButton(querySelector("#petrock"));
@@ -46,22 +56,39 @@ class RockWindow extends Modal {
 		// Triggered by user clicking menu options
 		initConvo("start");
 		initConvo("motd");
-		initConvo("bugs");
 
 		// Triggered by incoming message from server (user dying)
 		initConvo("dead", userTriggered: false);
+
+		// Triggered by going to a known problem street
+		initConvo("badstreet", userTriggered: false);
 
 		// Trigger conversations //////////////////////////////////////////////////////////////////////
 
 		// On death
 		new Service(["dead"], (_) {
 			// Start conversation
-			switchContent("dead");
+			switchContent("rwc-dead");
 			open();
 
 			// Disable inventory
 			querySelector("#inventory /deep/ #disableinventory").hidden = false;
 		});
 
+		// Rescue from bad street
+		new Service(['streetLoaded'], (_) {
+			if (badTsids.contains(currentStreet.tsid)) {
+				switchContent("rwc-badstreet");
+				open();
+				rescueButton.hidden = false;
+				rescueClick = rescueButton.onClick.listen((_) {
+					streetService.requestStreet(/*Ilmenskie*/"LIF102FDNU11314");
+					close();
+				});
+			} else {
+				rescueButton.hidden = true;
+				rescueClick.cancel();
+			}
+		});
 	}
 }
