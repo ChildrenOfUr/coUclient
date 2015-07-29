@@ -193,7 +193,9 @@ class Street {
 //				}
 
 				//put the one layer image in
-				decoCanvas.append(new ImageElement(src:'http://childrenofur.com/assets/streetLayers/$tsid/${layer['name']}.png'));
+				String layerName = layer['name'].replaceAll(' ','_');
+				print('layerName: $layerName');
+				decoCanvas.append(new ImageElement(src:'http://childrenofur.com/assets/streetLayers/$tsid/$layerName.png'));
 
 				for (Map platformLine in layer['platformLines'])
 					platforms.add(new Platform(platformLine, layer, groundY));
@@ -262,6 +264,7 @@ class Street {
 			//sendJoinedMessage(label,_data['tsid']);
 //		});
 		// Done initializing street.
+		setLoadingPercent(100);
 		return c.future;
 	}
 
