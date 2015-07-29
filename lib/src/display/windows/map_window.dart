@@ -20,8 +20,10 @@ class MapWindow extends Modal {
 		searchBox.onInput.listen((_) => filter(searchBox.value));
     searchBox.onFocus.listen((_) => inputManager.ignoreKeys = ignoreShortcuts = true);
     searchBox.onBlur.listen((_) {
-      inputManager.ignoreKeys = ignoreShortcuts = false;
-      filter("");
+			new Timer(new Duration(milliseconds: 100), () {
+				inputManager.ignoreKeys = ignoreShortcuts = false;
+				filter("");
+			});
     });
 	}
 
@@ -60,20 +62,28 @@ class MapWindow extends Modal {
 		for (String streetname in streetContentsData.keys.where((String streetname) => streetname.toLowerCase().contains(entry.toLowerCase()))) {
 			if (streetsLimit < 13) {
 
-				// Display hub to the right
-				SpanElement hubName = new SpanElement()
-					..text = "";
-
 				// Mark if current street
+				String streetOut;
 				if (currentStreet.label == streetname) {
-					hubName = "<i>$hubName</i>";
+					streetOut = "<i>$streetname</i>";
+				} else {
+					streetOut = streetname;
 				}
 
 				// Selectable item
 				LIElement result = new LIElement()
-					..setInnerHtml(hubName)
-					..append(hubName)
-					..onClick.listen((_) => print("Clicked $streetname"));
+					..setInnerHtml(streetOut);
+
+				if (streetContentsData[streetname] != null) {
+					String hub_id = streetContentsData[streetname]["hub_id"].toString();
+					result.onClick.listen((Event e) {
+						e.preventDefault();
+						worldMap.loadhubdiv(hub_id);
+						searchBox.value = "";
+					});
+				} else {
+					logmessage("[WorldMap] Could not find the hub_id for $streetname");
+				}
 
 				// Add to list
 				searchResults.append(result);

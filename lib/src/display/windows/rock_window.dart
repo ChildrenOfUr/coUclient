@@ -87,7 +87,9 @@ class RockWindow extends Modal {
 				});
 			} else {
 				rescueButton.hidden = true;
-				rescueClick.cancel();
+				if (rescueClick != null) {
+					rescueClick.cancel();
+				}
 			}
 		});
 	}

@@ -203,13 +203,13 @@
 }
 
 #map-window-search-results {
-    width: 240px;
+    width: 219px;
     background-color: white;
     z-index: 109;
     border-radius: 8px 8px;
     box-shadow: 0 5px 10px rgba(68, 68, 68, 0.5);
     position: absolute;
-    right: -1px;
+    right: 10px;
     top: 42px;
     max-height: 325px;
     overflow: hidden;
