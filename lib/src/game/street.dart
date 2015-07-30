@@ -194,8 +194,9 @@ class Street {
 
 				//put the one layer image in
 				String layerName = layer['name'].replaceAll(' ','_');
-				print('layerName: $layerName');
-				decoCanvas.append(new ImageElement(src:'http://childrenofur.com/assets/streetLayers/$tsid/$layerName.png'));
+				ImageElement layerImage = new ImageElement(src:'http://childrenofur.com/assets/streetLayers/$tsid/$layerName.png');
+				layerImage.style.transform = 'translateY(${groundY}px)';
+				decoCanvas.append(layerImage);
 
 				for (Map platformLine in layer['platformLines'])
 					platforms.add(new Platform(platformLine, layer, groundY));
