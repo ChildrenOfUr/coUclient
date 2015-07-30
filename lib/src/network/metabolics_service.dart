@@ -174,6 +174,16 @@ class MetabolicsService {
 			case "time":
 				quoinText.text = "+" + amt.toString() + " time";
 				break;
+
+			case "mystery":
+				quoinText.text = "FLIP!";
+				if (querySelector("#world").classes.contains("flip")) {
+					querySelector("#world").classes.remove("flip");
+				} else {
+					querySelector("#world").classes.add("flip");
+					toast("Oh noes! That mystery quoin flipped your world upside-down. Find another to put it back, if you want.");
+				}
+				break;
 		}
 	}
 
