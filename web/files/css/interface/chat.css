@@ -117,14 +117,19 @@ p.me {
     padding: 1px;
     background-color: #fff;
     background-clip: padding-box;
-    border: 1px solid #cccccc;
     border: 1px solid rgba(0, 0, 0, 0.2);
     border-radius: 6px;
     -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
     min-width: 250px;
     left: 50%;
-    transform: translate(-50%, -190%);
+    bottom: 50px;
+    transform: translate(-50%, -100%);
+    -webkit-transform-origin: bottom center;
+    -moz-transform-origin: bottom center;
+    -o-transform-origin: bottom center;
+    -ms-transform-origin: bottom center;
+    transform-origin: bottom center;
 }
 
 .cb-content {
@@ -156,7 +161,6 @@ p.me {
 
 .chat-bubble > .cb-arrow:after {
     border-width: 10px;
-    content: "";
     content: " ";
     bottom: 1px;
     margin-left: -10px;

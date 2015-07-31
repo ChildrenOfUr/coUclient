@@ -66,13 +66,14 @@ class RockWindow extends Modal {
 		// Trigger conversations //////////////////////////////////////////////////////////////////////
 
 		// On death
-		new Service(["dead"], (_) {
-			// Start conversation
-			switchContent("rwc-dead");
-			open();
-
-			// Disable inventory
-			querySelector("#inventory /deep/ #disableinventory").hidden = false;
+		new Service(["dead"], (String value) {
+			if (dead == "true") {
+				// Start conversation
+				switchContent("rwc-dead");
+				open();
+				// Disable inventory
+				querySelector("#inventory /deep/ #disableinventory").hidden = false;
+			}
 		});
 
 		// Rescue from bad street
