@@ -2914,6 +2914,10 @@ final Map<String, Map<String, dynamic>> streetContentsData = {
 		"tsid": "GUVSMJ94HKF2V3J",
 		"hub_id": 109
 	},
+	"Karpal Tunnel": {
+		"tsid": "GLI14TT8T921J21",
+		"hub_id": 50
+	},
 	"Kartika Crams": {
 		"mailbox": true,
 		"shrine": "Lem",
@@ -3368,14 +3372,34 @@ final Map<String, Map<String, dynamic>> streetContentsData = {
 		"tsid": "GCR167RSRSL1VPP",
 		"hub_id": 64
 	},
+	"Level 1 East": {
+		"tsid": "GHH112FHF411BUI",
+		"hub_id": 50
+	},
 	"Level 2 East": {
 		"vendor": "Meal",
 		"tsid": "GLI101QQRA211SM",
 		"hub_id": 50
 	},
+	"Level 3 East": {
+		"tsid": "GLI1D3B2U5715LL",
+		"hub_id": 50
+	},
+	"Level 4 East": {
+		"tsid": "GLI1D2QFT571VQT",
+		"hub_id": 50
+	},
+	"Level 1 West": {
+		"tsid": "GHH110KCF411NK6",
+		"hub_id": 50
+	},
 	"Level 2 West": {
 		"shrine": "Zille",
 		"tsid": "GHH1011JSO11ORS",
+		"hub_id": 50
+	},
+	"Level 3 West": {
+		"tsid": "GLI107JLRU11EM2",
 		"hub_id": 50
 	},
 	"Levyn Gahne": {
@@ -5872,6 +5896,14 @@ final Map<String, Map<String, dynamic>> streetContentsData = {
 		"shrine": "Spriggan",
 		"tsid": "GM113VSD6922MRJ",
 		"hub_id": 78
+	},
+	"The Drop": {
+		"tsid": "GHH12E1QP611OPA",
+		"hub_id": 50
+	},
+	"The Entrance": {
+		"tsid": "GHH101L162117H2",
+		"hub_id": 50
 	},
 	"The Great Hole to Ix": {
 		"vendor": "Produce",
