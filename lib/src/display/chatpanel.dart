@@ -82,7 +82,7 @@ String parseEmoji(String message) {
 	message.splitMapJoin(regex, onMatch: (Match m) {
 		String match = m[1];
 		if (EMOTICONS.contains(match)) {
-			returnString += '<img class="Emoticon" title="$match" src="files/emoticons/$match.svg"></img>';
+			returnString += '<i class="emoticon emoticon-sm $match" title="$match"></i>';
 		} else {
 			returnString += m[0];
 		}

@@ -1,3 +1,5 @@
+@import url(../../../files/emoticons/sprites.css);
+
 #emoticonPicker {
     width: 380px !important;
 }
@@ -31,17 +33,20 @@
     width: 50px;
     height: 50px;
     display: inline-block;
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-size: 46px 46px;
     background-color: #fff;
-    margin: 1px 3px;
+    margin: 3px;
     padding: 2px;
     border-radius: 8px;
     cursor: pointer;
     border: 1px solid #bbb;
     border-bottom: 2px solid #bbb;
     box-shadow: 0 0 15px 1px rgba(0,0,0,0.1);
+    vertical-align: middle;
+    text-align: center;
+}
+
+.ep-emoticonButton .emoticon {
+    cursor: pointer;
 }
 
 #emoticonPicker ur-well /deep/ [draggable=true] {

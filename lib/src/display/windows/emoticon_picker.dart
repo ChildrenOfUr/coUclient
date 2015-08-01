@@ -18,18 +18,21 @@ class EmoticonPicker extends Modal {
 			EMOTICONS = asset.get()["names"];
 
 			EMOTICONS.forEach((String emoticon) {
+				Element emoticonImage = new Element.tag("i")
+					..classes.addAll(["emoticon", "emoticon-md", emoticon])
+					..draggable = true;
+
 				SpanElement emoticonButton = new SpanElement()
 					..classes.add("ep-emoticonButton")
 					..title = emoticon
-					..draggable = true
-					..style.backgroundImage = "url(files/emoticons/$emoticon.svg)";
+					..append(emoticonImage);
 				grid.append(emoticonButton);
 
 				emoticonButton.onDragStart.listen((e) {
 					e.stopPropagation();
 					e.dataTransfer.effectAllowed = "copy";
 					e.dataTransfer.setData("text/plain", ":$emoticon:");
-					e.dataTransfer.setDragImage(emoticonButton, emoticonButton.clientWidth ~/ 2, -10);
+					e.dataTransfer.setDragImage(emoticonImage, emoticonImage.clientWidth ~/ 2, -10);
 				});
 
 				emoticonButton.onClick.listen((_) {

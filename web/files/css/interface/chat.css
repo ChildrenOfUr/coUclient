@@ -312,9 +312,7 @@ span.name.guide::before {
     opacity: 0.75;
 }
 
-.Emoticon {
-    max-height: 2em;
-    max-width: 2em;
+i.emoticon {
     vertical-align: middle;
     margin: 0 2px;
 }
