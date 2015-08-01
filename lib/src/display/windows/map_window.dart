@@ -58,7 +58,7 @@ class MapWindow extends Modal {
     searchResults.children.clear();
 
     int streetsLimit = 0;
-    streetContentsData.forEach((String streetname, Map data) {
+    streetMetadata.forEach((String streetname, Map data) {
 
       // Format TSID
       String tsid = data["tsid"];
@@ -69,7 +69,11 @@ class MapWindow extends Modal {
       }
 
       // Check if street matches search
-      if (streetname.toLowerCase().contains(entry.toLowerCase()) || tsid.toLowerCase().contains(entry.substring(1).toLowerCase())) {
+      if (
+        (streetMetadata[streetname] != null && streetMetadata[streetname]["map_hidden"] != true) &&
+        (streetname.toLowerCase().contains(entry.toLowerCase()) ||
+        tsid.toLowerCase().contains(entry.substring(1).toLowerCase()))
+      ) {
         if (streetsLimit < 13) {
 
           // Mark if current street
@@ -85,8 +89,8 @@ class MapWindow extends Modal {
             ..setInnerHtml(streetOut);
 
           // Link to hub
-          if (streetContentsData[streetname] != null) {
-            String hub_id = streetContentsData[streetname]["hub_id"].toString();
+          if (streetMetadata[streetname] != null) {
+            String hub_id = streetMetadata[streetname]["hub_id"].toString();
             result.onClick.listen((Event e) {
               e.preventDefault();
               worldMap.loadhubdiv(hub_id);

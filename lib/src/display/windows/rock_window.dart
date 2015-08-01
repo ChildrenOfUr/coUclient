@@ -4,10 +4,6 @@ class RockWindow extends Modal {
 	String id = 'rockWindow';
 	Element rescueButton;
 	StreamSubscription rescueClick;
-	List<String> badTsids = [
-		"LHH12E1QP611OPA", // The Drop
-		"LLI1D5DO1671QPA" // The Other Drop
-	];
 
 	RockWindow() {
 		prepare();
@@ -67,7 +63,7 @@ class RockWindow extends Modal {
 
 		// On death
 		new Service(["dead"], (String value) {
-			if (dead == "true") {
+			if (value == "true") {
 				// Start conversation
 				switchContent("rwc-dead");
 				open();
@@ -78,7 +74,7 @@ class RockWindow extends Modal {
 
 		// Rescue from bad street
 		new Service(['streetLoaded'], (_) {
-			if (badTsids.contains(currentStreet.tsid)) {
+			if (streetMetadata[currentStreet.label] != null && streetMetadata[currentStreet.label]["broken"] == true) {
 				switchContent("rwc-badstreet");
 				open();
 				rescueButton.hidden = false;
