@@ -143,8 +143,8 @@ class Street {
 				decoCanvas.style.height = layer['h'].toString() + 'px';
 				decoCanvas.style.position = 'absolute';
 				decoCanvas.attributes['ground_y'] = groundY.toString();
-				decoCanvas.attributes['width'] = bounds.width.toString();
-				decoCanvas.attributes['height'] = bounds.height.toString();
+				decoCanvas.attributes['width'] = layer['w'].toString();
+				decoCanvas.attributes['height'] = layer['h'].toString();
 
 				List<String> filters = new List();
 				new Map.from(layer['filters']).forEach((String filterName, int value) {

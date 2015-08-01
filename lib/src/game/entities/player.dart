@@ -234,9 +234,9 @@ class Player {
 
 		Rectangle collisionsRect;
 		if(facingRight) {
-			collisionsRect = new Rectangle(posX+width/2, posY + currentStreet.groundY, width/2, height - 35);
+			collisionsRect = new Rectangle(posX+width/2, posY + currentStreet.groundY + height/4, width/2, height*3/4 - 35);
 		} else {
-			collisionsRect = new Rectangle(posX, posY + currentStreet.groundY, width/2, height - 35);
+			collisionsRect = new Rectangle(posX, posY + currentStreet.groundY + height/4, width/2, height*3/4 - 35);
 		}
 		//check for collisions with walls
 		if(doPhysicsApply && (inputManager.leftKey == true || inputManager.rightKey == true)) {

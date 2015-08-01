@@ -91,12 +91,12 @@ showPlayerRect() {
 	Rectangle playerRect;
 	if(CurrentPlayer.facingRight) {
 		playerRect = new Rectangle(CurrentPlayer.posX + CurrentPlayer.width / 2,
-		                           CurrentPlayer.posY + currentStreet.groundY,
-		                           CurrentPlayer.width / 2, CurrentPlayer.height - 35);
+		                           CurrentPlayer.posY + currentStreet.groundY + CurrentPlayer.height/4,
+		                           CurrentPlayer.width / 2, CurrentPlayer.height*3/4 - 35);
 	} else {
 		playerRect = new Rectangle(CurrentPlayer.posX,
-		                           CurrentPlayer.posY + currentStreet.groundY,
-		                           CurrentPlayer.width / 2, CurrentPlayer.height - 35);
+		                           CurrentPlayer.posY + currentStreet.groundY + CurrentPlayer.height/4,
+		                           CurrentPlayer.width / 2, CurrentPlayer.height*3/4 - 35);
 	}
 
 	lineCanvasContext.beginPath();
