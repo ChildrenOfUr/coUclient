@@ -71,7 +71,7 @@ p.italic {
 #pm-level-container {
     width: 50px;
     box-shadow: 0 0 9px 5px #aaa inset;
-    height: calc(100% - 208px);
+    height: calc(100% - 145px);
     position: absolute;
     left: 15px;
     top: 80px;
@@ -95,20 +95,39 @@ p.italic {
 }
 
 @-webkit-keyframes bubble-anim {
-    0% { background-position-y: 1024px; }
-    100% { background-position-y: 0; }
+    0% {
+        background-position-y: 1024px;
+    }
+    100% {
+        background-position-y: 0;
+    }
 }
+
 @-moz-keyframes bubble-anim {
-    0% { background-position-y: 1024px; }
-    100% { background-position-y: 0; }
+    0% {
+        background-position-y: 1024px;
+    }
+    100% {
+        background-position-y: 0;
+    }
 }
+
 @-o-keyframes bubble-anim {
-    0% { background-position-y: 1024px; }
-    100% { background-position-y: 0; }
+    0% {
+        background-position-y: 1024px;
+    }
+    100% {
+        background-position-y: 0;
+    }
 }
+
 @keyframes bubble-anim {
-    0% { background-position-y: 1024px; }
-    100% { background-position-y: 0; }
+    0% {
+        background-position-y: 1024px;
+    }
+    100% {
+        background-position-y: 0;
+    }
 }
 
 #pm-level-bar::before {
@@ -252,4 +271,69 @@ p.italic {
     -moz-filter: drop-shadow(0 1px 1px cyan);
     -o-filter: drop-shadow(0 1px 1px cyan);
     filter: drop-shadow(0 1px 1px cyan);
+}
+
+/* Skills */
+
+#pm-skills {
+    position: absolute;
+    right: 55px;
+    top: 10px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 8px solid rgba(255, 255, 255, 0.25);
+    border-radius: 16px;
+    padding: 0 10px 10px 10px;
+    height: calc(100% - 50px);
+    width: 165px;
+    overflow-y: auto;
+}
+
+#pm-skills h2 {
+    text-align: center;
+}
+
+.pm-skill {
+    width: 100%;
+    height: 35px;
+    display: block;
+    padding: 10px 0;
+    margin-bottom: 5px;
+}
+
+.pm-skill-progress {
+    position: absolute;
+    background-color: rgb(121, 210, 121);
+    height: 50px;
+    z-index: -1;
+    opacity: 0.25;
+    border-radius: 8px;
+    margin-top: -5px;
+}
+
+.pm-skill-icon {
+    height: 40px;
+    width: 40px;
+    float: left;
+    margin-left: 5px;
+}
+
+.pm-skill-text {
+    margin-left: 50px;
+}
+
+.pm-skill-title {
+    font-family: "Fredoka One", "Lato", sans-serif;
+    font-size: 18px;
+}
+
+.pm-skill-level {
+    font-family: "Lato", sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    display: block;
+}
+
+.pm-skill-level::before {
+    content: "Current level: ";
+    font-weight: normal;
 }
