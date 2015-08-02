@@ -80,15 +80,18 @@ class Street {
 		view.layers.children.clear();
 		view.playerHolder.children.clear();
 
-		print('old data cleaned up');
+		//print('old data cleaned up');
 
 		view.location = label;
 
 		// set the song loading if necessary
-		if (streetData['music'] != null)
+		if (streetData['music'] != null) {
 			audio.setSong(streetData['music']);
+		} else {
+			logmessage("[StreetService] Music not available");
+		}
 
-		print('music is set');
+		//print('music is set');
 
 		// Collect the url's of each deco to load.
 		List decosToLoad = [];
@@ -105,14 +108,14 @@ class Street {
 			assetsToLoad.add(new Asset(deco));
 		}
 
-		print('assets are collected');
+		//print('assets are collected');
 
 		// Load each of them, and then continue.
 		Batch decos = new Batch(assetsToLoad);
 		decos.load(setLoadingPercent).then((_) {
 			//Decos should all be loaded at this point//
 
-			print('start construction');
+			//print('start construction');
 
 			groundY = -(streetData['dynamic']['ground_y'] as num).abs();
 
@@ -139,7 +142,7 @@ class Street {
 			// Append it to the screen*/
 			view.layers.append(gradientCanvas);
 
-			print('appended gradient');
+			//print('appended gradient');
 
 			/* //// Scenery Canvases //// */
 			//For each layer on the street . . .
@@ -157,7 +160,7 @@ class Street {
 					decoCanvas.attributes['width'] = layer['w'].toString();
 					decoCanvas.attributes['height'] = layer['h'].toString();
 
-					print('set the canvas attributes');
+					//print('set the canvas attributes');
 
 					List<String> filters = new List();
 					new Map.from(layer['filters']).forEach((String filterName, int value) {
@@ -186,7 +189,7 @@ class Street {
 					});
 					decoCanvas.style.filter = filters.join(' ');
 
-					print('set the filters');
+					//print('set the filters');
 
 					//For each decoration in the layer, give its attributes and draw
 					for (Map deco in layer['decos']) {
@@ -207,19 +210,19 @@ class Street {
 						}
 					}
 
-					print('added all the decos');
+					//print('added all the decos');
 
 					for (Map platformLine in layer['platformLines'])
 						platforms.add(new Platform(platformLine, layer, groundY));
 
 					platforms.sort((x, y) => x.compareTo(y));
 
-					print('added the platforms');
+					//print('added the platforms');
 
 					for (Map ladder in layer['ladders'])
 						ladders.add(new Ladder(ladder, layer, groundY));
 
-					print('added the ladders');
+					//print('added the ladders');
 
 					for (Map wall in layer['walls']) {
 						if (wall['pc_perm'] == 0) {
@@ -228,7 +231,7 @@ class Street {
 						walls.add(new Wall(wall, layer, groundY));
 					}
 
-					print('added the walls');
+					//print('added the walls');
 
 					if (showCollisionLines)
 						showLineCanvas();
@@ -275,17 +278,18 @@ class Street {
 					// Append the canvas to the screen
 					view.layers.append(decoCanvas);
 				}catch(e,st) {
-					print(e);
-					print(st);
+//					print(e);
+//					print(st);
+        logmessage("[StreetService] Unknown error while attaching layer ${layer["name"]}");
 				}
 
-				print('appended decoCanvas ${layer['name']}');
+				//print('appended decoCanvas ${layer['name']}');
 			}
 
 			//make sure to redraw the screen (in case of street switching)
 			camera.dirty = true;
 			loaded = true;
-			print('done loading street');
+			//print('done loading street');
 			c.complete(this);
 			//sendJoinedMessage(label,_data['tsid']);
 		});

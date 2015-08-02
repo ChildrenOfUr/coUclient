@@ -99,11 +99,11 @@ class StreetService {
 		// send data to minimap
 		minimap.changeStreet(streetAsMap);
 
-		print('minimap is set');
+//		print('minimap is set');
 
 		new Asset.fromMap(streetAsMap, label);
 
-		print('asset is created');
+//		print('asset is created');
 
 		await street.load();
 		logmessage('[StreetService] Street assembled.');
