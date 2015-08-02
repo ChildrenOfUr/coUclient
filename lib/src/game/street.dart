@@ -80,11 +80,15 @@ class Street {
 		view.layers.children.clear();
 		view.playerHolder.children.clear();
 
+		print('old data cleaned up');
+
 		view.location = label;
 
 		// set the song loading if necessary
 		if (streetData['music'] != null)
 			audio.setSong(streetData['music']);
+
+		print('music is set');
 
 		// Collect the url's of each deco to load.
 		List decosToLoad = [];
@@ -101,10 +105,14 @@ class Street {
 			assetsToLoad.add(new Asset(deco));
 		}
 
+		print('assets are collected');
+
 		// Load each of them, and then continue.
 		Batch decos = new Batch(assetsToLoad);
 		decos.load(setLoadingPercent).then((_) {
 			//Decos should all be loaded at this point//
+
+			print('start construction');
 
 			groundY = -(streetData['dynamic']['ground_y'] as num).abs();
 
@@ -131,53 +139,110 @@ class Street {
 			// Append it to the screen*/
 			view.layers.append(gradientCanvas);
 
+			print('appended gradient');
+
 			/* //// Scenery Canvases //// */
 			//For each layer on the street . . .
 			for (Map layer in new Map.from(streetData['dynamic']['layers']).values) {
-				DivElement decoCanvas = new DivElement()
-					..classes.add('streetcanvas');
-				decoCanvas.id = (layer['name'] as String).replaceAll(" ", "_");
+				try {
+					DivElement decoCanvas = new DivElement()
+						..classes.add('streetcanvas');
+					decoCanvas.id = (layer['name'] as String).replaceAll(" ", "_");
 
-				decoCanvas.style.zIndex = layer['z'].toString();
-				decoCanvas.style.width = layer['w'].toString() + 'px';
-				decoCanvas.style.height = layer['h'].toString() + 'px';
-				decoCanvas.style.position = 'absolute';
-				decoCanvas.attributes['ground_y'] = groundY.toString();
-				decoCanvas.attributes['width'] = layer['w'].toString();
-				decoCanvas.attributes['height'] = layer['h'].toString();
+					decoCanvas.style.zIndex = layer['z'].toString();
+					decoCanvas.style.width = layer['w'].toString() + 'px';
+					decoCanvas.style.height = layer['h'].toString() + 'px';
+					decoCanvas.style.position = 'absolute';
+					decoCanvas.attributes['ground_y'] = groundY.toString();
+					decoCanvas.attributes['width'] = layer['w'].toString();
+					decoCanvas.attributes['height'] = layer['h'].toString();
 
-				List<String> filters = new List();
-				new Map.from(layer['filters']).forEach((String filterName, int value) {
-					//blur is super expensive (seemed to cut my framerate in half)
-					if (localStorage["GraphicsBlur"] == "true" && filterName == "blur") {
-						filters.add('blur(' + value.toString() + 'px)');
-					}
-					if (filterName == "brightness") {
-						if (value < 0)
-							filters.add('brightness(' + (1 - (value / -100)).toString() + ')');
-						if (value > 0)
-							filters.add('brightness(' + (1 + (value / 100)).toString() + ')');
-					}
-					if (filterName == "contrast") {
-						if (value < 0)
-							filters.add('contrast(' + (1 - (value / -100)).toString() + ')');
-						if (value > 0)
-							filters.add('contrast(' + (1 + (value / 100)).toString() + ')');
-					}
-					if (filterName == "saturation") {
-						if (value < 0)
-							filters.add('saturation(' + (1 - (value / -100)).toString() + ')');
-						if (value > 0)
-							filters.add('saturation(' + (1 + (value / 100)).toString() + ')');
-					}
-				});
-				decoCanvas.style.filter = filters.join(' ');
+					print('set the canvas attributes');
 
-				//For each decoration in the layer, give its attributes and draw
-				for (Map deco in layer['decos']) {
-					try {
-						int x = deco['x'] - deco['w'] ~/ 2;
-						int y = deco['y'] - deco['h'] + groundY;
+					List<String> filters = new List();
+					new Map.from(layer['filters']).forEach((String filterName, int value) {
+						//blur is super expensive (seemed to cut my framerate in half)
+						if (localStorage["GraphicsBlur"] == "true" && filterName == "blur") {
+							filters.add('blur(' + value.toString() + 'px)');
+						}
+						if (filterName == "brightness") {
+							if (value < 0)
+								filters.add('brightness(' + (1 - (value / -100)).toString() + ')');
+							if (value > 0)
+								filters.add('brightness(' + (1 + (value / 100)).toString() + ')');
+						}
+						if (filterName == "contrast") {
+							if (value < 0)
+								filters.add('contrast(' + (1 - (value / -100)).toString() + ')');
+							if (value > 0)
+								filters.add('contrast(' + (1 + (value / 100)).toString() + ')');
+						}
+						if (filterName == "saturation") {
+							if (value < 0)
+								filters.add('saturation(' + (1 - (value / -100)).toString() + ')');
+							if (value > 0)
+								filters.add('saturation(' + (1 + (value / 100)).toString() + ')');
+						}
+					});
+					decoCanvas.style.filter = filters.join(' ');
+
+					print('set the filters');
+
+					//For each decoration in the layer, give its attributes and draw
+					for (Map deco in layer['decos']) {
+						try {
+							int x = deco['x'] - deco['w'] ~/ 2;
+							int y = deco['y'] - deco['h'] + groundY;
+
+							if (layer['name'] == 'middleground') {
+								//middleground has different layout needs
+								y += layer['h'];
+								x += layer['w'] ~/ 2;
+							}
+
+							decoCanvas.append(new Deco(deco, x, y).image);
+						}
+						catch (error) {
+							logmessage("[StreetService] Rendering street: " + error);
+						}
+					}
+
+					print('added all the decos');
+
+					for (Map platformLine in layer['platformLines'])
+						platforms.add(new Platform(platformLine, layer, groundY));
+
+					platforms.sort((x, y) => x.compareTo(y));
+
+					print('added the platforms');
+
+					for (Map ladder in layer['ladders'])
+						ladders.add(new Ladder(ladder, layer, groundY));
+
+					print('added the ladders');
+
+					for (Map wall in layer['walls']) {
+						if (wall['pc_perm'] == 0) {
+							continue;
+						}
+						walls.add(new Wall(wall, layer, groundY));
+					}
+
+					print('added the walls');
+
+					if (showCollisionLines)
+						showLineCanvas();
+
+					for (Map signpost in layer['signposts']) {
+						int h = 200,
+						w = 100;
+
+						if (signpost['h'] != null) h = signpost['h'];
+
+						if (signpost['w'] != null) w = signpost['w'];
+
+						int x = signpost['x'] - w ~/ 2;
+						int y = signpost['y'] - h;
 
 						if (layer['name'] == 'middleground') {
 							//middleground has different layout needs
@@ -185,76 +250,42 @@ class Street {
 							x += layer['w'] ~/ 2;
 						}
 
-						decoCanvas.append(new Deco(deco, x, y).image);
+						new Signpost(signpost, x, y);
+
+						// show signpost in minimap {
+
+						List<String> connects = signpost['connects'];
+						List<String> streets = new List();
+
+						for (Map exit in connects) {
+							streets.add(exit['label']);
+						}
+
+						minimap.currentStreetExits.add({
+							                               "streets": streets,
+							                               "x": x,
+							                               "y": y
+						                               });
+
+						// } end minimap code
+
 					}
-					catch (error) {
-						logmessage("[StreetService] Rendering street: " + error);
-					}
+
+
+					// Append the canvas to the screen
+					view.layers.append(decoCanvas);
+				}catch(e,st) {
+					print(e);
+					print(st);
 				}
 
-				for (Map platformLine in layer['platformLines'])
-					platforms.add(new Platform(platformLine, layer, groundY));
-
-				platforms.sort((x, y) => x.compareTo(y));
-
-				for (Map ladder in layer['ladders'])
-					ladders.add(new Ladder(ladder, layer, groundY));
-
-				for (Map wall in layer['walls']) {
-					if (wall['pc_perm'] == 0) {
-						continue;
-					}
-					walls.add(new Wall(wall, layer, groundY));
-				}
-
-				if (showCollisionLines)
-					showLineCanvas();
-
-				for (Map signpost in layer['signposts']) {
-					int h = 200,
-					w = 100;
-
-					if (signpost['h'] != null) h = signpost['h'];
-
-					if (signpost['w'] != null) w = signpost['w'];
-
-					int x = signpost['x'] - w ~/ 2;
-					int y = signpost['y'] - h;
-
-					if (layer['name'] == 'middleground') {
-						//middleground has different layout needs
-						y += layer['h'];
-						x += layer['w'] ~/ 2;
-					}
-
-					new Signpost(signpost, x, y);
-
-					// show signpost in minimap {
-
-					List<String> connects = signpost['connects'];
-					List<String> streets = new List();
-
-					for (Map exit in connects) {
-						streets.add(exit['label']);
-					}
-
-					minimap.currentStreetExits.add({
-						"streets": streets,
-						"x": x,
-						"y": y
-					});
-
-					// } end minimap code
-
-				}
-
-				// Append the canvas to the screen
-				view.layers.append(decoCanvas);
+				print('appended decoCanvas ${layer['name']}');
 			}
 
 			//make sure to redraw the screen (in case of street switching)
 			camera.dirty = true;
 			loaded = true;
+			print('done loading street');
 			c.complete(this);
 			//sendJoinedMessage(label,_data['tsid']);
 		});
