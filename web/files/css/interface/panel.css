@@ -29,6 +29,9 @@
   top:calc(50% - 35px);
   left:-25px;
 }
+.toggleSide.unread {
+  background-color: #FFB2B2;
+}
 #rightSide:hover,
 #rightSide:active,
 #rightSide:focus {

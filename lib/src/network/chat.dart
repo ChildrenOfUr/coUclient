@@ -78,4 +78,22 @@ class NetChatManager {
 			logmessage('[Chat] Socket error "${message.error}"');
 		});
 	}
+
+	static void updateTabUnread() {
+		Element rightSide = querySelector("#rightSide");
+		Element tab = rightSide.querySelector(".toggleSide");
+		bool unreadmessages = false;
+		for (Element e in rightSide.querySelectorAll("ul li.chatSpawn")){
+			if (e.classes.contains("unread") &&
+			e.dataset["chat"] != "Global Chat") {
+				unreadmessages = true;
+				break;
+			}
+		}
+		if (unreadmessages) {
+			tab.classes.add("unread");
+		} else {
+			tab.classes.remove("unread");
+		}
+	}
 }

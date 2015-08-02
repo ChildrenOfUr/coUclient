@@ -184,6 +184,7 @@ class Chat {
 		} else {
 			// mark as read
 			trigger.classes.remove("unread");
+			NetChatManager.updateTabUnread();
 		}
 
 		if (title != "Local Chat") {
@@ -261,6 +262,7 @@ class Chat {
 			addMessage(data['username'], data['message']);
 			if (archived) {
 				trigger.classes.add("unread");
+				NetChatManager.updateTabUnread();
 			}
 		}
 	}
