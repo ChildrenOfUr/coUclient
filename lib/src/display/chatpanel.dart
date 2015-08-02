@@ -143,7 +143,6 @@ class Chat {
     // find the link in the chat panel that opens the chat
     if (title != "Local Chat") {
       trigger = querySelectorAll("#rightSide *").where((Element e) => e.dataset["chat"] == title).first;
-      window.console.log(trigger);
     }
 
     //look for an 'archived' version of this chat
