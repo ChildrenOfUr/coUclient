@@ -143,6 +143,12 @@ class Chat {
 		//otherwise create a new one
 		conversationElement = getArchivedConversation(title);
 		if (conversationElement == null) {
+
+      // start a timer for the first global chat created that refreshes the sidebar player list
+			if (title == "Global Chat") {
+				new Timer.periodic(new Duration(seconds: 3), (_) => refreshOnlinePlayers());
+			}
+
 			// clone the template
 			conversationElement = view.chatTemplate.querySelector('.conversation').clone(true);
 			conversationElement.querySelector('.title')
@@ -559,6 +565,37 @@ class Chat {
 				CurrentPlayer.chatBubble = new ChatBubble(parseEmoji(map["message"]),
 				                                          CurrentPlayer, CurrentPlayer.playerParentElement);
 			}
+		}
+	}
+
+	// Update the list of online players in the sidebar
+	int refreshOnlinePlayers() {
+    if (this.title != "Global Chat") return;
+
+		// Reset the list
+		Element list = querySelector("#playerList");
+		list.children.clear();
+
+		// Ignore yourself (can't chat with yourself, either)
+		List<String> users = this.connectedUsers;
+		users.removeWhere((String username) => username == game.username);
+
+		if (users.length == 0) {
+			// Nobody else is online
+			Element message = new LIElement()
+				..classes.addAll(["offline", "noChatSpawn"])
+				..setInnerHtml('<i class="fa-li fa fa-user"></i> Nobody else here');
+			list.append(message);
+			return 0;
+		} else {
+			// Other players are online
+			users.forEach((String username) {
+				Element user = new LIElement()
+					..classes.addAll(["online", "chatSpawn"])
+					..setInnerHtml('<i class="fa-li fa fa-user"></i> $username');
+				list.append(user);
+			});
+			return users.length;
 		}
 	}
 }
