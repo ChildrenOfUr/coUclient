@@ -119,7 +119,7 @@ String parseUrl(String message) {
 class Chat {
 	String title, lastWord = "";
 	bool online, focused = false, tabInserted = false;
-	Element conversationElement;
+	Element conversationElement, trigger;
 	int unreadMessages = 0, tabSearchIndex = 0, numMessages = 0, inputHistoryPointer = 0, emoticonPointer = 0;
 	static Chat otherChat = null, localChat = null;
 	List<String> connectedUsers = new List(), inputHistory = new List();
@@ -139,6 +139,13 @@ class Chat {
 
 	Chat(this.title) {
 		title = title.trim();
+
+		// find the link in the chat panel that opens the chat
+		if (title != "Local Chat") {
+			trigger = querySelectorAll("#rightSide *").where((Element e) => e.dataset["chat"] == title).first;
+			window.console.log(trigger);
+		}
+
 		//look for an 'archived' version of this chat
 		//otherwise create a new one
 		conversationElement = getArchivedConversation(title);
@@ -146,7 +153,8 @@ class Chat {
 
       // start a timer for the first global chat created that refreshes the sidebar player list
 			if (title == "Global Chat") {
-				new Timer.periodic(new Duration(seconds: 3), (_) => refreshOnlinePlayers());
+				refreshOnlinePlayers();
+				new Timer.periodic(new Duration(seconds: 5), (_) => refreshOnlinePlayers());
 			}
 
 			// clone the template
@@ -173,6 +181,9 @@ class Chat {
 				//we'll want to set the focused to false for this chat
 				blur();
 			});
+		} else {
+			// mark as read
+			trigger.classes.remove("unread");
 		}
 
 		if (title != "Local Chat") {
@@ -248,6 +259,9 @@ class Chat {
 			}
 		} else {
 			addMessage(data['username'], data['message']);
+			if (archived) {
+				trigger.classes.add("unread");
+			}
 		}
 	}
 
@@ -474,7 +488,7 @@ class Chat {
 		}
 	}
 
-	void tabComplete(TextInputElement input, KeyboardEvent k) async {
+	Future tabComplete(TextInputElement input, KeyboardEvent k) async {
 		//don't allow a key like tab to change to a different chat
 		//if we don't get a hit and k=[tab], we will re-fire
 		k.stopImmediatePropagation();
@@ -569,22 +583,22 @@ class Chat {
 	}
 
 	// Update the list of online players in the sidebar
-	int refreshOnlinePlayers() {
-    if (this.title != "Global Chat") return;
+	Future<int> refreshOnlinePlayers() async {
+    if (this.title != "Global Chat") return -1;
+
+		// Ignore yourself (can't chat with yourself, either)
+		List<String> users  = JSON.decode(await HttpRequest.requestCrossOrigin('http://${ Configs.utilServerAddress}/listUsers?channel=Global Chat'));
+		users.removeWhere((String username) => username == game.username);
 
 		// Reset the list
 		Element list = querySelector("#playerList");
 		list.children.clear();
 
-		// Ignore yourself (can't chat with yourself, either)
-		List<String> users = this.connectedUsers;
-		users.removeWhere((String username) => username == game.username);
-
 		if (users.length == 0) {
 			// Nobody else is online
 			Element message = new LIElement()
-				..classes.addAll(["offline", "noChatSpawn"])
-				..setInnerHtml('<i class="fa-li fa fa-user"></i> Nobody else here');
+				..classes.addAll(["noChatSpawn"])
+				..setInnerHtml('<i class="fa-li fa fa-square-o"></i> Nobody else here');
 			list.append(message);
 			return 0;
 		} else {
@@ -592,6 +606,7 @@ class Chat {
 			users.forEach((String username) {
 				Element user = new LIElement()
 					..classes.addAll(["online", "chatSpawn"])
+					..dataset["chat"] = username
 					..setInnerHtml('<i class="fa-li fa fa-user"></i> $username');
 				list.append(user);
 			});

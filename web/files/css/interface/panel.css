@@ -29,7 +29,9 @@
   top:calc(50% - 35px);
   left:-25px;
 }
-#rightSide:hover {
+#rightSide:hover,
+#rightSide:active,
+#rightSide:focus {
   right: 155px;
 }
 
@@ -65,11 +67,23 @@ h3 {
 .offline .fa {
   color:#ba381a;
 }
+
 .online .fa {
   color:#57AA4B;
 }
+
 .busy .fa {
   color:#f0ad4e;
+}
+
+.unread .fa {
+  color: darkred;
+  -webkit-animation: pulsered 2s ease-in-out infinite;
+}
+
+@-webkit-keyframes pulsered {
+  0%, 100% {color: darkred;}
+  50% {color: #d34836;}
 }
 
 #panel {
