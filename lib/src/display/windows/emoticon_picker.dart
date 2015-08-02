@@ -47,7 +47,11 @@ class EmoticonPicker extends Modal {
 
 		new Service(["insertEmoji"], (Map<String, dynamic> args) {
 			target = args["input"];
-			querySelector("#ep-channelname").text = args["title"];
+			if ((args["title"] as String).toLowerCase().contains("chat")) {
+				querySelector("#ep-channelname").text = args["title"];
+			} else {
+				querySelector("#ep-channelname").text = "chat with ${args["title"]}";
+			}
 			this.open();
 		});
 
