@@ -247,7 +247,7 @@ Keys:
 - "vendor": "Vendor Type"
 */
 
-final Map<String, Map<String, dynamic>> streetContentsData = {
+final Map<String, Map<String, dynamic>> streetMetadata = {
 	"Aava Plies": {
 		"shrine": "Alph",
 		"vendor": "Gardening Goods",
@@ -270,14 +270,20 @@ final Map<String, Map<String, dynamic>> streetContentsData = {
 		"vendor": "Hardware",
 		"shrine": "Friendly"
 	},
-	"Acta Probat": {},
+	"Acta Probat": {
+		"tsid": "LA5GB0PVS313DBO",
+		"hub_id": 128
+	},
 	"Adanac": {
 		"vendor": "Hardware",
 		"shrine": "Pot",
 		"tsid": "GLI2V30ECRD1GAU",
 		"hub_id": 56
 	},
-	"Adaya Park": {},
+	"Andaya Park": {
+		"tsid": "LHVC7554ADT2VA1",
+		"hub_id": 97
+	},
 	"Addingfoot Trip": {
 		"vendor": "Gardening Goods",
 		"shrine": "Spriggan",
@@ -341,6 +347,10 @@ final Map<String, Map<String, dynamic>> streetContentsData = {
 		"tsid": "GUVIIL1P65F22NC",
 		"hub_id": 109
 	},
+	"Ajaya Bliss": {
+		"tsid": "LA9154LI9R22R7A",
+		"hub_id": 78
+	},
 	"Ajiboo Hood": {
 		"vendor": "Hardware",
 		"shrine": "Cosma",
@@ -384,7 +394,8 @@ final Map<String, Map<String, dynamic>> streetContentsData = {
 	},
 	"Alakol Start": {
 		"tsid": "GNVRJVDNB0D2GJ9",
-		"hub_id": 76
+		"hub_id": 76,
+		"map_hidden": true
 	},
 	"Alecha Kolo": {
 		"vendor": "Mining",
@@ -634,7 +645,10 @@ final Map<String, Map<String, dynamic>> streetContentsData = {
 		"tsid": "GHVCUKA1I0B3UE8",
 		"hub_id": 137
 	},
-	"Axis Denyde": {},
+	"Axis Denyde": {
+		"tsid": "LHFIV4V8J6J2I7U",
+		"hub_id": 106
+	},
 	"Azifa Ayib": {
 		"vendor": "Mining"
 	},
@@ -852,7 +866,8 @@ final Map<String, Map<String, dynamic>> streetContentsData = {
 	},
 	"Besara Community Machine Room": {
 		"tsid": "GA9MU59GB792T80",
-		"hub_id": 98
+		"hub_id": 98,
+		"map_hidden": true
 	},
 	"Bettano Testament": {
 		"shrine": "Tii"
@@ -863,7 +878,10 @@ final Map<String, Map<String, dynamic>> streetContentsData = {
 		"tsid": "GUVCMP7BM7F2JET",
 		"hub_id": 109
 	},
-	"Bhuva Lamella": {},
+	"Bhuva Lamella": {
+		"tsid": "LIF72A3F7J33VAI",
+		"hub_id": 131
+	},
 	"Bij Arsul": {
 		"vendor": "Hardware",
 		"tsid": "GHVSU0QSQIA2TIM",
@@ -998,7 +1016,8 @@ final Map<String, Map<String, dynamic>> streetContentsData = {
 	},
 	"Bortola Start": {
 		"tsid": "GA9U90TVB0D2EAH",
-		"hub_id": 75
+		"hub_id": 75,
+		"map_hidden": true
 	},
 	"Bossam Preserve": {
 		"tsid": "GA5OO9PJC8T26KE",
@@ -1161,7 +1180,10 @@ final Map<String, Map<String, dynamic>> streetContentsData = {
 		"tsid": "GIF992JCSAH29T1",
 		"hub_id": 100
 	},
-	"Castan Nella": {},
+	"Castan Nella": {
+		"tsid": "LDO3GP3SUR034JD",
+		"hub_id": 126
+	},
 	"Causa  Aurum": {
 		"tsid": "GA5I6EGFG813HL5",
 		"hub_id": 128
@@ -1771,10 +1793,15 @@ final Map<String, Map<String, dynamic>> streetContentsData = {
 		"tsid": "GA9I4JIPBE92B8M",
 		"hub_id": 98
 	},
-	"Egret Taun Towers": {},
+	"Egret Taun Towers": {
+		"tsid": "LHVUR3UKGRU2SD2",
+		"hub_id": 98,
+		"map_hidden": true
+	},
 	"Egret Taun Towers Basement": {
 		"tsid": "GHVEI9NVJ203LRO",
-		"hub_id": 98
+		"hub_id": 98,
+		"map_hidden": true
 	},
 	"Ekorran Roughs": {
 		"vendor": "Kitchen Tools",
@@ -2043,6 +2070,11 @@ final Map<String, Map<String, dynamic>> streetContentsData = {
 		"tsid": "GCR14K7RQBK119B",
 		"hub_id": 58
 	},
+	"Forest Community Machine Room": {
+		"tsid": "LIF16EM56A12FSB",
+		"hub_id": 56,
+		"map_hidden": true
+	},
 	"Fort Aban Don": {
 		"vendor": "Alchemical Goods",
 		"shrine": "Zille",
@@ -2299,8 +2331,16 @@ final Map<String, Map<String, dynamic>> streetContentsData = {
 		"tsid": "GLI32G3NUTD100I",
 		"hub_id": 58
 	},
-	"Gregarious Towers": {},
-	"Gregarious Towers Basement": {},
+	"Gregarious Towers": {
+		"tsid": "LA5134UPLRU29OH",
+		"hub_id": 58,
+		"map_hidden": true
+	},
+	"Gregarious Towers Basement": {
+		"tsid": "LDONEDVHC4030KF",
+		"hub_id": 58,
+		"map_hidden": true
+	},
 	"Grimssea Bottom": {
 		"mailbox": true,
 		"vendor": "Hardware",
@@ -2367,8 +2407,16 @@ final Map<String, Map<String, dynamic>> streetContentsData = {
 		"tsid": "GA9A9CGB9F824PK",
 		"hub_id": 97
 	},
-	"Hakusan Heaps Towers": {},
-	"Hakusan Heaps Towers Basement": {},
+	"Hakusan Heaps Towers": {
+		"tsid": "LHVUFJ6HGRU2V0E",
+		"hub_id": 97,
+		"map_hidden": true
+	},
+	"Hakusan Heaps Towers Basement": {
+		"tsid": "LHV6HOCAH203RMF",
+		"hub_id": 97,
+		"map_hidden": true
+	},
 	"Hamli Egza": {
 		"vendor": "Gardening Goods",
 		"shrine": "Spriggan"
@@ -2433,8 +2481,16 @@ final Map<String, Map<String, dynamic>> streetContentsData = {
 		"tsid": "GHV36AG0LO2208L",
 		"hub_id": 75
 	},
-	"Hauki Seeks Manor": {},
-	"Hauki Seeks Manor Basement": {},
+	"Hauki Seeks Manor": {
+		"tsid": "LA9H1V6OGRU2FSB",
+		"hub_id": 75,
+		"map_hidden": true
+	},
+	"Hauki Seeks Manor Basement": {
+		"tsid": "LA9EBPF8M2031HB",
+		"hub_id": 75,
+		"map_hidden": true
+	},
 	"Hayden Seek Alley": {
 		"vendor": "Toy",
 		"shrine": "Zille",
@@ -2915,7 +2971,7 @@ final Map<String, Map<String, dynamic>> streetContentsData = {
 		"hub_id": 109
 	},
 	"Karpal Tunnel": {
-		"tsid": "GLI14TT8T921J21",
+		"tsid": "LLI14TT8T921J21",
 		"hub_id": 50
 	},
 	"Kartika Crams": {
@@ -3180,7 +3236,10 @@ final Map<String, Map<String, dynamic>> streetContentsData = {
 		"shrine": "Lem",
 		"vendor": "Kitchen Tools"
 	},
-	"Kuben Ruben": {},
+	"Kuben Ruben": {
+		"tsid": "LDO3KC3TUR03MUH",
+		"hub_id": 126
+	},
 	"Kumida Middles": {
 		"shrine": "Mab",
 		"tsid": "GA9KL77D1D829Q3",
@@ -3373,24 +3432,16 @@ final Map<String, Map<String, dynamic>> streetContentsData = {
 		"hub_id": 64
 	},
 	"Level 1 East": {
-		"tsid": "GHH112FHF411BUI",
-		"hub_id": 50
+		"tsid": "LHH112FHF411BUI",
+		"hub_id": 50,
+	},
+	"Level 1 West": {
+		"tsid": "LHH110KCF411NK6",
+		"hub_id": 50,
 	},
 	"Level 2 East": {
 		"vendor": "Meal",
 		"tsid": "GLI101QQRA211SM",
-		"hub_id": 50
-	},
-	"Level 3 East": {
-		"tsid": "GLI1D3B2U5715LL",
-		"hub_id": 50
-	},
-	"Level 4 East": {
-		"tsid": "GLI1D2QFT571VQT",
-		"hub_id": 50
-	},
-	"Level 1 West": {
-		"tsid": "GHH110KCF411NK6",
 		"hub_id": 50
 	},
 	"Level 2 West": {
@@ -3398,8 +3449,16 @@ final Map<String, Map<String, dynamic>> streetContentsData = {
 		"tsid": "GHH1011JSO11ORS",
 		"hub_id": 50
 	},
+	"Level 3 East": {
+		"tsid": "LLI1D3B2U5715LL",
+		"hub_id": 50
+	},
 	"Level 3 West": {
-		"tsid": "GLI107JLRU11EM2",
+		"tsid": "LLI107JLRU11EM2",
+		"hub_id": 50,
+	},
+	"Level 4 East": {
+		"tsid": "LLI1D2QFT571VQT",
 		"hub_id": 50
 	},
 	"Levyn Gahne": {
@@ -3774,7 +3833,8 @@ final Map<String, Map<String, dynamic>> streetContentsData = {
 	},
 	"Meadow Community Machine Room": {
 		"tsid": "GCR101Q98A12EHH",
-		"hub_id": 58
+		"hub_id": 58,
+		"map_hidden": true
 	},
 	"Meadow's Edge": {
 		"mailbox": true,
@@ -4067,7 +4127,8 @@ final Map<String, Map<String, dynamic>> streetContentsData = {
 	},
 	"Muufo Start": {
 		"tsid": "GHVDQMOA80D245R",
-		"hub_id": 97
+		"hub_id": 97,
+		"map_hidden": true
 	},
 	"Muuja Jah": {
 		"vendor": "Hardware",
@@ -4173,7 +4234,10 @@ final Map<String, Map<String, dynamic>> streetContentsData = {
 		"shrine": "Pot",
 		"vendor": "Kitchen Tools"
 	},
-	"Nanita Peckita": {},
+	"Nanita Peckita": {
+		"tsid": "LIFM36BDKE33VO3",
+		"hub_id": 131
+	},
 	"Narasiha Seeha": {
 		"vendor": "Hardware",
 		"shrine": "Cosma",
@@ -5061,7 +5125,10 @@ final Map<String, Map<String, dynamic>> streetContentsData = {
 		"tsid": "GA57DQKFHPB2EIS",
 		"hub_id": 102
 	},
-	"Rhystosto Motto": {},
+	"Rhystosto Motto": {
+		"tsid": "LDOEP1822S03350",
+		"hub_id": 126
+	},
 	"Rijul Habitat": {
 		"tsid": "GA9QR9R40DT2A1D",
 		"hub_id": 75
@@ -5206,17 +5273,25 @@ final Map<String, Map<String, dynamic>> streetContentsData = {
 		"tsid": "GTJ16T2SURV19NT",
 		"hub_id": 72
 	},
-	"Sabelli Ochre": {},
+	"Sabelli Ochre": {
+		"tsid": "LDOF15642S031VN",
+		"hub_id": 126
+	},
 	"Sabudana Drama": {
 		"vendor": "Hardware",
 		"shrine": "Cosma",
 		"tsid": "GHV2SQS7ENA25BL",
 		"hub_id": 101
 	},
-	"Sabudana Drama Towers": {},
+	"Sabudana Drama Towers": {
+		"tsid": "LIFI4FP9GRU2CC8",
+		"hub_id": 101,
+		"map_hidden": true
+	},
 	"Sabudana Drama Towers Basement": {
 		"tsid": "GIF84CCRN203N7P",
-		"hub_id": 101
+		"hub_id": 101,
+		"map_hidden": true
 	},
 	"Sadam Savanna": {
 		"vendor": "Gardening Goods",
@@ -5236,7 +5311,8 @@ final Map<String, Map<String, dynamic>> streetContentsData = {
 	},
 	"Salatu Start": {
 		"tsid": "GHF358MNE0D27A3",
-		"hub_id": 93
+		"hub_id": 93,
+		"map_hidden": true
 	},
 	"Salix Seach": {
 		"shrine": "Mab",
@@ -5898,11 +5974,12 @@ final Map<String, Map<String, dynamic>> streetContentsData = {
 		"hub_id": 78
 	},
 	"The Drop": {
-		"tsid": "GHH12E1QP611OPA",
-		"hub_id": 50
+		"tsid": "LHH12E1QP611OPA",
+		"hub_id": 50,
+		"broken": true
 	},
 	"The Entrance": {
-		"tsid": "GHH101L162117H2",
+		"tsid": "LHH101L162117H2",
 		"hub_id": 50
 	},
 	"The Great Hole to Ix": {
@@ -5920,7 +5997,8 @@ final Map<String, Map<String, dynamic>> streetContentsData = {
 	"The Other Drop": {
 		"vendor": "Mining",
 		"tsid": "GLI1D5DO1671QPA",
-		"hub_id": 50
+		"hub_id": 50,
+		"broken": true
 	},
 	"The forgotten floor": {
 		"tsid": "GDOOSA8V29J24I3",
