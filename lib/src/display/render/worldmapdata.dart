@@ -245,6 +245,7 @@ Keys:
 - "shrine": "Giant"
 - "subway_station": true
 - "vendor": "Vendor Type"
+- "map_hidden": true
 */
 
 final Map<String, Map<String, dynamic>> streetMetadata = {
