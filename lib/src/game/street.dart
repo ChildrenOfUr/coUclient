@@ -48,9 +48,9 @@ class Street {
 			sendLeftMessage(currentStreet.label);
 
 		bounds = new Rectangle(streetData['dynamic']['l'],
-		streetData['dynamic']['t'],
-		streetData['dynamic']['l'].abs() + streetData['dynamic']['r'].abs(),
-		(streetData['dynamic']['t'] - streetData['dynamic']['b']).abs());
+		                       streetData['dynamic']['t'],
+		                       streetData['dynamic']['l'].abs() + streetData['dynamic']['r'].abs(),
+		                       (streetData['dynamic']['t'] - streetData['dynamic']['b']).abs());
 
 		view.playerHolder
 			..style.width = bounds.width.toString() + 'px'
@@ -277,10 +277,10 @@ class Street {
 
 					// Append the canvas to the screen
 					view.layers.append(decoCanvas);
-				}catch(e,st) {
+				} catch (e, st) {
 //					print(e);
 //					print(st);
-        logmessage("[StreetService] Unknown error while attaching layer ${layer["name"]}");
+					logmessage("[StreetService] Unknown error while attaching layer ${layer["name"]}");
 				}
 
 				//print('appended decoCanvas ${layer['name']}');

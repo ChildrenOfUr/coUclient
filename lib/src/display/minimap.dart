@@ -22,6 +22,23 @@ class Minimap {
 				collapse();
 			}
 		});
+
+		new Service(['streetLoaded'], (street) {
+			// enable/disable expanding
+			num collapsedHeight =
+			street['loading_image']['h'] / currentStreet.bounds.height;
+			num expandedHeight =
+			street['main_image']['h'] / currentStreet.bounds.height;
+			if(collapsedHeight > expandedHeight) {
+				// street is wider than it is tall
+				toggleE.hidden = true;
+				expand();
+			} else if(collapsedHeight < expandedHeight) {
+				// street is taller than it is wide
+				toggleE.hidden = false;
+				collapse();
+			}
+		});
 	}
 
 	void collapse() {
@@ -55,23 +72,6 @@ class Minimap {
 			objectsE
 				..style.width = imageE.width.toString() + 'px'
 				..style.height = imageE.height.toString() + 'px';
-		});
-
-		new Service(['streetLoaded'], (_) {
-			// enable/disable expanding
-			num collapsedHeight =
-			street['loading_image']['h'] / currentStreet.bounds.height;
-			num expandedHeight =
-			street['main_image']['h'] / currentStreet.bounds.height;
-			if(collapsedHeight > expandedHeight) {
-				// street is wider than it is tall
-				toggleE.hidden = true;
-				expand();
-			} else if(collapsedHeight < expandedHeight) {
-				// street is taller than it is wide
-				toggleE.hidden = false;
-				collapse();
-			}
 		});
 	}
 
