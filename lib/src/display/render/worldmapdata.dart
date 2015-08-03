@@ -1894,7 +1894,8 @@ final Map<String, Map<String, dynamic>> streetMetadata = {
 		"vendor": "Grocery",
 		"shrine": "Tii",
 		"tsid": "GLI32J0SVTD114U",
-		"hub_id": 58
+		"hub_id": 58,
+		"broken": true
 	},
 	"Evanfell Craine": {
 		"vendor": "Kitchen Tools",
@@ -5144,7 +5145,8 @@ final Map<String, Map<String, dynamic>> streetMetadata = {
 		"vendor": "Hardware",
 		"shrine": "Lem",
 		"tsid": "GLI32IDPUTD1F2R",
-		"hub_id": 58
+		"hub_id": 58,
+		"broken": true
 	},
 	"Robenaa Range": {
 		"vendor": "Gardening Goods",
@@ -6260,7 +6262,8 @@ final Map<String, Map<String, dynamic>> streetMetadata = {
 		"vendor": "Gardening Goods",
 		"shrine": "Spriggan",
 		"tsid": "GIFNH08K9OU1SAB",
-		"hub_id": 71
+		"hub_id": 71,
+		"broken": true
 	},
 	"Turmali Tourma": {
 		"vendor": "Animal Goods",
