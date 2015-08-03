@@ -37,6 +37,8 @@ class WeatherManager {
 			//weather overlay as needed (possibly change the background gradient?
 			new Service(['timeUpdate', 'timeUpdateFake'], _changeAmbientColor);
 
+			new Service(['streetLoaded'], (m) {transmit('timeUpdate', [clock.time, clock.day, clock.dayofweek, clock.month, clock.year]);});
+
 			//service for debugging weather
 			new Service(['setWeatherFake'], (m) {_processMessage(m);});
 

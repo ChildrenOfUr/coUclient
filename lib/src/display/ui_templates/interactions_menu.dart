@@ -8,15 +8,10 @@ class InteractionWindow {
 
 		DivElement header = new DivElement()
 			..className = "PopWindowHeader handle";
-		DivElement title = new DivElement()
+		SpanElement title = new SpanElement()
 			..id = "InteractionTitle"
-			..text = "Interact With...";
-		SpanElement close = new SpanElement()
-			..id = "CloseInteraction"
-			..className = "fa fa-times fa-lg red PopCloseEmblem";
-		header
-			..append(title)
-			..append(close);
+			..text = "Interact with...";
+		header.append(title);
 
 		DivElement content = new DivElement()
 			..id = "InteractionContent";
@@ -24,8 +19,6 @@ class InteractionWindow {
 		interactionWindow
 			..append(header)
 			..append(content);
-
-		close.onClick.first.then((_) => inputManager.stopMenu(interactionWindow));
 
 		for(String id in CurrentPlayer.intersectingObjects.keys) {
 			DivElement container = new DivElement()

@@ -13,7 +13,70 @@ class MetabolicsService {
 	Metabolics playerMetabolics;
 	DateTime lastUpdate, nextUpdate;
 	String url = 'ws://${Configs.websocketServerAddress}/metabolics';
-	final num lvlLog = 1.43064593669;
+	int webSocketMessages = 0;
+
+	Map <int, int> imgLevels = {
+		1: 0,
+		2: 130,
+		3: 169,
+		4: 220,
+		5: 286,
+		6: 372,
+		7: 484,
+		8: 629,
+		9: 818,
+		10: 1063,
+		11: 1382,
+		12: 1797,
+		13: 2336,
+		14: 3037,
+		15: 3948,
+		16: 5132,
+		17: 6672,
+		18: 8674,
+		19: 11276,
+		20: 14659,
+		21: 19057,
+		22: 24774,
+		23: 32206,
+		24: 41868,
+		25: 54428,
+		26: 70756,
+		27: 91983,
+		28: 119578,
+		29: 155451,
+		30: 202086,
+		31: 262712,
+		32: 341526,
+		33: 443984,
+		34: 577179,
+		35: 750333,
+		36: 975433,
+		37: 1268063,
+		38: 1648482,
+		39: 2143027,
+		40: 2785935,
+		41: 3621716,
+		42: 4708231,
+		43: 6120700,
+		44: 7956910,
+		45: 10343983,
+		46: 13447178,
+		47: 17481331,
+		48: 22725730,
+		49: 29543449,
+		50: 38406484,
+		51: 49928429,
+		52: 64906958,
+		53: 84379045,
+		54: 109692759,
+		55: 142600587,
+		56: 185380763,
+		57: 240994992,
+		58: 313293490,
+		59: 407281537,
+		60: 529465998
+	};
 
 	void init(Metabolics m) {
 		playerMetabolics = m;
@@ -31,10 +94,15 @@ class MetabolicsService {
 			if (map['collectQuoin'] != null) {
 				collectQuoin(map);
 			} else {
+				int oldLevel = level;
 				playerMetabolics = decode(event.data, type:Metabolics);
+				if (oldLevel < level && webSocketMessages > 0) {
+					levelUp.open();
+				}
 				transmit('metabolicsUpdated', playerMetabolics);
 			}
 			update();
+			webSocketMessages++;
 		});
 		socket.onClose.listen((CloseEvent e) {
 			logmessage('[Metabolics] Websocket closed: ${e.reason}');
@@ -72,30 +140,6 @@ class MetabolicsService {
 
 		Element quoinText = querySelector("#qq" + element.id + " .quoinString");
 
-		// TODO: enable this when the server supports it
-//    if (quoinType == "mystery") {
-//      switch (new Random().nextInt(5)) {
-//        case 0:
-//          quoinType = "currant";
-//          break;
-//        case 1:
-//          quoinType = "mood";
-//          break;
-//        case 2:
-//          quoinType = "energy";
-//          break;
-//        case 3:
-//          quoinType = "img";
-//          break;
-//        case 4:
-//          quoinType = "favor";
-//          break;
-//        case 5:
-//          quoinType = "time";
-//          break;
-//      }
-//    }
-
 		switch (quoinType) {
 			case "currant":
 				if (amt == 1) quoinText.text = "+" + amt.toString() + " currant";
@@ -128,11 +172,17 @@ class MetabolicsService {
 				break;
 
 			case "time":
-				quoinText.text = "No time like the present";
-				// TODO : update this later
+				quoinText.text = "+" + amt.toString() + " time";
 				break;
+
 			case "mystery":
-				quoinText.text = "+" + amt.toString() + " brownie points";
+				quoinText.text = "FLIP!";
+				if (querySelector("#world").classes.contains("flip")) {
+					querySelector("#world").classes.remove("flip");
+				} else {
+					querySelector("#world").classes.add("flip");
+					toast("Oh noes! That mystery quoin flipped your world upside-down. Find another to put it back, if you want.");
+				}
 				break;
 		}
 	}
@@ -158,21 +208,21 @@ class MetabolicsService {
 	num get currentStreetY => playerMetabolics.current_street_y;
 
 	int get level {
-		if (lifetime_img > 0) {
-			double lvlRaw;
-			lvlRaw = lifetime_img.toDouble();
-			lvlRaw = logb(lvlRaw, base: lvlLog);
-			return lvlRaw.floor();
-		} else {
-			return 1;
+		int lvl = 0;
+		for (int levelNum in imgLevels.keys) {
+			if (imgLevels[levelNum] > lifetime_img) {
+				lvl = levelNum - 1;
+				break;
+			}
 		}
+		return lvl;
 	}
 
 	int get img_req_for_curr_lvl {
-		return pow(level, lvlLog).ceil();
+		return imgLevels[level];
 	}
 
 	int get img_req_for_next_lvl {
-		return pow(level + 1, lvlLog).ceil();
+		return imgLevels[level + 1];
 	}
 }

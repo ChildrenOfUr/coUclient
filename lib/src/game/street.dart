@@ -9,28 +9,48 @@ class Street {
 	List<Platform> platforms = new List();
 	List<Ladder> ladders = new List();
 	List<Wall> walls = new List();
+	List<Signpost> signposts = new List();
 
-	String hub_id, hub_name, label, tsid;
+	String hub_id, hub_name, _tsid;
 	String street_load_color_top;
 	String street_load_color_btm;
+
+	int groundY;
+	bool loaded = false;
+
+	DataMaps map = new DataMaps();
+
+	String get tsid {
+		if (_tsid.startsWith('G')) {
+			_tsid = _tsid.replaceFirst('G', 'L');
+		}
+		return _tsid;
+	}
+
+	String get label {
+		String hub_id = currentStreet.hub_id;
+		String currentStreetName;
+		Map<int, Map<String, String>> moteInfo = map.data_maps_streets['9']();
+		currentStreetName = moteInfo[hub_id][tsid];
+
+		return currentStreetName;
+	}
 
 	Stopwatch loadTime;
 
 	Rectangle bounds;
 
 	Street(this.streetData) {
-		// sets the label for the street
-		label = streetData['label'];
-		tsid = streetData['tsid'];
+		_tsid = streetData['tsid'];
 		hub_id = streetData['hub_id'];
 
-		if(game.username != null && currentStreet != null)
+		if (game.username != null && currentStreet != null)
 			sendLeftMessage(currentStreet.label);
 
 		bounds = new Rectangle(streetData['dynamic']['l'],
 		                       streetData['dynamic']['t'],
 		                       streetData['dynamic']['l'].abs() + streetData['dynamic']['r'].abs(),
-		                       streetData['dynamic']['t'].abs());
+		                       (streetData['dynamic']['t'] - streetData['dynamic']['b']).abs());
 
 		view.playerHolder
 			..style.width = bounds.width.toString() + 'px'
@@ -43,7 +63,7 @@ class Street {
 			..style.transform = "translateZ(0)";
 
 		// set the street.
-
+		loaded = false;
 		currentStreet = this;
 		sendJoinedMessage(currentStreet.label);
 	}
@@ -54,39 +74,50 @@ class Street {
 		entities.clear();
 		quoins.clear();
 		otherPlayers.clear();
-		if(CurrentPlayer != null)
+		if (CurrentPlayer != null)
 			CurrentPlayer.intersectingObjects.clear();
 
 		view.layers.children.clear();
 		view.playerHolder.children.clear();
 
+		//print('old data cleaned up');
+
 		view.location = label;
 
 		// set the song loading if necessary
-		if(streetData['music'] != null)
+		if (streetData['music'] != null) {
 			audio.setSong(streetData['music']);
+		} else {
+			logmessage("[StreetService] Music not available");
+		}
+
+		//print('music is set');
 
 		// Collect the url's of each deco to load.
 		List decosToLoad = [];
-		for(Map layer in streetData['dynamic']['layers'].values) {
-			for(Map deco in layer['decos']) {
-				if(!decosToLoad.contains('http://childrenofur.com/locodarto/scenery/' + deco['filename'] + '.png'))
+		for (Map layer in streetData['dynamic']['layers'].values) {
+			for (Map deco in layer['decos']) {
+				if (!decosToLoad.contains('http://childrenofur.com/locodarto/scenery/' + deco['filename'] + '.png'))
 					decosToLoad.add('http://childrenofur.com/locodarto/scenery/' + deco['filename'] + '.png');
 			}
 		}
 
 		// turn them into assets
 		List assetsToLoad = [];
-		for(String deco in decosToLoad) {
+		for (String deco in decosToLoad) {
 			assetsToLoad.add(new Asset(deco));
 		}
+
+		//print('assets are collected');
 
 		// Load each of them, and then continue.
 		Batch decos = new Batch(assetsToLoad);
 		decos.load(setLoadingPercent).then((_) {
 			//Decos should all be loaded at this point//
 
-			int groundY = -(streetData['dynamic']['ground_y'] as num).abs();
+			//print('start construction');
+
+			groundY = -(streetData['dynamic']['ground_y'] as num).abs();
 
 			/* //// Gradient Canvas //// */
 			DivElement gradientCanvas = new DivElement();
@@ -111,125 +142,154 @@ class Street {
 			// Append it to the screen*/
 			view.layers.append(gradientCanvas);
 
+			//print('appended gradient');
+
 			/* //// Scenery Canvases //// */
 			//For each layer on the street . . .
-			for(Map layer in new Map.from(streetData['dynamic']['layers']).values) {
-				DivElement decoCanvas = new DivElement()
-					..classes.add('streetcanvas');
-				decoCanvas.id = (layer['name'] as String).replaceAll(" ", "_");
+			for (Map layer in new Map.from(streetData['dynamic']['layers']).values) {
+				try {
+					DivElement decoCanvas = new DivElement()
+						..classes.add('streetcanvas');
+					decoCanvas.id = (layer['name'] as String).replaceAll(" ", "_");
 
-				decoCanvas.style.zIndex = layer['z'].toString();
-				decoCanvas.style.width = layer['w'].toString() + 'px';
-				decoCanvas.style.height = layer['h'].toString() + 'px';
-				decoCanvas.style.position = 'absolute';
-				decoCanvas.attributes['ground_y'] = groundY.toString();
-				decoCanvas.attributes['width'] = bounds.width.toString();
-				decoCanvas.attributes['height'] = bounds.height.toString();
+					decoCanvas.style.zIndex = layer['z'].toString();
+					decoCanvas.style.width = layer['w'].toString() + 'px';
+					decoCanvas.style.height = layer['h'].toString() + 'px';
+					decoCanvas.style.position = 'absolute';
+					decoCanvas.attributes['ground_y'] = groundY.toString();
+					decoCanvas.attributes['width'] = layer['w'].toString();
+					decoCanvas.attributes['height'] = layer['h'].toString();
 
-				List<String> filters = new List();
-				new Map.from(layer['filters']).forEach((String filterName, int value) {
-					//blur is super expensive (seemed to cut my framerate in half)
-					if(localStorage["GraphicsBlur"] == "true" && filterName == "blur") {
-						filters.add('blur(' + value.toString() + 'px)');
-					}
-					if(filterName == "brightness") {
-						if(value < 0)
-							filters.add('brightness(' + (1 - (value / -100)).toString() + ')');
-						if(value > 0)
-							filters.add('brightness(' + (1 + (value / 100)).toString() + ')');
-					}
-					if(filterName == "contrast") {
-						if(value < 0)
-							filters.add('contrast(' + (1 - (value / -100)).toString() + ')');
-						if(value > 0)
-							filters.add('contrast(' + (1 + (value / 100)).toString() + ')');
-					}
-					if(filterName == "saturation") {
-						if(value < 0)
-							filters.add('saturation(' + (1 - (value / -100)).toString() + ')');
-						if(value > 0)
-							filters.add('saturation(' + (1 + (value / 100)).toString() + ')');
-					}
-				});
-				decoCanvas.style.filter = filters.join(' ');
+					//print('set the canvas attributes');
 
-				//For each decoration in the layer, give its attributes and draw
-				for(Map deco in layer['decos']) {
-					try {
-						int x = deco['x'] - deco['w'] ~/ 2;
-						int y = deco['y'] - deco['h'] + groundY;
+					List<String> filters = new List();
+					new Map.from(layer['filters']).forEach((String filterName, int value) {
+						//blur is super expensive (seemed to cut my framerate in half)
+						if (localStorage["GraphicsBlur"] == "true" && filterName == "blur") {
+							filters.add('blur(' + value.toString() + 'px)');
+						}
+						if (filterName == "brightness") {
+							if (value < 0)
+								filters.add('brightness(' + (1 - (value / -100)).toString() + ')');
+							if (value > 0)
+								filters.add('brightness(' + (1 + (value / 100)).toString() + ')');
+						}
+						if (filterName == "contrast") {
+							if (value < 0)
+								filters.add('contrast(' + (1 - (value / -100)).toString() + ')');
+							if (value > 0)
+								filters.add('contrast(' + (1 + (value / 100)).toString() + ')');
+						}
+						if (filterName == "saturation") {
+							if (value < 0)
+								filters.add('saturation(' + (1 - (value / -100)).toString() + ')');
+							if (value > 0)
+								filters.add('saturation(' + (1 + (value / 100)).toString() + ')');
+						}
+					});
+					decoCanvas.style.filter = filters.join(' ');
 
-						if(layer['name'] == 'middleground') {
+					//print('set the filters');
+
+					//For each decoration in the layer, give its attributes and draw
+					for (Map deco in layer['decos']) {
+						try {
+							int x = deco['x'] - deco['w'] ~/ 2;
+							int y = deco['y'] - deco['h'] + groundY;
+
+							if (layer['name'] == 'middleground') {
+								//middleground has different layout needs
+								y += layer['h'];
+								x += layer['w'] ~/ 2;
+							}
+
+							decoCanvas.append(new Deco(deco, x, y).image);
+						}
+						catch (error) {
+							logmessage("[StreetService] Rendering street: " + error);
+						}
+					}
+
+					//print('added all the decos');
+
+					for (Map platformLine in layer['platformLines'])
+						platforms.add(new Platform(platformLine, layer, groundY));
+
+					platforms.sort((x, y) => x.compareTo(y));
+
+					//print('added the platforms');
+
+					for (Map ladder in layer['ladders'])
+						ladders.add(new Ladder(ladder, layer, groundY));
+
+					//print('added the ladders');
+
+					for (Map wall in layer['walls']) {
+						if (wall['pc_perm'] == 0) {
+							continue;
+						}
+						walls.add(new Wall(wall, layer, groundY));
+					}
+
+					//print('added the walls');
+
+					if (showCollisionLines)
+						showLineCanvas();
+
+					for (Map signpost in layer['signposts']) {
+						int h = 200,
+						w = 100;
+
+						if (signpost['h'] != null) h = signpost['h'];
+
+						if (signpost['w'] != null) w = signpost['w'];
+
+						int x = signpost['x'] - w ~/ 2;
+						int y = signpost['y'] - h;
+
+						if (layer['name'] == 'middleground') {
 							//middleground has different layout needs
 							y += layer['h'];
 							x += layer['w'] ~/ 2;
 						}
 
-						decoCanvas.append(new Deco(deco, x, y).image);
+						new Signpost(signpost, x, y);
+
+						// show signpost in minimap {
+
+						List<String> connects = signpost['connects'];
+						List<String> streets = new List();
+
+						for (Map exit in connects) {
+							streets.add(exit['label']);
+						}
+
+						minimap.currentStreetExits.add({
+							                               "streets": streets,
+							                               "x": x,
+							                               "y": y
+						                               });
+
+						// } end minimap code
+
 					}
-					catch(error) {
-						print(error);
-					}
+
+
+					// Append the canvas to the screen
+					view.layers.append(decoCanvas);
+				} catch (e, st) {
+//					print(e);
+//					print(st);
+					logmessage("[StreetService] Unknown error while attaching layer ${layer["name"]}");
 				}
 
-				for(Map platformLine in layer['platformLines'])
-					platforms.add(new Platform(platformLine, layer, groundY));
-
-				platforms.sort((x, y) => x.compareTo(y));
-
-				for(Map ladder in layer['ladders'])
-					ladders.add(new Ladder(ladder, layer, groundY));
-
-				for(Map wall in layer['walls'])
-					walls.add(new Wall(wall, layer, groundY));
-
-				if(showCollisionLines)
-					showLineCanvas();
-
-				for(Map signpost in layer['signposts']) {
-					int h = 200,
-					w = 100;
-
-					if(signpost['h'] != null) h = signpost['h'];
-
-					if(signpost['w'] != null) w = signpost['w'];
-
-					int x = signpost['x'] - w ~/ 2;
-					int y = signpost['y'] - h;
-
-					if(layer['name'] == 'middleground') {
-						//middleground has different layout needs
-						y += layer['h'];
-						x += layer['w'] ~/ 2;
-					}
-
-					new Signpost(signpost, x, y);
-
-					// show signpost in minimap {
-
-					List<String> connects = signpost['connects'];
-					List<String> streets = new List();
-
-					for(Map exit in connects) {
-						streets.add(exit['label']);
-					}
-
-					minimap.currentStreetExits.add({
-						                               "streets": streets,
-						                               "x": x,
-						                               "y": y
-					                               });
-
-					// } end minimap code
-
-				}
-
-				// Append the canvas to the screen
-				view.layers.append(decoCanvas);
+				//print('appended decoCanvas ${layer['name']}');
 			}
 
 			//make sure to redraw the screen (in case of street switching)
 			camera.dirty = true;
+			loaded = true;
+			//print('done loading street');
 			c.complete(this);
 			//sendJoinedMessage(label,_data['tsid']);
 		});
@@ -241,12 +301,12 @@ class Street {
 	//based on the camera position and relative size of canvas to Street
 	render() {
 		//only update if camera x,y have changed since last render cycle
-		if(camera.dirty) {
+		if (camera.dirty) {
 			num currentPercentX = camera.getX() / (bounds.width - view.worldElementWidth);
 			num currentPercentY = camera.getY() / (bounds.height - view.worldElementHeight);
 
 			//modify left and top for parallaxing
-			for(Element canvas in view.worldElement.querySelectorAll('.streetcanvas')) {
+			for (Element canvas in view.worldElement.querySelectorAll('.streetcanvas')) {
 				Map attributes = canvas.attributes;
 				num canvasWidth = num.parse(attributes['width']);
 				num canvasHeight = num.parse(attributes['height']);
@@ -276,7 +336,7 @@ Future load_street() {
 	new Asset('packages/couclient/json/streets.json').load().then((Asset streetList) {
 		// Load each street file into memory. If this gets too expensive we'll move this elsewhere.
 		List toLoad = [];
-		for(String url in streetList.get().values)
+		for (String url in streetList.get().values)
 			toLoad.add(new Asset(url).load(statusElement:view.loadStatus2));
 
 		c.complete(Future.wait(toLoad));
@@ -300,7 +360,7 @@ setLoadingPercent(int percent) {
 	currentStreet.loadTime = new Stopwatch();
 	currentStreet.loadTime.start();
 
-	if(percent >= 99) {
+	if (percent >= 99) {
 		//TODO: Whatever '1000' is changed to, that's how long it takes to display street image
 		new KeepingTime().delayMilliseconds(1000 - currentStreet.loadTime.elapsedMilliseconds);
 		view.streetLoadingBar.attributes['status'] = '    done! ... 100%';
@@ -308,6 +368,7 @@ setLoadingPercent(int percent) {
 		view.mapLoadingScreen.className = "MapLoadingScreen";
 		view.mapLoadingScreen.style.opacity = '0.0';
 		minimap.containerE.hidden = false;
+		gpsIndicator.loadingNew = false;
 		new Timer(new Duration(seconds: 1), () => view.mapLoadingContent.style.opacity = '0.0');
 		currentStreet.loadTime.stop();
 		currentStreet.loadTime.reset();
@@ -330,7 +391,7 @@ class KeepingTime {
 	void delayMilliseconds(int milliseconds) {
 		watch.start();
 
-		while(watch.elapsedMilliseconds < (milliseconds));
+		while (watch.elapsedMilliseconds < (milliseconds));
 
 		watch.stop();
 	}

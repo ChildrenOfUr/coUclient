@@ -13,7 +13,7 @@ class NPC extends Entity {
 	Stream get onAnimationLoaded => _animationLoaded.stream;
 
 	factory NPC(Map map) {
-		if(map['type'].contains('Street Spirit')) {
+		if (map['type'].contains('Street Spirit')) {
 			return new StreetSpirit(map);
 		}
 		return new NPC._NPC(map);
@@ -24,8 +24,9 @@ class NPC extends Entity {
 		type = map['type'];
 
 		List<int> frameList = [];
-		for(int i = 0; i < map['numFrames']; i++)
+		for (int i = 0; i < map['numFrames']; i++) {
 			frameList.add(i);
+		}
 
 		animation = new Animation(
 			map['url'], "npc", map['numRows'], map['numColumns'], frameList,
@@ -60,37 +61,49 @@ class NPC extends Entity {
 	}
 
 	update(double dt) {
-		if(!ready) return;
+		if (!ready || currentStreet == null) {
+			return;
+		}
 
 		super.update(dt);
 
 		RegExp movementWords = new RegExp(r'(walk|fly|move)');
-		if(firstRender || animation.url.contains(movementWords)) {
-			if(facingRight) left += speed * dt;
-			else left -= speed * dt;
+		if (firstRender || animation.url.contains(movementWords)) {
+			if (facingRight) {
+				left += speed * dt;
+			} else {
+				left -= speed * dt;
+			}
 
-			if(left < 0) left = 0.0;
-			if(left > currentStreet.bounds.width - canvas.width) left =
-			(currentStreet.bounds.width - canvas.width).toDouble();
+			if (left < 0) {
+				left = 0.0;
+			}
+			if (left > currentStreet.bounds.width - canvas.width) {
+				left = (currentStreet.bounds.width - canvas.width).toDouble();
+			}
 
 			canvas.attributes['translatex'] = left.toString();
 			canvas.attributes['translatey'] = top.toString();
 
-			if(facingRight) canvas.style.transform =
-			"translateX(${left}px) translateY(${top}px) scale3d(1,1,1)";
-			else canvas.style.transform =
-			"translateX(${left}px) translateY(${top}px) scale3d(-1,1,1)";
+			if (facingRight) {
+				canvas.style.transform = "translateX(${left}px) translateY(${top}px) scale3d(1,1,1)";
+			} else {
+				canvas.style.transform = "translateX(${left}px) translateY(${top}px) scale3d(-1,1,1)";
+			}
 		}
 
-		if(intersect(camera.visibleRect, entityRect)) animation
-		.updateSourceRect(dt);
+		if (intersect(camera.visibleRect, entityRect)) {
+			animation.updateSourceRect(dt);
+		}
 	}
 
 	render() {
-		if(ready && (animation.dirty || dirty)) {
-			if(!firstRender) {
+		if (ready && (animation.dirty || dirty)) {
+			if (!firstRender) {
 				//if the entity is not visible, don't render it
-				if(!intersect(camera.visibleRect, entityRect)) return;
+				if (!intersect(camera.visibleRect, entityRect)) {
+					return;
+				}
 			}
 
 			firstRender = false;
@@ -99,7 +112,7 @@ class NPC extends Entity {
 			//source: http://jsperf.com/ctx-clearrect-vs-canvas-width-canvas-width/6
 			canvas.context2D.clearRect(0, 0, animation.width, animation.height);
 
-			if(glow) {
+			if (glow) {
 				//canvas.context2D.shadowColor = "rgba(0, 0, 255, 0.2)";
 				canvas.context2D.shadowBlur = 2;
 				canvas.context2D.shadowColor = 'cyan';

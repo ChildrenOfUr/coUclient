@@ -20,26 +20,26 @@ class VendorWindow extends Modal {
 	VendorWindow._() {
 		prepare();
 
-		header = this.window.querySelector('header');
-		buy = this.window.querySelector('#buy');
-		sell = this.window.querySelector('#sell');
-		currants = this.window.querySelector('.qty');
-		name = this.window.querySelector(".ItemName");
+		header = this.displayElement.querySelector('header');
+		buy = this.displayElement.querySelector('#buy');
+		sell = this.displayElement.querySelector('#sell');
+		currants = this.displayElement.querySelector('.qty');
+		name = this.displayElement.querySelector(".ItemName");
 
-		backToBuy = this.window.querySelector('#buy-qty .back');
-		backToSell = this.window.querySelector('#sell-qty .back');
+		backToBuy = this.displayElement.querySelector('#buy-qty .back');
+		backToSell = this.displayElement.querySelector('#sell-qty .back');
 
-		buyPlus = this.window.querySelector('#buy-qty .plus');
-		buyMinus = this.window.querySelector('#buy-qty .minus');
-		buyMax = this.window.querySelector('#buy-qty .max');
-		buyButton = this.window.querySelector('#buy-qty .BuyButton');
-		buyNum = this.window.querySelector('#buy-qty .NumToBuy');
-		buyItemCount = this.window.querySelector('#buy-qty .ItemNum');
-		buyItemImage = this.window.querySelector('#buy-qty .ItemImage');
-		buyDescription = this.window.querySelector('#buy-qty .Description');
-		buyStacksTo = this.window.querySelector('#buy-qty .StackNum');
-		buyPriceTag = this.window.querySelector('#buy-qty .ItemPrice');
-		amtSelector = this.window.querySelector('.QuantityParent');
+		buyPlus = this.displayElement.querySelector('#buy-qty .plus');
+		buyMinus = this.displayElement.querySelector('#buy-qty .minus');
+		buyMax = this.displayElement.querySelector('#buy-qty .max');
+		buyButton = this.displayElement.querySelector('#buy-qty .BuyButton');
+		buyNum = this.displayElement.querySelector('#buy-qty .NumToBuy');
+		buyItemCount = this.displayElement.querySelector('#buy-qty .ItemNum');
+		buyItemImage = this.displayElement.querySelector('#buy-qty .ItemImage');
+		buyDescription = this.displayElement.querySelector('#buy-qty .Description');
+		buyStacksTo = this.displayElement.querySelector('#buy-qty .StackNum');
+		buyPriceTag = this.displayElement.querySelector('#buy-qty .ItemPrice');
+		amtSelector = this.displayElement.querySelector('.QuantityParent');
 	}
 
 	@override
@@ -99,16 +99,16 @@ class VendorWindow extends Modal {
 		});
 
 		if(sellMode)
-			this.window.querySelector('#SellTab').click();
+			this.displayElement.querySelector('#SellTab').click();
 		else
-			this.window.querySelector('#BuyTab').click();
+			this.displayElement.querySelector('#BuyTab').click();
 		this.open();
 	}
 
 	spawnBuyDetails(Map item, String vendorId, {bool sellMode: false}) {
 		// toggle the tabs
 		buy.hidden = true;
-		this.window.querySelector('#buy-qty').hidden = false;
+		this.displayElement.querySelector('#buy-qty').hidden = false;
 
 		buyStacksTo.text = item['stacksTo'].toString();
 
@@ -216,7 +216,7 @@ class VendorWindow extends Modal {
 			bplus.cancel();
 			bmax.cancel();
 
-			this.window.querySelector('#buy-qty').hidden = true;
+			this.displayElement.querySelector('#buy-qty').hidden = true;
 			if(sellMode)
 				sell.hidden = false;
 			else

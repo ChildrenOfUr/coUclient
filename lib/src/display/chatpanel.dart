@@ -24,30 +24,44 @@ bool advanceChatFocus(KeyboardEvent k) {
 	k.preventDefault();
 
 	bool found = false;
-	for(int i = 0; i < openConversations.length; i++) {
+	for (int i = 0; i < openConversations.length; i++) {
 		Chat convo = openConversations[i];
-		if(convo.focused) {
-			//unfocus the current
-			convo.blur();
-			if(i < openConversations.length - 1) {
-				// not last chat in list
-				openConversations[i + 1].focus();
+
+		if (convo.focused) {
+			if (i < openConversations.length - 1) {
+				//unfocus the current
+				convo.blur();
+
+				//find the next non-archived conversation and focus it
+				for (int j = i + 1; j < openConversations.length; j++) {
+					if(!openConversations[j].archived) {
+						openConversations[j].focus();
+						found = true;
+					}
+				}
+
+				if(found) {
+					break;
+				}
 			} else {
-				// last chat in list
-				// focus game
+				// last chat in list, focus game
 				querySelector("#gameselector").focus();
-				for(int i = 0; i < openConversations.length; i++) {
+				for (int i = 0; i < openConversations.length; i++) {
 					openConversations[i].blur();
 				}
+				found = true;
 			}
-			found = true;
-			break;
 		}
 	}
 
-	if(!found) {
-		// game is focused, focus first chat
-		openConversations[0].focus();
+	if (!found) {
+		// game is focused, focus first chat that is not archived
+		for (Chat c in openConversations) {
+			if (!c.archived) {
+				c.focus();
+				break;
+			}
+		}
 	}
 
 	return true;
@@ -55,7 +69,7 @@ bool advanceChatFocus(KeyboardEvent k) {
 
 String getColorFromUsername(String username) {
 	int index = 0;
-	for(int i = 0; i < username.length; i++) {
+	for (int i = 0; i < username.length; i++) {
 		index += username.codeUnitAt(i);
 	}
 
@@ -67,10 +81,9 @@ String parseEmoji(String message) {
 	RegExp regex = new RegExp(":(.+?):");
 	message.splitMapJoin(regex, onMatch: (Match m) {
 		String match = m[1];
-		if(EMOTICONS.contains(match)) {
-			returnString += '<img style="height:1em;" class="Emoticon" src="files/emoticons/$match.svg"></img>';
-		}
-		else {
+		if (EMOTICONS.contains(match)) {
+			returnString += '<i class="emoticon emoticon-sm $match" title="$match"></i>';
+		} else {
 			returnString += m[0];
 		}
 	}, onNonMatch: (String s) => returnString += s);
@@ -93,7 +106,7 @@ String parseUrl(String message) {
 	RegExp regex = new RegExp(regexString);
 	message.splitMapJoin(regex, onMatch: (Match m) {
 		String url = m[0];
-		if(!url.contains("http")) {
+		if (!url.contains("http")) {
 			url = "http://" + url;
 		}
 		returnString += '<a href="${url}" target="_blank" class="MessageLink">${m[0]}</a>';
@@ -106,11 +119,14 @@ String parseUrl(String message) {
 class Chat {
 	String title, lastWord = "";
 	bool online, focused = false, tabInserted = false;
-	List messages;
 	Element conversationElement;
 	int unreadMessages = 0, tabSearchIndex = 0, numMessages = 0, inputHistoryPointer = 0, emoticonPointer = 0;
 	static Chat otherChat = null, localChat = null;
 	List<String> connectedUsers = new List(), inputHistory = new List();
+
+	bool get archived {
+		return !conversationElement.classes.contains('conversation');
+	}
 
 	void focus() {
 		this.focused = true;
@@ -126,18 +142,23 @@ class Chat {
 		//look for an 'archived' version of this chat
 		//otherwise create a new one
 		conversationElement = getArchivedConversation(title);
-		if(conversationElement == null) {
+		if (conversationElement == null) {
 			// clone the template
 			conversationElement = view.chatTemplate.querySelector('.conversation').clone(true);
 			conversationElement.querySelector('.title')
 				..text = title;
-			openConversations.add(this);
+			Map<String, dynamic> emoticonArgs = {
+				"title": title,
+				"input": conversationElement.querySelector("input")
+			};
+			conversationElement.querySelector(".insertemoji").onClick.listen((_) => transmit('insertEmoji', emoticonArgs));
+			openConversations.insert(0, this);
 
 			//handle chat input getting focused/unfocused so that the character doesn't move while typing
 			InputElement chatInput = conversationElement.querySelector('input');
 			chatInput.onFocus.listen((_) {
 				inputManager.ignoreKeys = true;
-				//need to set the focued variable to true and false for all the others
+				//need to set the focused variable to true and false for all the others
 				openConversations.forEach((Chat c) => c.blur());
 				focus();
 			});
@@ -148,22 +169,22 @@ class Chat {
 			});
 		}
 
-		if(title != "Local Chat") {
-			if(otherChat != null) {
-				otherChat.hide();
+		if (title != "Local Chat") {
+			if (localChat != null) {
+				view.panel.insertBefore(conversationElement, localChat.conversationElement);
+			} else {
+				view.panel.append(conversationElement);
 			}
 
-			if(localChat != null) {
-				view.panel.insertBefore(conversationElement, localChat.conversationElement);
-			}
-			else {
-				view.panel.append(conversationElement);
+			if (otherChat != null) {
+				otherChat.archiveConversation();
+				focus();
 			}
 
 			otherChat = this;
 		}
 		//don't ever have 2 local chats
-		else if(localChat == null) {
+		else if (localChat == null) {
 			localChat = this;
 			view.panel.append(conversationElement);
 			//can't remove the local chat
@@ -173,37 +194,37 @@ class Chat {
 		computePanelSize();
 
 		Element minimize = conversationElement.querySelector('.fa-chevron-down');
-		if(minimize != null) {
-			minimize.onClick.listen((_) => this.hide());
+		if (minimize != null) {
+			minimize.onClick.listen((_) => this.archiveConversation());
 		}
 
 		processInput(conversationElement.querySelector('input'));
 	}
 
-	processEvent(Map data) {
-		if(data["message"] == " joined.") {
-			if(!connectedUsers.contains(data["username"])) {
+	void processEvent(Map data) {
+		if (data["message"] == " joined.") {
+			if (!connectedUsers.contains(data["username"])) {
 				connectedUsers.add(data["username"]);
 			}
 		}
 
-		if(data["message"] == " left.") {
+		if (data["message"] == " left.") {
 			connectedUsers.remove(data["username"]);
 			removeOtherPlayer(data["username"]);
 		}
 
-		if(data["statusMessage"] == "changeName") {
-			if(data["success"] == "true") {
+		if (data["statusMessage"] == "changeName") {
+			if (data["success"] == "true") {
 				removeOtherPlayer(data["username"]);
 
 				//although this message is broadcast to everyone, only change usernames
 				//if we were the one to type /setname
-				if(data["newUsername"] == game.username) {
+				if (data["newUsername"] == game.username) {
 					CurrentPlayer.username = data['newUsername'];
 					CurrentPlayer.loadAnimations();
 
 					//clear our inventory so we can get the new one
-					view.inventory .querySelectorAll('.box').forEach((Element box) => box.children.clear());
+					view.inventory.querySelectorAll('.box').forEach((Element box) => box.children.clear());
 					firstConnect = true;
 					joined = "";
 					sendJoinedMessage(currentStreet.label);
@@ -224,20 +245,21 @@ class Chat {
 		}
 	}
 
-  NodeValidator validator = new NodeValidatorBuilder()
-    ..allowHtml5()
-    ..allowElement('span', attributes: ['style'])
-	..allowElement('a', attributes: ['href']);
+	NodeValidator validator = new NodeValidatorBuilder()
+		..allowHtml5()
+		..allowElement('span', attributes: ['style'])
+		..allowElement('a', attributes: ['href']);
 
-	addMessage(String player, String message) {
+	void addMessage(String player, String message) {
 		ChatMessage chat = new ChatMessage(player, message);
 		Element dialog = conversationElement.querySelector('.dialog');
 		dialog.appendHtml(chat.toHtml(), validator: validator);
-		dialog.scrollTop = dialog.scrollHeight;
+
 		//scroll to the bottom
+		dialog.scrollTop = dialog.scrollHeight;
 	}
 
-	addAlert(String alert) {
+	void addAlert(String alert) {
 		String text = '''
 			<p class="system">
 			$alert
@@ -245,15 +267,20 @@ class Chat {
 			''';
 		Element dialog = conversationElement.querySelector('.dialog');
 		dialog.appendHtml(text, validator: validator);
-		dialog.scrollTop = dialog.scrollHeight;
+
 		//scroll to the bottom
+		dialog.scrollTop = dialog.scrollHeight;
 	}
 
-	displayList(List<String> users) {
+	void displayList(List<String> users) {
 		String alert = "Players in this channel:";
 
 		for (int i = 0; i != users.length; i++) {
-			users[i] = '<a href="http://childrenofur.com/profile?username=' + users[i] + '" target="_blank">' + users[i] + '</a>';
+			users[i] = '<a href="http://childrenofur.com/profile?username=' +
+			           users[i] +
+			           '" target="_blank">' +
+			           users[i] +
+			           '</a>';
 			alert = alert + " " + users[i];
 		}
 
@@ -262,16 +289,19 @@ class Chat {
 			$alert
 			</p>
 			''';
-		conversationElement.querySelector('.dialog').appendHtml(text,validator:validator);
-		conversationElement.querySelector('.dialog').scrollTop = conversationElement
-		.querySelector('.dialog').scrollHeight; //scroll to the bottom
+
+		Element dialog = conversationElement.querySelector('.dialog');
+		dialog.appendHtml(text, validator: validator);
+
+		//scroll to the bottom
+		dialog.scrollTop = dialog.scrollHeight;
 	}
 
 	/**
 	 * Archive the conversation (detach it from the chat panel) so that we may reattach
 	 * it later with the history intact.
 	 **/
-	hide() {
+	void archiveConversation() {
 		conversationElement.classes.add("archive-${title.replaceAll(' ', '_')}");
 		conversationElement.classes.remove("conversation");
 		view.conversationArchive.append(conversationElement);
@@ -284,10 +314,20 @@ class Chat {
 	 * returns null if no conversation exists
 	 **/
 	Element getArchivedConversation(String title) {
-		Element conversationElement = view.conversationArchive.querySelector('.archive-${title.replaceAll(' ', '_')}');
-		if(conversationElement != null) {
-			conversationElement.classes.remove('.archive-${title.replaceAll(' ', '_')}');
+		String archiveClass = '.archive-${title.replaceAll(' ', '_')}';
+		Element conversationElement = view.conversationArchive.querySelector(archiveClass);
+		if (conversationElement != null) {
+			conversationElement.classes.remove(archiveClass);
 			conversationElement.classes.add("conversation");
+
+			//move this conversation to the front of the openConversations list
+			for (Chat c in openConversations) {
+				if (c.title == title) {
+					openConversations.remove(c);
+					openConversations.insert(0, c);
+					break;
+				}
+			}
 		}
 		return conversationElement;
 	}
@@ -297,7 +337,7 @@ class Chat {
 		view.panel.querySelectorAll('.conversation').toList();
 		int num = conversations.length - 1;
 		conversations.forEach((Element conversation) {
-			if(conversation.hidden) {
+			if (conversation.hidden) {
 				num--;
 			}
 		});
@@ -308,15 +348,15 @@ class Chat {
 		//onKeyUp seems to be too late to prevent TAB's default behavior
 		input.onKeyDown.listen((KeyboardEvent key) {
 			//pressed up arrow
-			if(key.keyCode == 38 && inputHistoryPointer < inputHistory.length) {
+			if (key.keyCode == 38 && inputHistoryPointer < inputHistory.length) {
 				input.value = inputHistory.elementAt(inputHistoryPointer);
-				if(inputHistoryPointer < inputHistory.length - 1) {
+				if (inputHistoryPointer < inputHistory.length - 1) {
 					inputHistoryPointer++;
 				}
 			}
 			//pressed down arrow
-			if(key.keyCode == 40) {
-				if(inputHistoryPointer > 0) {
+			if (key.keyCode == 40) {
+				if (inputHistoryPointer > 0) {
 					inputHistoryPointer--;
 					input.value = inputHistory.elementAt(inputHistoryPointer);
 				} else {
@@ -324,12 +364,12 @@ class Chat {
 				}
 			}
 			//tab key, try to complete a user's name or an emoticon
-			if(input.value != "" && key.keyCode == 9) {
+			if (input.value != "" && key.keyCode == 9) {
 				key.preventDefault();
 
 				//look for an emoticon instead of a username
-				if(input.value.endsWith(":")) {
-					emoticonComplete(input,key);
+				if (input.value.endsWith(":")) {
+					emoticonComplete(input, key);
 					return;
 				}
 
@@ -341,16 +381,16 @@ class Chat {
 		});
 
 		input.onKeyUp.listen((KeyboardEvent key) {
-			if(key.keyCode != 9) {
+			if (key.keyCode != 9) {
 				tabInserted = false;
 			}
 
-			if(key.keyCode != 13) {
+			if (key.keyCode != 13) {
 				//listen for enter key
 				return;
 			}
 
-			if(input.value.trim().length == 0) {
+			if (input.value.trim().length == 0) {
 				//don't allow for blank messages
 				return;
 			}
@@ -359,7 +399,7 @@ class Chat {
 
 			inputHistory.insert(0, input.value); //add to beginning of list
 			inputHistoryPointer = 0; //point to beginning of list
-			if(inputHistory.length > 50) {
+			if (inputHistory.length > 50) {
 				//don't allow the list to grow forever
 				inputHistory.removeLast();
 			}
@@ -368,7 +408,7 @@ class Chat {
 		});
 	}
 
-	emoticonComplete(InputElement input, KeyboardEvent k) {
+	void emoticonComplete(InputElement input, KeyboardEvent k) {
 		//don't allow a key like tab to change to a different chat
 		//if we don't get a hit and k=[tab], we will re-fire
 		k.stopImmediatePropagation();
@@ -377,16 +417,16 @@ class Chat {
 		bool emoticonInserted = false;
 
 		//if the input is exactly one long (therefore it is just a colon)
-		if(value.length == 1) {
+		if (value.length == 1) {
 			//String beforePart = value.substring(0,lastColon);
 			input.value = ":${EMOTICONS.elementAt(emoticonPointer)}:";
 			emoticonPointer++;
 			emoticonInserted = true;
 		}
 		//if the input is more than 1 long and there's a space before the colon (word separation)
-		else if(value.endsWith(" :")) {
+		else if (value.endsWith(" :")) {
 			int lastColon = value.lastIndexOf(':');
-			String beforePart = value.substring(0,lastColon);
+			String beforePart = value.substring(0, lastColon);
 			input.value = "$beforePart:${EMOTICONS.elementAt(emoticonPointer)}:";
 			emoticonPointer++;
 			emoticonInserted = true;
@@ -395,19 +435,19 @@ class Chat {
 		//if the input is more than 1 long and there is an emoticon that we should replace
 		//to do this, we check if the value has 2 : and that the text between them
 		//exactly matches an emoticon
-		int previousColon = value.substring(0,value.length-1).lastIndexOf(':');
-		if(previousColon > -1) {
-			String beforeSegment = value.substring(0,previousColon);
-			String emoticonSegment = value.substring(previousColon,value.length);
-			for(int i=0; i<EMOTICONS.length; i++) {
+		int previousColon = value.substring(0, value.length - 1).lastIndexOf(':');
+		if (previousColon > -1) {
+			String beforeSegment = value.substring(0, previousColon);
+			String emoticonSegment = value.substring(previousColon, value.length);
+			for (int i = 0; i < EMOTICONS.length; i++) {
 				String emoticon = EMOTICONS[i];
 				String emoticonNext;
-				if(i < EMOTICONS.length-1) {
-					emoticonNext = EMOTICONS[i+1];
+				if (i < EMOTICONS.length - 1) {
+					emoticonNext = EMOTICONS[i + 1];
 				} else {
 					emoticonNext = EMOTICONS[0];
 				}
-				if(emoticonSegment.contains(':$emoticon:')) {
+				if (emoticonSegment.contains(':$emoticon:')) {
 					input.value = "$beforeSegment:$emoticonNext:";
 					emoticonPointer++;
 					emoticonInserted = true;
@@ -417,18 +457,18 @@ class Chat {
 		}
 
 		//make sure we don't point past the end of the array
-		if(emoticonPointer >= EMOTICONS.length) {
+		if (emoticonPointer >= EMOTICONS.length) {
 			emoticonPointer = 0;
 		}
 
 		//if we didn't manage to insert an emoticon and tab was pressed...
 		//try to advance chat focus because we stifled it earlier
-		if(!emoticonInserted && k.keyCode == 9) {
+		if (!emoticonInserted && k.keyCode == 9) {
 			advanceChatFocus(k);
 		}
 	}
 
-	tabComplete(TextInputElement input, KeyboardEvent k) async {
+	void tabComplete(TextInputElement input, KeyboardEvent k) async {
 		//don't allow a key like tab to change to a different chat
 		//if we don't get a hit and k=[tab], we will re-fire
 		k.stopImmediatePropagation();
@@ -436,7 +476,7 @@ class Chat {
 		String channel = 'Global Chat';
 		bool inserted = false;
 
-		if(title != channel) {
+		if (title != channel) {
 			channel = currentStreet.label;
 		}
 		String url = 'http://' + Configs.utilServerAddress + "/listUsers?channel=$channel";
@@ -444,14 +484,15 @@ class Chat {
 
 		int startIndex = input.value.lastIndexOf(" ") == -1 ? 0 : input.value.lastIndexOf(" ") + 1;
 		String localLastWord = input.value.substring(startIndex);
-		if(!tabInserted) {
+		if (!tabInserted) {
 			lastWord = input.value.substring(startIndex);
 		}
 
-		for(; tabSearchIndex < connectedUsers.length; tabSearchIndex++) {
+		for (; tabSearchIndex < connectedUsers.length; tabSearchIndex++) {
 			String username = connectedUsers.elementAt(tabSearchIndex);
-			if(username.toLowerCase().startsWith(lastWord.toLowerCase()) && username.toLowerCase() != localLastWord.toLowerCase()) {
-				input.value = input.value.substring(0,input.value.lastIndexOf(" ") + 1) + username;
+			if (username.toLowerCase().startsWith(lastWord.toLowerCase()) &&
+			    username.toLowerCase() != localLastWord.toLowerCase()) {
+				input.value = input.value.substring(0, input.value.lastIndexOf(" ") + 1) + username;
 				tabInserted = true;
 				inserted = true;
 				tabSearchIndex++;
@@ -460,11 +501,11 @@ class Chat {
 		}
 		//if we didn't find it yet and the tabSearchIndex was not 0, let's look at the beginning of the array as well
 		//otherwise the user will have to press the tab key again
-		if(!tabInserted) {
-			for(int index = 0; index < tabSearchIndex; index++) {
+		if (!tabInserted) {
+			for (int index = 0; index < tabSearchIndex; index++) {
 				String username = connectedUsers.elementAt(index);
-				if(username.toLowerCase().startsWith(lastWord.toLowerCase()) &&
-				   username.toLowerCase() != localLastWord.toLowerCase()) {
+				if (username.toLowerCase().startsWith(lastWord.toLowerCase()) &&
+				    username.toLowerCase() != localLastWord.toLowerCase()) {
 					input.value = input.value.substring(0, input.value.lastIndexOf(" ") + 1) + username;
 					tabInserted = true;
 					inserted = true;
@@ -474,20 +515,22 @@ class Chat {
 			}
 		}
 
-		if(!inserted && k.keyCode == 9) {
+		if (!inserted && k.keyCode == 9) {
 			advanceChatFocus(k);
 		}
 
-		if(tabSearchIndex == connectedUsers.length) {
+		if (tabSearchIndex == connectedUsers.length) {
 			//wrap around for next time
 			tabSearchIndex = 0;
 		}
 	}
 
-	parseInput(String input) {
+	void parseInput(String input) {
 		// if its not a command, send it through.
-		if(parseCommand(input)) return;
-		else if(input.toLowerCase() == "/list") {
+		if (parseCommand(input)) {
+			return;
+		}
+		else if (input.toLowerCase() == "/list") {
 			Map map = {};
 			map["username"] = game.username;
 			map["statusMessage"] = "list";
@@ -499,19 +542,22 @@ class Chat {
 			map["username"] = game.username;
 			map["message"] = input;
 			map["channel"] = title;
-			if(title == "Local Chat") {
+			if (title == "Local Chat") {
 				map["street"] = currentStreet.label;
 			}
 
 			transmit('outgoingChatEvent', map);
 
 			//display chat bubble if we're talking in local (unless it's a /me message)
-			if(map["channel"] == "Local Chat" && !(map["message"] as String).toLowerCase().startsWith("/me")) {
+			if (map["channel"] == "Local Chat" &&
+			    !(map["message"] as String).toLowerCase().startsWith("/me")) {
 				//remove any existing bubble
-				if(CurrentPlayer.chatBubble != null && CurrentPlayer.chatBubble.bubble != null){
+				if (CurrentPlayer.chatBubble != null &&
+				    CurrentPlayer.chatBubble.bubble != null) {
 					CurrentPlayer.chatBubble.bubble.remove();
 				}
-				CurrentPlayer.chatBubble = new ChatBubble(parseEmoji(map["message"]), CurrentPlayer, CurrentPlayer.playerParentElement);
+				CurrentPlayer.chatBubble = new ChatBubble(parseEmoji(map["message"]),
+				                                          CurrentPlayer, CurrentPlayer.playerParentElement);
 			}
 		}
 	}
@@ -519,11 +565,23 @@ class Chat {
 
 class ChatMessage {
 	String player, message;
+	List<String> devs = [
+		// slack usernames
+		"courtneybreid",
+		"klikini",
+		"paul",
+		"robertmcdermot",
+		// game usernames
+		"lead",
+		"paal",
+		"ppvk",
+		"thaderator"
+	];
 
 	ChatMessage(this.player, this.message);
 
 	String toHtml() {
-		if(message is! String) {
+		if (message is! String) {
 			return '';
 		}
 		String html;
@@ -531,30 +589,37 @@ class ChatMessage {
 		message = parseUrl(message);
 		message = parseEmoji(message);
 
-		if(message.toLowerCase().contains(game.username.toLowerCase())){
+		if (message.toLowerCase().contains(game.username.toLowerCase())) {
 			transmit('playSound', 'mention');
 		}
 
-		if(player == null) {
+		if (player == null) {
 			html = '''
-			<p class="system">
+		<p class="system">
 			$message
-			</p>
-			''';
-		} else if(message.startsWith('/me')) {
+		</p>
+		''';
+		} else if (message.startsWith('/me')) {
 			message = message.replaceFirst('/me ', '');
 			html = '''
-				<p class="me" style="color:${getColorFromUsername(player)};">
-				<i><a class="noUnderline" href="http://childrenofur.com/profile?username=${player}" target="_blank" title="Open Profile Page">$player</a> $message</i>
-				</p>
+		<p class="me" style="color:${getColorFromUsername(player)};">
+			<i><a class="noUnderline" href="http://childrenofur.com/profile?username=${player}" target="_blank" title="Open Profile Page">$player</a> $message</i>
+		</p>
 				''';
+		} else if (devs.contains(player.toLowerCase())) {
+			html = '''
+		<p>
+			<span class="name dev" style="color:${getColorFromUsername(player)};"><a class="noUnderline" href="http://childrenofur.com/profile?username=${player}" target="_blank" title="Open Profile Page">$player</a>:</span>
+			<span class="message">$message</span>
+		</p>
+		''';
 		} else {
 			html = '''
-					<p>
-					<span class="name" style="color:${getColorFromUsername(player)};"><a class="noUnderline" href="http://childrenofur.com/profile?username=${player}" target="_blank" title="Open Profile Page">$player</a>:</span>
-					<span class="message">$message</span>
-					</p>
-					''';
+		<p>
+			<span class="name" style="color:${getColorFromUsername(player)};"><a class="noUnderline" href="http://childrenofur.com/profile?username=${player}" target="_blank" title="Open Profile Page">$player</a>:</span>
+			<span class="message">$message</span>
+		</p>
+		''';
 		}
 
 		return html;

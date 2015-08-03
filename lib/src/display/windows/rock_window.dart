@@ -1,56 +1,93 @@
 part of couclient;
 
 class RockWindow extends Modal {
-  String id = 'rockWindow';
+	String id = 'rockWindow';
+	Element rescueButton;
+	StreamSubscription rescueClick;
 
-  RockWindow() {
-    prepare();
+	RockWindow() {
+		prepare();
 
-    // Toggle window by clicking rock
-    querySelector("#petrock").onClick.listen((_) {
-      if (this.window.hidden == true) {
-        this.open();
-      } else {
-        this.close();
-      }
-    });
+		// Rescue function
+		rescueButton = querySelector("#rock-rescue")
+			..hidden = true;
 
-    switchContent(String id) {
-      querySelectorAll("#rwc-holder .rockWindowContent").style.display = "none";
-      querySelector("#" + id).style.display = "block";
-    }
+		// Toggle window by clicking rock
+		setupUiButton(querySelector("#petrock"));
 
-    // Back to main menu
-    querySelectorAll("a.go-rwc").onClick.listen((_) {
-      switchContent("rwc");
-    });
+		// Open given conversation ////////////////////////////////////////////////////////////////////
 
-    initConvo(String convo) {
-      querySelector("#go-" + convo).onClick.listen((_) {
-        querySelectorAll("#rwc-" + convo + " > div").style.display = "none";
-        querySelector("#rwc-" + convo + "-1").style.display = "block";
-        querySelector("#rwc-" + convo + " .go-rwc").scrollIntoView();
-        switchContent("rwc-" + convo);
-      });
+		switchContent(String id) {
+			querySelectorAll("#rwc-holder .rockWindowContent").forEach((Element el) => el.hidden = true);
+			querySelector("#" + id).hidden = false;
+		}
 
-      querySelectorAll("#rwc-" + convo + " .rwc-button").onClick.listen((e) {
-        String id = e.target.getAttribute("goto");
-        if (id == querySelector("#rwc-" + convo).getAttribute("endphrase")) {
-          switchContent("rwc");
-          super.close();
-          querySelectorAll("#rwc-" + convo + " > div").style.display = "none";
-          querySelector("#rwc-" + convo + "-1").style.display = "block";
-          querySelector("#rwc-" + convo + " .go-rwc").scrollIntoView();
-        } else {
-          querySelectorAll("#rwc-" + convo + " > div").style.display = "none";
-          querySelector("#rwc-" + convo + "-" + id).style.display = "block";
-          querySelector("#rwc-" + convo + " .go-rwc").scrollIntoView();
-        }
-      });
-    }
+		// Set up conversations ///////////////////////////////////////////////////////////////////////
 
-    initConvo("start");
-    initConvo("motd");
-    initConvo("bugs");
-  }
+		initConvo(String convo, {bool userTriggered: true}) {
+			if (userTriggered) {
+				querySelector("#go-" + convo).onClick.listen((_) {
+					querySelectorAll("#rwc-" + convo + " > div").forEach((Element el) => el.hidden = true);
+					querySelector("#rwc-" + convo + "-1").hidden = false;
+					switchContent("rwc-" + convo);
+				});
+			}
+
+			querySelectorAll("#rwc-" + convo + " .rwc-button").onClick.listen((e) {
+				String id = e.target.dataset["goto"];
+				if (id == querySelector("#rwc-" + convo).dataset["endphrase"]) {
+					switchContent("rwc");
+					super.close();
+					querySelectorAll("#rwc-" + convo + " > div").forEach((Element el) => el.hidden = true);
+					querySelector("#rwc-" + convo + "-1").hidden = false;
+				} else {
+					querySelectorAll("#rwc-" + convo + " > div").forEach((Element el) => el.hidden = true);
+					querySelector("#rwc-" + convo + "-" + id).hidden = false;
+				}
+			});
+		}
+
+		// Define conversations ///////////////////////////////////////////////////////////////////////
+
+		// Triggered by user clicking menu options
+		initConvo("start");
+		initConvo("motd");
+
+		// Triggered by incoming message from server (user dying)
+		initConvo("dead", userTriggered: false);
+
+		// Triggered by going to a known problem street
+		initConvo("badstreet", userTriggered: false);
+
+		// Trigger conversations //////////////////////////////////////////////////////////////////////
+
+		// On death
+		new Service(["dead"], (String value) {
+			if (value == "true") {
+				// Start conversation
+				switchContent("rwc-dead");
+				open();
+				// Disable inventory
+				querySelector("#inventory /deep/ #disableinventory").hidden = false;
+			}
+		});
+
+		// Rescue from bad street
+		new Service(['streetLoaded'], (_) {
+			if (streetMetadata[currentStreet.label] != null && streetMetadata[currentStreet.label]["broken"] == true) {
+				switchContent("rwc-badstreet");
+				open();
+				rescueButton.hidden = false;
+				rescueClick = rescueButton.onClick.listen((_) {
+					streetService.requestStreet(/*Ilmenskie*/"LIF102FDNU11314");
+					close();
+				});
+			} else {
+				rescueButton.hidden = true;
+				if (rescueClick != null) {
+					rescueClick.cancel();
+				}
+			}
+		});
+	}
 }

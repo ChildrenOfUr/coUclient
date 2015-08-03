@@ -65,11 +65,11 @@ class ShrineWindow extends Modal {
 	}
 
 	void populateQtySelector(String itemType) {
-		QtyContainer = this.window.querySelector("#shrine-window-qty");
-		plusBtn = this.window.querySelector(".plus");
-		minusBtn = this.window.querySelector(".minus");
-		maxBtn = this.window.querySelector(".max");
-		numBox = this.window.querySelector(".NumToDonate");
+		QtyContainer = this.displayElement.querySelector("#shrine-window-qty");
+		plusBtn = this.displayElement.querySelector(".plus");
+		minusBtn = this.displayElement.querySelector(".minus");
+		maxBtn = this.displayElement.querySelector(".max");
+		numBox = this.displayElement.querySelector(".NumToDonate");
 
 		numBox.attributes['max'] = getNumItems(itemType).toString();
 		numBox.valueAsNumber = 1;

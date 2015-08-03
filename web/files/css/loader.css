@@ -74,7 +74,6 @@
 
 #loading #loadstatus {
     font-size: 14px;
-    color: #eee;
     position: absolute;
     bottom: 45px;
     left: 8px;
@@ -82,7 +81,6 @@
 
 #loading #loadstatus2 {
     font-size: 12px;
-    color: #eee;
     position: absolute;
     bottom: 33px;
     left: 8px;

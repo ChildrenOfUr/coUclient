@@ -6,7 +6,6 @@ import 'dart:html';
 import 'dart:async';
 import 'dart:math' show Random;
 import 'dart:convert';
-import "package:couclient/configs.dart";
 
 @CustomTag('ur-meters')
 class Meters extends PolymerElement {
@@ -74,6 +73,8 @@ class Meters extends PolymerElement {
 		hurtDisk.style.backfaceVisibility = 'visible';
 		hurtDisk.style.opacity = '${0.7 - (mood / maxmood)}';
 		deadDisk.style.opacity = (mood <= 0 ? 1 : 0).toString();
+		// update username links
+		(querySelector("#openProfilePageFromChatPanel") as AnchorElement).href = "http://childrenofur.com/profile?username=" + playername;
 		// updates portrait
 		updateAvatarDisplay();
 		runCount++;

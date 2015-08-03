@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- Generator: Adobe Illustrator 15.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="flash0.ai" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="42.2px" height="38.35px" viewBox="0 0 42.2 38.35" style="enable-background:new 0 0 42.2 38.35;" xml:space="preserve">
+<symbol  id="flash0.ai_x5F_5_x2F_Layer_9_x2F__x3C_Path_x3E_" viewBox="0.125 -9.853 15.825 9.853">
+	<g id="Layer_1_3_">
+		<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#FFFFFF;" d="M14.9-3.25C15.467-2.083,15.783-1,15.85,0
+			c0.2-1.033,0.1-2.2-0.3-3.5C14.75-6.067,12.9-7.967,10-9.2C7.833-10.133,5.517-10.067,3.05-9C1.874-8.491,0.899-7.892,0.125-7.2
+			C0.71-7.688,1.519-8.087,2.55-8.4c2.2-0.667,4.6-0.533,7.2,0.4C12.117-7.133,13.833-5.55,14.9-3.25z"/>
+	</g>
+</symbol>
+<symbol  id="flash0.ai_x5F_5_x2F_Layer_9_x2F__x3C_Path_x3E__x5F_3" viewBox="0 -20.7 20.7 20.7">
+	<g id="Layer_1_2_">
+		<path style="fill-rule:evenodd;clip-rule:evenodd;fill:none;stroke:#FFFFFF;stroke-width:0.5;" d="M20.45-10.35
+			c0-2.8-0.983-5.183-2.95-7.15c-2-1.967-4.383-2.95-7.15-2.95c-2.8,0-5.184,0.983-7.15,2.95c-1.967,1.967-2.95,4.35-2.95,7.15
+			c0,2.8,0.983,5.184,2.95,7.15c1.966,1.967,4.35,2.95,7.15,2.95c2.767,0,5.15-0.983,7.15-2.95C19.467-5.167,20.45-7.55,20.45-10.35
+			z"/>
+	</g>
+</symbol>
+<radialGradient id="SVGID_1_" cx="42.002" cy="-2.6162" r="8.4322" gradientTransform="matrix(0.7071 0.7071 0.7071 -0.7071 3.6998 -3.6996)" gradientUnits="userSpaceOnUse">
+	<stop  offset="0" style="stop-color:#E8F4F7"/>
+	<stop  offset="0.3686" style="stop-color:#E6F3F6"/>
+	<stop  offset="0.5647" style="stop-color:#DEEFF3"/>
+	<stop  offset="0.7216" style="stop-color:#D0E9EF"/>
+	<stop  offset="0.8588" style="stop-color:#BDDFE8"/>
+	<stop  offset="0.9804" style="stop-color:#A4D4E0"/>
+	<stop  offset="1" style="stop-color:#9FD1DE"/>
+</radialGradient>
+<path style="fill-rule:evenodd;clip-rule:evenodd;fill:url(#SVGID_1_);" d="M41.95,28c0,2.8-0.983,5.184-2.95,7.15
+	c-2,1.966-4.384,2.949-7.15,2.949c-2.8,0-5.183-0.983-7.149-2.949c-1.967-1.967-2.95-4.351-2.95-7.15s0.983-5.184,2.95-7.15
+	c1.967-1.966,4.35-2.95,7.149-2.95c2.767,0,5.15,0.983,7.15,2.95C40.967,22.816,41.95,25.2,41.95,28z"/>
+<use xlink:href="#flash0.ai_x5F_5_x2F_Layer_9_x2F__x3C_Path_x3E__x5F_3"  width="20.7" height="20.7" y="-20.7" transform="matrix(1 0 0 -1 21.5 17.6499)" style="overflow:visible;opacity:0.6719;enable-background:new    ;"/>
+<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#FFFFFF;" d="M26.6,21.55c1.334,0.033,1.5,0.684,0.5,1.95
+	c-1.066,1.333-1.8,1.783-2.199,1.35C24.533,24.45,24.566,23.8,25,22.9C25.434,21.967,25.967,21.517,26.6,21.55z"/>
+<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#FFFFFF;" d="M24.4,25.85c0.333,0.034,0.433,0.284,0.3,0.75
+	c-0.134,0.467-0.316,0.617-0.55,0.45c-0.233-0.166-0.317-0.416-0.25-0.75C24,25.934,24.167,25.783,24.4,25.85z"/>
+<use xlink:href="#flash0.ai_x5F_5_x2F_Layer_9_x2F__x3C_Path_x3E_"  width="15.825" height="9.853" x="0.125" y="-9.853" transform="matrix(1 0 0 -1 24.7002 26.75)" style="overflow:visible;opacity:0.3398;enable-background:new    ;"/>
+</svg>

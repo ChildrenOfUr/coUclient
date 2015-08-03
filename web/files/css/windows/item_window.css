@@ -1,52 +1,47 @@
-#itemWindow {
-    height: 235px !important;
-}
-
-#itemWindow ur-well * {
+.itemWindow ur-well * {
     font-family: "Lato", sans-serif;
     font-size: 18px;
 }
 
-#iw-left {
+.iw-left {
     float: left;
     width: 200px;
 }
 
-#iw-image-container {
+.iw-image-container {
     width: 200px;
     height: 200px;
     background-image: url(../../system/windows/itembg.svg);
     background-size: 200px 200px;
 }
 
-#iw-image {
+.iw-image {
     position: relative;
     left: 50%;
     top: 50%;
     transform: translateX(-50%) translateY(-50%);
 }
 
-#iw-info {
+.iw-newitem {
+    text-align: center;
+}
+
+.iw-info {
     margin-left: 210px;
     height: 100%;
 }
 
-#iw-desc {
-    height: calc(100% - 60px);
-    overflow-y: scroll;
+.iw-desc {
+    max-height: 230px;
 }
 
-#iw-desc.withWear {
-    height: calc(100% - 100px);
-}
-
-#iw-meta {
+.iw-meta {
     position: absolute;
     bottom: 10px;
     color: #666;
 }
 
-#iw-icon-currants {
+.iw-icon-currants {
     height: 22px;
     width: 22px;
     margin-right: 5px;
@@ -65,17 +60,17 @@
     border-radius: 5px;
 }
 
-#iw-icon-slot {
+.iw-icon-slot {
     border: 2px dotted #aaa;
 }
 
-#iw-icon-wear {
+.iw-icon-wear {
     border: 2px solid #aaa;
     z-index: 10;
 }
 
-#iw-icon-wear::before,
-#iw-icon-wear::after {
+.iw-icon-wear::before,
+.iw-icon-wear::after {
     content: '';
     display: inline-block;
     height: 5px;
@@ -85,12 +80,12 @@
     z-index: 11;
 }
 
-#iw-icon-wear::before {
+.iw-icon-wear::before {
     background-color: #BBDADF;
     width: 14px;
 }
 
-#iw-icon-wear::after {
+.iw-icon-wear::after {
     background-color: #277D8D;
     width: 9px;
 }
@@ -99,7 +94,7 @@
     height: 5px;
 }
 
-#iw-left span.img {
+.iw-left span.img {
     background-color: rgb(239, 179, 255);
     color: rgb(71, 1, 71);
     padding: 0 4px 2px 4px;

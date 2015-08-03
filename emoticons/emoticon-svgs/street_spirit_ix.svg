@@ -1,0 +1,1968 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- Generator: Adobe Illustrator 15.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="128px" height="148.1px" viewBox="0 0 128 148.1" style="enable-background:new 0 0 128 148.1;" xml:space="preserve">
+<symbol  id="hilite1" viewBox="-2.95 -1.9 5.85 3.85">
+	<g id="Layer_1_11_">
+		<g>
+			<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#FFFFFF;fill-opacity:0.702;" d="M1.65,1.9l-0.1,0.05
+				c0.034,0,0.067,0,0.1,0V1.9z M0.3,1l0.1,0.05c0.033-0.2,0.15-0.367,0.35-0.5C0.983,0.65,1.167,1.067,1.3,1.8l0.35-0.4
+				C1.783,1.5,1.867,1.633,1.9,1.8c0.5-0.233,0.833-0.566,1-1v-1.95L2.55-1.2c-0.233,0-0.533,0.35-0.9,1.05
+				c-0.033-0.067-0.1-0.317-0.2-0.75c-0.034-0.367-0.133-0.617-0.3-0.75c-0.2-0.033-0.367,0.066-0.5,0.3
+				C0.45-1.083,0.333-0.933,0.3-0.9C0.267-1.033,0.133-1.217-0.1-1.45C-0.333-1.683-0.55-1.833-0.75-1.9C-0.917-1.733-1-1.5-1-1.2
+				c0,0.367-0.017,0.583-0.05,0.65c-0.034-0.133-0.2-0.333-0.5-0.6c-0.333-0.333-0.667-0.517-1-0.55l-0.3,0.05
+				c-0.033,0.533-0.066,1.017-0.1,1.45h0.05l0.6,0.65h0.05C-2.383,0.017-2.3-0.317-2-0.55c0.267,0.267,0.5,0.6,0.7,1l0.05-0.3
+				l0.05-0.1c0.4,0.167,0.6,0.467,0.6,0.9c0.067-0.1,0.184-0.35,0.35-0.75c0.267,0.133,0.433,0.267,0.5,0.4
+				C0.25,0.767,0.267,0.9,0.3,1z"/>
+		</g>
+	</g>
+</symbol>
+<symbol  id="hilite2" viewBox="-2.8 -2.25 5.65 4.45">
+	<g id="Layer_1_10_">
+		<g>
+			<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#FFFFFF;fill-opacity:0.702;" d="M1.85,1.15V2.2c0.667-0.7,1-1.4,1-2.1
+				l-0.1-0.8C2.583-1.233,2.267-1.5,1.8-1.5c-0.066,0-0.167,0.033-0.3,0.1C1.467-1.067,1.417-0.85,1.35-0.75c-1-1-1.6-1.5-1.8-1.5
+				c-0.2,0-0.316,0.1-0.35,0.3c0,0.267,0,0.467,0,0.6l-0.85-0.4c-0.167,0-0.25,0.033-0.25,0.1v0.85h-0.15
+				c-0.067-0.167-0.233-0.333-0.5-0.5C-2.717-1.033-2.8-0.717-2.8-0.35l0.85,0.05c0.1,0.066,0.167,0.117,0.2,0.15L-1.7-0.1
+				c0.133,0.167,0.2,0.333,0.2,0.5c-0.067,0.3-0.083,0.517-0.05,0.65V1.1c0.133-0.1,0.267-0.367,0.4-0.8
+				C-1.083,0.1-1.033-0.083-1-0.25c0.033-0.033,0.05-0.067,0.05-0.1C-0.883-0.483-0.833-0.567-0.8-0.6
+				c0.1,0.067,0.183,0.15,0.25,0.25c0.267,0.3,0.466,0.684,0.6,1.15C0.217,1.267,0.267,1.717,0.2,2.15
+				c0.133-0.033,0.316-0.133,0.55-0.3C0.85,1.75,0.933,1.667,1,1.6c0.267-0.333,0.333-0.65,0.2-0.95l0.15-0.1
+				c0.2,0.034,0.333,0.133,0.4,0.3L1.85,1.15z"/>
+		</g>
+	</g>
+</symbol>
+<symbol  id="hilite3" viewBox="-3.25 -2.2 6.525 4.375">
+	<g id="Layer_1_14_">
+		<g>
+			<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#FFFFFF;fill-opacity:0.702;" d="M1.85,2.15
+				C1.883,2.117,1.9,2.083,1.9,2.05c0.031-0.031,0.031-0.064,0-0.1c0.033,0.035,0.05,0.068,0.05,0.1c0.033,0.034,0.066,0.034,0.1,0
+				c0.034,0,0.067-0.017,0.1-0.05c0.033,0,0.033-0.017,0-0.05c-0.033-0.5,0.067-0.934,0.3-1.3c0.3-0.467,0.566-0.9,0.8-1.3v-0.4
+				c0.033-0.034,0.033-0.067,0-0.1c-0.033,0-0.067-0.017-0.1-0.05H3.1L1.5-0.4v-0.15C1.6-0.917,1.75-1.267,1.95-1.6L2-1.65
+				c0.033,0,0.033-0.033,0-0.1L1.95-1.8c0-0.034-0.034-0.05-0.1-0.05c0,0.033-0.017,0.05-0.05,0.05
+				C1.633-1.533,1.233-1.283,0.6-1.05C0.067-0.817-0.333-0.633-0.6-0.5C-0.467-0.767-0.267-1.217,0-1.85l0.15-0.1
+				c0.033-0.033,0.033-0.066,0-0.1c0.033-0.034,0.033-0.067,0-0.1c-0.033,0-0.066-0.017-0.1-0.05H0c0,0.034-0.017,0.05-0.05,0.05
+				c-0.467,0.233-1.034,0.6-1.7,1.1V-1.8c0.033-0.034,0.033-0.067,0-0.1s-0.067-0.05-0.1-0.05h-0.5c-0.033,0-0.066,0.017-0.1,0.05
+				c-0.533,0.533-0.8,0.833-0.8,0.9C-3.083-0.2-3,0.65-3,1.55V1.8l0.05,0.05c0,0.033,0.017,0.05,0.05,0.05
+				c0.033,0.033,0.066,0.033,0.1,0c0.033,0,0.05-0.017,0.05-0.05c0.4-0.533,0.633-0.883,0.7-1.05C-2.083,1.1-2.1,1.517-2.1,2.05
+				c0,0.034,0.017,0.05,0.05,0.05c0.033,0.033,0.066,0.05,0.1,0.05c0.034,0.033,0.05,0.033,0.05,0l1.05-0.95v0.85
+				c0,0.034,0.017,0.067,0.05,0.1c0.033,0.033,0.066,0.033,0.1,0c0.067,0.033,0.3-0.133,0.7-0.5C0.233,1.45,0.4,1.3,0.5,1.2v0.75
+				c0,0.033,0.017,0.066,0.05,0.1l0.15,0.1h0.05c0.033,0,0.067,0,0.1,0S0.9,2.133,0.9,2.1C1,1.9,1.117,1.733,1.25,1.6v0.35
+				C1.25,1.983,1.267,2,1.3,2l0.05,0.05l0.4,0.1C1.817,2.183,1.85,2.183,1.85,2.15z"/>
+		</g>
+	</g>
+</symbol>
+<symbol  id="hilite4" viewBox="-2.75 -1.7 5.525 3.35">
+	<g id="Layer_1_13_">
+		<g>
+			<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#FFFFFF;fill-opacity:0.702;" d="M1,0.9c0.033,0,0.083,0.017,0.15,0.05
+				c0.1,0.066,0.25,0.133,0.45,0.2c0.033,0.033,0.066,0.033,0.1,0c0.033,0,0.05-0.017,0.05-0.05c0.033-0.033,0.033-0.067,0-0.1
+				C1.683,0.767,1.733,0.4,1.9-0.1c0.2-0.467,0.417-0.75,0.65-0.85C2.583-0.95,2.6-0.967,2.6-1l0.15-0.15
+				c0.033-0.033,0.033-0.067,0-0.1L2.7-1.3c0-0.034-0.034-0.05-0.1-0.05C2.333-1.283,2.017-1.1,1.65-0.8H1.6
+				c0.133-0.333,0.183-0.583,0.15-0.75c0.033-0.034,0.033-0.067,0-0.1c-0.033,0-0.067-0.017-0.1-0.05L1.6-1.65
+				C1.533-1.617,1.25-1.4,0.75-1c-0.4,0.367-0.667,0.583-0.8,0.65L0-0.75L0.1-1c0.033-0.033,0.033-0.067,0-0.1
+				c0-0.033-0.017-0.066-0.05-0.1c-0.033,0-0.066,0.017-0.1,0.05C-1.083-0.65-1.967-0.033-2.7,0.7c-0.033,0.033-0.05,0.066-0.05,0.1
+				v0.15C-2.75,0.983-2.733,1-2.7,1c0.034,0.033,0.067,0.05,0.1,0.05c0.033,0.034,0.05,0.034,0.05,0l0.45-0.4
+				C-2,1.15-1.933,1.467-1.9,1.6l0.05,0.05c0.033,0,0.067,0,0.1,0h0.05c0.333-0.267,0.65-0.617,0.95-1.05v0.7
+				c0,0.034,0.017,0.05,0.05,0.05l0.05,0.05c0.033,0.033,0.066,0.033,0.1,0c0.2-0.1,0.417-0.333,0.65-0.7v0.5l0.05,0.05
+				c0,0.033,0.017,0.05,0.05,0.05c0.033,0.034,0.05,0.034,0.05,0C0.55,1.267,0.8,1.133,1,0.9z M1.45,0.5c0,0.135,0,0.235,0,0.3
+				c-0.034,0-0.067-0.017-0.1-0.05C1.415,0.686,1.448,0.602,1.45,0.5z M1.5,0.3c0.029-0.058,0.046-0.133,0.05-0.225
+				C1.547,0.201,1.53,0.31,1.5,0.4C1.5,0.367,1.5,0.333,1.5,0.3z"/>
+		</g>
+	</g>
+</symbol>
+<symbol  id="ixStreetSpirit" viewBox="-65.017 -74.05 128.027 148.1">
+	<g id="Arm1_1_">
+		
+			<use xlink:href="#parts_x2F_Arm1"  width="37.75" height="15.56" x="-35.75" y="-9.81" transform="matrix(1 0 0 1 -5.0498 -1.8999)" style="overflow:visible;"/>
+	</g>
+	<g id="Trunk_1_">
+		
+			<use xlink:href="#parts_x2F_Trunk"  width="40.9" height="91.45" x="-18.45" y="-87.45" transform="matrix(1 0 0 1 5.3501 13.3999)" style="overflow:visible;"/>
+	</g>
+	<g id="Arm2_1_">
+		
+			<use xlink:href="#parts_x2F_Arm2"  width="22.55" height="29.3" x="-4" y="-27.3" transform="matrix(1 0 0 1 22.3999 12)" style="overflow:visible;"/>
+	</g>
+	<g id="Hand1_1_">
+		
+			<use xlink:href="#parts_x2F_Hand1"  width="27.567" height="20.863" x="-26.567" y="-13.463" transform="matrix(1 0 0 1 -38.4502 -4.8501)" style="overflow:visible;"/>
+	</g>
+	<g id="Hand2_1_">
+		
+			<use xlink:href="#parts_x2F_Hand2"  width="16.4" height="24.646" x="-3" y="-22.65" transform="matrix(1 0 0 1 40.2998 -14.3999)" style="overflow:visible;"/>
+	</g>
+	<g id="Ear1_1_">
+		
+			<use xlink:href="#parts_x2F_Ear1"  width="24.165" height="34.374" x="-21.165" y="-1.5" transform="matrix(1 0 0 1 -23.25 38.0498)" style="overflow:visible;"/>
+	</g>
+	<g id="Head_1_">
+		
+			<use xlink:href="#parts_x2F_Head"  width="103.7" height="51.258" x="-51.85" y="-6.007" transform="matrix(1 0 0 1 1.3501 10.5)" style="overflow:visible;"/>
+	</g>
+	<g id="Eye2_1_">
+		
+			<use xlink:href="#parts_x2F_Eye2"  width="11.062" height="17.05" x="-4.535" y="-7" transform="matrix(1 0 0 1 19.6001 24.6499)" style="overflow:visible;"/>
+	</g>
+	<g id="Eye1_1_">
+		
+			<use xlink:href="#parts_x2F_Eye1"  width="10.178" height="15.55" x="-4.1" y="-7.25" transform="matrix(1 0 0 1 -27.1499 22.9502)" style="overflow:visible;"/>
+	</g>
+	<g id="Ear2_1_">
+		
+			<use xlink:href="#parts_x2F_Ear2"  width="40.26" height="44.2" x="-6" y="-4.5" transform="matrix(1 0 0 1 28.75 34.3501)" style="overflow:visible;"/>
+	</g>
+	<g id="Layer_2_3_">
+	</g>
+	<g id="Layer_3_3_">
+	</g>
+	<g id="Layer_4_3_">
+	</g>
+	<g id="state_1_">
+	</g>
+</symbol>
+<symbol  id="parts_x2F_Arm1" viewBox="-35.75 -9.81 37.75 15.56">
+	<g id="_x3C_Path_x3E__x5F_4_1_">
+		<g>
+			
+				<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="3437.1841" y1="-18614.5391" x2="3449.4883" y2="-18614.5391" gradientTransform="matrix(-0.3556 -0.9346 0.9346 -0.3556 18604.6387 -3406.3613)">
+				<stop  offset="0" style="stop-color:#B8CEB2"/>
+				<stop  offset="1" style="stop-color:#699168"/>
+			</linearGradient>
+			<path style="fill-rule:evenodd;clip-rule:evenodd;fill:url(#SVGID_1_);" d="M-1,5.75L2-3.9L1.8-4.05
+				c-5.566-4-10.45-5.917-14.65-5.75c-2.867,0.1-6.233,1.283-10.1,3.55C-24.883-5.117-26.533-4-27.9-2.9l-7.75-1.975v2.05
+				l8.75,3.875c1.4-1.5,3.133-2.883,5.2-4.15c4.167-2.6,7.95-3.433,11.35-2.5C-7.283-4.8-4.867-2.933-3.1,0
+				c0.867,1.5,1.483,3.033,1.85,4.6L-1,5.75z"/>
+			
+				<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_2_x5F_0"  width="37.75" height="14.81" x="10.7" y="-14.81" transform="matrix(1 0 0 1 -46.4502 5)" style="overflow:visible;opacity:0.5;enable-background:new    ;"/>
+			
+				<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_1_x5F_0"  width="37.5" height="7.81" x="10.75" y="-7.81" transform="matrix(1 0 0 1 -46.4502 -2)" style="overflow:visible;opacity:0.5;enable-background:new    ;"/>
+			
+				<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_4"  width="24.25" height="7.575" y="-7.575" transform="matrix(1 0 0 1 -27 0.1001)" style="overflow:visible;opacity:0.3008;enable-background:new    ;"/>
+		</g>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_Arm2" viewBox="-4 -27.3 22.55 29.3">
+	<g id="Layer_1_168_">
+		<g>
+			<g>
+				
+					<linearGradient id="SVGID_2_" gradientUnits="userSpaceOnUse" x1="10454.7754" y1="-19351.457" x2="10464.3232" y2="-19351.457" gradientTransform="matrix(-0.8353 -0.5499 0.5499 -0.8353 19380.1719 -10427.5586)">
+					<stop  offset="0" style="stop-color:#B8CEB2"/>
+					<stop  offset="1" style="stop-color:#699168"/>
+				</linearGradient>
+				<path style="fill-rule:evenodd;clip-rule:evenodd;fill:url(#SVGID_2_);" d="M17.45-27.3c-1.619,2.172-3.168,3.706-4.65,4.6
+					c-2.066,1.233-4.417,2.05-7.05,2.45c-1.3,0.2-2.4,0.283-3.3,0.25L-4,1.25L2.7,2l3.95-18.3c0.567,0.033,1.333-0.1,2.3-0.4
+					c1.867-0.633,3.733-1.816,5.6-3.55c1.327-1.25,2.661-3.234,4-5.95h-1.1V-27.3z"/>
+			</g>
+			<g>
+				<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#8EAC89;" d="M2.7,2l1.55-7.2C2.817-5.633,1.833-5.867,1.3-5.9l-1.5-0.15
+					L4-17.65l5-1.6c3.567-1.5,6.033-3.267,7.4-5.3c0.3-0.428,0.658-0.978,1.075-1.65H17.45v-1.1c-1.619,2.172-3.168,3.706-4.65,4.6
+					c-2.066,1.233-4.417,2.05-7.05,2.45L2.45-20L-4,1.25L2.7,2z"/>
+			</g>
+			<g>
+				<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#8EAC89;" d="M5.75-20.25L2.45-20L-4,1.25c0.9-1.233,1.867-2.667,2.9-4.3
+					L-1.5-2.9l4.4-16.15l3.65-0.5c2.7-0.6,4.784-1.467,6.25-2.6c1.739-1.365,3.289-2.907,4.65-4.625V-27.3
+					c-1.619,2.172-3.168,3.706-4.65,4.6C10.733-21.467,8.383-20.65,5.75-20.25z"/>
+			</g>
+			<g>
+				
+					<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_1"  width="3.65" height="9.85" y="-9.85" transform="matrix(1 0 0 1 1.3999 -6.7998)" style="overflow:visible;opacity:0.3008;enable-background:new    ;"/>
+			</g>
+			<g>
+				
+					<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_0"  width="9" height="5.251" y="-5.25" transform="matrix(1 0 0 1 6.6499 -17.6499)" style="overflow:visible;opacity:0.3008;enable-background:new    ;"/>
+			</g>
+		</g>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_Duplicate_Items_Folder_x2F__x3C_Path_x3E_" viewBox="0 -1.45 1.7 1.45">
+	<g id="Layer_1_89_">
+		<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#CA7C5D;" d="M0.6-0.4C0.967-0.2,1.333-0.067,1.7,0
+			C1.533-0.467,1.283-0.8,0.95-1C0.517-1.3,0.2-1.45,0-1.45C0-1.017,0.2-0.667,0.6-0.4z"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_Duplicate_Items_Folder_x2F__x3C_Path_x3E__x5F_0" viewBox="0 -2.05 0.88 2.05">
+	<g id="Layer_1_90_">
+		<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#CA7C5D;" d="M0.15-0.9C0.35-0.533,0.567-0.233,0.8,0
+			c0.133-0.467,0.1-0.867-0.1-1.2C0.533-1.567,0.35-1.85,0.15-2.05C-0.05-1.65-0.05-1.267,0.15-0.9z"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_Duplicate_Items_Folder_x2F__x3C_Path_x3E__x5F_1" viewBox="0 -1.68 2.2 1.68">
+	<g id="Layer_1_91_">
+		<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#CA7C5D;" d="M0.85-1.2C0.483-0.833,0.2-0.433,0,0
+			c0.6-0.067,1.083-0.283,1.45-0.65c0.4-0.333,0.65-0.667,0.75-1C1.667-1.75,1.217-1.6,0.85-1.2z"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_Duplicate_Items_Folder_x2F__x3C_Path_x3E__x5F_10" viewBox="0 -1.2 1.45 1.2">
+	<g id="Layer_1_92_">
+		<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#CA7C5D;" d="M0.55-0.35c0.3,0.167,0.6,0.283,0.9,0.35
+			C1.317-0.4,1.1-0.683,0.8-0.85C0.5-1.05,0.233-1.167,0-1.2C0.033-0.833,0.217-0.55,0.55-0.35z"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_Duplicate_Items_Folder_x2F__x3C_Path_x3E__x5F_67_copy" viewBox="-0.006 -1.95 1.506 1.95">
+	<g id="Layer_1_74_">
+		<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#CA7C5D;" d="M0.35-0.65C0.717-0.317,1.1-0.1,1.5,0
+			c0-0.3-0.217-0.7-0.65-1.2L0.1-1.95C-0.1-1.483-0.017-1.05,0.35-0.65z"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_Duplicate_Items_Folder_x2F__x3C_Path_x3E__x5F_68" viewBox="0 -0.732 2.25 0.707">
+	<g id="Layer_1_97_">
+		<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#CA7C5D;" d="M1.15-0.05l1.1-0.25C1.917-0.667,1.5-0.8,1-0.7
+			C0.533-0.633,0.2-0.483,0-0.25C0.4-0.05,0.783,0.017,1.15-0.05z"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_Duplicate_Items_Folder_x2F__x3C_Path_x3E__x5F_68_copy" viewBox="0 -1.35 2.3 1.35">
+	<g id="Layer_1_75_">
+		<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#CA7C5D;" d="M0.95-0.3C1.417-0.1,1.867,0,2.3,0
+			C2.033-0.5,1.667-0.85,1.2-1.05c-0.434-0.2-0.833-0.3-1.2-0.3C0.133-0.85,0.45-0.5,0.95-0.3z"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_Duplicate_Items_Folder_x2F__x3C_Path_x3E__x5F_69" viewBox="0 -1.429 2.8 1.429">
+	<g id="Layer_1_98_">
+		<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#CA7C5D;" d="M1.3-0.4C1.767-0.2,2.267-0.067,2.8,0
+			C2.567-0.6,2.15-1.017,1.55-1.25C1.183-1.417,0.8-1.467,0.4-1.4C0.233-1.367,0.1-1.3,0-1.2l0.45,0.3C0.85-0.6,1.133-0.433,1.3-0.4
+			z"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_Duplicate_Items_Folder_x2F__x3C_Path_x3E__x5F_69_copy" viewBox="-0.004 -3.35 1.004 3.354">
+	<g id="Layer_1_76_">
+		<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#CA7C5D;" d="M0-1.7c0,0.4,0.05,0.8,0.15,1.2
+			c0.1,0.367,0.167,0.533,0.2,0.5C0.783-0.533,1-1.133,1-1.8c0-0.667-0.133-1.184-0.4-1.55C0.167-2.883-0.033-2.333,0-1.7z"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_Duplicate_Items_Folder_x2F__x3C_Path_x3E__x5F_70" viewBox="-0.022 -1.1 1.072 1.1">
+	<g id="Layer_1_99_">
+		<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#CA7C5D;" d="M0.25-0.35C0.483-0.117,0.75,0,1.05,0
+			c-0.133-0.267-0.3-0.5-0.5-0.7C0.35-0.9,0.167-1.033,0-1.1C-0.067-0.8,0.017-0.55,0.25-0.35z"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_Duplicate_Items_Folder_x2F__x3C_Path_x3E__x5F_71" viewBox="-0.012 -0.9 0.662 0.9">
+	<g id="Layer_1_100_">
+		<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#CA7C5D;" d="M0,0c0.2-0.133,0.333-0.283,0.4-0.45L0.65-0.9
+			c-0.233,0-0.417,0.117-0.55,0.35C0-0.35-0.033-0.167,0,0z"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_Duplicate_Items_Folder_x2F_Art_On_Path_Brush" viewBox="0.4 -1.8 1.7 1.45">
+	<g id="Layer_1_160_">
+		<g>
+			<g>
+				
+					<use xlink:href="#parts_x2F_Duplicate_Items_Folder_x2F__x3C_Path_x3E_"  width="1.7" height="1.45" y="-1.45" transform="matrix(1 0 0 1 0.3999 -0.3501)" style="overflow:visible;enable-background:new    ;"/>
+			</g>
+		</g>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_Duplicate_Items_Folder_x2F_Art_On_Path_Brush_x5F_0" viewBox="0.35 -2.2 0.88 2.05">
+	<g id="Layer_1_161_">
+		<g>
+			<g>
+				
+					<use xlink:href="#parts_x2F_Duplicate_Items_Folder_x2F__x3C_Path_x3E__x5F_0"  width="0.88" height="2.05" x="0" y="-2.05" transform="matrix(1 0 0 1 0.3501 -0.1499)" style="overflow:visible;enable-background:new    ;"/>
+			</g>
+		</g>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_Duplicate_Items_Folder_x2F_Art_On_Path_Brush_x5F_1" viewBox="0.3 -2.08 2.2 1.68">
+	<g id="Layer_1_162_">
+		<g>
+			<g>
+				
+					<use xlink:href="#parts_x2F_Duplicate_Items_Folder_x2F__x3C_Path_x3E__x5F_1"  width="2.2" height="1.68" y="-1.68" transform="matrix(1 0 0 1 0.2998 -0.3999)" style="overflow:visible;enable-background:new    ;"/>
+			</g>
+		</g>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_Duplicate_Items_Folder_x2F_Art_On_Path_Brush_x5F_19" viewBox="0.1 -1.032 2.25 0.707">
+	<g id="Layer_1_164_">
+		<g>
+			<g>
+				
+					<use xlink:href="#parts_x2F_Duplicate_Items_Folder_x2F__x3C_Path_x3E__x5F_68"  width="2.25" height="0.707" y="-0.732" transform="matrix(1 0 0 1 0.1001 -0.2998)" style="overflow:visible;enable-background:new    ;"/>
+			</g>
+		</g>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_Duplicate_Items_Folder_x2F_Art_On_Path_Brush_x5F_2" viewBox="0.4 -1.55 1.45 1.2">
+	<g id="Layer_1_163_">
+		<g>
+			<g>
+				
+					<use xlink:href="#parts_x2F_Duplicate_Items_Folder_x2F__x3C_Path_x3E__x5F_10"  width="1.45" height="1.2" y="-1.2" transform="matrix(1 0 0 1 0.3999 -0.3501)" style="overflow:visible;enable-background:new    ;"/>
+			</g>
+		</g>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_Duplicate_Items_Folder_x2F_Art_On_Path_Brush_x5F_20" viewBox="0 -1.779 2.8 1.429">
+	<g id="Layer_1_165_">
+		<g>
+			<g>
+				
+					<use xlink:href="#parts_x2F_Duplicate_Items_Folder_x2F__x3C_Path_x3E__x5F_69"  width="2.8" height="1.429" y="-1.429" transform="matrix(1 0 0 1 0 -0.3501)" style="overflow:visible;enable-background:new    ;"/>
+			</g>
+		</g>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_Duplicate_Items_Folder_x2F_Art_On_Path_Brush_x5F_20_copy" viewBox="0.394 -2.3 1.506 1.95">
+	<g id="Layer_1_154_">
+		<g>
+			<g>
+				
+					<use xlink:href="#parts_x2F_Duplicate_Items_Folder_x2F__x3C_Path_x3E__x5F_67_copy"  width="1.506" height="1.95" x="-0.006" y="-1.95" transform="matrix(1 0 0 1 0.3999 -0.3501)" style="overflow:visible;enable-background:new    ;"/>
+			</g>
+		</g>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_Duplicate_Items_Folder_x2F_Art_On_Path_Brush_x5F_21" viewBox="0.428 -1.5 1.072 1.1">
+	<g id="Layer_1_166_">
+		<g>
+			<g>
+				
+					<use xlink:href="#parts_x2F_Duplicate_Items_Folder_x2F__x3C_Path_x3E__x5F_70"  width="1.072" height="1.1" x="-0.022" y="-1.1" transform="matrix(1 0 0 1 0.4502 -0.3999)" style="overflow:visible;enable-background:new    ;"/>
+			</g>
+		</g>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_Duplicate_Items_Folder_x2F_Art_On_Path_Brush_x5F_21_copy" viewBox="0.3 -1.75 2.3 1.35">
+	<g id="Layer_1_155_">
+		<g>
+			<g>
+				
+					<use xlink:href="#parts_x2F_Duplicate_Items_Folder_x2F__x3C_Path_x3E__x5F_68_copy"  width="2.3" height="1.35" y="-1.35" transform="matrix(1 0 0 1 0.2998 -0.3999)" style="overflow:visible;enable-background:new    ;"/>
+			</g>
+		</g>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_Duplicate_Items_Folder_x2F_Art_On_Path_Brush_x5F_22" viewBox="0.046 -3.35 1.004 3.354">
+	<g id="Layer_1_156_">
+		<g>
+			<g>
+				
+					<use xlink:href="#parts_x2F_Duplicate_Items_Folder_x2F__x3C_Path_x3E__x5F_69_copy"  width="1.004" height="3.354" x="-0.004" y="-3.35" transform="matrix(1 0 0 1 0.0498 0)" style="overflow:visible;enable-background:new    ;"/>
+			</g>
+		</g>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_Ear1" viewBox="-21.165 -1.5 24.165 34.374">
+	<g id="Layer_1_206_">
+		<g>
+			
+				<linearGradient id="SVGID_3_" gradientUnits="userSpaceOnUse" x1="12468.3125" y1="-18764.4727" x2="12470.8896" y2="-18764.4727" gradientTransform="matrix(-0.9216 -0.3881 0.3881 -0.9216 18768.9102 -12443.7881)">
+				<stop  offset="0" style="stop-color:#B8CEB2"/>
+				<stop  offset="1" style="stop-color:#699168"/>
+			</linearGradient>
+			<path style="fill-rule:evenodd;clip-rule:evenodd;fill:url(#SVGID_3_);" d="M-7.7,17.9c1.6-2.8,2.966-5.35,4.1-7.65
+				c0.567-1.167,1.083-2.117,1.55-2.85c0.8-1.333,1.617-2.55,2.45-3.65L3,0.6L0.85,1.15l0.5-2.2l-2.1,1.6l-1.1-2.05l-0.2,2L-3.7-1.1
+				v0.35c0,4.167-0.85,8.417-2.55,12.75c-1.533,3.933-3.55,7.517-6.05,10.75l-0.4,0.5l2.1-0.35L-7.7,17.9z"/>
+			
+				<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E_"  width="13.25" height="23.5" y="-23.5" transform="matrix(1 0 0 1 -12.2998 22.75)" style="overflow:visible;opacity:0.5;enable-background:new    ;"/>
+		</g>
+		
+			<linearGradient id="SVGID_4_" gradientUnits="userSpaceOnUse" x1="-13.3867" y1="-16255.7041" x2="0.6633" y2="-16255.7041" gradientTransform="matrix(7.117438e-005 -1 1 -0.001 16244.4229 2.8828)">
+			<stop  offset="0" style="stop-color:#DD7B78"/>
+			<stop  offset="1" style="stop-color:#B15052"/>
+		</linearGradient>
+		<path style="fill-rule:evenodd;clip-rule:evenodd;fill:url(#SVGID_4_);" d="M-5.3,24.05l-0.15-2.2c-0.4-1.6-1.367-2.767-2.9-3.5
+			c-1.533-0.767-2.85-0.934-3.95-0.5c-0.567,0.233-0.967,0.533-1.2,0.9l-0.35-1c-0.466-0.733-1.183-1.25-2.15-1.55
+			c-0.967-0.3-1.683,0.017-2.15,0.95c-0.233,0.5-0.367,1.017-0.4,1.55l-1.4-0.15c-0.9,0.1-1.3,0.633-1.2,1.6s0.55,1.867,1.35,2.7
+			l1.2,0.9c-0.167,0.3-0.3,0.667-0.4,1.1c-0.133,0.9,0.067,1.733,0.6,2.5c0.6,0.733,1.45,1.183,2.55,1.35h1.45
+			c0.067,0.3,0.217,0.65,0.45,1.05c0.466,0.8,1.15,1.45,2.05,1.95c0.4,0.233,0.917,0.45,1.55,0.65c1.467,0.4,2.534-0.017,3.2-1.25
+			l0.5-2c0.667,0.3,1.383,0.5,2.15,0.6c1.5,0.2,2.45-0.2,2.85-1.2c0.167-0.4,0.25-0.85,0.25-1.35c-0.033-1-0.683-1.816-1.95-2.45
+			C-4.017,24.367-4.667,24.15-5.3,24.05z"/>
+		
+			<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_67"  width="19.765" height="15.609" x="-0.015" y="-15.609" transform="matrix(1 0 0 1 -21.1499 31.7002)" style="overflow:visible;opacity:0.8398;enable-background:new    ;"/>
+		
+			<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_66"  width="5.062" height="3.412" x="-0.012" y="-3.412" transform="matrix(1 0 0 1 -12.6499 28.25)" style="overflow:visible;opacity:0.5;enable-background:new    ;"/>
+		
+			<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_63"  width="4.15" height="2.677" y="-2.7" transform="matrix(1 0 0 1 -11.5498 31.8501)" style="overflow:visible;opacity:0.5;enable-background:new    ;"/>
+		
+			<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_62"  width="3.144" height="2.625" y="-2.6" transform="matrix(1 0 0 1 -5.5498 29.25)" style="overflow:visible;opacity:0.5;enable-background:new    ;"/>
+		<g>
+			<g>
+				<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#F8D8A5;" d="M1.6,16.45c0.133-1.1-0.267-2.184-1.2-3.25
+					c-0.633-0.733-1.433-1.383-2.4-1.95c-0.4-0.2-0.733-0.317-1-0.35c-0.267,0.4-0.417,0.95-0.45,1.65c-0.133,1.2,0.2,2.3,1,3.3
+					c0.6,0.733,1.383,1.267,2.35,1.6l1.25,0.35l0.2-0.35C1.483,17.15,1.567,16.817,1.6,16.45z"/>
+				<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#DCBE8E;" d="M-3.15,11.25c0.4,0.8,1.133,1.883,2.2,3.25
+					c1.066,1.367,1.783,2.45,2.15,3.25c-0.333-0.8-1-1.933-2-3.4C-1.767,12.917-2.4,11.8-2.7,11c-0.333-0.7-0.517-1.367-0.55-2h-0.3
+					C-3.55,9.7-3.417,10.45-3.15,11.25z"/>
+				<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#DCBE8E;" d="M-2.8,11.75c-0.033,0.867,0.033,1.883,0.2,3.05
+					c0.067-1.133,0.15-1.95,0.25-2.45L-2.8,11.75z"/>
+				<polygon style="fill-rule:evenodd;clip-rule:evenodd;fill:#DCBE8E;" points="-1.85,13.35 -1.95,15.6 -1.5,13.7 				"/>
+				<polygon style="fill-rule:evenodd;clip-rule:evenodd;fill:#DCBE8E;" points="-0.9,14.5 -1.3,16.65 -0.6,14.9 				"/>
+				<polygon style="fill-rule:evenodd;clip-rule:evenodd;fill:#DCBE8E;" points="-0.15,15.5 -0.1,17.4 0.15,15.9 				"/>
+				<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#DCBE8E;" d="M-2.65,11.35l0.35,0.75c0.533,0.367,1.183,0.683,1.95,0.95
+					C-1.316,12.45-2.083,11.883-2.65,11.35z"/>
+				<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#DCBE8E;" d="M-0.95,14.25l0.3,0.4c0.7,0.233,1.317,0.483,1.85,0.75
+					C0.867,15.167,0.15,14.783-0.95,14.25z"/>
+			</g>
+		</g>
+		<g>
+			<g>
+				<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#F8D8A5;" d="M-13.55,29.8l-0.85,0.1c-0.633,0.133-1.1,0.417-1.4,0.85
+					c-0.533,0.633-0.717,1.317-0.55,2.05c0.8,0.233,1.517-0.083,2.15-0.95c0.367-0.533,0.583-1.033,0.65-1.5
+					C-13.517,30.117-13.517,29.933-13.55,29.8z"/>
+				<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#DCBE8E;" d="M-13.75,29.85c-1.433,1.667-2.283,2.65-2.55,2.95
+					c0.333-0.3,1.25-1.25,2.75-2.85l0.75-0.85l-0.15-0.1L-13.75,29.85z"/>
+				<polygon style="fill-rule:evenodd;clip-rule:evenodd;fill:#DCBE8E;" points="-13.95,30.1 -15.35,30.55 -14.15,30.4 				"/>
+				<polygon style="fill-rule:evenodd;clip-rule:evenodd;fill:#DCBE8E;" points="-14.55,30.8 -15.65,30.95 -14.65,31 				"/>
+				<polygon style="fill-rule:evenodd;clip-rule:evenodd;fill:#DCBE8E;" points="-15.4,31.85 -16.35,32.1 -15.6,32.05 				"/>
+			</g>
+		</g>
+		
+			<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_6_x5F_0"  width="1.735" height="3.85" x="-0.017" y="-3.85" transform="matrix(1 0 0 1 -8.8501 24.3501)" style="overflow:visible;opacity:0.25;enable-background:new    ;"/>
+		
+			<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_5_x5F_0"  width="1.747" height="2.4" x="0.003" y="-2.4" transform="matrix(1 0 0 1 -17.3999 25.0498)" style="overflow:visible;opacity:0.25;enable-background:new    ;"/>
+		
+			<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_4_x5F_1"  width="2.55" height="2.6" y="-2.6" transform="matrix(1 0 0 1 -15.0498 22.8501)" style="overflow:visible;opacity:0.25;enable-background:new    ;"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_Ear2" viewBox="-6 -4.5 40.26 44.2">
+	<g id="Layer_1_204_">
+		
+			<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_80"  width="10.75" height="7" y="-7" transform="matrix(1 0 0 1 -6 2.5)" style="overflow:visible;opacity:0.5;enable-background:new    ;"/>
+		<g>
+			<g>
+				<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#F8D8A5;" d="M11.15,15.3l-0.35,0.25c-0.3,0.267-0.55,0.55-0.75,0.85
+					c-0.667,1.033-0.9,2.066-0.7,3.1c0.1,0.8,0.45,1.567,1.05,2.3l0.75,0.9c0.367-0.067,0.717-0.317,1.05-0.75
+					c0.733-0.833,0.95-1.917,0.65-3.25c-0.2-0.933-0.567-1.817-1.1-2.65C11.55,15.717,11.35,15.467,11.15,15.3z"/>
+				<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#DCBE8E;" d="M10.9,15.55c-0.066,0.7,0.017,1.9,0.25,3.6
+					c0.2,1.5,0.217,2.7,0.05,3.6c0.233-0.9,0.283-2.133,0.15-3.7c-0.1-1.667-0.1-2.833,0-3.5c0.067-0.733,0.233-1.35,0.5-1.85
+					l-0.25-0.15C11.233,14.184,11,14.85,10.9,15.55z"/>
+				<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#DCBE8E;" d="M10.9,16.1c-0.3,0.467-0.7,1.317-1.2,2.55l1.3-1.9
+					L10.9,16.1z"/>
+				<polygon style="fill-rule:evenodd;clip-rule:evenodd;fill:#DCBE8E;" points="11,17.8 9.85,19.5 11.1,18.25 				"/>
+				<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#DCBE8E;" d="M11.2,19.15c-0.367,0.5-0.8,1-1.3,1.5l1.35-1.05L11.2,19.15
+					z"/>
+				<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#DCBE8E;" d="M11.3,20.3c-0.267,0.6-0.567,1.083-0.9,1.45
+					c0.233-0.2,0.55-0.533,0.95-1L11.3,20.3z"/>
+				<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#DCBE8E;" d="M11.2,15.85l-0.05,0.75c0.133,0.233,0.517,0.783,1.15,1.65
+					C11.733,17.117,11.367,16.317,11.2,15.85z"/>
+				<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#DCBE8E;" d="M12.6,19.575L11.2,17.5v0.35
+					C11.825,18.569,12.292,19.144,12.6,19.575z"/>
+				<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#DCBE8E;" d="M11.3,18.9l0.05,0.5l1.1,1.5
+					C12.283,20.534,11.9,19.867,11.3,18.9z"/>
+			</g>
+		</g>
+		<g>
+			
+				<linearGradient id="SVGID_5_" gradientUnits="userSpaceOnUse" x1="19369.6465" y1="-10467.7471" x2="19373.9805" y2="-10467.7471" gradientTransform="matrix(-0.8365 0.548 -0.548 -0.8365 10478.4268 -19360.9121)">
+				<stop  offset="0" style="stop-color:#B8CEB2"/>
+				<stop  offset="1" style="stop-color:#699168"/>
+			</linearGradient>
+			<path style="fill-rule:evenodd;clip-rule:evenodd;fill:url(#SVGID_5_);" d="M11.5,10.5c-2.267-3.267-4.933-7.716-8-13.35
+				l-1.45,2.4l-2.75-0.4L0.15,0.7L-4,1.45l3.8,1.9c1.267,0.667,2.767,1.667,4.5,3c3.4,2.667,6.183,5.7,8.35,9.1
+				c1.3,2.067,2.583,4.317,3.85,6.75l1.45,3.05l3.4-0.75L11.5,10.5z"/>
+			
+				<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_1_x5F_2"  width="24.85" height="26.1" y="-26.1" transform="matrix(1 0 0 1 -4 25.25)" style="overflow:visible;opacity:0.5;enable-background:new    ;"/>
+			
+				<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_12"  width="12" height="17.75" y="-17.75" transform="matrix(1 0 0 1 3.2998 17.3501)" style="overflow:visible;opacity:0.3008;enable-background:new    ;"/>
+		</g>
+		
+			<linearGradient id="SVGID_6_" gradientUnits="userSpaceOnUse" x1="-19.2451" y1="-16222.4219" x2="-2.2451" y2="-16222.4219" gradientTransform="matrix(5.882353e-005 -1 1 -0.001 16244.5225 2.8828)">
+			<stop  offset="0" style="stop-color:#DD7B78"/>
+			<stop  offset="1" style="stop-color:#B15052"/>
+		</linearGradient>
+		<path style="fill-rule:evenodd;clip-rule:evenodd;fill:url(#SVGID_6_);" d="M31.9,28.8l1.2-2.3c0.533-1.633,0.133-2.767-1.2-3.4
+			c-1.333-0.633-2.466-0.566-3.4,0.2c-0.5,0.367-0.85,0.8-1.05,1.3l-3.1-2.15c-2.467-1.367-4.717-1.9-6.75-1.6
+			c-2.067,0.3-3.433,1.633-4.1,4c-0.3,1.167-0.417,2.317-0.35,3.45l-1.5-0.1c-1.033,0.2-1.6,0.967-1.7,2.3
+			c-0.167,1.633,0.933,2.483,3.3,2.55c0.367,0.033,0.75,0.033,1.15,0L14.85,33c-0.167,0.867-0.117,1.75,0.15,2.65
+			c0.5,1.8,1.767,2.8,3.8,3c1.133,0.1,2.133-0.2,3-0.9l0.95-1.05c0.133,0.367,0.383,0.7,0.75,1c0.733,0.6,1.717,0.75,2.95,0.45
+			c1.267-0.3,1.983-0.967,2.15-2c0.067-0.534,0.017-1.017-0.15-1.45c0.667,0.2,1.383,0.283,2.15,0.25
+			c1.567-0.067,2.667-0.717,3.3-1.95c0.6-1.267,0.45-2.35-0.45-3.25C32.983,29.317,32.467,29,31.9,28.8z"/>
+		
+			<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_44"  width="23.395" height="12.281" x="0.033" y="-12.281" transform="matrix(1 0 0 1 9.8999 33.0498)" style="overflow:visible;opacity:0.8398;enable-background:new    ;"/>
+		
+			<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_43"  width="11.757" height="5.443" x="-0.007" y="-5.443" transform="matrix(1 0 0 1 18.7998 35)" style="overflow:visible;opacity:0.5;enable-background:new    ;"/>
+		
+			<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_42"  width="5.75" height="2.547" y="-2.55" transform="matrix(1 0 0 1 15.6499 37.8501)" style="overflow:visible;opacity:0.5;enable-background:new    ;"/>
+		
+			<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_41"  width="3.36" height="2.978" y="-3" transform="matrix(1 0 0 1 24.4502 37.8501)" style="overflow:visible;opacity:0.5;enable-background:new    ;"/>
+		
+			<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_40"  width="3.163" height="4.16" x="0.05" y="-4.15" transform="matrix(1 0 0 1 30.5498 34.2002)" style="overflow:visible;opacity:0.5;enable-background:new    ;"/>
+		<g>
+			<g>
+				<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#F8D8A5;" d="M29.25,35.05c0,0.4,0.067,0.833,0.2,1.3
+					c0.233,0.934,0.683,1.684,1.35,2.25c0.5,0.4,1.15,0.7,1.95,0.9l1,0.2c0.2-0.267,0.3-0.633,0.3-1.1
+					c0.066-0.967-0.417-1.833-1.45-2.6c-0.867-0.6-1.683-0.933-2.45-1C29.75,34.967,29.45,34.983,29.25,35.05z"/>
+				<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#DCBE8E;" d="M29.3,35.35c1.1,0.833,1.917,1.483,2.45,1.95
+					c0.934,0.767,1.617,1.566,2.05,2.4c-0.367-0.833-1-1.683-1.9-2.55c-0.533-0.5-1.316-1.217-2.35-2.15c-0.5-0.4-0.934-0.8-1.3-1.2
+					l-0.15,0.15C28.4,34.383,28.8,34.85,29.3,35.35z"/>
+				<polygon style="fill-rule:evenodd;clip-rule:evenodd;fill:#DCBE8E;" points="29.7,35.65 30.55,37.85 30.2,35.9 				"/>
+				<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#DCBE8E;" d="M30.85,36.55c0.167,0.6,0.267,1.183,0.3,1.75l0.05-1.55
+					L30.85,36.55z"/>
+				<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#DCBE8E;" d="M31.85,37.3c0,0.767-0.033,1.333-0.1,1.7
+					c0.133-0.367,0.267-0.85,0.4-1.45L31.85,37.3z"/>
+				<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#DCBE8E;" d="M29.7,35.25l0.5,0.5c0.767,0.1,1.35,0.2,1.75,0.3
+					L29.7,35.25z"/>
+				<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#DCBE8E;" d="M30.8,36.25l0.2,0.2l2.1,0.3
+					C32.367,36.517,31.6,36.35,30.8,36.25z"/>
+			</g>
+		</g>
+		<g>
+			<g>
+				<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#F8D8A5;" d="M12.1,36.65l0.75-0.2c0.567-0.233,1.017-0.55,1.35-0.95
+					c0.533-0.633,0.833-1.216,0.9-1.75c0.033-0.3,0-0.517-0.1-0.65l-0.9,0.15c-0.7,0.133-1.25,0.417-1.65,0.85
+					c-0.5,0.533-0.717,1.133-0.65,1.8c0.033,0.2,0.083,0.383,0.15,0.55L12.1,36.65z"/>
+				<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#DCBE8E;" d="M14.8,33.15c-0.167,0.267-0.65,0.833-1.45,1.7
+					c-0.633,0.633-1.033,1.233-1.2,1.8c0.133-0.367,0.567-0.95,1.3-1.75c0.833-0.733,1.367-1.284,1.6-1.65
+					c0.267-0.4,0.45-0.8,0.55-1.2L15.45,32C15.283,32.467,15.067,32.85,14.8,33.15z"/>
+				<polygon style="fill-rule:evenodd;clip-rule:evenodd;fill:#DCBE8E;" points="14.6,33.45 13,33.95 14.4,33.8 				"/>
+				<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#DCBE8E;" d="M13.9,34.25c-0.267,0.034-0.683,0.083-1.25,0.15l1.1,0.05
+					L13.9,34.25z"/>
+				<polygon style="fill-rule:evenodd;clip-rule:evenodd;fill:#DCBE8E;" points="13.35,34.9 12.1,34.95 13.15,35.1 				"/>
+				<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#DCBE8E;" d="M12.9,35.4c-0.4,0.1-0.75,0.267-1.05,0.5l0.85-0.3
+					L12.9,35.4z"/>
+			</g>
+		</g>
+		
+			<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_3_x5F_1"  width="2.183" height="3.4" x="-0.033" y="-3.4" transform="matrix(1 0 0 1 17.5498 27.75)" style="overflow:visible;opacity:0.25;enable-background:new    ;"/>
+		
+			<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_2_x5F_2"  width="1.857" height="6.25" x="-0.007" y="-6.25" transform="matrix(1 0 0 1 23.75 30.3999)" style="overflow:visible;opacity:0.25;enable-background:new    ;"/>
+		
+			<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_1_x5F_3"  width="2.569" height="3.2" x="-0.02" y="-3.2" transform="matrix(1 0 0 1 28.6001 30)" style="overflow:visible;opacity:0.25;enable-background:new    ;"/>
+		
+			<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_61"  width="2.4" height="1.78" y="-1.75" transform="matrix(1 0 0 1 17.3501 35.2998)" style="overflow:visible;opacity:0.25;enable-background:new    ;"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_Eye1" viewBox="-4.1 -7.25 10.178 15.55">
+	<g id="Layer_1_136_">
+		
+			<linearGradient id="SVGID_7_" gradientUnits="userSpaceOnUse" x1="14.7017" y1="-16244.1475" x2="23.3517" y2="-16244.1475" gradientTransform="matrix(1.156069e-004 -1 1 -0.001 16244.0615 2.8828)">
+			<stop  offset="0" style="stop-color:#572427"/>
+			<stop  offset="1" style="stop-color:#A32E3D"/>
+		</linearGradient>
+		<path style="fill-rule:evenodd;clip-rule:evenodd;fill:url(#SVGID_7_);" d="M3.65,0c0.2-3.667-0.917-5.6-3.35-5.8
+			c-1.1-0.1-2.05,0.4-2.85,1.5c-0.7,1-1.117,2.233-1.25,3.7c-0.3,3.633,0.933,5.567,3.7,5.8C2.2,5.367,3.45,3.633,3.65,0z"/>
+		
+			<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_78"  width="10.178" height="15.55" y="-15.55" transform="matrix(1 0 0 1 -4.1001 8.2998)" style="overflow:visible;enable-background:new    ;"/>
+		<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#572427;" d="M2.75-0.15c0.067-2.733-0.733-4.183-2.4-4.35
+			C-1.55-4.667-2.6-3.4-2.8-0.7C-3.033,2-2.15,3.45-0.15,3.65C1.717,3.817,2.683,2.55,2.75-0.15z"/>
+		
+			<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_58"  width="2.954" height="4.759" x="0.048" y="-4.75" transform="matrix(1 0 0 1 -1.5498 2.25)" style="overflow:visible;enable-background:new    ;"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_Eye2" viewBox="-4.535 -7 11.062 17.05">
+	<g id="Layer_1_137_">
+		
+			<linearGradient id="SVGID_8_" gradientUnits="userSpaceOnUse" x1="12.7271" y1="-16244.3691" x2="25.7271" y2="-16244.3691" gradientTransform="matrix(7.692308e-005 -1 1 -0.001 16244.376 2.8828)">
+			<stop  offset="0" style="stop-color:#572427"/>
+			<stop  offset="1" style="stop-color:#A32E3D"/>
+		</linearGradient>
+		<path style="fill-rule:evenodd;clip-rule:evenodd;fill:url(#SVGID_8_);" d="M0.4,6.9c1.267,0,2.283-0.75,3.05-2.25
+			c0.733-1.367,1.1-2.983,1.1-4.85c0-1.9-0.367-3.467-1.1-4.7c-0.8-1.367-1.934-1.967-3.4-1.8C-1.183-6.567-2.233-5.767-3.1-4.3
+			c-0.833,1.333-1.3,2.883-1.4,4.65C-4.8,4.75-3.167,6.933,0.4,6.9z"/>
+		
+			<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_77"  width="10.177" height="17.05" y="-17.05" transform="matrix(1 0 0 1 -3.6499 10.0498)" style="overflow:visible;enable-background:new    ;"/>
+		<g>
+			<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#F1B54D;" d="M-0.15,5.25C2.283,5.383,3.567,3.8,3.7,0.5
+				c0.026-0.589,0.018-1.123-0.025-1.6C3.616-3.455,2.508-4.688,0.35-4.8C-2.083-4.933-3.367-3.35-3.5-0.05
+				c-0.026,0.589-0.018,1.123,0.025,1.6C-3.416,3.905-2.308,5.138-0.15,5.25z"/>
+		</g>
+		<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#572427;" d="M-0.55,3.35c1.466,0.2,2.3-0.85,2.5-3.15
+			c0.2-2.3-0.383-3.466-1.75-3.5c-1.434-0.066-2.25,0.983-2.45,3.15C-2.483,1.983-1.917,3.15-0.55,3.35z"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E_" viewBox="0 -23.5 13.25 23.5">
+	<g id="Layer_1_54_">
+		<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#8EAC89;" d="M4.1-5.2c1.833-3.6,3.05-6.066,3.65-7.4
+			c0.567-1.333,0.933-2.917,1.1-4.75c0.4,0.667,0.867,1.333,1.4,2c0.8-1.333,1.617-2.55,2.45-3.65c0.233-1.133,0.417-2.2,0.55-3.2
+			L8.6-23.5c0,4.167-0.85,8.417-2.55,12.75C4.517-6.817,2.5-3.233,0,0l2.95-2L4.6-4.85L4.1-5.2z"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_0" viewBox="0 -5.25 9 5.251">
+	<g id="Layer_1_102_">
+		<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#8EAC89;" d="M6.9-2.6C7.867-3.467,8.567-4.35,9-5.25l-2.5,2.5
+			C5.433-1.683,3.267-0.767,0,0C2.667,0.033,4.967-0.833,6.9-2.6z"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_1" viewBox="0 -9.85 3.65 9.85">
+	<g id="Layer_1_101_">
+		<polygon style="fill-rule:evenodd;clip-rule:evenodd;fill:#8EAC89;" points="0,-0.6 2.5,-4.75 2.5,0 3.65,-9.85 		"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_10" viewBox="0.008 -83.55 11.068 83.55">
+	<g id="Layer_1_107_">
+		<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#8EAC89;" d="M7.5-42.5c-1.067-2-2.383-4.45-3.95-7.35
+			c-1.033-2.333-1.417-4.883-1.15-7.65c0.233-2.333,1.167-4.75,2.8-7.25c2.2-3.3,3.683-6,4.45-8.1c0.934-2.5,1.184-4.883,0.75-7.15
+			v-0.05c-0.467-1.5-0.933-2.667-1.4-3.5c0.4,0.933,0.683,2.033,0.85,3.3c0.3,2.267,0.083,4.55-0.65,6.85
+			c-0.567,1.833-2.083,4.316-4.55,7.45c-2.333,2.967-3.816,5.717-4.45,8.25c-0.633,2.6,0.3,7.367,2.8,14.3
+			c2.867,8.133,4.433,13.583,4.7,16.35c0.4,4.4-0.967,10.867-4.1,19.4C2.767-5.35,1.867-3.1,0.9-0.9L4.65,0
+			c0.934-2.567,1.9-5.483,2.9-8.75c2-6.567,3.117-11.65,3.35-15.25c0.3-4.3,0.217-7.717-0.25-10.25
+			C10.183-36.75,9.133-39.5,7.5-42.5z"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_10_x5F_0" viewBox="0 -1.75 3.5 1.763">
+	<g id="Layer_1_189_">
+		
+			<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F_Art_On_Path_Brush_x5F_11"  width="3.5" height="1.763" x="0.1" y="-1.8" transform="matrix(1 0 0 1 -0.1001 0.0498)" style="overflow:visible;"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_11" viewBox="0 -22.975 2.167 22.975">
+	<g id="Layer_1_117_">
+		<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#8EAC89;" d="M0,0c0.4-1.033,0.783-2.4,1.15-4.1
+			c0.767-3.4,1.1-6.783,1-10.15c-0.126-3.16-0.626-6.068-1.5-8.725c0.514,1.675,0.848,4.45,1,8.325C1.817-10.383,1.267-5.5,0,0z"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_11_x5F_0" viewBox="0.028 -2.4 1.372 2.4">
+	<g id="Layer_1_188_">
+		
+			<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F_Art_On_Path_Brush_x5F_10"  width="1.372" height="2.4" x="0.428" y="-2.7" transform="matrix(1 0 0 1 -0.3999 0.2998)" style="overflow:visible;"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_12" viewBox="0 -17.75 12 17.75">
+	<g id="Layer_1_18_">
+		<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#8EAC89;" d="M12,0L1.15-17.75L1.9-15.5L0-17c0.5,0.833,1.5,2.217,3,4.15
+			C4.5-10.95,7.5-6.667,12,0z"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_12_x5F_0" viewBox="-0.004 -3.6 1.204 3.6">
+	<g id="Layer_1_187_">
+		
+			<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F_Art_On_Path_Brush_x5F_9"  width="1.204" height="3.6" x="-0.004" y="-3.65" transform="matrix(1 0 0 1 0 0.0498)" style="overflow:visible;"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_13" viewBox="0.033 -6.35 4.223 6.35">
+	<g id="Layer_1_44_">
+		<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#CA7C5D;" d="M2.9-3.75c-0.9-1-1.85-1.867-2.85-2.6
+			c-0.033,0.4-0.017,0.867,0.05,1.4c0.133,1.133,0.517,2.067,1.15,2.8c1,1.2,2,1.917,3,2.15C4.317-1.467,3.867-2.717,2.9-3.75z"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_13_x5F_0" viewBox="-0.008 -5.15 4.158 5.15">
+	<g id="Layer_1_183_">
+		
+			<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F_Art_On_Path_Brush_x5F_8"  width="4.158" height="5.15" x="0.342" y="-5.4" transform="matrix(1 0 0 1 -0.3501 0.25)" style="overflow:visible;"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_14" viewBox="0.004 -7.2 2.996 7.2">
+	<g id="Layer_1_45_">
+		<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#CA7C5D;" d="M2.45-3.5C2.583-4.767,2.767-6,3-7.2
+			C2.6-7.1,2.183-6.867,1.75-6.5C0.85-5.767,0.3-4.85,0.1-3.75c-0.167,1-0.117,1.933,0.15,2.8C0.417-0.55,0.567-0.233,0.7,0
+			c0.267-0.267,0.517-0.617,0.75-1.05C2.017-1.95,2.35-2.767,2.45-3.5z"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_14_x5F_0" viewBox="0 -5.9 3.967 5.9">
+	<g id="Layer_1_182_">
+		
+			<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F_Art_On_Path_Brush_x5F_7"  width="3.967" height="5.9" x="0.25" y="-6.2" transform="matrix(1 0 0 1 -0.25 0.2998)" style="overflow:visible;"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_15" viewBox="0 -6.9 4.94 6.9">
+	<g id="Layer_1_46_">
+		<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#CA7C5D;" d="M3.5-4.25C2.433-5.35,1.267-6.233,0-6.9
+			c0.067,1.8,0.65,3.3,1.75,4.5C2.817-1.2,3.867-0.4,4.9,0c0.067-0.4,0.05-0.883-0.05-1.45C4.683-2.583,4.233-3.517,3.5-4.25z"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_15_x5F_0" viewBox="-0.006 -4.8 6.356 4.802">
+	<g id="Layer_1_181_">
+		
+			<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F_Art_On_Path_Brush_x5F_6"  width="6.356" height="4.802" x="0.494" y="-5.05" transform="matrix(1 0 0 1 -0.5 0.25)" style="overflow:visible;"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_16" viewBox="0 -3.75 8.9 3.762">
+	<g id="Layer_1_47_">
+		<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#CA7C5D;" d="M4.8-3.1C3.2-3.5,1.6-3.717,0-3.75
+			C0.267-3.317,0.633-2.833,1.1-2.3c0.933,1.033,1.983,1.7,3.15,2C5.417,0.033,6.567,0.1,7.7-0.1c0.533-0.133,0.933-0.283,1.2-0.45
+			C8.6-0.883,8.217-1.233,7.75-1.6C6.617-2.433,5.633-2.933,4.8-3.1z"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_16_x5F_0" viewBox="-0.038 -7.8 2.984 7.8">
+	<g id="Layer_1_180_">
+		
+			<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F_Art_On_Path_Brush_x5F_5"  width="2.984" height="7.8" x="-0.038" y="-7.9" transform="matrix(1 0 0 1 0 0.1001)" style="overflow:visible;"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_17" viewBox="0 -3.106 8.15 3.106">
+	<g id="Layer_1_48_">
+		<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#CA7C5D;" d="M4.4-0.45C5.767-1.017,7.017-1.733,8.15-2.6
+			C7.75-2.767,7.233-2.9,6.6-3C5.367-3.2,4.267-3.117,3.3-2.75c-1,0.367-1.85,0.9-2.55,1.6C0.417-0.817,0.167-0.533,0-0.3
+			c0.4,0.133,0.867,0.216,1.4,0.25C2.433,0.083,3.433-0.05,4.4-0.45z"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_17_x5F_0" viewBox="0 -2.216 5.4 2.25">
+	<g id="Layer_1_179_">
+		
+			<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F_Art_On_Path_Brush_x5F_4"  width="5.4" height="2.25" x="0.2" y="-2.616" transform="matrix(1 0 0 1 -0.2002 0.3999)" style="overflow:visible;"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_18" viewBox="0 -3.106 8.15 3.106">
+	<g id="Layer_1_178_">
+		
+			<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F_Art_On_Path_Brush_x5F_3"  width="8.15" height="3.106" x="0.15" y="-3.356" transform="matrix(1 0 0 1 -0.1499 0.25)" style="overflow:visible;"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_19" viewBox="0 -3.75 8.9 3.762">
+	<g id="Layer_1_177_">
+		
+			<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F_Art_On_Path_Brush_x5F_2"  width="8.9" height="3.762" x="0.25" y="-3.75" transform="matrix(1 0 0 1 -0.25 0)" style="overflow:visible;"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_1_x5F_0" viewBox="10.75 -7.81 37.5 7.81">
+	<g id="Layer_1_124_">
+		<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#8EAC89;" d="M47.7-1.65l0.55-0.4c-5.567-4-10.45-5.917-14.65-5.75
+			c-2.867,0.1-6.233,1.283-10.1,3.55L18.55-0.9l-7.8-1.975v0.5L18.7,0l1.35-1.15c1.1-0.934,2.15-1.767,3.15-2.5
+			c1.233-0.9,2.9-1.684,5-2.35c2.233-0.7,4.433-1.083,6.6-1.15c1.867-0.033,4.583,0.867,8.15,2.7C44.717-3.517,46.3-2.583,47.7-1.65
+			z"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_1_x5F_1" viewBox="0 -27 3.25 27">
+	<g id="Layer_1_116_">
+		<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#8EAC89;" d="M2.65-1.25c-0.5-7.233-0.667-12.317-0.5-15.25
+			c0.2-3.967,0.567-7.467,1.1-10.5c-1.233,5.167-2.017,8.833-2.35,11C0.567-13.833,0.267-8.5,0,0l1.25-13.25L2.65-1.25z"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_1_x5F_2" viewBox="0 -26.1 24.85 26.1">
+	<g id="Layer_1_17_">
+		<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#8EAC89;" d="M24.85-1.4l-2.8-4h-1.5c-7-9.667-11.333-15.5-13-17.5
+			c-1-1.167-2.066-2.184-3.2-3.05L3.3-26.1l0.85,1.55L0-23.8l3.8,1.9c1.267,0.667,2.767,1.667,4.5,3c3.4,2.667,6.184,5.7,8.35,9.1
+			c2.1,3.3,3.867,6.566,5.3,9.8l2.55-0.55L24.85-1.4z"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_1_x5F_3" viewBox="-0.02 -3.2 2.569 3.2">
+	<g id="Layer_1_172_">
+		
+			<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F_Art_On_Path_Brush_x5F_20"  width="2.569" height="3.2" x="0.331" y="-3.4" transform="matrix(1 0 0 1 -0.3501 0.2002)" style="overflow:visible;"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_20" viewBox="0 -6.9 4.94 6.9">
+	<g id="Layer_1_176_">
+		
+			<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F_Art_On_Path_Brush_x5F_1"  width="4.94" height="6.9" x="0.55" y="-7.1" transform="matrix(1 0 0 1 -0.5498 0.2002)" style="overflow:visible;"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_21" viewBox="0.004 -7.2 2.996 7.2">
+	<g id="Layer_1_175_">
+		
+			<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F_Art_On_Path_Brush_x5F_0"  width="2.996" height="7.2" x="0.004" y="-7.2" style="overflow:visible;"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_22" viewBox="0.033 -6.35 4.223 6.35">
+	<g id="Layer_1_174_">
+		
+			<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F_Art_On_Path_Brush"  width="4.223" height="6.35" x="0.583" y="-6.6" transform="matrix(1 0 0 1 -0.5498 0.25)" style="overflow:visible;"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_23" viewBox="0 -2.216 5.4 2.25">
+	<g id="Layer_1_49_">
+		<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#CA7C5D;" d="M2.9-0.35c0.867-0.433,1.7-0.9,2.5-1.4
+			C4.3-2.317,3.2-2.367,2.1-1.9C1.033-1.433,0.333-0.85,0-0.15C1,0.15,1.967,0.083,2.9-0.35z"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_24" viewBox="-0.038 -7.8 2.984 7.8">
+	<g id="Layer_1_50_">
+		<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#CA7C5D;" d="M0.3-3.5C0.867-2.033,1.7-0.867,2.8,0
+			c0.267-1.667,0.167-3.167-0.3-4.5S1.517-6.933,0.95-7.8c-0.267,0.267-0.5,0.667-0.7,1.2C-0.15-5.533-0.133-4.5,0.3-3.5z"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_25" viewBox="-0.006 -4.8 6.356 4.802">
+	<g id="Layer_1_51_">
+		<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#CA7C5D;" d="M6.35,0C5.483-1.467,4.433-2.533,3.2-3.2
+			C2.567-3.567,1.817-3.95,0.95-4.35L0.05-4.8c-0.1,0.4-0.066,0.867,0.1,1.4C0.417-2.333,1.1-1.517,2.2-0.95
+			C3.633-0.283,5.017,0.033,6.35,0z"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_26" viewBox="0 -5.9 3.967 5.9">
+	<g id="Layer_1_52_">
+		<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#CA7C5D;" d="M1.1-3.55c-0.4,0.767-0.7,1.566-0.9,2.4
+			C0.067-0.683,0-0.3,0,0l1.1-0.7C2-1.333,2.65-1.967,3.05-2.6c0.5-0.833,0.784-1.617,0.85-2.35c0.067-0.4,0.083-0.716,0.05-0.95
+			C3.617-5.767,3.267-5.583,2.9-5.35C2.067-4.783,1.467-4.183,1.1-3.55z"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_27" viewBox="0 -2.55 8.957 2.575">
+	<g id="Layer_1_81_">
+		<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#CA7C5D;" d="M8.5-0.3c0.533-0.3,0.6-0.767,0.2-1.4
+			C8.533-2.033,8.3-2.317,8-2.55c0.033,0.2-0.017,0.433-0.15,0.7C7.583-1.35,7.017-1,6.15-0.8C4.717-0.467,2.667-0.883,0-2.05
+			C1-1.283,2.55-0.7,4.65-0.3C6.717,0.133,8,0.133,8.5-0.3z"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_28" viewBox="-0.05 -2.676 3.101 2.702">
+	<g id="Layer_1_67_">
+		<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#CA7C5D;" d="M0.5,0c0.633-0.133,1.3-0.633,2-1.5
+			c0.7-0.9,0.733-1.283,0.1-1.15S1.267-2,0.5-1.1C-0.233-0.233-0.233,0.133,0.5,0z"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_29" viewBox="-0.068 -4.167 3.669 4.167">
+	<g id="Layer_1_64_">
+		<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#BEBFC2;" d="M2.2,0c-0.4-0.833-0.733-1.7-1-2.6
+			C0.967-3.533,1.767-3.833,3.6-3.5C2.833-4.167,1.833-4.333,0.6-4C-0.667-3.667-0.133-2.333,2.2,0z"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_2_x5F_0" viewBox="10.7 -14.81 37.75 14.81">
+	<g id="Layer_1_123_">
+		<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#8EAC89;" d="M41.55-11.15c1.3,0.566,2.25,1.15,2.85,1.75L43.35-5l1.85,4.6
+			L45.7,0l2.75-8.9l-0.2-0.15c-5.567-4-10.45-5.917-14.65-5.75c-2.867,0.1-6.233,1.283-10.1,3.55L18.55-7.9l-7.85-2v0.925
+			c2.271,0.752,3.804,1.277,4.6,1.575l3.6,1.5l3.9-3.5c3.267-2.333,6.567-3.5,9.9-3.5C36.033-12.9,38.983-12.317,41.55-11.15z"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_2_x5F_1" viewBox="-0.001 -32.75 10.651 32.75">
+	<g id="Layer_1_115_">
+		<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#8EAC89;" d="M3.65,0C1.983-7.1,1.1-11.433,1-13
+			c-0.133-2.567-0.067-4.233,0.2-5c0.133-0.433,0.867-1.4,2.2-2.9c2.9-3.4,4.767-5.9,5.6-7.5c0.833-1.567,1.383-3.017,1.65-4.35
+			c-2.5,4.4-4.55,7.517-6.15,9.35c-1.5,1.5-2.517,2.617-3.05,3.35C0.55-18.85,0.067-17.3,0-15.4c-0.033,1.867,0.567,5,1.8,9.4
+			C2.4-3.833,3.017-1.833,3.65,0z"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_2_x5F_2" viewBox="-0.007 -6.25 1.857 6.25">
+	<g id="Layer_1_171_">
+		
+			<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F_Art_On_Path_Brush_x5F_19"  width="1.857" height="6.25" x="-0.007" y="-6.65" transform="matrix(1 0 0 1 0 0.3999)" style="overflow:visible;"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_30" viewBox="0 -6.374 11.975 6.099">
+	<g id="Layer_1_80_">
+		<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#BEBFC2;" d="M10.85-1.15c0.432,0.279,0.807,0.571,1.125,0.875
+			C10.635-1.63,9.31-2.589,8-3.15c-1.433-0.567-2.4-0.567-2.9,0c-1.233-1.4-2.4-2.4-3.5-3C0.933-6.517,0.467-6.433,0.2-5.9L0-5
+			c0.167-0.267,0.7-0.317,1.6-0.15c0.933,0.167,2.066,1.167,3.4,3c0.167,0.167,1.033,0.167,2.6,0C8.6-2.25,9.683-1.917,10.85-1.15z"
+			/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_31" viewBox="0 -23.85 11 23.85">
+	<g id="Layer_1_63_">
+		<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#D9A58A;" d="M5-5.2C4.7-5.867,4.45-6.567,4.25-7.3
+			c-0.4-1.5-0.283-2.517,0.35-3.05c1-0.833,2.267-1.083,3.8-0.75l-0.75-2.15c-0.333-1.567-0.133-2.767,0.6-3.6l1.75-2l-0.5-1.5
+			c-0.167-1.167,0.167-2.117,1-2.85l0.5-0.5c-0.3-0.1-0.633-0.15-1-0.15c-1.3,0.067-1.85,0.867-1.65,2.4L9.1-19.2
+			c-0.8,0-1.6,0.65-2.4,1.95c-0.5,0.8-0.467,1.95,0.1,3.45l0.95,2.05C7.417-11.983,7-12.133,6.5-12.2c-1-0.167-1.933,0.133-2.8,0.9
+			c-0.867,0.733-1.133,1.8-0.8,3.2l0.8,1.9C3.367-6.3,2.967-6.333,2.5-6.3C1.6-6.2,0.917-5.767,0.45-5
+			c-0.4,0.6-0.534,1.417-0.4,2.45C0.217-1.483,0.633-0.633,1.3,0C0.867-2.2,1.067-3.65,1.9-4.35C2.9-5.183,3.933-5.467,5-5.2z"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_32" viewBox="0 -24.55 11.7 24.55">
+	<g id="Layer_1_62_">
+		<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#D9A58A;" d="M0.05-3.25C0.217-2.183,0.633-1.333,1.3-0.7
+			C1.667-0.333,2.083-0.1,2.55,0C1.817-2.433,2.1-3.867,3.4-4.3c1.467-0.5,2.583-0.617,3.35-0.35C6.283-5.417,5.9-6.2,5.6-7
+			c-0.567-1.667-0.4-2.683,0.5-3.05c1.533-0.567,2.583-0.6,3.15-0.1l-0.8-2.8c-0.4-1.966-0.25-3.283,0.45-3.95
+			c1.067-1.1,1.934-1.733,2.6-1.9l-0.7-2.25c-0.267-1.567,0.034-2.55,0.9-2.95c-0.2-0.167-0.434-0.3-0.7-0.4
+			c-0.3-0.1-0.633-0.15-1-0.15c-1.3,0.066-1.85,0.867-1.65,2.4L9.1-19.9c-0.8,0-1.6,0.65-2.4,1.95C6.2-17.15,6.233-16,6.8-14.5
+			l0.95,2.05C7.417-12.683,7-12.833,6.5-12.9c-1-0.167-1.933,0.133-2.8,0.9c-0.867,0.733-1.133,1.8-0.8,3.2l0.8,1.9
+			C3.367-7,2.967-7.033,2.5-7C1.6-6.9,0.917-6.467,0.45-5.7C0.05-5.1-0.083-4.283,0.05-3.25z"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_33" viewBox="0 -6.586 13.45 6.586">
+	<g id="Layer_1_79_">
+		<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#D9A58A;" d="M10.35-2.8c-1.367-0.567-2.4-0.5-3.1,0.2L6.6-1.4
+			c0-0.633-0.15-1.3-0.45-2c-0.566-1.467-1.5-2.434-2.8-2.9C1.317-7,0.2-6.417,0-4.55c1.433-0.867,2.633-1.034,3.6-0.5
+			c1.167,0.667,2.167,2.083,3,4.25l1.15-0.85c1-0.434,2.117-0.317,3.35,0.35L13.45,0C12.783-1.267,11.75-2.2,10.35-2.8z"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_34" viewBox="-0.067 -7.412 13.667 7.412">
+	<g id="Layer_1_78_">
+		<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#D9A58A;" d="M13,0l0.6-0.4c0-1.1-0.2-2.15-0.6-3.15
+			c-0.633-1.534-1.633-2.483-3-2.85C8.4-6.833,7.233-6.55,6.5-5.55L5.85-3.9c-0.2-0.733-0.567-1.417-1.1-2.05
+			c-1.033-1.3-2.367-1.733-4-1.3c-1.4,0.367-1,1.717,1.2,4.05c-0.767-2.1-0.633-3.083,0.4-2.95c0.833,0.1,1.667,0.65,2.5,1.65
+			c0.433,0.5,0.767,1,1,1.5L7.1-4.4c1.033-0.867,2-1.117,2.9-0.75s1.667,1.333,2.3,2.9C12.633-1.45,12.867-0.7,13,0z"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_35" viewBox="-0.067 -13.762 27.567 13.762">
+	<g id="Layer_1_77_">
+		<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#D9A58A;" d="M27.1-2.2C26.433-3.467,25.4-4.4,24-5
+			c-1.367-0.567-2.4-0.5-3.1,0.2l-0.65,1.2c0-0.633-0.15-1.3-0.45-2c-0.566-1.467-1.5-2.433-2.8-2.9
+			c-2.033-0.7-3.15-0.117-3.35,1.75H13.6c0-1.1-0.2-2.15-0.6-3.15c-0.633-1.533-1.633-2.483-3-2.85c-1.6-0.433-2.767-0.15-3.5,0.85
+			l-0.65,1.65c-0.2-0.733-0.567-1.417-1.1-2.05c-1.033-1.3-2.367-1.733-4-1.3c-1.4,0.367-1,1.717,1.2,4.05
+			c1.2,1.3,2.7,2.667,4.5,4.1c-0.7-0.767-1.267-1.483-1.7-2.15C4.117-8.567,4.033-9.033,4.5-9c0.9,0.1,1.817,0.733,2.75,1.9l0.9-1.1
+			C8.883-8.8,9.667-8.733,10.5-8c1.333,1.167,2.05,2.467,2.15,3.9l1.3-1.1c1.1-0.633,2.167-0.683,3.2-0.15c1.1,0.533,1.9,1.2,2.4,2
+			c0.267,0.367,0.417,0.7,0.45,1l1.95-0.05c1.433,0.066,2.566,0.417,3.4,1.05C26.183-0.717,26.867-0.267,27.4,0
+			C27.6-0.633,27.5-1.367,27.1-2.2z"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_36" viewBox="-0.008 -5.15 4.158 5.15">
+	<g id="Layer_1_53_">
+		<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#CA7C5D;" d="M1.1-1.7C2.067-0.867,3.083-0.3,4.15,0
+			C3.817-1.333,3.233-2.417,2.4-3.25l-1.55-1.4c-0.267-0.2-0.483-0.367-0.65-0.5C0.033-4.883-0.033-4.517,0-4.05
+			C0.067-3.117,0.433-2.333,1.1-1.7z"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_37" viewBox="-0.004 -3.6 1.204 3.6">
+	<g id="Layer_1_65_">
+		<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#CA7C5D;" d="M1.15-1.8L1.2-3.6C1.033-3.533,0.85-3.4,0.65-3.2
+			C0.25-2.8,0.033-2.317,0-1.75C-0.033-0.95,0.15-0.367,0.55,0C0.95-0.567,1.15-1.167,1.15-1.8z"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_38" viewBox="0.028 -2.4 1.372 2.4">
+	<g id="Layer_1_66_">
+		<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#CA7C5D;" d="M0.95-1.35L0.15-2.4c-0.066,0.133-0.1,0.3-0.1,0.5
+			C-0.017-1.5,0.067-1.133,0.3-0.8C0.633-0.333,1-0.067,1.4,0C1.367-0.533,1.217-0.983,0.95-1.35z"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_39" viewBox="0 -1.75 3.5 1.763">
+	<g id="Layer_1_68_">
+		<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#CA7C5D;" d="M1.7-1.25C1.167-0.95,0.6-0.733,0-0.6
+			c0.133,0.167,0.333,0.317,0.6,0.45C1.2,0.083,1.767,0.067,2.3-0.2c0.467-0.267,0.817-0.617,1.05-1.05c0.1-0.2,0.15-0.367,0.15-0.5
+			l-0.6,0.1C2.367-1.517,1.967-1.383,1.7-1.25z"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_3_x5F_0" viewBox="0 -25.1 7.242 25.1">
+	<g id="Layer_1_114_">
+		<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#8EAC89;" d="M5.8,0c0.3-0.467,0.583-1.1,0.85-1.9
+			c0.5-1.6,0.684-3.217,0.55-4.85c-0.167-1.7-0.733-3.433-1.7-5.2C5.133-12.617,4.067-14.3,2.3-17c-0.966-1.5-1.633-3.3-2-5.4
+			c-0.167-1.067-0.25-1.967-0.25-2.7c-0.066,0.5-0.066,1.167,0,2c0.1,1.667,0.434,3.283,1,4.85c0.467,1.233,1.233,2.767,2.3,4.6
+			c1.1,1.9,1.917,3.533,2.45,4.9C6.5-7.017,6.7-5.033,6.4-2.8C6.267-1.7,6.067-0.767,5.8,0z"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_3_x5F_1" viewBox="-0.033 -3.4 2.183 3.4">
+	<g id="Layer_1_170_">
+		
+			<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F_Art_On_Path_Brush_x5F_18"  width="2.183" height="3.4" x="0.417" y="-3.7" transform="matrix(1 0 0 1 -0.4502 0.2998)" style="overflow:visible;"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_4" viewBox="0 -7.575 24.25 7.575">
+	<g id="Layer_1_125_">
+		<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#8EAC89;" d="M23.1-2.85l-0.5-1.5l1.65,0.6C22.917-4.983,21.5-5.933,20-6.6
+			c-2.967-1.3-6.633-1.3-11,0C6.7-5.933,4.517-4.633,2.45-2.7C1.417-1.733,0.6-0.833,0,0c2.4-1.9,4.433-3.4,6.1-4.5
+			c1.333-0.833,2.5-1.4,3.5-1.7c1.233-0.3,3.2-0.517,5.9-0.65c2.333-0.1,4.3,0.533,5.9,1.9C22.2-4.25,22.767-3.55,23.1-2.85z"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_40" viewBox="0.05 -4.15 3.163 4.16">
+	<g id="Layer_1_23_">
+		<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#CA7C5D;" d="M0.05-0.125C0.405-0.01,0.788,0.032,1.2,0
+			C2.1-0.067,2.7-0.483,3-1.25S3.283-2.733,2.95-3.4c-0.167-0.333-0.367-0.583-0.6-0.75c0.267,1.667-0.017,2.767-0.85,3.3
+			C0.743-0.335,0.26-0.094,0.05-0.125z"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_41" viewBox="0 -3 3.36 2.978">
+	<g id="Layer_1_22_">
+		<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#CA7C5D;" d="M0-0.65C0.167-0.45,0.4-0.3,0.7-0.2
+			c0.566,0.267,1.167,0.233,1.8-0.1c0.633-0.367,0.917-0.917,0.85-1.65C3.35-2.35,3.267-2.7,3.1-3c0,0.5-0.133,0.983-0.4,1.45
+			C2.167-0.65,1.267-0.35,0-0.65z"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_42" viewBox="0 -2.55 5.75 2.547">
+	<g id="Layer_1_21_">
+		<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#CA7C5D;" d="M0-2.55c0.033,0.367,0.167,0.733,0.4,1.1
+			c0.467,0.8,1.167,1.267,2.1,1.4S4.25-0.067,4.95-0.5c0.367-0.2,0.633-0.417,0.8-0.65c-0.667,0.233-1.4,0.367-2.2,0.4
+			C1.917-0.75,0.733-1.35,0-2.55z"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_43" viewBox="-0.007 -5.443 11.757 5.443">
+	<g id="Layer_1_20_">
+		<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#BEBFC2;" d="M10.3-2.7c0.567,0.333,1.05,0.684,1.45,1.05
+			c-0.067-0.267-0.25-0.567-0.55-0.9C10.6-3.183,9.75-3.633,8.65-3.9S6.633-3.883,5.9-3.05l-0.75,1.3
+			C5.183-2.283,5.067-2.833,4.8-3.4c-0.466-1.133-1.35-1.8-2.65-2C0.85-5.6,0.133-5.1,0-3.9C-0.033-3.3,0.05-2.667,0.25-2
+			c-0.067-0.367-0.067-0.733,0-1.1c0.167-0.767,0.667-1.2,1.5-1.3s1.633,0.6,2.4,2.1C4.517-1.533,4.8-0.767,5,0
+			c0.667-1.6,1.55-2.65,2.65-3.15C8.317-3.45,9.2-3.3,10.3-2.7z"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_44" viewBox="0.033 -12.281 23.395 12.281">
+	<g id="Layer_1_19_">
+		<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#D9A58A;" d="M22-9.95c-1.333-0.633-2.467-0.566-3.4,0.2l-1.05,1.3
+			c-0.833-0.733-1.867-1.45-3.1-2.15c-2.467-1.367-4.717-1.9-6.75-1.6c-2.067,0.3-3.434,1.633-4.1,4
+			C3.3-7.033,3.183-5.883,3.25-4.75c-0.5-0.167-1-0.2-1.5-0.1c-1.033,0.2-1.6,0.967-1.7,2.3C-0.117-0.917,0.983-0.067,3.35,0
+			c-1.5-1.067-1.767-1.967-0.8-2.7c0.667-0.533,1.434-0.7,2.3-0.5C5.25-3.133,5.6-3,5.9-2.8C5.733-3.833,5.7-4.867,5.8-5.9
+			C6-7.967,6.75-9.017,8.05-9.05c1.3-0.067,2.35,0.333,3.15,1.2c0.433,0.434,0.716,0.867,0.85,1.3L12.8-7.5
+			c0.7-0.567,1.483-0.667,2.35-0.3s1.533,0.95,2,1.75c0.233,0.4,0.367,0.767,0.4,1.1l0.5-1.5c0.5-0.867,1.117-0.983,1.85-0.35
+			c1.167,1,1.867,1.85,2.1,2.55l1.2-2.3C23.733-8.183,23.333-9.317,22-9.95z"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_45" viewBox="-0.027 -4.4 1.92 4.4">
+	<g id="Layer_1_82_">
+		<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#CA7C5D;" d="M1.55-2.45C1.15-3.183,0.7-3.833,0.2-4.4
+			c-0.333,0.933-0.3,1.816,0.1,2.65C0.7-0.917,1.167-0.333,1.7,0C2-0.833,1.95-1.65,1.55-2.45z"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_46" viewBox="0 -15.15 2.4 15.15">
+	<g id="Layer_1_122_">
+		<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#8EAC89;" d="M0,0c1.267-4.167,1.983-7.05,2.15-8.65
+			c0.167-1.567,0.25-3.733,0.25-6.5c-0.267,1.5-0.483,3-0.65,4.5S1-5.6,0,0z"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_47" viewBox="0 -25.6 12.2 25.6">
+	<g id="Layer_1_121_">
+		<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#8EAC89;" d="M6.1-11.05c-0.367-2.267-0.383-4.233-0.05-5.9
+			c0.6-2.833,2.65-5.716,6.15-8.65l-1.15,0.9v0.05l-1.5,1.2c-1.433,1.267-2.533,2.667-3.3,4.2c-1.1,2.233-1.4,4.583-0.9,7.05
+			c0.533,2.7,0.367,5.267-0.5,7.7c-0.833,2.4-1.934,3.683-3.3,3.85C0.717-0.55,0.2-0.6,0-0.8c0.233,0.367,0.617,0.617,1.15,0.75
+			C1.65,0.05,2.117,0,2.55-0.2c1.7-0.767,2.95-2.767,3.75-6C6.567-7.267,6.5-8.883,6.1-11.05z"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_48" viewBox="0 -39.75 9.502 39.78">
+	<g id="Layer_1_120_">
+		<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#8EAC89;" d="M8.05-16.45c-0.5-1.966-1.267-3.633-2.3-5
+			c-1.167-1.5-1.933-2.75-2.3-3.75c-1.4-3.7-1.617-8.55-0.65-14.55c-1.3,6.833-1.283,11.833,0.05,15c1.6,2.467,2.733,4.333,3.4,5.6
+			C7.417-16.95,8.033-13.2,8.1-7.9c0.066,4.4-0.833,6.833-2.7,7.3C3.933-0.233,2.133-1.017,0-2.95c1.033,1.467,2.4,2.4,4.1,2.8
+			c1.7,0.4,3.017,0.133,3.95-0.8c1-1,1.483-2.933,1.45-5.8C9.467-9.55,8.983-12.783,8.05-16.45z"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_49">
+	<g id="Layer_1_119_">
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_4_x5F_0" viewBox="0 -30.15 3.602 30.15">
+	<g id="Layer_1_113_">
+		<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#8EAC89;" d="M0-30.15c0.533,1.066,1.067,2.467,1.6,4.2
+			c1,3.434,1.417,6.75,1.25,9.95C2.617-10.933,2-5.6,1,0c0.467-1.6,0.917-3.45,1.35-5.55c0.867-4.2,1.283-7.6,1.25-10.2
+			c-0.033-4.133-0.65-7.767-1.85-10.9C1.183-28.25,0.6-29.417,0-30.15z"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_4_x5F_1" viewBox="0 -2.6 2.55 2.6">
+	<g id="Layer_1_186_">
+		
+			<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F_Art_On_Path_Brush_x5F_17"  width="2.55" height="2.6" x="0.4" y="-2.95" transform="matrix(1 0 0 1 -0.3999 0.3501)" style="overflow:visible;"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_5" viewBox="0.008 -81.4 10.327 81.4">
+	<g id="Layer_1_112_">
+		<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#8EAC89;" d="M4.65-41.4C1.183-48.9,0.233-54.6,1.8-58.5
+			c0.434-1.033,1.75-3.15,3.95-6.35c2.1-3.033,3.45-5.467,4.05-7.3c0.567-1.8,0.684-3.733,0.35-5.8c-0.2-1.267-0.533-2.417-1-3.45
+			c1.136,3,1.152,6.283,0.05,9.85c-0.567,1.833-2.083,4.316-4.55,7.45c-2.333,2.967-3.816,5.717-4.45,8.25
+			c-0.633,2.6,0.3,7.367,2.8,14.3c2.867,8.133,4.433,13.583,4.7,16.35c0.4,4.4-0.967,10.867-4.1,19.4L1.85-1.35L3.65,0
+			c2.567-8.267,4.233-14.567,5-18.9c0.567-3.2,0.483-6.8-0.25-10.8C7.7-33.6,6.45-37.5,4.65-41.4z"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_50" viewBox="0.032 -34.3 6.928 34.3">
+	<g id="Layer_1_118_">
+		<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#8EAC89;" d="M1.9-6.85c-0.433-1.467-0.717-3.267-0.85-5.4
+			c-0.133-2.3,0.034-4.117,0.5-5.45c0.467-1.4,1.583-3.333,3.35-5.8c1.467-2,2.15-4.35,2.05-7.05c-0.067-1.267-0.3-2.517-0.7-3.75
+			c0.633,3.033,0.7,5.433,0.2,7.2c-0.167,0.633-1.184,2.2-3.05,4.7c-1.733,2.333-2.767,4.467-3.1,6.4C-0.2-13,0-9.417,0.9-5.25
+			l0.05,0.2l-0.1-0.1C1.817-3.417,3.333-1.7,5.4,0L3.8-2.75C2.933-4.25,2.3-5.617,1.9-6.85z"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_51" viewBox="0 -2.25 1.635 2.25">
+	<g id="Layer_1_83_">
+		<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#CA7C5D;" d="M1.25-1.4C0.917-1.833,0.5-2.117,0-2.25l0.15,0.5l0.45,0.9
+			c0.333,0.4,0.667,0.684,1,0.85C1.7-0.533,1.583-1,1.25-1.4z"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_52" viewBox="-0.006 -2 0.611 2">
+	<g id="Layer_1_84_">
+		<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#CA7C5D;" d="M0.6-1C0.567-1.367,0.483-1.7,0.35-2
+			C0.083-1.667-0.033-1.317,0-0.95C0-0.55,0.083-0.233,0.25,0C0.517-0.3,0.633-0.633,0.6-1z"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_53" viewBox="-0.017 -3.85 1.735 3.85">
+	<g id="Layer_1_59_">
+		<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#CA7C5D;" d="M1.35-2.05l-1-1.8l-0.3,0.7c-0.133,0.6-0.066,1.167,0.2,1.7
+			C0.617-0.65,1.1-0.167,1.7,0C1.767-0.733,1.65-1.417,1.35-2.05z"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_54" viewBox="0.003 -2.4 1.747 2.4">
+	<g id="Layer_1_60_">
+		<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#CA7C5D;" d="M1.1-1.4c-0.333-0.367-0.684-0.7-1.05-1
+			C-0.083-1.767,0.067-1.217,0.5-0.75C0.933-0.317,1.35-0.067,1.75,0C1.717-0.567,1.5-1.033,1.1-1.4z"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_55" viewBox="0 -2.6 2.55 2.6">
+	<g id="Layer_1_61_">
+		<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#CA7C5D;" d="M1.6-1.65C1.1-2.05,0.567-2.367,0-2.6
+			c0.1,0.767,0.417,1.4,0.95,1.9C1.517-0.233,2.05,0,2.55,0C2.45-0.667,2.133-1.217,1.6-1.65z"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_56" viewBox="-0.033 -3.4 2.183 3.4">
+	<g id="Layer_1_24_">
+		<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#CA7C5D;" d="M1.4-1.9L0.1-3.4c-0.267,0.833-0.133,1.6,0.4,2.3
+			C1.033-0.433,1.583-0.067,2.15,0C2.083-0.767,1.833-1.4,1.4-1.9z"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_57" viewBox="-0.007 -6.25 1.857 6.25">
+	<g id="Layer_1_25_">
+		<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#CA7C5D;" d="M1.85-3c0-0.733-0.1-1.5-0.3-2.3l-0.4-0.95L0.65-5.2
+			C0.217-4.333,0-3.583,0-2.95c-0.033,0.7,0.05,1.434,0.25,2.2l0.3,0.6C0.583-0.05,0.633,0,0.7,0C0.833-0.233,1-0.517,1.2-0.85
+			C1.633-1.55,1.85-2.267,1.85-3z"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_58" viewBox="0.048 -4.75 2.954 4.759">
+	<g id="Layer_1_29_">
+		<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#F1B54D;" d="M3-2.3c0.033-1.633-0.467-2.45-1.5-2.45
+			c-0.967,0-1.45,0.783-1.45,2.35C0.017-0.867,0.417-0.067,1.25,0C2.383,0.1,2.967-0.667,3-2.3z"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_59" viewBox="-0.02 -3.2 2.569 3.2">
+	<g id="Layer_1_26_">
+		<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#CA7C5D;" d="M1.6-1.45L2.55-3.2c-0.233,0-0.5,0.05-0.8,0.15
+			c-0.567,0.2-1,0.55-1.3,1.05c-0.434,0.767-0.567,1.433-0.4,2C0.717-0.333,1.233-0.817,1.6-1.45z"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_5_x5F_0" viewBox="0.003 -2.4 1.747 2.4">
+	<g id="Layer_1_185_">
+		
+			<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F_Art_On_Path_Brush_x5F_16"  width="1.747" height="2.4" x="0.503" y="-2.7" transform="matrix(1 0 0 1 -0.5 0.2998)" style="overflow:visible;"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_6" viewBox="-0.043 -47.05 16.144 46.9">
+	<g id="Layer_1_111_">
+		<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#8EAC89;" d="M0.7-5.75C1-7.85,1.25-9.267,1.45-10c0.4-1.2,1.2-2.867,2.4-5
+			c0.1-0.167,1.8-2.45,5.1-6.85c2.1-2.8,3.183-5.217,3.25-7.25c0.033-0.3-0.034-2.7-0.2-7.2c-0.1-2.6,0.233-4.7,1-6.3
+			c0.6-1.4,1.633-2.883,3.1-4.45l-1.5,1.2c-1.434,1.267-2.533,2.667-3.3,4.2c-1.1,2.233-1.4,4.583-0.9,7.05
+			c0.533,2.7,0.367,5.267-0.5,7.7c-0.833,2.4-1.933,3.683-3.3,3.85c-1.2,0.167-1.8-0.167-1.8-1c-0.033-0.3,0.3-2.583,1-6.85
+			l-0.1,0.3c-0.567,1.833-1.1,3.833-1.6,6C2.367-18.267,1.117-13.317,0.35-9.75C-0.339-6.4-0.123-3.2,1-0.15
+			C0.509-1.591,0.409-3.458,0.7-5.75z"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_61" viewBox="0 -1.75 2.4 1.78">
+	<g id="Layer_1_173_">
+		
+			<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F_Art_On_Path_Brush_x5F_21"  width="2.4" height="1.78" x="0.2" y="-2.25" transform="matrix(1 0 0 1 -0.2002 0.5)" style="overflow:visible;"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_62" viewBox="0 -2.6 3.144 2.625">
+	<g id="Layer_1_58_">
+		<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#CA7C5D;" d="M0-0.6C0.533-0.1,1.2,0.1,2,0c1.033-0.133,1.367-0.617,1-1.45
+			C2.8-1.85,2.5-2.233,2.1-2.6c0.767,1.067,0.717,1.717-0.15,1.95C1.05-0.45,0.4-0.433,0-0.6z"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_63" viewBox="0 -2.7 4.15 2.677">
+	<g id="Layer_1_57_">
+		<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#CA7C5D;" d="M0-1c0.267,0.267,0.583,0.483,0.95,0.65
+			c0.767,0.4,1.483,0.434,2.15,0.1C3.767-0.617,4.117-1.133,4.15-1.8c0-0.333-0.066-0.633-0.2-0.9c0,0.333-0.067,0.667-0.2,1
+			C3.483-1,3.017-0.6,2.35-0.5C1.283-0.4,0.5-0.567,0-1z"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_64" viewBox="0 -6 7.731 6.028">
+	<g id="Layer_1_43_">
+		<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#CA7C5D;" d="M0-0.8c0.567,0.367,1.25,0.617,2.05,0.75
+			C3.617,0.217,4.983-0.2,6.15-1.3c1.2-1.133,1.717-2.25,1.55-3.35C7.633-5.217,7.45-5.667,7.15-6c0,0.5-0.1,1.05-0.3,1.65
+			c-0.434,1.233-1.167,2.133-2.2,2.7C2.983-0.75,1.433-0.467,0-0.8z"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_65" viewBox="0 -7.35 9.072 7.335">
+	<g id="Layer_1_42_">
+		<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#CA7C5D;" d="M0-1.85C0.933-0.883,2-0.3,3.2-0.1
+			c1.3,0.233,2.5-0.017,3.6-0.75C8.167-1.717,8.917-3.067,9.05-4.9C9.117-5.8,9.033-6.617,8.8-7.35c-0.2,0.767-0.533,1.583-1,2.45
+			c-0.867,1.667-1.867,2.683-3,3.05c-1.1,0.367-2.233,0.467-3.4,0.3C0.833-1.617,0.367-1.717,0-1.85z"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_66" viewBox="-0.012 -3.412 5.062 3.412">
+	<g id="Layer_1_56_">
+		<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#BEBFC2;" d="M1.3,0C1.067-0.333,0.9-0.683,0.8-1.05
+			c-0.2-0.733,0.017-1.167,0.65-1.3c1-0.2,2.2,0.417,3.6,1.85c-0.1-0.467-0.333-0.933-0.7-1.4c-0.7-0.934-1.7-1.434-3-1.5
+			C0.083-3.5-0.3-2.967,0.2-1.8C0.433-1.2,0.8-0.6,1.3,0z"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_67" viewBox="-0.015 -15.609 19.765 15.609">
+	<g id="Layer_1_55_">
+		<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#D9A58A;" d="M19.75-4.55c-0.033-1-0.683-1.817-1.95-2.45l-1.95-0.65
+			c0.1-0.667,0.05-1.4-0.15-2.2c-0.4-1.6-1.367-2.767-2.9-3.5c-1.533-0.767-2.85-0.933-3.95-0.5l-1.2,0.9l-0.35-1
+			c-0.466-0.733-1.183-1.25-2.15-1.55S3.467-15.483,3-14.55L2.6-13c-0.467-0.133-0.934-0.183-1.4-0.15c-0.9,0.1-1.3,0.633-1.2,1.6
+			c0.1,0.966,0.55,1.867,1.35,2.7l1.2,0.9c-0.167,0.3-0.3,0.667-0.4,1.1c-0.133,0.9,0.067,1.733,0.6,2.5C3.35-3.617,4.2-3.167,5.3-3
+			c0.534,0.067,1.017,0.067,1.45,0C6.817-2.7,6.967-2.35,7.2-1.95C7.667-1.15,8.35-0.5,9.25,0c-1.033-1.4-1.6-2.433-1.7-3.1
+			L7.3-4.55C6.8-4.45,6.283-4.4,5.75-4.4c-1.067-0.067-1.7-0.467-1.9-1.2C3.65-6.333,3.733-7.017,4.1-7.65
+			c0.167-0.3,0.367-0.533,0.6-0.7L3.9-9.2c-0.4-0.667-0.183-1.2,0.65-1.6c0.833-0.367,1.667-0.317,2.5,0.15
+			c0.434,0.233,0.767,0.517,1,0.85l0.6-1.3c0.633-0.733,1.533-0.816,2.7-0.25c1.2,0.533,2.133,1.517,2.8,2.95
+			c0.333,0.7,0.55,1.35,0.65,1.95l0.9-0.15c0.733,0,1.517,0.35,2.35,1.05C18.883-4.783,19.367-4,19.5-3.2
+			C19.667-3.6,19.75-4.05,19.75-4.55z"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_68" viewBox="-0.04 -29.257 101.805 29.257">
+	<g id="Layer_1_41_">
+		<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#A76F57;" d="M99.75-8.2c0.067-1.667-0.083-3.117-0.45-4.35l2.2-3.55
+			c0.833-2.6-0.3-4.467-3.4-5.6c-3.067-1.133-6.817-1.367-11.25-0.7l-5.7,1.35c-0.2-0.934-0.717-1.883-1.55-2.85
+			c-1.633-1.867-4-2.817-7.1-2.85c-3.067-0.033-5.15,0.517-6.25,1.65l-0.7,1.75c-0.566-1.1-1.566-2.167-3-3.2
+			c-2.9-2.067-6.517-2.95-10.85-2.65c-4.367,0.3-7.5,1.4-9.4,3.3c-0.6,0.566-1.033,1.183-1.3,1.85l-0.25,0.85
+			c-0.433-1.033-1.25-2.033-2.45-3c-2.466-1.9-5.683-2.683-9.65-2.35c-4,0.3-6.95,1.533-8.85,3.7l-1.7,3.1
+			c-0.7-0.5-1.633-0.983-2.8-1.45c-2.3-0.867-4.533-1.133-6.7-0.8c-2.2,0.333-3.6,1.583-4.2,3.75L4.15-17.1
+			c-1,0.133-1.917,0.483-2.75,1.05c-1.6,1.133-1.867,2.8-0.8,5c0.9,1.8,2.183,2.867,3.85,3.2C5.483-7.65,6.6-7.733,7.8-8.1
+			C5.067-8.033,3.133-8.767,2-10.3c-0.867-1.2-1.083-2.35-0.65-3.45c0.367-0.967,1.05-1.567,2.05-1.8
+			c1.333-0.3,2.117-0.333,2.35-0.1c0-0.133-0.117-1.317-0.35-3.55c0.167-2.233,1.25-3.55,3.25-3.95
+			c2.033-0.434,4.283,0.033,6.75,1.4c1.233,0.7,2.267,1.433,3.1,2.2l0.9-2.8c0.967-2,2.3-3.4,4-4.2
+			c1.967-0.867,4.117-1.284,6.45-1.25c2.133,0.033,3.95,0.417,5.45,1.15c1.8,0.9,3.7,2.517,5.7,4.85l0.8-2.1
+			c0.867-1.533,2.2-2.583,4-3.15c5.434-1.733,9.833-1.733,13.2,0c2.6,1.333,4.817,3.05,6.65,5.15l1.05-1.65
+			c1-1.167,2.267-1.867,3.8-2.1c1.767-0.3,3.483-0.133,5.15,0.5c1.467,0.6,2.583,1.383,3.35,2.35c0.933,1.167,1.533,2.3,1.8,3.4
+			l3.65-1.3c2.833-0.8,5.233-1.117,7.2-0.95c2.833,0.2,4.9,0.55,6.2,1.05c1.767,0.7,2.65,1.767,2.65,3.2c0,1.3-0.467,2.5-1.4,3.6
+			l-1.45,1.25c0.333,1,0.6,2.133,0.8,3.4c0.433,2.566,0.333,4.566-0.3,6c-0.6,1.333-1.133,2.383-1.6,3.15
+			C98.583-2.133,99.65-4.867,99.75-8.2z"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_69" viewBox="0.045 -28.5 32.455 28.5">
+	<g id="Layer_1_40_">
+		<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#A76F57;" d="M32.45,0l0.05-0.1c-1.633-0.4-3.25-1.4-4.85-3
+			c-0.933-0.933-1.467-2.25-1.6-3.95c-0.066-0.867-0.033-1.633,0.1-2.3c-0.7,0.467-1.483,0.867-2.35,1.2
+			c-1.733,0.667-3.066,0.683-4,0.05c-0.966-0.633-1.8-1.566-2.5-2.8c-0.367-0.633-0.633-1.2-0.8-1.7c-0.6,0.2-1.267,0.3-2,0.3
+			c-1.433-0.034-2.383-0.6-2.85-1.7s-0.5-2.283-0.1-3.55c0.2-0.633,0.45-1.15,0.75-1.55c-1.133,0.133-2.4,0.117-3.8-0.05
+			c-2.767-0.333-4.717-1.2-5.85-2.6S1.033-24.7,1.2-26.4c0.1-0.833,0.3-1.533,0.6-2.1l-1,0.15c-0.5,0.967-0.75,1.967-0.75,3
+			c-0.066,1.767,0.633,3.317,2.1,4.65c0.934,0.833,2.05,1.483,3.35,1.95c2,0.633,3.917,0.733,5.75,0.3c-0.5,0.5-0.9,1.083-1.2,1.75
+			c-0.6,1.367-0.367,2.517,0.7,3.45c1.067,0.9,2.25,1.4,3.55,1.5c0.667,0.067,1.217,0.033,1.65-0.1c-0.067,0.567,0,1.2,0.2,1.9
+			c0.4,1.367,1.333,2.333,2.8,2.9c1.433,0.566,2.95,0.533,4.55-0.1c0.8-0.333,1.45-0.717,1.95-1.15v0.05
+			C25.183-7.217,25.2-6.2,25.5-5.2c0.633,2.067,2.333,3.667,5.1,4.8C31.3-0.133,31.917,0,32.45,0z"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_6_x5F_0" viewBox="-0.017 -3.85 1.735 3.85">
+	<g id="Layer_1_184_">
+		
+			<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F_Art_On_Path_Brush_x5F_15"  width="1.735" height="3.85" x="0.233" y="-4.1" transform="matrix(1 0 0 1 -0.25 0.25)" style="overflow:visible;"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_7" viewBox="0 -73.9 13.2 72.25">
+	<g id="Layer_1_110_">
+		<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#8EAC89;" d="M6.3-15.9c0.333-2.7,1.017-5.4,2.05-8.1
+			c0.633-1.633,1.717-4.183,3.25-7.65c1.066-2.533,1.6-5.25,1.6-8.15c0-2.034-0.333-4.817-1-8.35c-0.4-2.167-1.467-4.633-3.2-7.4
+			c-1.833-2.967-2.9-5-3.2-6.1c-0.533-1.934-0.5-5.2,0.1-9.8v-0.1c0.033-0.8,0.1-1.583,0.2-2.35c-0.467,2.633-0.783,4.783-0.95,6.45
+			c-0.333,4.2-0.05,7.367,0.85,9.5c1.6,2.467,2.733,4.333,3.4,5.6c1.167,2.2,1.783,5.95,1.85,11.25c0.1,5.667-1.367,8.067-4.4,7.2
+			c-2.467-0.667-4.6-2.467-6.4-5.4C0.25-39.567,0.1-39.867,0-40.2c0.4,1.633,1.667,3.483,3.8,5.55c2.133,2.033,3.267,3.333,3.4,3.9
+			c0.5,2.067-0.034,6.267-1.6,12.6c-0.867,3.267-1.583,7.9-2.15,13.9l1.75-8.9l0.9,11.5C5.806-7.459,5.873-12.209,6.3-15.9z"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_70" viewBox="0 -7.35 17.16 7.352">
+	<g id="Layer_1_39_">
+		<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#CA7C5D;" d="M0-3.2c0.767,0.534,1.75,1.083,2.95,1.65
+			C5.35-0.483,7.583,0.033,9.65,0c3.267-0.1,5.5-1.35,6.7-3.75c0.6-1.2,0.867-2.4,0.8-3.6c-0.367,0.9-0.95,1.817-1.75,2.75
+			c-1.566,1.867-3.367,2.9-5.4,3.1C7.667-1.267,4.333-1.833,0-3.2z"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_71" viewBox="0 -5.15 12.6 5.141">
+	<g id="Layer_1_38_">
+		<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#BEBFC2;" d="M0-3.65c0.367,0.667,0.917,1.333,1.65,2
+			c1.467,1.267,3.083,1.8,4.85,1.6c1.767-0.2,3.317-1.117,4.65-2.75c0.667-0.8,1.15-1.583,1.45-2.35
+			c-0.667,0.733-1.467,1.467-2.4,2.2c-1.833,1.434-3.4,2.067-4.7,1.9C4.2-1.183,2.883-1.667,1.55-2.5C0.917-2.9,0.4-3.283,0-3.65z"
+			/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_72" viewBox="0.036 -5.2 8.364 5.202">
+	<g id="Layer_1_37_">
+		<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#BEBFC2;" d="M0.15-5.2C0.017-4.5,0-3.767,0.1-3
+			c0.2,1.5,0.917,2.433,2.15,2.8c1.267,0.367,2.667,0.233,4.2-0.4C7.217-0.933,7.867-1.3,8.4-1.7C7.733-1.4,6.983-1.133,6.15-0.9
+			c-1.7,0.433-3,0.383-3.9-0.15C1.383-1.583,0.767-2.433,0.4-3.6C0.233-4.2,0.15-4.733,0.15-5.2z"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_73" viewBox="0 -7.103 9.204 7.103">
+	<g id="Layer_1_36_">
+		<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#BEBFC2;" d="M8.6,0c0.433-1.167,0.633-2.333,0.6-3.5
+			C9.167-5.867,7.967-7.067,5.6-7.1C3.267-7.167,1.633-6.233,0.7-4.3C0.233-3.333,0-2.35,0-1.35c0.533-0.933,1.167-1.8,1.9-2.6
+			C3.367-5.583,4.65-6.133,5.75-5.6s1.9,1.617,2.4,3.25C8.417-1.517,8.567-0.733,8.6,0z"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_74" viewBox="-0.014 -8.882 12.714 8.882">
+	<g id="Layer_1_35_">
+		<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#BEBFC2;" d="M0.1-4.5l0.45-1C1.083-6.267,1.933-6.8,3.1-7.1
+			c2.233-0.633,4.5,0.367,6.8,3C11.067-2.8,12-1.433,12.7,0c-0.467-1.6-1.2-3.15-2.2-4.65c-2-3.067-4.35-4.467-7.05-4.2
+			c-1.8,0.167-2.9,0.934-3.3,2.3C-0.05-5.85-0.067-5.167,0.1-4.5z"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_75" viewBox="0.017 -6.382 6.983 6.382">
+	<g id="Layer_1_34_">
+		<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#BEBFC2;" d="M3.9,0C3.533-0.167,3.15-0.45,2.75-0.85
+			c-0.767-0.8-1.183-1.767-1.25-2.9C1.467-4.883,2.367-5.567,4.2-5.8C5.133-5.9,6.067-5.883,7-5.75c-1-0.333-2.05-0.533-3.15-0.6
+			c-2.167-0.167-3.4,0.317-3.7,1.45c-0.4,1.467,0.1,2.717,1.5,3.75C2.383-0.617,3.133-0.233,3.9,0z"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_76" viewBox="0.002 -10.196 23.848 10.196">
+	<g id="Layer_1_33_">
+		<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#BEBFC2;" d="M23.85-1.5c-0.233-1.133-0.684-2.283-1.35-3.45
+			c-1.3-2.333-2.933-3.6-4.9-3.8s-3.567,0.2-4.8,1.2L11.6-6c-0.4-1.033-1.067-1.95-2-2.75c-1.867-1.633-4.117-1.883-6.75-0.75
+			C0.45-8.467-0.433-6.567,0.2-3.8C0.5-2.433,1.05-1.167,1.85,0C1.317-1,1-2.067,0.9-3.2C0.667-5.433,1.65-6.867,3.85-7.5
+			c2.2-0.633,4.1,0.133,5.7,2.3c0.833,1.1,1.434,2.25,1.8,3.45l1.4-2.4c1.2-1.667,2.483-2.7,3.85-3.1
+			c1.367-0.433,2.983,0.4,4.85,2.5C22.383-3.717,23.183-2.633,23.85-1.5z"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_77" viewBox="0 -17.05 10.177 17.05">
+	<g id="Layer_1_30_">
+		<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#CA7C5D;" d="M0-3.45L4.45,0c1.033-0.467,2.033-1.167,3-2.1
+			c2-1.9,2.9-4.083,2.7-6.55c-0.2-2.467-0.717-4.6-1.55-6.4c-0.434-0.934-0.833-1.6-1.2-2c0.7,2.233,1.2,4.216,1.5,5.95
+			c0.467,2.7-0.2,5.167-2,7.4C5.933-2.467,4.5-2.05,2.6-2.45C1.633-2.65,0.767-2.983,0-3.45z"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_78" viewBox="0 -15.55 10.178 15.55">
+	<g id="Layer_1_28_">
+		<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#CA7C5D;" d="M0-3.45L4.45,0C5.483-0.467,6.5-1.167,7.5-2.1
+			c1.967-1.9,2.85-4.083,2.65-6.55c-0.2-2.467-0.8-4.35-1.8-5.65c-0.467-0.667-0.934-1.083-1.4-1.25c0.7,1.2,1.183,2.683,1.45,4.45
+			c0.3,1.7,0.4,2.9,0.3,3.6C8.6-6.433,8.1-5.167,7.2-3.7C6.367-2.367,4.917-1.933,2.85-2.4C1.817-2.6,0.867-2.95,0-3.45z"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_79" viewBox="0 -1.75 2.4 1.78">
+	<g id="Layer_1_27_">
+		<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#CA7C5D;" d="M1-1.1C0.633-0.767,0.3-0.4,0,0
+			c0.633,0.1,1.183-0.05,1.65-0.45c0.5-0.433,0.75-0.867,0.75-1.3C1.867-1.65,1.4-1.433,1-1.1z"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_7_x5F_0" viewBox="-0.006 -2 0.611 2">
+	<g id="Layer_1_195_">
+		
+			<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F_Art_On_Path_Brush_x5F_14"  width="0.611" height="2" x="0.195" y="-2" transform="matrix(1 0 0 1 -0.2002 0)" style="overflow:visible;"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_8" viewBox="0 -59.3 8.309 59.3">
+	<g id="Layer_1_109_">
+		<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#8EAC89;" d="M7.65-24c-0.066-0.167-1.066-2.467-3-6.9
+			c-1.066-2.434-1.667-4.883-1.8-7.35c-0.067-2.367,0.533-4.8,1.8-7.3c1.7-3.333,2.65-5.4,2.85-6.2c0.5-1.867,0.467-3.817-0.1-5.85
+			v-0.05c-0.233-0.7-0.467-1.25-0.7-1.65c0.633,2.966,0.7,5.367,0.2,7.2c-0.167,0.633-1.183,2.2-3.05,4.7
+			c-1.733,2.333-2.767,4.467-3.1,6.4c-0.5,3-0.3,6.583,0.6,10.75c0.566,0.833,1.4,1.833,2.5,3c0.667,0.7,1.35,1.967,2.05,3.8
+			c0.434,1.167,0.75,2.184,0.95,3.05c-0.833-1.667-1.867-3.233-3.1-4.7C2.383-26.733,1.133-27.683,0-27.95
+			c0.8,0.667,1.783,1.7,2.95,3.1c1.9,2.333,3.133,4.5,3.7,6.5c0.533,1.934,0.684,5.367,0.45,10.3C6.967-4.75,6.767-2.067,6.5,0
+			C8.433-12.533,8.817-20.533,7.65-24z"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_80" viewBox="0 -7 10.75 7">
+	<g id="Layer_1_16_">
+		<polygon style="fill-rule:evenodd;clip-rule:evenodd;fill:#A76F57;" points="4.55,0 10.75,-2.05 9.95,-7 7.75,-3.9 3.2,-4.15 
+			4.75,-2.3 0,-0.75 		"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_83" viewBox="-0.04 -32.207 101.805 32.207">
+	<g id="Layer_1_32_">
+		<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#D9A58A;" d="M92.35,0l0.7-0.35c3.833-1.967,6.034-5.083,6.6-9.35
+			c0.267-2.133,0.15-4.066-0.35-5.8l2.2-3.55c0.833-2.6-0.3-4.467-3.4-5.6c-3.067-1.133-6.817-1.367-11.25-0.7L81.15-24
+			c-0.2-0.933-0.717-1.883-1.55-2.85c-1.633-1.867-4-2.816-7.1-2.85c-3.067-0.033-5.15,0.517-6.25,1.65l-0.7,1.75
+			c-0.566-1.1-1.566-2.167-3-3.2c-2.9-2.067-6.517-2.95-10.85-2.65c-4.367,0.3-7.5,1.4-9.4,3.3c-0.6,0.567-1.033,1.184-1.3,1.85
+			l-0.25,0.85c-0.433-1.033-1.25-2.033-2.45-3c-2.466-1.9-5.683-2.684-9.65-2.35c-4,0.3-6.95,1.533-8.85,3.7l-1.7,3.1
+			c-0.7-0.5-1.633-0.983-2.8-1.45c-2.3-0.867-4.533-1.133-6.7-0.8C6.4-26.617,5-25.367,4.4-23.2l-0.25,3.15
+			c-1,0.133-1.917,0.483-2.75,1.05c-1.6,1.133-1.867,2.8-0.8,5c1.033,2.133,2.617,3.233,4.75,3.3c1.133,0.067,2.15-0.133,3.05-0.6
+			c-0.467,0.8-0.75,1.7-0.85,2.7c-0.2,2,0.5,3.717,2.1,5.15C10.583-2.617,11.7-1.967,13-1.5L12.65-2
+			c-0.833-1.267-1.033-2.85-0.6-4.75c0.2-0.967,0.483-1.8,0.85-2.5c-0.7-1.267-1.2-2.667-1.5-4.2c-0.566-3.066,0.184-5.333,2.25-6.8
+			c2.1-1.467,3.733-1.617,4.9-0.45c0.567,0.6,0.934,1.333,1.1,2.2l2.15-4.15c2.034-2.967,4.567-4.917,7.6-5.85s5.934-0.383,8.7,1.65
+			c1.4,1.033,2.5,2.15,3.3,3.35l1.45-2.4c1.233-1.567,2.583-2.35,4.05-2.35s2.417,0.5,2.85,1.5l0.15,1.5l1.35-0.7
+			c1.367-0.466,3.25-0.65,5.65-0.55s4.833,0.75,7.3,1.95c1.233,0.6,2.216,1.2,2.95,1.8l1.8-1.15c1.6-0.8,3.333-1.25,5.2-1.35
+			s3.8,0.833,5.8,2.8c1,0.967,1.816,1.95,2.45,2.95l3.2-1.65c2.4-1.033,4.333-1.4,5.8-1.1s1.783,1.233,0.95,2.8l-1.7,2.2l1.5,1.05
+			c1.1,1.267,1.85,3.25,2.25,5.95C94.933-6.717,94.25-3.3,92.35,0z"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_84" viewBox="-0.04 -44.757 101.805 44.757">
+	<g id="Layer_1_31_">
+		<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#D9A58A;" d="M86.4-20.05c0.5,0.566,0.833,1.267,1,2.1
+			c0.333,1.633-0.333,3.017-2,4.15c-1.667,1.133-4.033,1.85-7.1,2.15l-4.15,0.1C74.617-10.483,75-9.2,75.3-7.7
+			c0.6,3,0.45,5.567-0.45,7.7c1.467-1.5,2.333-3.7,2.6-6.6c0.133-1.467,0.117-2.767-0.05-3.9l4.2,0.55c3.5,0,7.083-0.867,10.75-2.6
+			l0.7-0.35c3.833-1.967,6.034-5.083,6.6-9.35c0.267-2.133,0.15-4.067-0.35-5.8l2.2-3.55c0.833-2.6-0.3-4.467-3.4-5.6
+			c-3.067-1.133-6.817-1.367-11.25-0.7l-5.7,1.35c-0.2-0.934-0.717-1.883-1.55-2.85c-1.633-1.867-4-2.817-7.1-2.85
+			c-3.067-0.033-5.15,0.517-6.25,1.65l-0.7,1.75c-0.566-1.1-1.566-2.167-3-3.2c-2.9-2.067-6.517-2.95-10.85-2.65
+			c-4.367,0.3-7.5,1.4-9.4,3.3c-0.6,0.566-1.033,1.183-1.3,1.85l-0.25,0.85c-0.433-1.033-1.25-2.033-2.45-3
+			c-2.466-1.9-5.683-2.683-9.65-2.35c-4,0.3-6.95,1.533-8.85,3.7l-1.7,3.1c-0.7-0.5-1.633-0.983-2.8-1.45
+			c-2.3-0.867-4.533-1.133-6.7-0.8c-2.2,0.333-3.6,1.583-4.2,3.75L4.15-32.6c-1,0.133-1.917,0.483-2.75,1.05
+			c-1.6,1.133-1.867,2.8-0.8,5c1.033,2.133,2.617,3.233,4.75,3.3c1.133,0.067,2.15-0.133,3.05-0.6c-0.467,0.8-0.75,1.7-0.85,2.7
+			c-0.2,2,0.5,3.717,2.1,5.15c0.934,0.833,2.05,1.483,3.35,1.95c2,0.633,3.917,0.733,5.75,0.3c-0.5,0.5-0.9,1.083-1.2,1.75
+			c-0.6,1.367-0.367,2.517,0.7,3.45c1.067,0.9,2.25,1.4,3.55,1.5c0.667,0.066,1.217,0.033,1.65-0.1c-0.067,0.566,0,1.2,0.2,1.9
+			c0.4,1.367,1.333,2.333,2.8,2.9c1.433,0.567,2.95,0.533,4.55-0.1c0.8-0.333,1.45-0.716,1.95-1.15
+			c-0.867-0.267-1.784-0.717-2.75-1.35c-2-1.333-3.333-3.033-4-5.1c-0.633-2.1-0.633-4.267,0-6.5c0.333-1.133,0.733-2.05,1.2-2.75
+			c-1.066-0.467-2.133-1.117-3.2-1.95c-2.133-1.667-3.15-3.433-3.05-5.3s1.167-3.3,3.2-4.3c1.033-0.5,2.05-0.816,3.05-0.95
+			l-0.35-2.45c0.3-1.667,1.75-2.6,4.35-2.8c2.6-0.2,5,0.9,7.2,3.3c1.133,1.2,1.983,2.433,2.55,3.7l2.7-2.45
+			c2.133-1.633,3.983-2.4,5.55-2.3c1.567,0.1,3.033,1,4.4,2.7c0.7,0.867,1.233,1.717,1.6,2.55l2.55-2.2c2.2-1.4,4.6-1.833,7.2-1.3
+			c2.6,0.533,4.633,1.733,6.1,3.6c0.733,0.934,1.2,1.817,1.4,2.65l3.9-1.9c3.034-1,5.65-0.867,7.85,0.4
+			c2.2,1.233,3.184,2.983,2.95,5.25L86.4-20.05z"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_8_x5F_0" viewBox="0 -2.25 1.635 2.25">
+	<g id="Layer_1_194_">
+		
+			<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F_Art_On_Path_Brush_x5F_13"  width="1.635" height="2.25" x="0.35" y="-2.5" transform="matrix(1 0 0 1 -0.3501 0.25)" style="overflow:visible;"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_9" viewBox="0 -15.082 33.5 15.082">
+	<g id="Layer_1_108_">
+		<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#A76F57;" d="M33.5-1.65l-0.15-1.4c-0.567-0.733-1.434-2.167-2.6-4.3
+			l-1.6-2.95c-0.8-0.867-1.917-1.717-3.35-2.55c-2.9-1.667-6-2.4-9.3-2.2c-3.133,0.2-5.95,1.117-8.45,2.75
+			c-1.767,1.466-2.733,2.1-2.9,1.9c-0.167-0.2-0.683-0.55-1.55-1.05C2.367-8.117,1.167-5.217,0-2.75L30.35,0
+			C32.45-0.933,33.5-1.483,33.5-1.65z"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_9_x5F_0" viewBox="-0.027 -4.4 1.92 4.4">
+	<g id="Layer_1_193_">
+		
+			<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F_Art_On_Path_Brush_x5F_12"  width="1.92" height="4.4" x="0.373" y="-4.55" transform="matrix(1 0 0 1 -0.3999 0.1499)" style="overflow:visible;"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F_Art_On_Path_Brush" viewBox="0.583 -6.6 4.223 6.35">
+	<g id="Layer_1_138_">
+		<g>
+			<g>
+				
+					<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_13"  width="4.223" height="6.35" x="0.033" y="-6.35" transform="matrix(1 0 0 1 0.5498 -0.25)" style="overflow:visible;enable-background:new    ;"/>
+			</g>
+		</g>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F_Art_On_Path_Brush_x5F_0" viewBox="0.004 -7.2 2.996 7.2">
+	<g id="Layer_1_139_">
+		<g>
+			<g>
+				
+					<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_14"  width="2.996" height="7.2" x="0.004" y="-7.2" style="overflow:visible;enable-background:new    ;"/>
+			</g>
+		</g>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F_Art_On_Path_Brush_x5F_1" viewBox="0.55 -7.1 4.94 6.9">
+	<g id="Layer_1_140_">
+		<g>
+			<g>
+				
+					<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_15"  width="4.94" height="6.9" y="-6.9" transform="matrix(1 0 0 1 0.5498 -0.2002)" style="overflow:visible;enable-background:new    ;"/>
+			</g>
+		</g>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F_Art_On_Path_Brush_x5F_10" viewBox="0.428 -2.7 1.372 2.4">
+	<g id="Layer_1_152_">
+		<g>
+			<g>
+				
+					<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_38"  width="1.372" height="2.4" x="0.028" y="-2.4" transform="matrix(1 0 0 1 0.3999 -0.2998)" style="overflow:visible;enable-background:new    ;"/>
+			</g>
+		</g>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F_Art_On_Path_Brush_x5F_11" viewBox="0.1 -1.8 3.5 1.763">
+	<g id="Layer_1_153_">
+		<g>
+			<g>
+				
+					<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_39"  width="3.5" height="1.763" y="-1.75" transform="matrix(1 0 0 1 0.1001 -0.0498)" style="overflow:visible;enable-background:new    ;"/>
+			</g>
+		</g>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F_Art_On_Path_Brush_x5F_12" viewBox="0.373 -4.55 1.92 4.4">
+	<g id="Layer_1_157_">
+		<g>
+			<g>
+				
+					<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_45"  width="1.92" height="4.4" x="-0.027" y="-4.4" transform="matrix(1 0 0 1 0.3999 -0.1499)" style="overflow:visible;enable-background:new    ;"/>
+			</g>
+		</g>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F_Art_On_Path_Brush_x5F_13" viewBox="0.35 -2.5 1.635 2.25">
+	<g id="Layer_1_158_">
+		<g>
+			<g>
+				
+					<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_51"  width="1.635" height="2.25" y="-2.25" transform="matrix(1 0 0 1 0.3501 -0.25)" style="overflow:visible;enable-background:new    ;"/>
+			</g>
+		</g>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F_Art_On_Path_Brush_x5F_14" viewBox="0.195 -2 0.611 2">
+	<g id="Layer_1_159_">
+		<g>
+			<g>
+				
+					<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_52"  width="0.611" height="2" x="-0.006" y="-2" transform="matrix(1 0 0 1 0.2002 0)" style="overflow:visible;enable-background:new    ;"/>
+			</g>
+		</g>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F_Art_On_Path_Brush_x5F_15" viewBox="0.233 -4.1 1.735 3.85">
+	<g id="Layer_1_148_">
+		<g>
+			<g>
+				
+					<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_53"  width="1.735" height="3.85" x="-0.017" y="-3.85" transform="matrix(1 0 0 1 0.25 -0.25)" style="overflow:visible;enable-background:new    ;"/>
+			</g>
+		</g>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F_Art_On_Path_Brush_x5F_16" viewBox="0.503 -2.7 1.747 2.4">
+	<g id="Layer_1_149_">
+		<g>
+			<g>
+				
+					<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_54"  width="1.747" height="2.4" x="0.003" y="-2.4" transform="matrix(1 0 0 1 0.5 -0.2998)" style="overflow:visible;enable-background:new    ;"/>
+			</g>
+		</g>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F_Art_On_Path_Brush_x5F_17" viewBox="0.4 -2.95 2.55 2.6">
+	<g id="Layer_1_150_">
+		<g>
+			<g>
+				
+					<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_55"  width="2.55" height="2.6" y="-2.6" transform="matrix(1 0 0 1 0.3999 -0.3501)" style="overflow:visible;enable-background:new    ;"/>
+			</g>
+		</g>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F_Art_On_Path_Brush_x5F_18" viewBox="0.417 -3.7 2.183 3.4">
+	<g id="Layer_1_132_">
+		<g>
+			<g>
+				
+					<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_56"  width="2.183" height="3.4" x="-0.033" y="-3.4" transform="matrix(1 0 0 1 0.4502 -0.2998)" style="overflow:visible;enable-background:new    ;"/>
+			</g>
+		</g>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F_Art_On_Path_Brush_x5F_19" viewBox="-0.007 -6.65 1.857 6.25">
+	<g id="Layer_1_133_">
+		<g>
+			<g>
+				
+					<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_57"  width="1.857" height="6.25" x="-0.007" y="-6.25" transform="matrix(1 0 0 1 0 -0.3999)" style="overflow:visible;enable-background:new    ;"/>
+			</g>
+		</g>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F_Art_On_Path_Brush_x5F_2" viewBox="0.25 -3.75 8.9 3.762">
+	<g id="Layer_1_141_">
+		<g>
+			<g>
+				
+					<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_16"  width="8.9" height="3.762" y="-3.75" transform="matrix(1 0 0 1 0.25 0)" style="overflow:visible;enable-background:new    ;"/>
+			</g>
+		</g>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F_Art_On_Path_Brush_x5F_20" viewBox="0.331 -3.4 2.569 3.2">
+	<g id="Layer_1_134_">
+		<g>
+			<g>
+				
+					<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_59"  width="2.569" height="3.2" x="-0.02" y="-3.2" transform="matrix(1 0 0 1 0.3501 -0.2002)" style="overflow:visible;enable-background:new    ;"/>
+			</g>
+		</g>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F_Art_On_Path_Brush_x5F_21" viewBox="0.2 -2.25 2.4 1.78">
+	<g id="Layer_1_135_">
+		<g>
+			<g>
+				
+					<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_79"  width="2.4" height="1.78" y="-1.75" transform="matrix(1 0 0 1 0.2002 -0.5)" style="overflow:visible;enable-background:new    ;"/>
+			</g>
+		</g>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F_Art_On_Path_Brush_x5F_22" viewBox="0.438 -1.05 0.662 0.9">
+	<g id="Layer_1_167_">
+		<g>
+			<g>
+				
+					<use xlink:href="#parts_x2F_Duplicate_Items_Folder_x2F__x3C_Path_x3E__x5F_71"  width="0.662" height="0.9" x="-0.012" y="-0.9" transform="matrix(1 0 0 1 0.4502 -0.1499)" style="overflow:visible;enable-background:new    ;"/>
+			</g>
+		</g>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F_Art_On_Path_Brush_x5F_3" viewBox="0.15 -3.356 8.15 3.106">
+	<g id="Layer_1_142_">
+		<g>
+			<g>
+				
+					<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_17"  width="8.15" height="3.106" y="-3.106" transform="matrix(1 0 0 1 0.1499 -0.25)" style="overflow:visible;enable-background:new    ;"/>
+			</g>
+		</g>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F_Art_On_Path_Brush_x5F_4" viewBox="0.2 -2.616 5.4 2.25">
+	<g id="Layer_1_143_">
+		<g>
+			<g>
+				
+					<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_23"  width="5.4" height="2.25" y="-2.216" transform="matrix(1 0 0 1 0.2002 -0.3999)" style="overflow:visible;enable-background:new    ;"/>
+			</g>
+		</g>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F_Art_On_Path_Brush_x5F_5" viewBox="-0.038 -7.9 2.984 7.8">
+	<g id="Layer_1_144_">
+		<g>
+			<g>
+				
+					<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_24"  width="2.984" height="7.8" x="-0.038" y="-7.8" transform="matrix(1 0 0 1 0 -0.1001)" style="overflow:visible;enable-background:new    ;"/>
+			</g>
+		</g>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F_Art_On_Path_Brush_x5F_6" viewBox="0.494 -5.05 6.356 4.802">
+	<g id="Layer_1_145_">
+		<g>
+			<g>
+				
+					<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_25"  width="6.356" height="4.802" x="-0.006" y="-4.8" transform="matrix(1 0 0 1 0.5 -0.25)" style="overflow:visible;enable-background:new    ;"/>
+			</g>
+		</g>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F_Art_On_Path_Brush_x5F_7" viewBox="0.25 -6.2 3.967 5.9">
+	<g id="Layer_1_146_">
+		<g>
+			<g>
+				
+					<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_26"  width="3.967" height="5.9" y="-5.9" transform="matrix(1 0 0 1 0.25 -0.2998)" style="overflow:visible;enable-background:new    ;"/>
+			</g>
+		</g>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F_Art_On_Path_Brush_x5F_8" viewBox="0.342 -5.4 4.158 5.15">
+	<g id="Layer_1_147_">
+		<g>
+			<g>
+				
+					<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_36"  width="4.158" height="5.15" x="-0.008" y="-5.15" transform="matrix(1 0 0 1 0.3501 -0.25)" style="overflow:visible;enable-background:new    ;"/>
+			</g>
+		</g>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_FlashAICB_x2F_Layer_1_x2F_Art_On_Path_Brush_x5F_9" viewBox="-0.004 -3.65 1.204 3.6">
+	<g id="Layer_1_151_">
+		<g>
+			<g>
+				
+					<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_37"  width="1.204" height="3.6" x="-0.004" y="-3.6" transform="matrix(1 0 0 1 0 -0.0498)" style="overflow:visible;enable-background:new    ;"/>
+			</g>
+		</g>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_Hand1" viewBox="-26.567 -13.463 27.567 20.863">
+	<g id="Layer_1_208_">
+		
+			<linearGradient id="SVGID_9_" gradientUnits="userSpaceOnUse" x1="18.0645" y1="-16257.1992" x2="31.9145" y2="-16257.1992" gradientTransform="matrix(7.220217e-005 -1 1 -0.001 16244.4131 2.8823)">
+			<stop  offset="0" style="stop-color:#DD7B78"/>
+			<stop  offset="1" style="stop-color:#B15052"/>
+		</linearGradient>
+		<path style="fill-rule:evenodd;clip-rule:evenodd;fill:url(#SVGID_9_);" d="M-12.9-6.45c0-1.1-0.2-2.15-0.6-3.15
+			c-0.633-1.533-1.633-2.483-3-2.85c-1.6-0.433-2.767-0.15-3.5,0.85c-0.367,0.5-0.583,1.05-0.65,1.65l-1.1-2.05
+			c-1.034-1.3-2.367-1.733-4-1.3c-1.4,0.367-1,1.717,1.2,4.05c1.2,1.3,2.7,2.667,4.5,4.1c2.934,2.3,5.333,3.867,7.2,4.7
+			c2.867,1.367,5.117,2.233,6.75,2.6c2.066,0.5,3.85,0.433,5.35-0.2C0.15,1.55,0.7,1,0.9,0.3c0.2-0.633,0.1-1.367-0.3-2.2
+			c-0.667-1.267-1.7-2.2-3.1-2.8c-1.367-0.566-2.4-0.5-3.1,0.2c-0.333,0.333-0.55,0.733-0.65,1.2l-0.45-2
+			c-0.567-1.466-1.5-2.433-2.8-2.9c-2.034-0.7-3.15-0.117-3.35,1.75v0.2L-12.9-6.45z"/>
+		
+			<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_35"  width="27.567" height="13.762" x="-0.067" y="-13.762" transform="matrix(1 0 0 1 -26.5 0.2998)" style="overflow:visible;opacity:0.3984;enable-background:new    ;"/>
+		
+			<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_34"  width="13.667" height="7.412" x="-0.067" y="-7.412" transform="matrix(1 0 0 1 -26.5 -6.0498)" style="overflow:visible;opacity:0.3984;enable-background:new    ;"/>
+		
+			<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_33"  width="13.45" height="6.586" y="-6.586" transform="matrix(1 0 0 1 -12.8501 -1.8999)" style="overflow:visible;opacity:0.3984;enable-background:new    ;"/>
+		
+			<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_30"  width="11.975" height="6.099" y="-6.374" transform="matrix(1 0 0 1 -17.8501 0.4502)" style="overflow:visible;opacity:0.5;enable-background:new    ;"/>
+		
+			<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_27"  width="8.957" height="2.575" y="-2.55" transform="matrix(1 0 0 1 -10.25 2.1001)" style="overflow:visible;opacity:0.5;enable-background:new    ;"/>
+		<g>
+			<g>
+				<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#F8D8A5;" d="M-19.85-5.2l-0.5-0.15c-0.367-0.067-0.684-0.05-0.95,0.05
+					c-0.433,0.133-0.75,0.4-0.95,0.8c0.066,0.1,0.167,0.183,0.3,0.25c0.3,0.167,0.683,0.167,1.15,0
+					c0.367-0.167,0.633-0.383,0.8-0.65L-19.85-5.2z"/>
+				<polygon style="fill-rule:evenodd;clip-rule:evenodd;fill:#DCBE8E;" points="-20.15,-5.149 -21,-5.25 -20.35,-5 				"/>
+			</g>
+		</g>
+		<g>
+			<g>
+				<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#F8D8A5;" d="M-5.45,2.45c-0.7,1.067-0.817,2.133-0.35,3.2
+					c0.267,0.633,0.7,1.117,1.3,1.45l0.8,0.3l0.4-0.8c0.2-0.667,0.117-1.383-0.25-2.15C-4.117,3.284-4.75,2.617-5.45,2.45z"/>
+				<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#DCBE8E;" d="M-5.55,2.65c0.233,0.7,0.867,2.283,1.9,4.75
+					c-0.867-2.533-1.4-4.15-1.6-4.85l-0.4-1.4l-0.2,0.05L-5.55,2.65z"/>
+				<polygon style="fill-rule:evenodd;clip-rule:evenodd;fill:#DCBE8E;" points="-5.4,3.05 -5.7,4.95 -5.15,3.45 				"/>
+				<polygon style="fill-rule:evenodd;clip-rule:evenodd;fill:#DCBE8E;" points="-5,4.15 -5.45,5.55 -4.8,4.45 				"/>
+				<polygon style="fill-rule:evenodd;clip-rule:evenodd;fill:#DCBE8E;" points="-4.6,5.05 -5.15,6.4 -4.45,5.351 				"/>
+				<polygon style="fill-rule:evenodd;clip-rule:evenodd;fill:#DCBE8E;" points="-5.25,2.75 -5.1,3.3 -4,4.25 				"/>
+			</g>
+		</g>
+		
+			<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_9_x5F_0"  width="1.92" height="4.4" x="-0.027" y="-4.4" transform="matrix(1 0 0 1 -18 -7.25)" style="overflow:visible;opacity:0.25;enable-background:new    ;"/>
+		
+			<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_8_x5F_0"  width="1.635" height="2.25" y="-2.25" transform="matrix(1 0 0 1 -24.5498 -9.25)" style="overflow:visible;opacity:0.25;enable-background:new    ;"/>
+		
+			<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_7_x5F_0"  width="0.611" height="2" x="-0.006" y="-2" transform="matrix(1 0 0 1 -4.2002 -1.25)" style="overflow:visible;opacity:0.25;enable-background:new    ;"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_Hand2" viewBox="-3 -22.65 16.4 24.646">
+	<g id="Layer_1_207_">
+		
+			<linearGradient id="SVGID_10_" gradientUnits="userSpaceOnUse" x1="19.311" y1="-16241.0703" x2="40.736" y2="-16241.0703" gradientTransform="matrix(4.667445e-005 -1 1 -0.001 16244.6221 2.8828)">
+			<stop  offset="0" style="stop-color:#DD7B78"/>
+			<stop  offset="1" style="stop-color:#B15052"/>
+		</linearGradient>
+		<path style="fill-rule:evenodd;clip-rule:evenodd;fill:url(#SVGID_10_);" d="M-1.7,1.2c0.367,0.367,0.783,0.6,1.25,0.7
+			c0.7,0.167,1.383,0.117,2.05-0.15c0.733-0.2,1.567-0.8,2.5-1.8C6-1.983,7.517-4.883,8.65-8.75c1-3.533,1.483-6.483,1.45-8.85
+			c-0.033-2.2-0.5-3.7-1.4-4.5c-0.2-0.167-0.433-0.3-0.7-0.4c-0.3-0.1-0.633-0.15-1-0.15c-1.3,0.067-1.85,0.867-1.65,2.4L6.1-18
+			l-0.75,0.25c-0.6,0.333-1.15,0.9-1.65,1.7S3.233-14.1,3.8-12.6l0.95,2.05L3.5-11c-1-0.167-1.934,0.133-2.8,0.9
+			c-0.867,0.733-1.133,1.8-0.8,3.2L0.7-5l-1.2-0.1C-1.4-5-2.083-4.566-2.55-3.8c-0.4,0.6-0.533,1.417-0.4,2.45
+			C-2.784-0.283-2.367,0.567-1.7,1.2z"/>
+		
+			<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_32"  width="11.7" height="24.55" x="0" y="-24.55" transform="matrix(1 0 0 1 -3 1.8999)" style="overflow:visible;opacity:0.3984;enable-background:new    ;"/>
+		
+			<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_31"  width="11" height="23.85" x="0" y="-23.85" transform="matrix(1 0 0 1 -3 1.2002)" style="overflow:visible;opacity:0.3984;enable-background:new    ;"/>
+		
+			<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_29"  width="3.669" height="4.167" x="-0.068" y="-4.167" transform="matrix(1 0 0 1 3.0498 -3.3999)" style="overflow:visible;opacity:0.5;enable-background:new    ;"/>
+		<g>
+			<g>
+				<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#F8D8A5;" d="M5.25-1.65C5.45-0.917,5.867-0.433,6.5-0.2
+					c0.4,0.133,0.8,0.133,1.2,0l0.45-0.2l-0.2-0.5C7.716-1.3,7.367-1.566,6.9-1.7C6.133-1.9,5.583-1.883,5.25-1.65z"/>
+				<polygon style="fill-rule:evenodd;clip-rule:evenodd;fill:#DCBE8E;" points="8.15,-0.45 4.55,-2 4.5,-1.9 5.3,-1.5 				"/>
+			</g>
+		</g>
+		<g>
+			<g>
+				<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#F8D8A5;" d="M9.65-10.8c0.667,0.6,1.383,0.833,2.15,0.7
+					c0.467-0.1,0.867-0.3,1.2-0.6l0.4-0.5l-0.5-0.45c-0.434-0.267-0.95-0.333-1.55-0.2C10.417-11.617,9.85-11.267,9.65-10.8z"/>
+				<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#DCBE8E;" d="M13.4-11.2c-0.314,0.001-1.531,0.084-3.65,0.25l-1,0.15
+					v0.15L9.8-10.7C11.659-10.999,12.859-11.166,13.4-11.2z"/>
+				<polygon style="fill-rule:evenodd;clip-rule:evenodd;fill:#DCBE8E;" points="10.1,-10.8 11.35,-10.3 10.4,-10.9 				"/>
+				<polygon style="fill-rule:evenodd;clip-rule:evenodd;fill:#DCBE8E;" points="10.9,-10.9 11.8,-10.4 11.15,-11 				"/>
+				<polygon style="fill-rule:evenodd;clip-rule:evenodd;fill:#DCBE8E;" points="11.6,-11.05 12.4,-10.4 11.85,-11.1 				"/>
+			</g>
+		</g>
+		
+			<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_12_x5F_0"  width="1.204" height="3.6" x="-0.004" y="-3.6" transform="matrix(1 0 0 1 6.8999 -11.0498)" style="overflow:visible;opacity:0.25;enable-background:new    ;"/>
+		
+			<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_11_x5F_0"  width="1.372" height="2.4" x="0.028" y="-2.4" transform="matrix(1 0 0 1 7.75 -18.5)" style="overflow:visible;opacity:0.25;enable-background:new    ;"/>
+		
+			<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_28"  width="3.101" height="2.702" x="-0.05" y="-2.676" transform="matrix(1 0 0 1 0.8999 0.9502)" style="overflow:visible;opacity:0.5;enable-background:new    ;"/>
+		
+			<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_10_x5F_0"  width="3.5" height="1.763" y="-1.75" transform="matrix(1 0 0 1 -2.2998 -0.7998)" style="overflow:visible;opacity:0.25;enable-background:new    ;"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_Head" viewBox="-51.85 -6.007 103.7 51.258">
+	<g id="Layer_1_205_">
+		
+			<linearGradient id="SVGID_11_" gradientUnits="userSpaceOnUse" x1="-21.5864" y1="-16243.9063" x2="22.9386" y2="-16243.9063" gradientTransform="matrix(2.245929e-005 -1 1 -0.001 16244.8164 2.8823)">
+			<stop  offset="0" style="stop-color:#DD7B78"/>
+			<stop  offset="1" style="stop-color:#B15052"/>
+		</linearGradient>
+		<path style="fill-rule:evenodd;clip-rule:evenodd;fill:url(#SVGID_11_);" d="M49.8,15.05c0.067-1.667-0.083-3.117-0.45-4.35
+			l2.2-3.55c0.833-2.6-0.3-4.467-3.4-5.6c-3.066-1.133-6.816-1.367-11.25-0.7c-2.2,0.333-4.1,0.784-5.7,1.35l-1.55-2.85
+			c-1.633-1.867-4-2.816-7.1-2.85c-3.066-0.034-5.15,0.517-6.25,1.65c-0.533,0.566-0.767,1.15-0.7,1.75l-3-3.2
+			C9.7-5.367,6.083-6.25,1.75-5.95c-4.367,0.3-7.5,1.4-9.4,3.3C-8.583-1.717-9.1-0.817-9.2,0.05l-2.45-3
+			c-2.467-1.9-5.684-2.683-9.65-2.35c-4,0.3-6.95,1.533-8.85,3.7c-0.967,1.066-1.533,2.1-1.7,3.1l-2.8-1.45
+			c-2.3-0.867-4.533-1.133-6.7-0.8c-2.2,0.333-3.6,1.583-4.2,3.75l-0.25,3.15l-2.75,1.05c-1.6,1.133-1.867,2.8-0.8,5
+			c0.9,1.8,2.184,2.867,3.85,3.2c1.033,0.2,2.15,0.117,3.35-0.25l0.05-0.05c0.267-0.033,0.45-0.1,0.55-0.2l-0.1,0.2
+			c-0.5,0.967-0.75,1.967-0.75,3c-0.067,1.767,0.633,3.317,2.1,4.65c0.933,0.833,2.05,1.483,3.35,1.95c1.267,0.4,2.6,0.567,4,0.5
+			l1.75-0.2c-0.5,0.5-0.9,1.083-1.2,1.75c-0.6,1.367-0.367,2.517,0.7,3.45c1.067,0.9,2.25,1.4,3.55,1.5l1.65-0.1
+			c-0.067,0.567,0,1.2,0.2,1.9c0.4,1.367,1.333,2.333,2.8,2.9c1.433,0.566,2.95,0.533,4.55-0.1l1.95-1.15v0.05
+			c-0.267,1.033-0.25,2.05,0.05,3.05c0.633,2.066,2.333,3.667,5.1,4.8c0.7,0.267,1.317,0.4,1.85,0.4c1.367,0.067,2.633-0.4,3.8-1.4
+			l1.35-1.55c0.467,0.767,1.15,1.55,2.05,2.35c1.733,1.567,3.6,2.367,5.6,2.4c1.967,0.033,3.383-1.083,4.25-3.35
+			c0.434-1.133,0.667-2.267,0.7-3.4c1.733,0.733,3.683,1.35,5.85,1.85c4.333,0.967,7.6,0.833,9.8-0.4c0.567-0.3,1.067-0.7,1.5-1.2
+			c1.467-1.5,2.333-3.7,2.6-6.6c0.133-1.467,0.117-2.767-0.05-3.9c1.033,0.367,2.433,0.55,4.2,0.55c3.5,0,7.083-0.867,10.75-2.6
+			l0.7-0.35c1.433-0.733,2.6-1.583,3.5-2.55v-0.05C48.633,21.117,49.7,18.383,49.8,15.05z"/>
+		
+			<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_84"  width="101.805" height="44.757" x="-0.04" y="-44.757" transform="matrix(1 0 0 1 -49.9502 38.75)" style="overflow:visible;opacity:0.3984;enable-background:new    ;"/>
+		
+			<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_83"  width="101.805" height="32.207" x="-0.04" y="-32.207" transform="matrix(1 0 0 1 -49.9502 26.2002)" style="overflow:visible;opacity:0.8398;enable-background:new    ;"/>
+		
+			<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_76"  width="23.848" height="10.196" x="0.002" y="-10.196" transform="matrix(1 0 0 1 -18.1499 25.7002)" style="overflow:visible;opacity:0.5;enable-background:new    ;"/>
+		
+			<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_75"  width="6.983" height="6.382" x="0.017" y="-6.382" transform="matrix(1 0 0 1 -47.7998 14.3501)" style="overflow:visible;opacity:0.5;enable-background:new    ;"/>
+		
+			<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_74"  width="12.714" height="8.882" x="-0.014" y="-8.882" transform="matrix(1 0 0 1 -3.5 17.9502)" style="overflow:visible;opacity:0.5;enable-background:new    ;"/>
+		
+			<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_73"  width="9.204" height="7.103" y="-7.103" transform="matrix(1 0 0 1 25.8501 18.2002)" style="overflow:visible;opacity:0.5;enable-background:new    ;"/>
+		
+			<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_72"  width="8.364" height="5.202" x="0.036" y="-5.2" transform="matrix(1 0 0 1 -14.7998 39.6499)" style="overflow:visible;opacity:0.5;enable-background:new    ;"/>
+		
+			<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_71"  width="12.6" height="5.141" y="-5.15" transform="matrix(1 0 0 1 5.8501 34.5)" style="overflow:visible;opacity:0.5;enable-background:new    ;"/>
+		
+			<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_70"  width="17.16" height="7.352" y="-7.35" transform="matrix(1 0 0 1 8.9502 40.3999)" style="overflow:visible;opacity:0.5;enable-background:new    ;"/>
+		
+			<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_69"  width="32.455" height="28.5" x="0.045" y="-28.5" transform="matrix(1 0 0 1 -42.4502 43.4502)" style="overflow:visible;opacity:0.3008;enable-background:new    ;"/>
+		
+			<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_68"  width="101.805" height="29.257" x="-0.04" y="-29.257" transform="matrix(1 0 0 1 -49.9502 23.25)" style="overflow:visible;opacity:0.5;enable-background:new    ;"/>
+		
+			<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_65"  width="9.072" height="7.335" y="-7.35" transform="matrix(1 0 0 1 -2.2002 43.8999)" style="overflow:visible;opacity:0.5;enable-background:new    ;"/>
+		
+			<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_64"  width="7.731" height="6.028" y="-6" transform="matrix(1 0 0 1 -16.0498 31.2002)" style="overflow:visible;opacity:0.5;enable-background:new    ;"/>
+		<g>
+			<g>
+				<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#F8D8A5;" d="M23.55,28.6c-0.433,0.567-0.767,1.3-1,2.2
+					c-0.466,1.767-0.267,3.4,0.6,4.9c0.8,1.4,1.883,2.367,3.25,2.9l1.85,0.35c0.033,0,0.233-0.617,0.6-1.85
+					c0.2-1.5-0.167-2.966-1.1-4.4c-0.867-1.367-1.817-2.467-2.85-3.3C24.367,29,23.917,28.733,23.55,28.6z"/>
+				<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#DCBE8E;" d="M23.35,29.1c0.767,2.467,2.417,5.75,4.95,9.85
+					c-2.3-4.267-3.75-7.633-4.35-10.1c-0.3-1.1-0.467-2.083-0.5-2.95H23C22.967,26.867,23.083,27.933,23.35,29.1z"/>
+				<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#DCBE8E;" d="M23.65,29.9c-0.2,0.933-0.367,2.367-0.5,4.3
+					c0.4-1.533,0.733-2.65,1-3.35L23.65,29.9z"/>
+				<polygon style="fill-rule:evenodd;clip-rule:evenodd;fill:#DCBE8E;" points="24.6,32.35 23.9,35.5 25,32.9 				"/>
+				<polygon style="fill-rule:evenodd;clip-rule:evenodd;fill:#DCBE8E;" points="25.65,34.25 24.7,37.2 26,34.8 				"/>
+				<polygon style="fill-rule:evenodd;clip-rule:evenodd;fill:#DCBE8E;" points="26.45,35.75 26.4,38.45 26.8,36.35 				"/>
+				<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#DCBE8E;" d="M24,29.35l0.25,1.15c0.667,0.6,1.5,1.216,2.5,1.85
+					C25.65,31.35,24.733,30.35,24,29.35z"/>
+				<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#DCBE8E;" d="M24.8,31.8l0.1,0.5c0.9,0.533,1.934,1.117,3.1,1.75
+					C27,33.417,25.933,32.667,24.8,31.8z"/>
+				<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#DCBE8E;" d="M25.6,33.8l0.35,0.65l2.4,1.3
+					C27.75,35.316,26.833,34.667,25.6,33.8z"/>
+			</g>
+		</g>
+		<g>
+			<g>
+				<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#F8D8A5;" d="M42,25.7c0.2,0.567,0.55,1.184,1.05,1.85
+					c1,1.333,2.184,2.15,3.55,2.45c1.333,0.3,2.6,0.183,3.8-0.35l1.4-0.9c0.034,0-0.233-0.517-0.8-1.55
+					c-0.833-1.1-2.05-1.8-3.65-2.1c-1.533-0.3-2.883-0.3-4.05,0C42.733,25.267,42.3,25.466,42,25.7z"/>
+				<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#DCBE8E;" d="M42.25,26.1c1.333,0.467,4.533,1.333,9.6,2.6
+					c-4.867-1.533-8.017-2.6-9.45-3.2l-2.6-1l-0.15,0.35L42.25,26.1z"/>
+				<polygon style="fill-rule:evenodd;clip-rule:evenodd;fill:#DCBE8E;" points="43,26.3 45.65,29.1 43.95,26.45 				"/>
+				<polygon style="fill-rule:evenodd;clip-rule:evenodd;fill:#DCBE8E;" points="45.25,27 46.9,29.35 45.85,27.1 				"/>
+				<polygon style="fill-rule:evenodd;clip-rule:evenodd;fill:#DCBE8E;" points="47.1,27.45 48.5,29.85 47.7,27.6 				"/>
+				<polygon style="fill-rule:evenodd;clip-rule:evenodd;fill:#DCBE8E;" points="48.65,27.85 50.3,29.55 49.25,28 				"/>
+				<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#DCBE8E;" d="M42.8,25.8l1,0.4l2.7-0.6
+					C45.7,25.667,44.467,25.733,42.8,25.8z"/>
+				<polygon style="fill-rule:evenodd;clip-rule:evenodd;fill:#DCBE8E;" points="45,26.55 45.4,26.8 48.45,25.8 				"/>
+				<polygon style="fill-rule:evenodd;clip-rule:evenodd;fill:#DCBE8E;" points="46.85,27.2 47.45,27.4 49.8,26.6 				"/>
+			</g>
+		</g>
+		<g>
+			<g>
+				<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#F8D8A5;" d="M-42.05,15.3l-2.15-0.25c-1.633-0.133-2.95,0.033-3.95,0.5
+					c-1.067,0.533-2,1.317-2.8,2.35c-0.4,0.533-0.7,1.017-0.9,1.45c0.3,0.434,0.8,0.8,1.5,1.1c1.434,0.633,3,0.483,4.7-0.45
+					c1.6-0.833,2.7-1.917,3.3-3.25C-42.083,16.15-41.983,15.667-42.05,15.3z"/>
+				<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#DCBE8E;" d="M-39.9,13.7l-0.25-0.25c-0.733,0.633-1.533,1.233-2.4,1.8
+					c-2.767,2.133-5.867,3.533-9.3,4.2c3.6-0.467,6.85-1.7,9.75-3.7C-41.1,14.883-40.367,14.2-39.9,13.7z"/>
+				<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#DCBE8E;" d="M-43.15,15.8c-1.367,0.1-2.633,0.083-3.8-0.05
+					c1.133,0.333,2.15,0.566,3.05,0.7L-43.15,15.8z"/>
+				<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#DCBE8E;" d="M-45.2,17.05c-0.667-0.1-1.6-0.35-2.8-0.75
+					c0.5,0.3,1.25,0.683,2.25,1.15L-45.2,17.05z"/>
+				<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#DCBE8E;" d="M-47,18c-0.7-0.3-1.533-0.717-2.5-1.25
+					c0.533,0.466,1.183,0.983,1.95,1.55L-47,18z"/>
+				<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#DCBE8E;" d="M-48.5,18.6c-1.067-0.267-1.85-0.5-2.35-0.7
+					c0.367,0.233,0.95,0.533,1.75,0.9L-48.5,18.6z"/>
+				<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#DCBE8E;" d="M-42.6,15.9l-0.95,0.6l-1.65,2.55
+					C-44.267,18.117-43.4,17.066-42.6,15.9z"/>
+				<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#DCBE8E;" d="M-44.7,17.2l-0.45,0.15c-0.533,0.934-1.184,1.9-1.95,2.9
+					C-46.167,19.216-45.367,18.2-44.7,17.2z"/>
+				<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#DCBE8E;" d="M-46.6,18l-0.6,0.25c-0.233,0.333-0.8,1.033-1.7,2.1
+					C-48.2,19.716-47.433,18.933-46.6,18z"/>
+			</g>
+		</g>
+		<g>
+			<g>
+				<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#F8D8A5;" d="M-2.05,32.15L-3.3,32.7c-1.034,0.434-1.784,0.967-2.25,1.6
+					c-0.3,0.5-0.5,1.033-0.6,1.6c-0.1,0.533-0.067,1,0.1,1.4c0.133,0.3,0.3,0.55,0.5,0.75l0.25,0.15l0.95-0.55
+					C-3.583,37.183-3,36.633-2.6,36c0.733-1.133,1.033-2.1,0.9-2.9C-1.733,32.633-1.85,32.316-2.05,32.15z"/>
+				<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#DCBE8E;" d="M-1.9,32.4c0.2-0.667,0.25-1.35,0.15-2.05L-2,30.4
+					c0.067,0.667-0.033,1.3-0.3,1.9c-0.233,0.633-0.817,1.6-1.75,2.9c-0.867,1.2-1.267,2.2-1.2,3c0-0.733,0.467-1.7,1.4-2.9
+					C-2.817,34.033-2.167,33.066-1.9,32.4z"/>
+				<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#DCBE8E;" d="M-2.5,32.8c-0.333,0.233-1.067,0.617-2.2,1.15
+					c0.967-0.233,1.633-0.417,2-0.55L-2.5,32.8z"/>
+				<polygon style="fill-rule:evenodd;clip-rule:evenodd;fill:#DCBE8E;" points="-3.3,34.2 -5.2,34.7 -3.5,34.55 				"/>
+				<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#DCBE8E;" d="M-4.05,35.3c-0.733,0.067-1.367,0.2-1.9,0.4
+					c0.534-0.1,1.1-0.117,1.7-0.05L-4.05,35.3z"/>
+				<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#DCBE8E;" d="M-4.6,36.15c-0.633,0.3-1.1,0.65-1.4,1.05
+					c0.333-0.3,0.733-0.533,1.2-0.7L-4.6,36.15z"/>
+				<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#DCBE8E;" d="M-2.1,32.7l-0.4,0.65c0,0.467-0.067,1.133-0.2,2
+					C-2.333,34.083-2.133,33.2-2.1,32.7z"/>
+				<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#DCBE8E;" d="M-3.8,35.15l-0.25,0.35c-0.067,0.667-0.034,1.2,0.1,1.6
+					C-4.017,36.633-3.967,35.983-3.8,35.15z"/>
+			</g>
+		</g>
+		
+			<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_22"  width="4.223" height="6.35" x="0.033" y="-6.35" transform="matrix(1 0 0 1 -19.8999 7.7998)" style="overflow:visible;opacity:0.25;enable-background:new    ;"/>
+		
+			<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_21"  width="2.996" height="7.2" x="0.004" y="-7.2" transform="matrix(1 0 0 1 8.2998 10.0498)" style="overflow:visible;opacity:0.25;enable-background:new    ;"/>
+		
+			<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_20"  width="4.94" height="6.9" y="-6.9" transform="matrix(1 0 0 1 -12.7002 15.1001)" style="overflow:visible;opacity:0.25;enable-background:new    ;"/>
+		
+			<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_19"  width="8.9" height="3.762" y="-3.75" transform="matrix(1 0 0 1 -30.2998 26.5498)" style="overflow:visible;opacity:0.25;enable-background:new    ;"/>
+		
+			<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_18"  width="8.15" height="3.106" y="-3.106" transform="matrix(1 0 0 1 41.0498 13.3999)" style="overflow:visible;opacity:0.25;enable-background:new    ;"/>
+		
+			<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_17_x5F_0"  width="5.4" height="2.25" y="-2.216" transform="matrix(1 0 0 1 39.1001 20.9502)" style="overflow:visible;opacity:0.25;enable-background:new    ;"/>
+		
+			<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_16_x5F_0"  width="2.984" height="7.8" x="-0.038" y="-7.8" transform="matrix(1 0 0 1 0.9502 35.8501)" style="overflow:visible;opacity:0.25;enable-background:new    ;"/>
+		
+			<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_15_x5F_0"  width="6.356" height="4.802" x="-0.006" y="-4.8" transform="matrix(1 0 0 1 9.5 29.4502)" style="overflow:visible;opacity:0.25;enable-background:new    ;"/>
+		
+			<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_14_x5F_0"  width="3.967" height="5.9" y="-5.9" transform="matrix(1 0 0 1 -12.3999 38.6499)" style="overflow:visible;opacity:0.25;enable-background:new    ;"/>
+		
+			<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_13_x5F_0"  width="4.158" height="5.15" x="-0.008" y="-5.15" transform="matrix(1 0 0 1 17 38.7002)" style="overflow:visible;opacity:0.25;enable-background:new    ;"/>
+	</g>
+</symbol>
+<symbol  id="parts_x2F_Trunk" viewBox="-18.45 -87.45 40.9 91.45">
+	<g id="Layer_1_169_">
+		<g>
+			
+				<linearGradient id="SVGID_12_" gradientUnits="userSpaceOnUse" x1="15432.668" y1="-16933.1016" x2="15456.1514" y2="-16933.1016" gradientTransform="matrix(-0.9954 -0.0958 0.0958 -0.9954 16996.3262 -15417.8809)">
+				<stop  offset="0" style="stop-color:#B8CEB2"/>
+				<stop  offset="1" style="stop-color:#699168"/>
+			</linearGradient>
+			<path style="fill-rule:evenodd;clip-rule:evenodd;fill:url(#SVGID_12_);" d="M14.15-35.4c2.533-3.5,3.817-7.617,3.85-12.35
+				c0-1.3-0.067-3.184-0.2-5.65c-0.033-2.167,0.133-3.967,0.5-5.4c0.867-3.533,2.25-6.167,4.15-7.9l-1.5,1.15v0.05l-1.5,1.2
+				c-1.434,1.267-2.534,2.667-3.3,4.2c-1.1,2.233-1.4,4.583-0.9,7.05c0.533,2.7,0.367,5.267-0.5,7.7
+				c-0.833,2.4-1.933,3.683-3.3,3.85c-0.833,0.1-1.35,0.05-1.55-0.15L9.85-41.7c-0.233-0.267-0.267-1-0.1-2.2
+				c0.1-0.8,0.4-2.617,0.9-5.45l0.05-0.45c0.633-3.9,0.45-7.633-0.55-11.2c-1-3.533-2.733-6.667-5.2-9.4
+				c-1.534-1.7-2.55-4.15-3.05-7.35C1.533-80.017,1.45-82.434,1.65-85v-0.1l0.2-2.15L1.7-86.5c-1.3,6.833-1.284,11.833,0.05,15
+				c1.6,2.467,2.733,4.333,3.4,5.6C6.317-63.7,6.933-59.95,7-54.65c0.067,4.4-0.833,6.833-2.7,7.3
+				c-1.466,0.367-3.267-0.417-5.4-2.35c-1.2-1.066-2.1-2.117-2.7-3.15c-0.2-0.267-0.35-0.567-0.45-0.9
+				c-0.767-1.733-0.917-4.017-0.45-6.85c0.3-1.867,0.95-4.283,1.95-7.25c0.833-2.367,0.783-4.933-0.15-7.7v-0.05l-0.7-1.65
+				c0.633,3.033,0.7,5.433,0.2,7.2c-0.167,0.633-1.184,2.2-3.05,4.7c-1.733,2.333-2.767,4.467-3.1,6.4c-0.5,3-0.3,6.583,0.6,10.75
+				L-8.9-48L-9-48.1v-0.05c-0.967-1.2-1.867-2.567-2.7-4.1c-1.4-2.5-2.066-4.55-2-6.15c0.067-1.5,0.833-3.5,2.3-6
+				c1.8-3.067,2.983-5.517,3.55-7.35c0.833-2.533,0.767-5.434-0.2-8.7v-0.05c-0.391-1.302-0.799-2.352-1.225-3.15L-8.9-82.4
+				c0.133,0.5,0.25,1.216,0.35,2.15l0.05,0.65c0.067,1.967-0.183,3.883-0.75,5.75c-0.567,1.833-2.083,4.317-4.55,7.45
+				c-2.333,2.966-3.817,5.716-4.45,8.25c-0.633,2.6,0.3,7.367,2.8,14.3c2.867,8.133,4.434,13.583,4.7,16.35
+				c0.4,4.4-0.967,10.867-4.1,19.4l-3.6,8.7L19,4l-1.2-0.8c-1-0.8-1.966-1.767-2.9-2.9c-1.667-2.066-3.05-4.65-4.15-7.75
+				c-0.8-2.267-1.417-4.733-1.85-7.4C7.833-21.583,7.6-25.767,8.2-27.4c0.3-0.8,0.983-1.85,2.05-3.15
+				C12.05-32.684,13.35-34.3,14.15-35.4z"/>
+			
+				<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_10"  width="11.068" height="83.55" x="0.008" y="-83.55" transform="matrix(1 0 0 1 -18.4502 -0.4502)" style="overflow:visible;opacity:0.5;enable-background:new    ;"/>
+			
+				<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_9"  width="33.5" height="15.082" y="-15.082" transform="matrix(1 0 0 1 -18.4502 3.3501)" style="overflow:visible;opacity:0.5;enable-background:new    ;"/>
+			
+				<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_8"  width="8.309" height="59.3" y="-59.3" transform="matrix(1 0 0 1 -10.2998 -17.9502)" style="overflow:visible;opacity:0.5;enable-background:new    ;"/>
+			
+				<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_7"  width="13.2" height="72.25" y="-73.9" transform="matrix(1 0 0 1 -4.25 -13.5498)" style="overflow:visible;opacity:0.5;enable-background:new    ;"/>
+			
+				<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_6"  width="16.144" height="46.9" x="-0.043" y="-47.05" transform="matrix(1 0 0 1 4.8501 -18.4502)" style="overflow:visible;opacity:0.5;enable-background:new    ;"/>
+			
+				<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_5"  width="10.327" height="81.4" x="0.008" y="-81.4" transform="matrix(1 0 0 1 -18.4502 -2.2998)" style="overflow:visible;opacity:0.5;enable-background:new    ;"/>
+			
+				<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_4_x5F_0"  width="3.602" height="30.15" y="-30.15" transform="matrix(1 0 0 1 -8.6499 -10.2998)" style="overflow:visible;opacity:0.3008;enable-background:new    ;"/>
+			
+				<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_3_x5F_0"  width="7.242" height="25.1" y="-25.1" transform="matrix(1 0 0 1 -6.3501 -32.9502)" style="overflow:visible;opacity:0.3008;enable-background:new    ;"/>
+			
+				<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_2_x5F_1"  width="10.651" height="32.75" x="-0.001" y="-32.75" transform="matrix(1 0 0 1 6.2002 -9.5498)" style="overflow:visible;opacity:0.3008;enable-background:new    ;"/>
+			
+				<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_1_x5F_1"  width="3.25" height="27" y="-27" transform="matrix(1 0 0 1 2.2002 -11.2002)" style="overflow:visible;opacity:0.3008;enable-background:new    ;"/>
+			
+				<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_11"  width="2.167" height="22.975" y="-22.975" transform="matrix(1 0 0 1 -6.0498 -11.2998)" style="overflow:visible;opacity:0.3008;enable-background:new    ;"/>
+		</g>
+		
+			<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_50"  width="6.928" height="34.3" x="0.032" y="-34.3" transform="matrix(1 0 0 1 -9.9502 -42.9502)" style="overflow:visible;opacity:0.5;enable-background:new    ;"/>
+		
+			<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_49"  width="-32766" height="-32766" x="16383" y="16383" transform="matrix(1 0 0 1 1.75 -87.25)" style="overflow:visible;opacity:0.5;enable-background:new    ;"/>
+		
+			<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_48"  width="9.502" height="39.78" y="-39.75" transform="matrix(1 0 0 1 -1.2002 -46.75)" style="overflow:visible;opacity:0.5;enable-background:new    ;"/>
+		
+			<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_47"  width="12.2" height="25.6" y="-25.6" transform="matrix(1 0 0 1 9.7998 -40.8501)" style="overflow:visible;opacity:0.5;enable-background:new    ;"/>
+		
+			<use xlink:href="#parts_x2F_FlashAICB_x2F_Layer_1_x2F__x3C_Path_x3E__x5F_46"  width="2.4" height="15.15" y="-15.15" transform="matrix(1 0 0 1 -9.1499 -11.2998)" style="overflow:visible;opacity:0.3008;enable-background:new    ;"/>
+	</g>
+</symbol>
+<symbol  id="tear1" viewBox="-4.5 -3.869 9.003 13.444">
+	<g id="Layer_1_12_">
+		<linearGradient id="SVGID_13_" gradientUnits="userSpaceOnUse" x1="-0.0264" y1="-3.7485" x2="0.0223" y2="9.0515">
+			<stop  offset="0" style="stop-color:#8AD0F4;stop-opacity:0"/>
+			<stop  offset="0.7176" style="stop-color:#8AD0F4"/>
+		</linearGradient>
+		<path style="fill-rule:evenodd;clip-rule:evenodd;fill:url(#SVGID_13_);" d="M3.05,9.55c0.034,0.034,0.067,0.034,0.1,0h0.1
+			c0.033,0.034,0.067,0.034,0.1,0c0.033-0.033,0.033-0.066,0-0.1V7.7c0-0.034,0-0.067,0-0.1C3.117,7.267,3,6.9,3,6.5
+			c0.033-0.167,0.2-0.5,0.5-1C3.833,5.033,4,4.5,4,3.9c0-0.4-0.133-0.85-0.4-1.35C3.4,2.05,3.283,1.533,3.25,1
+			c0.033-0.333,0.233-0.817,0.6-1.45C4.317-1.117,4.533-1.733,4.5-2.3c0-0.567-0.233-0.983-0.7-1.25
+			c-0.466-0.233-1.15-0.333-2.05-0.3H1.7C0.382-3.937-0.818-3.729-1.9-3.225C-1.96-3.181-2.027-3.14-2.1-3.1
+			c-1.032,0.563-1.548,1.079-1.55,1.55c0,0.4,0.233,0.667,0.7,0.8C-2.55-0.617-2.367-0.3-2.4,0.2v0.15
+			c-1.033,0.133-1.667,0.333-1.9,0.6c-0.133,0.1-0.2,0.433-0.2,1c0,0.466,0.233,0.95,0.7,1.45v0.05
+			c0.433,0.433,0.65,0.883,0.65,1.35c0,0.067-0.233,0.7-0.7,1.9C-4.283,8-4.5,8.867-4.5,9.3c0,0.034,0.017,0.067,0.05,0.1
+			c0.034,0.033,0.067,0.033,0.1,0c0.033,0.033,0.067,0.033,0.1,0s0.033-0.066,0-0.1H-4c0,0.034,0.017,0.05,0.05,0.05
+			c0.034,0.033,0.067,0.05,0.1,0.05c0.033,0.033,0.05,0.033,0.05,0c1.2-1,1.9-1.583,2.1-1.75c0.534-0.2,1.05-0.316,1.55-0.35
+			C1.583,7.3,2.633,8.017,3,9.45C3.033,9.483,3.05,9.517,3.05,9.55z"/>
+	</g>
+</symbol>
+<symbol  id="tears_x2F_drip1" viewBox="-2.725 -1.613 5.425 3.246">
+	<g id="Layer_1_3_">
+		<g>
+			<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#8AD0F4;fill-opacity:0.702;" d="M1.1-0.1c-1.233-1.1-2.233-1.6-3-1.5
+				C-3-1.467-3-0.85-1.9,0.25c1.033,1.067,2.566,1.517,4.6,1.35L1.1-0.1z"/>
+		</g>
+	</g>
+</symbol>
+<symbol  id="tears_x2F_drip3" viewBox="-1.499 -1.882 3 3.752">
+	<g id="Layer_1_4_">
+		<g>
+			<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#8AD0F4;fill-opacity:0.702;" d="M-1.4,0.3
+				c0.333,1.267,0.717,1.767,1.15,1.5c1.1-0.6,1.683-1.417,1.75-2.45C1.533-1.683,0.95-2.067-0.25-1.8C-1.317-1.6-1.7-0.9-1.4,0.3z"
+				/>
+		</g>
+	</g>
+</symbol>
+<symbol  id="tears_x2F_drip4" viewBox="-1.328 -3.2 2.678 6.4">
+	<g id="Layer_1_8_">
+		<g>
+			<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#8AD0F4;fill-opacity:0.702;" d="M0,3.15L0.25,3.2
+				c0.067-0.233,0.033-0.534-0.1-0.9l1.2-4.45c0-0.1-0.083-0.3-0.25-0.6L-0.45-3.2c-0.466,0.267-0.75,0.6-0.85,1
+				c-0.1,0.333,0.066,1.25,0.5,2.75C-0.5,1.65-0.233,2.517,0,3.15z"/>
+		</g>
+	</g>
+</symbol>
+<symbol  id="tears_x2F_drip5" viewBox="-1.3 -3.85 2.6 7.7">
+	<g id="Layer_1_9_">
+		<g>
+			<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#8AD0F4;fill-opacity:0.702;" d="M-0.15,3.15l-0.05-0.1h0.05V3.15z
+				 M-1.2,1.4C-1.1,2-0.783,2.817-0.25,3.85H0c0.867-2.6,1.3-4.867,1.3-6.8C1.3-3.283,1.2-3.567,1-3.8l-1.45-0.05
+				C-1.017-3.317-1.3-2.283-1.3-0.75C-1.3,0.483-1.267,1.2-1.2,1.4z"/>
+		</g>
+	</g>
+</symbol>
+<symbol  id="tears_x2F_drip7" viewBox="-2.305 -1.978 4.655 3.954">
+	<g id="Layer_1_6_">
+		<g>
+			<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#8AD0F4;fill-opacity:0.702;" d="M-1.9,1.4
+				c0.566,0.467,1.117,0.65,1.65,0.55c1.333-0.233,2.167-0.667,2.5-1.3c0.2-0.533,0.1-1.15-0.3-1.85c-0.7-1.233-1.917-1-3.65,0.7
+				C-2.433,0.267-2.5,0.9-1.9,1.4z"/>
+		</g>
+	</g>
+</symbol>
+<symbol  id="tears_x2F_drip8" viewBox="-2.75 -1.613 5.463 3.246">
+	<g id="Layer_1_7_">
+		<g>
+			<path style="fill-rule:evenodd;clip-rule:evenodd;fill:#8AD0F4;fill-opacity:0.702;" d="M1.9,0.25C3-0.85,2.983-1.467,1.85-1.6
+				c-0.733-0.1-1.733,0.4-3,1.5l-1.6,1.7C-0.717,1.767,0.833,1.317,1.9,0.25z"/>
+		</g>
+	</g>
+</symbol>
+<use xlink:href="#ixStreetSpirit"  width="128.027" height="148.1" id="ixStreetSpirit_x5F_mc" x="-65.017" y="-74.05" transform="matrix(-1 0 0 -1 63 74.0498)" style="overflow:visible;"/>
+</svg>

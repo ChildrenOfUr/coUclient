@@ -50,7 +50,7 @@
     line-height: 8px;
     font-weight: bold;
     font-size: 14px;
-    text-shadow: -2px -2px 0 #fff, 2px -2px 0 #fff, -2px 2px 0 #fff, 2px 2px 0 #fff;
+    text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff;
     cursor: pointer;
     -webkit-transform-origin: 0% 50%;
     -moz-transform-origin: 0% 50%;
@@ -61,7 +61,17 @@
 
 .hm-street.hm-street-current {
     color: #c42323;
-    font-weight: bold;
+    font-weight: bolder;
+}
+
+.hm-street.hm-street-route {
+    color: #236EC4;
+    font-weight: bolder;
+}
+
+.hm-street.hm-street-current.hm-street-route {
+    color: #8323C4;
+    font-weight: bolder;
 }
 
 .maplayer.scaled {
@@ -140,77 +150,102 @@
     z-index: 11;
 }
 
-/* Minimap */
+/* Street Content Icons */
 
-#minimap-container {
-    z-index: 1;
+.street-contents-indicators {
     width: 100%;
-    margin-bottom: 40px;
-}
-
-#minimap {
-    border: 2px solid #eee;
-    border-radius: 8px;
-    font-family: "Lato", sans-serif;
-    background-color: #eee;
-}
-
-#minimap-img {
-    width: 166px;
-    height: auto;
-    border-radius: 5px 5px 0 0;
-}
-
-#minimap-objects {
+    height: 15px;
     position: absolute;
-    top: 2px;
-    left: 2px;
-}
-
-#minimap-label {
+    bottom: 12px;
     text-align: center;
-    color: #444;
-    font-weight: bold;
-    position: relative;
-    top: -2px;
 }
 
-.minimap-player {
-    position: absolute;
-    width: 10px;
-    height: 10px;
-    background-color: white;
-    border-radius: 50%;
-    border: 2px solid black;
-}
-
-.minimap-player.minimap-me {
-    background-color: rgb(255, 255, 113);
-}
-
-.minimap-exit {
-    width: 20px;
-    height: 20px;
-    position: absolute;
-    background-image: url(../../system/icons/signpost.svg);
+.street-contents-indicators > div {
+    width: 15px;
+    height: 15px;
     background-repeat: no-repeat;
-    background-size: 20px 20px;
+    background-size: 15px 15px;
+    -webkit-filter: drop-shadow(0 0 4px white);
+    -moz-filter: drop-shadow(0 0 4px white);
+    -o-filter: drop-shadow(0 0 4px white);
+    filter: drop-shadow(0 0 4px white);
+    cursor: help;
+    display: inline-block;
+    padding: 0 3px;
 }
 
-#minimap-toggle {
-    width: 40px;
-    height: 20px;
-    background-color: #eee;
-    border-radius: 0 0 5px 5px;
-    text-align: center;
+.street-contents-indicators > .sci-vendor {
+    background-image: url(../../system/windows/indicator_vendor.svg);
+}
+
+.street-contents-indicators > .sci-shrine {
+    background-image: url(../../system/windows/indicator_shrine.svg);
+}
+
+.street-contents-indicators > .sci-mailbox {
+    background-image: url(../../system/windows/indicator_mailbox.svg);
+}
+
+.street-contents-indicators > .sci-bureau {
+    background-image: url(../../system/windows/indicator_bureaucratichall.svg);
+}
+
+.street-contents-indicators > .sci-machines {
+    background-image: url(../../system/windows/indicator_machine.svg);
+}
+
+#mapwindow-search {
     position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
+    right: 10px;
+    top: 20px;
+    padding-left: 2px;
+    width: 212px;
+}
+
+#map-window-search-results {
+    width: 219px;
+    background-color: white;
+    z-index: 109;
+    border-radius: 8px 8px;
+    box-shadow: 0 5px 10px rgba(68, 68, 68, 0.5);
+    position: absolute;
+    right: 10px;
+    top: 42px;
+    max-height: 325px;
+    overflow: hidden;
+}
+
+#map-window-search-results ul {
+    margin: 0;
+    font-size: 12px;
+    font-family: "Lato", sans-serif;
+    list-style-type: none;
+    padding: 0;
+}
+
+#map-window-search-results ul li {
+    padding: 5px 10px;
+}
+
+#map-window-search-results ul li,
+#map-window-search-results ul li * {
     cursor: pointer;
 }
 
-#minimap-toggle .fa {
-    cursor: pointer;
-    position: relative;
-    top: -2px;
+#map-window-search-results ul li span {
+    color: #999;
+    float: right;
+}
+
+#map-window-search-results ul li:first-child:hover {
+    border-radius: 8px 8px 0 0;
+}
+
+#map-window-search-results ul li:last-child:hover {
+    border-radius: 0 0 8px 8px;
+}
+
+#map-window-search-results ul li:hover {
+    background-color: #4b2e4c;
+    color: white;
 }

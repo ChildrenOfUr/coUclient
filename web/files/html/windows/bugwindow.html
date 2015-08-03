@@ -1,0 +1,26 @@
+<div id="bugWindow" class="window" hidden>
+    <i class="fa-li fa fa-times close"></i>
+    <header>
+        <i class="fa-li fa fa-bug"></i>
+        Bugs/Suggestions
+    </header>
+    <ur-well>
+        <p>
+            If you would like to report a bug or make a feature request, please fill this out. Your browser
+            information is included automatically for debugging purposes, and your username is included in case we need
+            to contact you.
+        </p>
+        <select id="reportCategory">
+            <option value="bug">Bug</option>
+            <option value="suggestion">Suggestion</option>
+        </select>
+        <input type="text" id="reportTitle" placeholder="Short title (required)" maxlength="23">
+        <textarea id="reportMain" placeholder="Please provide a detailed description of the problem you are experiencing or of the feature you would like us to add (optional)"></textarea>
+        <textarea id="reportMeta" disabled></textarea>
+        <ur-button>Submit Report</ur-button>
+        <form style="display: inline;">
+            <input type="file" id="reportImg" accept=".png,.jpg">
+            <button type="reset">Remove File</button>
+        </form>
+    </ur-well>
+</div>

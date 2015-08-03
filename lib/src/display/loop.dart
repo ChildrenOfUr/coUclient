@@ -55,7 +55,4 @@ update(double dt)
 		sendPlayerInfo();
 		timeLast = 0.0;
 	}
-
-	//update minimap
-	minimap.updateObjects();
 }

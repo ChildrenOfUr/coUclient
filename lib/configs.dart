@@ -6,6 +6,7 @@ import 'dart:async';
 class Configs {
 	static String baseAddress, utilServerAddress, websocketServerAddress, authAddress, authWebsocket;
 	static double clientVersion = 0.14;
+	static bool testing;
 
 	static Future init() async
 	{
@@ -14,6 +15,12 @@ class Configs {
 		websocketServerAddress = '$baseAddress:8282';
 		authAddress = '$baseAddress:8383';
 		authWebsocket = '$baseAddress:8484';
+
+		if (Configs.baseAddress == "localhost" || Configs.baseAddress == "robertmcdermot.com") {
+			testing = true;
+		} else {
+			testing = false;
+		}
 
 		//set the ur-login components addresses
 		String prefix = baseAddress.contains('localhost')?'http://':'https://';

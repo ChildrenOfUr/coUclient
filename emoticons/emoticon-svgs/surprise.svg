@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- Generator: Adobe Illustrator 15.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="128px" height="128px" viewBox="0 0 128 128" style="enable-background:new 0 0 128 128;" xml:space="preserve">
+<g>
+	<circle style="fill:#FFC200;" cx="64" cy="64" r="64"/>
+	<path style="fill:#F2B800;" d="M64,0c-1.686,0-3.35,0.085-5,0.213C92.008,2.768,118,30.337,118,64s-25.992,61.232-59,63.787
+		c1.65,0.128,3.314,0.213,5,0.213c35.348,0,64-28.652,64-64S99.348,0,64,0z"/>
+	<g>
+		<path style="fill:#263740;" d="M39,55c-7.721,0-14-6.279-14-14s6.279-14,14-14s14,6.279,14,14S46.721,55,39,55z M39,33
+			c-4.411,0-8,3.589-8,8s3.589,8,8,8s8-3.589,8-8S43.411,33,39,33z"/>
+		<path style="fill:#263740;" d="M89,55c-7.721,0-14-6.279-14-14s6.279-14,14-14s14,6.279,14,14S96.721,55,89,55z M89,33
+			c-4.411,0-8,3.589-8,8s3.589,8,8,8s8-3.589,8-8S93.411,33,89,33z"/>
+	</g>
+	<path style="fill:#F2B800;" d="M60,109c-12.131,0-22-8.075-22-18s9.869-18,22-18s22,8.075,22,18S72.131,109,60,109z"/>
+	<ellipse style="fill:#F5F5F5;" cx="60" cy="91" rx="20" ry="16.363"/>
+</g>
+</svg>

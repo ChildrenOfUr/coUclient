@@ -47,8 +47,9 @@ class UserInterface {
 	// bugreport button
 	Element bugButton = querySelector('#bugGlyph');
 	Element bugReportMeta = querySelector('#bugWindow ur-well #reportMeta');
-	InputElement bugReportEmail = querySelector('#bugWindow ur-well input[type="email"]');
-	SelectElement bugReportType = querySelector('#bugWindow ur-well #reportCategory');
+	InputElement bugReportTitle = querySelector('#bugWindow /deep/ #reportTitle');
+	FileUploadInputElement bugReportImage = querySelector('#bugWindow /deep/ #reportImg');
+	SelectElement bugReportType = querySelector('#bugWindow /deep/ #reportCategory');
 
 	// main Element
 	Element mainElement = querySelector('main');
@@ -92,13 +93,17 @@ class UserInterface {
 	SoundCloudWidget soundcloud = new SoundCloudWidget();
 
 	loggedIn() {
-		loadingScreen.style.opacity = '0';
-		new Timer(new Duration(seconds: 1), () {
-			loadingScreen.hidden = true;
+		loadStatus2.text = "Preparing world...";
+		new Service(['streetLoaded'], (_) {
+			loadingScreen.style.opacity = '0';
+			new Timer(new Duration(seconds: 1), () {
+				loadingScreen.hidden = true;
+			});
 		});
 	}
 
 	loggedOut() {
+		loadStatus2.text = "Chatting with server...";
 		loadingScreen.hidden = false;
 		new Timer(new Duration(seconds: 1), () {
 			loadingScreen.style.opacity = '1';
@@ -107,9 +112,6 @@ class UserInterface {
 
 	// start listening for events
 	UserInterface() {
-
-		//load emoticons
-		new Asset("files/emoticons/emoticons.json").load().then((Asset asset) => EMOTICONS = asset.get()["names"]);
 
 		// Set initial Time
 		currDay.text = clock.dayofweek;

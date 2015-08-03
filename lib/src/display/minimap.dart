@@ -22,27 +22,44 @@ class Minimap {
 				collapse();
 			}
 		});
+
+		new Service(['streetLoaded'], (street) {
+			// enable/disable expanding
+			num collapsedHeight =
+			street['loading_image']['h'] / currentStreet.bounds.height;
+			num expandedHeight =
+			street['main_image']['h'] / currentStreet.bounds.height;
+			if(collapsedHeight > expandedHeight) {
+				// street is wider than it is tall
+				toggleE.hidden = true;
+				expand();
+			} else if(collapsedHeight < expandedHeight) {
+				// street is taller than it is wide
+				toggleE.hidden = false;
+				collapse();
+			}
+		});
 	}
 
 	void collapse() {
 		imageE.src = loadingImgUrl;
-    imageE.onLoad.listen((_) {
-      objectsE.hidden = true;
-      toggleE.querySelector('i.fa').classes.remove('fa-chevron-up');
-      toggleE.querySelector('i.fa').classes.add('fa-chevron-down');
-      collapsed = true;
-    });
+		imageE.onLoad.listen((_) {
+			objectsE.hidden = true;
+			toggleE.querySelector('i.fa').classes.remove('fa-chevron-up');
+			toggleE.querySelector('i.fa').classes.add('fa-chevron-down');
+			collapsed = true;
+		});
 	}
 
 	void expand() {
 		imageE.src = mainImgUrl;
-    imageE.onLoad.listen((_) {
-      updateObjects();
-      objectsE.hidden = false;
-      toggleE.querySelector('i.fa').classes.remove('fa-chevron-down');
-      toggleE.querySelector('i.fa').classes.add('fa-chevron-up');
-      collapsed = false;
-    });
+		imageE.onLoad.listen((_) {
+			updateObjects();
+			objectsE.hidden = false;
+			toggleE.querySelector('i.fa').classes.remove('fa-chevron-down');
+			toggleE.querySelector('i.fa').classes.add('fa-chevron-up');
+			collapsed = false;
+		});
 	}
 
 	void changeStreet(Map street) {
@@ -50,26 +67,11 @@ class Minimap {
 		mainImgUrl = street['main_image']['url'];
 		loadingImgUrl = street['loading_image']['url'];
 		imageE.src = mainImgUrl;
-		labelE.text = street['label'];
+		labelE.text = currentStreet.label;
 		imageE.onLoad.listen((_) {
 			objectsE
 				..style.width = imageE.width.toString() + 'px'
 				..style.height = imageE.height.toString() + 'px';
-		});
-
-		new Service(['streetLoaded'], (_) {
-			// enable/disable expanding
-			num collapsedHeight = street['loading_image']['h'] / currentStreet.bounds.height;
-			num expandedHeight = street['main_image']['h'] / currentStreet.bounds.height;
-			if(collapsedHeight > expandedHeight) {
-				// street is wider than it is tall
-				toggleE.hidden = true;
-				expand();
-			} else if (collapsedHeight < expandedHeight) {
-				// street is taller than it is wide
-				toggleE.hidden = false;
-				collapse();
-			}
 		});
 	}
 
@@ -108,8 +110,8 @@ class Minimap {
 
 			DivElement exit = new DivElement()
 				..classes.add('minimap-exit')
-				..style.top = ((data["y"] * factorHeight) - 8).toString() + 'px'
-				..style.left = ((data["x"] * factorWidth) - 6).toString() + 'px'
+				..style.top = ((data["y"] * factorHeight) - 6).toString() + 'px'
+				..style.left = ((data["x"] * factorWidth) - 4).toString() + 'px'
 				..title = title;
 
 			objectsE.append(exit);
@@ -122,7 +124,8 @@ class Minimap {
 				..classes.add('minimap-player')
 				..style.top = ((thisPlayer.posY * factorHeight) - 6).toString() + 'px'
 				..style.left = (thisPlayer.posX * factorWidth).toString() + 'px'
-				..title = name;
+				..title = name
+				..attributes['chat-color'] = getColorFromUsername(name);
 
 			objectsE.append(player);
 		});
@@ -134,7 +137,8 @@ class Minimap {
 			..classes.add('minimap-me')
 			..style.top = ((meY * factorHeight) - 6).toString() + 'px'
 			..style.left = (meX * factorWidth).toString() + 'px'
-			..title = game.username;
+			..title = game.username
+			..attributes['chat-color'] = getColorFromUsername(game.username);
 
 		objectsE.append(me);
 	}

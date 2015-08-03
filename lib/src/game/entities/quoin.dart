@@ -18,6 +18,7 @@ class Quoin {
 	init(Map map) async
 	{
 		typeString = map['type'];
+
 		id = map["id"];
 		int quoinValue = quoins[typeString.toLowerCase()];
 
@@ -80,7 +81,7 @@ class Quoin {
 		if(!hit) {
 			if(_checkPlayerCollision()) {
 
-				new Timer(new Duration(seconds: 1), () => hit = false);
+				new Timer(new Duration(seconds: 10), () => hit = false);
 
 				if(typeString == 'mood' && metabolics.playerMetabolics.mood == metabolics.playerMetabolics.max_mood) {
 					toast("You tried to collect a mood quoin, but your mood was already full.");

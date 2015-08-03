@@ -1,0 +1,33 @@
+ur-meters {
+  position:absolute;
+  top:0;
+  left:0;  
+}
+
+#thinkButton {
+  background-image: url(../../system/imgmenu/thoughtbubble.svg);
+  width: 70px;
+  height: 50px;
+  position: absolute;
+  display: inline;
+  left: 90px;
+  cursor: pointer;
+}
+
+#thinkButton.pressed {
+    background-image: url(../../system/imgmenu/thoughtbubble_pressed.svg);
+}
+
+#thinkButton:hover {
+  -webkit-filter: drop-shadow(0 1px 2px cyan);
+  -moz-filter: drop-shadow(0 1px 2px cyan);
+  -o-filter: drop-shadow(0 1px 2px cyan);
+  filter: drop-shadow(0 1px 2px cyan);
+}
+
+#thinkButton:active {
+  -webkit-filter: drop-shadow(0 1px 1px cyan);
+  -moz-filter: drop-shadow(0 1px 1px cyan);
+  -o-filter: drop-shadow(0 1px 1px cyan);
+  filter: drop-shadow(0 1px 1px cyan);
+}

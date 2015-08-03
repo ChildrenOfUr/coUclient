@@ -23,8 +23,8 @@ class Game {
 
 		//setup the chat and open two initial channels
 		new NetChatManager();
-		transmit('startChat', 'Global Chat');
 		transmit('startChat', 'Local Chat');
+		transmit('startChat', 'Global Chat');
 
 		//show the message of the day
 		//windowManager.motdWindow.open();
@@ -79,7 +79,7 @@ class Game {
 			}
 			catch(err) {
 				ignoreGamepads = true;
-				print('Sorry, this browser does not support the gamepad API');
+				logmessage('[UI] Sorry, this browser does not support the gamepad API');
 			}
 		}
 

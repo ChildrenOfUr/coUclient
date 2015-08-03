@@ -48,11 +48,13 @@ export 'package:polymer/init.dart';
 
 // SYSTEMS MODULES //
 part 'package:couclient/src/systems/clock.dart';
+part 'package:couclient/src/systems/gps.dart';
 part 'package:couclient/src/systems/weather.dart';
 part 'package:couclient/src/systems/commands.dart';
 part 'package:couclient/src/game/input.dart';
 part 'package:couclient/src/game/joystick.dart';
 part 'package:couclient/src/systems/util.dart';
+part 'package:couclient/src/display/gps_display.dart';
 
 // NETWORKING MODULES //
 part 'package:couclient/src/network/chat.dart';
@@ -70,10 +72,10 @@ part 'package:couclient/src/display/toast.dart';
 part 'package:couclient/src/systems/audio.dart';
 part 'package:couclient/src/display/render.dart';
 part 'package:couclient/src/display/loop.dart';
+part 'package:couclient/src/display/information_display.dart';
 
 //  WINDOW MODULES //
-part 'package:couclient/src/display/windows.dart';
-part 'package:couclient/src/display/overlay.dart';
+part 'package:couclient/src/display/windows/windows.dart';
 part 'package:couclient/src/display/windows/settings_window.dart';
 part 'package:couclient/src/display/windows/bag_window.dart';
 part 'package:couclient/src/display/windows/bug_window.dart';
@@ -85,6 +87,13 @@ part 'package:couclient/src/display/windows/calendar_window.dart';
 part 'package:couclient/src/display/windows/shrine_window.dart';
 part 'package:couclient/src/display/windows/rock_window.dart';
 part 'package:couclient/src/display/windows/item_window.dart';
+part 'package:couclient/src/display/windows/emoticon_picker.dart';
+
+// OVERLAYS //
+part 'package:couclient/src/display/overlays/overlay.dart';
+part 'package:couclient/src/display/overlays/newdayscreen.dart';
+part 'package:couclient/src/display/overlays/imgmenu.dart';
+part 'package:couclient/src/display/overlays/levelup.dart';
 
 // WIDGET MODULES //
 part 'package:couclient/src/display/widgets/volumeslider.dart';
@@ -98,6 +107,7 @@ part 'package:couclient/src/display/render/wall.dart';
 part 'package:couclient/src/display/render/platform.dart';
 part 'package:couclient/src/display/render/signpost.dart';
 part 'package:couclient/src/display/render/collision_lines_debug.dart';
+part 'package:couclient/src/display/render/worldmapdata.dart';
 part 'package:couclient/src/display/render/worldmap.dart';
 part 'package:couclient/src/display/render/maps_data.dart';
 
@@ -111,6 +121,7 @@ part 'package:couclient/src/game/entities/entity.dart';
 part 'package:couclient/src/game/entities/wormhole.dart';
 part 'package:couclient/src/game/entities/npc.dart';
 part 'package:couclient/src/game/entities/plant.dart';
+part 'package:couclient/src/game/entities/door.dart';
 part 'package:couclient/src/game/street.dart';
 part 'package:couclient/src/game/entities/quoin.dart';
 part 'package:couclient/src/game/entities/grounditem.dart';
@@ -137,6 +148,7 @@ AuthManager auth;
 Game game;
 DateTime startTime;
 Minimap minimap;
+GpsIndicator gpsIndicator = new GpsIndicator();
 
 bool get hasTouchSupport => context.callMethod('hasTouchSupport');
 
@@ -170,6 +182,7 @@ afterPolymer() async {
 	windowManager = new WindowManager();
 	auth = new AuthManager();
 	minimap = new Minimap();
+	GPS.initWorldGraph();
 
 	// System
 	new ClockManager();

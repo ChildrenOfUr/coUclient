@@ -9,7 +9,6 @@ class SettingsWindow extends Modal {
 	SettingsWindow() {
 		prepare();
 		// SETTINGS WINDOW LISTENERS //
-		view.settingsButton.onClick.listen((_) => this.open());
 
 		//listen for onChange events so that clicking the label or the checkbox will call this method
 		querySelectorAll('.ChatSettingsCheckbox').onChange.listen((Event event) {
@@ -111,25 +110,15 @@ class SettingsWindow extends Modal {
 			localStorage['effectsVolume'] = volume.toString();
 		});
 
-		document.onKeyDown.listen((KeyboardEvent k) {
-			if(inputManager == null)
-				return;
-
-			if((k.keyCode == inputManager.keys["SettingsBindingPrimary"]
-			|| k.keyCode == inputManager.keys["SettingsBindingAlt"])
-			&& !inputManager.ignoreKeys) {
-				if(this.window.hidden) {
-					this.open();
-				} else {
-					this.close();
-				}
-			}
-		});
+		setupUiButton(view.settingsButton);
+		setupKeyBinding("Settings");
 	}
 
+	@override
 	close() {
 		querySelector("#${id}").hidden = true;
 		toast("Settings saved");
+		super.close();
 	}
 
 	/**

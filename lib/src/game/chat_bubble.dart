@@ -28,7 +28,7 @@ class ChatBubble {
 //	<span class="currants">+0</span>
 // </div>
 
-		textElement.text = text;
+		textElement.setInnerHtml(text);
 
 		arrowElement = new DivElement()
 			..classes.add("cb-arrow");
@@ -70,11 +70,5 @@ class ChatBubble {
         hostObject.chatBubble = null;
         if(removeParent)
         	parent.remove();
-	}
-
-	String _getColoredUsername() {
-		return '<span class="username ' + getUsernameColor(game.username) + '">' + game.username;
-		//; font-weight: bold; padding-right:4px; display:inline-block;"
-		print(getUsernameColor(game.username));
 	}
 }
