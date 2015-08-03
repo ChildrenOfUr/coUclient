@@ -52,6 +52,7 @@
 #rockWindow {
     background-color: rgba(15, 39, 39, 0.8) !important;
     border: 8px solid rgba(15, 39, 39, 0.4) !important;
+    border-radius: 16px !important;
     box-shadow: none !important;
     top: 240px !important;
     left: 40% !important;

@@ -29,7 +29,7 @@
 .conversation .dialog {
     position: absolute;
     padding: 2px;
-    margin: 0px;
+    margin: 0;
     border-top: 2px solid rgba(0, 0, 0, 0.1);
     border-bottom: 2px solid rgba(0, 0, 0, 0.1);
     top: 33px;
@@ -74,7 +74,6 @@
 
 .dialog p.system {
     font-style: italic;
-    color: #000;
     color: #444;
     border-left: 2px solid #444;
 }

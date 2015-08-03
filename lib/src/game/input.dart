@@ -251,6 +251,7 @@ class InputManager {
 
 		if(target.classes.contains("chatSpawn")) {
 			new Chat(target.text);
+			target.classes.remove("unread");
 		}
 	}
 
