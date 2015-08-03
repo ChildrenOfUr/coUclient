@@ -5144,7 +5144,8 @@ final Map<String, Map<String, dynamic>> streetMetadata = {
 		"vendor": "Hardware",
 		"shrine": "Lem",
 		"tsid": "GLI32IDPUTD1F2R",
-		"hub_id": 58
+		"hub_id": 58,
+		"broken": true
 	},
 	"Robenaa Range": {
 		"vendor": "Gardening Goods",
