@@ -2568,7 +2568,8 @@ final Map<String, Map<String, dynamic>> streetMetadata = {
 	},
 	"Hellinum Dum": {
 		"vendor": "Animal Goods",
-		"shrine": "Humbaba"
+		"shrine": "Humbaba",
+		"hub_id": 137
 	},
 	"Helvell Morell": {
 		"tsid": "GIFJ8NC9JE33O53",
@@ -2686,7 +2687,8 @@ final Map<String, Map<String, dynamic>> streetMetadata = {
 	},
 	"Injera Nitre": {
 		"shrine": "Mab",
-		"vendor": "Gardening Goods"
+		"vendor": "Gardening Goods",
+		"hub_id": 110
 	},
 	"Inkeis Shag": {
 		"vendor": "Kitchen Tools",
@@ -2988,7 +2990,8 @@ final Map<String, Map<String, dynamic>> streetMetadata = {
 		"hub_id": 116
 	},
 	"Kategna Kibe": {
-		"vendor": "Mining"
+		"vendor": "Mining",
+		"hub_id": 110
 	},
 	"Katela Ameth": {
 		"vendor": "Grocery",
@@ -3021,7 +3024,8 @@ final Map<String, Map<String, dynamic>> streetMetadata = {
 	},
 	"Kelba Vallu": {
 		"vendor": "Grocery",
-		"shrine": "Pot"
+		"shrine": "Pot",
+		"hub_id": 99
 	},
 	"Kenora Gigoki": {
 		"vendor": "Animal Goods",
@@ -3101,7 +3105,8 @@ final Map<String, Map<String, dynamic>> streetMetadata = {
 		"hub_id": 126
 	},
 	"Kinche Klap": {
-		"vendor": "Mining"
+		"vendor": "Mining",
+		"hub_id": 107
 	},
 	"Kipacre Greens": {
 		"vendor": "Gardening Goods",
@@ -3224,7 +3229,8 @@ final Map<String, Map<String, dynamic>> streetMetadata = {
 	"Kouris Kauri": {
 		"mailbox": true,
 		"vendor": "Kitchen Tools",
-		"shrine": "Zille"
+		"shrine": "Zille",
+		"hub_id": 98
 	},
 	"Kratoch Emer": {
 		"shrine": "Friendly",
@@ -3549,7 +3555,8 @@ final Map<String, Map<String, dynamic>> streetMetadata = {
 	},
 	"Lowan Len": {
 		"vendor": "Alchemical Goods",
-		"shrine": "Tii"
+		"shrine": "Tii",
+		"hub_id": 101
 	},
 	"Lowland Slough": {
 		"vendor": "Animal Goods",
@@ -3754,7 +3761,8 @@ final Map<String, Map<String, dynamic>> streetMetadata = {
 	},
 	"Maroni Aloe": {
 		"vendor": "Animal Goods",
-		"shrine": "Humbaba"
+		"shrine": "Humbaba",
+		"hub_id": 98
 	},
 	"Marrakesh Meadow": {
 		"vendor": "Kitchen Tools",
@@ -3791,7 +3799,8 @@ final Map<String, Map<String, dynamic>> streetMetadata = {
 		"hub_id": 109
 	},
 	"Masod Match": {
-		"vendor": "Mining"
+		"vendor": "Mining",
+		"hub_id": 106
 	},
 	"Masquff Greets": {
 		"vendor": "Grocery",
@@ -3812,7 +3821,8 @@ final Map<String, Map<String, dynamic>> streetMetadata = {
 		"hub_id": 114
 	},
 	"Matsua Mossy": {
-		"shrine": "Spriggan"
+		"shrine": "Spriggan",
+		"hub_id": 97
 	},
 	"Maybe Marsh": {
 		"mailbox": true,
@@ -3823,7 +3833,8 @@ final Map<String, Map<String, dynamic>> streetMetadata = {
 	},
 	"Mayspeek Moar": {
 		"vendor": "Gardening Goods",
-		"shrine": "Mab"
+		"shrine": "Mab",
+		"hub_id": 107
 	},
 	"Meade Weeds": {
 		"vendor": "Animal Goods",
@@ -3957,11 +3968,13 @@ final Map<String, Map<String, dynamic>> streetMetadata = {
 		"hub_id": 75
 	},
 	"Mimosa Mix": {
-		"shrine": "Friendly"
+		"shrine": "Friendly",
+		"hub_id": 97
 	},
 	"Mina Misses": {
 		"vendor": "Hardware",
-		"shrine": "Cosma"
+		"shrine": "Cosma",
+		"hub_id": 101
 	},
 	"Mincedoathe Formation": {
 		"vendor": "Hardware",
@@ -3971,7 +3984,8 @@ final Map<String, Map<String, dynamic>> streetMetadata = {
 	},
 	"Minichii Chia": {
 		"vendor": "Produce",
-		"shrine": "Mab"
+		"shrine": "Mab",
+		"hub_id": 106
 	},
 	"Mino Kree": {
 		"vendor": "Animal Goods",
@@ -4071,11 +4085,13 @@ final Map<String, Map<String, dynamic>> streetMetadata = {
 	},
 	"Mrandeya Minds": {
 		"vendor": "Grocery",
-		"shrine": "Lem"
+		"shrine": "Lem",
+		"hub_id": 114
 	},
 	"Mrozia": {
 		"shrine": "Alph",
-		"vendor": "Animal Goods"
+		"vendor": "Animal Goods",
+		"hub_id": 116
 	},
 	"Mucid Memes": {
 		"vendor": "Animal Goods",
@@ -4117,7 +4133,8 @@ final Map<String, Map<String, dynamic>> streetMetadata = {
 	},
 	"Musta Hafsum": {
 		"vendor": "Gardening Goods",
-		"shrine": "Mab"
+		"shrine": "Mab",
+		"hub_id": 114
 	},
 	"Mutta Maart": {
 		"vendor": "Grocery",
@@ -4146,7 +4163,8 @@ final Map<String, Map<String, dynamic>> streetMetadata = {
 	},
 	"Myndun Snun": {
 		"vendor": "Gardening Goods",
-		"shrine": "Mab"
+		"shrine": "Mab",
+		"hub_id": 137
 	},
 	"Naama Habitat": {
 		"tsid": "GHV73IC58DT2RO7",
