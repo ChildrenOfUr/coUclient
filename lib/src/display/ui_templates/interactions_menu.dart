@@ -26,19 +26,27 @@ class InteractionWindow {
 				..style.textAlign = "center"
 				..classes.add("entityContainer");
 			Element oldEntity = querySelector("#$id");
-			Element entity = oldEntity.clone(false);
+			Element entity;
+			if (oldEntity.id.contains("pole")) {
+				entity = new ImageElement()
+					..src = "files/system/icons/signpost.svg";
+			} else {
+				entity = oldEntity.clone(false);
+			}
 			if(oldEntity is CanvasElement) {
 				(entity as CanvasElement).context2D.drawImage(oldEntity, 0, 0);
+				entity.style.zIndex = null;
 			}
-			entity.style.transform = "";
-			entity.style.position = "";
-			entity.style.display = "block";
-			entity.style.margin = "auto";
+			entity.style
+				..transform = ""
+				..position = ""
+				..display = "block"
+				..margin = "auto";
 			entity.attributes['id'] = id;
 			container.append(entity);
-			SpanElement text = new SpanElement()
-				..text = entity.attributes['type'];
-			container.append(text);
+//			SpanElement text = new SpanElement()
+//				..text = entity.attributes['type'];
+//			container.append(text);
 			container.onMouseOver.listen((_) {
 				content.children.forEach((Element child) {
 					if(child != container) {
