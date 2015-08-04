@@ -50,7 +50,7 @@ class Game {
 		}
 		transmit('playSound', 'game_loaded');
 		//play appropriate song for street (or just highlands for now)
-		await audio.setSong('highlands');
+		//await audio.setSong('highlands');
 
 		//start time based colors (and rain)
 		weather = new WeatherManager();

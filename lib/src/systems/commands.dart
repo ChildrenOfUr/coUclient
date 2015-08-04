@@ -24,6 +24,7 @@ class CommandManager {
 
     if (Configs.testing) {
       COMMANDS
+        ..['music'] = setMusic
         ..['tp'] = go
         ..['toast'] = toast
         ..['buff'] = buff
@@ -116,4 +117,9 @@ togglePhysics(var nothing) {
     CurrentPlayer.doPhysicsApply = true;
     toast('Physics apply to you');
   }
+}
+
+setMusic(String song) {
+  toast("Music set to $song");
+  audio.setSong(song);
 }

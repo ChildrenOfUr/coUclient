@@ -288,18 +288,20 @@ class WorldMap {
     'url(files/system/windows/worldmap.png)';
     WorldMapDiv.children.clear();
 
-    hubPositions.forEach((key, value) {
-      Map customAttributes = {"hub": key};
-      DivElement hub = new DivElement()
-        ..className = "wml-hub"
-        ..attributes.addAll(customAttributes)
-        ..style.left = value['x'].toString() + 'px'
-        ..style.top = value['y'].toString() + 'px'
-        ..text = value['name'];
-      if (currentStreet.hub_id == key) {
-        hub.classes.add('currentlocationhub');
+    hubMetadata.forEach((key, value) {
+      if (value["hidden"] == null || value["hidden"] != true) {
+        Map customAttributes = {"hub": key};
+        DivElement hub = new DivElement()
+          ..className = "wml-hub"
+          ..attributes.addAll(customAttributes)
+          ..style.left = value['x'].toString() + 'px'
+          ..style.top = value['y'].toString() + 'px'
+          ..text = value['name'];
+        if (currentStreet.hub_id == key) {
+          hub.classes.add('currentlocationhub');
+        }
+        WorldMapDiv.append(hub);
       }
-      WorldMapDiv.append(hub);
     });
     WorldMapDiv.hidden = false;
     //HubMapFG.hidden = true;

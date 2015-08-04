@@ -84,8 +84,6 @@ class SoundManager {
 				gameSounds['newDay'] = new Sound(channel: audioChannels['soundEffects']);
 				await gameSounds['newDay'].load("files/audio/newday_rooster.$extension");
 
-				// TODO: new day screen sound
-
 				Asset soundCloudSongs = new Asset('./files/json/music.json');
 				await soundCloudSongs.load(statusElement: querySelector("#LoadStatus2"));
 			} catch(e) {
@@ -115,7 +113,6 @@ class SoundManager {
 				new Asset('files/audio/tripleJump.mp3'),
 				new Asset('files/audio/levelUp.mp3'),
 				new Asset('files/audio/newday_rooster.mp3')
-				// TODO: new day screen sound
 			]);
 			await ui_sounds.load(() {
 			});

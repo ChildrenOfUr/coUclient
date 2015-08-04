@@ -84,11 +84,29 @@ class Street {
 
 		view.location = label;
 
-		// set the song loading if necessary
-		if (streetData['music'] != null) {
-			audio.setSong(streetData['music']);
+		// Find the song to play
+
+		if (streetData["music"] != null) {
+
+			// Attempt #1: Music from server
+			audio.setSong(streetData["music"]);
+
+		} else if (streetMetadata[streetData["label"]]["music"] != null) {
+
+			// Attempt #2: Music from street
+			audio.setSong(streetMetadata[streetData["label"]]["music"]);
+
+		} else if (hubMetadata[hub_id]["music"] != null) {
+
+			// Attempt #3: Music from hub
+			audio.setSong(hubMetadata[hub_id]["music"]);
+
 		} else {
+
+			// Attempt #4: No music available, use default theme
 			logmessage("[StreetService] Music not available");
+			audio.setSong("forest");
+
 		}
 
 		//print('music is set');
@@ -277,10 +295,10 @@ class Street {
 
 					// Append the canvas to the screen
 					view.layers.append(decoCanvas);
-				} catch (e, st) {
+				} catch (e) {
 //					print(e);
 //					print(st);
-					logmessage("[StreetService] Unknown error while attaching layer ${layer["name"]}");
+					logmessage("[StreetService] Error while attaching layer ${layer["name"]}: $e");
 				}
 
 				//print('appended decoCanvas ${layer['name']}');

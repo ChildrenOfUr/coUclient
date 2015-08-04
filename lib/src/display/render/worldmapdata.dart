@@ -2,11 +2,12 @@ part of couclient;
 
 // PART 1: WORLD MAP HUB POSITIONS ////////////////////////////////////////////////////////////////
 
-final Map<String, dynamic> hubPositions = {
+final Map<String, dynamic> hubMetadata = {
 	"76": {
 		"name": "Alakol",
 		"x": 360,
-		"y": 129
+		"y": 129,
+		"music": "highlands"
 	},
 	"89": {
 		"name": "Andra",
@@ -26,7 +27,8 @@ final Map<String, dynamic> hubPositions = {
 	"86": {
 		"name": "Baqala",
 		"x": 355,
-		"y": 78
+		"y": 78,
+		"music": "ancestral"
 	},
 	"98": {
 		"name": "Besara",
@@ -56,7 +58,8 @@ final Map<String, dynamic> hubPositions = {
 	"72": {
 		"name": "Chakra Phool",
 		"x": 200,
-		"y": 240
+		"y": 240,
+		"music": "firebog"
 	},
 	"90": {
 		"name": "Choru",
@@ -86,7 +89,8 @@ final Map<String, dynamic> hubPositions = {
 	"56": {
 		"name": "Groddle Forest",
 		"x": 340,
-		"y": 191
+		"y": 191,
+		"music": "forest"
 	},
 	"64": {
 		"name": "Groddle Heights",
@@ -101,12 +105,23 @@ final Map<String, dynamic> hubPositions = {
 	"131": {
 		"name": "Haoma",
 		"x": 78,
-		"y": 118
+		"y": 118,
+		"music": "kloroandhaoma"
 	},
 	"116": {
 		"name": "Haraiva",
 		"x": 519,
 		"y": 122
+	},
+	"50": {
+		"name": "Ilmenskie Caverns",
+		"hidden": true,
+		"music": "ilmenskie"
+	},
+	"78": {
+		"name": "Ilmenskie Deeps",
+		"hidden": true,
+		"music": "ilmenskie"
 	},
 	"27": {
 		"name": "Ix",
@@ -121,12 +136,14 @@ final Map<String, dynamic> hubPositions = {
 	"71": {
 		"name": "Jethimadh",
 		"x": 241,
-		"y": 248
+		"y": 248,
+		"music": "firebog"
 	},
 	"85": {
 		"name": "Kajuu",
 		"x": 358,
-		"y": 102
+		"y": 102,
+		"music": "ancestral"
 	},
 	"99": {
 		"name": "Kalavana",
@@ -141,7 +158,8 @@ final Map<String, dynamic> hubPositions = {
 	"133": {
 		"name": "Kloro",
 		"x": 71,
-		"y": 143
+		"y": 143,
+		"music": "kloroandhaoma"
 	},
 	"105": {
 		"name": "Lida",
@@ -161,7 +179,8 @@ final Map<String, dynamic> hubPositions = {
 	"137": {
 		"name": "Nottis",
 		"x": 344,
-		"y": 9
+		"y": 9,
+		"music": "nottis"
 	},
 	"102": {
 		"name": "Ormonos",
@@ -176,7 +195,8 @@ final Map<String, dynamic> hubPositions = {
 	"109": {
 		"name": "Rasana",
 		"x": 261,
-		"y": 122
+		"y": 122,
+		"music": "highlands"
 	},
 	"126": {
 		"name": "Roobrik",
@@ -196,7 +216,8 @@ final Map<String, dynamic> hubPositions = {
 	"63": {
 		"name": "Shimla Mirch",
 		"x": 238,
-		"y": 219
+		"y": 219,
+		"music": "firebog"
 	},
 	"121": {
 		"name": "Sura",
@@ -226,12 +247,14 @@ final Map<String, dynamic> hubPositions = {
 	"95": {
 		"name": "Xalanga",
 		"x": 305,
-		"y": 43
+		"y": 43,
+		"music": "ancestral"
 	},
 	"91": {
 		"name": "Zhambu",
 		"x": 306,
-		"y": 74
+		"y": 74,
+		"music": "ancestral"
 	}
 };
 
@@ -306,6 +329,12 @@ final Map<String, Map<String, dynamic>> streetMetadata = {
 	"Adspice Lacrimis": {
 		"tsid": "GA5BLHFU8913RQ7",
 		"hub_id": 128
+	},
+	"Afar Cleft": {
+		"tsid": "LDOLMQFMNOS24AJ",
+		"hub_id": 92,
+		"music": "enchanted",
+		"map_hidden": true
 	},
 	"Afar Whence": {
 		"mailbox": true,
@@ -2349,6 +2378,12 @@ final Map<String, Map<String, dynamic>> streetMetadata = {
 		"tsid": "GCR195Q63RK143M",
 		"hub_id": 56
 	},
+	"Grimssea Hollow": {
+		"tsid": "LDODG1KQLOS2GNO",
+		"hub_id": 56,
+		"music": "enchanted",
+		"map_hidden": true
+	},
 	"Groddle Forest Junction": {
 		"vendor": "Hardware",
 		"shrine": "Friendly",
@@ -3637,6 +3672,12 @@ final Map<String, Map<String, dynamic>> streetMetadata = {
 	"Madhur Hathur": {
 		"tsid": "GIFJISNAO743CK0",
 		"hub_id": 133
+	},
+	"Magha Pleat": {
+		"tsid": "LUVNMB7AOOS28EK",
+		"hub_id": 109,
+		"music": "enchanted",
+		"map_hidden": true
 	},
 	"Magha Shank": {
 		"vendor": "Hardware",
