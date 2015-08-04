@@ -19,6 +19,9 @@ class Quoin {
 	{
 		typeString = map['type'];
 
+		// Disable mystery quoins
+		if (typeString == "mystery") return;
+
 		id = map["id"];
 		int quoinValue = quoins[typeString.toLowerCase()];
 
