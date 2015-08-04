@@ -2,7 +2,7 @@
   "ancestral": {
     "scid": "/tracks/90493224"
   },
-  "ancient": {
+  "cave": {
     "scid": "/tracks/111473069"
   },
   "crowns": {
@@ -20,6 +20,9 @@
   "forest": {
     "scid": "/tracks/145012987"
   },
+  "forest_slow": {
+    "scid": "/tracks/181881773"
+  },
   "highlands": {
     "scid": "/tracks/85357859"
   },
@@ -28,6 +31,15 @@
   },
   "ilmenskie": {
     "scid": "/tracks/111477464"
+  },
+  "ix": {
+    "scid": "/tracks/181881768"
+  },
+  "jal": {
+    "scid": "/tracks/181881760"
+  },
+  "kajuu": {
+    "scid": "/tracks/181881756"
   },
   "kloroandhaoma": {
     "scid": "/tracks/59351776"

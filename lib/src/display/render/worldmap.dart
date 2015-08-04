@@ -182,7 +182,10 @@ class WorldMap {
         }
 
         // do not show certain streets
-        if (streetMetadata[streetName] != null && (streetMetadata[streetName]["map_hidden"] == null || streetMetadata[streetName]["map_hidden"] == false)) {
+        if (streetMetadata[streetName] == null ||
+        (streetMetadata[streetName] != null &&
+        (streetMetadata[streetName]["map_hidden"] == null ||
+        streetMetadata[streetName]["map_hidden"] == false))) {
           HubMabDiv.append(street);
         }
 
