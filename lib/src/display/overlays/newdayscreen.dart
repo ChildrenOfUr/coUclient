@@ -17,6 +17,7 @@ class NewDayOverlay extends Overlay {
 			displayElement.querySelector("#newday-sun").classes.add("up");
 			displayElement.querySelector("#newday-refill-disc").classes.add("full");
 		});
+		audio.playSound('newDay');
 		inputManager.ignoreKeys = true;
 		displayElement.querySelector("#newday-button").onClick.first.then((_) => close());
 		// TODO: new day screen sound
