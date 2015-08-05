@@ -149,11 +149,7 @@ class WeatherManager {
 		List bottomTween = _tweenColor(hex2rgb(streetBottom), [19, 0, 5, 1], percent);
 		String top = rgb2hex(topTween);
 		String bottom = rgb2hex(bottomTween);
-
-		gradientCanvas.style.background = "-webkit-linear-gradient(top, $top, $bottom)";
-		gradientCanvas.style.background = "-moz-linear-gradient(top, $top, $bottom)";
-		gradientCanvas.style.background = "-ms-linear-gradient($top, $bottom)";
-		gradientCanvas.style.background = "-o-linear-gradient($top, $bottom)";
+		gradientCanvas.style.background = 'linear-gradient(to bottom, $top, $bottom)';
 	}
 
 	static List<int> hex2rgb(String hex) {

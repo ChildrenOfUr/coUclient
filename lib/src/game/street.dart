@@ -68,55 +68,32 @@ class Street {
 		sendJoinedMessage(currentStreet.label);
 	}
 
-	Future <List> load() {
-		Completer c = new Completer();
+	Future load() async {
 		// clean up old street data
 		entities.clear();
 		quoins.clear();
 		otherPlayers.clear();
-		if (CurrentPlayer != null)
+		if (CurrentPlayer != null) {
 			CurrentPlayer.intersectingObjects.clear();
+		}
 
 		view.layers.children.clear();
 		view.playerHolder.children.clear();
 
-		//print('old data cleaned up');
-
 		view.location = label;
 
-		// Find the song to play
-
-		if (streetData["music"] != null) {
-
-			// Attempt #1: Music from server
-			audio.setSong(streetData["music"]);
-
-		} else if (streetMetadata[streetData["label"]]["music"] != null) {
-
-			// Attempt #2: Music from street
-			audio.setSong(streetMetadata[streetData["label"]]["music"]);
-
-		} else if (hubMetadata[hub_id]["music"] != null) {
-
-			// Attempt #3: Music from hub
-			audio.setSong(hubMetadata[hub_id]["music"]);
-
-		} else {
-
-			// Attempt #4: No music available, use default theme
-			logmessage("[StreetService] Music not available");
-			audio.setSong("forest");
-
+		// set the song loading if necessary
+		if (streetData['music'] != null) {
+			audio.setSong(streetData['music']);
 		}
-
-		//print('music is set');
 
 		// Collect the url's of each deco to load.
 		List decosToLoad = [];
 		for (Map layer in streetData['dynamic']['layers'].values) {
-			for (Map deco in layer['decos']) {
-				if (!decosToLoad.contains('http://childrenofur.com/locodarto/scenery/' + deco['filename'] + '.png'))
-					decosToLoad.add('http://childrenofur.com/locodarto/scenery/' + deco['filename'] + '.png');
+			String layerName = layer['name'].replaceAll(' ', '_');
+			String url = 'http://childrenofur.com/assets/streetLayers/$tsid/$layerName.png';
+			if (!decosToLoad.contains(url)) {
+				decosToLoad.add(url);
 			}
 		}
 
@@ -126,193 +103,127 @@ class Street {
 			assetsToLoad.add(new Asset(deco));
 		}
 
-		//print('assets are collected');
-
 		// Load each of them, and then continue.
 		Batch decos = new Batch(assetsToLoad);
-		decos.load(setLoadingPercent).then((_) {
-			//Decos should all be loaded at this point//
+		await decos.load(setLoadingPercent);
+		//Decos should all be loaded at this point//
 
-			//print('start construction');
+		groundY = -(streetData['dynamic']['ground_y'] as num).abs();
 
-			groundY = -(streetData['dynamic']['ground_y'] as num).abs();
+		/* //// Gradient Canvas //// */
+		DivElement gradientCanvas = new DivElement();
 
-			/* //// Gradient Canvas //// */
-			DivElement gradientCanvas = new DivElement();
-			gradientCanvas.classes.add('streetcanvas');
-			gradientCanvas.id = 'gradient';
-			gradientCanvas.style.zIndex = (-100).toString();
-			gradientCanvas.style.width = bounds.width.toString() + "px";
-			gradientCanvas.style.height = bounds.height.toString() + "px";
-			gradientCanvas.style.position = 'absolute';
-			gradientCanvas.attributes['ground_y'] = "0";
-			gradientCanvas.attributes['width'] = bounds.width.toString();
-			gradientCanvas.attributes['height'] = bounds.height.toString();
+		// Color the gradientCanvas
+		String top = streetData['gradient']['top'];
+		String bottom = streetData['gradient']['bottom'];
 
-			// Color the gradientCanvas
-			String top = streetData['gradient']['top'];
-			String bottom = streetData['gradient']['bottom'];
-			gradientCanvas.style.background = "-webkit-linear-gradient(top, #$top, #$bottom)";
-			gradientCanvas.style.background = "-moz-linear-gradient(top, #$top, #$bottom)";
-			gradientCanvas.style.background = "-ms-linear-gradient(#$top, #$bottom)";
-			gradientCanvas.style.background = "-o-linear-gradient(#$top, #$bottom)";
+		gradientCanvas
+			..classes.add('streetcanvas')
+			..id = 'gradient'
+			..attributes['ground_y'] = "0"
+			..attributes['width'] = bounds.width.toString()
+			..attributes['height'] = bounds.height.toString();
+		gradientCanvas.style
+			..zIndex = (-100).toString()
+			..width = bounds.width.toString() + "px"
+			..height = bounds.height.toString() + "px"
+			..position = 'absolute'
+			..background = 'linear-gradient(to bottom, #$top, #$bottom)';
 
-			// Append it to the screen*/
-			view.layers.append(gradientCanvas);
+		// Append it to the screen*/
+		view.layers.append(gradientCanvas);
 
-			//print('appended gradient');
+		/* //// Scenery Canvases //// */
+		//For each layer on the street . . .
+		for (Map layer in new Map.from(streetData['dynamic']['layers']).values) {
+			DivElement decoCanvas = new DivElement()
+				..classes.add('streetcanvas');
+			decoCanvas.id = (layer['name'] as String).replaceAll(" ", "_");
 
-			/* //// Scenery Canvases //// */
-			//For each layer on the street . . .
-			for (Map layer in new Map.from(streetData['dynamic']['layers']).values) {
-				try {
-					DivElement decoCanvas = new DivElement()
-						..classes.add('streetcanvas');
-					decoCanvas.id = (layer['name'] as String).replaceAll(" ", "_");
+			decoCanvas.style.zIndex = layer['z'].toString();
+			decoCanvas.style.width = layer['w'].toString() + 'px';
+			decoCanvas.style.height = layer['h'].toString() + 'px';
+			decoCanvas.style.position = 'absolute';
+			decoCanvas.attributes['ground_y'] = groundY.toString();
+			decoCanvas.attributes['width'] = layer['w'].toString();
+			decoCanvas.attributes['height'] = layer['h'].toString();
 
-					decoCanvas.style.zIndex = layer['z'].toString();
-					decoCanvas.style.width = layer['w'].toString() + 'px';
-					decoCanvas.style.height = layer['h'].toString() + 'px';
-					decoCanvas.style.position = 'absolute';
-					decoCanvas.attributes['ground_y'] = groundY.toString();
-					decoCanvas.attributes['width'] = layer['w'].toString();
-					decoCanvas.attributes['height'] = layer['h'].toString();
+			//put the one layer image in
+			String layerName = layer['name'].replaceAll(' ', '_');
+			ImageElement layerImage = ASSET[layerName].get();
+			layerImage.style.transform = 'translateY(${groundY}px)';
+			decoCanvas.append(layerImage);
 
-					//print('set the canvas attributes');
-
-					List<String> filters = new List();
-					new Map.from(layer['filters']).forEach((String filterName, int value) {
-						//blur is super expensive (seemed to cut my framerate in half)
-						if (localStorage["GraphicsBlur"] == "true" && filterName == "blur") {
-							filters.add('blur(' + value.toString() + 'px)');
-						}
-						if (filterName == "brightness") {
-							if (value < 0)
-								filters.add('brightness(' + (1 - (value / -100)).toString() + ')');
-							if (value > 0)
-								filters.add('brightness(' + (1 + (value / 100)).toString() + ')');
-						}
-						if (filterName == "contrast") {
-							if (value < 0)
-								filters.add('contrast(' + (1 - (value / -100)).toString() + ')');
-							if (value > 0)
-								filters.add('contrast(' + (1 + (value / 100)).toString() + ')');
-						}
-						if (filterName == "saturation") {
-							if (value < 0)
-								filters.add('saturation(' + (1 - (value / -100)).toString() + ')');
-							if (value > 0)
-								filters.add('saturation(' + (1 + (value / 100)).toString() + ')');
-						}
-					});
-					decoCanvas.style.filter = filters.join(' ');
-
-					//print('set the filters');
-
-					//For each decoration in the layer, give its attributes and draw
-					for (Map deco in layer['decos']) {
-						try {
-							int x = deco['x'] - deco['w'] ~/ 2;
-							int y = deco['y'] - deco['h'] + groundY;
-
-							if (layer['name'] == 'middleground') {
-								//middleground has different layout needs
-								y += layer['h'];
-								x += layer['w'] ~/ 2;
-							}
-
-							decoCanvas.append(new Deco(deco, x, y).image);
-						}
-						catch (error) {
-							logmessage("[StreetService] Rendering street: " + error);
-						}
-					}
-
-					//print('added all the decos');
-
-					for (Map platformLine in layer['platformLines'])
-						platforms.add(new Platform(platformLine, layer, groundY));
-
-					platforms.sort((x, y) => x.compareTo(y));
-
-					//print('added the platforms');
-
-					for (Map ladder in layer['ladders'])
-						ladders.add(new Ladder(ladder, layer, groundY));
-
-					//print('added the ladders');
-
-					for (Map wall in layer['walls']) {
-						if (wall['pc_perm'] == 0) {
-							continue;
-						}
-						walls.add(new Wall(wall, layer, groundY));
-					}
-
-					//print('added the walls');
-
-					if (showCollisionLines)
-						showLineCanvas();
-
-					for (Map signpost in layer['signposts']) {
-						int h = 200,
-						w = 100;
-
-						if (signpost['h'] != null) h = signpost['h'];
-
-						if (signpost['w'] != null) w = signpost['w'];
-
-						int x = signpost['x'] - w ~/ 2;
-						int y = signpost['y'] - h;
-
-						if (layer['name'] == 'middleground') {
-							//middleground has different layout needs
-							y += layer['h'];
-							x += layer['w'] ~/ 2;
-						}
-
-						new Signpost(signpost, x, y);
-
-						// show signpost in minimap {
-
-						List<String> connects = signpost['connects'];
-						List<String> streets = new List();
-
-						for (Map exit in connects) {
-							streets.add(exit['label']);
-						}
-
-						minimap.currentStreetExits.add({
-							                               "streets": streets,
-							                               "x": x,
-							                               "y": y
-						                               });
-
-						// } end minimap code
-
-					}
-
-
-					// Append the canvas to the screen
-					view.layers.append(decoCanvas);
-				} catch (e) {
-//					print(e);
-//					print(st);
-					logmessage("[StreetService] Error while attaching layer ${layer["name"]}: $e");
-				}
-
-				//print('appended decoCanvas ${layer['name']}');
+			for (Map platformLine in layer['platformLines']) {
+				platforms.add(new Platform(platformLine, layer, groundY));
 			}
 
-			//make sure to redraw the screen (in case of street switching)
-			camera.dirty = true;
-			loaded = true;
-			//print('done loading street');
-			c.complete(this);
-			//sendJoinedMessage(label,_data['tsid']);
-		});
+			platforms.sort((x, y) => x.compareTo(y));
+
+			for (Map ladder in layer['ladders']) {
+				ladders.add(new Ladder(ladder, layer, groundY));
+			}
+
+			for (Map wall in layer['walls']) {
+				if (wall['pc_perm'] == 0) {
+					continue;
+				}
+				walls.add(new Wall(wall, layer, groundY));
+			}
+
+			if (showCollisionLines) {
+				showLineCanvas();
+			}
+
+			for (Map signpost in layer['signposts']) {
+				int h = 200, w = 100;
+
+				if (signpost['h'] != null) {
+					h = signpost['h'];
+				}
+
+				if (signpost['w'] != null) {
+					w = signpost['w'];
+				}
+
+				int x = signpost['x'] - w ~/ 2;
+				int y = signpost['y'] - h;
+
+				if (layer['name'] == 'middleground') {
+					//middleground has different layout needs
+					y += layer['h'];
+					x += layer['w'] ~/ 2;
+				}
+
+				new Signpost(signpost, x, y);
+
+				// show signpost in minimap {
+
+				List<String> connects = signpost['connects'];
+				List<String> streets = new List();
+
+				for (Map exit in connects) {
+					streets.add(exit['label']);
+				}
+
+				minimap.currentStreetExits.add({
+					                               "streets": streets,
+					                               "x": x,
+					                               "y": y
+				                               });
+
+				// } end minimap code
+
+			}
+
+			// Append the canvas to the screen
+			view.layers.append(decoCanvas);
+		}
+
+		//make sure to redraw the screen (in case of street switching)
+		camera.dirty = true;
+		loaded = true;
 		// Done initializing street.
-		return c.future;
 	}
 
 	//Parallaxing: Adjust the position of each canvas in #GameScreen
@@ -355,7 +266,7 @@ Future load_street() {
 		// Load each street file into memory. If this gets too expensive we'll move this elsewhere.
 		List toLoad = [];
 		for (String url in streetList.get().values)
-			toLoad.add(new Asset(url).load(statusElement:view.loadStatus2));
+			toLoad.add(new Asset(url).load(statusElement: view.loadStatus2));
 
 		c.complete(Future.wait(toLoad));
 	});
@@ -364,12 +275,24 @@ Future load_street() {
 }
 
 setStreetLoading() {
-	view.mapLoadingScreen.style.background = '-webkit-gradient(linear,left top,left bottom,color-stop(0, ' + currentStreet.street_load_color_top + '),color-stop(1, ' + currentStreet.street_load_color_btm + '))';
-	view.mapLoadingScreen.style.background = '-o-linear-gradient(bottom, ' + currentStreet.street_load_color_top + ' 0%, ' + currentStreet.street_load_color_btm + ' 100%)';
-	view.mapLoadingScreen.style.background = '-moz-linear-gradient(bottom, ' + currentStreet.street_load_color_top + ' 0%, ' + currentStreet.street_load_color_btm + ' 100%)';
-	view.mapLoadingScreen.style.background = '-webkit-linear-gradient(bottom, ' + currentStreet.street_load_color_top + ' 0%, ' + currentStreet.street_load_color_btm + ' 100%)';
-	view.mapLoadingScreen.style.background = '-ms-linear-gradient(bottom, ' + currentStreet.street_load_color_top + ' 0%, ' + currentStreet.street_load_color_btm + ' 100%)';
-	view.mapLoadingScreen.style.background = 'linear-gradient(to bottom, ' + currentStreet.street_load_color_top + ' 0%, ' + currentStreet.street_load_color_btm + ' 100%)';
+	view.mapLoadingScreen.style.background =
+	'-webkit-gradient(linear,left top,left bottom,color-stop(0, ' + currentStreet.street_load_color_top +
+	'),color-stop(1, ' + currentStreet.street_load_color_btm + '))';
+	view.mapLoadingScreen.style.background =
+	'-o-linear-gradient(bottom, ' + currentStreet.street_load_color_top + ' 0%, ' +
+	currentStreet.street_load_color_btm + ' 100%)';
+	view.mapLoadingScreen.style.background =
+	'-moz-linear-gradient(bottom, ' + currentStreet.street_load_color_top + ' 0%, ' +
+	currentStreet.street_load_color_btm + ' 100%)';
+	view.mapLoadingScreen.style.background =
+	'-webkit-linear-gradient(bottom, ' + currentStreet.street_load_color_top + ' 0%, ' +
+	currentStreet.street_load_color_btm + ' 100%)';
+	view.mapLoadingScreen.style.background =
+	'-ms-linear-gradient(bottom, ' + currentStreet.street_load_color_top + ' 0%, ' +
+	currentStreet.street_load_color_btm + ' 100%)';
+	view.mapLoadingScreen.style.background =
+	'linear-gradient(to bottom, ' + currentStreet.street_load_color_top + ' 0%, ' +
+	currentStreet.street_load_color_btm + ' 100%)';
 }
 
 // the callback function for our deco loading 'Batch'
