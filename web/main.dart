@@ -44,6 +44,8 @@ import 'package:jsonx/jsonx.dart';
 
 import 'package:couclient/configs.dart';
 
+import 'package:browser_detect/browser_detect.dart';
+
 export 'package:polymer/init.dart';
 
 // SYSTEMS MODULES //
@@ -154,61 +156,57 @@ bool get hasTouchSupport => context.callMethod('hasTouchSupport');
 
 @whenPolymerReady
 afterPolymer() async {
-	//if the device is capable of touch events, assume the touch ui
-	//unless the user has explicitly turned it off in the options
-	if(localStorage['interface'] == 'desktop') {
-		// desktop already preferred
-		(querySelector("#MobileStyle") as StyleElement).disabled = true;
-	} else if(localStorage['interface'] == 'mobile') {
-		// mobile already preferred
-		(querySelector("#MobileStyle") as StyleElement).disabled = false;
-	} else if(hasTouchSupport) {
-		// no preference, touch support, use mobile view
-		(querySelector("#MobileStyle") as StyleElement).disabled = false;
-		logmessage('[Loader] Device has touch support, using mobile layout. Run /desktop in Global Chat to use the desktop view.');
-	} else if(!hasTouchSupport) {
-		// no preference, no touch support, use desktop view
-		(querySelector("#MobileStyle") as StyleElement).disabled = true;
-	}
 
-	bool success = true;
+  // Don't try to load the game in an unsupported browser
+  // They will continue to see the error message
+  if (browser.isIe || browser.isSafari) return;
 
-	try {
-		//make sure the application cache is up to date
-		handleAppCache();
+  // Show the loading screen
+  querySelector("#browser-error").hidden = true;
+  querySelector("#loading").hidden = false;
 
-		//read configs
-		await Configs.init();
-		startTime = new DateTime.now();
-		view = new UserInterface();
-		audio = new SoundManager();
-		windowManager = new WindowManager();
-		auth = new AuthManager();
-		minimap = new Minimap();
-		GPS.initWorldGraph();
+  //if the device is capable of touch events, assume the touch ui
+  //unless the user has explicitly turned it off in the options
+  if (localStorage['interface'] == 'desktop') {
+    // desktop already preferred
+    (querySelector("#MobileStyle") as StyleElement).disabled = true;
+  } else if (localStorage['interface'] == 'mobile') {
+    // mobile already preferred
+    (querySelector("#MobileStyle") as StyleElement).disabled = false;
+  } else if (hasTouchSupport) {
+    // no preference, touch support, use mobile view
+    (querySelector("#MobileStyle") as StyleElement).disabled = false;
+    logmessage('[Loader] Device has touch support, using mobile layout. Run /desktop in Global Chat to use the desktop view.');
+  } else if (!hasTouchSupport) {
+    // no preference, no touch support, use desktop view
+    (querySelector("#MobileStyle") as StyleElement).disabled = true;
+  }
 
-		// System
-		new ClockManager();
-		new CommandManager();
-	} catch(e) {
-		print("Could not load the game: $e");
-		success = false;
-	}
+  //make sure the application cache is up to date
+  handleAppCache();
 
-	if (success) {
-		// Show the loading screen
-		querySelector("#browser-error").hidden = true;
-		querySelector("#loading").hidden = false;
-	}
+  //read configs
+  await Configs.init();
+  startTime = new DateTime.now();
+  view = new UserInterface();
+  audio = new SoundManager();
+  windowManager = new WindowManager();
+  auth = new AuthManager();
+  minimap = new Minimap();
+  GPS.initWorldGraph();
+
+  // System
+  new ClockManager();
+  new CommandManager();
 }
 
 void handleAppCache() {
-	if(window.applicationCache.status == ApplicationCache.UPDATEREADY) {
-		logmessage('[Loader] Application cache updated, swapping and reloading page');
-		window.applicationCache.swapCache();
-		window.location.reload();
-		return;
-	}
+  if (window.applicationCache.status == ApplicationCache.UPDATEREADY) {
+    logmessage('[Loader] Application cache updated, swapping and reloading page');
+    window.applicationCache.swapCache();
+    window.location.reload();
+    return;
+  }
 
-	window.applicationCache.onUpdateReady.first.then((_) => handleAppCache());
+  window.applicationCache.onUpdateReady.first.then((_) => handleAppCache());
 }
