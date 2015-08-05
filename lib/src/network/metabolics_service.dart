@@ -207,6 +207,8 @@ class MetabolicsService {
 
 	num get currentStreetY => playerMetabolics.current_street_y;
 
+	List<String> get location_history => playerMetabolics.location_history;
+
 	int get level {
 		int lvl = 0;
 		for (int levelNum in imgLevels.keys) {

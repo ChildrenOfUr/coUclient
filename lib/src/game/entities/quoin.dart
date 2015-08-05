@@ -21,6 +21,8 @@ class Quoin {
 
 		// Disable mystery quoins
 		if (typeString == "mystery") return;
+		// Don't show Quarazy Quoins more than once for a street
+		if (typeString == "quarazy" && metabolics.location_history.contains(currentStreet.tsid)) return;
 
 		id = map["id"];
 		int quoinValue = quoins[typeString.toLowerCase()];

@@ -171,6 +171,10 @@ afterPolymer() async {
 		(querySelector("#MobileStyle") as StyleElement).disabled = true;
 	}
 
+	// Show the loading screen
+	querySelector("#browser-error").hidden = true;
+	querySelector("#loading").hidden = false;
+
 	//make sure the application cache is up to date
 	handleAppCache();
 
