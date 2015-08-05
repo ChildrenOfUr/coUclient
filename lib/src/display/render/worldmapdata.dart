@@ -1358,7 +1358,8 @@ final Map<String, Map<String, dynamic>> streetMetadata = {
 		"vendor": "Kitchen Tools",
 		"shrine": "Humbaba",
 		"tsid": "GTJ1024R2DQ1B5S",
-		"hub_id": 63
+		"hub_id": 63,
+		"broken": true
 	},
 	"Clamber Crag": {
 		"vendor": "Hardware",
@@ -1825,7 +1826,8 @@ final Map<String, Map<String, dynamic>> streetMetadata = {
 		"vendor": "Grocery",
 		"shrine": "Zille",
 		"tsid": "GLI33CQJ3UD1G5J",
-		"hub_id": 58
+		"hub_id": 58,
+		"broken": true
 	},
 	"Empty Via 1": {
 		"tsid": "GA5BVMNOTH42T8L",
@@ -2032,7 +2034,8 @@ final Map<String, Map<String, dynamic>> streetMetadata = {
 	},
 	"Flammulina Gigantea": {
 		"tsid": "GIF33FDK0K3371H",
-		"hub_id": 131
+		"hub_id": 131,
+		"broken": true
 	},
 	"Flavus Muss": {
 		"tsid": "GDO3CO0RUR0307B",
