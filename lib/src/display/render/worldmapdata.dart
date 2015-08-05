@@ -6182,7 +6182,8 @@ final Map<String, Map<String, dynamic>> streetMetadata = {
 	},
 	"Tre Oofull": {
 		"tsid": "GIFHNVD4SG33SKK",
-		"hub_id": 131
+		"hub_id": 131,
+		"broken": true
 	},
 	"Tree Mas": {
 		"vendor": "Gardening Goods",
