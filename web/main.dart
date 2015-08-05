@@ -171,26 +171,35 @@ afterPolymer() async {
 		(querySelector("#MobileStyle") as StyleElement).disabled = true;
 	}
 
-	// Show the loading screen
-	querySelector("#browser-error").hidden = true;
-	querySelector("#loading").hidden = false;
+	bool success = true;
 
-	//make sure the application cache is up to date
-	handleAppCache();
+	try {
+		//make sure the application cache is up to date
+		handleAppCache();
 
-	//read configs
-	await Configs.init();
-	startTime = new DateTime.now();
-	view = new UserInterface();
-	audio = new SoundManager();
-	windowManager = new WindowManager();
-	auth = new AuthManager();
-	minimap = new Minimap();
-	GPS.initWorldGraph();
+		//read configs
+		await Configs.init();
+		startTime = new DateTime.now();
+		view = new UserInterface();
+		audio = new SoundManager();
+		windowManager = new WindowManager();
+		auth = new AuthManager();
+		minimap = new Minimap();
+		GPS.initWorldGraph();
 
-	// System
-	new ClockManager();
-	new CommandManager();
+		// System
+		new ClockManager();
+		new CommandManager();
+	} catch(e) {
+		print("Could not load the game: $e");
+		success = false;
+	}
+
+	if (success) {
+		// Show the loading screen
+		querySelector("#browser-error").hidden = true;
+		querySelector("#loading").hidden = false;
+	}
 }
 
 void handleAppCache() {
