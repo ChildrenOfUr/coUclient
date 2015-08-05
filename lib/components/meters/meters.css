@@ -208,9 +208,12 @@
 
 #moodAvatar {
     position: relative;
-    width: 80px;
+    width: 60px;
     height: 80px;
-    left: -10%;
+    left: 50%;
+    top: 10px;
+    transform: translateX(-50%);
+    background-size: contain;
     background-repeat: no-repeat;
 }
 
