@@ -1762,7 +1762,8 @@ final Map<String, Map<String, dynamic>> streetMetadata = {
 	"Eastern Approach": {
 		"subway_station": true,
 		"tsid": "GIF2IUQJQ571TFL",
-		"hub_id": 51
+		"hub_id": 51,
+		"broken": true
 	},
 	"Ebijab Preserve": {
 		"tsid": "GHVCJB2OMDT2VD8",
