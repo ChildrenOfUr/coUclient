@@ -1,7 +1,7 @@
 part of couclient;
 
 enum WeatherIntensity {
-	LIGHT, MEDIUM, HEAVY
+	LIGHT, NORMAL
 }
 
 enum WeatherState {
@@ -11,7 +11,7 @@ enum WeatherState {
 class WeatherManager {
 	static WeatherManager _weatherManager;
 	static DivElement _weatherLayer, _cloudLayer, _raindrops, _snowflakes;
-	static WeatherIntensity _intensity = WeatherIntensity.MEDIUM;
+	static WeatherIntensity _intensity = WeatherIntensity.NORMAL;
 	static WeatherState _currentState = WeatherState.CLEAR;
 	static bool _enabled = true;
 	static var rainSound;

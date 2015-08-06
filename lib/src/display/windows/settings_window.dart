@@ -69,13 +69,15 @@ class SettingsWindow extends Modal {
 			} else {
 				weatherEffects.checked = false;
 			}
+		} else {
+			weatherEffects.checked = true;
 		}
 
 		weatherEffects.onChange.listen((_) => WeatherManager.enabled = weatherEffects.checked);
 
 		PaperRadioGroup intensityGroup = querySelector("#WeatherEffectsIntensityGroup") as PaperRadioGroup;
 		if(localStorage["WeatherEffectsIntensity"] != null) {
-			List<String> intensities = ["light", "medium", "heavy"];
+			List<String> intensities = ["light", "normal"];
 			try {
 				int index = int.parse(localStorage["WeatherEffectsIntensity"]);
 				intensityGroup.selected = intensities[index];
