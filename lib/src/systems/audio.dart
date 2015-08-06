@@ -232,6 +232,8 @@ class SoundManager {
 			return;
 		}
 
+		print("switching to $value");
+
 		value = value.replaceAll(' ', '');
 		if(songs[value] == null) {
 			await loadSong(value);
@@ -255,11 +257,11 @@ class SoundManager {
 		} else if(testResult == 'maybe') //give warning message but proceed anyway
 			logmessage('[SoundManager] SoundCloud: Your browser may or may not fully support mp3s');
 
-		//stop any current song
-		//if(useWebAudio && currentAudioInstance != null)
-		//	stopSound(currentAudioInstance);
-		//else
-		if(currentSong != null) currentSong.pause();
+		// Stop the old song
+		if(currentSong != null) {
+			currentSong.remove();
+			currentSong = null;
+		}
 
 		//play a new song
 		currentSong = songs[name];
@@ -270,7 +272,7 @@ class SoundManager {
 			currentSong.loop(true);
 		}
 
-		// Changes the ui
+		// Change the ui
 		view.soundcloud.SCsong = currentSong.meta['title'];
 		view.soundcloud.SCartist = currentSong.meta['user']['username'];
 		view.soundcloud.SClink = currentSong.meta['permalink_url'];
