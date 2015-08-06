@@ -9,17 +9,40 @@
 
 /* Rain/Snow */
 
-@-webkit-keyframes fall {
-    to {transform: translateY(900px);}
+@-webkit-keyframes weatherFall {
+    0% {
+        background-position-y: 0;
+    }
+    100% {
+        background-position-y: 1050px;
+    }
 }
-@-moz-keyframes fall {
-    to {transform: translateY(900px);}
+
+@-moz-keyframes weatherFall {
+    0% {
+        background-position-y: 0;
+    }
+    100% {
+        background-position-y: 1050px;
+    }
 }
-@-o-keyframes fall {
-    to {transform: translateY(900px);}
+
+@-o-keyframes weatherFall {
+    0% {
+        background-position-y: 0;
+    }
+    100% {
+        background-position-y: 1050px;
+    }
 }
-@keyframes fall {
-    to {transform: translateY(900px);}
+
+@keyframes weatherFall {
+    0% {
+        background-position-y: 0;
+    }
+    100% {
+        background-position-y: 1050px;
+    }
 }
 
 #cloudLayer {
@@ -29,6 +52,15 @@
     z-index: 2;
 }
 
+.weather-type {
+    width: 2000px;
+    height: 3000px;
+    background-size: 600px 600px;
+    background-repeat: repeat;
+    transition: opacity 5s linear;
+    position: absolute;
+}
+
 /* Rain */
 
 .cloudy {
@@ -36,22 +68,12 @@
     opacity: .3;
 }
 
-.raindrop {
-    /*gradients are slow to render*/
-    /*background:-webkit-gradient(linear,0% 0%,0% 100%, from(rgba(13,52,58,1) ), to(rgba(255,255,255,0.6))  );*/
-    /*background: -moz-linear-gradient(top, rgba(13,52,58,1) 0%, rgba(255,255,255,.6) 100%);*/
-    /*background: white;*/
-    background-image: url('../system/raindrop.svg');
-    background-size: contain;
-    background-repeat: no-repeat;
-    opacity: .4;
-    width: 10px;
-    height: 20px;
-    position: absolute;
-    -webkit-animation: fall .63s linear infinite;
-    -moz-animation: fall .63s linear infinite;
-    -o-animation: fall .63s linear infinite;
-    animation: fall .63s linear infinite;
+#weather-raindrops {
+    background-image: url(../../files/system/raindrop_scatter.svg);
+    -webkit-animation: weatherFall 1.5s linear infinite;
+    -moz-animation: weatherFall 1.5s linear infinite;
+    -o-animation: weatherFall 1.5s linear infinite;
+    animation: weatherFall 1.5s linear infinite;
 }
 
 /* Snow */
@@ -68,16 +90,12 @@
     opacity: 0.9;
 }
 
-.snowflake {
-    width: 8px;
-    height: 8px;
-    position: absolute;
-    border-radius: 50%;
-    background-color: white;
-    -webkit-animation: fall 2s linear infinite;
-    -moz-animation: fall 2s linear infinite;
-    -o-animation: fall 2s linear infinite;
-    animation: fall 2s linear infinite;
+#weather-snowflakes {
+    background-image: url(../../files/system/snowflake_scatter.svg);
+    -webkit-animation: weatherFall 2.5s linear infinite;
+    -moz-animation: weatherFall 2.5s linear infinite;
+    -o-animation: weatherFall 2.5s linear infinite;
+    animation: weatherFall 2.5s linear infinite;
 }
 
 /* Urthquakes */

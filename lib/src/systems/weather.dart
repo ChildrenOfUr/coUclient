@@ -10,7 +10,7 @@ enum WeatherState {
 
 class WeatherManager {
 	static WeatherManager _weatherManager;
-	static DivElement _weatherLayer, _cloudLayer;
+	static DivElement _weatherLayer, _cloudLayer, _raindrops, _snowflakes;
 	static WeatherIntensity _intensity = WeatherIntensity.MEDIUM;
 	static WeatherState _currentState = WeatherState.CLEAR;
 	static bool _enabled = true;
@@ -20,6 +20,8 @@ class WeatherManager {
 	WeatherManager.getInstance() {
 		_weatherLayer = querySelector("#weatherLayer");
 		_cloudLayer = querySelector("#cloudLayer");
+		_raindrops = _weatherLayer.querySelector("#weather-raindrops");
+		_snowflakes = _weatherLayer.querySelector("#weather-snowflakes");
 
 		if(localStorage["WeatherEffectsEnabled"] != null) {
 			//if we can't pull out the intensity, that's ok, we have a default
@@ -181,35 +183,24 @@ class WeatherManager {
 		
 		logmessage('[Weather] ${currentState.toString()}: $_intensity');
 
-		String precipitationClass = '';
 		if(createState == WeatherState.RAINING) {
+
 			_playRainSound();
-			precipitationClass = 'raindrop';
 
 			if(!_cloudLayer.classes.contains('cloudy')) {
 				_cloudLayer.classes.add('cloudy');
 			}
+
+			_raindrops.style.opacity = '0.5';
+
 		} else if (createState == WeatherState.SNOWING) {
-			precipitationClass = 'snowflake';
 
 			if(!_cloudLayer.classes.contains('snowy') && _intensity != WeatherIntensity.LIGHT) {
 				_cloudLayer.classes.add('snowy');
 			}
-		}
 
-		Random random = new Random();
-		int numDrops = (500 * ((intensity.index + 1) / WeatherIntensity.values.length)).toInt();
+			_snowflakes.style.opacity = '0.7';
 
-		for(int i = 0; i < numDrops; i++) {
-			var dropLeft = random.nextInt(view.worldElementWidth);
-			var dropTop = random.nextInt(2400) - 1000;
-
-			DivElement particle = new DivElement()
-				..className = precipitationClass
-				..style.left = '${dropLeft}px'
-				..style.top = '${dropTop}px';
-
-			_weatherLayer.append(particle);
 		}
 	}
 
@@ -220,7 +211,8 @@ class WeatherManager {
 	}
 
 	static void _clearWeather() {
-		_weatherLayer.children.clear();
+		_raindrops.style.opacity = '0';
+		_snowflakes.style.opacity = '0';
 		_cloudLayer.classes
 			..remove('cloudy')
 			..remove('snowy');
