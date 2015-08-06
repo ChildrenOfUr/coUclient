@@ -29,3 +29,7 @@ nav .fa {
     font-size: 20px;
     cursor: pointer;
 }
+
+nav a.always {
+    z-index: 100;
+}
