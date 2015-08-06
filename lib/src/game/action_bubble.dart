@@ -7,36 +7,40 @@ class ActionBubble {
 	SpanElement fill = new SpanElement();
 
 	ActionBubble(String actionName, this.duration) {
-		// Position the action bubble
-		num posX = CurrentPlayer.posX;
-		num posY = CurrentPlayer.posY;
-		int width = CurrentPlayer.width;
-
 		String text = actionName;
-		int x = posX.toInt() - width ~/ 2;
-		int y = posY.toInt() - 60;
 
 		outline
 			..text = text
 			..className = "border" + " " + actionName.toLowerCase().replaceAll(' ', '_')
-			..style.top = '$y' 'px'
-			..style.left = '$x' 'px'
 			..style.zIndex = '99';
 		fill
 			..text = text
 			..className = "fill" + " " + actionName.toLowerCase().replaceAll(' ', '_')
 			..style.transition = "width ${duration / 1000}s linear"
-			..style.top = '$y' 'px'
-			..style.left = '$x' 'px'
 			..style.zIndex = '99'
-		..style.whiteSpace = 'nowrap';
+			..style.whiteSpace = 'nowrap';
 
-		view.playerHolder
+		CurrentPlayer.playerParentElement
 			..append(outline)
 			..append(fill);
 
+		// Position the action bubble
+		Rectangle outlineRect = outline.client;
+		int outlineWidth = outlineRect.width;
+		int outlineHeight = outlineRect.height;
+		print('width: $outlineWidth');
+		int x = -outlineWidth~/2 + CurrentPlayer.width ~/ 2;
+		int y = -outlineHeight - 25;
+
+		fill
+			..style.top = '${y}px'
+			..style.left = '${x}px';
+		outline
+			..style.top = '${y}px'
+			..style.left = '${x}px';
+
 		//start the "fill animation"
-		fill.style.width = outline.clientWidth.toString() + "px";
+		fill.style.width = '${outlineWidth}px';
 	}
 
 	Future<bool> get wait {
@@ -50,7 +54,7 @@ class ActionBubble {
 		});
 
 		escListener = document.onKeyUp.listen((KeyboardEvent k) {
-			if(k.keyCode == 27) {
+			if (k.keyCode == 27) {
 				outline.remove();
 				fill.remove();
 				escListener.cancel();
