@@ -5988,7 +5988,8 @@ final Map<String, Map<String, dynamic>> streetMetadata = {
 	},
 	"The Entrance": {
 		"tsid": "LHH101L162117H2",
-		"hub_id": 50
+		"hub_id": 50,
+		"broken": true
 	},
 	"The Great Hole to Ix": {
 		"vendor": "Produce",
