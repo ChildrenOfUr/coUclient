@@ -84,17 +84,11 @@ class Street {
 
     // Load the music
     if (streetData["music"] != null) {
-      // Attempt #1: Music from server
+      // Attempt to get music from server
       audio.setSong(streetData["music"]);
-    } else if (streetMetadata[label] != null && streetMetadata[label]["music"] != null) {
-      // Attempt #3: Music from street
-      audio.setSong(streetMetadata[label]["music"]);
-    } else if (hubMetadata[int.parse(hub_id)] != null && hubMetadata[int.parse(hub_id)]["music"] != null) {
-      // Attempt #2: Music from hub
-      audio.setSong(hubMetadata[int.parse(hub_id)]["music"]);
     } else {
-      // Attempt #3: Default music
-      audio.setSong("forest");
+      // Otherwise, get stored preset music
+      audio.setSong(getSong(streetData["label"]));
     }
 
     // Collect the url's of each deco to load.

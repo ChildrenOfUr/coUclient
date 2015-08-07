@@ -6089,7 +6089,8 @@ final Map<String, Map<String, dynamic>> streetMetadata = {
 		"vendor": "Produce",
 		"shrine": "Grendaline",
 		"tsid": "GLI2VDR4JRD1AEG",
-		"hub_id": 56
+		"hub_id": 56,
+		"minimap_expand": true
 	},
 	"The Landing": {
 		"vendor": "Produce",
@@ -6884,3 +6885,37 @@ final Map<String, Map<String, dynamic>> streetMetadata = {
 		"hub_id": 116
 	}
 };
+
+String getSong(String streetName) {
+  int hub_id = streetMetadata[streetName]["hub_id"];
+
+	if (streetMetadata[streetName] != null && streetMetadata[streetName]["music"] != null) {
+    // Check #1: Street
+		return streetMetadata[streetName]["music"];
+	} else if (hubMetadata[hub_id] != null && hubMetadata[hub_id]["music"] != null) {
+    // Check #2: Hub
+    return hubMetadata[hub_id]["music"];
+	} else {
+	  // Check #3: Default
+	  return "forest";
+  }
+}
+
+int getMinimapOverride([String streetName]) {
+  if (streetName == null) {
+    streetName = currentStreet.label;
+  }
+
+  if (streetMetadata[streetName] == null || streetMetadata[streetName]["minimap_objects"] == null) {
+    // Unknown
+    return -1;
+  } else if (streetMetadata[streetName]["minimap_objects"] == true) {
+    // Override to show objects
+    return 1;
+  } else if (streetMetadata[streetName]["minimap_objects"] == false) {
+    // Override to hide objects
+    return 0;
+  } else {
+    return -1;
+  }
+}

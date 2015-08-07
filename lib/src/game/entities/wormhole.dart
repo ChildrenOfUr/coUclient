@@ -23,14 +23,8 @@ class Wormhole {
 
   static void updateAll() {
     getStreet().forEach((Wormhole wormhole) {
-      if (intersect(wormhole.hitBox, CurrentPlayer.avatarRect)) {
-        tp(wormhole.toTSID);
-      }
+      wormhole.update();
     });
-  }
-
-  static void tp(String toTSID) {
-    streetService.requestStreet(toTSID);
   }
 
   static List<Wormhole> getStreet([String TSID]) {
@@ -49,9 +43,28 @@ class Wormhole {
   int leftX, topY, width, height;
   String onTSID, toTSID;
   Rectangle hitBox;
+  bool teleporting = false;
 
   Wormhole(this.leftX, this.topY, this.width, this.height, this.onTSID, this.toTSID) {
     hitBox = new Rectangle(leftX, topY, width, height);
+  }
+
+  void update() {
+    if (intersect(hitBox, CurrentPlayer.avatarRect)) {
+      tp();
+    }
+  }
+
+  void tp() {
+    // Don't request the street more than once
+    if (teleporting) return;
+
+    // Teleport and stop updating
+    streetService.requestStreet(toTSID);
+    teleporting = true;
+
+    // Wait for the street to load before teleporting again
+    new Service(["streetLoaded"], (_) => teleporting = false);
   }
 
   String toString() {
