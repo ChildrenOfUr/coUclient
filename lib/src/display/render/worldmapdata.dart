@@ -350,7 +350,8 @@ final Map<String, Map<String, dynamic>> streetMetadata = {
 	},
 	"Ajaya Bliss": {
 		"tsid": "LA9154LI9R22R7A",
-		"hub_id": 78
+		"hub_id": 78,
+		"broken": true
 	},
 	"Ajiboo Hood": {
 		"vendor": "Hardware",
@@ -418,7 +419,8 @@ final Map<String, Map<String, dynamic>> streetMetadata = {
 		"shrine": "Lem",
 		"vendor": "Mining",
 		"tsid": "GA9ENT2CRE22NFB",
-		"hub_id": 78
+		"hub_id": 78,
+		"broken": true
 	},
 	"Ambo Aims": {
 		"vendor": "Kitchen Tools",
@@ -1348,7 +1350,8 @@ final Map<String, Map<String, dynamic>> streetMetadata = {
 		"shrine": "Spriggan",
 		"vendor": "Mining",
 		"tsid": "GA9114MS8B32FB2",
-		"hub_id": 78
+		"hub_id": 78,
+		"broken": true
 	},
 	"Cinnabar Chibe": {
 		"tsid": "GIFR1RLV0G43647",
@@ -1565,7 +1568,8 @@ final Map<String, Map<String, dynamic>> streetMetadata = {
 		"vendor": "Mining",
 		"shrine": "Friendly",
 		"tsid": "GM112V6OCA126K1",
-		"hub_id": 78
+		"hub_id": 78,
+		"broken": true
 	},
 	"Dhab Habit": {
 		"vendor": "Kitchen Tools",
@@ -2978,7 +2982,8 @@ final Map<String, Map<String, dynamic>> streetMetadata = {
 	},
 	"Karpal Tunnel": {
 		"tsid": "LLI14TT8T921J21",
-		"hub_id": 50
+		"hub_id": 50,
+		"broken": true
 	},
 	"Kartika Crams": {
 		"mailbox": true,
@@ -3203,7 +3208,8 @@ final Map<String, Map<String, dynamic>> streetMetadata = {
 		"vendor": "Toy",
 		"shrine": "Pot",
 		"tsid": "GM113FUK5422FVO",
-		"hub_id": 78
+		"hub_id": 78,
+		"broken": true
 	},
 	"Kotteletti Kota": {
 		"vendor": "Mining"
@@ -3444,6 +3450,7 @@ final Map<String, Map<String, dynamic>> streetMetadata = {
 	"Level 1 West": {
 		"tsid": "LHH110KCF411NK6",
 		"hub_id": 50,
+		"broken": true
 	},
 	"Level 2 East": {
 		"vendor": "Meal",
@@ -3453,7 +3460,8 @@ final Map<String, Map<String, dynamic>> streetMetadata = {
 	"Level 2 West": {
 		"shrine": "Zille",
 		"tsid": "GHH1011JSO11ORS",
-		"hub_id": 50
+		"hub_id": 50,
+		"broken": true
 	},
 	"Level 3 East": {
 		"tsid": "LLI1D3B2U5715LL",
@@ -4234,7 +4242,8 @@ final Map<String, Map<String, dynamic>> streetMetadata = {
 		"shrine": "Zille",
 		"vendor": "Mining",
 		"tsid": "GA9DNT3I2U22RS7",
-		"hub_id": 78
+		"hub_id": 78,
+		"broken": true
 	},
 	"Nandu Pitha": {
 		"shrine": "Pot",
@@ -4868,7 +4877,8 @@ final Map<String, Map<String, dynamic>> streetMetadata = {
 		"shrine": "Cosma",
 		"vendor": "Mining",
 		"tsid": "GA910DULG012JIE",
-		"hub_id": 78
+		"hub_id": 78,
+		"broken": true
 	},
 	"Pungent Ponds": {
 		"mailbox": true,
@@ -4881,7 +4891,8 @@ final Map<String, Map<String, dynamic>> streetMetadata = {
 		"vendor": "Mining",
 		"shrine": "Mab",
 		"tsid": "GA9QKFSST732VNK",
-		"hub_id": 78
+		"hub_id": 78,
+		"broken": true
 	},
 	"Puran Pills": {
 		"vendor": "Alchemical Goods",
@@ -5380,7 +5391,8 @@ final Map<String, Map<String, dynamic>> streetMetadata = {
 		"vendor": "Mining",
 		"shrine": "Humbaba",
 		"tsid": "GM169I1E0C226G1",
-		"hub_id": 78
+		"hub_id": 78,
+		"broken": true
 	},
 	"Savi Sense": {
 		"vendor": "Alchemical Goods",
@@ -5736,7 +5748,8 @@ final Map<String, Map<String, dynamic>> streetMetadata = {
 		"shrine": "Cosma",
 		"vendor": "Mining",
 		"tsid": "GA9B6PJ3NM22M0D",
-		"hub_id": 78
+		"hub_id": 78,
+		"broken": true
 	},
 	"Sulten Kepp": {
 		"vendor": "Hardware",
@@ -5979,7 +5992,8 @@ final Map<String, Map<String, dynamic>> streetMetadata = {
 		"vendor": "Mining",
 		"shrine": "Spriggan",
 		"tsid": "GM113VSD6922MRJ",
-		"hub_id": 78
+		"hub_id": 78,
+		"broken": true
 	},
 	"The Drop": {
 		"tsid": "LHH12E1QP611OPA",
