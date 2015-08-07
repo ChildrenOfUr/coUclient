@@ -82,19 +82,23 @@ class Street {
 
     view.location = label;
 
-    // Load the music
-    if (streetData["music"] != null) {
-      // Attempt #1: Music from server
-      audio.setSong(streetData["music"]);
-    } else if (streetMetadata[label]["music"] != null) {
-      // Attempt #3: Music from street
-      audio.setSong(streetMetadata[label]["music"]);
-    } else if (hubMetadata[hub_id]["music"] != null) {
-      // Attempt #2: Music from hub
-      audio.setSong(hubMetadata[hub_id]["music"]);
-    } else {
-      // Attempt #3: Default music
-      audio.setSong("forest");
+    try {
+      // Load the music
+      if (streetData["music"] != null) {
+        // Attempt #1: Music from server
+        audio.setSong(streetData["music"]);
+      } else if (streetMetadata[label]["music"] != null) {
+        // Attempt #3: Music from street
+        audio.setSong(streetMetadata[label]["music"]);
+      } else if (hubMetadata[hub_id]["music"] != null) {
+        // Attempt #2: Music from hub
+        audio.setSong(hubMetadata[hub_id]["music"]);
+      } else {
+        // Attempt #3: Default music
+        audio.setSong("forest");
+      }
+    } catch(e) {
+      logmessage("Failed to load music for ${label}");
     }
 
     // Collect the url's of each deco to load.
@@ -159,10 +163,14 @@ class Street {
       decoCanvas.attributes['height'] = layer['h'].toString();
 
       //put the one layer image in
-      String layerName = layer['name'].replaceAll(' ', '_');
-      ImageElement layerImage = ASSET[layerName].get();
-      layerImage.style.transform = 'translateY(${groundY}px)';
-      decoCanvas.append(layerImage);
+      try {
+        String layerName = layer['name'].replaceAll(' ', '_');
+        ImageElement layerImage = ASSET[layerName].get();
+        layerImage.style.transform = 'translateY(${groundY}px)';
+        decoCanvas.append(layerImage);
+      } catch(e) {
+        logmessage("Could not load layer image ${layer["name"]}");
+      }
 
       for (Map platformLine in layer['platformLines']) {
         platforms.add(new Platform(platformLine, layer, groundY));
