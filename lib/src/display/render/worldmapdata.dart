@@ -3883,7 +3883,8 @@ final Map<String, Map<String, dynamic>> streetMetadata = {
 		"shrine": "Grendaline",
 		"vendor": "Mining",
 		"tsid": "GA912TJ0KF328Q3",
-		"hub_id": 78
+		"hub_id": 78,
+		"broken": true
 	},
 	"Meion Nsut": {
 		"shrine": "Tii",
