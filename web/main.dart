@@ -198,6 +198,9 @@ afterPolymer() async {
   // System
   new ClockManager();
   new CommandManager();
+
+  // Watch for Collision-Triggered teleporters
+  Wormhole.init();
 }
 
 void handleAppCache() {

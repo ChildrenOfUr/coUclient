@@ -78,6 +78,13 @@ void repaint(CanvasElement lineCanvas) {
 		                       wall.bounds.width, wall.bounds.height);
 	}
 	lineCanvasContext.stroke();
+
+	// display teleporters (wrong coords)
+//	Wormhole.getStreet().forEach((Wormhole wh) {
+//		lineCanvasContext.fillStyle = "rgba(255, 153, 0, 0.5)";
+//		lineCanvasContext.fillRect(wh.leftX, wh.topY, wh.width, wh.height);
+//		print(wh.leftX.toString() + " " + wh.topY.toString() + " " + wh.width.toString() + " " + wh.height.toString());
+//	});
 }
 
 showPlayerRect() {

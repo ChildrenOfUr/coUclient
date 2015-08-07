@@ -55,4 +55,6 @@ update(double dt)
 		sendPlayerInfo();
 		timeLast = 0.0;
 	}
+
+	Wormhole.updateAll();
 }
