@@ -293,10 +293,9 @@ class WorldMap {
 
     hubMetadata.forEach((key, value) {
       if (value["hidden"] == null || value["hidden"] != true) {
-        Map customAttributes = {"hub": key};
         DivElement hub = new DivElement()
           ..className = "wml-hub"
-          ..attributes.addAll(customAttributes)
+          ..dataset["hub"] = key.toString()
           ..style.left = value['x'].toString() + 'px'
           ..style.top = value['y'].toString() + 'px'
           ..text = value['name'];
@@ -311,9 +310,8 @@ class WorldMap {
     worldMapVisible = true;
 
     WorldMapDiv.onClick.listen((e) {
-      loadhubdiv(e.target.attributes['hub']);
-      querySelector("#map-window-world")
-      .setInnerHtml('<i class="fa fa-fw fa-globe"></i>');
+      loadhubdiv((e.target as Element).dataset["hub"]);
+      querySelector("#map-window-world").setInnerHtml('<i class="fa fa-fw fa-globe"></i>');
     });
   }
 
