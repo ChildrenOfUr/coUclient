@@ -2769,7 +2769,8 @@ final Map<String, Map<String, dynamic>> streetMetadata = {
 		"shrine": "Alph",
 		"vendor": "Mining",
 		"tsid": "GA911QQIDI32J6R",
-		"hub_id": 78
+		"hub_id": 78,
+		"broken": true
 	},
 	"Jansib Preserve": {
 		"tsid": "GDORJMMHCDT2J08",
