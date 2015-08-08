@@ -3290,7 +3290,8 @@ final Map<String, Map<String, dynamic>> streetMetadata = {
 		"vendor": "Gardening Goods",
 		"shrine": "Alph",
 		"tsid": "GIF8I91P8J02A85",
-		"hub_id": 75
+		"hub_id": 75,
+		"broken": true
 	},
 	"La Kama": {
 		"vendor": "Hardware",
@@ -5688,7 +5689,8 @@ final Map<String, Map<String, dynamic>> streetMetadata = {
 		"vendor": "Produce",
 		"shrine": "Grendaline",
 		"tsid": "GHV894HP4MA3ME7",
-		"hub_id": 137
+		"hub_id": 137,
+		"broken": true
 	},
 	"Stake Claim Rd A": {
 		"tsid": "GA512CSG4H42RKG",
