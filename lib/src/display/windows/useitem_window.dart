@@ -105,6 +105,7 @@ class UseWindow extends Modal {
   }
 
   openRecipe(String id) {
+    int qty = 1;
     Map recipe = getRecipe(id);
 
     // output info
@@ -130,19 +131,69 @@ class UseWindow extends Modal {
 
     // qty controls
 
+    DivElement hmTitle = new DivElement()
+      ..classes.add("recipeview-ing-title");
+
+    if (recipe["canMake"] > 0) {
+      hmTitle.text = "How many?";
+    } else {
+      hmTitle.text = "You don't have all the ingredients needed to make this.";
+    }
+
+    NumberInputElement qtyDisplay = new NumberInputElement()
+      ..classes.add("rv-qty-disp")
+      ..value = qty.toString()
+      ..min = "1"
+      ..max = recipe["maxAmt"].toString();
+
+    DivElement qtyMinus = new DivElement()
+      ..classes.add("rv-qty-minus")
+      ..onClick.listen((_) {
+        if (qty > 1) qty--;
+        qtyDisplay.value = qty.toString();
+      })
+      ..setInnerHtml('<i class="fa fa-fw fa-minus rv-red"></i>');
+
+    DivElement qtyPlus = new DivElement()
+      ..classes.add("rv-qty-plus")
+      ..onClick.listen((_) {
+        if (qty < recipe["canMake"]) qty++;
+        qtyDisplay.value = qty.toString();
+      })
+      ..setInnerHtml('<i class="fa fa-fw fa-plus rv-green"></i>');
+
     DivElement qtyParent = new DivElement()
-      ..classes.add("recipeview-qtyparent");
+      ..classes.add("recipeview-qtyparent")
+      ..append(qtyMinus)
+      ..append(qtyDisplay)
+      ..append(qtyPlus);
+
+    DivElement maxDisp = new DivElement()
+      ..classes.add("rv-max-disp")
+      ..text = "You can make ${recipe["canMake"].toString()} of these";
+
+    DivElement maxBtn = new DivElement()
+      ..classes.addAll(["rv-max-btn", "white-btn"])
+      ..text = "Make ${recipe["canMake"].toString()}"
+      ..onClick.listen((_) => qtyDisplay.value = recipe["canMake"].toString());
 
     DivElement makeBtn = new DivElement()
       ..classes.addAll(["rv-makebtn", "white-btn"])
-      ..onClick.listen((_) => makeRecipe(id)) //TODO: user-input qty `(id, qty)`
+      ..onClick.listen((_) => makeRecipe(id, int.parse(qtyDisplay.value)))
       ..text = "Do It!";
-    //TODO: disable if cannot make item (server must report canMake from inventory)
 
     DivElement centerCol = new DivElement()
       ..classes.add("recipeview-centercol")
-      ..append(qtyParent)
-      ..append(makeBtn);
+      ..append(hmTitle);
+
+    if (recipe["canMake"] > 0) {
+      centerCol
+        ..append(qtyParent)
+        ..append(maxDisp)
+        ..append(maxBtn)
+        ..append(new HRElement())
+        ..append(makeBtn);
+    }
 
     // ingredients
 
@@ -162,7 +213,7 @@ class UseWindow extends Modal {
         ..setInnerHtml("<b>${ingmap["qtyReq"]}x</b> " + ingmap["name"]);
 
       Element status = new Element.tag("i");
-      if (ingmap["userHas"] == true) {
+      if (ingmap["userHas"] > ingmap["qtyReq"]) {
         status
           ..classes.addAll(["fa", "fa-check", "fa-fw", "rv-green"])
           ..title = "You have enough";
@@ -197,15 +248,13 @@ class UseWindow extends Modal {
       ..classes.add("col3");
   }
 
-  Future makeRecipe(String id, [int qty = 1]) async {
+  makeRecipe(String id, [int qty = 1]) {
     Map recipe = getRecipe(id);
-
-    int time = recipe["time"] * qty;
 
     int current = 1;
 
     ImageElement animation = new ImageElement()
-      ..src = await HttpRequest.requestCrossOrigin("http://${Configs.utilServerAddress}/recipes/getAnimUrl?tool=${recipe["tool"]}");
+      ..src = "http://childrenofur.com/game-assets/tool_animations/${recipe["tool"]}.gif";
 
     DivElement animationParent = new DivElement()
       ..classes.add("makerecipe-anim")
@@ -221,7 +270,18 @@ class UseWindow extends Modal {
       ..append(animationParent)
       ..append(progBar);
 
-    return;
+    // start the timer
+    new Timer.periodic(new Duration(seconds: recipe["time"]), (Timer actionTimer) async {
+      if (qty > current) {
+        current++;
+        progBar
+          ..attributes["percent"] = ((100 / qty) * current).toString()
+          ..attributes["status"] = "Making ${current.toString()} of ${qty.toString()}";
+      } else {
+        actionTimer.cancel();
+        well.append(await listRecipes());
+      }
+    });
   }
 
   Map getRecipe(String id) {

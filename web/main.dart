@@ -204,7 +204,7 @@ afterPolymer() async {
   Wormhole.init();
 
   new Service(["streetLoaded"], (_) {
-    new UseWindow("Blender");
+    new UseWindow("Bean Seasoner");
   });
 }
 
