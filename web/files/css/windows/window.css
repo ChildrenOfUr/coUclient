@@ -13,6 +13,11 @@
   overflow: hidden;
 }
 
+#windowHolder .window:active,
+#windowHolder .window:focus {
+  outline: none;
+}
+
 #windowHolder .window header {
   position: absolute;
   top: 0;

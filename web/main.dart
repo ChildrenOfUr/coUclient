@@ -90,6 +90,7 @@ part 'package:couclient/src/display/windows/shrine_window.dart';
 part 'package:couclient/src/display/windows/rock_window.dart';
 part 'package:couclient/src/display/windows/item_window.dart';
 part 'package:couclient/src/display/windows/emoticon_picker.dart';
+part 'package:couclient/src/display/windows/useitem_window.dart';
 
 // OVERLAYS //
 part 'package:couclient/src/display/overlays/overlay.dart';
@@ -201,6 +202,10 @@ afterPolymer() async {
 
   // Watch for Collision-Triggered teleporters
   Wormhole.init();
+
+  new Service(["streetLoaded"], (_) {
+    new UseWindow("Blender");
+  });
 }
 
 void handleAppCache() {
