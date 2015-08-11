@@ -1,20 +1,12 @@
 part of couclient;
 
-abstract class Entity implements Animatable {
-	BitmapDataLoadOptions loadOptions = new BitmapDataLoadOptions()
-		..corsEnabled = true;
-	ResourceManager entityResourceManger = new ResourceManager();
+abstract class Entity {
 	bool glow = false, dirty = true;
 	ChatBubble chatBubble = null;
 	CanvasElement canvas;
 	num left = 0, top = 0, width = 0, height = 0;
 	String id;
 	MutableRectangle _entityRect, _destRect;
-
-	@override
-	advanceTime(num time) {
-
-	}
 
 	void update(double dt) {
 		if(intersect(CurrentPlayer.avatarRect, entityRect)) {

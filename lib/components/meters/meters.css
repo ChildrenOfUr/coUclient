@@ -211,8 +211,8 @@
     width: 60px;
     height: 80px;
     left: 50%;
-    top: 5px;
-    transform: translateX(-50%) scale(.9);
+    top: 10px;
+    transform: translateX(-50%);
     background-size: contain;
     background-repeat: no-repeat;
 }

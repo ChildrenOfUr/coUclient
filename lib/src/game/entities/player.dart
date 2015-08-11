@@ -444,7 +444,7 @@ class Player {
 	void updateTransform() {
 		num translateX = posX, translateY = view.worldElementWidth - height;
 
-		num camX = camera.x, camY = camera.y;
+		num camX = camera.getX(), camY = camera.getY();
 		if (posX > currentStreet.bounds.width - width / 2 - view.worldElementWidth / 2) {
 			camX = currentStreet.bounds.width - view.worldElementWidth;
 			translateX = posX - currentStreet.bounds.width + view.worldElementWidth;

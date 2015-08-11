@@ -26,7 +26,7 @@ class Camera {
     }
   }
 
-  int get x => _x;
+  int getX() => _x;
 
-  int get y => _y;
+  int getY() => _y;
 }
