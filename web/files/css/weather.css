@@ -74,6 +74,7 @@
     -moz-animation: weatherFall 1.5s linear infinite;
     -o-animation: weatherFall 1.5s linear infinite;
     animation: weatherFall 1.5s linear infinite;
+    opacity: 0.5;
 }
 
 /* Snow */
@@ -96,6 +97,11 @@
     -moz-animation: weatherFall 2.5s linear infinite;
     -o-animation: weatherFall 2.5s linear infinite;
     animation: weatherFall 2.5s linear infinite;
+    opacity: 0.7;
+}
+
+.precipitation-opacity-0 {
+    opacity: 0;
 }
 
 /* Urthquakes */

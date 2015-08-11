@@ -5,7 +5,6 @@ import 'package:intl/intl.dart';
 import 'dart:html';
 import 'dart:async';
 import 'dart:math' show Random;
-import 'dart:convert';
 
 @CustomTag('ur-meters')
 class Meters extends PolymerElement {
@@ -43,6 +42,9 @@ class Meters extends PolymerElement {
 			HttpRequest.requestCrossOrigin('$serverAddress/trimImage?username=' + playername).then((String response) {
 				avatarDisplay.style.backgroundImage = "url(data:image/png;base64,$response)";
 			});
+			if(runCount < 5) {
+				runCount == 6;
+			}
 		}
 	}
 

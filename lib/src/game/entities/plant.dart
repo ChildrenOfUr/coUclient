@@ -7,8 +7,10 @@ class Plant extends Entity {
 	ImageElement spritesheet;
 	Rectangle sourceRect;
 	String url;
+	Sprite sprite;
 
 	Plant(Map map) {
+		sprite = new Sprite();
 		canvas = new CanvasElement();
 		canvas.id = map["id"];
 		id = map['id'];
@@ -22,6 +24,18 @@ class Plant extends Entity {
 		}
 
 		url = map['url'].replaceAll("\"", "");
+//		if(!entityResourceManger.containsBitmapData(url)) {
+//			entityResourceManger.addBitmapData(url, url, loadOptions);
+//			entityResourceManger.load().then((_) {
+//				Bitmap bitmap = new Bitmap();
+//				bitmap.bitmapData = entityResourceManger.getBitmapData(url);
+//				sprite.addChild(bitmap);
+//				sprite.x = num.parse(map['x'].toString());
+//				sprite.y = currentStreet.bounds.height - num.parse(map['y'].toString()) - height;
+//				currentStreet.interactionLayer.addChild(sprite);
+//			});
+//		}
+
 		HttpRequest.request('http://${Configs.utilServerAddress}/getActualImageHeight?url=$url&numRows=$numRows&numColumns=$numColumns').then((HttpRequest request) {
 			canvas.attributes['actualHeight'] = request.responseText;
 		});

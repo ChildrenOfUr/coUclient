@@ -23,26 +23,30 @@ class WeatherManager {
 		_raindrops = _weatherLayer.querySelector("#weather-raindrops");
 		_snowflakes = _weatherLayer.querySelector("#weather-snowflakes");
 
-		if(localStorage["WeatherEffectsEnabled"] != null) {
+		if (localStorage["WeatherEffectsEnabled"] != null) {
 			//if we can't pull out the intensity, that's ok, we have a default
 			try {
 				String value = localStorage["WeatherEffectsIntensity"];
 				_intensity = WeatherIntensity.values[int.parse(value)];
-			} catch(err) {
+			} catch (err) {
 			}
 
-			if(localStorage["WeatherEffectsEnabled"] == "false") {
-				_enabled = false;
+			if (localStorage["WeatherEffectsEnabled"] == "false") {
+				enabled = false;
 			}
 
 			//need a service to listen to time events and respond by coloring the
 			//weather overlay as needed (possibly change the background gradient?
 			new Service(['timeUpdate', 'timeUpdateFake'], _changeAmbientColor);
 
-			new Service(['streetLoaded'], (m) {transmit('timeUpdate', [clock.time, clock.day, clock.dayofweek, clock.month, clock.year]);});
+			new Service(['streetLoaded'], (m) {
+				transmit('timeUpdate', [clock.time, clock.day, clock.dayofweek, clock.month, clock.year]);
+			});
 
 			//service for debugging weather
-			new Service(['setWeatherFake'], (m) {_processMessage(m);});
+			new Service(['setWeatherFake'], (m) {
+				_processMessage(m);
+			});
 
 			//update on start
 			transmit('timeUpdate', [clock.time, clock.day, clock.dayofweek, clock.month, clock.year]);
@@ -56,7 +60,7 @@ class WeatherManager {
 			//so we'll wait until 200ms have gone by without one of these events
 			//and then we'll do our real work
 
-			if(resizeTimer != null && resizeTimer.isActive) {
+			if (resizeTimer != null && resizeTimer.isActive) {
 				resizeTimer.cancel();
 			}
 
@@ -65,7 +69,7 @@ class WeatherManager {
 	}
 
 	factory WeatherManager() {
-		if(_weatherManager == null) {
+		if (_weatherManager == null) {
 			_weatherManager = new WeatherManager.getInstance();
 		}
 
@@ -73,11 +77,13 @@ class WeatherManager {
 	}
 
 	static bool get enabled => _enabled;
+
 	static WeatherIntensity get intensity => _intensity;
+
 	static WeatherState get currentState => _currentState;
 
 	static void _recalculateRain() {
-		if(enabled && currentState == WeatherState.RAINING) {
+		if (enabled && currentState == WeatherState.RAINING) {
 			_clearWeather();
 			_createWeather(currentState);
 		}
@@ -93,37 +99,37 @@ class WeatherManager {
 		List<num> rgba = [255, 255, 255, 0];
 
 		num percent = 1;
-		if(!am) {
-			if(hour >= 5 && hour < 7) {
+		if (!am) {
+			if (hour >= 5 && hour < 7) {
 				int currentMinute = (7 - hour) * 60 - minute;
-				percent = (1 - currentMinute / 120)/2;
+				percent = (1 - currentMinute / 120) / 2;
 				//daylight to sunset
 				rgba = _tweenColor([255, 255, 255, 0], [218, 150, 45, .15], percent);
-			} else if(hour >= 7 && hour < 12) {
+			} else if (hour >= 7 && hour < 12) {
 				int currentMinute = (12 - hour) * 60 - minute;
 				percent = 1 - currentMinute / 240;
 				//sunset to night
 				rgba = _tweenColor([218, 150, 45, .15], [17, 17, 47, .5], percent);
-				percent = percent/2 +.5;
+				percent = percent / 2 + .5;
 			} else {
 				percent = 0;
 			}
 			_setStreetGradient(percent);
 		} else {
-			if(hour < 5 || hour == 12) {
+			if (hour < 5 || hour == 12) {
 				rgba = [17, 17, 47, .5];
-			} else if(hour >= 5 && hour < 7) {
+			} else if (hour >= 5 && hour < 7) {
 				int currentMinute = (7 - hour) * 60 - minute;
-				percent = (1 - currentMinute / 120)/2;
+				percent = (1 - currentMinute / 120) / 2;
 				//night to sunrise
 				rgba = _tweenColor([17, 17, 47, .5], [218, 150, 45, .15], percent);
-				percent = 1-percent;
-			} else if(hour >= 7 && hour < 9) {
+				percent = 1 - percent;
+			} else if (hour >= 7 && hour < 9) {
 				int currentMinute = (9 - hour) * 60 - minute;
 				percent = 1 - currentMinute / 120;
 				//sunrise to daylight
 				rgba = _tweenColor([218, 150, 45, .15], [255, 255, 255, 0], percent);
-				percent = .5-percent/2;
+				percent = .5 - percent / 2;
 			} else {
 				percent = 0;
 			}
@@ -135,7 +141,7 @@ class WeatherManager {
 
 	static void _setStreetGradient(num percent) {
 		DivElement gradientCanvas = querySelector('#gradient');
-		if(gradientCanvas == null) {
+		if (gradientCanvas == null) {
 			return;
 		}
 
@@ -143,7 +149,7 @@ class WeatherManager {
 		String streetBottom = '#' + currentStreet.streetData['gradient']['bottom'];
 
 		//make sure the street has a gradient before trying to modify it
-		if(streetTop.length < 7 || streetBottom.length < 7) {
+		if (streetTop.length < 7 || streetBottom.length < 7) {
 			return;
 		}
 
@@ -177,46 +183,66 @@ class WeatherManager {
 
 	// function to generate drops
 	static void _createWeather(WeatherState createState) {
-		if(!_enabled) {
+		if (!enabled) {
 			return;
 		}
-		
+
 		logmessage('[Weather] ${currentState.toString()}: $_intensity');
 
-		if(createState == WeatherState.RAINING) {
+		if (createState == WeatherState.RAINING) {
 
 			_playRainSound();
 
-			if(!_cloudLayer.classes.contains('cloudy')) {
+			if (!_cloudLayer.classes.contains('cloudy')) {
 				_cloudLayer.classes.add('cloudy');
 			}
 
-			_raindrops.style.opacity = '0.5';
+			_showPrecipitation();
 
 		} else if (createState == WeatherState.SNOWING) {
 
-			if(!_cloudLayer.classes.contains('snowy') && _intensity != WeatherIntensity.LIGHT) {
+			if (!_cloudLayer.classes.contains('snowy') && _intensity != WeatherIntensity.LIGHT) {
 				_cloudLayer.classes.add('snowy');
 			}
 
-			_snowflakes.style.opacity = '0.7';
-
+			_showPrecipitation();
 		}
 	}
 
-	static _playRainSound() async {
+	static void _hidePrecipitation() {
+		_raindrops.classes.add('precipitation-opacity-0');
+		_snowflakes.classes.add('precipitation-opacity-0');
+		new Timer(new Duration(seconds: 5), () {
+			_raindrops.style.visibility = 'hidden';
+			_snowflakes.style.visibility = 'hidden';
+		});
+	}
+
+	static void _showPrecipitation() {
+		DivElement precipitationLayer;
+
+		if (currentState == WeatherState.RAINING) {
+			precipitationLayer = _raindrops;
+		} else if (currentState == WeatherState.SNOWING) {
+			precipitationLayer = _snowflakes;
+		}
+
+		precipitationLayer.style.visibility = 'visible';
+		precipitationLayer.classes.remove('precipitation-opacity-0');
+	}
+
+	static Future _playRainSound() async {
 		audio.gameSounds['rainSound'] = new Sound(channel: audio.audioChannels['soundEffects']);
 		await audio.gameSounds['rainSound'].load("files/audio/rain.${audio.extension}");
 		rainSound = await audio.playSound('rainSound', looping:true, fadeIn:true);
 	}
 
 	static void _clearWeather() {
-		_raindrops.style.opacity = '0';
-		_snowflakes.style.opacity = '0';
+		_hidePrecipitation();
 		_cloudLayer.classes
 			..remove('cloudy')
 			..remove('snowy');
-		if(rainSound != null) {
+		if (rainSound != null) {
 			audio.stopSound(rainSound, fadeOut:true);
 		}
 	}
@@ -225,22 +251,22 @@ class WeatherManager {
 		localStorage["WeatherEffectsEnabled"] = enabled.toString();
 		_enabled = enabled;
 		_clearWeather();
-		if(_enabled && currentState != WeatherState.CLEAR) {
+		if (enabled && currentState != WeatherState.CLEAR) {
 			_createWeather(currentState);
 		}
-		if(enabled && currentState == WeatherState.SNOWING) {
+		if (enabled && currentState != WeatherState.CLEAR) {
 			_createWeather(currentState);
 		}
 	}
 
-	static set intensity(WeatherIntensity intensity) {
+	static void set intensity(WeatherIntensity intensity) {
 		_intensity = intensity;
 		localStorage["WeatherEffectsIntensity"] = _intensity.index.toString();
 		_clearWeather();
-		if(enabled && currentState == WeatherState.RAINING) {
+		if (enabled && currentState == WeatherState.RAINING) {
 			_createWeather(currentState);
 		}
-		if(enabled && currentState == WeatherState.SNOWING) {
+		if (enabled && currentState == WeatherState.SNOWING) {
 			_createWeather(currentState);
 		}
 	}
@@ -270,7 +296,7 @@ class WeatherManager {
 
 		if (currentState != previousState) {
 			_clearWeather();
-			if(currentState != WeatherState.CLEAR) {
+			if (currentState != WeatherState.CLEAR) {
 				_createWeather(currentState);
 			}
 		}

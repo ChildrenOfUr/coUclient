@@ -30,7 +30,7 @@ import 'package:slack/html/slack.dart' as slack;
 // SoundCloud Helper
 import 'package:scproxy/scproxy.dart';
 // Audio and Graphics
-import 'package:gorgon/gorgon.dart';
+import 'package:gorgon/gorgon.dart' hide Sprite;
 // for Webaudio api
 import 'package:dnd/dnd.dart';
 //for dragging items into vendor interface
@@ -45,6 +45,7 @@ import 'package:jsonx/jsonx.dart';
 import 'package:couclient/configs.dart';
 
 import 'package:browser_detect/browser_detect.dart';
+import 'package:stagexl/stagexl.dart' hide Rectangle, Sound;
 
 export 'package:polymer/init.dart';
 
