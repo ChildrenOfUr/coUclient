@@ -133,17 +133,14 @@ _setupStreetSocket(String streetName) {
 		}
 
 		(map["quoins"] as List).forEach((Map quoinMap) {
-			if(quoinMap["remove"] == "true") {
-				Element objectToRemove = querySelector("#${quoinMap["id"]}");
-				if(objectToRemove != null) objectToRemove.style.display =
-				"none";
-				//.remove() is very slow
+			String id = quoinMap["id"];
+			if(quoinMap["remove"] == "true" && !quoins[id].collected) {
+				quoins[id].collected = true;
 			} else {
-				String id = quoinMap["id"];
 				Element element = querySelector("#$id");
-				if(element == null) addQuoin(quoinMap);
-				else if(element.style.display == "none") {
-					element.style.display = "block";
+				if(element == null) {
+					addQuoin(quoinMap);
+				} else if(quoins[id].collected) {
 					quoins[id].collected = false;
 				}
 			}

@@ -22,8 +22,12 @@ abstract class Entity implements xl.Animatable {
 
 	}
 
+	bool get intersectingPlayer {
+		return intersect(CurrentPlayer.avatarRect, entityRect);
+	}
+
 	void update(double dt) {
-		if(intersect(CurrentPlayer.avatarRect, entityRect)) {
+		if(intersectingPlayer) {
 			updateGlow(true);
 			CurrentPlayer.intersectingObjects[id] = entityRect;
 		} else {

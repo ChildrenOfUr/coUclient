@@ -3,10 +3,26 @@ part of couclient;
 class Quoin extends Entity {
 	Map <String, int> quoins = {"img":0, "mood":1, "energy":2, "currant":3, "mystery":4, "favor":5, "time":6, "quarazy":7};
 	String typeString;
-	Animation animation;
-	bool ready = false, firstRender = true, collected = false, checking = false, hit = false;
-	DivElement circle, parent;
+	bool ready = false, _collected = false, checking = false, hit = false;
+//	DivElement circle, parent;
 	Rectangle quoinRect;
+	xl.FlipBook flipbook;
+	xl.Sprite circle;
+
+	void set collected(bool value) {
+		_collected = value;
+		if(value) {
+			flipbook.removeFromParent();
+			currentStreet.stage.juggler.remove(this);
+			currentStreet.stage.juggler.remove(flipbook);
+		} else {
+			currentStreet.stage.juggler.add(flipbook);
+			currentStreet.stage.juggler.add(this);
+			currentStreet.interactionLayer.addEntity(this);
+		}
+	}
+
+	bool get collected => _collected;
 
 	Quoin(Map map) {
 		canvas = new CanvasElement();
@@ -18,47 +34,50 @@ class Quoin extends Entity {
 		typeString = map['type'];
 
 		// Disable mystery quoins
-		if (typeString == "mystery") return;
+		if (typeString == "mystery") {
+			return;
+		}
 		// Don't show Quarazy Quoins more than once for a street
-		if (typeString == "quarazy" && metabolics.location_history.contains(currentStreet.tsid)) return;
+		if (typeString == "quarazy" && metabolics.location_history.contains(currentStreet.tsid)) {
+			return;
+		}
 
 		id = map["id"];
 		int quoinValue = quoins[typeString.toLowerCase()];
-
-//		List<int> frameList = [];
-//		for(int i = 0; i < 24; i++)
-//			frameList.add(quoinValue * 24 + i);
 
 		String url = map['url'];
 
 		if (!entityResourceManger.containsBitmapData(url)) {
 			entityResourceManger.addBitmapData(url, url, loadOptions);
-			entityResourceManger.load().then((_) {
-				xl.BitmapData data = entityResourceManger.getBitmapData(url);
-				SpriteSheet spritesheet = new SpriteSheet(data, data.width ~/ 24, data.height ~/ 8);
-				List<xl.BitmapData> frames = [];
-				for(int i=0; i<24; i++) {
-					frames.add(spritesheet[quoins[typeString]*24+i]);
-				}
-				xl.FlipBook flipbook = new xl.FlipBook(frames)..play();
-				xl.Bitmap bitmap = new xl.Bitmap();
-				bitmap.bitmapData = spritesheet[0];
-				width = bitmap.width;
-				height = bitmap.height;
-				num x = map['x'];
-				num y = map['y'];
-				left = x;
-				top = y;
-				flipbook.x = x;
-				flipbook.y = y;
-				currentStreet.interactionLayer.addChild(flipbook);
-				currentStreet.interactionLayer.addEntity(this);
-				ready = true;
-			});
+			await entityResourceManger.load();
+			xl.BitmapData data = entityResourceManger.getBitmapData(url);
+			SpriteSheet spritesheet = new SpriteSheet(data, data.width ~/ 24, data.height ~/ 8);
+			List<xl.BitmapData> frames = [];
+			for(int i=0; i<24; i++) {
+				frames.add(spritesheet[quoinValue*24+i]);
+			}
+			flipbook = new xl.FlipBook(frames,22)
+				..addTo(currentStreet.interactionLayer)
+				..play();
+
+			currentStreet.stage.juggler.add(flipbook);
+			currentStreet.interactionLayer.addEntity(this);
+
+			width = flipbook.width;
+			height = flipbook.height;
+			left = map['x'];
+			top = currentStreet.bounds.height - map['y'] - height;
+			quoinRect = new Rectangle(left, top, width, height);
+
+			flipbook.x = left - camera.x;
+			flipbook.y = top - camera.y;
+
+			ready = true;
 		}
 
 		canvas.attributes['actions'] = JSON.encode(map['actions']);
 		canvas.attributes['type'] = map['type'];
+		canvas.attributes['collected'] = "false";
 		canvas.classes.add("plant");
 		canvas.classes.add('entity');
 		canvas.style.position = "absolute";
@@ -115,17 +134,17 @@ class Quoin extends Entity {
 			return;
 		}
 
-		quoinRect = new Rectangle(left, top, width, height);
-
 		//if a player collides with us, tell the server
 		if(!hit) {
 			if(_checkPlayerCollision()) {
 
 				new Timer(new Duration(seconds: 10), () => hit = false);
 
-				if(typeString == 'mood' && metabolics.playerMetabolics.mood == metabolics.playerMetabolics.max_mood) {
+				if(typeString == 'mood' &&
+				   metabolics.playerMetabolics.mood == metabolics.playerMetabolics.max_mood) {
 					toast("You tried to collect a mood quoin, but your mood was already full.");
-				} else if(typeString == 'energy' && metabolics.playerMetabolics.energy == metabolics.playerMetabolics.max_energy) {
+				} else if(typeString == 'energy' &&
+				          metabolics.playerMetabolics.energy == metabolics.playerMetabolics.max_energy) {
 					toast("You tried to collect an energy quoin, but your energy tank was already full.");
 				} else {
 					_sendToServer();
@@ -134,10 +153,11 @@ class Quoin extends Entity {
 				hit = true;
 			}
 		}
+	}
 
-//		if(intersect(camera.visibleRect, quoinRect)) {
-//			animation.updateSourceRect(dt);
-//		}
+	@override
+	bool get intersectingPlayer {
+		return intersect(CurrentPlayer.avatarRect, quoinRect);
 	}
 
 	bool _checkPlayerCollision() {
@@ -145,7 +165,7 @@ class Quoin extends Entity {
 			return false;
 		}
 
-		return intersect(CurrentPlayer.avatarRect, quoinRect);
+		return intersectingPlayer;
 	}
 
 	void _sendToServer() {
@@ -176,7 +196,10 @@ class Quoin extends Entity {
 	}
 
 	@override
-	advanceTime(num time) {}
+	advanceTime(num time) {
+		flipbook.x = left - camera.x;
+		flipbook.y = top - camera.y;
+	}
 
 	@override
 	render() {}

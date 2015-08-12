@@ -120,7 +120,9 @@ class MetabolicsService {
 		Element element = querySelector('#${map['id']}');
 		quoins[map['id']].checking = false;
 
-		if (map['success'] == 'false') return;
+		if (map['success'] == 'false') {
+			return;
+		}
 
 		int amt = map['amt'];
 		if (querySelector("#buff-quoin") != null) {
@@ -129,13 +131,6 @@ class MetabolicsService {
 		}
 		String quoinType = map['quoinType'];
 
-		if (quoinType == "energy" && playerMetabolics.energy + amt > playerMetabolics.max_energy) {
-			amt = playerMetabolics.max_energy - playerMetabolics.energy;
-		}
-
-		if (quoinType == "mood" && playerMetabolics.mood + amt > playerMetabolics.max_mood) {
-			amt = playerMetabolics.max_mood - playerMetabolics.mood;
-		}
 		quoins[map['id']].collected = true;
 
 		Element quoinText = querySelector("#qq" + element.id + " .quoinString");
