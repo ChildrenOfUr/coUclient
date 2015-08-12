@@ -1,121 +1,78 @@
 part of couclient;
 
 class Plant extends Entity {
-	int state, numRows, numColumns;
+	int state, numRows, numColumns, numFrames;
 	num x, y;
-	bool ready = false, firstRender = true;
-	ImageElement spritesheet;
+	bool ready = false;
+
 	Rectangle sourceRect;
 	String url;
-	Sprite sprite;
+	SpriteSheet spritesheet;
+	xl.Sprite sprite;
+	xl.Bitmap bitmap;
 
 	Plant(Map map) {
-		sprite = new Sprite();
+		sprite = new xl.Sprite();
 		canvas = new CanvasElement();
 		canvas.id = map["id"];
 		id = map['id'];
 
 		numRows = map['numRows'];
 		numColumns = map['numColumns'];
-
-		List<int> frameList = [];
-		for(int i = 0; i < map['numFrames']; i++) {
-			frameList.add(i);
-		}
+		numFrames = map['numFrames'];
 
 		url = map['url'].replaceAll("\"", "");
-//		if(!entityResourceManger.containsBitmapData(url)) {
-//			entityResourceManger.addBitmapData(url, url, loadOptions);
-//			entityResourceManger.load().then((_) {
-//				Bitmap bitmap = new Bitmap();
-//				bitmap.bitmapData = entityResourceManger.getBitmapData(url);
-//				sprite.addChild(bitmap);
-//				sprite.x = num.parse(map['x'].toString());
-//				sprite.y = currentStreet.bounds.height - num.parse(map['y'].toString()) - height;
-//				currentStreet.interactionLayer.addChild(sprite);
-//			});
-//		}
+		if (!entityResourceManger.containsBitmapData(url)) {
+			entityResourceManger.addBitmapData(url, url, loadOptions);
+			entityResourceManger.load().then((_) {
+				xl.BitmapData data = entityResourceManger.getBitmapData(url);
+				spritesheet = new SpriteSheet(data, data.width ~/ numColumns, data.height ~/ numRows, frameCount:numFrames);
+				bitmap = new xl.Bitmap();
+				bitmap.bitmapData = spritesheet[state];
+				width = bitmap.width;
+				height = bitmap.height;
+				sprite.addChild(bitmap);
+				x = map['x'];
+				y = currentStreet.bounds.height - map['y'] - height;
+				left = x;
+				top = y;
+				sprite.x = x;
+				sprite.y = y;
+				currentStreet.interactionLayer.addChild(sprite);
+				currentStreet.interactionLayer.addEntity(this);
+				ready = true;
+			});
+		}
 
-		HttpRequest.request('http://${Configs.utilServerAddress}/getActualImageHeight?url=$url&numRows=$numRows&numColumns=$numColumns').then((HttpRequest request) {
-			canvas.attributes['actualHeight'] = request.responseText;
-		});
-		spritesheet = new ImageElement(src:url);
-		spritesheet.onLoad.listen((_) {
-			width = spritesheet.width ~/ map['numColumns'];
-			height = spritesheet.height ~/ map['numRows'];
-			x = num.parse(map['x'].toString());
-			y = currentStreet.bounds.height - num.parse(map['y'].toString()) - height;
-			left = x;
-			top = y;
-
-			canvas.attributes['actions'] = JSON.encode(map['actions']);
-			canvas.attributes['type'] = map['type'];
-			canvas.classes.add("plant");
-			canvas.classes.add('entity');
-			canvas.style.zIndex = (-1).toString(); //make sure plants are behind animals
-			canvas.width = width;
-			canvas.height = height;
-			canvas.style.position = "absolute";
-			canvas.style.transform = "translateX(${x}px) translateY(${y}px)";
-			canvas.attributes['translatex'] = x.toString();
-			canvas.attributes['translatey'] = y.toString();
-			canvas.attributes['width'] = width.toString();
-			canvas.attributes['height'] = height.toString();
-			state = map['state'];
-			view.playerHolder.append(canvas);
-			sourceRect = new Rectangle(0, 0, width, height);
-			ready = true;
-		});
+		canvas.attributes['actions'] = JSON.encode(map['actions']);
+		canvas.attributes['type'] = map['type'];
+		canvas.classes.add("plant");
+		canvas.classes.add('entity');
+		canvas.style.position = "absolute";
+		canvas.style.visibility = "hidden";
+		state = map['state'];
+		view.playerHolder.append(canvas);
 	}
+
+	@override
+	advanceTime(num time) {
+		sprite.x = x - camera.x;
+		sprite.y = y - camera.y;
+		if (glow) {
+			if (!sprite.filters.contains(glowFilter)) {
+				sprite.filters.add(glowFilter);
+			}
+		} else {
+			sprite.filters.remove(glowFilter);
+		}
+	}
+
+	@override
+	render(){}
 
 	updateState(int newState) {
 		state = newState;
+		bitmap.bitmapData = spritesheet[state];
 		dirty = true;
-	}
-
-	@override
-	update(double dt) {
-		if(!ready)
-			return;
-
-		super.update(dt);
-
-		int column = state % numColumns;
-		int row = state ~/ numColumns;
-
-		sourceRect = new Rectangle(column * width, row * height, width, height);
-	}
-
-	@override
-	render() {
-		if(ready && dirty) {
-			if(!firstRender) {
-				if(!intersect(camera.visibleRect, entityRect))
-					return;
-			}
-
-			firstRender = false;
-
-			//fastest way to clear a canvas (without using a solid color)
-			//source: http://jsperf.com/ctx-clearrect-vs-canvas-width-canvas-width/6
-			canvas.context2D.clearRect(0, 0, width, height);
-
-			if(glow) {
-				//canvas.context2D.shadowColor = "rgba(0, 0, 255, 0.2)";
-				canvas.context2D.shadowBlur = 20;
-				canvas.context2D.shadowColor = 'cyan';
-				canvas.context2D.shadowOffsetX = 0;
-				canvas.context2D.shadowOffsetY = 1;
-			}
-			else {
-				canvas.context2D.shadowColor = "0";
-				canvas.context2D.shadowBlur = 0;
-				canvas.context2D.shadowOffsetX = 0;
-				canvas.context2D.shadowOffsetY = 0;
-			}
-
-			canvas.context2D.drawImageToRect(spritesheet, destRect, sourceRect: sourceRect);
-			dirty = false;
-		}
 	}
 }

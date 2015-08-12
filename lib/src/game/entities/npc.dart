@@ -3,11 +3,8 @@ part of couclient;
 class NPC extends Entity {
 	String type;
 	int speed = 0;
-	bool ready = false,
-	facingRight = true,
-	firstRender = true;
+	bool ready = false, facingRight = true,	firstRender = true;
 	Animation animation;
-	ChatBubble chatBubble = null;
 	StreamController _animationLoaded = new StreamController.broadcast();
 
 	Stream get onAnimationLoaded => _animationLoaded.stream;

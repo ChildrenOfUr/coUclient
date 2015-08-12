@@ -16,6 +16,7 @@ import 'dart:js';
 // POLYMER COMPONENTS //
 import 'package:polymer/polymer.dart';
 import 'package:couclient/components/mailbox/mailbox.dart';
+import 'package:couclient/components/meters/meters.dart';
 import 'package:cou_toolkit/toolkit/slider/slider.dart';
 import 'package:cou_login/login/login.dart';
 import 'package:paper_elements/paper_radio_group.dart';
@@ -45,7 +46,7 @@ import 'package:jsonx/jsonx.dart';
 import 'package:couclient/configs.dart';
 
 import 'package:browser_detect/browser_detect.dart';
-import 'package:stagexl/stagexl.dart' hide Rectangle, Sound, KeyboardEvent, MouseEvent, Event, TouchEvent;
+import 'package:stagexl/stagexl.dart' as xl;
 
 export 'package:polymer/init.dart';
 
@@ -126,6 +127,7 @@ part 'package:couclient/src/game/entities/wormhole.dart';
 part 'package:couclient/src/game/entities/npc.dart';
 part 'package:couclient/src/game/entities/plant.dart';
 part 'package:couclient/src/game/entities/door.dart';
+part 'package:couclient/src/game/entities/spritesheet.dart';
 part 'package:couclient/src/game/street.dart';
 part 'package:couclient/src/game/entities/quoin.dart';
 part 'package:couclient/src/game/entities/grounditem.dart';
@@ -159,63 +161,63 @@ bool get hasTouchSupport => context.callMethod('hasTouchSupport');
 @whenPolymerReady
 afterPolymer() async {
 
-  // Don't try to load the game in an unsupported browser
-  // They will continue to see the error message
-  if (browser.isIe || browser.isSafari) return;
+	// Don't try to load the game in an unsupported browser
+	// They will continue to see the error message
+	if (browser.isIe || browser.isSafari) return;
 
-  // Show the loading screen
-  querySelector("#browser-error").hidden = true;
-  querySelector("#loading").hidden = false;
+	// Show the loading screen
+	querySelector("#browser-error").hidden = true;
+	querySelector("#loading").hidden = false;
 
-  //if the device is capable of touch events, assume the touch ui
-  //unless the user has explicitly turned it off in the options
-  if (localStorage['interface'] == 'desktop') {
-    // desktop already preferred
-    (querySelector("#MobileStyle") as StyleElement).disabled = true;
-  } else if (localStorage['interface'] == 'mobile') {
-    // mobile already preferred
-    (querySelector("#MobileStyle") as StyleElement).disabled = false;
-  } else if (hasTouchSupport) {
-    // no preference, touch support, use mobile view
-    (querySelector("#MobileStyle") as StyleElement).disabled = false;
-    logmessage('[Loader] Device has touch support, using mobile layout. Run /desktop in Global Chat to use the desktop view.');
-  } else if (!hasTouchSupport) {
-    // no preference, no touch support, use desktop view
-    (querySelector("#MobileStyle") as StyleElement).disabled = true;
-  }
+	//if the device is capable of touch events, assume the touch ui
+	//unless the user has explicitly turned it off in the options
+	if (localStorage['interface'] == 'desktop') {
+		// desktop already preferred
+		(querySelector("#MobileStyle") as StyleElement).disabled = true;
+	} else if (localStorage['interface'] == 'mobile') {
+		// mobile already preferred
+		(querySelector("#MobileStyle") as StyleElement).disabled = false;
+	} else if (hasTouchSupport) {
+		// no preference, touch support, use mobile view
+		(querySelector("#MobileStyle") as StyleElement).disabled = false;
+		logmessage('[Loader] Device has touch support, using mobile layout. Run /desktop in Global Chat to use the desktop view.');
+	} else if (!hasTouchSupport) {
+		// no preference, no touch support, use desktop view
+		(querySelector("#MobileStyle") as StyleElement).disabled = true;
+	}
 
-  //make sure the application cache is up to date
-  handleAppCache();
+	//make sure the application cache is up to date
+	handleAppCache();
 
-  //read configs
-  await Configs.init();
-  startTime = new DateTime.now();
-  view = new UserInterface();
-  audio = new SoundManager();
-  windowManager = new WindowManager();
-  auth = new AuthManager();
-  minimap = new Minimap();
-  GPS.initWorldGraph();
+	//read configs
+	await Configs.init();
+	startTime = new DateTime.now();
+	view = new UserInterface();
+	audio = new SoundManager();
+	windowManager = new WindowManager();
+	auth = new AuthManager();
+	minimap = new Minimap();
+	GPS.initWorldGraph();
 
-  // System
-  new ClockManager();
-  new CommandManager();
+	// System
+	new ClockManager();
+	new CommandManager();
 
-  // Watch for Collision-Triggered teleporters
-  Wormhole.init();
+	// Watch for Collision-Triggered teleporters
+	Wormhole.init();
 
-  new Service(["streetLoaded"], (_) {
-    new UseWindow("Bean Seasoner");
-  });
+	new Service(["streetLoaded"], (_) {
+		new UseWindow("Bean Seasoner");
+	});
 }
 
 void handleAppCache() {
-  if (window.applicationCache.status == ApplicationCache.UPDATEREADY) {
-    logmessage('[Loader] Application cache updated, swapping and reloading page');
-    window.applicationCache.swapCache();
-    window.location.reload();
-    return;
-  }
+	if (window.applicationCache.status == ApplicationCache.UPDATEREADY) {
+		logmessage('[Loader] Application cache updated, swapping and reloading page');
+		window.applicationCache.swapCache();
+		window.location.reload();
+		return;
+	}
 
-  window.applicationCache.onUpdateReady.first.then((_) => handleAppCache());
+	window.applicationCache.onUpdateReady.first.then((_) => handleAppCache());
 }

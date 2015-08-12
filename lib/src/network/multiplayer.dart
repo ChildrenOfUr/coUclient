@@ -165,7 +165,7 @@ _setupStreetSocket(String streetName) {
 		(map["plants"] as List).forEach((Map plantMap) {
 			String id = plantMap["id"];
 			Element element = querySelector("#$id");
-			Plant plant = entities[plantMap["id"]];
+			Plant plant = entities[id];
 			if(element == null) {
 				addPlant(plantMap);
 			}
@@ -496,9 +496,9 @@ Future animate(ImageElement i, Map map) {
 	Element fromObject = querySelector("#${map['fromObject']}");
 	DivElement item = new DivElement();
 
-	num fromX = num.parse(fromObject.attributes['translatex']) - camera.getX();
+	num fromX = num.parse(fromObject.attributes['translatex']) - camera.x;
 	num fromY = num.parse(fromObject.attributes['translatey']) -
-	            camera.getY() -
+	            camera.y -
 	            fromObject.clientHeight;
 	item.className = "item";
 	item.style.width = (i.naturalWidth / 4).toString() + "px";

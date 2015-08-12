@@ -1,15 +1,21 @@
 part of couclient;
 
-abstract class Entity implements Animatable {
-	BitmapDataLoadOptions loadOptions = new BitmapDataLoadOptions()
+abstract class Entity implements xl.Animatable {
+	xl.BitmapDataLoadOptions loadOptions = new xl.BitmapDataLoadOptions()
 		..corsEnabled = true;
-	ResourceManager entityResourceManger = new ResourceManager();
+	xl.ResourceManager entityResourceManger = new xl.ResourceManager();
+	xl.GlowFilter glowFilter;
 	bool glow = false, dirty = true;
 	ChatBubble chatBubble = null;
 	CanvasElement canvas;
 	num left = 0, top = 0, width = 0, height = 0;
 	String id;
 	MutableRectangle _entityRect, _destRect;
+
+	Entity() {
+		glowFilter = new xl.GlowFilter()
+			..color = xl.Color.Cyan;
+	}
 
 	@override
 	advanceTime(num time) {

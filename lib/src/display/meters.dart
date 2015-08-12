@@ -1,35 +1,37 @@
 part of couclient;
 
-class Meters {
-  Element meter = querySelector('ur-meters');
-  Element currantElement = querySelector('#currCurrants');
+class MetersView {
+	Meters _meters = querySelector('ur-meters') as Meters;
+	Element _currantElement = querySelector('#currCurrants');
+	NumberFormat commaFormatter = new NumberFormat("#,###");
 
-  updateImgDisplay() {
-    meter.attributes['imagination'] = metabolics.img.toString();
-  }
+	void updateImgDisplay() {
+		_meters.imagination = metabolics.img;
+	}
 
-  updateEnergyDisplay() {
-    meter.attributes['energy'] = metabolics.energy.toString();
-    meter.attributes['maxenergy'] = metabolics.maxEnergy.toString();
-  }
+	void updateEnergyDisplay() {
+		_meters.energy = metabolics.energy;
+		_meters.maxenergy = metabolics.maxEnergy;
+	}
 
-  updateMoodDisplay() {
-    meter.attributes['mood'] = metabolics.mood.toString();
-    meter.attributes['maxmood'] = metabolics.maxMood.toString();
-  }
+	void updateMoodDisplay() {
+		_meters.mood = metabolics.mood;
+		_meters.maxmood = metabolics.maxMood;
+	}
 
-  updateCurrantsDisplay() {
-    currantElement.text = commaFormatter.format(metabolics.currants);
-  }
+	void updateCurrantsDisplay() {
+		_currantElement.text = commaFormatter.format(metabolics.currants);
+	}
 
-  updateNameDisplay() {
-    meter.attributes['playername'] = game.username;
-  }
+	void updateNameDisplay() {
+		_meters.playername = game.username;
+	}
 
-  updateAll() {
-    updateCurrantsDisplay();
-    updateEnergyDisplay();
-    updateImgDisplay();
-    updateMoodDisplay();
-  }
+	void updateAll() {
+		updateCurrantsDisplay();
+		updateEnergyDisplay();
+		updateImgDisplay();
+		updateMoodDisplay();
+		updateNameDisplay();
+	}
 }

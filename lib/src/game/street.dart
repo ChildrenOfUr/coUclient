@@ -3,11 +3,12 @@ part of couclient;
 Street currentStreet;
 String playerTeleFrom = "";
 
-class StreetLayer extends Bitmap implements Animatable {
-	StreetLayer(String layerName, ResourceManager r) {
+class StreetLayer extends xl.Bitmap implements xl.Animatable {
+	StreetLayer(String layerName, xl.ResourceManager r) {
 		if(layerName != null) {
 			this.bitmapData = r.getBitmapData(layerName);
 		}
+		currentStreet.currentStreetLayers.add(this);
 	}
 
 	@override
@@ -21,17 +22,20 @@ class StreetLayer extends Bitmap implements Animatable {
 	}
 }
 
-class InteractionLayer extends DisplayObjectContainer {
+class InteractionLayer extends xl.DisplayObjectContainer {
 	addEntity(Entity entity) {
 		stage.juggler.add(entity);
+		currentStreet.currentInteractionEntities.add(entity);
 	}
 }
 
 class Street {
-	Stage stage;
-	RenderLoop renderloop;
-	ResourceManager RESOURCES = new ResourceManager();
-	BitmapDataLoadOptions loadOptions = new BitmapDataLoadOptions()
+	xl.Stage stage;
+	xl.RenderLoop renderloop;
+	List<Entity> currentInteractionEntities = [];
+	List<StreetLayer> currentStreetLayers = [];
+	xl.ResourceManager RESOURCES = new xl.ResourceManager();
+	xl.BitmapDataLoadOptions loadOptions = new xl.BitmapDataLoadOptions()
 		..corsEnabled = true;
 	InteractionLayer interactionLayer = new InteractionLayer();
 
@@ -71,21 +75,30 @@ class Street {
 
 	Rectangle bounds;
 
-	Street(this.streetData) {
+	_createStage() {
 		//prevent the webgl context from leaking to the next street (really bad things happen. bad. things.)
 		CanvasElement canvas = querySelector('#stage');
 		CanvasElement canvas2 = new CanvasElement()..id = 'stage';
-		canvas.replaceWith(canvas2);
-
 		canvas2.width = view.worldElementWidth;
 		canvas2.height = view.worldElementHeight;
 		canvas2.style.position = 'absolute';
-		StageXL.stageOptions
+		canvas.replaceWith(canvas2);
+
+		xl.StageOptions stageOptions = xl.StageXL.stageOptions
 			..transparent = true
 			..backgroundColor = 0x00000000;
-		stage = new Stage(canvas2);
-		renderloop = new RenderLoop();
+		stage = new xl.Stage(canvas2, options:stageOptions);
+		currentStreetLayers.forEach((StreetLayer l) => stage.addChild(l));
+		currentInteractionEntities.forEach((Entity e) => stage.juggler.add(e));
+		renderloop = new xl.RenderLoop();
 		renderloop.addStage(stage);
+	}
+
+	Street(this.streetData) {
+		_createStage();
+		new Service(['windowResized'],(arg){
+			_createStage();
+		});
 
 		_tsid = streetData['tsid'];
 		hub_id = streetData['hub_id'];

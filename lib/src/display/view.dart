@@ -87,7 +87,7 @@ class UserInterface {
 	/////////////////////VARS//////////////////////////////////////////////////
 
 	// Object for manipulating meters.
-	Meters meters = new Meters();
+	MetersView meters = new MetersView();
 
 	VolumeSliderWidget slider = new VolumeSliderWidget();
 	SoundCloudWidget soundcloud = new SoundCloudWidget();
@@ -166,7 +166,6 @@ class UserInterface {
 		worldElementHeight = worldElement.clientHeight;
 		transmit('windowResized',null);
 	}
-
 
 	// update the userinterface
 	update() {

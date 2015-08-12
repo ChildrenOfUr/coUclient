@@ -96,12 +96,12 @@ class MetabolicsService {
 			} else {
 				int oldLevel = level;
 				playerMetabolics = decode(event.data, type:Metabolics);
+				_updateDisplay();
 				if (oldLevel < level && webSocketMessages > 0) {
 					levelUp.open();
 				}
 				transmit('metabolicsUpdated', playerMetabolics);
 			}
-			update();
 			webSocketMessages++;
 		});
 		socket.onClose.listen((CloseEvent e) {
@@ -114,7 +114,7 @@ class MetabolicsService {
 		});
 	}
 
-	update() => view.meters.updateAll();
+	void _updateDisplay() => view.meters.updateAll();
 
 	void collectQuoin(Map map) {
 		Element element = querySelector('#${map['id']}');
@@ -139,6 +139,9 @@ class MetabolicsService {
 		quoins[map['id']].collected = true;
 
 		Element quoinText = querySelector("#qq" + element.id + " .quoinString");
+		if(quoinText == null) {
+			return;
+		}
 
 		switch (quoinType) {
 			case "currant":
