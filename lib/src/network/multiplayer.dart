@@ -131,6 +131,9 @@ _setupStreetSocket(String streetName) {
 			toast(map['message']);
 			return;
 		}
+		if (map["useItem"] != null) {
+			new UseWindow(map["useItem"]);
+		}
 
 		(map["quoins"] as List).forEach((Map quoinMap) {
 			if(quoinMap["remove"] == "true") {
