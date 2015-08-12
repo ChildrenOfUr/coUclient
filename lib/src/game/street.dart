@@ -88,7 +88,7 @@ class Street {
       audio.setSong(streetData["music"]);
     } else {
       // Otherwise, get stored preset music
-      audio.setSong(getSong(streetData["label"]));
+      audio.setSong(getSong(label));
     }
 
     // Collect the url's of each deco to load.

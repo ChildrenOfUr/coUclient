@@ -202,10 +202,6 @@ afterPolymer() async {
 
   // Watch for Collision-Triggered teleporters
   Wormhole.init();
-
-  new Service(["streetLoaded"], (_) {
-    new UseWindow("Bean Seasoner");
-  });
 }
 
 void handleAppCache() {
