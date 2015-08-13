@@ -343,8 +343,8 @@ class InputManager {
 			if(element.attributes['ground_y'] != null)
 				groundY = int.parse(element.attributes['ground_y']);
 			else {
-				xOffset = camera.getX();
-				yOffset = camera.getY();
+				xOffset = camera.x;
+				yOffset = camera.y;
 			}
 			num x = e.offset.x + xOffset;
 			num y = e.offset.y - groundY + yOffset;

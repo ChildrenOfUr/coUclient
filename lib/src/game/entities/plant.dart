@@ -1,7 +1,7 @@
 part of couclient;
 
 class Plant extends Entity {
-	int state, numRows, numColumns, numFrames;
+	int state = 0, numRows, numColumns, numFrames;
 	num x, y;
 	bool ready = false;
 
@@ -27,6 +27,7 @@ class Plant extends Entity {
 			entityResourceManger.load().then((_) {
 				xl.BitmapData data = entityResourceManger.getBitmapData(url);
 				spritesheet = new SpriteSheet(data, data.width ~/ numColumns, data.height ~/ numRows, frameCount:numFrames);
+				if(map['type'] == "Uncle Friendly's Emporium")print('state: $state');
 				bitmap = new xl.Bitmap();
 				bitmap.bitmapData = spritesheet[state];
 				width = bitmap.width;

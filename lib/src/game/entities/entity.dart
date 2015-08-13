@@ -14,7 +14,9 @@ abstract class Entity implements xl.Animatable {
 
 	Entity() {
 		glowFilter = new xl.GlowFilter()
-			..color = xl.Color.Cyan;
+			..color = xl.Color.Cyan
+			..blurX = 8
+			..blurY = 8;
 	}
 
 	@override
@@ -27,7 +29,7 @@ abstract class Entity implements xl.Animatable {
 	}
 
 	void update(double dt) {
-		if(intersectingPlayer) {
+		if (intersectingPlayer) {
 			updateGlow(true);
 			CurrentPlayer.intersectingObjects[id] = entityRect;
 		} else {
@@ -37,7 +39,7 @@ abstract class Entity implements xl.Animatable {
 	}
 
 	Rectangle get destRect {
-		if(_destRect == null) {
+		if (_destRect == null) {
 			_destRect = new MutableRectangle(0, 0, width, height);
 		} else {
 			_destRect.left = 0;
@@ -50,7 +52,7 @@ abstract class Entity implements xl.Animatable {
 	}
 
 	Rectangle get entityRect {
-		if(_entityRect == null) {
+		if (_entityRect == null) {
 			_entityRect = new MutableRectangle(left, top, width, height);
 		} else {
 			_entityRect.left = left;
@@ -65,7 +67,7 @@ abstract class Entity implements xl.Animatable {
 	void render();
 
 	void updateGlow(bool newGlow) {
-		if(glow != newGlow) {
+		if (glow != newGlow) {
 			dirty = true;
 		}
 		glow = newGlow;
@@ -76,20 +78,20 @@ abstract class Entity implements xl.Animatable {
 		List<List> actions = [];
 		bool allDisabled = true;
 
-		if(element.attributes['actions'] != null) {
+		if (element.attributes['actions'] != null) {
 			List<Map> actionsList = JSON.decode(element.attributes['actions']);
 			actionsList.forEach((Map actionMap) {
 				bool enabled = actionMap['enabled'];
 
-				if(enabled) {
+				if (enabled) {
 					allDisabled = false;
 				}
 
 				String error = "";
-				if(actionMap['requires'] != null) {
+				if (actionMap['requires'] != null) {
 					enabled = hasRequirements(actionMap['requires']);
-					if(enabled) {
-						if(actionMap.containsKey('description')) {
+					if (enabled) {
+						if (actionMap.containsKey('description')) {
 							error = actionMap['description'];
 						} else {
 							error = '';
@@ -103,7 +105,7 @@ abstract class Entity implements xl.Animatable {
 			});
 		}
 
-		if(!allDisabled) {
+		if (!allDisabled) {
 			inputManager.showClickMenu(null, element.attributes['type'], "Desc", actions);
 		}
 	}
