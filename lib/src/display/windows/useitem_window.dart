@@ -69,7 +69,7 @@ class UseWindow extends Modal {
         ..classes.remove("col3");
     }
 
-    recipeList = JSON.decode(await HttpRequest.requestCrossOrigin("http://${Configs.utilServerAddress}/recipes/list?tool=$itemName&email=${game.email}"));
+    recipeList = JSON.decode(await HttpRequest.requestCrossOrigin("http://${Configs.utilServerAddress}/recipes/list?token=ud6He9TXcpyOEByE944g&tool=$itemName&email=${game.email}"));
 
     DivElement recipeContainer = new DivElement()
       ..classes.add("useitem-recipes")
@@ -204,6 +204,7 @@ class UseWindow extends Modal {
     TableElement ingList = new TableElement()
       ..classes.add("recipeview-ing-list");
 
+    print(recipe["input"]);
     (recipe["input"] as List<Map>).forEach((Map ingmap) {
       TableCellElement img = new TableCellElement()
         ..style.backgroundImage = "url(${ingmap["iconUrl"]})"
@@ -278,7 +279,7 @@ class UseWindow extends Modal {
       if (qty >= current) {
 
         // If yes, tell the server to make one
-        if (await HttpRequest.requestCrossOrigin("http://${Configs.utilServerAddress}/recipes/make?id=${recipe["id"]}&email=${game.email}") == "false") {
+        if (await HttpRequest.requestCrossOrigin("http://${Configs.utilServerAddress}/recipes/make?token=ud6He9TXcpyOEByE944g&id=${recipe["id"]}&email=${game.email}&username=${game.username}") == "false") {
 
           // If the server says no
           actionTimer.cancel();
@@ -311,7 +312,9 @@ class UseWindow extends Modal {
 
   @override
   close() {
-    instances[itemName].displayElement.hidden = true;
-    super.close();
+    if (instances[itemName] != null) {
+      instances[itemName].displayElement.hidden = true;
+      super.close();
+    }
   }
 }
