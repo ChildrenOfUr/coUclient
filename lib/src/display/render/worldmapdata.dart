@@ -1653,6 +1653,11 @@ final Map<String, Map<String, dynamic>> streetMetadata = {
 		"tsid": "GUVEAFOJ4LF23HV",
 		"hub_id": 109
 	},
+	"Dhuma Maya": {
+		"hub_id": 40,
+		"tsid": "GA5REO5I9OE2KLS",
+		"broken": true
+	},
 	"Diami Quarry": {
 		"shrine": "Grendaline",
 		"vendor": "Produce",
@@ -3712,6 +3717,11 @@ final Map<String, Map<String, dynamic>> streetMetadata = {
 	"Macsaaro Fimto": {
 		"vendor": "Mining"
 	},
+	"Mada Tamaha": {
+		"tsid": "GA524M0OMOE2OGT",
+		"hub_id": 40,
+		"broken": true
+	},
 	"Madhur Hathur": {
 		"tsid": "GIFJISNAO743CK0",
 		"hub_id": 133
@@ -3726,6 +3736,11 @@ final Map<String, Map<String, dynamic>> streetMetadata = {
 		"vendor": "Hardware",
 		"tsid": "GUV22FOR7AF2TIE",
 		"hub_id": 109
+	},
+	"Mahatam Audarika": {
+		"hub_id": 40,
+		"tsid": "GA5PV4T79OE2AOA",
+		"minimap_expand": true
 	},
 	"Maiwiwi Don": {
 		"shrine": "Mab",
@@ -4657,6 +4672,10 @@ final Map<String, Map<String, dynamic>> streetMetadata = {
 		"tsid": "GUVEJ2PKGAF2771",
 		"hub_id": 109
 	},
+	"Panka Surazu": {
+		"hub_id": 40,
+		"tsid": "LA5RPAFK9OE28GN"
+	},
 	"Panko Press": {
 		"shrine": "Pot",
 		"tsid": "GA960EK0JI82065",
@@ -5167,6 +5186,10 @@ final Map<String, Map<String, dynamic>> streetMetadata = {
 		"shrine": "Alph",
 		"tsid": "GIFDIDJT0GU1CR8",
 		"hub_id": 72
+	},
+	"Ratna Vitteha": {
+		"hub_id": 40,
+		"tsid": "GA5Q57C99OE2GNU"
 	},
 	"Raudan Rasp": {
 		"vendor": "Animal Goods",
@@ -6482,6 +6505,10 @@ final Map<String, Map<String, dynamic>> streetMetadata = {
 		"shrine": "Humbaba",
 		"tsid": "GUVLN7FNEJJ2NOQ",
 		"hub_id": 114
+	},
+	"Valuka Himsa": {
+		"hub_id": 40,
+		"tsid": "GA5S44RM9OE2416"
 	},
 	"Vamanda Van": {
 		"vendor": "Gardening Goods",

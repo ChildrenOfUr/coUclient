@@ -248,7 +248,8 @@ class UseWindow extends Modal {
       ..classes.add("col3");
   }
 
-  makeRecipe(String id, [int qty = 1]) {
+  makeRecipe(String id, [int qty = 1]) async {
+    print("mr");
     Map recipe = getRecipe(id);
 
     int current = 1;
@@ -270,17 +271,40 @@ class UseWindow extends Modal {
       ..append(animationParent)
       ..append(progBar);
 
-    // start the timer
+    // start the timer that controls the progress bar
     new Timer.periodic(new Duration(seconds: recipe["time"]), (Timer actionTimer) async {
+
+      // Do we have more to make?
       if (qty > current) {
-        current++;
-        progBar
-          ..attributes["percent"] = ((100 / qty) * current).toString()
-          ..attributes["status"] = "Making ${current.toString()} of ${qty.toString()}";
+
+        print("1");
+        // If yes, tell the server to make one
+        if (await HttpRequest.requestCrossOrigin("http://${Configs.utilServerAddress}/recipes/make?id=${recipe["id"]}&email=${game.email}") == "false") {
+
+          // If the server says no
+          actionTimer.cancel();
+          well.append(await listRecipes());
+
+          toast("You failed at making that.");
+
+        } else {
+
+          // If the server says yes
+          current++;
+          progBar
+            ..attributes["percent"] = ((100 / qty) * current).toString()
+            ..attributes["status"] = "Making ${current.toString()} of ${qty.toString()}";
+
+          print("server said yes");
+
+        }
+
       } else {
+        // If no, stop
         actionTimer.cancel();
         well.append(await listRecipes());
       }
+
     });
   }
 

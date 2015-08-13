@@ -38,6 +38,7 @@
     background-color: white;
     border-radius: 50%;
     border: 2px solid black;
+    cursor: help;
 }
 
 .minimap-player.minimap-me {
@@ -116,6 +117,7 @@
     background-image: url(../../system/icons/signpost.svg);
     background-repeat: no-repeat;
     background-size: 20px 20px;
+    cursor: help;
 }
 
 #minimap-toggle {
