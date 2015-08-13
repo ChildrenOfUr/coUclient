@@ -165,8 +165,7 @@ _setupStreetSocket(String streetName) {
 			Plant plant = entities[id];
 			if(element == null) {
 				addPlant(plantMap);
-			}
-			else {
+			} else {
 				element.attributes['actions'] = JSON.encode(plantMap['actions']);
 				if(plant != null) {
 					if(plant.state != plantMap['state']) {
@@ -419,7 +418,9 @@ updateOtherPlayer(Map map, Player otherPlayer) {
 }
 
 void removeOtherPlayer(String username) {
-	if(username == null) return;
+	if(username == null) {
+		return;
+	}
 
 	otherPlayers.remove(username);
 	Element otherPlayer =
@@ -428,19 +429,25 @@ void removeOtherPlayer(String username) {
 }
 
 void addQuoin(Map map) {
-	if(currentStreet == null) return;
+	if(currentStreet == null) {
+		return;
+	}
 
 	quoins[map['id']] = new Quoin(map);
 }
 
 void addNPC(Map map) {
-	if(currentStreet == null) return;
+	if(currentStreet == null) {
+		return;
+	}
 
 	entities[map['id']] = new NPC(map);
 }
 
 void addPlant(Map map) {
-	if(currentStreet == null) return;
+	if(currentStreet == null) {
+		return;
+	}
 
 	entities[map['id']] = new Plant(map);
 }

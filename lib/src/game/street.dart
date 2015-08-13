@@ -13,12 +13,12 @@ class StreetLayer extends xl.Bitmap implements xl.Animatable {
 
 	@override
 	advanceTime(num time) {
-		num currentPercentX = camera.x / (bounds.width - stage.stageWidth);
-		num currentPercentY = camera.y / (bounds.height - stage.stageHeight);
+		num currentPercentX = camera.x / (currentStreet.bounds.width - view.worldElementWidth);
+		num currentPercentY = camera.y / (currentStreet.bounds.height - view.worldElementHeight);
 
 		//modify left and top
-		this.x = -(this.width - stage.stageWidth) * currentPercentX;
-		this.y = -(this.height - stage.stageHeight) * currentPercentY;
+		this.x = -(width - view.worldElementWidth) * currentPercentX;
+		this.y = -(height - view.worldElementHeight) * currentPercentY;
 	}
 }
 
@@ -95,6 +95,7 @@ class Street {
 	}
 
 	Street(this.streetData) {
+		currentStreet = this;
 		_createStage();
 		new Service(['windowResized'],(arg){
 			_createStage();
@@ -123,7 +124,6 @@ class Street {
 
 		// set the street.
 		loaded = false;
-		currentStreet = this;
 		sendJoinedMessage(currentStreet.label);
 	}
 
@@ -151,27 +151,14 @@ class Street {
 		}
 
 		// Collect the url's of each deco to load.
-//		List decosToLoad = [];
 		for (Map layer in streetData['dynamic']['layers'].values) {
 			String layerName = layer['name'].replaceAll(' ', '_');
 			String url = 'http://childrenofur.com/assets/streetLayers/$tsid/$layerName.png';
 			if (!RESOURCES.containsBitmapData(layerName)) {
 				RESOURCES.addBitmapData(layerName, url, loadOptions);
 			}
-//			if (!decosToLoad.contains(url)) {
-//				decosToLoad.add(url);
-//			}
 		}
 
-		// turn them into assets
-//		List assetsToLoad = [];
-//		for (String deco in decosToLoad) {
-//			assetsToLoad.add(new Asset(deco));
-//		}
-//
-//		// Load each of them, and then continue.
-//		Batch decos = new Batch(assetsToLoad);
-//		await decos.load(setLoadingPercent);
 		await RESOURCES.load();
 		setLoadingPercent(100);
 		//Decos should all be loaded at this point//
@@ -210,26 +197,11 @@ class Street {
 		/* //// Scenery Canvases //// */
 		//For each layer on the street . . .
 		for (Map layer in layers) {
-//			DivElement decoCanvas = new DivElement()
-//				..classes.add('streetcanvas');
-//			decoCanvas.id = (layer['name'] as String).replaceAll(" ", "_");
-//
-//			decoCanvas.style.zIndex = layer['z'].toString();
-//			decoCanvas.style.width = layer['w'].toString() + 'px';
-//			decoCanvas.style.height = layer['h'].toString() + 'px';
-//			decoCanvas.style.position = 'absolute';
-//			decoCanvas.attributes['ground_y'] = groundY.toString();
-//			decoCanvas.attributes['width'] = layer['w'].toString();
-//			decoCanvas.attributes['height'] = layer['h'].toString();
-
 			//put the one layer image in
 			String layerName = layer['name'].replaceAll(' ', '_');
 			StreetLayer layerObject = new StreetLayer(layerName,RESOURCES);
 			stage.juggler.add(layerObject);
 			stage.addChild(layerObject);
-//			ImageElement layerImage = new ImageElement(src:RESOURCES.getBitmapData(layerName).toDataUrl());
-//			layerImage.style.transform = 'translateY(${groundY}px)';
-//			decoCanvas.append(layerImage);
 
 			for (Map platformLine in layer['platformLines']) {
 				platforms.add(new Platform(platformLine, layer, groundY));
@@ -292,9 +264,6 @@ class Street {
 				// } end minimap code
 
 			}
-
-			// Append the canvas to the screen
-//			view.layers.append(decoCanvas);
 		}
 
 		//add a layer for interactable things
