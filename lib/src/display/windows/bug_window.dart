@@ -30,6 +30,7 @@ class BugWindow extends Modal {
         s.send(m);
         // send to server
         FormData data = new FormData()
+          ..append("token", rsToken)
           ..append("title", view.bugReportTitle.value)
           ..append("description", input.value)
           ..append("log", bugLog)

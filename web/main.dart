@@ -152,6 +152,7 @@ Game game;
 DateTime startTime;
 Minimap minimap;
 GpsIndicator gpsIndicator = new GpsIndicator();
+final String rsToken = "ud6He9TXcpyOEByE944g";
 
 bool get hasTouchSupport => context.callMethod('hasTouchSupport');
 

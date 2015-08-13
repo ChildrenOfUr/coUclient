@@ -69,7 +69,7 @@ class UseWindow extends Modal {
         ..classes.remove("col3");
     }
 
-    recipeList = JSON.decode(await HttpRequest.requestCrossOrigin("http://${Configs.utilServerAddress}/recipes/list?token=ud6He9TXcpyOEByE944g&tool=$itemName&email=${game.email}"));
+    recipeList = JSON.decode(await HttpRequest.requestCrossOrigin("http://${Configs.utilServerAddress}/recipes/list?token=$rsToken&tool=$itemName&email=${game.email}"));
 
     DivElement recipeContainer = new DivElement()
       ..classes.add("useitem-recipes")
@@ -214,7 +214,7 @@ class UseWindow extends Modal {
         ..setInnerHtml("<b>${ingmap["qtyReq"]}x</b> " + ingmap["name"]);
 
       Element status = new Element.tag("i");
-      if (ingmap["userHas"] > ingmap["qtyReq"]) {
+      if (ingmap["userHas"] >= ingmap["qtyReq"]) {
         status
           ..classes.addAll(["fa", "fa-check", "fa-fw", "rv-green"])
           ..title = "You have enough";
@@ -272,38 +272,34 @@ class UseWindow extends Modal {
       ..append(animationParent)
       ..append(progBar);
 
-    // start the timer that controls the progress bar
-    new Timer.periodic(new Duration(seconds: recipe["time"]), (Timer actionTimer) async {
+    await new Timer.periodic(new Duration(seconds: recipe["time"]), (Timer timer) async {
 
-      // Do we have more to make?
-      if (qty >= current) {
+      if (current >= qty || !await HttpRequest.requestCrossOrigin("http://${Configs.utilServerAddress}/recipes/make?token=$rsToken&id=${recipe["id"]}&email=${game.email}&username=${game.username}") == "false") {
 
-        // If yes, tell the server to make one
-        if (await HttpRequest.requestCrossOrigin("http://${Configs.utilServerAddress}/recipes/make?token=ud6He9TXcpyOEByE944g&id=${recipe["id"]}&email=${game.email}&username=${game.username}") == "false") {
+        // Server says no, or we're done
 
-          // If the server says no
-          actionTimer.cancel();
-          well.append(await listRecipes());
+        // Stop the timer
+        timer.cancel();
 
-          toast("You failed at making that.");
-
-        } else {
-
-          // If the server says yes
-          current++;
-          progBar
-            ..attributes["percent"] = ((100 / qty) * current).toString()
-            ..attributes["status"] = "Making ${current.toString()} of ${qty.toString()}";
-
-        }
+        // Reset the UI
+        well.append(await listRecipes());
 
       } else {
-        // If no, stop
-        actionTimer.cancel();
-        well.append(await listRecipes());
+
+        // Server says yes
+
+        // Increase the number we've made
+        current++;
+
+        // Update the progress bar
+        progBar
+          ..attributes["percent"] = ((100 / qty) * current).toString()
+          ..attributes["status"] = "Making ${current.toString()} of ${qty.toString()}";
+
       }
 
     });
+
   }
 
   Map getRecipe(String id) {
