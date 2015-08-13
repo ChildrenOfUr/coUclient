@@ -249,7 +249,7 @@ class UseWindow extends Modal {
   }
 
   makeRecipe(String id, [int qty = 1]) async {
-    print("mr");
+
     Map recipe = getRecipe(id);
 
     int current = 1;
@@ -275,9 +275,8 @@ class UseWindow extends Modal {
     new Timer.periodic(new Duration(seconds: recipe["time"]), (Timer actionTimer) async {
 
       // Do we have more to make?
-      if (qty > current) {
+      if (qty >= current) {
 
-        print("1");
         // If yes, tell the server to make one
         if (await HttpRequest.requestCrossOrigin("http://${Configs.utilServerAddress}/recipes/make?id=${recipe["id"]}&email=${game.email}") == "false") {
 
@@ -294,8 +293,6 @@ class UseWindow extends Modal {
           progBar
             ..attributes["percent"] = ((100 / qty) * current).toString()
             ..attributes["status"] = "Making ${current.toString()} of ${qty.toString()}";
-
-          print("server said yes");
 
         }
 

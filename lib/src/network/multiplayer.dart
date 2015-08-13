@@ -133,6 +133,7 @@ _setupStreetSocket(String streetName) {
 		}
 		if (map["useItem"] != null) {
 			new UseWindow(map["useItem"]);
+			return;
 		}
 
 		(map["quoins"] as List).forEach((Map quoinMap) {
