@@ -62,7 +62,11 @@ part 'package:couclient/src/display/gps_display.dart';
 part 'package:couclient/src/network/chat.dart';
 part 'package:couclient/src/network/streetservice.dart';
 part 'package:couclient/src/network/auth.dart';
-part 'package:couclient/src/network/multiplayer.dart';
+part 'package:couclient/src/network/server_interop/so_chat.dart';
+part 'package:couclient/src/network/server_interop/so_item.dart';
+part 'package:couclient/src/network/server_interop/so_player.dart';
+part 'package:couclient/src/network/server_interop/so_street.dart';
+part 'package:couclient/src/network/server_interop/so_multiplayer.dart';
 part 'package:couclient/src/network/item_action.dart';
 part 'package:couclient/src/network/metabolics_service.dart';
 
