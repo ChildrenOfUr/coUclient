@@ -50,6 +50,11 @@ void addItem(Map map) {
 
 Future animate(ImageElement i, Map map) {
   Completer c = new Completer();
+  print(map["fromObject"]);
+  if (map["fromObject"] == "_self") {
+    map["fromObject"] = "pc-player-${game.username}";
+  }
+  print(map["fromObject"]);
   Element fromObject = querySelector("#${map['fromObject']}");
   DivElement item = new DivElement();
 

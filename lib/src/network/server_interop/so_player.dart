@@ -25,6 +25,27 @@ _setupPlayerSocket() {
 
     if (map['username'] == game.username) return;
 
+    //check if we are receiving our inventory
+    if (map['inventory'] != null) {
+      Map items = map['items'] as Map<String, Map>;
+      items.forEach((String name, Map item) {
+        for (int i = 0; i < item['count']; i++) {
+          addItemToInventory({'item': item['item']});
+        }
+      });
+      return;
+    }
+    //check if we are receiving an item
+    if (map['giveItem'] != null) {
+      for (int i = 0; i < map['num']; i++)
+        addItemToInventory(map);
+      return;
+    }
+    if (map['takeItem'] != null) {
+      subtractItemFromInventory(map);
+      return;
+    }
+
     if (map["changeStreet"] != null) {
       //someone left this street
       if (map["changeStreet"] != currentStreet.label) {

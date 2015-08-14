@@ -274,7 +274,9 @@ class UseWindow extends Modal {
 
     await new Timer.periodic(new Duration(seconds: recipe["time"]), (Timer timer) async {
 
-      if (current >= qty || !await HttpRequest.requestCrossOrigin("http://${Configs.utilServerAddress}/recipes/make?token=$rsToken&id=${recipe["id"]}&email=${game.email}&username=${game.username}") == "false") {
+      String serverResponse = await HttpRequest.requestCrossOrigin("http://${Configs.utilServerAddress}/recipes/make?token=$rsToken&id=${recipe["id"]}&email=${game.email}&username=${game.username}");
+
+      if (current >= qty && serverResponse == "true") {
 
         // Server says no, or we're done
 

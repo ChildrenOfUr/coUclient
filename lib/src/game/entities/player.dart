@@ -59,10 +59,13 @@ class Player {
 
 		playerParentElement = new DivElement()
 			..classes.add("playerParent")
+			..id = "pc-player-$username"
 			..style.width = width.toString() + "px"
 			..style.height = height.toString() + "px";
 
-		playerParentElement.append(playerName);
+		if (username != game.username) {
+			playerParentElement.append(playerName);
+		}
 		playerParentElement.append(playerCanvas);
 		view.worldElement.append(playerParentElement);
 	}
