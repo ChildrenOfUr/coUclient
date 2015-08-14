@@ -142,8 +142,14 @@ abstract class Modal extends InformationDisplay {
 			// mouse is moving
 			document.onMouseMove.listen((MouseEvent m) {
 				if(dragging == true) {
-					new_x += m.movement.x;
-					new_y += m.movement.y;
+					if (browser.isFirefox) {
+						// I know they are deprecated, but Firefox needs them
+						new_x = m.clientX;
+						new_y = m.clientY;
+					} else {
+						new_x += m.movement.x;
+						new_y += m.movement.y;
+					}
 					displayElement.style
 						..top = 'calc(50% + ${new_y}px)'
 						..left = 'calc(50% + ${new_x}px)';

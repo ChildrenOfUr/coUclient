@@ -120,6 +120,32 @@
     position: relative;
 }
 
+/* Bag Buttons */
+
+.item-container-toggle {
+    border-radius: 50%;
+    height: 15px;
+    width: 15px;
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    border: 2px solid #aaa;
+    cursor: pointer;
+    line-height: 15px;
+    text-align: center;
+    font-size: 25px;
+}
+
+.item-container-toggle.item-container-closed {
+    background-color: #eee;
+    color: #aaa;
+}
+
+.item-container-toggle.item-container-open {
+    background-color: #aaa;
+    color: #eee;
+}
+
 /* Dead */
 
 #inventory /deep/ #disableinventory {

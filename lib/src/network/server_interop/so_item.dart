@@ -26,6 +26,34 @@ findNewSlot(Element item, Map map, ImageElement img) {
       item.style.backgroundPosition = "0 50%";
       item.style.margin = "auto";
       item.className = 'item-$cssName inventoryItem';
+
+      // Open bags
+      DivElement containerButton;
+      if (i["isContainer"] == true) {
+        containerButton = new DivElement()
+          ..classes.addAll(["fa", "fa-fw", "fa-plus", "item-container-toggle", "item-container-closed"])
+          ..onClick.listen((_) {
+            if (containerButton.classes.contains("item-container-closed")) {
+              // Container is closed, open it
+              print("Opening ${i["name"]} as bag");
+              containerButton.classes
+                ..remove("item-container-closed")
+                ..remove("fa-plus")
+                ..add("item-container-open")
+                ..add("fa-times");
+            } else {
+              // Container is open, close it
+              print("Closing ${i["itemName"]} as bag");
+              containerButton.classes
+                ..remove("item-container-open")
+                ..remove("fa-times")
+                ..add("item-container-closed")
+                ..add("fa-plus");
+            }
+          });
+        item.append(containerButton);
+      }
+
       item.attributes['name'] = i['name'].replaceAll(' ', '');
       item.attributes['count'] = "1";
       item.attributes['itemMap'] = JSON.encode(i);
