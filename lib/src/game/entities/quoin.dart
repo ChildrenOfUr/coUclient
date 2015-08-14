@@ -196,7 +196,7 @@ class Quoin extends Entity {
 	}
 
 	@override
-	advanceTime(num time) {
+	bool advanceTime(num time) {
 		flipbook.x = left - camera.x;
 		flipbook.y = top - camera.y;
 	}

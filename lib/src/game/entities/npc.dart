@@ -1,11 +1,12 @@
 part of couclient;
 
-class NPC extends Entity {
+class NPC extends GlowingEntity {
 	String type;
 	int speed = 0;
-	bool ready = false, facingRight = true,	firstRender = true;
-	Animation animation;
+	bool ready = false, facingRight = true;
 	StreamController _animationLoaded = new StreamController.broadcast();
+	String animationUrl, animationName;
+	xl.FlipBook displayObject;
 
 	Stream get onAnimationLoaded => _animationLoaded.stream;
 
@@ -19,57 +20,75 @@ class NPC extends Entity {
 	NPC._NPC(Map map) {
 		speed = map['speed'];
 		type = map['type'];
+		width = map['width'];
+		height = map['height'];
+		id = map['id'];
 
-		List<int> frameList = [];
-		for (int i = 0; i < map['numFrames']; i++) {
-			frameList.add(i);
-		}
+		canvas = new CanvasElement();
+		canvas.id = id;
+		canvas.attributes['actions'] = JSON.encode(map['actions']);
+		canvas.attributes['type'] = map['type'];
+		canvas.classes.add("npc");
+		canvas.classes.add('entity');
+		canvas.style.position = "absolute";
+		canvas.style.visibility = "hidden";
+		view.playerHolder.append(canvas);
 
-		animation = new Animation(
-			map['url'], "npc", map['numRows'], map['numColumns'], frameList,
-			loopDelay: new Duration(milliseconds: map['loopDelay']),
-			loops: map['loops']);
-		animation.load().then((_) {
-			top = currentStreet.bounds.height -
-			      num.parse(map['y'].toString()) -
-			      animation.height;
-			left = num.parse(map['x'].toString());
-			width = map['width'];
-			height = map['height'];
-			id = map['id'];
-
-			canvas = new CanvasElement();
-			canvas.id = map["id"];
-			canvas.attributes['actions'] = JSON.encode(map['actions']);
-			canvas.attributes['type'] = map['type'];
-			canvas.classes.add("npc");
-			canvas.classes.add('entity');
-			canvas.width = map["width"];
-			canvas.height = map["height"];
-			canvas.style.position = "absolute";
-			canvas.attributes['translatex'] = left.toString();
-			canvas.attributes['translatey'] = top.toString();
-			canvas.attributes['width'] = canvas.width.toString();
-			canvas.attributes['height'] = canvas.height.toString();
-			view.playerHolder.append(canvas);
+		loadAnimation(map).then((_) {
+			width = displayObject.width;
+			height = displayObject.height;
+			left = map['x'];
+			top = currentStreet.bounds.height - map['y'] - height;
+			displayObject.x = left;
+			displayObject.y = top;
+			currentStreet.interactionLayer.addChild(displayObject);
+			currentStreet.interactionLayer.addEntity(this);
 			ready = true;
 			_animationLoaded.add(true);
 		});
 	}
 
-	update(double dt) {
-		if (!ready || currentStreet == null) {
-			return;
+	Future loadAnimation(Map animationMap) async {
+		if(type == 'Batterfly') print(animationName);
+		animationUrl = animationMap['url'];
+		animationName = animationMap['animation_name'];
+		int numRows = animationMap['numRows'];
+		int numColumns = animationMap['numColumns'];
+		int numFrames = animationMap['numFrames'];
+		bool loops = animationMap['loops'];
+		ready = false;
+
+		if (!entityResourceManger.containsBitmapData(animationUrl)) {
+			entityResourceManger.addBitmapData(animationUrl, animationUrl, loadOptions);
+			await entityResourceManger.load();
 		}
 
-		super.update(dt);
+		//remove the old one
+		if (displayObject != null) {
+			currentStreet.stage.juggler.remove(displayObject);
+			displayObject.removeFromParent();
+		}
 
+		//make and add the new one
+		xl.BitmapData data = entityResourceManger.getBitmapData(animationUrl);
+		SpriteSheet spritesheet = new SpriteSheet(data, data.width ~/ numColumns, data.height ~/ numRows, frameCount:numFrames);
+		displayObject = new xl.FlipBook(spritesheet.frames, 30, loops)
+			..pivotX = this.width / 2
+			..addTo(currentStreet.interactionLayer)
+			..play();
+
+		currentStreet.stage.juggler.add(displayObject);
+		ready = true;
+	}
+
+	@override
+	bool advanceTime(num time) {
 		RegExp movementWords = new RegExp(r'(walk|fly|move)');
-		if (firstRender || animation.url.contains(movementWords)) {
+		if (animationName.contains(movementWords)) {
 			if (facingRight) {
-				left += speed * dt;
+				left += speed * time;
 			} else {
-				left -= speed * dt;
+				left -= speed * time;
 			}
 
 			if (left < 0) {
@@ -78,54 +97,18 @@ class NPC extends Entity {
 			if (left > currentStreet.bounds.width - canvas.width) {
 				left = (currentStreet.bounds.width - canvas.width).toDouble();
 			}
-
-			canvas.attributes['translatex'] = left.toString();
-			canvas.attributes['translatey'] = top.toString();
-
-			if (facingRight) {
-				canvas.style.transform = "translateX(${left}px) translateY(${top}px) scale3d(1,1,1)";
-			} else {
-				canvas.style.transform = "translateX(${left}px) translateY(${top}px) scale3d(-1,1,1)";
-			}
 		}
 
-		if (intersect(camera.visibleRect, entityRect)) {
-			animation.updateSourceRect(dt);
+		if (facingRight) {
+			displayObject.scaleX = 1;
+		} else {
+			displayObject.scaleX = -1;
 		}
+
+		super.advanceTime(time);
 	}
 
+	@override
 	render() {
-		if (ready && (animation.dirty || dirty)) {
-			if (!firstRender) {
-				//if the entity is not visible, don't render it
-				if (!intersect(camera.visibleRect, entityRect)) {
-					return;
-				}
-			}
-
-			firstRender = false;
-
-			//fastest way to clear a canvas (without using a solid color)
-			//source: http://jsperf.com/ctx-clearrect-vs-canvas-width-canvas-width/6
-			canvas.context2D.clearRect(0, 0, animation.width, animation.height);
-
-			if (glow) {
-				//canvas.context2D.shadowColor = "rgba(0, 0, 255, 0.2)";
-				canvas.context2D.shadowBlur = 2;
-				canvas.context2D.shadowColor = 'cyan';
-				canvas.context2D.shadowOffsetX = 0;
-				canvas.context2D.shadowOffsetY = 1;
-			} else {
-				canvas.context2D.shadowColor = "0";
-				canvas.context2D.shadowBlur = 0;
-				canvas.context2D.shadowOffsetX = 0;
-				canvas.context2D.shadowOffsetY = 0;
-			}
-
-			canvas.context2D.drawImageToRect(animation.spritesheet, destRect,
-			                                 sourceRect: animation.sourceRect);
-			animation.dirty = false;
-			dirty = false;
-		}
 	}
 }

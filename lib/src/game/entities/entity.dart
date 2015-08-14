@@ -1,5 +1,22 @@
 part of couclient;
 
+abstract class GlowingEntity extends Entity {
+	xl.DisplayObject displayObject;
+
+	@override
+	advanceTime(num time) {
+		displayObject.x = left - camera.x;
+		displayObject.y = top - camera.y;
+		if (glow) {
+			if (!displayObject.filters.contains(glowFilter)) {
+				displayObject.filters.add(glowFilter);
+			}
+		} else {
+			displayObject.filters.remove(glowFilter);
+		}
+	}
+}
+
 abstract class Entity implements xl.Animatable {
 	xl.BitmapDataLoadOptions loadOptions = new xl.BitmapDataLoadOptions()
 		..corsEnabled = true;
@@ -20,9 +37,7 @@ abstract class Entity implements xl.Animatable {
 	}
 
 	@override
-	advanceTime(num time) {
-
-	}
+	bool advanceTime(num time);
 
 	bool get intersectingPlayer {
 		return intersect(CurrentPlayer.avatarRect, entityRect);

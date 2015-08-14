@@ -1,6 +1,6 @@
 part of couclient;
 
-class Plant extends Entity {
+class Plant extends GlowingEntity {
 	int state = 0, numRows, numColumns, numFrames;
 	num x, y;
 	bool ready = false;
@@ -8,11 +8,11 @@ class Plant extends Entity {
 	Rectangle sourceRect;
 	String url;
 	SpriteSheet spritesheet;
-	xl.Sprite sprite;
+	xl.Sprite displayObject;
 	xl.Bitmap bitmap;
 
 	Plant(Map map) {
-		sprite = new xl.Sprite();
+		displayObject = new xl.Sprite();
 		canvas = new CanvasElement();
 		canvas.id = map["id"];
 		id = map['id'];
@@ -27,19 +27,18 @@ class Plant extends Entity {
 			entityResourceManger.load().then((_) {
 				xl.BitmapData data = entityResourceManger.getBitmapData(url);
 				spritesheet = new SpriteSheet(data, data.width ~/ numColumns, data.height ~/ numRows, frameCount:numFrames);
-				if(map['type'] == "Uncle Friendly's Emporium")print('state: $state');
 				bitmap = new xl.Bitmap();
 				bitmap.bitmapData = spritesheet[state];
 				width = bitmap.width;
 				height = bitmap.height;
-				sprite.addChild(bitmap);
+				displayObject.addChild(bitmap);
 				x = map['x'];
 				y = currentStreet.bounds.height - map['y'] - height;
 				left = x;
 				top = y;
-				sprite.x = x;
-				sprite.y = y;
-				currentStreet.interactionLayer.addChild(sprite);
+				displayObject.x = x;
+				displayObject.y = y;
+				currentStreet.interactionLayer.addChild(displayObject);
 				currentStreet.interactionLayer.addEntity(this);
 				ready = true;
 			});
@@ -53,19 +52,6 @@ class Plant extends Entity {
 		canvas.style.visibility = "hidden";
 		state = map['state'];
 		view.playerHolder.append(canvas);
-	}
-
-	@override
-	advanceTime(num time) {
-		sprite.x = x - camera.x;
-		sprite.y = y - camera.y;
-		if (glow) {
-			if (!sprite.filters.contains(glowFilter)) {
-				sprite.filters.add(glowFilter);
-			}
-		} else {
-			sprite.filters.remove(glowFilter);
-		}
 	}
 
 	@override

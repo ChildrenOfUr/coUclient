@@ -23,9 +23,13 @@ class StreetLayer extends xl.Bitmap implements xl.Animatable {
 }
 
 class InteractionLayer extends xl.DisplayObjectContainer {
-	addEntity(Entity entity) {
+	bool addEntity(Entity entity) {
+		if(currentStreet == null) {
+			return false;
+		}
 		stage.juggler.add(entity);
 		currentStreet.currentInteractionEntities.add(entity);
+		return true;
 	}
 }
 

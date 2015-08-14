@@ -186,18 +186,8 @@ _setupStreetSocket(String streetName) {
 				element.attributes['actions'] = JSON.encode(npcMap['actions']);
 				if(npc != null) {
 					//new animation
-					if(npc.animation.animationName != npcMap["animation_name"]) {
-						npc.ready = false;
-
-						List<int> frameList = [];
-						for(int i = 0; i < npcMap['numFrames']; i++) {
-							frameList.add(i);
-						}
-
-						npc.animation = new Animation(npcMap['url'], npcMap['animation_name'],
-						                              npcMap['numRows'], npcMap['numColumns'], frameList,
-						                              loops: npcMap['loops']);
-						npc.animation.load().then((_) => npc.ready = true);
+					if(npc.animationUrl != npcMap["url"]) {
+						npc.loadAnimation(npcMap);
 					}
 
 					npc.facingRight = npcMap["facingRight"];
