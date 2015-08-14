@@ -6428,6 +6428,10 @@ final Map<String, Map<String, dynamic>> streetMetadata = {
 		"tsid": "GA9KL58B1D82CDV",
 		"hub_id": 97
 	},
+	"Uncle Friendly's Emporium": {
+		"tsid": "GM4118MEHFDMM",
+		"hub_id": 27
+	},
 	"Undermine Hollows": {
 		"vendor": "Hardware",
 		"tsid": "GLIFINFQT8G13OU",
@@ -6914,18 +6918,24 @@ final Map<String, Map<String, dynamic>> streetMetadata = {
 };
 
 String getSong(String streetName) {
-  int hub_id = streetMetadata[streetName]["hub_id"];
+	int hub_id;
+	try {
+		hub_id = streetMetadata[streetName]["hub_id"];
+	} catch(e) {
+		logmessage("[StreetService] Hub ID not availabale for $streetName");
+		return "forest";
+	}
 
-	if (streetMetadata[streetName] != null && streetMetadata[streetName]["music"] != null) {
-    // Check #1: Street
-		return streetMetadata[streetName]["music"];
-	} else if (hubMetadata[hub_id] != null && hubMetadata[hub_id]["music"] != null) {
-    // Check #2: Hub
-    return hubMetadata[hub_id]["music"];
-	} else {
-	  // Check #3: Default
-	  return "forest";
-  }
+		if (streetMetadata[streetName] != null && streetMetadata[streetName]["music"] != null) {
+			// Check #1: Street
+			return streetMetadata[streetName]["music"];
+		} else if (hubMetadata[hub_id] != null && hubMetadata[hub_id]["music"] != null) {
+			// Check #2: Hub
+			return hubMetadata[hub_id]["music"];
+		} else {
+			// Check #3: Default
+			return "forest";
+		}
 }
 
 int getMinimapOverride([String streetName]) {

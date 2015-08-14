@@ -84,8 +84,7 @@ class NetChatManager {
     Element tab = rightSide.querySelector(".toggleSide");
     bool unreadmessages = false;
     for (Element e in rightSide.querySelectorAll("ul li.chatSpawn")) {
-      if (e.classes.contains("unread") &&
-      e.dataset["chat"] != "Global Chat") {
+      if (e.classes.contains("unread")) {
         unreadmessages = true;
         break;
       }

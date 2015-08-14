@@ -159,6 +159,15 @@ class UserInterface {
 		window.onResize.listen((_) => resize());
 
 		setUpOverlays();
+
+		new Service(["streetLoaded"], (_) {
+			// Update the max size of the game when a new street is loaded
+			mainElement.style
+				// Add 140px vertical space for UI
+				..maxHeight = (currentStreet.bounds.height + 140).toString() + "px"
+				// Add 280px horizontal space for UI
+				..maxWidth = (currentStreet.bounds.width + 280).toString() + "px";
+		});
 	}
 
 	resize() {
