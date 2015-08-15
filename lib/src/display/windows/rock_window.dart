@@ -74,7 +74,7 @@ class RockWindow extends Modal {
 
 		// Rescue from bad street
 		new Service(['streetLoaded'], (_) {
-			if (streetMetadata[currentStreet.label] != null && streetMetadata[currentStreet.label]["broken"] == true) {
+			if (mapData.streetData[currentStreet.label] != null && mapData.streetData[currentStreet.label]["broken"] == true) {
 				switchContent("rwc-badstreet");
 				open();
 				rescueButton.hidden = false;

@@ -75,9 +75,9 @@ class Minimap {
 				..style.width = imageE.width.toString() + 'px'
 				..style.height = imageE.height.toString() + 'px';
 		});
-		if(getMinimapOverride() == 0) {
+		if(mapData.getMinimapOverride() == 0) {
 			objectsE.hidden = true;
-		} else if (getMinimapOverride() == 1) {
+		} else if (mapData.getMinimapOverride() == 1) {
 			objectsE.hidden = false;
 		}
 	}

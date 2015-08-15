@@ -116,14 +116,14 @@ class WorldMap {
           }
         }
 
-        if (streetMetadata[streetName] != null) {
+        if (mapData.streetData[streetName] != null) {
           DivElement indicators = new DivElement()
             ..classes.add("street-contents-indicators");
 
           // show vendor symbol if vendor is on street
-          if (streetMetadata[streetName]["vendor"] != null) {
+          if (mapData.streetData[streetName]["vendor"] != null) {
             String ref;
-            String text = streetMetadata[streetName]["vendor"];
+            String text = mapData.streetData[streetName]["vendor"];
             if (text.toLowerCase().startsWith("a") ||
             text.toLowerCase().startsWith("e") ||
             text.toLowerCase().startsWith("i") ||
@@ -139,23 +139,23 @@ class WorldMap {
             " has " +
             ref +
             " " +
-            streetMetadata[streetName]["vendor"] +
+            mapData.streetData[streetName]["vendor"] +
             " Vendor";
             indicators.append(vendorIndicator);
           }
 
           // show shrine symbol if shrine is on street
-          if (streetMetadata[streetName]["shrine"] != null) {
+          if (mapData.streetData[streetName]["shrine"] != null) {
             DivElement shrineIndicator = new DivElement()
               ..classes.add("sci-shrine")
               ..title = streetName +
             " has a shrine to " +
-            streetMetadata[streetName]["shrine"];
+            mapData.streetData[streetName]["shrine"];
             indicators.append(shrineIndicator);
           }
 
           // show block symbol if machine room is on street
-          if (streetMetadata[streetName]["machine_room"] == true) {
+          if (mapData.streetData[streetName]["machine_room"] == true) {
             DivElement machinesIndicator = new DivElement()
               ..classes.add("sci-machines")
               ..title = streetName + " has a machine room";
@@ -163,7 +163,7 @@ class WorldMap {
           }
 
           // show gavel symbol if bureaucratic hall is on street
-          if (streetMetadata[streetName]["bureaucratic_hall"] == true) {
+          if (mapData.streetData[streetName]["bureaucratic_hall"] == true) {
             DivElement bureauIndicator = new DivElement()
               ..classes.add("sci-bureau")
               ..title = streetName + " has a bureaucratic hall";
@@ -171,7 +171,7 @@ class WorldMap {
           }
 
           // show mailbox symbol if mailbox is on street
-          if (streetMetadata[streetName]["mailbox"] == true) {
+          if (mapData.streetData[streetName]["mailbox"] == true) {
             DivElement mailboxIndicator = new DivElement()
               ..classes.add("sci-mailbox")
               ..title = streetName + " has a mailbox";
@@ -182,10 +182,10 @@ class WorldMap {
         }
 
         // do not show certain streets
-        if (streetMetadata[streetName] == null ||
-        (streetMetadata[streetName] != null &&
-        (streetMetadata[streetName]["map_hidden"] == null ||
-        streetMetadata[streetName]["map_hidden"] == false))) {
+        if (mapData.streetData[streetName] == null ||
+        (mapData.streetData[streetName] != null &&
+        (mapData.streetData[streetName]["map_hidden"] == null ||
+        mapData.streetData[streetName]["map_hidden"] == false))) {
           HubMabDiv.append(street);
         }
 
@@ -291,7 +291,7 @@ class WorldMap {
     'url(files/system/windows/worldmap.png)';
     WorldMapDiv.children.clear();
 
-    hubMetadata.forEach((key, value) {
+    mapData.hubData.forEach((key, value) {
       if (value["hidden"] == null || value["hidden"] != true) {
         DivElement hub = new DivElement()
           ..className = "wml-hub"

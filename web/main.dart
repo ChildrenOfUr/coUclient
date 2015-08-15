@@ -114,7 +114,7 @@ part 'package:couclient/src/display/render/wall.dart';
 part 'package:couclient/src/display/render/platform.dart';
 part 'package:couclient/src/display/render/signpost.dart';
 part 'package:couclient/src/display/render/collision_lines_debug.dart';
-part 'package:couclient/src/display/render/worldmapdata.dart';
+part 'package:couclient/src/network/mapdata.dart';
 part 'package:couclient/src/display/render/worldmap.dart';
 part 'package:couclient/src/display/render/maps_data.dart';
 
@@ -157,6 +157,7 @@ DateTime startTime;
 Minimap minimap;
 GpsIndicator gpsIndicator = new GpsIndicator();
 final String rsToken = "ud6He9TXcpyOEByE944g";
+MapData mapData;
 
 bool get hasTouchSupport => context.callMethod('hasTouchSupport');
 
@@ -200,6 +201,9 @@ afterPolymer() async {
   auth = new AuthManager();
   minimap = new Minimap();
   GPS.initWorldGraph();
+
+  // Download the latest map data
+  mapData = await new MapData()..init();
 
   // System
   new ClockManager();

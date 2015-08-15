@@ -162,7 +162,7 @@ class UserInterface {
 
 		new Service(["streetLoaded"], (_) {
 			// Update the max size of the game when a new street is loaded
-			if (getBoundExpansionOverride(currentStreet.label) == 0) {
+			if (mapData.getBoundExpansionOverride(currentStreet.label) == 0) {
 				mainElement.style
 				..maxHeight = null
 				..maxWidth = null;
