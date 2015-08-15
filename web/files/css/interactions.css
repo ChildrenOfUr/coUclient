@@ -530,6 +530,8 @@
 
 .entityContainer > * {
     cursor: pointer;
+    display: block;
+    margin: auto;
 }
 
 .entityContainer > img:not([src*="signpost"]) {

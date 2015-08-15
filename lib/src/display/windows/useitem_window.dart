@@ -91,6 +91,12 @@ class UseWindow extends Modal {
           ..append(info)
           ..onClick.listen((_) => openRecipe(recipe["id"]));
 
+        if (recipe["canMake"] == 0) {
+          recipeBtn
+            ..classes.add("cannot-make")
+            ..title = "You don't have everything to make this. Click to see what you need.";
+        }
+
         recipeContainer.append(recipeBtn);
       });
     } else {

@@ -27,35 +27,41 @@ class InteractionWindow {
 				..classes.add("entityContainer");
 			Element entityOnStreet = querySelector("#$id");
 			Element entityInBubble;
+
 			if (entityOnStreet.id.contains("pole")) {
+
 				// Signpost image already loaded
-				entityInBubble = new ImageElement()
-					..src = "files/system/icons/signpost.svg";
-			} else {
+				entityInBubble = new ImageElement()..src = "files/system/icons/signpost.svg";
+
+			} else if (entityOnStreet is CanvasElement){
+
 				// Provide static image for entities with states
-				entityInBubble = new ImageElement()
-					..src = "http://childrenofur.com/assets/staticEntityImages/${entityOnStreet.attributes["type"]}.png";
+				String entityName = entityOnStreet.attributes["type"];
+				if (entityName.contains("Street Spirit")) {
+					entityInBubble = new ImageElement()..src = "files/system/icons/currant.svg";
+				} else {
+					entityInBubble = new ImageElement()..src = "http://childrenofur.com/assets/staticEntityImages/$entityName.png";
+				}
+
+			} else if (entityOnStreet is ImageElement) {
+
+				// Dropped item, use its image
+				entityInBubble = new ImageElement()..src = entityOnStreet.src;
+
 			}
 
-			if (entityOnStreet is CanvasElement) {
-				(entityInBubble as CanvasElement).context2D.drawImage(entityOnStreet, 0, 0);
-				entityInBubble.style.zIndex = null;
+			// Find a title
+			if (entityOnStreet.attributes["type"] != null) {
+				container.title = entityOnStreet.attributes["type"];
 			}
-			entityInBubble.style
-				..transform = ""
-				..position = ""
-				..display = "block"
-				..margin = "auto";
-			if (
-			entityInBubble.attributes != null &&
-			entityInBubble.attributes["type"] != null &&
-			entityInBubble.attributes["type"] != ""
-			) {
-				entityInBubble.title = entityInBubble.attributes["type"];
-				entityInBubble.style.cursor = "help";
-			}
+
+			// Use the same id
 			entityInBubble.attributes['id'] = id;
+
+			// Insert entity into bubble
 			container.append(entityInBubble);
+
+			// Select entities with mouse
 			container.onMouseOver.listen((_) {
 				content.children.forEach((Element child) {
 					if(child != container) {
@@ -64,11 +70,15 @@ class InteractionWindow {
 				});
 				container.classes.add("entitySelected");
 			});
+
+			// Use selected entity
 			container.onClick.first.then((MouseEvent e) {
 				e.stopPropagation();
 				inputManager.stopMenu(interactionWindow);
 				entities[id].interact(id);
 			});
+
+			// Display
 			content.append(container);
 		}
 

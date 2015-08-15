@@ -6714,7 +6714,8 @@ final Map<String, Map<String, dynamic>> streetMetadata = {
 	"West Spice": {
 		"vendor": "Drink",
 		"tsid": "GM413RQ6LRG9N",
-		"hub_id": 27
+		"hub_id": 27,
+		"minimap_objects": true
 	},
 	"Wettish Walk": {
 		"vendor": "Hardware",

@@ -71,6 +71,11 @@
     font-size: 14px;
 }
 
+.cannot-make {
+    opacity: 0.5;
+    font-style: italic;
+}
+
 /* Individual Recipe View */
 
 .useitem-well.col3 {
