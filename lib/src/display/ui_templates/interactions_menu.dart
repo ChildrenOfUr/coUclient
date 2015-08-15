@@ -25,28 +25,37 @@ class InteractionWindow {
 				..style.display = "inline-block"
 				..style.textAlign = "center"
 				..classes.add("entityContainer");
-			Element oldEntity = querySelector("#$id");
-			Element entity;
-			if (oldEntity.id.contains("pole")) {
-				entity = new ImageElement()
+			Element entityOnStreet = querySelector("#$id");
+			Element entityInBubble;
+			if (entityOnStreet.id.contains("pole")) {
+				// Signpost image already loaded
+				entityInBubble = new ImageElement()
 					..src = "files/system/icons/signpost.svg";
 			} else {
-				entity = oldEntity.clone(false);
+				// Provide static image for entities with states
+				entityInBubble = new ImageElement()
+					..src = "http://childrenofur.com/assets/staticEntityImages/${entityOnStreet.attributes["type"]}.png";
 			}
-			if(oldEntity is CanvasElement) {
-				(entity as CanvasElement).context2D.drawImage(oldEntity, 0, 0);
-				entity.style.zIndex = null;
+
+			if (entityOnStreet is CanvasElement) {
+				(entityInBubble as CanvasElement).context2D.drawImage(entityOnStreet, 0, 0);
+				entityInBubble.style.zIndex = null;
 			}
-			entity.style
+			entityInBubble.style
 				..transform = ""
 				..position = ""
 				..display = "block"
 				..margin = "auto";
-			entity.attributes['id'] = id;
-			container.append(entity);
-//			SpanElement text = new SpanElement()
-//				..text = entity.attributes['type'];
-//			container.append(text);
+			if (
+			entityInBubble.attributes != null &&
+			entityInBubble.attributes["type"] != null &&
+			entityInBubble.attributes["type"] != ""
+			) {
+				entityInBubble.title = entityInBubble.attributes["type"];
+				entityInBubble.style.cursor = "help";
+			}
+			entityInBubble.attributes['id'] = id;
+			container.append(entityInBubble);
 			container.onMouseOver.listen((_) {
 				content.children.forEach((Element child) {
 					if(child != container) {
