@@ -6430,7 +6430,8 @@ final Map<String, Map<String, dynamic>> streetMetadata = {
 	},
 	"Uncle Friendly's Emporium": {
 		"tsid": "GM4118MEHFDMM",
-		"hub_id": 27
+		"hub_id": 27,
+		"disallow_bound_expansion": true
 	},
 	"Undermine Hollows": {
 		"vendor": "Hardware",
@@ -6956,4 +6957,23 @@ int getMinimapOverride([String streetName]) {
   } else {
     return -1;
   }
+}
+
+int getBoundExpansionOverride([String streetName]) {
+	if (streetName == null) {
+		streetName = currentStreet.label;
+	}
+
+	if (streetMetadata[streetName] == null || streetMetadata[streetName]["disallow_bound_expansion"] == null) {
+		// Unknown
+		return -1;
+	} else if (streetMetadata[streetName]["disallow_bound_expansion"] == false) {
+		// Override to allow expansion
+		return 1;
+	} else if (streetMetadata[streetName]["disallow_bound_expansion"] == true) {
+		// Override to disallow expansion
+		return 0;
+	} else {
+		return -1;
+	}
 }
