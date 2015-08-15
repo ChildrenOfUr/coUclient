@@ -53,7 +53,7 @@ class WorldMap {
     loadhubdiv(showingHub);
   }
 
-  loadhubdiv(String hub_id) {
+  loadhubdiv(String hub_id, [String highlightStreet]) {
     showingHub = hub_id;
 
     // read in street data
@@ -107,6 +107,10 @@ class WorldMap {
         if (object['tsid'].substring(1) == currentStreet.streetData['tsid'].substring(1)) {
           // current street
           street.classes.add('hm-street-current');
+        }
+
+        if (highlightStreet != null && highlightStreet == streetName) {
+          street.classes.add("hm-street-highlight");
         }
 
         for (String streetNameOnRoute in GPS.currentRoute) {

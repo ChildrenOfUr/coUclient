@@ -93,7 +93,7 @@ class MapWindow extends Modal {
             String hub_id = mapData.streetData[streetname]["hub_id"].toString();
             result.onClick.listen((Event e) {
               e.preventDefault();
-              worldMap.loadhubdiv(hub_id);
+              worldMap.loadhubdiv(hub_id, streetname);
               searchBox.value = "";
             });
           } else {

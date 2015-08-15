@@ -64,6 +64,18 @@
     font-weight: bolder;
 }
 
+.hm-street.hm-street-highlight::after {
+    border: 6px solid #c42323;
+    position: absolute;
+    left: -26px;
+    top: -26px;
+    content: "";
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    padding: 20px;
+}
+
 .hm-street.hm-street-route {
     color: #236EC4;
     font-weight: bolder;
