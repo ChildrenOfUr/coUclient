@@ -90,7 +90,7 @@ _setupStreetSocket(String streetName) {
       return;
     }
     if (map["useItem"] != null) {
-      new UseWindow(map["useItem"]);
+      new UseWindow(map["useItem"], map["useItemName"]);
       return;
     }
 

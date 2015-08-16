@@ -38,6 +38,7 @@
     left: 50%;
     transform: translateX(-50%);
     top: 100px;
+    text-align: center;
 }
 
 .useitem-recipe {
@@ -51,13 +52,14 @@
 
 .useitem-recipe-image {
     height: 50px;
-    width: 50px;
+    width: 40px;
     background-position: center center;
     background-repeat: no-repeat;
     background-size: contain;
     float: left;
     position: relative;
     top: 5px;
+    margin-left: 10px;
 }
 
 .useitem-recipe-text {
@@ -125,6 +127,12 @@
     font-weight: bold;
     font-size: 24px;
     margin-top: 10px;
+}
+
+.recipeview-outputqty {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 14px;
 }
 
 .recipeview-qtyparent {

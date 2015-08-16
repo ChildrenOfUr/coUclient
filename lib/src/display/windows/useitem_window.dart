@@ -1,29 +1,34 @@
 part of couclient;
 
 class UseWindow extends Modal {
-  String id = 'useWindow' + random.nextInt(9999999).toString(), itemName;
   static Map<String, UseWindow> instances = {};
+  String id = 'useWindow' + random.nextInt(9999999).toString();
+  String itemType, itemName;
+  String listUrl;
   List<Map> recipeList;
   Element well;
 
-  factory UseWindow(String itemName) {
-    if (instances[itemName] == null) {
-      instances[itemName] = new UseWindow._(itemName);
+  factory UseWindow(String itemType, String itemName) {
+    if (instances[itemType] == null) {
+      instances[itemType] = new UseWindow._(itemType, itemName);
     } else {
-      instances[itemName].open();
+      instances[itemType].open();
     }
-    return instances[itemName];
+    return instances[itemType];
   }
 
-  UseWindow._(this.itemName) {
+  UseWindow._(this.itemType, this.itemName) {
+    print("pre-load");
     load().then((Element el) {
       querySelector("#windowHolder").append(el);
       prepare();
-      open();
+      open(false);
     });
   }
 
   Future<Element> load() async {
+
+    await updateRecipes();
 
     // Header
 
@@ -48,8 +53,7 @@ class UseWindow extends Modal {
     // Container
 
     well = new Element.tag("ur-well")
-      ..classes.add("useitem-well")
-      ..append(await listRecipes(false));
+      ..classes.add("useitem-well");
 
     DivElement window = new DivElement()
       ..id = id
@@ -69,14 +73,13 @@ class UseWindow extends Modal {
         ..classes.remove("col3");
     }
 
-    recipeList = JSON.decode(await HttpRequest.requestCrossOrigin("http://${Configs.utilServerAddress}/recipes/list?token=$rsToken&tool=$itemName&email=${game.email}"));
-
     DivElement recipeContainer = new DivElement()
       ..classes.add("useitem-recipes")
       ..hidden = false;
 
     if (recipeList.length > 0) {
       recipeList.forEach((Map recipe) {
+        print(recipe);
         DivElement image = new DivElement()
           ..classes.add("useitem-recipe-image")
           ..style.backgroundImage = "url(${recipe["output_map"]["iconUrl"]})";
@@ -129,11 +132,37 @@ class UseWindow extends Modal {
       ..classes.add("recipeview-text")
       ..text = recipe["output_map"]["name"];
 
+    DivElement outputQty = new DivElement()
+      ..classes.add("recipeview-outputqty");
+
+    if (recipe["output_amt"] == 1) {
+      outputQty.setInnerHtml(
+          "This recipe makes <br><b>one</b> ${recipe["output_map"]["name"]}"
+      );
+    } else {
+      if ((recipe["output_map"]["name"] as String).endsWith("y")) {
+        outputQty.setInnerHtml(
+            "This recipe makes <br><b>${recipe["output_amt"]}</b> ${(recipe["output_map"]["name"] as String).substring(-1)}ies"
+        );
+      } else if ((recipe["output_map"]["name"] as String).endsWith("s")) {
+        outputQty.setInnerHtml(
+            "This recipe makes <br><b>${recipe["output_amt"]}</b> ${recipe["output_map"]["name"]}es"
+        );
+      } else {
+        outputQty.setInnerHtml(
+            "This recipe makes <br><b>${recipe["output_amt"]}</b> ${recipe["output_map"]["name"]}s"
+        );
+      }
+    }
+
     DivElement leftCol = new DivElement()
       ..classes.add("recipeview-leftcol")
       ..append(backToList)
       ..append(itemImage)
-      ..append(itemName);
+      ..append(itemName)
+      ..append(outputQty);
+
+    DivElement makeBtn;
 
     // qty controls
 
@@ -150,7 +179,16 @@ class UseWindow extends Modal {
       ..classes.add("rv-qty-disp")
       ..value = qty.toString()
       ..min = "1"
-      ..max = recipe["maxAmt"].toString();
+      ..max = recipe["maxAmt"].toString()
+      ..onChange.listen((_) {
+      if (metabolics.energy > (recipe["energy"] as int).abs()) {
+        makeBtn.classes.add("disabled");
+        makeBtn.title = "Not enough energy :(";
+      } else {
+        makeBtn.classes.remove("disabled");
+        makeBtn.title = "";
+      }
+    });
 
     DivElement qtyMinus = new DivElement()
       ..classes.add("rv-qty-minus")
@@ -183,10 +221,18 @@ class UseWindow extends Modal {
       ..text = "Make ${recipe["canMake"].toString()}"
       ..onClick.listen((_) => qtyDisplay.value = recipe["canMake"].toString());
 
-    DivElement makeBtn = new DivElement()
+    makeBtn = new DivElement()
       ..classes.addAll(["rv-makebtn", "white-btn"])
       ..onClick.listen((_) => makeRecipe(id, int.parse(qtyDisplay.value)))
       ..text = "Do It!";
+
+    if (metabolics.energy > (recipe["energy"] as int).abs()) {
+      makeBtn.classes.add("disabled");
+      makeBtn.title = "Not enough energy :(";
+    } else {
+      makeBtn.classes.remove("disabled");
+      makeBtn.title = "";
+    }
 
     DivElement centerCol = new DivElement()
       ..classes.add("recipeview-centercol")
@@ -304,6 +350,10 @@ class UseWindow extends Modal {
           ..attributes["percent"] = ((100 / qty) * current).toString()
           ..attributes["status"] = "Making ${current.toString()} of ${qty.toString()}";
 
+        // Update recipe data...
+        // ...like a ninja
+        updateRecipes(false);
+
       }
 
     });
@@ -315,10 +365,29 @@ class UseWindow extends Modal {
   }
 
   @override
+  open([bool refresh = true]) async {
+    if (refresh) {
+      await updateRecipes();
+    }
+    well.append(await listRecipes(true));
+    displayElement.hidden = false;
+    elementOpen = true;
+    this.focus();
+  }
+
+  @override
   close() {
-    if (instances[itemName] != null) {
-      instances[itemName].displayElement.hidden = true;
+    if (instances[itemType] != null) {
+      instances[itemType].displayElement.hidden = true;
       super.close();
     }
+  }
+
+  updateRecipes([bool notify = true]) async {
+    if (notify) {
+      toast("Reading recipe book...");
+    }
+    recipeList = await JSON.decode(await HttpRequest.requestCrossOrigin("http://${Configs.utilServerAddress}/recipes/list?token=$rsToken&tool=$itemType&email=${game.email}"));
+    return;
   }
 }
