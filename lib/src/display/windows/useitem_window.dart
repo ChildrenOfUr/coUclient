@@ -18,7 +18,6 @@ class UseWindow extends Modal {
   }
 
   UseWindow._(this.itemType, this.itemName) {
-    print("pre-load");
     load().then((Element el) {
       querySelector("#windowHolder").append(el);
       prepare();
@@ -79,7 +78,6 @@ class UseWindow extends Modal {
 
     if (recipeList.length > 0) {
       recipeList.forEach((Map recipe) {
-        print(recipe);
         DivElement image = new DivElement()
           ..classes.add("useitem-recipe-image")
           ..style.backgroundImage = "url(${recipe["output_map"]["iconUrl"]})";
@@ -256,7 +254,6 @@ class UseWindow extends Modal {
     TableElement ingList = new TableElement()
       ..classes.add("recipeview-ing-list");
 
-    print(recipe["input"]);
     (recipe["input"] as List<Map>).forEach((Map ingmap) {
       TableCellElement img = new TableCellElement()
         ..style.backgroundImage = "url(${ingmap["iconUrl"]})"
