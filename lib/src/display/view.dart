@@ -174,6 +174,11 @@ class UserInterface {
 					..maxWidth = (currentStreet.bounds.width + 280).toString() + "px";
 			}
 		});
+
+		// Track game focus
+		worldElement
+			..onFocus.listen((_) => transmit("worldFocus", true))
+			..onBlur.listen((_) => transmit("worldFocus", false));
 	}
 
 	resize() {

@@ -174,6 +174,7 @@ class Chat {
         //need to set the focused variable to true and false for all the others
         openConversations.forEach((Chat c) => c.blur());
         focus();
+        transmit("worldFocus", false);
       });
       chatInput.onBlur.listen((_) {
         inputManager.ignoreKeys = false;

@@ -12,6 +12,7 @@ class LevelUpOverlay extends Overlay {
 		audio.playSound('levelUp');
 		inputManager.ignoreKeys = true;
 		displayElement.querySelector("#lu-button").onClick.first.then((_) => close());
+		transmit("worldFocus", false);
 	}
 }
 

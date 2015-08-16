@@ -140,7 +140,7 @@ class UseWindow extends Modal {
     } else {
       if ((recipe["output_map"]["name"] as String).endsWith("y")) {
         outputQty.setInnerHtml(
-            "This recipe makes <br><b>${recipe["output_amt"]}</b> ${(recipe["output_map"]["name"] as String).substring(-1)}ies"
+            "This recipe makes <br><b>${recipe["output_amt"]}</b> ${(recipe["output_map"]["name"] as String).substring(0, recipe["output_map"]["name"].length - 1)}ies"
         );
       } else if ((recipe["output_map"]["name"] as String).endsWith("s")) {
         outputQty.setInnerHtml(

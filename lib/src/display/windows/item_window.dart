@@ -86,6 +86,10 @@ class ItemWindow extends Modal {
 			..classes.add("iw-title")
 			..text = title;
 
+		if (title.length >= 24) {
+			titleSpan.style.fontSize = "24px";
+		}
+
 		Element header = new Element.header()
 			..append(icon)
 			..append(titleSpan);
