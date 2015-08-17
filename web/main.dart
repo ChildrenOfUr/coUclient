@@ -172,22 +172,8 @@ afterPolymer() async {
   querySelector("#browser-error").hidden = true;
   querySelector("#loading").hidden = false;
 
-  //if the device is capable of touch events, assume the touch ui
-  //unless the user has explicitly turned it off in the options
-  if (localStorage['interface'] == 'desktop') {
-    // desktop already preferred
-    (querySelector("#MobileStyle") as StyleElement).disabled = true;
-  } else if (localStorage['interface'] == 'mobile') {
-    // mobile already preferred
-    (querySelector("#MobileStyle") as StyleElement).disabled = false;
-  } else if (hasTouchSupport) {
-    // no preference, touch support, use mobile view
-    (querySelector("#MobileStyle") as StyleElement).disabled = false;
-    logmessage('[Loader] Device has touch support, using mobile layout. Run /desktop in Global Chat to use the desktop view.');
-  } else if (!hasTouchSupport) {
-    // no preference, no touch support, use desktop view
-    (querySelector("#MobileStyle") as StyleElement).disabled = true;
-  }
+  // Decide which UI to use
+  checkMedia();
 
   //make sure the application cache is up to date
   handleAppCache();
@@ -203,7 +189,8 @@ afterPolymer() async {
   GPS.initWorldGraph();
 
   // Download the latest map data
-  mapData = await new MapData()..init();
+  mapData = await new MapData()
+    ..init();
 
   // System
   new ClockManager();
@@ -212,6 +199,8 @@ afterPolymer() async {
   // Watch for Collision-Triggered teleporters
   Wormhole.init();
 }
+
+// Set up resource/asset caching
 
 void handleAppCache() {
   if (window.applicationCache.status == ApplicationCache.UPDATEREADY) {
@@ -222,4 +211,79 @@ void handleAppCache() {
   }
 
   window.applicationCache.onUpdateReady.first.then((_) => handleAppCache());
+}
+
+// Manage different device types
+
+enum ViewportMedia {
+  DESKTOP,
+  TABLET,
+  MOBILE
+}
+
+void checkMedia() {
+  // If the device is capable of touch events, assume the touch ui
+  // unless the user has explicitly turned it off in the options.
+  if (localStorage['interface'] == 'desktop') {
+    // desktop already preferred
+    setStyle(ViewportMedia.DESKTOP);
+  } else if (localStorage['interface'] == 'mobile') {
+    // mobile already preferred
+    setStyle(ViewportMedia.MOBILE);
+  } else if (hasTouchSupport) {
+    // no preference, touch support, use mobile view
+    setStyle(ViewportMedia.MOBILE);
+    logmessage(
+        "[Loader] Device has touch support, using mobile layout. "
+        "Run /desktop in Global Chat to use the desktop view."
+    );
+  } else if (!hasTouchSupport) {
+    // no preference, no touch support, use desktop view
+    setStyle(ViewportMedia.DESKTOP);
+  }
+}
+
+void setStyle(ViewportMedia style) {
+  /**
+   * The stylesheets are set up so that the desktop styles are always applied,
+   * the tablet styles are applied to tablets and phones, and the mobile style
+   * is only applied to phones:
+   *
+   * | Viewport | Desktop | Tablet  | Mobile  |
+   * |----------|---------|---------|---------|
+   * | Desktop  | Applied |         |         |
+   * | Tablet   | Applied | Applied |         |
+   * | Mobile   | Applied | Applied | Applied |
+   *
+   * Tablet provides touchscreen functionality and minimal optimization
+   * for a slightly smaller screen, while mobile prepares the UI
+   * for a very small viewport.
+   */
+
+  StyleElement mobile = querySelector("#MobileStyle");
+  StyleElement tablet = querySelector("#TabletStyle");
+
+  switch (style) {
+    case ViewportMedia.DESKTOP:
+      mobile.disabled = true;
+      tablet.disabled = true;
+      break;
+
+    case ViewportMedia.TABLET:
+      mobile.disabled = true;
+      tablet.disabled = false;
+      break;
+
+    case ViewportMedia.MOBILE:
+      mobile.disabled = false;
+      tablet.disabled = false;
+      break;
+  }
+
+  if (style == ViewportMedia.TABLET || style == ViewportMedia.MOBILE) {
+    querySelectorAll("html, body").onScroll.listen((Event e) {
+      (e.target as Element).scrollLeft = 0;
+      print(e.target);
+    });
+  }
 }

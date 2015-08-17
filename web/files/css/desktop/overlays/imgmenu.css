@@ -132,7 +132,7 @@ p.italic {
 
 #pm-level-bar::before {
     content: '';
-    background-image: url(../../system/imgmenu/imgbubbles.svg);
+    background-image: url(../../../system/imgmenu/imgbubbles.svg);
     background-repeat: repeat-y;
     width: 50px;
     height: 100%;
@@ -149,7 +149,7 @@ p.italic {
 
 #pm-level-bar.done::before {
     content: '';
-    background-image: url(../../system/imgmenu/imgbubbles.svg);
+    background-image: url(../../../system/imgmenu/imgbubbles.svg);
     background-repeat: repeat-y;
     width: 50px;
     height: 100%;
@@ -250,7 +250,7 @@ p.italic {
 
 #pm-exit-button {
     cursor: pointer;
-    background-image: url(../../system/imgmenu/close.svg);
+    background-image: url(../../../system/imgmenu/close.svg);
     width: 30px;
     height: 30px;
     background-size: 30px 30px;

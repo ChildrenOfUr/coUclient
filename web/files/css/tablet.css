@@ -1,0 +1,7 @@
+/* Base CSS file for CoU on tablets and mobile devices */
+
+/* Interface */
+@import url(tablet/input.css);
+
+/* Windows */
+@import url(tablet/windows/window.css);

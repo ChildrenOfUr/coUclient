@@ -52,7 +52,7 @@
 .window:not(.noDrag)::before {
   content: '';
   display: inline-block;
-  background-image: url(../../system/windows/windowhandle.svg);
+  background-image: url(../../../system/windows/windowhandle.svg);
   background-size: 40px 8px;
   width: 40px;
   height: 8px;
