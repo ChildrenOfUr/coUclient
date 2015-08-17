@@ -276,6 +276,5 @@ class SoundManager {
 		view.soundcloud.SCsong = currentSong.meta['title'];
 		view.soundcloud.SCartist = currentSong.meta['user']['username'];
 		view.soundcloud.SClink = currentSong.meta['permalink_url'];
-		view.update();
 	}
 }

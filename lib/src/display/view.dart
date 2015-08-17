@@ -173,6 +173,7 @@ class UserInterface {
 				// Add 280px horizontal space for UI
 					..maxWidth = (currentStreet.bounds.width + 280).toString() + "px";
 			}
+			resize();
 		});
 
 		// Track game focus
@@ -185,12 +186,6 @@ class UserInterface {
 		worldElementWidth = worldElement.clientWidth;
 		worldElementHeight = worldElement.clientHeight;
 		transmit('windowResized',null);
-	}
-
-
-	// update the userinterface
-	update() {
-
 	}
 }
 

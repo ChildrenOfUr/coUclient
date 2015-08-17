@@ -28,7 +28,7 @@ class ActionBubble {
 		Rectangle outlineRect = outline.client;
 		int outlineWidth = outlineRect.width;
 		int outlineHeight = outlineRect.height;
-		print('width: $outlineWidth');
+		//print('width: $outlineWidth');
 		int x = -outlineWidth~/2 + CurrentPlayer.width ~/ 2;
 		int y = -outlineHeight - 25;
 

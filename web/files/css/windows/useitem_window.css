@@ -28,6 +28,11 @@
     cursor: pointer;
 }
 
+.useitem-well .white-btn.disabled {
+    cursor: not-allowed;
+    background-color: #ddd;
+}
+
 /* Recipe Listing */
 
 .useitem-norecipes {
@@ -213,6 +218,10 @@
     width: 100%;
 }
 
+.recipeview-ing-list tr {
+    cursor: pointer;
+}
+
 .recipeview-ing-list .rv-ing-list-img {
     width: 30px;
     height: 30px;
@@ -223,6 +232,7 @@
 
 .recipeview-ing-list .fa {
     font-size: 18px;
+    cursor: help;
 }
 
 .rv-red {

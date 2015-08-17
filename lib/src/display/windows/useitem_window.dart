@@ -123,8 +123,9 @@ class UseWindow extends Modal {
       ..onClick.listen((_) async => well.append(await listRecipes()));
 
     DivElement itemImage = new DivElement()
-      ..classes.add("recipeview-image")
-      ..style.backgroundImage = "url(${recipe["output_map"]["iconUrl"]})";
+      ..classes.addAll(["recipeview-image", "white-btn"])
+      ..style.backgroundImage = "url(${recipe["output_map"]["iconUrl"]})"
+      ..onClick.listen((_) => new ItemWindow(recipe["output_map"]["name"]));
 
     DivElement itemName = new DivElement()
       ..classes.add("recipeview-text")
@@ -179,7 +180,7 @@ class UseWindow extends Modal {
       ..min = "1"
       ..max = recipe["maxAmt"].toString()
       ..onChange.listen((_) {
-      if (metabolics.energy > (recipe["energy"] as int).abs()) {
+      if (metabolics.energy < (recipe["energy"] as int).abs()) {
         makeBtn.classes.add("disabled");
         makeBtn.title = "Not enough energy :(";
       } else {
@@ -221,16 +222,12 @@ class UseWindow extends Modal {
 
     makeBtn = new DivElement()
       ..classes.addAll(["rv-makebtn", "white-btn"])
-      ..onClick.listen((_) => makeRecipe(id, int.parse(qtyDisplay.value)))
-      ..text = "Do It!";
-
-    if (metabolics.energy > (recipe["energy"] as int).abs()) {
-      makeBtn.classes.add("disabled");
-      makeBtn.title = "Not enough energy :(";
-    } else {
-      makeBtn.classes.remove("disabled");
-      makeBtn.title = "";
-    }
+      ..text = "Do It!"
+      ..onClick.listen((Event e) {
+      if (!(e.target as Element).classes.contains("disabled")) {
+        makeRecipe(id, int.parse(qtyDisplay.value));
+      }
+    });
 
     DivElement centerCol = new DivElement()
       ..classes.add("recipeview-centercol")
@@ -260,7 +257,8 @@ class UseWindow extends Modal {
         ..classes.add("rv-ing-list-img");
 
       TableCellElement text = new TableCellElement()
-        ..setInnerHtml("<b>${ingmap["qtyReq"]}x</b> " + ingmap["name"]);
+        ..setInnerHtml("<b>${ingmap["qtyReq"]}x</b> " + ingmap["name"])
+        ..classes.add("rv-ing-list-ing-name");
 
       Element status = new Element.tag("i");
       if (ingmap["userHas"] >= ingmap["qtyReq"]) {
@@ -279,7 +277,9 @@ class UseWindow extends Modal {
       TableRowElement item = new TableRowElement()
         ..append(img)
         ..append(text)
-        ..append(statusCol);
+        ..append(statusCol)
+        ..onClick.listen((_) => new ItemWindow(ingmap["name"]))
+        ..title = "Click to open item information";
 
       ingList.append(item);
     });
@@ -322,39 +322,25 @@ class UseWindow extends Modal {
       ..append(progBar);
 
     await new Timer.periodic(new Duration(seconds: recipe["time"]), (Timer timer) async {
-
       String serverResponse = await HttpRequest.requestCrossOrigin("http://${Configs.utilServerAddress}/recipes/make?token=$rsToken&id=${recipe["id"]}&email=${game.email}&username=${game.username}");
-
       if (current >= qty && serverResponse == "true") {
-
         // Server says no, or we're done
-
         // Stop the timer
         timer.cancel();
-
+        // Update recipe data
+        await updateRecipes(false);
         // Reset the UI
         well.append(await listRecipes());
-
       } else {
-
         // Server says yes
-
         // Increase the number we've made
         current++;
-
         // Update the progress bar
         progBar
           ..attributes["percent"] = ((100 / qty) * current).toString()
           ..attributes["status"] = "Making ${current.toString()} of ${qty.toString()}";
-
-        // Update recipe data...
-        // ...like a ninja
-        updateRecipes(false);
-
       }
-
     });
-
   }
 
   Map getRecipe(String id) {
