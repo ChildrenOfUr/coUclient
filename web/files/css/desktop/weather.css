@@ -69,7 +69,7 @@
 }
 
 #weather-raindrops {
-    background-image: url(../../files/system/raindrop_scatter.svg);
+    background-image: url(../../../files/system/raindrop_scatter.svg);
     -webkit-animation: weatherFall 1.5s linear infinite;
     -moz-animation: weatherFall 1.5s linear infinite;
     -o-animation: weatherFall 1.5s linear infinite;
@@ -91,7 +91,7 @@
 }
 
 #weather-snowflakes {
-    background-image: url(../../files/system/snowflake_scatter.svg);
+    background-image: url(../../../files/system/snowflake_scatter.svg);
     -webkit-animation: weatherFall 2.5s linear infinite;
     -moz-animation: weatherFall 2.5s linear infinite;
     -o-animation: weatherFall 2.5s linear infinite;

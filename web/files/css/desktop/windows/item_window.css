@@ -11,7 +11,7 @@
 .iw-image-container {
     width: 200px;
     height: 200px;
-    background-image: url(../../system/windows/itembg.svg);
+    background-image: url(../../../system/windows/itembg.svg);
     background-size: 200px 200px;
 }
 

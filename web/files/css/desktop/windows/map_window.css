@@ -138,7 +138,7 @@
     width: 50px;
     height: 25px;
     display: block;
-    background-image: url(../../system/windows/hubmarker.svg);
+    background-image: url(../../../system/windows/hubmarker.svg);
     background-repeat: no-repeat;
     background-position: top left;
     background-size: 100%;
@@ -187,23 +187,23 @@
 }
 
 .street-contents-indicators > .sci-vendor {
-    background-image: url(../../system/windows/indicator_vendor.svg);
+    background-image: url(../../../system/windows/indicator_vendor.svg);
 }
 
 .street-contents-indicators > .sci-shrine {
-    background-image: url(../../system/windows/indicator_shrine.svg);
+    background-image: url(../../../system/windows/indicator_shrine.svg);
 }
 
 .street-contents-indicators > .sci-mailbox {
-    background-image: url(../../system/windows/indicator_mailbox.svg);
+    background-image: url(../../../system/windows/indicator_mailbox.svg);
 }
 
 .street-contents-indicators > .sci-bureau {
-    background-image: url(../../system/windows/indicator_bureaucratichall.svg);
+    background-image: url(../../../system/windows/indicator_bureaucratichall.svg);
 }
 
 .street-contents-indicators > .sci-machines {
-    background-image: url(../../system/windows/indicator_machine.svg);
+    background-image: url(../../../system/windows/indicator_machine.svg);
 }
 
 #mapwindow-search {

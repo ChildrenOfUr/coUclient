@@ -114,7 +114,7 @@
     width: 20px;
     height: 20px;
     position: absolute;
-    background-image: url(../../system/icons/signpost.svg);
+    background-image: url(../../../system/icons/signpost.svg);
     background-repeat: no-repeat;
     background-size: 20px 20px;
     cursor: help;
@@ -150,11 +150,11 @@
 }
 
 #mapButton.closed {
-    background-image: url(../../system/icons/zoom-in.svg);
+    background-image: url(../../../system/icons/zoom-in.svg);
 }
 
 #mapButton.open {
-    background-image: url(../../system/icons/zoom-out.svg);
+    background-image: url(../../../system/icons/zoom-out.svg);
 }
 
 #mapButton:hover {

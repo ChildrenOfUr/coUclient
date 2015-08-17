@@ -20,7 +20,7 @@
 #petrock {
     width: 81px;
     height: 102px;
-    background-image: url(../../system/windows/rock_idle.png);
+    background-image: url(../../../system/windows/rock_idle.png);
     -webkit-animation: magic-rock-idle 8s steps(193, end) infinite;
     -moz-animation: magic-rock-idle 8s steps(193, end) infinite;
     -o-animation: magic-rock-idle 8s steps(193, end) infinite;

@@ -54,7 +54,7 @@
     position: absolute;
     left: 50%;
     bottom: -1024px;
-    background-image: url(../../system/newday/newdaysun.svg);
+    background-image: url(../../../system/newday/newdaysun.svg);
     background-size: 100%;
     background-position: center;
     background-repeat: no-repeat;
@@ -76,7 +76,7 @@
     position: absolute;
     left: 0;
     bottom: 0;
-    background-image: url(../../system/newday/newdaymountain.svg);
+    background-image: url(../../../system/newday/newdaymountain.svg);
     background-size: 100%;
     background-position: bottom;
     background-repeat: no-repeat;
