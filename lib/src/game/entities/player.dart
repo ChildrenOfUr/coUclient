@@ -22,9 +22,8 @@ class Player {
 	//if false, player can move around with wasd and arrows, no falling
 	bool doPhysicsApply = true;
 
-	DivElement playerParentElement;
+	DivElement playerName, playerParentElement, superParentElement;
 	CanvasElement playerCanvas;
-	DivElement playerName;
 
 	Player(this.username) {
 		posX = metabolics.currentStreetX;
@@ -63,11 +62,15 @@ class Player {
 			..style.width = width.toString() + "px"
 			..style.height = height.toString() + "px";
 
+		superParentElement = new DivElement()
+			..classes.add('playerParent');
+		superParentElement.append(playerParentElement);
+
 		if (username != game.username) {
 			playerParentElement.append(playerName);
 		}
 		playerParentElement.append(playerCanvas);
-		view.worldElement.append(playerParentElement);
+		view.worldElement.append(superParentElement);
 	}
 
 	Future<List<Animation>> loadAnimations() {
