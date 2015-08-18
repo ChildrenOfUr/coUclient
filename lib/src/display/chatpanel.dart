@@ -596,6 +596,8 @@ class Chat {
     Element list = querySelector("#playerList");
     list.children.clear();
 
+    users = ["Klikini", "Thaderator", "Lead", "paal"];
+
     if (users.length == 0) {
       // Nobody else is online
       Element message = new LIElement()
@@ -607,8 +609,10 @@ class Chat {
       // Other players are online
       users.forEach((String username) {
         Element user = new LIElement()
-          ..classes.addAll(["online", "chatSpawn"])
-          ..dataset["chat"] = username
+          ..classes.add("online")
+          ..style.pointerEvents = "none"
+          //..classes.addAll(["online", "chatSpawn"])
+          //..dataset["chat"] = username
           ..setInnerHtml('<i class="fa-li fa fa-user"></i> $username');
         list.append(user);
       });
