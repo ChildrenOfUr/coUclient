@@ -110,3 +110,8 @@
 #WeatherEffectsIntensityGroup paper-radio-button::shadow [checked] #ink{
     color: transparent;
 }
+
+#WeatherEffectsIntensityGroup paper-radio-button::shadow #radioContainer,
+#WeatherEffectsIntensityGroup paper-radio-button::shadow [checked] #radioContainer {
+    cursor: default;
+}
