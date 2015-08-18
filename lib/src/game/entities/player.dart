@@ -2,14 +2,24 @@ part of couclient;
 
 Player CurrentPlayer;
 
-class Player {
-	int width = 116, height = 137, speed = 300;
+class Player implements xl.Animatable {
+	int width = 116,
+	height = 137,
+	speed = 300;
 	num posX, posY;
-	num yVel = 0, yAccel = -2400;
-	bool jumping = false, moving = false, climbingUp = false, climbingDown = false;
-	bool activeClimb = false, lastClimbStatus = false, facingRight = true, firstRender = true;
-	Map<String, Animation> animations = new Map();
-	Animation currentAnimation;
+	num yVel = 0,
+	yAccel = -2400;
+	bool jumping = false,
+	moving = false,
+	climbingUp = false,
+	climbingDown = false;
+	bool activeClimb = false,
+	lastClimbStatus = false,
+	facingRight = true,
+	firstRender = true;
+	Map<String, xl.FlipBook> animations = new Map();
+	xl.FlipBook currentAnimation;
+	xl.ResourceManager resManager;
 	ChatBubble chatBubble = null;
 	Random rand = new Random();
 	Map<String, Rectangle> intersectingObjects = {};
@@ -67,9 +77,19 @@ class Player {
 		view.worldElement.append(playerParentElement);
 	}
 
-	Future<List<Animation>> loadAnimations() {
+	@override
+	bool advanceTime(num time) {
+
+	}
+
+	Future loadAnimations() async {
 		//need to get background images from some server for each player based on name
-		List<int> idleFrames = [], baseFrames = [], jumpUpFrames = [], fallDownFrames, landFrames, climbFrames = [];
+		List<int> idleFrames = [],
+		baseFrames = [],
+		jumpUpFrames = [],
+		fallDownFrames,
+		landFrames,
+		climbFrames = [];
 		for (int i = 0; i < 57; i++) {
 			idleFrames.add(i);
 		}
@@ -87,38 +107,48 @@ class Player {
 
 		List<Future> futures = new List();
 
-		futures.add(HttpRequest.requestCrossOrigin('http://${Configs.utilServerAddress}/getSpritesheets?username=$username')
-		.then((String response) {
-			Map spritesheets = JSON.decode(response);
-			String idle, base, jump, climb;
-			if (spritesheets['base'] == null) {
-				idle = 'files/sprites/idle.png';
-				base = 'files/sprites/base.png';
-				jump = 'files/sprites/jump.png';
-				climb = 'files/sprites/climb.png';
-			}
-			else {
-				idle = spritesheets['idle2'];
-				base = spritesheets['base'];
-				jump = spritesheets['jump'];
-				climb = spritesheets['climb'];
-			}
-			animations['idle'] = new Animation(idle, "idle", 2, 29, idleFrames, loopDelay:new Duration(seconds:10), delayInitially:true);
-			animations['base'] = new Animation(base, "base", 1, 15, baseFrames);
-			animations['die'] = new Animation(base, "die", 1, 15, [12, 13], loops:false);
-			animations['jumpup'] = new Animation(jump, "jumpup", 1, 33, jumpUpFrames);
-			animations['falldown'] = new Animation(jump, "falldown", 1, 33, fallDownFrames);
-			animations['land'] = new Animation(jump, "land", 1, 33, landFrames);
-			animations['climb'] = new Animation(climb, "climb", 1, 19, climbFrames);
+		String response = await HttpRequest.requestCrossOrigin(
+			'http://${Configs.utilServerAddress}/getSpritesheets?username=$username');
 
-			animations.forEach((String name, Animation animation) => futures.add(animation.load()));
-		}));
+		Map spritesheets = JSON.decode(response);
+		String idle, base, jump, climb;
+		idle = 'files/sprites/idle.png';
+		base = 'files/sprites/base.png';
+		jump = 'files/sprites/jump.png';
+		climb = 'files/sprites/climb.png';
+		Map<String, String> animationUrls = {'idle':idle, 'base':base, 'jump':jump, 'climb':climb};
 
-		return Future.wait(futures);
+		resManager = new xl.ResourceManager();
+		xl.BitmapDataLoadOptions loadOptions = new xl.BitmapDataLoadOptions()
+			..corsEnabled = true;
+		animationUrls.forEach((String name, String animationUrl) {
+			if (!resManager.containsBitmapData(animationUrl)) {
+				resManager.addBitmapData(animationUrl, animationUrl, loadOptions);
+			}
+		});
+		await resManager.load();
+
+		currentStreet.stage.juggler.add(this);
+
+		xl.BitmapData data = resManager.getBitmapData(animationUrls['idle']);
+		animations['idle'] = new xl.FlipBook(new SpriteSheet(data,data.width~/29,data.height~/2).frames);
+		//        new Animation(idle, "idle", 2, 29, idleFrames, loopDelay: new Duration(seconds: 10), delayInitially: true);
+		data = resManager.getBitmapData(animationUrls['base']);
+		animations['base'] = new xl.FlipBook(new SpriteSheet(data,data.width~/15,data.height).frames);
+//		animations['base'] = new Animation(base, "base", 1, 15, baseFrames);
+//		animations['die'] = new Animation(base, "die", 1, 15, [12, 13], loops: false);
+//		animations['jumpup'] = new Animation(jump, "jumpup", 1, 33, jumpUpFrames);
+//		animations['falldown'] = new Animation(jump, "falldown", 1, 33, fallDownFrames);
+//		animations['land'] = new Animation(jump, "land", 1, 33, landFrames);
+//		animations['climb'] = new Animation(climb, "climb", 1, 19, climbFrames);
+//
+//		animations.forEach((String name, Animation animation) => futures.add(animation.load()));
+//
+//		return Future.wait(futures);
 	}
 
 	update(double dt) {
-		if(!currentStreet.loaded) {
+		if (!currentStreet.loaded) {
 			return;
 		}
 
@@ -183,7 +213,7 @@ class Player {
 
 			if (jumpTimer == null) {
 				// start timer
-				jumpTimer = new Timer(new Duration(seconds:3), () {
+				jumpTimer = new Timer(new Duration(seconds: 3), () {
 					// normal jump
 					jumpcount = 0;
 					jumpTimer.cancel();
@@ -233,21 +263,23 @@ class Player {
 		}
 
 		Rectangle collisionsRect;
-		if(facingRight) {
-			collisionsRect = new Rectangle(posX+width/2, posY + currentStreet.groundY + height/4, width/2, height*3/4 - 35);
+		if (facingRight) {
+			collisionsRect =
+			new Rectangle(posX + width / 2, posY + currentStreet.groundY + height / 4, width / 2, height * 3 / 4 - 35);
 		} else {
-			collisionsRect = new Rectangle(posX, posY + currentStreet.groundY + height/4, width/2, height*3/4 - 35);
+			collisionsRect =
+			new Rectangle(posX, posY + currentStreet.groundY + height / 4, width / 2, height * 3 / 4 - 35);
 		}
 		//check for collisions with walls
-		if(doPhysicsApply && (inputManager.leftKey == true || inputManager.rightKey == true)) {
-			for(Wall wall in currentStreet.walls) {
-				if(collisionsRect.intersects(wall.bounds)) {
-					if(facingRight) {
-						if(collisionsRect.right >= wall.bounds.left) {
+		if (doPhysicsApply && (inputManager.leftKey == true || inputManager.rightKey == true)) {
+			for (Wall wall in currentStreet.walls) {
+				if (collisionsRect.intersects(wall.bounds)) {
+					if (facingRight) {
+						if (collisionsRect.right >= wall.bounds.left) {
 							posX = wall.bounds.left - width - 1;
 						}
 					} else {
-						if(collisionsRect.left < wall.bounds.left) {
+						if (collisionsRect.left < wall.bounds.left) {
 							posX = wall.bounds.right + 1;
 						}
 					}
@@ -275,8 +307,8 @@ class Player {
 
 		//check for collisions with ceilings
 		if (doPhysicsApply && !climbingDown && !climbingUp && yVel < 0) {
-			for(Platform platform in currentStreet.platforms) {
-				if(platform.ceiling && intersect(platform.bounds,collisionsRect)) {
+			for (Platform platform in currentStreet.platforms) {
+				if (platform.ceiling && intersect(platform.bounds, collisionsRect)) {
 					num x = posX + width / 2;
 					num slope = (platform.end.y - platform.start.y) / (platform.end.x - platform.start.x);
 					num yInt = platform.start.y - slope * platform.start.x;
@@ -376,64 +408,77 @@ class Player {
 	}
 
 	void render() {
-		if (currentAnimation != null && currentAnimation.loaded && currentAnimation.dirty) {
-			if (!firstRender) {
-				Rectangle avatarRect = new Rectangle(posX, posY, currentAnimation.width, currentAnimation.height);
-				if (!intersect(camera.visibleRect, avatarRect))
-					return;
-			}
-
-			firstRender = false;
-
-			if (playerCanvas.width != currentAnimation.width || playerCanvas.height != currentAnimation.height) {
-				playerCanvas.style.width = currentAnimation.width.toString() + "px";
-				playerCanvas.style.height = currentAnimation.height.toString() + "px";
-				playerCanvas.width = currentAnimation.width;
-				playerCanvas.height = currentAnimation.height;
-				int x = -((currentAnimation.width - width) ~/ 2);
-				int y = -((currentAnimation.height - height));
-				playerCanvas.style.transform = "translateX(${x}px) translateY(${y}px)";
-			}
-			else
-				playerCanvas.context2D.clearRect(0, 0, currentAnimation.width, currentAnimation.height);
-
-			Rectangle destRect = new Rectangle(0, 0, currentAnimation.width, currentAnimation.height);
-			playerCanvas.context2D.drawImageToRect(currentAnimation.spritesheet, destRect, sourceRect: currentAnimation.sourceRect);
-			currentAnimation.dirty = false;
-		}
+//		if (currentAnimation != null && currentAnimation.loaded && currentAnimation.dirty) {
+//			if (!firstRender) {
+//				Rectangle avatarRect = new Rectangle(posX, posY, currentAnimation.width, currentAnimation.height);
+//				if (!intersect(camera.visibleRect, avatarRect))
+//					return;
+//			}
+//
+//			firstRender = false;
+//
+//			if (playerCanvas.width != currentAnimation.width || playerCanvas.height != currentAnimation.height) {
+//				playerCanvas.style.width = currentAnimation.width.toString() + "px";
+//				playerCanvas.style.height = currentAnimation.height.toString() + "px";
+//				playerCanvas.width = currentAnimation.width;
+//				playerCanvas.height = currentAnimation.height;
+//				int x = -((currentAnimation.width - width) ~/ 2);
+//				int y = -((currentAnimation.height - height));
+//				playerCanvas.style.transform = "translateX(${x}px) translateY(${y}px)";
+//			}
+//			else
+//				playerCanvas.context2D.clearRect(0, 0, currentAnimation.width, currentAnimation.height);
+//
+//			Rectangle destRect = new Rectangle(0, 0, currentAnimation.width, currentAnimation.height);
+//			playerCanvas.context2D.drawImageToRect(
+//				currentAnimation.spritesheet, destRect, sourceRect: currentAnimation.sourceRect);
+//			currentAnimation.dirty = false;
+//		}
 	}
 
 	void updateAnimation(double dt) {
-		Animation previous = currentAnimation;
+		xl.FlipBook previous = currentAnimation;
+		currentStreet.stage.juggler.remove(previous);
+		previous.removeFromParent();
+
 		bool climbing = climbingUp || climbingDown;
 		if (!moving && !jumping && !climbing)
 			currentAnimation = animations['idle'];
 		else {
 			//reset idle so that the 10 second delay starts over
-			animations['idle'].reset();
+//			animations['idle'].reset();
 
 			if (climbing) {
 				if (activeClimb != lastClimbStatus) {
 					lastClimbStatus = activeClimb;
 				}
 				currentAnimation = animations['climb'];
-				currentAnimation.paused = !activeClimb;
+//				currentAnimation.paused = !activeClimb;
 			}
 			else {
 				if (moving && !jumping)
 					currentAnimation = animations['base'];
 				else if (jumping && yVel < 0) {
 					currentAnimation = animations['jumpup'];
-					animations['falldown'].reset();
+//					animations['falldown'].reset();
 				}
 				else if (jumping && yVel >= 0) {
 					currentAnimation = animations['falldown'];
-					animations['jumpup'].reset();
+//					animations['jumpup'].reset();
 				}
 			}
 		}
 
-		currentAnimation.updateSourceRect(dt, holdAtLastFrame:jumping);
+		width = currentAnimation.width;
+		height = currentAnimation.height;
+
+		currentAnimation
+			..pivotX = width / 2
+			..addTo(currentStreet.interactionLayer)
+			..play();
+		currentStreet.stage.juggler.add(currentAnimation);
+
+//		currentAnimation.updateSourceRect(dt, holdAtLastFrame: jumping);
 
 		if (previous != currentAnimation) {
 			//force a player update to be sent right now
@@ -442,9 +487,11 @@ class Player {
 	}
 
 	void updateTransform() {
-		num translateX = posX, translateY = view.worldElementWidth - height;
+		num translateX = posX,
+		translateY = view.worldElementWidth - height;
 
-		num camX = camera.x, camY = camera.y;
+		num camX = camera.x,
+		camY = camera.y;
 		if (posX > currentStreet.bounds.width - width / 2 - view.worldElementWidth / 2) {
 			camX = currentStreet.bounds.width - view.worldElementWidth;
 			translateX = posX - currentStreet.bounds.width + view.worldElementWidth;
@@ -475,7 +522,8 @@ class Player {
 		camera.setCameraPosition(camX ~/ 1, camY ~/ 1);
 
 		//translateZ forces the whole operation to be gpu accelerated
-		String transform = 'translateX(' + translateX.toString() + 'px) translateY(' + translateY.toString() + 'px) translateZ(0)';
+		String transform = 'translateX(' + translateX.toString() + 'px) translateY(' + translateY.toString() +
+		                   'px) translateZ(0)';
 		if (!facingRight) {
 			transform += ' scale3d(-1,1,1)';
 			playerName.style.transform = 'translateY(-100%) translateY(-34px) scale3d(-1,1,1)';
@@ -489,6 +537,9 @@ class Player {
 			if (chatBubble != null)
 				chatBubble.textElement.style.transform = 'scale3d(1,1,1)';
 		}
+
+		currentAnimation.x = translateX+currentAnimation.width/2;
+		currentAnimation.y = translateY;
 
 		playerParentElement.style.transform = transform;
 		playerParentElement.attributes['translateX'] = translateX.toString();
@@ -504,7 +555,7 @@ class Player {
 		num bestDiffY = double.INFINITY;
 
 		for (Platform platform in currentStreet.platforms) {
-			if(platform.ceiling) {
+			if (platform.ceiling) {
 				continue;
 			}
 
@@ -519,7 +570,8 @@ class Player {
 					bestDiffY = diffY;
 				}
 				else {
-					if ((lineY >= feetY || !jumping && feetY > lineY && feetY - (height / 2) < lineY) && diffY < bestDiffY) {
+					if ((lineY >= feetY || !jumping && feetY > lineY && feetY - (height / 2) < lineY) &&
+					    diffY < bestDiffY) {
 						bestPlatform = platform;
 						bestDiffY = diffY;
 					}

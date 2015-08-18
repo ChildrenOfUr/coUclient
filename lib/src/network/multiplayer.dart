@@ -15,7 +15,7 @@ multiplayerInit() {
 }
 
 void sendLeftMessage(String streetName) {
-	if(streetSocket != null && streetSocket.readyState == WebSocket.OPEN) {
+	if (streetSocket != null && streetSocket.readyState == WebSocket.OPEN) {
 		Map map = new Map();
 		map["username"] = game.username;
 		map["streetName"] = streetName;
@@ -25,7 +25,7 @@ void sendLeftMessage(String streetName) {
 }
 
 void sendJoinedMessage(String streetName, [String tsid]) {
-	if(joined != streetName && streetSocket != null && streetSocket.readyState == WebSocket.OPEN) {
+	if (joined != streetName && streetSocket != null && streetSocket.readyState == WebSocket.OPEN) {
 		Map map = new Map();
 		map['clientVersion'] = Configs.clientVersion;
 		map["username"] = game.username;
@@ -36,7 +36,7 @@ void sendJoinedMessage(String streetName, [String tsid]) {
 		map['firstConnect'] = firstConnect;
 		streetSocket.send(JSON.encode(map));
 		joined = streetName;
-		if(firstConnect) {
+		if (firstConnect) {
 			firstConnect = false;
 		}
 	}
@@ -53,94 +53,94 @@ _setupStreetSocket(String streetName) {
 	streetSocket.onOpen.listen((_) {
 		querySelector('#server-down').hidden = true;
 		serverDownTimer.cancel();
-		if(serverDown) {
+		if (serverDown) {
 			window.location.reload();
 		}
 		sendJoinedMessage(streetName);
 	});
 	streetSocket.onMessage.listen((MessageEvent event) {
 		Map map = JSON.decode(event.data);
-		if(map['error'] != null) {
+		if (map['error'] != null) {
 			reconnect = false;
 			logmessage('[Multiplayer (Street)] Error ${map['error']}');
 			streetSocket.close();
 			return;
 		}
 
-		if(map['label'] != null && currentStreet.label != map['label']) {
+		if (map['label'] != null && currentStreet.label != map['label']) {
 			return;
 		}
 
 		//check if we are receiving our inventory
-		if(map['inventory'] != null) {
+		if (map['inventory'] != null) {
 			Map items = map['items'] as Map<String, Map>;
 			items.forEach((String name, Map item) {
-				for(int i = 0; i < item['count']; i++) {
+				for (int i = 0; i < item['count']; i++) {
 					addItemToInventory({'item': item['item']});
 				}
 			});
 			return;
 		}
 		//check if we are receiving an item
-		if(map['giveItem'] != null) {
-			for(int i = 0; i < map['num']; i++)
+		if (map['giveItem'] != null) {
+			for (int i = 0; i < map['num']; i++)
 				addItemToInventory(map);
 			return;
 		}
-		if(map['takeItem'] != null) {
+		if (map['takeItem'] != null) {
 			subtractItemFromInventory(map);
 			return;
 		}
-		if(map['vendorName'] == 'Auctioneer') {
+		if (map['vendorName'] == 'Auctioneer') {
 			new AuctionWindow().open();
 			return;
 		}
-		if(map['openWindow'] != null) {
-			if(map['openWindow'] == 'vendorSell') new VendorWindow().call(map, sellMode: true);
-			if(map['openWindow'] == 'mailbox') new MailboxWindow().open();
+		if (map['openWindow'] != null) {
+			if (map['openWindow'] == 'vendorSell') new VendorWindow().call(map, sellMode: true);
+			if (map['openWindow'] == 'mailbox') new MailboxWindow().open();
 			return;
 		}
-		if(map['itemsForSale'] != null) {
+		if (map['itemsForSale'] != null) {
 			new VendorWindow().call(map);
 			return;
 		}
-		if(map['giantName'] != null) {
+		if (map['giantName'] != null) {
 			new ShrineWindow(map['giantName'], map['favor'], map['maxFavor'], map['id']).open();
 			return;
 		}
-		if(map['favorUpdate'] != null) {
+		if (map['favorUpdate'] != null) {
 			transmit('favorUpdate', map);
 			return;
 		}
-    if(map['gotoStreet'] != null) {
-      // Go to the street
+		if (map['gotoStreet'] != null) {
+			// Go to the street
 			streetService.requestStreet(map['tsid']);
 
-      // Check if dying/reviving
-      if (map["dead"] == "true") {
-        print("dead!");
-        transmit("dead", true);
-      } else if (map["dead"] == "false") {
-        print("undead!");
-        transmit("dead", false);
-      }
+			// Check if dying/reviving
+			if (map["dead"] == "true") {
+				print("dead!");
+				transmit("dead", true);
+			} else if (map["dead"] == "false") {
+				print("undead!");
+				transmit("dead", false);
+			}
 
 			return;
 		}
-		if(map['toast'] != null) {
+		if (map['toast'] != null) {
 			toast(map['message']);
 			return;
 		}
 
 		(map["quoins"] as List).forEach((Map quoinMap) {
 			String id = quoinMap["id"];
-			if(quoinMap["remove"] == "true" && !quoins[id].collected) {
+			if (quoinMap["remove"] == "true" && !quoins[id].collected) {
 				quoins[id].collected = true;
 			} else {
 				Element element = querySelector("#$id");
-				if(element == null) {
+				if (element == null) {
 					addQuoin(quoinMap);
-				} else if(quoins[id].collected) {
+				} else if (quoins[id].collected) {
 					quoins[id].collected = false;
 				}
 			}
@@ -149,12 +149,12 @@ _setupStreetSocket(String streetName) {
 			String id = doorMap["id"];
 			Element element = querySelector("#$id");
 			Door door = entities[doorMap["id"]];
-			if(element == null) {
+			if (element == null) {
 				addDoor(doorMap);
 			}
 			else {
 				element.attributes['actions'] = JSON.encode(doorMap['actions']);
-				if(door != null) {
+				if (door != null) {
 					_updateChatBubble(doorMap, door);
 				}
 			}
@@ -163,12 +163,12 @@ _setupStreetSocket(String streetName) {
 			String id = plantMap["id"];
 			Element element = querySelector("#$id");
 			Plant plant = entities[id];
-			if(element == null) {
+			if (element == null) {
 				addPlant(plantMap);
 			} else {
 				element.attributes['actions'] = JSON.encode(plantMap['actions']);
-				if(plant != null) {
-					if(plant.state != plantMap['state']) {
+				if (plant != null) {
+					if (plant.state != plantMap['state']) {
 						plant.updateState(plantMap['state']);
 					}
 					_updateChatBubble(plantMap, plant);
@@ -179,14 +179,14 @@ _setupStreetSocket(String streetName) {
 			String id = npcMap["id"];
 			Element element = querySelector("#$id");
 			NPC npc = entities[npcMap["id"]];
-			if(element == null) {
+			if (element == null) {
 				addNPC(npcMap);
 			}
 			else {
 				element.attributes['actions'] = JSON.encode(npcMap['actions']);
-				if(npc != null) {
+				if (npc != null) {
 					//new animation
-					if(npc.animationUrl != npcMap["url"]) {
+					if (npc.animationUrl != npcMap["url"]) {
 						npc.loadAnimation(npcMap);
 					}
 
@@ -198,10 +198,10 @@ _setupStreetSocket(String streetName) {
 		(map['groundItems'] as List).forEach((Map itemMap) {
 			String id = itemMap['id'];
 			Element element = querySelector("#$id");
-			if(element == null) {
+			if (element == null) {
 				addItem(itemMap);
 			} else {
-				if(itemMap['onGround'] == false) {
+				if (itemMap['onGround'] == false) {
 					element.remove();
 					entities.remove(id);
 					CurrentPlayer.intersectingObjects.clear();
@@ -213,7 +213,7 @@ _setupStreetSocket(String streetName) {
 	});
 	streetSocket.onClose.listen((CloseEvent e) {
 		logmessage('[Multiplayer (Street)] Socket closed');
-		if(!reconnect) {
+		if (!reconnect) {
 			querySelector('#server-down').hidden = false;
 			serverDown = true;
 			reconnect = true;
@@ -232,15 +232,15 @@ _setupStreetSocket(String streetName) {
 }
 
 _updateChatBubble(Map map, Entity entity) {
-	if(entity == null) {
+	if (entity == null) {
 		return;
 	}
-	if(map["bubbleText"] != null) {
-		if(entity.chatBubble == null) {
+	if (map["bubbleText"] != null) {
+		if (entity.chatBubble == null) {
 			String heightString = entity.canvas.height.toString();
 			String translateY = entity.canvas.attributes['translateY'];
 
-			if(entity.canvas.attributes['actualHeight'] != null) {
+			if (entity.canvas.attributes['actualHeight'] != null) {
 				heightString = entity.canvas.attributes['actualHeight'];
 				int diff = entity.canvas.height - int.parse(heightString);
 				translateY = (int.parse(translateY) + diff).toString();
@@ -259,7 +259,7 @@ _updateChatBubble(Map map, Entity entity) {
 		}
 
 		entity.chatBubble.update(1.0);
-	} else if(entity.chatBubble != null) {
+	} else if (entity.chatBubble != null) {
 		entity.chatBubble.removeBubble();
 	}
 }
@@ -271,34 +271,34 @@ _setupPlayerSocket() {
 	});
 	playerSocket.onMessage.listen((MessageEvent event) {
 		Map map = JSON.decode(event.data);
-		if(map['error'] != null) {
+		if (map['error'] != null) {
 			reconnect = false;
 			logmessage('[Multiplayer (Player)] Error ${map['error']}');
 			playerSocket.close();
 			return;
 		}
 
-		if(map['gotoStreet'] != null) {
+		if (map['gotoStreet'] != null) {
 			streetService.requestStreet(map['tsid']);
 			return;
 		}
 
-		if(map['street'] != null &&
-		   currentStreet.label != map['street'] &&
-		   map['changeStreet'] == null) return;
+		if (map['street'] != null &&
+		    currentStreet.label != map['street'] &&
+		    map['changeStreet'] == null) return;
 
-		if(map['username'] == game.username) return;
+		if (map['username'] == game.username) return;
 
-		if(map["changeStreet"] != null) {
+		if (map["changeStreet"] != null) {
 			//someone left this street
-			if(map["changeStreet"] != currentStreet.label) {
+			if (map["changeStreet"] != currentStreet.label) {
 				removeOtherPlayer(map["username"]);
 			} else {
 				createOtherPlayer(map);
 			}
-		} else if(map["disconnect"] != null) {
+		} else if (map["disconnect"] != null) {
 			removeOtherPlayer(map["username"]);
-		} else if(otherPlayers[map["username"]] == null) {
+		} else if (otherPlayers[map["username"]] == null) {
 			createOtherPlayer(map);
 		} else {
 			//update a current otherPlayer
@@ -307,7 +307,7 @@ _setupPlayerSocket() {
 	});
 	playerSocket.onClose.listen((_) {
 		logmessage('[Multiplayer (Player)] Socket closed');
-		if(!reconnect) {
+		if (!reconnect) {
 			reconnect = true;
 			return;
 		}
@@ -335,14 +335,15 @@ sendPlayerInfo() {
 	map['jumping'] = CurrentPlayer.jumping;
 	map['climbing'] = CurrentPlayer.climbingDown || CurrentPlayer.climbingUp;
 	map['activeClimb'] = CurrentPlayer.activeClimb;
-	map["animation"] = CurrentPlayer.currentAnimation.animationName;
-	if(CurrentPlayer.chatBubble != null) map["bubbleText"] =
-	CurrentPlayer.chatBubble.text;
+//	map["animation"] = CurrentPlayer.currentAnimation.animationName;
+	if (CurrentPlayer.chatBubble != null) {
+		map["bubbleText"] = CurrentPlayer.chatBubble.text;
+	}
 	playerSocket.send(JSON.encode(map));
 }
 
 void createOtherPlayer(Map map) {
-	if(creatingPlayer == map['username']) {
+	if (creatingPlayer == map['username']) {
 		return;
 	}
 
@@ -359,29 +360,29 @@ void createOtherPlayer(Map map) {
 }
 
 updateOtherPlayer(Map map, Player otherPlayer) {
-	if(otherPlayer.currentAnimation == null) {
+	if (otherPlayer.currentAnimation == null) {
 		otherPlayer.currentAnimation = otherPlayer.animations[map["animation"]];
 	}
 
 	//set movement bools
-	if(map['jumping'] != null) {
+	if (map['jumping'] != null) {
 		otherPlayer.jumping = map['jumping'];
 	}
-	if(map['climbing'] == true) {
+	if (map['climbing'] == true) {
 		otherPlayer.currentAnimation.paused = !map['activeClimb'];
 	} else {
 		otherPlayer.currentAnimation.paused = false;
 	}
 
 	//set animation state
-	if(map["animation"] != otherPlayer.currentAnimation.animationName) {
+	if (map["animation"] != otherPlayer.currentAnimation.animationName) {
 		otherPlayer.currentAnimation.reset();
 		otherPlayer.currentAnimation = otherPlayer.animations[map["animation"]];
 	}
 
 	otherPlayer.playerParentElement.id = "player-" + sanitizeName(map["username"].replaceAll(' ', '_'));
 	otherPlayer.playerParentElement.style.position = "absolute";
-	if(map['username'] != otherPlayer.username) {
+	if (map['username'] != otherPlayer.username) {
 		otherPlayer.username = map['username'];
 		otherPlayer.loadAnimations();
 	}
@@ -390,36 +391,36 @@ updateOtherPlayer(Map map, Player otherPlayer) {
 	otherPlayer.posX = double.parse(map["xy"].split(',')[0]);
 	otherPlayer.posY = double.parse(map["xy"].split(',')[1]);
 
-	if(map["bubbleText"] != null) {
-		if(otherPlayer.chatBubble == null) {
+	if (map["bubbleText"] != null) {
+		if (otherPlayer.chatBubble == null) {
 			otherPlayer.chatBubble = new ChatBubble(map["bubbleText"], otherPlayer, otherPlayer.playerParentElement);
 		}
 		otherPlayer.playerParentElement.append(otherPlayer.chatBubble.bubble);
-	} else if(otherPlayer.chatBubble != null) {
+	} else if (otherPlayer.chatBubble != null) {
 		otherPlayer.chatBubble.bubble.remove();
 		otherPlayer.chatBubble = null;
 	}
 
 	bool facingRight = false;
-	if(map["facingRight"] == "true" || map['facingRight'] == true) {
+	if (map["facingRight"] == "true" || map['facingRight'] == true) {
 		facingRight = true;
 	}
 	otherPlayer.facingRight = facingRight;
 }
 
 void removeOtherPlayer(String username) {
-	if(username == null) {
+	if (username == null) {
 		return;
 	}
 
 	otherPlayers.remove(username);
 	Element otherPlayer =
 	querySelector("#player-" + sanitizeName(username.replaceAll(' ', '_')));
-	if(otherPlayer != null) otherPlayer.remove();
+	if (otherPlayer != null) otherPlayer.remove();
 }
 
 void addQuoin(Map map) {
-	if(currentStreet == null) {
+	if (currentStreet == null) {
 		return;
 	}
 
@@ -427,7 +428,7 @@ void addQuoin(Map map) {
 }
 
 void addNPC(Map map) {
-	if(currentStreet == null) {
+	if (currentStreet == null) {
 		return;
 	}
 
@@ -435,7 +436,7 @@ void addNPC(Map map) {
 }
 
 void addPlant(Map map) {
-	if(currentStreet == null) {
+	if (currentStreet == null) {
 		return;
 	}
 
@@ -443,7 +444,7 @@ void addPlant(Map map) {
 }
 
 void addDoor(Map map) {
-	if(currentStreet == null) {
+	if (currentStreet == null) {
 		return;
 	} else {
 		entities[map['id']] = new Door(map);
@@ -451,7 +452,7 @@ void addDoor(Map map) {
 }
 
 void addItem(Map map) {
-	if(currentStreet == null) {
+	if (currentStreet == null) {
 		return;
 	}
 
@@ -471,11 +472,11 @@ void addItemToInventory(Map map) {
 void subtractItemFromInventory(Map map) {
 	String cssName = map['itemType'].replaceAll(" ", "_");
 	int remaining = map['count'];
-	for(Element item in view.inventory.querySelectorAll(".item-$cssName")) {
-		if(remaining < 1) break;
+	for (Element item in view.inventory.querySelectorAll(".item-$cssName")) {
+		if (remaining < 1) break;
 
 		int count = int.parse(item.attributes['count']);
-		if(count > map['count']) {
+		if (count > map['count']) {
 			item.attributes['count'] = (count - map['count']).toString();
 			item.parent
 			.querySelector('.itemCount').text = (count - map['count']).toString();
@@ -534,13 +535,13 @@ void putInInventory(ImageElement img, Map map) {
 	bool found = false;
 
 	String cssName = name.replaceAll(" ", "_");
-	for(Element item in view.inventory.querySelectorAll(".item-$cssName")) {
+	for (Element item in view.inventory.querySelectorAll(".item-$cssName")) {
 		int count = int.parse(item.attributes['count']);
 
-		if(count < stacksTo) {
+		if (count < stacksTo) {
 			count++;
 			int offset = count;
-			if(i['iconNum'] != null && i['iconNum'] < count) {
+			if (i['iconNum'] != null && i['iconNum'] < count) {
 				offset = i['iconNum'];
 			}
 
@@ -548,7 +549,7 @@ void putInInventory(ImageElement img, Map map) {
 			item.attributes['count'] = count.toString();
 
 			Element itemCount = item.parent.querySelector(".itemCount");
-			if(itemCount != null) {
+			if (itemCount != null) {
 				itemCount.text = count.toString();
 			}
 			else {
@@ -562,7 +563,7 @@ void putInInventory(ImageElement img, Map map) {
 			break;
 		}
 	}
-	if(!found) {
+	if (!found) {
 		findNewSlot(item, map, img);
 	}
 }
@@ -572,14 +573,14 @@ findNewSlot(Element item, Map map, ImageElement img) {
 	Map i = map['item'];
 
 	//find first free item slot
-	for(Element barSlot in view.inventory.children) {
-		if(barSlot.children.length == 0) {
+	for (Element barSlot in view.inventory.children) {
+		if (barSlot.children.length == 0) {
 			String cssName = i['itemType'].replaceAll(" ", "_");
 			item = new DivElement();
 
 			//determine what we need to scale the sprite image to in order to fit
 			num scale = 1;
-			if(img.height > img.width / i['iconNum']) {
+			if (img.height > img.width / i['iconNum']) {
 				scale = (barSlot.contentEdge.height - 10) / img.height;
 			} else {
 				scale = (barSlot.contentEdge.width - 10) / (img.width / i['iconNum']);
@@ -599,18 +600,18 @@ findNewSlot(Element item, Map map, ImageElement img) {
 
 			item.onContextMenu.listen((MouseEvent event) {
 				List<List> actions = [];
-				if(i['actions'] != null) {
+				if (i['actions'] != null) {
 					List<Action> actionsList = decode(JSON.encode(i['actions']), type: const TypeHelper<List<Action>>().type);
 					bool enabled = false;
 					actionsList.forEach((Action action) {
 						String error = "";
 						List<Map> requires = [];
 						action.itemRequirements.all.forEach((String item, int num) => requires.add({'num':num, 'of':[item]}));
-						if(action.itemRequirements.any.length > 0) {
+						if (action.itemRequirements.any.length > 0) {
 							requires.add({'num':1, 'of':action.itemRequirements.any});
 						}
 						enabled = hasRequirements(requires);
-						if(enabled) {
+						if (enabled) {
 							error = action.description;
 						} else {
 							error = getRequirementString(requires);
@@ -639,7 +640,7 @@ findNewSlot(Element item, Map map, ImageElement img) {
 	}
 
 	//there was no space in the player's pack, drop the item on the ground instead
-	if(!found) {
+	if (!found) {
 		sendAction("drop", i['itemType'], getDropMap(i, 1));
 	}
 }
