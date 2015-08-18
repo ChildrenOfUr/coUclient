@@ -1,8 +1,9 @@
 part of couclient;
 
 class MapData {
+	Map<String, Map> hubData;
 	Map<String, Map<String, dynamic>> streetData;
-	Map<int, dynamic> hubData;
+	bool loaded;
 
 	MapData();
 
@@ -11,41 +12,49 @@ class MapData {
 		try {
 			Map data = JSON.decode(json);
 			logmessage("[Server Communication] Map data loaded.");
-			streetData = data["streets"];
 			hubData = data["hubs"];
-			transmit("mapdataloaded", true);
+			streetData = data["streets"];
+			loaded = true;
 		} catch (e) {
 			logmessage("[Server Communication] Could not load map data: $e");
-			transmit("mapdataloaded", false);
+			loaded = false;
 		}
 	}
 
 	String getSong(String streetName) {
-		int hub_id;
-		try {
-			hub_id = streetData[streetName]["hub_id"];
-		} catch (e) {
-			logmessage("[StreetService] Hub ID not availabale for $streetName");
-			return "forest";
+		// Provide a default
+		String defaultSong = "forest";
+
+		// Check to make sure we have data
+		if (!loaded) {
+			return defaultSong;
 		}
 
+		// Find the song
 		if (streetData[streetName] != null && streetData[streetName]["music"] != null) {
 			// Check #1: Street
 			return streetData[streetName]["music"];
-		} else if (hubData[hub_id] != null && hubData[hub_id]["music"] != null) {
+		} else if (hubData[currentStreet.hub_id] != null && hubData[currentStreet.hub_id]["music"] != null) {
 			// Check #2: Hub
-			return hubData[hub_id]["music"];
+			return hubData[currentStreet.hub_id]["music"];
 		} else {
 			// Check #3: Default
-			return "forest";
+			return defaultSong;
 		}
 	}
 
 	int getMinimapOverride([String streetName]) {
+		// Check to make sure we have data
+		if (!loaded) {
+			return -1;
+		}
+
+		// Get the current street if one was not given
 		if (streetName == null) {
 			streetName = currentStreet.label;
 		}
 
+		// Check the override status
 		if (streetData[streetName] == null || streetData[streetName]["minimap_objects"] == null) {
 			// Unknown
 			return -1;
@@ -61,6 +70,10 @@ class MapData {
 	}
 
 	int getBoundExpansionOverride([String streetName]) {
+		if (!loaded) {
+			return -1;
+		}
+
 		if (streetName == null) {
 			streetName = currentStreet.label;
 		}

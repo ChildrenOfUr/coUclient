@@ -96,8 +96,10 @@ class SoundManager {
 		}
 	}
 
+	// Sound Effects ////////////////////////////////////////////////////////////////////////////////
+
 	Future loadNonWebAudio() async {
-		transmit('toast', 'Loading non-WebAudio');
+		logmessage("[SoundManager] Loading non-WebAudio");
 		// Load all our user interface sounds.
 
 		//iOS/safari/IE doesn't seem to like .ogg files
@@ -126,9 +128,6 @@ class SoundManager {
 	}
 
 	Future playSound(String name, {bool asset: true, bool looping: false, bool fadeIn: false, Duration fadeInDuration, Element parentElement: null}) async {
-		if(muted) {
-			return null;
-		}
 		try {
 			if(useWebAudio) {
 				if(asset) {
@@ -223,6 +222,8 @@ class SoundManager {
 		} catch(err) {logmessage('[SoundManager] ' + err);}
 	}
 
+	// Music ////////////////////////////////////////////////////////////////////////////////////////
+
 	/**
 	 * Sets the SoundCloud widget's song to [value].  Must be one of the available songs.
 	 * If [value] is already playing, this method has no effect.
@@ -231,8 +232,6 @@ class SoundManager {
 		if(value == view.soundcloud.musicPlayerElement.attributes['song']) {
 			return;
 		}
-
-		print("switching to $value");
 
 		value = value.replaceAll(' ', '');
 		if(songs[value] == null) {
@@ -253,9 +252,11 @@ class SoundManager {
 		String testResult = new AudioElement().canPlayType('audio/mp3');
 		if(testResult == '') {
 			logmessage('[SoundManager] SoundCloud: Your browser doesnt like mp3s :(');
-			//return;
-		} else if(testResult == 'maybe') //give warning message but proceed anyway
+			return;
+		} else if(testResult == 'maybe') {
+			//give warning message but proceed anyway
 			logmessage('[SoundManager] SoundCloud: Your browser may or may not fully support mp3s');
+		}
 
 		// Stop the old song
 		if(currentSong != null) {
@@ -266,6 +267,9 @@ class SoundManager {
 		//play a new song
 		currentSong = songs[name];
 		if(useWebAudio) {
+			if (currentAudioInstance != null) {
+				stopSound(currentAudioInstance);
+			}
 			playSound(currentSong.streamingUrl, asset: false, looping: true);
 		} else {
 			currentSong.play();

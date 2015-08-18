@@ -86,6 +86,7 @@ class Street {
     if (streetData["music"] != null) {
       // Attempt to get music from server
       audio.setSong(streetData["music"]);
+      print("[StreetService] Loaded song ${streetData["music"]} from server");
     } else {
       // Otherwise, get stored preset music
       audio.setSong(mapData.getSong(label));
