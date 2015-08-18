@@ -54,7 +54,22 @@
 }
 
 .ChatSettingsOption {
-    cursor: pointer;
+    display: inline-block;
+    margin-bottom: 15px;
+    vertical-align: top;
+}
+
+.ChatSettingsOption paper-toggle-button {
+    margin-right: 10px;
+}
+
+.ChatSettingsOption paper-toggle-button::shadow [checked] .toggle {
+    background-color: #4b2e4c;
+}
+
+.ChatSettingsOption paper-toggle-button::shadow .toggle-ink,
+.ChatSettingsOption paper-toggle-button::shadow [checked] .toggle-ink {
+    color: transparent;
 }
 
 .pane-2-container {
@@ -73,4 +88,25 @@
 
 .pane-2-right {
     max-width: 200px;
+}
+
+#weatherIntensity {
+    opacity: 0;
+    transition: opacity 0.25s ease-in-out;
+    display: inline-block;
+    margin-left: 50px;
+}
+
+#weatherIntensity.visible {
+    opacity: 1;
+}
+
+#WeatherEffectsIntensityGroup {
+    position: relative;
+    left: -12px;
+}
+
+#WeatherEffectsIntensityGroup paper-radio-button::shadow #ink,
+#WeatherEffectsIntensityGroup paper-radio-button::shadow [checked] #ink{
+    color: transparent;
 }

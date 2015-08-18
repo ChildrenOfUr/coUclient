@@ -19,6 +19,7 @@ import 'package:couclient/components/mailbox/mailbox.dart';
 import 'package:cou_toolkit/toolkit/slider/slider.dart';
 import 'package:cou_login/login/login.dart';
 import 'package:paper_elements/paper_radio_group.dart';
+import 'package:paper_elements/paper_toggle_button.dart';
 
 import 'package:couclient/src/network/metabolics.dart';
 

@@ -289,7 +289,7 @@ class InputManager {
 		});
 
 
-		CheckboxInputElement graphicsBlur = querySelector("#GraphicsBlur") as CheckboxInputElement;
+		PaperToggleButton graphicsBlur = querySelector("#GraphicsBlur") as PaperToggleButton;
 		graphicsBlur.onChange.listen((_) {
 			localStorage["GraphicsBlur"] = graphicsBlur.checked.toString();
 		});
