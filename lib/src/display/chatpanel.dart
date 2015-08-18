@@ -596,8 +596,6 @@ class Chat {
     Element list = querySelector("#playerList");
     list.children.clear();
 
-    users = ["Klikini", "Thaderator", "Lead", "paal"];
-
     if (users.length == 0) {
       // Nobody else is online
       Element message = new LIElement()
