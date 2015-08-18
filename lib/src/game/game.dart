@@ -8,6 +8,8 @@ class Game {
 	double lastTime = 0.0;
 	DateTime startTime = new DateTime.now();
 	bool ignoreGamepads = false;
+	List<String> devs = [];
+	List<String> guides = [];
 
 	// INITIALIZATION //
 	Game(Metabolics m) {
@@ -15,6 +17,29 @@ class Game {
 		location = sessionStorage['playerStreet'];
 		email = sessionStorage['playerEmail'];
 		_init(m);
+
+		getPlayerRoles().then((_) {
+			// Hide "Become a Guide" button
+			if (game.guides.contains(game.username) || game.devs.contains(game.username)) {
+				querySelector("#becomeGuideFromChatPanel").hidden = true;
+			}
+
+			// Display border on avatar image
+			// (Devs shouldn't see it, our blog post screenshots would be different)
+			if (game.guides.contains(game.username)) {
+				querySelector("ur-meters /deep/ #leftDisk").classes.add("guideDisk");
+			}
+		});
+	}
+
+	Future getPlayerRoles() async {
+		await HttpRequest.requestCrossOrigin("http://childrenofur.com/scripts/labels/devs.php?listDevs=wu7AGYR62SuAY81d").then((String str) {
+			devs = str.split(",");
+		});
+
+		await HttpRequest.requestCrossOrigin("http://childrenofur.com/scripts/labels/guides.php?listGuides=L6EJI1PF0oXD6iYSf0cZ").then((String str) {
+			guides = str.split(",");
+		});
 	}
 
 	_init(Metabolics m) async {

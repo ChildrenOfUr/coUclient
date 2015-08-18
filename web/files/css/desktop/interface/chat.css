@@ -315,3 +315,7 @@ i.emoticon {
     vertical-align: middle;
     margin: 0 2px;
 }
+
+#bottomList a {
+    cursor: pointer;
+}

@@ -8,6 +8,7 @@ class Player {
 	num yVel = 0, yAccel = -2400;
 	bool jumping = false, moving = false, climbingUp = false, climbingDown = false;
 	bool activeClimb = false, lastClimbStatus = false, facingRight = true, firstRender = true;
+	bool isGuide = false;
 	Map<String, Animation> animations = new Map();
 	Animation currentAnimation;
 	ChatBubble chatBubble = null;
