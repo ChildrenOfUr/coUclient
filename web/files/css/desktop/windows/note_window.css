@@ -1,0 +1,26 @@
+.notewindow article * {
+    font-family: "Lato", sans-serif;
+}
+
+/* Read Mode */
+
+.notewindow-read-editbtn {
+    position: absolute;
+    top: 18px;
+    right: 5px;
+}
+
+.notewindow-read-body {
+    border-top: 1px solid #4b2e4c;
+    border-bottom: 1px solid #4b2e4c;
+    padding: 10px;
+    background-image: url(../../../system/windows/note-grid.png);
+    overflow: auto;
+    height: 190px;
+    font-size: 16px;
+    line-height: 24px;
+}
+
+.notewindow-read-footer {
+    padding-top: 10px;
+}

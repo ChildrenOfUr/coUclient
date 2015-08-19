@@ -82,6 +82,8 @@ class Game {
 
 		//finally start the main game loop
 		loop(0.0);
+
+		transmit("gameLoaded", true);
 	}
 
 	// GAME LOOP //

@@ -1,0 +1,47 @@
+<div class="window notewindow notewindow-template" hidden>
+    <i class="fa-li fa fa-times close"></i>
+    <header>
+        <i class="fa-li fa fa-sticky-note"></i>
+        A Note!
+    </header>
+    <article>
+
+        <!-- Read Mode -->
+        <div class="notewindow-read" hidden>
+
+            <h1 class="notewindow-read-title"></h1>
+            <ur-button class="notewindow-read-editbtn" theme="light">Edit</ur-button>
+
+            <p class="notewindow-read-body"></p>
+
+            <p class="notewindow-read-footer">
+                Written by <strong class="notewindow-read-footer-username"></strong><br>
+                <span class="notewindow-read-footer-date"></span>
+            </p>
+
+        </div>
+
+        <!-- Create Mode -->
+        <div class="notewindow-write" hidden>
+
+            <input type="text" class="notewindow-write-title">
+
+            <textarea class="notewindow-write-body"></textarea>
+
+            <ur-button class="notewindow-write-btn notewindow-save">Done</ur-button>
+
+        </div>
+
+        <!-- Edit Mode -->
+        <div class="notewindow-edit" hidden>
+
+            <h1 class="notewindow-edit-title"></h1>
+
+            <textarea class="notewindow-edit-body"></textarea>
+
+            <ur-button class="notewindow-edit-btn notewindow-save">Done</ur-button>
+
+        </div>
+
+    </article>
+</div>

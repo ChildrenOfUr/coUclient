@@ -41,6 +41,7 @@
 @import url(desktop/windows/item_window.css);
 @import url(desktop/windows/emoticon_picker.css);
 @import url(desktop/windows/useitem_window.css);
+@import url(desktop/windows/note_window.css);
 
 /* Overlays */
 @import url(desktop/overlays/overlay.css);
