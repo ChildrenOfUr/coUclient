@@ -267,15 +267,18 @@ class Chat {
 		}
 	}
 
-	NodeValidator validator = new NodeValidatorBuilder()
+	static NodeValidator validator = new NodeValidatorBuilder()
 		..allowHtml5()
 		..allowElement('span', attributes: ['style'])
-		..allowElement('a', attributes: ['href']);
+		..allowElement('a', attributes: ['href'])
+		..allowElement('b')
+		..allowElement('i')
+		..allowElement('u');
 
 	void addMessage(String player, String message) {
 		ChatMessage chat = new ChatMessage(player, message);
 		Element dialog = conversationElement.querySelector('.dialog');
-		dialog.appendHtml(chat.toHtml(), validator: validator);
+		dialog.appendHtml(chat.toHtml(), validator: Chat.validator);
 
 		//scroll to the bottom
 		dialog.scrollTop = dialog.scrollHeight;
@@ -640,39 +643,31 @@ class ChatMessage {
 		}
 
 		if (player == null) {
-			html = '''
-		<p class="system">
-			$message
-		</p>
-		''';
+			html = '<p class="system">$message</p>';
 		} else if (message.startsWith('/me')) {
 			message = message.replaceFirst('/me ', '');
-			html = '''
-		<p class="me" style="color:${getColorFromUsername(player)};">
-			<i><a class="noUnderline" href="http://childrenofur.com/profile?username=${player}" target="_blank" title="Open Profile Page">$player</a> $message</i>
-		</p>
-				''';
+			html =
+			'<p class="me" style="color:${getColorFromUsername(player)};">'
+			'<i><a class="noUnderline" href="http://childrenofur.com/profile?username=${player}" target="_blank" title="Open Profile Page">$player</a> $message</i>'
+			'</p>';
 		} else if (game.devs.contains(player)) {
-			html = '''
-		<p>
-			<span class="name dev" style="color:${getColorFromUsername(player)};"><a class="noUnderline" href="http://childrenofur.com/profile?username=${player}" target="_blank" title="Open Profile Page">$player</a>:</span>
-			<span class="message">$message</span>
-		</p>
-		''';
+			html =
+			'<p>'
+			'<span class="name dev" style="color:${getColorFromUsername(player)};"><a class="noUnderline" href="http://childrenofur.com/profile?username=${player}" target="_blank" title="Open Profile Page">$player</a>: </span>'
+			'<span class="message">$message</span>'
+			'</p>';
 		} else if (game.guides.contains(player)) {
-			html = '''
-		<p>
-			<span class="name guide" style="color:${getColorFromUsername(player)};"><a class="noUnderline" href="http://childrenofur.com/profile?username=${player}" target="_blank" title="Open Profile Page">$player</a>:</span>
-			<span class="message">$message</span>
-		</p>
-		''';
+			html =
+			'<p>'
+			'<span class="name guide" style="color:${getColorFromUsername(player)};"><a class="noUnderline" href="http://childrenofur.com/profile?username=${player}" target="_blank" title="Open Profile Page">$player</a>: </span>'
+			'<span class="message">$message</span>'
+			'</p>';
 		} else {
-			html = '''
-		<p>
-			<span class="name" style="color:${getColorFromUsername(player)};"><a class="noUnderline" href="http://childrenofur.com/profile?username=${player}" target="_blank" title="Open Profile Page">$player</a>:</span>
-			<span class="message">$message</span>
-		</p>
-		''';
+			html =
+			'<p>'
+			'<span class="name" style="color:${getColorFromUsername(player)};"><a class="noUnderline" href="http://childrenofur.com/profile?username=${player}" target="_blank" title="Open Profile Page">$player</a>: </span>'
+			'<span class="message">$message</span>'
+			'</p>';
 		}
 
 		return html;
