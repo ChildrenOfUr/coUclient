@@ -3,106 +3,114 @@ part of couclient;
 class NoteWindow extends Modal {
 	String id;
 	int noteId;
-	bool writeMode, newNote, isWriter;
+	bool writeMode, isWriter;
 	Element displayElement;
 	Map<String, String> note;
+	StreamSubscription enterEditMode, exitEditMode;
 
-	NoteWindow(this.noteId, [this.writeMode = false, this.newNote = false]) {
+	NoteWindow(this.noteId, [this.writeMode = false]) {
 		// Get the note
-		getNote().then((Map noteMap) {
-			note = noteMap;
+		note = getNote();
 
-			// Set up window settings
-			new Service(["gameLoaded"], (_) {
-				id = "notewindow-${WindowManager.randomId}";
-				isWriter = (note["writer"] == game.username);
+		// Set up the window
+		id = "notewindow-${WindowManager.randomId}";
+		isWriter = (note["writer"] == game.username);
+		displayElement = querySelector(".notewindow-template").clone(true);
+		displayElement
+			..classes.remove("notewindow-template")
+			..id = id;
 
-				// Get the elements
-				displayElement = querySelector(".notewindow-template").clone(true);
+		if (writeMode) {
+			EditMode_Enter();
+		} else {
+			EditMode_Exit();
+		}
 
-				// Set the content
-				displayElement
-					..classes.remove("notewindow-template")
-					..id = id
-					..querySelectorAll(".notewindow-save").onClick.listen((_) => EditMode_Exit())
-					..querySelector(".notewindow-read-title").text = note["title"]
-					..querySelector(".notewindow-read-body").setInnerHtml(note["body"].replaceAll("\n", "<br>"))
-					..querySelector(".notewindow-read-footer-date").text = note["date"];
-
-				// Handle user-specific content
-				if (isWriter) {
-					displayElement
-						..querySelector(".notewindow-openeditorbtn").hidden = false
-						..querySelector(".notewindow-read-footer-username").text = "You";
-				} else {
-					displayElement
-						..querySelector(".notewindow-read-editbtn").hidden = false
-						..querySelector(".notewindow-read-footer-username").text = note["writer"];
-				}
-
-				// Show the window
-				querySelector("#windowHolder").append(displayElement);
-				EditMode_Exit();
-				prepare();
-				displayElement.hidden = false;
-			});
-		});
+		// Show the window
+		querySelector("#windowHolder").append(displayElement);
+		prepare();
+		displayElement.hidden = false;
 	}
 
 	EditMode_Enter() {
 		if (isWriter) {
-			displayElement.querySelector(".notewindow-read").hidden = true;
-			if (newNote) {
-				displayElement.querySelector(".notewindow-write").hidden = false;
-			} else {
-				displayElement.querySelector(".notewindow-edit").hidden = false;
-			}
+			// Show the editor
+			displayElement
+				..querySelector(".notewindow-read").hidden = true
+				..querySelector(".notewindow-write").hidden = false;
+			exitEditMode = displayElement.querySelector(".notewindow-write-btn").onClick.listen((_) {
+				EditMode_Exit();
+				exitEditMode.cancel();
+			});
+			// Insert preexisting values
+			(displayElement.querySelector(".notewindow-write-title") as TextInputElement).value = note["title"];
+			(displayElement.querySelector(".notewindow-write-body") as TextAreaElement).value = note["body"];
+		} else {
+			toast("You cannot edit someone else's note");
 		}
 	}
 
 	EditMode_Exit() {
+		// Hide the editor
 		displayElement
 			..querySelector(".notewindow-read").hidden = false
-			..querySelector(".notewindow-edit").hidden = true
 			..querySelector(".notewindow-write").hidden = true;
+		// Display values
+		displayElement
+			..querySelector(".notewindow-read-title").text = note["title"]
+			..querySelector(".notewindow-read-body").setInnerHtml(note["body"].replaceAll("\n", "<br>"))
+			..querySelector(".notewindow-read-footer-date").text = note["date"];
+		// Handle user-specific content
+		if (isWriter) {
+			displayElement
+				..querySelector(".notewindow-read-editbtn").hidden = false
+				..querySelector(".notewindow-read-footer-username").text = "You";
+			enterEditMode = displayElement.querySelector(".notewindow-read-editbtn").onClick.listen((_) {
+				EditMode_Enter();
+				enterEditMode.cancel();
+			});
+		} else {
+			displayElement
+				..querySelector(".notewindow-read-editbtn").hidden = true
+				..querySelector(".notewindow-read-footer-username").text = note["writer"];
+		}
 	}
 
-	Future<Map> getNote() async {
+	Map getNote() {
 		//TODO: get from server
 
-		Map<String, String> tempNote = {
+		Map<String, String> tempNote1 = {
 			"title": "Urgent Message!",
 			"body":
-				"Dear Fellow Glitches,\n"
-				"\n"
-				"This is an urgent notice pertaining to a\n"
-				"natrual gas leak from the gas plants\n"
-				"that has been recently detected. Please calmly\n"
-				"evacuate the street and beware of large\n"
-				"concentrations of Heavy Gas. If you feel light headed,\n"
-				"heavy, or have uncontrollable fits of laughter, please\n"
-				"visit the nearest poision control center.\n"
-				"\n"
-				"We are doing our best to assess the situation. Until\n"
-				"then, please do not inhale too deeply.\n"
-				"\n"
-				"-- Sandbox Gas and Electric",
+			"Dear Fellow Glitches,\n"
+			"\n"
+			"This is an urgent notice pertaining to a\n"
+			"natrual gas leak from the gas plants\n"
+			"that has been recently detected. Please calmly\n"
+			"evacuate the street and beware of large\n"
+			"concentrations of Heavy Gas. If you feel light headed,\n"
+			"heavy, or have uncontrollable fits of laughter, please\n"
+			"visit the nearest poision control center.\n"
+			"\n"
+			"We are doing our best to assess the situation. Until\n"
+			"then, please do not inhale too deeply.\n"
+			"\n"
+			"-- Sandbox Gas and Electric",
 			"writer": "RedDyeNo.5",
 			"date": "1:16AM, 26 October 2011"
 		};
 
-		return tempNote;
-	}
+		Map<String, String> tempNote2 = {
+			"title": "Hey guys!",
+			"body":
+			"Just testing this note window thing.\n"
+			"\n"
+			"Notice how there's no icon? The icon I want is in FontAwesome 4.4, which the CDN hasn't updated to yet.",
+			"writer": "Klikini",
+			"date": "10:10AM, 19 August 2015"
+		};
 
-	Future<bool> writeNote(String title, String body) async {
-		//TODO: send to server
-
-		if (newNote) {
-
-		}
-
-		// Mark that the server knows this note exists
-		newNote = false;
+		return tempNote2;
 	}
 
 	@override
@@ -119,7 +127,7 @@ class NoteWindow extends Modal {
 			}
 		}
 
-		// Delete the element
+		// Delete the window element
 		displayElement.remove();
 	}
 }

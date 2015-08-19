@@ -4,23 +4,63 @@
 
 /* Read Mode */
 
+.notewindow-read-title {
+    height: 20px;
+    margin-top: 0;
+}
+
 .notewindow-read-editbtn {
     position: absolute;
-    top: 18px;
+    top: 0;
     right: 5px;
 }
 
 .notewindow-read-body {
-    border-top: 1px solid #4b2e4c;
-    border-bottom: 1px solid #4b2e4c;
     padding: 10px;
     background-image: url(../../../system/windows/note-grid.png);
     overflow: auto;
-    height: 190px;
+    height: 200px;
     font-size: 16px;
     line-height: 24px;
 }
 
 .notewindow-read-footer {
     padding-top: 10px;
+}
+
+.notewindow hr {
+    border: none;
+    border-top: 1px solid #4b2e4c;
+}
+
+/* Write Mode */
+
+.notewindow-write-title {
+    width: calc(100% - 20px);
+    height: 30px;
+    padding: 0 10px;
+    font-weight: bold;
+}
+
+.notewindow-write-title:focus {
+    background-color: #eee;
+}
+
+.notewindow-write-body {
+    padding: 10px;
+    background-image: url(../../../system/windows/note-grid.png);
+    overflow: auto;
+    height: 205px;
+    font-size: 16px;
+    line-height: 24px;
+    margin: 10px 0;
+    width: calc(100% - 20px);
+    resize: none;
+    cursor: text;
+    border: 2px solid rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+}
+
+.notewindow-write *:focus {
+    outline: none;
 }

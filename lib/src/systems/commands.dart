@@ -33,7 +33,7 @@ class CommandManager {
         ..['log'] = log
         ..['time'] = setTime
         ..['weather'] = setWeather
-        ..['useitem'] = useItem;
+        ..['note'] = note;
     }
   }
 }
@@ -125,6 +125,6 @@ setMusic(String song) {
   audio.setSong(song);
 }
 
-useItem(String itemName) {
-  new UseWindow(itemName);
+note(var nothing) {
+  new NoteWindow(null);
 }

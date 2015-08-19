@@ -14,9 +14,6 @@ class WindowManager {
     RockWindow rockWindow = new RockWindow();
 //		ItemWindow itemWindow = new ItemWindow();
     EmoticonPicker emoticonPicker = new EmoticonPicker();
-
-    //TODO: temporary
-    new NoteWindow(null);
   }
 
   static int get randomId => random.nextInt(9999999);
