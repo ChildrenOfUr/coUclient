@@ -28,6 +28,10 @@
     padding-top: 10px;
 }
 
+.notewindow-read-footer a {
+    cursor: pointer;
+}
+
 .notewindow hr {
     border: none;
     border-top: 1px solid #4b2e4c;

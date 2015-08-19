@@ -8,6 +8,9 @@ class NoteWindow extends Modal {
 	Map<String, String> note;
 	StreamSubscription enterEditMode, exitEditMode;
 
+	static final NodeValidatorBuilder HtmlValidator = new NodeValidatorBuilder.common()
+		..allowElement("a", attributes: ["href"]);
+
 	NoteWindow(this.noteId, [this.writeMode = false]) {
 		// Get the note
 		note = getNote();
@@ -58,7 +61,7 @@ class NoteWindow extends Modal {
 		// Display values
 		displayElement
 			..querySelector(".notewindow-read-title").text = note["title"]
-			..querySelector(".notewindow-read-body").setInnerHtml(note["body"].replaceAll("\n", "<br>"))
+			..querySelector(".notewindow-read-body").setInnerHtml(note["body"].replaceAll("\n", "<br>"), validator: HtmlValidator)
 			..querySelector(".notewindow-read-footer-date").text = note["date"];
 		// Handle user-specific content
 		if (isWriter) {
@@ -72,7 +75,7 @@ class NoteWindow extends Modal {
 		} else {
 			displayElement
 				..querySelector(".notewindow-read-editbtn").hidden = true
-				..querySelector(".notewindow-read-footer-username").text = note["writer"];
+				..querySelector(".notewindow-read-footer-username").setInnerHtml('<a title="Open Profile" href="http://childrenofur.com/profile/?username=${note["writer"]}" target="_blank">${note["writer"]}</a>', validator: HtmlValidator);
 		}
 	}
 
@@ -110,7 +113,7 @@ class NoteWindow extends Modal {
 			"date": "10:10AM, 19 August 2015"
 		};
 
-		return tempNote2;
+		return tempNote1;
 	}
 
 	@override
