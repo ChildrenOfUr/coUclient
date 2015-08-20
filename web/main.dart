@@ -42,10 +42,12 @@ import 'package:libld/libld.dart';
 import 'package:transmit/transmit.dart';
 //converting JSON to Dart objects and back
 import 'package:jsonx/jsonx.dart';
-
+// Global data
 import 'package:couclient/configs.dart';
-
+// Special browser errors
 import 'package:browser_detect/browser_detect.dart';
+// Chat message formatting
+import 'package:markdown/markdown.dart' as md;
 
 export 'package:polymer/init.dart';
 

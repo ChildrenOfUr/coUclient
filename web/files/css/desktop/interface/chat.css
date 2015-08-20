@@ -298,6 +298,7 @@ span.name.dev::before {
     margin-right: 3px;
     padding: 0 2px;
     opacity: 0.75;
+    font-weight: normal;
 }
 
 span.name.guide::before {
@@ -309,6 +310,7 @@ span.name.guide::before {
     margin-right: 3px;
     padding: 0 2px;
     opacity: 0.75;
+    font-weight: normal;
 }
 
 i.emoticon {
@@ -318,4 +320,34 @@ i.emoticon {
 
 #bottomList a {
     cursor: pointer;
+}
+
+/* Join/Leave messages */
+
+.chat-member-change-event {
+    border-bottom: 2px solid #ddd;
+    text-align: center;
+    margin: 20px 0 !important;
+    height: 0;
+}
+
+.chat-member-change-event:first-child {
+    margin-top: 10px !important;
+}
+
+.chat-member-change-event > * {
+    position: relative;
+    top: -6px;
+    background-color: #fff;
+    font-family: "Lato", sans-serif !important;
+}
+
+.chat-member-change-event > span:first-child {
+    padding-left: 10px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.chat-member-change-event > span:last-child {
+    padding-right: 10px;
 }

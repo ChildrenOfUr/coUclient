@@ -115,6 +115,15 @@ String parseUrl(String message) {
 	return returnString;
 }
 
+String parseFormat(String message) {
+	List<md.InlineSyntax> allowed = [
+		new md.TagSyntax(r'\*', tag: 'strong'),
+		new md.TagSyntax(r'\/', tag: 'em')
+	];
+	String escaped = md.markdownToHtml(message, inlineSyntaxes: allowed, inlineOnly: true);
+	return escaped.replaceAll("&lt;", "<").replaceAll("&gt;", ">");
+}
+
 // Chats and Chat functions
 class Chat {
 	String title, lastWord = "";
@@ -123,6 +132,16 @@ class Chat {
 	int unreadMessages = 0, tabSearchIndex = 0, numMessages = 0, inputHistoryPointer = 0, emoticonPointer = 0;
 	static Chat otherChat = null, localChat = null;
 	List<String> connectedUsers = new List(), inputHistory = new List();
+
+	static NodeValidator validator = new NodeValidatorBuilder()
+		..allowHtml5()
+		..allowElement('span', attributes: ['style']) // Username colors
+		..allowElement('a', attributes: ['href', 'title', 'target', 'class']) // Links
+		..allowElement('strong') // [md] Bold
+		..allowElement('em') // [md] italic
+		..allowElement('i', attributes: ['class', 'title']);
+
+	// Emoticons
 
 	bool get archived {
 		return !conversationElement.classes.contains('conversation');
@@ -267,14 +286,6 @@ class Chat {
 		}
 	}
 
-	static NodeValidator validator = new NodeValidatorBuilder()
-		..allowHtml5()
-		..allowElement('span', attributes: ['style'])
-		..allowElement('a', attributes: ['href'])
-		..allowElement('b')
-		..allowElement('i')
-		..allowElement('u');
-
 	void addMessage(String player, String message) {
 		ChatMessage chat = new ChatMessage(player, message);
 		Element dialog = conversationElement.querySelector('.dialog');
@@ -285,11 +296,7 @@ class Chat {
 	}
 
 	void addAlert(String alert) {
-		String text = '''
-			<p class="system">
-			$alert
-			</p>
-			''';
+		String text = '<p class="system">$alert</p>';
 		Element dialog = conversationElement.querySelector('.dialog');
 		dialog.appendHtml(text, validator: validator);
 
@@ -309,11 +316,7 @@ class Chat {
 			alert = alert + " " + users[i];
 		}
 
-		String text = '''
-			<p class="system">
-			$alert
-			</p>
-			''';
+		String text = '<p class="system">$alert</p>';
 
 		Element dialog = conversationElement.querySelector('.dialog');
 		dialog.appendHtml(text, validator: validator);
@@ -637,35 +640,43 @@ class ChatMessage {
 
 		message = parseUrl(message);
 		message = parseEmoji(message);
+		message = parseFormat(message);
 
 		if (message.toLowerCase().contains(game.username.toLowerCase())) {
 			transmit('playSound', 'mention');
 		}
 
+		// Apply dev/guide labels
+		String nameClass = "name ";
+		if (player != null) {
+			if (game.devs.contains(player)) {
+				nameClass += "dev";
+			} else if (game.guides.contains(player)) {
+				nameClass += "guide";
+			}
+		}
+
 		if (player == null) {
+			// System message
 			html = '<p class="system">$message</p>';
 		} else if (message.startsWith('/me')) {
+			// /me message
 			message = message.replaceFirst('/me ', '');
 			html =
 			'<p class="me" style="color:${getColorFromUsername(player)};">'
 			'<i><a class="noUnderline" href="http://childrenofur.com/profile?username=${player}" target="_blank" title="Open Profile Page">$player</a> $message</i>'
 			'</p>';
-		} else if (game.devs.contains(player)) {
+		} else if (message == " joined." || message == " left.") {
+			// Player joined or left
 			html =
-			'<p>'
-			'<span class="name dev" style="color:${getColorFromUsername(player)};"><a class="noUnderline" href="http://childrenofur.com/profile?username=${player}" target="_blank" title="Open Profile Page">$player</a>: </span>'
-			'<span class="message">$message</span>'
-			'</p>';
-		} else if (game.guides.contains(player)) {
-			html =
-			'<p>'
-			'<span class="name guide" style="color:${getColorFromUsername(player)};"><a class="noUnderline" href="http://childrenofur.com/profile?username=${player}" target="_blank" title="Open Profile Page">$player</a>: </span>'
+			'<p class="chat-member-change-event">'
+			'<span class="$nameClass" style="color: ${getColorFromUsername(player)};"><a class="noUnderline" href="http://childrenofur.com/profile?username=${player}" target="_blank" title="Open Profile Page">$player</a> </span>'
 			'<span class="message">$message</span>'
 			'</p>';
 		} else {
 			html =
 			'<p>'
-			'<span class="name" style="color:${getColorFromUsername(player)};"><a class="noUnderline" href="http://childrenofur.com/profile?username=${player}" target="_blank" title="Open Profile Page">$player</a>: </span>'
+			'<span class="$nameClass" style="color:${getColorFromUsername(player)};"><a class="noUnderline" href="http://childrenofur.com/profile?username=${player}" target="_blank" title="Open Profile Page">$player</a>: </span>'
 			'<span class="message">$message</span>'
 			'</p>';
 		}
