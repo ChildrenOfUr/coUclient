@@ -673,6 +673,14 @@ class ChatMessage {
 			'<span class="$nameClass" style="color: ${getColorFromUsername(player)};"><a class="noUnderline" href="http://childrenofur.com/profile?username=${player}" target="_blank" title="Open Profile Page">$player</a> </span>'
 			'<span class="message">$message</span>'
 			'</p>';
+			if (player != game.username) {
+				if (message == " joined.") {
+					toast("$player has arrived");
+				}
+				if (message == " left.") {
+					toast("$player left");
+				}
+			}
 		} else {
 			html =
 			'<p>'
