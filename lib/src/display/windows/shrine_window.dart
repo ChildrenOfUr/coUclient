@@ -112,8 +112,9 @@ class ShrineWindow extends Modal {
 	}
 
 	void _setFavorProgress(int percent) {
-		favorProgress.setAttribute('percent', percent.toString());
-		favorProgress.setAttribute('status', "$favor of $maxFavor favor towards an Emblem of $giantName");
+		favorProgress
+			..setAttribute('percent', percent.toString())
+			..setAttribute('status', "$favor of $maxFavor favor towards an Emblem of $giantName");
 	}
 
 	ShrineWindow._(this.giantName, this.favor, this.maxFavor, this.shrineId) {
@@ -138,7 +139,7 @@ class ShrineWindow extends Modal {
 		});
 
 		confirmButton.onClick.listen((_) {
-			Map actionMap = {"itemType": item['itemType'], "num": numBox.valueAsNumber.toInt()};
+			Map actionMap = {"itemType": item['itemType'], "qty": numBox.valueAsNumber.toInt()};
 			sendAction("donate", shrineId, actionMap);
 			resetShrineWindow();
 		});
