@@ -103,12 +103,12 @@ class MetabolicsService {
 		socket.onOpen.listen((_) => socket.send(JSON.encode({'username': game.username})));
 		socket.onMessage.listen((MessageEvent event) {
 			Map map = JSON.decode(event.data);
-			if (map['collectQuoin'] != null) {
+			if (map['collectQuoin'] != null && map['collectQuoin'] == "true") {
 				collectQuoin(map);
 			} else {
 				int oldLevel = level;
 				playerMetabolics = decode(event.data, type:Metabolics);
-				if (oldLevel < level && webSocketMessages > 0) {
+				if (oldLevel > level - 2 && level > oldLevel && webSocketMessages > 0) {
 					levelUp.open();
 				}
 				transmit('metabolicsUpdated', playerMetabolics);

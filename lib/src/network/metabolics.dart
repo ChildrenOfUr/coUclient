@@ -9,4 +9,5 @@ class Metabolics {
 	num current_street_x = 1.0, current_street_y = 0.0;
 	String current_street = 'LA58KK7B9O522PC';
 	List<String> location_history = [];
+	int quoins_collected = 0;
 }
