@@ -139,7 +139,10 @@ class Chat {
 		..allowElement('a', attributes: ['href', 'title', 'target', 'class']) // Links
 		..allowElement('strong') // [md] Bold
 		..allowElement('em') // [md] italic
-		..allowElement('i', attributes: ['class', 'title']);
+		..allowElement('i', attributes: ['class', 'title']) // Emoticons
+		..allowElement('p', attributes: ['style']);
+
+	// /me text
 
 	// Emoticons
 
@@ -177,14 +180,21 @@ class Chat {
 
 			// clone the template
 			conversationElement = view.chatTemplate.querySelector('.conversation').clone(true);
-			conversationElement.querySelector('.title')
-				..text = title;
 			Map<String, dynamic> emoticonArgs = {
 				"title": title,
 				"input": conversationElement.querySelector("input")
 			};
-			conversationElement.querySelector(".insertemoji").onClick.listen((_) => transmit('insertEmoji', emoticonArgs));
+			conversationElement
+				..querySelector('.title').text = title
+				..querySelector(".insertemoji").onClick.listen((_) => transmit('insertEmoji', emoticonArgs))
+				..id = "chat-$title";
 			openConversations.insert(0, this);
+
+			if (title == "Local Chat") {
+				new Service(["streetLoaded", "gameLoaded"], (_) {
+					this.addMessage("__CHAT__", "LocationChangeEvent");
+				});
+			}
 
 			//handle chat input getting focused/unfocused so that the character doesn't move while typing
 			InputElement chatInput = conversationElement.querySelector('input');
@@ -636,7 +646,7 @@ class ChatMessage {
 		if (message is! String) {
 			return '';
 		}
-		String html;
+		String html, displayName = player;
 
 		message = parseUrl(message);
 		message = parseEmoji(message);
@@ -646,14 +656,23 @@ class ChatMessage {
 			transmit('playSound', 'mention');
 		}
 
-		// Apply dev/guide labels
+		// Apply labels
 		String nameClass = "name ";
 		if (player != null) {
-			if (game.devs.contains(player)) {
-				nameClass += "dev";
-			} else if (game.guides.contains(player)) {
-				nameClass += "guide";
+			// You
+			if (player == game.username) {
+				nameClass += "you ";
 			}
+			// Dev/Guide
+			if (game.devs.contains(player)) {
+				nameClass += "dev ";
+			} else if (game.guides.contains(player)) {
+				nameClass += "guide ";
+			}
+		}
+
+		if (game.username == player) {
+			displayName = "You";
 		}
 
 		if (player == null) {
@@ -668,23 +687,34 @@ class ChatMessage {
 			'</p>';
 		} else if (message == " joined." || message == " left.") {
 			// Player joined or left
+			if (game.username != player) {
+				html =
+				'<p class="chat-member-change-event">'
+				'<span class="$nameClass" style="color: ${getColorFromUsername(player)};"><a class="noUnderline" href="http://childrenofur.com/profile?username=${player}" target="_blank" title="Open Profile Page">$displayName</a> </span>'
+				'<span class="message">$message</span>'
+				'</p>';
+				if (player != game.username) {
+					if (message == " joined.") {
+						toast("$player has arrived");
+					}
+					if (message == " left.") {
+						toast("$player left");
+					}
+				}
+			} else {
+				html = "";
+			}
+		} else if (message == "LocationChangeEvent" && player == "__CHAT__") {
+			// Switching streets message
 			html =
 			'<p class="chat-member-change-event">'
-			'<span class="$nameClass" style="color: ${getColorFromUsername(player)};"><a class="noUnderline" href="http://childrenofur.com/profile?username=${player}" target="_blank" title="Open Profile Page">$player</a> </span>'
-			'<span class="message">$message</span>'
+			'<span class="message">${currentStreet.label}</span>'
 			'</p>';
-			if (player != game.username) {
-				if (message == " joined.") {
-					toast("$player has arrived");
-				}
-				if (message == " left.") {
-					toast("$player left");
-				}
-			}
 		} else {
+			// Normal message
 			html =
 			'<p>'
-			'<span class="$nameClass" style="color:${getColorFromUsername(player)};"><a class="noUnderline" href="http://childrenofur.com/profile?username=${player}" target="_blank" title="Open Profile Page">$player</a>: </span>'
+			'<span class="$nameClass" style="color: ${getColorFromUsername(player)};"><a class="noUnderline" href="http://childrenofur.com/profile?username=${player}" target="_blank" title="Open Profile Page">$displayName</a>: </span>'
 			'<span class="message">$message</span>'
 			'</p>';
 		}
