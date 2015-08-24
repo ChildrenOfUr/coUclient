@@ -20,10 +20,17 @@ class Street {
 
   DataMaps map = new DataMaps();
 
+  // Return the TSID, starting with an L
   String get tsid {
     if (_tsid.startsWith('G')) {
-      _tsid = _tsid.replaceFirst('G', 'L');
+      return _tsid.replaceFirst('G', 'L');
+    } else {
+      return _tsid;
     }
+  }
+
+  // Return the TSID, starting with a G
+  String get tsid_g {
     return _tsid;
   }
 

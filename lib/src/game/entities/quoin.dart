@@ -20,16 +20,27 @@ class Quoin {
 		typeString = map['type'];
 
 		// Disable mystery quoins
-		if (typeString == "mystery") return;
+		if (typeString == "mystery") {
+			return;
+		}
+
 		// Don't show Quarazy Quoins more than once for a street
-		if (typeString == "quarazy" && metabolics.location_history.contains(currentStreet.tsid)) return;
+		if (typeString == "quarazy") {
+			if (!metabolics.load.isCompleted) {
+				await metabolics.load.future;
+			}
+			if (metabolics.location_history.contains(currentStreet.tsid_g)) {
+				return;
+			}
+		}
 
 		id = map["id"];
 		int quoinValue = quoins[typeString.toLowerCase()];
 
 		List<int> frameList = [];
-		for(int i = 0; i < 24; i++)
+		for(int i = 0; i < 24; i++) {
 			frameList.add(quoinValue * 24 + i);
+		}
 
 		animation = new Animation(map['url'], typeString.toLowerCase(), 8, 24, frameList, fps:22);
 		await animation.load();

@@ -14,6 +14,8 @@ class MetabolicsService {
 	DateTime lastUpdate, nextUpdate;
 	String url = 'ws://${Configs.websocketServerAddress}/metabolics';
 	int webSocketMessages = 0;
+	bool loaded = false;
+	Completer load = new Completer();
 
 	Map <int, int> imgLevels = {
 		1: 100,
@@ -108,6 +110,9 @@ class MetabolicsService {
 			} else {
 				int oldLevel = level;
 				playerMetabolics = decode(event.data, type:Metabolics);
+				if (!load.isCompleted) {
+					load.complete();
+				}
 				if (oldLevel > level - 2 && level > oldLevel && webSocketMessages > 0) {
 					levelUp.open();
 				}
@@ -219,7 +224,7 @@ class MetabolicsService {
 
 	num get currentStreetY => playerMetabolics.current_street_y;
 
-	List<String> get location_history => playerMetabolics.location_history;
+	List<String> get location_history => JSON.decode(playerMetabolics.location_history);
 
 	int get level {
 		int lvl = 0;
