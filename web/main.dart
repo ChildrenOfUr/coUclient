@@ -55,6 +55,7 @@ export 'package:polymer/init.dart';
 part 'package:couclient/src/systems/clock.dart';
 part 'package:couclient/src/systems/gps.dart';
 part 'package:couclient/src/systems/weather.dart';
+part 'package:couclient/src/systems/quest.dart';
 part 'package:couclient/src/systems/commands.dart';
 part 'package:couclient/src/game/input.dart';
 part 'package:couclient/src/game/joystick.dart';
@@ -152,6 +153,7 @@ MapWindow mapWindow;
 NumberFormat commaFormatter = new NumberFormat("#,###");
 SoundManager audio;
 WeatherManager weather;
+QuestManager questManager;
 InputManager inputManager;
 WindowManager windowManager;
 CommandManager commandManager;
@@ -168,126 +170,126 @@ bool get hasTouchSupport => context.callMethod('hasTouchSupport');
 @whenPolymerReady
 afterPolymer() async {
 
-  // Don't try to load the game in an unsupported browser
-  // They will continue to see the error message
-  if (browser.isIe || browser.isSafari) return;
+	// Don't try to load the game in an unsupported browser
+	// They will continue to see the error message
+	if (browser.isIe || browser.isSafari) return;
 
-  // Show the loading screen
-  querySelector("#browser-error").hidden = true;
-  querySelector("#loading").hidden = false;
+	// Show the loading screen
+	querySelector("#browser-error").hidden = true;
+	querySelector("#loading").hidden = false;
 
-  // Decide which UI to use
-  checkMedia();
+	// Decide which UI to use
+	checkMedia();
 
-  //make sure the application cache is up to date
-  handleAppCache();
+	//make sure the application cache is up to date
+	handleAppCache();
 
-  //read configs
-  await Configs.init();
-  startTime = new DateTime.now();
-  view = new UserInterface();
-  audio = new SoundManager();
-  windowManager = new WindowManager();
-  auth = new AuthManager();
-  minimap = new Minimap();
-  GPS.initWorldGraph();
+	//read configs
+	await Configs.init();
+	startTime = new DateTime.now();
+	view = new UserInterface();
+	audio = new SoundManager();
+	windowManager = new WindowManager();
+	auth = new AuthManager();
+	minimap = new Minimap();
+	GPS.initWorldGraph();
 
-  // Download the latest map data
-  mapData = await new MapData()
-    ..init();
+	// Download the latest map data
+	mapData = await new MapData()
+		..init();
 
-  // System
-  new ClockManager();
-  new CommandManager();
+	// System
+	new ClockManager();
+	new CommandManager();
 
-  // Watch for Collision-Triggered teleporters
-  Wormhole.init();
+	// Watch for Collision-Triggered teleporters
+	Wormhole.init();
 }
 
 // Set up resource/asset caching
 
 void handleAppCache() {
-  if (window.applicationCache.status == ApplicationCache.UPDATEREADY) {
-    logmessage('[Loader] Application cache updated, swapping and reloading page');
-    window.applicationCache.swapCache();
-    window.location.reload();
-    return;
-  }
+	if (window.applicationCache.status == ApplicationCache.UPDATEREADY) {
+		logmessage('[Loader] Application cache updated, swapping and reloading page');
+		window.applicationCache.swapCache();
+		window.location.reload();
+		return;
+	}
 
-  window.applicationCache.onUpdateReady.first.then((_) => handleAppCache());
+	window.applicationCache.onUpdateReady.first.then((_) => handleAppCache());
 }
 
 // Manage different device types
 
 enum ViewportMedia {
-  DESKTOP,
-  TABLET,
-  MOBILE
+	DESKTOP,
+	TABLET,
+	MOBILE
 }
 
 void checkMedia() {
-  // If the device is capable of touch events, assume the touch ui
-  // unless the user has explicitly turned it off in the options.
-  if (localStorage['interface'] == 'desktop') {
-    // desktop already preferred
-    setStyle(ViewportMedia.DESKTOP);
-  } else if (localStorage['interface'] == 'mobile') {
-    // mobile already preferred
-    setStyle(ViewportMedia.MOBILE);
-  } else if (hasTouchSupport) {
-    // no preference, touch support, use mobile view
-    setStyle(ViewportMedia.MOBILE);
-    logmessage(
-        "[Loader] Device has touch support, using mobile layout. "
-        "Run /desktop in Global Chat to use the desktop view."
-    );
-  } else if (!hasTouchSupport) {
-    // no preference, no touch support, use desktop view
-    setStyle(ViewportMedia.DESKTOP);
-  }
+	// If the device is capable of touch events, assume the touch ui
+	// unless the user has explicitly turned it off in the options.
+	if (localStorage['interface'] == 'desktop') {
+		// desktop already preferred
+		setStyle(ViewportMedia.DESKTOP);
+	} else if (localStorage['interface'] == 'mobile') {
+		// mobile already preferred
+		setStyle(ViewportMedia.MOBILE);
+	} else if (hasTouchSupport) {
+		// no preference, touch support, use mobile view
+		setStyle(ViewportMedia.MOBILE);
+		logmessage(
+			"[Loader] Device has touch support, using mobile layout. "
+			"Run /desktop in Global Chat to use the desktop view."
+			);
+	} else if (!hasTouchSupport) {
+		// no preference, no touch support, use desktop view
+		setStyle(ViewportMedia.DESKTOP);
+	}
 }
 
 void setStyle(ViewportMedia style) {
-  /**
-   * The stylesheets are set up so that the desktop styles are always applied,
-   * the tablet styles are applied to tablets and phones, and the mobile style
-   * is only applied to phones:
-   *
-   * | Viewport | Desktop | Tablet  | Mobile  |
-   * |----------|---------|---------|---------|
-   * | Desktop  | Applied |         |         |
-   * | Tablet   | Applied | Applied |         |
-   * | Mobile   | Applied | Applied | Applied |
-   *
-   * Tablet provides touchscreen functionality and minimal optimization
-   * for a slightly smaller screen, while mobile prepares the UI
-   * for a very small viewport.
-   */
+	/**
+	 * The stylesheets are set up so that the desktop styles are always applied,
+	 * the tablet styles are applied to tablets and phones, and the mobile style
+	 * is only applied to phones:
+	 *
+	 * | Viewport | Desktop | Tablet  | Mobile  |
+	 * |----------|---------|---------|---------|
+	 * | Desktop  | Applied |         |         |
+	 * | Tablet   | Applied | Applied |         |
+	 * | Mobile   | Applied | Applied | Applied |
+	 *
+	 * Tablet provides touchscreen functionality and minimal optimization
+	 * for a slightly smaller screen, while mobile prepares the UI
+	 * for a very small viewport.
+	 */
 
-  StyleElement mobile = querySelector("#MobileStyle");
-  StyleElement tablet = querySelector("#TabletStyle");
+	StyleElement mobile = querySelector("#MobileStyle");
+	StyleElement tablet = querySelector("#TabletStyle");
 
-  switch (style) {
-    case ViewportMedia.DESKTOP:
-      mobile.disabled = true;
-      tablet.disabled = true;
-      break;
+	switch (style) {
+		case ViewportMedia.DESKTOP:
+			mobile.disabled = true;
+			tablet.disabled = true;
+			break;
 
-    case ViewportMedia.TABLET:
-      mobile.disabled = true;
-      tablet.disabled = false;
-      break;
+		case ViewportMedia.TABLET:
+			mobile.disabled = true;
+			tablet.disabled = false;
+			break;
 
-    case ViewportMedia.MOBILE:
-      mobile.disabled = false;
-      tablet.disabled = false;
-      break;
-  }
+		case ViewportMedia.MOBILE:
+			mobile.disabled = false;
+			tablet.disabled = false;
+			break;
+	}
 
-  if (style == ViewportMedia.TABLET || style == ViewportMedia.MOBILE) {
-    querySelectorAll("html, body").onScroll.listen((Event e) {
-      (e.target as Element).scrollLeft = 0;
-      print(e.target);
-    });
-  }
+	if (style == ViewportMedia.TABLET || style == ViewportMedia.MOBILE) {
+		querySelectorAll("html, body").onScroll.listen((Event e) {
+			(e.target as Element).scrollLeft = 0;
+			print(e.target);
+		});
+	}
 }

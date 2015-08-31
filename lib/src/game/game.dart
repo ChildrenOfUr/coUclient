@@ -80,6 +80,9 @@ class Game {
 		//start time based colors (and rain)
 		weather = new WeatherManager();
 
+		//send and receive messages from the server about quests
+		questManager = new QuestManager();
+
 		//finally start the main game loop
 		loop(0.0);
 
