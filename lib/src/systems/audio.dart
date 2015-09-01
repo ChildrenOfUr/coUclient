@@ -229,7 +229,8 @@ class SoundManager {
 	 * If [value] is already playing, this method has no effect.
 	 */
 	setSong(String value) async {
-		if(value == view.soundcloud.musicPlayerElement.attributes['song']) {
+		if(currentSong != null &&
+		   value.toLowerCase() == currentSong.meta['title'].toLowerCase()) {
 			return;
 		}
 

@@ -9,3 +9,4 @@ web/*.js*
 build/
 *.orig
 .pub/
+.packages
