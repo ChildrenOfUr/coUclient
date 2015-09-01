@@ -438,7 +438,12 @@ class Chat {
 			}
 
 			if (input.value.trim().length == 0) {
-				//don't allow for blank messages
+				toast("You can't send a blank message");
+				return;
+			}
+			RegExp formatChars = new RegExp(r'\*|\/');
+			if(input.value.replaceAll(formatChars,'').length == 0) {
+				toast("You must have non-formatting content in your message");
 				return;
 			}
 
