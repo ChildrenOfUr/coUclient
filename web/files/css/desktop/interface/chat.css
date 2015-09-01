@@ -76,6 +76,12 @@
     font-style: italic;
     color: #444;
     border-left: 2px solid #444;
+    padding-left: 5px;
+}
+
+.dialog p.system.chat-toast {
+    opacity: 0.5;
+    border-left-style: dotted;
 }
 
 .dialog p *.name > a {

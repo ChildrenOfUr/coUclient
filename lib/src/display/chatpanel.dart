@@ -17,6 +17,7 @@ List<String> COLORS = [
 	"teal"
 ];
 List<Chat> openConversations = [];
+List<String> chatToastBuffer = [];
 
 // global functions
 
@@ -191,8 +192,12 @@ class Chat {
 			openConversations.insert(0, this);
 
 			if (title == "Local Chat") {
-				new Service(["streetLoaded", "gameLoaded"], (_) {
-					this.addMessage("__CHAT__", "LocationChangeEvent");
+				new Service(["gameLoaded"], (_) {
+          localChat = this;
+					this.addMessage("invalid_user", "LocationChangeEvent");
+          chatToastBuffer.forEach((String message) {
+            this.addAlert(message, toast: true);
+          });
 				});
 			}
 
@@ -305,8 +310,12 @@ class Chat {
 		dialog.scrollTop = dialog.scrollHeight;
 	}
 
-	void addAlert(String alert) {
-		String text = '<p class="system">$alert</p>';
+  void addAlert(String alert, {bool toast: false}) {
+    String classes = "system ";
+    if (toast) {
+      classes += "chat-toast ";
+    }
+    String text = '<p class="$classes">$alert</p>';
 		Element dialog = conversationElement.querySelector('.dialog');
 		dialog.appendHtml(text, validator: validator);
 
@@ -704,7 +713,7 @@ class ChatMessage {
 			} else {
 				html = "";
 			}
-		} else if (message == "LocationChangeEvent" && player == "__CHAT__") {
+		} else if (message == "LocationChangeEvent" && player == "invalid_user") {
 			// Switching streets message
 			html =
 			'<p class="chat-member-change-event">'
