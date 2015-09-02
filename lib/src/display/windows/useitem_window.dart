@@ -174,25 +174,21 @@ class UseWindow extends Modal {
       hmTitle.text = "You don't have all the ingredients needed to make this.";
     }
 
-    NumberInputElement qtyDisplay = new NumberInputElement()
+    NumberInputElement qtyDisplay;
+    qtyDisplay = new NumberInputElement()
       ..classes.add("rv-qty-disp")
       ..value = qty.toString()
       ..min = "1"
       ..max = recipe["maxAmt"].toString()
-      ..onChange.listen((_) {
-      if (metabolics.energy < (recipe["energy"] as int).abs()) {
-        makeBtn.classes.add("disabled");
-        makeBtn.title = "Not enough energy :(";
-      } else {
-        makeBtn.classes.remove("disabled");
-        makeBtn.title = "";
-      }
-    });
+      ..onChange.listen((_) => checkReqEnergy(recipe, makeBtn, qtyDisplay));
 
     DivElement qtyMinus = new DivElement()
       ..classes.add("rv-qty-minus")
       ..onClick.listen((_) {
-        if (qty > 1) qty--;
+        if (qty > 1) {
+          qty--;
+        }
+        checkReqEnergy(recipe, makeBtn, qtyDisplay);
         qtyDisplay.value = qty.toString();
       })
       ..setInnerHtml('<i class="fa fa-fw fa-minus rv-red"></i>');
@@ -200,7 +196,10 @@ class UseWindow extends Modal {
     DivElement qtyPlus = new DivElement()
       ..classes.add("rv-qty-plus")
       ..onClick.listen((_) {
-        if (qty < recipe["canMake"]) qty++;
+        if (qty < recipe["canMake"]) {
+          qty++;
+        }
+        checkReqEnergy(recipe, makeBtn, qtyDisplay);
         qtyDisplay.value = qty.toString();
       })
       ..setInnerHtml('<i class="fa fa-fw fa-plus rv-green"></i>');
@@ -218,7 +217,10 @@ class UseWindow extends Modal {
     DivElement maxBtn = new DivElement()
       ..classes.addAll(["rv-max-btn", "white-btn"])
       ..text = "Make ${recipe["canMake"].toString()}"
-      ..onClick.listen((_) => qtyDisplay.value = recipe["canMake"].toString());
+      ..onClick.listen((_) {
+      qtyDisplay.value = recipe["canMake"].toString();
+      checkReqEnergy(recipe, makeBtn, qtyDisplay);
+    });
 
     makeBtn = new DivElement()
       ..classes.addAll(["rv-makebtn", "white-btn"])
@@ -372,5 +374,17 @@ class UseWindow extends Modal {
     }
     recipeList = await JSON.decode(await HttpRequest.requestCrossOrigin("http://${Configs.utilServerAddress}/recipes/list?token=$rsToken&tool=$itemType&email=${game.email}"));
     return;
+  }
+
+  bool checkReqEnergy(Map recipe, Element makeBtn, NumberInputElement qtyDisplay) {
+    if (metabolics.energy < (recipe["energy"] as int).abs() * (qtyDisplay.valueAsNumber)) {
+      makeBtn.classes.add("disabled");
+      makeBtn.title = "Not enough energy :(";
+      return false;
+    } else {
+      makeBtn.classes.remove("disabled");
+      makeBtn.title = "";
+      return true;
+    }
   }
 }

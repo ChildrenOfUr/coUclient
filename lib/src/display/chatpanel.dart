@@ -192,9 +192,14 @@ class Chat {
 			openConversations.insert(0, this);
 
 			if (title == "Local Chat") {
+				// Streets loaded, display a divider
+				new Service(["gameLoaded", "streetLoaded"], (_) {
+					this.addMessage("invalid_user", "LocationChangeEvent");
+				});
+
+				// First street loaded, init Local Chat
 				new Service(["gameLoaded"], (_) {
           localChat = this;
-					this.addMessage("invalid_user", "LocationChangeEvent");
           chatToastBuffer.forEach((String message) {
             this.addAlert(message, toast: true);
           });
