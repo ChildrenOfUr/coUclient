@@ -1,131 +1,6 @@
 part of couclient;
 
-List<String> EMOTICONS;
-List<String> COLORS = [
-	"blue",
-	"deepskyblue",
-	"fuchsia",
-	"gray",
-	"green",
-	"olivedrab",
-	"maroon",
-	"navy",
-	"olive",
-	"orange",
-	"purple",
-	"red",
-	"teal"
-];
-List<Chat> openConversations = [];
-List<String> chatToastBuffer = [];
-
-// global functions
-
-bool advanceChatFocus(KeyboardEvent k) {
-	k.preventDefault();
-
-	bool found = false;
-	for (int i = 0; i < openConversations.length; i++) {
-		Chat convo = openConversations[i];
-
-		if (convo.focused) {
-			if (i < openConversations.length - 1) {
-				//unfocus the current
-				convo.blur();
-
-				//find the next non-archived conversation and focus it
-				for (int j = i + 1; j < openConversations.length; j++) {
-					if (!openConversations[j].archived) {
-						openConversations[j].focus();
-						found = true;
-					}
-				}
-
-				if (found) {
-					break;
-				}
-			} else {
-				// last chat in list, focus game
-				querySelector("#gameselector").focus();
-				for (int i = 0; i < openConversations.length; i++) {
-					openConversations[i].blur();
-				}
-				found = true;
-			}
-		}
-	}
-
-	if (!found) {
-		// game is focused, focus first chat that is not archived
-		for (Chat c in openConversations) {
-			if (!c.archived) {
-				c.focus();
-				break;
-			}
-		}
-	}
-
-	return true;
-}
-
-String getColorFromUsername(String username) {
-	int index = 0;
-	for (int i = 0; i < username.length; i++) {
-		index += username.codeUnitAt(i);
-	}
-
-	return COLORS[index % (COLORS.length - 1)];
-}
-
-String parseEmoji(String message) {
-	String returnString = "";
-	RegExp regex = new RegExp(":(.+?):");
-	message.splitMapJoin(regex, onMatch: (Match m) {
-		String match = m[1];
-		if (EMOTICONS.contains(match)) {
-			returnString += '<i class="emoticon emoticon-sm $match" title="$match"></i>';
-		} else {
-			returnString += m[0];
-		}
-	}, onNonMatch: (String s) => returnString += s);
-
-	return returnString;
-}
-
-String parseUrl(String message) {
-	/*
-    (https?:\/\/)?                    : the http or https schemes (optional)
-    [\w-]+(\.[\w-]+)+\.?              : domain name with at least two components;
-                                        allows a trailing dot
-    (:\d+)?                           : the port (optional)
-    (\/\S*)?                          : the path (optional)
-    */
-	String regexString = r"((https?:\/\/)?[\w-]+(\.[\w-]+)+\.?(:\d+)?(\/\S*)?)";
-	//the r before the string makes dart interpret it as a raw string so that you don't have to escape characters like \
-
-	String returnString = "";
-	RegExp regex = new RegExp(regexString);
-	message.splitMapJoin(regex, onMatch: (Match m) {
-		String url = m[0];
-		if (!url.contains("http")) {
-			url = "http://" + url;
-		}
-		returnString += '<a href="${url}" target="_blank" class="MessageLink">${m[0]}</a>';
-	}, onNonMatch: (String s) => returnString += s);
-
-	return returnString;
-}
-
-String parseFormat(String message) {
-	List<md.InlineSyntax> allowed = [
-		new md.TagSyntax(r'\*', tag: 'strong'),
-		new md.TagSyntax(r'\/', tag: 'em')
-	];
-	String escaped = md.markdownToHtml(message, inlineSyntaxes: allowed, inlineOnly: true);
-	return escaped.replaceAll("&lt;", "<").replaceAll("&gt;", ">");
-}
-
-// Chats and Chat functions
+// Chats
 class Chat {
 	String title, lastWord = "";
 	bool online, focused = false, tabInserted = false;
@@ -654,4 +529,53 @@ class Chat {
 			return users.length;
 		}
 	}
+}
+
+// Manage focus
+
+bool advanceChatFocus(KeyboardEvent k) {
+	k.preventDefault();
+
+	bool found = false;
+	for (int i = 0; i < openConversations.length; i++) {
+		Chat convo = openConversations[i];
+
+		if (convo.focused) {
+			if (i < openConversations.length - 1) {
+				//unfocus the current
+				convo.blur();
+
+				//find the next non-archived conversation and focus it
+				for (int j = i + 1; j < openConversations.length; j++) {
+					if (!openConversations[j].archived) {
+						openConversations[j].focus();
+						found = true;
+					}
+				}
+
+				if (found) {
+					break;
+				}
+			} else {
+				// last chat in list, focus game
+				querySelector("#gameselector").focus();
+				for (int i = 0; i < openConversations.length; i++) {
+					openConversations[i].blur();
+				}
+				found = true;
+			}
+		}
+	}
+
+	if (!found) {
+		// game is focused, focus first chat that is not archived
+		for (Chat c in openConversations) {
+			if (!c.archived) {
+				c.focus();
+				break;
+			}
+		}
+	}
+
+	return true;
 }
