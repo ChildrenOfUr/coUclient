@@ -77,6 +77,7 @@ part 'package:couclient/src/network/metabolics_service.dart';
 // UI/UX MODULES //
 part 'package:couclient/src/display/view.dart';
 part 'package:couclient/src/display/chatpanel.dart';
+part 'package:couclient/src/display/chatmessage.dart';
 part 'package:couclient/src/display/meters.dart';
 part 'package:couclient/src/display/toast.dart';
 part 'package:couclient/src/systems/audio.dart';
