@@ -97,7 +97,7 @@
     border-radius: 8px;
     width:40px;
     height:40px;
-    margin:4px 0px;
+    margin:4px 0;
     border: 1px solid #bbb;
     border-bottom:2px solid #bbb;
     z-index:1;
@@ -133,8 +133,8 @@
     height: 16px;
     width: 16px;
     position: absolute;
-    top: 2px;
-    right: 2px;
+    bottom: 2px;
+    left: 2px;
     border: 2px solid #aaa;
     cursor: pointer;
     line-height: 15px;

@@ -78,34 +78,16 @@ findNewSlot(Element item, Map map, ImageElement img) {
             ..onClick.listen((_) {
             if (containerButton.classes.contains("item-container-closed")) {
               // Container is closed, open it
-
               // Open the bag window
-              bagWindowId = new BagWindow(i).id;
-
-              // Update the button
-              containerButton.classes
-                ..remove("item-container-closed")
-                ..remove("fa-plus")
-                ..add("item-container-open")
-                ..add("fa-times");
-
-              // Disable the bag until it is closed again
-              item.classes.add("inv-item-disabled");
+              bagWindowId = new BagWindow(int.parse(item.parent.dataset["slot-num"]), i).id;
+              // Update the slot display
+              BagWindow.updateTriggerBtn(false, item);
             } else {
               // Container is open, close it
-
               // Close the bag window
               BagWindow.closeId(bagWindowId);
-
-              // Update the button
-              containerButton.classes
-                ..remove("item-container-open")
-                ..remove("fa-times")
-                ..add("item-container-closed")
-                ..add("fa-plus");
-
-              // Enable the bag until it is opened
-              item.classes.remove("inv-item-disabled");
+              // Update the slot display
+              BagWindow.updateTriggerBtn(true, item);
             }
           });
           item.parent.append(containerButton);
