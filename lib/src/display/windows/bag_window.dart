@@ -46,9 +46,9 @@ class BagWindow extends Modal {
 
 		Element well = new Element.tag("ur-well");
 
-		List<Map> subSlots = (sourceItem["metdata"]["slots"] as List<Map>);
+		List<Map> subSlots = JSON.decode(sourceItem["metadata"]["slots"]);
 
-		if (subSlots.length != int.parse(sourceItem["metadata"]["subSlots"])) {
+		if (subSlots.length != sourceItem["subSlots"]) {
 			throw new StateError("Number of slots in bag does not match bag size");
 		} else {
 			subSlots.forEach((Map itemInBag) {
@@ -56,7 +56,7 @@ class BagWindow extends Modal {
 				DivElement itemInSlot = new DivElement()
 					..classes.addAll(["item-${sourceItem["itemType"]}", "inventoryItem", "bagInventoryItem"])
 					..attributes["name"] = sourceItem["name"]
-					..attributes["count"] = sourceItem["count"]
+					..attributes["count"] = sourceItem["count"].toString()
 					..attributes["itemmap"] = JSON.encode(sourceItem);
 
 				// Slot
