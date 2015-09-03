@@ -27,33 +27,6 @@ findNewSlot(Element item, Map map, ImageElement img) {
       item.style.margin = "auto";
       item.className = 'item-$cssName inventoryItem';
 
-      // Open bags
-      DivElement containerButton;
-      if (i["isContainer"] == true) {
-        containerButton = new DivElement()
-          ..classes.addAll(["fa", "fa-fw", "fa-plus", "item-container-toggle", "item-container-closed"])
-          ..onClick.listen((_) {
-            if (containerButton.classes.contains("item-container-closed")) {
-              // Container is closed, open it
-              print("Opening ${i["name"]} as bag");
-              containerButton.classes
-                ..remove("item-container-closed")
-                ..remove("fa-plus")
-                ..add("item-container-open")
-                ..add("fa-times");
-            } else {
-              // Container is open, close it
-              print("Closing ${i["itemName"]} as bag");
-              containerButton.classes
-                ..remove("item-container-open")
-                ..remove("fa-times")
-                ..add("item-container-closed")
-                ..add("fa-plus");
-            }
-          });
-        item.append(containerButton);
-      }
-
       item.attributes['name'] = i['name'].replaceAll(' ', '');
       item.attributes['count'] = "1";
       item.attributes['itemMap'] = JSON.encode(i);
@@ -92,7 +65,52 @@ findNewSlot(Element item, Map map, ImageElement img) {
 
       item.classes.add("bounce");
       //remove the bounce class so that it's not still there for a drag and drop event
-      new Timer(new Duration(seconds: 1), () => item.classes.remove("bounce"));
+      //also enable bag opening at this time
+      new Timer(new Duration(seconds: 1), () {
+        item.classes.remove("bounce");
+
+        // Containers
+        DivElement containerButton;
+        String bagWindowId;
+        if (i["isContainer"] == true) {
+          containerButton = new DivElement()
+            ..classes.addAll(["fa", "fa-fw", "fa-plus", "item-container-toggle", "item-container-closed"])
+            ..onClick.listen((_) {
+            if (containerButton.classes.contains("item-container-closed")) {
+              // Container is closed, open it
+
+              // Open the bag window
+              bagWindowId = new BagWindow(i).id;
+
+              // Update the button
+              containerButton.classes
+                ..remove("item-container-closed")
+                ..remove("fa-plus")
+                ..add("item-container-open")
+                ..add("fa-times");
+
+              // Disable the bag until it is closed again
+              item.classes.add("inv-item-disabled");
+            } else {
+              // Container is open, close it
+
+              // Close the bag window
+              BagWindow.closeId(bagWindowId);
+
+              // Update the button
+              containerButton.classes
+                ..remove("item-container-open")
+                ..remove("fa-times")
+                ..add("item-container-closed")
+                ..add("fa-plus");
+
+              // Enable the bag until it is opened
+              item.classes.remove("inv-item-disabled");
+            }
+          });
+          item.parent.append(containerButton);
+        }
+      });
 
       found = true;
       break;

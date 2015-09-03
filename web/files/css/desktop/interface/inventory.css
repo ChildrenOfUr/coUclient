@@ -38,6 +38,12 @@
 .inventoryItem {
   cursor: pointer;
 }
+
+.inventoryItem.inv-item-disabled {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
 .itemCount {
   position: absolute;
   bottom: 0;
@@ -124,8 +130,8 @@
 
 .item-container-toggle {
     border-radius: 50%;
-    height: 15px;
-    width: 15px;
+    height: 16px;
+    width: 16px;
     position: absolute;
     top: 2px;
     right: 2px;
@@ -139,11 +145,15 @@
 .item-container-toggle.item-container-closed {
     background-color: #eee;
     color: #aaa;
+    height: 16px;
+    width: 16px;
 }
 
 .item-container-toggle.item-container-open {
     background-color: #aaa;
     color: #eee;
+    height: 16px;
+    width: 16px;
 }
 
 /* Dead */

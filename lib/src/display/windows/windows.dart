@@ -6,13 +6,11 @@ class WindowManager {
     SettingsWindow settings = new SettingsWindow();
     mapWindow = new MapWindow();
     BugWindow bugs = new BugWindow();
-    BagWindow bag = new BagWindow();
     VendorWindow vendor = new VendorWindow();
     MotdWindow motdWindow = new MotdWindow();
     //GoWindow goWindow = new GoWindow();
     CalendarWindow calendarWindow = new CalendarWindow();
     RockWindow rockWindow = new RockWindow();
-//		ItemWindow itemWindow = new ItemWindow();
     EmoticonPicker emoticonPicker = new EmoticonPicker();
   }
 
@@ -105,7 +103,9 @@ abstract class Modal extends InformationDisplay {
     displayElement = querySelector('#$id');
 
     // CLOSE BUTTON ////////////////////////////////////
-    displayElement.querySelector('.fa-times.close').onClick.listen((_) => this.close());
+    if (displayElement.querySelector('.fa-times.close') != null) {
+      displayElement.querySelector('.fa-times.close').onClick.listen((_) => this.close());
+    }
 
     // PREVENT PLAYER MOVEMENT WHILE WINDOW IS FOCUSED /
     displayElement.querySelectorAll('input, textarea').onFocus.listen((_) {
