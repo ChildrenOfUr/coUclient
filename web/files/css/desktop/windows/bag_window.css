@@ -1,3 +1,8 @@
+.bagWindow header img.fa-li {
+    height: 40px;
+    margin-top: 4px;
+}
+
 .box.bagwindow-box {
     margin: 14px;
 }

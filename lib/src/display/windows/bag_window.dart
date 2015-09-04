@@ -32,10 +32,9 @@ class BagWindow extends Modal {
 			..classes.add("fa-times")
 			..classes.add("close");
 
-		Element icon = new Element.tag("i")
+		Element icon = new ImageElement()
 			..classes.add("fa-li")
-			..classes.add("fa")
-			..classes.add("fa-info-circle");
+			..src = "files/system/icons/bag.svg";
 
 		SpanElement titleSpan = new SpanElement()
 			..classes.add("iw-title")
@@ -105,7 +104,7 @@ class BagWindow extends Modal {
 		DivElement window = new DivElement()
 			..id = id
 			..classes.add("window")
-			..classes.add("itemWindow")
+			..classes.add("bagWindow")
 			..append(header)
 			..append(closeButton)
 			..append(well);
