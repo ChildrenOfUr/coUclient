@@ -2,6 +2,15 @@
     margin: 14px;
 }
 
+.box.bagwindow-box .itemCount {
+    position: absolute;
+    bottom: 0;
+    right: 3px;
+    font-family: "Fredoka One" !important;
+    color: #4b2e4c;
+    font-size: 16px !important;
+}
+
 .bagInventoryItem {
     cursor: pointer;
 }
