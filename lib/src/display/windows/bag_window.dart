@@ -80,27 +80,18 @@ class BagWindow extends Modal {
 			HttpRequest.getString(url).then((String str) {
 				List<Map> itemsData = JSON.decode(str);
 				subSlots.forEach((Map itemInBag) {
+					DivElement slot = new DivElement();
 					// Item
 					DivElement itemInSlot = new DivElement();
 					if (itemInBag["itemType"] != "") {
 						Map itemData = itemsData.where((Map item) => item["itemType"] == itemInBag["itemType"]).first;
-						// Item in slot
-						itemInSlot
-							..classes.addAll(["item-${itemInBag["itemType"]}", "inventoryItem", "bagInventoryItem"])
-							..attributes["name"] = itemData["name"]
-							..attributes["count"] = itemInBag["count"].toString()
-							..attributes["itemmap"] = JSON.encode(itemInBag)
-							..style.backgroundImage = "url(${itemData["iconUrl"]})"
-							..style.width = "30px"
-							..style.height = "30px"
-							..style.margin = "auto"
-							..title = itemData["name"];
+						_sizeItem(slot,itemInSlot,itemData,itemInBag['count']);
 					} else {
 						// Empty slot
 						itemInSlot.classes.add("empty-bag-slot");
 					}
 					// Slot
-					DivElement slot = new DivElement()
+					slot
 						..classes.addAll(["box", "bagwindow-box"])
 						..append(itemInSlot);
 
@@ -120,6 +111,37 @@ class BagWindow extends Modal {
 			..append(well);
 
 		return window;
+	}
+
+	Future _sizeItem(Element slot, Element item, Map i, int count) async {
+		ImageElement img = new ImageElement(src: i['spriteUrl']);
+		await img.onLoad;
+
+		num scale = 1;
+		if (img.height > img.width / i['iconNum']) {
+			scale = (slot.contentEdge.height - 10) / img.height;
+		} else {
+			scale = (slot.contentEdge.width - 10) / (img.width / i['iconNum']);
+		}
+
+		item
+			..classes.addAll(["item-${i["itemType"]}", "inventoryItem", "bagInventoryItem"])
+			..attributes["name"] = i["name"]
+			..attributes["count"] = count.toString()
+			..attributes["itemmap"] = JSON.encode(i)
+			..style.width = (slot.contentEdge.width - 10).toString() + "px"
+			..style.height = (slot.contentEdge.height - 10).toString() + "px"
+			..style.backgroundImage = 'url(${i['spriteUrl']})'
+			..style.backgroundRepeat = 'no-repeat'
+			..style.backgroundSize = "${img.width * scale}px ${img.height * scale}px"
+			..style.margin = "auto";
+
+		int offset = count;
+		if (i['iconNum'] != null && i['iconNum'] < count) {
+			offset = i['iconNum'];
+		}
+
+		item.style.backgroundPosition = "calc(100% / ${i['iconNum'] - 1} * ${offset - 1}";
 	}
 
 	@override
