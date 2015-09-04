@@ -142,6 +142,13 @@ class BagWindow extends Modal {
 		}
 
 		item.style.backgroundPosition = "calc(100% / ${i['iconNum'] - 1} * ${offset - 1}";
+
+		SpanElement itemCount = new SpanElement()
+			..text = count.toString()
+			..className = "itemCount";
+
+		item.onContextMenu.listen((MouseEvent event) => itemContextMenu(i,event));
+		item.parent.append(itemCount);
 	}
 
 	@override
