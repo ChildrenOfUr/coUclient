@@ -74,27 +74,38 @@ class BagWindow extends Modal {
 		if (subSlots.length != sourceItem["subSlots"]) {
 			throw new StateError("Number of slots in bag does not match bag size");
 		} else {
-			subSlots.forEach((Map itemInBag) {
-				print(itemInBag);
-				// Item
-				DivElement itemInSlot = new DivElement();
-				if (itemInBag["itemType"] != "") {
-					// Item in slot
+			String url = "http://${Configs.utilServerAddress}/getItems?isRegex=true&type=";
+			subSlots.where((Map slot) => slot["itemType"] != "").forEach((Map itemInBag) => url += "|${itemInBag["itemType"]}");
+			url = url.replaceFirst("|", "");
+			HttpRequest.getString(url).then((String str) {
+				List<Map> itemsData = JSON.decode(str);
+				subSlots.forEach((Map itemInBag) {
+					// Item
+					DivElement itemInSlot = new DivElement();
+					if (itemInBag["itemType"] != "") {
+						Map itemData = itemsData.where((Map item) => item["itemType"] == itemInBag["itemType"]).first;
+						// Item in slot
 						itemInSlot
-						..classes.addAll(["item-${itemInBag["itemType"]}", "inventoryItem", "bagInventoryItem"])
-						..attributes["name"] = itemInBag["name"]
-						..attributes["count"] = itemInBag["count"].toString()
-						..attributes["itemmap"] = JSON.encode(itemInBag);
-				} else {
-					// Empty slot
-					itemInSlot.classes.add("empty-bag-slot");
-				}
-				// Slot
-				DivElement slot = new DivElement()
-					..classes.addAll(["box", "bagwindow-box"])
-					..append(itemInSlot);
+							..classes.addAll(["item-${itemInBag["itemType"]}", "inventoryItem", "bagInventoryItem"])
+							..attributes["name"] = itemData["name"]
+							..attributes["count"] = itemInBag["count"].toString()
+							..attributes["itemmap"] = JSON.encode(itemInBag)
+							..style.backgroundImage = "url(${itemData["iconUrl"]})"
+							..style.width = "30px"
+							..style.height = "30px"
+							..style.margin = "auto"
+							..title = itemData["name"];
+					} else {
+						// Empty slot
+						itemInSlot.classes.add("empty-bag-slot");
+					}
+					// Slot
+					DivElement slot = new DivElement()
+						..classes.addAll(["box", "bagwindow-box"])
+						..append(itemInSlot);
 
-				well.append(slot);
+					well.append(slot);
+				});
 			});
 		}
 
