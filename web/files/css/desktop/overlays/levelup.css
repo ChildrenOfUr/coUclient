@@ -1,0 +1,97 @@
+#levelup {
+    background: rgb(211, 201, 187);
+    background: radial-gradient(ellipse at center, rgba(219,211,162,1) 0%,rgba(182,191,175,1) 100%);
+    padding-top: 100px;
+    text-align: center;
+}
+
+@-webkit-keyframes dropleveltext {
+    0% {
+        -webkit-animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+        animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+        top: -100%;
+    }
+    30%, 53%, 80%, 100% {
+        -webkit-animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+        animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+        top: -25%;
+    }
+
+    40%, 43% {
+        -webkit-animation-timing-function: cubic-bezier(0.755, 0.050, 0.855, 0.060);
+        animation-timing-function: cubic-bezier(0.755, 0.050, 0.855, 0.060);
+        top: -50%;
+    }
+
+    70% {
+        -webkit-animation-timing-function: cubic-bezier(0.755, 0.050, 0.855, 0.060);
+        animation-timing-function: cubic-bezier(0.755, 0.050, 0.855, 0.060);
+        top: -40%;
+    }
+
+    90% {
+        top: -30%;
+    }
+}
+
+#lu-dropper {
+    background-image: url(../../../system/imgmenu/levelupdropper.svg);
+    background-repeat: no-repeat;
+    width: 1024px;
+    height: 768px;
+    position: absolute;
+    top: -25%;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: "Fredoka One", "Lato", sans-serif;
+    color: white;
+    font-size: 400px;
+    text-align: center;
+    padding-top: 20%;
+    padding-left: 0.025em;
+    text-shadow: -0.05em -0.05em 0 #ddd;
+    -webkit-animation: dropleveltext 3s linear 0s 1;
+    -moz-animation: dropleveltext 3s linear 0s 1;
+    -o-animation: dropleveltext 3s linear 0s 1;
+    animation: dropleveltext 3s linear 0s 1;
+}
+
+#lu-button {
+    position: absolute;
+    bottom: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+@-webkit-keyframes pulsetext {
+    0%, 100% { transform: rotate(-30deg) scale(0.5); }
+    50% { transform: rotate(-30deg) scale(1); }
+}
+
+@-moz-keyframes pulsetext {
+    0%, 100% { transform: rotate(-30deg) scale(0.5); }
+    50% { transform: rotate(-30deg) scale(1); }
+}
+
+@-o-keyframes pulsetext {
+    0%, 100% { transform: rotate(-30deg) scale(0.5); }
+    50% { transform: rotate(-30deg) scale(1); }
+}
+
+@keyframes pulsetext {
+    0%, 100% { transform: rotate(-30deg) scale(0.5); }
+    50% { transform: rotate(-30deg) scale(1); }
+}
+
+#lu-desc {
+    position: absolute;
+    left: 50px;
+    transform: rotate(-30deg);
+    color: teal;
+    text-shadow: 0 0 10px white;
+    font-size: 75px;
+    -webkit-animation: pulsetext 0.8s linear infinite;
+    -moz-animation: pulsetext 0.8s linear infinite;
+    -o-animation: pulsetext 0.8s linear infinite;
+    animation: pulsetext 0.8s linear infinite;
+}

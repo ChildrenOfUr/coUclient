@@ -66,6 +66,10 @@ class Street {
 		return _tsid;
 	}
 
+	String get tsid_g {
+		return _tsid;
+	}
+
 	String get label {
 		String hub_id = currentStreet.hub_id;
 		String currentStreetName;

@@ -1,0 +1,278 @@
+/* Window */
+
+.useitem-well {
+    overflow-y: scroll;
+}
+
+.useitem-well * {
+    font-family: "Lato", sans-serif;
+}
+
+.useitem-well .white-btn {
+    background-color: white;
+    border: 1px solid darkgrey;
+    border-radius: 8px;
+}
+
+.useitem-well .white-btn:hover {
+    box-shadow: 0 0 2px grey;
+}
+
+.useitem-well .white-btn:active {
+    background-color: #eee;
+    box-shadow: 0 0 2px darkgrey;
+}
+
+.useitem-well .white-btn,
+.useitem-well .white-btn * {
+    cursor: pointer;
+}
+
+.useitem-well .white-btn.disabled {
+    cursor: not-allowed;
+    background-color: #ddd;
+}
+
+/* Recipe Listing */
+
+.useitem-norecipes {
+    display: block;
+    font-size: 24px;
+    width: 300px;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 100px;
+    text-align: center;
+}
+
+.useitem-recipe {
+    width: 169px;
+    height: 60px;
+    display: inline-flex;
+    box-shadow: 0 0 2px lightgrey;
+    margin: 5px;
+    transition: all 0.1s ease-in-out;
+}
+
+.useitem-recipe-image {
+    height: 50px;
+    width: 40px;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    float: left;
+    position: relative;
+    top: 5px;
+    margin-left: 10px;
+}
+
+.useitem-recipe-text {
+    display: inline-block;
+    font-family: "Lato", sans-serif;
+    padding: 10px;
+    width: 104px;
+    height: 40px;
+    position: relative;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.cannot-make {
+    opacity: 0.5;
+    font-style: italic;
+}
+
+/* Individual Recipe View */
+
+.useitem-well.col3 {
+    display: flex;
+    flex-direction: row;
+}
+
+.recipeview-leftcol,
+.recipeview-centercol,
+.recipeview-rightcol {
+    flex: 1;
+    padding: 5px;
+}
+
+.recipeview-backtolist {
+    background-color: white;
+    border: 1px solid darkgrey;
+    border-radius: 8px;
+    width: calc(100% - 20px);
+    height: 30px;
+    padding: 5px 10px 10px 10px;
+    box-shadow: 0 0 2px lightgrey;
+    transition: all 0.1s ease-in-out;
+    font-size: 16px;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.recipeview-backtolist,
+.recipeview-backtolist * {
+    cursor: pointer;
+}
+
+.recipeview-image {
+    width: calc(100% - 20px);
+    height: 100px;
+    background-color: white;
+    border: 1px solid darkgray;
+    border-radius: 8px;
+    padding: 10px;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+.recipeview-text {
+    text-align: center;
+    font-weight: bold;
+    font-size: 24px;
+    margin-top: 10px;
+}
+
+.recipeview-outputqty {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+.recipeview-qtyparent {
+    width: calc(100% - 20px);
+    background-color: white;
+    border: 1px solid darkgray;
+    border-radius: 8px;
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    margin-top: 10px;
+    height: 48px;
+}
+
+.recipeview-qtyparent div {
+    flex: 1;
+}
+
+.rv-qty-minus .fa,
+.rv-qty-plus .fa {
+    font-size: 28px;
+    font-weight: bold;
+    height: 100%;
+    cursor: pointer;
+}
+
+.rv-qty-minus {
+    text-align: left;
+}
+
+.rv-qty-plus {
+    text-align: right;
+}
+
+.rv-qty-disp {
+    font-size: 28px;
+    font-weight: bold;
+    width: 70px;
+    text-align: center;
+    height: 40px;
+}
+
+.rv-qty-disp::-webkit-outer-spin-button,
+.rv-qty-disp::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.rv-max-disp {
+    margin: 5px 0;
+    text-align: center;
+}
+
+.rv-max-btn {
+    text-align: center;
+    padding: 5px;
+    margin-bottom: 12px;
+}
+
+.rv-makebtn {
+    height: 40px;
+    font-size: 24px;
+    text-align: center;
+    margin-top: 10px;
+    padding-top: 10px;
+}
+
+.recipeview-ing-title {
+    text-align: center;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.recipeview-ing-list {
+    border-spacing: 5px 10px;
+    text-align: center;
+    width: 100%;
+}
+
+.recipeview-ing-list tr {
+    cursor: pointer;
+}
+
+.recipeview-ing-list .rv-ing-list-img {
+    width: 30px;
+    height: 30px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+.recipeview-ing-list .fa {
+    font-size: 18px;
+    cursor: help;
+}
+
+.rv-red {
+    color: darkred !important;
+}
+
+.rv-green {
+    color: darkgreen !important;
+}
+
+/* Making Recipe Indicator */
+
+.makerecipe-anim {
+    width: 150px;
+    height: 150px;
+    background-color: white;
+    border: 1px solid darkgray;
+    border-radius: 8px;
+    text-align: center;
+    padding: 5px;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 30px;
+}
+
+.makerecipe-anim img {
+    max-width: 140px;
+    max-height: 140px;
+    width: auto;
+    height: auto;
+    margin-top: 50%;
+    transform: translateY(-50%);
+}
+
+.useitem-well ur-progress {
+    position: absolute;
+    bottom: 45px;
+    left: 25px;
+    width: 500px;
+    font-size: 15px;
+    text-align: center;
+}

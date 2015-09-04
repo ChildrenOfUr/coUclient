@@ -1,29 +1,33 @@
 part of couclient;
 
 class UseWindow extends Modal {
-  String id = 'useWindow' + random.nextInt(9999999).toString(), itemName;
   static Map<String, UseWindow> instances = {};
+  String id = 'useWindow' + random.nextInt(9999999).toString();
+  String itemType, itemName;
+  String listUrl;
   List<Map> recipeList;
   Element well;
 
-  factory UseWindow(String itemName) {
-    if (instances[itemName] == null) {
-      instances[itemName] = new UseWindow._(itemName);
+  factory UseWindow(String itemType, String itemName) {
+    if (instances[itemType] == null) {
+      instances[itemType] = new UseWindow._(itemType, itemName);
     } else {
-      instances[itemName].open();
+      instances[itemType].open();
     }
-    return instances[itemName];
+    return instances[itemType];
   }
 
-  UseWindow._(this.itemName) {
+  UseWindow._(this.itemType, this.itemName) {
     load().then((Element el) {
       querySelector("#windowHolder").append(el);
       prepare();
-      open();
+      open(false);
     });
   }
 
   Future<Element> load() async {
+
+    await updateRecipes();
 
     // Header
 
@@ -48,8 +52,7 @@ class UseWindow extends Modal {
     // Container
 
     well = new Element.tag("ur-well")
-      ..classes.add("useitem-well")
-      ..append(await listRecipes(false));
+      ..classes.add("useitem-well");
 
     DivElement window = new DivElement()
       ..id = id
@@ -68,8 +71,6 @@ class UseWindow extends Modal {
         ..children.clear()
         ..classes.remove("col3");
     }
-
-    recipeList = JSON.decode(await HttpRequest.requestCrossOrigin("http://${Configs.utilServerAddress}/recipes/list?tool=$itemName&email=${game.email}"));
 
     DivElement recipeContainer = new DivElement()
       ..classes.add("useitem-recipes")
@@ -90,6 +91,12 @@ class UseWindow extends Modal {
           ..append(image)
           ..append(info)
           ..onClick.listen((_) => openRecipe(recipe["id"]));
+
+        if (recipe["canMake"] == 0) {
+          recipeBtn
+            ..classes.add("cannot-make")
+            ..title = "You don't have everything to make this. Click to see what you need.";
+        }
 
         recipeContainer.append(recipeBtn);
       });
@@ -116,18 +123,45 @@ class UseWindow extends Modal {
       ..onClick.listen((_) async => well.append(await listRecipes()));
 
     DivElement itemImage = new DivElement()
-      ..classes.add("recipeview-image")
-      ..style.backgroundImage = "url(${recipe["output_map"]["iconUrl"]})";
+      ..classes.addAll(["recipeview-image", "white-btn"])
+      ..style.backgroundImage = "url(${recipe["output_map"]["iconUrl"]})"
+      ..onClick.listen((_) => new ItemWindow(recipe["output_map"]["name"]));
 
     DivElement itemName = new DivElement()
       ..classes.add("recipeview-text")
       ..text = recipe["output_map"]["name"];
 
+    DivElement outputQty = new DivElement()
+      ..classes.add("recipeview-outputqty");
+
+    if (recipe["output_amt"] == 1) {
+      outputQty.setInnerHtml(
+          "This recipe makes <br><b>one</b> ${recipe["output_map"]["name"]}"
+      );
+    } else {
+      if ((recipe["output_map"]["name"] as String).endsWith("y")) {
+        outputQty.setInnerHtml(
+            "This recipe makes <br><b>${recipe["output_amt"]}</b> ${(recipe["output_map"]["name"] as String).substring(0, recipe["output_map"]["name"].length - 1)}ies"
+        );
+      } else if ((recipe["output_map"]["name"] as String).endsWith("s")) {
+        outputQty.setInnerHtml(
+            "This recipe makes <br><b>${recipe["output_amt"]}</b> ${recipe["output_map"]["name"]}es"
+        );
+      } else {
+        outputQty.setInnerHtml(
+            "This recipe makes <br><b>${recipe["output_amt"]}</b> ${recipe["output_map"]["name"]}s"
+        );
+      }
+    }
+
     DivElement leftCol = new DivElement()
       ..classes.add("recipeview-leftcol")
       ..append(backToList)
       ..append(itemImage)
-      ..append(itemName);
+      ..append(itemName)
+      ..append(outputQty);
+
+    DivElement makeBtn;
 
     // qty controls
 
@@ -140,16 +174,21 @@ class UseWindow extends Modal {
       hmTitle.text = "You don't have all the ingredients needed to make this.";
     }
 
-    NumberInputElement qtyDisplay = new NumberInputElement()
+    NumberInputElement qtyDisplay;
+    qtyDisplay = new NumberInputElement()
       ..classes.add("rv-qty-disp")
       ..value = qty.toString()
       ..min = "1"
-      ..max = recipe["maxAmt"].toString();
+      ..max = recipe["maxAmt"].toString()
+      ..onChange.listen((_) => checkReqEnergy(recipe, makeBtn, qtyDisplay));
 
     DivElement qtyMinus = new DivElement()
       ..classes.add("rv-qty-minus")
       ..onClick.listen((_) {
-        if (qty > 1) qty--;
+        if (qty > 1) {
+          qty--;
+        }
+        checkReqEnergy(recipe, makeBtn, qtyDisplay);
         qtyDisplay.value = qty.toString();
       })
       ..setInnerHtml('<i class="fa fa-fw fa-minus rv-red"></i>');
@@ -157,7 +196,10 @@ class UseWindow extends Modal {
     DivElement qtyPlus = new DivElement()
       ..classes.add("rv-qty-plus")
       ..onClick.listen((_) {
-        if (qty < recipe["canMake"]) qty++;
+        if (qty < recipe["canMake"]) {
+          qty++;
+        }
+        checkReqEnergy(recipe, makeBtn, qtyDisplay);
         qtyDisplay.value = qty.toString();
       })
       ..setInnerHtml('<i class="fa fa-fw fa-plus rv-green"></i>');
@@ -175,12 +217,19 @@ class UseWindow extends Modal {
     DivElement maxBtn = new DivElement()
       ..classes.addAll(["rv-max-btn", "white-btn"])
       ..text = "Make ${recipe["canMake"].toString()}"
-      ..onClick.listen((_) => qtyDisplay.value = recipe["canMake"].toString());
+      ..onClick.listen((_) {
+      qtyDisplay.value = recipe["canMake"].toString();
+      checkReqEnergy(recipe, makeBtn, qtyDisplay);
+    });
 
-    DivElement makeBtn = new DivElement()
+    makeBtn = new DivElement()
       ..classes.addAll(["rv-makebtn", "white-btn"])
-      ..onClick.listen((_) => makeRecipe(id, int.parse(qtyDisplay.value)))
-      ..text = "Do It!";
+      ..text = "Do It!"
+      ..onClick.listen((Event e) {
+      if (!(e.target as Element).classes.contains("disabled")) {
+        makeRecipe(id, int.parse(qtyDisplay.value));
+      }
+    });
 
     DivElement centerCol = new DivElement()
       ..classes.add("recipeview-centercol")
@@ -210,10 +259,11 @@ class UseWindow extends Modal {
         ..classes.add("rv-ing-list-img");
 
       TableCellElement text = new TableCellElement()
-        ..setInnerHtml("<b>${ingmap["qtyReq"]}x</b> " + ingmap["name"]);
+        ..setInnerHtml("<b>${ingmap["qtyReq"]}x</b> " + ingmap["name"])
+        ..classes.add("rv-ing-list-ing-name");
 
       Element status = new Element.tag("i");
-      if (ingmap["userHas"] > ingmap["qtyReq"]) {
+      if (ingmap["userHas"] >= ingmap["qtyReq"]) {
         status
           ..classes.addAll(["fa", "fa-check", "fa-fw", "rv-green"])
           ..title = "You have enough";
@@ -229,7 +279,9 @@ class UseWindow extends Modal {
       TableRowElement item = new TableRowElement()
         ..append(img)
         ..append(text)
-        ..append(statusCol);
+        ..append(statusCol)
+        ..onClick.listen((_) => new ItemWindow(ingmap["name"]))
+        ..title = "Click to open item information";
 
       ingList.append(item);
     });
@@ -248,7 +300,8 @@ class UseWindow extends Modal {
       ..classes.add("col3");
   }
 
-  makeRecipe(String id, [int qty = 1]) {
+  makeRecipe(String id, [int qty = 1]) async {
+
     Map recipe = getRecipe(id);
 
     int current = 1;
@@ -270,16 +323,24 @@ class UseWindow extends Modal {
       ..append(animationParent)
       ..append(progBar);
 
-    // start the timer
-    new Timer.periodic(new Duration(seconds: recipe["time"]), (Timer actionTimer) async {
-      if (qty > current) {
+    await new Timer.periodic(new Duration(seconds: recipe["time"]), (Timer timer) async {
+      String serverResponse = await HttpRequest.requestCrossOrigin("http://${Configs.utilServerAddress}/recipes/make?token=$rsToken&id=${recipe["id"]}&email=${game.email}&username=${game.username}");
+      if (current >= qty && serverResponse == "true") {
+        // Server says no, or we're done
+        // Stop the timer
+        timer.cancel();
+        // Update recipe data
+        await updateRecipes(false);
+        // Reset the UI
+        well.append(await listRecipes());
+      } else {
+        // Server says yes
+        // Increase the number we've made
         current++;
+        // Update the progress bar
         progBar
           ..attributes["percent"] = ((100 / qty) * current).toString()
           ..attributes["status"] = "Making ${current.toString()} of ${qty.toString()}";
-      } else {
-        actionTimer.cancel();
-        well.append(await listRecipes());
       }
     });
   }
@@ -289,8 +350,41 @@ class UseWindow extends Modal {
   }
 
   @override
+  open([bool refresh = true]) async {
+    if (refresh) {
+      await updateRecipes();
+    }
+    well.append(await listRecipes(true));
+    displayElement.hidden = false;
+    elementOpen = true;
+    this.focus();
+  }
+
+  @override
   close() {
-    instances[itemName].displayElement.hidden = true;
-    super.close();
+    if (instances[itemType] != null) {
+      instances[itemType].displayElement.hidden = true;
+      super.close();
+    }
+  }
+
+  updateRecipes([bool notify = true]) async {
+    if (notify) {
+      toast("Reading recipe book...");
+    }
+    recipeList = await JSON.decode(await HttpRequest.requestCrossOrigin("http://${Configs.utilServerAddress}/recipes/list?token=$rsToken&tool=$itemType&email=${game.email}"));
+    return;
+  }
+
+  bool checkReqEnergy(Map recipe, Element makeBtn, NumberInputElement qtyDisplay) {
+    if (metabolics.energy < (recipe["energy"] as int).abs() * (qtyDisplay.valueAsNumber)) {
+      makeBtn.classes.add("disabled");
+      makeBtn.title = "Not enough energy :(";
+      return false;
+    } else {
+      makeBtn.classes.remove("disabled");
+      makeBtn.title = "";
+      return true;
+    }
   }
 }

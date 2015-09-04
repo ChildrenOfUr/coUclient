@@ -1,0 +1,58 @@
+#JoystickParent {
+    width: 115px;
+    height: 115px;
+    overflow: auto;
+    position: absolute;
+    left: 25px;
+    bottom: 150px;
+}
+
+#Joystick {
+    display: block;
+    width: 70px;
+    height: 70px;
+    border: 1px solid transparent;
+    border-radius: 50%;
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+#Knob {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.2);
+    will-change: transform;
+}
+
+#MobileButtonContainer {
+    position: absolute;
+    right: 280px;
+    bottom: 110px;
+    display: flex;
+    flex-direction: row;
+    width: 120px;
+    height: 50px;
+}
+
+#MobileButtonContainer > div {
+    flex: 1;
+    display: inline-block;
+    text-align: center;
+    line-height: 50px;
+    max-width: 50px;
+    height: 50px;
+    border: 1px solid transparent;
+    border-radius: 50%;
+    color: white;
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+#AButton {
+    margin-right: 16px;
+}

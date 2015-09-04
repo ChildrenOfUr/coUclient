@@ -98,14 +98,16 @@
                     <!-- Graphics -->
                     <h1 class="pane-title">Graphics</h1>
                     <label class="ChatSettingsOption">
-                        <input id="GraphicsBlur" type="checkbox" class="ChatSettingsCheckbox">Enable Scenery Blur
+                        <paper-toggle-button id="GraphicsBlur" class="ChatSettingsCheckbox"></paper-toggle-button>
+                        Enable Scenery Blur
                     </label>
                     <br>
                     <label class="ChatSettingsOption">
-                        <input id="WeatherEffectsEnabled" type="checkbox" class="ChatSettingsCheckbox" checked="true">Enable Weather Effects
+                        <paper-toggle-button id="WeatherEffectsEnabled" checked></paper-toggle-button>
+                        Enable Weather Effects
                     </label>
                     <br>
-                    <label>
+                    <label id="weatherIntensity">
                         Weather Intensity:<br>
                         <paper-radio-group id="WeatherEffectsIntensityGroup" selected="normal">
                             <paper-radio-button name="light" label="Light"></paper-radio-button>
@@ -129,12 +131,12 @@
                     <!-- Chat -->
                     <h1 class="pane-title">Chat</h1>
                     <label class="ChatSettingsOption">
-                        <input id="ShowJoinMessages" type="checkbox" class="ChatSettingsCheckbox">
+                        <paper-toggle-button id="ShowJoinMessages" class="ChatSettingsCheckbox"></paper-toggle-button>
                         Show Join Messages
                     </label>
                     <br>
                     <label class="ChatSettingsOption">
-                        <input id="PlayMentionSound" type="checkbox" class="ChatSettingsCheckbox">
+                        <paper-toggle-button id="PlayMentionSound" class="ChatSettingsCheckbox"></paper-toggle-button>
                         Play Mention Sound
                     </label>
 

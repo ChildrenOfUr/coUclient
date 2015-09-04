@@ -178,34 +178,65 @@ class VendorWindow extends Modal {
 			backToBuy.click();
 		});
 
+		// Plus Button
 		StreamSubscription bplus = buyPlus.onClick.listen((_) {
 			try {
-				if (!sellMode && buyNum.valueAsNumber + 1 <= getBlankSlots()) {
-					int newNum = (++buyNum.valueAsNumber).toInt();
-					numToBuy = _updateNumToBuy(item, newNum, sellMode:sellMode);
+
+				if (sellMode) {
+					// Selling an item
+
+					if (buyNum.valueAsNumber + 1 <= getNumItems(item["itemType"])) {
+						// We have enough to sell
+						int newNum = (++buyNum.valueAsNumber).toInt();
+						numToBuy = _updateNumToBuy(item, newNum, sellMode: sellMode);
+					}
+
+				} else {
+					// Buying an item
+
+					if (buyNum.valueAsNumber + 1 <= getBlankSlots()) {
+						// You can fit the max number of items in your inventory
+						int newNum = (++buyNum.valueAsNumber).toInt();
+						numToBuy = _updateNumToBuy(item, newNum, sellMode: sellMode);
+					}
+
+				}
+
+			}
+			catch(e) {
+				logmessage("[Vendor] Plus Button Error: $e");
+			}
+		});
+
+		// Minus Button
+		StreamSubscription bminus = buyMinus.onClick.listen((_) {
+			try {
+				if (buyNum.valueAsNumber > 1) {
+					// We can't go to 0 or negative
+					int newNum = (--buyNum.valueAsNumber).toInt();
+					numToBuy = _updateNumToBuy(item, newNum, sellMode: sellMode);
 				}
 			}
 			catch(e) {
+				logmessage("[Vendor] Minus Button Error: $e");
 			}
 		});
-		StreamSubscription bminus = buyMinus.onClick.listen((_) {
-			try {
-				int newNum = (--buyNum.valueAsNumber).toInt();
-				numToBuy = _updateNumToBuy(item, newNum, sellMode:sellMode);
-			}
-			catch(e) {
-			}
-		});
+
+		// Max Button
 		StreamSubscription bmax = buyMax.onClick.listen((_) {
 			try {
 				int newNum;
-				if(sellMode)
-					newNum = min(getBlankSlots(), min((item['stacksTo']).toInt(), getNumItems(item['itemType'])));
-				else
-					newNum = min((item['stacksTo']).toInt(), (metabolics.currants / item['price']) ~/ 1);
+				if(sellMode) {
+					// Selling an item
+					newNum = min(item['stacksTo'].toInt(), getNumItems(item['itemType']));
+				} else {
+					// Buying an item
+					newNum = min(getBlankSlots(), min((item['stacksTo']).toInt(), (metabolics.currants / item['price']) ~/ 1));
+				}
 				numToBuy = _updateNumToBuy(item, newNum, sellMode:sellMode);
 			}
 			catch(e) {
+				logmessage("[Vendor] Max Button Error: $e");
 			}
 		});
 

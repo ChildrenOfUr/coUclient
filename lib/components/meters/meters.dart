@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import 'dart:html';
 import 'dart:async';
 import 'dart:math' show Random;
+import 'dart:convert';
 
 @CustomTag('ur-meters')
 class Meters extends PolymerElement {
@@ -15,7 +16,7 @@ class Meters extends PolymerElement {
 	NumberFormat commaFormatter = new NumberFormat("#,###");
 
 	Meters.created() : super.created() {
-		if(debug == true) {
+		if (debug == true) {
 			Random r = new Random();
 			new Timer.periodic(new Duration(seconds:1), (_) {
 				energy = r.nextInt(maxenergy);

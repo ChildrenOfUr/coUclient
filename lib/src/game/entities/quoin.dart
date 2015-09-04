@@ -37,9 +37,15 @@ class Quoin extends Entity {
 		if (typeString == "mystery") {
 			return;
 		}
+
 		// Don't show Quarazy Quoins more than once for a street
-		if (typeString == "quarazy" && metabolics.location_history.contains(currentStreet.tsid)) {
-			return;
+		if (typeString == "quarazy") {
+			if (!metabolics.load.isCompleted) {
+				await metabolics.load.future;
+			}
+			if (metabolics.location_history.contains(currentStreet.tsid_g)) {
+				return;
+			}
 		}
 
 		id = map["id"];
@@ -146,6 +152,8 @@ class Quoin extends Entity {
 				} else if(typeString == 'energy' &&
 				          metabolics.playerMetabolics.energy == metabolics.playerMetabolics.max_energy) {
 					toast("You tried to collect an energy quoin, but your energy tank was already full.");
+				} else if (metabolics.playerMetabolics.quoins_collected >= 100) {
+					toast("You've reached your daily limit of 100 quoins");
 				} else {
 					_sendToServer();
 				}

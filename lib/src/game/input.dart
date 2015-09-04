@@ -73,15 +73,25 @@ class InputManager {
 
 	activateControl(String control, bool active, String sourceName) {
 		Map<String, Map> signalsList = controlCounts[control]['signals'];
-		if(active && !signalsList.containsKey(sourceName + '-' + control))
+		if(active && !signalsList.containsKey(sourceName + '-' + control)) {
 			signalsList[sourceName + '-' + control] = {'sourceName':sourceName, 'active':active};
-		else if(!active)
+		} else if(!active) {
 			signalsList.remove(sourceName + '-' + control);
+		}
 
-		if(signalsList.length <= 0)
+		if(signalsList.length <= 0) {
 			controlCounts[control]['keyBool'].value = false;
-		else
+		} else {
 			controlCounts[control]['keyBool'].value = true;
+		}
+
+		new Service(["worldFocus"], (bool focused) {
+			if (!focused) {
+				controlCounts.forEach((String control, Map data) {
+					data["keyBool"].value = false;
+				});
+			}
+		});
 	}
 
 	updateGamepad() {
@@ -279,7 +289,7 @@ class InputManager {
 		});
 
 
-		CheckboxInputElement graphicsBlur = querySelector("#GraphicsBlur") as CheckboxInputElement;
+		PaperToggleButton graphicsBlur = querySelector("#GraphicsBlur") as PaperToggleButton;
 		graphicsBlur.onChange.listen((_) {
 			localStorage["GraphicsBlur"] = graphicsBlur.checked.toString();
 		});

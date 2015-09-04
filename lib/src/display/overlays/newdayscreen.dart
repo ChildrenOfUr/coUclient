@@ -20,7 +20,7 @@ class NewDayOverlay extends Overlay {
 		audio.playSound('newDay');
 		inputManager.ignoreKeys = true;
 		displayElement.querySelector("#newday-button").onClick.first.then((_) => close());
-		// TODO: new day screen sound
+		transmit("worldFocus", false);
 	}
 
 	close() {

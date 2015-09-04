@@ -10,8 +10,9 @@ class Camera {
   MutableRectangle visibleRect;
 
   void setCameraPosition(int newX, int newY) {
-    if (newX != _x || newY != _y)
+    if (newX != _x || newY != _y) {
       dirty = true;
+    }
     _x = newX;
     _y = newY;
 

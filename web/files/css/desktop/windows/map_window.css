@@ -1,0 +1,263 @@
+#mapDisplay {
+    position: relative;
+    text-align: right;
+    top: -10px;
+    display: inline-block;
+    margin-right: 15px;
+}
+
+#mapDisplay .label {
+  top:0.3em;
+  font-size:0.8em;
+  opacity:0.8;
+}
+
+#mapImage {
+    background-size: 572px 327px;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+}
+
+#mapTitle {
+    cursor: inherit;
+    position: relative;
+    left: -75px;
+}
+
+#mapTitle:active {
+    cursor: inherit;
+}
+
+.maplayer {
+    width: 100%;
+    height: 100%;
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+/* Map Renderer, Div Edition */
+
+.hm-street {
+    position: absolute;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 4px;
+    height: 8px;
+    text-align: center;
+    font-family: "Lato", sans-serif;
+    color: #222;
+    line-height: 8px;
+    font-weight: bold;
+    font-size: 14px;
+    text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff;
+    cursor: pointer;
+    -webkit-transform-origin: 0% 50%;
+    -moz-transform-origin: 0% 50%;
+    -ms-transform-origin: 0% 50%;
+    -o-transform-origin: 0% 50%;
+    transform-origin: 0% 50%;
+}
+
+.hm-street.hm-street-current {
+    color: #c42323;
+    font-weight: bolder;
+}
+
+.hm-street.hm-street-highlight::after {
+    border: 6px solid #c42323;
+    position: absolute;
+    left: -26px;
+    top: -26px;
+    content: "";
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    padding: 20px;
+}
+
+.hm-street.hm-street-route {
+    color: #236EC4;
+    font-weight: bolder;
+}
+
+.hm-street.hm-street-current.hm-street-route {
+    color: #8323C4;
+    font-weight: bolder;
+}
+
+.maplayer.scaled {
+    transform: scaleX(0.752631578947368) scaleY(0.710869565217391);
+    transform-origin: -21px -21px 0px;
+}
+
+.hm-go {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 3px solid white;
+    color: white;
+    text-align: center;
+    font-family: "Fredoka One", "Lato", sans-serif;
+    font-size: 24px;
+    line-height: 40px;
+    cursor: pointer;
+    background-color: #aaa;
+}
+
+#HubMapLayerFG {
+    content: '';
+    width: 100%;
+    height: 100%;
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+}
+
+/* Full World Map */
+
+#map-window-world {
+    position: relative;
+    top: -5px;
+}
+
+#map-window-world /deep/ button {
+    height: 30px;
+    width: 30px;
+}
+
+#map-window-world /deep/ .fa {
+    padding: 0 !important;
+    cursor: pointer;
+}
+
+.wml-hub {
+    width: 50px;
+    height: 25px;
+    display: block;
+    background-image: url(../../../system/windows/hubmarker.svg);
+    background-repeat: no-repeat;
+    background-position: top left;
+    background-size: 100%;
+    position: absolute;
+    padding: 6px 3px 3px 3px;
+    text-align: center;
+    color: rgba(0,0,0,0);
+    text-shadow: none;
+    font-family: "Lato", sans-serif;
+    font-weight: bold;
+    font-size: 12px;
+    cursor: pointer;
+    line-height: 10px;
+    z-index: 10;
+}
+
+.wml-hub:hover,
+.wml-hub.currentlocationhub {
+    color: white;
+    text-shadow: 0 0 10px #000;
+    z-index: 11;
+}
+
+/* Street Content Icons */
+
+.street-contents-indicators {
+    width: 100%;
+    height: 15px;
+    position: absolute;
+    bottom: 12px;
+    text-align: center;
+}
+
+.street-contents-indicators > div {
+    width: 15px;
+    height: 15px;
+    background-repeat: no-repeat;
+    background-size: 15px 15px;
+    -webkit-filter: drop-shadow(0 0 4px white);
+    -moz-filter: drop-shadow(0 0 4px white);
+    -o-filter: drop-shadow(0 0 4px white);
+    filter: drop-shadow(0 0 4px white);
+    cursor: help;
+    display: inline-block;
+    padding: 0 3px;
+}
+
+.street-contents-indicators > .sci-vendor {
+    background-image: url(../../../system/windows/indicator_vendor.svg);
+}
+
+.street-contents-indicators > .sci-shrine {
+    background-image: url(../../../system/windows/indicator_shrine.svg);
+}
+
+.street-contents-indicators > .sci-mailbox {
+    background-image: url(../../../system/windows/indicator_mailbox.svg);
+}
+
+.street-contents-indicators > .sci-bureau {
+    background-image: url(../../../system/windows/indicator_bureaucratichall.svg);
+}
+
+.street-contents-indicators > .sci-machines {
+    background-image: url(../../../system/windows/indicator_machine.svg);
+}
+
+#mapwindow-search {
+    position: absolute;
+    right: 10px;
+    top: 20px;
+    padding-left: 2px;
+    width: 212px;
+}
+
+#map-window-search-results {
+    width: 219px;
+    background-color: white;
+    z-index: 109;
+    border-radius: 8px 8px;
+    box-shadow: 0 5px 10px rgba(68, 68, 68, 0.5);
+    position: absolute;
+    right: 10px;
+    top: 42px;
+    max-height: 325px;
+    overflow: hidden;
+}
+
+#map-window-search-results ul {
+    margin: 0;
+    font-size: 12px;
+    font-family: "Lato", sans-serif;
+    list-style-type: none;
+    padding: 0;
+}
+
+#map-window-search-results ul li {
+    padding: 5px 10px;
+}
+
+#map-window-search-results ul li,
+#map-window-search-results ul li * {
+    cursor: pointer;
+}
+
+#map-window-search-results ul li span {
+    color: #999;
+    float: right;
+}
+
+#map-window-search-results ul li:first-child:hover {
+    border-radius: 8px 8px 0 0;
+}
+
+#map-window-search-results ul li:last-child:hover {
+    border-radius: 0 0 8px 8px;
+}
+
+#map-window-search-results ul li:hover {
+    background-color: #4b2e4c;
+    color: white;
+}

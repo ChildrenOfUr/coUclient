@@ -32,7 +32,8 @@ class CommandManager {
         ..['physics'] = togglePhysics
         ..['log'] = log
         ..['time'] = setTime
-        ..['weather'] = setWeather;
+        ..['weather'] = setWeather
+        ..['note'] = note;
     }
   }
 }
@@ -122,4 +123,8 @@ togglePhysics(var nothing) {
 setMusic(String song) {
   toast("Music set to $song");
   audio.setSong(song);
+}
+
+note(var nothing) {
+  new NoteWindow(null);
 }

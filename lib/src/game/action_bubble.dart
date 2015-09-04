@@ -20,7 +20,7 @@ class ActionBubble {
 			..style.zIndex = '99'
 			..style.whiteSpace = 'nowrap';
 
-		CurrentPlayer.playerParentElement
+		CurrentPlayer.superParentElement
 			..append(outline)
 			..append(fill);
 
@@ -28,9 +28,11 @@ class ActionBubble {
 		Rectangle outlineRect = outline.client;
 		int outlineWidth = outlineRect.width;
 		int outlineHeight = outlineRect.height;
-		print('width: $outlineWidth');
-		int x = -outlineWidth~/2 + CurrentPlayer.width ~/ 2;
-		int y = -outlineHeight - 25;
+		//print('width: $outlineWidth');
+		num playerX = num.parse(CurrentPlayer.playerParentElement.attributes['translatex']);
+		num playerY = num.parse(CurrentPlayer.playerParentElement.attributes['translatey']);
+		int x = playerX~/1 -outlineWidth~/2 + CurrentPlayer.width ~/ 2;
+		int y = playerY~/1 -outlineHeight - 25;
 
 		fill
 			..style.top = '${y}px'

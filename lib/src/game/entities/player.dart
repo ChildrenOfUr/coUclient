@@ -7,16 +7,10 @@ class Player implements xl.Animatable {
 	height = 137,
 	speed = 300;
 	num posX, posY;
-	num yVel = 0,
-	yAccel = -2400;
-	bool jumping = false,
-	moving = false,
-	climbingUp = false,
-	climbingDown = false;
-	bool activeClimb = false,
-	lastClimbStatus = false,
-	facingRight = true,
-	firstRender = true;
+	num yVel = 0, yAccel = -2400;
+	bool jumping = false, moving = false, climbingUp = false, climbingDown = false;
+	bool activeClimb = false, lastClimbStatus = false, facingRight = true, firstRender = true;
+	bool isGuide = false;
 	Map<String, xl.FlipBook> animations = new Map();
 	xl.FlipBook currentAnimation;
 	xl.ResourceManager resManager;
@@ -32,9 +26,8 @@ class Player implements xl.Animatable {
 	//if false, player can move around with wasd and arrows, no falling
 	bool doPhysicsApply = true;
 
-	DivElement playerParentElement;
+	DivElement playerName, playerParentElement, superParentElement;
 	CanvasElement playerCanvas;
-	DivElement playerName;
 
 	Player(this.username) {
 		posX = metabolics.currentStreetX;
@@ -69,12 +62,19 @@ class Player implements xl.Animatable {
 
 		playerParentElement = new DivElement()
 			..classes.add("playerParent")
+			..id = "pc-player-$username"
 			..style.width = width.toString() + "px"
 			..style.height = height.toString() + "px";
 
-		playerParentElement.append(playerName);
+		superParentElement = new DivElement()
+			..classes.add('playerParent');
+		superParentElement.append(playerParentElement);
+
+		if (username != game.username) {
+			playerParentElement.append(playerName);
+		}
 		playerParentElement.append(playerCanvas);
-		view.worldElement.append(playerParentElement);
+		view.worldElement.append(superParentElement);
 	}
 
 	@override
@@ -487,11 +487,9 @@ class Player implements xl.Animatable {
 	}
 
 	void updateTransform() {
-		num translateX = posX,
-		translateY = view.worldElementWidth - height;
+		num translateX = posX, translateY = view.worldElementWidth - height;
+		num camX = camera.x, camY = camera.y;
 
-		num camX = camera.x,
-		camY = camera.y;
 		if (posX > currentStreet.bounds.width - width / 2 - view.worldElementWidth / 2) {
 			camX = currentStreet.bounds.width - view.worldElementWidth;
 			translateX = posX - currentStreet.bounds.width + view.worldElementWidth;
