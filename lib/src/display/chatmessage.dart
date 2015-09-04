@@ -13,7 +13,6 @@ class ChatMessage {
 
     message = parseUrl(message);
     message = parseEmoji(message);
-    message = parseFormat(message);
 
     if (message.toLowerCase().contains(game.username.toLowerCase())) {
       transmit('playSound', 'mention');
@@ -155,13 +154,4 @@ String parseUrl(String message) {
   }, onNonMatch: (String s) => returnString += s);
 
   return returnString;
-}
-
-String parseFormat(String message) {
-  List<md.InlineSyntax> allowed = [
-    new md.TagSyntax(r'\*', tag: 'strong'),
-    new md.TagSyntax(r'\/', tag: 'em')
-  ];
-  String escaped = md.markdownToHtml(message, inlineSyntaxes: allowed, inlineOnly: true);
-  return escaped.replaceAll("&lt;", "<").replaceAll("&gt;", ">");
 }

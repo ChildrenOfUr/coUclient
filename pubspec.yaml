@@ -36,7 +36,6 @@ dependencies:
         url: https://github.com/ChildrenOfUr/cou_login.git
   stagexl: "^0.12.0"
   browser_detect: "^1.0.3"
-  markdown: any
 
 transformers:
 - couclient/transformers/configs_transformer

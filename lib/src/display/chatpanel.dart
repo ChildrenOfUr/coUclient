@@ -13,10 +13,10 @@ class Chat {
 		..allowHtml5()
 		..allowElement('span', attributes: ['style']) // Username colors
 		..allowElement('a', attributes: ['href', 'title', 'target', 'class']) // Links
-		..allowElement('strong') // [md] Bold
-		..allowElement('em') // [md] italic
 		..allowElement('i', attributes: ['class', 'title']) // Emoticons
-		..allowElement('p', attributes: ['style']);
+		..allowElement('p', attributes: ['style'])
+		..allowElement('b')
+		..allowElement('del');
 
 	// /me text
 
@@ -321,7 +321,8 @@ class Chat {
 				toast("You can't send a blank message");
 				return;
 			}
-			RegExp formatChars = new RegExp(r'\*|\/');
+
+			RegExp formatChars = new RegExp(r'<b>|</b>|<i>|</i>|<u>|</u>|<del>|</del>');
 			if(input.value.replaceAll(formatChars,'').length == 0) {
 				toast("You must have non-formatting content in your message");
 				return;

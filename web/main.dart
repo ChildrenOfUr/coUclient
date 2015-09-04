@@ -46,8 +46,6 @@ import 'package:jsonx/jsonx.dart';
 import 'package:couclient/configs.dart';
 // Special browser errors
 import 'package:browser_detect/browser_detect.dart';
-// Chat message formatting
-import 'package:markdown/markdown.dart' as md;
 
 export 'package:polymer/init.dart';
 

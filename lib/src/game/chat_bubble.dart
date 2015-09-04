@@ -28,7 +28,7 @@ class ChatBubble {
 //	<span class="currants">+0</span>
 // </div>
 
-		textElement.setInnerHtml(parseFormat(text), validator: Chat.validator);
+		textElement.setInnerHtml(text, validator: Chat.validator);
 
 		arrowElement = new DivElement()
 			..classes.add("cb-arrow");
