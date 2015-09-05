@@ -63,7 +63,7 @@ a {
   -webkit-user-drag: none;
   -moz-user-drag: none;
   user-drag: none;
-  text-shadow: 0px 1px rgba(100,100,100,0.3);
+  text-shadow: 0 1px rgba(100,100,100,0.3);
 }
 
 main {
@@ -88,4 +88,25 @@ main {
 
 #AButton, #BButton {
 	display: none;
+}
+
+/* custom scrollbar styles */
+
+::-webkit-scrollbar {
+    width:8px;
+}
+
+::-webkit-scrollbar-track {
+    background:rgb(238, 238, 238);
+    border:none;
+    box-shadow:0 0 3px #dfdfdf inset;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color:#4b2e4c;
+    border-radius:8px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color:#7b4c7c;
 }

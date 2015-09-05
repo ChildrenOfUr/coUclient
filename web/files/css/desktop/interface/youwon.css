@@ -2,8 +2,8 @@
     font-size:1.5em;
     text-align: center;
     overflow:hidden;
-    top:0px;  
-    left:0px;
+    top:0;
+    left:0;
     background-color: #000;
     color:#fff;
     position:absolute;
@@ -17,8 +17,8 @@
     font-size:1.5em;
     text-align: center;
     overflow:hidden;
-    top:0px;
-    left:0px;
+    top:0;
+    left:0;
     background-color: #000;
     color:#fff;
     position:absolute;

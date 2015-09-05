@@ -101,10 +101,10 @@
 .MapLoadingScreen {
     background-color: #829363;
     position: absolute;
-    top: 0px;
-    left: 0px;
-    right: 0px;
-    bottom: 0px;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     opacity: 1.0;
     z-index: 3;
     pointer-events: none;
@@ -122,10 +122,10 @@
 .MapLoadingScreenIn {
     background-color: #829363;
     position: absolute;
-    top: 0px;
-    left: 0px;
-    right: 0px;
-    bottom: 0px;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     opacity: 0.0;
     z-index: 2;
     transition-property: opacity;
@@ -172,14 +172,14 @@
     color: #f7ff95;
     /* I'm not using 'vh' because there's no 'font-size-max' property.*/
     font-size: 50px;
-    line-height: 0px;
+    line-height: 0;
     margin: 0;
-    text-shadow: 0px 4px rgba(0, 0, 0, 0.3);
+    text-shadow: 0 4px rgba(0, 0, 0, 0.3);
 }
 
 #NowEntering h2 {
     color: #fff;
-    text-shadow: 0px 4px rgba(0, 0, 0, 0.3);
+    text-shadow: 0 4px rgba(0, 0, 0, 0.3);
     font-size: 30px;
 }
 

@@ -88,7 +88,7 @@
 
 .maplayer.scaled {
     transform: scaleX(0.752631578947368) scaleY(0.710869565217391);
-    transform-origin: -21px -21px 0px;
+    transform-origin: -21px -21px 0;
 }
 
 .hm-go {
