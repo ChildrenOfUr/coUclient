@@ -1,10 +1,16 @@
+.bagWindow {
+    height: 153px !important;
+    width: 438px !important;
+    transform: translate(-50%, 50%) !important; /* Create bag windows closer to the bag */
+}
+
 .bagWindow header img.fa-li {
     height: 40px;
     margin-top: 4px;
 }
 
 .box.bagwindow-box {
-    margin: 14px;
+    margin: 2px;
 }
 
 .box.bagwindow-box .itemCount {

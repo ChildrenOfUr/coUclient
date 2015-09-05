@@ -2,7 +2,7 @@ part of couclient;
 
 class UseWindow extends Modal {
   static Map<String, UseWindow> instances = {};
-  String id = 'useWindow' + random.nextInt(9999999).toString();
+  String id = 'useWindow' + WindowManager.randomId.toString();
   String itemType, itemName;
   String listUrl;
   List<Map> recipeList;

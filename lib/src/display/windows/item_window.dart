@@ -1,7 +1,7 @@
 part of couclient;
 
 class ItemWindow extends Modal {
-	String id = 'itemWindow' + random.nextInt(9999999).toString(), itemName;
+	String id = 'itemWindow' + WindowManager.randomId.toString(), itemName;
 	static Map<String, ItemWindow> instances = {};
 
 	String priceText, slotText, wearText;

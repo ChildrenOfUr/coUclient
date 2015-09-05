@@ -9,7 +9,7 @@ class BagWindow extends Modal {
 		openWindows.removeWhere((BagWindow w) => w.id == id);
 	}
 
-	String id = 'bagWindow' + random.nextInt(9999999).toString();
+	String id = 'bagWindow' + WindowManager.randomId.toString();
 	String bagId;
 	int numSlots;
 	int sourceSlotNum;
