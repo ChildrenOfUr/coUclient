@@ -55,7 +55,7 @@ class Game {
 		//windowManager.motdWindow.open();
 
 		//init the players metabolcs
-		metabolics.init(m);
+		await metabolics.init(m);
 
 		//setup the communications for multiplayer events
 		multiplayerInit();
