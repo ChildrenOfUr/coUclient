@@ -33,14 +33,19 @@ class MetabolicsService {
 			if (map['collectQuoin'] != null && map['collectQuoin'] == "true") {
 				collectQuoin(map);
 			} else {
+				int oldImg = lifetime_img;
 				int oldLevel = await level;
 				playerMetabolics = decode(event.data, type:Metabolics);
 				if (!load.isCompleted) {
 					load.complete();
 				}
-				int newLvl = await level;
-				if (oldLevel > newLvl - 2 && newLvl > oldLevel && webSocketMessages > 0) {
-					levelUp.open();
+				int newImg = lifetime_img;
+				int newLvl;
+				if (newImg > oldImg) {
+					newLvl = await level;
+					if (oldLevel > newLvl - 2 && newLvl > oldLevel && webSocketMessages > 0) {
+						levelUp.open();
+					}
 				}
 				transmit('metabolicsUpdated', playerMetabolics);
 			}
