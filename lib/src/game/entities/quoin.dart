@@ -19,11 +19,6 @@ class Quoin {
 	{
 		typeString = map['type'];
 
-		// Disable mystery quoins
-		if (typeString == "mystery") {
-			return;
-		}
-
 		// Don't show Quarazy Quoins more than once for a street
 		if (typeString == "quarazy") {
 			if (!metabolics.load.isCompleted) {
