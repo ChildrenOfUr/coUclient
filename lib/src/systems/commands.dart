@@ -97,7 +97,7 @@ setWeather(String noun) {
   }
 }
 
-toggleCollisionLines(var nothing) {
+toggleCollisionLines(_) {
   if (showCollisionLines) {
     showCollisionLines = false;
     hideLineCanvas();
@@ -110,7 +110,7 @@ toggleCollisionLines(var nothing) {
   }
 }
 
-togglePhysics(var nothing) {
+togglePhysics(_) {
   if (CurrentPlayer.doPhysicsApply) {
     CurrentPlayer.doPhysicsApply = false;
     toast('Physics no longer apply to you');
@@ -125,6 +125,4 @@ setMusic(String song) {
   audio.setSong(song);
 }
 
-note(var nothing) {
-  new NoteWindow(null);
-}
+note(_) => new NoteWindow(null);

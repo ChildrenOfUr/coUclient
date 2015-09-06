@@ -8,6 +8,7 @@ class Chat {
 	int unreadMessages = 0, tabSearchIndex = 0, numMessages = 0, inputHistoryPointer = 0, emoticonPointer = 0;
 	static Chat otherChat = null, localChat = null;
 	List<String> connectedUsers = new List(), inputHistory = new List();
+	static StreamSubscription itemWindowLinks;
 
 	static NodeValidator validator = new NodeValidatorBuilder()
 		..allowHtml5()
@@ -181,10 +182,21 @@ class Chat {
 		}
 	}
 
-	void addMessage(String player, String message) {
+	Future addMessage(String player, String message) async {
 		ChatMessage chat = new ChatMessage(player, message);
 		Element dialog = conversationElement.querySelector('.dialog');
-		dialog.appendHtml(chat.toHtml(), validator: Chat.validator);
+		dialog.appendHtml((chat.toHtml()), validator: Chat.validator);
+
+		// check for item links
+		if (itemWindowLinks != null) {
+			itemWindowLinks.cancel();
+		}
+		if (dialog.querySelector(".item-chat-link") != null) {
+			itemWindowLinks = dialog.querySelector(".item-chat-link").onClick.listen((Event e) {
+				e.preventDefault();
+				new ItemWindow(((e.target) as AnchorElement).text);
+			});
+		}
 
 		//scroll to the bottom
 		dialog.scrollTop = dialog.scrollHeight;

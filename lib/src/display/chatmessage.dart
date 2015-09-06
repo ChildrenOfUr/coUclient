@@ -13,6 +13,7 @@ class ChatMessage {
 
     message = parseUrl(message);
     message = parseEmoji(message);
+    message = parseItemLinks(message);
 
     if (message.toLowerCase().contains(game.username.toLowerCase())) {
       transmit('playSound', 'mention');
@@ -152,6 +153,22 @@ String parseUrl(String message) {
     }
     returnString += '<a href="${url}" target="_blank" class="MessageLink">${m[0]}</a>';
   }, onNonMatch: (String s) => returnString += s);
+
+  return returnString;
+}
+
+String parseItemLinks(String message) {
+  String returnString = "";
+  RegExp regex = new RegExp("#(.+?)#");
+  (message.splitMapJoin(regex, onMatch: (Match m) {
+    String match = m[1];
+    if (isItem(itemType: match)) {
+      String name = itemName(match);
+      returnString += '<a class="item-chat-link" title="View Item" href="#">$name</a>';
+    } else {
+      returnString += m[0];
+    }
+  }, onNonMatch: (String s) => returnString += s));
 
   return returnString;
 }
