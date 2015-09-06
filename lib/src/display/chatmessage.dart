@@ -162,9 +162,13 @@ String parseItemLinks(String message) {
   RegExp regex = new RegExp("#(.+?)#");
   (message.splitMapJoin(regex, onMatch: (Match m) {
     String match = m[1];
-    if (isItem(itemType: match)) {
-      String name = itemName(match);
-      returnString += '<a class="item-chat-link" title="View Item" href="#">$name</a>';
+    if (Item.isItem(itemType: match)) {
+      String name = Item.getName(match);
+      String iconUrl = Item.getIcon(itemType: match);
+      returnString += '<a class="item-chat-link" title="View Item" href="#">'
+      '<span class="item-chat-link-icon" '
+      'style="background-image: url($iconUrl);">'
+      '</span>$name</a>';
     } else {
       returnString += m[0];
     }

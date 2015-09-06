@@ -196,7 +196,7 @@ afterPolymer() async {
 	// Download the latest map data
 	mapData = await new MapData()..init();
 	// Make sure we have an up-to-date (1 day expiration) item cache
-	await getItems();
+	await Item.loadItems();
 
 	// System
 	new ClockManager();

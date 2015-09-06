@@ -180,6 +180,27 @@ class UserInterface {
 		worldElement
 			..onFocus.listen((_) => transmit("worldFocus", true))
 			..onBlur.listen((_) => transmit("worldFocus", false));
+
+		// manage inventory items -> chat link
+		new Service(["gameLoaded"], (_) {
+			inventory.querySelectorAll(".box").onClick.listen((MouseEvent e) {
+				Element target = e.target;
+
+				if (!e.shiftKey || !target.classes.contains("inventoryItem") || Chat.lastFocusedInput == null) {
+					return;
+				}
+
+				String itemType = JSON.decode(target.attributes["itemmap"])["itemType"];
+
+				if (Chat.lastFocusedInput.value == "" || Chat.lastFocusedInput.value.endsWith(" ")) {
+					Chat.lastFocusedInput.value += "#$itemType#";
+				} else {
+					Chat.lastFocusedInput.value += " #$itemType#";
+				}
+
+				Chat.lastFocusedInput.focus();
+			});
+		});
 	}
 
 	resize() {

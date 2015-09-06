@@ -9,10 +9,11 @@ class Chat {
 	static Chat otherChat = null, localChat = null;
 	List<String> connectedUsers = new List(), inputHistory = new List();
 	static StreamSubscription itemWindowLinks;
+	static InputElement lastFocusedInput;
 
 	static NodeValidator validator = new NodeValidatorBuilder()
 		..allowHtml5()
-		..allowElement('span', attributes: ['style']) // Username colors
+		..allowElement('span', attributes: ['style']) // Username colors, item icons
 		..allowElement('a', attributes: ['href', 'title', 'target', 'class']) // Links
 		..allowElement('i', attributes: ['class', 'title']) // Emoticons
 		..allowElement('p', attributes: ['style'])
@@ -90,6 +91,7 @@ class Chat {
 				openConversations.forEach((Chat c) => c.blur());
 				focus();
 				transmit("worldFocus", false);
+				lastFocusedInput = chatInput;
 			});
 			chatInput.onBlur.listen((_) {
 				inputManager.ignoreKeys = false;
@@ -192,9 +194,14 @@ class Chat {
 			itemWindowLinks.cancel();
 		}
 		if (dialog.querySelector(".item-chat-link") != null) {
-			itemWindowLinks = dialog.querySelector(".item-chat-link").onClick.listen((Event e) {
+			itemWindowLinks = dialog.querySelectorAll(".item-chat-link").onClick.listen((Event e) {
 				e.preventDefault();
-				new ItemWindow(((e.target) as AnchorElement).text);
+				if (e.target is AnchorElement) {
+					new ItemWindow(((e.target) as Element).text);
+				}
+				if (e.target is SpanElement) {
+					new ItemWindow(((e.target) as Element).parent.text);
+				}
 			});
 		}
 

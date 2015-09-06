@@ -357,3 +357,16 @@ i.emoticon {
 .chat-member-change-event > span:last-child {
     padding-right: 10px;
 }
+
+/* Item Links */
+
+.item-chat-link-icon {
+    height: 1em;
+    width: 1em;
+    display: inline-block;
+    background-size: contain;
+    margin-right: 0.1em;
+    background-repeat: no-repeat;
+    background-position: center center;
+    cursor: pointer;
+}
