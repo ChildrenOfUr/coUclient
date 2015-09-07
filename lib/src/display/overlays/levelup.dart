@@ -7,12 +7,14 @@ class LevelUpOverlay extends Overlay {
 	}
 
 	open() {
-		dropper.text = metabolics.level.toString();
-		displayElement.hidden = false;
-		audio.playSound('levelUp');
-		inputManager.ignoreKeys = true;
-		displayElement.querySelector("#lu-button").onClick.first.then((_) => close());
-		transmit("worldFocus", false);
+		metabolics.level.then((int lvl) {
+			dropper.text = lvl.toString();
+			displayElement.hidden = false;
+			audio.playSound('levelUp');
+			inputManager.ignoreKeys = true;
+			displayElement.querySelector("#lu-button").onClick.first.then((_) => close());
+			transmit("worldFocus", false);
+		});
 	}
 }
 
