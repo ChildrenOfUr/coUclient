@@ -69,17 +69,14 @@ class Chat {
 			openConversations.insert(0, this);
 
 			if (title == "Local Chat") {
-				// Streets loaded, display a divider
 				new Service(["gameLoaded", "streetLoaded"], (_) {
+					// Streets loaded, display a divider
 					this.addMessage("invalid_user", "LocationChangeEvent");
-				});
-
-				// First street loaded, init Local Chat
-				new Service(["gameLoaded"], (_) {
-          localChat = this;
-          chatToastBuffer.forEach((String message) {
-            this.addAlert(message, toast: true);
-          });
+					// If this is the first one, empty the toast buffer into the chat
+					if (chatToastBuffer.length > 0) {
+						chatToastBuffer.forEach((String message) => this.addAlert(message, toast: true));
+						chatToastBuffer.clear();
+					}
 				});
 			}
 
@@ -184,7 +181,7 @@ class Chat {
 		}
 	}
 
-	Future addMessage(String player, String message) async {
+	void addMessage(String player, String message) {
 		ChatMessage chat = new ChatMessage(player, message);
 		Element dialog = conversationElement.querySelector('.dialog');
 		dialog.appendHtml((chat.toHtml()), validator: Chat.validator);

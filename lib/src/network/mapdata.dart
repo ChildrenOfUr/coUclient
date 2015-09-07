@@ -1,8 +1,7 @@
 part of couclient;
 
 class MapData {
-	Map<String, Map> hubData;
-	Map<String, Map<String, dynamic>> streetData;
+	Map<String, Map<String, dynamic>> hubData, streetData;
 	bool loaded;
 
 	MapData();
