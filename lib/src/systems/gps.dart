@@ -31,6 +31,7 @@ class GPS {
 		} else if(currentRoute.indexOf(currentStreet.label) < currentRoute.length-1) {
 			return currentRoute[currentRoute.indexOf(currentStreet.label)+1];
 		} else {
+			localStorage.remove("gps_navigating");
 			return "You have arrived";
 		}
 	}
@@ -53,6 +54,7 @@ class GPS {
 	static List<String> getRoute(String from, String to) {
 		active = true;
 		currentRoute = _dijkstra(_worldGraph,from,to);
+		localStorage["gps_navigating"] = to;
 		return currentRoute;
 	}
 

@@ -92,6 +92,11 @@ class Game {
 		logmessage("Game loaded!");
 
 		new Timer.periodic(new Duration(seconds: 1), (_) => updatePlayerLetters());
+
+		// Load previous GPS state
+		if (localStorage.containsKey("gps_navigating")) {
+			GPS.getRoute(currentStreet.label, localStorage["gps_navigating"]);
+		}
 	}
 
 	// GAME LOOP //

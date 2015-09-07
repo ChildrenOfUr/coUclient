@@ -21,6 +21,10 @@ class GpsIndicator {
 				if (GPS.nextStreetName == "You're off the path") {
 					GPS.getRoute(currentStreet.label, GPS.destinationName);
 				} else if(GPS.nextStreetName == "You have arrived") {
+					arrowE.querySelector(".fa").classes
+						..removeAll(["fa-arrow-up", "fa-check"])
+						..add("fa-check");
+					arrowE.style.transform = "rotate(0rad)";
 					if(arriveFade || !currentStreet.loaded) {
 						return;
 					}
@@ -29,7 +33,7 @@ class GpsIndicator {
 						arriveFade = false;
 						cancel();
 					});
-				}else {
+				} else {
 					arrowE.style.transform = "rotate(${calculateArrowDirection()}rad)";
 				}
 			} else {
@@ -47,7 +51,13 @@ class GpsIndicator {
 			transmit('gpsCancel', null);
 			containerE.hidden = true;
 			nextStreetE.text = destinationE.text = null;
-			arrowE.style.transform = null;
+			arrowE.style.transform = "";
+			localStorage.remove("gps_navigating");
+			new Timer(new Duration(seconds: 5), () {
+				arrowE.querySelector(".fa").classes
+					..add("fa-arrow-up")
+					..remove("fa-check");
+			});
 		}
 	}
 
