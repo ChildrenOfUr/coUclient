@@ -8,6 +8,7 @@ class Player {
 	num yVel = 0, yAccel = -2400;
 	bool jumping = false, moving = false, climbingUp = false, climbingDown = false;
 	bool activeClimb = false, lastClimbStatus = false, facingRight = true, firstRender = true;
+	bool canTripleJump = true;
 	bool isGuide = false;
 	Map<String, Animation> animations = new Map();
 	Animation currentAnimation;
@@ -72,6 +73,17 @@ class Player {
 		}
 		playerParentElement.append(playerCanvas);
 		view.worldElement.append(superParentElement);
+
+		new Service(["streetLoaded"], (_) {
+			if (
+				(mapData.hubData[currentStreet.hub_id] != null && mapData.hubData[currentStreet.hub_id]["triple_jumping"] == false) ||
+				(mapData.streetData[currentStreet.label] != null && mapData.streetData[currentStreet.label]["triple_jumping"] == false)
+			) {
+				canTripleJump = false;
+			} else {
+				canTripleJump = true;
+			}
+		});
 	}
 
 	Future<List<Animation>> loadAnimations() {
@@ -188,31 +200,36 @@ class Player {
 				jumpMultiplier = 1;
 			}
 
-			if (jumpTimer == null) {
-				// start timer
-				jumpTimer = new Timer(new Duration(seconds:3), () {
-					// normal jump
+			jumping = true;
+			if (canTripleJump) {
+				if (jumpTimer == null) {
+					// start timer
+					jumpTimer = new Timer(new Duration(seconds:3), () {
+						// normal jump
+						jumpcount = 0;
+						jumpTimer.cancel();
+						jumpTimer = null;
+					});
+				}
+				if (jumpcount == 2) {
+					// triple jump
+					yVel = -1560 * jumpMultiplier;
 					jumpcount = 0;
 					jumpTimer.cancel();
 					jumpTimer = null;
-				});
-			}
-			if (jumpcount == 2) {
-				// triple jump
-				yVel = -1560 * jumpMultiplier;
-				jumpcount = 0;
-				jumpTimer.cancel();
-				jumpTimer = null;
-				if (!activeClimb) {
-					audio.playSound('tripleJump');
+					if (!activeClimb) {
+						audio.playSound('tripleJump');
+					}
 				}
-			}
-			else {
-				// normal jump
-				jumpcount++;
+				else {
+					// normal jump
+					jumpcount++;
+					yVel = -1000 * jumpMultiplier;
+				}
+			} else {
+				// triple jumping disabled
 				yVel = -1000 * jumpMultiplier;
 			}
-			jumping = true;
 		}
 
 		//needs acceleration, some gravity const somewhere
