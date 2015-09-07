@@ -65,34 +65,41 @@ update(double dt)
 	Wormhole.updateAll();
 }
 
+// Not run as part of the loop, only every 5 seconds
 void updatePlayerLetters() {
-	if (
-	mapData.hubData[currentStreet.hub_id] != null &&
-	mapData.hubData[currentStreet.hub_id]["players_have_letters"] != null &&
-	mapData.hubData[currentStreet.hub_id]["players_have_letters"] == true
-	) {
-		Map players = {};
-		players.addAll(otherPlayers);
-		players.addAll(({game.username: CurrentPlayer}));
+	Map players = {};
+	players.addAll(otherPlayers);
+	players.addAll(({game.username: CurrentPlayer}));
 
-		players.forEach((String username, Player player) {
-			Element parentE = player.playerParentElement;
+	players.forEach((String username, Player player) {
+		Element parentE = player.playerParentElement;
 
-			String username = parentE.id.replaceFirst("player-", "");
-			if (username.startsWith("pc-")) {
-				username = username.replaceFirst("pc-", "");
-			}
+		String username = parentE.id.replaceFirst("player-", "");
+		if (username.startsWith("pc-")) {
+			username = username.replaceFirst("pc-", "");
+		}
 
-			String firstLetter = username.substring(0, 1);
+		String firstLetter;
 
-			DivElement letter = new DivElement()
-				..classes.addAll(["letter", "letter-$firstLetter"])
-				..text = firstLetter
-				..style.color = getColorFromUsername(username);
+		if (username.length == new DateTime.now().day) {
+			firstLetter = "heart";
+		} else {
+			firstLetter = username.substring(0, 1);
+			firstLetter = firstLetter.toLowerCase();
+		}
 
-			parentE
-				..children.removeWhere((Element e) => e.classes.contains("letter"))
-				..append(letter);
+		DivElement letter = new DivElement()
+			..classes.addAll(["letter", "letter-$firstLetter"]);
+
+		parentE
+			..children.removeWhere((Element e) => e.classes.contains("letter"));
+
+		if (
+		mapData.hubData[currentStreet.hub_id] != null &&
+		mapData.hubData[currentStreet.hub_id]["players_have_letters"] != null &&
+		mapData.hubData[currentStreet.hub_id]["players_have_letters"] == true
+		) {
+			parentE.append(letter);
+		}
 		});
-	}
 }

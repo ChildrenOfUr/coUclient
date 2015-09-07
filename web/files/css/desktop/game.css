@@ -53,19 +53,3 @@
     right: 280px;
     width: 170px;
 }
-
-/* Letters over players */
-
-.playerParent .letter {
-  font-size: 100px;
-  position: absolute;
-  top: -100%;
-  left: 50%;
-  transform: translateX(-50%);
-  font-family: "Sniglet";
-  opacity: 0.9;
-}
-
-.playerParent.facing-left .letter {
-  transform: translateX(-30px) scale3d(-1,1,-1);
-}

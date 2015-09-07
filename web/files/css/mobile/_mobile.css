@@ -1,4 +1,4 @@
 /* Base CSS file for CoU on mobile devices */
 
 /* Interface */
-@import url(mobile/input.css) (max-width: 768px);
+@import url(input.css) (max-width: 768px);
