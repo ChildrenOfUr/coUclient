@@ -92,6 +92,9 @@ class Game {
 		logmessage("Game loaded!");
 
 		new Timer.periodic(new Duration(seconds: 1), (_) => updatePlayerLetters());
+		new Service(["streetLoaded"], (_) {
+			HttpRequest.getString("http://${Configs.utilServerAddress}/letters/newPlayerLetter?username=${game.username}");
+		});
 
 		// Load previous GPS state
 		if (localStorage.containsKey("gps_navigating")) {

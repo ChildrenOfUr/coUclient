@@ -66,12 +66,12 @@ update(double dt)
 }
 
 // Not run as part of the loop, only every 5 seconds
-void updatePlayerLetters() {
+Future updatePlayerLetters() async {
 	Map players = {};
 	players.addAll(otherPlayers);
 	players.addAll(({game.username: CurrentPlayer}));
 
-	players.forEach((String username, Player player) {
+	players.forEach((String username, Player player) async {
 		Element parentE = player.playerParentElement;
 
 		String username = parentE.id.replaceFirst("player-", "");
@@ -79,27 +79,21 @@ void updatePlayerLetters() {
 			username = username.replaceFirst("pc-", "");
 		}
 
-		String firstLetter;
-
-		if (username.length == new DateTime.now().day) {
-			firstLetter = "heart";
-		} else {
-			firstLetter = username.substring(0, 1);
-			firstLetter = firstLetter.toLowerCase();
-		}
-
-		DivElement letter = new DivElement()
-			..classes.addAll(["letter", "letter-$firstLetter"]);
-
-		parentE
-			..children.removeWhere((Element e) => e.classes.contains("letter"));
-
 		if (
 		mapData.hubData[currentStreet.hub_id] != null &&
 		mapData.hubData[currentStreet.hub_id]["players_have_letters"] != null &&
 		mapData.hubData[currentStreet.hub_id]["players_have_letters"] == true
 		) {
-			parentE.append(letter);
+			String letter = await HttpRequest.getString("http://${Configs.utilServerAddress}/letters/getPlayerLetter?username=$username");
+
+			DivElement letterDisplay = new DivElement()
+				..classes.addAll(["letter", "letter-$letter"]);
+
+			parentE
+				..children.removeWhere((Element e) => e.classes.contains("letter"))
+				..append(letterDisplay);
+		} else {
+			parentE.children.removeWhere((Element e) => e.classes.contains("letter"));
 		}
-		});
+	});
 }
