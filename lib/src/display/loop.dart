@@ -21,6 +21,9 @@ update(double dt)
 		if(!otherPlayer.facingRight)
 		{
 			transform += ' scale3d(-1,1,1)';
+			otherPlayer.playerParentElement.classes
+				..add("facing-left")
+				..remove("facing-right");
 			otherPlayer.playerName.style.transform = 'translateY(calc(-100% - 34px)) scale3d(-1,1,1)';
 
 			if(otherPlayer.chatBubble != null)
@@ -29,6 +32,9 @@ update(double dt)
 		else
 		{
 			transform += ' scale3d(1,1,1)';
+			otherPlayer.playerParentElement.classes
+				..add("facing-right")
+				..remove("facing-left");
 			otherPlayer.playerName.style.transform = 'translateY(calc(-100% - 34px)) scale3d(1,1,1)';
 
 			if(otherPlayer.chatBubble != null)
@@ -57,4 +63,36 @@ update(double dt)
 	}
 
 	Wormhole.updateAll();
+}
+
+void updatePlayerLetters() {
+	if (
+	mapData.hubData[currentStreet.hub_id] != null &&
+	mapData.hubData[currentStreet.hub_id]["players_have_letters"] != null &&
+	mapData.hubData[currentStreet.hub_id]["players_have_letters"] == true
+	) {
+		Map players = {};
+		players.addAll(otherPlayers);
+		players.addAll(({game.username: CurrentPlayer}));
+
+		players.forEach((String username, Player player) {
+			Element parentE = player.playerParentElement;
+
+			String username = parentE.id.replaceFirst("player-", "");
+			if (username.startsWith("pc-")) {
+				username = username.replaceFirst("pc-", "");
+			}
+
+			String firstLetter = username.substring(0, 1);
+
+			DivElement letter = new DivElement()
+				..classes.addAll(["letter", "letter-$firstLetter"])
+				..text = firstLetter
+				..style.color = getColorFromUsername(username);
+
+			parentE
+				..children.removeWhere((Element e) => e.classes.contains("letter"))
+				..append(letter);
+		});
+	}
 }

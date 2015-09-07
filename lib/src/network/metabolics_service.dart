@@ -70,7 +70,7 @@ class MetabolicsService {
 
 		if (map['success'] == 'false') return;
 
-		int amt = map['amt'];
+		num amt = map['amt'];
 		if (querySelector("#buff-quoin") != null) {
 			amt *= 2;
 			// TODO: implement server-side so that this amount actually gets awarded

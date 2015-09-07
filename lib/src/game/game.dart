@@ -10,6 +10,7 @@ class Game {
 	bool ignoreGamepads = false;
 	List<String> devs = [];
 	List<String> guides = [];
+	bool loaded = false;
 
 	// INITIALIZATION //
 	Game(Metabolics m) {
@@ -86,7 +87,11 @@ class Game {
 		//finally start the main game loop
 		loop(0.0);
 
-		transmit("gameLoaded", true);
+		loaded = true;
+		transmit("gameLoaded", loaded);
+		logmessage("Game loaded!");
+
+		new Timer.periodic(new Duration(seconds: 1), (_) => updatePlayerLetters());
 	}
 
 	// GAME LOOP //

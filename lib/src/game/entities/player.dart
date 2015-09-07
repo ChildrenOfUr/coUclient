@@ -485,6 +485,9 @@ class Player {
 		String transform = 'translateX(' + translateX.toString() + 'px) translateY(' + translateY.toString() + 'px) translateZ(0)';
 		if (!facingRight) {
 			transform += ' scale3d(-1,1,1)';
+			playerParentElement.classes
+				..add("facing-left")
+				..remove("facing-right");
 			playerName.style.transform = 'translateY(-100%) translateY(-34px) scale3d(-1,1,1)';
 
 			if (chatBubble != null)
@@ -492,7 +495,9 @@ class Player {
 		}
 		else {
 			playerName.style.transform = 'translateY(-100%) translateY(-34px) scale3d(1,1,1)';
-
+			playerParentElement.classes
+				..add("facing-right")
+				..remove("facing-left");
 			if (chatBubble != null)
 				chatBubble.textElement.style.transform = 'scale3d(1,1,1)';
 		}
