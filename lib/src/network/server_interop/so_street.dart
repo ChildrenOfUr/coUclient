@@ -72,18 +72,7 @@ _setupStreetSocket(String streetName) {
 			return;
 		}
 		if (map['gotoStreet'] != null) {
-			// Go to the street
 			streetService.requestStreet(map['tsid']);
-
-			// Check if dying/reviving
-			if (map["dead"] == "true") {
-				print("dead!");
-				transmit("dead", true);
-			} else if (map["dead"] == "false") {
-				print("undead!");
-				transmit("dead", false);
-			}
-
 			return;
 		}
 		if (map['toast'] != null) {

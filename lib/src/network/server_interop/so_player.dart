@@ -15,7 +15,31 @@ _setupPlayerSocket() {
     }
 
     if (map['gotoStreet'] != null) {
-      streetService.requestStreet(map['tsid']);
+      String toTSID = map["tsid"];
+
+      // Check dead/alive
+
+      String toLabel = mapData.getLabel(toTSID);
+
+      if (
+      mapData.streetData[toLabel] != null &&
+      mapData.streetData[toLabel]["hub_id"] != null
+      ) {
+        int toHubId = mapData.streetData[toLabel]["hub_id"];
+
+        if (toHubId == 40 && currentStreet.hub_id != 40) {
+          // Going to Naraka
+          transmit("dead", true);
+          print("dead");
+        } else if (currentStreet.hub_id == 40) {
+          // Leaving Naraka
+          transmit("dead", false);
+          print("revived");
+        }
+      }
+
+      // Go to the street
+      streetService.requestStreet(toTSID);
       return;
     }
 

@@ -20,6 +20,20 @@ class MapData {
 		}
 	}
 
+	String getLabel(String tsid) {
+		int i = 0;
+		for (Map data in streetData.values) {
+			if (
+			data["tsid"] != null &&
+			data["tsid"].substring(1) == tsid.substring(1)
+			) {
+				return streetData.keys.toList()[i];
+			}
+			i++;
+		}
+		return "";
+	}
+
 	String getSong(String streetName) {
 		// Provide a default
 		String defaultSong = "forest";
