@@ -3,23 +3,23 @@
     <div id="rwc-holder">
 
         <!-- ///////////// Conversations ///////////// -->
-        
+
         <!-- Main Menu -->
-        
+
         <div class="rockWindowContent" id="rwc">
             <h2 class="text-center">Magic Rock</h2>
             <p class="text-center"><em>What can I help you with?</em></p>
             <div class="flex-row">
                 <a class="rwc-button" id="go-motd">Alpha Notice</a>
-                <a class="rwc-button" id="rock-rescue">Rescue Me!</a>
+                <a class="rwc-button" id="rock-rescue" hidden>Rescue Me!</a>
             </div>
             <div class="flex-row">
                 <a class="rwc-button" id="go-start">Getting Started</a>
             </div>
         </div>
-        
+
         <!-- Alpha Notice -->
-        
+
         <div class="rockWindowContent convo" id="rwc-motd" data-endphrase="5" hidden>
             <div id="rwc-motd-1">
                 <p>See this game here?</p>
@@ -39,9 +39,9 @@
                 <div class="flex-row rwc-exit"><a class="rwc-button" data-goto="5">Thanks for passing on their message.</a></div>
             </div>
         </div>
-        
+
         <!-- Getting Started -->
-        
+
         <div class="rockWindowContent convo" id="rwc-start" data-endphrase="6" hidden>
             <div id="rwc-start-1">
                 <p>Children of Ur is a game about exploring, imagination, having fun with friends, imagination (did I already say that one?)...</p>
@@ -70,7 +70,7 @@
         </div>
 
         <!-- Death -->
-        
+
         <div class="rockWindowContent convo" id="rwc-dead" data-endphrase="5" hidden>
             <div id="rwc-dead-1">
                 <p>Hey kid, no offense, but you look a little... <em>dead</em> lately.</p>
@@ -95,6 +95,27 @@
             </div>
         </div>
 
+        <!-- Revival -->
+
+        <div class="rockWindowContent convo" id="rwc-revive" data-endphrase="4" hidden>
+            <div id="rwc-revive-1">
+                <p>Whew! You made it. I was starting to wonder for a bit.</p>
+                <div class="flex-row rwc-exit"><a class="rwc-button" data-goto="2">Excuse me?</a></div>
+            </div>
+            <div id="rwc-revive-2">
+                <p>I mean, um, glad you're alive again?</p>
+                <div class="flex-row rwc-exit">
+                    <a class="rwc-button" data-goto="3">And?</a>
+                    <a class="rwc-button" data-goto="4">Go away.</a>
+                </div>
+            </div>
+            <div id="rwc-revive-3">
+                <p>Now that you're back, your energy and mood been refilled.</p>
+                <p>Try not to die again, okay? I kinda missed you, kid.</p>
+                <div class="flex-row rwc-exit"><a class="rwc-button" data-goto="4">No you didn't.</a></div>
+            </div>
+        </div>
+
         <!-- Broken Streets -->
 
         <div class="rockWindowContent convo" id="rwc-badstreet" data-endphrase="2" hidden>
@@ -104,8 +125,8 @@
                 <div class="flex-row rwc-exit"><a class="rwc-button" data-goto="2">Consider me warned.</a></div>
             </div>
         </div>
-        
+
         <!-- ///////////// End Conversations ///////////// -->
-        
+
     </div>
 </div>

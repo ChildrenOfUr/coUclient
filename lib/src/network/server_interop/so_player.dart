@@ -21,13 +21,11 @@ _setupPlayerSocket() {
 
 			String toLabel = mapData.getLabel(toTSID);
 
-			if (
-			mapData.streetData[toLabel] != null &&
-			mapData.streetData[toLabel]["hub_id"] != null
-			) {
+			if (mapData.streetData[toLabel] != null &&
+			    mapData.streetData[toLabel]["hub_id"] != null) {
 				int toHubId = mapData.streetData[toLabel]["hub_id"];
 
-				if (toHubId == 40 && currentStreet.hub_id != 40) {
+				if (toHubId == 40 && currentStreet != null && currentStreet.hub_id != 40) {
 					// Going to Naraka
 					transmit("dead", true);
 					print("dead");
