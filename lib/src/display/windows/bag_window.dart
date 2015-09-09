@@ -14,7 +14,7 @@ class BagWindow extends Modal {
 	int numSlots;
 	int sourceSlotNum;
 
-	BagWindow(this.sourceSlotNum, Map sourceItem) {
+	BagWindow(this.sourceSlotNum, ItemDef sourceItem) {
 		DivElement windowElement = load(sourceItem);
 		querySelector("#windowHolder").append(windowElement);
 		prepare();
@@ -22,7 +22,7 @@ class BagWindow extends Modal {
 		openWindows.add(this);
 	}
 
-	DivElement load(Map sourceItem) {
+	DivElement load(ItemDef sourceItem) {
 
 		// Header
 
@@ -38,9 +38,9 @@ class BagWindow extends Modal {
 
 		SpanElement titleSpan = new SpanElement()
 			..classes.add("iw-title")
-			..text = sourceItem["name"];
+			..text = sourceItem.name;
 
-		if (sourceItem["name"].length >= 24) {
+		if (sourceItem.name.length >= 24) {
 			titleSpan.style.fontSize = "24px";
 		}
 
@@ -52,10 +52,10 @@ class BagWindow extends Modal {
 
 		Element well = new Element.tag("ur-well");
 
-		int numSlots = sourceItem["subSlots"];
+		int numSlots = sourceItem.subSlots;
 		List<Map> subSlots;
 
-		if (sourceItem["metadata"]["slots"] == null) {
+		if (sourceItem.metadata["slots"] == null) {
 			// Empty bag
 			subSlots = [];
 			while (subSlots.length < numSlots) {
@@ -67,10 +67,10 @@ class BagWindow extends Modal {
 			}
 		} else {
 			// Bag has contents
-			subSlots = JSON.decode(sourceItem["metadata"]["slots"]);
+			subSlots = JSON.decode(sourceItem.metadata["slots"]);
 		}
 
-		if (subSlots.length != sourceItem["subSlots"]) {
+		if (subSlots.length != sourceItem.subSlots) {
 			throw new StateError("Number of slots in bag does not match bag size");
 		} else {
 			String url = "http://${Configs.utilServerAddress}/getItems?isRegex=true&type=";
@@ -84,7 +84,8 @@ class BagWindow extends Modal {
 					DivElement itemInSlot = new DivElement();
 					if (itemInBag["itemType"] != "") {
 						Map itemData = itemsData.where((Map item) => item["itemType"] == itemInBag["itemType"]).first;
-						_sizeItem(slot,itemInSlot,itemData,itemInBag['count']);
+						ItemDef item = decode(JSON.encode(itemData),type:ItemDef);
+						_sizeItem(slot,itemInSlot,item,itemInBag['count']);
 					} else {
 						// Empty slot
 						itemInSlot.classes.add("empty-bag-slot");
@@ -112,35 +113,35 @@ class BagWindow extends Modal {
 		return window;
 	}
 
-	Future _sizeItem(Element slot, Element item, Map i, int count) async {
-		ImageElement img = new ImageElement(src: i['spriteUrl']);
+	Future _sizeItem(Element slot, Element item, ItemDef i, int count) async {
+		ImageElement img = new ImageElement(src: i.spriteUrl);
 		await img.onLoad;
 
 		num scale = 1;
-		if (img.height > img.width / i['iconNum']) {
+		if (img.height > img.width / i.iconNum) {
 			scale = (slot.contentEdge.height - 10) / img.height;
 		} else {
-			scale = (slot.contentEdge.width - 10) / (img.width / i['iconNum']);
+			scale = (slot.contentEdge.width - 10) / (img.width / i.iconNum);
 		}
 
 		item
-			..classes.addAll(["item-${i["itemType"]}", "inventoryItem", "bagInventoryItem"])
-			..attributes["name"] = i["name"]
+			..classes.addAll(["item-${i.itemType}", "inventoryItem", "bagInventoryItem"])
+			..attributes["name"] = i.name
 			..attributes["count"] = count.toString()
-			..attributes["itemmap"] = JSON.encode(i)
+			..attributes["itemmap"] = encode(i)
 			..style.width = (slot.contentEdge.width - 10).toString() + "px"
 			..style.height = (slot.contentEdge.height - 10).toString() + "px"
-			..style.backgroundImage = 'url(${i['spriteUrl']})'
+			..style.backgroundImage = 'url(${i.spriteUrl})'
 			..style.backgroundRepeat = 'no-repeat'
 			..style.backgroundSize = "${img.width * scale}px ${img.height * scale}px"
 			..style.margin = "auto";
 
 		int offset = count;
-		if (i['iconNum'] != null && i['iconNum'] < count) {
-			offset = i['iconNum'];
+		if (i.iconNum != null && i.iconNum < count) {
+			offset = i.iconNum;
 		}
 
-		item.style.backgroundPosition = "calc(100% / ${i['iconNum'] - 1} * ${offset - 1}";
+		item.style.backgroundPosition = "calc(100% / ${i.iconNum - 1} * ${offset - 1}";
 
 		SpanElement itemCount = new SpanElement()
 			..text = count.toString()

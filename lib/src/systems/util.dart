@@ -57,7 +57,7 @@ int getNumItems(String item) {
 	});
 
 	//add the bag contents
-	playerInventory.slots.where((Slot s) => s.item.isContainer).forEach((Slot s) {
+	playerInventory.slots.where((Slot s) => !s.itemType.isEmpty && s.item.isContainer).forEach((Slot s) {
 		List<Slot> bagSlots = decode(s.item.metadata['slots'], type: new TypeHelper<List<Slot>>().type);
 		bagSlots.forEach((Slot bagSlot) {
 			if(bagSlot.itemType == item) {
@@ -76,7 +76,7 @@ int getBlankSlots() {
 	count += playerInventory.slots.where((Slot s) => s.itemType.isEmpty).length;
 
 	//count bag blank slots
-	playerInventory.slots.where((Slot s) => s.item.isContainer).forEach((Slot s) {
+	playerInventory.slots.where((Slot s) => !s.itemType.isEmpty && s.item.isContainer).forEach((Slot s) {
 		List<Slot> bagSlots = decode(s.item.metadata['slots'], type: new TypeHelper<List<Slot>>().type);
 		bagSlots.forEach((Slot bagSlot) {
 			if (bagSlot.itemType.isEmpty) {

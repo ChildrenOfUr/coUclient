@@ -1,9 +1,9 @@
 part of couclient;
 
-itemContextMenu(Map i, MouseEvent event) {
+itemContextMenu(ItemDef i, MouseEvent event) {
 	List<List> actions = [];
-	if (i['actions'] != null) {
-		List<Action> actionsList = decode(JSON.encode(i['actions']), type: const TypeHelper<List<Action>>().type);
+	if (i.actions != null) {
+		List<Action> actionsList = i.actions;
 		bool enabled = false;
 		actionsList.forEach((Action action) {
 			String error = "";
@@ -21,111 +21,104 @@ itemContextMenu(Map i, MouseEvent event) {
 			actions.add([
 				            capitalizeFirstLetter(action.name) + '|' +
 				            action.name + '|${action.timeRequired}|$enabled|$error',
-				            i['itemType'],
-				            "sendAction ${action.name} ${i['id']}",
+				            i.itemType,
+				            "sendAction ${action.name} ${i.item_id}",
 				            getDropMap(i, 1)
 			            ]);
 		});
 	}
-	Element menu = RightClickMenu.create(event, i['name'], i['description'], actions, itemName: i['name']);
+	Element menu = RightClickMenu.create(event, i.name, i.description, actions, itemName: i.name);
 	document.body.append(menu);
 }
 
-findNewSlot(Element item, Map map, ImageElement img) {
+findNewSlot(ItemDef i, ImageElement img, int index, {bool update: update}) {
 	bool found = false;
-	Map i = map['item'];
 
-	//find first free item slot
-	for (Element barSlot in view.inventory.children) {
-		if (barSlot.children.length == 0) {
-			String cssName = i['itemType'].replaceAll(" ", "_");
-			item = new DivElement();
+	Element barSlot = view.inventory.children.elementAt(index);
+	String cssName = i.itemType.replaceAll(" ", "_");
+	Element item = new DivElement();
 
-			//determine what we need to scale the sprite image to in order to fit
-			num scale = 1;
-			if (img.height > img.width / i['iconNum']) {
-				scale = (barSlot.contentEdge.height - 10) / img.height;
-			} else {
-				scale = (barSlot.contentEdge.width - 10) / (img.width / i['iconNum']);
-			}
+	//determine what we need to scale the sprite image to in order to fit
+	num scale = 1;
+	if (img.height > img.width / i.iconNum) {
+		scale = (barSlot.contentEdge.height - 10) / img.height;
+	} else {
+		scale = (barSlot.contentEdge.width - 10) / (img.width / i.iconNum);
+	}
 
-			item.style.width = (barSlot.contentEdge.width - 10).toString() + "px";
-			item.style.height = (barSlot.contentEdge.height - 10).toString() + "px";
-			item.style.backgroundImage = 'url(${i['spriteUrl']})';
-			item.style.backgroundRepeat = 'no-repeat';
-			item.style.backgroundSize = "${img.width * scale}px ${img.height * scale}px";
-			item.style.backgroundPosition = "0 50%";
-			item.style.margin = "auto";
-			item.className = 'item-$cssName inventoryItem';
+	item.style.width = (barSlot.contentEdge.width - 10).toString() + "px";
+	item.style.height = (barSlot.contentEdge.height - 10).toString() + "px";
+	item.style.backgroundImage = 'url(${i.spriteUrl})';
+	item.style.backgroundRepeat = 'no-repeat';
+	item.style.backgroundSize = "${img.width * scale}px ${img.height * scale}px";
+	item.style.backgroundPosition = "0 50%";
+	item.style.margin = "auto";
+	item.className = 'item-$cssName inventoryItem';
 
-			item.attributes['name'] = i['name'].replaceAll(' ', '');
-			item.attributes['count'] = "1";
-			item.attributes['itemMap'] = JSON.encode(i);
+	item.attributes['name'] = i.name.replaceAll(' ', '');
+	item.attributes['count'] = "1";
+	item.attributes['itemMap'] = encode(i);
 
-			item.onContextMenu.listen((MouseEvent event) => itemContextMenu(i,event));
-			barSlot.append(item);
+	item.onContextMenu.listen((MouseEvent event) => itemContextMenu(i, event));
+	barSlot.append(item);
 
-			item.classes.add("bounce");
-			//remove the bounce class so that it's not still there for a drag and drop event
-			//also enable bag opening at this time
-			new Timer(new Duration(seconds: 1), () {
-				item.classes.remove("bounce");
+	if(!update) {
+		item.classes.add("bounce");
+	}
+	//remove the bounce class so that it's not still there for a drag and drop event
+	//also enable bag opening at this time
+	new Timer(new Duration(seconds: 1), () {
+		item.classes.remove("bounce");
 
-				// Containers
-				DivElement containerButton;
-				String bagWindowId;
-				if (i["isContainer"] == true) {
-					containerButton = new DivElement()
-						..classes.addAll(["fa", "fa-fw", "fa-plus", "item-container-toggle", "item-container-closed"])
-						..onClick.listen((_) {
-						if (containerButton.classes.contains("item-container-closed")) {
-							// Container is closed, open it
-							// Open the bag window
-							bagWindowId = new BagWindow(int.parse(item.parent.dataset["slot-num"]), i).id;
-							// Update the slot display
-							BagWindow.updateTriggerBtn(false, item);
-						} else {
-							// Container is open, close it
-							// Close the bag window
-							BagWindow.closeId(bagWindowId);
-							// Update the slot display
-							BagWindow.updateTriggerBtn(true, item);
-						}
-					});
-					item.parent.append(containerButton);
+		// Containers
+		DivElement containerButton;
+		String bagWindowId;
+		if (i.isContainer == true) {
+			containerButton = new DivElement()
+				..classes.addAll(["fa", "fa-fw", "fa-plus", "item-container-toggle", "item-container-closed"])
+				..onClick.listen((_) {
+				if (containerButton.classes.contains("item-container-closed")) {
+					// Container is closed, open it
+					// Open the bag window
+					bagWindowId = new BagWindow(int.parse(item.parent.dataset["slot-num"]), i).id;
+					// Update the slot display
+					BagWindow.updateTriggerBtn(false, item);
+				} else {
+					// Container is open, close it
+					// Close the bag window
+					BagWindow.closeId(bagWindowId);
+					// Update the slot display
+					BagWindow.updateTriggerBtn(true, item);
 				}
 			});
-
-			found = true;
-			break;
+			item.parent.append(containerButton);
 		}
-	}
+	});
+
+	found = true;
 
 	//there was no space in the player's pack, drop the item on the ground instead
 	if (!found) {
-		sendAction("drop", i['itemType'], getDropMap(i, 1));
+		sendAction("drop", i.itemType, getDropMap(i, 1));
 	}
 }
 
-void putInInventory(ImageElement img, Map map) {
-	Map i = map['item'];
-	String name = i['itemType'];
-	int stacksTo = i['stacksTo'];
-	Element item;
+void putInInventory(ImageElement img, ItemDef i, int index, {bool update: false}) {
 	bool found = false;
 
-	String cssName = name.replaceAll(" ", "_");
+	String cssName = i.itemType.replaceAll(" ", "_");
 	for (Element item in view.inventory.querySelectorAll(".item-$cssName")) {
 		int count = int.parse(item.attributes['count']);
+		int stacksTo = i.stacksTo;
 
 		if (count < stacksTo) {
 			count++;
 			int offset = count;
-			if (i['iconNum'] != null && i['iconNum'] < count) {
-				offset = i['iconNum'];
+			if (i.iconNum != null && i.iconNum < count) {
+				offset = i.iconNum;
 			}
 
-			item.style.backgroundPosition = "calc(100% / ${i['iconNum'] - 1} * ${offset - 1}";
+			item.style.backgroundPosition = "calc(100% / ${i.iconNum - 1} * ${offset - 1}";
 			item.attributes['count'] = count.toString();
 
 			Element itemCount = item.parent.querySelector(".itemCount");
@@ -144,40 +137,43 @@ void putInInventory(ImageElement img, Map map) {
 		}
 	}
 	if (!found) {
-		findNewSlot(item, map, img);
+		findNewSlot(i, img, index, update: update);
 	}
 }
 
-void addItemToInventory(Map map) {
-	ImageElement img = new ImageElement(src: map['item']['spriteUrl']);
+void addItemToInventory(ItemDef item, int index, {bool update: false}) {
+	ImageElement img = new ImageElement(src: item.spriteUrl);
 	img.onLoad.first.then((_) {
 		//do some fancy 'put in bag' animation that I can't figure out right now
 		//animate(img,map).then((_) => putInInventory(img,map));
 
-		putInInventory(img, map);
+		putInInventory(img, item, index, update:update);
 	});
 }
 
-void subtractItemFromInventory(Map map) {
-	String cssName = map['itemType'].replaceAll(" ", "_");
-	int remaining = map['count'];
+void takeItemFromInventory(String itemType, {int count: 1}) {
+	String cssName = itemType.replaceAll(" ", "_");
+	int remaining = count;
 	for (Element item in view.inventory.querySelectorAll(".item-$cssName")) {
-		if (remaining < 1) break;
+		if (remaining < 1) {
+			break;
+		}
 
-		int count = int.parse(item.attributes['count']);
-		if (count > map['count']) {
-			item.attributes['count'] = (count - map['count']).toString();
-			item.parent
-			.querySelector('.itemCount').text = (count - map['count']).toString();
-		} else item.parent.children.clear();
+		int uiCount = int.parse(item.attributes['count']);
+		if (uiCount > count) {
+			item.attributes['count'] = (uiCount - count).toString();
+			item.parent.querySelector('.itemCount').text = (uiCount - count).toString();
+		} else {
+			item.parent.children.clear();
+		}
 
-		remaining -= count;
+		remaining -= uiCount;
 	}
 }
 
-Map getDropMap(Map item, int count) {
+Map getDropMap(ItemDef item, int count) {
 	Map dropMap = new Map()
-		..['dropItem'] = item
+		..['dropItem'] = encode(item)
 		..['count'] = count
 		..['x'] = CurrentPlayer.posX
 		..['y'] = CurrentPlayer.posY + CurrentPlayer.height / 2

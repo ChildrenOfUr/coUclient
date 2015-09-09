@@ -32,25 +32,23 @@ _setupStreetSocket(String streetName) {
 		//check if we are receiving our inventory
 		if (map['inventory'] != null) {
 			playerInventory = decode(JSON.encode(map), type: Inventory);
-			List<Map> slots = map['slots'];
 
-			slots.forEach((Map slot) {
-				for (int i = 0; i < slot['count']; i++) {
-					addItemToInventory({'item': slot['item']});
+			//clear the inventory
+			for (Element box in querySelectorAll(".box")) {
+				box.children.clear();
+			}
+
+			int slotNum = 0;
+			playerInventory.slots.forEach((Slot slot) {
+				for (int i = 0; i < slot.count; i++) {
+					addItemToInventory(slot.item, slotNum, update:map['update']);
 				}
+				slotNum++;
 			});
+
 			return;
 		}
-		//check if we are receiving an item
-		if (map['giveItem'] != null) {
-			for (int i = 0; i < map['num']; i++)
-				addItemToInventory(map);
-			return;
-		}
-		if (map['takeItem'] != null) {
-			subtractItemFromInventory(map);
-			return;
-		}
+
 		if (map['vendorName'] == 'Auctioneer') {
 			new AuctionWindow().open();
 			return;
