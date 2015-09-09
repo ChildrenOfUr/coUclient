@@ -2,7 +2,7 @@ part of couclient;
 
 class RockWindow extends Modal {
 	String id = 'rockWindow';
-	Element rescueButton;
+	Element rescueButton = querySelector("#rock-rescue");
 	StreamSubscription rescueClick;
 	bool ready = false;
 
@@ -11,22 +11,28 @@ class RockWindow extends Modal {
 	 * and userTriggered should be false if there is no UI button.
 	 */
 	void initConvo(String convo, {bool userTriggered: true}) {
+		// Set up the menu button listener
 		if (userTriggered) {
 			querySelector("#go-" + convo).onClick.listen((_) {
-				querySelectorAll("#rwc-" + convo + " > div").forEach((Element el) => el.hidden = true);
-				querySelector("#rwc-" + convo + "-1").hidden = false;
 				switchContent("rwc-" + convo);
 			});
 		}
 
+		// Hide all but the first screen
+		querySelectorAll("#rwc-" + convo + " > div").forEach((Element el) => el.hidden = true);
+		querySelector("#rwc-" + convo + "-1").hidden = false;
+
+		// Handle screen navigation
 		querySelectorAll("#rwc-" + convo + " .rwc-button").onClick.listen((e) {
 			String id = e.target.dataset["goto"];
 			if (id == querySelector("#rwc-" + convo).dataset["endphrase"]) {
+				// Last screen, close and return to the menu
 				super.close();
 				switchContent("rwc");
 				querySelectorAll("#rwc-" + convo + " > div").forEach((Element el) => el.hidden = true);
 				querySelector("#rwc-" + convo + "-1").hidden = false;
 			} else {
+				// Go to the next screen
 				querySelectorAll("#rwc-" + convo + " > div").forEach((Element el) => el.hidden = true);
 				querySelector("#rwc-" + convo + "-" + id).hidden = false;
 			}
@@ -50,19 +56,24 @@ class RockWindow extends Modal {
 	}
 
 	/**
-	 * Set up the Services that trigger conversations
+	 * Set up the Services that trigger conversations...
 	 */
 	void setConvoTriggers() {
-		// On death
+		/// On death
 		new Service(["dead"], (bool dying) {
+			// Prevent the screen appearing on every Hell street
+			bool deathConvoDone = false, reviveConvoDone = false;
 			new Service(["streetLoaded"], (_) {
-				if (dying) {
+				if (dying && !deathConvoDone) {
 					// Start death talk
 					switchContent("rwc-dead");
 					open();
 					// Disable inventory
 					querySelector("#inventory /deep/ #disableinventory").hidden = false;
-				} else {
+					// Save state
+					deathConvoDone = true;
+				}
+				if (!dying && !reviveConvoDone){
 					// Start revival talk
 					switchContent("rwc-revive");
 					open();
@@ -72,7 +83,7 @@ class RockWindow extends Modal {
 			});
 		});
 
-		// Rescue from bad street
+		/// When entering a broken street
 		new Service(['streetLoaded'], (_) {
 			if (mapData.streetData[currentStreet.label] != null && mapData.streetData[currentStreet.label]["broken"] == true) {
 				switchContent("rwc-badstreet");
@@ -99,11 +110,11 @@ class RockWindow extends Modal {
 		initConvo("start");
 		initConvo("motd");
 
-		// Triggered by incoming message from server (user dying)
+		// Triggered by incoming message from server
 		initConvo("dead", userTriggered: false);
 		initConvo("revive", userTriggered: false);
 
-		// Triggered by going to a known problem street
+		// Triggered by going to a known problematic street
 		initConvo("badstreet", userTriggered: false);
 	}
 
@@ -119,7 +130,7 @@ class RockWindow extends Modal {
 			// Trigger conversations
 			setConvoTriggers();
 		} catch(e) {
-			logmessage("[UI] Could not load rock convos!");
+			logmessage("[UI] Could not load rock convos");
 		}
 
 		ready = true;

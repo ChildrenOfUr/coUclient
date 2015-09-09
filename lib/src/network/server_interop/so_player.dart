@@ -14,7 +14,7 @@ _setupPlayerSocket() {
 			return;
 		}
 
-		if (map['gotoStreet'] != null) {
+		if (map['gotoStreet'] != null && map["tsid"].substring(1) != currentStreet.tsid.substring(1)) {
 			String toTSID = map["tsid"];
 
 			// Check dead/alive
@@ -24,15 +24,12 @@ _setupPlayerSocket() {
 			if (mapData.streetData[toLabel] != null &&
 			    mapData.streetData[toLabel]["hub_id"] != null) {
 				int toHubId = mapData.streetData[toLabel]["hub_id"];
-
 				if (toHubId == 40 && currentStreet != null && currentStreet.hub_id != 40) {
 					// Going to Naraka
 					transmit("dead", true);
-					print("dead");
-				} else if (currentStreet.hub_id == 40) {
+				} else if (currentStreet.hub_id == "40") {
 					// Leaving Naraka
 					transmit("dead", false);
-					print("revived");
 				}
 			}
 
