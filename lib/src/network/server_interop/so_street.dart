@@ -31,6 +31,7 @@ _setupStreetSocket(String streetName) {
 
 		//check if we are receiving our inventory
 		if (map['inventory'] != null) {
+			playerInventory = decode(JSON.encode(map), type: Inventory);
 			List<Map> slots = map['slots'];
 
 			slots.forEach((Map slot) {

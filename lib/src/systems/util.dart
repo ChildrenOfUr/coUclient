@@ -48,20 +48,42 @@ String getUptime() {
  **/
 int getNumItems(String item) {
 	int count = 0;
-	String cssName = item.replaceAll(" ", "_");
-	for(Element item in view.inventory.querySelectorAll(".item-$cssName"))
-		count += int.parse(item.attributes['count']);
+
+	//count all the normal slots
+	playerInventory.slots.forEach((Slot s) {
+		if(s.itemType == item) {
+			count += s.count;
+		}
+	});
+
+	//add the bag contents
+	playerInventory.slots.where((Slot s) => s.item.isContainer).forEach((Slot s) {
+		List<Slot> bagSlots = decode(s.item.metadata['slots'], type: new TypeHelper<List<Slot>>().type);
+		bagSlots.forEach((Slot bagSlot) {
+			if(bagSlot.itemType == item) {
+				count += bagSlot.count;
+			}
+		});
+	});
 
 	return count;
 }
 
 int getBlankSlots() {
 	int count = 0;
-	int slots = 10;
-	view.inventory.querySelectorAll(".inventoryItem").forEach((_) {
-		count++;
+
+	//count hot bar blank slots
+	count += playerInventory.slots.where((Slot s) => s.itemType.isEmpty).length;
+
+	//count bag blank slots
+	playerInventory.slots.where((Slot s) => s.item.isContainer).forEach((Slot s) {
+		List<Slot> bagSlots = decode(s.item.metadata['slots'], type: new TypeHelper<List<Slot>>().type);
+		bagSlots.forEach((Slot bagSlot) {
+			if (bagSlot.itemType.isEmpty) {
+				count++;
+			}
+		});
 	});
-	return slots - count;
 }
 
 /**
