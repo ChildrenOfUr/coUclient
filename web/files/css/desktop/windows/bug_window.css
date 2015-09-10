@@ -52,3 +52,11 @@
 input[type="file"] {
   height: initial;
 }
+
+#bugWindow ur-well ur-button+p {
+  width: 500px;
+  position: absolute;
+  right: 24px;
+  text-align: right;
+  bottom: 12px;
+}
