@@ -118,6 +118,10 @@ void createOtherPlayer(Map map) {
 }
 
 updateOtherPlayer(Map map, Player otherPlayer) {
+	if (map == null || otherPlayer == null) {
+		return;
+	}
+
 	if (otherPlayer.currentAnimation == null) {
 		otherPlayer.currentAnimation = otherPlayer.animations[map["animation"]];
 	}
