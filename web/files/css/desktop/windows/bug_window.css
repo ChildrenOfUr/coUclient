@@ -60,3 +60,7 @@ input[type="file"] {
   text-align: right;
   bottom: 12px;
 }
+
+#bugWindow #reportTitle {
+  width: 455px;
+}

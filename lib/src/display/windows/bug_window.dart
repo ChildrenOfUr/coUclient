@@ -4,6 +4,7 @@ class BugWindow extends Modal {
   String id = 'bugWindow';
   Service debugService;
   String bugLog = "";
+  bool sending = false;
 
   BugWindow() {
     debugService = new Service(['debug'], logMessage);
@@ -22,26 +23,30 @@ class BugWindow extends Modal {
 
     // Submits the Bug
     // TODO someday this should be serverside. Let's not give our keys to the client unless we have to.
-    w.querySelector('ur-button').onClick.first.then((_) async {
-      if (view.bugReportTitle.value.trim() != "") {
-        // send to slack
-        slack.Slack s = new slack.Slack(SLACK_BUG_WEBHOOK);
-        slack.Message m = new slack.Message('${view.bugReportMeta.text}\n\nReport Type: ${view.bugReportType.value}\n\nComments: ${input.value}\n\nEmail: ${game.email}\n', username:game.username);
-        s.send(m);
-        // send to server
-        FormData data = new FormData()
-          ..append("token", rsToken)
-          ..append("title", view.bugReportTitle.value)
-          ..append("description", input.value)
-          ..append("log", bugLog)
-          ..append("useragent", window.navigator.userAgent)
-          ..append("username", game.username)
-          ..append("category", view.bugReportType.value);
-        await HttpRequest.request("http://${Configs.utilServerAddress}/report/add", method: "POST", sendData: data);
-        // complete
-        w.hidden = true;
-        view.bugReportTitle.value = "";
-        input.value = "";
+    w.querySelector('ur-button').onClick.listen((_) async {
+      if (!sending) {
+        sending = true;
+        if (view.bugReportTitle.value.trim() != "") {
+          // send to slack
+          slack.Slack s = new slack.Slack(SLACK_BUG_WEBHOOK);
+          slack.Message m = new slack.Message('${view.bugReportMeta.text}\n\nReport Type: ${view.bugReportType.value}\n\nComments: ${input.value}\n\nEmail: ${game.email}\n', username:game.username);
+          s.send(m);
+          // send to server
+          FormData data = new FormData()
+            ..append("token", rsToken)
+            ..append("title", view.bugReportTitle.value)
+            ..append("description", input.value)
+            ..append("log", bugLog)
+            ..append("useragent", window.navigator.userAgent)
+            ..append("username", game.username)
+            ..append("category", view.bugReportType.value);
+          await HttpRequest.request("http://${Configs.utilServerAddress}/report/add", method: "POST", sendData: data);
+          // complete
+          w.hidden = true;
+          view.bugReportTitle.value = "";
+          input.value = "";
+        }
+        sending = false;
       }
     });
   }
