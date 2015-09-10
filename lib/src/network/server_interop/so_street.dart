@@ -31,14 +31,38 @@ _setupStreetSocket(String streetName) {
 
 		//check if we are receiving our inventory
 		if (map['inventory'] != null) {
-			playerInventory = decode(JSON.encode(map), type: Inventory);
+			int slotNum = 0;
+			List<Slot> slots = [];
+
+			//couldn't get the structure to decode correctly so I hacked together this
+			//it produces the right result, but looks terrible
+			map['slots'].forEach((Map m) {
+				Slot slot = new Slot();
+				if(!m['itemType'].isEmpty) {
+					ItemDef item;
+					if(m['item']['metadata']['slots'] == null) {
+						item = decode(JSON.encode(m['item']),type:ItemDef);
+					} else {
+						Map metadata = (m['item'] as Map).remove('metadata');
+						item = decode(JSON.encode(m['item']), type:ItemDef);
+						item.metadata = metadata;
+					}
+					slot.item = item;
+					slot.itemType = item.itemType;
+					slot.count = m['count'];
+				}
+				slots.add(slot);
+				slotNum++;
+			});
+
+			playerInventory.slots = slots;
 
 			//clear the inventory
 			for (Element box in querySelectorAll(".box")) {
 				box.children.clear();
 			}
 
-			int slotNum = 0;
+			slotNum = 0;
 			playerInventory.slots.forEach((Slot slot) {
 				for (int i = 0; i < slot.count; i++) {
 					addItemToInventory(slot.item, slotNum, update:map['update']);

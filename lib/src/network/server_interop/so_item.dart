@@ -1,7 +1,12 @@
 part of couclient;
 
-itemContextMenu(ItemDef i, MouseEvent event) {
+///slot should be in the format 'barSlot.bagSlot' indexed from 0
+///if bagSlot is not relevant, please use 'barSlot.-1'
+itemContextMenu(ItemDef i, String slot, MouseEvent event) {
+	int barSlot = int.parse(slot.split('.').elementAt(0));
+	int bagSlot = int.parse(slot.split('.').elementAt(1));
 	List<List> actions = [];
+
 	if (i.actions != null) {
 		List<Action> actionsList = i.actions;
 		bool enabled = false;
@@ -23,7 +28,7 @@ itemContextMenu(ItemDef i, MouseEvent event) {
 				            action.name + '|${action.timeRequired}|$enabled|$error',
 				            i.itemType,
 				            "sendAction ${action.name} ${i.item_id}",
-				            getDropMap(i, 1)
+				            getDropMap(1,barSlot,bagSlot)
 			            ]);
 		});
 	}
@@ -31,76 +36,72 @@ itemContextMenu(ItemDef i, MouseEvent event) {
 	document.body.append(menu);
 }
 
-findNewSlot(ItemDef i, ImageElement img, int index, {bool update: update}) {
+findNewSlot(ItemDef item, ImageElement img, int index, {bool update: false}) {
 	bool found = false;
 
 	Element barSlot = view.inventory.children.elementAt(index);
-	String cssName = i.itemType.replaceAll(" ", "_");
-	Element item = new DivElement();
+	String cssName = item.itemType.replaceAll(" ", "_");
+	Element itemDiv = new DivElement();
 
 	//determine what we need to scale the sprite image to in order to fit
 	num scale = 1;
-	if (img.height > img.width / i.iconNum) {
+	if (img.height > img.width / item.iconNum) {
 		scale = (barSlot.contentEdge.height - 10) / img.height;
 	} else {
-		scale = (barSlot.contentEdge.width - 10) / (img.width / i.iconNum);
+		scale = (barSlot.contentEdge.width - 10) / (img.width / item.iconNum);
 	}
 
-	item.style.width = (barSlot.contentEdge.width - 10).toString() + "px";
-	item.style.height = (barSlot.contentEdge.height - 10).toString() + "px";
-	item.style.backgroundImage = 'url(${i.spriteUrl})';
-	item.style.backgroundRepeat = 'no-repeat';
-	item.style.backgroundSize = "${img.width * scale}px ${img.height * scale}px";
-	item.style.backgroundPosition = "0 50%";
-	item.style.margin = "auto";
-	item.className = 'item-$cssName inventoryItem';
+	itemDiv.style.width = (barSlot.contentEdge.width - 10).toString() + "px";
+	itemDiv.style.height = (barSlot.contentEdge.height - 10).toString() + "px";
+	itemDiv.style.backgroundImage = 'url(${item.spriteUrl})';
+	itemDiv.style.backgroundRepeat = 'no-repeat';
+	itemDiv.style.backgroundSize = "${img.width * scale}px ${img.height * scale}px";
+	itemDiv.style.backgroundPosition = "0 50%";
+	itemDiv.style.margin = "auto";
+	itemDiv.className = 'item-$cssName inventoryItem';
 
-	item.attributes['name'] = i.name.replaceAll(' ', '');
-	item.attributes['count'] = "1";
-	item.attributes['itemMap'] = encode(i);
+	itemDiv.attributes['name'] = item.name.replaceAll(' ', '');
+	itemDiv.attributes['count'] = "1";
+	itemDiv.attributes['itemMap'] = encode(item);
 
-	item.onContextMenu.listen((MouseEvent event) => itemContextMenu(i, event));
-	barSlot.append(item);
+	String slot = '${barSlot.dataset["slot-num"]}.-1';
+	itemDiv.onContextMenu.listen((MouseEvent event) => itemContextMenu(item, slot, event));
+	barSlot.append(itemDiv);
 
 	if(!update) {
-		item.classes.add("bounce");
+		itemDiv.classes.add("bounce");
 	}
 	//remove the bounce class so that it's not still there for a drag and drop event
 	//also enable bag opening at this time
 	new Timer(new Duration(seconds: 1), () {
-		item.classes.remove("bounce");
+		itemDiv.classes.remove("bounce");
 
 		// Containers
 		DivElement containerButton;
 		String bagWindowId;
-		if (i.isContainer == true) {
+		if (item.isContainer == true) {
 			containerButton = new DivElement()
 				..classes.addAll(["fa", "fa-fw", "fa-plus", "item-container-toggle", "item-container-closed"])
 				..onClick.listen((_) {
 				if (containerButton.classes.contains("item-container-closed")) {
 					// Container is closed, open it
 					// Open the bag window
-					bagWindowId = new BagWindow(int.parse(item.parent.dataset["slot-num"]), i).id;
+					bagWindowId = new BagWindow(int.parse(itemDiv.parent.dataset["slot-num"]), item).id;
 					// Update the slot display
-					BagWindow.updateTriggerBtn(false, item);
+					BagWindow.updateTriggerBtn(false, itemDiv);
 				} else {
 					// Container is open, close it
 					// Close the bag window
 					BagWindow.closeId(bagWindowId);
 					// Update the slot display
-					BagWindow.updateTriggerBtn(true, item);
+					BagWindow.updateTriggerBtn(true, itemDiv);
 				}
 			});
-			item.parent.append(containerButton);
+			itemDiv.parent.append(containerButton);
 		}
 	});
 
 	found = true;
-
-	//there was no space in the player's pack, drop the item on the ground instead
-	if (!found) {
-		sendAction("drop", i.itemType, getDropMap(i, 1));
-	}
 }
 
 void putInInventory(ImageElement img, ItemDef i, int index, {bool update: false}) {
@@ -171,9 +172,10 @@ void takeItemFromInventory(String itemType, {int count: 1}) {
 	}
 }
 
-Map getDropMap(ItemDef item, int count) {
+Map getDropMap(int count, int slotNum, int subSlotNum) {
 	Map dropMap = new Map()
-		..['dropItem'] = encode(item)
+		..['slot'] = slotNum
+		..['subSlot'] = subSlotNum
 		..['count'] = count
 		..['x'] = CurrentPlayer.posX
 		..['y'] = CurrentPlayer.posY + CurrentPlayer.height / 2

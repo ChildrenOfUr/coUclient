@@ -5,9 +5,8 @@ Inventory playerInventory = new Inventory();
 class Slot {
 	//a new instance of a Slot is empty by default
 	String itemType = "";
-	ItemDef item;
+	ItemDef item = null;
 	int count = 0;
-	Map metadata = {};
 }
 
 class Inventory {
