@@ -86,6 +86,8 @@ int getBlankSlots() {
 			}
 		});
 	});
+
+	return count;
 }
 
 /**
