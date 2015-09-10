@@ -22,7 +22,7 @@ class BugWindow extends Modal {
 
     // Submits the Bug
     // TODO someday this should be serverside. Let's not give our keys to the client unless we have to.
-    w.querySelector('ur-button').onClick.listen((_) async {
+    w.querySelector('ur-button').onClick.first.then((_) async {
       if (view.bugReportTitle.value.trim() != "") {
         // send to slack
         slack.Slack s = new slack.Slack(SLACK_BUG_WEBHOOK);
@@ -36,17 +36,12 @@ class BugWindow extends Modal {
           ..append("log", bugLog)
           ..append("useragent", window.navigator.userAgent)
           ..append("username", game.username)
-          ..append("email", game.email)
           ..append("category", view.bugReportType.value);
-        if (view.bugReportImage.files.isNotEmpty) {
-          data.appendBlob("image", view.bugReportImage.files.first);
-        }
         await HttpRequest.request("http://${Configs.utilServerAddress}/report/add", method: "POST", sendData: data);
         // complete
         w.hidden = true;
         view.bugReportTitle.value = "";
         input.value = "";
-        (view.bugReportImage.parent as FormElement).reset();
       }
     });
   }
