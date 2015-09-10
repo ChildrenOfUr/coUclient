@@ -67,36 +67,31 @@ class BagWindow extends Modal {
 			}
 		} else {
 			// Bag has contents
-			subSlots = JSON.decode(sourceItem.metadata["slots"]);
+			subSlots = sourceItem.metadata["slots"];
 		}
 
 		if (subSlots.length != sourceItem.subSlots) {
 			throw new StateError("Number of slots in bag does not match bag size");
 		} else {
-			String url = "http://${Configs.utilServerAddress}/getItems?isRegex=true&type=";
-			subSlots.where((Map slot) => slot["itemType"] != "").forEach((Map itemInBag) => url += "|${itemInBag["itemType"]}");
-			url = url.replaceFirst("|", "");
-			HttpRequest.getString(url).then((String str) {
-				List<Map> itemsData = JSON.decode(str);
-				subSlots.forEach((Map itemInBag) {
-					DivElement slot = new DivElement();
-					// Item
-					DivElement itemInSlot = new DivElement();
-					if (itemInBag["itemType"] != "") {
-						Map itemData = itemsData.where((Map item) => item["itemType"] == itemInBag["itemType"]).first;
-						ItemDef item = decode(JSON.encode(itemData),type:ItemDef);
-						_sizeItem(slot,itemInSlot,item,itemInBag['count']);
-					} else {
-						// Empty slot
-						itemInSlot.classes.add("empty-bag-slot");
-					}
-					// Slot
-					slot
-						..classes.addAll(["box", "bagwindow-box"])
-						..append(itemInSlot);
+			int slotNum = 0;
+			subSlots.forEach((Map bagSlot) {
+				DivElement slot = new DivElement();
+				// Item
+				DivElement itemInSlot = new DivElement();
+				if (!bagSlot["itemType"].isEmpty) {
+					ItemDef item = decode(JSON.encode(bagSlot['item']),type:ItemDef);
+					_sizeItem(slot,itemInSlot,item,bagSlot['count'],slotNum);
+				} else {
+					// Empty slot
+					itemInSlot.classes.add("empty-bag-slot");
+				}
+				// Slot
+				slot
+					..classes.addAll(["box", "bagwindow-box"])
+					..append(itemInSlot);
 
-					well.append(slot);
-				});
+				well.append(slot);
+				slotNum++;
 			});
 		}
 
@@ -113,7 +108,7 @@ class BagWindow extends Modal {
 		return window;
 	}
 
-	Future _sizeItem(Element slot, Element item, ItemDef i, int count) async {
+	Future _sizeItem(Element slot, Element item, ItemDef i, int count, int bagSlotIndex) async {
 		ImageElement img = new ImageElement(src: i.spriteUrl);
 		await img.onLoad;
 
@@ -147,7 +142,8 @@ class BagWindow extends Modal {
 			..text = count.toString()
 			..className = "itemCount";
 
-		item.onContextMenu.listen((MouseEvent event) => itemContextMenu(i,event));
+		String slotString = '$sourceSlotNum.$bagSlotIndex';
+		item.onContextMenu.listen((MouseEvent event) => itemContextMenu(i,slotString,event));
 		item.parent.append(itemCount);
 	}
 

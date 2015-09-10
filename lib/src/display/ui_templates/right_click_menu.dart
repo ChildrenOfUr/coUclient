@@ -267,7 +267,8 @@ class RightClickMenu {
 			wrapper.append(tooltip);
 			newOptions.add(wrapper);
 		}
-		if (!newOptions[0].children[0].classes.contains("RCItemDisabled")) {
+		if (newOptions.length > 0 &&
+		    !newOptions[0].children[0].classes.contains("RCItemDisabled")) {
 			if(newOptions.length > 1) {
 				menu.onKeyPress.listen((e) {
 					if (e.keyCode == 40) { // down arrow
