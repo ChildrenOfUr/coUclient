@@ -1,5 +1,28 @@
 part of couclient;
 
+bool _metadataEqual(Map metaA, Map metaB) {
+	if ((metaA == null && metaB == null) ||
+	    (metaA.isEmpty && metaB.isEmpty)) {
+		return true;
+	}
+	//metadata is only used to store slots right now, so check that
+	if (metaA['slots'] != null && metaB['slots'] != null) {
+		List<Map> slotsA = metaA['slots'];
+		List<Map> slotsB = metaB['slots'];
+		if (slotsA.length == slotsB.length) {
+			for (int i = 0; i < slotsA.length; i++) {
+				Map slotA = slotsA.elementAt(i);
+				Map slotB = slotsB.elementAt(i);
+				if (slotA['itemType'] != slotB['itemType'] &&
+				    slotA['count'] != slotB['count']) {
+					return false;
+				}
+			}
+		}
+	}
+	return false;
+}
+
 _setupStreetSocket(String streetName) {
 	//start a timer for a few seconds and then show the server down message if not canceled
 	Timer serverDownTimer = new Timer(new Duration(seconds:2), () {
@@ -31,6 +54,7 @@ _setupStreetSocket(String streetName) {
 
 		//check if we are receiving our inventory
 		if (map['inventory'] != null) {
+			List<Slot> currentSlots = playerInventory.slots;
 			int slotNum = 0;
 			List<Slot> slots = [];
 
@@ -38,10 +62,10 @@ _setupStreetSocket(String streetName) {
 			//it produces the right result, but looks terrible
 			map['slots'].forEach((Map m) {
 				Slot slot = new Slot();
-				if(!m['itemType'].isEmpty) {
+				if (!m['itemType'].isEmpty) {
 					ItemDef item;
-					if(m['item']['metadata']['slots'] == null) {
-						item = decode(JSON.encode(m['item']),type:ItemDef);
+					if (m['item']['metadata']['slots'] == null) {
+						item = decode(JSON.encode(m['item']), type:ItemDef);
 					} else {
 						Map metadata = (m['item'] as Map).remove('metadata');
 						item = decode(JSON.encode(m['item']), type:ItemDef);
@@ -57,18 +81,37 @@ _setupStreetSocket(String streetName) {
 
 			playerInventory.slots = slots;
 
-			//clear the inventory
-			for (Element box in querySelectorAll(".box")) {
-				box.children.clear();
-			}
+			//if the current inventory differs (count, type, metatdata) then clear it
+			//and change it, else leave it alone
+			List<Element> uiSlots = querySelectorAll(".box").toList();
+			for (int i = 0; i < 10; i++) {
+				Slot newSlot = slots.elementAt(i);
 
-			slotNum = 0;
-			playerInventory.slots.forEach((Slot slot) {
-				for (int i = 0; i < slot.count; i++) {
-					addItemToInventory(slot.item, slotNum, update:map['update']);
+				bool updateNeeded = false, update = false, clear = false;
+
+				//if we've never received our inventory before, update all slots
+				if (currentSlots.length == 0) {
+					updateNeeded = true;
+				} else {
+					Slot currentSlot = currentSlots.elementAt(i);
+
+					if (currentSlot.itemType != newSlot.itemType) {
+						updateNeeded = true;
+					} else if (currentSlot.count != newSlot.count ||
+					           (currentSlot.item != null && newSlot.item != null &&
+					            !_metadataEqual(currentSlot.item.metadata, newSlot.item.metadata))) {
+						updateNeeded = true;
+						update = true;
+					}
 				}
-				slotNum++;
-			});
+
+				if (updateNeeded) {
+					uiSlots.elementAt(i).children.clear();
+					for (int j = 0; j < newSlot.count; j++) {
+						addItemToInventory(newSlot.item, i, update:update);
+					}
+				}
+			}
 
 			return;
 		}

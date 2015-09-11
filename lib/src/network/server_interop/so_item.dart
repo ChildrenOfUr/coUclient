@@ -28,7 +28,7 @@ itemContextMenu(ItemDef i, String slot, MouseEvent event) {
 				            action.name + '|${action.timeRequired}|$enabled|$error',
 				            i.itemType,
 				            "sendAction ${action.name} ${i.item_id}",
-				            getDropMap(1,barSlot,bagSlot)
+				            getDropMap(1, barSlot, bagSlot)
 			            ]);
 		});
 	}
@@ -68,38 +68,37 @@ findNewSlot(ItemDef item, ImageElement img, int index, {bool update: false}) {
 	itemDiv.onContextMenu.listen((MouseEvent event) => itemContextMenu(item, slot, event));
 	barSlot.append(itemDiv);
 
-	if(!update) {
+	if (!update) {
 		itemDiv.classes.add("bounce");
 	}
 	//remove the bounce class so that it's not still there for a drag and drop event
-	//also enable bag opening at this time
 	new Timer(new Duration(seconds: 1), () {
 		itemDiv.classes.remove("bounce");
-
-		// Containers
-		DivElement containerButton;
-		String bagWindowId;
-		if (item.isContainer == true) {
-			containerButton = new DivElement()
-				..classes.addAll(["fa", "fa-fw", "fa-plus", "item-container-toggle", "item-container-closed"])
-				..onClick.listen((_) {
-				if (containerButton.classes.contains("item-container-closed")) {
-					// Container is closed, open it
-					// Open the bag window
-					bagWindowId = new BagWindow(int.parse(itemDiv.parent.dataset["slot-num"]), item).id;
-					// Update the slot display
-					BagWindow.updateTriggerBtn(false, itemDiv);
-				} else {
-					// Container is open, close it
-					// Close the bag window
-					BagWindow.closeId(bagWindowId);
-					// Update the slot display
-					BagWindow.updateTriggerBtn(true, itemDiv);
-				}
-			});
-			itemDiv.parent.append(containerButton);
-		}
 	});
+
+	// Containers
+	DivElement containerButton;
+	String bagWindowId;
+	if (item.isContainer == true) {
+		containerButton = new DivElement()
+			..classes.addAll(["fa", "fa-fw", "fa-plus", "item-container-toggle", "item-container-closed"])
+			..onClick.listen((_) {
+			if (containerButton.classes.contains("item-container-closed")) {
+				// Container is closed, open it
+				// Open the bag window
+				bagWindowId = new BagWindow(int.parse(itemDiv.parent.dataset["slot-num"]), item).id;
+				// Update the slot display
+				BagWindow.updateTriggerBtn(false, itemDiv);
+			} else {
+				// Container is open, close it
+				// Close the bag window
+				BagWindow.closeId(bagWindowId);
+				// Update the slot display
+				BagWindow.updateTriggerBtn(true, itemDiv);
+			}
+		});
+		itemDiv.parent.append(containerButton);
+	}
 
 	found = true;
 }

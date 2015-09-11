@@ -169,7 +169,6 @@ bool get hasTouchSupport => context.callMethod('hasTouchSupport');
 
 @whenPolymerReady
 afterPolymer() async {
-
 	// Don't try to load the game in an unsupported browser
 	// They will continue to see the error message
 	if (browser.isIe || browser.isSafari) return;
