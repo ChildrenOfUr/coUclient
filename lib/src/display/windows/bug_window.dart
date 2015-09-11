@@ -22,15 +22,10 @@ class BugWindow extends Modal {
     input.value = '';
 
     // Submits the Bug
-    // TODO someday this should be serverside. Let's not give our keys to the client unless we have to.
     w.querySelector('ur-button').onClick.listen((_) async {
       if (!sending) {
         sending = true;
         if (view.bugReportTitle.value.trim() != "") {
-          // send to slack
-          slack.Slack s = new slack.Slack(SLACK_BUG_WEBHOOK);
-          slack.Message m = new slack.Message('${view.bugReportMeta.text}\n\nReport Type: ${view.bugReportType.value}\n\nComments: ${input.value}\n\nEmail: ${game.email}\n', username:game.username);
-          s.send(m);
           // send to server
           FormData data = new FormData()
             ..append("token", rsToken)
