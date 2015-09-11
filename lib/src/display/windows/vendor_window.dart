@@ -124,7 +124,7 @@ class VendorWindow extends Modal {
 			buyButton.style.pointerEvents = 'initial';
 			buyButton.text = "Sell 1 for ${(item['price'] * .7) ~/ 1}\u20a1";
 		} else {
-			if(getBlankSlots() == 0) {
+			if(getBlankSlots(item) == 0) {
 				amtSelector.style.opacity = '0.5';
 				amtSelector.style.pointerEvents = 'none';
 				buyButton.style.opacity = '0.5';
@@ -194,7 +194,7 @@ class VendorWindow extends Modal {
 				} else {
 					// Buying an item
 
-					if (buyNum.valueAsNumber + 1 <= getBlankSlots()) {
+					if (buyNum.valueAsNumber + 1 <= getBlankSlots(item)) {
 						// You can fit the max number of items in your inventory
 						int newNum = (++buyNum.valueAsNumber).toInt();
 						numToBuy = _updateNumToBuy(item, newNum, sellMode: sellMode);
@@ -231,7 +231,7 @@ class VendorWindow extends Modal {
 					newNum = min(item['stacksTo'].toInt(), getNumItems(item['itemType']));
 				} else {
 					// Buying an item
-					newNum = min(getBlankSlots(), min((item['stacksTo']).toInt(), (metabolics.currants / item['price']) ~/ 1));
+					newNum = min(getBlankSlots(item), min((item['stacksTo']).toInt(), (metabolics.currants / item['price']) ~/ 1));
 				}
 				numToBuy = _updateNumToBuy(item, newNum, sellMode:sellMode);
 			}

@@ -70,22 +70,24 @@ int getNumItems(String item) {
 	return count;
 }
 
-int getBlankSlots() {
+int getBlankSlots(Map itemMap) {
 	int count = 0;
 
 	//count hot bar blank slots
 	count += playerInventory.slots.where((Slot s) => s.itemType.isEmpty).length;
 
-	//count bag blank slots
-	playerInventory.slots.where((Slot s) => !s.itemType.isEmpty && s.item.isContainer).forEach((Slot s) {
-		String slotsString = JSON.encode(s.item.metadata['slots']);
-		List<Slot> bagSlots = decode(slotsString, type: new TypeHelper<List<Slot>>().type);
-		bagSlots.forEach((Slot bagSlot) {
-			if (bagSlot.itemType.isEmpty) {
-				count++;
-			}
+	if(!itemMap['isContainer']) {
+		//count bag blank slots
+		playerInventory.slots.where((Slot s) => !s.itemType.isEmpty && s.item.isContainer).forEach((Slot s) {
+			String slotsString = JSON.encode(s.item.metadata['slots']);
+			List<Slot> bagSlots = decode(slotsString, type: new TypeHelper<List<Slot>>().type);
+			bagSlots.forEach((Slot bagSlot) {
+				if (bagSlot.itemType.isEmpty) {
+					count++;
+				}
+			});
 		});
-	});
+	}
 
 	return count;
 }
