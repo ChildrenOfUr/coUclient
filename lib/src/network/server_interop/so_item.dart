@@ -31,6 +31,26 @@ itemContextMenu(ItemDef i, String slot, MouseEvent event) {
 				            getDropMap(1, barSlot, bagSlot)
 			            ]);
 		});
+		if (!i.isContainer) {
+			actions.add([
+				// Display text
+				"Bagify|"
+				// Action ID
+				"bagify|"
+				// Time
+				"-999|" // -999 is a special value that will trigger a bagify menu
+				// Enabled
+				"true|"
+				// Help text
+				"Move this item to a bag|",
+				// Item type
+				"${i.itemType}",
+				// Action callback
+				"new BagifyMenu(${barSlot.toString()})",
+				// Item map
+				getDropMap(1, barSlot, bagSlot)
+			]);
+		}
 	}
 	Element menu = RightClickMenu.create(event, i.name, i.description, actions, itemName: i.name);
 	document.body.append(menu);

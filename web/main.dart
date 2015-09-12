@@ -144,6 +144,7 @@ part 'package:couclient/src/display/ui_templates/interactions_menu.dart';
 part 'package:couclient/src/display/ui_templates/right_click_menu.dart';
 part 'package:couclient/src/display/ui_templates/howmany.dart';
 part 'package:couclient/src/display/minimap.dart';
+part 'package:couclient/src/display/ui_templates/bagifyItem.dart';
 
 // Globals //
 Storage sessionStorage = window.sessionStorage;

@@ -193,9 +193,7 @@ class RightClickMenu {
 		DivElement infoButton = new DivElement()
 			..id = "openItemWindow"
 			..className = "InfoButton fa fa-info-circle"
-			..onClick.listen((_) {
-			new ItemWindow(itemName).displayItem();
-		});
+			..onClick.listen((_) => new ItemWindow(itemName).displayItem());
 		SpanElement titleElement = new SpanElement()
 			..id = "ClickTitle"
 			..text = title;
@@ -235,7 +233,12 @@ class RightClickMenu {
 						completed = await actionBubble.wait;
 					}
 
-					if(completed) {
+					if (timeRequired == -999) {
+						// Special value to create a bagify menu
+						int invIndex = int.parse((Click.target as Element).parent.dataset["slot-num"]);
+						new BagifyMenu(invIndex);
+					} else if(completed) {
+						// Action completed
 						Map arguments = null;
 						if(option.length > 3) {
 							arguments = option[3];

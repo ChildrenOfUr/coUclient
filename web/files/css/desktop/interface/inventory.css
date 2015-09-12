@@ -11,6 +11,11 @@
   text-align:center;
 }
 
+#inventory.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
 #inventorySearch {
   background-color:#eee;
   width:40px;

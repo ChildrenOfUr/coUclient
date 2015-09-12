@@ -16,6 +16,7 @@
 @import url(interface/toast.css);
 @import url(interface/minimap.css);
 @import url(interface/gps.css);
+@import url(interface/bagifymenu.css);
 
 /* Game */
 @import url(game.css);
