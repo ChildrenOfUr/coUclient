@@ -83,6 +83,7 @@ part 'package:couclient/src/systems/audio.dart';
 part 'package:couclient/src/display/render.dart';
 part 'package:couclient/src/display/loop.dart';
 part 'package:couclient/src/display/information_display.dart';
+part 'package:couclient/src/display/inv_sort.dart';
 
 //  WINDOW MODULES //
 part 'package:couclient/src/display/windows/windows.dart';
@@ -144,7 +145,6 @@ part 'package:couclient/src/display/ui_templates/interactions_menu.dart';
 part 'package:couclient/src/display/ui_templates/right_click_menu.dart';
 part 'package:couclient/src/display/ui_templates/howmany.dart';
 part 'package:couclient/src/display/minimap.dart';
-part 'package:couclient/src/display/ui_templates/bagifyItem.dart';
 
 // Globals //
 Storage sessionStorage = window.sessionStorage;

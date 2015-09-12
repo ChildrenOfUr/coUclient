@@ -233,11 +233,7 @@ class RightClickMenu {
 						completed = await actionBubble.wait;
 					}
 
-					if (timeRequired == -999) {
-						// Special value to create a bagify menu
-						int invIndex = int.parse((Click.target as Element).parent.dataset["slot-num"]);
-						new BagifyMenu(invIndex);
-					} else if(completed) {
+					if(completed) {
 						// Action completed
 						Map arguments = null;
 						if(option.length > 3) {

@@ -113,6 +113,9 @@ _setupStreetSocket(String streetName) {
 				}
 			}
 
+			// Set up dragging
+			InvDragging.init();
+
 			return;
 		}
 

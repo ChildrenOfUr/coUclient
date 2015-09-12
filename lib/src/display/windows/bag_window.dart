@@ -9,6 +9,10 @@ class BagWindow extends Modal {
 		openWindows.removeWhere((BagWindow w) => w.id == id);
 	}
 
+	static bool get isOpen {
+		return (querySelectorAll("#windowHolder > .bagWindow").length > 0);
+	}
+
 	String id = 'bagWindow' + WindowManager.randomId.toString();
 	String bagId;
 	int numSlots;
@@ -192,5 +196,8 @@ class BagWindow extends Modal {
 				..add("fa-plus");
 			item.classes.remove("inv-item-disabled");
 		}
+
+		// Enable/disable inventory dragging
+		InvDragging.init();
 	}
 }

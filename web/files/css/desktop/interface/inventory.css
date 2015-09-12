@@ -175,3 +175,10 @@
     border-radius: 8px;
     font-size: 24px;
 }
+
+/* Item dragging */
+
+.item-flying {
+    opacity: 0.5;
+    z-index: 2048;
+}
