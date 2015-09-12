@@ -123,7 +123,14 @@ class InvDragging {
 			move["to_bag_index"] = int.parse(e.dropzoneElement.parent.parent.dataset["source-bag"]);
 		}
 		move["to_index"] = e.dropzoneElement.dataset["slot-num"];
-		
+
+		Map sendData = move;
+		if (sendData.containsKey("item_count")) {
+			sendData.remove("item_count");
+		}
+		if (sendData.containsKey("bag_btn")) {
+			sendData.remove("bag_btn");
+		}
 		sendAction("moveItem", "global_action_monster", move);
 
 		// Reapply item count & bag button
