@@ -17,11 +17,18 @@ class BagWindow extends Modal {
 	String bagId;
 	int numSlots;
 	int sourceSlotNum;
+	Dropzone acceptors;
 
 	BagWindow(this.sourceSlotNum, ItemDef sourceItem) {
 		DivElement windowElement = load(sourceItem);
 		querySelector("#windowHolder").append(windowElement);
 		prepare();
+		acceptors = new Dropzone(
+			windowElement.querySelectorAll(".bagwindow-box:empty"),
+			acceptor: new BagFilterAcceptor(sourceItem.subSlotFilter)
+		)
+			..onDragEnter.listen((DropzoneEvent e) => InvDragging.handleZoneEntry(e))
+			..onDrop.listen((DropzoneEvent e) => InvDragging.handleDrop(e));
 		open();
 		openWindows.add(this);
 	}
@@ -81,18 +88,19 @@ class BagWindow extends Modal {
 			subSlots.forEach((Map bagSlot) {
 				DivElement slot = new DivElement();
 				// Item
-				DivElement itemInSlot = new DivElement();
+				DivElement itemInSlot;
 				if (!bagSlot["itemType"].isEmpty) {
+					itemInSlot = new DivElement();
 					ItemDef item = decode(JSON.encode(bagSlot['item']),type:ItemDef);
 					_sizeItem(slot,itemInSlot,item,bagSlot['count'],slotNum);
-				} else {
-					// Empty slot
-					itemInSlot.classes.add("empty-bag-slot");
 				}
 				// Slot
 				slot
 					..classes.addAll(["box", "bagwindow-box"])
-					..append(itemInSlot);
+					..dataset["slot-num"] = slotNum.toString();
+				if (itemInSlot != null) {
+					slot.append(itemInSlot);
+				}
 
 				well.append(slot);
 				slotNum++;
@@ -107,7 +115,8 @@ class BagWindow extends Modal {
 			..classes.add("bagWindow")
 			..append(header)
 			..append(closeButton)
-			..append(well);
+			..append(well)
+			..dataset["source-bag"] = sourceSlotNum.toString();
 
 		return window;
 	}

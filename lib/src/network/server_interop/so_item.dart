@@ -139,6 +139,8 @@ void putInInventory(ImageElement img, ItemDef i, int index, {bool update: false}
 	if (!found) {
 		findNewSlot(i, img, index, update: update);
 	}
+	// Refresh inventory dragging
+	InvDragging.init();
 }
 
 void addItemToInventory(ItemDef item, int index, {bool update: false}) {
@@ -169,6 +171,8 @@ void takeItemFromInventory(String itemType, {int count: 1}) {
 
 		remaining -= uiCount;
 	}
+	// Refresh inventory dragging
+	InvDragging.init();
 }
 
 Map getDropMap(int count, int slotNum, int subSlotNum) {

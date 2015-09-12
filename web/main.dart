@@ -26,8 +26,6 @@ import 'package:couclient/src/network/metabolics.dart';
 // LIBRARIES //
 // Used for NumberFormat
 import 'package:intl/intl.dart';
-// Slack Webhook API
-import 'package:slack/html/slack.dart' as slack;
 // SoundCloud Helper
 import 'package:scproxy/scproxy.dart';
 // Audio and Graphics
@@ -83,7 +81,7 @@ part 'package:couclient/src/systems/audio.dart';
 part 'package:couclient/src/display/render.dart';
 part 'package:couclient/src/display/loop.dart';
 part 'package:couclient/src/display/information_display.dart';
-part 'package:couclient/src/display/inv_sort.dart';
+part 'package:couclient/src/display/inv_dragging.dart';
 
 //  WINDOW MODULES //
 part 'package:couclient/src/display/windows/windows.dart';
