@@ -47,6 +47,10 @@
   color: #ba381a;
 
 }
+
+.price-tag.sale-price-tag {
+    background-color: #CCFFE4;
+}
 #windowHolder .window .fa.minus{
   color: #ba381a;
   font-size:25px;

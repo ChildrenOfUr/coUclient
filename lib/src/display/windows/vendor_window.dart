@@ -69,14 +69,24 @@ class VendorWindow extends Modal {
 
 			Element price;
 
-			if(item['price'] < 9999) {
-				price = merch.append(new DivElement()
-					                     ..text = '${item['price']}₡'
-					                     ..className = 'price-tag');
+			if (item["discount"] != 1) {
+				price = merch.append(
+					new DivElement()
+						..text = "Sale!"
+						..classes.addAll(["price-tag", "sale-price-tag"])
+				);
+			} else if (item['price'] < 9999) {
+				price = merch.append(
+					new DivElement()
+						..text = '${item['price']}₡'
+						..className = 'price-tag'
+				);
 			} else {
-				price = merch.append(new DivElement()
-					                     ..text = 'A Lot'
-					                     ..className = 'price-tag');
+				price = merch.append(
+					new DivElement()
+						..text = 'A Lot'
+						..className = 'price-tag'
+				);
 			}
 
 			if(item['price'] > metabolics.currants) {
@@ -135,7 +145,11 @@ class VendorWindow extends Modal {
 				amtSelector.style.pointerEvents = 'initial';
 				buyButton.style.opacity = 'initial';
 				buyButton.style.pointerEvents = 'initial';
-				buyButton.text = "Buy 1 for ${item['price']}\u20a1";
+				if (item["discount"] == 1) {
+					buyButton.text = "Buy 1 for ${item['price']}\u20a1";
+				} else {
+					buyButton.text = "On sale! Buy 1 for ${(item['price'] * item["discount"]).toInt().toString()}\u20a1";
+				}
 			}
 		}
 
