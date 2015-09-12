@@ -183,17 +183,20 @@ sendAction(String methodName, String entityId, [Map arguments]) {
 	Element entity = querySelector("#$entityId");
 	Map map = {};
 	map['callMethod'] = methodName;
-	if(entity != null) {
+	if (entityId == "global_action_monster") {
+		map["id"] = entityId;
+	} else if (entity != null) {
 		map['id'] = entityId;
 		map['type'] = entity.className;
-	}
-	else
+	} else {
 		map['type'] = entityId;
+	}
 	map['streetName'] = currentStreet.label;
 	map['username'] = game.username;
 	map['email'] = game.email;
 	map['tsid'] = currentStreet.streetData['tsid'];
 	map['arguments'] = arguments;
+	print(map);
 	streetSocket.send(JSON.encode(map));
 }
 

@@ -123,9 +123,8 @@ class InvDragging {
 			move["to_bag_index"] = int.parse(e.dropzoneElement.parent.parent.dataset["source-bag"]);
 		}
 		move["to_index"] = e.dropzoneElement.dataset["slot-num"];
-
-		print(move);
-		//TODO: send action to server
+		
+		sendAction("moveItem", "global_action_monster", move);
 
 		// Reapply item count & bag button
 		if (move["item_count"] != null) {
