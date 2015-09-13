@@ -61,6 +61,10 @@ input[type="file"] {
   bottom: 12px;
 }
 
+#bugWindow ur-well ur-button+p a {
+    cursor: pointer;
+}
+
 #bugWindow #reportTitle {
   width: 455px;
 }
