@@ -92,8 +92,10 @@ class Game {
 		logmessage("Game loaded!");
 
 		new Timer.periodic(new Duration(seconds: 1), (_) => updatePlayerLetters());
-		new Service(["streetLoaded"], (_) {
-			HttpRequest.getString("http://${Configs.utilServerAddress}/letters/newPlayerLetter?username=${game.username}");
+		new Service(["streetLoaded", "gameUnloading"], (_) {
+			if (currentStreet.useLetters) {
+				HttpRequest.getString("http://${Configs.utilServerAddress}/letters/newPlayerLetter?username=${game.username}");
+			}
 		});
 
 		// Load previous GPS state
@@ -143,5 +145,33 @@ class Game {
 		window.animationFrame.then(loop);
 
 		//previousTag.makeCurrent();
+	}
+
+	Future updatePlayerLetters() async {
+		Map players = {};
+		players.addAll(otherPlayers);
+		players.addAll(({game.username: CurrentPlayer}));
+
+		players.forEach((String username, Player player) async {
+			Element parentE = player.playerParentElement;
+
+			String username = parentE.id.replaceFirst("player-", "");
+			if (username.startsWith("pc-")) {
+				username = username.replaceFirst("pc-", "");
+			}
+
+			if (currentStreet.useLetters) {
+				String letter = await HttpRequest.getString("http://${Configs.utilServerAddress}/letters/getPlayerLetter?username=$username");
+
+				DivElement letterDisplay = new DivElement()
+					..classes.addAll(["letter", "letter-$letter"]);
+
+				parentE
+					..children.removeWhere((Element e) => e.classes.contains("letter"))
+					..append(letterDisplay);
+			} else {
+				parentE.children.removeWhere((Element e) => e.classes.contains("letter"));
+			}
+		});
 	}
 }

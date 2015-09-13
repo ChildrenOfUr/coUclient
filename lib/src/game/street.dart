@@ -43,6 +43,14 @@ class Street {
     return currentStreetName;
   }
 
+  bool get useLetters {
+	  return (
+		  mapData.hubData[hub_id] != null &&
+		  mapData.hubData[hub_id]["players_have_letters"] != null &&
+		  mapData.hubData[hub_id]["players_have_letters"] == true
+	  );
+  }
+
   Stopwatch loadTime;
 
   Rectangle bounds;

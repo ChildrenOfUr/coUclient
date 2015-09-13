@@ -127,6 +127,7 @@ class UserInterface {
 		// The 'you won' splash
 		window.onBeforeUnload.listen((_) {
 			youWon.hidden = false;
+			transmit("gameUnloading");
 		});
 
 

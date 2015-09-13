@@ -64,36 +64,3 @@ update(double dt)
 
 	Wormhole.updateAll();
 }
-
-// Not run as part of the loop, only every 5 seconds
-Future updatePlayerLetters() async {
-	Map players = {};
-	players.addAll(otherPlayers);
-	players.addAll(({game.username: CurrentPlayer}));
-
-	players.forEach((String username, Player player) async {
-		Element parentE = player.playerParentElement;
-
-		String username = parentE.id.replaceFirst("player-", "");
-		if (username.startsWith("pc-")) {
-			username = username.replaceFirst("pc-", "");
-		}
-
-		if (
-		mapData.hubData[currentStreet.hub_id] != null &&
-		mapData.hubData[currentStreet.hub_id]["players_have_letters"] != null &&
-		mapData.hubData[currentStreet.hub_id]["players_have_letters"] == true
-		) {
-			String letter = await HttpRequest.getString("http://${Configs.utilServerAddress}/letters/getPlayerLetter?username=$username");
-
-			DivElement letterDisplay = new DivElement()
-				..classes.addAll(["letter", "letter-$letter"]);
-
-			parentE
-				..children.removeWhere((Element e) => e.classes.contains("letter"))
-				..append(letterDisplay);
-		} else {
-			parentE.children.removeWhere((Element e) => e.classes.contains("letter"));
-		}
-	});
-}
