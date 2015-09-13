@@ -69,6 +69,8 @@ class InputManager {
 
 		document.onClick.listen((MouseEvent event) => clickOrTouch(event, null));
 		document.onTouchStart.listen((TouchEvent event) => clickOrTouch(null, event));
+
+		initKonami();
 	}
 
 	activateControl(String control, bool active, String sourceName) {
@@ -657,4 +659,21 @@ class InputManager {
 		return keyPressed;
 	}
 
+	bool konamiDone = false, freeTeleportUsed = false;
+	initKonami() {
+		List<int> konamiKeys = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65];
+		String konami = konamiKeys.toString().replaceAll("[", "").replaceAll("]", "");
+		List<int> keys = [];
+
+		document.onKeyDown.listen((KeyboardEvent e) {
+			if (!konamiDone && konamiKeys.contains(e.keyCode)) {
+				keys.add(e.keyCode);
+
+				if (keys.toString().indexOf(konami) >= 0) {
+					toast("Your next teleport is free!");
+					konamiDone = true;
+				}
+			}
+		});
+	}
 }

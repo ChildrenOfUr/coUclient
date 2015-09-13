@@ -276,7 +276,21 @@ class WorldMap {
         "timeRequired": 0,
         "clientCallback": () {
           transmit('teleportByMapWindow', tsid);
-          sendGlobalAction('teleport', {'tsid':tsid});
+		  if (inputManager.konamiDone && !inputManager.freeTeleportUsed) {
+			  // Free teleport for doing the konami code
+			  streetService.requestStreet(tsid);
+			  inputManager.freeTeleportUsed = true;
+		  } else {
+			  // Normal teleport
+			  sendGlobalAction('teleport', {'tsid':tsid});
+			  bool awaitingLoad = true;
+			  new Service(["streetLoaded"], (_) {
+				 if (awaitingLoad) {
+					 toast("-50 energy for teleporting");
+					 awaitingLoad = false;
+				 }
+			  });
+		  }
         }
       }
     ];
