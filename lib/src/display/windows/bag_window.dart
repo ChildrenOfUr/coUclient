@@ -23,14 +23,11 @@ class BagWindow extends Modal {
 		DivElement windowElement = load(sourceItem);
 		querySelector("#windowHolder").append(windowElement);
 		prepare();
-		acceptors = new Dropzone(
-			windowElement.querySelectorAll(".bagwindow-box:empty"),
-			acceptor: new BagFilterAcceptor(sourceItem.subSlotFilter)
-		)
-			..onDragEnter.listen((DropzoneEvent e) => InvDragging.handleZoneEntry(e))
-			..onDrop.listen((DropzoneEvent e) => InvDragging.handleDrop(e));
 		open();
 		openWindows.add(this);
+
+		// Handle drag and drop
+		transmit("inventoryUpdated");
 		new Service(["inventoryUpdated"], (_) {
 			windowElement.querySelector("ur-well").replaceWith(load(sourceItem, false));
 			if (acceptors != null) {
@@ -42,6 +39,7 @@ class BagWindow extends Modal {
 			)
 				..onDragEnter.listen((DropzoneEvent e) => InvDragging.handleZoneEntry(e))
 				..onDrop.listen((DropzoneEvent e) => InvDragging.handleDrop(e));
+			InvDragging.init();
 		});
 	}
 
@@ -183,6 +181,15 @@ class BagWindow extends Modal {
 	}
 
 	@override
+	open() {
+		displayElement.hidden = false;
+		elementOpen = true;
+		this.focus();
+
+		transmit("inventoryUpdated");
+	}
+
+	@override
 	close() {
 		// Handle window closing
 		_destroyEscListener();
@@ -204,6 +211,8 @@ class BagWindow extends Modal {
 		// Update the source inventory icon
 		Element sourceBox = view.inventory.children.where((Element box) => box.dataset["slot-num"] == sourceSlotNum.toString()).first;
 		sourceBox.querySelector(".item-container-toggle").click();
+
+		transmit("inventoryUpdated");
 	}
 
 	// Update the inventory icons (used by the inventory)
@@ -229,6 +238,6 @@ class BagWindow extends Modal {
 		}
 
 		// Enable/disable inventory dragging
-		InvDragging.init();
+		transmit("inventoryUpdated");
 	}
 }
