@@ -31,33 +31,50 @@ class BagWindow extends Modal {
 			..onDrop.listen((DropzoneEvent e) => InvDragging.handleDrop(e));
 		open();
 		openWindows.add(this);
+		new Service(["inventoryUpdated"], (_) {
+			windowElement.querySelector("ur-well").replaceWith(load(sourceItem, false));
+			if (acceptors != null) {
+				acceptors.destroy();
+			}
+			acceptors = new Dropzone(
+				windowElement.querySelectorAll(".bagwindow-box:empty"),
+				acceptor: new BagFilterAcceptor(sourceItem.subSlotFilter)
+			)
+				..onDragEnter.listen((DropzoneEvent e) => InvDragging.handleZoneEntry(e))
+				..onDrop.listen((DropzoneEvent e) => InvDragging.handleDrop(e));
+		});
 	}
 
-	DivElement load(ItemDef sourceItem) {
+	Element load(ItemDef sourceItem, [bool full = true]) {
 
 		// Header
 
-		Element closeButton = new Element.tag("i")
-			..classes.add("fa-li")
-			..classes.add("fa")
-			..classes.add("fa-times")
-			..classes.add("close");
+		Element closeButton, icon, header;
+		SpanElement titleSpan;
 
-		Element icon = new ImageElement()
-			..classes.add("fa-li")
-			..src = "files/system/icons/bag.svg";
+		if (full) {
+			closeButton = new Element.tag("i")
+				..classes.add("fa-li")
+				..classes.add("fa")
+				..classes.add("fa-times")
+				..classes.add("close");
 
-		SpanElement titleSpan = new SpanElement()
-			..classes.add("iw-title")
-			..text = sourceItem.name;
+			icon = new ImageElement()
+				..classes.add("fa-li")
+				..src = "files/system/icons/bag.svg";
 
-		if (sourceItem.name.length >= 24) {
-			titleSpan.style.fontSize = "24px";
+			titleSpan = new SpanElement()
+				..classes.add("iw-title")
+				..text = sourceItem.name;
+
+			if (sourceItem.name.length >= 24) {
+				titleSpan.style.fontSize = "24px";
+			}
+
+			header = new Element.header()
+				..append(icon)
+				..append(titleSpan);
 		}
-
-		Element header = new Element.header()
-			..append(icon)
-			..append(titleSpan);
 
 		// Content
 
@@ -109,16 +126,20 @@ class BagWindow extends Modal {
 
 		// Window
 
-		DivElement window = new DivElement()
-			..id = id
-			..classes.add("window")
-			..classes.add("bagWindow")
-			..append(header)
-			..append(closeButton)
-			..append(well)
-			..dataset["source-bag"] = sourceSlotNum.toString();
+		if (full) {
+			DivElement window = new DivElement()
+				..id = id
+				..classes.add("window")
+				..classes.add("bagWindow")
+				..append(header)
+				..append(closeButton)
+				..append(well)
+				..dataset["source-bag"] = sourceSlotNum.toString();
 
-		return window;
+			return window;
+		} else {
+			return well;
+		}
 	}
 
 	Future _sizeItem(Element slot, Element item, ItemDef i, int count, int bagSlotIndex) async {

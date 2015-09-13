@@ -116,6 +116,8 @@ _setupStreetSocket(String streetName) {
 			// Set up dragging
 			InvDragging.init();
 
+			transmit("inventoryUpdated", true);
+
 			return;
 		}
 

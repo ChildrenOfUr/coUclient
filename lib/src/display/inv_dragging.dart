@@ -2,6 +2,7 @@ part of couclient;
 
 class InvDragging {
 	static List<String> disablers = [];
+	static Service refresh = new Service(["inventoryUpdated"], (_) => init());
 
 	/// Draggable items
 	static Draggable draggables;
