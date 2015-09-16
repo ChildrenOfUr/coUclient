@@ -20,30 +20,30 @@ class BagWindow extends Modal {
 	Dropzone acceptors;
 
 	BagWindow(this.sourceSlotNum, ItemDef sourceItem) {
-		DivElement windowElement = load(sourceItem);
-		querySelector("#windowHolder").append(windowElement);
-		prepare();
-		open();
-		openWindows.add(this);
+		load(sourceItem).then((DivElement windowElement) {
+			// Handle drag and drop
+			new Service(["inventoryUpdated"], (_) async {
+				if (acceptors != null) {
+					acceptors.destroy();
+				}
+				acceptors = new Dropzone(
+					windowElement.querySelectorAll(".bagwindow-box"),
+					acceptor: new BagFilterAcceptor(sourceItem.subSlotFilter)
+					)
+					..onDrop.listen((DropzoneEvent e) => InvDragging.handleDrop(e));
+			});
+			new Service(['updateMetadata'], (sourceItem) async {
+				windowElement.querySelector("ur-well").replaceWith(await load(sourceItem, false));
+				transmit('inventoryUpdated',true);
+			});
 
-		// Handle drag and drop
-		transmit("inventoryUpdated");
-		new Service(["inventoryUpdated"], (_) {
-			windowElement.querySelector("ur-well").replaceWith(load(sourceItem, false));
-			if (acceptors != null) {
-				acceptors.destroy();
-			}
-			acceptors = new Dropzone(
-				windowElement.querySelectorAll(".bagwindow-box:empty"),
-				acceptor: new BagFilterAcceptor(sourceItem.subSlotFilter)
-			)
-				..onDragEnter.listen((DropzoneEvent e) => InvDragging.handleZoneEntry(e))
-				..onDrop.listen((DropzoneEvent e) => InvDragging.handleDrop(e));
-			InvDragging.init();
+			querySelector("#windowHolder").append(windowElement);
+			prepare();
+			open();
 		});
 	}
 
-	Element load(ItemDef sourceItem, [bool full = true]) {
+	Future<Element> load(ItemDef sourceItem, [bool full = true]) async {
 
 		// Header
 
@@ -100,24 +100,23 @@ class BagWindow extends Modal {
 			throw new StateError("Number of slots in bag does not match bag size");
 		} else {
 			int slotNum = 0;
-			subSlots.forEach((Map bagSlot) {
+			await Future.forEach(subSlots, (Map bagSlot) async {
 				DivElement slot = new DivElement();
-				// Item
-				DivElement itemInSlot;
-				if (!bagSlot["itemType"].isEmpty) {
-					itemInSlot = new DivElement();
-					ItemDef item = decode(JSON.encode(bagSlot['item']),type:ItemDef);
-					_sizeItem(slot,itemInSlot,item,bagSlot['count'],slotNum);
-				}
 				// Slot
 				slot
 					..classes.addAll(["box", "bagwindow-box"])
 					..dataset["slot-num"] = slotNum.toString();
-				if (itemInSlot != null) {
-					slot.append(itemInSlot);
-				}
-
 				well.append(slot);
+				document.body.append(well); //for measuring
+				// Item
+				DivElement itemInSlot = new DivElement();
+				slot.append(itemInSlot);
+				if (!bagSlot["itemType"].isEmpty) {
+					ItemDef item = decode(JSON.encode(bagSlot['item']),type:ItemDef);
+					await _sizeItem(slot,itemInSlot,item,bagSlot['count'],slotNum);
+				}
+				well.remove();
+
 				slotNum++;
 			});
 		}
@@ -182,37 +181,27 @@ class BagWindow extends Modal {
 
 	@override
 	open() {
-		displayElement.hidden = false;
-		elementOpen = true;
-		this.focus();
+		super.open();
+		openWindows.add(this);
 
-		transmit("inventoryUpdated");
+		transmit('inventoryUpdated',true);
 	}
 
 	@override
 	close() {
-		// Handle window closing
-		_destroyEscListener();
-		displayElement.hidden = true;
-		elementOpen = false;
-
-		//see if there's another window that we want to focus
-		for (Element modal in querySelectorAll('.window')) {
-			if (!modal.hidden) {
-				modals[modal.id].focus();
-			}
-		}
+		super.close();
 
 		// Delete the window
-		if (querySelector("#${id.toString()}") != null) {
-			querySelector("#${id.toString()}").remove();
+		Element window = querySelector("#$id");
+		if (window != null) {
+			window.remove();
 		}
 
 		// Update the source inventory icon
 		Element sourceBox = view.inventory.children.where((Element box) => box.dataset["slot-num"] == sourceSlotNum.toString()).first;
 		sourceBox.querySelector(".item-container-toggle").click();
 
-		transmit("inventoryUpdated");
+		transmit('inventoryUpdated',true);
 	}
 
 	// Update the inventory icons (used by the inventory)
@@ -236,8 +225,5 @@ class BagWindow extends Modal {
 				..add("fa-plus");
 			item.classes.remove("inv-item-disabled");
 		}
-
-		// Enable/disable inventory dragging
-		transmit("inventoryUpdated");
 	}
 }

@@ -37,8 +37,6 @@ itemContextMenu(ItemDef i, String slot, MouseEvent event) {
 }
 
 findNewSlot(ItemDef item, ImageElement img, int index, {bool update: false}) {
-	bool found = false;
-
 	Element barSlot = view.inventory.children.elementAt(index);
 	String cssName = item.itemType.replaceAll(" ", "_");
 	Element itemDiv = new DivElement();
@@ -99,8 +97,6 @@ findNewSlot(ItemDef item, ImageElement img, int index, {bool update: false}) {
 		});
 		itemDiv.parent.append(containerButton);
 	}
-
-	found = true;
 }
 
 void putInInventory(ImageElement img, ItemDef i, int index, {bool update: false}) {
@@ -139,8 +135,7 @@ void putInInventory(ImageElement img, ItemDef i, int index, {bool update: false}
 	if (!found) {
 		findNewSlot(i, img, index, update: update);
 	}
-	// Refresh inventory dragging
-	InvDragging.init();
+	transmit("inventoryUpdated");
 }
 
 void addItemToInventory(ItemDef item, int index, {bool update: false}) {
@@ -171,8 +166,7 @@ void takeItemFromInventory(String itemType, {int count: 1}) {
 
 		remaining -= uiCount;
 	}
-	// Refresh inventory dragging
-	InvDragging.init();
+	transmit("inventoryUpdated");
 }
 
 Map getDropMap(int count, int slotNum, int subSlotNum) {

@@ -191,6 +191,7 @@ afterPolymer() async {
 	auth = new AuthManager();
 	minimap = new Minimap();
 	GPS.initWorldGraph();
+	InvDragging.init();
 
 	// Download the latest map data
 	mapData = await new MapData()..init();

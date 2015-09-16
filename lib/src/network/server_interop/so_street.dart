@@ -11,16 +11,16 @@ bool _metadataEqual(Map metaA, Map metaB) {
 		List<Map> slotsB = metaB['slots'];
 		if (slotsA.length == slotsB.length) {
 			for (int i = 0; i < slotsA.length; i++) {
-				Map slotA = slotsA.elementAt(i);
-				Map slotB = slotsB.elementAt(i);
-				if (slotA['itemType'] != slotB['itemType'] &&
+				Map slotA = slotsA[i];
+				Map slotB = slotsB[i];
+				if (slotA['itemType'] != slotB['itemType'] ||
 				    slotA['count'] != slotB['count']) {
 					return false;
 				}
 			}
 		}
 	}
-	return false;
+	return true;
 }
 
 _setupStreetSocket(String streetName) {
@@ -87,7 +87,7 @@ _setupStreetSocket(String streetName) {
 			for (int i = 0; i < 10; i++) {
 				Slot newSlot = slots.elementAt(i);
 
-				bool updateNeeded = false, update = false, clear = false;
+				bool updateNeeded = false, update = false;
 
 				//if we've never received our inventory before, update all slots
 				if (currentSlots.length == 0) {
@@ -97,24 +97,25 @@ _setupStreetSocket(String streetName) {
 
 					if (currentSlot.itemType != newSlot.itemType) {
 						updateNeeded = true;
-					} else if (currentSlot.count != newSlot.count ||
-					           (currentSlot.item != null && newSlot.item != null &&
-					            !_metadataEqual(currentSlot.item.metadata, newSlot.item.metadata))) {
+					} else if (currentSlot.count != newSlot.count) {
 						updateNeeded = true;
 						update = true;
+					} else if (currentSlot.item != null && newSlot.item != null &&
+					            !_metadataEqual(currentSlot.item.metadata, newSlot.item.metadata)) {
+						transmit('updateMetadata',newSlot.item);
+						continue;
 					}
 				}
 
 				if (updateNeeded) {
-					uiSlots.elementAt(i).children.clear();
+					if(!update) {
+						uiSlots.elementAt(i).children.clear();
+					}
 					for (int j = 0; j < newSlot.count; j++) {
 						addItemToInventory(newSlot.item, i, update:update);
 					}
 				}
 			}
-
-			// Set up dragging
-			InvDragging.init();
 
 			transmit("inventoryUpdated", true);
 

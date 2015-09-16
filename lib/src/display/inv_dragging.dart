@@ -2,12 +2,13 @@ part of couclient;
 
 class InvDragging {
 	static List<String> disablers = [];
-	static Service refresh = new Service(["inventoryUpdated"], (_) => init());
-
+	static Service refresh;
 	/// Draggable items
 	static Draggable draggables;
 	/// Drop targets
 	static Dropzone dropzones;
+
+	static Element currentlyDisplaced, origBox;
 
 	/**
 	 * Map used to store *how* the item was moved.
@@ -16,29 +17,15 @@ class InvDragging {
 	 * - - item_number: element: span element containing the count label
 	 * - - bag_btn: element: the toggle button for containers
 	 * - On Pickup:
-	 * - - from_bag: boolean: whether the item used to be in a bag
-	 * - - from_bag_index: int: which slot the to_bag is in  (only set if from_bag is true)
-	 * - - from_index: int: which slot the item used to be in
+	 * - - fromBag: boolean: whether the item used to be in a bag
+	 * - - fromBagIndex: int: which slot the toBag is in  (only set if fromBag is true)
+	 * - - fromIndex: int: which slot the item used to be in
 	 * - On Drop:
-	 * - - to_bag: boolean: whether the item is going into a bag
-	 * - - to_bag_index: int: which slot the to_bag is in (only set if to_bag is true)
-	 * - - to_index: int: which slot the item is going to
+	 * - - toBag: boolean: whether the item is going into a bag
+	 * - - toBagIndex: int: which slot the toBag is in (only set if toBag is true)
+	 * - - toIndex: int: which slot the item is going to
 	 */
 	static Map<String, dynamic> move = {};
-
-	/// Returns an element list of boxes without items
-	static ElementList<Element> getEmptySlots() {
-		return querySelectorAll("#inventory .box:empty");
-		/// Bag windows manage their own acceptors
-	}
-
-	/// Returns an element list of items inside boxes
-	static ElementList<Element> getItems() {
-		return querySelectorAll(
-			"#inventory > .box > .inventoryItem, "
-			".bagwindow-box > .inventoryItem"
-		);
-	}
 
 	/// Checks if the specified slot is empty
 	static bool slotIsEmpty({int index, Element box, int bagWindow}) {
@@ -55,6 +42,9 @@ class InvDragging {
 
 	/// Set up event listeners based on the current inventory
 	static void init() {
+		if (refresh == null) {
+			refresh = new Service(["inventoryUpdated"], (_) => init());
+		}
 		// Remove old data
 		if (draggables != null) {
 			draggables.destroy();
@@ -66,10 +56,10 @@ class InvDragging {
 		if (disablers.length == 0) {
 			// Set up draggable elements
 			draggables = new Draggable(
-			// List of item elements in boxes
-				getItems(),
+				// List of item elements in boxes
+				querySelectorAll('.inventoryItem'),
 				// Display the item on the cursor
-				avatarHandler: new AvatarHandler.clone(),
+				avatarHandler: new CustomAvatarHandler(),
 				// If a bag is open, allow free dragging.
 				// If not, only allow horizontal dragging across the inventory bar
 				horizontalOnly: !BagWindow.isOpen,
@@ -78,72 +68,37 @@ class InvDragging {
 			)
 				..onDragStart.listen((DraggableEvent e) => handlePickup(e));
 
-			// Set up empty acceptor slots
-			dropzones = new Dropzone(getEmptySlots())
-				..onDragEnter.listen((DropzoneEvent e) => handleZoneEntry(e))
+			// Set up acceptor slots
+			dropzones = new Dropzone(querySelectorAll("#inventory .box"))
 				..onDrop.listen((DropzoneEvent e) => handleDrop(e));
 		}
 	}
 
 	/// Runs when an item is picked up (drag start)
 	static void handlePickup(DraggableEvent e) {
-		Element origBox = e.draggableElement.parent;
+		origBox = e.draggableElement.parent;
 		e.draggableElement.dataset["original-slot-num"] = origBox.dataset["slot-num"];
 
 		move = {};
 
-		move["from_bag"] = querySelector("#windowHolder").contains(origBox);
-		if (move["from_bag"]) {
-			move["from_bag_index"] = origBox.parent.parent.dataset["source-bag"];
-		}
-		move["from_index"] = origBox.dataset["slot-num"];
-
-		// Remove item count/bag button and save it for later
-		if (origBox.querySelector(".itemCount") != null) {
-			move["item_count"] = origBox.querySelector(".itemCount").clone(true);
-			origBox.querySelector(".itemCount").remove();
-		}
-
-		if (origBox.querySelector(".item-container-toggle") != null) {
-			move["bag_btn"] = origBox.querySelector(".item-container-toggle").clone(true);
-			origBox.querySelector(".item-container-toggle").remove();
-		}
-	}
-
-	/// Runs when an item enters a dropzone (drag enter)
-	static void handleZoneEntry(DropzoneEvent e) {
-		if (slotIsEmpty(box: e.dropzoneElement)) {
-			e.dropzoneElement.children.add(e.draggableElement);
+		if (querySelector("#windowHolder").contains(origBox)) {
+			move['fromIndex'] = int.parse(origBox.parent.parent.dataset["source-bag"]);
+			move["fromBagIndex"] = int.parse(origBox.dataset["slot-num"]);
+		} else {
+			move['fromIndex'] = int.parse(origBox.dataset["slot-num"]);
 		}
 	}
 
 	/// Runs when an item is dropped (drop)
 	static void handleDrop(DropzoneEvent e) {
-		move["to_bag"] = querySelector("#windowHolder").contains(e.dropzoneElement);
-		if (move["to_bag"]) {
-			move["to_bag_index"] = int.parse(e.dropzoneElement.parent.parent.dataset["source-bag"]);
+		if (querySelector("#windowHolder").contains(e.dropzoneElement)) {
+			move["toIndex"] = int.parse(e.dropzoneElement.parent.parent.dataset["source-bag"]);
+			move["toBagIndex"] = int.parse(e.dropzoneElement.dataset["slot-num"]);
+		} else {
+			move["toIndex"] = int.parse(e.dropzoneElement.dataset["slot-num"]);
 		}
-		move["to_index"] = e.dropzoneElement.dataset["slot-num"];
 
-		Map sendData = move;
-		if (sendData.containsKey("item_count")) {
-			sendData.remove("item_count");
-		}
-		if (sendData.containsKey("bag_btn")) {
-			sendData.remove("bag_btn");
-		}
 		sendAction("moveItem", "global_action_monster", move);
-
-		// Reapply item count & bag button
-		if (move["item_count"] != null) {
-			e.dropzoneElement.append(move["item_count"]);
-		}
-		if (move["bag_btn"] != null) {
-			e.dropzoneElement.append(move["bag_btn"]);
-		}
-
-		// Refresh data after DOM changes finish
-		new Timer(new Duration(milliseconds: 50), () => init());
 	}
 }
 
@@ -153,14 +108,14 @@ class BagFilterAcceptor extends Acceptor {
 	List<String> allowedItemTypes;
 
 	@override
-	bool accepts(Element item, int draggable_id, Element box) {
+	bool accepts(Element itemE, int draggable_id, Element box) {
+		ItemDef item = decode(itemE.attributes['itemmap'],type:ItemDef);
 		if (allowedItemTypes.length == 0) {
-			// Those that accept nothing learn to accept everything
-			return true;
+			// Those that accept nothing learn to accept everything (except other containers)
+			return !item.isContainer;
 		} else {
 			// Those that are at least somewhat accepting are fine, though
-			String itemType = JSON.decode(item.attributes["itemmap"])["itemType"];
-			return allowedItemTypes.contains(itemType);
+			return allowedItemTypes.contains(item.itemType);
 		}
 	}
 }
