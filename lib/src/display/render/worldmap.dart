@@ -294,7 +294,7 @@ class WorldMap {
         }
       }
     ];
-    if (metabolics.energy >= 50) {
+    if (metabolics.energy >= 50 || (inputManager.konamiDone && !inputManager.freeTeleportUsed)) {
       options[1]["enabled"] = true;
       options[1]["description"] = "Spend 50 energy to get here right now";
     }
