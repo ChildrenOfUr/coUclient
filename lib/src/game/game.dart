@@ -8,6 +8,9 @@ class Game {
 	double lastTime = 0.0;
 	DateTime startTime = new DateTime.now();
 	bool ignoreGamepads = false;
+	List<String> devs = [];
+	List<String> guides = [];
+	bool loaded = false;
 
 	// INITIALIZATION //
 	Game(Metabolics m) {
@@ -15,6 +18,29 @@ class Game {
 		location = sessionStorage['playerStreet'];
 		email = sessionStorage['playerEmail'];
 		_init(m);
+
+		getPlayerRoles().then((_) {
+			// Hide "Become a Guide" button
+			if (game.guides.contains(game.username) || game.devs.contains(game.username)) {
+				querySelector("#becomeGuideFromChatPanel").hidden = true;
+			}
+
+			// Display border on avatar image
+			// (Devs shouldn't see it, our blog post screenshots would be different)
+			if (game.guides.contains(game.username)) {
+				querySelector("ur-meters /deep/ #leftDisk").classes.add("guideDisk");
+			}
+		});
+	}
+
+	Future getPlayerRoles() async {
+		await HttpRequest.requestCrossOrigin("http://childrenofur.com/scripts/labels/devs.php?listDevs=wu7AGYR62SuAY81d").then((String str) {
+			devs = str.split(",");
+		});
+
+		await HttpRequest.requestCrossOrigin("http://childrenofur.com/scripts/labels/guides.php?listGuides=L6EJI1PF0oXD6iYSf0cZ").then((String str) {
+			guides = str.split(",");
+		});
 	}
 
 	_init(Metabolics m) async {
@@ -30,7 +56,7 @@ class Game {
 		//windowManager.motdWindow.open();
 
 		//init the players metabolcs
-		metabolics.init(m);
+		await metabolics.init(m);
 
 		//setup the communications for multiplayer events
 		multiplayerInit();
@@ -50,13 +76,32 @@ class Game {
 		}
 		transmit('playSound', 'game_loaded');
 		//play appropriate song for street (or just highlands for now)
-		await audio.setSong('highlands');
+		//await audio.setSong('highlands');
 
 		//start time based colors (and rain)
 		weather = new WeatherManager();
 
+		//send and receive messages from the server about quests
+		questManager = new QuestManager();
+
 		//finally start the main game loop
 		loop(0.0);
+
+		loaded = true;
+		transmit("gameLoaded", loaded);
+		logmessage("Game loaded!");
+
+		new Timer.periodic(new Duration(seconds: 1), (_) => updatePlayerLetters());
+		new Service(["streetLoaded", "gameUnloading"], (_) {
+			if (currentStreet.useLetters) {
+				HttpRequest.getString("http://${Configs.utilServerAddress}/letters/newPlayerLetter?username=${game.username}");
+			}
+		});
+
+		// Load previous GPS state
+		if (localStorage.containsKey("gps_navigating")) {
+			GPS.getRoute(currentStreet.label, localStorage["gps_navigating"]);
+		}
 	}
 
 	// GAME LOOP //
@@ -100,5 +145,33 @@ class Game {
 		window.animationFrame.then(loop);
 
 		//previousTag.makeCurrent();
+	}
+
+	Future updatePlayerLetters() async {
+		Map players = {};
+		players.addAll(otherPlayers);
+		players.addAll(({game.username: CurrentPlayer}));
+
+		players.forEach((String username, Player player) async {
+			Element parentE = player.playerParentElement;
+
+			String username = parentE.id.replaceFirst("player-", "");
+			if (username.startsWith("pc-")) {
+				username = username.replaceFirst("pc-", "");
+			}
+
+			if (currentStreet.useLetters) {
+				String letter = await HttpRequest.getString("http://${Configs.utilServerAddress}/letters/getPlayerLetter?username=$username");
+
+				DivElement letterDisplay = new DivElement()
+					..classes.addAll(["letter", "letter-$letter"]);
+
+				parentE
+					..children.removeWhere((Element e) => e.classes.contains("letter"))
+					..append(letterDisplay);
+			} else {
+				parentE.children.removeWhere((Element e) => e.classes.contains("letter"));
+			}
+		});
 	}
 }

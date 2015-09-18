@@ -21,15 +21,21 @@
       }
       
       a,
+      a:hover,
       a:active,
       a:focus {
         outline: none;
+        text-decoration: none;
+      }
+
+      a:hover {
+        opacity: 0.8;
       }
     </style>
 
       <ur-panel id="widget">
         <div>
-          <a id="SCLink" target="{{link}}">
+          <a id="SCLink" _href="{{link}}" target="_blank" tabindex="-1">
             <span>{{song}}</span>
             <br>
              By

@@ -1,6 +1,9 @@
 part of couclient;
 
 class InteractionWindow {
+	static List<String> shrineTypes = [
+		"Alph", "Cosma", "Friendly", "Grendaline", "Humbaba", "Lem", "Mab", "Pot", "Spriggan", "Tii", "Zille"
+	];
 	static Element create() {
 		DivElement interactionWindow = new DivElement()
 			..id = "InteractionWindow"
@@ -25,20 +28,45 @@ class InteractionWindow {
 				..style.display = "inline-block"
 				..style.textAlign = "center"
 				..classes.add("entityContainer");
-			Element oldEntity = querySelector("#$id");
-			Element entity = oldEntity.clone(false);
-			if(oldEntity is CanvasElement) {
-				(entity as CanvasElement).context2D.drawImage(oldEntity, 0, 0);
+			Element entityOnStreet = querySelector("#$id");
+			Element entityInBubble;
+
+			if (entityOnStreet.id.contains("pole")) {
+
+				// Signpost image already loaded
+				entityInBubble = new ImageElement()..src = "files/system/icons/signpost.svg";
+
+			} else if (entityOnStreet is CanvasElement){
+
+				// Provide static image for entities with states
+				String entityName = entityOnStreet.attributes["type"];
+				if (entityName.contains("Street Spirit")) {
+					entityInBubble = new ImageElement()..src = "files/system/icons/currant.svg";
+				} else if (shrineTypes.contains(entityName)) {
+					entityInBubble = new ImageElement()..src = "files/system/icons/shrine.svg";
+				} else {
+					entityInBubble = new ImageElement()..src = "http://childrenofur.com/assets/staticEntityImages/$entityName.png";
+				}
+
+			} else if (entityOnStreet is ImageElement) {
+
+				// Dropped item, use its image
+				entityInBubble = new ImageElement()..src = entityOnStreet.src;
+
 			}
-			entity.style.transform = "";
-			entity.style.position = "";
-			entity.style.display = "block";
-			entity.style.margin = "auto";
-			entity.attributes['id'] = id;
-			container.append(entity);
-			SpanElement text = new SpanElement()
-				..text = entity.attributes['type'];
-			container.append(text);
+
+			// Find a title
+			if (entityOnStreet.attributes["type"] != null) {
+				container.title = entityOnStreet.attributes["type"];
+			}
+
+			// Use the same id
+			entityInBubble.attributes['id'] = id;
+
+			// Insert entity into bubble
+			container.append(entityInBubble);
+
+			// Select entities with mouse
 			container.onMouseOver.listen((_) {
 				content.children.forEach((Element child) {
 					if(child != container) {
@@ -47,11 +75,15 @@ class InteractionWindow {
 				});
 				container.classes.add("entitySelected");
 			});
+
+			// Use selected entity
 			container.onClick.first.then((MouseEvent e) {
 				e.stopPropagation();
 				inputManager.stopMenu(interactionWindow);
 				entities[id].interact(id);
 			});
+
+			// Display
 			content.append(container);
 		}
 

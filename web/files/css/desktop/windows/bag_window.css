@@ -1,0 +1,27 @@
+.bagWindow {
+    height: 153px !important;
+    width: 494px !important;
+    transform: translate(-50%, 50%) !important; /* Create bag windows closer to the bag */
+}
+
+.bagWindow header img.fa-li {
+    height: 40px;
+    margin-top: 4px;
+}
+
+.box.bagwindow-box {
+    margin: 2px;
+}
+
+.box.bagwindow-box .itemCount {
+    position: absolute;
+    bottom: 0;
+    right: 3px;
+    font-family: "Fredoka One" !important;
+    color: #4b2e4c;
+    font-size: 16px !important;
+}
+
+.bagInventoryItem {
+    cursor: pointer;
+}

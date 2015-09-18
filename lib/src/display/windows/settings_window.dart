@@ -12,7 +12,7 @@ class SettingsWindow extends Modal {
 
 		//listen for onChange events so that clicking the label or the checkbox will call this method
 		querySelectorAll('.ChatSettingsCheckbox').onChange.listen((Event event) {
-			CheckboxInputElement checkbox = event.target as CheckboxInputElement;
+			PaperToggleButton checkbox = event.target as PaperToggleButton;
 			if(checkbox.id == "ShowJoinMessages") {
 				setJoinMessagesVisibility(checkbox.checked);
 			}
@@ -34,7 +34,7 @@ class SettingsWindow extends Modal {
 			setJoinMessagesVisibility(false);
 		}
 
-		(querySelector("#ShowJoinMessages") as CheckboxInputElement).checked = joinMessagesVisibility;
+		(querySelector("#ShowJoinMessages") as PaperToggleButton).checked = joinMessagesVisibility;
 
 		if(localStorage["playMentionSound"] != null) {
 			if(localStorage["playMentionSound"] == "true") {
@@ -47,10 +47,10 @@ class SettingsWindow extends Modal {
 			setJoinMessagesVisibility(true);
 		}
 
-		(querySelector("#PlayMentionSound") as CheckboxInputElement).checked = playMentionSound;
+		(querySelector("#PlayMentionSound") as PaperToggleButton).checked = playMentionSound;
 
 		// set graphicsblur
-		CheckboxInputElement graphicsBlur = querySelector("#GraphicsBlur") as CheckboxInputElement;
+		PaperToggleButton graphicsBlur = querySelector("#GraphicsBlur") as PaperToggleButton;
 		if(localStorage["GraphicsBlur"] != null) {
 			if(localStorage["GraphicsBlur"] == "true") {
 				graphicsBlur.checked = true;
@@ -62,20 +62,31 @@ class SettingsWindow extends Modal {
 		graphicsBlur.onChange.listen((_) => localStorage["GraphicsBlur"] = graphicsBlur.checked.toString());
 
 		// set weather effects
-		CheckboxInputElement weatherEffects = querySelector("#WeatherEffectsEnabled") as CheckboxInputElement;
+		PaperToggleButton weatherEffects = querySelector("#WeatherEffectsEnabled") as PaperToggleButton;
 		if(localStorage["WeatherEffectsEnabled"] != null) {
 			if(localStorage["WeatherEffectsEnabled"] == "true") {
 				weatherEffects.checked = true;
+				querySelector("#weatherIntensity").classes.add("visible");
 			} else {
 				weatherEffects.checked = false;
+				querySelector("#weatherIntensity").classes.remove("visible");
 			}
+		} else {
+			weatherEffects.checked = true;
 		}
 
-		weatherEffects.onChange.listen((_) => WeatherManager.enabled = weatherEffects.checked);
+		weatherEffects.onChange.listen((_) {
+			WeatherManager.enabled = weatherEffects.checked;
+			if (weatherEffects.checked) {
+				querySelector("#weatherIntensity").classes.add("visible");
+			} else {
+				querySelector("#weatherIntensity").classes.remove("visible");
+			}
+		});
 
 		PaperRadioGroup intensityGroup = querySelector("#WeatherEffectsIntensityGroup") as PaperRadioGroup;
 		if(localStorage["WeatherEffectsIntensity"] != null) {
-			List<String> intensities = ["light", "medium", "heavy"];
+			List<String> intensities = ["light", "normal"];
 			try {
 				int index = int.parse(localStorage["WeatherEffectsIntensity"]);
 				intensityGroup.selected = intensities[index];

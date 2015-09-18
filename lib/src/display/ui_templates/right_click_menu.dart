@@ -193,9 +193,7 @@ class RightClickMenu {
 		DivElement infoButton = new DivElement()
 			..id = "openItemWindow"
 			..className = "InfoButton fa fa-info-circle"
-			..onClick.listen((_) {
-			new ItemWindow(itemName).displayItem();
-		});
+			..onClick.listen((_) => new ItemWindow(itemName).displayItem());
 		SpanElement titleElement = new SpanElement()
 			..id = "ClickTitle"
 			..text = title;
@@ -236,6 +234,7 @@ class RightClickMenu {
 					}
 
 					if(completed) {
+						// Action completed
 						Map arguments = null;
 						if(option.length > 3) {
 							arguments = option[3];
@@ -267,7 +266,8 @@ class RightClickMenu {
 			wrapper.append(tooltip);
 			newOptions.add(wrapper);
 		}
-		if (!newOptions[0].children[0].classes.contains("RCItemDisabled")) {
+		if (newOptions.length > 0 &&
+		    !newOptions[0].children[0].classes.contains("RCItemDisabled")) {
 			if(newOptions.length > 1) {
 				menu.onKeyPress.listen((e) {
 					if (e.keyCode == 40) { // down arrow

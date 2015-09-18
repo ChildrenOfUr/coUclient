@@ -46,6 +46,21 @@ class VendorWindow extends Modal {
 	close() {
 		sendAction("close", npcId, {});
 		super.close();
+
+		// Enable inventory sorting
+		InvDragging.disablers.remove("vendorWindow");
+		InvDragging.init();
+	}
+
+	@override
+	open() {
+		displayElement.hidden = false;
+		elementOpen = true;
+		this.focus();
+
+		// Disable inventory sorting
+		InvDragging.disablers.add("vendorWindow");
+		InvDragging.init();
 	}
 
 	// Calling the modal with a vendorMap opens a vendor window
@@ -69,14 +84,24 @@ class VendorWindow extends Modal {
 
 			Element price;
 
-			if(item['price'] < 9999) {
-				price = merch.append(new DivElement()
-					                     ..text = '${item['price']}₡'
-					                     ..className = 'price-tag');
+			if (item["discount"] != 1) {
+				price = merch.append(
+					new DivElement()
+						..text = "Sale!"
+						..classes.addAll(["price-tag", "sale-price-tag"])
+				);
+			} else if (item['price'] < 9999) {
+				price = merch.append(
+					new DivElement()
+						..text = '${item['price']}₡'
+						..className = 'price-tag'
+				);
 			} else {
-				price = merch.append(new DivElement()
-					                     ..text = 'A Lot'
-					                     ..className = 'price-tag');
+				price = merch.append(
+					new DivElement()
+						..text = 'A Lot'
+						..className = 'price-tag'
+				);
 			}
 
 			if(item['price'] > metabolics.currants) {
@@ -124,7 +149,7 @@ class VendorWindow extends Modal {
 			buyButton.style.pointerEvents = 'initial';
 			buyButton.text = "Sell 1 for ${(item['price'] * .7) ~/ 1}\u20a1";
 		} else {
-			if(getBlankSlots() == 0) {
+			if(getBlankSlots(item) == 0) {
 				amtSelector.style.opacity = '0.5';
 				amtSelector.style.pointerEvents = 'none';
 				buyButton.style.opacity = '0.5';
@@ -135,7 +160,11 @@ class VendorWindow extends Modal {
 				amtSelector.style.pointerEvents = 'initial';
 				buyButton.style.opacity = 'initial';
 				buyButton.style.pointerEvents = 'initial';
-				buyButton.text = "Buy 1 for ${item['price']}\u20a1";
+				if (item["discount"] == 1) {
+					buyButton.text = "Buy 1 for ${item['price']}\u20a1";
+				} else {
+					buyButton.text = "On sale! Buy 1 for ${(item['price'] * item["discount"]).toInt().toString()}\u20a1";
+				}
 			}
 		}
 
@@ -178,34 +207,65 @@ class VendorWindow extends Modal {
 			backToBuy.click();
 		});
 
+		// Plus Button
 		StreamSubscription bplus = buyPlus.onClick.listen((_) {
 			try {
-				if (!sellMode && buyNum.valueAsNumber + 1 <= getBlankSlots()) {
-					int newNum = (++buyNum.valueAsNumber).toInt();
-					numToBuy = _updateNumToBuy(item, newNum, sellMode:sellMode);
+
+				if (sellMode) {
+					// Selling an item
+
+					if (buyNum.valueAsNumber + 1 <= getNumItems(item["itemType"])) {
+						// We have enough to sell
+						int newNum = (++buyNum.valueAsNumber).toInt();
+						numToBuy = _updateNumToBuy(item, newNum, sellMode: sellMode);
+					}
+
+				} else {
+					// Buying an item
+
+					if (buyNum.valueAsNumber + 1 <= getBlankSlots(item)) {
+						// You can fit the max number of items in your inventory
+						int newNum = (++buyNum.valueAsNumber).toInt();
+						numToBuy = _updateNumToBuy(item, newNum, sellMode: sellMode);
+					}
+
+				}
+
+			}
+			catch(e) {
+				logmessage("[Vendor] Plus Button Error: $e");
+			}
+		});
+
+		// Minus Button
+		StreamSubscription bminus = buyMinus.onClick.listen((_) {
+			try {
+				if (buyNum.valueAsNumber > 1) {
+					// We can't go to 0 or negative
+					int newNum = (--buyNum.valueAsNumber).toInt();
+					numToBuy = _updateNumToBuy(item, newNum, sellMode: sellMode);
 				}
 			}
 			catch(e) {
+				logmessage("[Vendor] Minus Button Error: $e");
 			}
 		});
-		StreamSubscription bminus = buyMinus.onClick.listen((_) {
-			try {
-				int newNum = (--buyNum.valueAsNumber).toInt();
-				numToBuy = _updateNumToBuy(item, newNum, sellMode:sellMode);
-			}
-			catch(e) {
-			}
-		});
+
+		// Max Button
 		StreamSubscription bmax = buyMax.onClick.listen((_) {
 			try {
 				int newNum;
-				if(sellMode)
-					newNum = min(getBlankSlots(), min((item['stacksTo']).toInt(), getNumItems(item['itemType'])));
-				else
-					newNum = min((item['stacksTo']).toInt(), (metabolics.currants / item['price']) ~/ 1);
+				if(sellMode) {
+					// Selling an item
+					newNum = min(item['stacksTo'].toInt(), getNumItems(item['itemType']));
+				} else {
+					// Buying an item
+					newNum = min(getBlankSlots(item), min((item['stacksTo']).toInt(), (metabolics.currants / item['price']) ~/ 1));
+				}
 				numToBuy = _updateNumToBuy(item, newNum, sellMode:sellMode);
 			}
 			catch(e) {
+				logmessage("[Vendor] Max Button Error: $e");
 			}
 		});
 

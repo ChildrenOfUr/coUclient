@@ -1,0 +1,205 @@
+#windowHolder .window {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  padding: 21px;
+  width: 550px;
+  height: 350px;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 0 0 8px rgba(0, 0, 0, 0.1), 0 0 0 2px rgba(0, 0, 0, 0.3);
+  z-index: 2;
+  overflow: hidden;
+}
+
+#windowHolder .window:active,
+#windowHolder .window:focus {
+  outline: none;
+}
+
+#windowHolder .window header {
+  position: absolute;
+  top: 0;
+  left: 60px;
+  right: 40px;
+  font-size: 30px;
+  color: #444;
+  text-shadow: 0 1px rgba(100, 100, 100, 0.3);
+  padding: 10px 0;
+  border-radius: 5px;
+}
+
+#windowHolder .window header,
+#windowHolder .window header > span,
+#windowHolder .window header > i {
+  cursor: move;
+  cursor: -webkit-grab;
+}
+
+#windowHolder .window header:active,
+#windowHolder .window header > span:active,
+#windowHolder .window header > i:active {
+  cursor: move;
+  cursor: -webkit-grabbing;
+}
+
+#windowHolder .window .fa {
+  padding: 10px 0;
+  color: #444;
+}
+
+.window:not(.noDrag)::before {
+  content: '';
+  display: inline-block;
+  background-image: url(../../../system/windows/windowhandle.svg);
+  background-size: 40px 8px;
+  width: 40px;
+  height: 8px;
+  position: absolute;
+  left: calc(50% - 20px);
+  top: 5px;
+  opacity: 0.5;
+}
+
+.window ur-well, .window article {
+  font-family: 'Tahoma', 'Geneva', 'sans-serif';
+  color: #000;
+  font-size: 12px;
+  padding: 5px;
+  position: absolute;
+  top: 55px;
+  bottom: 10px;
+  left: 10px;
+  right: 10px;
+  border-radius: 8px;
+}
+
+.window iframe {
+  border: none;
+  height: 100%;
+  width: 100%;
+  margin: -6px;
+}
+
+#windowHolder .window .fa-times.close {
+  color: #ba381a;
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: initial;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.window .footer {
+  position: absolute;
+  bottom: 5px;
+  height: 15px;
+  right: 0;
+  left: 0;
+}
+
+.window .footer * {
+  color: #444;
+  text-align: center;
+  font-size: 16px;
+  text-shadow: 0 1px rgba(100, 100, 100, 0.3);
+  float: right;
+    font-family: "Lato", sans-serif;
+}
+
+.window .footer img {
+  position: relative;
+  top: -5px;
+  height: 25px;
+  margin: 3px;
+}
+
+.tab {
+  cursor: pointer;
+}
+
+article .tab {
+  font-size: 1.5em;
+  padding: 1px 4px;
+  margin: -1px 1px;
+  min-width: 70px;
+  background-color: #eee;
+  color: #222;
+  border-radius: 8px 8px 0 0;
+  float: right;
+  position: relative;
+  top: -28px;
+  opacity: 0.6;
+  height: 26px;
+  text-align: center;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  font-family: "Lato", sans-serif;
+}
+
+article .tab.active {
+  opacity: 1;
+  margin: -5px 2px;
+}
+
+article .tab-holder {
+  position: relative;
+  right: 25px;
+}
+
+article .tab-content {
+  position: absolute;
+  top: 0;
+  padding: 5px;
+  background-color: #eee;
+  color: #444;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow-y: auto;
+  border-radius: 9px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-top: 2px solid rgba(0, 0, 0, 0.1);
+}
+
+/*Popup elements*/
+.PopWindow {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  z-index: 2;
+  padding: 21px;
+  width: 590px;
+  height: 348px;
+  border-radius: 6px;
+  background-color: #fff;
+  box-shadow: 0 0 0 8px rgba(0, 0, 0, 0.1), 0 0 0 2px rgba(0, 0, 0, 0.3);
+}
+
+.PopWindowHeader {
+  opacity: 0.8;
+  font-size: 22px;
+}
+
+.PopCloseEmblem {
+  cursor: pointer;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+.PopWindowBody {
+  font-family: 'RockoFLFBold', sans-serif;
+  overflow: auto;
+  font-size: 12px;
+  font-weight: normal;
+  position: absolute;
+  left: 0;
+  top: 65px;
+  right: 0;
+  height: 320px;
+}

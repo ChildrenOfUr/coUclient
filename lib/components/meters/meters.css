@@ -104,6 +104,18 @@
 
 }
 
+#leftDisk.guideDisk {
+    border: 5px goldenrod;
+    width: 65px;
+    height: 65px;
+
+    /* needed to prevent the color from reversing */
+    border-top-style: groove;
+    border-bottom-style: ridge;
+    border-left-style: groove;
+    border-right-style: ridge;
+}
+
 #portrait {
     position:absolute;
     top:0;
@@ -144,7 +156,7 @@
 }
 #moodMeter .percent {
     position:absolute;
-    top:35%;
+    top:32%;
     left:0;
     text-align:center;
     width:100%;
@@ -156,7 +168,7 @@
 }
 #moodMeter .fraction {
     position:absolute;
-    top:60%;
+    top:65%;
     left:0;
     color:#fff;
     width:100%;
@@ -208,9 +220,12 @@
 
 #moodAvatar {
     position: relative;
-    width: 80px;
+    width: 60px;
     height: 80px;
-    left: -10%;
+    left: 50%;
+    top: 6px;
+    transform: translateX(-50%) scale(.9);
+    background-size: contain;
     background-repeat: no-repeat;
 }
 

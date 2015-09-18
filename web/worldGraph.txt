@@ -10067,7 +10067,7 @@
         },
         {
             "start": "Billore Crys",
-            "end": "Manak Ruba\t",
+            "end": "Manak Ruba",
             "weight": 1
         },
         {

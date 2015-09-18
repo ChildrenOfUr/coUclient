@@ -19,14 +19,13 @@ import 'package:couclient/components/mailbox/mailbox.dart';
 import 'package:cou_toolkit/toolkit/slider/slider.dart';
 import 'package:cou_login/login/login.dart';
 import 'package:paper_elements/paper_radio_group.dart';
+import 'package:paper_elements/paper_toggle_button.dart';
 
 import 'package:couclient/src/network/metabolics.dart';
 
 // LIBRARIES //
 // Used for NumberFormat
 import 'package:intl/intl.dart';
-// Slack Webhook API
-import 'package:slack/html/slack.dart' as slack;
 // SoundCloud Helper
 import 'package:scproxy/scproxy.dart';
 // Audio and Graphics
@@ -41,8 +40,10 @@ import 'package:libld/libld.dart';
 import 'package:transmit/transmit.dart';
 //converting JSON to Dart objects and back
 import 'package:jsonx/jsonx.dart';
-
+// Global data
 import 'package:couclient/configs.dart';
+// Special browser errors
+import 'package:browser_detect/browser_detect.dart';
 
 export 'package:polymer/init.dart';
 
@@ -50,6 +51,7 @@ export 'package:polymer/init.dart';
 part 'package:couclient/src/systems/clock.dart';
 part 'package:couclient/src/systems/gps.dart';
 part 'package:couclient/src/systems/weather.dart';
+part 'package:couclient/src/systems/quest.dart';
 part 'package:couclient/src/systems/commands.dart';
 part 'package:couclient/src/game/input.dart';
 part 'package:couclient/src/game/joystick.dart';
@@ -60,19 +62,26 @@ part 'package:couclient/src/display/gps_display.dart';
 part 'package:couclient/src/network/chat.dart';
 part 'package:couclient/src/network/streetservice.dart';
 part 'package:couclient/src/network/auth.dart';
-part 'package:couclient/src/network/multiplayer.dart';
+part 'package:couclient/src/network/server_interop/inventory.dart';
+part 'package:couclient/src/network/server_interop/so_chat.dart';
+part 'package:couclient/src/network/server_interop/so_item.dart';
+part 'package:couclient/src/network/server_interop/so_player.dart';
+part 'package:couclient/src/network/server_interop/so_street.dart';
+part 'package:couclient/src/network/server_interop/so_multiplayer.dart';
 part 'package:couclient/src/network/item_action.dart';
 part 'package:couclient/src/network/metabolics_service.dart';
 
 // UI/UX MODULES //
 part 'package:couclient/src/display/view.dart';
 part 'package:couclient/src/display/chatpanel.dart';
+part 'package:couclient/src/display/chatmessage.dart';
 part 'package:couclient/src/display/meters.dart';
 part 'package:couclient/src/display/toast.dart';
 part 'package:couclient/src/systems/audio.dart';
 part 'package:couclient/src/display/render.dart';
 part 'package:couclient/src/display/loop.dart';
 part 'package:couclient/src/display/information_display.dart';
+part 'package:couclient/src/display/inv_dragging.dart';
 
 //  WINDOW MODULES //
 part 'package:couclient/src/display/windows/windows.dart';
@@ -88,6 +97,8 @@ part 'package:couclient/src/display/windows/shrine_window.dart';
 part 'package:couclient/src/display/windows/rock_window.dart';
 part 'package:couclient/src/display/windows/item_window.dart';
 part 'package:couclient/src/display/windows/emoticon_picker.dart';
+part 'package:couclient/src/display/windows/useitem_window.dart';
+part 'package:couclient/src/display/windows/note_window.dart';
 
 // OVERLAYS //
 part 'package:couclient/src/display/overlays/overlay.dart';
@@ -107,7 +118,7 @@ part 'package:couclient/src/display/render/wall.dart';
 part 'package:couclient/src/display/render/platform.dart';
 part 'package:couclient/src/display/render/signpost.dart';
 part 'package:couclient/src/display/render/collision_lines_debug.dart';
-part 'package:couclient/src/display/render/worldmapdata.dart';
+part 'package:couclient/src/network/mapdata.dart';
 part 'package:couclient/src/display/render/worldmap.dart';
 part 'package:couclient/src/display/render/maps_data.dart';
 
@@ -141,6 +152,7 @@ MapWindow mapWindow;
 NumberFormat commaFormatter = new NumberFormat("#,###");
 SoundManager audio;
 WeatherManager weather;
+QuestManager questManager;
 InputManager inputManager;
 WindowManager windowManager;
 CommandManager commandManager;
@@ -149,27 +161,23 @@ Game game;
 DateTime startTime;
 Minimap minimap;
 GpsIndicator gpsIndicator = new GpsIndicator();
+final String rsToken = "ud6He9TXcpyOEByE944g";
+MapData mapData;
 
 bool get hasTouchSupport => context.callMethod('hasTouchSupport');
 
 @whenPolymerReady
 afterPolymer() async {
-	//if the device is capable of touch events, assume the touch ui
-	//unless the user has explicitly turned it off in the options
-	if(localStorage['interface'] == 'desktop') {
-		// desktop already preferred
-		(querySelector("#MobileStyle") as StyleElement).disabled = true;
-	} else if(localStorage['interface'] == 'mobile') {
-		// mobile already preferred
-		(querySelector("#MobileStyle") as StyleElement).disabled = false;
-	} else if(hasTouchSupport) {
-		// no preference, touch support, use mobile view
-		(querySelector("#MobileStyle") as StyleElement).disabled = false;
-		logmessage('[Loader] Device has touch support, using mobile layout. Run /desktop in Global Chat to use the desktop view.');
-	} else if(!hasTouchSupport) {
-		// no preference, no touch support, use desktop view
-		(querySelector("#MobileStyle") as StyleElement).disabled = true;
-	}
+	// Don't try to load the game in an unsupported browser
+	// They will continue to see the error message
+	if (browser.isIe || browser.isSafari) return;
+
+	// Show the loading screen
+	querySelector("#browser-error").hidden = true;
+	querySelector("#loading").hidden = false;
+
+	// Decide which UI to use
+	checkMedia();
 
 	//make sure the application cache is up to date
 	handleAppCache();
@@ -183,14 +191,25 @@ afterPolymer() async {
 	auth = new AuthManager();
 	minimap = new Minimap();
 	GPS.initWorldGraph();
+	InvDragging.init();
+
+	// Download the latest map data
+	mapData = await new MapData()..init();
+	// Make sure we have an up-to-date (1 day expiration) item cache
+	await Item.loadItems();
 
 	// System
 	new ClockManager();
 	new CommandManager();
+
+	// Watch for Collision-Triggered teleporters
+	Wormhole.init();
 }
 
+// Set up resource/asset caching
+
 void handleAppCache() {
-	if(window.applicationCache.status == ApplicationCache.UPDATEREADY) {
+	if (window.applicationCache.status == ApplicationCache.UPDATEREADY) {
 		logmessage('[Loader] Application cache updated, swapping and reloading page');
 		window.applicationCache.swapCache();
 		window.location.reload();
@@ -198,4 +217,79 @@ void handleAppCache() {
 	}
 
 	window.applicationCache.onUpdateReady.first.then((_) => handleAppCache());
+}
+
+// Manage different device types
+
+enum ViewportMedia {
+	DESKTOP,
+	TABLET,
+	MOBILE
+}
+
+void checkMedia() {
+	// If the device is capable of touch events, assume the touch ui
+	// unless the user has explicitly turned it off in the options.
+	if (localStorage['interface'] == 'desktop') {
+		// desktop already preferred
+		setStyle(ViewportMedia.DESKTOP);
+	} else if (localStorage['interface'] == 'mobile') {
+		// mobile already preferred
+		setStyle(ViewportMedia.MOBILE);
+	} else if (hasTouchSupport) {
+		// no preference, touch support, use mobile view
+		setStyle(ViewportMedia.MOBILE);
+		logmessage(
+			"[Loader] Device has touch support, using mobile layout. "
+			"Run /desktop in Global Chat to use the desktop view."
+			);
+	} else if (!hasTouchSupport) {
+		// no preference, no touch support, use desktop view
+		setStyle(ViewportMedia.DESKTOP);
+	}
+}
+
+void setStyle(ViewportMedia style) {
+	/**
+	 * The stylesheets are set up so that the desktop styles are always applied,
+	 * the tablet styles are applied to tablets and phones, and the mobile style
+	 * is only applied to phones:
+	 *
+	 * | Viewport | Desktop | Tablet  | Mobile  |
+	 * |----------|---------|---------|---------|
+	 * | Desktop  | Applied |         |         |
+	 * | Tablet   | Applied | Applied |         |
+	 * | Mobile   | Applied | Applied | Applied |
+	 *
+	 * Tablet provides touchscreen functionality and minimal optimization
+	 * for a slightly smaller screen, while mobile prepares the UI
+	 * for a very small viewport.
+	 */
+
+	StyleElement mobile = querySelector("#MobileStyle");
+	StyleElement tablet = querySelector("#TabletStyle");
+
+	switch (style) {
+		case ViewportMedia.DESKTOP:
+			mobile.disabled = true;
+			tablet.disabled = true;
+			break;
+
+		case ViewportMedia.TABLET:
+			mobile.disabled = true;
+			tablet.disabled = false;
+			break;
+
+		case ViewportMedia.MOBILE:
+			mobile.disabled = false;
+			tablet.disabled = false;
+			break;
+	}
+
+	if (style == ViewportMedia.TABLET || style == ViewportMedia.MOBILE) {
+		querySelectorAll("html, body").onScroll.listen((Event e) {
+			(e.target as Element).scrollLeft = 0;
+			print(e.target);
+		});
+	}
 }

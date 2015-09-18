@@ -48,20 +48,52 @@ String getUptime() {
  **/
 int getNumItems(String item) {
 	int count = 0;
-	String cssName = item.replaceAll(" ", "_");
-	for(Element item in view.inventory.querySelectorAll(".item-$cssName"))
-		count += int.parse(item.attributes['count']);
+
+	//count all the normal slots
+	playerInventory.slots.forEach((Slot s) {
+		if(s.itemType == item) {
+			count += s.count;
+		}
+	});
+
+	//add the bag contents
+	playerInventory.slots.where((Slot s) => !s.itemType.isEmpty && s.item.isContainer && s.item.subSlots != null).forEach((Slot s) {
+		String slotsString = JSON.encode(s.item.metadata['slots']);
+		List<Slot> bagSlots = decode(slotsString, type: new TypeHelper<List<Slot>>().type);
+		if (bagSlots != null) {
+			bagSlots.forEach((Slot bagSlot) {
+				if (bagSlot.itemType == item) {
+					count += bagSlot.count;
+				}
+			});
+		}
+	});
 
 	return count;
 }
 
-int getBlankSlots() {
+int getBlankSlots(Map itemMap) {
 	int count = 0;
-	int slots = 10;
-	view.inventory.querySelectorAll(".inventoryItem").forEach((_) {
-		count++;
-	});
-	return slots - count;
+
+	//count hot bar blank slots
+	count += playerInventory.slots.where((Slot s) => s.itemType.isEmpty).length;
+
+	if(!itemMap['isContainer']) {
+		//count bag blank slots
+		playerInventory.slots.where((Slot s) => !s.itemType.isEmpty && s.item.isContainer).forEach((Slot s) {
+			String slotsString = JSON.encode(s.item.metadata['slots']);
+			List<Slot> bagSlots = decode(slotsString, type: new TypeHelper<List<Slot>>().type);
+			if (bagSlots != null) {
+				bagSlots.forEach((Slot bagSlot) {
+					if (bagSlot.itemType.isEmpty) {
+						count++;
+					}
+				});
+			}
+		});
+	}
+
+	return count;
 }
 
 /**
@@ -151,12 +183,14 @@ sendAction(String methodName, String entityId, [Map arguments]) {
 	Element entity = querySelector("#$entityId");
 	Map map = {};
 	map['callMethod'] = methodName;
-	if(entity != null) {
+	if (entityId == "global_action_monster") {
+		map["id"] = entityId;
+	} else if (entity != null) {
 		map['id'] = entityId;
 		map['type'] = entity.className;
-	}
-	else
+	} else {
 		map['type'] = entityId;
+	}
 	map['streetName'] = currentStreet.label;
 	map['username'] = game.username;
 	map['email'] = game.email;

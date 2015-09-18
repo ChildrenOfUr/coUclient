@@ -22,6 +22,12 @@ toast(String message) {
   new Timer(timeHide, toast.remove);
 
   toastContainer.append(toast);
+
+  if (Chat.localChat != null) {
+    Chat.localChat.addAlert(message, toast: true);
+  } else {
+    chatToastBuffer.add(message);
+  }
 }
 
 buff(String type) {

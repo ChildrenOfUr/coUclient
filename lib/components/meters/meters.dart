@@ -40,27 +40,8 @@ class Meters extends PolymerElement {
 	updateAvatarDisplay() {
 		if (runCount < 5 || runCount % 5 == 0) {
 			// run on load, and once every 5 refreshes afterward to avoid overloading the server
-			HttpRequest.requestCrossOrigin('$serverAddress/getSpritesheets?username=' + playername).then((String response) {
-				Map spritesheets = JSON.decode(response);
-				String imageUrl = spritesheets['base'];
-				avatarDisplay.style.backgroundImage = 'url(' + imageUrl + ')';
-
-				ImageElement portrait = new ImageElement();
-				portrait.src = imageUrl;
-				int nWidth = portrait.naturalWidth;
-
-				// TODO: improve this sizing method
-				if (nWidth < 1500) {
-					avatarDisplay.style.backgroundSize = '1050px';
-					avatarDisplay.style.backgroundPositionX = '0';
-				} else if (nWidth >= 1500 && nWidth < 2000) {
-					avatarDisplay.style.backgroundSize = '1500px';
-					avatarDisplay.style.backgroundPositionX = '-10px';
-				} else if (nWidth >= 2000 && nWidth < 3000) {
-					avatarDisplay.style.backgroundSize = '2000px';
-					avatarDisplay.style.backgroundPositionX = '-25px';
-					avatarDisplay.style.backgroundPositionY = '-5px';
-				}
+			HttpRequest.requestCrossOrigin('$serverAddress/trimImage?username=' + playername).then((String response) {
+				avatarDisplay.style.backgroundImage = "url(data:image/png;base64,$response)";
 			});
 		}
 	}

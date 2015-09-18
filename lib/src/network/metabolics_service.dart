@@ -14,90 +14,38 @@ class MetabolicsService {
 	DateTime lastUpdate, nextUpdate;
 	String url = 'ws://${Configs.websocketServerAddress}/metabolics';
 	int webSocketMessages = 0;
+	bool loaded = false;
+	Completer load = new Completer();
 
-	Map <int, int> imgLevels = {
-		1: 0,
-		2: 130,
-		3: 169,
-		4: 220,
-		5: 286,
-		6: 372,
-		7: 484,
-		8: 629,
-		9: 818,
-		10: 1063,
-		11: 1382,
-		12: 1797,
-		13: 2336,
-		14: 3037,
-		15: 3948,
-		16: 5132,
-		17: 6672,
-		18: 8674,
-		19: 11276,
-		20: 14659,
-		21: 19057,
-		22: 24774,
-		23: 32206,
-		24: 41868,
-		25: 54428,
-		26: 70756,
-		27: 91983,
-		28: 119578,
-		29: 155451,
-		30: 202086,
-		31: 262712,
-		32: 341526,
-		33: 443984,
-		34: 577179,
-		35: 750333,
-		36: 975433,
-		37: 1268063,
-		38: 1648482,
-		39: 2143027,
-		40: 2785935,
-		41: 3621716,
-		42: 4708231,
-		43: 6120700,
-		44: 7956910,
-		45: 10343983,
-		46: 13447178,
-		47: 17481331,
-		48: 22725730,
-		49: 29543449,
-		50: 38406484,
-		51: 49928429,
-		52: 64906958,
-		53: 84379045,
-		54: 109692759,
-		55: 142600587,
-		56: 185380763,
-		57: 240994992,
-		58: 313293490,
-		59: 407281537,
-		60: 529465998
-	};
-
-	void init(Metabolics m) {
+	Future init(Metabolics m) async {
 		playerMetabolics = m;
 		view.meters.updateAll();
 
-		setupWebsocket();
+		await setupWebsocket();
 	}
 
-	setupWebsocket() {
+	setupWebsocket() async {
 		//establish a websocket connection to listen for metabolics objects coming in
 		WebSocket socket = new WebSocket(url);
 		socket.onOpen.listen((_) => socket.send(JSON.encode({'username': game.username})));
-		socket.onMessage.listen((MessageEvent event) {
+		socket.onMessage.listen((MessageEvent event) async {
 			Map map = JSON.decode(event.data);
-			if (map['collectQuoin'] != null) {
+			if (map['collectQuoin'] != null && map['collectQuoin'] == "true") {
 				collectQuoin(map);
 			} else {
-				int oldLevel = level;
+				int oldImg = lifetime_img;
+				int oldLevel = await level;
 				playerMetabolics = decode(event.data, type:Metabolics);
-				if (oldLevel < level && webSocketMessages > 0) {
-					levelUp.open();
+				if (!load.isCompleted) {
+					load.complete();
+				}
+				int newImg = lifetime_img;
+				int newLvl;
+				if (newImg > oldImg) {
+					newLvl = await level;
+					if (oldLevel > newLvl - 2 && newLvl > oldLevel && webSocketMessages > 0) {
+						levelUp.open();
+					}
 				}
 				transmit('metabolicsUpdated', playerMetabolics);
 			}
@@ -122,7 +70,7 @@ class MetabolicsService {
 
 		if (map['success'] == 'false') return;
 
-		int amt = map['amt'];
+		num amt = map['amt'];
 		if (querySelector("#buff-quoin") != null) {
 			amt *= 2;
 			// TODO: implement server-side so that this amount actually gets awarded
@@ -176,13 +124,7 @@ class MetabolicsService {
 				break;
 
 			case "mystery":
-				quoinText.text = "FLIP!";
-				if (querySelector("#world").classes.contains("flip")) {
-					querySelector("#world").classes.remove("flip");
-				} else {
-					querySelector("#world").classes.add("flip");
-					toast("Oh noes! That mystery quoin flipped your world upside-down. Find another to put it back, if you want.");
-				}
+				quoinText.text = "quoin multiplier +" + amt.toString();
 				break;
 		}
 	}
@@ -207,22 +149,20 @@ class MetabolicsService {
 
 	num get currentStreetY => playerMetabolics.current_street_y;
 
-	int get level {
-		int lvl = 0;
-		for (int levelNum in imgLevels.keys) {
-			if (imgLevels[levelNum] > lifetime_img) {
-				lvl = levelNum - 1;
-				break;
-			}
-		}
-		return lvl;
+	List<String> get location_history => JSON.decode(playerMetabolics.location_history);
+
+	Future<int> get level async {
+		String lvlStr = await HttpRequest.getString("http://${Configs.utilServerAddress}/getLevel?img=${img.toString()}");
+		return int.parse(lvlStr);
 	}
 
-	int get img_req_for_curr_lvl {
-		return imgLevels[level];
+	Future<int> get img_req_for_curr_lvl async {
+		String imgStr = await HttpRequest.getString("http://${Configs.utilServerAddress}/getImgForLevel?level=${(await level).toString()}");
+		return int.parse(imgStr);
 	}
 
-	int get img_req_for_next_lvl {
-		return imgLevels[level + 1];
+	Future<int> get img_req_for_next_lvl async {
+		String imgStr = await HttpRequest.getString("http://${Configs.utilServerAddress}/getImgForLevel?level=${((await level) + 1).toString()}");
+		return int.parse(imgStr);
 	}
 }

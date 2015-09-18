@@ -21,6 +21,9 @@ update(double dt)
 		if(!otherPlayer.facingRight)
 		{
 			transform += ' scale3d(-1,1,1)';
+			otherPlayer.playerParentElement.classes
+				..add("facing-left")
+				..remove("facing-right");
 			otherPlayer.playerName.style.transform = 'translateY(calc(-100% - 34px)) scale3d(-1,1,1)';
 
 			if(otherPlayer.chatBubble != null)
@@ -29,6 +32,9 @@ update(double dt)
 		else
 		{
 			transform += ' scale3d(1,1,1)';
+			otherPlayer.playerParentElement.classes
+				..add("facing-right")
+				..remove("facing-left");
 			otherPlayer.playerName.style.transform = 'translateY(calc(-100% - 34px)) scale3d(1,1,1)';
 
 			if(otherPlayer.chatBubble != null)
@@ -55,4 +61,6 @@ update(double dt)
 		sendPlayerInfo();
 		timeLast = 0.0;
 	}
+
+	Wormhole.updateAll();
 }

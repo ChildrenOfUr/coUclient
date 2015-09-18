@@ -21,19 +21,24 @@ class Signpost extends Entity {
 		height = h;
 
 		pole = new DivElement()
-			..className = 'entity'
-			..attributes['translateX'] = x.toString()
-			..attributes['translateY'] = y.toString()
-			..attributes['width'] = w.toString()
-			..attributes['height'] = h.toString()
-			..style.backgroundImage = "url('http://childrenofur.com/locodarto/scenery/sign_pole.png')"
-			..style.backgroundRepeat = "no-repeat"
-			..style.pointerEvents = "auto"
-			..style.width = w.toString() + "px"
-			..style.height = h.toString() + "px"
-			..style.position = "absolute"
-			..style.top = y.toString() + "px"
-			..style.left = x.toString() + "px";
+			..className = 'entity';
+
+		pole.attributes
+			..['translateX'] = x.toString()
+			..['translateY'] = y.toString()
+			..['width'] = w.toString()
+			..['height'] = h.toString();
+
+		pole.style
+			..backgroundImage = "url('http://childrenofur.com/locodarto/scenery/sign_pole.png')"
+			..backgroundRepeat = "no-repeat"
+			..backgroundPosition = "center bottom"
+			..pointerEvents = "auto"
+			..width = w.toString() + "px"
+			..height = h.toString() + "px"
+			..position = "absolute"
+			..top = y.toString() + "px"
+			..left = x.toString() + "px";
 
 		id = 'pole' + random.nextInt(50).toString();
 		pole.id = id;

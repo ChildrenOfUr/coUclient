@@ -1,7 +1,7 @@
 part of couclient;
 
 class ItemWindow extends Modal {
-	String id = 'itemWindow' + random.nextInt(9999999).toString(), itemName;
+	String id = 'itemWindow' + WindowManager.randomId.toString(), itemName;
 	static Map<String, ItemWindow> instances = {};
 
 	String priceText, slotText, wearText;
@@ -85,6 +85,10 @@ class ItemWindow extends Modal {
 		SpanElement titleSpan = new SpanElement()
 			..classes.add("iw-title")
 			..text = title;
+
+		if (title.length >= 24) {
+			titleSpan.style.fontSize = "24px";
+		}
 
 		Element header = new Element.header()
 			..append(icon)

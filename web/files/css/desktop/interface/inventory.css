@@ -1,0 +1,184 @@
+#inventory {
+  position:absolute;
+  bottom:15px;
+  left:18px;
+  padding:1px;
+  height:60px;
+  width:calc(100% - 280px);
+  max-width:calc(100% - 40px);
+  min-width:calc(300px - 40px);
+  white-space: nowrap;
+  text-align:center;
+}
+
+#inventory.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+#inventorySearch {
+  background-color:#eee;
+  width:40px;
+  height:40px;
+  border-radius:8px;
+  position:absolute;
+  bottom:75px;
+  left:10px;
+  cursor:pointer;
+  z-index:0;
+}
+#inventorySearch * {
+  height:30px;
+  color:#bbb;
+  position:absolute;
+  top:calc(40% - 0.9em);
+  right:calc(40% - 0.5em);
+  cursor:pointer;
+}
+
+#inventorySearch:hover, #inventorySearch *:hover {
+  color:#999;
+}
+
+.inventoryItem {
+  cursor: pointer;
+}
+
+.inventoryItem.inv-item-disabled {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.itemCount {
+  position: absolute;
+  bottom: 0;
+  right: 3px;
+}
+
+#broken {
+  position: absolute;
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.8);
+  z-index: 1024;
+  text-align: center;
+  font-size: 80px;
+  padding-top: 50px;
+  font-weight: bold;
+  font-family: "Lato", sans-serif;
+}
+
+#bagWindow article .storage {
+    text-align: center;
+}
+
+#bagWindowIcon {
+    position: relative;
+    top: -8px;
+}
+
+/* this is the actual search box*/
+#invsearch {
+    width: 430px;
+    padding: 5px;
+    background-color: #fff;
+    border-radius: 8px;
+    border: 2px solid rgba(0,0,0,0.3);
+    z-index: 1;
+    box-shadow: 0 0 5px 1px rgba(0,0,0,0.1);
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    outline: none;
+}
+
+#invsearch:focus {
+    box-shadow: 0 0 15px 1px rgba(0,0,0,0.1);
+}
+
+.box {
+    background-color: #fff;
+    border-radius: 8px;
+    width:40px;
+    height:40px;
+    margin:4px 0;
+    border: 1px solid #bbb;
+    border-bottom:2px solid #bbb;
+    z-index:1;
+    box-shadow: 0 0 15px 1px rgba(0,0,0,0.1);
+    display: inline-block;
+    padding:5px;
+}
+
+.box:empty {
+    /*background-color: #ddd;*/
+}
+
+.box .icon {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin:auto;
+    /* Maintain aspect ratio */
+    max-height: 90%;
+    max-width: 90%;
+}
+
+.box {
+    position: relative;
+}
+
+/* Bag Buttons */
+
+.item-container-toggle {
+    border-radius: 50%;
+    height: 16px;
+    width: 16px;
+    position: absolute;
+    bottom: 2px;
+    left: 2px;
+    border: 2px solid #aaa;
+    cursor: pointer;
+    line-height: 15px;
+    text-align: center;
+    font-size: 25px;
+}
+
+.item-container-toggle.item-container-closed {
+    background-color: #eee;
+    color: #aaa;
+    height: 16px;
+    width: 16px;
+}
+
+.item-container-toggle.item-container-open {
+    background-color: #aaa;
+    color: #eee;
+    height: 16px;
+    width: 16px;
+}
+
+/* Dead */
+
+#inventory /deep/ #disableinventory {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(238, 238, 238, 0.8);
+    z-index: 10;
+    line-height: 65px;
+    border-radius: 8px;
+    font-size: 24px;
+}
+
+/* Item dragging */
+
+.item-flying {
+    opacity: 0.5;
+    z-index: 2048;
+}

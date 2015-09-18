@@ -35,22 +35,28 @@ class ImgOverlay extends Overlay {
 	// Refresh every time it opens ////////////////////////////////////////////////////////////////
 
 	@override
-	open() {
+	open() async {
 
 		// Set up level indicator bar /////////////////////////////////////////////////////////////
 
-		if (metabolics.lifetime_img < 52184719) {
+		if (metabolics.lifetime_img < int.parse(await(HttpRequest.getString("http://${Configs.utilServerAddress}/getImgForLevel?level=60")))) {
 			// Calculate level/img stats
-			int imgToward = metabolics.lifetime_img - metabolics.img_req_for_curr_lvl;
-			int imgNeeded = metabolics.img_req_for_next_lvl - metabolics.lifetime_img;
-			int section = metabolics.img_req_for_next_lvl - metabolics.img_req_for_curr_lvl;
+
+			int l_curr = await metabolics.level;
+			int l_imgCurr = await metabolics.img_req_for_curr_lvl;
+			int l_imgNext = await metabolics.img_req_for_next_lvl;
+
+			int imgToward = metabolics.lifetime_img - l_imgCurr;
+			int imgNeeded = l_imgNext - metabolics.lifetime_img;
+			int section = l_imgNext - l_imgCurr;
 			num percentOfNext = ((100 / section) * imgToward);
 			if (percentOfNext < 25) percentOfNext = 25;
+
 			// Display img bar
 			bar.style.height = percentOfNext.toString() + '%';
-			levelNum.text = metabolics.level.toString();
+			levelNum.text = l_curr.toString();
 			imgtonextE.text = commaFormatter.format(imgNeeded);
-			nextlvlE.text = (metabolics.level + 1).toString();
+			nextlvlE.text = (l_curr + 1).toString();
 			lifetimeImgE.text = commaFormatter.format(metabolics.lifetime_img);
 			bar.classes.remove("done");
 			tooltip.querySelector("#pm-tt-top").hidden = false;
@@ -78,6 +84,8 @@ class ImgOverlay extends Overlay {
 		// Show the menu //////////////////////////////////////////////////////////////////////////
 
 		super.open();
+
+		transmit("worldFocus", false);
 	}
 
 	// Reset when closed //////////////////////////////////////////////////////////////////////////

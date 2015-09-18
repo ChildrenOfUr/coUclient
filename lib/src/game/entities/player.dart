@@ -8,6 +8,8 @@ class Player {
 	num yVel = 0, yAccel = -2400;
 	bool jumping = false, moving = false, climbingUp = false, climbingDown = false;
 	bool activeClimb = false, lastClimbStatus = false, facingRight = true, firstRender = true;
+	bool canTripleJump = true;
+	bool isGuide = false;
 	Map<String, Animation> animations = new Map();
 	Animation currentAnimation;
 	ChatBubble chatBubble = null;
@@ -22,9 +24,8 @@ class Player {
 	//if false, player can move around with wasd and arrows, no falling
 	bool doPhysicsApply = true;
 
-	DivElement playerParentElement;
+	DivElement playerName, playerParentElement, superParentElement;
 	CanvasElement playerCanvas;
-	DivElement playerName;
 
 	Player(this.username) {
 		posX = metabolics.currentStreetX;
@@ -59,12 +60,30 @@ class Player {
 
 		playerParentElement = new DivElement()
 			..classes.add("playerParent")
+			..id = "pc-player-$username"
 			..style.width = width.toString() + "px"
 			..style.height = height.toString() + "px";
 
-		playerParentElement.append(playerName);
+		superParentElement = new DivElement()
+			..classes.add('playerParent');
+		superParentElement.append(playerParentElement);
+
+		if (username != game.username) {
+			playerParentElement.append(playerName);
+		}
 		playerParentElement.append(playerCanvas);
-		view.worldElement.append(playerParentElement);
+		view.worldElement.append(superParentElement);
+
+		new Service(["streetLoaded"], (_) {
+			if (
+				(mapData.hubData[currentStreet.hub_id] != null && mapData.hubData[currentStreet.hub_id]["triple_jumping"] == false) ||
+				(mapData.streetData[currentStreet.label] != null && mapData.streetData[currentStreet.label]["triple_jumping"] == false)
+			) {
+				canTripleJump = false;
+			} else {
+				canTripleJump = true;
+			}
+		});
 	}
 
 	Future<List<Animation>> loadAnimations() {
@@ -181,31 +200,36 @@ class Player {
 				jumpMultiplier = 1;
 			}
 
-			if (jumpTimer == null) {
-				// start timer
-				jumpTimer = new Timer(new Duration(seconds:3), () {
-					// normal jump
+			jumping = true;
+			if (canTripleJump) {
+				if (jumpTimer == null) {
+					// start timer
+					jumpTimer = new Timer(new Duration(seconds:3), () {
+						// normal jump
+						jumpcount = 0;
+						jumpTimer.cancel();
+						jumpTimer = null;
+					});
+				}
+				if (jumpcount == 2) {
+					// triple jump
+					yVel = -1560 * jumpMultiplier;
 					jumpcount = 0;
 					jumpTimer.cancel();
 					jumpTimer = null;
-				});
-			}
-			if (jumpcount == 2) {
-				// triple jump
-				yVel = -1560 * jumpMultiplier;
-				jumpcount = 0;
-				jumpTimer.cancel();
-				jumpTimer = null;
-				if (!activeClimb) {
-					audio.playSound('tripleJump');
+					if (!activeClimb) {
+						audio.playSound('tripleJump');
+					}
 				}
-			}
-			else {
-				// normal jump
-				jumpcount++;
+				else {
+					// normal jump
+					jumpcount++;
+					yVel = -1000 * jumpMultiplier;
+				}
+			} else {
+				// triple jumping disabled
 				yVel = -1000 * jumpMultiplier;
 			}
-			jumping = true;
 		}
 
 		//needs acceleration, some gravity const somewhere
@@ -478,6 +502,9 @@ class Player {
 		String transform = 'translateX(' + translateX.toString() + 'px) translateY(' + translateY.toString() + 'px) translateZ(0)';
 		if (!facingRight) {
 			transform += ' scale3d(-1,1,1)';
+			playerParentElement.classes
+				..add("facing-left")
+				..remove("facing-right");
 			playerName.style.transform = 'translateY(-100%) translateY(-34px) scale3d(-1,1,1)';
 
 			if (chatBubble != null)
@@ -485,7 +512,9 @@ class Player {
 		}
 		else {
 			playerName.style.transform = 'translateY(-100%) translateY(-34px) scale3d(1,1,1)';
-
+			playerParentElement.classes
+				..add("facing-right")
+				..remove("facing-left");
 			if (chatBubble != null)
 				chatBubble.textElement.style.transform = 'scale3d(1,1,1)';
 		}

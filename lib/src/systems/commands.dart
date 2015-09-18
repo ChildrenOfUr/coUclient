@@ -24,6 +24,7 @@ class CommandManager {
 
     if (Configs.testing) {
       COMMANDS
+        ..['music'] = setMusic
         ..['tp'] = go
         ..['toast'] = toast
         ..['buff'] = buff
@@ -31,7 +32,8 @@ class CommandManager {
         ..['physics'] = togglePhysics
         ..['log'] = log
         ..['time'] = setTime
-        ..['weather'] = setWeather;
+        ..['weather'] = setWeather
+        ..['note'] = note;
     }
   }
 }
@@ -95,7 +97,7 @@ setWeather(String noun) {
   }
 }
 
-toggleCollisionLines(var nothing) {
+toggleCollisionLines(_) {
   if (showCollisionLines) {
     showCollisionLines = false;
     hideLineCanvas();
@@ -108,7 +110,7 @@ toggleCollisionLines(var nothing) {
   }
 }
 
-togglePhysics(var nothing) {
+togglePhysics(_) {
   if (CurrentPlayer.doPhysicsApply) {
     CurrentPlayer.doPhysicsApply = false;
     toast('Physics no longer apply to you');
@@ -117,3 +119,10 @@ togglePhysics(var nothing) {
     toast('Physics apply to you');
   }
 }
+
+setMusic(String song) {
+  toast("Music set to $song");
+  audio.setSong(song);
+}
+
+note(_) => new NoteWindow(null);

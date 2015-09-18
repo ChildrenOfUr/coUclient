@@ -1,128 +1,28 @@
 part of couclient;
 
-List<String> EMOTICONS;
-List<String> COLORS = [
-	"blue",
-	"deepskyblue",
-	"fuchsia",
-	"gray",
-	"green",
-	"olivedrab",
-	"maroon",
-	"navy",
-	"olive",
-	"orange",
-	"purple",
-	"red",
-	"teal"
-];
-List<Chat> openConversations = [];
-
-// global functions
-
-bool advanceChatFocus(KeyboardEvent k) {
-	k.preventDefault();
-
-	bool found = false;
-	for (int i = 0; i < openConversations.length; i++) {
-		Chat convo = openConversations[i];
-
-		if (convo.focused) {
-			if (i < openConversations.length - 1) {
-				//unfocus the current
-				convo.blur();
-
-				//find the next non-archived conversation and focus it
-				for (int j = i + 1; j < openConversations.length; j++) {
-					if(!openConversations[j].archived) {
-						openConversations[j].focus();
-						found = true;
-					}
-				}
-
-				if(found) {
-					break;
-				}
-			} else {
-				// last chat in list, focus game
-				querySelector("#gameselector").focus();
-				for (int i = 0; i < openConversations.length; i++) {
-					openConversations[i].blur();
-				}
-				found = true;
-			}
-		}
-	}
-
-	if (!found) {
-		// game is focused, focus first chat that is not archived
-		for (Chat c in openConversations) {
-			if (!c.archived) {
-				c.focus();
-				break;
-			}
-		}
-	}
-
-	return true;
-}
-
-String getColorFromUsername(String username) {
-	int index = 0;
-	for (int i = 0; i < username.length; i++) {
-		index += username.codeUnitAt(i);
-	}
-
-	return COLORS[index % (COLORS.length - 1)];
-}
-
-String parseEmoji(String message) {
-	String returnString = "";
-	RegExp regex = new RegExp(":(.+?):");
-	message.splitMapJoin(regex, onMatch: (Match m) {
-		String match = m[1];
-		if (EMOTICONS.contains(match)) {
-			returnString += '<i class="emoticon emoticon-sm $match" title="$match"></i>';
-		} else {
-			returnString += m[0];
-		}
-	}, onNonMatch: (String s) => returnString += s);
-
-	return returnString;
-}
-
-String parseUrl(String message) {
-	/*
-    (https?:\/\/)?                    : the http or https schemes (optional)
-    [\w-]+(\.[\w-]+)+\.?              : domain name with at least two components;
-                                        allows a trailing dot
-    (:\d+)?                           : the port (optional)
-    (\/\S*)?                          : the path (optional)
-    */
-	String regexString = r"((https?:\/\/)?[\w-]+(\.[\w-]+)+\.?(:\d+)?(\/\S*)?)";
-	//the r before the string makes dart interpret it as a raw string so that you don't have to escape characters like \
-
-	String returnString = "";
-	RegExp regex = new RegExp(regexString);
-	message.splitMapJoin(regex, onMatch: (Match m) {
-		String url = m[0];
-		if (!url.contains("http")) {
-			url = "http://" + url;
-		}
-		returnString += '<a href="${url}" target="_blank" class="MessageLink">${m[0]}</a>';
-	}, onNonMatch: (String s) => returnString += s);
-
-	return returnString;
-}
-
-// Chats and Chat functions
+// Chats
 class Chat {
 	String title, lastWord = "";
 	bool online, focused = false, tabInserted = false;
-	Element conversationElement;
+	Element conversationElement, trigger;
 	int unreadMessages = 0, tabSearchIndex = 0, numMessages = 0, inputHistoryPointer = 0, emoticonPointer = 0;
 	static Chat otherChat = null, localChat = null;
 	List<String> connectedUsers = new List(), inputHistory = new List();
+	static StreamSubscription itemWindowLinks;
+	static InputElement lastFocusedInput;
+
+	static NodeValidator validator = new NodeValidatorBuilder()
+		..allowHtml5()
+		..allowElement('span', attributes: ['style']) // Username colors, item icons
+		..allowElement('a', attributes: ['href', 'title', 'target', 'class']) // Links
+		..allowElement('i', attributes: ['class', 'title']) // Emoticons
+		..allowElement('p', attributes: ['style'])
+		..allowElement('b')
+		..allowElement('del');
+
+	// /me text
+
+	// Emoticons
 
 	bool get archived {
 		return !conversationElement.classes.contains('conversation');
@@ -139,20 +39,46 @@ class Chat {
 
 	Chat(this.title) {
 		title = title.trim();
+
+		// find the link in the chat panel that opens the chat
+		if (title != "Local Chat") {
+			trigger = querySelectorAll("#rightSide *").where((Element e) => e.dataset["chat"] == title).first;
+		}
+
 		//look for an 'archived' version of this chat
 		//otherwise create a new one
 		conversationElement = getArchivedConversation(title);
 		if (conversationElement == null) {
+
+			// start a timer for the first global chat created that refreshes the sidebar player list
+			if (title == "Global Chat") {
+				refreshOnlinePlayers();
+				new Timer.periodic(new Duration(seconds: 5), (_) => refreshOnlinePlayers());
+			}
+
 			// clone the template
 			conversationElement = view.chatTemplate.querySelector('.conversation').clone(true);
-			conversationElement.querySelector('.title')
-				..text = title;
 			Map<String, dynamic> emoticonArgs = {
 				"title": title,
 				"input": conversationElement.querySelector("input")
 			};
-			conversationElement.querySelector(".insertemoji").onClick.listen((_) => transmit('insertEmoji', emoticonArgs));
+			conversationElement
+				..querySelector('.title').text = title
+				..querySelector(".insertemoji").onClick.listen((_) => transmit('insertEmoji', emoticonArgs))
+				..id = "chat-$title";
 			openConversations.insert(0, this);
+
+			if (title == "Local Chat") {
+				new Service(["gameLoaded", "streetLoaded"], (_) {
+					// Streets loaded, display a divider
+					this.addMessage("invalid_user", "LocationChangeEvent");
+					// If this is the first one, empty the toast buffer into the chat
+					if (chatToastBuffer.length > 0) {
+						chatToastBuffer.forEach((String message) => this.addAlert(message, toast: true));
+						chatToastBuffer.clear();
+					}
+				});
+			}
 
 			//handle chat input getting focused/unfocused so that the character doesn't move while typing
 			InputElement chatInput = conversationElement.querySelector('input');
@@ -161,12 +87,18 @@ class Chat {
 				//need to set the focused variable to true and false for all the others
 				openConversations.forEach((Chat c) => c.blur());
 				focus();
+				transmit("worldFocus", false);
+				lastFocusedInput = chatInput;
 			});
 			chatInput.onBlur.listen((_) {
 				inputManager.ignoreKeys = false;
 				//we'll want to set the focused to false for this chat
 				blur();
 			});
+		} else {
+			// mark as read
+			trigger.classes.remove("unread");
+			NetChatManager.updateTabUnread();
 		}
 
 		if (title != "Local Chat") {
@@ -242,29 +174,44 @@ class Chat {
 			}
 		} else {
 			addMessage(data['username'], data['message']);
+			if (archived) {
+				trigger.classes.add("unread");
+				NetChatManager.updateTabUnread();
+			}
 		}
 	}
-
-	NodeValidator validator = new NodeValidatorBuilder()
-		..allowHtml5()
-		..allowElement('span', attributes: ['style'])
-		..allowElement('a', attributes: ['href']);
 
 	void addMessage(String player, String message) {
 		ChatMessage chat = new ChatMessage(player, message);
 		Element dialog = conversationElement.querySelector('.dialog');
-		dialog.appendHtml(chat.toHtml(), validator: validator);
+		dialog.appendHtml((chat.toHtml()), validator: Chat.validator);
+
+		// check for item links
+		if (itemWindowLinks != null) {
+			itemWindowLinks.cancel();
+		}
+		if (dialog.querySelector(".item-chat-link") != null) {
+			itemWindowLinks = dialog.querySelectorAll(".item-chat-link").onClick.listen((Event e) {
+				e.preventDefault();
+				if (e.target is AnchorElement) {
+					new ItemWindow(((e.target) as Element).text);
+				}
+				if (e.target is SpanElement) {
+					new ItemWindow(((e.target) as Element).parent.text);
+				}
+			});
+		}
 
 		//scroll to the bottom
 		dialog.scrollTop = dialog.scrollHeight;
 	}
 
-	void addAlert(String alert) {
-		String text = '''
-			<p class="system">
-			$alert
-			</p>
-			''';
+  void addAlert(String alert, {bool toast: false}) {
+    String classes = "system ";
+    if (toast) {
+      classes += "chat-toast ";
+    }
+    String text = '<p class="$classes">$alert</p>';
 		Element dialog = conversationElement.querySelector('.dialog');
 		dialog.appendHtml(text, validator: validator);
 
@@ -284,11 +231,7 @@ class Chat {
 			alert = alert + " " + users[i];
 		}
 
-		String text = '''
-			<p class="system">
-			$alert
-			</p>
-			''';
+		String text = '<p class="system">$alert</p>';
 
 		Element dialog = conversationElement.querySelector('.dialog');
 		dialog.appendHtml(text, validator: validator);
@@ -391,7 +334,13 @@ class Chat {
 			}
 
 			if (input.value.trim().length == 0) {
-				//don't allow for blank messages
+				toast("You can't send a blank message");
+				return;
+			}
+
+			RegExp formatChars = new RegExp(r'<b>|</b>|<i>|</i>|<u>|</u>|<del>|</del>');
+			if(input.value.replaceAll(formatChars,'').length == 0) {
+				toast("You must have non-formatting content in your message");
 				return;
 			}
 
@@ -468,7 +417,7 @@ class Chat {
 		}
 	}
 
-	void tabComplete(TextInputElement input, KeyboardEvent k) async {
+	Future tabComplete(TextInputElement input, KeyboardEvent k) async {
 		//don't allow a key like tab to change to a different chat
 		//if we don't get a hit and k=[tab], we will re-fire
 		k.stopImmediatePropagation();
@@ -557,71 +506,93 @@ class Chat {
 					CurrentPlayer.chatBubble.bubble.remove();
 				}
 				CurrentPlayer.chatBubble = new ChatBubble(parseEmoji(map["message"]),
-				                                          CurrentPlayer, CurrentPlayer.playerParentElement);
+				CurrentPlayer, CurrentPlayer.playerParentElement);
 			}
+		}
+	}
+
+	// Update the list of online players in the sidebar
+	Future<int> refreshOnlinePlayers() async {
+		if (this.title != "Global Chat") {
+			return -1;
+		}
+
+		// Ignore yourself (can't chat with yourself, either)
+		List<String> users = JSON.decode(await HttpRequest.requestCrossOrigin('http://${ Configs.utilServerAddress}/listUsers?channel=Global Chat'));
+		users.removeWhere((String username) => username == game.username);
+
+		// Reset the list
+		Element list = querySelector("#playerList");
+		list.children.clear();
+
+		if (users.length == 0) {
+			// Nobody else is online
+			Element message = new LIElement()
+				..classes.addAll(["noChatSpawn"])
+				..setInnerHtml('<i class="fa-li fa fa-square-o"></i> Nobody else here');
+			list.append(message);
+			return 0;
+		} else {
+			// Other players are online
+			users.forEach((String username) {
+				Element user = new LIElement()
+					..classes.add("online")
+					..style.pointerEvents = "none"
+				//..classes.addAll(["online", "chatSpawn"])
+				//..dataset["chat"] = username
+					..setInnerHtml('<i class="fa-li fa fa-user"></i> $username');
+				list.append(user);
+			});
+			return users.length;
 		}
 	}
 }
 
-class ChatMessage {
-	String player, message;
-	List<String> devs = [
-		// slack usernames
-		"courtneybreid",
-		"klikini",
-		"paul",
-		"robertmcdermot",
-		// game usernames
-		"lead",
-		"paal",
-		"ppvk",
-		"thaderator"
-	];
+// Manage focus
 
-	ChatMessage(this.player, this.message);
+bool advanceChatFocus(KeyboardEvent k) {
+	k.preventDefault();
 
-	String toHtml() {
-		if (message is! String) {
-			return '';
+	bool found = false;
+	for (int i = 0; i < openConversations.length; i++) {
+		Chat convo = openConversations[i];
+
+		if (convo.focused) {
+			if (i < openConversations.length - 1) {
+				//unfocus the current
+				convo.blur();
+
+				//find the next non-archived conversation and focus it
+				for (int j = i + 1; j < openConversations.length; j++) {
+					if (!openConversations[j].archived) {
+						openConversations[j].focus();
+						found = true;
+					}
+				}
+
+				if (found) {
+					break;
+				}
+			} else {
+				// last chat in list, focus game
+				querySelector("#gameselector").focus();
+				for (int i = 0; i < openConversations.length; i++) {
+					openConversations[i].blur();
+				}
+				found = true;
+			}
 		}
-		String html;
-
-		message = parseUrl(message);
-		message = parseEmoji(message);
-
-		if (message.toLowerCase().contains(game.username.toLowerCase())) {
-			transmit('playSound', 'mention');
-		}
-
-		if (player == null) {
-			html = '''
-		<p class="system">
-			$message
-		</p>
-		''';
-		} else if (message.startsWith('/me')) {
-			message = message.replaceFirst('/me ', '');
-			html = '''
-		<p class="me" style="color:${getColorFromUsername(player)};">
-			<i><a class="noUnderline" href="http://childrenofur.com/profile?username=${player}" target="_blank" title="Open Profile Page">$player</a> $message</i>
-		</p>
-				''';
-		} else if (devs.contains(player.toLowerCase())) {
-			html = '''
-		<p>
-			<span class="name dev" style="color:${getColorFromUsername(player)};"><a class="noUnderline" href="http://childrenofur.com/profile?username=${player}" target="_blank" title="Open Profile Page">$player</a>:</span>
-			<span class="message">$message</span>
-		</p>
-		''';
-		} else {
-			html = '''
-		<p>
-			<span class="name" style="color:${getColorFromUsername(player)};"><a class="noUnderline" href="http://childrenofur.com/profile?username=${player}" target="_blank" title="Open Profile Page">$player</a>:</span>
-			<span class="message">$message</span>
-		</p>
-		''';
-		}
-
-		return html;
 	}
+
+	if (!found) {
+		// game is focused, focus first chat that is not archived
+		for (Chat c in openConversations) {
+			if (!c.archived) {
+				c.focus();
+				break;
+			}
+		}
+	}
+
+	return true;
 }

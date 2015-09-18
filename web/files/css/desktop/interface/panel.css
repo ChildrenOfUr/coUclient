@@ -1,0 +1,110 @@
+#rightSide {
+  font-size:15px;
+  position:absolute;
+  top:50px;
+  right:10px;
+  width:240px;
+  height:calc(100% - 140px);
+  background-color:#eee;
+  -webkit-transition-property: right;
+          transition-property: right;
+  -webkit-transition-duration: 0.3s;
+          transition-duration: 0.3s;
+  -webkit-transition-timing-function: ease-in-out;
+          transition-timing-function: ease-in-out;
+  -moz-transition-property:right;
+  -moz-transition-duration:0.3s;
+  -moz-transition-timing-function:ease-in-out;
+}
+.toggleSide {
+  position:absolute;
+  line-height:73px;
+  background-color:#eee;
+  padding:2px;
+  vertical-align: middle;
+  border-radius:5px;
+  border-left:2px solid rgba(0,0,0,0.1);
+  height:70px;
+  width:25px;
+  top:calc(50% - 35px);
+  left:-25px;
+}
+.toggleSide.unread {
+  background-color: #FFB2B2;
+}
+#rightSide:hover,
+#rightSide:active,
+#rightSide:focus {
+  right: 155px;
+}
+
+h3 {
+  font-size:13px;
+  margin: -5px 0 -15px 5px;
+}
+
+
+#rightSide ul {
+  margin-left:24px;
+}
+
+#rightSide ul.devList {
+  float:bottom;
+}
+
+#rightSide ul * {
+  font-size:12px;
+  line-height:15px;
+}
+#rightSide ul li:hover {
+  background-color:#fff;
+  cursor:pointer;
+  border-radius:3px;
+}
+
+#rightSide ul li.noChatSpawn:hover {
+  background-color: transparent;
+  cursor: default;
+}
+
+.offline .fa {
+  color:#ba381a;
+}
+
+.online .fa {
+  color:#57AA4B;
+}
+
+.busy .fa {
+  color:#f0ad4e;
+}
+
+.unread .fa {
+  color: darkred;
+  -webkit-animation: pulsered 2s ease-in-out infinite;
+}
+
+@-webkit-keyframes pulsered {
+  0%, 100% {color: darkred;}
+  50% {color: #d34836;}
+}
+
+#panel {
+  font-size:12px;
+  position:absolute;
+  top:50px;
+  right:10px;
+  width:243px;
+  height:calc(100% - 140px);
+  background-color:#fff;
+  border: 1px solid #bbb;
+  border-bottom:2px solid #bbb;
+  border-radius:10px;
+  overflow:hidden;
+}
+
+#bottomList {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}

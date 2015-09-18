@@ -19,12 +19,23 @@ class Quoin {
 	{
 		typeString = map['type'];
 
+		// Don't show Quarazy Quoins more than once for a street
+		if (typeString == "quarazy") {
+			if (!metabolics.load.isCompleted) {
+				await metabolics.load.future;
+			}
+			if (metabolics.location_history.contains(currentStreet.tsid_g)) {
+				return;
+			}
+		}
+
 		id = map["id"];
 		int quoinValue = quoins[typeString.toLowerCase()];
 
 		List<int> frameList = [];
-		for(int i = 0; i < 24; i++)
+		for(int i = 0; i < 24; i++) {
 			frameList.add(quoinValue * 24 + i);
+		}
 
 		animation = new Animation(map['url'], typeString.toLowerCase(), 8, 24, frameList, fps:22);
 		await animation.load();
@@ -87,6 +98,8 @@ class Quoin {
 					toast("You tried to collect a mood quoin, but your mood was already full.");
 				} else if(typeString == 'energy' && metabolics.playerMetabolics.energy == metabolics.playerMetabolics.max_energy) {
 					toast("You tried to collect an energy quoin, but your energy tank was already full.");
+				} else if (metabolics.playerMetabolics.quoins_collected >= 100) {
+					toast("You've reached your daily limit of 100 quoins");
 				} else {
 					_sendToServer();
 				}

@@ -1,0 +1,117 @@
+#settingsWindow article .tab-content * {
+    font-family: "Lato", 'Tahoma', 'Geneva', 'sans-serif';
+    color: #444;
+}
+
+#settingsWindow article .tab-content div {
+    font-size: 1em;
+    margin: 9px;
+}
+
+#settingsWindow article .tab-content div kbd {
+    background-color: #4b2e4c;
+    color: #eee;
+    font-family: "Lato", 'Tahoma', 'Geneva', 'sans-serif';
+    padding: 3px;
+    text-align: right;
+    border-radius: 5px;
+    margin-left: 5px;
+}
+
+#settingsWindow #keyboard.tab-content {
+    overflow-y: scroll;
+}
+
+#keyboard #heading {
+    display: flex;
+    justify-content: flex-end;
+}
+
+#keyboard .keyboardRow {
+    display: flex;
+}
+
+#keyboard .keyboardRow span {
+    flex-grow: 1;
+}
+
+#keyboard #heading span {
+    width: 150px;
+    display: inline-block;
+}
+
+.KeyBindingOption {
+    width: 150px;
+}
+
+#settingsWindow input[type="checkbox"] {
+    position: relative;
+    top: 5px;
+    margin-right: 10px;
+    margin-bottom: 20px;
+    margin-left: 15px;
+    cursor: pointer;
+}
+
+.ChatSettingsOption {
+    display: inline-block;
+    margin-bottom: 15px;
+    vertical-align: top;
+}
+
+.ChatSettingsOption paper-toggle-button {
+    margin-right: 10px;
+}
+
+.ChatSettingsOption paper-toggle-button::shadow [checked] .toggle {
+    background-color: #4b2e4c;
+}
+
+.ChatSettingsOption paper-toggle-button::shadow .toggle-ink,
+.ChatSettingsOption paper-toggle-button::shadow [checked] .toggle-ink {
+    color: transparent;
+}
+
+.pane-2-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.pane-2-container > div {
+    flex: 1;
+    min-height: 275px;
+}
+
+.pane-2-left {
+    border-right: 1px solid #aaa;
+}
+
+.pane-2-right {
+    max-width: 200px;
+}
+
+#weatherIntensity {
+    opacity: 0;
+    transition: opacity 0.25s ease-in-out;
+    display: inline-block;
+    margin-left: 50px;
+}
+
+#weatherIntensity.visible {
+    opacity: 1;
+}
+
+#WeatherEffectsIntensityGroup {
+    position: relative;
+    left: -12px;
+}
+
+#WeatherEffectsIntensityGroup paper-radio-button::shadow #ink,
+#WeatherEffectsIntensityGroup paper-radio-button::shadow [checked] #ink{
+    color: transparent;
+}
+
+#WeatherEffectsIntensityGroup paper-radio-button::shadow #radioContainer,
+#WeatherEffectsIntensityGroup paper-radio-button::shadow [checked] #radioContainer {
+    cursor: default;
+}

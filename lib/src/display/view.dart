@@ -48,7 +48,6 @@ class UserInterface {
 	Element bugButton = querySelector('#bugGlyph');
 	Element bugReportMeta = querySelector('#bugWindow ur-well #reportMeta');
 	InputElement bugReportTitle = querySelector('#bugWindow /deep/ #reportTitle');
-	FileUploadInputElement bugReportImage = querySelector('#bugWindow /deep/ #reportImg');
 	SelectElement bugReportType = querySelector('#bugWindow /deep/ #reportCategory');
 
 	// main Element
@@ -128,6 +127,7 @@ class UserInterface {
 		// The 'you won' splash
 		window.onBeforeUnload.listen((_) {
 			youWon.hidden = false;
+			transmit("gameUnloading");
 		});
 
 
@@ -159,18 +159,54 @@ class UserInterface {
 		window.onResize.listen((_) => resize());
 
 		setUpOverlays();
+
+		new Service(["streetLoaded"], (_) {
+			// Update the max size of the game when a new street is loaded
+			if (mapData.getBoundExpansionOverride(currentStreet.label) == 0) {
+				mainElement.style
+				..maxHeight = null
+				..maxWidth = null;
+			} else {
+				mainElement.style
+				// Add 140px vertical space for UI
+					..maxHeight = (currentStreet.bounds.height + 140).toString() + "px"
+				// Add 280px horizontal space for UI
+					..maxWidth = (currentStreet.bounds.width + 280).toString() + "px";
+			}
+			resize();
+		});
+
+		// Track game focus
+		worldElement
+			..onFocus.listen((_) => transmit("worldFocus", true))
+			..onBlur.listen((_) => transmit("worldFocus", false));
+
+		// manage inventory items -> chat link
+		new Service(["gameLoaded"], (_) {
+			inventory.querySelectorAll(".box").onClick.listen((MouseEvent e) {
+				Element target = e.target;
+
+				if (!e.shiftKey || !target.classes.contains("inventoryItem") || Chat.lastFocusedInput == null) {
+					return;
+				}
+
+				String itemType = JSON.decode(target.attributes["itemmap"])["itemType"];
+
+				if (Chat.lastFocusedInput.value == "" || Chat.lastFocusedInput.value.endsWith(" ")) {
+					Chat.lastFocusedInput.value += "#$itemType#";
+				} else {
+					Chat.lastFocusedInput.value += " #$itemType#";
+				}
+
+				Chat.lastFocusedInput.focus();
+			});
+		});
 	}
 
 	resize() {
 		worldElementWidth = worldElement.clientWidth;
 		worldElementHeight = worldElement.clientHeight;
 		transmit('windowResized',null);
-	}
-
-
-	// update the userinterface
-	update() {
-
 	}
 }
 

@@ -53,7 +53,7 @@ class WorldMap {
     loadhubdiv(showingHub);
   }
 
-  loadhubdiv(String hub_id) {
+  loadhubdiv(String hub_id, [String highlightStreet]) {
     showingHub = hub_id;
 
     // read in street data
@@ -109,6 +109,10 @@ class WorldMap {
           street.classes.add('hm-street-current');
         }
 
+        if (highlightStreet != null && highlightStreet == streetName) {
+          street.classes.add("hm-street-highlight");
+        }
+
         for (String streetNameOnRoute in GPS.currentRoute) {
           if (streetNameOnRoute.substring(1) == streetName.substring(1)) {
             street.classes.add('hm-street-route');
@@ -116,14 +120,14 @@ class WorldMap {
           }
         }
 
-        if (streetMetadata[streetName] != null) {
+        if (mapData.streetData[streetName] != null) {
           DivElement indicators = new DivElement()
             ..classes.add("street-contents-indicators");
 
           // show vendor symbol if vendor is on street
-          if (streetMetadata[streetName]["vendor"] != null) {
+          if (mapData.streetData[streetName]["vendor"] != null) {
             String ref;
-            String text = streetMetadata[streetName]["vendor"];
+            String text = mapData.streetData[streetName]["vendor"];
             if (text.toLowerCase().startsWith("a") ||
             text.toLowerCase().startsWith("e") ||
             text.toLowerCase().startsWith("i") ||
@@ -139,23 +143,23 @@ class WorldMap {
             " has " +
             ref +
             " " +
-            streetMetadata[streetName]["vendor"] +
+            mapData.streetData[streetName]["vendor"] +
             " Vendor";
             indicators.append(vendorIndicator);
           }
 
           // show shrine symbol if shrine is on street
-          if (streetMetadata[streetName]["shrine"] != null) {
+          if (mapData.streetData[streetName]["shrine"] != null) {
             DivElement shrineIndicator = new DivElement()
               ..classes.add("sci-shrine")
               ..title = streetName +
             " has a shrine to " +
-            streetMetadata[streetName]["shrine"];
+            mapData.streetData[streetName]["shrine"];
             indicators.append(shrineIndicator);
           }
 
           // show block symbol if machine room is on street
-          if (streetMetadata[streetName]["machine_room"] == true) {
+          if (mapData.streetData[streetName]["machine_room"] == true) {
             DivElement machinesIndicator = new DivElement()
               ..classes.add("sci-machines")
               ..title = streetName + " has a machine room";
@@ -163,7 +167,7 @@ class WorldMap {
           }
 
           // show gavel symbol if bureaucratic hall is on street
-          if (streetMetadata[streetName]["bureaucratic_hall"] == true) {
+          if (mapData.streetData[streetName]["bureaucratic_hall"] == true) {
             DivElement bureauIndicator = new DivElement()
               ..classes.add("sci-bureau")
               ..title = streetName + " has a bureaucratic hall";
@@ -171,7 +175,7 @@ class WorldMap {
           }
 
           // show mailbox symbol if mailbox is on street
-          if (streetMetadata[streetName]["mailbox"] == true) {
+          if (mapData.streetData[streetName]["mailbox"] == true) {
             DivElement mailboxIndicator = new DivElement()
               ..classes.add("sci-mailbox")
               ..title = streetName + " has a mailbox";
@@ -182,7 +186,10 @@ class WorldMap {
         }
 
         // do not show certain streets
-        if (streetMetadata[streetName] != null && (streetMetadata[streetName]["map_hidden"] == null || streetMetadata[streetName]["map_hidden"] == false)) {
+        if (mapData.streetData[streetName] == null ||
+        (mapData.streetData[streetName] != null &&
+        (mapData.streetData[streetName]["map_hidden"] == null ||
+        mapData.streetData[streetName]["map_hidden"] == false))) {
           HubMabDiv.append(street);
         }
 
@@ -269,11 +276,25 @@ class WorldMap {
         "timeRequired": 0,
         "clientCallback": () {
           transmit('teleportByMapWindow', tsid);
-          sendGlobalAction('teleport', {'tsid':tsid});
+		  if (inputManager.konamiDone && !inputManager.freeTeleportUsed) {
+			  // Free teleport for doing the konami code
+			  streetService.requestStreet(tsid);
+			  inputManager.freeTeleportUsed = true;
+		  } else {
+			  // Normal teleport
+			  sendGlobalAction('teleport', {'tsid':tsid});
+			  bool awaitingLoad = true;
+			  new Service(["streetLoaded"], (_) {
+				 if (awaitingLoad) {
+					 toast("-50 energy for teleporting");
+					 awaitingLoad = false;
+				 }
+			  });
+		  }
         }
       }
     ];
-    if (metabolics.energy >= 50) {
+    if (metabolics.energy >= 50 || (inputManager.konamiDone && !inputManager.freeTeleportUsed)) {
       options[1]["enabled"] = true;
       options[1]["description"] = "Spend 50 energy to get here right now";
     }
@@ -288,27 +309,27 @@ class WorldMap {
     'url(files/system/windows/worldmap.png)';
     WorldMapDiv.children.clear();
 
-    hubPositions.forEach((key, value) {
-      Map customAttributes = {"hub": key};
-      DivElement hub = new DivElement()
-        ..className = "wml-hub"
-        ..attributes.addAll(customAttributes)
-        ..style.left = value['x'].toString() + 'px'
-        ..style.top = value['y'].toString() + 'px'
-        ..text = value['name'];
-      if (currentStreet.hub_id == key) {
-        hub.classes.add('currentlocationhub');
+    mapData.hubData.forEach((key, value) {
+      if (value["hidden"] == null || value["hidden"] != true) {
+        DivElement hub = new DivElement()
+          ..className = "wml-hub"
+          ..dataset["hub"] = key.toString()
+          ..style.left = value['x'].toString() + 'px'
+          ..style.top = value['y'].toString() + 'px'
+          ..text = value['name'];
+        if (currentStreet.hub_id == key) {
+          hub.classes.add('currentlocationhub');
+        }
+        WorldMapDiv.append(hub);
       }
-      WorldMapDiv.append(hub);
     });
     WorldMapDiv.hidden = false;
     //HubMapFG.hidden = true;
     worldMapVisible = true;
 
     WorldMapDiv.onClick.listen((e) {
-      loadhubdiv(e.target.attributes['hub']);
-      querySelector("#map-window-world")
-      .setInnerHtml('<i class="fa fa-fw fa-globe"></i>');
+      loadhubdiv((e.target as Element).dataset["hub"]);
+      querySelector("#map-window-world").setInnerHtml('<i class="fa fa-fw fa-globe"></i>');
     });
   }
 

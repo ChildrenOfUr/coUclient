@@ -81,7 +81,8 @@ class SoundManager {
 				gameSounds['levelUp'] = new Sound(channel: audioChannels['soundEffects']);
 				await gameSounds['levelUp'].load("files/audio/levelUp.$extension");
 
-				// TODO: new day screen sound
+				gameSounds['newDay'] = new Sound(channel: audioChannels['soundEffects']);
+				await gameSounds['newDay'].load("files/audio/newday_rooster.$extension");
 
 				Asset soundCloudSongs = new Asset('./files/json/music.json');
 				await soundCloudSongs.load(statusElement: querySelector("#LoadStatus2"));
@@ -95,8 +96,10 @@ class SoundManager {
 		}
 	}
 
+	// Sound Effects ////////////////////////////////////////////////////////////////////////////////
+
 	Future loadNonWebAudio() async {
-		transmit('toast', 'Loading non-WebAudio');
+		logmessage("[SoundManager] Loading non-WebAudio");
 		// Load all our user interface sounds.
 
 		//iOS/safari/IE doesn't seem to like .ogg files
@@ -110,8 +113,8 @@ class SoundManager {
 				new Asset('files/audio/quoinSound.mp3'),
 				new Asset('files/audio/game_loaded.mp3'),
 				new Asset('files/audio/tripleJump.mp3'),
-				new Asset('files/audio/levelUp.mp3')
-				// TODO: new day screen sound
+				new Asset('files/audio/levelUp.mp3'),
+				new Asset('files/audio/newday_rooster.mp3')
 			]);
 			await ui_sounds.load(() {
 			});
@@ -125,9 +128,6 @@ class SoundManager {
 	}
 
 	Future playSound(String name, {bool asset: true, bool looping: false, bool fadeIn: false, Duration fadeInDuration, Element parentElement: null}) async {
-		if(muted) {
-			return null;
-		}
 		try {
 			if(useWebAudio) {
 				if(asset) {
@@ -222,12 +222,15 @@ class SoundManager {
 		} catch(err) {logmessage('[SoundManager] ' + err);}
 	}
 
+	// Music ////////////////////////////////////////////////////////////////////////////////////////
+
 	/**
 	 * Sets the SoundCloud widget's song to [value].  Must be one of the available songs.
 	 * If [value] is already playing, this method has no effect.
 	 */
 	setSong(String value) async {
-		if(value == view.soundcloud.musicPlayerElement.attributes['song']) {
+		if(currentSong != null &&
+		   value.toLowerCase() == currentSong.meta['title'].toLowerCase()) {
 			return;
 		}
 
@@ -250,29 +253,33 @@ class SoundManager {
 		String testResult = new AudioElement().canPlayType('audio/mp3');
 		if(testResult == '') {
 			logmessage('[SoundManager] SoundCloud: Your browser doesnt like mp3s :(');
-			//return;
-		} else if(testResult == 'maybe') //give warning message but proceed anyway
+			return;
+		} else if(testResult == 'maybe') {
+			//give warning message but proceed anyway
 			logmessage('[SoundManager] SoundCloud: Your browser may or may not fully support mp3s');
+		}
 
-		//stop any current song
-		//if(useWebAudio && currentAudioInstance != null)
-		//	stopSound(currentAudioInstance);
-		//else
-		if(currentSong != null) currentSong.pause();
+		// Stop the old song
+		if(currentSong != null) {
+			currentSong.remove();
+			currentSong = null;
+		}
 
 		//play a new song
 		currentSong = songs[name];
 		if(useWebAudio) {
+			if (currentAudioInstance != null) {
+				stopSound(currentAudioInstance);
+			}
 			playSound(currentSong.streamingUrl, asset: false, looping: true);
 		} else {
 			currentSong.play();
 			currentSong.loop(true);
 		}
 
-		// Changes the ui
+		// Change the ui
 		view.soundcloud.SCsong = currentSong.meta['title'];
 		view.soundcloud.SCartist = currentSong.meta['user']['username'];
 		view.soundcloud.SClink = currentSong.meta['permalink_url'];
-		view.update();
 	}
 }

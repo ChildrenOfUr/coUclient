@@ -21,12 +21,14 @@ class Overlay extends InformationDisplay {
 		displayElement.hidden = false;
 		elementOpen = true;
 		inputManager.ignoreKeys = true;
+		transmit("worldFocus", false);
 	}
 
 	close() {
 		displayElement.hidden = true;
 		elementOpen = false;
 		inputManager.ignoreKeys = false;
+		transmit("wordFocus", true);
 	}
 }
 

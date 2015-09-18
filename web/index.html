@@ -1,160 +1,194 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-	<meta name="apple-mobile-web-app-capable" content="yes">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
 
-	<!--iOS-->
-	<meta name="mobile-web-app-capable" content="yes">
+    <!--iOS-->
+    <meta name="mobile-web-app-capable" content="yes">
 
-	<!--Chrome for android-->
-	<link rel="icon" type="image/png" href="files/system/favicon.ico">
+    <!--Chrome for android-->
+    <link rel="icon" type="image/png" href="files/system/favicon.ico">
 
-	<!-- Display Page Title -->
-	<title>CoU - children of Ur</title>
+    <!-- Display Page Title -->
+    <title>CoU - children of Ur</title>
 
-	<!--Import game css-->
-	<link rel="stylesheet" href="style.css">
-	<link id="MobileStyle" rel="stylesheet" href="files/css/mobile.css" disabled>
+    <!--Import game css-->
+    <link rel="stylesheet" href="files/css/desktop/_desktop.css">
+    <link id="TabletStyle" rel="stylesheet" href="files/css/tablet/_tablet.css" disabled>
+    <link id="MobileStyle" rel="stylesheet" href="files/css/mobile/_mobile.css" disabled>
 
-	<!--Firebase Login-->
-	<script src="https://cdn.firebase.com/js/client/2.2.2/firebase.js"></script>
+    <!--Firebase Login-->
+    <script src="https://cdn.firebase.com/js/client/2.2.2/firebase.js"></script>
 
-	<!--Polymer components-->
-	<link rel="import" href="packages/couclient/components/components_import.html">
+    <!--Polymer components-->
+    <link rel="import" href="packages/couclient/components/components_import.html">
 
-	<!-- Google Analytics -->
-	<script>
-		if (
-			navigator.doNotTrack == "yes"   ||
-			navigator.doNotTrack == "1"     ||
-			navigator.msDoNotTrack == "1"   ||
-			window.doNotTrack == "yes"      ||
-			window.doNotTrack == "1"        ||
-			window.msDoNotTrack == "1"      ){
-			console.info("Respecting Do-Not-Track request, disabling Google Analytics.");
-	}
-	else {
-		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-		})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    <!-- Google Analytics -->
+    <script>
+        if (
+                navigator.doNotTrack == "yes" ||
+                navigator.doNotTrack == "1" ||
+                navigator.msDoNotTrack == "1" ||
+                window.doNotTrack == "yes" ||
+                window.doNotTrack == "1" ||
+                window.msDoNotTrack == "1") {
+            console.info("Respecting Do-Not-Track request, disabling Google Analytics.");
+        }
+        else {
+            (function (i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r;
+                i[r] = i[r] || function () {
+                            (i[r].q = i[r].q || []).push(arguments)
+                        }, i[r].l = 1 * new Date();
+                a = s.createElement(o),
+                        m = s.getElementsByTagName(o)[0];
+                a.async = 1;
+                a.src = g;
+                m.parentNode.insertBefore(a, m)
+            })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
 
-		ga('create', 'UA-54732442-4', 'auto');
-		ga('send', 'pageview');
-	}
-</script>
+            ga('create', 'UA-54732442-4', 'auto');
+            ga('send', 'pageview');
+        }
+    </script>
 </head>
 <body unresolved>
-	
-	<!-- Preload resources to prevent delay when displaying -->
-	<link rel="import" href="files/html/preload.html">
 
-	<!-- Loading Screen -->
-	<div id="loading">
-		<img src="files/system/earf.png" id="spinny-ur">
-		<ur-login></ur-login>
-		<div id="loadstatus">Loading</div>
-		<br>
-		<div id="loadstatus2">Chatting with server...</div>
-	</div>
+<!-- Error -->
+<div id="browser-error">
+    <h1>The game page is loading...</h1>
+    <p>If you see this message for more than 10 seconds after your browser's loading indicator has stopped, your browser will probably not support the game.</p>
+    <p>Browsers not currently supported:</p>
+    <ul>
+        <li>Internet Explorer</li>
+        <li>Microsoft Edge</li>
+        <li>Apple Safari</li>
+        <li>Any browser with JavaScript disabled</li>
+    </ul>
+    <p>Please see our <a href="http://childrenofur.com/about/#compatibility">compatibility page</a> for more information.</p>
+    <p>Thanks and we hope you can play soon,<br>&emsp;&mdash; Children of Ur Dev Team</p>
+</div>
 
-	<main onContextMenu="return false">
-		
-		<!-- THE VARIOUS METERS AT THE TOP LEFT OF THE SCREEN -->
-		<ur-meters></ur-meters>
+<!-- Preload resources to prevent delay when displaying -->
+<link rel="import" href="files/html/preload.html">
 
-		<!-- iMG Button -->
-		<div id="thinkButton"></div>
+<!-- Loading Screen -->
+<div id="loading" hidden>
+    <img src="files/system/earf.png" id="spinny-ur">
+    <ur-login></ur-login>
+    <div id="loadstatus">Loading</div>
+    <br>
+    <div id="loadstatus2">Chatting with server...</div>
+</div>
 
-		<!-- Option Buttons -->
-		<link rel="import" href="files/html/interface/topright.html">
+<main onContextMenu="return false">
 
-		<!-- Magic Rock -->
-		<div id="petrock"></div>
+    <!-- THE VARIOUS METERS AT THE TOP LEFT OF THE SCREEN -->
+    <ur-meters></ur-meters>
 
-		<!-- Game Container -->
-		<link rel="import" href="files/html/game.html">
+    <!-- iMG Button -->
+    <div id="thinkButton"></div>
 
-		<!-- Inventory slots, search, and currants -->
-		<link rel="import" href="files/html/interface/inventory.html">
+    <!-- Option Buttons -->
+    <link rel="import" href="files/html/interface/topright.html">
 
-		<div id="game-column-right">
+    <!-- Magic Rock -->
+    <div id="petrock"></div>
 
-			<!-- Minimap -->
-			<div id="minimap-container" hidden>
-				<div id="minimap">
-					<img id="minimap-img" src="">
-					<div id="minimap-objects"></div>
-					<div id="minimap-label"></div>
-				</div>
-				<div id="minimap-toggle"><i class="fa fa-chevron-up"></i></div>
-				<div id="mapButton" class="closed" title="Full Map"></div>
-			</div>
+    <!-- Game Container -->
+    <link rel="import" href="files/html/game.html">
 
-            <!-- GPS -->
-            <div id="gps-container" hidden>
-                <div id="gps-cancel" title="Cancel Directions"><i class="fa fa-times fa-fw"></i></div>
-                <div id="gps-direction"><i class="fa fa-arrow-up fa-fw fa-2x"></i></div>
-                <div id="gps-text">
-                    <div id="gps-title"><span id="gps-next">Gregarious Grange</span></div>
-                    <div id="gps-bottom">Going to: <span id="gps-destination">Cebarkul</span></div>
-                </div>
+    <!-- Inventory slots, search, and currants -->
+    <link rel="import" href="files/html/interface/inventory.html">
+
+    <div id="game-column-right">
+
+        <!-- Minimap -->
+        <div id="minimap-container" hidden>
+            <div id="minimap">
+                <img id="minimap-img" src="">
+
+                <div id="minimap-objects"></div>
+                <div id="minimap-label"></div>
             </div>
+            <div id="minimap-toggle"><i class="fa fa-chevron-up"></i></div>
+            <div id="mapButton" class="closed" title="Full Map"></div>
+        </div>
 
-			<!-- Toasts -->
-			<div id="toastPanel">
-				<div id="toastHolder"></div>
-				<div id="buffHolder"></div>
-			</div>
+        <!-- GPS -->
+        <div id="gps-container" hidden>
+            <div id="gps-cancel" title="Cancel Directions"><i class="fa fa-times fa-fw"></i></div>
+            <div id="gps-direction"><i class="fa fa-arrow-up fa-fw fa-2x"></i></div>
+            <div id="gps-text">
+                <div id="gps-title"><span id="gps-next">Gregarious Grange</span></div>
+                <div id="gps-bottom">Going to: <span id="gps-destination">Cebarkul</span></div>
+            </div>
+        </div>
 
-		</div>
+        <!-- Toasts -->
+        <div id="toastPanel">
+            <div id="toastHolder"></div>
+            <div id="buffHolder"></div>
+        </div>
 
-		<!-- Right chat pane -->
-		<link rel="import" href="files/html/interface/chat.html">
+    </div>
 
-		<!-- SoundCloud -->
-		<ur-musicplayer id="SCwidget" artist="" song=""></ur-musicplayer>
+    <!-- Right chat pane -->
+    <link rel="import" href="files/html/interface/chat.html">
 
-		<!-- Windows -->
-		<div id="windowHolder">
-			<link rel="import" href="files/html/windows/settingswindow.html">
-			<link rel="import" href="files/html/windows/mapwindow.html">
-			<link rel="import" href="files/html/windows/auctionwindow.html">
-			<link rel="import" href="files/html/windows/mailboxwindow.html">
-			<link rel="import" href="files/html/windows/shopwindow.html">
-			<link rel="import" href="files/html/windows/bagwindow.html">
-			<link rel="import" href="files/html/windows/bugwindow.html">
-			<link rel="import" href="files/html/windows/motdwindow.html">
-			<link rel="import" href="files/html/windows/calendarwindow.html">
-			<link rel="import" href="files/html/windows/shrinewindow.html">
-			<link rel="import" href="files/html/windows/rockwindow.html">
-            <link rel="import" href="files/html/windows/emoticon_picker.html">
-		</div>
+    <!-- SoundCloud -->
+    <ur-musicplayer id="SCwidget" artist="" song=""></ur-musicplayer>
 
-		<!-- Mobile Control -->
-		<div id="JoystickParent"><div id="Joystick"><div id="Knob"></div></div></div>
-		<div id="AButton">A</div><div id="BButton">B</div>
+    <!-- Windows -->
+    <div id="windowHolder">
+        <link rel="import" href="files/html/windows/settingswindow.html">
+        <link rel="import" href="files/html/windows/mapwindow.html">
+        <link rel="import" href="files/html/windows/auctionwindow.html">
+        <link rel="import" href="files/html/windows/mailboxwindow.html">
+        <link rel="import" href="files/html/windows/shopwindow.html">
+        <link rel="import" href="files/html/windows/bagwindow.html">
+        <link rel="import" href="files/html/windows/bugwindow.html">
+        <link rel="import" href="files/html/windows/motdwindow.html">
+        <link rel="import" href="files/html/windows/calendarwindow.html">
+        <link rel="import" href="files/html/windows/shrinewindow.html">
+        <link rel="import" href="files/html/windows/rockwindow.html">
+        <link rel="import" href="files/html/windows/emoticon_picker.html">
+        <link rel="import" href="files/html/windows/notewindow_template.html">
+    </div>
 
-	</main>
+    <!-- Mobile Control -->
+    <div id="JoystickParent">
+        <div id="Joystick">
+            <div id="Knob"></div>
+        </div>
+    </div>
+    <div id="MobileButtonContainer">
+        <div id="AButton">A</div>
+        <div id="BButton">B</div>
+    </div>
 
-	<!-- Be mean to new players -->
-	<div id="youWon" hidden><br><br><br><br>WAIT! You were just about to win the game!</div>
+</main>
 
-	<!-- Explain why it won't load sometimes -->
-	<div id="server-down" hidden><br><br><br><br><br><br><br>Oh dear! Looks like the server is down.<br>Please try again later.</div>
+<!-- Be mean to new players -->
+<div id="youWon" hidden><br><br><br><br>WAIT! You were just about to win the game!</div>
 
-	<!-- Check for touch capability -->
-	<script type="application/javascript">
-		function hasTouchSupport() {
-			return 'ontouchstart' in window;
-		}
-	</script>
+<!-- Explain why it won't load sometimes -->
+<div id="server-down" hidden><br><br><br><br><br><br><br>Oh dear! Looks like the server is down.<br>Please try again
+    later.
+</div>
 
-	<!-- Start the Game up. -->
-	<!--<script type="application/dart">export 'package:polymer/init.dart';</script>-->
-	<script type="application/dart">export 'main.dart';</script>
-	<!--<script src="packages/browser/dart.js"></script>-->
+<!-- Check for touch capability -->
+<script type="application/javascript">
+    function hasTouchSupport() {
+        return 'ontouchstart' in window;
+    }
+</script>
+
+<!-- Start the Game up. -->
+<!--<script type="application/dart">export 'package:polymer/init.dart';</script>-->
+<script type="application/dart">export 'main.dart';</script>
+<!--<script src="packages/browser/dart.js"></script>-->
 </body>
 </html>

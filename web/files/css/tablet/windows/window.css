@@ -1,0 +1,5 @@
+/* Windows are not draggable, do not show handles */
+
+.window:not(.noDrag)::before {
+    background-image: none;
+}
