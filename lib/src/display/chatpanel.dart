@@ -11,7 +11,7 @@ class Chat {
 	static StreamSubscription itemWindowLinks;
 	static InputElement lastFocusedInput;
 
-	static NodeValidator validator = new NodeValidatorBuilder()
+	static final NodeValidatorBuilder validator = new NodeValidatorBuilder()
 		..allowHtml5()
 		..allowElement('span', attributes: ['style']) // Username colors, item icons
 		..allowElement('a', attributes: ['href', 'title', 'target', 'class']) // Links
