@@ -121,6 +121,15 @@ class RockWindow extends Modal {
 	RockWindow() {
 		prepare();
 
+		// Lock/unlock inventory on game load
+		new Service(["gameLoaded"], (_) {
+			if (metabolics.energy == 0) {
+				querySelector("#inventory /deep/ #disableinventory").hidden = false;
+			} else {
+				querySelector("#inventory /deep/ #disableinventory").hidden = true;
+			}
+		});
+
 		// Toggle window by clicking rock
 		setupUiButton(querySelector("#petrock"));
 

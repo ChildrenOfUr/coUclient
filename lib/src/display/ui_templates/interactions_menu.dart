@@ -1,6 +1,9 @@
 part of couclient;
 
 class InteractionWindow {
+	static List<String> shrineTypes = [
+		"Alph", "Cosma", "Friendly", "Grendaline", "Humbaba", "Lem", "Mab", "Pot", "Spriggan", "Tii", "Zille"
+	];
 	static Element create() {
 		DivElement interactionWindow = new DivElement()
 			..id = "InteractionWindow"
@@ -39,6 +42,8 @@ class InteractionWindow {
 				String entityName = entityOnStreet.attributes["type"];
 				if (entityName.contains("Street Spirit")) {
 					entityInBubble = new ImageElement()..src = "files/system/icons/currant.svg";
+				} else if (shrineTypes.contains(entityName)) {
+					entityInBubble = new ImageElement()..src = "files/system/icons/shrine.svg";
 				} else {
 					entityInBubble = new ImageElement()..src = "http://childrenofur.com/assets/staticEntityImages/$entityName.png";
 				}
