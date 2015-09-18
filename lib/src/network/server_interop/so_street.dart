@@ -108,9 +108,14 @@ _setupStreetSocket(String streetName) {
 				}
 
 				if (updateNeeded) {
-					if(!update) {
+					if(newSlot.count == 0) {
 						uiSlots.elementAt(i).children.clear();
 					}
+					uiSlots.elementAt(i).children.forEach((Element child) {
+						if(child.attributes.containsKey('count')) {
+							child.attributes['count'] = "0";
+						}
+					});
 					for (int j = 0; j < newSlot.count; j++) {
 						addItemToInventory(newSlot.item, i, update:update);
 					}

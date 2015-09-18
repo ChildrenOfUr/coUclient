@@ -69,7 +69,7 @@ findNewSlot(ItemDef item, ImageElement img, int index, {bool update: false}) {
 	if (!update) {
 		itemDiv.classes.add("bounce");
 	}
-	//remove the bounce class so that it's not still there for a drag and drop event
+//	remove the bounce class so that it's not still there for a drag and drop event
 	new Timer(new Duration(seconds: 1), () {
 		itemDiv.classes.remove("bounce");
 	});
