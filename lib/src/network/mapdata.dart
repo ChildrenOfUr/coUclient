@@ -7,8 +7,10 @@ class MapData {
 	MapData();
 
 	init() async {
-		String json = await HttpRequest.requestCrossOrigin("http://${Configs.utilServerAddress}/getMapData?token=$rsToken");
 		try {
+			String json = await HttpRequest.requestCrossOrigin("http://${Configs.utilServerAddress}/getMapData?token=$rsToken")
+			.timeout(new Duration(seconds: 5), onTimeout: () => _serverIsDown());
+
 			Map data = JSON.decode(json);
 			logmessage("[Server Communication] Map data loaded.");
 			hubData = data["hubs"];
@@ -17,7 +19,13 @@ class MapData {
 		} catch (e) {
 			logmessage("[Server Communication] Could not load map data: $e");
 			loaded = false;
+			_serverIsDown();
 		}
+	}
+
+	_serverIsDown() {
+		querySelector('#server-down').hidden = false;
+		serverDown = true;
 	}
 
 	String getLabel(String tsid) {
