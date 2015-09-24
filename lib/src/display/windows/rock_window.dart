@@ -79,6 +79,8 @@ class RockWindow extends Modal {
 					open();
 					// Enable inventory
 					querySelector("#inventory /deep/ #disableinventory").hidden = true;
+					// Save state
+					reviveConvoDone = true;
 				}
 			});
 		});
