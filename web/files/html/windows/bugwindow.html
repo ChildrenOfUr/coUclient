@@ -5,19 +5,10 @@
         Bugs/Suggestions
     </header>
     <ur-well>
-        <p>
-            If you would like to report a bug or make a feature request, please fill this out. Your browser
-            information is included automatically for debugging purposes, and your username is included in case we need
-            to contact you.
-        </p>
-        <select id="reportCategory">
-            <option value="bug">Bug</option>
-            <option value="suggestion">Suggestion</option>
-        </select>
-        <input type="text" id="reportTitle" placeholder="Short title (required)" maxlength="30">
-        <textarea id="reportMain" placeholder="Please provide a detailed description of the problem you are experiencing or of the feature you would like us to add (optional)"></textarea>
-        <textarea id="reportMeta" disabled></textarea>
-        <ur-button>Submit Report</ur-button>
-        <p>Keep in mind that this data will be public on the <a href="https://github.com/ChildrenOfUr/cou-issues/issues" target="_blank">cou-issues</a> page!</p>
+        <user-feedback
+                username=""
+                useragent=""
+                log=""
+                ></user-feedback>
     </ur-well>
 </div>
