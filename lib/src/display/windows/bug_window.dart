@@ -10,7 +10,7 @@ class BugWindow extends Modal {
     debugService = new Service(['debug'], logMessage);
 
     prepare();
-	setupUiButton(view.bugButton, openCallback: open());
+	setupUiButton(view.bugButton);
 
 	new Service(["gameLoaded"], (_) {
 		component.attributes
