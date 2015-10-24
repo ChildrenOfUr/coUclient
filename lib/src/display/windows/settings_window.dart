@@ -73,6 +73,7 @@ class SettingsWindow extends Modal {
 			}
 		} else {
 			weatherEffects.checked = true;
+			querySelector("#weatherIntensity").classes.add("visible");
 		}
 
 		weatherEffects.onChange.listen((_) {
