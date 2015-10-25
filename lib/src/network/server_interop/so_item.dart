@@ -119,13 +119,19 @@ void putInInventory(ImageElement img, ItemDef i, int index, {bool update: false}
 
 			Element itemCount = item.parent.querySelector(".itemCount");
 			if (itemCount != null) {
-				itemCount.text = count.toString();
-			}
-			else {
+				if (count > 1) {
+					itemCount.text = count.toString();
+				} else {
+					itemCount.text = "";
+				}
+			} else {
 				SpanElement itemCount = new SpanElement()
 					..text = count.toString()
 					..className = "itemCount";
 				item.parent.append(itemCount);
+				if (count <= 1) {
+					itemCount.text = "";
+				}
 			}
 
 			found = true;
