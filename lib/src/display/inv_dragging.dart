@@ -28,7 +28,7 @@ class InvDragging {
 	 * - - toBagIndex: int: which slot the toBag is in (only set if toBag is true)
 	 * - - toIndex: int: which slot the item is going to
 	 */
-	static Map<String, dynamic> move = {};
+	static Map<String, dynamic> _move = {};
 
 	/// Add an override
 	static bool disable(String reason) {
@@ -69,6 +69,22 @@ class InvDragging {
 		return (box.children.length == 0);
 	}
 
+	/// Whether to force horizontal-only movement
+	static bool get _horizontalLock {
+		// Allow dragging up into bag windows
+		if (BagWindow.isOpen) {
+			return false;
+		}
+
+		// Allow disabler to control movement
+		if (_disablers.length > 0) {
+			return false;
+		}
+
+		// No special conditions
+		return true;
+	}
+
 	/// Set up event listeners based on the current inventory
 	static void init() {
 		if (_refresh == null) {
@@ -91,7 +107,7 @@ class InvDragging {
 				avatarHandler: new CustomAvatarHandler(),
 				// If a bag is open, allow free dragging.
 				// If not, only allow horizontal dragging across the inventory bar
-				horizontalOnly: !BagWindow.isOpen,
+				horizontalOnly: _horizontalLock,
 				// Disable item interaction while dragging it
 				draggingClass: "item-flying"
 			)
@@ -108,26 +124,26 @@ class InvDragging {
 		_origBox = e.draggableElement.parent;
 		e.draggableElement.dataset["original-slot-num"] = _origBox.dataset["slot-num"];
 
-		move = {};
+		_move = {};
 
 		if (querySelector("#windowHolder").contains(_origBox)) {
-			move['fromIndex'] = int.parse(_origBox.parent.parent.dataset["source-bag"]);
-			move["fromBagIndex"] = int.parse(_origBox.dataset["slot-num"]);
+			_move['fromIndex'] = int.parse(_origBox.parent.parent.dataset["source-bag"]);
+			_move["fromBagIndex"] = int.parse(_origBox.dataset["slot-num"]);
 		} else {
-			move['fromIndex'] = int.parse(_origBox.dataset["slot-num"]);
+			_move['fromIndex'] = int.parse(_origBox.dataset["slot-num"]);
 		}
 	}
 
 	/// Runs when an item is dropped (drop)
 	static void handleDrop(DropzoneEvent e) {
 		if (querySelector("#windowHolder").contains(e.dropzoneElement)) {
-			move["toIndex"] = int.parse(e.dropzoneElement.parent.parent.dataset["source-bag"]);
-			move["toBagIndex"] = int.parse(e.dropzoneElement.dataset["slot-num"]);
+			_move["toIndex"] = int.parse(e.dropzoneElement.parent.parent.dataset["source-bag"]);
+			_move["toBagIndex"] = int.parse(e.dropzoneElement.dataset["slot-num"]);
 		} else {
-			move["toIndex"] = int.parse(e.dropzoneElement.dataset["slot-num"]);
+			_move["toIndex"] = int.parse(e.dropzoneElement.dataset["slot-num"]);
 		}
 
-		sendAction("moveItem", "global_action_monster", move);
+		sendAction("moveItem", "global_action_monster", _move);
 	}
 }
 
