@@ -29,16 +29,17 @@ class Minimap {
 			street['loading_image']['h'] / currentStreet.bounds.height;
 			num expandedHeight =
 			street['main_image']['h'] / currentStreet.bounds.height;
-			if(collapsedHeight > expandedHeight) {
+			if((collapsedHeight < expandedHeight) || mapData.getMinimapExpandOverride()) {
+				// street is taller than it is wide
+				// (or overridden)
+				// allow expansion
+				toggleE.hidden = false;
+				collapse();
+			} else if(collapsedHeight > expandedHeight) {
 				// street is wider than it is tall
 				// disallow expansion
 				toggleE.hidden = true;
 				expand();
-			} else if(collapsedHeight < expandedHeight) {
-				// street is taller than it is wide
-				// allow expansion
-				toggleE.hidden = false;
-				collapse();
 			}
 		});
 	}
@@ -75,9 +76,9 @@ class Minimap {
 				..style.width = imageE.width.toString() + 'px'
 				..style.height = imageE.height.toString() + 'px';
 		});
-		if(mapData.getMinimapOverride() == 0) {
+		if(mapData.getMinimapOverride() == true) {
 			objectsE.hidden = true;
-		} else if (mapData.getMinimapOverride() == 1) {
+		} else if (mapData.getMinimapOverride() == false) {
 			objectsE.hidden = false;
 		}
 	}
