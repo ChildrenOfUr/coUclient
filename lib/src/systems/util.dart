@@ -72,25 +72,36 @@ int getNumItems(String item) {
 	return count;
 }
 
-int getBlankSlots(Map itemMap) {
+Future<int> getBlankSlots(Map itemMap) async {
 	int count = 0;
 
-	//count hot bar blank slots
-	count += playerInventory.slots.where((Slot s) => s.itemType.isEmpty).length;
+	try {
+		// Check with the server
+		String value = await HttpRequest.getString(
+			"http://${Configs.utilServerAddress}/checkBlankSlots/${game.email}"
+		);
 
-	if(!itemMap['isContainer']) {
-		//count bag blank slots
-		playerInventory.slots.where((Slot s) => !s.itemType.isEmpty && s.item.isContainer).forEach((Slot s) {
-			String slotsString = JSON.encode(s.item.metadata['slots']);
-			List<Slot> bagSlots = decode(slotsString, type: new TypeHelper<List<Slot>>().type);
-			if (bagSlots != null) {
-				bagSlots.forEach((Slot bagSlot) {
-					if (bagSlot.itemType.isEmpty) {
-						count++;
-					}
-				});
-			}
-		});
+		// Precondition: all slots listed here are empty
+		List<List<String>> inventoryBlanks = JSON.decode(value);
+
+		if (itemMap["isContainer"]) {
+			// Count slots where the filter is "_root" (accepts containers)
+			count = inventoryBlanks.where((List<String> filter) {
+				// Slot is in the hotbar (not in another container)
+				return (filter.single == "_root");
+			}).toList().length;
+		} else {
+			// Containers cannot go anywhere else, so let's count up the rest
+			count = inventoryBlanks.where((List<String> filter) {
+				return (
+					filter.length == 0 || // Filter allows all items
+					filter.contains(itemMap["itemType"]) // Filter allows item
+				);
+			}).toList().length;
+		}
+	} catch (e) {
+		logmessage("[Inventory] Could not count blank slots. ($e) Item: ${itemMap.toString()}");
+		return count;
 	}
 
 	return count;

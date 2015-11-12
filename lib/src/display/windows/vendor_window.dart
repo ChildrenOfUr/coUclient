@@ -206,7 +206,7 @@ class VendorWindow extends Modal {
 		});
 
 		// Plus Button
-		StreamSubscription bplus = buyPlus.onClick.listen((_) {
+		StreamSubscription bplus = buyPlus.onClick.listen((_) async {
 			try {
 
 				if (sellMode) {
@@ -221,7 +221,7 @@ class VendorWindow extends Modal {
 				} else {
 					// Buying an item
 
-					if (buyNum.valueAsNumber + 1 <= getBlankSlots(item)) {
+					if (buyNum.valueAsNumber + 1 <= (await getBlankSlots(item))) {
 						// You can fit the max number of items in your inventory
 						int newNum = (++buyNum.valueAsNumber).toInt();
 						numToBuy = _updateNumToBuy(item, newNum, sellMode: sellMode);
@@ -250,7 +250,7 @@ class VendorWindow extends Modal {
 		});
 
 		// Max Button
-		StreamSubscription bmax = buyMax.onClick.listen((_) {
+		StreamSubscription bmax = buyMax.onClick.listen((_) async {
 			try {
 				int newNum;
 				if(sellMode) {
@@ -258,7 +258,7 @@ class VendorWindow extends Modal {
 					newNum = min(item['stacksTo'].toInt(), getNumItems(item['itemType']));
 				} else {
 					// Buying an item
-					newNum = min(getBlankSlots(item), min((item['stacksTo']).toInt(), (metabolics.currants / item['price']) ~/ 1));
+					newNum = min((await getBlankSlots(item)), min((item['stacksTo']).toInt(), (metabolics.currants / item['price']) ~/ 1));
 				}
 				numToBuy = _updateNumToBuy(item, newNum, sellMode:sellMode);
 			}
