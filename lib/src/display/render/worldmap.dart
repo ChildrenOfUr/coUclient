@@ -61,174 +61,194 @@ class WorldMap {
     hubMaps = map.data_maps_maps[hub_id]();
     moteInfo = map.data_maps_streets['9']();
 
-    // prepare ui elements
-    view.mapTitle.text = hubInfo['name'];
-    view.mapImg.style.backgroundImage = 'url(' + hubInfo['bg'] + ')';
-    //HubMapFG.style.backgroundImage = "url(" + hubInfo['fg'] + ")";
-    HubMabDiv.children.clear();
+	// check visited streets with server
+	HttpRequest.getString(
+		"http://${Configs.utilServerAddress}/getLocationHistory/${game.email}"
+	).then((String value) {
+		List<String> locationHistory = JSON.decode(value);
 
-    // render
-    for (Map object in hubMaps['objs'].values) {
-      if (object['type'] == 'S') {
-        // STREETS
+		// prepare ui elements
+		view.mapTitle.text = hubInfo['name'];
+		view.mapImg.style.backgroundImage = 'url(' + hubInfo['bg'] + ')';
+		//HubMapFG.style.backgroundImage = "url(" + hubInfo['fg'] + ")";
+		HubMabDiv.children.clear();
 
-        String streetName = moteInfo[hub_id][object['tsid']];
+		// render
+		for (Map object in hubMaps['objs'].values) {
+			if (object['type'] == 'S') {
+				// STREETS
 
-        Map streetPlacement = {
-          "x1": object["x1"],
-          "x2": object["x2"],
-          "y1": object["y1"],
-          "y2": object["y2"],
-          "deg": 0,
-          "length": 0,
-        };
-        streetPlacement['deg'] = getStreetAngle(streetPlacement);
-        streetPlacement['length'] = getStreetLength(streetPlacement);
-        Map customAttributes = {"tsid": object['tsid']};
+				String streetName = moteInfo[hub_id][object['tsid']];
 
-        DivElement street = new DivElement()
-          ..classes.add('hm-street')
-          ..title = streetName
-          ..text = streetName
-          ..attributes.addAll(customAttributes)
-          ..style.left = streetPlacement['x1'].toString() + 'px'
-          ..style.top = streetPlacement['y1'].toString() + 'px'
-          ..style.width = streetPlacement['length'].toString() + 'px'
-          ..style.transform =
-        'rotate(' + streetPlacement['deg'].toString() + 'rad)';
+				Map streetPlacement = {
+					"x1": object["x1"],
+					"x2": object["x2"],
+					"y1": object["y1"],
+					"y2": object["y2"],
+					"deg": 0,
+					"length": 0,
+				};
+				streetPlacement['deg'] = getStreetAngle(streetPlacement);
+				streetPlacement['length'] = getStreetLength(streetPlacement);
+				Map customAttributes = {"tsid": object['tsid']};
 
-        street.onClick.listen((e) {
-          new Timer(new Duration(milliseconds: 100), () {
-            createStreetMenu(e, street);
-          });
-        });
-        street.onContextMenu.listen((e) => createStreetMenu(e, street));
+				DivElement street = new DivElement()
+					..classes.add('hm-street')
+					..title = streetName
+					..text = streetName
+					..attributes.addAll(customAttributes)
+					..style.left = streetPlacement['x1'].toString() + 'px'
+					..style.top = streetPlacement['y1'].toString() + 'px'
+					..style.width = streetPlacement['length'].toString() + 'px'
+					..style.transform =
+				'rotate(' + streetPlacement['deg'].toString() + 'rad)';
 
-        if (object['tsid'].substring(1) == currentStreet.streetData['tsid'].substring(1)) {
-          // current street
-          street.classes.add('hm-street-current');
-        }
+				street.onClick.listen((e) {
+					new Timer(new Duration(milliseconds: 100), () {
+						createStreetMenu(e, street);
+					});
+				});
+				street.onContextMenu.listen((e) => createStreetMenu(e, street));
 
-        if (highlightStreet != null && highlightStreet == streetName) {
-          street.classes.add("hm-street-highlight");
-        }
+				if (object['tsid'].substring(1) == currentStreet.streetData['tsid'].substring(1)) {
+					// current street
+					street.classes.add('hm-street-current');
+				}
 
-        for (String streetNameOnRoute in GPS.currentRoute) {
-          if (streetNameOnRoute.substring(1) == streetName.substring(1)) {
-            street.classes.add('hm-street-route');
-            break;
-          }
-        }
+				if (highlightStreet != null && highlightStreet == streetName) {
+					street.classes.add("hm-street-highlight");
+				}
 
-        if (mapData.streetData[streetName] != null) {
-          DivElement indicators = new DivElement()
-            ..classes.add("street-contents-indicators");
+				for (String streetNameOnRoute in GPS.currentRoute) {
+					if (streetNameOnRoute.substring(1) == streetName.substring(1)) {
+						street.classes.add('hm-street-route');
+						break;
+					}
+				}
 
-          // show vendor symbol if vendor is on street
-          if (mapData.streetData[streetName]["vendor"] != null) {
-            String ref;
-            String text = mapData.streetData[streetName]["vendor"];
-            if (text.toLowerCase().startsWith("a") ||
-            text.toLowerCase().startsWith("e") ||
-            text.toLowerCase().startsWith("i") ||
-            text.toLowerCase().startsWith("o") ||
-            text.toLowerCase().startsWith("u")) {
-              ref = "an";
-            } else {
-              ref = "a";
-            }
-            DivElement vendorIndicator = new DivElement()
-              ..classes.add("sci-vendor")
-              ..title = streetName +
-            " has " +
-            ref +
-            " " +
-            mapData.streetData[streetName]["vendor"] +
-            " Vendor";
-            indicators.append(vendorIndicator);
-          }
+				if (mapData.streetData[streetName] != null) {
+					DivElement indicators = new DivElement()
+						..classes.add("street-contents-indicators");
 
-          // show shrine symbol if shrine is on street
-          if (mapData.streetData[streetName]["shrine"] != null) {
-            DivElement shrineIndicator = new DivElement()
-              ..classes.add("sci-shrine")
-              ..title = streetName +
-            " has a shrine to " +
-            mapData.streetData[streetName]["shrine"];
-            indicators.append(shrineIndicator);
-          }
+					// show vendor symbol if vendor is on street
+					if (mapData.streetData[streetName]["vendor"] != null) {
+						String ref;
+						String text = mapData.streetData[streetName]["vendor"];
+						if (text.toLowerCase().startsWith("a") ||
+						text.toLowerCase().startsWith("e") ||
+						text.toLowerCase().startsWith("i") ||
+						text.toLowerCase().startsWith("o") ||
+						text.toLowerCase().startsWith("u")) {
+							ref = "an";
+						} else {
+							ref = "a";
+						}
+						DivElement vendorIndicator = new DivElement()
+							..classes.add("sci-vendor")
+							..title = streetName +
+						" has " +
+						ref +
+						" " +
+						mapData.streetData[streetName]["vendor"] +
+						" Vendor";
+						indicators.append(vendorIndicator);
+					}
 
-          // show block symbol if machine room is on street
-          if (mapData.streetData[streetName]["machine_room"] == true) {
-            DivElement machinesIndicator = new DivElement()
-              ..classes.add("sci-machines")
-              ..title = streetName + " has a machine room";
-            indicators.append(machinesIndicator);
-          }
+					// show shrine symbol if shrine is on street
+					if (mapData.streetData[streetName]["shrine"] != null) {
+						DivElement shrineIndicator = new DivElement()
+							..classes.add("sci-shrine")
+							..title = streetName +
+						" has a shrine to " +
+						mapData.streetData[streetName]["shrine"];
+						indicators.append(shrineIndicator);
+					}
 
-          // show gavel symbol if bureaucratic hall is on street
-          if (mapData.streetData[streetName]["bureaucratic_hall"] == true) {
-            DivElement bureauIndicator = new DivElement()
-              ..classes.add("sci-bureau")
-              ..title = streetName + " has a bureaucratic hall";
-            indicators.append(bureauIndicator);
-          }
+					// show block symbol if machine room is on street
+					if (mapData.streetData[streetName]["machine_room"] == true) {
+						DivElement machinesIndicator = new DivElement()
+							..classes.add("sci-machines")
+							..title = streetName + " has a machine room";
+						indicators.append(machinesIndicator);
+					}
 
-          // show mailbox symbol if mailbox is on street
-          if (mapData.streetData[streetName]["mailbox"] == true) {
-            DivElement mailboxIndicator = new DivElement()
-              ..classes.add("sci-mailbox")
-              ..title = streetName + " has a mailbox";
-            indicators.append(mailboxIndicator);
-          }
+					// show gavel symbol if bureaucratic hall is on street
+					if (mapData.streetData[streetName]["bureaucratic_hall"] == true) {
+						DivElement bureauIndicator = new DivElement()
+							..classes.add("sci-bureau")
+							..title = streetName + " has a bureaucratic hall";
+						indicators.append(bureauIndicator);
+					}
 
-          street.append(indicators);
-        }
+					// show mailbox symbol if mailbox is on street
+					if (mapData.streetData[streetName]["mailbox"] == true) {
+						DivElement mailboxIndicator = new DivElement()
+							..classes.add("sci-mailbox")
+							..title = streetName + " has a mailbox";
+						indicators.append(mailboxIndicator);
+					}
 
-        // do not show certain streets
-        if (mapData.streetData[streetName] == null ||
-        (mapData.streetData[streetName] != null &&
-        (mapData.streetData[streetName]["map_hidden"] == null ||
-        mapData.streetData[streetName]["map_hidden"] == false))) {
-          HubMabDiv.append(street);
-        }
+					street.append(indicators);
 
-        // END STREETS
+					try {
+						// Visited streets
+						String tsid = mapData.streetData[streetName]["tsid"];
+						if (tsid.startsWith("L")) {
+							tsid = tsid.replaceFirst("L", "G");
+						}
+						if (locationHistory.contains(tsid)) {
+							street.classes.add("visited");
+						}
+					} catch (e) {
+						logmessage("[MapWindow] Could not check visited status of street $streetName: $e");
+					}
+				}
 
-      } else if (object['type'] == 'X') {
+				// do not show certain streets
+				if (mapData.streetData[streetName] == null ||
+				(mapData.streetData[streetName] != null &&
+				(mapData.streetData[streetName]["map_hidden"] == null ||
+				mapData.streetData[streetName]["map_hidden"] == false))) {
+					HubMabDiv.append(street);
+				}
 
-        // GO CIRCLES
+				// END STREETS
 
-        Map goPlacement = {
-          "x": object["x"],
-          "y": object["y"],
-          "id": object["hub_id"],
-          "name": map.data_maps_hubs[object["hub_id"]]()["name"],
-          "color": map.data_maps_hubs[object["hub_id"]]()["color"]
-        };
+			} else if (object['type'] == 'X') {
 
-        DivElement go = new DivElement()
-          ..classes.add('hm-go')
-          ..text = 'GO'
-          ..title = 'Go to ' + goPlacement["name"]
-          ..style.left = (goPlacement["x"] - 20).toString() + 'px'
-          ..style.top = (goPlacement["y"] - 20).toString() + 'px'
-          ..style.backgroundColor = goPlacement["color"]
-          ..onClick.listen((_) => loadhubdiv(goPlacement["id"]));
+				// GO CIRCLES
 
-        HubMabDiv.append(go);
+				Map goPlacement = {
+					"x": object["x"],
+					"y": object["y"],
+					"id": object["hub_id"],
+					"name": map.data_maps_hubs[object["hub_id"]]()["name"],
+					"color": map.data_maps_hubs[object["hub_id"]]()["color"]
+				};
 
-        // END GO CIRCLES
-      }
-    }
+				DivElement go = new DivElement()
+					..classes.add('hm-go')
+					..text = 'GO'
+					..title = 'Go to ' + goPlacement["name"]
+					..style.left = (goPlacement["x"] - 20).toString() + 'px'
+					..style.top = (goPlacement["y"] - 20).toString() + 'px'
+					..style.backgroundColor = goPlacement["color"]
+					..onClick.listen((_) => loadhubdiv(goPlacement["id"]));
 
-    HubMabDiv.classes.add('scaled');
-    //HubMapFG.classes.add('scaled');
+				HubMabDiv.append(go);
 
-    worldMapVisible = false;
-    HubMabDiv.hidden = false;
-    //HubMapFG.hidden = false;
-    WorldMapDiv.hidden = true;
+				// END GO CIRCLES
+			}
+		}
+
+		HubMabDiv.classes.add('scaled');
+		//HubMapFG.classes.add('scaled');
+
+		worldMapVisible = false;
+		HubMabDiv.hidden = false;
+		//HubMapFG.hidden = false;
+		WorldMapDiv.hidden = true;
+	});
   }
 
   getStreetAngle(Map street) {
