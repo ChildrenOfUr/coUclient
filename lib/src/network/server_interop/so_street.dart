@@ -54,76 +54,7 @@ _setupStreetSocket(String streetName) {
 
 		//check if we are receiving our inventory
 		if (map['inventory'] != null) {
-			List<Slot> currentSlots = playerInventory.slots;
-			int slotNum = 0;
-			List<Slot> slots = [];
-
-			//couldn't get the structure to decode correctly so I hacked together this
-			//it produces the right result, but looks terrible
-			map['slots'].forEach((Map m) {
-				Slot slot = new Slot();
-				if (!m['itemType'].isEmpty) {
-					ItemDef item;
-					if (m['item']['metadata']['slots'] == null) {
-						item = decode(JSON.encode(m['item']), type:ItemDef);
-					} else {
-						Map metadata = (m['item'] as Map).remove('metadata');
-						item = decode(JSON.encode(m['item']), type:ItemDef);
-						item.metadata = metadata;
-					}
-					slot.item = item;
-					slot.itemType = item.itemType;
-					slot.count = m['count'];
-				}
-				slots.add(slot);
-				slotNum++;
-			});
-
-			playerInventory.slots = slots;
-
-			//if the current inventory differs (count, type, metatdata) then clear it
-			//and change it, else leave it alone
-			List<Element> uiSlots = querySelectorAll(".box").toList();
-			for (int i = 0; i < 10; i++) {
-				Slot newSlot = slots.elementAt(i);
-
-				bool updateNeeded = false, update = false;
-
-				//if we've never received our inventory before, update all slots
-				if (currentSlots.length == 0) {
-					updateNeeded = true;
-				} else {
-					Slot currentSlot = currentSlots.elementAt(i);
-
-					if (currentSlot.itemType != newSlot.itemType) {
-						updateNeeded = true;
-					} else if (currentSlot.count != newSlot.count) {
-						updateNeeded = true;
-						update = true;
-					} else if (currentSlot.item != null && newSlot.item != null &&
-					            !_metadataEqual(currentSlot.item.metadata, newSlot.item.metadata)) {
-						transmit('updateMetadata',newSlot.item);
-						continue;
-					}
-				}
-
-				if (updateNeeded) {
-					if(newSlot.count == 0) {
-						uiSlots.elementAt(i).children.clear();
-					}
-					uiSlots.elementAt(i).children.forEach((Element child) {
-						if(child.attributes.containsKey('count')) {
-							child.attributes['count'] = "0";
-						}
-					});
-					for (int j = 0; j < newSlot.count; j++) {
-						addItemToInventory(newSlot.item, i, update:update);
-					}
-				}
-			}
-
-			transmit("inventoryUpdated", true);
-
+			updateInventory(map);
 			return;
 		}
 

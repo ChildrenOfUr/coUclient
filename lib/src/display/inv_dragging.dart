@@ -1,9 +1,6 @@
 part of couclient;
 
 class InvDragging {
-	/// Overrides (if this list is not empty, inventory dragging will not work)
-	/// This allows any external function to disable dragging for its own reason, and not interfere with others
-	static List<String> _disablers = [];
 	/// Track inventory updating
 	static Service _refresh;
 	/// Draggable items
@@ -11,7 +8,7 @@ class InvDragging {
 	/// Drop targets
 	static Dropzone _dropzones;
 	/// State tracking
-	static Element _currentlyDisplaced, _origBox;
+	static Element _origBox;
 
 	/**
 	 * Map used to store *how* the item was moved.
@@ -30,32 +27,6 @@ class InvDragging {
 	 */
 	static Map<String, dynamic> _move = {};
 
-	/// Add an override
-	static bool disable(String reason) {
-		if (_disablers.contains(reason)) {
-			// Already disabled for that reason
-			return false;
-		} else {
-			// Disable for that reason and refresh
-			_disablers.add(reason);
-			init();
-			return true;
-		}
-	}
-
-	/// Remove an override
-	static bool enable(String reason) {
-		if (_disablers.contains(reason)) {
-			// Enable for that reason and refresh
-			_disablers.remove(reason);
-			init();
-			return true;
-		} else {
-			// No disabler for that reason
-			return false;
-		}
-	}
-
 	/// Checks if the specified slot is empty
 	static bool slotIsEmpty({int index, Element box, int bagWindow}) {
 		if (index != null) {
@@ -67,22 +38,6 @@ class InvDragging {
 		}
 
 		return (box.children.length == 0);
-	}
-
-	/// Whether to force horizontal-only movement
-	static bool get _horizontalLock {
-		// Allow dragging up into bag windows
-		if (BagWindow.isOpen) {
-			return false;
-		}
-
-		// Allow disabler to control movement
-		if (_disablers.length > 0) {
-			return false;
-		}
-
-		// No special conditions
-		return true;
 	}
 
 	/// Set up event listeners based on the current inventory
@@ -98,25 +53,36 @@ class InvDragging {
 			_dropzones.destroy();
 		}
 
-		if (_disablers.length == 0) {
-			// Set up draggable elements
-			_draggables = new Draggable(
-				// List of item elements in boxes
-				querySelectorAll('.inventoryItem'),
-				// Display the item on the cursor
-				avatarHandler: new CustomAvatarHandler(),
-				// If a bag is open, allow free dragging.
-				// If not, only allow horizontal dragging across the inventory bar
-				horizontalOnly: _horizontalLock,
-				// Disable item interaction while dragging it
-				draggingClass: "item-flying"
-			)
-				..onDragStart.listen((DraggableEvent e) => handlePickup(e));
+		// Set up draggable elements
+		_draggables = new Draggable(
+			// List of item elements in boxes
+			querySelectorAll('.inventoryItem'),
+			// Display the item on the cursor
+			avatarHandler: new CustomAvatarHandler(),
+			// Allow free dragging.
+			horizontalOnly: false,
+			// Disable item interaction while dragging it
+			draggingClass: "item-flying"
+		)..onDragStart.listen((DraggableEvent e) => handlePickup(e));
 
-			// Set up acceptor slots
-			_dropzones = new Dropzone(querySelectorAll("#inventory .box"))
-				..onDrop.listen((DropzoneEvent e) => handleDrop(e));
-		}
+		// Set up acceptor slots
+		_dropzones = new Dropzone(querySelectorAll("#inventory .box"))
+			..onDrop.listen((DropzoneEvent e) => handleDrop(e));
+
+		// Sanity-check the slots
+		querySelectorAll("#inventory .box").forEach((Element element) {
+			if (element.querySelectorAll(".inventoryItem").length > 1) {
+				// Two items in one slot, check with server
+				HttpRequest.getString(
+					"http://${Configs.utilServerAddress}/getInventory/${game.email}"
+				).then((String value) {
+					updateInventory(({
+						"slots": JSON.decode(value),
+						"update": true
+					}));
+				});
+			}
+		});
 	}
 
 	/// Runs when an item is picked up (drag start)

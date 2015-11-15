@@ -46,9 +46,6 @@ class VendorWindow extends Modal {
 	close() {
 		sendAction("close", npcId, {});
 		super.close();
-
-		// Enable inventory sorting
-		InvDragging.enable("vendorWindow");
 	}
 
 	@override
@@ -56,9 +53,6 @@ class VendorWindow extends Modal {
 		displayElement.hidden = false;
 		elementOpen = true;
 		this.focus();
-
-		// Disable inventory sorting
-		InvDragging.disable("vendorWindow");
 	}
 
 	// Calling the modal with a vendorMap opens a vendor window

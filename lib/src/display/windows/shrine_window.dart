@@ -29,14 +29,12 @@ class ShrineWindow extends Modal {
 	close() {
 		sendAction("close", shrineId, {});
 		super.close();
-		InvDragging.enable("shrineWindow");
 	}
 
 	@override
 	open() {
 		resetShrineWindow();
 		populateShrineWindow();
-		InvDragging.disable("shrineWindow");
 		makeDraggables();
 		super.open();
 	}
