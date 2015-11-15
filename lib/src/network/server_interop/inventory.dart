@@ -25,14 +25,31 @@ class ItemDef {
 	Map<String, dynamic> metadata = {};
 }
 
-Future updateInventory(Map map) {
+Future updateInventory([Map map]) async {
+	List<Map> dataSlots = [];
+
+	if (map != null) {
+		dataSlots = map["slots"];
+	} else {
+		print("Attempted inventory update: failed.");
+		return;
+
+		// TODO: get this to work
+//		String serverData = await HttpRequest.getString(
+//			"http://${Configs.utilServerAddress}/getInventory/${game.email}"
+//		);
+//
+//		Map inventoryEntry = JSON.decode(serverData);
+//		dataSlots = JSON.decode(inventoryEntry["inventory_json"]);
+	}
+
 	List<Slot> currentSlots = playerInventory.slots;
 	int slotNum = 0;
 	List<Slot> slots = [];
 
 	//couldn't get the structure to decode correctly so I hacked together this
 	//it produces the right result, but looks terrible
-	map['slots'].forEach((Map m) {
+	dataSlots.forEach((Map m) {
 		Slot slot = new Slot();
 		if (!m['itemType'].isEmpty) {
 			ItemDef item;

@@ -16,7 +16,16 @@ class ChatMessage {
     message = parseItemLinks(message);
 
     if (message.toLowerCase().contains(game.username.toLowerCase())) {
-      transmit('playSound', 'mention');
+		// Popup
+		Notification.requestPermission();
+		new Notification(
+			player,
+			body: message,
+			icon: "http://childrenofur.com/assets/icon_72.png"
+		);
+
+		// Sound effect
+      	transmit('playSound', 'mention');
     }
 
     // Apply labels

@@ -73,14 +73,7 @@ class InvDragging {
 		querySelectorAll("#inventory .box").forEach((Element element) {
 			if (element.querySelectorAll(".inventoryItem").length > 1) {
 				// Two items in one slot, check with server
-				HttpRequest.getString(
-					"http://${Configs.utilServerAddress}/getInventory/${game.email}"
-				).then((String value) {
-					updateInventory(({
-						"slots": JSON.decode(value),
-						"update": true
-					}));
-				});
+				updateInventory();
 			}
 		});
 	}
