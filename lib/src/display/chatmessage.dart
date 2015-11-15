@@ -5,7 +5,7 @@ class ChatMessage {
 
   ChatMessage(this.player, this.message);
 
-  String toHtml() {
+  Future<String> toHtml() async {
     if (message is! String) {
       return '';
     }
@@ -54,7 +54,7 @@ class ChatMessage {
       // /me message
       message = message.replaceFirst('/me ', '');
       html =
-      '<p class="me" style="color:${getColorFromUsername(player)};">'
+      '<p class="me" style="color:${(await getColorFromUsername(player))};">'
       '<i><a class="noUnderline" href="http://childrenofur.com/profile?username=${player}" target="_blank" title="Open Profile Page">$player</a> $message</i>'
       '</p>';
     } else if (message == " joined." || message == " left.") {
@@ -62,7 +62,7 @@ class ChatMessage {
       if (game.username != player) {
         html =
         '<p class="chat-member-change-event">'
-        '<span class="$nameClass" style="color: ${getColorFromUsername(player)};"><a class="noUnderline" href="http://childrenofur.com/profile?username=${player}" target="_blank" title="Open Profile Page">$displayName</a> </span>'
+        '<span class="$nameClass" style="color: ${(await getColorFromUsername(player))};"><a class="noUnderline" href="http://childrenofur.com/profile?username=${player}" target="_blank" title="Open Profile Page">$displayName</a> </span>'
         '<span class="message">$message</span>'
         '</p>';
         if (player != game.username) {
@@ -86,7 +86,7 @@ class ChatMessage {
       // Normal message
       html =
       '<p>'
-      '<span class="$nameClass" style="color: ${getColorFromUsername(player)};"><a class="noUnderline" href="http://childrenofur.com/profile?username=${player}" target="_blank" title="Open Profile Page">$displayName</a>: </span>'
+      '<span class="$nameClass" style="color: ${(await getColorFromUsername(player))};"><a class="noUnderline" href="http://childrenofur.com/profile?username=${player}" target="_blank" title="Open Profile Page">$displayName</a>: </span>'
       '<span class="message">$message</span>'
       '</p>';
     }
@@ -98,33 +98,27 @@ class ChatMessage {
 // chat functions
 
 List<String> EMOTICONS;
-List<String> COLORS = [
-  "blue",
-  "deepskyblue",
-  "fuchsia",
-  "gray",
-  "green",
-  "olivedrab",
-  "maroon",
-  "navy",
-  "olive",
-  "orange",
-  "purple",
-  "red",
-  "teal"
-];
 List<Chat> openConversations = [];
 List<String> chatToastBuffer = [];
 
 // global functions
 
-String getColorFromUsername(String username) {
-  int index = 0;
-  for (int i = 0; i < username.length; i++) {
-    index += username.codeUnitAt(i);
-  }
+Map<String, String> cachedUsernameColors = {};
 
-  return COLORS[index % (COLORS.length - 1)];
+Future<String> getColorFromUsername(String username) async {
+	if (cachedUsernameColors[username] != null) {
+		// Already checked the color
+		return cachedUsernameColors[username];
+	} else {
+		// Download color from server
+		String color = await HttpRequest.getString(
+			"http://${Configs.utilServerAddress}/usernamecolors/get/$username"
+		);
+		// Cache for later use
+		cachedUsernameColors[username] = color;
+		// Return for display
+		return color;
+	}
 }
 
 String parseEmoji(String message) {

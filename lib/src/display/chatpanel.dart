@@ -184,7 +184,13 @@ class Chat {
 	void addMessage(String player, String message) {
 		ChatMessage chat = new ChatMessage(player, message);
 		Element dialog = conversationElement.querySelector('.dialog');
-		dialog.appendHtml((chat.toHtml()), validator: Chat.validator);
+		chat.toHtml().then((String html) {
+			// display in panel
+			dialog.appendHtml(html, validator: Chat.validator);
+
+			//scroll to the bottom
+			dialog.scrollTop = dialog.scrollHeight;
+		});
 
 		// check for item links
 		if (itemWindowLinks != null) {
@@ -201,9 +207,6 @@ class Chat {
 				}
 			});
 		}
-
-		//scroll to the bottom
-		dialog.scrollTop = dialog.scrollHeight;
 	}
 
   void addAlert(String alert, {bool toast: false}) {

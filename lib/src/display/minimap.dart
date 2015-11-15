@@ -83,7 +83,7 @@ class Minimap {
 		}
 	}
 
-	void updateObjects() {
+	Future updateObjects() async {
 		if(CurrentPlayer == null) {
 			return;
 		}
@@ -127,13 +127,13 @@ class Minimap {
 
 		// other players
 
-		otherPlayers.forEach((String name, Player thisPlayer) {
+		await otherPlayers.forEach((String name, Player thisPlayer) async {
 			DivElement player = new DivElement()
 				..classes.add('minimap-player')
 				..style.top = ((thisPlayer.posY * factorHeight) - 6).toString() + 'px'
 				..style.left = (thisPlayer.posX * factorWidth).toString() + 'px'
 				..title = name
-				..attributes['chat-color'] = getColorFromUsername(name);
+				..style.backgroundColor = await getColorFromUsername(name);
 
 			objectsE.append(player);
 		});
@@ -146,7 +146,7 @@ class Minimap {
 			..style.top = ((meY * factorHeight) - 6).toString() + 'px'
 			..style.left = (meX * factorWidth).toString() + 'px'
 			..title = game.username
-			..attributes['chat-color'] = getColorFromUsername(game.username);
+			..style.backgroundColor = await getColorFromUsername(game.username);
 
 		objectsE.append(me);
 	}
