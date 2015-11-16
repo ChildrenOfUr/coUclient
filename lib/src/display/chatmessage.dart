@@ -15,7 +15,10 @@ class ChatMessage {
     message = parseEmoji(message);
     message = parseItemLinks(message);
 
-    if (message.toLowerCase().contains(game.username.toLowerCase())) {
+    if (
+		message.toLowerCase().contains(game.username.toLowerCase())
+		&& windowManager.settings.playMentionSound
+	) {
 		// Popup
 		Notification.requestPermission();
 		new Notification(

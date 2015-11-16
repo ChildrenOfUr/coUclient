@@ -1,17 +1,26 @@
 part of couclient;
 
 class WindowManager {
+	SettingsWindow settings;
+	BugWindow bugs;
+	VendorWindow vendor;
+	MotdWindow motdWindow;
+	//GoWindow goWindow;
+	CalendarWindow calendarWindow;
+	RockWindow rockWindow;
+	EmoticonPicker emoticonPicker;
+
   WindowManager() {
     // Declaring all the possible popup windows
-    SettingsWindow settings = new SettingsWindow();
-    mapWindow = new MapWindow();
-    BugWindow bugs = new BugWindow();
-    VendorWindow vendor = new VendorWindow();
-    MotdWindow motdWindow = new MotdWindow();
-    //GoWindow goWindow = new GoWindow();
-    CalendarWindow calendarWindow = new CalendarWindow();
-    RockWindow rockWindow = new RockWindow();
-    EmoticonPicker emoticonPicker = new EmoticonPicker();
+	  settings = new SettingsWindow();
+	  mapWindow = new MapWindow();
+	  bugs = new BugWindow();
+	  vendor = new VendorWindow();
+	  motdWindow = new MotdWindow();
+	  //goWindow = new GoWindow();
+	  calendarWindow = new CalendarWindow();
+	  rockWindow = new RockWindow();
+	  emoticonPicker = new EmoticonPicker();
   }
 
   static int get randomId => random.nextInt(9999999);
