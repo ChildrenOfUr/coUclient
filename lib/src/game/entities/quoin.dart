@@ -98,8 +98,10 @@ class Quoin {
 					toast("You tried to collect a mood quoin, but your mood was already full.");
 				} else if(typeString == 'energy' && metabolics.playerMetabolics.energy == metabolics.playerMetabolics.max_energy) {
 					toast("You tried to collect an energy quoin, but your energy tank was already full.");
-				} else if (metabolics.playerMetabolics.quoins_collected >= 100) {
-					toast("You've reached your daily limit of 100 quoins");
+				//} else if (metabolics.playerMetabolics.quoins_collected >= 100) {
+-				//	toast("You've reached your daily limit of 100 quoins");
+				} else if (metabolics.playerMetabolics.quoins_collected >= 10000) {
+					toast("You've reached your holidaily limit of 10,000 quoins");
 				} else {
 					_sendToServer();
 				}
