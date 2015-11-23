@@ -163,6 +163,7 @@ Minimap minimap;
 GpsIndicator gpsIndicator = new GpsIndicator();
 final String rsToken = "ud6He9TXcpyOEByE944g";
 MapData mapData;
+Map<String, dynamic> constants;
 
 bool get hasTouchSupport => context.callMethod('hasTouchSupport');
 
@@ -197,6 +198,8 @@ afterPolymer() async {
 	mapData = await new MapData()..init();
 	// Make sure we have an up-to-date (1 day expiration) item cache
 	await Item.loadItems();
+	// Download constants
+	constants = JSON.decode(await HttpRequest.getString("http://${Configs.utilServerAddress}/constants/json"));
 
 	// System
 	new ClockManager();
