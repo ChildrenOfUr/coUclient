@@ -14,7 +14,7 @@ class EmoticonPicker extends Modal {
 
     prepare();
 
-    new Asset("files/emoticons/emoticons.json").load().then((Asset asset) {
+    new Asset("packages/coUemoticons/emoticons.json").load().then((Asset asset) {
       EMOTICONS = asset.get()["names"];
 
       EMOTICONS.forEach((String emoticon) {

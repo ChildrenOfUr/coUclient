@@ -40,6 +40,8 @@ dependencies:
         url: git://github.com/ChildrenOfUr/cou-issues.git
   stagexl: "^0.12.0"
   browser_detect: "^1.0.3"
+  coUemoticons:
+      git: git://github.com/ChildrenOfUr/emoticons.git
 
 transformers:
 - couclient/transformers/configs_transformer
