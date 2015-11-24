@@ -168,7 +168,7 @@ final String rsToken = "ud6He9TXcpyOEByE944g";
 MapData mapData;
 Map<String, dynamic> constants;
 
-bool get hasTouchSupport => context.callMethod('hasTouchSupport');
+bool get hasTouchSupport => context.callMethod("hasTouchSupport");
 
 @whenPolymerReady
 afterPolymer() async {
