@@ -13,6 +13,7 @@ class ChatMessage {
 
     message = parseUrl(message);
     message = parseEmoji(message);
+    message = parseLocationLinks(message);
     message = parseItemLinks(message);
 
     if (
@@ -181,4 +182,32 @@ String parseItemLinks(String message) {
   }, onNonMatch: (String s) => returnString += s));
 
   return returnString;
+}
+
+String parseLocationLinks(String message) {
+  String _parseHubLinks(String _message) {
+    mapData.hubNames.forEach((String hubName) {
+      _message = _message.replaceAll(
+          hubName,
+          '<a class="location-chat-link hub-chat-link" title="View Hub" href="#">'
+          '$hubName</a>'
+      );
+    });
+
+    return _message;
+  }
+
+  String _parseStreetLinks(String _message) {
+    mapData.streetNames.forEach((String streetName) {
+      _message = _message.replaceAll(
+          streetName,
+          '<a class="location-chat-link street-chat-link" title="View Street" href="#">'
+          '$streetName</a>'
+      );
+    });
+
+    return _message;
+  }
+
+  return _parseStreetLinks(_parseHubLinks(message));
 }

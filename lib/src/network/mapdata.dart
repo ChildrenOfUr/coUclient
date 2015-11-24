@@ -49,6 +49,33 @@ class MapData {
 		return "";
 	}
 
+	// Returns a list of all hub names
+	List<String> get hubNames {
+		List<String> returnHubNames = [];
+		hubData.values.toList().forEach((Map data) {
+			returnHubNames.add(data["name"]);
+		});
+		return returnHubNames;
+	}
+
+	// Returns a list of all street names
+	List<String> get streetNames {
+		return streetData.keys.toList();
+	}
+
+	// Returns the ID for the hub with given name
+	String getHubId(String hubName) {
+		String result = "";
+		for (String id in hubData.keys) {
+			String name = hubData[id]["name"];
+			if (name == hubName) {
+				result = id;
+				break;
+			}
+		}
+		return result;
+	}
+
 	// Returns the value of a setting in the map data
 	dynamic checkSetting(String setting, {String streetName, var defaultValue}) {
 		// Check to make sure we have data

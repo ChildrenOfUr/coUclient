@@ -353,11 +353,15 @@ class WorldMap {
     });
   }
 
-  void hubMap({String hub_id, String hub_name}) {
+  void hubMap({String hub_id, String hub_name, String highlightStreet}) {
     if (hub_id == null) {
       hub_id = currentStreet.hub_id;
     }
-    loadhubdiv(hub_id);
+    if (highlightStreet != null) {
+	    loadhubdiv(hub_id, highlightStreet);
+    } else {
+	    loadhubdiv(hub_id);
+    }
     view.mapTitle.text = hub_name;
     view.mapImg.style.backgroundImage =
     'url(' + map.data_maps_hubs[hub_id]()['bg'] + ')';
