@@ -86,6 +86,10 @@
     font-weight: bolder;
 }
 
+.hm-street:not(.visited) {
+    opacity: 0.5;
+}
+
 .maplayer.scaled {
     transform: scaleX(0.752631578947368) scaleY(0.710869565217391);
     transform-origin: -21px -21px 0;

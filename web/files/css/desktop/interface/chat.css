@@ -358,7 +358,7 @@ i.emoticon {
     padding-right: 10px;
 }
 
-/* Item Links */
+/* Links */
 
 .item-chat-link-icon {
     height: 1em;
@@ -366,6 +366,19 @@ i.emoticon {
     display: inline-block;
     background-size: contain;
     margin-right: 0.1em;
+    background-repeat: no-repeat;
+    background-position: center center;
+    cursor: pointer;
+}
+
+.location-chat-link::before {
+    height: 1em;
+    width: 1em;
+    display: inline-block;
+    content: "";
+    background-size: contain;
+    margin-right: 0.1em;
+    background-image: url(../../../system/icons/signpost.svg);
     background-repeat: no-repeat;
     background-position: center center;
     cursor: pointer;

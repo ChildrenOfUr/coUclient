@@ -1,14 +1,14 @@
 part of couclient;
 
 class InvDragging {
-	static List<String> disablers = [];
-	static Service refresh;
+	/// Track inventory updating
+	static Service _refresh;
 	/// Draggable items
-	static Draggable draggables;
+	static Draggable _draggables;
 	/// Drop targets
-	static Dropzone dropzones;
-
-	static Element currentlyDisplaced, origBox;
+	static Dropzone _dropzones;
+	/// State tracking
+	static Element _origBox;
 
 	/**
 	 * Map used to store *how* the item was moved.
@@ -25,7 +25,7 @@ class InvDragging {
 	 * - - toBagIndex: int: which slot the toBag is in (only set if toBag is true)
 	 * - - toIndex: int: which slot the item is going to
 	 */
-	static Map<String, dynamic> move = {};
+	static Map<String, dynamic> _move = {};
 
 	/// Checks if the specified slot is empty
 	static bool slotIsEmpty({int index, Element box, int bagWindow}) {
@@ -42,63 +42,59 @@ class InvDragging {
 
 	/// Set up event listeners based on the current inventory
 	static void init() {
-		if (refresh == null) {
-			refresh = new Service(["inventoryUpdated"], (_) => init());
+		if (_refresh == null) {
+			_refresh = new Service(["inventoryUpdated"], (_) => init());
 		}
 		// Remove old data
-		if (draggables != null) {
-			draggables.destroy();
+		if (_draggables != null) {
+			_draggables.destroy();
 		}
-		if (dropzones != null) {
-			dropzones.destroy();
+		if (_dropzones != null) {
+			_dropzones.destroy();
 		}
 
-		if (disablers.length == 0) {
-			// Set up draggable elements
-			draggables = new Draggable(
-				// List of item elements in boxes
-				querySelectorAll('.inventoryItem'),
-				// Display the item on the cursor
-				avatarHandler: new CustomAvatarHandler(),
-				// If a bag is open, allow free dragging.
-				// If not, only allow horizontal dragging across the inventory bar
-				horizontalOnly: !BagWindow.isOpen,
-				// Disable item interaction while dragging it
-				draggingClass: "item-flying"
-			)
-				..onDragStart.listen((DraggableEvent e) => handlePickup(e));
+		// Set up draggable elements
+		_draggables = new Draggable(
+			// List of item elements in boxes
+			querySelectorAll('.inventoryItem'),
+			// Display the item on the cursor
+			avatarHandler: new CustomAvatarHandler(),
+			// Allow free dragging.
+			horizontalOnly: false,
+			// Disable item interaction while dragging it
+			draggingClass: "item-flying"
+		)..onDragStart.listen((DraggableEvent e) => handlePickup(e));
 
-			// Set up acceptor slots
-			dropzones = new Dropzone(querySelectorAll("#inventory .box"))
-				..onDrop.listen((DropzoneEvent e) => handleDrop(e));
-		}
+		// Set up acceptor slots
+		_dropzones = new Dropzone(querySelectorAll("#inventory .box"))
+			..onDrop.listen((DropzoneEvent e) => handleDrop(e));
 	}
 
 	/// Runs when an item is picked up (drag start)
 	static void handlePickup(DraggableEvent e) {
-		origBox = e.draggableElement.parent;
-		e.draggableElement.dataset["original-slot-num"] = origBox.dataset["slot-num"];
+		_origBox = e.draggableElement.parent;
+		e.draggableElement.dataset["original-slot-num"] = _origBox.dataset["slot-num"];
 
-		move = {};
+		_move = {};
 
-		if (querySelector("#windowHolder").contains(origBox)) {
-			move['fromIndex'] = int.parse(origBox.parent.parent.dataset["source-bag"]);
-			move["fromBagIndex"] = int.parse(origBox.dataset["slot-num"]);
+		if (querySelector("#windowHolder").contains(_origBox)) {
+			_move['fromIndex'] = int.parse(_origBox.parent.parent.dataset["source-bag"]);
+			_move["fromBagIndex"] = int.parse(_origBox.dataset["slot-num"]);
 		} else {
-			move['fromIndex'] = int.parse(origBox.dataset["slot-num"]);
+			_move['fromIndex'] = int.parse(_origBox.dataset["slot-num"]);
 		}
 	}
 
 	/// Runs when an item is dropped (drop)
 	static void handleDrop(DropzoneEvent e) {
 		if (querySelector("#windowHolder").contains(e.dropzoneElement)) {
-			move["toIndex"] = int.parse(e.dropzoneElement.parent.parent.dataset["source-bag"]);
-			move["toBagIndex"] = int.parse(e.dropzoneElement.dataset["slot-num"]);
+			_move["toIndex"] = int.parse(e.dropzoneElement.parent.parent.dataset["source-bag"]);
+			_move["toBagIndex"] = int.parse(e.dropzoneElement.dataset["slot-num"]);
 		} else {
-			move["toIndex"] = int.parse(e.dropzoneElement.dataset["slot-num"]);
+			_move["toIndex"] = int.parse(e.dropzoneElement.dataset["slot-num"]);
 		}
 
-		sendAction("moveItem", "global_action_monster", move);
+		sendAction("moveItem", "global_action_monster", _move);
 	}
 }
 

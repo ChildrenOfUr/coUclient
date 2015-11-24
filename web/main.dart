@@ -44,6 +44,8 @@ import 'package:jsonx/jsonx.dart';
 import 'package:couclient/configs.dart';
 // Special browser errors
 import 'package:browser_detect/browser_detect.dart';
+// Blog post checking
+import "package:xml/xml.dart" as XML;
 
 export 'package:polymer/init.dart';
 
@@ -82,6 +84,7 @@ part 'package:couclient/src/display/render.dart';
 part 'package:couclient/src/display/loop.dart';
 part 'package:couclient/src/display/information_display.dart';
 part 'package:couclient/src/display/inv_dragging.dart';
+part "package:couclient/src/display/blog_notifier.dart";
 
 //  WINDOW MODULES //
 part 'package:couclient/src/display/windows/windows.dart';
@@ -163,6 +166,7 @@ Minimap minimap;
 GpsIndicator gpsIndicator = new GpsIndicator();
 final String rsToken = "ud6He9TXcpyOEByE944g";
 MapData mapData;
+Map<String, dynamic> constants;
 
 bool get hasTouchSupport => context.callMethod('hasTouchSupport');
 
@@ -197,6 +201,8 @@ afterPolymer() async {
 	mapData = await new MapData()..init();
 	// Make sure we have an up-to-date (1 day expiration) item cache
 	await Item.loadItems();
+	// Download constants
+	constants = JSON.decode(await HttpRequest.getString("http://${Configs.utilServerAddress}/constants/json"));
 
 	// System
 	new ClockManager();
@@ -204,6 +210,9 @@ afterPolymer() async {
 
 	// Watch for Collision-Triggered teleporters
 	Wormhole.init();
+
+	// Check the blog
+	BlogNotifier.refresh();
 }
 
 // Set up resource/asset caching

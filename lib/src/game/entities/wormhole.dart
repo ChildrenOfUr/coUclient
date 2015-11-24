@@ -16,7 +16,7 @@ class Wormhole {
 
     wormholes["GroddleLadder"] = new Wormhole(2648, -3, 752, 336, "LM4115NJ46G8M", "LLI2VDR4JRD1AEG");
     wormholes["HellDescend"] = new Wormhole(2574, 831, 199, 152, "LA5PPFP86NF2FOS", "LA5PV4T79OE2AOA");
-    wormholes["TheEntrance"] = new Wormhole(5714, 465, 243, 100, "LIF102FDNU11314", "LHH101L162117H2");
+//    wormholes["TheEntrance"] = new Wormhole(5714, 465, 243, 100, "LIF102FDNU11314", "LHH101L162117H2");
     wormholes["HoleToIx"] = new Wormhole(218, 639, 194, 196, "LLI2VDR4JRD1AEG", "LM4115NJ46G8M");
     wormholes["WintryPlace"] = new Wormhole(522, -1, 177, 160, "LLI23D3LDHD1FQA", "LM11E7ODKHO1QJE");
   }

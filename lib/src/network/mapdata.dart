@@ -4,22 +4,37 @@ class MapData {
 	Map<String, Map<String, dynamic>> hubData, streetData;
 	bool loaded;
 
-	MapData();
+	MapData() {
+		loaded = false;
+		hubData = {};
+		streetData = {};
+	}
 
+	// Downloads the map data
 	init() async {
-		String json = await HttpRequest.requestCrossOrigin("http://${Configs.utilServerAddress}/getMapData?token=$rsToken");
 		try {
+			String json = await HttpRequest.requestCrossOrigin("http://${Configs.utilServerAddress}/getMapData?token=$rsToken")
+			.timeout(new Duration(seconds: 5), onTimeout: () => _serverIsDown("Connection timed out."));
+
 			Map data = JSON.decode(json);
 			logmessage("[Server Communication] Map data loaded.");
 			hubData = data["hubs"];
 			streetData = data["streets"];
 			loaded = true;
 		} catch (e) {
-			logmessage("[Server Communication] Could not load map data: $e");
 			loaded = false;
+			_serverIsDown("$e");
 		}
 	}
 
+	// Shows the "server down" screen
+	_serverIsDown([String errorText = ""]) {
+		logmessage("[Server Communication] Server down thrown: Could not load map data. $errorText");
+		querySelector('#server-down').hidden = false;
+		serverDown = true;
+	}
+
+	// Gets the name of the street with the given TSID
 	String getLabel(String tsid) {
 		int i = 0;
 		for (Map data in streetData.values) {
@@ -34,74 +49,94 @@ class MapData {
 		return "";
 	}
 
-	String getSong(String streetName) {
-		// Provide a default
-		String defaultSong = "forest";
+	// Returns a list of all hub names
+	List<String> get hubNames {
+		List<String> returnHubNames = [];
+		hubData.values.toList().forEach((Map data) {
+			returnHubNames.add(data["name"]);
+		});
+		return returnHubNames;
+	}
 
+	// Returns a list of all street names
+	List<String> get streetNames {
+		return streetData.keys.toList();
+	}
+
+	// Returns the ID for the hub with given name
+	String getHubId(String hubName) {
+		String result = "";
+		for (String id in hubData.keys) {
+			String name = hubData[id]["name"];
+			if (name == hubName) {
+				result = id;
+				break;
+			}
+		}
+		return result;
+	}
+
+	// Returns the value of a setting in the map data
+	dynamic checkSetting(String setting, {String streetName, var defaultValue}) {
 		// Check to make sure we have data
 		if (!loaded) {
-			return defaultSong;
+			return defaultValue;
 		}
 
-		// Find the song
-		if (streetData[streetName] != null && streetData[streetName]["music"] != null) {
+		// Check for provided street
+		if (streetName == null || streetName == "") {
+			streetName = currentStreet.label;
+		}
+
+		// Find the actual value
+		if (streetData[streetName] != null && streetData[streetName][setting] != null) {
 			// Check #1: Street
-			return streetData[streetName]["music"];
-		} else if (hubData[currentStreet.hub_id] != null && hubData[currentStreet.hub_id]["music"] != null) {
+			return streetData[streetName][setting];
+		} else if (hubData[currentStreet.hub_id] != null && hubData[currentStreet.hub_id][setting] != null) {
 			// Check #2: Hub
-			return hubData[currentStreet.hub_id]["music"];
+			return hubData[currentStreet.hub_id][setting];
 		} else {
 			// Check #3: Default
-			return defaultSong;
+			return defaultValue;
 		}
 	}
 
-	int getMinimapOverride([String streetName]) {
-		// Check to make sure we have data
-		if (!loaded) {
-			return -1;
-		}
+	// Returns the value of a boolean setting, or the default value provided (defaults to false if not) if null
+	bool checkBoolSetting(String setting, {String streetName, bool defaultValue: false})
+	=> checkSetting(setting, streetName: streetName, defaultValue: defaultValue);
 
-		// Get the current street if one was not given
-		if (streetName == null) {
-			streetName = currentStreet.label;
-		}
+	// Returns the value of an integer setting, or the default value provided (defaults to -1 if not) if null
+	int checkIntSetting(String setting, {String streetName, int defaultValue: -1})
+	=> checkSetting(setting, streetName: streetName, defaultValue: defaultValue);
 
-		// Check the override status
-		if (streetData[streetName] == null || streetData[streetName]["minimap_objects"] == null) {
-			// Unknown
-			return -1;
-		} else if (streetData[streetName]["minimap_objects"] == true) {
-			// Override to show objects
-			return 1;
-		} else if (streetData[streetName]["minimap_objects"] == false) {
-			// Override to hide objects
-			return 0;
-		} else {
-			return -1;
-		}
-	}
+	// Returns the value of a string setting, or the default value provided (defaults to "" if not) if null
+	String checkStringSetting(String setting, {String streetName, String defaultValue: ""})
+	=> checkSetting(setting, streetName: streetName, defaultValue: defaultValue);
 
-	int getBoundExpansionOverride([String streetName]) {
-		if (!loaded) {
-			return -1;
-		}
+	// Returns whether to disable weather on a street
+	bool forceDisableWeather([String streetName = ""])
+	=> checkBoolSetting("disable_weather", streetName: streetName);
 
-		if (streetName == null) {
-			streetName = currentStreet.label;
-		}
+	// Returns whether to snow instead of rain
+	bool snowyWeather([String streetName = ""])
+	=> checkBoolSetting("snowy_weather", streetName: streetName);
 
-		if (streetData[streetName] == null || streetData[streetName]["disallow_bound_expansion"] == null) {
-			// Unknown
-			return -1;
-		} else if (streetData[streetName]["disallow_bound_expansion"] == false) {
-			// Override to allow expansion
-			return 1;
-		} else if (streetData[streetName]["disallow_bound_expansion"] == true) {
-			// Override to disallow expansion
-			return 0;
-		} else {
-			return -1;
-		}
-	}
+	// Returns whether to disable game window size expansion to fit window
+	bool boundsExpansionDisabled([String streetName = ""])
+	=> checkBoolSetting("disallow_bound_expansion", streetName: streetName);
+
+	// Returns whether to force showing/hiding of minimap objects
+	// -1: no override
+	//  0: override to HIDE objects
+	//  1: override to SHOW objects
+	int getMinimapOverride([String streetName])
+	=> checkIntSetting("minimap_objects", streetName: streetName);
+
+	// Returns whether to force enabling of minimap expansion
+	bool getMinimapExpandOverride([String streetName])
+	=> checkBoolSetting("minimap_expand", streetName: streetName);
+
+	// Returns the song for a location
+	String getSong([String streetName])
+	=> checkStringSetting("music", streetName: streetName, defaultValue: "forest");
 }

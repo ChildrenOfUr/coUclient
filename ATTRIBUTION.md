@@ -4,7 +4,6 @@ Below is a list of any creative works that were used in the making of this produ
 
 ## Graphics
 
-- [Free Emoticon Icons](https://www.iconsmind.com/Free-Emoticons-flat-icons) by Iconsmind
 - [Glitch Game Art](http://www.glitchthegame.com/public-domain-game-art/) by Tiny Speck is licensed under [CC0 1.0 Universal] (https://creativecommons.org/publicdomain/zero/1.0/legalcode)
 
 ## Sounds

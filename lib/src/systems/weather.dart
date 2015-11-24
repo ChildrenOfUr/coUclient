@@ -139,8 +139,15 @@ class WeatherManager {
 			return;
 		}
 
-		String streetTop = '#' + currentStreet.streetData['gradient']['top'];
-		String streetBottom = '#' + currentStreet.streetData['gradient']['bottom'];
+		String streetTop, streetBottom;
+
+		try {
+			streetTop = '#' + currentStreet.streetData['gradient']['top'];
+			streetBottom = '#' + currentStreet.streetData['gradient']['bottom'];
+		} catch(e) {
+			logmessage("[Weather] Could not create street gradient: $e");
+			return;
+		}
 
 		//make sure the street has a gradient before trying to modify it
 		if(streetTop.length < 7 || streetBottom.length < 7) {
@@ -180,27 +187,40 @@ class WeatherManager {
 		if(!_enabled) {
 			return;
 		}
-		
+
 		logmessage('[Weather] ${currentState.toString()}: $_intensity');
 
-		if(createState == WeatherState.RAINING) {
+		if(createState == WeatherState.RAINING && !mapData.snowyWeather()) {
+			// Rain
 
+			// Sound effect
 			_playRainSound();
 
-			if(!_cloudLayer.classes.contains('cloudy')) {
-				_cloudLayer.classes.add('cloudy');
+			// Graphical effects
+			if (!mapData.forceDisableWeather()) {
+				// Enable rain display
+				if (!_cloudLayer.classes.contains('cloudy')) {
+					_cloudLayer.classes.add('cloudy');
+				}
+				_raindrops.style.opacity = '0.5';
+			} else {
+				_cloudLayer.classes.remove('cloudy');
+				_raindrops.style.opacity = '0';
 			}
+		} else if (createState == WeatherState.SNOWING || mapData.snowyWeather()) {
+			// Snow
 
-			_raindrops.style.opacity = '0.5';
-
-		} else if (createState == WeatherState.SNOWING) {
-
-			if(!_cloudLayer.classes.contains('snowy') && _intensity != WeatherIntensity.LIGHT) {
-				_cloudLayer.classes.add('snowy');
+			// Graphical effects
+			if (!mapData.forceDisableWeather()) {
+				// Enable snow display
+				if (!_cloudLayer.classes.contains('snowy') && _intensity != WeatherIntensity.LIGHT) {
+					_cloudLayer.classes.add('snowy');
+				}
+				_snowflakes.style.opacity = '0.7';
+			} else {
+				_cloudLayer.classes.remove('snowy');
+				_snowflakes.style.opacity = '0';
 			}
-
-			_snowflakes.style.opacity = '0.7';
-
 		}
 	}
 

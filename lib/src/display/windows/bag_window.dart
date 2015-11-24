@@ -176,6 +176,8 @@ class BagWindow extends Modal {
 				..text = count.toString()
 				..className = "itemCount";
 			item.parent.append(itemCount);
+		} else if (item.parent.querySelector(".itemCount") != null) {
+			item.parent.querySelector(".itemCount").text = "";
 		}
 	}
 

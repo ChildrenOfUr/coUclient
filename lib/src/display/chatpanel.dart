@@ -8,7 +8,7 @@ class Chat {
 	int unreadMessages = 0, tabSearchIndex = 0, numMessages = 0, inputHistoryPointer = 0, emoticonPointer = 0;
 	static Chat otherChat = null, localChat = null;
 	List<String> connectedUsers = new List(), inputHistory = new List();
-	static StreamSubscription itemWindowLinks;
+	static StreamSubscription itemWindowLinks, mapWindowLinks;
 	static InputElement lastFocusedInput;
 
 	static final NodeValidatorBuilder validator = new NodeValidatorBuilder()
@@ -184,26 +184,50 @@ class Chat {
 	void addMessage(String player, String message) {
 		ChatMessage chat = new ChatMessage(player, message);
 		Element dialog = conversationElement.querySelector('.dialog');
-		dialog.appendHtml((chat.toHtml()), validator: Chat.validator);
+		chat.toHtml().then((String html) {
+			// display in panel
+			dialog.appendHtml(html, validator: Chat.validator);
 
-		// check for item links
-		if (itemWindowLinks != null) {
-			itemWindowLinks.cancel();
-		}
-		if (dialog.querySelector(".item-chat-link") != null) {
-			itemWindowLinks = dialog.querySelectorAll(".item-chat-link").onClick.listen((Event e) {
-				e.preventDefault();
-				if (e.target is AnchorElement) {
-					new ItemWindow(((e.target) as Element).text);
-				}
-				if (e.target is SpanElement) {
-					new ItemWindow(((e.target) as Element).parent.text);
-				}
-			});
-		}
+			//scroll to the bottom
+			dialog.scrollTop = dialog.scrollHeight;
 
-		//scroll to the bottom
-		dialog.scrollTop = dialog.scrollHeight;
+			// check for item links
+			if (itemWindowLinks != null) {
+				itemWindowLinks.cancel();
+			}
+			if (dialog.querySelector(".item-chat-link") != null) {
+				itemWindowLinks = dialog.querySelectorAll(".item-chat-link").onClick.listen((Event e) {
+					e.preventDefault();
+					if (e.target is AnchorElement) {
+						new ItemWindow(((e.target) as Element).text);
+					}
+					if (e.target is SpanElement) {
+						new ItemWindow(((e.target) as Element).parent.text);
+					}
+				});
+			}
+
+			// check for location links
+			if (mapWindowLinks != null) {
+				mapWindowLinks.cancel();
+			}
+			if (dialog.querySelector(".location-chat-link") != null) {
+				mapWindowLinks = dialog.querySelectorAll(".location-chat-link").onClick.listen((Event e) {
+					e.preventDefault();
+					String text = ((e.target) as Element).text;
+
+					if ((e.target as Element).classes.contains("hub-chat-link")) {
+						String hubId = mapData.getHubId(text);
+						new WorldMap(hubId).loadhubdiv(hubId, text);
+					} else if ((e.target as Element).classes.contains("street-chat-link")) {
+						String hubId = mapData.streetData[text]["hub_id"].toString();
+						new WorldMap(hubId).hubMap(hub_id: hubId, highlightStreet: text);
+					}
+
+					mapWindow.open();
+				});
+			}
+		});
 	}
 
   void addAlert(String alert, {bool toast: false}) {

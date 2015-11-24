@@ -46,10 +46,6 @@ class VendorWindow extends Modal {
 	close() {
 		sendAction("close", npcId, {});
 		super.close();
-
-		// Enable inventory sorting
-		InvDragging.disablers.remove("vendorWindow");
-		InvDragging.init();
 	}
 
 	@override
@@ -57,10 +53,6 @@ class VendorWindow extends Modal {
 		displayElement.hidden = false;
 		elementOpen = true;
 		this.focus();
-
-		// Disable inventory sorting
-		InvDragging.disablers.add("vendorWindow");
-		InvDragging.init();
 	}
 
 	// Calling the modal with a vendorMap opens a vendor window
@@ -108,17 +100,11 @@ class VendorWindow extends Modal {
 				price.classes.add("cantAfford");
 			}
 
-			//DivElement tooltip = new DivElement()..className = "vendorItemTooltip";
-			//DivElement priceParent = new DivElement()..style.textAlign="center"..append(price);
-			//tooltip.text = item['name'];
-			//price.text = item['price'].toString() + "\u20a1";
-
 			merch.onClick.listen((_) => spawnBuyDetails(item, vendorMap['id']));
 		}
 
 		DivElement dropTarget = querySelector("#SellDropTarget");
-		Draggable draggable = new Draggable(querySelectorAll(".inventoryItem"), avatarHandler: new CustomAvatarHandler());
-		Dropzone dropzone = new Dropzone(dropTarget, acceptor: new Acceptor.draggables([draggable]));
+		Dropzone dropzone = new Dropzone(dropTarget, acceptor: new Acceptor.draggables([InvDragging._draggables]));
 		dropzone.onDrop.listen((DropzoneEvent dropEvent) {
 			spawnBuyDetails(JSON.decode(dropEvent.draggableElement.attributes['itemMap']), vendorMap['id'], sellMode:true);
 		});
@@ -208,7 +194,7 @@ class VendorWindow extends Modal {
 		});
 
 		// Plus Button
-		StreamSubscription bplus = buyPlus.onClick.listen((_) {
+		StreamSubscription bplus = buyPlus.onClick.listen((_) async {
 			try {
 
 				if (sellMode) {
@@ -223,7 +209,7 @@ class VendorWindow extends Modal {
 				} else {
 					// Buying an item
 
-					if (buyNum.valueAsNumber + 1 <= getBlankSlots(item)) {
+					if (buyNum.valueAsNumber + 1 <= (await getBlankSlots(item))) {
 						// You can fit the max number of items in your inventory
 						int newNum = (++buyNum.valueAsNumber).toInt();
 						numToBuy = _updateNumToBuy(item, newNum, sellMode: sellMode);
@@ -252,7 +238,7 @@ class VendorWindow extends Modal {
 		});
 
 		// Max Button
-		StreamSubscription bmax = buyMax.onClick.listen((_) {
+		StreamSubscription bmax = buyMax.onClick.listen((_) async {
 			try {
 				int newNum;
 				if(sellMode) {
@@ -260,7 +246,7 @@ class VendorWindow extends Modal {
 					newNum = min(item['stacksTo'].toInt(), getNumItems(item['itemType']));
 				} else {
 					// Buying an item
-					newNum = min(getBlankSlots(item), min((item['stacksTo']).toInt(), (metabolics.currants / item['price']) ~/ 1));
+					newNum = min((await getBlankSlots(item)), min((item['stacksTo']).toInt(), (metabolics.currants / item['price']) ~/ 1));
 				}
 				numToBuy = _updateNumToBuy(item, newNum, sellMode:sellMode);
 			}

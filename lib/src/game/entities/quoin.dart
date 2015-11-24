@@ -94,14 +94,16 @@ class Quoin {
 
 				new Timer(new Duration(seconds: 10), () => hit = false);
 
-				if(typeString == 'mood' && metabolics.playerMetabolics.mood == metabolics.playerMetabolics.max_mood) {
+				if(typeString == 'mood' && metabolics.playerMetabolics.mood >= metabolics.playerMetabolics.max_mood) {
 					toast("You tried to collect a mood quoin, but your mood was already full.");
-				} else if(typeString == 'energy' && metabolics.playerMetabolics.energy == metabolics.playerMetabolics.max_energy) {
+				} else if(typeString == 'energy' && metabolics.playerMetabolics.energy >= metabolics.playerMetabolics.max_energy) {
 					toast("You tried to collect an energy quoin, but your energy tank was already full.");
-				//} else if (metabolics.playerMetabolics.quoins_collected >= 100) {
-				//	toast("You've reached your daily limit of 100 quoins");
-				} else if (metabolics.playerMetabolics.quoins_collected >= 10000) {
-					toast("You've reached your holidaily limit of 10,000 quoins");
+
+				} else if (typeString == 'mystery' && metabolics.playerMetabolics.quoin_multiplier >= constants["quoinMultiplierLimit"]) {
+					toast("Your quoin multiplier is already ${constants["quoinMultiplierLimit"].toString()}x");
+				} else if (metabolics.playerMetabolics.quoins_collected >= constants["quoinLimit"]) {
+					toast("You've reached your daily limit of ${constants["quoinLimit"].toString()} quoins");
+
 				} else {
 					_sendToServer();
 				}
