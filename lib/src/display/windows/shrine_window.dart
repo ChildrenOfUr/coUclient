@@ -76,8 +76,7 @@ class ShrineWindow extends Modal {
 	}
 
 	void makeDraggables() {
-		Draggable draggable = new Draggable(querySelectorAll(".inventoryItem"), avatarHandler: new CustomAvatarHandler());
-		Dropzone dropzone = new Dropzone(dropTarget, acceptor: new Acceptor.draggables([draggable]));
+		Dropzone dropzone = new Dropzone(dropTarget, acceptor: new Acceptor.draggables([InvDragging._draggables]));
 		dropzone.onDrop.listen((DropzoneEvent dropEvent) {
 			buttonHolder.style.visibility = 'visible';
 			item = JSON.decode(dropEvent.draggableElement.attributes['itemMap']);

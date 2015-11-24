@@ -36,8 +36,13 @@ itemContextMenu(ItemDef i, String slot, MouseEvent event) {
 	document.body.append(menu);
 }
 
-findNewSlot(ItemDef item, ImageElement img, int index, {bool update: false}) {
+findNewSlot(Slot slot, int index, {bool update: false}) async {
+	ItemDef item = slot.item;
+	int count = slot.count;
+	ImageElement img = new ImageElement(src: item.spriteUrl);
+	await img.onLoad;
 	Element barSlot = view.inventory.children.elementAt(index);
+	barSlot.children.clear();
 	String cssName = item.itemType.replaceAll(" ", "_");
 	Element itemDiv = new DivElement();
 
@@ -62,17 +67,31 @@ findNewSlot(ItemDef item, ImageElement img, int index, {bool update: false}) {
 	itemDiv.attributes['count'] = "1";
 	itemDiv.attributes['itemMap'] = encode(item);
 
-	String slot = '${barSlot.dataset["slot-num"]}.-1';
-	itemDiv.onContextMenu.listen((MouseEvent event) => itemContextMenu(item, slot, event));
+	String slotNum = '${barSlot.dataset["slot-num"]}.-1';
+	itemDiv.onContextMenu.listen((MouseEvent event) => itemContextMenu(item, slotNum, event));
 	barSlot.append(itemDiv);
+
+	SpanElement itemCount = new SpanElement()
+		..text = count.toString()
+		..className = "itemCount";
+	barSlot.append(itemCount);
+	if (count <= 1) {
+		itemCount.text = "";
+	}
+
+	int offset = count;
+	if (item.iconNum != null && item.iconNum < count) {
+		offset = item.iconNum;
+	}
+	itemDiv.style.backgroundPosition = "calc(100% / ${item.iconNum - 1} * ${offset - 1})";
 
 	if (!update) {
 		itemDiv.classes.add("bounce");
+		//	remove the bounce class so that it's not still there for a drag and drop event
+		new Timer(new Duration(seconds: 1), () {
+			itemDiv.classes.remove("bounce");
+		});
 	}
-//	remove the bounce class so that it's not still there for a drag and drop event
-	new Timer(new Duration(seconds: 1), () {
-		itemDiv.classes.remove("bounce");
-	});
 
 	// Containers
 	DivElement containerButton;
@@ -97,62 +116,64 @@ findNewSlot(ItemDef item, ImageElement img, int index, {bool update: false}) {
 		});
 		itemDiv.parent.append(containerButton);
 	}
+
+	transmit('inventoryUpdated');
 }
 
-void putInInventory(ImageElement img, ItemDef i, int index, {bool update: false}) {
-	bool found = false;
+//void putInInventory(ImageElement img, ItemDef i, int index, {bool update: false}) {
+//	bool found = false;
+//
+//	String cssName = i.itemType.replaceAll(" ", "_");
+//	for (Element item in view.inventory.querySelectorAll(".item-$cssName")) {
+//		int count = int.parse(item.attributes['count']);
+//		int stacksTo = i.stacksTo;
+//
+//		if (count < stacksTo) {
+//			count++;
+//			int offset = count;
+//			if (i.iconNum != null && i.iconNum < count) {
+//				offset = i.iconNum;
+//			}
+//
+//			item.style.backgroundPosition = "calc(100% / ${i.iconNum - 1} * ${offset - 1}";
+//			item.attributes['count'] = count.toString();
+//
+//			Element itemCount = item.parent.querySelector(".itemCount");
+//			if (itemCount != null) {
+//				if (count > 1) {
+//					itemCount.text = count.toString();
+//				} else {
+//					itemCount.text = "";
+//				}
+//			} else {
+//				SpanElement itemCount = new SpanElement()
+//					..text = count.toString()
+//					..className = "itemCount";
+//				item.parent.append(itemCount);
+//				if (count <= 1) {
+//					itemCount.text = "";
+//				}
+//			}
+//
+//			found = true;
+//			break;
+//		}
+//	}
+//	if (!found) {
+//		findNewSlot(i, img, index, update: update);
+//	}
+//	transmit("inventoryUpdated");
+//}
 
-	String cssName = i.itemType.replaceAll(" ", "_");
-	for (Element item in view.inventory.querySelectorAll(".item-$cssName")) {
-		int count = int.parse(item.attributes['count']);
-		int stacksTo = i.stacksTo;
-
-		if (count < stacksTo) {
-			count++;
-			int offset = count;
-			if (i.iconNum != null && i.iconNum < count) {
-				offset = i.iconNum;
-			}
-
-			item.style.backgroundPosition = "calc(100% / ${i.iconNum - 1} * ${offset - 1}";
-			item.attributes['count'] = count.toString();
-
-			Element itemCount = item.parent.querySelector(".itemCount");
-			if (itemCount != null) {
-				if (count > 1) {
-					itemCount.text = count.toString();
-				} else {
-					itemCount.text = "";
-				}
-			} else {
-				SpanElement itemCount = new SpanElement()
-					..text = count.toString()
-					..className = "itemCount";
-				item.parent.append(itemCount);
-				if (count <= 1) {
-					itemCount.text = "";
-				}
-			}
-
-			found = true;
-			break;
-		}
-	}
-	if (!found) {
-		findNewSlot(i, img, index, update: update);
-	}
-	transmit("inventoryUpdated");
-}
-
-void addItemToInventory(ItemDef item, int index, {bool update: false}) {
-	ImageElement img = new ImageElement(src: item.spriteUrl);
-	img.onLoad.first.then((_) {
-		//do some fancy 'put in bag' animation that I can't figure out right now
-		//animate(img,map).then((_) => putInInventory(img,map));
-
-		putInInventory(img, item, index, update:update);
-	});
-}
+//void addItemToInventory(ItemDef item, int index, {bool update: false}) {
+//	ImageElement img = new ImageElement(src: item.spriteUrl);
+//	img.onLoad.first.then((_) {
+//		//do some fancy 'put in bag' animation that I can't figure out right now
+//		//animate(img,map).then((_) => putInInventory(img,map));
+//
+//		putInInventory(img, item, index, update:update);
+//	});
+//}
 
 void takeItemFromInventory(String itemType, {int count: 1}) {
 	String cssName = itemType.replaceAll(" ", "_");

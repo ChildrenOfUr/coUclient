@@ -68,14 +68,6 @@ class InvDragging {
 		// Set up acceptor slots
 		_dropzones = new Dropzone(querySelectorAll("#inventory .box"))
 			..onDrop.listen((DropzoneEvent e) => handleDrop(e));
-
-		// Sanity-check the slots
-		querySelectorAll("#inventory .box").forEach((Element element) {
-			if (element.querySelectorAll(".inventoryItem").length > 1) {
-				// Two items in one slot, check with server
-				updateInventory();
-			}
-		});
 	}
 
 	/// Runs when an item is picked up (drag start)

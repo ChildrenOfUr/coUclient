@@ -100,17 +100,11 @@ class VendorWindow extends Modal {
 				price.classes.add("cantAfford");
 			}
 
-			//DivElement tooltip = new DivElement()..className = "vendorItemTooltip";
-			//DivElement priceParent = new DivElement()..style.textAlign="center"..append(price);
-			//tooltip.text = item['name'];
-			//price.text = item['price'].toString() + "\u20a1";
-
 			merch.onClick.listen((_) => spawnBuyDetails(item, vendorMap['id']));
 		}
 
 		DivElement dropTarget = querySelector("#SellDropTarget");
-		Draggable draggable = new Draggable(querySelectorAll(".inventoryItem"), avatarHandler: new CustomAvatarHandler());
-		Dropzone dropzone = new Dropzone(dropTarget, acceptor: new Acceptor.draggables([draggable]));
+		Dropzone dropzone = new Dropzone(dropTarget, acceptor: new Acceptor.draggables([InvDragging._draggables]));
 		dropzone.onDrop.listen((DropzoneEvent dropEvent) {
 			spawnBuyDetails(JSON.decode(dropEvent.draggableElement.attributes['itemMap']), vendorMap['id'], sellMode:true);
 		});

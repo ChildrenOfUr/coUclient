@@ -106,7 +106,8 @@ Future updateInventory([Map map]) async {
 				}
 			});
 			for (int j = 0; j < newSlot.count; j++) {
-				addItemToInventory(newSlot.item, i, update:update);
+				findNewSlot(newSlot,i,update:update);
+//				addItemToInventory(newSlot.item, i, update:update);
 			}
 		}
 	}
