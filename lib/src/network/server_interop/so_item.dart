@@ -3,6 +3,9 @@ part of couclient;
 ///slot should be in the format 'barSlot.bagSlot' indexed from 0
 ///if bagSlot is not relevant, please use 'barSlot.-1'
 itemContextMenu(ItemDef i, String slot, MouseEvent event) {
+	event.preventDefault();
+	event.stopPropagation();
+	
 	int barSlot = int.parse(slot.split('.').elementAt(0));
 	int bagSlot = int.parse(slot.split('.').elementAt(1));
 	List<List> actions = [];
