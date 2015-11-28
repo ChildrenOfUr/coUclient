@@ -156,7 +156,6 @@ class Game {
 		Map<String, Player> players = new Map()
 			..addAll(otherPlayers)
 			..addAll(({game.username: CurrentPlayer}));
-		print(players);
 
 		players.forEach((String username, Player player) async {
 			Element parentE = player.playerParentElement;
