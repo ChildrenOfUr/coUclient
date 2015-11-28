@@ -91,7 +91,12 @@ class Game {
 		transmit("gameLoaded", loaded);
 		logmessage("Game loaded!");
 
+		// Update player letters every second
+		// (Don't worry, it checks to make sure the current street has letters
+		// before sending the request to the server, and adjusts accordingly)
 		new Timer.periodic(new Duration(seconds: 1), (_) => updatePlayerLetters());
+
+		// Tell the server when we have changed streets, and to assign us a new letter
 		new Service(["streetLoaded", "gameUnloading"], (_) {
 			if (currentStreet.useLetters) {
 				HttpRequest.getString("http://${Configs.utilServerAddress}/letters/newPlayerLetter?username=${game.username}");
@@ -148,9 +153,10 @@ class Game {
 	}
 
 	Future updatePlayerLetters() async {
-		Map players = {};
-		players.addAll(otherPlayers);
-		players.addAll(({game.username: CurrentPlayer}));
+		Map<String, Player> players = new Map()
+			..addAll(otherPlayers)
+			..addAll(({game.username: CurrentPlayer}));
+		print(players);
 
 		players.forEach((String username, Player player) async {
 			Element parentE = player.playerParentElement;
