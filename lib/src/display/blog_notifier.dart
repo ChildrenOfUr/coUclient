@@ -3,7 +3,7 @@ part of couclient;
 class BlogNotifier {
 	static const _LS_KEY = "cou_blog_post";
 	static const _RSS_URL = "http://childrenofur.com/feed/";
-	static const _ICON_URL = "http://childrenofur.com/assets/icon_72.png";
+	static const ICON_URL = "http://childrenofur.com/assets/icon_72.png";
 
 	static dynamic get _lastSaved {
 		if (localStorage[_LS_KEY] != null) {
@@ -21,7 +21,7 @@ class BlogNotifier {
 		new Notification(
 			"Children of Ur Blog",
 			body: "Click here to read the new post: \n$title",
-			icon: _ICON_URL
+			icon: ICON_URL
 		)..onClick.listen((_) {
 			window.open(link, "_blank");
 		});

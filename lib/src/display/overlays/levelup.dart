@@ -16,6 +16,21 @@ class LevelUpOverlay extends Overlay {
 			transmit("worldFocus", false);
 		});
 	}
+
+	close() {
+		metabolics.level.then((int lvl) {
+			if (lvl % 10 == 0) {
+				new Notification(
+					"Level Up!", icon: BlogNotifier.ICON_URL,
+					body: "You've unlocked new username color options! Click here to visit your profile page, then log in to check them out."
+				).onClick.listen((_) {
+					window.open("http://childrenofur.com/profile?username=${game.username}", "_blank");
+				});
+			}
+		});
+
+		super.close();
+	}
 }
 
 LevelUpOverlay levelUp;
