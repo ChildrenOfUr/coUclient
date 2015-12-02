@@ -3,7 +3,7 @@ part of couclient;
 class VolumeSliderWidget
 {
 	bool muted = false;
-	Element volumeGlyph = querySelector('#volumeGlyph');
+	Element volumeGlyph = querySelector('#volumeGlyph')..click()..click(); // HACK: toggling fixes mute issues
 	Element volumeIcon = querySelector('#volumeGlyph > i');
 
 	VolumeSliderWidget()
