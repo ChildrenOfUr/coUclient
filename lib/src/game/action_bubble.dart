@@ -7,7 +7,8 @@ class ActionBubble {
 	SpanElement fill = new SpanElement();
 
 	ActionBubble(String actionName, this.duration) {
-		String text = actionName;
+		// Only the first word, ignore anything after the first space
+		String text = actionName.split(" ")[0];
 
 		outline
 			..text = text
