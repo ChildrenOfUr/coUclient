@@ -103,12 +103,17 @@ class WorldMap {
 					..style.transform =
 				'rotate(' + streetPlacement['deg'].toString() + 'rad)';
 
-				street.onClick.listen((e) {
-					new Timer(new Duration(milliseconds: 100), () {
+				street
+                    ..onClick.listen((e) {
+                    new Timer(new Duration(milliseconds: 100), () {
 						createStreetMenu(e, street);
 					});
-				});
-				street.onContextMenu.listen((e) => createStreetMenu(e, street));
+				})
+				    ..onContextMenu.listen((e) {
+                    new Timer(new Duration(milliseconds: 100), () {
+						createStreetMenu(e, street);
+					});
+                });
 
 				if (object['tsid'].substring(1) == currentStreet.streetData['tsid'].substring(1)) {
 					// current street
