@@ -60,7 +60,7 @@ class VendorWindow extends Modal {
 		npcId = vendorMap['id'];
 		String windowTitle = vendorMap['vendorName'];
 		if(windowTitle.contains('Street Spirit:')) {
-			windowTitle = windowTitle.substring(15);
+			windowTitle = windowTitle.substring(15) + " Vendor";
 		}
 		header.innerHtml = '<i class="fa-li fa fa-shopping-cart"></i>' + windowTitle;
 		currants.text = " ${commaFormatter.format(metabolics.currants)} currants";
@@ -106,13 +106,17 @@ class VendorWindow extends Modal {
 		DivElement dropTarget = querySelector("#SellDropTarget");
 		Dropzone dropzone = new Dropzone(dropTarget, acceptor: new Acceptor.draggables([InvDragging._draggables]));
 		dropzone.onDrop.listen((DropzoneEvent dropEvent) {
+			// TODO: fix this only getting called the first time
+			// https://github.com/ChildrenOfUr/cou-issues/issues/279
+			// print("dropped item");
 			spawnBuyDetails(JSON.decode(dropEvent.draggableElement.attributes['itemMap']), vendorMap['id'], sellMode:true);
 		});
 
-		if(sellMode)
+		if(sellMode) {
 			this.displayElement.querySelector('#SellTab').click();
-		else
+		} else {
 			this.displayElement.querySelector('#BuyTab').click();
+		}
 		this.open();
 	}
 
@@ -166,24 +170,26 @@ class VendorWindow extends Modal {
 				int newNum = buyNum.valueAsNumber.toInt();
 				numToBuy = _updateNumToBuy(item, newNum, sellMode:sellMode);
 			}
-			catch(e) {
-			}
+			catch(e) {}
 		});
 
+		// Sell/Buy Button
 		StreamSubscription bb = buyButton.onClick.listen((_) {
 			int newValue;
 			Map actionMap = {"itemType": item['itemType'], "num": numToBuy};
 
 			if(sellMode) {
-				if(numToBuy > getNumItems(item['itemType']))
+				if(numToBuy > getNumItems(item['itemType'])) {
 					return;
+				}
 
 				newValue = metabolics.currants + (item['price'] * numToBuy * .7) ~/ 1;
 				sendAction("sellItem", vendorId, actionMap);
 			}
 			else {
-				if(metabolics.currants < item['price'] * numToBuy)
+				if(metabolics.currants < item['price'] * numToBuy) {
 					return;
+				}
 
 				newValue = metabolics.currants - item['price'] * numToBuy;
 				sendAction("buyItem", vendorId, actionMap);
@@ -263,10 +269,11 @@ class VendorWindow extends Modal {
 			bmax.cancel();
 
 			this.displayElement.querySelector('#buy-qty').hidden = true;
-			if(sellMode)
+			if(sellMode) {
 				sell.hidden = false;
-			else
+			} else {
 				buy.hidden = false;
+			}
 		});
 	}
 
@@ -274,18 +281,21 @@ class VendorWindow extends Modal {
 		if(newNum < 1) newNum = 1;
 		if(newNum >= 99) newNum = 99;
 
-		if(sellMode)
+		if(sellMode) {
 			newNum = min(newNum, getNumItems(item['itemType']));
+		}
 
 		buyNum.valueAsNumber = newNum;
 		int value = item['price'] * newNum;
-		if(sellMode)
+		if(sellMode) {
 			value = (value * .7) ~/ 1;
+		}
 
-		if(sellMode)
+		if(sellMode) {
 			buyButton.text = "Sell $newNum for $value\u20a1";
-		else
+		} else {
 			buyButton.text = "Buy $newNum for $value\u20a1";
+		}
 
 		return buyNum.valueAsNumber.toInt();
 	}
