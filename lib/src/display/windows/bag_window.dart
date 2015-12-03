@@ -140,45 +140,45 @@ class BagWindow extends Modal {
 	}
 
 	Future _sizeItem(Element slot, Element item, ItemDef i, int count, int bagSlotIndex) async {
-		ImageElement img = new ImageElement(src: i.spriteUrl);
-		await img.onLoad;
+		ImageElement img;
+		img = new ImageElement(src: i.spriteUrl)..onLoad.listen((_) {
+			num scale = 1;
+			if (img.height > img.width / i.iconNum) {
+				scale = (slot.contentEdge.height - 10) / img.height;
+			} else {
+				scale = (slot.contentEdge.width - 10) / (img.width / i.iconNum);
+			}
 
-		num scale = 1;
-		if (img.height > img.width / i.iconNum) {
-			scale = (slot.contentEdge.height - 10) / img.height;
-		} else {
-			scale = (slot.contentEdge.width - 10) / (img.width / i.iconNum);
-		}
+			item
+				..classes.addAll(["item-${i.itemType}", "inventoryItem", "bagInventoryItem"])
+				..attributes["name"] = i.name
+				..attributes["count"] = count.toString()
+				..attributes["itemmap"] = encode(i)
+				..style.width = (slot.contentEdge.width - 10).toString() + "px"
+				..style.height = (slot.contentEdge.height - 10).toString() + "px"
+				..style.backgroundImage = 'url(${i.spriteUrl})'
+				..style.backgroundRepeat = 'no-repeat'
+				..style.backgroundSize = "${img.width * scale}px ${img.height * scale}px"
+				..style.margin = "auto";
 
-		item
-			..classes.addAll(["item-${i.itemType}", "inventoryItem", "bagInventoryItem"])
-			..attributes["name"] = i.name
-			..attributes["count"] = count.toString()
-			..attributes["itemmap"] = encode(i)
-			..style.width = (slot.contentEdge.width - 10).toString() + "px"
-			..style.height = (slot.contentEdge.height - 10).toString() + "px"
-			..style.backgroundImage = 'url(${i.spriteUrl})'
-			..style.backgroundRepeat = 'no-repeat'
-			..style.backgroundSize = "${img.width * scale}px ${img.height * scale}px"
-			..style.margin = "auto";
+			int offset = count;
+			if (i.iconNum != null && i.iconNum < count) {
+				offset = i.iconNum;
+			}
 
-		int offset = count;
-		if (i.iconNum != null && i.iconNum < count) {
-			offset = i.iconNum;
-		}
+			item.style.backgroundPosition = "calc(100% / ${i.iconNum - 1} * ${offset - 1}";
 
-		item.style.backgroundPosition = "calc(100% / ${i.iconNum - 1} * ${offset - 1}";
-
-		String slotString = '$sourceSlotNum.$bagSlotIndex';
-		item.onContextMenu.listen((MouseEvent event) => itemContextMenu(i,slotString,event));
-		if (count > 1) {
-			SpanElement itemCount = new SpanElement()
-				..text = count.toString()
-				..className = "itemCount";
-			item.parent.append(itemCount);
-		} else if (item.parent.querySelector(".itemCount") != null) {
-			item.parent.querySelector(".itemCount").text = "";
-		}
+			String slotString = '$sourceSlotNum.$bagSlotIndex';
+			item.onContextMenu.listen((MouseEvent event) => itemContextMenu(i,slotString,event));
+			if (count > 1) {
+				SpanElement itemCount = new SpanElement()
+					..text = count.toString()
+					..className = "itemCount";
+				item.parent.append(itemCount);
+			} else if (item.parent.querySelector(".itemCount") != null) {
+				item.parent.querySelector(".itemCount").text = "";
+			}
+		});
 	}
 
 	@override
