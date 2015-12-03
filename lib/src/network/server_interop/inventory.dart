@@ -33,14 +33,6 @@ Future updateInventory([Map map]) async {
 	} else {
 		print("Attempted inventory update: failed.");
 		return;
-
-		// TODO: get this to work
-//		String serverData = await HttpRequest.getString(
-//			"http://${Configs.utilServerAddress}/getInventory/${game.email}"
-//		);
-//
-//		Map inventoryEntry = JSON.decode(serverData);
-//		dataSlots = JSON.decode(inventoryEntry["inventory_json"]);
 	}
 
 	List<Slot> currentSlots = playerInventory.slots;

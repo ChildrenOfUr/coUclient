@@ -5,7 +5,7 @@ part of couclient;
 itemContextMenu(ItemDef i, String slot, MouseEvent event) {
 	event.preventDefault();
 	event.stopPropagation();
-	
+
 	int barSlot = int.parse(slot.split('.').elementAt(0));
 	int bagSlot = int.parse(slot.split('.').elementAt(1));
 	List<List> actions = [];
@@ -42,85 +42,86 @@ itemContextMenu(ItemDef i, String slot, MouseEvent event) {
 findNewSlot(Slot slot, int index, {bool update: false}) async {
 	ItemDef item = slot.item;
 	int count = slot.count;
-	ImageElement img = new ImageElement(src: item.spriteUrl);
-	await img.onLoad;
-	Element barSlot = view.inventory.children.elementAt(index);
-	barSlot.children.clear();
-	String cssName = item.itemType.replaceAll(" ", "_");
-	Element itemDiv = new DivElement();
+	ImageElement img;
+	img = new ImageElement(src: item.spriteUrl)..onLoad.listen((_) {
+		Element barSlot = view.inventory.children.elementAt(index);
+		barSlot.children.clear();
+		String cssName = item.itemType.replaceAll(" ", "_");
+		Element itemDiv = new DivElement();
 
-	//determine what we need to scale the sprite image to in order to fit
-	num scale = 1;
-	if (img.height > img.width / item.iconNum) {
-		scale = (barSlot.contentEdge.height - 10) / img.height;
-	} else {
-		scale = (barSlot.contentEdge.width - 10) / (img.width / item.iconNum);
-	}
+		//determine what we need to scale the sprite image to in order to fit
+		num scale = 1;
+		if (img.height > img.width / item.iconNum) {
+			scale = (barSlot.contentEdge.height - 10) / img.height;
+		} else {
+			scale = (barSlot.contentEdge.width - 10) / (img.width / item.iconNum);
+		}
 
-	itemDiv.style.width = (barSlot.contentEdge.width - 10).toString() + "px";
-	itemDiv.style.height = (barSlot.contentEdge.height - 10).toString() + "px";
-	itemDiv.style.backgroundImage = 'url(${item.spriteUrl})';
-	itemDiv.style.backgroundRepeat = 'no-repeat';
-	itemDiv.style.backgroundSize = "${img.width * scale}px ${img.height * scale}px";
-	itemDiv.style.backgroundPosition = "0 50%";
-	itemDiv.style.margin = "auto";
-	itemDiv.className = 'item-$cssName inventoryItem';
+		itemDiv.style.width = (barSlot.contentEdge.width - 10).toString() + "px";
+		itemDiv.style.height = (barSlot.contentEdge.height - 10).toString() + "px";
+		itemDiv.style.backgroundImage = 'url(${item.spriteUrl})';
+		itemDiv.style.backgroundRepeat = 'no-repeat';
+		itemDiv.style.backgroundSize = "${img.width * scale}px ${img.height * scale}px";
+		itemDiv.style.backgroundPosition = "0 50%";
+		itemDiv.style.margin = "auto";
+		itemDiv.className = 'item-$cssName inventoryItem';
 
-	itemDiv.attributes['name'] = item.name.replaceAll(' ', '');
-	itemDiv.attributes['count'] = "1";
-	itemDiv.attributes['itemMap'] = encode(item);
+		itemDiv.attributes['name'] = item.name.replaceAll(' ', '');
+		itemDiv.attributes['count'] = "1";
+		itemDiv.attributes['itemMap'] = encode(item);
 
-	String slotNum = '${barSlot.dataset["slot-num"]}.-1';
-	itemDiv.onContextMenu.listen((MouseEvent event) => itemContextMenu(item, slotNum, event));
-	barSlot.append(itemDiv);
+		String slotNum = '${barSlot.dataset["slot-num"]}.-1';
+		itemDiv.onContextMenu.listen((MouseEvent event) => itemContextMenu(item, slotNum, event));
+		barSlot.append(itemDiv);
 
-	SpanElement itemCount = new SpanElement()
-		..text = count.toString()
-		..className = "itemCount";
-	barSlot.append(itemCount);
-	if (count <= 1) {
-		itemCount.text = "";
-	}
+		SpanElement itemCount = new SpanElement()
+			..text = count.toString()
+			..className = "itemCount";
+		barSlot.append(itemCount);
+		if (count <= 1) {
+			itemCount.text = "";
+		}
 
-	int offset = count;
-	if (item.iconNum != null && item.iconNum < count) {
-		offset = item.iconNum;
-	}
-	itemDiv.style.backgroundPosition = "calc(100% / ${item.iconNum - 1} * ${offset - 1})";
+		int offset = count;
+		if (item.iconNum != null && item.iconNum < count) {
+			offset = item.iconNum;
+		}
+		itemDiv.style.backgroundPosition = "calc(100% / ${item.iconNum - 1} * ${offset - 1})";
 
-	if (!update) {
-		itemDiv.classes.add("bounce");
-		//	remove the bounce class so that it's not still there for a drag and drop event
-		new Timer(new Duration(seconds: 1), () {
-			itemDiv.classes.remove("bounce");
-		});
-	}
+		if (!update) {
+			itemDiv.classes.add("bounce");
+			//	remove the bounce class so that it's not still there for a drag and drop event
+			new Timer(new Duration(seconds: 1), () {
+				itemDiv.classes.remove("bounce");
+			});
+		}
 
-	// Containers
-	DivElement containerButton;
-	String bagWindowId;
-	if (item.isContainer == true) {
-		containerButton = new DivElement()
-			..classes.addAll(["fa", "fa-fw", "fa-plus", "item-container-toggle", "item-container-closed"])
-			..onClick.listen((_) {
-			if (containerButton.classes.contains("item-container-closed")) {
-				// Container is closed, open it
-				// Open the bag window
-				bagWindowId = new BagWindow(int.parse(itemDiv.parent.dataset["slot-num"]), item).id;
-				// Update the slot display
-				BagWindow.updateTriggerBtn(false, itemDiv);
-			} else {
-				// Container is open, close it
-				// Close the bag window
-				BagWindow.closeId(bagWindowId);
-				// Update the slot display
-				BagWindow.updateTriggerBtn(true, itemDiv);
-			}
-		});
-		itemDiv.parent.append(containerButton);
-	}
+		// Containers
+		DivElement containerButton;
+		String bagWindowId;
+		if (item.isContainer == true) {
+			containerButton = new DivElement()
+				..classes.addAll(["fa", "fa-fw", "fa-plus", "item-container-toggle", "item-container-closed"])
+				..onClick.listen((_) {
+				if (containerButton.classes.contains("item-container-closed")) {
+					// Container is closed, open it
+					// Open the bag window
+					bagWindowId = new BagWindow(int.parse(itemDiv.parent.dataset["slot-num"]), item).id;
+					// Update the slot display
+					BagWindow.updateTriggerBtn(false, itemDiv);
+				} else {
+					// Container is open, close it
+					// Close the bag window
+					BagWindow.closeId(bagWindowId);
+					// Update the slot display
+					BagWindow.updateTriggerBtn(true, itemDiv);
+				}
+			});
+			itemDiv.parent.append(containerButton);
+		}
 
-	transmit('inventoryUpdated');
+		transmit('inventoryUpdated');
+	});
 }
 
 //void putInInventory(ImageElement img, ItemDef i, int index, {bool update: false}) {
