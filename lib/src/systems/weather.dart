@@ -193,6 +193,12 @@ class WeatherManager {
 		if(createState == WeatherState.RAINING && !mapData.snowyWeather()) {
 			// Rain
 
+			if (_intensity == WeatherIntensity.LIGHT) {
+				_raindrops.classes.add("light");
+			} else {
+				_raindrops.classes.remove("light");
+			}
+
 			// Sound effect
 			_playRainSound();
 

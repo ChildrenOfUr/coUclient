@@ -76,6 +76,10 @@
     animation: weatherFall 1.5s linear infinite;
 }
 
+#weather-raindrops.light {
+    background-image: url(../../../files/system/raindrop_scatter_light.svg);
+}
+
 /* Snow */
 
 .snowy {
