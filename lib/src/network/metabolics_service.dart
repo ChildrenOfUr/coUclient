@@ -38,6 +38,7 @@ class MetabolicsService {
 				playerMetabolics = decode(event.data, type:Metabolics);
 				if (!load.isCompleted) {
 					load.complete();
+					transmit("metabolicsLoaded", playerMetabolics);
 				}
 				int newImg = lifetime_img;
 				int newLvl;

@@ -62,10 +62,6 @@ class WorldMap {
     moteInfo = map.data_maps_streets['9']();
 
 	// check visited streets with server
-	HttpRequest.getString(
-		"http://${Configs.utilServerAddress}/getLocationHistory/${game.email}"
-	).then((String value) {
-		List<String> locationHistory = JSON.decode(value);
 
 		// prepare ui elements
 		view.mapTitle.text = hubInfo['name'];
@@ -201,7 +197,7 @@ class WorldMap {
 						if (tsid.startsWith("L")) {
 							tsid = tsid.replaceFirst("L", "G");
 						}
-						if (locationHistory.contains(tsid)) {
+						if (metabolics.playerMetabolics.location_history.contains(tsid)) {
 							street.classes.add("visited");
 						}
 					} catch (e) {
@@ -253,7 +249,6 @@ class WorldMap {
 		HubMabDiv.hidden = false;
 		//HubMapFG.hidden = false;
 		WorldMapDiv.hidden = true;
-	});
   }
 
   getStreetAngle(Map street) {

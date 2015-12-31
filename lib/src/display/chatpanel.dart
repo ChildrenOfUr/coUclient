@@ -73,9 +73,9 @@ class Chat {
       openConversations.insert(0, this);
 
       if (title == "Local Chat") {
-        new Service(["gameLoaded", "streetLoaded"], (_) {
+        new Service(["gameLoaded", "streetLoaded"], (_) async {
           // Streets loaded, display a divider
-          this.addMessage("invalid_user", "LocationChangeEvent");
+          await this.addMessage("invalid_user", "LocationChangeEvent");
           // If this is the first one, empty the toast buffer into the chat
           if (chatToastBuffer.length > 0) {
             chatToastBuffer.forEach((String message) => this.addAlert(message, toast: true));
@@ -185,10 +185,10 @@ class Chat {
     }
   }
 
-  void addMessage(String player, String message) {
+  Future addMessage(String player, String message) async {
     ChatMessage chat = new ChatMessage(player, message);
     Element dialog = conversationElement.querySelector('.dialog');
-    chat.toHtml().then((String html) {
+    String html = await chat.toHtml();
       // display in panel
       dialog.appendHtml(html, validator: Chat.validator);
 
@@ -233,7 +233,6 @@ class Chat {
           mapWindow.open();
         });
       }
-    });
   }
 
   void addAlert(String alert, {bool toast: false}) {
