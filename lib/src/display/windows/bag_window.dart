@@ -2,230 +2,240 @@ part of couclient;
 
 class BagWindow extends Modal {
 
-	static List<BagWindow> openWindows = [];
+    static List<BagWindow> openWindows = [];
 
-	static closeId(String id) {
-		openWindows.where((BagWindow w) => w.id == id).first.close();
-		openWindows.removeWhere((BagWindow w) => w.id == id);
-	}
+    static closeId(String id) {
+        openWindows
+            .where((BagWindow w) => w.id == id)
+            .first
+            .close();
+        openWindows.removeWhere((BagWindow w) => w.id == id);
+    }
 
-	static bool get isOpen {
-		return (querySelectorAll("#windowHolder > .bagWindow").length > 0);
-	}
+    static bool get isOpen {
+        return (querySelectorAll("#windowHolder > .bagWindow").length > 0);
+    }
 
-	String id = 'bagWindow' + WindowManager.randomId.toString();
-	String bagId;
-	int numSlots;
-	int sourceSlotNum;
-	Dropzone acceptors;
+    String id = 'bagWindow' + WindowManager.randomId.toString();
+    String bagId;
+    int numSlots;
+    int sourceSlotNum;
 
-	BagWindow(this.sourceSlotNum, ItemDef sourceItem) {
-		load(sourceItem).then((DivElement windowElement) {
-			// Handle drag and drop
-			new Service(["inventoryUpdated"], (_) async {
-				if (acceptors != null) {
-					acceptors.destroy();
-				}
-				acceptors = new Dropzone(
-					windowElement.querySelectorAll(".bagwindow-box"),
-					acceptor: new BagFilterAcceptor(sourceItem.subSlotFilter)
-					)
-					..onDrop.listen((DropzoneEvent e) => InvDragging.handleDrop(e));
-			});
-			new Service(['updateMetadata'], (sourceItem) async {
-				windowElement.querySelector("ur-well").replaceWith(await load(sourceItem, false));
-				transmit('inventoryUpdated',true);
-			});
+    Dropzone acceptors;
 
-			querySelector("#windowHolder").append(windowElement);
-			prepare();
-			open();
-		});
-	}
+    BagWindow(this.sourceSlotNum, ItemDef sourceItem) {
+        load(sourceItem).then((DivElement windowElement) {
+            // Handle drag and drop
+            new Service(["inventoryUpdated", 'metadataUpdated'], (_) {
+                if (acceptors != null) {
+                    acceptors.destroy();
+                }
+                acceptors = new Dropzone(
+                    windowElement.querySelectorAll(".bagwindow-box"),
+                    acceptor: new BagFilterAcceptor(sourceItem.subSlotFilter)
+                    )
+                    ..onDrop.listen((DropzoneEvent e) => InvDragging.handleDrop(e));
 
-	Future<Element> load(ItemDef sourceItem, [bool full = true]) async {
+                windowElement.querySelectorAll('.box').forEach((Element e) {
+                    new Draggable(e.children[0], avatarHandler: new CustomAvatarHandler(),
+                                      draggingClass: 'item-flying')
+                        ..onDragStart.listen((DraggableEvent e) => InvDragging.handlePickup(e));
+                });
+            });
 
-		// Header
+            new Service(['updateMetadata'], (sourceItem) async {
+                Element newWell = await load(sourceItem, false);
+                windowElement.querySelector("ur-well").replaceWith(newWell);
+                print('replaced with new well');
+                transmit('metadataUpdated', true);
+            });
 
-		Element closeButton, icon, header;
-		SpanElement titleSpan;
+            querySelector("#windowHolder").append(windowElement);
+            prepare();
+            open();
+        });
+    }
 
-		if (full) {
-			closeButton = new Element.tag("i")
-				..classes.add("fa-li")
-				..classes.add("fa")
-				..classes.add("fa-times")
-				..classes.add("close");
+    Future<Element> load(ItemDef sourceItem, [bool full = true]) async {
+        // Header
 
-			icon = new ImageElement()
-				..classes.add("fa-li")
-				..src = "files/system/icons/bag.svg";
+        Element closeButton, icon, header;
+        SpanElement titleSpan;
 
-			titleSpan = new SpanElement()
-				..classes.add("iw-title")
-				..text = sourceItem.name;
+        if (full) {
+            closeButton = new Element.tag("i")
+                ..classes.add("fa-li")
+                ..classes.add("fa")
+                ..classes.add("fa-times")
+                ..classes.add("close");
 
-			if (sourceItem.name.length >= 24) {
-				titleSpan.style.fontSize = "24px";
-			}
+            icon = new ImageElement()
+                ..classes.add("fa-li")
+                ..src = "files/system/icons/bag.svg";
 
-			header = new Element.header()
-				..append(icon)
-				..append(titleSpan);
-		}
+            titleSpan = new SpanElement()
+                ..classes.add("iw-title")
+                ..text = sourceItem.name;
 
-		// Content
+            if (sourceItem.name.length >= 24) {
+                titleSpan.style.fontSize = "24px";
+            }
 
-		Element well = new Element.tag("ur-well");
+            header = new Element.header()
+                ..append(icon)..append(titleSpan);
+        }
 
-		int numSlots = sourceItem.subSlots;
-		List<Map> subSlots;
+        // Content
 
-		if (sourceItem.metadata["slots"] == null) {
-			// Empty bag
-			subSlots = [];
-			while (subSlots.length < numSlots) {
-				subSlots.add(({
-					"itemType": "",
-					"count": 0,
-					"metadata": {}
-				}));
-			}
-		} else {
-			// Bag has contents
-			subSlots = sourceItem.metadata["slots"];
-		}
+        Element well = new Element.tag("ur-well");
 
-		if (subSlots.length != sourceItem.subSlots) {
-			throw new StateError("Number of slots in bag does not match bag size");
-		} else {
-			int slotNum = 0;
-			await Future.forEach(subSlots, (Map bagSlot) async {
-				DivElement slot = new DivElement();
-				// Slot
-				slot
-					..classes.addAll(["box", "bagwindow-box"])
-					..dataset["slot-num"] = slotNum.toString();
-				well.append(slot);
-				document.body.append(well); //for measuring
-				// Item
-				DivElement itemInSlot = new DivElement();
-				slot.append(itemInSlot);
-				if (!bagSlot["itemType"].isEmpty) {
-					ItemDef item = decode(JSON.encode(bagSlot['item']),type:ItemDef);
-					await _sizeItem(slot,itemInSlot,item,bagSlot['count'],slotNum);
-				}
-				well.remove();
+        int numSlots = sourceItem.subSlots;
+        List<Map> subSlots;
 
-				slotNum++;
-			});
-		}
+        if (sourceItem.metadata["slots"] == null) {
+            // Empty bag
+            subSlots = [];
+            while (subSlots.length < numSlots) {
+                subSlots.add(({
+                    "itemType": "",
+                    "count": 0,
+                    "metadata": {}
+                }));
+            }
+        } else {
+            // Bag has contents
+            subSlots = sourceItem.metadata["slots"];
+        }
 
-		// Window
+        if (subSlots.length != sourceItem.subSlots) {
+            throw new StateError("Number of slots in bag does not match bag size");
+        } else {
+            int slotNum = 0;
+            await Future.forEach(subSlots, (Map bagSlot) async {
+                DivElement slot = new DivElement();
+                // Slot
+                slot
+                    ..classes.addAll(["box", "bagwindow-box"])
+                    ..dataset["slot-num"] = slotNum.toString();
+                well.append(slot);
+                document.body.append(well); //for measuring
+                // Item
+                DivElement itemInSlot = new DivElement();
+                slot.append(itemInSlot);
+                if (!bagSlot["itemType"].isEmpty) {
+                    ItemDef item = decode(JSON.encode(bagSlot['item']), type: ItemDef);
+                    await _sizeItem(slot, itemInSlot, item, bagSlot['count'], slotNum);
+                }
+                well.remove();
 
-		if (full) {
-			DivElement window = new DivElement()
-				..id = id
-				..classes.add("window")
-				..classes.add("bagWindow")
-				..append(header)
-				..append(closeButton)
-				..append(well)
-				..dataset["source-bag"] = sourceSlotNum.toString();
+                slotNum++;
+            });
+        }
 
-			return window;
-		} else {
-			return well;
-		}
-	}
+        // Window
 
-	Future _sizeItem(Element slot, Element item, ItemDef i, int count, int bagSlotIndex) async {
-		ImageElement img;
-		img = new ImageElement(src: i.spriteUrl)..onLoad.listen((_) {
-			num scale = 1;
-			if (img.height > img.width / i.iconNum) {
-				scale = (slot.contentEdge.height - 10) / img.height;
-			} else {
-				scale = (slot.contentEdge.width - 10) / (img.width / i.iconNum);
-			}
+        if (full) {
+            DivElement window = new DivElement()
+                ..id = id
+                ..classes.add("window")
+                ..classes.add("bagWindow")
+                ..append(header)..append(closeButton)..append(well)
+                ..dataset["source-bag"] = sourceSlotNum.toString();
 
-			item
-				..classes.addAll(["item-${i.itemType}", "inventoryItem", "bagInventoryItem"])
-				..attributes["name"] = i.name
-				..attributes["count"] = count.toString()
-				..attributes["itemmap"] = encode(i)
-				..style.width = (slot.contentEdge.width - 10).toString() + "px"
-				..style.height = (slot.contentEdge.height - 10).toString() + "px"
-				..style.backgroundImage = 'url(${i.spriteUrl})'
-				..style.backgroundRepeat = 'no-repeat'
-				..style.backgroundSize = "${img.width * scale}px ${img.height * scale}px"
-				..style.margin = "auto";
+            return window;
+        } else {
+            return well;
+        }
+    }
 
-			int offset = count;
-			if (i.iconNum != null && i.iconNum < count) {
-				offset = i.iconNum;
-			}
+    Future _sizeItem(Element slot, Element item, ItemDef i, int count, int bagSlotIndex) async {
+        ImageElement img;
+        img = new ImageElement(src: i.spriteUrl)
+            ..onLoad.listen((_) {
+                num scale = 1;
+                if (img.height > img.width / i.iconNum) {
+                    scale = (slot.contentEdge.height - 10) / img.height;
+                } else {
+                    scale = (slot.contentEdge.width - 10) / (img.width / i.iconNum);
+                }
 
-			item.style.backgroundPosition = "calc(100% / ${i.iconNum - 1} * ${offset - 1}";
+                item
+                    ..classes.addAll(["item-${i.itemType}", "inventoryItem", "bagInventoryItem"])
+                    ..attributes["name"] = i.name
+                    ..attributes["count"] = count.toString()
+                    ..attributes["itemmap"] = encode(i)
+                    ..style.width = (slot.contentEdge.width - 10).toString() + "px"
+                    ..style.height = (slot.contentEdge.height - 10).toString() + "px"
+                    ..style.backgroundImage = 'url(${i.spriteUrl})'
+                    ..style.backgroundRepeat = 'no-repeat'
+                    ..style.backgroundSize = "${img.width * scale}px ${img.height * scale}px"
+                    ..style.margin = "auto";
 
-			String slotString = '$sourceSlotNum.$bagSlotIndex';
-			item.onContextMenu.listen((MouseEvent event) => itemContextMenu(i,slotString,event));
-			if (count > 1) {
-				SpanElement itemCount = new SpanElement()
-					..text = count.toString()
-					..className = "itemCount";
-				item.parent.append(itemCount);
-			} else if (item.parent.querySelector(".itemCount") != null) {
-				item.parent.querySelector(".itemCount").text = "";
-			}
-		});
-	}
+                int offset = count;
+                if (i.iconNum != null && i.iconNum < count) {
+                    offset = i.iconNum;
+                }
 
-	@override
-	open() {
-		super.open();
-		openWindows.add(this);
+                item.style.backgroundPosition = "calc(100% / ${i.iconNum - 1} * ${offset - 1}";
 
-		transmit('inventoryUpdated',true);
-	}
+                String slotString = '$sourceSlotNum.$bagSlotIndex';
+                item.onContextMenu.listen((MouseEvent event) => itemContextMenu(i, slotString, event));
+                if (count > 1) {
+                    SpanElement itemCount = new SpanElement()
+                        ..text = count.toString()
+                        ..className = "itemCount";
+                    item.parent.append(itemCount);
+                } else if (item.parent.querySelector(".itemCount") != null) {
+                    item.parent
+                        .querySelector(".itemCount")
+                        .text = "";
+                }
+            });
+    }
 
-	@override
-	close() {
-		super.close();
+    @override
+    open() {
+        super.open();
+        openWindows.add(this);
 
-		// Delete the window
-		Element window = querySelector("#$id");
-		if (window != null) {
-			window.remove();
-		}
+        transmit('inventoryUpdated', true);
+    }
 
-		// Update the source inventory icon
-		Element sourceBox = view.inventory.children.where((Element box) => box.dataset["slot-num"] == sourceSlotNum.toString()).first;
-		sourceBox.querySelector(".item-container-toggle").click();
+    @override
+    close() {
+        super.close();
 
-		transmit('inventoryUpdated',true);
-	}
+        // Delete the window
+        Element window = querySelector("#$id");
+        if (window != null) {
+            window.remove();
+        }
 
-	// Update the inventory icons (used by the inventory)
+        // Update the source inventory icon
+        Element sourceBox = view.inventory.children
+            .where((Element box) => box.dataset["slot-num"] == sourceSlotNum.toString())
+            .first;
+        sourceBox.querySelector(".item-container-toggle").click();
 
-	static updateTriggerBtn(bool open, Element item) {
-		Element btn = item.parent.querySelector(".item-container-toggle");
-		if (!open) {
-			// Closed, opening the bag
-			btn.classes
-				..remove("item-container-closed")
-				..remove("fa-plus")
-				..add("item-container-open")
-				..add("fa-times");
-			item.classes.add("inv-item-disabled");
-		} else {
-			// Opened, closing the bag
-			btn.classes
-				..remove("item-container-open")
-				..remove("fa-times")
-				..add("item-container-closed")
-				..add("fa-plus");
-			item.classes.remove("inv-item-disabled");
-		}
-	}
+        transmit('inventoryUpdated', true);
+    }
+
+    // Update the inventory icons (used by the inventory)
+
+    static updateTriggerBtn(bool open, Element item) {
+        Element btn = item.parent.querySelector(".item-container-toggle");
+        if (!open) {
+            // Closed, opening the bag
+            btn.classes
+                ..remove("item-container-closed")..remove("fa-plus")
+                ..add("item-container-open")..add("fa-times");
+            item.classes.add("inv-item-disabled");
+        } else {
+            // Opened, closing the bag
+            btn.classes
+                ..remove("item-container-open")..remove("fa-times")
+                ..add("item-container-closed")..add("fa-plus");
+            item.classes.remove("inv-item-disabled");
+        }
+    }
 }
