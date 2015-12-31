@@ -22,6 +22,11 @@
     -moz-transition-property: opacity;
     -moz-transition-duration: 0.3s;
     -moz-transition-timing-function: ease-in-out;
+    /* Sky */
+    background: #79fcfa;
+    background: -moz-radial-gradient(center, circle cover, #79fcfa 0%, #e8ffff 95%);
+    background: -webkit-radial-gradient(center, circle cover, #79fcfa 0%,#e8ffff 95%);
+    background: radial-gradient(circle at center, #79fcfa 0%,#e8ffff 95%);
 }
 
 #spinny-ur {
