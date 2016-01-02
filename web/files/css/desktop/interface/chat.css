@@ -383,3 +383,7 @@ i.emoticon {
     background-position: center center;
     cursor: pointer;
 }
+
+.chat-member-change-event .location-chat-link::before {
+    display: none;
+}
