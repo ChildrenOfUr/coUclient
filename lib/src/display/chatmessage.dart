@@ -82,7 +82,7 @@ class ChatMessage {
       }
     } else if (message == "LocationChangeEvent" && player == "invalid_user") {
       // Switching streets message
-      void setLceHtml() {
+      void setLocationChangeEventHtml() {
           String prefix = (metabolics.playerMetabolics.location_history.contains(currentStreet.tsid_g) ? "Back" : "First time");
           html =
             '<p class="chat-member-change-event">'
@@ -92,9 +92,9 @@ class ChatMessage {
 
       if (!metabolics.load.isCompleted) {
           await metabolics.load.future;
-          setLceHtml();
+          setLocationChangeEventHtml();
       } else {
-          setLceHtml();
+          setLocationChangeEventHtml();
       }
     } else {
       // Normal message

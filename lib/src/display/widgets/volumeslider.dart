@@ -3,8 +3,9 @@ part of couclient;
 class VolumeSliderWidget
 {
 	bool muted = false;
-	Element volumeGlyph = querySelector('#volumeGlyph')..click()..click(); // HACK: toggling fixes mute issues
+	Element volumeGlyph = querySelector('#volumeGlyph');
 	Element volumeIcon = querySelector('#volumeGlyph > i');
+	bool doToasts = false;
 
 	VolumeSliderWidget()
 	{
@@ -22,10 +23,14 @@ class VolumeSliderWidget
 		{
 			if(muted == true) {
 				muted = false;
-				toast("Sound unmuted");
+				if (doToasts) {
+					toast("Sound unmuted");
+				}
 			} else {
 				muted = true;
-				toast("Sound muted");
+				if (doToasts) {
+					toast("Sound muted");
+				}
 			}
 
 			update();

@@ -32,21 +32,13 @@ class MetabolicsService {
 			Map map = JSON.decode(event.data);
 			if (map['collectQuoin'] != null && map['collectQuoin'] == "true") {
 				collectQuoin(map);
+			} else if (map["levelUp"] != null) {
+				levelUp.open(map["levelUp"]);
 			} else {
-				int oldImg = lifetime_img;
-				int oldLevel = await level;
 				playerMetabolics = decode(event.data, type:Metabolics);
 				if (!load.isCompleted) {
 					load.complete();
 					transmit("metabolicsLoaded", playerMetabolics);
-				}
-				int newImg = lifetime_img;
-				int newLvl;
-				if (newImg > oldImg) {
-					newLvl = await level;
-					if (oldLevel > newLvl - 2 && newLvl > oldLevel && webSocketMessages > 0) {
-						levelUp.open();
-					}
 				}
 				transmit('metabolicsUpdated', playerMetabolics);
 			}
@@ -153,7 +145,7 @@ class MetabolicsService {
 	List<String> get location_history => JSON.decode(playerMetabolics.location_history);
 
 	Future<int> get level async {
-		String lvlStr = await HttpRequest.getString("http://${Configs.utilServerAddress}/getLevel?img=${img.toString()}");
+		String lvlStr = await HttpRequest.getString("http://${Configs.utilServerAddress}/getLevel?img=${lifetime_img.toString()}");
 		return int.parse(lvlStr);
 	}
 

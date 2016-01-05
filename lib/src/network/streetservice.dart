@@ -104,7 +104,7 @@ class StreetService {
 		await street.load();
 		logmessage('[StreetService] Street assembled.');
 
-		// notify minimap to update
+		// notify displays to update
 		transmit('streetLoaded', streetAsMap);
 	}
 }

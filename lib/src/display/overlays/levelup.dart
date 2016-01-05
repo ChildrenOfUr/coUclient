@@ -6,15 +6,23 @@ class LevelUpOverlay extends Overlay {
 		dropper = querySelector("#lu-dropper");
 	}
 
-	open() {
-		metabolics.level.then((int lvl) {
-			dropper.text = lvl.toString();
+	open([int newLevel]) {
+		void display(int level) {
+			dropper.text = level.toString();
 			displayElement.hidden = false;
 			audio.playSound('levelUp');
 			inputManager.ignoreKeys = true;
 			displayElement.querySelector("#lu-button").onClick.first.then((_) => close());
 			transmit("worldFocus", false);
-		});
+		}
+
+		if (newLevel == null) {
+			metabolics.level.then((int level) {
+				display(level);
+			});
+		} else {
+			display(newLevel);
+		}
 	}
 
 	close() {
