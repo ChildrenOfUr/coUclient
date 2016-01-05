@@ -45,6 +45,9 @@ _setupPlayerSocket() {
 		}
 
 		if (map['username'] == game.username) {
+			if (map["letter"] != null) {
+				attachPlayerLetter(map["letter"], CurrentPlayer);
+			}
 			return;
 		}
 
@@ -168,6 +171,8 @@ updateOtherPlayer(Map map, Player otherPlayer) {
 		facingRight = true;
 	}
 	otherPlayer.facingRight = facingRight;
+
+	attachPlayerLetter(map["letter"], otherPlayer);
 }
 
 void removeOtherPlayer(String username) {
@@ -177,4 +182,24 @@ void removeOtherPlayer(String username) {
 	Element otherPlayer =
 	querySelector("#player-" + sanitizeName(username.replaceAll(' ', '_')));
 	if (otherPlayer != null) otherPlayer.remove();
+}
+
+void attachPlayerLetter(String letter, Player player) {
+	if (letter == null || player == null) {
+		return;
+	}
+
+	// Letters
+	if (currentStreet.useLetters) {
+		// Add
+		DivElement letterDisplay = new DivElement()
+			..classes.addAll(["letter", "letter-$letter"]);
+
+		player.playerParentElement
+			..children.removeWhere((Element e) => e.classes.contains("letter"))
+			..append(letterDisplay);
+	} else {
+		// Remove
+		player.playerParentElement.children.removeWhere((Element e) => e.classes.contains("letter"));
+	}
 }

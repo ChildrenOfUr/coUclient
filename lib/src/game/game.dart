@@ -70,6 +70,12 @@ class Game {
 		CurrentPlayer.currentAnimation = CurrentPlayer.animations['idle'];
 		transmit('playerLoaded', null);
 
+		// HACK: toggling fixes mute issues
+		view.slider
+		    ..volumeGlyph.click()
+			..volumeGlyph.click()
+			..doToasts = true;
+
 		//stop loading sounds and load the street's song
 		if(audio.loadingSound != null) {
 			audio.loadingSound.stop();
@@ -90,11 +96,6 @@ class Game {
 		loaded = true;
 		transmit("gameLoaded", loaded);
 		logmessage("Game loaded!");
-
-		// Update player letters every second
-		// (Don't worry, it checks to make sure the current street has letters
-		// before sending the request to the server, and adjusts accordingly)
-		new Timer.periodic(new Duration(seconds: 1), (_) => updatePlayerLetters());
 
 		// Tell the server when we have changed streets, and to assign us a new letter
 		new Service(["streetLoaded", "gameUnloading"], (_) {
@@ -150,33 +151,5 @@ class Game {
 		window.animationFrame.then(loop);
 
 		//previousTag.makeCurrent();
-	}
-
-	Future updatePlayerLetters() async {
-		Map<String, Player> players = new Map()
-			..addAll(otherPlayers)
-			..addAll(({game.username: CurrentPlayer}));
-
-		players.forEach((String username, Player player) async {
-			Element parentE = player.playerParentElement;
-
-			String username = parentE.id.replaceFirst("player-", "");
-			if (username.startsWith("pc-")) {
-				username = username.replaceFirst("pc-", "");
-			}
-
-			if (currentStreet.useLetters) {
-				String letter = await HttpRequest.getString("http://${Configs.utilServerAddress}/letters/getPlayerLetter?username=$username");
-
-				DivElement letterDisplay = new DivElement()
-					..classes.addAll(["letter", "letter-$letter"]);
-
-				parentE
-					..children.removeWhere((Element e) => e.classes.contains("letter"))
-					..append(letterDisplay);
-			} else {
-				parentE.children.removeWhere((Element e) => e.classes.contains("letter"));
-			}
-		});
 	}
 }
