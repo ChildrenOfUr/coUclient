@@ -3,6 +3,7 @@ part of couclient;
 class Meters {
   Element meter = querySelector('ur-meters');
   Element currantElement = querySelector('#currCurrants');
+  Element currantLabel = querySelector("#currantLabel");
 
   updateImgDisplay() {
     meter.attributes['imagination'] = metabolics.img.toString();
@@ -20,6 +21,7 @@ class Meters {
 
   updateCurrantsDisplay() {
     currantElement.text = commaFormatter.format(metabolics.currants);
+    currantLabel.text = (metabolics.currants != 1 ? "Currants" : "Currant");
   }
 
   updateNameDisplay() {

@@ -63,7 +63,7 @@ class VendorWindow extends Modal {
 			windowTitle = windowTitle.substring(15) + " Vendor";
 		}
 		header.innerHtml = '<i class="fa-li fa fa-shopping-cart"></i>' + windowTitle;
-		currants.text = " ${commaFormatter.format(metabolics.currants)} currants";
+		currants.text = " ${commaFormatter.format(metabolics.currants)} currant${(metabolics.currants != 1 ? "s" : "")}";
 
 		new List.from(buy.children)
 			..forEach((child) => child.remove());
@@ -77,26 +77,29 @@ class VendorWindow extends Modal {
 			Element price;
 
 			if (item["discount"] != 1) {
+				// Item on sale, see price by clicking
 				price = merch.append(
 					new DivElement()
 						..text = "Sale!"
 						..classes.addAll(["price-tag", "sale-price-tag"])
 				);
-			} else if (item['price'] < 9999) {
+			} else if (item['price'] >= 9999) {
+				// Really expensive item
 				price = merch.append(
-					new DivElement()
-						..text = '${item['price']}₡'
-						..className = 'price-tag'
+				  new DivElement()
+					  ..text = 'A Lot'
+					  ..className = 'price-tag'
 				);
 			} else {
+				// Normal item
 				price = merch.append(
-					new DivElement()
-						..text = 'A Lot'
-						..className = 'price-tag'
+				  new DivElement()
+					  ..text = '${item['price']}₡'
+					  ..className = 'price-tag'
 				);
 			}
 
-			if(item['price'] > metabolics.currants) {
+			if(item['price'] * item["discount"] > metabolics.currants) {
 				price.classes.add("cantAfford");
 			}
 
@@ -187,15 +190,15 @@ class VendorWindow extends Modal {
 				sendAction("sellItem", vendorId, actionMap);
 			}
 			else {
-				if(metabolics.currants < item['price'] * numToBuy) {
+				if(metabolics.currants < item["discount"] * item["price"] * numToBuy) {
 					return;
 				}
 
-				newValue = metabolics.currants - item['price'] * numToBuy;
+				newValue = metabolics.currants - (item['price'] * item["discount"] * numToBuy).toInt();
 				sendAction("buyItem", vendorId, actionMap);
 			}
 
-			currants.text = " ${commaFormatter.format(newValue)} currants";
+			currants.text = " ${commaFormatter.format(newValue)} currant${(newValue != 1 ? "s" : "")}";
 			backToBuy.click();
 		});
 
