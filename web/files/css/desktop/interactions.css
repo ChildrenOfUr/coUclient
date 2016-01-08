@@ -572,7 +572,7 @@
 .entityContainer:hover,
 .entitySelected {
     border: 1px solid orange;
-    background-color: #F8F2E1;
+    background-color: #F8DA9E;
     color: orange;
 }
 
