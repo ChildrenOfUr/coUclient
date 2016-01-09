@@ -76,8 +76,13 @@ class ShrineWindow extends Modal {
 	}
 
 	void makeDraggables() {
-		Dropzone dropzone = new Dropzone(dropTarget, acceptor: new Acceptor.draggables([InvDragging._draggables]));
+		Dropzone dropzone = new Dropzone(dropTarget);
 		dropzone.onDrop.listen((DropzoneEvent dropEvent) {
+			//verify it is a valid item before acting on it
+			if(dropEvent.draggableElement.attributes['itemMap'] == null) {
+				return;
+			}
+
 			buttonHolder.style.visibility = 'visible';
 			item = JSON.decode(dropEvent.draggableElement.attributes['itemMap']);
 			dropTarget.style.backgroundImage = 'url(' + item['iconUrl'] + ')';
