@@ -174,7 +174,7 @@ class MenuKeys {
 			} else {
 				// Click the box
 				int x = box.documentOffset.x + (box.clientWidth ~/ 2);
-				int y = box.documentOffset.y;
+				int y = box.documentOffset.y + (box.clientHeight ~/ 2);
 				box.querySelector(".inventoryItem").dispatchEvent(
 				  new MouseEvent("contextmenu", clientX: x, clientY: y)
 				);
