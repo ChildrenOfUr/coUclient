@@ -20,10 +20,10 @@ class Chat {
 	static StreamSubscription itemWindowLinks, mapWindowLinks;
 	static InputElement lastFocusedInput;
 
-	static final NodeValidatorBuilder validator = new NodeValidatorBuilder()
+	static final NodeValidatorBuilder VALIDATOR = new NodeValidatorBuilder()
 		..allowHtml5()
-		..allowElement('span', attributes: ['style']) // Username colors, item icons
-		..allowElement('a', attributes: ['href', 'title', 'target', 'class']) // Links
+		..allowElement('span', attributes: ['style']) // Item icons
+		..allowElement('a', attributes: ['href', 'title', 'target', 'class', 'style']) // Links
 		..allowElement('i', attributes: ['class', 'title']) // Emoticons
 		..allowElement('p', attributes: ['style'])..allowElement('b')..allowElement('del');
 
@@ -193,9 +193,34 @@ class Chat {
 	Future addMessage(String player, String message) async {
 		ChatMessage chat = new ChatMessage(player, message);
 		Element dialog = conversationElement.querySelector('.dialog');
-		String html = await chat.toHtml();
-		// display in panel
-		dialog.appendHtml(html, validator: Chat.validator);
+
+		// Toast for player change events
+		if (message == " joined." || message == " left.") {
+			// Player joined or left
+			if (game.username != player) {
+				if (player != game.username) {
+					if (message == " joined.") {
+						toast("$player has arrived");
+					}
+					if (message == " left.") {
+						toast("$player left");
+					}
+				}
+			}
+		} else {
+			// display in panel
+			String html = await chat.toHtml();
+			print(html);
+			// Parse styles, links, and emoji
+			html = html.replaceAll("&lt;", "<");
+			html = html.replaceAll("&gt;", ">");
+			html = parseUrl(html);
+			html = parseEmoji(html);
+			html = parseLocationLinks(html);
+			html = parseItemLinks(html);
+			print(html);
+			dialog.appendHtml(html, validator: Chat.VALIDATOR);
+		}
 
 		//scroll to the bottom
 		dialog.scrollTop = dialog.scrollHeight;
@@ -256,7 +281,7 @@ class Chat {
 		void _add() {
 			String text = '<p class="$classes">$alert</p>';
 			Element dialog = conversationElement.querySelector('.dialog');
-			dialog.appendHtml(parseLocationLinks(text), validator: validator);
+			dialog.appendHtml(parseLocationLinks(text), validator: VALIDATOR);
 
 			//scroll to the bottom
 			dialog.scrollTop = dialog.scrollHeight;
@@ -289,7 +314,7 @@ class Chat {
 		String text = '<p class="system">$alert</p>';
 
 		Element dialog = conversationElement.querySelector('.dialog');
-		dialog.appendHtml(text, validator: validator);
+		dialog.appendHtml(text, validator: VALIDATOR);
 
 		//scroll to the bottom
 		dialog.scrollTop = dialog.scrollHeight;

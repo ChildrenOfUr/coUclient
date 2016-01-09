@@ -5,106 +5,109 @@ class ChatMessage {
 
 	ChatMessage(this.player, this.message);
 
-	Future<String> toHtml() async {
-		if (message is! String) {
-			return '';
-		}
-		String html,
-			displayName = player;
-
-		message = parseUrl(message);
-		message = parseEmoji(message);
-		message = parseLocationLinks(message);
-		message = parseItemLinks(message);
-
-		if (
-		message.toLowerCase().contains(game.username.toLowerCase())
-		&& windowManager.settings.playMentionSound
-		) {
+	void notify() {
+		if (message.toLowerCase().contains(game.username.toLowerCase())
+		  && windowManager.settings.playMentionSound
+		  && player != game.username) {
 			// Popup
 			new Notification(
-				player,
-				body: message,
-				icon: "http://childrenofur.com/assets/icon_72.png"
-				);
+			  player,
+			  body: message,
+			  icon: "http://childrenofur.com/assets/icon_72.png"
+			);
 
 			// Sound effect
 			transmit('playSound', 'mention');
 		}
+	}
 
-		// Apply labels
-		String nameClass = "name ";
+	Future<String> toHtml() async {
+		// Verify data
+		if (message is! String || player is! String) {
+			return '';
+		}
+
+		String displayName = player;
+		List<String> nameClasses = ["name"];
+
+		// Get link to username
+		Future<AnchorElement> getUsernameLink() async {
+			return new AnchorElement()
+				..classes = (new List.from(nameClasses)
+					..add("noUnderline"))
+				..href = "http://childrenofur.com/profile?username=$player"
+				..target = "_blank"
+				..title = "Open Profile Page"
+				..text = displayName
+				..style.color = (await getColorFromUsername(player));
+		}
+
+		// Notify of any mentions
+		notify();
+
+		// Set up labels
 		if (player != null) {
 			// You
 			if (player == game.username) {
-				nameClass += "you ";
-			}
-			// Dev/Guide
-			if (game.devs.contains(player)) {
-				nameClass += "dev ";
-			} else if (game.guides.contains(player)) {
-				nameClass += "guide ";
-			}
-		}
-
-		if (game.username == player) {
-			displayName = "You";
-		}
-
-		if (player == null) {
-			// System message
-			html = '<p class="system">$message</p>';
-		} else if (message.startsWith('/me')) {
-			// /me message
-			message = message.replaceFirst('/me ', '');
-			html =
-			'<p class="me" style="color:${(await getColorFromUsername(player))};">'
-				'<i><a class="noUnderline" href="http://childrenofur.com/profile?username=${player}" target="_blank" title="Open Profile Page">$player</a> $message</i>'
-				'</p>';
-		} else if (message == " joined." || message == " left.") {
-			// Player joined or left
-			if (game.username != player) {
-				if (player != game.username) {
-					if (message == " joined.") {
-						toast("$player has arrived");
-					}
-					if (message == " left.") {
-						toast("$player left");
-					}
+				nameClasses.add("you");
+				if (!message.startsWith("/me")) {
+					displayName = "You";
 				}
 			}
 
-			html = "";
-		} else if (message == "LocationChangeEvent" && player == "invalid_user") {
-			// Switching streets message
-			void setLocationChangeEventHtml() {
-				String prefix = (metabolics.playerMetabolics.location_history.contains(currentStreet.tsid_g)
-				                 ? "Back"
-				                 : "First time");
-				html =
-				'<p class="chat-member-change-event">'
-					'<span class="message">$prefix in <a class="location-chat-link street-chat-link" title="View Street" href="#">${currentStreet
-					.label}</a></span>'
-					'</p>';
+			// Dev/Guide
+			if (game.devs.contains(player)) {
+				nameClasses.add("dev");
+			} else if (game.guides.contains(player)) {
+				nameClasses.add("guide");
 			}
-
-			if (!metabolics.load.isCompleted) {
-				await metabolics.load.future;
-				setLocationChangeEventHtml();
-			} else {
-				setLocationChangeEventHtml();
-			}
-		} else {
-			// Normal message
-			html =
-			'<p>'
-				'<span class="$nameClass" style="color: ${(await getColorFromUsername(
-				player))};"><a class="noUnderline" href="http://childrenofur.com/profile?username=${player}" target="_blank" title="Open Profile Page">$displayName</a>: </span>'
-				'<span class="message">$message</span>'
-				'</p>';
 		}
 
-		return html;
+		//TODO: .me is italic
+
+		if (player == null) {
+			// System message
+			return (new ParagraphElement()
+				..text = message
+				..classes = ["system"]
+			).outerHtml;
+		} else if (message.startsWith("/me")) {
+			// /me message
+			return (new ParagraphElement()
+				..classes = ["me"]
+				..append(await getUsernameLink())
+				..appendText(message.replaceFirst("/me", ""))
+			).outerHtml;
+		} else if (message == "LocationChangeEvent" && player == "invalid_user") {
+			// Switching streets
+			if (!metabolics.load.isCompleted) {
+				await metabolics.load.future;
+			}
+
+			String prefix = (
+			  metabolics.playerMetabolics.location_history.contains(currentStreet.tsid_g)
+				? "Back"
+				: "First time"
+			);
+
+			SpanElement messageSpan = new SpanElement()
+				..classes = ["message"]
+				..text = "$prefix in ${currentStreet.label}";
+
+			return (new ParagraphElement()
+				..classes = ["chat-member-change-event"]
+				..append(messageSpan)
+			).outerHtml;
+		} else {
+			// Normal message
+			return (new ParagraphElement()
+				..append(await getUsernameLink())
+				..appendHtml("&#8194;") // en space
+				..append(new SpanElement()
+					..classes = ["message"]
+					..text = message)
+			).outerHtml;
+		}
 	}
 }
 
@@ -125,8 +128,8 @@ Future<String> getColorFromUsername(String username) async {
 	} else {
 		// Download color from server
 		String color = await HttpRequest.getString(
-			"http://${Configs.utilServerAddress}/usernamecolors/get/$username"
-			);
+		  "http://${Configs.utilServerAddress}/usernamecolors/get/$username"
+		);
 		// Cache for later use
 		cachedUsernameColors[username] = color;
 		// Return for display
@@ -136,7 +139,7 @@ Future<String> getColorFromUsername(String username) async {
 
 String parseEmoji(String message) {
 	String returnString = "";
-	RegExp regex = new RegExp(":(.+?):");
+	RegExp regex = new RegExp("::(.+?)::");
 	message.splitMapJoin(regex, onMatch: (Match m) {
 		String match = m[1];
 		if (EMOTICONS.contains(match)) {
@@ -164,10 +167,15 @@ String parseUrl(String message) {
 	RegExp regex = new RegExp(regexString);
 	message.splitMapJoin(regex, onMatch: (Match m) {
 		String url = m[0];
-		if (!url.contains("http")) {
-			url = "http://" + url;
+		if (url.contains('"')) {
+			// Don't match URLs already in <a> tags
+			returnString += url;
+		} else {
+			if (!url.contains("http")) {
+				url = "http://" + url;
+			}
+			returnString += '<a href="${url}" target="_blank" class="MessageLink">${m[0]}</a>';
 		}
-		returnString += '<a href="${url}" target="_blank" class="MessageLink">${m[0]}</a>';
 	}, onNonMatch: (String s) => returnString += s);
 
 	return returnString;
@@ -182,9 +190,9 @@ String parseItemLinks(String message) {
 			String name = Item.getName(match);
 			String iconUrl = Item.getIcon(itemType: match);
 			returnString += '<a class="item-chat-link" title="View Item" href="#">'
-				'<span class="item-chat-link-icon" '
-				'style="background-image: url($iconUrl);">'
-				'</span>$name</a>';
+			  '<span class="item-chat-link-icon" '
+			  'style="background-image: url($iconUrl);">'
+			  '</span>$name</a>';
 		} else {
 			returnString += m[0];
 		}
@@ -197,10 +205,10 @@ String parseLocationLinks(String message) {
 	String _parseHubLinks(String _message) {
 		mapData.hubNames.forEach((String hubName) {
 			_message = _message.replaceAll(
-				hubName,
-				'<a class="location-chat-link hub-chat-link" title="View Hub" href="#">'
-					'$hubName</a>'
-				);
+			  hubName,
+			  '<a class="location-chat-link hub-chat-link" title="View Hub" href="#">'
+				'$hubName</a>'
+			);
 		});
 
 		return _message;
@@ -209,10 +217,10 @@ String parseLocationLinks(String message) {
 	String _parseStreetLinks(String _message) {
 		mapData.streetNames.forEach((String streetName) {
 			_message = _message.replaceAll(
-				streetName,
-				'<a class="location-chat-link street-chat-link" title="View Street" href="#">'
-					'$streetName</a>'
-				);
+			  streetName,
+			  '<a class="location-chat-link street-chat-link" title="View Street" href="#">'
+				'$streetName</a>'
+			);
 		});
 
 		return _message;

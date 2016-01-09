@@ -90,6 +90,7 @@
 
 p.me {
     font-size: 14px;
+    font-style: italic;
 }
 
 .conversation input {
@@ -176,58 +177,6 @@ p.me {
 .username {
     font-weight: bold;
     display: inline-block;
-}
-
-.username.blue {
-    color: blue;
-}
-
-.username.deepskyblue {
-    color: deepskyblue;
-}
-
-.username.fuchsia {
-    color: fuchsia;
-}
-
-.username.gray {
-    color: gray;
-}
-
-.username.green {
-    color: green;
-}
-
-.username.olivedrab {
-    color: olivedrab;
-}
-
-.username.maroon {
-    color: maroon;
-}
-
-.username.navy {
-    color: navy;
-}
-
-.username.olive {
-    color: olive;
-}
-
-.username.orange {
-    color: orange;
-}
-
-.username.purple {
-    color: purple;
-}
-
-.username.red {
-    color: red;
-}
-
-.username.teal {
-    color: teal;
 }
 
 /* Entity Interaction Completion */
