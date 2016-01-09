@@ -2,7 +2,7 @@ part of couclient;
 
 class MenuKeys {
 	// Maps key to valid keycodes
-	// Use int for single binding, and List<int> for multiple (eg. numpad and number row)
+	// Use int for single binding, and List<int> for multiple (number row THEN numpad)
 	static final Map<String, dynamic> KEY_CODES = {
 		"A": 65,
 		"B": 66,
@@ -80,10 +80,8 @@ class MenuKeys {
 			if (codes is int && codes == keyCode) {
 				return key;
 			} else if (codes is List<int>) {
-				for (int code in codes) {
-					if (code == keyCode) {
-						return key;
-					}
+				if (codes[0] == keyCode) {
+					return key;
 				}
 			}
 		}
