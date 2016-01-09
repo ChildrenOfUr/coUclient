@@ -45,51 +45,11 @@ Future findNewSlot(Slot slot, int index, {bool update: false}) async {
 
 	//create an image for this item and wait for it to load before sizing/positioning it
 	ImageElement img = new ImageElement(src: item.spriteUrl);
-	await img.onLoad.first;
-
 	Element barSlot = view.inventory.children.elementAt(index);
 	barSlot.children.clear();
-	String cssName = item.itemType.replaceAll(" ", "_");
 	Element itemDiv = new DivElement();
 
-	//determine what we need to scale the sprite image to in order to fit
-	num scale = 1;
-	if (img.height > img.width / item.iconNum) {
-		scale = (barSlot.contentEdge.height - 10) / img.height;
-	} else {
-		scale = (barSlot.contentEdge.width - 10) / (img.width / item.iconNum);
-	}
-
-	itemDiv.style.width = (barSlot.contentEdge.width - 10).toString() + "px";
-	itemDiv.style.height = (barSlot.contentEdge.height - 10).toString() + "px";
-	itemDiv.style.backgroundImage = 'url(${item.spriteUrl})';
-	itemDiv.style.backgroundRepeat = 'no-repeat';
-	itemDiv.style.backgroundSize = "${img.width * scale}px ${img.height * scale}px";
-	itemDiv.style.backgroundPosition = "0 50%";
-	itemDiv.style.margin = "auto";
-	itemDiv.className = 'item-$cssName inventoryItem';
-
-	itemDiv.attributes['name'] = item.name.replaceAll(' ', '');
-	itemDiv.attributes['count'] = "1";
-	itemDiv.attributes['itemMap'] = encode(item);
-
-	String slotNum = '${barSlot.dataset["slot-num"]}.-1';
-	itemDiv.onContextMenu.listen((MouseEvent event) => itemContextMenu(item, slotNum, event));
-	barSlot.append(itemDiv);
-
-	SpanElement itemCount = new SpanElement()
-		..text = count.toString()
-		..className = "itemCount";
-	barSlot.append(itemCount);
-	if (count <= 1) {
-		itemCount.text = "";
-	}
-
-	int offset = count;
-	if (item.iconNum != null && item.iconNum < count) {
-		offset = item.iconNum;
-	}
-	itemDiv.style.backgroundPosition = "calc(100% / ${item.iconNum - 1} * ${offset - 1})";
+	await sizeItem(img,itemDiv,barSlot,item,count);
 
 	if (!update) {
 		itemDiv.classes.add("bounce");
@@ -123,6 +83,52 @@ Future findNewSlot(Slot slot, int index, {bool update: false}) async {
 			});
 		itemDiv.parent.append(containerButton);
 	}
+}
+
+Future sizeItem(ImageElement img, Element itemDiv, Element slot, ItemDef item, int count, {String cssClass}) async {
+	await img.onLoad.first;
+
+	//determine what we need to scale the sprite image to in order to fit
+	num scale = 1;
+	if (img.height > img.width / item.iconNum) {
+		scale = (slot.contentEdge.height - 10) / img.height;
+	} else {
+		scale = (slot.contentEdge.width - 10) / (img.width / item.iconNum);
+	}
+
+	if (cssClass == null) {
+		cssClass = 'item-${item.itemType} inventoryItem';
+	}
+	itemDiv.style.width = (slot.contentEdge.width - 10).toString() + "px";
+	itemDiv.style.height = (slot.contentEdge.height - 10).toString() + "px";
+	itemDiv.style.backgroundImage = 'url(${item.spriteUrl})';
+	itemDiv.style.backgroundRepeat = 'no-repeat';
+	itemDiv.style.backgroundSize = "${img.width * scale}px ${img.height * scale}px";
+	itemDiv.style.backgroundPosition = "0 50%";
+	itemDiv.style.margin = "auto";
+	itemDiv.className = cssClass;
+
+	itemDiv.attributes['name'] = item.name.replaceAll(' ', '');
+	itemDiv.attributes['count'] = "1";
+	itemDiv.attributes['itemMap'] = encode(item);
+
+	String slotNum = '${slot.dataset["slot-num"]}.-1';
+	itemDiv.onContextMenu.listen((MouseEvent event) => itemContextMenu(item, slotNum, event));
+	slot.append(itemDiv);
+
+	SpanElement itemCount = new SpanElement()
+		..text = count.toString()
+		..className = "itemCount";
+	slot.append(itemCount);
+	if (count <= 1) {
+		itemCount.text = "";
+	}
+
+	int offset = count;
+	if (item.iconNum != null && item.iconNum < count) {
+		offset = item.iconNum;
+	}
+	itemDiv.style.backgroundPosition = "calc(100% / ${item.iconNum - 1} * ${offset - 1})";
 }
 
 void takeItemFromInventory(String itemType, {int count: 1}) {

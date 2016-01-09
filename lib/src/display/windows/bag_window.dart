@@ -17,6 +17,15 @@ class BagWindow extends Modal {
 		return (querySelectorAll("#windowHolder > .bagWindow").length > 0);
 	}
 
+	static void updateSourceSlot(int oldSlotIndex, int newSlotIndex) {
+		for (BagWindow w in bagWindows) {
+			if (w.sourceSlotNum == oldSlotIndex) {
+				w.sourceSlotNum = newSlotIndex;
+				break;
+			}
+		}
+	}
+
 	String id,
 		bagId;
 	int numSlots, sourceSlotNum;
@@ -68,8 +77,12 @@ class BagWindow extends Modal {
 				});
 			});
 
-			new Service(['updateMetadata'], (sourceItem) async {
-				this.sourceItem = sourceItem;
+			new Service(['updateMetadata'], (Map indexToItem) async {
+				int index = indexToItem['index'];
+				if(index != sourceSlotNum) {
+					return;
+				}
+				this.sourceItem = indexToItem['item'];
 				if(displayElement.hidden) {
 					dataUpdated = true;
 				} else {
@@ -151,6 +164,7 @@ class BagWindow extends Modal {
 			throw new StateError("Number of slots in bag does not match bag size");
 		} else {
 			int slotNum = 0;
+			well.style.opacity = '0';
 			document.body.append(well); //for measuring
 			await Future.forEach(subSlots, (Map bagSlot) async {
 				DivElement slot = new DivElement();
@@ -164,11 +178,14 @@ class BagWindow extends Modal {
 				slot.append(itemInSlot);
 				if (!bagSlot["itemType"].isEmpty) {
 					ItemDef item = decode(JSON.encode(bagSlot['item']), type: ItemDef);
-					await _sizeItem(slot, itemInSlot, item, bagSlot['count'], slotNum);
+					ImageElement img = new ImageElement(src: item.spriteUrl);
+					String className = 'item-${item.itemType} inventoryItem bagInventoryItem';
+					await sizeItem(img,itemInSlot,slot,item,bagSlot['count'],cssClass: className);
 				}
 
 				slotNum++;
 			});
+			well.style.opacity = '1'; //we're done measuring now
 			well.remove();
 		}
 
@@ -186,51 +203,6 @@ class BagWindow extends Modal {
 		} else {
 			return well;
 		}
-	}
-
-	Future _sizeItem(Element slot, Element item, ItemDef i, int count, int bagSlotIndex) async {
-		ImageElement img;
-		img = new ImageElement(src: i.spriteUrl)
-			..onLoad.listen((_) {
-				num scale = 1;
-				if (img.height > img.width / i.iconNum) {
-					scale = (slot.contentEdge.height - 10) / img.height;
-				} else {
-					scale = (slot.contentEdge.width - 10) / (img.width / i.iconNum);
-				}
-
-				item
-					..classes.addAll(["item-${i.itemType}", "inventoryItem", "bagInventoryItem"])
-					..attributes["name"] = i.name
-					..attributes["count"] = count.toString()
-					..attributes["itemmap"] = encode(i)
-					..style.width = (slot.contentEdge.width - 10).toString() + "px"
-					..style.height = (slot.contentEdge.height - 10).toString() + "px"
-					..style.backgroundImage = 'url(${i.spriteUrl})'
-					..style.backgroundRepeat = 'no-repeat'
-					..style.backgroundSize = "${img.width * scale}px ${img.height * scale}px"
-					..style.margin = "auto";
-
-				int offset = count;
-				if (i.iconNum != null && i.iconNum < count) {
-					offset = i.iconNum;
-				}
-
-				item.style.backgroundPosition = "calc(100% / ${i.iconNum - 1} * ${offset - 1}";
-
-				String slotString = '$sourceSlotNum.$bagSlotIndex';
-				item.onContextMenu.listen((MouseEvent event) => itemContextMenu(i, slotString, event));
-				if (count > 1) {
-					SpanElement itemCount = new SpanElement()
-						..text = count.toString()
-						..className = "itemCount";
-					item.parent.append(itemCount);
-				} else if (item.parent.querySelector(".itemCount") != null) {
-					item.parent
-						.querySelector(".itemCount")
-						.text = "";
-				}
-			});
 	}
 
 	@override

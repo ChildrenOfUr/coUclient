@@ -94,6 +94,12 @@ class InvDragging {
 			_move["toBagIndex"] = int.parse(e.dropzoneElement.dataset["slot-num"]);
 		} else {
 			_move["toIndex"] = int.parse(e.dropzoneElement.dataset["slot-num"]);
+
+			//moving an item from one slot on the inventory bar to another shouldn't fail
+			//so even with that big assumption, we should tell bag windows associated with
+			//the old slot index that they are now to be associated with the new slot index
+			//this way they can listen to metadata update messages based on index
+			BagWindow.updateSourceSlot(_move['fromIndex'],_move['toIndex']);
 		}
 
 		sendAction("moveItem", "global_action_monster", _move);
