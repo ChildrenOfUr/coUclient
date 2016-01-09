@@ -92,7 +92,6 @@ Future updateInventory([Map map]) async {
 				update = true;
 			} else if (currentSlot.item != null && newSlot.item != null &&
 			           !_metadataEqual(currentSlot.item.metadata, newSlot.item.metadata)) {
-				print('metadata is different');
 				transmit('updateMetadata', newSlot.item);
 			}
 		}
