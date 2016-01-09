@@ -8,6 +8,7 @@ class VendorWindow extends Modal {
 	Element buyMax, buyButton, buyItemCount, buyPriceTag, buyDescription, buyStacksTo, amtSelector;
 	ImageElement buyItemImage;
 	InputElement buyNum;
+	List<StreamSubscription> listeners = [];
 
 	factory VendorWindow() {
 		if(vendorWindow == null) {
@@ -53,6 +54,19 @@ class VendorWindow extends Modal {
 		displayElement.hidden = false;
 		elementOpen = true;
 		this.focus();
+	}
+
+	@override
+	openTab(String tabId) {
+		cleanupListeners();
+		super.openTab(tabId);
+	}
+
+	void cleanupListeners() {
+		// Clean up our event listeners
+		for(StreamSubscription s in listeners) {
+			s.cancel();
+		}
 	}
 
 	// Calling the modal with a vendorMap opens a vendor window
@@ -182,7 +196,7 @@ class VendorWindow extends Modal {
 		});
 
 		// Sell/Buy Button
-		StreamSubscription bb = buyButton.onClick.listen((_) {
+		listeners.add(buyButton.onClick.listen((_) {
 			int newValue;
 			Map actionMap = {"itemType": item['itemType'], "num": numToBuy};
 
@@ -205,10 +219,10 @@ class VendorWindow extends Modal {
 
 			currants.text = " ${commaFormatter.format(newValue)} currant${(newValue != 1 ? "s" : "")}";
 			backToBuy.click();
-		});
+		}));
 
 		// Plus Button
-		StreamSubscription bplus = buyPlus.onClick.listen((_) async {
+		listeners.add(buyPlus.onClick.listen((_) async {
 			try {
 
 				if (sellMode) {
@@ -235,10 +249,10 @@ class VendorWindow extends Modal {
 			catch(e) {
 				logmessage("[Vendor] Plus Button Error: $e");
 			}
-		});
+		}));
 
 		// Minus Button
-		StreamSubscription bminus = buyMinus.onClick.listen((_) {
+		listeners.add(buyMinus.onClick.listen((_) {
 			try {
 				if (buyNum.valueAsNumber > 1) {
 					// We can't go to 0 or negative
@@ -249,10 +263,10 @@ class VendorWindow extends Modal {
 			catch(e) {
 				logmessage("[Vendor] Minus Button Error: $e");
 			}
-		});
+		}));
 
 		// Max Button
-		StreamSubscription bmax = buyMax.onClick.listen((_) async {
+		listeners.add(buyMax.onClick.listen((_) async {
 			try {
 				int newNum;
 				if(sellMode) {
@@ -267,14 +281,10 @@ class VendorWindow extends Modal {
 			catch(e) {
 				logmessage("[Vendor] Max Button Error: $e");
 			}
-		});
+		}));
 
 		backToBuy.onClick.first.then((_) {
-			// Clean up our event listeners
-			bb.cancel();
-			bminus.cancel();
-			bplus.cancel();
-			bmax.cancel();
+			cleanupListeners();
 
 			this.displayElement.querySelector('#buy-qty').hidden = true;
 			if(sellMode) {
