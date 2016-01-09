@@ -142,8 +142,9 @@ class MenuKeys {
 			box.querySelector(".item-container-toggle").click();
 			print("||| container");
 		} else {
-			// "Click" the box
+			// Click the box
 			box.dispatchEvent(new MouseEvent("contextmenu"));
+			print("||| click");
 		}
 	});
 

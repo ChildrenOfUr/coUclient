@@ -327,6 +327,7 @@ class RightClickMenu {
     Element menu = querySelector("#RightClickMenu");
     if (menu != null) {
       menu.remove();
+      MenuKeys.clearListeners();
       transmit("right_click_menu", "destroy");
     }
   }
