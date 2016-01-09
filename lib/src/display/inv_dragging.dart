@@ -69,13 +69,13 @@ class InvDragging {
         )
             ..onDragStart.listen((DraggableEvent e) => handlePickup(e));
 
-        print('setup draggables');
+        // print('setup draggables');
 
         // Set up acceptor slots
         _dropzones = new Dropzone(querySelectorAll("#inventory .box"))
             ..onDrop.listen((DropzoneEvent e) => handleDrop(e));
 
-        print('setup dropzones');
+        // print('setup dropzones');
     }
 
     /// Runs when an item is picked up (drag start)
