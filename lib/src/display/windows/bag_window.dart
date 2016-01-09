@@ -27,7 +27,6 @@ class BagWindow extends Modal {
 	Dropzone acceptors;
 
 	factory BagWindow(int sourceSlotNum, ItemDef sourceItem, {String id : null, bool open : true}) {
-		print('getting bag window for id $id');
 		if (id == null) {
 			return new BagWindow._(sourceSlotNum, sourceItem, openWindow:open);
 		} else {
