@@ -103,13 +103,14 @@ Future findNewSlot(Slot slot, int index, {bool update: false}) async {
 	DivElement containerButton;
 	String bagWindowId;
 	if (item.isContainer == true) {
+		bagWindowId = new BagWindow(index, item, open:false).id;
 		containerButton = new DivElement()
 			..classes.addAll(["fa", "fa-fw", "fa-plus", "item-container-toggle", "item-container-closed"])
 			..onClick.listen((_) {
 				if (containerButton.classes.contains("item-container-closed")) {
 					// Container is closed, open it
 					// Open the bag window
-					bagWindowId = new BagWindow(index, item, id:bagWindowId).id;
+					new BagWindow(index, item, id:bagWindowId).id;
 					// Update the slot display
 					BagWindow.updateTriggerBtn(false, itemDiv);
 				} else {

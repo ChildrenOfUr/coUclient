@@ -26,21 +26,24 @@ class BagWindow extends Modal {
 
 	Dropzone acceptors;
 
-	factory BagWindow(int sourceSlotNum, ItemDef sourceItem, {String id : null}) {
+	factory BagWindow(int sourceSlotNum, ItemDef sourceItem, {String id : null, bool open : true}) {
+		print('getting bag window for id $id');
 		if (id == null) {
-			return new BagWindow._(sourceSlotNum, sourceItem);
+			return new BagWindow._(sourceSlotNum, sourceItem, openWindow:open);
 		} else {
 			for(BagWindow w in bagWindows) {
 				if (w.id == id) {
-					w.open();
+					if(open) {
+						w.open();
+					}
 					return w;
 				}
 			}
-			return new BagWindow._(sourceSlotNum, sourceItem);
+			return new BagWindow._(sourceSlotNum, sourceItem, openWindow:open);
 		}
 	}
 
-	BagWindow._(this.sourceSlotNum, this.sourceItem) {
+	BagWindow._(this.sourceSlotNum, this.sourceItem, {bool openWindow : true}) {
 		bool creating = true;
 		id = 'bagWindow' + WindowManager.randomId.toString();
 		bagWindows.add(this);
@@ -79,7 +82,11 @@ class BagWindow extends Modal {
 
 			querySelector("#windowHolder").append(displayElement);
 			prepare();
-			open();
+			if(openWindow) {
+				open();
+			} else {
+				displayElement.hidden = true;
+			}
 			creating = false;
 		});
 	}
