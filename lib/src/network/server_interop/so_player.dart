@@ -55,8 +55,10 @@ _setupPlayerSocket() {
 			//someone left this street
 			if (map["changeStreet"] != currentStreet.label) {
 				removeOtherPlayer(map["username"]);
+				toast('${map['username']} has left for ${map['changeStreet']}');
 			} else {
 				createOtherPlayer(map);
+				toast('${map['username']} has arrived');
 			}
 		} else if (map["disconnect"] != null) {
 			removeOtherPlayer(map["username"]);

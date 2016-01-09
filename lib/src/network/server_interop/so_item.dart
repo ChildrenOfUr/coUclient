@@ -49,7 +49,7 @@ Future findNewSlot(Slot slot, int index, {bool update: false}) async {
 	barSlot.children.clear();
 	Element itemDiv = new DivElement();
 
-	await sizeItem(img,itemDiv,barSlot,item,count);
+	await sizeItem(img,itemDiv,barSlot,item,count, int.parse(barSlot.dataset["slot-num"]));
 
 	if (!update) {
 		itemDiv.classes.add("bounce");
@@ -85,7 +85,7 @@ Future findNewSlot(Slot slot, int index, {bool update: false}) async {
 	}
 }
 
-Future sizeItem(ImageElement img, Element itemDiv, Element slot, ItemDef item, int count, {String cssClass}) async {
+Future sizeItem(ImageElement img, Element itemDiv, Element slot, ItemDef item, int count, int barSlotNum, {String cssClass, int bagSlotNum: -1}) async {
 	await img.onLoad.first;
 
 	//determine what we need to scale the sprite image to in order to fit
@@ -112,7 +112,7 @@ Future sizeItem(ImageElement img, Element itemDiv, Element slot, ItemDef item, i
 	itemDiv.attributes['count'] = "1";
 	itemDiv.attributes['itemMap'] = encode(item);
 
-	String slotNum = '${slot.dataset["slot-num"]}.-1';
+	String slotNum = '$barSlotNum.$bagSlotNum';
 	itemDiv.onContextMenu.listen((MouseEvent event) => itemContextMenu(item, slotNum, event));
 	slot.append(itemDiv);
 

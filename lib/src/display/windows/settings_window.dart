@@ -129,7 +129,7 @@ class SettingsWindow extends Modal {
 	@override
 	close() {
 		querySelector("#${id}").hidden = true;
-		toast("Settings saved");
+		toast("Preferences saved");
 		super.close();
 	}
 
@@ -149,6 +149,9 @@ class SettingsWindow extends Modal {
 	bool get joinMessagesVisibility => _showJoinMessages;
 
 	void setPlayMentionSound(bool enabled) {
+		if(enabled) {
+			Notification.requestPermission();
+		}
 		_playMentionSound = enabled;
 		localStorage["playMentionSound"] = enabled.toString();
 	}

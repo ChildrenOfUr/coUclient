@@ -21,6 +21,7 @@ class BagWindow extends Modal {
 		for (BagWindow w in bagWindows) {
 			if (w.sourceSlotNum == oldSlotIndex) {
 				w.sourceSlotNum = newSlotIndex;
+				w.updateWell(w.sourceItem);
 				break;
 			}
 		}
@@ -29,7 +30,7 @@ class BagWindow extends Modal {
 	String id,
 		bagId;
 	int numSlots, sourceSlotNum;
-	//when set to true, the ui inside the bag will be updated when the bag is nex opened
+	//when set to true, the ui inside the bag will be updated when the bag is next opened
 	bool dataUpdated = false;
 	ItemDef sourceItem;
 
@@ -180,7 +181,7 @@ class BagWindow extends Modal {
 					ItemDef item = decode(JSON.encode(bagSlot['item']), type: ItemDef);
 					ImageElement img = new ImageElement(src: item.spriteUrl);
 					String className = 'item-${item.itemType} inventoryItem bagInventoryItem';
-					await sizeItem(img,itemInSlot,slot,item,bagSlot['count'],cssClass: className);
+					await sizeItem(img,itemInSlot,slot,item,bagSlot['count'], sourceSlotNum, cssClass: className, bagSlotNum: slotNum);
 				}
 
 				slotNum++;
