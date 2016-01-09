@@ -138,10 +138,14 @@ class SoundManager {
 							fadeInDuration = new Duration(seconds:5);
 						}
 						double currentPercentOfFade = 0.0;
+						//for some reason if(audio.gain >= 1.0) threw errors about int
+						//not being a subtype of double. So this steps method instead
+						int steps = fadeInDuration.inMilliseconds~/100;
 						new Timer.periodic(new Duration(milliseconds:100), (Timer t) {
 							currentPercentOfFade += 100 / fadeInDuration.inMilliseconds;
 							audio.gain = currentPercentOfFade;
-							if(audio.gain >= 1.0) {
+							steps--;
+							if(steps <= 0) {
 								t.cancel();
 							}
 						});
@@ -180,10 +184,14 @@ class SoundManager {
 						fadeOutDuration = new Duration(seconds:5);
 					}
 					double currentPercentOfFade = 0.0;
+					//for some reason if(audio.gain <=) threw errors about int
+					//not being a subtype of double. So this steps method instead
+					int steps = fadeOutDuration.inMilliseconds~/100;
 					new Timer.periodic(new Duration(milliseconds:100), (Timer t) {
 						currentPercentOfFade += 100 / fadeOutDuration.inMilliseconds;
 						audio.gain = 1.0 - currentPercentOfFade;
-						if(audio.gain <= 0.0) {
+						steps--;
+						if(steps <= 0) {
 							audio.stop();
 							t.cancel();
 						}
