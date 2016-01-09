@@ -74,11 +74,19 @@ class MenuKeys {
 
 	// Returns the key with the given keycode
 	static String keyWithCode(int keyCode) {
-		KEY_CODES.forEach((String key, int code) {
-			if (code == keyCode) {
+		for (String key in KEY_CODES.keys) {
+			var codes = KEY_CODES[key];
+
+			if (codes is int && codes == keyCode) {
 				return key;
+			} else if (codes is List<int>) {
+				for (int code in codes) {
+					if (code == keyCode) {
+						return key;
+					}
+				}
 			}
-		});
+		}
 
 		return "";
 	}
@@ -101,6 +109,9 @@ class MenuKeys {
 		}
 	}
 
+	// List of keyboard listeners (one for each menu item)
+	static List<StreamSubscription> _listeners = [];
+
 	// Resets the keyboard event listener list
 	static void clearListeners() {
 		// Cancel all listeners to prevent future duplication
@@ -112,42 +123,6 @@ class MenuKeys {
 		_listeners.clear();
 	}
 
-	// List of keyboard listeners (one for each menu item)
-	static List<StreamSubscription> _listeners = [];
-
-	// Inventory slot listener
-	static StreamSubscription _invSlotsListener = document.onKeyDown.listen((KeyboardEvent event) {
-		print("||| EVENT");
-		if (_listeners.length != 0) {
-			// Menu open, do not trigger item interactions because the numbers are preoccupied
-			return;
-		}
-
-		// Get the number pushed
-		int index;
-		try {
-			index = int.parse(keyWithCode(event.keyCode));
-		} catch (e) {
-			// Letter pressed, not a number
-			return;
-		}
-
-		// Get the box with that index
-		Element box = view.inventory.querySelectorAll(".box").singleWhere((Element e) {
-			return (e.dataset["slot-num"] == index.toString());
-		});
-
-		if (event.shiftKey && box.querySelector(".item-container-toggle") != null) {
-			// Open container if shift is pressed
-			box.querySelector(".item-container-toggle").click();
-			print("||| container");
-		} else {
-			// Click the box
-			box.dispatchEvent(new MouseEvent("contextmenu"));
-			print("||| click");
-		}
-	});
-
 	// Start listening for a menu item
 	static void addListener(int index, Function callback) {
 		_listeners.add(document.onKeyDown.listen((KeyboardEvent event) {
@@ -158,5 +133,52 @@ class MenuKeys {
 				Function.apply(callback, []);
 			}
 		}));
+	}
+
+	// Inventory slot listener
+	static void invSlotsListener() {
+		document.onKeyDown.listen((KeyboardEvent event) {
+			if (_listeners.length != 0) {
+				// TODO: also stop if typing somewhere
+				// Menu open, do not trigger item interactions because the numbers are preoccupied
+				return;
+			}
+
+			// Get the number pushed
+			int index;
+			try {
+				// Inv is 0-indexed, so subtract 1 from the key
+				index = int.parse(keyWithCode(event.keyCode)) - 1;
+				if (index == -1) {
+					// 0 is the last slot
+					index = 9;
+				}
+			} catch (e) {
+				// Letter pressed, not a number
+				return;
+			}
+
+			// Get the box with that index
+			Element box = view.inventory.querySelectorAll(".box").singleWhere((Element e) {
+				return (e.dataset["slot-num"] == index.toString());
+			});
+
+			if (box.querySelector(".inventoryItem") == null) {
+				// No item in that slot?
+				return;
+			}
+
+			if (event.shiftKey && box.querySelector(".item-container-toggle") != null) {
+				// Open container if shift is pressed
+				box.querySelector(".item-container-toggle").click();
+			} else {
+				// Click the box
+				int x = box.documentOffset.x + (box.clientWidth ~/ 2);
+				int y = box.documentOffset.y;
+				box.querySelector(".inventoryItem").dispatchEvent(
+				  new MouseEvent("contextmenu", clientX: x, clientY: y)
+				);
+			}
+		});
 	}
 }

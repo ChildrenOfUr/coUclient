@@ -287,8 +287,8 @@ class RightClickMenu {
 
     document.body.append(menu);
     if (Click != null) {
-      x = Click.page.x - (menu.clientWidth ~/ 2);
-      y = Click.page.y - (40 + (options.length * 30));
+      x = Click.client.x - (menu.clientWidth ~/ 2);
+      y = Click.client.y - (40 + (options.length * 30));
     } else {
       num posX = CurrentPlayer.posX, posY = CurrentPlayer.posY;
       int width = CurrentPlayer.width, height = CurrentPlayer.height;

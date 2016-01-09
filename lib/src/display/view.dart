@@ -201,6 +201,9 @@ class UserInterface {
 				Chat.lastFocusedInput.focus();
 			});
 		});
+
+		// Inventory number keys
+		MenuKeys.invSlotsListener();
 	}
 
 	resize() {
