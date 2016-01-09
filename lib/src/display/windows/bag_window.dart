@@ -41,6 +41,7 @@ class BagWindow extends Modal {
 	}
 
 	BagWindow._(this.sourceSlotNum, this.sourceItem) {
+		bool creating = true;
 		id = 'bagWindow' + WindowManager.randomId.toString();
 		bagWindows.add(this);
 
@@ -69,12 +70,17 @@ class BagWindow extends Modal {
 				this.sourceItem = sourceItem;
 				if(displayElement.hidden) {
 					dataUpdated = true;
+				} else {
+					if(!creating) {
+						updateWell(sourceItem);
+					}
 				}
 			});
 
 			querySelector("#windowHolder").append(displayElement);
 			prepare();
 			open();
+			creating = false;
 		});
 	}
 

@@ -107,11 +107,16 @@ class VendorWindow extends Modal {
 		}
 
 		DivElement dropTarget = querySelector("#SellDropTarget");
-		Dropzone dropzone = new Dropzone(dropTarget, acceptor: new Acceptor.draggables([InvDragging._draggables]));
+		Dropzone dropzone = new Dropzone(dropTarget);
 		dropzone.onDrop.listen((DropzoneEvent dropEvent) {
 			// TODO: fix this only getting called the first time
 			// https://github.com/ChildrenOfUr/cou-issues/issues/279
 			// print("dropped item");
+
+			//verify it is a valid item before acting on it
+			if(dropEvent.draggableElement.attributes['itemMap'] == null) {
+				return;
+			}
 			spawnBuyDetails(JSON.decode(dropEvent.draggableElement.attributes['itemMap']), vendorMap['id'], sellMode:true);
 		});
 
