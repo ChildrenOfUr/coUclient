@@ -297,7 +297,7 @@
     display: inline-block;
     width: 113px;
     height: 63px;
-    background-image: url(../system/actions/using_pick.png);
+    background-image: url(../../system/actions/using_pick.png);
     -webkit-animation: miningAnimation 1.5s steps(33, end) infinite;
     -moz-animation: miningAnimation 1.5s steps(33, end) infinite;
     -o-animation: miningAnimation 1.5s steps(33, end) infinite;
@@ -312,7 +312,7 @@
     display: inline-block;
     width: 111px;
     height: 62px;
-    background-image: url(../system/actions/using_pick_fancy.png);
+    background-image: url(../../system/actions/using_pick_fancy.png);
     -webkit-animation: miningAnimationFancy 1.5s steps(33, end) infinite;
     -moz-animation: miningAnimationFancy 1.5s steps(33, end) infinite;
     -o-animation: miningAnimationFancy 1.5s steps(33, end) infinite;
@@ -327,7 +327,7 @@
     display: inline-block;
     width: 91px;
     height: 78px;
-    background-image: url(../system/actions/using_watering.png);
+    background-image: url(../../system/actions/using_watering.png);
     -webkit-animation: wateringAnimation 1.5s steps(30, end) infinite;
     -moz-animation: wateringAnimation 1.5s steps(30, end) infinite;
     -o-animation: wateringAnimation 1.5s steps(30, end) infinite;
@@ -342,7 +342,7 @@
     display: inline-block;
     width: 65px;
     height: 82px;
-    background-image: url(../system/actions/using_shovel.png);
+    background-image: url(../../system/actions/using_shovel.png);
     -webkit-animation: diggingAnimation 1.5s steps(53, end) infinite;
     -moz-animation: diggingAnimation 1.5s steps(53, end) infinite;
     -o-animation: diggingAnimation 1.5s steps(53, end) infinite;
@@ -357,7 +357,7 @@
     display: inline-block;
     width: 63px;
     height: 79px;
-    background-image: url(../system/actions/using_shovel_fancy.png);
+    background-image: url(../../system/actions/using_shovel_fancy.png);
     -webkit-animation: diggingAnimationFancy 1.5s steps(53, end) infinite;
     -moz-animation: diggingAnimationFancy 1.5s steps(53, end) infinite;
     -o-animation: diggingAnimationFancy 1.5s steps(53, end) infinite;
