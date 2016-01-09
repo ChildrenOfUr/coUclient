@@ -17,7 +17,6 @@ class MapWindow extends Modal {
       this.close();
     });
 
-    searchBox.onInput.listen((_) => filter(searchBox.value));
     searchBox.onFocus.listen((_) => inputManager.ignoreKeys = ignoreShortcuts = true);
     searchBox.onBlur.listen((_) {
       new Timer(new Duration(milliseconds: 100), () {

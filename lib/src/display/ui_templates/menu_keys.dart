@@ -136,9 +136,11 @@ class MenuKeys {
 	// Inventory slot listener
 	static void invSlotsListener() {
 		document.onKeyDown.listen((KeyboardEvent event) {
-			if (_listeners.length != 0) {
-				// TODO: also stop if typing somewhere
-				// Menu open, do not trigger item interactions because the numbers are preoccupied
+			if (inputManager.ignoreKeys || _listeners.length != 0) {
+				// One of the following is true:
+				// 1. The user is focused in a text entry or a window
+				// 2. A menu is open and the numbers are preoccupied
+				// Either way, don't open the menu and let them type
 				return;
 			}
 

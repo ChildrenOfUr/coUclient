@@ -181,8 +181,8 @@ class UserInterface {
 			..onFocus.listen((_) => transmit("worldFocus", true))
 			..onBlur.listen((_) => transmit("worldFocus", false));
 
-		// manage inventory items -> chat link
 		new Service(["gameLoaded"], (_) {
+			// Shift + click inventory items -> chat link
 			inventory.querySelectorAll(".box").onClick.listen((MouseEvent e) {
 				Element target = e.target;
 
@@ -200,10 +200,10 @@ class UserInterface {
 
 				Chat.lastFocusedInput.focus();
 			});
-		});
 
-		// Inventory number keys
-		MenuKeys.invSlotsListener();
+			// Inventory number keys
+			MenuKeys.invSlotsListener();
+		});
 	}
 
 	resize() {
