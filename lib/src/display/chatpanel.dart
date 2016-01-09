@@ -208,9 +208,9 @@ class Chat {
 				}
 			}
 		} else {
-			// display in panel
+			// Assemble chat message elements
 			String html = await chat.toHtml();
-			print(html);
+
 			// Parse styles, links, and emoji
 			html = html.replaceAll("&lt;", "<");
 			html = html.replaceAll("&gt;", ">");
@@ -218,7 +218,8 @@ class Chat {
 			html = parseEmoji(html);
 			html = parseLocationLinks(html);
 			html = parseItemLinks(html);
-			print(html);
+
+			// Display in panel
 			dialog.appendHtml(html, validator: Chat.VALIDATOR);
 		}
 
