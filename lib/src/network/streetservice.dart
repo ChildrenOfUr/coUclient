@@ -33,6 +33,9 @@ class StreetService {
 
 			String playerList = '';
 			List<String> players = JSON.decode(await HttpRequest.getString('http://' + Configs.utilServerAddress + '/listUsers?channel=' + currentStreet.label));
+			if (!players.contains(game.username)) {
+				players.add(game.username);
+			}
 			// don't list if it's just you
 			if(players.length > 0) {
 				for(int i = 0; i != players.length; i++) {
