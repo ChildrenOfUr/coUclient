@@ -53,7 +53,8 @@ _setupPlayerSocket() {
 
 		if (map["changeStreet"] != null) {
 			//someone left this street
-			if (map["changeStreet"] != currentStreet.label) {
+			if (map["changeStreet"] != currentStreet.label &&
+			    map['previousStreet'] == currentStreet.label) {
 				removeOtherPlayer(map["username"]);
 				toast('${map['username']} has left for ${map['changeStreet']}');
 			} else {
@@ -89,7 +90,7 @@ _setupPlayerSocket() {
 
 sendPlayerInfo() {
 	String xy =
-	CurrentPlayer.posX.toString() + "," + CurrentPlayer.posY.toString();
+		CurrentPlayer.posX.toString() + "," + CurrentPlayer.posY.toString();
 	Map map = new Map();
 	map["username"] = CurrentPlayer.username;
 	map["xy"] = xy;
@@ -101,7 +102,7 @@ sendPlayerInfo() {
 	map['activeClimb'] = CurrentPlayer.activeClimb;
 	map["animation"] = CurrentPlayer.currentAnimation.animationName;
 	if (CurrentPlayer.chatBubble != null) map["bubbleText"] =
-	CurrentPlayer.chatBubble.text;
+		CurrentPlayer.chatBubble.text;
 	playerSocket.send(JSON.encode(map));
 }
 
