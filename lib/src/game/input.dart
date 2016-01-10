@@ -34,7 +34,7 @@ class InputManager {
 		"JumpBindingPrimary": 32,
 		"JumpBindingAlt": 32,
 		"ActionBindingPrimary": 13,
-		"ActionBindingAlt": 13,
+		"ActionBindingAlt": 69,
 		"MapBindingPrimary": 77,
 		"MapBindingAlt":77,
 		"CalendarBindingPrimary": 67,
@@ -349,25 +349,11 @@ class InputManager {
 		});
 
 		//listen for right-clicks on entities that we're close to
-		document.body.onContextMenu.listen((MouseEvent e) {
-			Element element = e.target as Element;
-			int groundY = 0, xOffset = 0, yOffset = 0;
-			if(element.attributes['ground_y'] != null)
-				groundY = int.parse(element.attributes['ground_y']);
-			else {
-				xOffset = camera.getX();
-				yOffset = camera.getY();
-			}
-			num x = e.offset.x + xOffset;
-			num y = e.offset.y - groundY + yOffset;
-			List<String> ids = [];
-			CurrentPlayer.intersectingObjects.forEach((String id, Rectangle rect) {
-				if(x > rect.left && x < rect.right && y > rect.top && y < rect.bottom)
-					ids.add(id);
-			});
-
-			if(ids.length > 0)
-				doObjectInteraction(e, ids);
+		document.body.onContextMenu.listen((MouseEvent e) async {
+			//just like pressing a key for 10ms
+			doObjectInteraction();
+			await new Timer(new Duration(milliseconds:10),(){});
+			activateControl('actionKey', false, 'mouse');
 		});
 
 		//only for mobile version

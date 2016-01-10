@@ -8,6 +8,7 @@ class VendorWindow extends Modal {
 	Element buyMax, buyButton, buyItemCount, buyPriceTag, buyDescription, buyStacksTo, amtSelector;
 	ImageElement buyItemImage;
 	InputElement buyNum;
+	List<StreamSubscription> listeners = [];
 
 	factory VendorWindow() {
 		if(vendorWindow == null) {
@@ -55,15 +56,28 @@ class VendorWindow extends Modal {
 		this.focus();
 	}
 
+	@override
+	openTab(String tabId) {
+		cleanupListeners();
+		super.openTab(tabId);
+	}
+
+	void cleanupListeners() {
+		// Clean up our event listeners
+		for(StreamSubscription s in listeners) {
+			s.cancel();
+		}
+	}
+
 	// Calling the modal with a vendorMap opens a vendor window
 	call(Map vendorMap, {bool sellMode:false}) {
 		npcId = vendorMap['id'];
 		String windowTitle = vendorMap['vendorName'];
 		if(windowTitle.contains('Street Spirit:')) {
-			windowTitle = windowTitle.substring(15);
+			windowTitle = windowTitle.substring(15) + " Vendor";
 		}
 		header.innerHtml = '<i class="fa-li fa fa-shopping-cart"></i>' + windowTitle;
-		currants.text = " ${commaFormatter.format(metabolics.currants)} currants";
+		currants.text = " ${commaFormatter.format(metabolics.currants)} currant${(metabolics.currants != 1 ? "s" : "")}";
 
 		new List.from(buy.children)
 			..forEach((child) => child.remove());
@@ -77,26 +91,29 @@ class VendorWindow extends Modal {
 			Element price;
 
 			if (item["discount"] != 1) {
+				// Item on sale, see price by clicking
 				price = merch.append(
 					new DivElement()
 						..text = "Sale!"
 						..classes.addAll(["price-tag", "sale-price-tag"])
 				);
-			} else if (item['price'] < 9999) {
+			} else if (item['price'] >= 9999) {
+				// Really expensive item
 				price = merch.append(
-					new DivElement()
-						..text = '${item['price']}₡'
-						..className = 'price-tag'
+				  new DivElement()
+					  ..text = 'A Lot'
+					  ..className = 'price-tag'
 				);
 			} else {
+				// Normal item
 				price = merch.append(
-					new DivElement()
-						..text = 'A Lot'
-						..className = 'price-tag'
+				  new DivElement()
+					  ..text = '${item['price']}₡'
+					  ..className = 'price-tag'
 				);
 			}
 
-			if(item['price'] > metabolics.currants) {
+			if(item['price'] * item["discount"] > metabolics.currants) {
 				price.classes.add("cantAfford");
 			}
 
@@ -104,15 +121,24 @@ class VendorWindow extends Modal {
 		}
 
 		DivElement dropTarget = querySelector("#SellDropTarget");
-		Dropzone dropzone = new Dropzone(dropTarget, acceptor: new Acceptor.draggables([InvDragging._draggables]));
+		Dropzone dropzone = new Dropzone(dropTarget);
 		dropzone.onDrop.listen((DropzoneEvent dropEvent) {
+			// TODO: fix this only getting called the first time
+			// https://github.com/ChildrenOfUr/cou-issues/issues/279
+			// print("dropped item");
+
+			//verify it is a valid item before acting on it
+			if(dropEvent.draggableElement.attributes['itemMap'] == null) {
+				return;
+			}
 			spawnBuyDetails(JSON.decode(dropEvent.draggableElement.attributes['itemMap']), vendorMap['id'], sellMode:true);
 		});
 
-		if(sellMode)
+		if(sellMode) {
 			this.displayElement.querySelector('#SellTab').click();
-		else
+		} else {
 			this.displayElement.querySelector('#BuyTab').click();
+		}
 		this.open();
 	}
 
@@ -166,35 +192,37 @@ class VendorWindow extends Modal {
 				int newNum = buyNum.valueAsNumber.toInt();
 				numToBuy = _updateNumToBuy(item, newNum, sellMode:sellMode);
 			}
-			catch(e) {
-			}
+			catch(e) {}
 		});
 
-		StreamSubscription bb = buyButton.onClick.listen((_) {
+		// Sell/Buy Button
+		listeners.add(buyButton.onClick.listen((_) {
 			int newValue;
 			Map actionMap = {"itemType": item['itemType'], "num": numToBuy};
 
 			if(sellMode) {
-				if(numToBuy > getNumItems(item['itemType']))
+				if(numToBuy > getNumItems(item['itemType'])) {
 					return;
+				}
 
 				newValue = metabolics.currants + (item['price'] * numToBuy * .7) ~/ 1;
 				sendAction("sellItem", vendorId, actionMap);
 			}
 			else {
-				if(metabolics.currants < item['price'] * numToBuy)
+				if(metabolics.currants < item["discount"] * item["price"] * numToBuy) {
 					return;
+				}
 
-				newValue = metabolics.currants - item['price'] * numToBuy;
+				newValue = metabolics.currants - (item['price'] * item["discount"] * numToBuy).toInt();
 				sendAction("buyItem", vendorId, actionMap);
 			}
 
-			currants.text = " ${commaFormatter.format(newValue)} currants";
+			currants.text = " ${commaFormatter.format(newValue)} currant${(newValue != 1 ? "s" : "")}";
 			backToBuy.click();
-		});
+		}));
 
 		// Plus Button
-		StreamSubscription bplus = buyPlus.onClick.listen((_) async {
+		listeners.add(buyPlus.onClick.listen((_) async {
 			try {
 
 				if (sellMode) {
@@ -221,10 +249,10 @@ class VendorWindow extends Modal {
 			catch(e) {
 				logmessage("[Vendor] Plus Button Error: $e");
 			}
-		});
+		}));
 
 		// Minus Button
-		StreamSubscription bminus = buyMinus.onClick.listen((_) {
+		listeners.add(buyMinus.onClick.listen((_) {
 			try {
 				if (buyNum.valueAsNumber > 1) {
 					// We can't go to 0 or negative
@@ -235,10 +263,10 @@ class VendorWindow extends Modal {
 			catch(e) {
 				logmessage("[Vendor] Minus Button Error: $e");
 			}
-		});
+		}));
 
 		// Max Button
-		StreamSubscription bmax = buyMax.onClick.listen((_) async {
+		listeners.add(buyMax.onClick.listen((_) async {
 			try {
 				int newNum;
 				if(sellMode) {
@@ -253,20 +281,17 @@ class VendorWindow extends Modal {
 			catch(e) {
 				logmessage("[Vendor] Max Button Error: $e");
 			}
-		});
+		}));
 
 		backToBuy.onClick.first.then((_) {
-			// Clean up our event listeners
-			bb.cancel();
-			bminus.cancel();
-			bplus.cancel();
-			bmax.cancel();
+			cleanupListeners();
 
 			this.displayElement.querySelector('#buy-qty').hidden = true;
-			if(sellMode)
+			if(sellMode) {
 				sell.hidden = false;
-			else
+			} else {
 				buy.hidden = false;
+			}
 		});
 	}
 
@@ -274,18 +299,21 @@ class VendorWindow extends Modal {
 		if(newNum < 1) newNum = 1;
 		if(newNum >= 99) newNum = 99;
 
-		if(sellMode)
+		if(sellMode) {
 			newNum = min(newNum, getNumItems(item['itemType']));
+		}
 
 		buyNum.valueAsNumber = newNum;
 		int value = item['price'] * newNum;
-		if(sellMode)
+		if(sellMode) {
 			value = (value * .7) ~/ 1;
+		}
 
-		if(sellMode)
+		if(sellMode) {
 			buyButton.text = "Sell $newNum for $value\u20a1";
-		else
+		} else {
 			buyButton.text = "Buy $newNum for $value\u20a1";
+		}
 
 		return buyNum.valueAsNumber.toInt();
 	}

@@ -28,7 +28,7 @@ class Overlay extends InformationDisplay {
 		displayElement.hidden = true;
 		elementOpen = false;
 		inputManager.ignoreKeys = false;
-		transmit("wordFocus", true);
+		transmit("worldFocus", true);
 	}
 }
 

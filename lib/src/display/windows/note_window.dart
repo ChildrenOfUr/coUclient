@@ -41,7 +41,10 @@ class NoteWindow extends Modal {
 			displayElement
 				..querySelector(".notewindow-read").hidden = true
 				..querySelector(".notewindow-write").hidden = false;
-			exitEditMode = displayElement.querySelector(".notewindow-write-btn").onClick.listen((_) {
+			exitEditMode = displayElement
+				.querySelector(".notewindow-write-btn")
+				.onClick
+				.listen((_) {
 				EditMode_Exit();
 				exitEditMode.cancel();
 			});
@@ -61,21 +64,27 @@ class NoteWindow extends Modal {
 		// Display values
 		displayElement
 			..querySelector(".notewindow-read-title").text = note["title"]
-			..querySelector(".notewindow-read-body").setInnerHtml(note["body"].replaceAll("\n", "<br>"), validator: HtmlValidator)
+			..querySelector(".notewindow-read-body").setInnerHtml(
+				note["body"].replaceAll("\n", "<br>"), validator: HtmlValidator)
 			..querySelector(".notewindow-read-footer-date").text = note["date"];
 		// Handle user-specific content
 		if (isWriter) {
 			displayElement
 				..querySelector(".notewindow-read-editbtn").hidden = false
 				..querySelector(".notewindow-read-footer-username").text = "You";
-			enterEditMode = displayElement.querySelector(".notewindow-read-editbtn").onClick.listen((_) {
+			enterEditMode = displayElement
+				.querySelector(".notewindow-read-editbtn")
+				.onClick
+				.listen((_) {
 				EditMode_Enter();
 				enterEditMode.cancel();
 			});
 		} else {
 			displayElement
 				..querySelector(".notewindow-read-editbtn").hidden = true
-				..querySelector(".notewindow-read-footer-username").setInnerHtml('<a title="Open Profile" href="http://childrenofur.com/profile/?username=${note["writer"]}" target="_blank">${note["writer"]}</a>', validator: HtmlValidator);
+				..querySelector(".notewindow-read-footer-username").setInnerHtml(
+					'<a title="Open Profile" href="http://childrenofur.com/profile/?username=${note["writer"]}" target="_blank">${note["writer"]}</a>',
+					validator: HtmlValidator);
 		}
 	}
 
@@ -86,19 +95,19 @@ class NoteWindow extends Modal {
 			"title": "Urgent Message!",
 			"body":
 			"Dear Fellow Glitches,\n"
-			"\n"
-			"This is an urgent notice pertaining to a\n"
-			"natrual gas leak from the gas plants\n"
-			"that has been recently detected. Please calmly\n"
-			"evacuate the street and beware of large\n"
-			"concentrations of Heavy Gas. If you feel light headed,\n"
-			"heavy, or have uncontrollable fits of laughter, please\n"
-			"visit the nearest poision control center.\n"
-			"\n"
-			"We are doing our best to assess the situation. Until\n"
-			"then, please do not inhale too deeply.\n"
-			"\n"
-			"-- Sandbox Gas and Electric",
+				"\n"
+				"This is an urgent notice pertaining to a\n"
+				"natrual gas leak from the gas plants\n"
+				"that has been recently detected. Please calmly\n"
+				"evacuate the street and beware of large\n"
+				"concentrations of Heavy Gas. If you feel light headed,\n"
+				"heavy, or have uncontrollable fits of laughter, please\n"
+				"visit the nearest poision control center.\n"
+				"\n"
+				"We are doing our best to assess the situation. Until\n"
+				"then, please do not inhale too deeply.\n"
+				"\n"
+				"-- Sandbox Gas and Electric",
 			"writer": "RedDyeNo.5",
 			"date": "1:16AM, 26 October 2011"
 		};
@@ -107,8 +116,8 @@ class NoteWindow extends Modal {
 			"title": "Hey guys!",
 			"body":
 			"Just testing this note window thing.\n"
-			"\n"
-			"Notice how there's no icon? The icon I want is in FontAwesome 4.4, which the CDN hasn't updated to yet.",
+				"\n"
+				"Notice how there's no icon? The icon I want is in FontAwesome 4.4, which the CDN hasn't updated to yet.",
 			"writer": "Klikini",
 			"date": "10:10AM, 19 August 2015"
 		};

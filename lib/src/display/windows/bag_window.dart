@@ -3,9 +3,13 @@ part of couclient;
 class BagWindow extends Modal {
 
 	static List<BagWindow> openWindows = [];
+	static List<BagWindow> bagWindows = [];
 
 	static closeId(String id) {
-		openWindows.where((BagWindow w) => w.id == id).first.close();
+		openWindows
+			.where((BagWindow w) => w.id == id)
+			.first
+			.close();
 		openWindows.removeWhere((BagWindow w) => w.id == id);
 	}
 
@@ -13,38 +17,100 @@ class BagWindow extends Modal {
 		return (querySelectorAll("#windowHolder > .bagWindow").length > 0);
 	}
 
-	String id = 'bagWindow' + WindowManager.randomId.toString();
-	String bagId;
-	int numSlots;
-	int sourceSlotNum;
+	static void updateSourceSlot(int oldSlotIndex, int newSlotIndex) {
+		for (BagWindow w in bagWindows) {
+			if (w.sourceSlotNum == oldSlotIndex) {
+				w.sourceSlotNum = newSlotIndex;
+				w.updateWell(w.sourceItem);
+				break;
+			}
+		}
+	}
+
+	String id,
+		bagId;
+	int numSlots, sourceSlotNum;
+	//when set to true, the ui inside the bag will be updated when the bag is next opened
+	bool dataUpdated = false;
+	ItemDef sourceItem;
+
 	Dropzone acceptors;
 
-	BagWindow(this.sourceSlotNum, ItemDef sourceItem) {
+	factory BagWindow(int sourceSlotNum, ItemDef sourceItem, {String id : null, bool open : true}) {
+		if (id == null) {
+			return new BagWindow._(sourceSlotNum, sourceItem, openWindow:open);
+		} else {
+			for(BagWindow w in bagWindows) {
+				if (w.id == id) {
+					if(open) {
+						w.open();
+					}
+					return w;
+				}
+			}
+			return new BagWindow._(sourceSlotNum, sourceItem, openWindow:open);
+		}
+	}
+
+	BagWindow._(this.sourceSlotNum, this.sourceItem, {bool openWindow : true}) {
+		bool creating = true;
+		id = 'bagWindow' + WindowManager.randomId.toString();
+		bagWindows.add(this);
+
+		//load the ui of the window and open it when ready
 		load(sourceItem).then((DivElement windowElement) {
+			displayElement = windowElement;
 			// Handle drag and drop
-			new Service(["inventoryUpdated"], (_) async {
+			new Service(["inventoryUpdated", 'metadataUpdated'], (_) {
 				if (acceptors != null) {
 					acceptors.destroy();
 				}
 				acceptors = new Dropzone(
-					windowElement.querySelectorAll(".bagwindow-box"),
+					displayElement.querySelectorAll(".bagwindow-box"),
 					acceptor: new BagFilterAcceptor(sourceItem.subSlotFilter)
 					)
 					..onDrop.listen((DropzoneEvent e) => InvDragging.handleDrop(e));
-			});
-			new Service(['updateMetadata'], (sourceItem) async {
-				windowElement.querySelector("ur-well").replaceWith(await load(sourceItem, false));
-				transmit('inventoryUpdated',true);
+
+				displayElement.querySelectorAll('.box').forEach((Element e) {
+					new Draggable(e.children[0], avatarHandler: new CustomAvatarHandler(),
+						              draggingClass: 'item-flying')
+						..onDragStart.listen((DraggableEvent e) => InvDragging.handlePickup(e));
+				});
 			});
 
-			querySelector("#windowHolder").append(windowElement);
+			new Service(['updateMetadata'], (Map indexToItem) async {
+				int index = indexToItem['index'];
+				if(index != sourceSlotNum) {
+					return;
+				}
+				this.sourceItem = indexToItem['item'];
+				if(displayElement.hidden) {
+					dataUpdated = true;
+				} else {
+					if(!creating) {
+						updateWell(sourceItem);
+					}
+				}
+			});
+
+			querySelector("#windowHolder").append(displayElement);
 			prepare();
-			open();
+			if(openWindow) {
+				open();
+			} else {
+				displayElement.hidden = true;
+			}
+			creating = false;
 		});
 	}
 
-	Future<Element> load(ItemDef sourceItem, [bool full = true]) async {
+	Future updateWell(ItemDef sourceItem) async {
+		Element newWell = await load(sourceItem, false);
+		displayElement.querySelector("ur-well").replaceWith(newWell);
+		transmit('metadataUpdated', true);
+	}
 
+	Future<Element> load(ItemDef sourceItem, [bool full = true]) async {
 		// Header
 
 		Element closeButton, icon, header;
@@ -70,8 +136,7 @@ class BagWindow extends Modal {
 			}
 
 			header = new Element.header()
-				..append(icon)
-				..append(titleSpan);
+				..append(icon)..append(titleSpan);
 		}
 
 		// Content
@@ -100,6 +165,8 @@ class BagWindow extends Modal {
 			throw new StateError("Number of slots in bag does not match bag size");
 		} else {
 			int slotNum = 0;
+			well.style.opacity = '0';
+			document.body.append(well); //for measuring
 			await Future.forEach(subSlots, (Map bagSlot) async {
 				DivElement slot = new DivElement();
 				// Slot
@@ -107,18 +174,20 @@ class BagWindow extends Modal {
 					..classes.addAll(["box", "bagwindow-box"])
 					..dataset["slot-num"] = slotNum.toString();
 				well.append(slot);
-				document.body.append(well); //for measuring
 				// Item
 				DivElement itemInSlot = new DivElement();
 				slot.append(itemInSlot);
 				if (!bagSlot["itemType"].isEmpty) {
-					ItemDef item = decode(JSON.encode(bagSlot['item']),type:ItemDef);
-					await _sizeItem(slot,itemInSlot,item,bagSlot['count'],slotNum);
+					ItemDef item = decode(JSON.encode(bagSlot['item']), type: ItemDef);
+					ImageElement img = new ImageElement(src: item.spriteUrl);
+					String className = 'item-${item.itemType} inventoryItem bagInventoryItem';
+					await sizeItem(img,itemInSlot,slot,item,bagSlot['count'], sourceSlotNum, cssClass: className, bagSlotNum: slotNum);
 				}
-				well.remove();
 
 				slotNum++;
 			});
+			well.style.opacity = '1'; //we're done measuring now
+			well.remove();
 		}
 
 		// Window
@@ -128,9 +197,7 @@ class BagWindow extends Modal {
 				..id = id
 				..classes.add("window")
 				..classes.add("bagWindow")
-				..append(header)
-				..append(closeButton)
-				..append(well)
+				..append(header)..append(closeButton)..append(well)
 				..dataset["source-bag"] = sourceSlotNum.toString();
 
 			return window;
@@ -139,71 +206,23 @@ class BagWindow extends Modal {
 		}
 	}
 
-	Future _sizeItem(Element slot, Element item, ItemDef i, int count, int bagSlotIndex) async {
-		ImageElement img = new ImageElement(src: i.spriteUrl);
-		await img.onLoad;
-
-		num scale = 1;
-		if (img.height > img.width / i.iconNum) {
-			scale = (slot.contentEdge.height - 10) / img.height;
-		} else {
-			scale = (slot.contentEdge.width - 10) / (img.width / i.iconNum);
-		}
-
-		item
-			..classes.addAll(["item-${i.itemType}", "inventoryItem", "bagInventoryItem"])
-			..attributes["name"] = i.name
-			..attributes["count"] = count.toString()
-			..attributes["itemmap"] = encode(i)
-			..style.width = (slot.contentEdge.width - 10).toString() + "px"
-			..style.height = (slot.contentEdge.height - 10).toString() + "px"
-			..style.backgroundImage = 'url(${i.spriteUrl})'
-			..style.backgroundRepeat = 'no-repeat'
-			..style.backgroundSize = "${img.width * scale}px ${img.height * scale}px"
-			..style.margin = "auto";
-
-		int offset = count;
-		if (i.iconNum != null && i.iconNum < count) {
-			offset = i.iconNum;
-		}
-
-		item.style.backgroundPosition = "calc(100% / ${i.iconNum - 1} * ${offset - 1}";
-
-		String slotString = '$sourceSlotNum.$bagSlotIndex';
-		item.onContextMenu.listen((MouseEvent event) => itemContextMenu(i,slotString,event));
-		if (count > 1) {
-			SpanElement itemCount = new SpanElement()
-				..text = count.toString()
-				..className = "itemCount";
-			item.parent.append(itemCount);
-		} else if (item.parent.querySelector(".itemCount") != null) {
-			item.parent.querySelector(".itemCount").text = "";
-		}
-	}
-
 	@override
 	open() {
 		super.open();
 		openWindows.add(this);
 
-		transmit('inventoryUpdated',true);
+		updateWell(sourceItem);
 	}
 
 	@override
 	close() {
 		super.close();
 
-		// Delete the window
-		Element window = querySelector("#$id");
-		if (window != null) {
-			window.remove();
-		}
-
 		// Update the source inventory icon
-		Element sourceBox = view.inventory.children.where((Element box) => box.dataset["slot-num"] == sourceSlotNum.toString()).first;
+		Element sourceBox = view.inventory.children
+			.where((Element box) => box.dataset["slot-num"] == sourceSlotNum.toString())
+			.first;
 		sourceBox.querySelector(".item-container-toggle").click();
-
-		transmit('inventoryUpdated',true);
 	}
 
 	// Update the inventory icons (used by the inventory)
@@ -213,18 +232,14 @@ class BagWindow extends Modal {
 		if (!open) {
 			// Closed, opening the bag
 			btn.classes
-				..remove("item-container-closed")
-				..remove("fa-plus")
-				..add("item-container-open")
-				..add("fa-times");
+				..remove("item-container-closed")..remove("fa-plus")
+				..add("item-container-open")..add("fa-times");
 			item.classes.add("inv-item-disabled");
 		} else {
 			// Opened, closing the bag
 			btn.classes
-				..remove("item-container-open")
-				..remove("fa-times")
-				..add("item-container-closed")
-				..add("fa-plus");
+				..remove("item-container-open")..remove("fa-times")
+				..add("item-container-closed")..add("fa-plus");
 			item.classes.remove("inv-item-disabled");
 		}
 	}

@@ -7,6 +7,9 @@ class Slot {
 	String itemType = "";
 	ItemDef item = null;
 	int count = 0;
+
+	@override
+	String toString() => 'Slot: $itemType, $count';
 }
 
 class Inventory {
@@ -17,9 +20,15 @@ class Inventory {
 
 class ItemDef {
 	String category, iconUrl, spriteUrl, toolAnimation, name, description, itemType, item_id;
-	int price, stacksTo, iconNum = 4, durability, durabilityUsed = 0, subSlots = 0;
+	int price,
+		stacksTo,
+		iconNum = 4,
+		durability,
+		durabilityUsed = 0,
+		subSlots = 0;
 	num x, y;
-	bool onGround = false, isContainer = false;
+	bool onGround = false,
+		isContainer = false;
 	List<String> subSlotFilter;
 	List<Action> actions = [];
 	Map<String, dynamic> metadata = {};
@@ -33,18 +42,9 @@ Future updateInventory([Map map]) async {
 	} else {
 		print("Attempted inventory update: failed.");
 		return;
-
-		// TODO: get this to work
-//		String serverData = await HttpRequest.getString(
-//			"http://${Configs.utilServerAddress}/getInventory/${game.email}"
-//		);
-//
-//		Map inventoryEntry = JSON.decode(serverData);
-//		dataSlots = JSON.decode(inventoryEntry["inventory_json"]);
 	}
 
 	List<Slot> currentSlots = playerInventory.slots;
-	int slotNum = 0;
 	List<Slot> slots = [];
 
 	//couldn't get the structure to decode correctly so I hacked together this
@@ -54,10 +54,10 @@ Future updateInventory([Map map]) async {
 		if (!m['itemType'].isEmpty) {
 			ItemDef item;
 			if (m['item']['metadata']['slots'] == null) {
-				item = decode(JSON.encode(m['item']), type:ItemDef);
+				item = decode(JSON.encode(m['item']), type: ItemDef);
 			} else {
 				Map metadata = (m['item'] as Map).remove('metadata');
-				item = decode(JSON.encode(m['item']), type:ItemDef);
+				item = decode(JSON.encode(m['item']), type: ItemDef);
 				item.metadata = metadata;
 			}
 			slot.item = item;
@@ -65,7 +65,6 @@ Future updateInventory([Map map]) async {
 			slot.count = m['count'];
 		}
 		slots.add(slot);
-		slotNum++;
 	});
 
 	playerInventory.slots = slots;
@@ -73,10 +72,12 @@ Future updateInventory([Map map]) async {
 	//if the current inventory differs (count, type, metatdata) then clear it
 	//and change it, else leave it alone
 	List<Element> uiSlots = querySelectorAll(".box").toList();
+	List<Future> slotUpdateFutures = [];
 	for (int i = 0; i < 10; i++) {
 		Slot newSlot = slots.elementAt(i);
 
-		bool updateNeeded = false, update = false;
+		bool updateNeeded = false,
+			update = false;
 
 		//if we've never received our inventory before, update all slots
 		if (currentSlots.length == 0) {
@@ -90,27 +91,32 @@ Future updateInventory([Map map]) async {
 				updateNeeded = true;
 				update = true;
 			} else if (currentSlot.item != null && newSlot.item != null &&
-			!_metadataEqual(currentSlot.item.metadata, newSlot.item.metadata)) {
-				transmit('updateMetadata',newSlot.item);
-				continue;
+			           !_metadataEqual(currentSlot.item.metadata, newSlot.item.metadata)) {
+				Map indexToItem = {'index':i,'item':newSlot.item};
+				transmit('updateMetadata', indexToItem);
 			}
 		}
 
 		if (updateNeeded) {
-			if(newSlot.count == 0) {
-				uiSlots.elementAt(i).children.clear();
-			}
-			uiSlots.elementAt(i).children.forEach((Element child) {
-				if(child.attributes.containsKey('count')) {
-					child.attributes['count'] = "0";
-				}
-			});
-			for (int j = 0; j < newSlot.count; j++) {
-				findNewSlot(newSlot,i,update:update);
-//				addItemToInventory(newSlot.item, i, update:update);
+			if (newSlot.count == 0) {
+				uiSlots
+					.elementAt(i)
+					.children
+					.clear();
+			} else {
+				uiSlots
+					.elementAt(i)
+					.children
+					.forEach((Element child) {
+					if (child.attributes.containsKey('count')) {
+						child.attributes['count'] = "0";
+					}
+				});
+				slotUpdateFutures.add(findNewSlot(newSlot, i, update: update));
 			}
 		}
 	}
 
+	await Future.wait(slotUpdateFutures);
 	transmit("inventoryUpdated", true);
 }

@@ -2,23 +2,30 @@ part of couclient;
 
 // Chats
 class Chat {
-	String title, lastWord = "";
-	bool online, focused = false, tabInserted = false;
+	String title,
+		lastWord = "";
+	bool online,
+		focused = false,
+		tabInserted = false;
 	Element conversationElement, trigger;
-	int unreadMessages = 0, tabSearchIndex = 0, numMessages = 0, inputHistoryPointer = 0, emoticonPointer = 0;
-	static Chat otherChat = null, localChat = null;
-	List<String> connectedUsers = new List(), inputHistory = new List();
+	int unreadMessages = 0,
+		tabSearchIndex = 0,
+		numMessages = 0,
+		inputHistoryPointer = 0,
+		emoticonPointer = 0;
+	static Chat otherChat = null,
+		localChat = null;
+	List<String> connectedUsers = new List(),
+		inputHistory = new List();
 	static StreamSubscription itemWindowLinks, mapWindowLinks;
 	static InputElement lastFocusedInput;
 
-	static final NodeValidatorBuilder validator = new NodeValidatorBuilder()
+	static final NodeValidatorBuilder VALIDATOR = new NodeValidatorBuilder()
 		..allowHtml5()
-		..allowElement('span', attributes: ['style']) // Username colors, item icons
-		..allowElement('a', attributes: ['href', 'title', 'target', 'class']) // Links
+		..allowElement('span', attributes: ['style']) // Item icons
+		..allowElement('a', attributes: ['href', 'title', 'target', 'class', 'style']) // Links
 		..allowElement('i', attributes: ['class', 'title']) // Emoticons
-		..allowElement('p', attributes: ['style'])
-		..allowElement('b')
-		..allowElement('del');
+		..allowElement('p', attributes: ['style'])..allowElement('b')..allowElement('del');
 
 	// /me text
 
@@ -42,14 +49,16 @@ class Chat {
 
 		// find the link in the chat panel that opens the chat
 		if (title != "Local Chat") {
-			trigger = querySelectorAll("#rightSide *").where((Element e) => e.dataset["chat"] == title).first;
+			trigger =
+				querySelectorAll("#rightSide *")
+					.where((Element e) => e.dataset["chat"] == title)
+					.first;
 		}
 
 		//look for an 'archived' version of this chat
 		//otherwise create a new one
 		conversationElement = getArchivedConversation(title);
 		if (conversationElement == null) {
-
 			// start a timer for the first global chat created that refreshes the sidebar player list
 			if (title == "Global Chat") {
 				refreshOnlinePlayers();
@@ -69,9 +78,9 @@ class Chat {
 			openConversations.insert(0, this);
 
 			if (title == "Local Chat") {
-				new Service(["gameLoaded", "streetLoaded"], (_) {
+				new Service(["gameLoaded", "streetLoaded"], (_) async {
 					// Streets loaded, display a divider
-					this.addMessage("invalid_user", "LocationChangeEvent");
+					await this.addMessage("invalid_user", "LocationChangeEvent");
 					// If this is the first one, empty the toast buffer into the chat
 					if (chatToastBuffer.length > 0) {
 						chatToastBuffer.forEach((String message) => this.addAlert(message, toast: true));
@@ -181,66 +190,114 @@ class Chat {
 		}
 	}
 
-	void addMessage(String player, String message) {
+	Future addMessage(String player, String message) async {
 		ChatMessage chat = new ChatMessage(player, message);
 		Element dialog = conversationElement.querySelector('.dialog');
-		chat.toHtml().then((String html) {
-			// display in panel
-			dialog.appendHtml(html, validator: Chat.validator);
+
+		// Toast for player change events
+		if (message == " joined." || message == " left.") {
+			// Player joined or left
+			if (game.username != player) {
+				if (player != game.username) {
+					if (message == " joined.") {
+						toast("$player has arrived");
+					}
+					if (message == " left.") {
+						toast("$player left");
+					}
+				}
+			}
+		} else {
+			// Assemble chat message elements
+			String html = await chat.toHtml();
+
+			// Parse styles, links, and emoji
+			html = html.replaceAll("&lt;", "<");
+			html = html.replaceAll("&gt;", ">");
+			html = parseUrl(html);
+			html = parseEmoji(html);
+			html = parseLocationLinks(html);
+			html = parseItemLinks(html);
+
+			// Display in panel
+			dialog.appendHtml(html, validator: Chat.VALIDATOR);
+		}
+
+		//scroll to the bottom
+		dialog.scrollTop = dialog.scrollHeight;
+
+		// check for and activate any item links
+		if (itemWindowLinks != null) {
+			// Cancel any existing links to prevent duplicate listeners
+			itemWindowLinks.cancel();
+		}
+		if (dialog.querySelector(".item-chat-link") != null) {
+			itemWindowLinks = dialog
+				.querySelectorAll(".item-chat-link")
+				.onClick
+				.listen((Event e) {
+				e.preventDefault();
+				if (e.target is AnchorElement) {
+					new ItemWindow(((e.target) as Element).text);
+				}
+				if (e.target is SpanElement) {
+					new ItemWindow(((e.target) as Element).parent.text);
+				}
+			});
+		}
+
+		updateChatLocationLinks(dialog);
+	}
+
+	void updateChatLocationLinks(Element dialog) {
+		// check for and activate any location links
+		if (mapWindowLinks != null) {
+			// Cancel any existing links to prevent duplicate listeners
+			mapWindowLinks.cancel();
+		}
+		if (dialog.querySelector(".location-chat-link") != null) {
+			mapWindowLinks = dialog
+				.querySelectorAll(".location-chat-link")
+				.onClick
+				.listen((Event e) {
+				e.preventDefault();
+				String text = ((e.target) as Element).text;
+
+				if ((e.target as Element).classes.contains("hub-chat-link")) {
+					String hubId = mapData.getHubId(text);
+					new WorldMap(hubId).loadhubdiv(hubId, text);
+				} else if ((e.target as Element).classes.contains("street-chat-link")) {
+					String hubId = mapData.streetData[text]["hub_id"].toString();
+					new WorldMap(hubId).hubMap(hub_id: hubId, highlightStreet: text);
+				}
+
+				mapWindow.open();
+			});
+		}
+	}
+
+	void addAlert(String alert, {bool toast: false}) {
+		String classes = "system ";
+
+		void _add() {
+			String text = '<p class="$classes">$alert</p>';
+			Element dialog = conversationElement.querySelector('.dialog');
+			dialog.appendHtml(parseLocationLinks(text), validator: VALIDATOR);
 
 			//scroll to the bottom
 			dialog.scrollTop = dialog.scrollHeight;
 
-			// check for item links
-			if (itemWindowLinks != null) {
-				itemWindowLinks.cancel();
-			}
-			if (dialog.querySelector(".item-chat-link") != null) {
-				itemWindowLinks = dialog.querySelectorAll(".item-chat-link").onClick.listen((Event e) {
-					e.preventDefault();
-					if (e.target is AnchorElement) {
-						new ItemWindow(((e.target) as Element).text);
-					}
-					if (e.target is SpanElement) {
-						new ItemWindow(((e.target) as Element).parent.text);
-					}
-				});
-			}
+			updateChatLocationLinks(dialog);
+		}
 
-			// check for location links
-			if (mapWindowLinks != null) {
-				mapWindowLinks.cancel();
-			}
-			if (dialog.querySelector(".location-chat-link") != null) {
-				mapWindowLinks = dialog.querySelectorAll(".location-chat-link").onClick.listen((Event e) {
-					e.preventDefault();
-					String text = ((e.target) as Element).text;
-
-					if ((e.target as Element).classes.contains("hub-chat-link")) {
-						String hubId = mapData.getHubId(text);
-						new WorldMap(hubId).loadhubdiv(hubId, text);
-					} else if ((e.target as Element).classes.contains("street-chat-link")) {
-						String hubId = mapData.streetData[text]["hub_id"].toString();
-						new WorldMap(hubId).hubMap(hub_id: hubId, highlightStreet: text);
-					}
-
-					mapWindow.open();
-				});
-			}
-		});
-	}
-
-  void addAlert(String alert, {bool toast: false}) {
-    String classes = "system ";
-    if (toast) {
-      classes += "chat-toast ";
-    }
-    String text = '<p class="$classes">$alert</p>';
-		Element dialog = conversationElement.querySelector('.dialog');
-		dialog.appendHtml(text, validator: validator);
-
-		//scroll to the bottom
-		dialog.scrollTop = dialog.scrollHeight;
+		if (toast) {
+			classes += "chat-toast ";
+			new Timer(new Duration(milliseconds: 100), () {
+				_add();
+			});
+		} else {
+			_add();
+		}
 	}
 
 	void displayList(List<String> users) {
@@ -258,7 +315,7 @@ class Chat {
 		String text = '<p class="system">$alert</p>';
 
 		Element dialog = conversationElement.querySelector('.dialog');
-		dialog.appendHtml(text, validator: validator);
+		dialog.appendHtml(text, validator: VALIDATOR);
 
 		//scroll to the bottom
 		dialog.scrollTop = dialog.scrollHeight;
@@ -300,8 +357,7 @@ class Chat {
 	}
 
 	void computePanelSize() {
-		List<Element> conversations =
-		view.panel.querySelectorAll('.conversation').toList();
+		List<Element> conversations = view.panel.querySelectorAll('.conversation').toList();
 		int num = conversations.length - 1;
 		conversations.forEach((Element conversation) {
 			if (conversation.hidden) {
@@ -357,13 +413,17 @@ class Chat {
 				return;
 			}
 
-			if (input.value.trim().length == 0) {
+			if (input.value
+				    .trim()
+				    .length == 0) {
 				toast("You can't send a blank message");
 				return;
 			}
 
 			RegExp formatChars = new RegExp(r'<b>|</b>|<i>|</i>|<u>|</u>|<del>|</del>');
-			if(input.value.replaceAll(formatChars,'').length == 0) {
+			if (input.value
+				    .replaceAll(formatChars, '')
+				    .length == 0) {
 				toast("You must have non-formatting content in your message");
 				return;
 			}
@@ -502,8 +562,7 @@ class Chat {
 		// if its not a command, send it through.
 		if (parseCommand(input)) {
 			return;
-		}
-		else if (input.toLowerCase() == "/list") {
+		} else if (input.toLowerCase() == "/list") {
 			Map map = {};
 			map["username"] = game.username;
 			map["statusMessage"] = "list";
@@ -525,12 +584,11 @@ class Chat {
 			if (map["channel"] == "Local Chat" &&
 			    !(map["message"] as String).toLowerCase().startsWith("/me")) {
 				//remove any existing bubble
-				if (CurrentPlayer.chatBubble != null &&
-				    CurrentPlayer.chatBubble.bubble != null) {
+				if (CurrentPlayer.chatBubble != null && CurrentPlayer.chatBubble.bubble != null) {
 					CurrentPlayer.chatBubble.bubble.remove();
 				}
-				CurrentPlayer.chatBubble = new ChatBubble(parseEmoji(map["message"]),
-				CurrentPlayer, CurrentPlayer.playerParentElement);
+				CurrentPlayer.chatBubble = new ChatBubble(
+					parseEmoji(map["message"]), CurrentPlayer, CurrentPlayer.playerParentElement);
 			}
 		}
 	}
@@ -542,7 +600,8 @@ class Chat {
 		}
 
 		// Ignore yourself (can't chat with yourself, either)
-		List<String> users = JSON.decode(await HttpRequest.requestCrossOrigin('http://${ Configs.utilServerAddress}/listUsers?channel=Global Chat'));
+		List<String> users = JSON.decode(await HttpRequest
+			.requestCrossOrigin('http://${ Configs.utilServerAddress}/listUsers?channel=Global Chat'));
 		users.removeWhere((String username) => username == game.username);
 
 		// Reset the list

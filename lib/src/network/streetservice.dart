@@ -33,8 +33,11 @@ class StreetService {
 
 			String playerList = '';
 			List<String> players = JSON.decode(await HttpRequest.getString('http://' + Configs.utilServerAddress + '/listUsers?channel=' + currentStreet.label));
+			if (!players.contains(game.username)) {
+				players.add(game.username);
+			}
 			// don't list if it's just you
-			if(players.length > 1) {
+			if(players.length > 0) {
 				for(int i = 0; i != players.length; i++) {
 					playerList += players[i];
 					if(i != players.length) {
@@ -43,8 +46,6 @@ class StreetService {
 				}
 				playerList = playerList.substring(0, playerList.length - 2);
 				toast("Players on this street: " + playerList);
-			} else {
-				toast("Nobody else is on this street");
 			}
 		}
 	}
@@ -104,7 +105,7 @@ class StreetService {
 		await street.load();
 		logmessage('[StreetService] Street assembled.');
 
-		// notify minimap to update
+		// notify displays to update
 		transmit('streetLoaded', streetAsMap);
 	}
 }

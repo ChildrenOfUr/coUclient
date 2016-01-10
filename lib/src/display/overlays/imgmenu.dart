@@ -39,10 +39,11 @@ class ImgOverlay extends Overlay {
 
 		// Set up level indicator bar /////////////////////////////////////////////////////////////
 
-		if (metabolics.lifetime_img < int.parse(await(HttpRequest.getString("http://${Configs.utilServerAddress}/getImgForLevel?level=60")))) {
+		int l_curr = await metabolics.level;
+
+		if (l_curr < 60) {
 			// Calculate level/img stats
 
-			int l_curr = await metabolics.level;
 			int l_imgCurr = await metabolics.img_req_for_curr_lvl;
 			int l_imgNext = await metabolics.img_req_for_next_lvl;
 

@@ -36,11 +36,12 @@ class EmoticonPicker extends Modal {
         });
 
         emoticonButton.onClick.listen((_) {
-          if (target.value == "" || target.value.substring(target.value.length - 1) == " ") {
-            target.value += ":$emoticon:";
-          } else {
-            target.value += " :$emoticon:";
-          }
+          target.value +=
+            "${(
+              target.value == "" || target.value.substring(target.value.length - 1) == " "
+              ? ""
+              : " "
+            )}::$emoticon::";
         });
       });
     });

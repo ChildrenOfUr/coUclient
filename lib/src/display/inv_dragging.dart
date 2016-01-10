@@ -3,10 +3,13 @@ part of couclient;
 class InvDragging {
 	/// Track inventory updating
 	static Service _refresh;
+
 	/// Draggable items
 	static Draggable _draggables;
+
 	/// Drop targets
 	static Dropzone _dropzones;
+
 	/// State tracking
 	static Element _origBox;
 
@@ -55,15 +58,14 @@ class InvDragging {
 
 		// Set up draggable elements
 		_draggables = new Draggable(
-			// List of item elements in boxes
-			querySelectorAll('.inventoryItem'),
-			// Display the item on the cursor
+		// List of item elements in boxes
+		querySelectorAll('.inventoryItem'),
+		// Display the item on the cursor
 			avatarHandler: new CustomAvatarHandler(),
-			// Allow free dragging.
-			horizontalOnly: false,
-			// Disable item interaction while dragging it
+		// Disable item interaction while dragging it
 			draggingClass: "item-flying"
-		)..onDragStart.listen((DraggableEvent e) => handlePickup(e));
+		)
+			..onDragStart.listen((DraggableEvent e) => handlePickup(e));
 
 		// Set up acceptor slots
 		_dropzones = new Dropzone(querySelectorAll("#inventory .box"))
@@ -92,6 +94,24 @@ class InvDragging {
 			_move["toBagIndex"] = int.parse(e.dropzoneElement.dataset["slot-num"]);
 		} else {
 			_move["toIndex"] = int.parse(e.dropzoneElement.dataset["slot-num"]);
+
+			//moving an item from one slot on the inventory bar to another shouldn't fail
+			//so even with that big assumption, we should tell bag windows associated with
+			//the old slot index that they are now to be associated with the new slot index
+			//this way they can listen to metadata update messages based on index
+			BagWindow.updateSourceSlot(_move['fromIndex'], _move['toIndex']);
+		}
+
+		if (_move['fromIndex'] == _move['toIndex'] &&
+		    (_move['fromBagIndex'] == null ||_move['toBagIndex'] == null)) {
+			//don't send the action to the server if the item was dropped in place
+			return;
+		}
+
+		if (_move['fromIndex'] == _move['toIndex'] &&
+		    (_move['fromBagIndex'] == _move['toBagIndex'])) {
+			//don't send the action to the server if the item was dropped in place
+			return;
 		}
 
 		sendAction("moveItem", "global_action_monster", _move);
@@ -105,7 +125,7 @@ class BagFilterAcceptor extends Acceptor {
 
 	@override
 	bool accepts(Element itemE, int draggable_id, Element box) {
-		ItemDef item = decode(itemE.attributes['itemmap'],type:ItemDef);
+		ItemDef item = decode(itemE.attributes['itemmap'], type: ItemDef);
 		if (allowedItemTypes.length == 0) {
 			// Those that accept nothing learn to accept everything (except other containers)
 			return !item.isContainer;
