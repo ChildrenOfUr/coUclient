@@ -57,7 +57,7 @@ _setupPlayerSocket() {
 			    map['previousStreet'] == currentStreet.label) {
 				removeOtherPlayer(map["username"]);
 				toast('${map['username']} has left for ${map['changeStreet']}');
-			} else {
+			} else if (map['changeStreet'] == currentStreet.label){
 				createOtherPlayer(map);
 				toast('${map['username']} has arrived');
 			}
