@@ -120,6 +120,76 @@ class RockWindow extends Modal {
 		initConvo("badstreet", userTriggered: false);
 	}
 
+	/**
+	 * Use this method to create a conversation dynamically
+	 * After calling this method the conversation html will be added to the page
+	 * and you should call switchContent(id) followed by open() on the rockwindow
+	 * to display the conversation
+	 */
+	void createConvo(Conversation convo) {
+		DivElement conversation = new DivElement()
+			..className = 'rockWindowContent convo'
+			..id = 'rwc-${convo.id}'
+			..dataset['endphrase'] = (convo.screens.length + 1).toString()
+			..hidden = true;
+
+		for (int i=1; i<=convo.screens.length; i++) {
+			ConvoScreen screen = convo.screens.elementAt(i-1);
+			DivElement screenE = new DivElement()..id = 'rwc-${convo.id}-$i';
+
+			for (String paragraph in screen.paragraphs) {
+				ParagraphElement paragraphE = new ParagraphElement()..text = paragraph;
+				screenE.append(paragraphE);
+			}
+
+			//up to 2 choices per row
+			List<ConvoChoice> choices = new List.from(screen.choices);
+			while (choices.isNotEmpty) {
+				DivElement choiceRow = new DivElement()..className = 'flex-row rwc-exit';
+
+				choiceRow.append(_createChoice(choices.removeAt(0), convo.id.split('-')[0]));
+
+				if(choices.isNotEmpty) {
+					choiceRow.append(_createChoice(choices.removeAt(0), convo.id.split('-')[0]));
+				}
+
+				screenE.append(choiceRow);
+			}
+
+			conversation.append(screenE);
+		}
+
+		querySelector('#rwc-holder').append(conversation);
+		initConvo(convo.id, userTriggered: false);
+	}
+
+	AnchorElement _createChoice(ConvoChoice choice, String questId) {
+		AnchorElement choiceE = new AnchorElement()
+			..className = 'rwc-button'
+			..dataset['goto'] = '${choice.gotoScreen}'
+			..text = choice.text;
+
+		if(choice.isQuestAccept) {
+			_createChoiceListener(choiceE, 'acceptQuest', questId);
+		}
+		if(choice.isQuestReject) {
+			_createChoiceListener(choiceE, 'rejectQuest', questId);
+		}
+
+		return choiceE;
+	}
+
+	_createChoiceListener(Element choiceE, String type, String questId) {
+		choiceE.onClick.first.then((_) {
+			Map map = {
+				type: 'true',
+				'email': game.email,
+				'id': questId
+			};
+			QuestManager.socket.send(JSON.encode(map));
+		});
+	}
+
 	RockWindow() {
 		prepare();
 
@@ -147,4 +217,20 @@ class RockWindow extends Modal {
 		ready = true;
 		transmit("rockwindowready", ready);
 	}
+}
+
+class Conversation {
+	String id, title;
+	List<ConvoScreen> screens;
+}
+
+class ConvoScreen {
+	List<String> paragraphs;
+	List<ConvoChoice> choices;
+}
+
+class ConvoChoice {
+	String text;
+	int gotoScreen;
+	bool isQuestAccept = false, isQuestReject = false;
 }
