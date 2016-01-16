@@ -15,7 +15,7 @@ class Quest {
 	bool complete = false;
 	List<Quest> prerequisites = [];
 	List<Requirement> requirements = [];
-	Conversation conversation_start, conversation_end;
+	Conversation conversation_start, conversation_end, conversation_fail;
 	QuestRewards rewards;
 }
 
@@ -55,6 +55,12 @@ class QuestManager {
 				Quest quest = decode(JSON.encode(map['quest']), type: Quest);
 				windowManager.rockWindow.createConvo(quest.conversation_end, rewards: quest.rewards);
 				windowManager.rockWindow.switchContent('rwc-'+quest.conversation_end.id);
+				windowManager.rockWindow.open();
+			}
+			if (map['questFail'] != null) {
+				Quest quest = decode(JSON.encode(map['quest']), type: Quest);
+				windowManager.rockWindow.createConvo(quest.conversation_fail);
+				windowManager.rockWindow.switchContent('rwc-'+quest.conversation_fail.id);
 				windowManager.rockWindow.open();
 			}
 			if (map['questOffer'] != null) {

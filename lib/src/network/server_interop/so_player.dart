@@ -92,6 +92,7 @@ sendPlayerInfo() {
 	String xy =
 		CurrentPlayer.posX.toString() + "," + CurrentPlayer.posY.toString();
 	Map map = new Map();
+	map['email'] = game.email;
 	map["username"] = CurrentPlayer.username;
 	map["xy"] = xy;
 	map["street"] = currentStreet.label;
