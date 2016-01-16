@@ -2,17 +2,17 @@ part of couclient;
 
 class ShrineWindow extends Modal {
 	static ShrineWindow shrineWindow;
-	String id = 'shrineWindow', giantName;
+	String id = 'shrineWindow',
+		giantName;
 	int favor, maxFavor;
 	String shrineId;
 	Element buttonHolder, confirmButton, cancelButton, dropTarget, favorProgress, numSelectorContainer, helpText;
 	Map item;
-	StreamSubscription plusClicked, minusClicked, maxClicked;
 	NumberInputElement numBox;
 	Element QtyContainer, plusBtn, minusBtn, maxBtn;
 
 	factory ShrineWindow(String giantName, int favor, int maxFavor, String shrineId) {
-		if(shrineWindow == null) {
+		if (shrineWindow == null) {
 			shrineWindow = new ShrineWindow._(giantName, favor, maxFavor, shrineId);
 		} else {
 			shrineWindow
@@ -45,15 +45,6 @@ class ShrineWindow extends Modal {
 		helpText.innerHtml = 'Drop an item here from your inventory to donate it to ' + giantName + ' for favor.';
 		numSelectorContainer.hidden = true;
 		item.clear();
-		if(
-		plusClicked != null &&
-		minusClicked != null &&
-		maxClicked != null
-		) {
-			plusClicked.cancel();
-			minusClicked.cancel();
-			maxClicked.cancel();
-		}
 	}
 
 	void populateShrineWindow() {
@@ -65,12 +56,6 @@ class ShrineWindow extends Modal {
 	}
 
 	void populateQtySelector(String itemType) {
-		QtyContainer = this.displayElement.querySelector("#shrine-window-qty");
-		plusBtn = this.displayElement.querySelector(".plus");
-		minusBtn = this.displayElement.querySelector(".minus");
-		maxBtn = this.displayElement.querySelector(".max");
-		numBox = this.displayElement.querySelector(".NumToDonate");
-
 		numBox.attributes['max'] = getNumItems(itemType).toString();
 		numBox.valueAsNumber = 1;
 	}
@@ -79,7 +64,7 @@ class ShrineWindow extends Modal {
 		Dropzone dropzone = new Dropzone(dropTarget);
 		dropzone.onDrop.listen((DropzoneEvent dropEvent) {
 			//verify it is a valid item before acting on it
-			if(dropEvent.draggableElement.attributes['itemMap'] == null) {
+			if (dropEvent.draggableElement.attributes['itemMap'] == null) {
 				return;
 			}
 
@@ -90,40 +75,22 @@ class ShrineWindow extends Modal {
 
 			numSelectorContainer.hidden = false;
 			populateQtySelector(item['itemType']);
-
-			plusClicked = plusBtn.onClick.listen((_) {
-				if(numBox.valueAsNumber + 1 > num.parse(numBox.max)) {
-					numBox.valueAsNumber = num.parse(numBox.max);
-				} else {
-					numBox.valueAsNumber = numBox.valueAsNumber + 1;
-				}
-			});
-
-			minusClicked = minusBtn.onClick.listen((_) {
-				numBox.valueAsNumber = numBox.valueAsNumber - 1;
-				if(numBox.valueAsNumber - 1 < num.parse(numBox.min)) {
-					numBox.valueAsNumber = num.parse(numBox.min);
-				} else {
-					numBox.valueAsNumber = numBox.valueAsNumber - 1;
-				}
-			});
-
-			maxClicked = maxBtn.onClick.listen((_) {
-				numBox.valueAsNumber = num.parse(numBox.max);
-			});
-
 		});
 	}
 
 	void _setFavorProgress(int percent) {
-		favorProgress
-			..setAttribute('percent', percent.toString())
-			..setAttribute('status', "$favor of $maxFavor favor towards an Emblem of $giantName");
+		favorProgress..setAttribute('percent', percent.toString())..setAttribute(
+			'status', "$favor of $maxFavor favor towards an Emblem of $giantName");
 	}
 
 	ShrineWindow._(this.giantName, this.favor, this.maxFavor, this.shrineId) {
 		prepare();
 
+		QtyContainer = displayElement.querySelector("#shrine-window-qty");
+		plusBtn = displayElement.querySelector(".plus");
+		minusBtn = displayElement.querySelector(".minus");
+		maxBtn = displayElement.querySelector(".max");
+		numBox = displayElement.querySelector(".NumToDonate");
 		buttonHolder = querySelector('#shrine-window-buttons');
 		confirmButton = querySelector('#shrine-window-confirm');
 		cancelButton = querySelector('#shrine-window-cancel');
@@ -150,6 +117,26 @@ class ShrineWindow extends Modal {
 
 		cancelButton.onClick.listen((_) {
 			resetShrineWindow();
+		});
+
+		plusBtn.onClick.listen((_) {
+			if (numBox.valueAsNumber + 1 > num.parse(numBox.max)) {
+				numBox.valueAsNumber = num.parse(numBox.max);
+			} else {
+				numBox.valueAsNumber = numBox.valueAsNumber + 1;
+			}
+		});
+
+		minusBtn.onClick.listen((_) {
+			if (numBox.valueAsNumber - 1 < num.parse(numBox.min)) {
+				numBox.valueAsNumber = num.parse(numBox.min);
+			} else {
+				numBox.valueAsNumber = numBox.valueAsNumber - 1;
+			}
+		});
+
+		maxBtn.onClick.listen((_) {
+			numBox.valueAsNumber = num.parse(numBox.max);
 		});
 	}
 }
