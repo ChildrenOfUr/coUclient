@@ -1,11 +1,22 @@
 part of couclient;
 
+class QuestRewards {
+	int energy, mood, img, currants;
+	List<QuestFavor> favor;
+}
+
+class QuestFavor {
+	String giantName;
+	int favAmt;
+}
+
 class Quest {
 	String id, title, questText, completionText;
 	bool complete = false;
 	List<Quest> prerequisites = [];
 	List<Requirement> requirements = [];
 	Conversation conversation_start, conversation_end;
+	QuestRewards rewards;
 }
 
 class Requirement {
@@ -42,7 +53,7 @@ class QuestManager {
 			Map map = JSON.decode(event.data);
 			if (map['questComplete'] != null) {
 				Quest quest = decode(JSON.encode(map['quest']), type: Quest);
-				windowManager.rockWindow.createConvo(quest.conversation_end);
+				windowManager.rockWindow.createConvo(quest.conversation_end, rewards: quest.rewards);
 				windowManager.rockWindow.switchContent('rwc-'+quest.conversation_end.id);
 				windowManager.rockWindow.open();
 			}

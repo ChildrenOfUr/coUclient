@@ -62,7 +62,8 @@ class RockWindow extends Modal {
 		/// On death
 		new Service(["dead"], (bool dying) {
 			// Prevent the screen appearing on every Hell street
-			bool deathConvoDone = false, reviveConvoDone = false;
+			bool deathConvoDone = false,
+				reviveConvoDone = false;
 			new Service(["streetLoaded"], (_) {
 				if (dying && !deathConvoDone) {
 					// Start death talk
@@ -73,7 +74,7 @@ class RockWindow extends Modal {
 					// Save state
 					deathConvoDone = true;
 				}
-				if (!dying && !reviveConvoDone){
+				if (!dying && !reviveConvoDone) {
 					// Start revival talk
 					switchContent("rwc-revive");
 					open();
@@ -87,12 +88,13 @@ class RockWindow extends Modal {
 
 		/// When entering a broken street
 		new Service(['streetLoaded'], (_) {
-			if (mapData.streetData[currentStreet.label] != null && mapData.streetData[currentStreet.label]["broken"] == true) {
+			if (mapData.streetData[currentStreet.label] != null &&
+			    mapData.streetData[currentStreet.label]["broken"] == true) {
 				switchContent("rwc-badstreet");
 				open();
 				rescueButton.hidden = false;
 				rescueClick = rescueButton.onClick.listen((_) {
-					streetService.requestStreet(/*Ilmenskie*/"LIF102FDNU11314");
+					streetService.requestStreet(/*Ilmenskie*/ "LIF102FDNU11314");
 					close();
 				});
 			} else {
@@ -126,34 +128,41 @@ class RockWindow extends Modal {
 	 * and you should call switchContent(id) followed by open() on the rockwindow
 	 * to display the conversation
 	 */
-	void createConvo(Conversation convo) {
+	void createConvo(Conversation convo, {QuestRewards rewards}) {
 		DivElement conversation = new DivElement()
 			..className = 'rockWindowContent convo'
 			..id = 'rwc-${convo.id}'
 			..dataset['endphrase'] = (convo.screens.length + 1).toString()
 			..hidden = true;
 
-		for (int i=1; i<=convo.screens.length; i++) {
-			ConvoScreen screen = convo.screens.elementAt(i-1);
-			DivElement screenE = new DivElement()..id = 'rwc-${convo.id}-$i';
+		for (int i = 1; i <= convo.screens.length; i++) {
+			ConvoScreen screen = convo.screens.elementAt(i - 1);
+			DivElement screenE = new DivElement()
+				..id = 'rwc-${convo.id}-$i';
 
 			for (String paragraph in screen.paragraphs) {
-				ParagraphElement paragraphE = new ParagraphElement()..text = paragraph;
+				ParagraphElement paragraphE = new ParagraphElement()
+					..text = paragraph;
 				screenE.append(paragraphE);
 			}
 
 			//up to 2 choices per row
 			List<ConvoChoice> choices = new List.from(screen.choices);
 			while (choices.isNotEmpty) {
-				DivElement choiceRow = new DivElement()..className = 'flex-row rwc-exit';
+				DivElement choiceRow = new DivElement()
+					..className = 'flex-row rwc-exit';
 
 				choiceRow.append(_createChoice(choices.removeAt(0), convo.id.split('-')[0]));
 
-				if(choices.isNotEmpty) {
+				if (choices.isNotEmpty) {
 					choiceRow.append(_createChoice(choices.removeAt(0), convo.id.split('-')[0]));
 				}
 
 				screenE.append(choiceRow);
+			}
+
+			if (i == convo.screens.length && rewards != null) {
+				screenE.append(_createRewards(rewards));
 			}
 
 			conversation.append(screenE);
@@ -163,16 +172,47 @@ class RockWindow extends Modal {
 		initConvo(convo.id, userTriggered: false);
 	}
 
+	DivElement _createRewards(QuestRewards rewards) {
+		DivElement awardsE = new DivElement()
+			..className = 'awarded';
+		if (rewards.energy != 0) {
+			SpanElement energyE = new SpanElement()
+				..className = 'energy'
+				..text = '+${rewards.energy}';
+			awardsE.append(energyE);
+		}
+		if (rewards.mood != 0) {
+			SpanElement moodE = new SpanElement()
+				..className = 'mood'
+				..text = '+${rewards.mood}';
+			awardsE.append(moodE);
+		}
+		if (rewards.img != 0) {
+			SpanElement imgE = new SpanElement()
+				..className = 'img'
+				..text = '+${rewards.img}';
+			awardsE.append(imgE);
+		}
+		if (rewards.currants != 0) {
+			SpanElement currantsE = new SpanElement()
+				..className = 'currants'
+				..text = '+${rewards.currants}';
+			awardsE.append(currantsE);
+		}
+
+		return awardsE;
+	}
+
 	AnchorElement _createChoice(ConvoChoice choice, String questId) {
 		AnchorElement choiceE = new AnchorElement()
 			..className = 'rwc-button'
 			..dataset['goto'] = '${choice.gotoScreen}'
 			..text = choice.text;
 
-		if(choice.isQuestAccept) {
+		if (choice.isQuestAccept) {
 			_createChoiceListener(choiceE, 'acceptQuest', questId);
 		}
-		if(choice.isQuestReject) {
+		if (choice.isQuestReject) {
 			_createChoiceListener(choiceE, 'rejectQuest', questId);
 		}
 
@@ -210,7 +250,7 @@ class RockWindow extends Modal {
 			initConvos();
 			// Trigger conversations
 			setConvoTriggers();
-		} catch(e) {
+		} catch (e) {
 			logmessage("[UI] Could not load rock convos");
 		}
 
@@ -220,7 +260,7 @@ class RockWindow extends Modal {
 }
 
 class Conversation {
-	String id, title;
+	String id;
 	List<ConvoScreen> screens;
 }
 
@@ -232,5 +272,6 @@ class ConvoScreen {
 class ConvoChoice {
 	String text;
 	int gotoScreen;
-	bool isQuestAccept = false, isQuestReject = false;
+	bool isQuestAccept = false,
+		isQuestReject = false;
 }
