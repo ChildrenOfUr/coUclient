@@ -35,6 +35,7 @@ class RockWindow extends Modal {
 				// Go to the next screen
 				querySelectorAll("#rwc-" + convo + " > div").forEach((Element el) => el.hidden = true);
 				querySelector("#rwc-" + convo + "-" + id).hidden = false;
+				querySelector("#rwc-" + convo).scrollTop = 0;
 			}
 		});
 	}
