@@ -11,25 +11,32 @@ class QuestFavor {
 }
 
 class Quest {
-	String id, title, questText, completionText;
+	String id, title, description;
 	bool complete = false;
-	List<Quest> prerequisites = [];
-	List<Requirement> requirements = [];
+	List<Quest> prerequisites;
+	List<Requirement> requirements;
 	Conversation conversation_start, conversation_end, conversation_fail;
 	QuestRewards rewards;
 }
 
 class Requirement {
-	int numRequired;
-	String id, text, type, eventType;
+	bool fulfilled;
+	int numRequired, timeLimit, numFulfilled;
+	String id, text, type, eventType, iconUrl;
+	List<String> typeDone;
 }
 
 class QuestManager {
 	static QuestManager _instance;
-	static WebSocket socket;
+	WebSocket socket;
 
 	QuestManager._() {
 		_setupWebsocket();
+
+		new Service('questChoice', (Map map) {
+			print('sending choice: $map');
+			socket.send(JSON.encode(map));
+		});
 	}
 
 	factory QuestManager() {
@@ -43,33 +50,8 @@ class QuestManager {
 	Future _setupWebsocket() async {
 		String url = 'ws://${Configs.websocketServerAddress}/quest';
 		socket = new WebSocket(url);
-		Map connectMap = {
-			'connect':true,
-			'email':game.email
-		};
-		socket.onOpen.listen((_) => socket.send(JSON.encode(connectMap)));
 
-		await for (MessageEvent event in socket.onMessage) {
-			Map map = JSON.decode(event.data);
-			if (map['questComplete'] != null) {
-				Quest quest = decode(JSON.encode(map['quest']), type: Quest);
-				windowManager.rockWindow.createConvo(quest.conversation_end, rewards: quest.rewards);
-				windowManager.rockWindow.switchContent('rwc-'+quest.conversation_end.id);
-				windowManager.rockWindow.open();
-			}
-			if (map['questFail'] != null) {
-				Quest quest = decode(JSON.encode(map['quest']), type: Quest);
-				windowManager.rockWindow.createConvo(quest.conversation_fail);
-				windowManager.rockWindow.switchContent('rwc-'+quest.conversation_fail.id);
-				windowManager.rockWindow.open();
-			}
-			if (map['questOffer'] != null) {
-				Quest quest = decode(JSON.encode(map['quest']), type: Quest);
-				windowManager.rockWindow.createConvo(quest.conversation_start);
-				windowManager.rockWindow.switchContent('rwc-'+quest.conversation_start.id);
-				windowManager.rockWindow.open();
-			}
-		}
+		socket.onOpen.listen((_) => socket.send(JSON.encode({'connect':true, 'email':game.email})));
 		socket.onClose.listen((CloseEvent e) {
 			logmessage('[Quest] Websocket closed: ${e.reason}');
 			//wait 5 seconds and try to reconnect
@@ -77,6 +59,38 @@ class QuestManager {
 		});
 		socket.onError.listen((ErrorEvent e) {
 			logmessage('[Quest] Error ${e.error}');
+		});
+
+		socket.onMessage.listen((MessageEvent event) {
+			Map map = JSON.decode(event.data);
+			if (map['questComplete'] != null) {
+				Quest quest = decode(JSON.encode(map['quest']), type: Quest);
+				transmit('questComplete', quest);
+				windowManager.rockWindow.createConvo(quest.conversation_end, rewards: quest.rewards);
+				windowManager.rockWindow.switchContent('rwc-' + quest.conversation_end.id);
+				windowManager.rockWindow.open();
+			}
+			if (map['questFail'] != null) {
+				Quest quest = decode(JSON.encode(map['quest']), type: Quest);
+				windowManager.rockWindow.createConvo(quest.conversation_fail);
+				windowManager.rockWindow.switchContent('rwc-' + quest.conversation_fail.id);
+				windowManager.rockWindow.open();
+			}
+			if (map['questOffer'] != null) {
+				Quest quest = decode(JSON.encode(map['quest']), type: Quest);
+				windowManager.rockWindow.createConvo(quest.conversation_start);
+				windowManager.rockWindow.switchContent('rwc-' + quest.conversation_start.id);
+				windowManager.rockWindow.open();
+			}
+			if (map['questInProgress'] != null) {
+				Quest quest = decode(JSON.encode(map['quest']), type: Quest);
+				transmit('questInProgress', quest);
+			}
+			if (map['questUpdate'] != null) {
+				print('got quest update');
+				Quest quest = decode(JSON.encode(map['quest']), type: Quest);
+				transmit('questUpdate', quest);
+			}
 		});
 	}
 }

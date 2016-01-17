@@ -102,6 +102,7 @@ part 'package:couclient/src/display/windows/item_window.dart';
 part 'package:couclient/src/display/windows/emoticon_picker.dart';
 part 'package:couclient/src/display/windows/useitem_window.dart';
 part 'package:couclient/src/display/windows/note_window.dart';
+part 'package:couclient/src/display/windows/questlog_window.dart';
 
 // OVERLAYS //
 part 'package:couclient/src/display/overlays/overlay.dart';

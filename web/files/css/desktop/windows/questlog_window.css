@@ -1,0 +1,20 @@
+#questLogButton {
+    position: absolute;
+    top: 50%;
+    z-index: 1;
+    width: 64px;
+    height: 64px;
+    background-image: url(../../../system/icons/quest_log.png);
+}
+
+#questLogButton:hover {
+    -webkit-filter: drop-shadow(0 1px 2px cyan);
+    -o-filter: drop-shadow(0 1px 2px cyan);
+    filter: drop-shadow(0 1px 2px cyan);
+}
+
+#questLogButton:active {
+    -webkit-filter: drop-shadow(0 1px 2px cyan);
+    -o-filter: drop-shadow(0 1px 2px cyan);
+    filter: drop-shadow(0 1px 2px cyan);
+}

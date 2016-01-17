@@ -129,6 +129,9 @@ class RockWindow extends Modal {
 	 * to display the conversation
 	 */
 	void createConvo(Conversation convo, {QuestRewards rewards}) {
+		//remove the conversation if it already exists
+		querySelector('#rwc-${convo.id}')?.remove();
+
 		DivElement conversation = new DivElement()
 			..className = 'rockWindowContent convo'
 			..id = 'rwc-${convo.id}'
@@ -226,7 +229,7 @@ class RockWindow extends Modal {
 				'email': game.email,
 				'id': questId
 			};
-			QuestManager.socket.send(JSON.encode(map));
+			transmit('questChoice', map);
 		});
 	}
 

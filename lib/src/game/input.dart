@@ -44,7 +44,9 @@ class InputManager {
 		"ChatFocusBindingPrimary": 9,
 		"ChatFocusBindingAlt": 9,
 		"ImgMenuBindingPrimary": 73,
-		"ImgMenuBindingAlt": 73
+		"ImgMenuBindingAlt": 73,
+		"QuestLogBindingPrimary": 81,
+		"QuestLogBindingAlt": 81
 	};
 	bool ignoreKeys = false, ignoreChatFocus = false,
 	touched = false,

@@ -5,11 +5,11 @@ class WindowManager {
 	BugWindow bugs;
 	VendorWindow vendor;
 	MotdWindow motdWindow;
-
 	//GoWindow goWindow;
 	CalendarWindow calendarWindow;
 	RockWindow rockWindow;
 	EmoticonPicker emoticonPicker;
+	QuestLogWindow questLog;
 
 	WindowManager() {
 		// Declaring all the possible popup windows
@@ -22,6 +22,7 @@ class WindowManager {
 		calendarWindow = new CalendarWindow();
 		rockWindow = new RockWindow();
 		emoticonPicker = new EmoticonPicker();
+		questLog = new QuestLogWindow();
 	}
 
 	static int get randomId => random.nextInt(9999999);
