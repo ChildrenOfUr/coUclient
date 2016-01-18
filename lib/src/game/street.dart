@@ -223,7 +223,7 @@ class Street {
 
         // show signpost in minimap {
 
-        List<String> connects = signpost['connects'];
+        List<Map<String,String>> connects = signpost['connects'];
         List<String> streets = new List();
 
         for (Map exit in connects) {

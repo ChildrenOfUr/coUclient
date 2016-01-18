@@ -8032,7 +8032,7 @@
         },
         {
             "start": "Leeteg",
-            "end": "LikomÃ¤rkÃ¤",
+            "end": "Likomärkä",
             "weight": 1
         },
         {
@@ -8042,7 +8042,7 @@
         },
         {
             "start": "Soggy Bottoms",
-            "end": "LikomÃ¤rkÃ¤",
+            "end": "Likomärkä",
             "weight": 1
         },
         {
@@ -8272,7 +8272,7 @@
         },
         {
             "start": "Harbinger Heath",
-            "end": "LikomÃ¤rkÃ¤",
+            "end": "Likomärkä",
             "weight": 1
         },
         {
@@ -8287,7 +8287,7 @@
         },
         {
             "start": "Squatter's Quag",
-            "end": "LikomÃ¤rkÃ¤",
+            "end": "Likomärkä",
             "weight": 1
         },
         {
