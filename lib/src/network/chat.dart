@@ -8,9 +8,12 @@ class NetChatManager {
     setupWebsocket(_chatServerUrl);
 
     new Service(['chatEvent'], (event) {
-      if (event["statusMessage"] == "ping") //used to keep the connection alive
+      if (event["statusMessage"] == "ping") {
+        //used to keep the connection alive
         transmit('outgoingChatEvent', {'statusMessage':'pong'});
-      else {
+      } else if (event["error"] != null) {
+        toast(event["error"]);
+      } else {
         for (Chat convo in openConversations) {
           if (convo.title == "Local Chat" && (event['channel'] == 'all' || event['street'] == currentStreet.label))
             convo.processEvent(event);

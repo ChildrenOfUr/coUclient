@@ -5,7 +5,7 @@ dependencies:
   dnd: '^0.3.0'
   firebase: '>=0.5.0 <0.6.0'
   gorgon: any
-  intl: any
+  intl: "0.12.4+2"
   jsonx: "2.0.0"
   xml: "^2.4.0"
   libld:
