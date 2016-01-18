@@ -99,7 +99,9 @@ class InvDragging {
 			//so even with that big assumption, we should tell bag windows associated with
 			//the old slot index that they are now to be associated with the new slot index
 			//this way they can listen to metadata update messages based on index
-			BagWindow.updateSourceSlot(_move['fromIndex'], _move['toIndex']);
+			if(_move['fromBagIndex'] == null) {
+				BagWindow.updateSourceSlot(_move['fromIndex'], _move['toIndex']);
+			}
 		}
 
 		if (_move['fromIndex'] == _move['toIndex'] &&

@@ -5,22 +5,23 @@ bool _metadataEqual(Map metaA, Map metaB) {
 	    (metaA.isEmpty && metaB.isEmpty)) {
 		return true;
 	}
-	//metadata is only used to store slots right now, so check that
-	if (metaA['slots'] != null && metaB['slots'] != null) {
-		List<Map> slotsA = metaA['slots'];
-		List<Map> slotsB = metaB['slots'];
-		if (slotsA.length == slotsB.length) {
-			for (int i = 0; i < slotsA.length; i++) {
-				Map slotA = slotsA[i];
-				Map slotB = slotsB[i];
-				if (slotA['itemType'] != slotB['itemType'] ||
-				    slotA['count'] != slotB['count']) {
-					return false;
-				}
-			}
-		}
-	}
-	return true;
+//	//metadata is only used to store slots right now, so check that
+//	if (metaA['slots'] != null && metaB['slots'] != null) {
+//		List<Map> slotsA = metaA['slots'];
+//		List<Map> slotsB = metaB['slots'];
+//		if (slotsA.length == slotsB.length) {
+//			for (int i = 0; i < slotsA.length; i++) {
+//				Map slotA = slotsA[i];
+//				Map slotB = slotsB[i];
+//				if (slotA['itemType'] != slotB['itemType'] ||
+//				    slotA['count'] != slotB['count']) {
+//					return false;
+//				}
+//			}
+//		}
+//	}
+	return JSON.encode(metaA) == JSON.encode(metaB);
+//	return true;
 }
 
 _setupStreetSocket(String streetName) {

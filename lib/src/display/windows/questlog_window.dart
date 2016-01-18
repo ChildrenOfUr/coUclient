@@ -29,35 +29,45 @@ class QuestLogWindow extends Modal {
 		//remove the quest if it already exists
 		_removeQuestFromList(q);
 
-		DivElement newQuest = _newQuest(q);
+		LIElement newQuest = _newQuest(q);
 		listOfQuests.append(newQuest);
 		newQuest.onClick.listen((_) {
+			listOfQuests.children.forEach((Element child) => child.classes.remove('selected'));
+			newQuest.classes.add('selected');
 			questDetails.children.clear();
 			questDetails.append(_newDetails(q));
 		});
 	}
 
-	Element _newQuest(Quest q) {
-		DivElement questE = new DivElement()
+	LIElement _newQuest(Quest q) {
+		LIElement questE = new LIElement()
 			..id = q.id
-			..text = q.title;
+			..text = q.title
+			..classes.add('activeQuest');
 
 		return questE;
 	}
 
 	Element _newDetails(Quest q) {
 		DivElement detailsE = new DivElement()
-			..text = q.description
 			..dataset['quest-id'] = q.id;
+
+		DivElement descriptionE = new DivElement()
+			..text = q.description
+			..classes.add('questDescription');
+
+		detailsE.append(descriptionE);
 
 		q.requirements.forEach((Requirement r) {
 			DivElement requirementE = new DivElement();
 
 			SpanElement completed = new SpanElement()
-				..text = '${r.numFulfilled}/${r.numRequired}';
+				..text = '${r.numFulfilled}/${r.numRequired}'
+				..classes.add('requirementCompletion');
 
 			SpanElement requirementText = new SpanElement()
-				..text = '${r.text}';
+				..text = '${r.text}'
+				..classes.add('requirementDescription');
 
 			requirementE.append(completed);
 			requirementE.append(requirementText);
