@@ -87,7 +87,6 @@ class QuestManager {
 				transmit('questInProgress', quest);
 			}
 			if (map['questUpdate'] != null) {
-				print('got quest update');
 				Quest quest = decode(JSON.encode(map['quest']), type: Quest);
 				transmit('questUpdate', quest);
 			}

@@ -2,7 +2,11 @@ part of couclient;
 
 ///slot should be in the format 'barSlot.bagSlot' indexed from 0
 ///if bagSlot is not relevant, please use 'barSlot.-1'
-itemContextMenu(ItemDef i, String slot, MouseEvent event) {
+void itemContextMenu(ItemDef i, String slot, MouseEvent event) {
+	if(ActionBubble.occuring) {
+		return;
+	}
+
 	event.preventDefault();
 	event.stopPropagation();
 

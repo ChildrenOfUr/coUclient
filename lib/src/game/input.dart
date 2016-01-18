@@ -108,7 +108,7 @@ class InputManager {
 				continue;
 
 			//don't do anything in certain situations
-			if(ignoreKeys || querySelector(".fill") != null) return;
+			if(ignoreKeys || ActionBubble.occuring) return;
 
 			//interact with the menu
 			Element clickMenu = querySelector("#RightClickMenu");
@@ -315,7 +315,7 @@ class InputManager {
 				advanceChatFocus(k);
 			}
 
-			if(ignoreKeys || querySelector(".fill") != null) return;
+			if(ignoreKeys || ActionBubble.occuring) return;
 
 			if((k.keyCode == keys["UpBindingPrimary"] || k.keyCode == keys["UpBindingAlt"])) //up arrow or w
 				activateControl('upKey', true, 'keyboard');
@@ -362,7 +362,7 @@ class InputManager {
 		Joystick joystick = new Joystick(querySelector('#Joystick'), querySelector('#Knob'), deadzoneInPercent:.2);
 		joystick.onMove.listen((_) {
 			//don't move during harvesting, etc.
-			if(querySelector(".fill") == null) {
+			if(!ActionBubble.occuring) {
 				if(joystick.UP) activateControl('upKey', true, 'joystick');
 				else activateControl('upKey', false, 'joystick');
 				if(joystick.DOWN) activateControl('downKey', true, 'joystick');
@@ -426,7 +426,7 @@ class InputManager {
 			return;
 		}
 
-		if(CurrentPlayer.intersectingObjects.length > 0 && querySelector('#RightClickMenu') == null && querySelector(".fill") == null) {
+		if(CurrentPlayer.intersectingObjects.length > 0 && querySelector('#RightClickMenu') == null && !ActionBubble.occuring) {
 			if(CurrentPlayer.intersectingObjects.length == 1) {
 				CurrentPlayer.intersectingObjects.forEach((String id, Rectangle rect) => entities[id].interact(id));
 			} else {

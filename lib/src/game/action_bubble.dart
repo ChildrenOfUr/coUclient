@@ -1,6 +1,7 @@
 part of couclient;
 
 class ActionBubble {
+	static bool occuring = false;
 	int duration;
 
 	SpanElement outline = new SpanElement();
@@ -44,6 +45,9 @@ class ActionBubble {
 
 		//start the "fill animation"
 		fill.style.width = '${outlineWidth}px';
+
+		occuring = true;
+		new Timer(new Duration(milliseconds:duration), () => occuring = false);
 	}
 
 	Future<bool> get wait {
