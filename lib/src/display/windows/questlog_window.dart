@@ -16,7 +16,7 @@ class QuestLogWindow extends Modal {
 			_removeQuestFromList(q);
 		});
 
-		setupUiButton(querySelector('#questLogButton'));
+		setupUiButton(querySelector('#open-quests'));
 		setupKeyBinding("QuestLog");
 	}
 

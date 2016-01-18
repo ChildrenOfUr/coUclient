@@ -45,6 +45,16 @@
     filter: drop-shadow(0 1px 1px cyan);
 }
 
+#petrock.questlog {
+    background-image: url(../../../system/icons/quest_log.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    -webkit-animation: none;
+    -moz-animation: none;
+    -o-animation: none;
+    animation: none;
+}
+
 /* Window */
 
 #rockWindow {

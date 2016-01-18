@@ -3,6 +3,7 @@ part of couclient;
 class RockWindow extends Modal {
 	String id = 'rockWindow';
 	Element rescueButton = querySelector("#rock-rescue");
+	Element questsButton = querySelector("#open-quests")..onClick.listen((_) => windowManager.rockWindow.close());
 	StreamSubscription rescueClick;
 	bool ready = false;
 
@@ -248,6 +249,18 @@ class RockWindow extends Modal {
 
 		// Toggle window by clicking rock
 		setupUiButton(querySelector("#petrock"));
+
+		// hehehe
+		querySelector("#petrock")
+		    ..onMouseEnter.listen((MouseEvent event) {
+				if (event.altKey) {
+					querySelector("#petrock").classes.add("questlog");
+				}
+			})
+			..onMouseLeave.listen((MouseEvent event) {
+				querySelector("#petrock").classes.remove("questlog");
+			})
+		;
 
 		try {
 			// Define conversations
