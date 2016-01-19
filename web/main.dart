@@ -109,6 +109,7 @@ part 'package:couclient/src/display/overlays/overlay.dart';
 part 'package:couclient/src/display/overlays/newdayscreen.dart';
 part 'package:couclient/src/display/overlays/imgmenu.dart';
 part 'package:couclient/src/display/overlays/levelup.dart';
+part 'package:couclient/src/display/overlays/achievementget.dart';
 
 // WIDGET MODULES //
 part 'package:couclient/src/display/widgets/volumeslider.dart';

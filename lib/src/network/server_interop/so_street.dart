@@ -93,6 +93,11 @@ _setupStreetSocket(String streetName) {
 			return;
 		}
 
+		if (map["achv_id"] != null) {
+			new AchievementOverlay(map);
+			return;
+		}
+
 		(map["quoins"] as List).forEach((Map quoinMap) {
 			if (quoinMap["remove"] == "true") {
 				Element objectToRemove = querySelector("#${quoinMap["id"]}");
