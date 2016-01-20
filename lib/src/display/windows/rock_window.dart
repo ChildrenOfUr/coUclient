@@ -132,7 +132,9 @@ class RockWindow extends Modal {
 	 */
 	void createConvo(Conversation convo, {QuestRewards rewards}) {
 		//remove the conversation if it already exists
-		querySelector('#rwc-${convo.id}')?.remove();
+		if (querySelector('#rwc-${convo.id}') != null) {
+			querySelector('#rwc-${convo.id}').remove();
+		}
 
 		DivElement conversation = new DivElement()
 			..className = 'rockWindowContent convo'

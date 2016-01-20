@@ -24,6 +24,28 @@
     font-size: medium;
     border: 2px solid #cccccc;
     border-radius: 10px;
+    background-color: #eee;
+    font-family: "Lato", sans-serif;
+}
+
+/* Hide content with no quests */
+#questLogWindow.noquests #listOfQuests,
+#questLogWindow.noquests #questDetails {
+    display: none;
+}
+
+/* Display message instead */
+#questLogWindow.noquests #noquests {
+    display: block;
+    font-size: 24px;
+    text-align: center;
+    margin-top: 20%;
+    width: 100%;
+}
+
+/* Hide message if there are quests */
+#questLogWindow:not(.noquests) #noquests {
+    display: none;
 }
 
 #listOfQuests {
@@ -31,46 +53,100 @@
     padding: 0;
     margin: 0 10px 0 0;
     list-style-type: none;
+    width: 33%;
 }
 
 #listOfQuests .activeQuest {
     border-bottom: 1px solid #747474;
-    padding: 5px;
-}
-
-#listOfQuests .activeQuest.selected {
-    background-color: #ccc;
+    padding: 5px 10px;
+    cursor: pointer;
+    width: calc(100% - 15px);
 }
 
 #listOfQuests .activeQuest:last-of-type {
     border-bottom: none;
 }
 
+#listOfQuests .activeQuest:hover {
+    background-color: #FAF6FF;
+    border-radius: 6px;
+}
+
+#listOfQuests .activeQuest.selected {
+    background-color: #DCCFEF;
+    border-radius: 6px;
+}
+
 #questDetails {
     display: inline-block;
     border-left: 2px solid #cccccc;
-    padding-left: 10px;
-    flex-basis: 60%;
+    padding: 0 20px 0 30px;
+    flex-basis: 66%;
 }
 
 #questDetails .questDescription {
-    margin-bottom: 10px;
+    margin: 20px 0 40px 0;
+    padding: 20px 15px;
+    border-top: 2px solid #cccccc;
+    border-bottom: 2px solid #cccccc;
+    text-align: center;
 }
 
-#questDetails .requirementCompletion {
-    margin-right: 10px;
+/*
+#questDetails .questDescription::before,
+#questDetails .questDescription::after {
+    content: "";
+    display: inline-block;
+    position: relative;
+    background-color: #eee;
+    border-left: 2px solid #ccc;
+    border-right: 2px solid #ccc;
+    height: 10px;
+    width: 20px;
+    border-radius: 33%;
 }
 
-#questDetails .requirementCompletion::before {
-    content: '-';
-    margin-right: 10px;
+#questDetails .questDescription::before {
+    top: -31px;
+    right: -118px;
 }
+
+#questDetails .questDescription::after {
+    bottom: -29px;
+    right: 92px;
+}
+*/
 
 #questDetails .requirementCompletion.completed::before {
-    content: '&#10003;';
+    content: '';
     margin-right: 10px;
 }
 
-#questDetails .requirementDescription {
+.questRequirement {
+    display: inline-block;
+    border: 2px solid #B2B2B2;
+    border-radius: 5px;
+    padding: 5px 10px;
+}
 
+.questRequirement,
+.questRequirement * {
+    cursor: help;
+}
+
+.questRequirement img,
+.questRequirement span {
+    margin-right: 10px;
+    width: 20px;
+    height: 20px;
+    vertical-align: text-top;
+}
+
+.questRequirement span:first-child {
+    color: green;
+    font-weight: bold;
+    display: inline-block;
+    font-size: 24px;
+    position: relative;
+    top: -5px;
 }

@@ -19,4 +19,8 @@
     width: 180px;
     height: 180px;
     margin: 30px auto;
+    -webkit-filter: drop-shadow(0 3px 5px #000);
+    -moz-filter: drop-shadow(0 3px 5px #000);
+    -o-filter: drop-shadow(0 3px 5px #000);
+    filter: drop-shadow(0 3px 5px #000);
 }

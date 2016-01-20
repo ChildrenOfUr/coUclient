@@ -21,8 +21,13 @@ class QuestLogWindow extends Modal {
 	}
 
 	void _removeQuestFromList(Quest q) {
-		listOfQuests.querySelector('#${q.id}')?.remove();
-		questDetails.querySelector('[data-quest-id="${q.id}"')?.remove();
+		if (listOfQuests.querySelector("#${q.id}") != null) {
+			listOfQuests.querySelector('#${q.id}').remove();
+		}
+
+		if (questDetails.querySelector('[data-quest-id="${q.id}"]') != null) {
+			questDetails.querySelector('[data-quest-id="${q.id}"]').remove();
+		}
 	}
 
 	void _addQuestToList(Quest q) {
@@ -37,6 +42,8 @@ class QuestLogWindow extends Modal {
 			questDetails.children.clear();
 			questDetails.append(_newDetails(q));
 		});
+
+		super.displayElement.classes.remove("noquests");
 	}
 
 	LIElement _newQuest(Quest q) {
@@ -59,18 +66,27 @@ class QuestLogWindow extends Modal {
 		detailsE.append(descriptionE);
 
 		q.requirements.forEach((Requirement r) {
-			DivElement requirementE = new DivElement();
+			DivElement requirementE = new DivElement()
+				..classes.add("questRequirement");
+
+			Element icon;
+
+			if (q.complete) {
+				icon = new SpanElement()
+				  ..setInnerHtml("&#10003;");
+			} else {
+				icon = new ImageElement()
+					..src = "http://placehold.it/20x20";
+			}
 
 			SpanElement completed = new SpanElement()
 				..text = '${r.numFulfilled}/${r.numRequired}'
 				..classes.add('requirementCompletion');
 
-			SpanElement requirementText = new SpanElement()
-				..text = '${r.text}'
-				..classes.add('requirementDescription');
-
-			requirementE.append(completed);
-			requirementE.append(requirementText);
+			requirementE
+				..append(icon)
+				..append(completed)
+				..title = r.text;
 
 			detailsE.append(requirementE);
 		});
