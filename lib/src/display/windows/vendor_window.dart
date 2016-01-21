@@ -84,7 +84,7 @@ class VendorWindow extends Modal {
 
 		for(Map item in vendorMap['itemsForSale'] as List) {
 			Element merch = buy.append(new DivElement()
-				                           ..className = 'box');
+				                           ..className = 'box'..title = item["name"]);
 			merch.append(new ImageElement(src: item['iconUrl'])
 				             ..className = "icon");
 
