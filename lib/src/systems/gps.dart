@@ -49,6 +49,14 @@ class GPS {
 
 	static Future initWorldGraph() async {
 		_worldGraph = decode(await HttpRequest.getString('worldGraph.txt'),type:Graph);
+
+		new Service(["dead"], (bool dying) {
+			if (dying) {
+				active = false;
+			} else {
+				active = true;
+			}
+		});
 	}
 
 	static List<String> getRoute(String from, String to) {
