@@ -35,7 +35,7 @@ class ChatMessage {
 			return new AnchorElement()
 				..classes = (new List.from(nameClasses)
 					..add("noUnderline"))
-				..href = "http://childrenofur.com/profile?username=$player"
+				..href = "http://childrenofur.com/profile?username=${Uri.encodeComponent(player)}"
 				..target = "_blank"
 				..title = "Open Profile Page"
 				..text = displayName
@@ -62,8 +62,6 @@ class ChatMessage {
 				nameClasses.add("guide");
 			}
 		}
-
-		//TODO: .me is italic
 
 		if (player == null) {
 			// System message
