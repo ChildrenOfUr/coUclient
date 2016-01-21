@@ -69,15 +69,12 @@ class QuestLogWindow extends Modal {
 			DivElement requirementE = new DivElement()
 				..classes.add("questRequirement");
 
-			Element icon;
-
-			if (q.complete) {
-				icon = new SpanElement()
-				  ..setInnerHtml("&#10003;");
-			} else {
-				icon = new ImageElement()
-					..src = "http://placehold.it/20x20";
+			if (r.fulfilled) {
+				requirementE.classes.add("fulfilled");
 			}
+
+			Element icon = new ImageElement()
+				..src = r.iconUrl;
 
 			SpanElement completed = new SpanElement()
 				..text = '${r.numFulfilled}/${r.numRequired}'

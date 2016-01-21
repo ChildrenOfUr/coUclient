@@ -57,14 +57,9 @@
 }
 
 #listOfQuests .activeQuest {
-    border-bottom: 1px solid #747474;
     padding: 5px 10px;
     cursor: pointer;
     width: calc(100% - 15px);
-}
-
-#listOfQuests .activeQuest:last-of-type {
-    border-bottom: none;
 }
 
 #listOfQuests .activeQuest:hover {
@@ -77,6 +72,10 @@
     border-radius: 6px;
 }
 
+#listOfQuests .activeQuest:not(:last-child) {
+    margin-bottom: 10px;
+}
+
 #questDetails {
     display: inline-block;
     border-left: 2px solid #cccccc;
@@ -85,7 +84,7 @@
 }
 
 #questDetails .questDescription {
-    margin: 20px 0 40px 0;
+    margin: 20px 0 30px 0;
     padding: 20px 15px;
     border-top: 2px solid #cccccc;
     border-bottom: 2px solid #cccccc;
@@ -127,11 +126,18 @@
     border: 2px solid #B2B2B2;
     border-radius: 5px;
     padding: 5px 10px;
+    margin: 5px;
+    width: 76px;
 }
 
 .questRequirement,
 .questRequirement * {
     cursor: help;
+}
+
+.questRequirement.fulfilled {
+    border-color: green;
+    background-color: rgb(234, 255, 244);
 }
 
 .questRequirement img,
