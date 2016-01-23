@@ -19,7 +19,7 @@ class MapWindow extends Modal {
 
 		searchBox
 			..onFocus.listen((_) => inputManager.ignoreKeys = ignoreShortcuts = true)
-			..onKeyDown.listen((_) => filter(searchBox.value))
+			..onInput.listen((_) => filter(searchBox.value))
 			..onBlur.listen((_) {
 				new Timer(new Duration(milliseconds: 100), () {
 					inputManager.ignoreKeys = ignoreShortcuts = false;
@@ -49,7 +49,9 @@ class MapWindow extends Modal {
 	// Search for a string
 	filter(String entry) {
 		// Toggle list showing
-		if (entry.trim().length < 2) {
+		if (entry
+			    .trim()
+			    .length < 2) {
 			searchResultsContainer.hidden = true;
 			return;
 		} else {
@@ -58,6 +60,8 @@ class MapWindow extends Modal {
 
 		// Clear previous results
 		searchResults.children.clear();
+
+		List<String> results = [];
 
 		for (String streetname in mapData.streetData.keys) {
 			Map data = mapData.streetData[streetname];
@@ -70,55 +74,62 @@ class MapWindow extends Modal {
 				tsid = tsid.substring(1);
 			}
 
-			bool checkVisibility() {
-				// Allowed to be shown on map?
-				return (mapData.streetData[streetname] != null &&
-				  !(mapData.streetData[streetname]["map_hidden"]));
-			}
-
-			bool checkName() {
-				// Partial name match?
-				return (streetname.toLowerCase().contains(entry.toLowerCase()));
-			}
-
-			bool checkTsid() {
-				// Exact TSID match?
-				return (tsid.toLowerCase().contains(entry.substring(1).toLowerCase()));
-			}
-
 			// Check if street matches search
-			if (checkVisibility() && (checkName() || checkTsid())) {
-				// Mark if current street
-				String streetOut;
-				if (currentStreet.label == streetname) {
-					streetOut = "<i>$streetname</i>";
-				} else {
-					streetOut = streetname;
-				}
-
-				// Selectable item
-				LIElement result = new LIElement()
-					..setInnerHtml(streetOut);
-
-				// Link to hub
-				if (mapData.streetData[streetname] != null) {
-					String hub_id = mapData.streetData[streetname]["hub_id"].toString();
-					result.onClick.listen((Event e) {
-						e.preventDefault();
-						worldMap.loadhubdiv(hub_id, streetname);
-						searchBox.value = "";
-					});
-				} else {
-					logmessage("[WorldMap] Could not find the hub_id for $streetname");
-				}
-
-				// Add to list
-				if (searchResults.children.length <= 13) {
-					searchResults.append(result);
-				} else {
-					break;
-				}
+			if (checkVisibility(streetname) &&
+			    (checkName(streetname, entry) || checkTsid(tsid, entry))) {
+				results.add(streetname);
 			}
 		}
+
+		results.sort((String a, String b) => levenshtein(a, b, caseSensitive: false));
+
+		for(String streetname in results) {
+			// Mark if current street
+			String streetOut;
+			if (currentStreet.label == streetname) {
+				streetOut = "<i>$streetname</i>";
+			} else {
+				streetOut = streetname;
+			}
+
+			// Selectable item
+			LIElement result = new LIElement()
+				..setInnerHtml(streetOut);
+
+			// Link to hub
+			if (mapData.streetData[streetname] != null) {
+				String hub_id = mapData.streetData[streetname]["hub_id"].toString();
+				result.onClick.listen((Event e) {
+					e.preventDefault();
+					worldMap.loadhubdiv(hub_id, streetname);
+					searchBox.value = "";
+				});
+			} else {
+				logmessage("[WorldMap] Could not find the hub_id for $streetname");
+			}
+
+			// Add to list
+			if (searchResults.children.length <= 13) {
+				searchResults.append(result);
+			} else {
+				break;
+			}
+		}
+	}
+
+	bool checkVisibility(String streetname) {
+		// Allowed to be shown on map?
+		return (mapData.streetData[streetname] != null &&
+		        !(mapData.streetData[streetname]["map_hidden"]));
+	}
+
+	bool checkName(String streetname, String entry) {
+		// Partial name match?
+		return (streetname.toLowerCase().contains(entry.toLowerCase()));
+	}
+
+	bool checkTsid(String tsid, String entry) {
+		// Exact TSID match?
+		return (tsid.toLowerCase() == entry.substring(1).toLowerCase());
 	}
 }

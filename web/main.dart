@@ -46,6 +46,7 @@ import 'package:couclient/configs.dart';
 import 'package:browser_detect/browser_detect.dart';
 // Blog post checking
 import "package:xml/xml.dart" as XML;
+import 'package:levenshtein/levenshtein.dart';
 
 export 'package:polymer/init.dart';
 
