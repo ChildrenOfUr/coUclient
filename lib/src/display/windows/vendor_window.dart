@@ -50,13 +50,6 @@ class VendorWindow extends Modal {
 	}
 
 	@override
-	open() {
-		displayElement.hidden = false;
-		elementOpen = true;
-		this.focus();
-	}
-
-	@override
 	openTab(String tabId) {
 		cleanupListeners();
 		super.openTab(tabId);
@@ -139,7 +132,7 @@ class VendorWindow extends Modal {
 		} else {
 			this.displayElement.querySelector('#BuyTab').click();
 		}
-		this.open();
+		this.open(ignoreKeys: true);
 	}
 
 	spawnBuyDetails(Map item, String vendorId, {bool sellMode: false}) {

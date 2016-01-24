@@ -33,7 +33,7 @@ class MapWindow extends Modal {
 	}
 
 	@override
-	open() {
+	open({bool ignoreKeys: false}) {
 		super.open();
 		trigger.classes.remove('closed');
 		trigger.classes.add('open');

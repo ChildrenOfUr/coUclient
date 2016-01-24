@@ -2,7 +2,8 @@ part of couclient;
 
 class QuestLogWindow extends Modal {
 	String id = 'questLogWindow';
-	DivElement listOfQuests, questDetails;
+	DivElement questDetails;
+	UListElement listOfQuests;
 
 	QuestLogWindow() {
 		prepare();

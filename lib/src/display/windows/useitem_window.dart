@@ -21,7 +21,7 @@ class UseWindow extends Modal {
     load().then((Element el) {
       querySelector("#windowHolder").append(el);
       prepare();
-      open(false);
+      open(refresh: false);
     });
   }
 
@@ -350,7 +350,7 @@ class UseWindow extends Modal {
   }
 
   @override
-  open([bool refresh = true]) async {
+  open({bool ignoreKeys: false, bool refresh: true}) async {
     if (refresh) {
       await updateRecipes();
     }

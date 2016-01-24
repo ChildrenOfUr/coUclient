@@ -207,7 +207,7 @@ class BagWindow extends Modal {
 	}
 
 	@override
-	open() {
+	open({bool ignoreKeys: false}) {
 		super.open();
 		openWindows.add(this);
 

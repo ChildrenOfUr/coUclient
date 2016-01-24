@@ -48,7 +48,19 @@ class InputManager {
 		"QuestLogBindingPrimary": 81,
 		"QuestLogBindingAlt": 81
 	};
-	bool ignoreKeys = false, ignoreChatFocus = false,
+	int _ignoreCount = 0;
+	bool get ignoreKeys => _ignoreCount != 0;
+	void set ignoreKeys(bool value) {
+		if(value) {
+			_ignoreCount++;
+		} else {
+			_ignoreCount--;
+			if(_ignoreCount < 0) {
+				_ignoreCount = 0;
+			}
+		}
+	}
+	bool ignoreChatFocus = false,
 	touched = false,
 	clickUsed = false;
 	StreamSubscription keyPressSub, keyDownSub, menuKeyListener;
@@ -351,11 +363,15 @@ class InputManager {
 		});
 
 		//listen for right-clicks on entities that we're close to
-		document.body.onContextMenu.listen((MouseEvent e) async {
+		document.body.onContextMenu.listen((MouseEvent e) {
+			if(ignoreKeys) {
+				return;
+			}
 			//just like pressing a key for 10ms
 			doObjectInteraction();
-			await new Timer(new Duration(milliseconds:10),(){});
-			activateControl('actionKey', false, 'mouse');
+			new Timer(new Duration(milliseconds:10),(){
+				activateControl('actionKey', false, 'mouse');
+			});
 		});
 
 		//only for mobile version
