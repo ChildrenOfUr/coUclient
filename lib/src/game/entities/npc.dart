@@ -2,7 +2,7 @@ part of couclient;
 
 class NPC extends Entity {
 	String type;
-	int speed = 0;
+	int speed = 0, ySpeed = 0;
 	bool ready = false,
 	facingRight = true,
 	firstRender = true;
@@ -21,6 +21,7 @@ class NPC extends Entity {
 
 	NPC._NPC(Map map) {
 		speed = map['speed'];
+		ySpeed = map['ySpeed'] ?? 0;
 		type = map['type'];
 
 		List<int> frameList = [];
@@ -67,13 +68,14 @@ class NPC extends Entity {
 
 		super.update(dt);
 
-		RegExp movementWords = new RegExp(r'(walk|fly|move)');
+		RegExp movementWords = new RegExp(r'(walk|fly|move|swim)');
 		if (firstRender || animation.url.contains(movementWords)) {
-			if (facingRight) {
+			if(facingRight) {
 				left += speed * dt;
 			} else {
 				left -= speed * dt;
 			}
+			top += ySpeed * dt;
 
 			if (left < 0) {
 				left = 0.0;
