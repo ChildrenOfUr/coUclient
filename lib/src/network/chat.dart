@@ -11,8 +11,12 @@ class NetChatManager {
       if (event["statusMessage"] == "ping") {
         //used to keep the connection alive
         transmit('outgoingChatEvent', {'statusMessage':'pong'});
-      } else if (event["error"] != null) {
-        toast(event["error"]);
+      } else if (event["muted"] != null) {
+        if (event["toastClick"] == "__EMAIL_COU__") {
+          toast(event["toastText"], onClick: (_) {
+            window.open("mailto:publicrelations@childrenofur.com", "_blank");
+          });
+        }
       } else {
         for (Chat convo in openConversations) {
           if (convo.title == "Local Chat" && (event['channel'] == 'all' || event['street'] == currentStreet.label))

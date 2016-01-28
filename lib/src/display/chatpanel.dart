@@ -73,7 +73,8 @@ class Chat {
 			};
 			conversationElement
 				..querySelector('.title').text = title
-				..querySelector(".insertemoji").onClick.listen((_) => transmit('insertEmoji', emoticonArgs))
+				..querySelector(".insertemoji").onClick.listen((_) =>
+					transmit('insertEmoji', emoticonArgs))
 				..id = "chat-$title";
 			openConversations.insert(0, this);
 
@@ -83,7 +84,8 @@ class Chat {
 					await this.addMessage("invalid_user", "LocationChangeEvent");
 					// If this is the first one, empty the toast buffer into the chat
 					if (chatToastBuffer.length > 0) {
-						chatToastBuffer.forEach((String message) => this.addAlert(message, toast: true));
+						chatToastBuffer.forEach((String message) =>
+							this.addAlert(message, toast: true));
 						chatToastBuffer.clear();
 					}
 				});
@@ -165,7 +167,8 @@ class Chat {
 					CurrentPlayer.loadAnimations();
 
 					//clear our inventory so we can get the new one
-					view.inventory.querySelectorAll('.box').forEach((Element box) => box.children.clear());
+					view.inventory.querySelectorAll('.box').forEach((Element box) =>
+						box.children.clear());
 					firstConnect = true;
 					joined = "";
 					sendJoinedMessage(currentStreet.label);
@@ -276,11 +279,12 @@ class Chat {
 		}
 	}
 
-	void addAlert(String alert, {bool toast: false}) {
+	void addAlert(String alert, {bool toast: false, Function onClick}) {
 		String classes = "system ";
 
-		void _add() {
-			String text = '<p class="$classes">$alert</p>';
+		String _add() {
+			String randId = "alert-${(random.nextInt(999) + 100).toString()}";
+			String text = '<p class="$classes" id="$randId">$alert</p>';
 			Element dialog = conversationElement.querySelector('.dialog');
 			dialog.appendHtml(parseLocationLinks(text), validator: VALIDATOR);
 
@@ -288,12 +292,19 @@ class Chat {
 			dialog.scrollTop = dialog.scrollHeight;
 
 			updateChatLocationLinks(dialog);
+
+			return randId;
 		}
 
 		if (toast) {
 			classes += "chat-toast ";
 			new Timer(new Duration(milliseconds: 100), () {
-				_add();
+				String id = _add();
+				if (onClick != null) {
+					conversationElement.querySelector(".dialog #$id")
+						..style.cursor = "pointer"
+						..onClick.listen((MouseEvent event) => Function.apply(onClick, [event]));
+				}
 			});
 		} else {
 			_add();
@@ -305,10 +316,10 @@ class Chat {
 
 		for (int i = 0; i != users.length; i++) {
 			users[i] = '<a href="http://childrenofur.com/profile?username=' +
-			           users[i] +
-			           '" target="_blank">' +
-			           users[i] +
-			           '</a>';
+				users[i] +
+				'" target="_blank">' +
+				users[i] +
+				'</a>';
 			alert = alert + " " + users[i];
 		}
 
@@ -364,7 +375,8 @@ class Chat {
 				num--;
 			}
 		});
-		conversations.forEach((Element conversation) => conversation.style.height = "${100 / num}%");
+		conversations.forEach((Element conversation) =>
+		conversation.style.height = "${100 / num}%");
 	}
 
 	void processInput(TextInputElement input) {
@@ -414,16 +426,16 @@ class Chat {
 			}
 
 			if (input.value
-				    .trim()
-				    .length == 0) {
+				.trim()
+				.length == 0) {
 				toast("You can't send a blank message");
 				return;
 			}
 
 			RegExp formatChars = new RegExp(r'<b>|</b>|<i>|</i>|<u>|</u>|<del>|</del>');
 			if (input.value
-				    .replaceAll(formatChars, '')
-				    .length == 0) {
+				.replaceAll(formatChars, '')
+				.length == 0) {
 				toast("You must have non-formatting content in your message");
 				return;
 			}
@@ -524,7 +536,7 @@ class Chat {
 		for (; tabSearchIndex < connectedUsers.length; tabSearchIndex++) {
 			String username = connectedUsers.elementAt(tabSearchIndex);
 			if (username.toLowerCase().startsWith(lastWord.toLowerCase()) &&
-			    username.toLowerCase() != localLastWord.toLowerCase()) {
+				username.toLowerCase() != localLastWord.toLowerCase()) {
 				input.value = input.value.substring(0, input.value.lastIndexOf(" ") + 1) + username;
 				tabInserted = true;
 				inserted = true;
@@ -538,8 +550,9 @@ class Chat {
 			for (int index = 0; index < tabSearchIndex; index++) {
 				String username = connectedUsers.elementAt(index);
 				if (username.toLowerCase().startsWith(lastWord.toLowerCase()) &&
-				    username.toLowerCase() != localLastWord.toLowerCase()) {
-					input.value = input.value.substring(0, input.value.lastIndexOf(" ") + 1) + username;
+					username.toLowerCase() != localLastWord.toLowerCase()) {
+					input.value =
+						input.value.substring(0, input.value.lastIndexOf(" ") + 1) + username;
 					tabInserted = true;
 					inserted = true;
 					tabSearchIndex = index + 1;
@@ -582,7 +595,7 @@ class Chat {
 
 			//display chat bubble if we're talking in local (unless it's a /me message)
 			if (map["channel"] == "Local Chat" &&
-			    !(map["message"] as String).toLowerCase().startsWith("/me")) {
+				!(map["message"] as String).toLowerCase().startsWith("/me")) {
 				//remove any existing bubble
 				if (CurrentPlayer.chatBubble != null && CurrentPlayer.chatBubble.bubble != null) {
 					CurrentPlayer.chatBubble.bubble.remove();
@@ -601,7 +614,8 @@ class Chat {
 
 		// Ignore yourself (can't chat with yourself, either)
 		List<String> users = JSON.decode(await HttpRequest
-			.requestCrossOrigin('http://${ Configs.utilServerAddress}/listUsers?channel=Global Chat'));
+			.requestCrossOrigin(
+			'http://${ Configs.utilServerAddress}/listUsers?channel=Global Chat'));
 		users.removeWhere((String username) => username == game.username);
 
 		// Reset the list

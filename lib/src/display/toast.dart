@@ -1,6 +1,6 @@
 part of couclient;
 
-toast(String message, {bool skipChat: false}) {
+toast(String message, {bool skipChat: false, Function onClick}) {
 	Element toastContainer = querySelector('#toastHolder');
 
 	DivElement toast = new DivElement()
@@ -8,23 +8,30 @@ toast(String message, {bool skipChat: false}) {
 		..style.opacity = '0.5'
 		..text = message;
 
+	// Click action
+	if (onClick != null) {
+		toast.onClick.listen((MouseEvent event) => Function.apply(onClick, [event]));
+		toast.style.cursor = "pointer";
+	}
+
+	// How long to display it (1s + 100ms per character)
 	int textTime = 1000 + (toast.text.length * 100);
 	if (textTime > 30000) {
 		textTime = 30000;
 	}
 
+	// Animate closing it
 	Duration timeOpacity = new Duration(milliseconds: textTime);
 	Duration timeHide = new Duration(milliseconds: timeOpacity.inMilliseconds + 500);
-
-	new Timer(timeOpacity, () {
-		toast.style.opacity = '0';
-	});
+	new Timer(timeOpacity, () => toast.style.opacity = '0');
 	new Timer(timeHide, toast.remove);
 
+	// Display in game
 	toastContainer.append(toast);
 
+	// Put in local chat
 	if (Chat.localChat != null && !skipChat) {
-		Chat.localChat.addAlert(message, toast: true);
+		Chat.localChat.addAlert(message, toast: true, onClick: onClick);
 	} else if (!skipChat) {
 		chatToastBuffer.add(message);
 	}
