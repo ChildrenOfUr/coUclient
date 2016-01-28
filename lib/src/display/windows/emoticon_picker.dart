@@ -68,7 +68,7 @@ class EmoticonPicker extends Modal {
   }
 
   @override
-  open() {
+  open({bool ignoreKeys: false}) {
     displayElement.hidden = false;
     search.focus();
     elementOpen = true;

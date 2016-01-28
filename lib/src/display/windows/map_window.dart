@@ -33,7 +33,7 @@ class MapWindow extends Modal {
 	}
 
 	@override
-	open() {
+	open({bool ignoreKeys: false}) {
 		super.open();
 		trigger.classes.remove('closed');
 		trigger.classes.add('open');
@@ -119,8 +119,11 @@ class MapWindow extends Modal {
 
 	bool checkVisibility(String streetname) {
 		// Allowed to be shown on map?
-		return (mapData.streetData[streetname] != null &&
-		        !(mapData.streetData[streetname]["map_hidden"]));
+		if (mapData.streetData[streetname] == null) {
+			return true;
+		} else {
+			return !(mapData.streetData[streetname]["map_hidden"] ?? false);
+		}
 	}
 
 	bool checkName(String streetname, String entry) {

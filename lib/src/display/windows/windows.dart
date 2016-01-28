@@ -43,12 +43,14 @@ class MailboxWindow extends Modal {
 		prepare();
 	}
 
-	open() {
+	@override
+	open({bool ignoreKeys: false}) {
 		(querySelector("ur-mailbox") as Mailbox).refresh();
 		inputManager.ignoreKeys = true;
 		super.open();
 	}
 
+	@override
 	close() {
 		inputManager.ignoreKeys = false;
 		super.close();
@@ -62,13 +64,15 @@ abstract class Modal extends InformationDisplay {
 	String id;
 	StreamSubscription escListener;
 
-	open() {
+	open({bool ignoreKeys: false}) {
+		inputManager.ignoreKeys = ignoreKeys;
 		displayElement.hidden = false;
 		elementOpen = true;
 		this.focus();
 	}
 
 	close() {
+		inputManager.ignoreKeys = false;
 		_destroyEscListener();
 		displayElement.hidden = true;
 		elementOpen = false;

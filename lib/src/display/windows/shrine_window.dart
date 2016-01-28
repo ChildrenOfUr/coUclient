@@ -32,11 +32,11 @@ class ShrineWindow extends Modal {
 	}
 
 	@override
-	open() {
+	open({bool ignoreKeys: false}) {
 		resetShrineWindow();
 		populateShrineWindow();
 		makeDraggables();
-		super.open();
+		super.open(ignoreKeys: true);
 	}
 
 	void resetShrineWindow() {

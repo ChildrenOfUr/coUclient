@@ -171,6 +171,8 @@ _setupStreetSocket(String streetName) {
 					}
 
 					npc.facingRight = npcMap["facingRight"];
+					npc.ySpeed = npcMap['ySpeed'];
+					npc.speed = npcMap['speed'];
 					_updateChatBubble(npcMap, npc);
 				}
 			}
