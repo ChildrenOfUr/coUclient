@@ -21,7 +21,13 @@ class NPC extends Entity {
 
 	NPC._NPC(Map map) {
 		speed = map['speed'];
-		ySpeed = map['ySpeed'] ?? 0;
+
+		if (map['ySpeed'] != null) {
+			ySpeed = map['ySpeed'];
+		} else {
+			ySpeed = 0;
+		}
+
 		type = map['type'];
 
 		List<int> frameList = [];
@@ -34,13 +40,19 @@ class NPC extends Entity {
 			loopDelay: new Duration(milliseconds: map['loopDelay']),
 			loops: map['loops']);
 		animation.load().then((_) {
-			top = currentStreet.bounds.height -
-			      num.parse(map['y'].toString()) -
-			      animation.height;
-			left = num.parse(map['x'].toString());
-			width = map['width'];
-			height = map['height'];
 			id = map['id'];
+
+			try {
+				top = currentStreet.bounds.height -
+					num.parse(map['y'].toString()) -
+					animation.height;
+				left = num.parse(map['x'].toString());
+				width = map['width'];
+				height = map['height'];
+			} catch(e) {
+				logmessage("Error animating NPC $id: $e");
+				top = left = width = height = 0;
+			}
 
 			canvas = new CanvasElement();
 			canvas.id = map["id"];
