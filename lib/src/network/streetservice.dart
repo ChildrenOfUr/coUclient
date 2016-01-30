@@ -1,6 +1,10 @@
 part of couclient;
 
 class StreetService {
+	List<String> _loading = [];
+
+	bool loadingCancelled(String tsid) => !_loading.contains(tsid);
+
 	String _dataUrl = '${Configs.authAddress}/data';
 
 	StreetService() {
@@ -9,6 +13,14 @@ class StreetService {
 	}
 
 	Future requestStreet(String StreetID) async {
+		if (_loading.length > 0) {
+			// Already loading something, tell it to stop
+			_loading.clear();
+		}
+
+		// Load this one
+		_loading.add(StreetID);
+
 		//hide the minimap if it's showing
 		minimap.containerE.hidden = true;
 		gpsIndicator.loadingNew = true;
@@ -28,34 +40,45 @@ class StreetService {
 		if(serverdata['ok'] == 'no') {
 			logmessage('[StreetService] Server refused');
 		} else {
-			logmessage('[StreetService] "$StreetID" loaded.');
-			await _prepareStreet(serverdata['streetJSON']);
+			if (loadingCancelled(StreetID)) {
+				logmessage('[StreetService] Loading of "$StreetID" was cancelled during download.');
+			} else {
+				logmessage('[StreetService] "$StreetID" loaded.');
+				await _prepareStreet(serverdata['streetJSON']);
 
-			String playerList = '';
-			List<String> players = JSON.decode(await HttpRequest.getString('http://' + Configs.utilServerAddress + '/listUsers?channel=' + currentStreet.label));
-			if (!players.contains(game.username)) {
-				players.add(game.username);
-			}
-			// don't list if it's just you
-			if(players.length > 0) {
-				for(int i = 0; i != players.length; i++) {
-					playerList += players[i];
-					if(i != players.length) {
-						playerList += ', ';
-					}
+				String playerList = '';
+				List<String> players = JSON.decode(await HttpRequest.getString(
+					'http://' + Configs.utilServerAddress + '/listUsers?channel=' +
+						currentStreet.label));
+				if (!players.contains(game.username)) {
+					players.add(game.username);
 				}
-				playerList = playerList.substring(0, playerList.length - 2);
-				toast("Players on this street: " + playerList);
+				// don't list if it's just you
+				if (players.length > 1) {
+					for (int i = 0; i != players.length; i++) {
+						playerList += players[i];
+						if (i != players.length) {
+							playerList += ', ';
+						}
+					}
+					playerList = playerList.substring(0, playerList.length - 2);
+					toast("Players on this street: " + playerList);
+				} else {
+					toast("You're the first one here!");
+				}
 			}
 		}
+
+		_loading.remove(StreetID);
 	}
 
 	Future _prepareStreet(Map streetJSON) async
 	{
 		logmessage('[StreetService] Assembling Street...');
 
-		if(streetJSON['tsid'] == null)
+		if(streetJSON['tsid'] == null) {
 			return;
+		}
 
 		Map<String, dynamic> streetAsMap = streetJSON;
 
@@ -66,6 +89,11 @@ class StreetService {
 		if(currentStreet != null) {
 			oldLabel = currentStreet.label;
 			oldTsid = currentStreet.tsid;
+		}
+
+		if (loadingCancelled(tsid)) {
+			logmessage('[StreetService] Loading of "$tsid" was cancelled during decoding.');
+			return;
 		}
 
 		// TODO, this should happen automatically on the Server, since it'll know which street we're on.
@@ -101,6 +129,11 @@ class StreetService {
 		minimap.changeStreet(streetAsMap);
 
 		new Asset.fromMap(streetAsMap, label);
+
+		if (loadingCancelled(tsid)) {
+			logmessage('[StreetService] Loading of "$tsid" was cancelled during preparation.');
+			return;
+		}
 
 		await street.load();
 		logmessage('[StreetService] Street assembled.');
