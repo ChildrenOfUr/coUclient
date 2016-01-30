@@ -3,7 +3,17 @@ part of couclient;
 class StreetService {
 	List<String> _loading = [];
 
-	bool loadingCancelled(String tsid) => !_loading.contains(tsid);
+	void addToQueue(String tsid) {
+		_loading.add(tsid.substring(1));
+	}
+
+	void removeFromQueue(String tsid) {
+		_loading.remove(tsid.substring(1));
+	}
+
+	bool loadingCancelled(String tsid) {
+		return !_loading.contains(tsid.substring(1));
+	}
 
 	String _dataUrl = '${Configs.authAddress}/data';
 
@@ -12,14 +22,14 @@ class StreetService {
 		_dataUrl = prefix + _dataUrl;
 	}
 
-	Future requestStreet(String StreetID) async {
+	Future<bool> requestStreet(String StreetID) async {
 		if (_loading.length > 0) {
 			// Already loading something, tell it to stop
 			_loading.clear();
 		}
 
 		// Load this one
-		_loading.add(StreetID);
+		addToQueue(StreetID);
 
 		//hide the minimap if it's showing
 		minimap.containerE.hidden = true;
@@ -32,52 +42,54 @@ class StreetService {
 		logmessage('[StreetService] Requesting street "$StreetID"...');
 
 		HttpRequest data = await HttpRequest.request(_dataUrl + "/street", method: "POST",
-		                                             requestHeaders: {"content-type": "application/json"},
-		                                             sendData: JSON.encode({'street': StreetID, 'sessionToken': SESSION_TOKEN}));
+			requestHeaders: {"content-type": "application/json"},
+			sendData: JSON.encode({'street': StreetID, 'sessionToken': SESSION_TOKEN}));
 
 		Map serverdata = JSON.decode(data.response);
 
-		if(serverdata['ok'] == 'no') {
+		if (serverdata['ok'] == 'no') {
 			logmessage('[StreetService] Server refused');
-		} else {
-			if (loadingCancelled(StreetID)) {
-				logmessage('[StreetService] Loading of "$StreetID" was cancelled during download.');
-			} else {
-				logmessage('[StreetService] "$StreetID" loaded.');
-				await _prepareStreet(serverdata['streetJSON']);
-
-				String playerList = '';
-				List<String> players = JSON.decode(await HttpRequest.getString(
-					'http://' + Configs.utilServerAddress + '/listUsers?channel=' +
-						currentStreet.label));
-				if (!players.contains(game.username)) {
-					players.add(game.username);
-				}
-				// don't list if it's just you
-				if (players.length > 1) {
-					for (int i = 0; i != players.length; i++) {
-						playerList += players[i];
-						if (i != players.length) {
-							playerList += ', ';
-						}
-					}
-					playerList = playerList.substring(0, playerList.length - 2);
-					toast("Players on this street: " + playerList);
-				} else {
-					toast("You're the first one here!");
-				}
-			}
+			return false;
 		}
 
-		_loading.remove(StreetID);
+		if (loadingCancelled(StreetID)) {
+			logmessage('[StreetService] Loading of "$StreetID" was cancelled during download.');
+			return false;
+		}
+
+		logmessage('[StreetService] "$StreetID" loaded.');
+		await _prepareStreet(serverdata['streetJSON']);
+
+		String playerList = '';
+		List<String> players = JSON.decode(await HttpRequest.getString(
+			'http://' + Configs.utilServerAddress + '/listUsers?channel=' +
+				currentStreet.label));
+		if (!players.contains(game.username)) {
+			players.add(game.username);
+		}
+		// don't list if it's just you
+		if (players.length > 1) {
+			for (int i = 0; i != players.length; i++) {
+				playerList += players[i];
+				if (i != players.length) {
+					playerList += ', ';
+				}
+			}
+			playerList = playerList.substring(0, playerList.length - 2);
+			toast("Players on this street: " + playerList);
+		} else {
+			toast("You're the first one here!");
+		}
+
+		return true;
 	}
 
-	Future _prepareStreet(Map streetJSON) async
+	Future<bool> _prepareStreet(Map streetJSON) async
 	{
 		logmessage('[StreetService] Assembling Street...');
 
-		if(streetJSON['tsid'] == null) {
-			return;
+		if (streetJSON['tsid'] == null) {
+			return false;
 		}
 
 		Map<String, dynamic> streetAsMap = streetJSON;
@@ -86,14 +98,14 @@ class StreetService {
 		String tsid = streetAsMap['tsid'];
 		String oldLabel = "";
 		String oldTsid = "";
-		if(currentStreet != null) {
+		if (currentStreet != null) {
 			oldLabel = currentStreet.label;
 			oldTsid = currentStreet.tsid;
 		}
 
 		if (loadingCancelled(tsid)) {
 			logmessage('[StreetService] Loading of "$tsid" was cancelled during decoding.');
-			return;
+			return false;
 		}
 
 		// TODO, this should happen automatically on the Server, since it'll know which street we're on.
@@ -111,14 +123,15 @@ class StreetService {
 		await view.streetLoadingImage.onLoad.first;
 		DataMaps maps = new DataMaps();
 		String hubName = maps.data_maps_hubs[streetAsMap['hub_id']]()['name'];
-		Map<int,Map<String,String>> moteInfo = maps.data_maps_streets['9']();
+		Map<int, Map<String, String>> moteInfo = maps.data_maps_streets['9']();
 		String lsid = tsid;
-		if(lsid.startsWith('G')) {
-			lsid = lsid.replaceFirst('G','L');
+		if (lsid.startsWith('G')) {
+			lsid = lsid.replaceFirst('G', 'L');
 		}
 		String currentStreetName = moteInfo[streetAsMap['hub_id']][lsid];
 		view.mapLoadingContent.style.opacity = "1.0";
-		view.nowEntering.setInnerHtml('<h2>Entering</h2><h1>' + currentStreetName + '</h1><h2>in ' + hubName/* + '</h2><h3>Home to: <ul><li>A <strong>Generic Goods Vendor</strong></li></ul>'*/);
+		view.nowEntering.setInnerHtml('<h2>Entering</h2><h1>' + currentStreetName + '</h1><h2>in ' +
+			hubName /* + '</h2><h3>Home to: <ul><li>A <strong>Generic Goods Vendor</strong></li></ul>'*/);
 
 		//wait for 1 second before loading the street (so that the preview text can be read)
 		await new Future.delayed(new Duration(seconds: 1));
@@ -132,7 +145,7 @@ class StreetService {
 
 		if (loadingCancelled(tsid)) {
 			logmessage('[StreetService] Loading of "$tsid" was cancelled during preparation.');
-			return;
+			return false;
 		}
 
 		await street.load();
@@ -140,5 +153,9 @@ class StreetService {
 
 		// notify displays to update
 		transmit('streetLoaded', streetAsMap);
+
+		removeFromQueue(tsid);
+
+		return true;
 	}
 }

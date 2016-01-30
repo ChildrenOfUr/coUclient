@@ -227,7 +227,9 @@ class SoundManager {
 				Scound s = await sc.load(ASSET['music'].get()[name]['scid']);
 				songs[name] = s;
 			}
-		} catch(err) {logmessage('[SoundManager] ' + err);}
+		} catch(e) {
+			logmessage('[SoundManager] $e');
+		}
 	}
 
 	// Music ////////////////////////////////////////////////////////////////////////////////////////
