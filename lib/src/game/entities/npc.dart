@@ -22,11 +22,7 @@ class NPC extends Entity {
 	NPC._NPC(Map map) {
 		speed = map['speed'];
 
-		if (map['ySpeed'] != null) {
-			ySpeed = map['ySpeed'];
-		} else {
-			ySpeed = 0;
-		}
+		ySpeed = map['ySpeed'] ?? 0;
 
 		type = map['type'];
 
