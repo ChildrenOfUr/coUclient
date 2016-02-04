@@ -47,6 +47,9 @@ dependencies:
       git: git://github.com/ChildrenOfUr/emoticons.git
   levenshtein: "^1.0.2"
 
+dependency_overrides:
+  stack_trace: ">=0.9.1 <2.0.0"
+
 transformers:
 - couclient/transformers/configs_transformer
 - polymer:
