@@ -74,16 +74,27 @@ class Player {
 		playerParentElement.append(playerCanvas);
 		view.worldElement.append(superParentElement);
 
-		new Service(["streetLoaded"], (_) {
-			if (
-				(mapData.hubData[currentStreet.hub_id] != null && mapData.hubData[currentStreet.hub_id]["triple_jumping"] == false) ||
-				(mapData.streetData[currentStreet.label] != null && mapData.streetData[currentStreet.label]["triple_jumping"] == false)
-			) {
-				canTripleJump = false;
-			} else {
-				canTripleJump = true;
-			}
-		});
+		// TODO: the first load won't trigger it for some reason
+		new Service(["streetLoaded"], (_) => updatePhysics());
+	}
+
+	void updatePhysics() {
+		window.console.info("Physics updated!");
+		canTripleJump = !(
+			// If disabled, the below will return true
+			// Otherwise, it will return false
+			(
+				// Disabled at hub level?
+				mapData.hubData[currentStreet.hub_id] != null &&
+				mapData.hubData[currentStreet.hub_id]["triple_jumping"] == false
+			)
+				||  // ...or maybe...
+			(
+				// Disabled at street level?
+				mapData.streetData[currentStreet.label] != null &&
+				mapData.streetData[currentStreet.label]["triple_jumping"] == false
+			)
+		);
 	}
 
 	Future<List<Animation>> loadAnimations() {
