@@ -1,7 +1,7 @@
 name: couclient
 description: 'Children of Ur :: Webclient'
-environment:
-  sdk: ">=1.12.0" # we need null-aware operators
+# environment:
+#  sdk: ">=1.12.0" # we need null-aware operators
 dependencies:
   browser: any
   dnd: '^0.3.0'
