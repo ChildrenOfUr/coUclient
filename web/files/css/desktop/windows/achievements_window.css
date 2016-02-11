@@ -1,0 +1,57 @@
+#achievementsWindow article {
+    display: flex;
+    font-size: medium;
+    border: 2px solid #cccccc;
+    border-radius: 10px;
+    background-color: #eee;
+    font-family: "Lato", sans-serif;
+}
+
+#achievementsWindow #categories {
+    display: inline-block;
+    padding: 0;
+    margin: 0 10px 0 0;
+    list-style-type: none;
+    width: 33%;
+}
+
+#achievementsWindow .title {
+    min-height: 1em;
+    margin-bottom: 5px;
+}
+
+#achievementsWindow #categoryList {
+    border-left: 2px solid #cccccc;
+    padding: 0 20px 0 20px;
+    flex-basis: 66%;
+    display: flex;
+    flex-direction: column;
+}
+
+#achievementsWindow .earned-achvments {
+    display: flex;
+    flex-wrap: wrap;
+    overflow-y: auto;
+    min-height: 80px;
+    border-bottom: 2px solid #cccccc;
+}
+
+#achievementsWindow .unearned-achvments {
+    display: flex;
+    flex-wrap: wrap;
+    overflow-y: auto;
+}
+
+#achievementsWindow .achvment-icon {
+    width: 60px;
+    min-height: 60px;
+    margin: 10px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    display: inline-block;
+    cursor: help;
+}
+
+#achievementsWindow .achvment-icon[data-achv-awarded="false"] {
+    opacity: 0.5;
+}

@@ -10,6 +10,7 @@ class WindowManager {
 	RockWindow rockWindow;
 	EmoticonPicker emoticonPicker;
 	QuestLogWindow questLog;
+	AchievementsWindow achievements;
 
 	WindowManager() {
 		// Declaring all the possible popup windows
@@ -23,6 +24,7 @@ class WindowManager {
 		rockWindow = new RockWindow();
 		emoticonPicker = new EmoticonPicker();
 		questLog = new QuestLogWindow();
+		achievements = new AchievementsWindow();
 	}
 
 	static int get randomId => random.nextInt(9999999);

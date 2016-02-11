@@ -156,6 +156,8 @@ part 'package:couclient/src/display/windows/note_window.dart';
 
 part 'package:couclient/src/display/windows/questlog_window.dart';
 
+part 'package:couclient/src/display/windows/achievements_window.dart';
+
 // OVERLAYS //
 part 'package:couclient/src/display/overlays/overlay.dart';
 

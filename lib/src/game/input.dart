@@ -46,7 +46,9 @@ class InputManager {
 		"ImgMenuBindingPrimary": 73,
 		"ImgMenuBindingAlt": 73,
 		"QuestLogBindingPrimary": 81,
-		"QuestLogBindingAlt": 81
+		"QuestLogBindingAlt": 81,
+		"AchievementsBindingPrimary": 89,
+		"AchievementsBindingAlt": 89
 	};
 	int _ignoreCount = 0;
 	bool get ignoreKeys => _ignoreCount != 0;
