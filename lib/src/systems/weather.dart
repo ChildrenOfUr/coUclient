@@ -13,7 +13,7 @@ class WeatherManager {
 	static DivElement _weatherLayer, _cloudLayer, _raindrops, _snowflakes;
 	static WeatherIntensity _intensity = WeatherIntensity.NORMAL;
 	static WeatherState _currentState = WeatherState.CLEAR;
-	static bool _enabled = true;
+	static bool _enabled = true, _gradientEnabled = true;
 	static var rainSound;
 	static String url = 'ws://${Configs.websocketServerAddress}/weather';
 
@@ -39,7 +39,10 @@ class WeatherManager {
 			//weather overlay as needed (possibly change the background gradient?
 			new Service(['timeUpdate', 'timeUpdateFake'], _changeAmbientColor);
 
-			new Service(['streetLoaded'], (m) {transmit('timeUpdate', [clock.time, clock.day, clock.dayofweek, clock.month, clock.year]);});
+			new Service(['streetLoaded'], (m) {
+				_gradientEnabled = true;
+				transmit('timeUpdate', [clock.time, clock.day, clock.dayofweek, clock.month, clock.year]);
+			});
 
 			//service for debugging weather
 			new Service(['setWeatherFake'], (m) {_processMessage(m);});
@@ -134,6 +137,10 @@ class WeatherManager {
 	}
 
 	static void _setStreetGradient(num percent) {
+		if (!_gradientEnabled) {
+			return;
+		}
+
 		DivElement gradientCanvas = querySelector('#gradient');
 		if(gradientCanvas == null) {
 			return;
@@ -145,6 +152,7 @@ class WeatherManager {
 			streetTop = '#' + currentStreet.streetData['gradient']['top'];
 			streetBottom = '#' + currentStreet.streetData['gradient']['bottom'];
 		} catch(e) {
+			_gradientEnabled = false;
 			logmessage("[Weather] Could not create street gradient: $e");
 			return;
 		}
