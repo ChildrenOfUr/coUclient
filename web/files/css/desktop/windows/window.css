@@ -121,16 +121,16 @@
 }
 
 article .tab {
-  z-index: 1;
   font-size: 1.5em;
   padding: 1px 4px;
-  margin: -3px 1px;
+  margin: -1px 1px;
   min-width: 70px;
   background-color: #eee;
   color: #222;
-  border-radius: 0 0 8px 8px;
+  border-radius: 8px 8px 0 0;
   float: right;
   position: relative;
+  top: -28px;
   opacity: 0.6;
   height: 26px;
   text-align: center;
@@ -140,12 +140,25 @@ article .tab {
 
 article .tab.active {
   opacity: 1;
+  margin: -5px 2px;
 }
 
 article .tab-holder {
+  position: relative;
+  right: 25px;
+}
+
+#shopWindow article .tab {
+  z-index: 1;
+  margin: -3px 1px;
+  border-radius: 0 0 8px 8px;
+  top: initial;
+}
+
+#shopWindow article .tab-holder {
   position: absolute;
   bottom: 4px;
-  display: inline-block;
+  right: initial;
 }
 
 article .tab-content {
