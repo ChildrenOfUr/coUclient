@@ -31,6 +31,7 @@ class ItemDef {
 		isContainer = false;
 	List<String> subSlotFilter;
 	List<Action> actions = [];
+	Map<String, int> consumeValues = {};
 	Map<String, dynamic> metadata = {};
 }
 

@@ -1,13 +1,14 @@
 part of couclient;
 
 class ItemWindow extends Modal {
-	String id = 'itemWindow' + WindowManager.randomId.toString(), itemName;
+	String id = 'itemWindow' + WindowManager.randomId.toString(),
+		itemName;
 	static Map<String, ItemWindow> instances = {};
 
 	String priceText, slotText, wearText;
 
 	factory ItemWindow(String itemName) {
-		if(instances[itemName] == null) {
+		if (instances[itemName] == null) {
 			instances[itemName] = new ItemWindow._(itemName);
 		} else {
 			instances[itemName].open();
@@ -26,42 +27,29 @@ class ItemWindow extends Modal {
 	Future<Element> displayItem() async {
 		String response = await HttpRequest.requestCrossOrigin(
 			'http://' + Configs.utilServerAddress + '/getItems?name=' + itemName);
-		Map<String, String> json = JSON.decode(response)[0];
+		ItemDef item = decode(response, type: const TypeHelper<List<ItemDef>>().type).first;
 
-		String title = json['name'];
-		String image = json['iconUrl'];
-		String desc = json['description'];
-		int price = (json['price'] as int);
-		int slot = (json['stacksTo'] as int);
-		bool showWear;
-		int wear;
-		if(json['durability'] != null) {
-			showWear = true;
-			wear = (json['durability'] as int);
-		} else {
-			showWear = false;
-		}
 		int newImg = 0;
 
-		if(price != -1) {
-			if(price == 0) {
+		if (item.price != -1) {
+			if (item.price == 0) {
 				// worthless
 				priceText = 'This item is priceless.';
-			} else if(price == 1) {
+			} else if (item.price == 1) {
 				// not plural
-				priceText = 'This item sells for about <b>' + price.toString() + '</b> currant';
+				priceText = 'This item sells for about <b>${item.price}</b> currant';
 			} else {
 				// plural
-				priceText = 'This item sells for about <b>' + price.toString() + '</b> currants';
+				priceText = 'This item sells for about <b>${item.price}</b> currants';
 			}
 		} else {
 			priceText = 'Vendors will not buy this item';
 		}
 
-		slotText = 'Fits up to <b>' + slot.toString() + '</b> in a backpack slot';
+		slotText = 'Fits up to <b>${item.stacksTo}</b> in a backpack slot';
 
-		if(showWear) {
-			wearText = 'Durable for about <b>' + wear.toString() + '</b> units of wear';
+		if (item.durability != null) {
+			wearText = 'Durable for about <b>${item.durability}</b> units of wear';
 		}
 
 		// // // // // // // // // // // // // // // // // // // // // // // // //
@@ -84,21 +72,20 @@ class ItemWindow extends Modal {
 
 		SpanElement titleSpan = new SpanElement()
 			..classes.add("iw-title")
-			..text = title;
+			..text = item.name;
 
-		if (title.length >= 24) {
+		if (item.name.length >= 24) {
 			titleSpan.style.fontSize = "24px";
 		}
 
 		Element header = new Element.header()
-			..append(icon)
-			..append(titleSpan);
+			..append(icon)..append(titleSpan);
 
 		// Image (Left Column)
 
 		ImageElement leftImage = new ImageElement()
 			..classes.add("iw-image")
-			..src = image;
+			..src = item.iconUrl;
 
 		Element imageContainer = new DivElement()
 			..classes.add('iw-image-container')
@@ -128,10 +115,44 @@ class ItemWindow extends Modal {
 		}
 
 		// Information (Right Column)
+		DivElement right = new DivElement()
+			..classes.add("iw-info");
 
 		ParagraphElement description = new ParagraphElement()
 			..classes.add("iw-desc")
-			..text = desc;
+			..text = item.description;
+
+		right.append(description);
+
+		//consume info
+		if (item.consumeValues.isNotEmpty) {
+			DivElement consumeValues = new DivElement()
+				..className = 'cb-content';
+			DivElement explain = new DivElement()
+				..className = 'consume-explain'
+				..text = "Rewards when consumed: ";
+
+			SpanElement awarded = new SpanElement()
+				..className = 'awarded';
+
+			awarded.append(explain);
+			consumeValues.append(awarded);
+
+			List<String> metabolicRewards = ['energy','mood','img'];
+			for(String reward in metabolicRewards) {
+				if (item.consumeValues[reward] != null) {
+					int amount = item.consumeValues[reward];
+					String sign = amount >= 0 ? '+' : '-';
+					SpanElement span = new SpanElement()
+						..className = reward
+						..text = '$sign$amount';
+
+					awarded.append(span);
+				}
+			}
+
+			right.append(consumeValues);
+		}
 
 		// Price
 
@@ -154,54 +175,35 @@ class ItemWindow extends Modal {
 
 		// Wear
 
-		if(json['durability'] != null) {
-			showWear = true;
+		DivElement meta = new DivElement()
+			..classes.add("iw-meta")
+			..append(currantIcon)..append(currantNum)..append(new BRElement())..append(slotIcon)..append(slotNum);
 
+		if (item.durability != null) {
 			wearIcon = new DivElement()
 				..classes.add("iw-icon-css")
 				..classes.add("iw-icon-wear");
 
 			wearNum = new SpanElement()
 				..innerHtml = wearText;
-		} else {
-			showWear = false;
+
+			meta..append(new BRElement())..append(wearIcon)..append(wearNum);
 		}
 
-		DivElement meta = new DivElement()
-			..classes.add("iw-meta")
-			..append(currantIcon)
-			..append(currantNum)
-			..append(new BRElement())
-			..append(slotIcon)
-			..append(slotNum);
-
-		if(showWear) {
-			meta
-				..append(new BRElement())
-				..append(wearIcon)
-				..append(wearNum);
-		}
-
-		DivElement right = new DivElement()
-			..classes.add("iw-info")
-			..append(description)
-			..append(meta);
+		right.append(meta);
 
 		// Container
 
 		Element well = new Element.tag("ur-well")
-			..append(left)
-			..append(right);
+			..append(left)..append(right);
 
 		DivElement window = new DivElement()
 			..id = id
 			..classes.add("window")
 			..classes.add("itemWindow")
-			..append(closeButton)
-			..append(header)
-			..append(well);
+			..append(closeButton)..append(header)..append(well);
 
-		return(window);
+		return (window);
 	}
 
 	@override
