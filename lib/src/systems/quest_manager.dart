@@ -86,6 +86,10 @@ class QuestManager {
 				Quest quest = decode(JSON.encode(map['quest']), type: Quest);
 				transmit('questInProgress', quest);
 			}
+			if (map['questBegin'] != null) {
+				Quest quest = decode(JSON.encode(map['quest']), type: Quest);
+				transmit('questBegin', quest);
+			}
 			if (map['questUpdate'] != null) {
 				Quest quest = decode(JSON.encode(map['quest']), type: Quest);
 				transmit('questUpdate', quest);

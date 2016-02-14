@@ -82,7 +82,7 @@ abstract class Modal extends InformationDisplay {
 		//see if there's another window that we want to focus
 		for (Element modal in querySelectorAll('.window')) {
 			if (!modal.hidden) {
-				modals[modal.id].focus();
+				modals[modal.id]?.focus();
 			}
 		}
 	}

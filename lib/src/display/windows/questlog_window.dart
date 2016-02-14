@@ -13,6 +13,9 @@ class QuestLogWindow extends Modal {
 		new Service(['questInProgress', 'questUpdate'], (Quest q) {
 			_addQuestToList(q);
 		});
+		new Service('questBegin', (Quest q) {
+			_addQuestToList(q, questBegin: true);
+		});
 		new Service('questComplete', (Quest q) {
 			_removeQuestFromList(q);
 		});
@@ -29,11 +32,21 @@ class QuestLogWindow extends Modal {
 		if (questDetails.querySelector('[data-quest-id="${q.id}"]') != null) {
 			questDetails.querySelector('[data-quest-id="${q.id}"]').remove();
 		}
+
+		//if we aren't on any more quests, update the display to say so
+		if(listOfQuests.children.length == 0) {
+			displayElement.classes.add("noquests");
+		}
+
 	}
 
-	void _addQuestToList(Quest q) {
-		//remove the quest if it already exists
-		_removeQuestFromList(q);
+	void _addQuestToList(Quest q, {bool questBegin: false}) {
+		//if it's already on the list, just update the details
+		if (listOfQuests.querySelector("#${q.id}") != null) {
+			questDetails.children.clear();
+			questDetails.append(_newDetails(q));
+			return;
+		}
 
 		LIElement newQuest = _newQuest(q);
 		listOfQuests.append(newQuest);
@@ -44,7 +57,14 @@ class QuestLogWindow extends Modal {
 			questDetails.append(_newDetails(q));
 		});
 
-		super.displayElement.classes.remove("noquests");
+		displayElement.classes.remove("noquests");
+
+		//if this is a brand new quest, open the window
+		//and highlight the quest
+		if(questBegin) {
+			open();
+			newQuest.click();
+		}
 	}
 
 	LIElement _newQuest(Quest q) {
