@@ -42,6 +42,11 @@ class Mailbox extends PolymerElement {
 		String user = window.sessionStorage['playerName'];
 		HttpRequest request = await postRequest(serverAddress + '/getMail', {'user':user});
 		messages = decode(request.responseText, type: const TypeHelper<List<Mail>>().type);
+		messages.forEach((Mail m) {
+			if (m.subject.trim().length == 0) {
+				m.subject = "(No Subject)";
+			}
+		});
 		if(messages.isNotEmpty) {
 			userHasMessages = true;
 //			print("User's mailbox is not empty.");
@@ -101,9 +106,7 @@ class Mailbox extends PolymerElement {
 		selected = "compose";
 	}
 
-	compose() {
-		selected = "compose";
-	}
+	compose() => selected = "compose";
 
 	closeMessage() => selected = "inbox";
 

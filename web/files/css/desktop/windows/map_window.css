@@ -87,7 +87,9 @@
 }
 
 .hm-street:not(.visited) {
-    opacity: 0.5;
+    background-color: rgba(255, 255, 255, 0.25);
+    color: rgba(34, 34, 34, 0.6);
+    text-shadow: -1px -1px 0 rgba(255, 255, 255, 0.5), 1px -1px 0 rgba(255, 255, 255, 0.5), -1px 1px 0 rgba(255, 255, 255, 0.5), 1px 1px 0 rgba(255, 255, 255, 0.5);
 }
 
 .maplayer.scaled {
