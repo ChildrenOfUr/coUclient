@@ -47,6 +47,7 @@
 @import url(windows/bag_window.css);
 @import url(windows/questlog_window.css);
 @import url(windows/achievements_window.css);
+@import url(windows/quest_maker_window.css);
 
 /* Overlays */
 @import url(overlays/overlay.css);

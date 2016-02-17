@@ -5,7 +5,7 @@ StreetService streetService = new StreetService();
 // GAME ENTRY AND MANAGEMENT //
 class Game {
 	String username, location, email;
-	double lastTime = 0.0;
+	num lastTime = 0.0;
 	DateTime startTime = new DateTime.now();
 	bool ignoreGamepads = false;
 	List<String> devs = [];

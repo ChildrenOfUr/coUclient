@@ -158,6 +158,8 @@ part 'package:couclient/src/display/windows/questlog_window.dart';
 
 part 'package:couclient/src/display/windows/achievements_window.dart';
 
+part 'package:couclient/src/display/windows/quest_maker_window.dart';
+
 // OVERLAYS //
 part 'package:couclient/src/display/overlays/overlay.dart';
 

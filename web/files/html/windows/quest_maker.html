@@ -1,0 +1,37 @@
+<div id="questMakerWindow" class="window" hidden>
+    <i class="fa-li fa fa-times close"></i>
+    <header>
+        <i class="fa-li fa fa-gear"></i><span id="questMakerTitle">Quest Maker</span>
+    </header>
+    <article>
+        <div id="manageScreen">
+            <div id="premades" hidden>
+                <div id="premade1"></div>
+                <div id="premade2"></div>
+                <div id="premade3 disabled"></div>
+            </div>
+            <div id="createNewButton"></div>
+        </div>
+        <div id="makeScreen">
+            <div id="makeTop">
+                <ul id="pieces"></ul>
+                <div id="makeTopRight">
+                    <div>Quest Description</div>
+                    <div id="questDescription" contenteditable="true"></div>
+                    <div>Quest Requirements</div>
+                    <div id="questSteps">
+                        <div class="pieceSlot"></div>
+                    </div>
+                </div>
+            </div>
+            <div id="makeBottom">
+                <ur-button id="makeItButton" class="cb-content" theme="light">
+                    <span class="awarded">
+                        <span>Make it for</span>
+                        <span class="img">500</span>
+                    </span>
+                </ur-button>
+            </div>
+        </div>
+    </article>
+</div>

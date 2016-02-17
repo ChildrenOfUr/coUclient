@@ -1,0 +1,104 @@
+.questPiece, .placedPiece {
+    padding: 5px;
+    border: 1px solid;
+    margin-bottom: 5px;
+    cursor: -webkit-grab;
+    cursor: -moz-grab;
+    cursor: grab;
+}
+
+.pieceSlot {
+    padding: 15px;
+    border: 1px dashed lightgrey;
+    margin-bottom: 5px;
+    display: block;
+}
+
+#questMakerWindow .dnd-dragging {
+    cursor: -webkit-grabbing;
+    cursor: -moz-grabbing;
+    cursor: grabbing;
+}
+
+#questMakerWindow .dnd-dragging {
+    opacity: 0.5;
+}
+
+.pieceSlot.dnd-over {
+    border-color: black;
+}
+
+.placedPiece.dnd-over {
+    opacity: 0.5;
+}
+
+.dnd-drag-occurring .placedPiece {
+    cursor: -webkit-grabbing;
+    cursor: -moz-grabbing;
+    cursor: grabbing;
+}
+
+#pieces {
+    flex-basis: 40%;
+    padding: 0 15px 0 0;
+    list-style: none;
+    overflow-y: auto;
+}
+
+#questSteps {
+    list-style: none;
+    padding: 0;
+    width: 100%;
+    overflow-y: auto;
+    margin-top: 5px;
+}
+
+.pieceDelete {
+    padding: 0 !important;
+    right: 15px;
+    position: absolute;
+    display: inline-block;
+    cursor: pointer;
+}
+
+#makeScreen {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+#makeTop {
+    display: flex;
+}
+
+#makeTopRight {
+    margin-left: 15px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+#makeBottom {
+
+}
+
+#questDescription {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    padding: 5px;
+    border: 1px solid;
+    flex-basis: 25%;
+    overflow-y: scroll;
+}
+
+#makeItButton {
+    display: inline-block;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    cursor: pointer;
+}
+
+#manageScreen {
+
+}

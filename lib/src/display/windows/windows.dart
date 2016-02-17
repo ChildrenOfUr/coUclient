@@ -5,12 +5,14 @@ class WindowManager {
 	BugWindow bugs;
 	VendorWindow vendor;
 	MotdWindow motdWindow;
+
 	//GoWindow goWindow;
 	CalendarWindow calendarWindow;
 	RockWindow rockWindow;
 	EmoticonPicker emoticonPicker;
 	QuestLogWindow questLog;
 	AchievementsWindow achievements;
+	QuestMakerWindow questMaker;
 
 	WindowManager() {
 		// Declaring all the possible popup windows
@@ -25,6 +27,7 @@ class WindowManager {
 		emoticonPicker = new EmoticonPicker();
 		questLog = new QuestLogWindow();
 		achievements = new AchievementsWindow();
+		questMaker = new QuestMakerWindow();
 	}
 
 	static int get randomId => random.nextInt(9999999);
@@ -127,16 +130,23 @@ abstract class Modal extends InformationDisplay {
 				.listen((_) => this.close());
 		}
 
+		//catch right-clicks on a window and do nothing with them except
+		//stop them from propagating to the document body
+		displayElement.onContextMenu.listen((MouseEvent e) {
+			e.stopPropagation();
+			e.preventDefault();
+		});
+
 		// PREVENT PLAYER MOVEMENT WHILE WINDOW IS FOCUSED /
 		displayElement
-			.querySelectorAll('input, textarea')
+			.querySelectorAll('input, textarea, div[contenteditable="true"]')
 			.onFocus
 			.listen((_) {
 			inputManager.ignoreKeys = true;
 			inputManager.ignoreChatFocus = true;
 		});
 		displayElement
-			.querySelectorAll('input, textarea')
+			.querySelectorAll('input, textarea, div[contenteditable="true"]')
 			.onBlur
 			.listen((_) {
 			inputManager.ignoreKeys = false;
