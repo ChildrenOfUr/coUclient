@@ -15,6 +15,10 @@ class WindowManager {
 	QuestMakerWindow questMaker;
 
 	WindowManager() {
+		new Service('gameLoaded', (_) {
+			//needs to have game.username defined first
+			questMaker = new QuestMakerWindow();
+		});
 		// Declaring all the possible popup windows
 		settings = new SettingsWindow();
 		mapWindow = new MapWindow();
@@ -27,7 +31,6 @@ class WindowManager {
 		emoticonPicker = new EmoticonPicker();
 		questLog = new QuestLogWindow();
 		achievements = new AchievementsWindow();
-		questMaker = new QuestMakerWindow();
 	}
 
 	static int get randomId => random.nextInt(9999999);

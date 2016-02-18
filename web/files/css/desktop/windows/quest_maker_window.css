@@ -1,14 +1,20 @@
+/*window holds a lot of stuff, needs to be a bit bigger*/
+#questMakerWindow {
+    width: 600px !important;
+    height: 400px !important;
+}
+
 .questPiece, .placedPiece {
-    padding: 5px;
+    padding: 4px;
     border: 1px solid;
-    margin-bottom: 5px;
+    margin-bottom: 4px;
     cursor: -webkit-grab;
     cursor: -moz-grab;
     cursor: grab;
 }
 
 .pieceSlot {
-    padding: 15px;
+    padding: 11px;
     border: 1px dashed lightgrey;
     margin-bottom: 5px;
     display: block;
@@ -45,17 +51,23 @@
     overflow-y: auto;
 }
 
+#stepsSection {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    padding-top: 5px;
+    border-top: 1px solid #ccc;
+}
+
 #questSteps {
-    list-style: none;
     padding: 0;
     width: 100%;
     overflow-y: auto;
-    margin-top: 5px;
+    position: relative;
 }
 
 .pieceDelete {
     padding: 0 !important;
-    right: 15px;
+    right: 10px;
     position: absolute;
     display: inline-block;
     cursor: pointer;
@@ -76,19 +88,55 @@
     width: 100%;
     display: flex;
     flex-direction: column;
+    align-self: flex-start;
 }
 
 #makeBottom {
-
 }
 
 #questDescription {
     margin-top: 5px;
     margin-bottom: 5px;
+    flex-basis: 3em;
     padding: 5px;
     border: 1px solid;
-    flex-basis: 25%;
     overflow-y: scroll;
+    cursor: text;
+}
+
+#rewardsSection {
+    border-top: 1px solid #ccc;
+    padding-top: 5px;
+    margin-top: 5px;
+}
+
+#questRewards {
+    display: flex;
+}
+
+.questReward {
+    text-align: right;
+    width: 100%;
+    border: 1px solid;
+    border-radius: 5px;
+    font-size: large;
+    margin: 5px;
+    cursor: text;
+}
+
+.questReward::after {
+    top: 1px;
+    position: relative;
+    margin-left: 8px;
+    right: 5px;
+}
+
+#currantsReward::after {
+    content: url(../../../system/icons/interaction_currants.svg);
+}
+
+#imgReward::after {
+    content: url(../../../system/icons/interaction_img.svg);
 }
 
 #makeItButton {
@@ -97,6 +145,7 @@
     left: 50%;
     transform: translateX(-50%);
     cursor: pointer;
+    padding: 0;
 }
 
 #manageScreen {

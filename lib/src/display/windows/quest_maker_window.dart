@@ -4,8 +4,31 @@ class QuestMakerWindow extends Modal {
 	static QuestMakerWindow _instance;
 	String id = 'questMakerWindow';
 	UListElement pieces;
-	DivElement questSteps;
+	DivElement questSteps, imgInput, currantInput, questDescription;
+	Element makeItButton;
+	SpanElement imgTotal, currantTotal;
 	Dropzone questStepsDrop, placedPieceDrop;
+	int imgCost = 500,
+		currantCost = 0,
+		numSteps = 0;
+	List<String> acceptStrings = [
+		'You got it',
+		'I\'m on it',
+		'Sounds good',
+		'Right away',
+	];
+	List<String> rejectStrings = [
+		'Not right now',
+		'Maybe later',
+		'Let me think about it',
+		'Soon, not now'
+	];
+	List<String> conversationEndStrings = [
+		'Hey, ${game.username} wanted you to have this',
+		'Great job, I\'m sure ${game.username} will be happy',
+		'${game.username} left this for you',
+		'Thanks for doing that. ${game.username} wanted you to have this'
+	];
 
 	factory QuestMakerWindow() {
 		if (_instance == null) {
@@ -20,9 +43,93 @@ class QuestMakerWindow extends Modal {
 
 		pieces = displayElement.querySelector('#pieces');
 		questSteps = displayElement.querySelector('#questSteps');
+		makeItButton = displayElement.querySelector('#makeItButton');
+		imgTotal = makeItButton.querySelector('.img');
+		currantTotal = makeItButton.querySelector('.currants');
+		imgInput = displayElement.querySelector('#imgReward');
+		currantInput = displayElement.querySelector('#currantsReward');
+		questDescription = displayElement.querySelector('#questDescription');
+
+		//update the cost to create when the fields are updated
+		imgInput.onInput.listen((_) => _calculateCost());
+		currantInput.onInput.listen((_) => _calculateCost());
+
+		//make the quest item
+		makeItButton.onClick.listen((_) => _makeIt());
 
 		_createDropzone();
 		_populatePieces();
+		_calculateCost();
+	}
+
+	Future _makeIt() async {
+		QuestRewards rewards = new QuestRewards()
+			..currants = currantCost
+			..img = imgCost;
+
+		Conversation conversationStart = new Conversation()
+			..screens = [
+				new ConvoScreen()
+					..paragraphs = [
+						'Quest from ${game.username}',
+						questDescription.text
+					]
+					..choices = [
+						new ConvoChoice()
+							..text = acceptStrings[random.nextInt(acceptStrings.length)]
+							..isQuestAccept = true
+							..gotoScreen = 2,
+						new ConvoChoice()
+							..text = rejectStrings[random.nextInt(rejectStrings.length)]
+							..isQuestReject = true
+							..gotoScreen = 2,
+					]
+			];
+
+		Conversation conversationEnd = new Conversation()
+			..screens = [
+				new ConvoScreen()
+					..paragraphs = [
+						conversationEndStrings[random.nextInt(conversationEndStrings.length)]
+					]
+					..choices = [
+						new ConvoChoice()
+							..text = 'Thanks'
+							..gotoScreen = 2
+					]
+			];
+
+		Quest quest = new Quest();
+		quest.id = game.email; //this will be changed on the server to be unique
+		quest.description = questDescription.text;
+		quest.rewards = rewards;
+		quest.conversation_start = conversationStart;
+		quest.conversation_end = conversationEnd;
+		quest.title = 'A favor for ${game.username}';
+
+		String url = 'http://${Configs.utilServerAddress}/quest/createQuestItem';
+		await HttpRequest.request(url, method: 'POST',
+			                    requestHeaders: {'Content-Type':'application/json'},
+			                    sendData: encode(quest)
+		                    );
+	}
+
+	void _calculateCost() {
+		//update the data values
+		try {
+			imgCost = int.parse(imgInput.text) + 300 * numSteps + 500;
+		} catch (e) {
+			imgCost = -1;
+		}
+		try {
+			currantCost = int.parse(currantInput.text);
+		} catch (e) {
+			currantCost = -1;
+		}
+
+		//update the make it button display
+		imgTotal.text = imgCost == -1 ? '?' : imgCost.toString();
+		currantTotal.text = currantCost == -1 ? '?' : currantCost.toString();
 	}
 
 	Future _populatePieces() async {
@@ -46,12 +153,14 @@ class QuestMakerWindow extends Modal {
 		questStepsDrop?.destroy();
 		placedPieceDrop?.destroy();
 
-		questStepsDrop = new Dropzone(querySelector('#questSteps .pieceSlot'),
-			                            acceptor: new QuestPieceAcceptor())
-			..onDrop.listen((DropzoneEvent dropEvent) => _dropPiece(dropEvent));
+		Element pieceSlot = querySelector('#questSteps .pieceSlot');
+		if (pieceSlot != null) {
+			questStepsDrop = new Dropzone(pieceSlot, acceptor: new QuestPieceAcceptor())
+				..onDrop.listen((DropzoneEvent dropEvent) => _dropPiece(dropEvent));
+		}
 
 		placedPieceDrop = new Dropzone(querySelectorAll('#questSteps .placedPiece'),
-			                              acceptor: new QuestPieceAcceptor())
+			                               acceptor: new QuestPieceAcceptor())
 			..onDrop.listen((DropzoneEvent dropEvent) => _dropPiece(dropEvent));
 	}
 
@@ -67,14 +176,36 @@ class QuestMakerWindow extends Modal {
 			//clone the thing we're dragging and append it to the list
 			questSteps.append(_createStepElement(dropEvent));
 
-			//create a new pieceSlot placeholder at the bottom of the list
-			questSteps.append(new DivElement()
-				                ..className = 'pieceSlot');
-			questSteps.scrollTop = questSteps.scrollHeight;
+			numSteps = questSteps.children.length;
+
+			//add to the img cost of creating
+			_calculateCost();
+
+			//max of 5 steps
+			if (numSteps < 5) {
+				//create a new pieceSlot placeholder at the bottom of the list
+				questSteps.append(new DivElement()
+					                  ..className = 'pieceSlot');
+				questSteps.scrollTop = questSteps.scrollHeight;
+			}
 
 			//tell everything to be a dropzone
 			_createDropzone();
 		}
+	}
+
+	void _deletePiece(Element piece) {
+		piece.remove();
+		if (questSteps.querySelector('.pieceSlot') == null) {
+			//create a new pieceSlot placeholder at the bottom of the list
+			questSteps.append(new DivElement()
+				                  ..className = 'pieceSlot');
+			numSteps = 4;
+
+			_createDropzone();
+		}
+
+		_calculateCost();
 	}
 
 	Element _createStepElement(DropzoneEvent dropEvent) {
@@ -86,7 +217,7 @@ class QuestMakerWindow extends Modal {
 			..classes.add("fa")
 			..classes.add("fa-times")
 			..classes.add("pieceDelete");
-		pieceDelete.onClick.first.then((_) => pieceClone.remove());
+		pieceDelete.onClick.first.then((MouseEvent e) => _deletePiece(pieceClone));
 		pieceClone.append(pieceDelete);
 		new Draggable(pieceClone, avatarHandler: new AvatarHandler.clone());
 		return pieceClone;
@@ -106,7 +237,7 @@ class QuestMakerWindow extends Modal {
 class QuestPieceAcceptor extends Acceptor {
 	@override
 	bool accepts(Element draggableElement, int draggableId, Element dropzoneElement) {
-		if(dropzoneElement.classes.contains('pieceSlot')) {
+		if (dropzoneElement.classes.contains('pieceSlot')) {
 			return draggableElement.classes.contains('questPiece');
 		} else {
 			return draggableElement.classes.contains('placedPiece');
