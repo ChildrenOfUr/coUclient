@@ -14,9 +14,16 @@
                 <input type="text" placeholder="Subject" value="{{toSubject}}" id="input_subject" class="input_text input_line">
                 <br>
                 <textarea placeholder="Message" value="{{toBody}}" id="input_message" class="input_text input_box"></textarea>
+                <div id="sendItems">
+                    <div id="item1" class="itemBox"></div>
+                    <div id="item2" class="itemBox"></div>
+                    <div id="item3" class="itemBox"></div>
+                    <div id="item4" class="itemBox"></div>
+                    <div id="item5" class="itemBox"></div>
+                </div>
                 <div id="send_actions">
                     <ur-button on-click="{{sendMessage}}" id="action_send">&emsp;<i class="fa fa-paper-plane"></i> Send Message&emsp;</ur-button>
-                    <ur-button on-click="{{closeMessage}}" id="action_discard">&emsp;<i class="fa fa-trash"></i> Discard&emsp;</ur-button>
+                    <ur-button on-click="{{cleanUp}}" id="action_discard">&emsp;<i class="fa fa-trash"></i> Discard&emsp;</ur-button>
                     <img class="currant-img" src="../../../../files/system/icons/currant.svg">
                     <input id="sendCurrants" class="input_text input_line" placeholder="Send currants?" type="number" min="0" value="{{toCurrants}}" max="{{userCurrants}}">
                 </div>

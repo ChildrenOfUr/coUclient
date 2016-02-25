@@ -18,23 +18,6 @@ class Inventory {
 	List<Slot> slots = [];
 }
 
-class ItemDef {
-	String category, iconUrl, spriteUrl, toolAnimation, name, description, itemType, item_id;
-	int price,
-		stacksTo,
-		iconNum = 4,
-		durability,
-		durabilityUsed = 0,
-		subSlots = 0;
-	num x, y;
-	bool onGround = false,
-		isContainer = false;
-	List<String> subSlotFilter;
-	List<Action> actions = [];
-	Map<String, int> consumeValues = {};
-	Map<String, dynamic> metadata = {};
-}
-
 Future updateInventory([Map map]) async {
 	List<Map> dataSlots = [];
 

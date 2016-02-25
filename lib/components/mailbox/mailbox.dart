@@ -9,6 +9,8 @@ import "package:polymer/polymer.dart";
 import 'package:jsonx/jsonx.dart';
 import 'package:transmit/transmit.dart';
 import 'package:couclient/src/network/metabolics.dart';
+import 'package:dnd/dnd.dart';
+import 'package:couclient/src/network/server_interop/itemdef.dart';
 
 import "mail.dart";
 
@@ -21,12 +23,31 @@ class Mailbox extends PolymerElement {
 	@observable bool userHasMessages, currants_taken;
 	Element currantDisplay;
 	NumberFormat commaFormatter = new NumberFormat("#,###");
+	List<Map<ItemDef, int>> itemsList = [];
 
 	Mailbox.created() : super.created() {
 		new Service(['metabolicsUpdated'],(Metabolics metabolics){
 			userCurrants = metabolics.currants;
 		});
 		currantDisplay = shadowRoot.querySelector("#fromCurrants");
+
+		Dropzone dropzone = new Dropzone(shadowRoot.querySelectorAll(".itemBox"));
+		dropzone.onDrop.listen((DropzoneEvent dropEvent) {
+			//verify it is a valid item before acting on it
+			if (dropEvent.draggableElement.attributes['itemMap'] == null) {
+				return;
+			}
+
+			ItemDef item = decode(dropEvent.draggableElement.attributes['itemMap'], type: ItemDef);
+			itemsList.add({item:1});
+
+			dropEvent.dropzoneElement.append(dropEvent.draggableElement.clone(true));
+//			DivElement count = new DivElement()
+//				..className='itemCount'
+//				..text='1';
+//			dropEvent.dropzoneElement.append(count);
+
+		});
 
 		shadowRoot.querySelectorAll('input, textarea').onFocus.listen((_) {
 			transmit('disableChatFocus',true);
@@ -110,6 +131,23 @@ class Mailbox extends PolymerElement {
 
 	closeMessage() => selected = "inbox";
 
+	cleanUp() {
+		toField = "";
+		toBody = "";
+		toSubject = "";
+		toCurrants = 0;
+		shadowRoot.querySelectorAll(".itemBox").forEach((Element e) => e.children.clear());
+		selected = "inbox";
+	}
+
+	ItemDef _getItem(Element itemBox) {
+		if(itemBox.children.length == 0) {
+			return null;
+		} else {
+			return decode(itemBox.children.first.attributes['itemMap'], type: ItemDef);
+		}
+	}
+
 	sendMessage() async {
 		Mail message = new Mail();
 		message.to_user = toField;
@@ -121,16 +159,16 @@ class Mailbox extends PolymerElement {
 		}
 		message.subject = toSubject;
 		message.currants = toCurrants;
+		message.item1 = _getItem(shadowRoot.querySelector('#item1'));
+		message.item2 = _getItem(shadowRoot.querySelector('#item2'));
+		message.item3 = _getItem(shadowRoot.querySelector('#item3'));
+		message.item4 = _getItem(shadowRoot.querySelector('#item4'));
+		message.item5 = _getItem(shadowRoot.querySelector('#item5'));
 
 		HttpRequest request = await postRequest(serverAddress + '/sendMail', encode(message), encode:false);
 		if(request.responseText == "OK") {
 			//clear sending fields (for next message)
-
-			toField = "";
-			toBody = "";
-			toSubject = "";
-			toCurrants = 0;
-			selected = "inbox";
+			cleanUp();
 		}
 	}
 

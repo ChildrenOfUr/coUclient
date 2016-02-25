@@ -2,6 +2,7 @@
 #questMakerWindow {
     width: 600px !important;
     height: 400px !important;
+    font-family: "Lato", sans-serif;
 }
 
 .questPiece, .placedPiece {

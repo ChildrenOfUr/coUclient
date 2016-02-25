@@ -22,6 +22,7 @@ import 'package:paper_elements/paper_radio_group.dart';
 import 'package:paper_elements/paper_toggle_button.dart';
 
 import 'package:couclient/src/network/metabolics.dart';
+import 'package:couclient/src/network/server_interop/itemdef.dart';
 
 // LIBRARIES //
 // Used for NumberFormat

@@ -40,8 +40,9 @@ class ConfigsTransformer extends Transformer
 		if(newContent.contains('<ur-meters>')) {
 			newContent = newContent.replaceAll('<ur-meters>','<ur-meters serverAddress="http://$utilServerAddress">');
 		}
-		if(newContent.contains('<ur-mailbox>')) {
-			newContent = newContent.replaceAll('<ur-mailbox>','<ur-mailbox serverAddress="http://$utilServerAddress">');
+		if(newContent.contains('></ur-mailbox>')) {
+			//this one is different because of the dnd-retarget attribute
+			newContent = newContent.replaceAll('></ur-mailbox>',' serverAddress="http://$utilServerAddress"></ur-mailbox>');
 		}
 
 		AssetId id = transform.primaryInput.id;
