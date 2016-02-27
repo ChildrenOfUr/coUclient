@@ -89,7 +89,7 @@
     cursor: pointer;
 }
 
-#fromCurrants.taken {
+.taken {
     opacity: 0.5;
     cursor: not-allowed;
 }
@@ -109,6 +109,15 @@
 #fromCurrantsNum {
     position: relative;
     top: -3px;
+}
+
+.fromItem {
+    background-repeat: no-repeat;
+    background-size: calc(100% - 10px);
+    background-position: 5px;
+    border: 2px solid grey;
+    background-color: #eee;
+    cursor: pointer;
 }
 
 /* Listing */
@@ -172,4 +181,25 @@ ur-button#btn_refresh {
     font-size: 20px;
     margin-top: 80px;
     text-align: center;
+}
+
+/*Confirmation dialog*/
+#actionDialog {
+    font-size: medium;
+    padding: 10px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 0 0 8px rgba(0, 0, 0, 0.1), 0 0 0 2px rgba(0, 0, 0, 0.3);
+}
+
+#actionDialog .buttons {
+    display: flex;
+    justify-content: flex-end;
+}
+
+#actionDialog ur-button {
+    margin-left: 10px;
 }

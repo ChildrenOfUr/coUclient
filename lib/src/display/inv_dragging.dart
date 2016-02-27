@@ -75,13 +75,16 @@ class InvDragging {
 	/// Runs when an item is picked up (drag start)
 	static void handlePickup(DraggableEvent e) {
 		_origBox = e.draggableElement.parent;
-		e.draggableElement.dataset["original-slot-num"] = _origBox.dataset["slot-num"];
+		e.draggableElement.dataset["from-index"] = _origBox.dataset["slot-num"];
+		e.draggableElement.dataset['from-bag-index'] = '-1';
 
 		_move = {};
 
 		if (querySelector("#windowHolder").contains(_origBox)) {
 			_move['fromIndex'] = int.parse(_origBox.parent.parent.dataset["source-bag"]);
 			_move["fromBagIndex"] = int.parse(_origBox.dataset["slot-num"]);
+			e.draggableElement.dataset['from-bag-index'] = _origBox.dataset["slot-num"];
+			e.draggableElement.dataset['from-index'] = _origBox.parent.parent.dataset["source-bag"];
 		} else {
 			_move['fromIndex'] = int.parse(_origBox.dataset["slot-num"]);
 		}

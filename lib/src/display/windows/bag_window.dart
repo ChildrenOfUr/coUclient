@@ -162,6 +162,8 @@ class BagWindow extends Modal {
 		}
 
 		if (subSlots.length != sourceItem.subSlots) {
+			print('source count: ${sourceItem.subSlots}');
+			print('list length: ${subSlots.length}');
 			throw new StateError("Number of slots in bag does not match bag size");
 		} else {
 			int slotNum = 0;
