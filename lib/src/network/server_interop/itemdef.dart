@@ -19,6 +19,7 @@ class ItemDef {
 
 class Action {
 	String name;
+	bool multiEnabled;
 	String description;
 	int timeRequired;
 	ItemRequirements itemRequirements = new ItemRequirements();

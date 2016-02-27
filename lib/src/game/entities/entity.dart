@@ -81,7 +81,7 @@ abstract class Entity {
 					}
 				}
 
-				actions.add([capitalizeFirstLetter(actionMap['action']) + "|" + actionMap['actionWord'] + "|${actionMap['timeRequired']}|$enabled|$error", element.id, "sendAction ${actionMap['action']} ${element.id}"]);
+				actions.add([capitalizeFirstLetter(actionMap['action']) + "|" + actionMap['actionWord'] + "|${actionMap['timeRequired']}|$enabled|$error|${actionMap['multiEnabled']}", element.id, "sendAction ${actionMap['action']} ${element.id}"]);
 			});
 		}
 

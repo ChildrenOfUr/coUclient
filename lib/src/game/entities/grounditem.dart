@@ -52,9 +52,9 @@ class GroundItem extends Entity {
 				}
 				actions.add([
 					            capitalizeFirstLetter(action.name) + '|' +
-					            '|0|$enabled|$error',
+					            '|0|$enabled|$error|${action.multiEnabled}',
 					            id,
-					            "sendAction ${action.name} $id"
+					            "sendAction ${action.name} $id",
 				            ]);
 			});
 		}

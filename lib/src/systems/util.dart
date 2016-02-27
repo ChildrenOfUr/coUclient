@@ -45,27 +45,39 @@ String getUptime() {
  *
  * For example, if the player has 50 Chunks of Beryl in 3 slots, then this will return 150
  *
+ * If slot and subSlot are set > -1, this will count only items in that slot.
+ *
  **/
-int getNumItems(String item) {
+int getNumItems(String item, {int slot: -1, int subSlot: -1}) {
 	int count = 0;
 
 	//count all the normal slots
-	playerInventory.slots.forEach((Slot s) {
+	int i = 0;
+	for(Slot s in playerInventory.slots) {
+		i++;
+		if(slot > -1 && (i-1) != slot) {
+			continue;
+		}
 		if(s.itemType == item) {
 			count += s.count;
 		}
-	});
+	}
 
 	//add the bag contents
 	playerInventory.slots.where((Slot s) => !s.itemType.isEmpty && s.item.isContainer && s.item.subSlots != null).forEach((Slot s) {
 		String slotsString = JSON.encode(s.item.metadata['slots']);
 		List<Slot> bagSlots = decode(slotsString, type: new TypeHelper<List<Slot>>().type);
 		if (bagSlots != null) {
-			bagSlots.forEach((Slot bagSlot) {
+			i=0;
+			for(Slot bagSlot in bagSlots) {
+				i++;
+				if(subSlot > -1 && (i-1) != subSlot) {
+					continue;
+				}
 				if (bagSlot.itemType == item) {
 					count += bagSlot.count;
 				}
-			});
+			}
 		}
 	});
 

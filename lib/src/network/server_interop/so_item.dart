@@ -30,16 +30,17 @@ void itemContextMenu(ItemDef i, String slot, MouseEvent event) {
 			} else {
 				error = getRequirementString(requires);
 			}
+
 			actions.add([
 				            capitalizeFirstLetter(action.name) + '|' +
-				            action.name + '|${action.timeRequired}|$enabled|$error',
+				            action.name + '|${action.timeRequired}|$enabled|$error|${action.multiEnabled}',
 				            i.itemType,
 				            "sendAction ${action.name} ${i.item_id}",
 				            getDropMap(1, barSlot, bagSlot)
 			            ]);
 		});
 	}
-	Element menu = RightClickMenu.create(event, i.name, i.description, actions, itemName: i.name);
+	Element menu = RightClickMenu.create(event, i.name, i.description, actions, item: i);
 	document.body.append(menu);
 }
 

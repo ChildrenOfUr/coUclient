@@ -1,12 +1,14 @@
 part of couclient;
 
 class HowManyMenu {
-	static Element create(MouseEvent Click, String action, {String itemName: ''}) {
+	static StreamSubscription keyListener;
+
+	static Element create(MouseEvent Click, String action, int max, Function callback, {String itemName: ''}) {
 		destroy();
 
 		action = action.substring(0, 1).toUpperCase() + action.substring(1);
 
-		int numItems = 0;
+		int numItems = 1;
 
 		DivElement menu = new DivElement()
 			..id = 'HowManyMenu';
@@ -25,13 +27,58 @@ class HowManyMenu {
 			..text = '+';
 		InputElement number = new InputElement()
 			..id = 'hm-num'
-			..text = numItems.toString();
+			..value = numItems.toString();
 		ButtonElement enter = new ButtonElement()
 			..id = 'hm-enter'
 			..classes.add('hm-btn')
 			..text = action + ' ' + numItems.toString();
 
+		inputManager.ignoreKeys = true;
+
 		// do stuff
+		plus.onClick.listen((_) {
+			int value = int.parse(number.value) + 1;
+			if(value > max) {
+				value = max;
+			}
+			number.value = value.toString();
+			enter.text = '$action $value';
+		});
+		minus.onClick.listen((_) {
+			int value = int.parse(number.value) - 1;
+			if(value < 0) {
+				value = 0;
+			}
+			number.value = value.toString();
+			enter.text = '$action $value';
+		});
+
+		enter.onClick.first.then((_) {
+			_doVerb(int.parse(number.value),callback);
+		});
+
+		//wait a little so that an [enter] used to prompt this window doesn't count for it too
+		new Timer(new Duration(milliseconds: 100), () {
+			keyListener = document.onKeyPress.listen((KeyboardEvent e) {
+				//27 == esc key
+				if (e.keyCode == 27) {
+					e.stopPropagation();
+					destroy();
+
+					//see if there's another window that we want to focus
+					for (Element modal in querySelectorAll('.window')) {
+						if (!modal.hidden) {
+							modals[modal.id]?.focus();
+						}
+					}
+				}
+				//13 == enter key
+				if (e.keyCode == 13) {
+					e.stopPropagation();
+					_doVerb(int.parse(number.value),callback);
+				}
+			});
+		});
 
 		controls
 			..append(minus)
@@ -42,52 +89,29 @@ class HowManyMenu {
 			..append(controls)
 			..append(enter);
 
-		document.body.append(menu);
+		querySelector("#windowHolder").append(menu);
 
 		int x, y;
+		x = Click.client.x;
+		y = Click.client.y;
 
-		if(Click != null) {
-			if(Click.page.y > window.innerHeight / 2) {
-				y = Click.page.y - menu.clientHeight;
-			} else {
-				y = Click.page.y - 10;
-			}
-			if(Click.page.x > window.innerWidth / 2) {
-				x = Click.page.x - 120;
-			} else {
-				x = Click.page.x - 10;
-			}
-		} else {
-			num posX = CurrentPlayer.posX, posY = CurrentPlayer.posY;
-			int width = CurrentPlayer.width, height = CurrentPlayer.height;
-			num translateX = posX, translateY = view.worldElement.clientHeight - height;
-			if(posX > currentStreet.bounds.width - width / 2 - view.worldElement.clientWidth / 2) {
-				translateX = posX - currentStreet.bounds.width + view.worldElement.clientWidth;
-			} else if(posX + width / 2 > view.worldElement.clientWidth / 2) {
-				translateX = view.worldElement.clientWidth / 2 - width / 2;
-			}
-			if(posY + height / 2 < view.worldElement.clientHeight / 2) {
-				translateY = posY;
-			} else if(posY < currentStreet.bounds.height - height / 2 - view.worldElement.clientHeight / 2) {
-				translateY = view.worldElement.clientHeight / 2 - height / 2;
-			} else {
-				translateY = view.worldElement.clientHeight - (currentStreet.bounds.height - posY);
-			}
-			x = (translateX + menu.clientWidth + 10) ~/ 1;
-			y = (translateY + height / 2) ~/ 1;
-
-			menu.style
-				..opacity = '1.0'
-				..position = 'absolute'
-				..top = y.toString() + ' px'
-				..left = x.toString() + ' px';
-		}
+		menu.style
+			..opacity = '1.0'
+			..position = 'absolute'
+			..top = y.toString() + ' px'
+			..left = x.toString() + ' px';
 
 		return menu;
 	}
 
+	static void _doVerb(int count, Function callback) {
+		destroy();
+		callback(howMany: count);
+	}
+
 	static void destroy() {
-		Element menu = querySelector('#HowManyMenu');
-		if(menu != null) menu.remove();
+		inputManager.ignoreKeys = false;
+		keyListener?.cancel();
+		querySelector('#HowManyMenu')?.remove();
 	}
 }
