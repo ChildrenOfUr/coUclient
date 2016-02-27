@@ -9,7 +9,8 @@
         <core-pages selected="{{selected}}" valueattr="id">
             <!--Compose a new message-->
             <div id="compose">
-                <input type="text" placeholder="To" value="{{toField}}" id="input_to" class="input_text input_line">
+                <input type="text" placeholder="To" on-input={{toChanged}} value="{{toField}}" list="toList" id="input_to" class="input_text input_line">
+                <datalist id="toList"></datalist>
                 <br>
                 <input type="text" placeholder="Subject" value="{{toSubject}}" id="input_subject" class="input_text input_line">
                 <br>

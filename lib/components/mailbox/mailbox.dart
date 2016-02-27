@@ -31,7 +31,7 @@ class Mailbox extends PolymerElement {
 		fromCurrants;
 	@published String serverAddress;
 	@observable bool userHasMessages, currants_taken;
-	Element currantDisplay;
+	Element currantDisplay, datalistTo;
 	NumberFormat commaFormatter = new NumberFormat("#,###");
 	List<Map<ItemDef, int>> itemsList = [];
 	List<String> itemSlots = [null, null, null, null, null];
@@ -44,6 +44,7 @@ class Mailbox extends PolymerElement {
 			userCurrants = metabolics.currants;
 		});
 		currantDisplay = shadowRoot.querySelector("#fromCurrants");
+		datalistTo = shadowRoot.querySelector('#toList');
 
 		Dropzone dropzone = new Dropzone(shadowRoot.querySelectorAll(".itemBox"));
 		dropzone.onDrop.listen((DropzoneEvent dropEvent) {
@@ -121,7 +122,23 @@ class Mailbox extends PolymerElement {
 		userHasMessages = messages.isNotEmpty;
 	}
 
-	read(Event event, var detail, Element target) async {
+	Future toChanged(Event event, var detail, Element target) async {
+		String sofar = (target as InputElement).value;
+		if(sofar.length > 2) {
+			String url = '$serverAddress/searchUsers?query=$sofar';
+			String response = await HttpRequest.getString(url);
+			datalistTo.children.clear();
+			List<String> matchingPlayers = JSON.decode(response);
+			for(String matching in matchingPlayers) {
+				OptionElement option = new OptionElement()..value = matching;
+				datalistTo.append(option);
+			}
+		} else if (sofar.length == 0){
+			datalistTo.children.clear();
+		}
+	}
+
+	Future read(Event event, var detail, Element target) async {
 		await refresh();
 		selected = "read";
 		int id = int.parse(target.attributes['data-message-id']);
