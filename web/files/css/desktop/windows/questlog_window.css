@@ -81,6 +81,7 @@
     border-left: 2px solid #cccccc;
     padding: 0 20px 0 30px;
     flex-basis: 66%;
+    overflow-y: auto;
 }
 
 #questDetails .questDescription {
