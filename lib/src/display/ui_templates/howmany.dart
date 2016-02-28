@@ -6,6 +6,7 @@ class HowManyMenu {
 	static Element enter;
 	static int maxVal, value = 1;
 	static String actionString, typedString = '';
+	static bool boxFocused = false;
 
 	static create(MouseEvent Click, String action, int max, Function callback, {String itemName: ''}) {
 		destroy();
@@ -49,6 +50,9 @@ class HowManyMenu {
 			_doVerb(int.parse(number.value),callback);
 		});
 
+		number.onFocus.listen((_) => boxFocused = true);
+		number.onBlur.listen((_) => boxFocused = false);
+
 		//1..9 in number row
 		List<int> numCodes = [49,50,51,52,53,54,55,56,57];
 
@@ -74,12 +78,18 @@ class HowManyMenu {
 				}
 				//number row
 				if (numCodes.contains(e.keyCode)) {
+					if(boxFocused) {
+						return;
+					}
 					e.stopPropagation();
 					typedString = '$typedString${numCodes.indexOf(e.keyCode)+1}';
 					_setValue(int.parse(typedString));
 				}
 				//backspace
 				if (e.keyCode == 8) {
+					if(boxFocused) {
+						return;
+					}
 					e.stopPropagation();
 					typedString = '$typedString'.substring(0,'$typedString'.length-1);
 					if(typedString.length == 0) {
