@@ -17,7 +17,7 @@ class Door extends Entity {
 			width = spritesheet.width ~/ map['numColumns'];
 			height = spritesheet.height ~/ map['numRows'];
 			x = num.parse(map['x'].toString());
-			y = currentStreet.bounds.height - num.parse(map['y'].toString()) - height;
+			y = num.parse(map['y'].toString()) - height;
 			left = x;
 			top = y;
 

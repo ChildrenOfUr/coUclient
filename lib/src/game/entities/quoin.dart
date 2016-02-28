@@ -47,25 +47,25 @@ class Quoin {
 		canvas.className = map['type'] + " quoin";
 		canvas.style.position = "absolute";
 		canvas.style.left = map['x'].toString() + "px";
-		canvas.style.bottom = map['y'].toString() + "px";
+		canvas.style.top = map['y'].toString() + "px";
 		canvas.style.transform = "translateZ(0)";
 		canvas.attributes['collected'] = "false";
 
 		left = map['x'];
-		top = currentStreet.bounds.height - map['y'] - canvas.height;
+		top = map['y'] - canvas.height;
 
 		circle = new DivElement()
 			..id = "q" + id
 			..className = "circle"
 			..style.position = "absolute"
 			..style.left = map["x"].toString() + "px"
-			..style.bottom = map["y"].toString() + "px";
+			..style.top = map["y"].toString() + "px";
 		parent = new DivElement()
 			..id = "qq" + id
 			..className = "parent"
 			..style.position = "absolute"
 			..style.left = map["x"].toString() + "px"
-			..style.bottom = map["y"].toString() + "px";
+			..style.top = map["y"].toString() + "px";
 		DivElement inner = new DivElement();
 		inner.className = "inner";
 		DivElement content = new DivElement();

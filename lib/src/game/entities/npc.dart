@@ -39,8 +39,7 @@ class NPC extends Entity {
 			id = map['id'];
 
 			try {
-				top = currentStreet.bounds.height -
-					num.parse(map['y'].toString()) -
+				top = num.parse(map['y'].toString()) -
 					animation.height;
 				left = num.parse(map['x'].toString());
 				width = map['width'];
