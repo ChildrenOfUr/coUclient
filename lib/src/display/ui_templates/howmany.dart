@@ -2,7 +2,8 @@ part of couclient;
 
 class HowManyMenu {
 	static StreamSubscription keyListener;
-	static Element number, enter;
+	static InputElement number;
+	static Element enter;
 	static int maxVal, value = 1;
 	static String actionString, typedString = '';
 
