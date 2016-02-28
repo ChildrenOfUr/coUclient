@@ -1,13 +1,16 @@
 part of couclient;
 
 class QuestRewards {
-	int energy, mood, img, currants;
-	List<QuestFavor> favor;
+	int energy = 0;
+	int mood = 0;
+	int img = 0;
+	int currants = 0;
+	List<QuestFavor> favor = new List();
 }
 
 class QuestFavor {
 	String giantName;
-	int favAmt;
+	int favAmt = 0;
 }
 
 class Quest {

@@ -77,36 +77,75 @@ class QuestLogWindow extends Modal {
 	}
 
 	Element _newDetails(Quest q) {
-		DivElement detailsE = new DivElement()
-			..dataset['quest-id'] = q.id;
+		// Generate info box (for requirements & rewards)
+		Element _infoBox({String imageUrl, String imageClass, dynamic text: ""}) {
+			Element imageE;
+			if (imageUrl != null) {
+				imageE = new ImageElement(src: imageUrl);
+			} else {
+				imageE = new DivElement()
+					..classes = (imageClass != null ? ["quest-info-icon", imageClass] : ["quest-info-icon"]);
+			}
 
+			SpanElement textE = new SpanElement()
+				..text = text.toString();
+
+			DivElement boxE = new DivElement()
+				..append(imageE)
+				..append(textE);
+
+			return boxE;
+		}
+
+		// Containers
+
+		// Completion requirements
+		DivElement requirementsE = new DivElement()
+			..classes = ["quest-reqs"]
+			..append(new SpanElement()
+				..text = "Requirements");
+
+		// Completion rewards
+		DivElement rewardsE = new DivElement()
+			..classes = ["quest-rewards"]
+			..append(new SpanElement()
+				..text = "Rewards");
+
+		// Description text
 		DivElement descriptionE = new DivElement()
 			..text = q.description
 			..classes.add('questDescription');
 
-		detailsE.append(descriptionE);
+		// Details container (parent of all above)
+		DivElement detailsE = new DivElement()
+			..dataset['quest-id'] = q.id
+			..append(descriptionE)..append(requirementsE)..append(rewardsE);
 
+		// Fill in requirements
 		q.requirements.forEach((Requirement r) {
-			DivElement requirementE = new DivElement()
-				..classes.add("questRequirement");
-
-			if (r.fulfilled) {
-				requirementE.classes.add("fulfilled");
-			}
-
-			Element icon = new ImageElement()
-				..src = r.iconUrl;
-
-			SpanElement completed = new SpanElement()
-				..text = '${r.numFulfilled}/${r.numRequired}'
-				..classes.add('requirementCompletion');
-
-			requirementE
-				..append(icon)
-				..append(completed)
+			DivElement reqE = _infoBox(imageUrl: r.iconUrl, text: "${r.numFulfilled}/${r.numRequired}")
+				..classes.add("questRequirement")
 				..title = r.text;
 
-			detailsE.append(requirementE);
+			if (r.fulfilled) {
+				reqE.classes.add("fulfilled");
+			}
+
+			requirementsE.append(reqE);
+		});
+
+		// Fill in rewards
+		if (q.rewards.currants > 0)
+			rewardsE.append(_infoBox(imageClass: "currant", text: q.rewards.currants));
+		if (q.rewards.energy > 0)
+			rewardsE.append(_infoBox(imageClass: "energy", text: q.rewards.energy));
+		if (q.rewards.img > 0)
+			rewardsE.append(_infoBox(imageClass: "img", text: q.rewards.img));
+		if (q.rewards.mood > 0)
+			rewardsE.append(_infoBox(imageClass: "mood", text: q.rewards.mood));
+		q.rewards.favor.forEach((QuestFavor giant) {
+			if (giant.favAmt > 0)
+				rewardsE.append(_infoBox(text: "${giant.favAmt} favor with ${giant.giantName}"));
 		});
 
 		return detailsE;

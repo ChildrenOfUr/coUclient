@@ -116,6 +116,13 @@
 }
 */
 
+.quest-reqs > span:first-child,
+.quest-rewards > span:first-child {
+    font-weight: bold;
+    display: block;
+    margin: 10px 0 5px 0;
+}
+
 #questDetails .requirementCompletion.completed::before {
     content: '';
     margin-right: 10px;
