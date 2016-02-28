@@ -698,11 +698,6 @@
     padding: 6px;
     font-size: 14px;
     z-index: 5;
-    /*top: -100%;*/
-    /*left: -100%;*/
-    top: 100px;
-    left: 200px;
-    /**/
     border-radius: 8px;
     border-bottom: 2px solid rgba(0, 0, 0, 0.3);
 }

@@ -243,7 +243,11 @@ class RightClickMenu {
 
 			MenuKeys.addListener(index, () {
 				// Trigger onClick listener (below) when correct key is pressed
-				menuitem.click();
+				if(Click != null) {
+					menuitem.dispatchEvent(new MouseEvent('click', clientX: Click.client.x, clientY: Click.client.y));
+				} else {
+					menuitem.click();
+				}
 			});
 
 			if ((option[0] as String).split("|")[3] == "true") {
@@ -252,28 +256,31 @@ class RightClickMenu {
 					Function doClick = ({howMany: 1}) async {
 						int timeRequired = int.parse((option[0] as String).split("|")[2]);
 
+						bool completed = true;
 						if (timeRequired > 0) {
 							ActionBubble actionBubble = new ActionBubble((option[0] as String).split("|")[1], timeRequired);
-							await actionBubble.wait;
+							completed = await actionBubble.wait;
 						}
 
-						// Action completed
-						Map arguments = null;
-						if (option.length > 3) {
-							arguments = option[3];
-							arguments['count'] = howMany;
-						}
+						if(completed) {
+							// Action completed
+							Map arguments = null;
+							if (option.length > 3) {
+								arguments = option[3];
+								arguments['count'] = howMany;
+							}
 
-						if(functionName == 'pickup' && howMany > 1) {
-							//try to pick up howMany items that we're touching
-							List<String> objectIds = CurrentPlayer.intersectingObjects.keys.toList();
-							objectIds.removeWhere((String id) => querySelector('#$id').attributes['type'] != itemName);
-							for(int i=0; i<howMany; i++) {
-								option[1] = objectIds[i];
+							if(functionName == 'pickup' && howMany > 1) {
+								//try to pick up howMany items that we're touching
+								List<String> objectIds = CurrentPlayer.intersectingObjects.keys.toList();
+								objectIds.removeWhere((String id) => querySelector('#$id').attributes['type'] != itemName);
+								for(int i=0; i<howMany; i++) {
+									option[1] = objectIds[i];
+									sendAction(functionName, option[1], arguments);
+								}
+							} else {
 								sendAction(functionName, option[1], arguments);
 							}
-						} else {
-							sendAction(functionName, option[1], arguments);
 						}
 					};
 

@@ -463,10 +463,7 @@ class InputManager {
 	}
 
 	// Right-click menu functions
-	hideClickMenu(Element window) {
-		if(window != null)
-			window.remove();
-	}
+	hideClickMenu(Element window) => window?.remove();
 
 	showClickMenu(MouseEvent Click, String title, String description, List<List> options, {String itemName : ''}) {
 		hideClickMenu(querySelector('#RightClickMenu'));
@@ -474,7 +471,6 @@ class InputManager {
 
 		Element clickMenu = querySelector('#RightClickMenu');
 		Element list = querySelector('#RCActionList');
-
 
 		menuKeyListener = document.onKeyDown.listen((KeyboardEvent k) {
 			if((k.keyCode == keys["UpBindingPrimary"] || k.keyCode == keys["UpBindingAlt"]) && !ignoreKeys) //up arrow or w and not typing
@@ -489,12 +485,13 @@ class InputManager {
 				stopMenu(clickMenu);
 			if((k.keyCode == keys["ActionBindingPrimary"] || k.keyCode == keys["ActionBindingAlt"]) && !ignoreKeys) //spacebar and not typing
 				doAction(list, clickMenu, "RCItemSelected");
+			//esc key
+			if(k.keyCode == 27) {
+				stopMenu(clickMenu);
+			}
 		});
 
-
-		document.onClick.listen((_) {
-			stopMenu(clickMenu);
-		});
+		document.onClick.listen((_) => stopMenu(clickMenu));
 	}
 
 	void selectUp(List<Element> options, String className) {
@@ -540,13 +537,16 @@ class InputManager {
 			menuKeyListener.cancel();
 			menuKeyListener = null;
 		}
+		MenuKeys.clearListeners();
 		hideClickMenu(window);
 	}
 
 	void doAction(Element list, Element window, String className) {
 		for(Element element in list.querySelectorAll('.RCItem')) {
 			if(element.classes.contains(className)) {
-				element.click();
+				//click the hard way so that we have coordinates to go with it
+				Rectangle rect = element.getBoundingClientRect();
+				element.dispatchEvent(new MouseEvent('click', clientX: rect.left+rect.width~/2, clientY: rect.top));
 				break;
 			}
 		}
