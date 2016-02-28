@@ -11,7 +11,9 @@ class HowManyMenu {
 	static create(MouseEvent Click, String action, int max, Function callback, {String itemName: ''}) {
 		destroy();
 
-		action = action.substring(0, 1).toUpperCase() + action.substring(1);
+		if(action != null && action.length > 0) {
+			action = action.substring(0, 1).toUpperCase() + action.substring(1);
+		}
 
 		int numItems = 1;
 		maxVal = max;

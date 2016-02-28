@@ -757,3 +757,36 @@
     color: white;
     background-color: #57AA4B;
 }
+
+#itemChooser {
+    background: #eee;
+    border-radius: 8px;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.3);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 8px;
+    pointer-events: all;
+    max-width: 75%;
+}
+
+#itemChooser .itemChoice {
+    width: 50px;
+    height: 50px;
+    background: no-repeat 50%;
+    background-size: 30px;
+    border: 1px solid transparent;
+}
+
+#itemChooser .itemChoice:hover {
+    cursor: pointer;
+    border: 1px solid #d79035;
+    border-radius: 8px;
+    background-color: #F8F2E1;
+}
+
+#itemChooser .itemHolder {
+    display: flex;
+    flex-wrap: wrap;
+}

@@ -236,6 +236,8 @@ part 'package:couclient/src/display/ui_templates/howmany.dart';
 
 part 'package:couclient/src/display/ui_templates/menu_keys.dart';
 
+part 'package:couclient/src/display/ui_templates/item_chooser.dart';
+
 part 'package:couclient/src/display/minimap.dart';
 
 // Globals //
