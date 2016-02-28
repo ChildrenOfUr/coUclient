@@ -207,7 +207,9 @@ class RockWindow extends Modal {
 			awardsE.append(currantsE);
 		}
 
-		return awardsE;
+		DivElement cbContent = new DivElement()..className = 'cb-content';
+		cbContent.append(awardsE);
+		return cbContent;
 	}
 
 	AnchorElement _createChoice(ConvoChoice choice, String questId) {
