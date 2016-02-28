@@ -8,6 +8,13 @@ class Player {
 	num yVel = 0, yAccel = -2400;
 	bool jumping = false, moving = false, climbingUp = false, climbingDown = false;
 	bool activeClimb = false, lastClimbStatus = false, facingRight = true, firstRender = true;
+	bool get climbing {
+		if (username == game.username) {
+			return climbingUp || climbingDown;
+		} else {
+			return currentAnimation.animationName == "climb";
+		}
+	}
 	bool canTripleJump = true;
 	bool isGuide = false;
 	Map<String, Animation> animations = new Map();
@@ -19,6 +26,7 @@ class Player {
 	int jumpcount = 0;
 	Timer jumpTimer;
 	MutableRectangle avatarRect = new MutableRectangle(0, 0, 0, 0);
+	Player followingPlayer = null;
 
 	//for testing purposes
 	//if false, player can move around with wasd and arrows, no falling
@@ -334,6 +342,24 @@ class Player {
 			..top = posY
 			..width = width
 			..height = height;
+
+		// If following a player, go to them
+		if (username == CurrentPlayer.username && followingPlayer != null) {
+			// Turn to face the same direction
+			facingRight = followingPlayer.facingRight;
+
+			// Copy their animation state
+			updateAnimation(dt, followingPlayer.currentAnimation.animationName);
+
+			// Go to their X coordinate (+/- a body width or so if on a platform)
+			num xOffset = (followingPlayer.climbing ? 0 : (facingRight ? -1 : 1) * avatarRect.width);
+			posX = followingPlayer.posX + xOffset;
+
+			// Go to their Y coordinate (if not on a platform)
+			if (followingPlayer.jumping || followingPlayer.climbing) {
+				posY = followingPlayer.posY;
+			}
+		}
 	}
 
 	updateLadderStatus(double dt) {
@@ -438,32 +464,37 @@ class Player {
 		}
 	}
 
-	void updateAnimation(double dt) {
+	void updateAnimation(double dt, [String override]) {
 		Animation previous = currentAnimation;
-		bool climbing = climbingUp || climbingDown;
-		if (!moving && !jumping && !climbing)
-			currentAnimation = animations['idle'];
-		else {
-			//reset idle so that the 10 second delay starts over
-			animations['idle'].reset();
 
-			if (climbing) {
-				if (activeClimb != lastClimbStatus) {
-					lastClimbStatus = activeClimb;
-				}
-				currentAnimation = animations['climb'];
-				currentAnimation.paused = !activeClimb;
-			}
+		if (override != null) {
+			currentAnimation = animations[override];
+		} else {
+			bool climbing = climbingUp || climbingDown;
+			if (!moving && !jumping && !climbing)
+				currentAnimation = animations['idle'];
 			else {
-				if (moving && !jumping)
-					currentAnimation = animations['base'];
-				else if (jumping && yVel < 0) {
-					currentAnimation = animations['jumpup'];
-					animations['falldown'].reset();
+				//reset idle so that the 10 second delay starts over
+				animations['idle'].reset();
+
+				if (climbing) {
+					if (activeClimb != lastClimbStatus) {
+						lastClimbStatus = activeClimb;
+					}
+					currentAnimation = animations['climb'];
+					currentAnimation.paused = !activeClimb;
 				}
-				else if (jumping && yVel >= 0) {
-					currentAnimation = animations['falldown'];
-					animations['jumpup'].reset();
+				else {
+					if (moving && !jumping)
+						currentAnimation = animations['base'];
+					else if (jumping && yVel < 0) {
+						currentAnimation = animations['jumpup'];
+						animations['falldown'].reset();
+					}
+					else if (jumping && yVel >= 0) {
+						currentAnimation = animations['falldown'];
+						animations['jumpup'].reset();
+					}
 				}
 			}
 		}
@@ -533,6 +564,33 @@ class Player {
 		playerParentElement.style.transform = transform;
 		playerParentElement.attributes['translateX'] = translateX.toString();
 		playerParentElement.attributes['translateY'] = translateY.toString();
+	}
+
+	String followPlayer([String toFollow]) {
+		// Running follow() on yourself?
+		if (username != game.username) {
+			return "You cannot make people follow each other!";
+		}
+
+		if (toFollow == null || toFollow == "" || toFollow == CurrentPlayer.username) {
+			// Unset or follow yourself to cancel following
+			followingPlayer = null;
+			return "You no longer follow anyone.";
+		} else {
+			// Player exsits/is loaded?
+			if (otherPlayers[toFollow] == null) {
+				return "You can only follow players on the same street as you!";
+			}
+
+			// Unfollow the current one first
+			if (followingPlayer != null) {
+				followPlayer();
+			}
+
+			// Follow another player
+			followingPlayer = otherPlayers[toFollow];
+			return "You now follow $toFollow. Walk to stop.";
+		}
 	}
 
 	//ONLY WORKS IF PLATFORMS ARE SORTED WITH

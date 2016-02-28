@@ -11,16 +11,10 @@ Map<String, Function> COMMANDS = {};
 class CommandManager {
   CommandManager() {
 
-    COMMANDS['playsound'] = (noun) {
-      transmit('playSound', noun);
-    };
-
-    COMMANDS['playsong'] = (noun) {
-      transmit('playSong', noun);
-    };
-
-    COMMANDS
-      ..['interface'] = changeInterface;
+    COMMANDS['follow'] = (noun) => toast(CurrentPlayer.followPlayer(noun.trim()));
+    COMMANDS['interface'] = changeInterface;
+    COMMANDS['playsong'] = (noun) => transmit('playSong', noun);
+    COMMANDS['playsound'] = (noun) => transmit('playSound', noun);
 
     if (Configs.testing) {
       COMMANDS
