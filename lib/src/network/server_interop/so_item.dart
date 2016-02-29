@@ -48,8 +48,15 @@ Future findNewSlot(Slot slot, int index, {bool update: false}) async {
 	ItemDef item = slot.item;
 	int count = slot.count;
 
+	//decide what image to used based on durability state
+	String url = item.spriteUrl;
+	int used = item.metadata['durabilityUsed'] ?? 0;
+	if(item.durability != null && used >= item.durability) {
+		print('item.brokenUrl: ${item.brokenUrl}');
+		url = item.brokenUrl;
+	}
 	//create an image for this item and wait for it to load before sizing/positioning it
-	ImageElement img = new ImageElement(src: item.spriteUrl);
+	ImageElement img = new ImageElement(src: url);
 	Element barSlot = view.inventory.children.elementAt(index);
 	barSlot.children.clear();
 	Element itemDiv = new DivElement();
@@ -104,9 +111,14 @@ Future sizeItem(ImageElement img, Element itemDiv, Element slot, ItemDef item, i
 	if (cssClass == null) {
 		cssClass = 'item-${item.itemType} inventoryItem';
 	}
+	String url = item.spriteUrl;
+	int used = item.metadata['durabilityUsed'] ?? 0;
+	if(item.durability != null && used >= item.durability) {
+		url = item.brokenUrl;
+	}
 	itemDiv.style.width = (slot.contentEdge.width - 10).toString() + "px";
 	itemDiv.style.height = (slot.contentEdge.height - 10).toString() + "px";
-	itemDiv.style.backgroundImage = 'url(${item.spriteUrl})';
+	itemDiv.style.backgroundImage = 'url($url)';
 	itemDiv.style.backgroundRepeat = 'no-repeat';
 	itemDiv.style.backgroundSize = "${img.width * scale}px ${img.height * scale}px";
 	itemDiv.style.backgroundPosition = "0 50%";
@@ -127,6 +139,42 @@ Future sizeItem(ImageElement img, Element itemDiv, Element slot, ItemDef item, i
 	slot.append(itemCount);
 	if (count <= 1) {
 		itemCount.text = "";
+	}
+
+	if(item.durability != null) {
+		int durabilityUsed = item.metadata['durabilityUsed'] ?? 0;
+
+		DivElement durabilityBackground = new DivElement()
+			..className = 'durabilityBackground';
+		DivElement durabilityForeground = new DivElement()
+			..className = 'durabilityForeground'
+			..style.width = '${((item.durability-durabilityUsed)/item.durability)*100}%';
+
+		durabilityBackground.append(durabilityForeground);
+		slot.append(durabilityBackground);
+
+		new Service('updateMetadata', (Map indexToItem) {
+			if(bagSlotNum != -1) {
+				//stuff in bags will update itself each time the bag is changed
+				return;
+			}
+			if(indexToItem['index'] == barSlotNum) {
+				Element durabilityBar = slot.querySelector('.durabilityForeground');
+				if(durabilityBar == null) {
+					return;
+				}
+
+				ItemDef item = indexToItem['item'];
+				int durabilityUsed = item.metadata['durabilityUsed'] ?? 0;
+				num percent = ((item.durability-durabilityUsed)/item.durability)*100;
+				durabilityBar..style.width = '$percent%';
+				if(percent == 0) {
+					itemDiv.style.backgroundImage = 'url(${item.brokenUrl})';
+				} else {
+					itemDiv.style.backgroundImage = 'url(${item.spriteUrl})';
+				}
+			}
+		});
 	}
 
 	int offset = count;

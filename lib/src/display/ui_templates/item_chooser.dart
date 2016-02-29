@@ -60,7 +60,7 @@ class ItemChooser {
 				Function action = ({int howMany: 1}) {
 					_doAction(item.itemType, howMany: howMany);
 				};
-				HowManyMenu.create(e,'',getNumItems(item.itemType), action, itemName: item.name);
+				HowManyMenu.create(e,'',_getNumItems(item.itemType), action, itemName: item.name);
 			});
 
 			itemHolder.append(itemE);

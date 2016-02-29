@@ -55,6 +55,23 @@
   right: 3px;
 }
 
+.durabilityBackground {
+    position: absolute;
+    width: 90%;
+    height: 5px;
+    background: #B5ADB5;
+    border-radius: 5px;
+    left: 50%;
+    transform: translate(-50%, 4px);
+}
+
+.durabilityForeground {
+    position: absolute;
+    height: 5px;
+    background: #4b2e4c;
+    border-radius: 5px;
+}
+
 #broken {
   position: absolute;
   display: block;

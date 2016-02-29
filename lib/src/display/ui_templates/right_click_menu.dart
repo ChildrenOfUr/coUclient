@@ -306,7 +306,7 @@ class RightClickMenu {
 								}
 							});
 						} else {
-							max = getNumItems(item.itemType, slot: slot, subSlot: subSlot);
+							max = _getNumItems(item.itemType, slot: slot, subSlot: subSlot);
 						}
 						if(max == 1) {
 							//don't show a how many dialog if there's only 1

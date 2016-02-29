@@ -56,7 +56,7 @@ class ShrineWindow extends Modal {
 	}
 
 	void populateQtySelector(String itemType) {
-		numBox.attributes['max'] = getNumItems(itemType).toString();
+		numBox.attributes['max'] = _getNumItems(itemType).toString();
 		numBox.valueAsNumber = 1;
 	}
 

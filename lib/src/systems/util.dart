@@ -48,7 +48,36 @@ String getUptime() {
  * If slot and subSlot are set > -1, this will count only items in that slot.
  *
  **/
-int getNumItems(String item, {int slot: -1, int subSlot: -1}) {
+class Util {
+	static Map<String, int> _itemCountCache = {};
+	static Util _instance;
+
+	factory Util() {
+		if(_instance == null) {
+			_instance = new Util._();
+		}
+
+		return _instance;
+	}
+
+	Util._() {
+		new Service('inventoryUpdated', (_) => _itemCountCache.clear());
+	}
+
+	int getNumItems(String item, {int slot: -1, int subSlot: -1, bool includeBroken: false}) {
+		if(slot == -1 && subSlot == -1 && _itemCountCache.containsKey(item)) {
+			return _itemCountCache[item];
+		} else {
+			int num = _getNumItems(item, slot: slot, subSlot: subSlot, includeBroken: includeBroken);
+			_itemCountCache[item] = num;
+			return num;
+		}
+	}
+}
+
+Util util = new Util();
+
+int _getNumItems(String item, {int slot: -1, int subSlot: -1, bool includeBroken: false}) {
 	int count = 0;
 
 	//count all the normal slots
@@ -59,6 +88,11 @@ int getNumItems(String item, {int slot: -1, int subSlot: -1}) {
 			continue;
 		}
 		if(s.itemType == item) {
+			int durabilityUsed = s.item.metadata['durabilityUsed'] ?? 0;
+			if(s.item.durability != null && durabilityUsed >= s.item.durability && !includeBroken) {
+				continue;
+			}
+
 			count += s.count;
 		}
 	}
@@ -75,6 +109,11 @@ int getNumItems(String item, {int slot: -1, int subSlot: -1}) {
 					continue;
 				}
 				if (bagSlot.itemType == item) {
+					int durabilityUsed = s.item.metadata['durabilityUsed'] ?? 0;
+					if(s.item.durability != null && durabilityUsed >= s.item.durability && !includeBroken) {
+						continue;
+					}
+
 					count += bagSlot.count;
 				}
 			}
@@ -139,8 +178,10 @@ String capitalizeFirstLetter(String string) {
  * ...meaning that the player must have 1 of either a Pick or Fancy Pick in their bags in order
  * to perform the action.
  *
+ * By default, this will not match items which have a remaining durability of 0
+ *
  **/
-bool hasRequirements(List<Map> requires) {
+bool hasRequirements(List<Map> requires, {bool includeBroken: false}) {
 	//there may be one or more requirements
 	//each requirement has a number associated with it and a list of 1 or more items that fullfill it
 	//if the list is more than one, it is taken to mean that either one or the other is appropriate or a combination
@@ -152,7 +193,7 @@ bool hasRequirements(List<Map> requires) {
 			if(item == 'energy') {
 				have = metabolics.energy;
 			} else {
-				have += getNumItems(item);
+				have += util.getNumItems(item, includeBroken: includeBroken);
 			}
 		});
 

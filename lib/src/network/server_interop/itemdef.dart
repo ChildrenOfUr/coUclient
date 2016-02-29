@@ -1,7 +1,7 @@
 library itemdef;
 
 class ItemDef {
-	String category, iconUrl, spriteUrl, toolAnimation, name, description, itemType, item_id;
+	String category, iconUrl, spriteUrl, brokenUrl, toolAnimation, name, description, itemType, item_id;
 	int price,
 		stacksTo,
 		iconNum = 4,

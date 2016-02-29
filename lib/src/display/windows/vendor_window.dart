@@ -173,7 +173,7 @@ class VendorWindow extends Modal {
 			}
 		}
 
-		buyItemCount.text = getNumItems(item['itemType']).toString();
+		buyItemCount.text = _getNumItems(item['itemType']).toString();
 		buyItemImage.src = '${item['iconUrl']}';
 		buyDescription.text = item['description'];
 		buyPriceTag.text = "${item['price']}\u20a1";
@@ -194,7 +194,7 @@ class VendorWindow extends Modal {
 			Map actionMap = {"itemType": item['itemType'], "num": numToBuy};
 
 			if(sellMode) {
-				if(numToBuy > getNumItems(item['itemType'])) {
+				if(numToBuy > _getNumItems(item['itemType'])) {
 					return;
 				}
 
@@ -221,7 +221,7 @@ class VendorWindow extends Modal {
 				if (sellMode) {
 					// Selling an item
 
-					if (buyNum.valueAsNumber + 1 <= getNumItems(item["itemType"])) {
+					if (buyNum.valueAsNumber + 1 <= _getNumItems(item["itemType"])) {
 						// We have enough to sell
 						int newNum = (++buyNum.valueAsNumber).toInt();
 						numToBuy = _updateNumToBuy(item, newNum, sellMode: sellMode);
@@ -264,7 +264,7 @@ class VendorWindow extends Modal {
 				int newNum;
 				if(sellMode) {
 					// Selling an item
-					newNum = min(item['stacksTo'].toInt(), getNumItems(item['itemType']));
+					newNum = min(item['stacksTo'].toInt(), _getNumItems(item['itemType']));
 				} else {
 					// Buying an item
 					newNum = min((await getBlankSlots(item)), min((item['stacksTo']).toInt(), (metabolics.currants / item['price']) ~/ 1));
@@ -293,7 +293,7 @@ class VendorWindow extends Modal {
 		if(newNum >= 99) newNum = 99;
 
 		if(sellMode) {
-			newNum = min(newNum, getNumItems(item['itemType']));
+			newNum = min(newNum, _getNumItems(item['itemType']));
 		}
 
 		buyNum.valueAsNumber = newNum;
