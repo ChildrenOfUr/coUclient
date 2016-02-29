@@ -136,9 +136,6 @@ class RightClickMenu {
 
 			if (option["description"] != null) {
 				showActionError(tooltip, option["description"]);
-				menuitem.onClick.listen((_) {
-					toast(option["description"]);
-				});
 			}
 
 			wrapper.append(menuitem);
@@ -250,9 +247,10 @@ class RightClickMenu {
 					menuitem.dispatchEvent(new MouseEvent('click', clientX: Click.client.x, clientY: Click.client.y));
 				} else {
 					menuitem.click();
-					if (menuitem.classes.contains("RCItemDisabled")) {
-						toast((option[0] as String).split("|")[4]);
-					}
+				}
+
+				if (menuitem.classes.contains("RCItemDisabled")) {
+					toast((option[0] as String).split("|")[4]);
 				}
 			});
 
