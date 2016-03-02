@@ -164,3 +164,40 @@
     position: relative;
     top: -5px;
 }
+
+.quest-rewards > div {
+    display: block;
+    margin-bottom: 2px;
+}
+
+.quest-rewards > div.inline {
+    display: inline-block;
+    margin-right: 1em;
+}
+
+.quest-info-icon {
+    width: 1em;
+    height: 1em;
+    display: inline-block;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center center;
+    margin-right: 5px;
+    vertical-align: bottom;
+}
+
+.quest-info-icon.currant {
+    background-image: url(../../../system/icons/interaction_currants.svg);
+}
+
+.quest-info-icon.energy {
+    background-image: url(../../../system/icons/interaction_energy.svg);
+}
+
+.quest-info-icon.img {
+    background-image: url(../../../system/icons/interaction_img.svg);
+}
+
+.quest-info-icon.mood {
+    background-image: url(../../../system/icons/interaction_mood.svg);
+}

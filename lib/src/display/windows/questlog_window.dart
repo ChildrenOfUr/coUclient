@@ -78,7 +78,7 @@ class QuestLogWindow extends Modal {
 
 	Element _newDetails(Quest q) {
 		// Generate info box (for requirements & rewards)
-		Element _infoBox({String imageUrl, String imageClass, dynamic text: ""}) {
+		Element _infoBox({String imageUrl, String imageClass, bool inline: false, dynamic text: ""}) {
 			Element imageE;
 			if (imageUrl != null) {
 				imageE = new ImageElement(src: imageUrl);
@@ -92,7 +92,8 @@ class QuestLogWindow extends Modal {
 
 			DivElement boxE = new DivElement()
 				..append(imageE)
-				..append(textE);
+				..append(textE)
+				..classes = (inline ? ["inline"]: []);
 
 			return boxE;
 		}
@@ -136,13 +137,13 @@ class QuestLogWindow extends Modal {
 
 		// Fill in rewards
 		if (q.rewards.currants > 0)
-			rewardsE.append(_infoBox(imageClass: "currant", text: q.rewards.currants));
+			rewardsE.append(_infoBox(imageClass: "currant", inline: true, text: q.rewards.currants));
 		if (q.rewards.energy > 0)
-			rewardsE.append(_infoBox(imageClass: "energy", text: q.rewards.energy));
+			rewardsE.append(_infoBox(imageClass: "energy", inline: true, text: q.rewards.energy));
 		if (q.rewards.img > 0)
-			rewardsE.append(_infoBox(imageClass: "img", text: q.rewards.img));
+			rewardsE.append(_infoBox(imageClass: "img", inline: true, text: q.rewards.img));
 		if (q.rewards.mood > 0)
-			rewardsE.append(_infoBox(imageClass: "mood", text: q.rewards.mood));
+			rewardsE.append(_infoBox(imageClass: "mood", inline: true, text: q.rewards.mood));
 		q.rewards.favor.forEach((QuestFavor giant) {
 			if (giant.favAmt > 0)
 				rewardsE.append(_infoBox(text: "${giant.favAmt} favor with ${capitalizeFirstLetter(giant.giantName)}"));
