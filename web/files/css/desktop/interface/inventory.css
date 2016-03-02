@@ -57,12 +57,13 @@
 
 .durabilityBackground {
     position: absolute;
-    width: 90%;
+    width: calc(100% - 12px);
     height: 5px;
     background: #B5ADB5;
     border-radius: 5px;
     left: 50%;
     transform: translate(-50%, 4px);
+    cursor: help;
 }
 
 .durabilityForeground {
@@ -70,6 +71,11 @@
     height: 5px;
     background: #4b2e4c;
     border-radius: 5px;
+    pointer-events: none;
+}
+
+.durabilityForeground.durabilityWarning {
+    background-color: #B03333;
 }
 
 #broken {

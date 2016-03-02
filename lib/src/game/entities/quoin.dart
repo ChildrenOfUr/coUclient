@@ -123,11 +123,7 @@ class Quoin {
 
 		if(intersect(camera.visibleRect, quoinRect)) {
 			animation.updateSourceRect(dt);
-		}
-
-		// Grey out quoins if their stats are maxed out
-		if (statIsMaxed) {
-			greyedOut = true;
+			greyedOut = statIsMaxed;
 		}
 	}
 
@@ -187,10 +183,20 @@ class Quoin {
 	}
 
 	bool get statIsMaxed {
-		return (typeString == "mood" && metabolics.playerMetabolics.mood >= metabolics.playerMetabolics.max_mood)
-			|| (typeString == "energy" && metabolics.playerMetabolics.energy >= metabolics.playerMetabolics.max_energy)
-			|| (typeString == "mystery" && metabolics.playerMetabolics.quoin_multiplier >= constants["quoinMultiplierLimit"])
-			|| (metabolics.playerMetabolics.quoins_collected >= constants["quoinLimit"]);
+		if (metabolics.playerMetabolics.quoins_collected >= constants["quoinLimit"]) {
+			return true;
+		}
+
+		switch (typeString) {
+			case "mood":
+				return metabolics.playerMetabolics.mood >= metabolics.playerMetabolics.max_mood;
+			case "energy":
+				return metabolics.playerMetabolics.energy >= metabolics.playerMetabolics.max_energy;
+			case "mystery":
+				return typeString == "mystery" && metabolics.playerMetabolics.quoin_multiplier >= constants["quoinMultiplierLimit"];
+			default:
+				return false;
+		}
 	}
 
 	set greyedOut(bool newValue) {

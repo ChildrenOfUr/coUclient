@@ -143,12 +143,18 @@ Future sizeItem(ImageElement img, Element itemDiv, Element slot, ItemDef item, i
 
 	if(item.durability != null) {
 		int durabilityUsed = item.metadata['durabilityUsed'] ?? 0;
+		int durabilityPercent = (((item.durability - durabilityUsed) / item.durability) * 100).round().clamp(0, 100);
 
 		DivElement durabilityBackground = new DivElement()
-			..className = 'durabilityBackground';
+			..className = 'durabilityBackground'
+			..title = "$durabilityPercent% durability remaining";
 		DivElement durabilityForeground = new DivElement()
 			..className = 'durabilityForeground'
-			..style.width = '${((item.durability-durabilityUsed)/item.durability)*100}%';
+			..style.width = '$durabilityPercent%';
+
+		if (durabilityPercent < 10) {
+			durabilityForeground.classes.add("durabilityWarning");
+		}
 
 		durabilityBackground.append(durabilityForeground);
 		slot.append(durabilityBackground);
