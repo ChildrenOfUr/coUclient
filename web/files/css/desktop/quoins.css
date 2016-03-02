@@ -61,3 +61,7 @@ quoin graphic
 .circleExpand .quoinString {
     opacity: 1;
 }
+
+.quoin.quoin-disabled {
+    opacity: 0.25;
+}

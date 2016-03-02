@@ -24,7 +24,11 @@ class Quoin {
 			if (!metabolics.load.isCompleted) {
 				await metabolics.load.future;
 			}
-			if (metabolics.location_history.contains(currentStreet.tsid_g)) {
+
+			if (
+				metabolics.location_history.contains(currentStreet.tsid_g)
+				|| metabolics.location_history.contains(currentStreet.tsid)
+			) {
 				return;
 			}
 		}
@@ -73,6 +77,11 @@ class Quoin {
 		parent.append(inner);
 		inner.append(content);
 
+		// Grey out quoins if their stats are maxed out
+		if (statIsMaxed) {
+			greyedOut = true;
+		}
+
 		view.playerHolder
 			..append(canvas)
 			..append(circle)
@@ -114,6 +123,11 @@ class Quoin {
 
 		if(intersect(camera.visibleRect, quoinRect)) {
 			animation.updateSourceRect(dt);
+		}
+
+		// Grey out quoins if their stats are maxed out
+		if (statIsMaxed) {
+			greyedOut = true;
 		}
 	}
 
@@ -169,6 +183,23 @@ class Quoin {
 			Rectangle destRect = new Rectangle(0, 0, animation.width, animation.height);
 			canvas.context2D.drawImageToRect(animation.spritesheet, destRect, sourceRect: animation.sourceRect);
 			animation.dirty = false;
+		}
+	}
+
+	bool get statIsMaxed {
+		return (typeString == "mood" && metabolics.playerMetabolics.mood >= metabolics.playerMetabolics.max_mood)
+			|| (typeString == "energy" && metabolics.playerMetabolics.energy >= metabolics.playerMetabolics.max_energy)
+			|| (typeString == "mystery" && metabolics.playerMetabolics.quoin_multiplier >= constants["quoinMultiplierLimit"])
+			|| (metabolics.playerMetabolics.quoins_collected >= constants["quoinLimit"]);
+	}
+
+	set greyedOut(bool newValue) {
+		final String GREY_CLASS = "quoin-disabled";
+
+		if (newValue) {
+			canvas.classes.add(GREY_CLASS);
+		} else {
+			canvas.classes.remove(GREY_CLASS);
 		}
 	}
 }
