@@ -18,6 +18,10 @@
     margin-left: 5px;
 }
 
+#settingsWindow article .tab-content div kbd.duplicate-key {
+    background-color: #B03333;
+}
+
 #settingsWindow #keyboard.tab-content {
     overflow-y: scroll;
 }

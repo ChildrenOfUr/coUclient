@@ -261,13 +261,16 @@ class InputManager {
 						keys[target.id] = keyCode;
 						//store keycode and charcode
 						localStorage[target.id] = keyCode.toString() + "." + keyEvent.charCode.toString();
+
+						windowManager.settings.checkDuplicateKeyAssignments();
 					});
-				}
-				else {
+				} else {
 					target.text = key;
 					keys[target.id] = event.keyCode;
 					localStorage[target.id] = event.keyCode.toString();
 				}
+
+				windowManager.settings.checkDuplicateKeyAssignments();
 			});
 		}
 
@@ -282,7 +285,6 @@ class InputManager {
 			target.classes.remove("unread");
 		}
 	}
-
 
 	setupKeyBindings() {
 		//this prevents 2 keys from being set at once

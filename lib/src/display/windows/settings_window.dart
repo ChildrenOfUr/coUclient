@@ -5,6 +5,7 @@ class SettingsWindow extends Modal {
 
 	// SETTINGS BOOLS
 	bool _showJoinMessages = false, _playMentionSound = true;
+	bool duplicateKeysFound = false;
 
 	SettingsWindow() {
 		prepare();
@@ -127,9 +128,24 @@ class SettingsWindow extends Modal {
 	}
 
 	@override
+	open({bool ignoreKeys: false}) {
+		checkDuplicateKeyAssignments();
+		super.open(ignoreKeys: ignoreKeys);
+	}
+
+	@override
 	close() {
 		querySelector("#${id}").hidden = true;
-		toast("Preferences saved");
+		if (duplicateKeysFound) {
+			toast(
+				"Preferences saved, but you have multiple controls bound to the same key, and this may cause problems! Click here to fix it.",
+				onClick: (_) {
+					open();
+				}
+			);
+		} else {
+			toast("Preferences saved");
+		}
 		super.close();
 	}
 
@@ -157,4 +173,44 @@ class SettingsWindow extends Modal {
 	}
 
 	bool get playMentionSound => _playMentionSound;
+
+	void checkDuplicateKeyAssignments() {
+		// <kbd> elements in the settings window
+		ElementList elements = displayElement.querySelectorAll("kbd");
+
+		// Returns number of other rows that have the specified key
+		// (The same key can be assigned to both the primary and secondary controls and won't be counted)
+		bool _keyDuplicated(String key) {
+			// Controls bound to this key
+			List<Element> controls = elements.where((Element kbd) {
+				return kbd.text == key;
+			}).toList();
+
+			if (controls.length <= 1) {
+				// Not duplicated
+				return false;
+			} else if (controls.length == 2) {
+				// Primary + secondary => not duplicated
+				return !(controls[0].parent == controls[1].parent);
+			} else {
+				// Duplicated
+				return true;
+			}
+		}
+
+		// Mark duplicates
+		int found = 0;
+		elements.forEach((Element kbd) {
+			if (_keyDuplicated(kbd.text)) {
+				// This key is assigned in a place other than the current control
+				kbd.classes.add("duplicate-key");
+				found++;
+			} else {
+				// This key is not assigned to any other controls
+				kbd.classes.remove("duplicate-key");
+			}
+		});
+
+		duplicateKeysFound = (found > 0);
+	}
 }

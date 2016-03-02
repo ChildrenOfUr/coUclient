@@ -1,5 +1,6 @@
 part of couclient;
 
+/// onClick will be called if the toast is clicked, and will be passed the click event
 toast(String message, {bool skipChat: false, Function onClick}) {
 	Element toastContainer = querySelector('#toastHolder');
 
