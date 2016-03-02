@@ -145,7 +145,7 @@ class QuestLogWindow extends Modal {
 			rewardsE.append(_infoBox(imageClass: "mood", text: q.rewards.mood));
 		q.rewards.favor.forEach((QuestFavor giant) {
 			if (giant.favAmt > 0)
-				rewardsE.append(_infoBox(text: "${giant.favAmt} favor with ${giant.giantName}"));
+				rewardsE.append(_infoBox(text: "${giant.favAmt} favor with ${capitalizeFirstLetter(giant.giantName)}"));
 		});
 
 		return detailsE;
