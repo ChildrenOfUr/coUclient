@@ -62,7 +62,7 @@ class AchievementsWindow extends Modal {
 			..classes = ["achvment-icon"]
 			..dataset["achv-awarded"] = achievement.awarded.toString()
 			..style.backgroundImage = "url(${achievement.imageUrl})"
-			..title = achievement.description;
+			..title = achievement.name + "\n" + achievement.description;
 
 		return achvIcon;
 	}
