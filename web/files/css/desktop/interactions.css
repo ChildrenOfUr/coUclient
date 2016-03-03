@@ -667,6 +667,11 @@
     cursor: not-allowed;
 }
 
+.darkui .RCItemDisabled,
+.darkui .RCItemDisabled:hover {
+    border-color: transparent;
+}
+
 .RCItemDisabled:hover {
     border: 1px solid lightgrey;
 }
@@ -726,6 +731,12 @@
     border-bottom: 2px solid rgba(0, 0, 0, 0.3);
 }
 
+.darkui #HowManyMenu {
+    background-color: #282828;
+    border-color: #181818;
+    color: #eee;
+}
+
 #hm-title {
     display: block;
 }
@@ -766,6 +777,12 @@
     padding: 0 5px;
     color: #4b2e4c;
     background-color: white;
+}
+
+.darkui #hm-minus,
+.darkui #hm-plus {
+    background-color: black;
+    color: #eee;
 }
 
 #hm-num {

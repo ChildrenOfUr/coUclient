@@ -14,6 +14,16 @@
     margin-bottom: 5px;
 }
 
+.darkui .input_text {
+    background-color: #181818;
+    color: #eee;
+}
+
+.darkui .input_text:focus {
+    background-color: #474747;
+    color: #fff;
+}
+
 .input_box {
     resize: none;
     height: 130px;
@@ -36,6 +46,15 @@
     display: inline-block;
     padding: 5px;
     position: relative;
+}
+
+.itemBox:not(:last-child) {
+    margin-right: 5px;
+}
+
+.darkui .itemBox {
+    background-color: #282828;
+    border-color: #181818;
 }
 
 .itemBox .itemCount {
@@ -143,6 +162,12 @@ a,
 a:active,
 a:visited {
     color: #4b2e4c;
+}
+
+.darkui a,
+.darkui a:active,
+.darkui a:visited {
+    color: #fff;
 }
 
 #thead_from {

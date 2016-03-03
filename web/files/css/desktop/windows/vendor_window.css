@@ -25,12 +25,23 @@
   margin-left: 20%;
   margin-top: 50px;
 }
-#SellCallout
-{
+
+.darkui #SellDropTarget {
+  background: black;
+}
+
+#SellCallout {
   position: relative;
   left: 150px;
   top: -50px;
   pointer-events: none;
+}
+
+.darkui #SellCallout {
+  -webkit-filter: grayscale(1) brightness(100);
+  -moz-filter: grayscale(1) brightness(100);
+  -o-filter: grayscale(1) brightness(100);
+  filter: grayscale(1) brightness(100);
 }
 
 .price-tag {
@@ -43,22 +54,33 @@
     border: 1px solid #bbb;
   border-bottom:2px solid #bbb;
 }
+
 .cantAfford {
   color: #ba381a;
+}
 
+.darkui .price-tag {
+  background-color: #000;
 }
 
 .price-tag.sale-price-tag {
     background-color: #CCFFE4;
 }
+
+.darkui .price-tag.sale-price-tag {
+  background-color: #444;
+}
+
 #windowHolder .window .fa.minus{
   color: #ba381a;
   font-size:25px;
 }
+
 #windowHolder .window .fa.plus{
   color: #57AA4B;
   font-size:25px;
 }
+
 .QuantityParent {
   display: inline-block;
   background: white;
@@ -70,6 +92,10 @@
     float: left;
     margin-right: 20px;
     margin-bottom: 20px;
+}
+
+.darkui .QuantityParent {
+  background-color: black;
 }
 
 .float-right {
@@ -185,6 +211,11 @@
   padding: 10px 20px;
   display: inline-block;
 }
+
+.darkui .ItemImageParent {
+  background-color: black;
+}
+
 .ItemImage {
   display: block;
   margin: auto;

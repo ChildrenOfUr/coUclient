@@ -21,6 +21,10 @@
     background-position: center center;
 }
 
+.darkui #DonateDropTarget {
+   background-color: black;
+}
+
 #shrine-window-buttons > * {
     margin-top: 5px;
 }

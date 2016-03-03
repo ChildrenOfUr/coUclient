@@ -106,9 +106,9 @@
 
 .window .footer {
   position: absolute;
-  bottom: 5px;
+  bottom: 10px;
   height: 15px;
-  right: 0;
+  right: 10px;
   left: 0;
 }
 
