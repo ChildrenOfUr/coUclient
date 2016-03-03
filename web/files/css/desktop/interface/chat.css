@@ -263,7 +263,8 @@ a.noUnderline {
     text-decoration: none;
 }
 
-span.name.dev::before {
+span.name.dev::before,
+a.name.dev::before {
     border: 2px solid #4b2e4c;
     border-radius: 4px;
     content: "dev";
@@ -275,7 +276,8 @@ span.name.dev::before {
     font-weight: normal;
 }
 
-span.name.guide::before {
+span.name.guide::before,
+a.name.guide::before {
     border: 2px solid teal;
     border-radius: 4px;
     content: "guide";

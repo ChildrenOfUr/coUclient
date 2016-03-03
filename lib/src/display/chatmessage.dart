@@ -30,21 +30,6 @@ class ChatMessage {
 		String displayName = player;
 		List<String> nameClasses = ["name"];
 
-		// Get link to username
-		Future<AnchorElement> getUsernameLink() async {
-			return new AnchorElement()
-				..classes = (new List.from(nameClasses)
-					..add("noUnderline"))
-				..href = "http://childrenofur.com/profile?username=${Uri.encodeComponent(player)}"
-				..target = "_blank"
-				..title = "Open Profile Page"
-				..text = displayName
-				..style.color = (await getColorFromUsername(player));
-		}
-
-		// Notify of any mentions
-		notify();
-
 		// Set up labels
 		if (player != null) {
 			// You
@@ -62,6 +47,21 @@ class ChatMessage {
 				nameClasses.add("guide");
 			}
 		}
+
+		// Get link to username
+		Future<AnchorElement> getUsernameLink() async {
+			return new AnchorElement()
+				..classes = (new List.from(nameClasses)
+					..add("noUnderline"))
+				..href = "http://childrenofur.com/profile?username=${Uri.encodeComponent(player)}"
+				..target = "_blank"
+				..title = "Open Profile Page"
+				..text = displayName
+				..style.color = (await getColorFromUsername(player));
+		}
+
+		// Notify of any mentions
+		notify();
 
 		if (player == null) {
 			// System message
