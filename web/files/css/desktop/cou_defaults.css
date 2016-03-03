@@ -1,3 +1,6 @@
+*:focus {
+    outline: none;
+}
 
 html, body {
     font-family: 'Fredoka One', cursive;
@@ -9,8 +12,11 @@ html, body {
     padding:0;
 }
 
+body.darkui {
+    background-color: #282828;
+}
 
-p, input, textarea{
+p, input, textarea {
     font-family: 'Lato', sans-serif;
     cursor: auto;
     -webkit-user-select: text;
@@ -22,16 +28,41 @@ p, input, textarea{
     margin:0;
 }
 
-input:focus {
-    background-color:#ffffe0;
+.darkui p,
+.darkui input,
+.darkui textarea,
+.darkui select {
+    color: #fff;
 }
 
-input {
+input, textarea {
     font-size:15px;
     background-color:#eee;
     height:16px;
     border:2px solid rgba(0,0,0,0.1);
     border-radius: 5px;
+}
+
+select {
+    border-radius: 5px;
+    background-color: #eee;
+    border-color: rgba(0, 0, 0, 0.1);
+}
+
+.darkui input,
+.darkui textarea,
+.darkui select {
+    background-color: #181818;
+}
+
+input:focus,
+textarea:focus {
+    background-color:#ffffe0;
+}
+
+.darkui input:focus,
+.darkui textarea:focus {
+    background-color: #474747;
 }
 
 a {
@@ -86,6 +117,11 @@ main {
     width: 245px;
 }
 
+.darkui #topRight,
+.darkui #topRight a {
+    color: #eee;
+}
+
 #AButton, #BButton {
 	display: none;
 }
@@ -109,4 +145,17 @@ main {
 
 ::-webkit-scrollbar-thumb:hover {
     background-color:#7b4c7c;
+}
+
+.darkui ::-webkit-scrollbar-track {
+    background: #282828;
+    box-shadow: 0 0 3px #181818 inset;
+}
+
+.darkui ::-webkit-scrollbar-thumb {
+    background-color: #eee;
+}
+
+.darkui ::-webkit-scrollbar-thumb:hover {
+    background-color: #fff;
 }

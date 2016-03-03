@@ -10,23 +10,31 @@
     z-index: 100;
     font-size: 20px;
     opacity: 1;
-    -webkit-transition-property: opacity;
-    transition-property: opacity;
-    -webkit-transition-duration: 0.3s;
-    transition-duration: 0.3s;
-    -webkit-transition-timing-function: ease-in-out;
-    transition-timing-function: ease-in-out;
-    -webkit-transition-property: opacity;
-    -webkit-transition-duration: 0.3s;
-    -webkit-transition-timing-function: ease-in-out;
-    -moz-transition-property: opacity;
-    -moz-transition-duration: 0.3s;
-    -moz-transition-timing-function: ease-in-out;
+
+    -webkit-transition-property: opacity, background;
+    -moz-transition-property: opacity, background;
+    transition-property: opacity, background;
+
+    -webkit-transition-duration: 0.3s, 0.5s;
+    -moz-transition-duration: 0.3s, 0.5s;
+    transition-duration: 0.3s, 0.5s;
+
+    -webkit-transition-timing-function: ease-in-out, linear;
+    -moz-transition-timing-function: ease-in-out, linear;
+    transition-timing-function: ease-in-out, linear;
+
     /* Sky */
     background: #79fcfa;
     background: -moz-radial-gradient(center, circle cover, #79fcfa 0%, #e8ffff 95%);
     background: -webkit-radial-gradient(center, circle cover, #79fcfa 0%,#e8ffff 95%);
     background: radial-gradient(circle at center, #79fcfa 0%,#e8ffff 95%);
+}
+
+.darkui #loading {
+    background: #47638C;
+    background: -moz-radial-gradient(center, circle cover, #47638C 0%, #000000 95%);
+    background: -webkit-radial-gradient(center, circle cover, #47638C 0%,#000000 95%);
+    background: radial-gradient(circle at center, #47638C 0%,#000000 95%);
 }
 
 #spinny-ur {
@@ -84,12 +92,20 @@
     left: 8px;
 }
 
+.darkui #loadstatus {
+    color: #fff;
+}
+
 #loading #loadstatus2 {
     font-size: 12px;
     position: absolute;
     bottom: 33px;
     left: 8px;
     opacity: 0.7;
+}
+
+.darkui #loadstatus2 {
+    color: #eee;
 }
 
 #streetLoading {

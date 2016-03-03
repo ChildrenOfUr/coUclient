@@ -124,6 +124,8 @@ part 'package:couclient/src/display/inv_dragging.dart';
 
 part "package:couclient/src/display/blog_notifier.dart";
 
+part "package:couclient/src/display/darkui.dart";
+
 //  WINDOW MODULES //
 part 'package:couclient/src/display/windows/windows.dart';
 

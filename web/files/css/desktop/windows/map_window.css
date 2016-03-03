@@ -259,6 +259,11 @@
     overflow: hidden;
 }
 
+.darkui #map-window-search-results {
+    background-color: #282828;
+    color: #eee;
+}
+
 #map-window-search-results ul {
     margin: 0;
     font-size: 12px;

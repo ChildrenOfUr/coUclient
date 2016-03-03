@@ -597,6 +597,11 @@
     transform-origin: bottom center;
 }
 
+.darkui #RightClickMenu {
+    background-color: #282828;
+    color: #eee;
+}
+
 .InfoButton {
     font-size: 20px;
     position: absolute;
@@ -607,9 +612,18 @@
     color: #4b2e4c;
 }
 
+.darkui .InfoButton {
+    background-color: #282828;
+    color: #fff;
+}
+
 .InfoButton:hover {
     cursor: pointer;
     color: #d79035;
+}
+
+.darkui .InfoButton:hover {
+    color: #eee;
 }
 
 .RCActionList {
@@ -628,12 +642,22 @@
     padding: 2px;
 }
 
+.darkui .RCItem {
+    border-color: #181818;
+    color: #eee;
+}
+
 .RCItem:hover,
 .RCItemSelected {
     cursor: pointer;
     color: #d79035;
     border: 1px solid #d79035;
     background-color: #F8F2E1;
+}
+
+.darkui .RCItem:hover,
+.darkui .RCItemSelected {
+    background-color: #181818;
 }
 
 .RCItemDisabled,

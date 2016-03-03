@@ -22,6 +22,10 @@
     font-size: 16px !important;
 }
 
+.darkui .box.bagwindow-box .itemCount {
+    color: #eee;
+}
+
 .bagInventoryItem {
     cursor: pointer;
 }

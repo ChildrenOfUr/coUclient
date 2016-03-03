@@ -98,6 +98,23 @@ class SettingsWindow extends Modal {
 		}
 		intensityGroup.on['core-activate'].listen((_) => WeatherManager.intensity = WeatherIntensity.values[intensityGroup.selectedIndex]);
 
+		// set dark ui
+		PaperToggleButton darkUi = querySelector("#DarkMode") as PaperToggleButton;
+		if(localStorage["DarkMode"] != null) {
+			if(localStorage["DarkMode"] == "true") {
+				darkUi.checked = true;
+				DarkUI.toDarkMode();
+			} else {
+				darkUi.checked = false;
+				DarkUI.toLightMode();
+			}
+		}
+
+		darkUi.onChange.listen((_) {
+			localStorage["DarkMode"] = darkUi.checked.toString();
+			DarkUI.darkMode = darkUi.checked;
+		});
+
 		//setup volume controls
 		UrSlider musicSlider = querySelector("#MusicSlider") as UrSlider;
 		UrSlider effectSlider = querySelector("#EffectSlider") as UrSlider;

@@ -55,6 +55,10 @@
   right: 3px;
 }
 
+.darkui .itemCount {
+    color: #eee;
+}
+
 .durabilityBackground {
     position: absolute;
     width: calc(100% - 12px);
@@ -66,12 +70,20 @@
     cursor: help;
 }
 
+.darkui .durabilityBackground {
+    background-color: #181818;
+}
+
 .durabilityForeground {
     position: absolute;
     height: 5px;
     background: #4b2e4c;
     border-radius: 5px;
     pointer-events: none;
+}
+
+.darkui .durabilityForeground {
+    background-color: #eee;
 }
 
 .durabilityForeground.durabilityWarning {
@@ -134,6 +146,11 @@
     padding:5px;
 }
 
+.darkui .box {
+    background-color: #282828;
+    border-color: #181818;
+}
+
 .box:empty {
     /*background-color: #ddd;*/
 }
@@ -170,6 +187,10 @@
     font-size: 25px;
 }
 
+.darkui .item-container-toggle {
+    border-color: #eee;
+}
+
 .item-container-toggle.item-container-closed {
     background-color: #eee;
     color: #aaa;
@@ -177,11 +198,21 @@
     width: 16px;
 }
 
+.darkui .item-container-toggle.item-container-closed {
+    background-color: #282828;
+    color: #eee;
+}
+
 .item-container-toggle.item-container-open {
     background-color: #aaa;
     color: #eee;
     height: 16px;
     width: 16px;
+}
+
+.darkui .item-container-toggle.item-container-open {
+    background-color: #181818;
+    color: #fff;
 }
 
 /* Dead */

@@ -13,6 +13,10 @@
   overflow: hidden;
 }
 
+.darkui #windowHolder .window {
+  background-color: rgba(0, 0, 0, 0.95);
+}
+
 #windowHolder .window:active,
 #windowHolder .window:focus {
   outline: none;
@@ -62,7 +66,8 @@
   opacity: 0.5;
 }
 
-.window ur-well, .window article {
+.window ur-well,
+.window article {
   font-family: 'Tahoma', 'Geneva', 'sans-serif';
   color: #000;
   font-size: 12px;
@@ -73,6 +78,12 @@
   left: 10px;
   right: 10px;
   border-radius: 8px;
+}
+
+.darkui .window ur-well,
+.darkui .window article {
+  background-color: #282828;
+  color: #fff;
 }
 
 .window iframe {
@@ -138,6 +149,11 @@ article .tab {
   font-family: "Lato", sans-serif;
 }
 
+.darkui article .tab {
+  background-color: #282828;
+  color: #eee;
+}
+
 article .tab.active {
   opacity: 1;
   margin: -5px 2px;
@@ -174,6 +190,11 @@ article .tab-content {
   border-radius: 9px;
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-top: 2px solid rgba(0, 0, 0, 0.1);
+}
+
+.darkui article .tab-content {
+  background-color: #282828;
+  color: #fff;
 }
 
 /*Popup elements*/

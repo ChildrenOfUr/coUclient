@@ -15,34 +15,47 @@
   -moz-transition-property:right;
   -moz-transition-duration:0.3s;
   -moz-transition-timing-function:ease-in-out;
+  border-radius: 10px;
 }
-.toggleSide {
-  position:absolute;
-  line-height:73px;
-  background-color:#eee;
-  padding:2px;
-  vertical-align: middle;
-  border-radius:5px;
-  border-left:2px solid rgba(0,0,0,0.1);
-  height:70px;
-  width:25px;
-  top:calc(50% - 35px);
-  left:-25px;
-}
-.toggleSide.unread {
-  background-color: #FFB2B2;
-}
+
 #rightSide:hover,
 #rightSide:active,
 #rightSide:focus {
   right: 155px;
 }
 
+.toggleSide {
+  position: absolute;
+  line-height: 73px;
+  background-color: #eee;
+  padding: 2px;
+  vertical-align: middle;
+  border-radius: 5px;
+  border-left: 2px solid rgba(0, 0, 0, 0.1);
+  height: 70px;
+  width: 25px;
+  top: calc(50% - 35px);
+  left: -25px;
+}
+
+.darkui #rightSide,
+.darkui .toggleSide {
+  background-color: #282828;
+  color: #eee;
+}
+
+.darkui #rightSide a {
+  color: #eee;
+}
+
+.toggleSide.unread {
+  background-color: #FFB2B2;
+}
+
 h3 {
   font-size:13px;
   margin: -5px 0 -15px 5px;
 }
-
 
 #rightSide ul {
   margin-left:24px;
@@ -60,6 +73,10 @@ h3 {
   background-color:#fff;
   cursor:pointer;
   border-radius:3px;
+}
+
+.darkui #rightSide ul li:hover {
+  background-color: #181818;
 }
 
 #rightSide ul li.noChatSpawn:hover {
@@ -101,6 +118,11 @@ h3 {
   border-bottom:2px solid #bbb;
   border-radius:10px;
   overflow:hidden;
+}
+
+.darkui #panel {
+  background-color: #282828;
+  border-color: #181818;
 }
 
 #bottomList {

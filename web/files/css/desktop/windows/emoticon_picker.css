@@ -45,6 +45,11 @@
     text-align: center;
 }
 
+.darkui .ep-emoticonButton {
+    background-color: #282828;
+    border-color: #181818;
+}
+
 .ep-emoticonButton .emoticon {
     cursor: pointer;
 }
@@ -88,10 +93,19 @@ a.insertemoji:hover {
     background-color: #ffe778;
 }
 
+.darkui a.insertemoji:hover {
+    background-color: #181818;
+}
+
 a.insertemoji:active {
     background-color: #ffcac1;
 }
 
 a.insertemoji .fa {
     cursor: pointer;
+}
+
+.darkui a.insertemoji {
+    border-color: rgba(0,0,0,0.1);
+    color: #eee;
 }

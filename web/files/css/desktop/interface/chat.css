@@ -13,8 +13,16 @@
     font-size: 18px;
 }
 
+.darkui .conversation header {
+    color: #fff;
+}
+
 .conversation header span {
     color: rgba(0, 0, 0, 0.8);
+}
+
+.darkui .conversation header span {
+    color: #eee;
 }
 
 .conversation header .fa {
@@ -52,7 +60,6 @@
     margin: 2px;
     font-size: 12px;
     border-left: 2px solid rgba(0, 0, 0, 0);
-    background-color: #fff;
     word-wrap: break-word;
 }
 
@@ -72,11 +79,19 @@
     user-select: text;
 }
 
+.darkui .dialog p *.message {
+    color: #fff;
+}
+
 .dialog p.system {
     font-style: italic;
     color: #444;
     border-left: 2px solid #444;
     padding-left: 5px;
+}
+
+.darkui .dialog p.system {
+    color: #eee;
 }
 
 .dialog p.system.chat-toast {
@@ -104,6 +119,10 @@ p.me {
 .dialog a {
     cursor: pointer;
     text-decoration: underline;
+}
+
+.darkui .dialog a {
+    color: #fff;
 }
 
 .dialog a:hover {
@@ -295,6 +314,10 @@ i.emoticon {
     top: -6px;
     background-color: #fff;
     font-family: "Lato", sans-serif !important;
+}
+
+.darkui .chat-member-change-event > * {
+    background-color: #282828;
 }
 
 .chat-member-change-event > span:first-child {

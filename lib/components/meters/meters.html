@@ -2,7 +2,7 @@
 <link rel="import" href="../../../../packages/polymer/polymer.html">
 <link rel="import" href="../../../../packages/cou_toolkit/toolkit/toolkit.html">
 
-<polymer-element name="ur-meters" attributes="mood maxmood energy maxenergy playername imagination debug serverAddress">
+<polymer-element name="ur-meters" attributes="mood maxmood energy maxenergy playername imagination debug serverAddress darkui">
     <template>
         <link rel="stylesheet" href="meters.css">
 
@@ -15,7 +15,7 @@
             <img class="green" src="energymeter.svg">
             <img class="red" src="energymeterred.svg">
         </div>
-        <img id="topLeftMask" src="leftcornerover.svg">
+        <div id="topLeftMask"></div>
         <img id="enbolt" src="energybolt.svg">
 
         <div id="leftDisk">

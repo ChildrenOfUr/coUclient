@@ -7,6 +7,10 @@
   border-radius:50%;
   background-color:#eee;
 }
+.darkui #currantBack {
+  background-color: #282828;
+}
+
 #currantEmblem {
   width:27px;
   position:absolute;

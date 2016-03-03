@@ -12,6 +12,11 @@
     left:18px;
     height:106px;
     width:130px;
+    background-image: url(leftcornerover.svg);
+}
+
+#topLeftMask.dark {
+    background-image: url(leftcornerover_dark.svg);
 }
 
 #enbolt {
@@ -323,6 +328,10 @@
     cursor: pointer;
 }
 
+#playerName.dark {
+    color: #eee;
+}
+
 #playerName:hover {
     opacity: 0.5;
     text-decoration: underline;
@@ -333,10 +342,16 @@
     top:calc(24px - 0.5em);
     left:165px;
 }
+
 #imaginationText * {
     color:#444;
     text-shadow: 0 1px rgba(100,100,100,0.3);
 }
+
+#imaginationText.dark * {
+    color: #eee;
+}
+
 #imaginationText .smi {
     position:relative;
     font-size:15px;

@@ -3,6 +3,10 @@
     color: #444;
 }
 
+.darkui #settingsWindow article .tab-content * {
+    color: #eee;
+}
+
 #settingsWindow article .tab-content div {
     font-size: 1em;
     margin: 9px;

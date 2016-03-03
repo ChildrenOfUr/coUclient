@@ -11,6 +11,11 @@
     background-color: #eee;
 }
 
+.darkui #minimap {
+    background-color: #282828;
+    border-color: #282828;
+}
+
 #minimap-img {
     width: 166px;
     height: auto;
@@ -29,6 +34,10 @@
     font-weight: bold;
     position: relative;
     top: -2px;
+}
+
+.darkui #minimap-label {
+    color: #eee;
 }
 
 .minimap-player {
@@ -65,6 +74,10 @@
     left: 50%;
     transform: translateX(-50%);
     cursor: pointer;
+}
+
+.darkui #minimap-toggle {
+    background-color: #282828;
 }
 
 #minimap-toggle .fa {
