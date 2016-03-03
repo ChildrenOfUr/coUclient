@@ -31,7 +31,7 @@ class EmoticonPicker extends Modal {
         emoticonButton.onDragStart.listen((e) {
           e.stopPropagation();
           e.dataTransfer.effectAllowed = "copy";
-          e.dataTransfer.setData("text/plain", ":$emoticon:");
+          e.dataTransfer.setData("text/plain", "::$emoticon::");
           e.dataTransfer.setDragImage(emoticonImage, emoticonImage.clientWidth ~/ 2, -10);
         });
 
