@@ -68,7 +68,7 @@
 
 .window ur-well,
 .window article {
-  font-family: 'Tahoma', 'Geneva', 'sans-serif';
+  font-family: "Lato", sans-serif;
   color: #000;
   font-size: 12px;
   padding: 5px;
@@ -78,6 +78,7 @@
   left: 10px;
   right: 10px;
   border-radius: 8px;
+  background-color: #eee;
 }
 
 .darkui .window ur-well,
@@ -177,6 +178,13 @@ article .tab-holder {
   right: initial;
 }
 
+article,
+article .tab-content{
+  border-radius: 9px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-top: 2px solid rgba(0, 0, 0, 0.1);
+}
+
 article .tab-content {
   position: absolute;
   top: 0;
@@ -187,11 +195,9 @@ article .tab-content {
   left: 0;
   right: 0;
   overflow-y: auto;
-  border-radius: 9px;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  border-top: 2px solid rgba(0, 0, 0, 0.1);
 }
 
+.darkui article,
 .darkui article .tab-content {
   background-color: #282828;
   color: #fff;
@@ -236,4 +242,44 @@ article .tab-content {
   top: 65px;
   right: 0;
   height: 320px;
+}
+
+/* Sidebar lists (like quest/achv windows) */
+
+.window ul.sidebarlist {
+  display: inline-block;
+  padding: 0;
+  margin: 0 10px 0 0;
+  list-style-type: none;
+  width: 33%;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.window ul.sidebarlist li {
+  padding: 5px 10px;
+  cursor: pointer;
+  width: calc(100% - 25px);
+}
+
+.window ul.sidebarlist li:hover {
+  background-color: #FAF6FF;
+  border-radius: 6px;
+}
+
+.darkui .window ul.sidebarlist li:hover {
+  background-color: #444;
+}
+
+.window ul.sidebarlist li.selected {
+  background-color: #DCCFEF;
+  border-radius: 6px;
+}
+
+.darkui .window ul.sidebarlist li.selected {
+  background-color: #181818;
+}
+
+.window ul.sidebarlist li:not(:last-child) {
+  margin-bottom: 10px;
 }

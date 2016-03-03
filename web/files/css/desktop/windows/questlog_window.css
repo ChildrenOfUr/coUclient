@@ -22,10 +22,6 @@
 #questLogWindow article {
     display: flex;
     font-size: medium;
-    border: 2px solid #cccccc;
-    border-radius: 10px;
-    background-color: #eee;
-    font-family: "Lato", sans-serif;
 }
 
 /* Hide content with no quests */
@@ -46,34 +42,6 @@
 /* Hide message if there are quests */
 #questLogWindow:not(.noquests) #noquests {
     display: none;
-}
-
-#listOfQuests {
-    display: inline-block;
-    padding: 0;
-    margin: 0 10px 0 0;
-    list-style-type: none;
-    width: 33%;
-}
-
-#listOfQuests .activeQuest {
-    padding: 5px 10px;
-    cursor: pointer;
-    width: calc(100% - 15px);
-}
-
-#listOfQuests .activeQuest:hover {
-    background-color: #FAF6FF;
-    border-radius: 6px;
-}
-
-#listOfQuests .activeQuest.selected {
-    background-color: #DCCFEF;
-    border-radius: 6px;
-}
-
-#listOfQuests .activeQuest:not(:last-child) {
-    margin-bottom: 10px;
 }
 
 #questDetails {

@@ -1,18 +1,6 @@
 #achievementsWindow article {
     display: flex;
     font-size: medium;
-    border: 2px solid #cccccc;
-    border-radius: 10px;
-    background-color: #eee;
-    font-family: "Lato", sans-serif;
-}
-
-#achievementsWindow #categories {
-    display: inline-block;
-    padding: 0;
-    margin: 0 10px 0 0;
-    list-style-type: none;
-    width: 33%;
 }
 
 #achievementsWindow .title {

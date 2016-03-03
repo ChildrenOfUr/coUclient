@@ -16,10 +16,17 @@ class AchievementsWindow extends Modal {
 
 	AchievementsWindow() {
 		prepare();
-		categoryList = querySelector('#categoryList');
-		categories = querySelector('#categories');
+		categoryList = displayElement.querySelector('#categoryList');
+		categories = displayElement.querySelector('#categories');
 
-		querySelectorAll("#categories li").onClick.listen((MouseEvent event) async {
+		categories.querySelectorAll("li").onClick.listen((MouseEvent event) async {
+			// Update sidebar selection
+			categories.children.forEach((LIElement li) {
+				li.classes.remove("selected");
+			});
+			(event.target as LIElement).classes.add("selected");
+
+			// Display achievements in category
 			categoryList.children.clear();
 			Element target = event.target;
 			String category = target.text;
