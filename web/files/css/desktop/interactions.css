@@ -812,6 +812,11 @@
     max-width: 75%;
 }
 
+.darkui #itemChooser {
+    background: #282828;
+    color: #eee;
+}
+
 #itemChooser .itemChoice {
     width: 50px;
     height: 50px;
@@ -820,11 +825,19 @@
     border: 1px solid transparent;
 }
 
+.darkui #itemChooser .itemChoice {
+    color: #eee;
+}
+
 #itemChooser .itemChoice:hover {
     cursor: pointer;
     border: 1px solid #d79035;
     border-radius: 8px;
     background-color: #F8F2E1;
+}
+
+.darkui #itemChooser .itemChoice:hover {
+    background-color: #181818;
 }
 
 #itemChooser .itemHolder {
