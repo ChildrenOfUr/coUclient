@@ -157,6 +157,12 @@ p.me {
     transform-origin: bottom center;
 }
 
+.darkui .chat-bubble {
+    background-color: #282828;
+    border-color: #181818;
+    color: #fff;
+}
+
 .cb-content {
     padding: 9px 14px;
     text-align: center;
@@ -191,6 +197,10 @@ p.me {
     margin-left: -10px;
     border-bottom-width: 0;
     border-top-color: #fff;
+}
+
+.darkui .chat-bubble > .cb-arrow:after {
+    border-top-color: #282828;
 }
 
 .username {

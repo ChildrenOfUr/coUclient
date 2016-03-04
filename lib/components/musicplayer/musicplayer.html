@@ -2,7 +2,7 @@
 <link rel="import" href="../../../../packages/polymer/polymer.html">
 <link rel="import" href="../../../../packages/cou_toolkit/toolkit/toolkit.html">
 
-<polymer-element name="ur-musicplayer" attributes="artist song link" noscript>
+<polymer-element name="ur-musicplayer" attributes="artist song link darkui" noscript>
   <template>
     <style>
       #widget * {
@@ -33,7 +33,7 @@
       }
     </style>
 
-      <ur-panel id="widget">
+      <ur-panel id="widget" class="{{(darkui == 'true' ? 'darkui' : 'lightui')}}">
         <div>
           <a id="SCLink" _href="{{link}}" target="_blank" tabindex="-1">
             <span>{{song}}</span>

@@ -21,7 +21,7 @@ abstract class DarkUI {
 			..add(querySelector("ur-meters /deep/ #playerName"))
 			..add(querySelector("ur-meters /deep/ #imaginationText"))
 			..add(querySelector("ur-mailbox /deep/ core-pages"))
-			..add(querySelector("ur-musicplayer /deep/ ur-panel"))
+			..add(querySelector("ur-musicplayer"))
 			..addAll(querySelectorAll("ur-button"));
 	}
 
