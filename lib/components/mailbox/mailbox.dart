@@ -29,7 +29,7 @@ class Mailbox extends PolymerElement {
 		userCurrants,
 		toCurrants = 0,
 		fromCurrants;
-	@published String serverAddress, darkui;
+	@published String serverAddress;
 	@observable bool userHasMessages, currants_taken;
 	Element currantDisplay, datalistTo;
 	NumberFormat commaFormatter = new NumberFormat("#,###");
@@ -90,12 +90,6 @@ class Mailbox extends PolymerElement {
 			transmit('disableChatFocus', false);
 			transmit('disableInputKeys', false);
 		});
-
-		// Dark theme
-		if (darkui == "true") {
-			shadowRoot.host.classes.add("darkui");
-			print(shadowRoot.host);
-		}
 	}
 
 	ItemDef _decodeItemFromElement(Element element) {

@@ -13,13 +13,15 @@ abstract class DarkUI {
 	/// The class name to apply or attribute to set when in dark mode
 	static final String DARK_CLASS = "darkui";
 
-	/// Sets mode based on true (dark) or false (light)
-	static set darkMode(bool newMode) {
-		if (newMode) {
-			toDarkMode();
-		} else {
-			toLightMode();
-		}
+	/// Returns all of the elements that should be styled
+	static List<Element> get appliedElements {
+		return new List()
+			..add(document.body)
+			..add(querySelector("ur-meters /deep/ #topLeftMask"))
+			..add(querySelector("ur-meters /deep/ #playerName"))
+			..add(querySelector("ur-meters /deep/ #imaginationText"))
+			..add(querySelector("ur-mailbox /deep/ core-pages"))
+			..addAll(querySelectorAll("ur-button"));
 	}
 
 	/// Returns true if in dark mode, false if not
@@ -27,28 +29,19 @@ abstract class DarkUI {
 		return document.body.classes.contains(DARK_CLASS);
 	}
 
-	/// Sets mode based on "light" or "dark" strings
-	static set modeName(String newMode) {
-		newMode = newMode.trim().toLowerCase();
-		darkMode = (newMode == "dark");
-	}
+	/// Sets mode based on true (dark) or false (light)
+	static set darkMode(bool newMode) {
+		if (newMode) {
+			_toDarkMode();
+		} else {
+			_toLightMode();
+		}
 
-	/// Returns the current mode as "light" or "dark"
-	static String get modeName {
-		return (darkMode ? "dark" : "light");
-	}
-
-	/// Returns all of the elements that should be styled
-	static List<Element> get appliedElements {
-		return new List()
-			..add(document.body)
-			..add(querySelector("ur-meters"))
-			..add(querySelector("ur-mailbox"))
-			..addAll(querySelectorAll("ur-button"));
+		transmit(DARK_CLASS, newMode);
 	}
 
 	/// Switches to dark mode
-	static void toDarkMode() {
+	static void _toDarkMode() {
 		appliedElements.forEach((Element element) {
 			element
 				..classes.add(DARK_CLASS)
@@ -57,7 +50,7 @@ abstract class DarkUI {
 	}
 
 	/// Switches to light mode
-	static void toLightMode() {
+	static void _toLightMode() {
 		appliedElements.forEach((Element element) {
 			element
 				..classes.remove(DARK_CLASS)

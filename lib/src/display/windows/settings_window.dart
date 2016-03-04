@@ -101,13 +101,7 @@ class SettingsWindow extends Modal {
 		// set dark ui
 		PaperToggleButton darkUi = querySelector("#DarkMode") as PaperToggleButton;
 		if(localStorage["DarkMode"] != null) {
-			if(localStorage["DarkMode"] == "true") {
-				darkUi.checked = true;
-				DarkUI.toDarkMode();
-			} else {
-				darkUi.checked = false;
-				DarkUI.toLightMode();
-			}
+			DarkUI.darkMode = darkUi.checked = (localStorage["DarkMode"] == "true");
 		}
 
 		darkUi.onChange.listen((_) {

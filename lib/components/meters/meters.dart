@@ -8,7 +8,7 @@ import 'dart:math' show Random;
 
 @CustomTag('ur-meters')
 class Meters extends PolymerElement {
-	@published String playername = '', serverAddress, darkui = "false";
+	@published String playername = '', serverAddress;
 	@published int mood = 1, maxmood = 1, energy = 1, maxenergy = 1, imagination = 0;
 	@published bool debug;
 	int runCount;
@@ -54,29 +54,10 @@ class Meters extends PolymerElement {
 		hurtDisk.style.opacity = '${0.7 - (mood / maxmood)}';
 		deadDisk.style.opacity = (mood <= 0 ? 1 : 0).toString();
 
-		// dark ui
-		_applyDarkTheme(darkui == "true");
-
 		// update username links
 		(querySelector("#openProfilePageFromChatPanel") as AnchorElement).href = "http://childrenofur.com/profile?username=" + playername;
 		// updates portrait
 		updateAvatarDisplay();
 		runCount++;
-	}
-
-	void _applyDarkTheme(bool useDarkTheme) {
-		Element topLeftMask = shadowRoot.querySelector("#topLeftMask");
-		Element playerName = shadowRoot.querySelector("#playerName");
-		Element imaginationText = shadowRoot.querySelector("#imaginationText");
-
-		if (useDarkTheme) {
-			topLeftMask.classes.add("dark");
-			playerName.classes.add("dark");
-			imaginationText.classes.add("dark");
-		} else {
-			topLeftMask.classes.remove("dark");
-			playerName.classes.remove("dark");
-			imaginationText.classes.remove("dark");
-		}
 	}
 }

@@ -15,7 +15,7 @@
     background-image: url(leftcornerover.svg);
 }
 
-#topLeftMask.dark {
+#topLeftMask.darkui {
     background-image: url(leftcornerover_dark.svg);
 }
 
@@ -328,7 +328,7 @@
     cursor: pointer;
 }
 
-#playerName.dark {
+#playerName.darkui {
     color: #eee;
 }
 
@@ -348,7 +348,7 @@
     text-shadow: 0 1px rgba(100,100,100,0.3);
 }
 
-#imaginationText.dark * {
+#imaginationText.darkui * {
     color: #eee;
 }
 

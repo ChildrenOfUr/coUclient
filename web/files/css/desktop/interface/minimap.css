@@ -78,6 +78,7 @@
 
 .darkui #minimap-toggle {
     background-color: #282828;
+    color: #eee;
 }
 
 #minimap-toggle .fa {
