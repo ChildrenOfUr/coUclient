@@ -53,10 +53,18 @@ abstract class Entity {
 		glow = newGlow;
 	}
 
-	void interact(String id) {
-		Element element = querySelector("#$id");
+	/**
+	 * Returns a map of data for the entity with the id provided (in element provided, or found if not)
+	 * "alldisabled" (bool) -> true if every action is disabled, false otherwise
+	 * "actions" (List<List>) -> terrible and ready for a right click menu
+	 */
+	static Map<String, dynamic> getActions(String id, [Element element]) {
 		List<List> actions = [];
 		bool allDisabled = true;
+
+		if (element == null) {
+			element = querySelector("#$id");
+		}
 
 		if(element.attributes['actions'] != null) {
 			List<Map> actionsList = JSON.decode(element.attributes['actions']);
@@ -85,8 +93,15 @@ abstract class Entity {
 			});
 		}
 
-		if(!allDisabled) {
-			inputManager.showClickMenu(null, element.attributes['type'], "Desc", actions);
+		return {"actions": actions, "alldisabled": allDisabled};
+	}
+
+	void interact(String id) {
+		Element element = querySelector("#$id");
+		Map<String, dynamic> actions = getActions(id, element);
+
+		if(!actions["alldisabled"]) {
+			inputManager.showClickMenu(null, element.attributes['type'], "Desc", actions["actions"]);
 		}
 	}
 }

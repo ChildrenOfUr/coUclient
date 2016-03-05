@@ -106,5 +106,15 @@
 .consume-explain {
     margin-bottom: 10px;
     padding-top: 5px;
+    margin-top: 10px;
     border-top: 1px solid #ccc;
+}
+
+.itemWindow .cb-content {
+    padding: 0;
+    text-align: left;
+}
+
+.itemWindow .cb-content .awarded span {
+    margin-right: 5px;
 }
