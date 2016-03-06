@@ -85,13 +85,11 @@ class InteractionWindow {
 
 			// Entity has no available actions
 			try {
-				print(Entity.getActions(id));
 				if (Entity.getActions(id)["alldisabled"]) {
 					container.classes.add("disabled");
 				}
 			} catch (_) {
 				// Item was not an entity, so it doesn't matter
-				print("caught");
 			}
 
 			// Display

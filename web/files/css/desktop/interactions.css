@@ -528,6 +528,10 @@
     margin-right: 5px;
 }
 
+.entityContainer.disabled {
+    opacity: 0.3;
+}
+
 .entityContainer > * {
     cursor: pointer;
     display: block;
