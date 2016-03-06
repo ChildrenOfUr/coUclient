@@ -20,6 +20,7 @@ class Bool {
 }
 
 class InputManager {
+	bool windowFocused = true;
 	Bool rightKey = new Bool(), leftKey = new Bool(), upKey = new Bool(),
 	downKey = new Bool(), jumpKey = new Bool(), actionKey = new Bool();
 	Map<String, int> keys = {
@@ -87,6 +88,10 @@ class InputManager {
 		document.onTouchStart.listen((TouchEvent event) => clickOrTouch(null, event));
 
 		initKonami();
+
+		// Track window focus
+		window.onFocus.listen((_) => windowFocused = true);
+		window.onBlur.listen((_) => windowFocused = false);
 	}
 
 	activateControl(String control, bool active, String sourceName) {

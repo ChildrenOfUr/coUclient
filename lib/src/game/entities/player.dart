@@ -155,6 +155,8 @@ class Player {
 		return Future.wait(futures);
 	}
 
+	bool lostFocus = false;
+
 	update(double dt) {
 		if(!currentStreet.loaded) {
 			return;
@@ -168,6 +170,20 @@ class Player {
 		}
 
 		updateLadderStatus(dt);
+
+		if (!inputManager.windowFocused && (moving || jumping || activeClimb) && !lostFocus) {
+			lostFocus = true;
+			new Notification(
+				"You've lost control!",
+				body: "You left the game window, but you're still moving.",
+				icon: BlogNotifier.ICON_URL
+			);
+		}
+
+		if (inputManager.windowFocused && lostFocus) {
+			lostFocus = false;
+			toast("Push 'stuck' keys to fix them.");
+		}
 
 		if (doPhysicsApply && inputManager.downKey == false && inputManager.upKey == false) {
 			// not moving up or down
