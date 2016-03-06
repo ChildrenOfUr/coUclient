@@ -82,15 +82,9 @@ class ChatMessage {
 				await metabolics.load.future;
 			}
 
-			String prefix = (
-			  metabolics.playerMetabolics.location_history.contains(currentStreet.tsid_g)
-				? "Back"
-				: "First time"
-			);
-
 			SpanElement messageSpan = new SpanElement()
 				..classes = ["message"]
-				..text = "$prefix in ${currentStreet.label}";
+				..text = "${currentStreet.label}";
 
 			return (new ParagraphElement()
 				..classes = ["chat-member-change-event"]
