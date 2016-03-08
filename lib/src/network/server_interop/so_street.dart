@@ -26,7 +26,7 @@ bool _metadataEqual(Map metaA, Map metaB) {
 
 _setupStreetSocket(String streetName) {
 	//start a timer for a few seconds and then show the server down message if not canceled
-	Timer serverDownTimer = new Timer(new Duration(seconds:2), () {
+	Timer serverDownTimer = new Timer(new Duration(seconds:10), () {
 		querySelector('#server-down').hidden = false;
 		serverDown = true;
 	});
