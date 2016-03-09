@@ -1,5 +1,9 @@
 part of couclient;
 
+class AnyUriPolicy implements UriPolicy {
+	bool allowsUri(_) => true;
+}
+
 // Chats
 class Chat {
 	String title,
@@ -20,12 +24,12 @@ class Chat {
 	static StreamSubscription itemWindowLinks, mapWindowLinks;
 	static InputElement lastFocusedInput;
 
-	static final NodeValidatorBuilder VALIDATOR = new NodeValidatorBuilder()
-		..allowHtml5()
+	static final NodeValidatorBuilder VALIDATOR = new NodeValidatorBuilder.common()
 		..allowElement('span', attributes: ['style']) // Item icons
 		..allowElement('a', attributes: ['href', 'title', 'target', 'class', 'style']) // Links
 		..allowElement('i', attributes: ['class', 'title']) // Emoticons
-		..allowElement('p', attributes: ['style'])..allowElement('b')..allowElement('del');
+		..allowElement('p', attributes: ['style'])..allowElement('b')..allowElement('del')
+		..allowNavigation(new AnyUriPolicy());
 
 	// /me text
 
