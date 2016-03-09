@@ -53,7 +53,7 @@ class GPS {
 		new Service(["dead"], (bool dying) {
 			if (dying) {
 				active = false;
-			} else {
+			} else if (localStorage["gps_navigating"] != null) {
 				active = true;
 			}
 		});
