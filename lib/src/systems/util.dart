@@ -73,6 +73,69 @@ class Util {
 			return num;
 		}
 	}
+
+	int getStackRemainders(String itemType) {
+		int remainder = 0;
+
+		for(Slot s in playerInventory.slots) {
+			if (s.item == null) {
+				continue;
+			}
+
+			if(s.itemType == itemType) {
+				remainder += s.item.stacksTo - s.count;
+			}
+
+			if (s.item.isContainer) {
+				String slotsString = JSON.encode(s.item.metadata['slots']);
+				List<Slot> bagSlots = decode(slotsString, type: new TypeHelper<List<Slot>>().type);
+				if (bagSlots != null) {
+					for(Slot s in bagSlots) {
+						if (s.item == null) {
+							continue;
+						}
+
+						if(s.itemType == itemType) {
+							remainder += s.item.stacksTo - s.count;
+						}
+					}
+				}
+			}
+		}
+
+		return remainder;
+	}
+
+	int getBlankSlots(Map itemMap) {
+		int count = 0;
+
+		for(Slot s in playerInventory.slots) {
+			if(s.item == null || s.itemType == null || s.itemType == '') {
+				count++;
+				continue;
+			}
+
+			//if the item is a container, it can only go the above slots
+			//otherwise, we need to look in any slots and count those
+			//if the item fits the filter
+			if (!itemMap["isContainer"] && s.item.isContainer) {
+				if(s.item.subSlotFilter.contains(itemMap['itemType']) ||
+				   s.item.subSlotFilter.length == 0) {
+					String slotsString = JSON.encode(s.item.metadata['slots']);
+					List<Slot> bagSlots = decode(slotsString, type: new TypeHelper<List<Slot>>().type);
+					if (bagSlots != null) {
+						for(Slot s in bagSlots) {
+							if(s.item == null || s.itemType == null || s.itemType == '') {
+								count++;
+							}
+						}
+					}
+				}
+			}
+		}
+
+		return count;
+	}
 }
 
 Util util = new Util();
@@ -119,41 +182,6 @@ int _getNumItems(String item, {int slot: -1, int subSlot: -1, bool includeBroken
 			}
 		}
 	});
-
-	return count;
-}
-
-Future<int> getBlankSlots(Map itemMap) async {
-	int count = 0;
-
-	try {
-		// Check with the server
-		String value = await HttpRequest.getString(
-			"http://${Configs.utilServerAddress}/checkBlankSlots/${game.email}"
-		);
-
-		// Precondition: all slots listed here are empty
-		List<List<String>> inventoryBlanks = JSON.decode(value);
-
-		if (itemMap["isContainer"]) {
-			// Count slots where the filter is "_root" (accepts containers)
-			count = inventoryBlanks.where((List<String> filter) {
-				// Slot is in the hotbar (not in another container)
-				return (filter.single == "_root");
-			}).toList().length;
-		} else {
-			// Containers cannot go anywhere else, so let's count up the rest
-			count = inventoryBlanks.where((List<String> filter) {
-				return (
-					filter.length == 0 || // Filter allows all items
-					filter.contains(itemMap["itemType"]) // Filter allows item
-				);
-			}).toList().length;
-		}
-	} catch (e) {
-		logmessage("[Inventory] Could not count blank slots. ($e) Item: ${itemMap.toString()}");
-		return count;
-	}
 
 	return count;
 }
