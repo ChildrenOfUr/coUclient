@@ -1,21 +1,21 @@
 part of couclient;
 
 class VendorWindow extends Modal {
-	static VendorWindow vendorWindow;
+	static VendorWindow _instance;
 	String id = 'shopWindow';
 	String npcId = '';
 	Element header, name, buy, sell, currants, backToSell, backToBuy, buyPlus, buyMinus;
 	Element buyMax, buyButton, buyItemCount, buyPriceTag, buyDescription, buyStacksTo, amtSelector;
 	ImageElement buyItemImage;
 	InputElement buyNum;
-	List<StreamSubscription> listeners = [];
+	StreamSubscription maxListener, minusListener, plusListener, buyListener, buyNumListener;
 
 	factory VendorWindow() {
-		if(vendorWindow == null) {
-			vendorWindow = new VendorWindow._();
+		if(_instance == null) {
+			_instance = new VendorWindow._();
 		}
 
-		return vendorWindow;
+		return _instance;
 	}
 
 	VendorWindow._() {
@@ -51,15 +51,7 @@ class VendorWindow extends Modal {
 
 	@override
 	openTab(String tabId) {
-		cleanupListeners();
 		super.openTab(tabId);
-	}
-
-	void cleanupListeners() {
-		// Clean up our event listeners
-		for(StreamSubscription s in listeners) {
-			s.cancel();
-		}
 	}
 
 	// Calling the modal with a vendorMap opens a vendor window
@@ -136,6 +128,15 @@ class VendorWindow extends Modal {
 	}
 
 	spawnBuyDetails(Map item, String vendorId, {bool sellMode: false}) {
+		//cancel the previous button listeners (if applicable)
+		maxListener?.cancel();
+		minusListener?.cancel();
+		plusListener?.cancel();
+		buyListener?.cancel();
+		buyNumListener?.cancel();
+
+		print('blankSlots: ${util.getBlankSlots(item)}');
+
 		// toggle the tabs
 		buy.hidden = true;
 		this.displayElement.querySelector('#buy-qty').hidden = false;
@@ -154,7 +155,7 @@ class VendorWindow extends Modal {
 			buyButton.style.pointerEvents = 'initial';
 			buyButton.text = "Sell 1 for ${(item['price'] * .7) ~/ 1}\u20a1";
 		} else {
-			if(getBlankSlots(item) == 0) {
+			if(util.getBlankSlots(item) == 0) {
 				amtSelector.style.opacity = '0.5';
 				amtSelector.style.pointerEvents = 'none';
 				buyButton.style.opacity = '0.5';
@@ -173,14 +174,14 @@ class VendorWindow extends Modal {
 			}
 		}
 
-		buyItemCount.text = _getNumItems(item['itemType']).toString();
+		buyItemCount.text = util.getNumItems(item['itemType']).toString();
 		buyItemImage.src = '${item['iconUrl']}';
 		buyDescription.text = item['description'];
 		buyPriceTag.text = "${item['price']}\u20a1";
 		name.text = item['name'];
 
 		// set up button listeners
-		buyNum.onInput.listen((_) {
+		buyNumListener = buyNum.onInput.listen((_) {
 			try {
 				int newNum = buyNum.valueAsNumber.toInt();
 				numToBuy = _updateNumToBuy(item, newNum, sellMode:sellMode);
@@ -189,12 +190,12 @@ class VendorWindow extends Modal {
 		});
 
 		// Sell/Buy Button
-		listeners.add(buyButton.onClick.listen((_) {
+		buyListener = buyButton.onClick.listen((_) {
 			int newValue;
 			Map actionMap = {"itemType": item['itemType'], "num": numToBuy};
 
 			if(sellMode) {
-				if(numToBuy > _getNumItems(item['itemType'])) {
+				if(numToBuy > util.getNumItems(item['itemType'])) {
 					return;
 				}
 
@@ -212,16 +213,16 @@ class VendorWindow extends Modal {
 
 			currants.text = " ${commaFormatter.format(newValue)} currant${(newValue != 1 ? "s" : "")}";
 			backToBuy.click();
-		}));
+		});
 
 		// Plus Button
-		listeners.add(buyPlus.onClick.listen((_) async {
+		plusListener = buyPlus.onClick.listen((_) async {
 			try {
 
 				if (sellMode) {
 					// Selling an item
 
-					if (buyNum.valueAsNumber + 1 <= _getNumItems(item["itemType"])) {
+					if (buyNum.valueAsNumber + 1 <= util.getNumItems(item["itemType"])) {
 						// We have enough to sell
 						int newNum = (++buyNum.valueAsNumber).toInt();
 						numToBuy = _updateNumToBuy(item, newNum, sellMode: sellMode);
@@ -230,7 +231,7 @@ class VendorWindow extends Modal {
 				} else {
 					// Buying an item
 
-					if (buyNum.valueAsNumber + 1 <= (await getBlankSlots(item))) {
+					if (buyNum.valueAsNumber + 1 <= _maxAdditions(item)) {
 						// You can fit the max number of items in your inventory
 						int newNum = (++buyNum.valueAsNumber).toInt();
 						numToBuy = _updateNumToBuy(item, newNum, sellMode: sellMode);
@@ -242,10 +243,10 @@ class VendorWindow extends Modal {
 			catch(e) {
 				logmessage("[Vendor] Plus Button Error: $e");
 			}
-		}));
+		});
 
 		// Minus Button
-		listeners.add(buyMinus.onClick.listen((_) {
+		minusListener = buyMinus.onClick.listen((_) {
 			try {
 				if (buyNum.valueAsNumber > 1) {
 					// We can't go to 0 or negative
@@ -256,29 +257,27 @@ class VendorWindow extends Modal {
 			catch(e) {
 				logmessage("[Vendor] Minus Button Error: $e");
 			}
-		}));
+		});
 
 		// Max Button
-		listeners.add(buyMax.onClick.listen((_) async {
+		maxListener = buyMax.onClick.listen((_) async {
 			try {
 				int newNum;
 				if(sellMode) {
 					// Selling an item
-					newNum = min(item['stacksTo'].toInt(), _getNumItems(item['itemType']));
+					newNum = util.getNumItems(item['itemType']);
 				} else {
 					// Buying an item
-					newNum = min((await getBlankSlots(item)), min((item['stacksTo']).toInt(), (metabolics.currants / item['price']) ~/ 1));
+					newNum = min(_maxAdditions(item), (metabolics.currants / item['price']) ~/ 1);
 				}
 				numToBuy = _updateNumToBuy(item, newNum, sellMode:sellMode);
 			}
 			catch(e) {
 				logmessage("[Vendor] Max Button Error: $e");
 			}
-		}));
+		});
 
 		backToBuy.onClick.first.then((_) {
-			cleanupListeners();
-
 			this.displayElement.querySelector('#buy-qty').hidden = true;
 			if(sellMode) {
 				sell.hidden = false;
@@ -288,12 +287,20 @@ class VendorWindow extends Modal {
 		});
 	}
 
+	int _maxAdditions(Map item) {
+		int count = util.getBlankSlots(item)*item['stacksTo'];
+		count += util.getStackRemainders(item['itemType']);
+
+		return count;
+	}
+
 	int _updateNumToBuy(Map item, int newNum, {bool sellMode: false}) {
-		if(newNum < 1) newNum = 1;
-		if(newNum >= 99) newNum = 99;
+		if(newNum < 1) {
+			newNum = 1;
+		}
 
 		if(sellMode) {
-			newNum = min(newNum, _getNumItems(item['itemType']));
+			newNum = min(newNum, util.getNumItems(item['itemType']));
 		}
 
 		buyNum.valueAsNumber = newNum;
