@@ -1,6 +1,8 @@
 part of couclient;
 
 class Quoin {
+	static Map<String, bool> notified = new Map();
+
 	Map <String, int> quoins = {"img":0, "mood":1, "energy":2, "currant":3, "mystery":4, "favor":5, "time":6, "quarazy":7};
 	String typeString;
 	Animation animation;
@@ -100,20 +102,7 @@ class Quoin {
 		//if a player collides with us, tell the server
 		if(!hit) {
 			if(_checkPlayerCollision()) {
-
-				new Timer(new Duration(minutes: 1), () => hit = false);
-
-				if(typeString == 'mood' && metabolics.playerMetabolics.mood >= metabolics.playerMetabolics.max_mood) {
-					toast("You tried to collect a mood quoin, but your mood was already full.");
-				} else if(typeString == 'energy' && metabolics.playerMetabolics.energy >= metabolics.playerMetabolics.max_energy) {
-					toast("You tried to collect an energy quoin, but your energy tank was already full.");
-
-				} else if (typeString == 'mystery' && metabolics.playerMetabolics.quoin_multiplier >= constants["quoinMultiplierLimit"]) {
-					toast("Your quoin multiplier is already ${constants["quoinMultiplierLimit"].toString()}x");
-				} else if (metabolics.playerMetabolics.quoins_collected >= constants["quoinLimit"]) {
-					toast("You've reached your daily limit of ${constants["quoinLimit"].toString()} quoins");
-
-				} else {
+				if (_canCollect()) {
 					_sendToServer();
 				}
 
@@ -124,6 +113,51 @@ class Quoin {
 		if(intersect(camera.visibleRect, quoinRect)) {
 			animation.updateSourceRect(dt);
 			greyedOut = statIsMaxed;
+		}
+	}
+
+	/// Returns true if the quoin can be collected, false (and possibly toasts) if not
+	bool _canCollect() {
+		/// Notifies of the quoin message only one time per session
+		bool _toastIfNotNotified(String message, [String key]) {
+			/// Checks and updates notification history for this session
+			bool _checkNotified(String key) {
+				if (notified[key] != null && notified[key] == true) {
+					// Already notified
+
+					// Do not send it
+					return true;
+				} else {
+					// First notification
+
+					// Update status
+					notified[key] = true;
+
+					// Send it this time
+					return false;
+				}
+			}
+
+			// Not notified yet?
+			if (!_checkNotified(key ?? typeString)) {
+				// Send message
+				toast(message);
+			}
+
+			// Allow single lines in the if bodies below
+			return false;
+		}
+
+		if (metabolics.playerMetabolics.quoins_collected >= constants["quoinLimit"]) {
+			return _toastIfNotNotified("You've reached your daily limit of ${constants["quoinLimit"].toString()} quoins");
+		} else if (typeString == 'mood' && metabolics.playerMetabolics.mood >= metabolics.playerMetabolics.max_mood) {
+			return _toastIfNotNotified("You tried to collect a mood quoin, but your mood was already full.");
+		} else if (typeString == 'energy' && metabolics.playerMetabolics.energy >= metabolics.playerMetabolics.max_energy) {
+			return _toastIfNotNotified("You tried to collect an energy quoin, but your energy tank was already full.");
+		} else if (typeString == 'mystery' && metabolics.playerMetabolics.quoin_multiplier >= constants["quoinMultiplierLimit"]) {
+			return _toastIfNotNotified("Your quoin multiplier is already ${constants["quoinMultiplierLimit"].toString()}x");
+		} else {
+			return true;
 		}
 	}
 
