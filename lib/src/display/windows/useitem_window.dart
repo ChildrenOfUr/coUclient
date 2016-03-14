@@ -7,6 +7,7 @@ class UseWindow extends Modal {
 	String listUrl;
 	List<Map> recipeList;
 	Element well;
+	bool makingCancelled;
 
 	factory UseWindow(String itemType, String itemName) {
 		if (instances[itemType] == null) {
@@ -320,33 +321,58 @@ class UseWindow extends Modal {
 			..attributes["percent"] = "1"
 			..attributes["status"] = "Making ${current.toString()} of ${qty.toString()}...";
 
+		Element cancelBtn;
+		cancelBtn = new DivElement()
+			..classes = ["white-btn", "rmake-cancel", "rv-red"]
+			..setInnerHtml('<i class="fa fa-chevron-left"></i>&emsp;Cancel')
+			..onClick.first.then((_) {
+				makingCancelled = true;
+				cancelBtn
+					..setInnerHtml('<i class="fa fa-spin fa-spinner"></i>&emsp;Finishing up...')
+					..classes.add("disabled");
+			});
+
 		// display
 		well
 			..children.clear()
-			..append(animationParent)..append(progBar);
+			..append(animationParent)..append(progBar)..append(cancelBtn);
 
 		await new Timer.periodic(new Duration(seconds: recipe["time"]), (Timer timer) async {
-			String serverResponse = await HttpRequest.requestCrossOrigin(
-				"http://${Configs.utilServerAddress}/recipes/make?token=$rsToken&id=${recipe["id"]}&email=${game
-					.email}&username=${game.username}");
-			if (current >= qty && serverResponse == "true") {
-				// Server says no, or we're done
-				// Stop the timer
-				timer.cancel();
-				// Update recipe data
-				await updateRecipes(false);
-				// Reset the UI
-				well.append(await listRecipes());
+			if (makingCancelled) {
+				await _stopMakingRecipes(timer);
 			} else {
-				// Server says yes
-				// Increase the number we've made
-				current++;
-				// Update the progress bar
-				progBar
-					..attributes["percent"] = ((100 / qty) * current).toString()
-					..attributes["status"] = "Making ${current.toString()} of ${qty.toString()}";
+				String serverResponse = await HttpRequest.requestCrossOrigin(
+					"http://${Configs.utilServerAddress}/recipes/make"
+					"?token=$rsToken"
+					"&id=${recipe["id"]}"
+					"&email=${game.email}"
+					"&username=${game.username}"
+				);
+
+				if (current >= qty && serverResponse == "true") {
+					// Server says no, or we're done
+					await _stopMakingRecipes(timer);
+				} else {
+					// Server says yes
+					// Increase the number we've made
+					current++;
+					// Update the progress bar
+					progBar
+						..attributes["percent"] = ((100 / qty) * current).toString()
+						..attributes["status"] = "Making ${current.toString()} of ${qty
+							.toString()}";
+				}
 			}
 		});
+	}
+
+	Future _stopMakingRecipes(Timer timer) async {
+		// Stop the timer
+		timer.cancel();
+		// Update recipe data
+		await updateRecipes(false);
+		// Reset the UI
+		well.append(await listRecipes());
 	}
 
 	Map getRecipe(String id) {
@@ -361,6 +387,7 @@ class UseWindow extends Modal {
 			await updateRecipes();
 		}
 		well.append(await listRecipes(true));
+		makingCancelled = false;
 		displayElement.hidden = false;
 		elementOpen = true;
 		this.focus();
