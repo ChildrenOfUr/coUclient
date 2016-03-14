@@ -61,6 +61,8 @@ class HowManyMenu {
 		//wait a little so that an [enter] used to prompt this window doesn't count for it too
 		new Timer(new Duration(milliseconds: 100), () {
 			keyListener = document.onKeyUp.listen((KeyboardEvent e) {
+				e.preventDefault();
+
 				//27 == esc key
 				if (e.keyCode == 27) {
 					e.stopPropagation();
