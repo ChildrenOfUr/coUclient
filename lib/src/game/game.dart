@@ -8,8 +8,7 @@ class Game {
 	num lastTime = 0.0;
 	DateTime startTime = new DateTime.now();
 	bool ignoreGamepads = false;
-	List<String> devs = [];
-	List<String> guides = [];
+	Map<String, String> elevationCache = new Map();
 	bool loaded = false;
 
 	// INITIALIZATION //
@@ -19,28 +18,30 @@ class Game {
 		email = sessionStorage['playerEmail'];
 		_init(m);
 
-		getPlayerRoles().then((_) {
+		getElevation(username).then((String role) {
 			// Hide "Become a Guide" button
-			if (game.guides.contains(game.username) || game.devs.contains(game.username)) {
+			if (["dev", "guide"].contains(role)) {
 				querySelector("#becomeGuideFromChatPanel").hidden = true;
 			}
 
 			// Display border on avatar image
 			// (Devs shouldn't see it, our blog post screenshots would be different)
-			if (game.guides.contains(game.username)) {
+			if (role == "guide") {
 				querySelector("ur-meters /deep/ #leftDisk").classes.add("guideDisk");
 			}
 		});
 	}
 
-	Future getPlayerRoles() async {
-		await HttpRequest.requestCrossOrigin("http://childrenofur.com/scripts/labels/devs.php?listDevs=wu7AGYR62SuAY81d").then((String str) {
-			devs = str.split(",");
-		});
-
-		await HttpRequest.requestCrossOrigin("http://childrenofur.com/scripts/labels/guides.php?listGuides=L6EJI1PF0oXD6iYSf0cZ").then((String str) {
-			guides = str.split(",");
-		});
+	Future<String> getElevation(String username) async {
+		if (elevationCache[username] != null) {
+			return elevationCache[username];
+		} else {
+			String elevation = await HttpRequest.getString(
+				"http://${Configs.utilServerAddress}/elevation/get/$username"
+			);
+			elevationCache[username] = elevation;
+			return elevation;
+		}
 	}
 
 	_init(Metabolics m) async {

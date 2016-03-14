@@ -41,10 +41,9 @@ class ChatMessage {
 			}
 
 			// Dev/Guide
-			if (game.devs.contains(player)) {
-				nameClasses.add("dev");
-			} else if (game.guides.contains(player)) {
-				nameClasses.add("guide");
+			String elevation = await game.getElevation(player);
+			if (elevation != "") {
+				nameClasses.add(elevation);
 			}
 		}
 
