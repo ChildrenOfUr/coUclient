@@ -13,7 +13,9 @@
     z-index: 133346;
 }
 
-.fill.harvesting {
+.fill.harvesting,
+.fill.chopping,
+.fill.chopping-fancy {
     color: #ed7e00;
 }
 
@@ -287,6 +289,80 @@
     }
 }
 
+/* CHOPPING ANIMATION */
+
+@-webkit-keyframes choppingAnimation {
+    from {
+        background-position-x: 4180px;
+    }
+    to {
+        background-position-x: 0;
+    }
+}
+
+@-moz-keyframes choppingAnimation {
+    from {
+        background-position-x: 4180px;
+    }
+    to {
+        background-position-x: 0;
+    }
+}
+
+@-o-keyframes choppingAnimation {
+    from {
+        background-position-x: 4180px;
+    }
+    to {
+        background-position-x: 0;
+    }
+}
+
+@keyframes choppingAnimation {
+    from {
+        background-position-x: 4180px;
+    }
+    to {
+        background-position-x: 0;
+    }
+}
+
+@-webkit-keyframes choppingAnimationFancy {
+    from {
+        background-position-x: 4218px;
+    }
+    to {
+        background-position-x: 0;
+    }
+}
+
+@-moz-keyframes choppingAnimationFancy {
+    from {
+        background-position-x: 4218px;
+    }
+    to {
+        background-position-x: 0;
+    }
+}
+
+@-o-keyframes choppingAnimationFancy {
+    from {
+        background-position-x: 4218px;
+    }
+    to {
+        background-position-x: 0;
+    }
+}
+
+@keyframes choppingAnimationFancy {
+    from {
+        background-position-x: 4218px;
+    }
+    to {
+        background-position-x: 0;
+    }
+}
+
 /* ASSIGN ANIMATIONS */
 
 .border.mining::after {
@@ -362,6 +438,36 @@
     -moz-animation: diggingAnimationFancy 1.5s steps(53, end) infinite;
     -o-animation: diggingAnimationFancy 1.5s steps(53, end) infinite;
     animation: diggingAnimationFancy 1.5s steps(53, end) infinite;
+}
+
+.border.chopping::after {
+    content: '';
+    left: 50%;
+    transform: translateX(-50%);
+    top: -90px;
+    display: inline-block;
+    width: 110px;
+    height: 64px;
+    background-image: url(../../system/actions/using_hatchet.png);
+    -webkit-animation: choppingAnimation 1.5s steps(38, end) infinite;
+    -moz-animation: choppingAnimation 1.5s steps(38, end) infinite;
+    -o-animation: choppingAnimation 1.5s steps(38, end) infinite;
+    animation: choppingAnimation 1.5s steps(38, end) infinite;
+}
+
+.border.chopping-fancy::after {
+    content: '';
+    left: 50%;
+    transform: translateX(-50%);
+    top: -90px;
+    display: inline-block;
+    width: 111px;
+    height: 65px;
+    background-image: url(../../system/actions/using_class_axe.png);
+    -webkit-animation: choppingAnimationFancy 1.5s steps(38, end) infinite;
+    -moz-animation: choppingAnimationFancy 1.5s steps(38, end) infinite;
+    -o-animation: choppingAnimationFancy 1.5s steps(38, end) infinite;
+    animation: choppingAnimationFancy 1.5s steps(38, end) infinite;
 }
 
 .item {
