@@ -7,7 +7,9 @@ class ActionBubble {
 	SpanElement outline = new SpanElement();
 	SpanElement fill = new SpanElement();
 
-	ActionBubble(String actionName, this.duration) {
+	SkillIndicator assocSkillIndicator;
+
+	ActionBubble(String actionName, this.duration, [String assocSkill]) {
 		// Only the first word, ignore anything after the first space
 		String text = actionName.split(" ")[0];
 
@@ -46,6 +48,10 @@ class ActionBubble {
 		//start the "fill animation"
 		fill.style.width = '${outlineWidth}px';
 
+		if (assocSkill != null) {
+			new SkillIndicator(assocSkill);
+		}
+
 		occuring = true;
 		new Timer(new Duration(milliseconds:duration), () => occuring = false);
 	}
@@ -58,6 +64,7 @@ class ActionBubble {
 			fill.remove();
 			escListener.cancel();
 			completer.complete(true);
+			assocSkillIndicator?.close();
 		});
 
 		escListener = document.onKeyUp.listen((KeyboardEvent k) {
@@ -67,6 +74,7 @@ class ActionBubble {
 				escListener.cancel();
 				miningTimer.cancel();
 				completer.complete(false);
+				assocSkillIndicator?.close();
 			}
 		});
 		return completer.future;

@@ -300,6 +300,13 @@ p.italic {
     margin-bottom: 5px;
 }
 
+.pm-noskills {
+    color: rgb(169, 62, 62);
+    text-align: center;
+    margin-top: 50px;
+    font-size: 20px;
+}
+
 .pm-skill-progress {
     position: absolute;
     background-color: rgb(121, 210, 121);
@@ -314,7 +321,7 @@ p.italic {
     height: 40px;
     width: 40px;
     float: left;
-    margin-left: 5px;
+    margin-right: 5px;
 }
 
 .pm-skill-text {

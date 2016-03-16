@@ -1,0 +1,41 @@
+.skillindicator-parent {
+    width: 40px;
+    height: 80px;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 20px;
+    box-shadow: 0 0 5px #eee;
+    border: 1px solid #CDCDCD;
+    position: absolute;
+}
+
+.skillindicator-fill {
+    width: 30px;
+    position: absolute;
+    bottom: 5px;
+    left: 5px;
+    border-radius: 15px;
+    background-size: 4px;
+    background-position: center center;
+    -webkit-filter: blur(2px);
+    -moz-filter: blur(2px);
+    -o-filter: blur(2px);
+    filter: blur(2px);
+}
+
+.skillindicator-fill::before {
+    content: '';
+    background-image: url(../../../system/imgmenu/imgbubbles.svg);
+    background-repeat: repeat-y;
+    background-size: 30px 696px;
+    width: 30px;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    -webkit-animation: bubble-anim 25s linear infinite;
+    -moz-animation: bubble-anim 25s linear infinite;
+    -o-animation: bubble-anim 25s linear infinite;
+    animation: bubble-anim 25s linear infinite;
+    border-radius: 15px;
+    opacity: 0.5;
+}

@@ -17,6 +17,7 @@
 @import url(interface/minimap.css);
 @import url(interface/gps.css);
 @import url(interface/bagifymenu.css);
+@import url(interface/skill_indicator.css);
 
 /* Game */
 @import url(game.css);

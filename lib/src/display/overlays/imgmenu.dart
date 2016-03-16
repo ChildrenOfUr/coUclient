@@ -2,43 +2,56 @@ part of couclient;
 
 class ImgOverlay extends Overlay {
 
-	// Level indicator bar ////////////////////////////////////////////////////////////////////////
-
-	Element bar, levelNum, imgtonextE, nextlvlE, lifetimeImgE, tooltip;
-
-	// Exit button ////////////////////////////////////////////////////////////////////////////////
-
-	Element exitButton;
-
-	// Set up everything on game load /////////////////////////////////////////////////////////////
-
-	ImgOverlay(String id):super(id) {
-
-		// Level indicator bar ////////////////////////////////////////////////////////////////////
-
-		bar = querySelector("#pm-level-bar");
-		levelNum = querySelector("#pm-level-num");
-		imgtonextE = querySelector("#pm-img-req");
-		nextlvlE = querySelector("#pm-next-lvlnum");
-		lifetimeImgE = querySelector("#pm-lt-img");
+	// Level indicator bar
+	Element bar = querySelector("#pm-level-bar"),
+		levelNum = querySelector("#pm-level-num"),
+		imgtonextE = querySelector("#pm-img-req"),
+		nextlvlE = querySelector("#pm-next-lvlnum"),
+		lifetimeImgE = querySelector("#pm-lt-img"),
 		tooltip = querySelector("#pm-level-tooltip");
 
-		// Exit button ////////////////////////////////////////////////////////////////////////////
+	// Skill container
+	Element skillsList = querySelector("#pm-skills-list");
 
-		exitButton = querySelector("#pm-exit-button");
+	// Exit button
+	Element exitButton = querySelector("#pm-exit-button");
 
-		// Key bindings ///////////////////////////////////////////////////////////////////////////
-
+	ImgOverlay(String id):super(id) {
 		setupKeyBinding("ImgMenu");
 	}
 
-	// Refresh every time it opens ////////////////////////////////////////////////////////////////
-
 	@override
 	open() async {
+		// Prepare contents
+		await _setupImgBar();
+		await _setupSkillsList();
 
-		// Set up level indicator bar /////////////////////////////////////////////////////////////
+		// Update button states
+		exitButton.onClick.first.then((_) => close());
+		querySelector("#thinkButton").classes.add("pressed");
 
+		// Update outside UI
+		minimap.containerE.hidden = true;
+		transmit("worldFocus", false);
+
+		// Open
+		super.open();
+	}
+
+	@override
+	close() {
+		// Update button states
+		querySelector("#thinkButton").classes.remove("pressed");
+
+		// Close
+		super.close();
+
+		// Update outside UI
+		minimap.containerE.hidden = false;
+	}
+
+	Future _setupImgBar() async {
+		// Refresh from server
 		int l_curr = await metabolics.level;
 
 		if (l_curr < 60) {
@@ -69,42 +82,50 @@ class ImgOverlay extends Overlay {
 			tooltip.querySelector("#pm-tt-top").hidden = true;
 			tooltip.classes.add("done");
 		}
-
-		// Set up exit button /////////////////////////////////////////////////////////////////////
-
-		exitButton.onClick.first.then((_) => close());
-
-		// Update toggle button state /////////////////////////////////////////////////////////////
-
-		querySelector("#thinkButton").classes.add("pressed");
-
-		// Hide the minimap ///////////////////////////////////////////////////////////////////////
-
-		minimap.containerE.hidden = true;
-
-		// Show the menu //////////////////////////////////////////////////////////////////////////
-
-		super.open();
-
-		transmit("worldFocus", false);
 	}
 
-	// Reset when closed //////////////////////////////////////////////////////////////////////////
+	Future _setupSkillsList() async {
+		// Refresh from server
+		await Skills.loadData();
 
-	@override
-	close() {
+		skillsList.children.clear();
+		Element parent;
 
-		// Update toggle button state /////////////////////////////////////////////////////////////
+		if (Skills.data.length > 0) {
+			Skills.data.forEach((Map<String, dynamic> skill) {
+				Element progress = new DivElement()
+					..classes = ["pm-skill-progress"]
+					..style.width = "${(skill["player_points"] / skill["player_nextPoints"]) * 100}%";
 
-		querySelector("#thinkButton").classes.remove("pressed");
+				Element icon = new ImageElement(src: skill["player_iconUrl"])
+					..classes = ["pm-skill-icon"];
 
-		// Hide the menu //////////////////////////////////////////////////////////////////////////
+				Element skillTitle = new SpanElement()
+					..classes = ["pm-skill-title"]
+					..text = skill["name"];
 
-		super.close();
+				Element skillLevel = new SpanElement()
+					..classes = ["pm-skill-level"]
+					..text = skill["player_level"].toString();
 
-		// Re-show the minimap ////////////////////////////////////////////////////////////////////
+				Element text = new DivElement()
+					..append(skillTitle)
+					..append(skillLevel);
 
-		minimap.containerE.hidden = false;
+				parent = new DivElement()
+					..classes = ["pm-skill"]
+					..dataset["skill"] = skill["id"]
+					..append(progress)
+					..append(icon)
+					..append(text);
+			});
+		} else {
+			parent = new DivElement()
+				..classes = ["pm-noskills"]
+				..text = "No skills :(";
+		}
+
+		skillsList.append(parent);
 	}
 }
 
