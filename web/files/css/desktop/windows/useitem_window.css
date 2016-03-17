@@ -14,6 +14,10 @@
     border-radius: 8px;
 }
 
+.darkui .useitem-well .white-btn {
+    background-color: #181818;
+}
+
 .useitem-well .white-btn:hover {
     box-shadow: 0 0 2px grey;
 }
@@ -160,6 +164,10 @@
     height: 48px;
 }
 
+.darkui .recipeview-qtyparent {
+    background-color: #181818;
+}
+
 .recipeview-qtyparent div {
     flex: 1;
 }
@@ -186,6 +194,10 @@
     width: 70px;
     text-align: center;
     height: 40px;
+}
+
+.darkui .rv-qty-disp {
+    background-color: #282828;
 }
 
 .rv-qty-disp::-webkit-outer-spin-button,
