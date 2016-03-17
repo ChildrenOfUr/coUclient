@@ -284,7 +284,7 @@ p.italic {
     border-radius: 16px;
     padding: 0 10px 10px 10px;
     height: calc(100% - 50px);
-    width: 165px;
+    width: 175px;
     overflow-y: auto;
 }
 
@@ -298,6 +298,11 @@ p.italic {
     display: block;
     padding: 10px 0;
     margin-bottom: 5px;
+}
+
+.pm-skill,
+.pm-skill * {
+    cursor: help;
 }
 
 .pm-noskills {
@@ -353,6 +358,6 @@ p.italic {
 }
 
 .pm-skill-level::before {
-    content: "Current level: ";
+    content: "Level: ";
     font-weight: normal;
 }

@@ -283,11 +283,11 @@ class Chat {
 		}
 	}
 
-	void addAlert(String alert, {bool toast: false, Function onClick}) {
+	String addAlert(String alert, {bool toast: false, dynamic onClick}) {
 		String classes = "system ";
 
-		String _add() {
-			String randId = "alert-${(random.nextInt(999) + 100).toString()}";
+		String randId = "alert-${(random.nextInt(999) + 100).toString()}";
+		void _add() {
 			String text = '<p class="$classes" id="$randId">$alert</p>';
 			Element dialog = conversationElement.querySelector('.dialog');
 			dialog.appendHtml(parseLocationLinks(text), validator: VALIDATOR);
@@ -296,23 +296,18 @@ class Chat {
 			dialog.scrollTop = dialog.scrollHeight;
 
 			updateChatLocationLinks(dialog);
-
-			return randId;
 		}
 
 		if (toast) {
 			classes += "chat-toast ";
 			new Timer(new Duration(milliseconds: 100), () {
-				String id = _add();
-				if (onClick != null) {
-					conversationElement.querySelector(".dialog #$id")
-						..style.cursor = "pointer"
-						..onClick.listen((MouseEvent event) => Function.apply(onClick, [event]));
-				}
+				_add();
 			});
 		} else {
 			_add();
 		}
+
+		return randId;
 	}
 
 	void displayList(List<String> users) {

@@ -95,6 +95,13 @@ class ImgOverlay extends Overlay {
 			Skills.data.forEach((Map<String, dynamic> skill) {
 				num levelPercent = ((skill["player_points"] / skill["player_nextPoints"]) * 100).clamp(0, 100);
 
+				String levelText = skill["player_level"].toString();
+				if (skill["player_level"] == 0) {
+					levelText = "Learning";
+				} else if (skill["player_level"] == skill["num_levels"]) {
+					levelText = "Complete!";
+				}
+
 				Element progress = new DivElement()
 					..classes = ["pm-skill-progress"]
 					..style.width = "calc($levelPercent% - 20px)";
@@ -114,7 +121,7 @@ class ImgOverlay extends Overlay {
 
 				Element skillLevel = new SpanElement()
 					..classes = ["pm-skill-level"]
-					..text = skill["player_level"].toString();
+					..text = levelText;
 
 				Element text = new DivElement()
 					..append(skillTitle)
@@ -123,6 +130,7 @@ class ImgOverlay extends Overlay {
 				parent = new DivElement()
 					..classes = ["pm-skill"]
 					..dataset["skill"] = skill["id"]
+					..title = skill["player_description"]
 					..append(progress)
 					..append(icon)
 					..append(text);

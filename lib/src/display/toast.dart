@@ -1,7 +1,15 @@
 part of couclient;
 
+final Map<String, Function> TOAST_CLICK_ACTIONS = {
+	"imgmenu": (_) => imgMenu.open()
+};
+
 /// onClick will be called if the toast is clicked, and will be passed the click event
-toast(String message, {bool skipChat: false, Function onClick}) {
+toast(String message, {bool skipChat, dynamic onClick}) {
+	if (skipChat == null) {
+		skipChat = false;
+	}
+
 	Element toastContainer = querySelector('#toastHolder');
 
 	DivElement toast = new DivElement()
@@ -10,8 +18,17 @@ toast(String message, {bool skipChat: false, Function onClick}) {
 		..text = message;
 
 	// Click action
+	Function clickHandler;
 	if (onClick != null) {
-		toast.onClick.listen((MouseEvent event) => Function.apply(onClick, [event]));
+		if (onClick is Function) {
+			clickHandler = onClick;
+		} else if (onClick is String) {
+			clickHandler = TOAST_CLICK_ACTIONS[onClick];
+		} else {
+			throw new ArgumentError("onClick must be a string identifier or function, but it is of type ${onClick.runtimeType}");
+		}
+
+		toast.onClick.listen((MouseEvent event) => Function.apply(clickHandler, [event]));
 		toast.style.cursor = "pointer";
 	}
 
@@ -32,7 +49,15 @@ toast(String message, {bool skipChat: false, Function onClick}) {
 
 	// Put in local chat
 	if (Chat.localChat != null && !skipChat) {
-		Chat.localChat.addAlert(message, toast: true, onClick: onClick);
+		String alertId = Chat.localChat.addAlert(message, toast: true, onClick: onClick);
+
+		if (clickHandler != null) {
+			new Timer(new Duration(milliseconds: 110), () {
+				querySelector(".dialog #$alertId")
+					..onClick.listen((MouseEvent event) => Function.apply(clickHandler, [event]))
+					..style.cursor = "pointer";
+			});
+		}
 	} else if (!skipChat) {
 		chatToastBuffer.add(message);
 	}
@@ -110,7 +135,4 @@ buff(String type) {
 
 	buffContainer.append(buff);
 	uStopwatch.start();
-
-	// TODO: store buffs to server
-	// TODO: get buffs from server and skip to remaining time
 }

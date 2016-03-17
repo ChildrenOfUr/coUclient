@@ -93,7 +93,7 @@ _setupStreetSocket(String streetName) {
 			return;
 		}
 		if (map['toast'] != null) {
-			toast(map['message']);
+			toast(map['message'], skipChat: map["skipChat"], onClick: map["onClick"]);
 			return;
 		}
 		if (map["useItem"] != null) {
