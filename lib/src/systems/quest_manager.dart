@@ -16,7 +16,7 @@ class QuestFavor {
 class Quest {
 	String id, title, description;
 	bool complete = false;
-	List<Quest> prerequisites;
+	List<String> prerequisites;
 	List<Requirement> requirements;
 	Conversation conversation_start, conversation_end, conversation_fail;
 	QuestRewards rewards;
