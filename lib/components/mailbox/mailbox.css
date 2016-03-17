@@ -108,6 +108,11 @@
     cursor: pointer;
 }
 
+.darkui #fromCurrants {
+    background-color: #282828;
+    border-color: #181818;
+}
+
 .taken {
     opacity: 0.5;
     cursor: not-allowed;
@@ -137,6 +142,11 @@
     border: 2px solid grey;
     background-color: #eee;
     cursor: pointer;
+}
+
+.darkui .fromItem {
+    background-color: #282828;
+    border-color: #181818;
 }
 
 /* Listing */
@@ -218,6 +228,11 @@ ur-button#btn_refresh {
     transform: translate(-50%,-50%);border-radius: 8px;
     background-color: #fff;
     box-shadow: 0 0 0 8px rgba(0, 0, 0, 0.1), 0 0 0 2px rgba(0, 0, 0, 0.3);
+}
+
+.darkui + #actionDialog {
+    background-color: #282828;
+    color: #eee;
 }
 
 #actionDialog .buttons {

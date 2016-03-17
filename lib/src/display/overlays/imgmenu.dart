@@ -118,14 +118,16 @@ class ImgOverlay extends Overlay {
 					..append(progress)
 					..append(icon)
 					..append(text);
+
+				skillsList.append(parent);
 			});
 		} else {
 			parent = new DivElement()
 				..classes = ["pm-noskills"]
 				..text = "No skills :(";
-		}
 
-		skillsList.append(parent);
+			skillsList.append(parent);
+		}
 	}
 }
 
