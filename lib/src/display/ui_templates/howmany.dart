@@ -19,11 +19,16 @@ class HowManyMenu {
 		maxVal = max;
 		actionString = action;
 
+		String pluralItemName = itemName;
+		if (!pluralItemName.endsWith("s")) {
+			pluralItemName += "s";
+		}
+
 		DivElement menu = new DivElement()
 			..id = 'HowManyMenu';
 		SpanElement title = new SpanElement()
 			..id = 'hm-title'
-			..text = action + ' how many ' + itemName + 's?';
+			..text = action + ' how many ' + pluralItemName + '?';
 		DivElement controls = new DivElement()
 			..id = 'hm-controls';
 		ButtonElement minus = new ButtonElement()
