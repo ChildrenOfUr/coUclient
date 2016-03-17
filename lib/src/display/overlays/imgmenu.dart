@@ -93,9 +93,17 @@ class ImgOverlay extends Overlay {
 
 		if (Skills.data.length > 0) {
 			Skills.data.forEach((Map<String, dynamic> skill) {
+				num levelPercent = ((skill["player_points"] / skill["player_nextPoints"]) * 100).clamp(0, 100);
+
 				Element progress = new DivElement()
 					..classes = ["pm-skill-progress"]
-					..style.width = "${(skill["player_points"] / skill["player_nextPoints"]) * 100}%";
+					..style.width = "calc($levelPercent% - 20px)";
+
+				if (levelPercent == 100) {
+					progress.classes.add("pm-skill-complete");
+				} else {
+					progress.style.backgroundImage = "url(${skill["player_iconUrl"]})";
+				}
 
 				Element icon = new ImageElement(src: skill["player_iconUrl"])
 					..classes = ["pm-skill-icon"];

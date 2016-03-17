@@ -18,6 +18,33 @@
     cursor: pointer;
 }
 
+/* Exit button */
+
+#pm-exit-button {
+    cursor: pointer;
+    background-image: url(../../../system/imgmenu/close.svg);
+    width: 30px;
+    height: 30px;
+    background-size: 30px 30px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+#pm-exit-button:hover {
+    -webkit-filter: drop-shadow(0 1px 2px cyan);
+    -moz-filter: drop-shadow(0 1px 2px cyan);
+    -o-filter: drop-shadow(0 1px 2px cyan);
+    filter: drop-shadow(0 1px 2px cyan);
+}
+
+#pm-exit-button:active {
+    -webkit-filter: drop-shadow(0 1px 1px cyan);
+    -moz-filter: drop-shadow(0 1px 1px cyan);
+    -o-filter: drop-shadow(0 1px 1px cyan);
+    filter: drop-shadow(0 1px 1px cyan);
+}
+
 /* Placeholder */
 
 #pm-nothing {
@@ -246,33 +273,6 @@ p.italic {
     opacity: 1;
 }
 
-/* Exit button */
-
-#pm-exit-button {
-    cursor: pointer;
-    background-image: url(../../../system/imgmenu/close.svg);
-    width: 30px;
-    height: 30px;
-    background-size: 30px 30px;
-    position: absolute;
-    top: 10px;
-    right: 10px;
-}
-
-#pm-exit-button:hover {
-    -webkit-filter: drop-shadow(0 1px 2px cyan);
-    -moz-filter: drop-shadow(0 1px 2px cyan);
-    -o-filter: drop-shadow(0 1px 2px cyan);
-    filter: drop-shadow(0 1px 2px cyan);
-}
-
-#pm-exit-button:active {
-    -webkit-filter: drop-shadow(0 1px 1px cyan);
-    -moz-filter: drop-shadow(0 1px 1px cyan);
-    -o-filter: drop-shadow(0 1px 1px cyan);
-    filter: drop-shadow(0 1px 1px cyan);
-}
-
 /* Skills */
 
 #pm-skills {
@@ -309,12 +309,24 @@ p.italic {
 
 .pm-skill-progress {
     position: absolute;
-    background-color: rgb(121, 210, 121);
     height: 50px;
     z-index: -1;
-    opacity: 0.25;
+    opacity: 0.5;
     border-radius: 8px;
     margin-top: -5px;
+}
+
+.pm-skill-progress:not(.pm-skill-complete) {
+    background-size: 4px;
+    background-position: center center;
+    -webkit-filter: blur(2px);
+    -moz-filter: blur(2px);
+    -o-filter: blur(2px);
+    filter: blur(2px);
+}
+
+.pm-skill-complete {
+    background-color: rgb(121, 210, 121);
 }
 
 .pm-skill-icon {
