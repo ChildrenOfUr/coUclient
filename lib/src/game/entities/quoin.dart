@@ -154,9 +154,7 @@ class Quoin {
 			return _toastIfNotNotified("You tried to collect a mood quoin, but your mood was already full.");
 		} else if (typeString == 'energy' && metabolics.playerMetabolics.energy >= metabolics.playerMetabolics.max_energy) {
 			return _toastIfNotNotified("You tried to collect an energy quoin, but your energy tank was already full.");
-		} else if (typeString == 'mystery' && metabolics.playerMetabolics.quoin_multiplier >= constants["quoinMultiplierLimit"]) {
-			return _toastIfNotNotified("Your quoin multiplier is already ${constants["quoinMultiplierLimit"].toString()}x");
-		} else {
+		}  else {
 			return true;
 		}
 	}
@@ -226,8 +224,6 @@ class Quoin {
 				return metabolics.playerMetabolics.mood >= metabolics.playerMetabolics.max_mood;
 			case "energy":
 				return metabolics.playerMetabolics.energy >= metabolics.playerMetabolics.max_energy;
-			case "mystery":
-				return typeString == "mystery" && metabolics.playerMetabolics.quoin_multiplier >= constants["quoinMultiplierLimit"];
 			default:
 				return false;
 		}
