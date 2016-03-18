@@ -250,7 +250,7 @@ class RightClickMenu {
 				}
 
 				if (menuitem.classes.contains("RCItemDisabled")) {
-					toast((option[0] as String).split("|")[4]);
+					new Toast((option[0] as String).split("|")[4]);
 				}
 			});
 

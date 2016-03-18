@@ -45,6 +45,8 @@ class InvDragging {
 
 	/// Set up event listeners based on the current inventory
 	static void init() {
+		print("init");
+
 		if (_refresh == null) {
 			_refresh = new Service(["inventoryUpdated"], (_) => init());
 		}
@@ -74,6 +76,8 @@ class InvDragging {
 
 	/// Runs when an item is picked up (drag start)
 	static void handlePickup(DraggableEvent e) {
+		print("picked up");
+
 		_origBox = e.draggableElement.parent;
 		e.draggableElement.dataset["from-index"] = _origBox.dataset["slot-num"];
 		e.draggableElement.dataset['from-bag-index'] = '-1';
@@ -92,6 +96,8 @@ class InvDragging {
 
 	/// Runs when an item is dropped (drop)
 	static void handleDrop(DropzoneEvent e) {
+		print("dropped");
+
 		if (querySelector("#windowHolder").contains(e.dropzoneElement)) {
 			_move["toIndex"] = int.parse(e.dropzoneElement.parent.parent.dataset["source-bag"]);
 			_move["toBagIndex"] = int.parse(e.dropzoneElement.dataset["slot-num"]);

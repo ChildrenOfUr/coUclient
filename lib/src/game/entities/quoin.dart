@@ -141,7 +141,7 @@ class Quoin {
 			// Not notified yet?
 			if (!_checkNotified(key ?? typeString)) {
 				// Send message
-				toast(message);
+				new Toast(message);
 			}
 
 			// Allow single lines in the if bodies below

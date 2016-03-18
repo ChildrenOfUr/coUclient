@@ -88,8 +88,8 @@ class Chat {
 					await this.addMessage("invalid_user", "LocationChangeEvent");
 					// If this is the first one, empty the toast buffer into the chat
 					if (chatToastBuffer.length > 0) {
-						chatToastBuffer.forEach((String message) =>
-							this.addAlert(message, toast: true));
+						chatToastBuffer.forEach((Toast toast) =>
+							this.addAlert(toast));
 						chatToastBuffer.clear();
 					}
 				});
@@ -207,10 +207,10 @@ class Chat {
 			if (game.username != player) {
 				if (player != game.username) {
 					if (message == " joined.") {
-						toast("$player has arrived");
+						new Toast("$player has arrived");
 					}
 					if (message == " left.") {
-						toast("$player left");
+						new Toast("$player left");
 					}
 				}
 			}
@@ -283,11 +283,15 @@ class Chat {
 		}
 	}
 
-	String addAlert(String alert, {bool toast: false, dynamic onClick}) {
+	Element addAlert(dynamic alert) {
+		if (alert is! String && alert is! Toast) {
+			throw new ArgumentError("Parameter alert must be a String or Toast, but it is of type ${alert.runtimeType}");
+		}
+
 		String classes = "system ";
 
-		String randId = "alert-${(random.nextInt(999) + 100).toString()}";
-		void _add() {
+		Element _add() {
+			String randId = "alert-${(random.nextInt(999) + 100).toString()}";
 			String text = '<p class="$classes" id="$randId">$alert</p>';
 			Element dialog = conversationElement.querySelector('.dialog');
 			dialog.appendHtml(parseLocationLinks(text), validator: VALIDATOR);
@@ -296,18 +300,23 @@ class Chat {
 			dialog.scrollTop = dialog.scrollHeight;
 
 			updateChatLocationLinks(dialog);
+
+			return dialog.querySelector("#$randId");
 		}
 
-		if (toast) {
+		if (alert is Toast) {
 			classes += "chat-toast ";
-			new Timer(new Duration(milliseconds: 100), () {
-				_add();
-			});
-		} else {
-			_add();
 		}
 
-		return randId;
+		Element newMessage = _add();
+
+		if (alert is Toast && alert.clickHandler != null) {
+			newMessage
+				..onClick.listen((MouseEvent event) => alert.clickHandler(event))
+				..style.cursor = "pointer";
+		}
+
+		return newMessage;
 	}
 
 	void displayList(List<String> users) {
@@ -427,7 +436,7 @@ class Chat {
 			if (input.value
 				.trim()
 				.length == 0) {
-				toast("You can't send a blank message");
+				new Toast("You can't send a blank message");
 				return;
 			}
 
@@ -435,7 +444,7 @@ class Chat {
 			if (input.value
 				.replaceAll(formatChars, '')
 				.length == 0) {
-				toast("You must have non-formatting content in your message");
+				new Toast("You must have non-formatting content in your message");
 				return;
 			}
 

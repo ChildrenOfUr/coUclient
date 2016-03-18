@@ -148,14 +148,14 @@ class SettingsWindow extends Modal {
 	close() {
 		querySelector("#${id}").hidden = true;
 		if (duplicateKeysFound) {
-			toast(
+			new Toast(
 				"Preferences saved, but you have multiple controls bound to the same key, and this may cause problems! Click here to fix it.",
 				onClick: (_) {
 					open();
 				}
 			);
 		} else {
-			toast("Preferences saved");
+			new Toast("Preferences saved");
 		}
 		super.close();
 	}

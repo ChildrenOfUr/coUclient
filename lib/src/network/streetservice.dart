@@ -76,9 +76,9 @@ class StreetService {
 				}
 			}
 			playerList = playerList.substring(0, playerList.length - 2);
-			toast("Players on this street: " + playerList);
+			new Toast("Players on this street: " + playerList);
 		} else {
-			toast("You're the first one here!");
+			new Toast("You're the first one here!");
 		}
 
 		return true;

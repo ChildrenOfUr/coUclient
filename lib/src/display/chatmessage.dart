@@ -106,7 +106,7 @@ class ChatMessage {
 
 List<String> EMOTICONS;
 List<Chat> openConversations = [];
-List<String> chatToastBuffer = [];
+List<Toast> chatToastBuffer = [];
 
 // global functions
 

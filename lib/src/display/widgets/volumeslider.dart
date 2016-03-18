@@ -24,12 +24,12 @@ class VolumeSliderWidget
 			if(muted == true) {
 				muted = false;
 				if (doToasts) {
-					toast("Sound unmuted");
+					new Toast("Sound unmuted");
 				}
 			} else {
 				muted = true;
 				if (doToasts) {
-					toast("Sound muted");
+					new Toast("Sound muted");
 				}
 			}
 

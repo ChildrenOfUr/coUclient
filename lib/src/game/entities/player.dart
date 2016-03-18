@@ -176,13 +176,13 @@ class Player {
 			new Notification(
 				"You've lost control!",
 				body: "You left the game window, but you're still moving.",
-				icon: BlogNotifier.ICON_URL
+				icon: Toast.notifIconUrl
 			);
 		}
 
 		if (inputManager.windowFocused && lostFocus) {
 			lostFocus = false;
-			toast("Push 'stuck' keys to fix them.");
+			new Toast("Push 'stuck' keys to fix them.");
 		}
 
 		if (doPhysicsApply && inputManager.downKey == false && inputManager.upKey == false) {

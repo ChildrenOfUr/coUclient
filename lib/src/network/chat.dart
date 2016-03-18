@@ -13,7 +13,7 @@ class NetChatManager {
         transmit('outgoingChatEvent', {'statusMessage':'pong'});
       } else if (event["muted"] != null) {
         if (event["toastClick"] == "__EMAIL_COU__") {
-          toast(event["toastText"], onClick: (_) {
+          new Toast(event["toastText"], onClick: (_) {
             window.open("mailto:publicrelations@childrenofur.com", "_blank");
           });
         }

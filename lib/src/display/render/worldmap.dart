@@ -305,7 +305,7 @@ class WorldMap {
 						bool awaitingLoad = true;
 						new Service(["streetLoaded"], (_) {
 							if (awaitingLoad) {
-								toast("-50 energy for teleporting");
+								new Toast("-50 energy for teleporting");
 								awaitingLoad = false;
 							}
 						});

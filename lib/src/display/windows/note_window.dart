@@ -52,7 +52,7 @@ class NoteWindow extends Modal {
 			(displayElement.querySelector(".notewindow-write-title") as TextInputElement).value = note["title"];
 			(displayElement.querySelector(".notewindow-write-body") as TextAreaElement).value = note["body"];
 		} else {
-			toast("You cannot edit someone else's note");
+			new Toast("You cannot edit someone else's note");
 		}
 	}
 

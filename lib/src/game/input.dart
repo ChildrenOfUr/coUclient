@@ -683,7 +683,7 @@ class InputManager {
 				keys.add(e.keyCode);
 
 				if (keys.toString().indexOf(konami) >= 0) {
-					toast("Your next teleport is free!");
+					new Toast("Your next teleport is free!");
 					konamiDone = true;
 				}
 			}

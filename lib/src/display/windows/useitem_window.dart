@@ -403,7 +403,7 @@ class UseWindow extends Modal {
 
 	updateRecipes([bool notify = true]) async {
 		if (notify) {
-			toast("Reading recipe book...");
+			new Toast("Reading recipe book...");
 		}
 		recipeList = await JSON.decode(await HttpRequest.requestCrossOrigin(
 			"http://${Configs.utilServerAddress}/recipes/list?token=$rsToken&tool=$itemType&email=${game.email}"));
