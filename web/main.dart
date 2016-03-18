@@ -283,24 +283,40 @@ afterPolymer() async {
 	//make sure the application cache is up to date
 	handleAppCache();
 
-	//read configs
-	await Configs.init();
-	startTime = new DateTime.now();
-	view = new UserInterface();
-	audio = new SoundManager();
-	windowManager = new WindowManager();
-	auth = new AuthManager();
-	minimap = new Minimap();
-	GPS.initWorldGraph();
-	InvDragging.init();
+	try {
+		//read configs
+		await Configs.init();
+		startTime = new DateTime.now();
+		view = new UserInterface();
+		audio = new SoundManager();
+		windowManager = new WindowManager();
+		auth = new AuthManager();
+		minimap = new Minimap();
+		GPS.initWorldGraph();
+		InvDragging.init();
+	} catch(e) {
+		logmessage("Error reading configs: $e");
+		new Toast(
+			"OH NO! There was an error, so you should click here to reload."
+			" If you see this several times, please file a bug report.",
+			onClick: (_) => hardReload()
+		);
+	}
 
-	// Download the latest map data
-	mapData = await new MapData()
-		..init();
-	// Make sure we have an up-to-date (1 day expiration) item cache
-	await Item.loadItems();
-	// Download constants
-	constants = JSON.decode(await HttpRequest.getString("http://${Configs.utilServerAddress}/constants/json"));
+	try {
+		// Download the latest map data
+		mapData = await new MapData()
+			..init();
+
+		// Make sure we have an up-to-date (1 day expiration) item cache
+		await Item.loadItems();
+
+		// Download constants
+		constants = JSON.decode(await HttpRequest.getString("http://${Configs.utilServerAddress}/constants/json"));
+	} catch(e) {
+		logmessage("Error loading server data: $e");
+		serverDown = true;
+	}
 
 	// System
 	new ClockManager();
@@ -311,6 +327,12 @@ afterPolymer() async {
 
 	// Check the blog
 	BlogNotifier.refresh();
+}
+
+// Clear cache with JS reload
+
+void hardReload() {
+	context["location"].callMethod("reload", [true]);
 }
 
 // Set up resource/asset caching
