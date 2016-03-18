@@ -11,10 +11,15 @@ Map<String, Function> COMMANDS = {};
 class CommandManager {
   CommandManager() {
 
-    COMMANDS['follow'] = (noun) => toast(CurrentPlayer.followPlayer(noun.trim()));
+    COMMANDS['follow'] = (noun) => new Toast(CurrentPlayer.followPlayer(noun.trim()));
+    COMMANDS["help"] = (_) => new Toast(
+        "Available commands: " +
+            COMMANDS.keys.toList().toString().replaceAll("[", "").replaceAll("]", "")
+    );
     COMMANDS['interface'] = changeInterface;
     COMMANDS['playsong'] = (noun) => transmit('playSong', noun);
     COMMANDS['playsound'] = (noun) => transmit('playSound', noun);
+    COMMANDS["reload"] = (_) => hardReload();
 
     if (Configs.testing) {
       COMMANDS
@@ -52,17 +57,21 @@ changeInterface(var type) {
   if (type == "desktop") {
     (querySelector("#MobileStyle") as StyleElement).disabled = true;
     localStorage['interface'] = 'desktop';
-    toast('Switched to desktop view');
+    new Toast('Switched to desktop view');
   } else if (type == "mobile") {
     (querySelector("#MobileStyle") as StyleElement).disabled = false;
     localStorage['interface'] = 'mobile';
-    toast('Switched to mobile view');
+    new Toast('Switched to mobile view');
   } else {
-    toast('Interface type must be either desktop or mobile, ' + type + ' is invalid');
+    new Toast('Interface type must be either desktop or mobile, ' + type + ' is invalid');
   }
 }
 
 /////////////////////////////////// TESTING ONLY
+
+toast(String text) {
+  new Toast(text);
+}
 
 go(String tsid) {
   tsid = tsid.trim();
@@ -95,27 +104,27 @@ toggleCollisionLines(_) {
   if (showCollisionLines) {
     showCollisionLines = false;
     hideLineCanvas();
-    toast('Collision lines hidden');
+    new Toast('Collision lines hidden');
   }
   else {
     showCollisionLines = true;
     showLineCanvas();
-    toast('Collision lines shown');
+    new Toast('Collision lines shown');
   }
 }
 
 togglePhysics(_) {
   if (CurrentPlayer.doPhysicsApply) {
     CurrentPlayer.doPhysicsApply = false;
-    toast('Physics no longer apply to you');
+    new Toast('Physics no longer apply to you');
   } else {
     CurrentPlayer.doPhysicsApply = true;
-    toast('Physics apply to you');
+    new Toast('Physics apply to you');
   }
 }
 
 setMusic(String song) {
-  toast("Music set to $song");
+  new Toast("Music set to $song");
   audio.setSong(song);
 }
 
