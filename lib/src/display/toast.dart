@@ -2,7 +2,7 @@ part of couclient;
 
 class Toast {
 	/// In-game toasts panel
-	static final Element toastContainer = querySelector("#toastHolder");
+	static final Element _toastContainer = querySelector("#toastHolder");
 
 	/// Icon URL for system notifications
 	static const notifIconUrl = "http://childrenofur.com/assets/icon_72.png";
