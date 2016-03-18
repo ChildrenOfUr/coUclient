@@ -88,8 +88,7 @@ abstract class Entity {
 						error = getRequirementString(actionMap['requires']);
 					}
 				}
-
-				actions.add([capitalizeFirstLetter(actionMap['action']) + "|" + actionMap['actionWord'] + "|${actionMap['timeRequired']}|$enabled|$error|${actionMap['multiEnabled']}", element.id, "sendAction ${actionMap['action']} ${element.id}"]);
+				actions.add([capitalizeFirstLetter(actionMap['action']) + "|" + actionMap['actionWord'] + "|${actionMap['timeRequired']}|$enabled|$error|${actionMap['multiEnabled']}", element.id, "sendAction ${actionMap['action']} ${element.id}|${actionMap["associatedSkill"]}"]);
 			});
 		}
 

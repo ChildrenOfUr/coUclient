@@ -29,9 +29,11 @@ class SkillIndicator {
 			if (skill != null) {
 				// Prepare
 
+				num heightPercent = ((skill["player_points"] / skill["player_nextPoints"]) * 100).clamp(20, 100);
+
 				fill = new DivElement()
 					..classes = ["skillindicator-fill"]
-					..style.height = "${(skill["player_points"] / skill["player_nextPoints"]) * 100}%"
+					..style.height = "calc($heightPercent% - 10px)"
 					..style.backgroundImage = "url(${skill["player_iconUrl"]})";
 
 				parent = new DivElement()

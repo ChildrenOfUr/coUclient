@@ -49,7 +49,7 @@ class ActionBubble {
 		fill.style.width = '${outlineWidth}px';
 
 		if (assocSkill != null) {
-			new SkillIndicator(assocSkill);
+			assocSkillIndicator = new SkillIndicator(assocSkill);
 		}
 
 		occuring = true;

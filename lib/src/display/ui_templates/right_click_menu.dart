@@ -262,8 +262,7 @@ class RightClickMenu {
 
 						bool completed = true;
 						if (timeRequired > 0) {
-							// TODO: pass an additional argument below (associatedSkill in the actions map, line 101 above)
-							ActionBubble actionBubble = new ActionBubble((option[0] as String).split("|")[1], timeRequired);
+							ActionBubble actionBubble = new ActionBubble((option[0] as String).split("|")[1], timeRequired, (option[2] as String).split("|")[1]);
 							completed = await actionBubble.wait;
 						}
 
