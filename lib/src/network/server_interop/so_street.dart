@@ -106,6 +106,11 @@ _setupStreetSocket(String streetName) {
 			return;
 		}
 
+		if (map["buff"] != null) {
+			new Buff.fromMap(map["buff"]);
+			return;
+		}
+
 		(map["quoins"] as List).forEach((Map quoinMap) {
 			if (quoinMap["remove"] == "true") {
 				Element objectToRemove = querySelector("#${quoinMap["id"]}");

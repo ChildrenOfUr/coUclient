@@ -109,6 +109,9 @@ class Game {
 		if (localStorage.containsKey("gps_navigating")) {
 			GPS.getRoute(currentStreet.label, localStorage["gps_navigating"]);
 		}
+
+		// Load buffs
+		Buff._loadExisting();
 	}
 
 	// GAME LOOP //

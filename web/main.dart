@@ -112,6 +112,8 @@ part 'package:couclient/src/display/meters.dart';
 
 part 'package:couclient/src/display/toast.dart';
 
+part 'package:couclient/src/display/buff.dart';
+
 part 'package:couclient/src/systems/audio.dart';
 
 part 'package:couclient/src/display/render.dart';

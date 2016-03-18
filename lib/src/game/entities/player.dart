@@ -227,16 +227,18 @@ class Player {
 		//primitive jumping
 		if (inputManager.jumpKey == true && !jumping && !climbingUp && !climbingDown) {
 			num jumpMultiplier;
-			if (querySelector("#buff-pie") != null) {
+			bool pieBuff = Buff.isRunning("full_of_pie");
+			bool spinachBuff = Buff.isRunning("spinach");
+			if (pieBuff) {
 				jumpMultiplier = 0.65;
-			} else if (querySelector("#buff-spinach") != null) {
+			} else if (spinachBuff) {
 				jumpMultiplier = 1.65;
 			} else {
 				jumpMultiplier = 1;
 			}
 
 			jumping = true;
-			if (canTripleJump) {
+			if (canTripleJump && !(pieBuff || spinachBuff)) {
 				if (jumpTimer == null) {
 					// start timer
 					jumpTimer = new Timer(new Duration(seconds:3), () {

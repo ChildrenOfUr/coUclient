@@ -25,8 +25,6 @@ class CommandManager {
       COMMANDS
         ..['music'] = setMusic
         ..['tp'] = go
-        ..['toast'] = toast
-        ..['buff'] = buff
         ..['collisions'] = toggleCollisionLines
         ..['physics'] = togglePhysics
         ..['log'] = log
@@ -68,10 +66,6 @@ changeInterface(var type) {
 }
 
 /////////////////////////////////// TESTING ONLY
-
-toast(String text) {
-  new Toast(text);
-}
 
 go(String tsid) {
   tsid = tsid.trim();
