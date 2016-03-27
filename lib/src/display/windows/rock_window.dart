@@ -72,7 +72,7 @@ class RockWindow extends Modal {
 					switchContent("rwc-dead");
 					open();
 					// Disable inventory
-					querySelector("#inventory /deep/ #disableinventory").hidden = false;
+					_setInventoryEnabled(false);
 					// Save state
 					deathConvoDone = true;
 				}
@@ -81,7 +81,7 @@ class RockWindow extends Modal {
 					switchContent("rwc-revive");
 					open();
 					// Enable inventory
-					querySelector("#inventory /deep/ #disableinventory").hidden = true;
+					_setInventoryEnabled(true);
 					// Save state
 					reviveConvoDone = true;
 				}
@@ -106,6 +106,16 @@ class RockWindow extends Modal {
 				}
 			}
 		});
+	}
+
+	void _setInventoryEnabled(bool enabled) {
+		querySelector("#inventory /deep/ #disableinventory").hidden = enabled;
+		if(!enabled) {
+			//close all bag windows
+			List<String> openIds = [];
+			BagWindow.openWindows.forEach((BagWindow w) => openIds.add(w.id));
+			openIds.forEach((String id) => BagWindow.closeId(id));
+		}
 	}
 
 	/**
@@ -243,13 +253,7 @@ class RockWindow extends Modal {
 		prepare();
 
 		// Lock/unlock inventory on game load
-		new Service(["gameLoaded"], (_) {
-			if (metabolics.energy == 0) {
-				querySelector("#inventory /deep/ #disableinventory").hidden = false;
-			} else {
-				querySelector("#inventory /deep/ #disableinventory").hidden = true;
-			}
-		});
+		new Service(["gameLoaded"], (_) => _setInventoryEnabled(metabolics.energy != 0));
 
 		// Toggle window by clicking rock
 		setupUiButton(querySelector("#petrock"));
