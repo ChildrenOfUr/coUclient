@@ -65,6 +65,10 @@
     border-radius: 5px;
 }
 
+.darkui .notewindow-write-body {
+    background-image: none;
+}
+
 .notewindow-write *:focus {
     outline: none;
 }

@@ -111,6 +111,16 @@ _setupStreetSocket(String streetName) {
 			return;
 		}
 
+		if (map["note_write"] != null) {
+			new NoteWindow(-1, true);
+			return;
+		}
+
+		if (map["note_response"] != null) {
+			transmit("note_response", map["note_response"]);
+			return;
+		}
+
 		(map["quoins"] as List).forEach((Map quoinMap) {
 			if (quoinMap["remove"] == "true") {
 				Element objectToRemove = querySelector("#${quoinMap["id"]}");
