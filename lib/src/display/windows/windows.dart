@@ -73,6 +73,10 @@ abstract class Modal extends InformationDisplay {
 	StreamSubscription escListener;
 
 	open({bool ignoreKeys: false}) {
+		if(displayElement == null) {
+			return;
+		}
+
 		inputManager.ignoreKeys = ignoreKeys;
 		displayElement.hidden = false;
 		elementOpen = true;
@@ -80,6 +84,10 @@ abstract class Modal extends InformationDisplay {
 	}
 
 	close() {
+		if(displayElement == null) {
+			return;
+		}
+
 		inputManager.ignoreKeys = false;
 		_destroyEscListener();
 		displayElement.hidden = true;
@@ -175,26 +183,29 @@ abstract class Modal extends InformationDisplay {
 
 		// DRAGGING ////////////////////////////////////////
 		// init vars
-		if (displayElement.querySelector('header') != null) {
-			int new_x = 0,
-				new_y = 0;
+		Element header = displayElement.querySelector('header');
+		if (header != null) {
 			bool dragging = false;
+			num leftDiff, topDiff;
 
 			// mouse down listeners
 			displayElement.onMouseDown.listen((_) => this.focus());
-			displayElement
-				.querySelector('header')
-				.onMouseDown
-				.listen((_) => dragging = true);
+			header.onMouseDown.listen((MouseEvent e) {
+				dragging = true;
+				Rectangle bounding = displayElement.getBoundingClientRect();
+				leftDiff = e.page.x - bounding.left;
+				topDiff = e.page.y - bounding.top;
+			});
 
 			// mouse is moving
 			document.onMouseMove.listen((MouseEvent m) {
 				if (dragging == true) {
-					new_x += m.movement.x;
-					new_y += m.movement.y;
+					num left = m.page.x - leftDiff;
+					num top = m.page.y - topDiff;
 					displayElement.style
-						..top = 'calc(50% + ${new_y}px)'
-						..left = 'calc(50% + ${new_x}px)';
+						..top = '${top}px'
+						..left = '${left}px'
+						..transform = 'initial';
 				}
 			});
 

@@ -23,6 +23,7 @@ class GroundItem extends Entity {
 			item.classes.add('entity');
 			item.id = map['id'];
 			view.playerHolder.append(item);
+			addingLocks[id] = false;
 		});
 	}
 

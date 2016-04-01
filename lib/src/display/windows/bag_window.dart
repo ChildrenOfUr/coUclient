@@ -112,7 +112,6 @@ class BagWindow extends Modal {
 
 	Future<Element> load(ItemDef sourceItem, [bool full = true]) async {
 		// Header
-
 		Element closeButton, icon, header;
 		SpanElement titleSpan;
 
@@ -158,12 +157,10 @@ class BagWindow extends Modal {
 			}
 		} else {
 			// Bag has contents
-			subSlots = sourceItem.metadata["slots"];
+			subSlots = JSON.decode(sourceItem.metadata["slots"]);
 		}
 
 		if (subSlots.length != sourceItem.subSlots) {
-			print('source count: ${sourceItem.subSlots}');
-			print('list length: ${subSlots.length}');
 			throw new StateError("Number of slots in bag does not match bag size");
 		} else {
 			int slotNum = 0;

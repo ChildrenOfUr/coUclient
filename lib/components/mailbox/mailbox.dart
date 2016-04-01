@@ -55,7 +55,7 @@ class Mailbox extends PolymerElement {
 
 			//don't allow bags with stuff in them, empty bags are fine
 			if (item.isContainer) {
-				for (Map slot in item.metadata['slots']) {
+				for (Map slot in JSON.decode(item.metadata['slots'])) {
 					if (slot['itemType'] != '') {
 						return;
 					}

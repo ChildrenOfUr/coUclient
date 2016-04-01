@@ -37,6 +37,7 @@ class Door extends Entity {
 			view.playerHolder.append(canvas);
 			sourceRect = new Rectangle(0,0,width,height);
 			ready = true;
+			addingLocks[id] = false;
 		});
 	}
 

@@ -151,7 +151,7 @@ int _getNumItems(String item, {int slot: -1, int subSlot: -1, bool includeBroken
 			continue;
 		}
 		if(s.itemType == item) {
-			int durabilityUsed = s.item.metadata['durabilityUsed'] ?? 0;
+			int durabilityUsed = int.parse(s.item.metadata['durabilityUsed'] ?? '0');
 			if(s.item.durability != null && durabilityUsed >= s.item.durability && !includeBroken) {
 				continue;
 			}
@@ -162,7 +162,7 @@ int _getNumItems(String item, {int slot: -1, int subSlot: -1, bool includeBroken
 
 	//add the bag contents
 	playerInventory.slots.where((Slot s) => !s.itemType.isEmpty && s.item.isContainer && s.item.subSlots != null).forEach((Slot s) {
-		String slotsString = JSON.encode(s.item.metadata['slots']);
+		String slotsString = s.item.metadata['slots'];
 		List<Slot> bagSlots = decode(slotsString, type: new TypeHelper<List<Slot>>().type);
 		if (bagSlots != null) {
 			i=0;
@@ -172,7 +172,7 @@ int _getNumItems(String item, {int slot: -1, int subSlot: -1, bool includeBroken
 					continue;
 				}
 				if (bagSlot.itemType == item) {
-					int durabilityUsed = s.item.metadata['durabilityUsed'] ?? 0;
+					int durabilityUsed = int.parse(s.item.metadata['durabilityUsed'] ?? '0');
 					if(s.item.durability != null && durabilityUsed >= s.item.durability && !includeBroken) {
 						continue;
 					}

@@ -2,10 +2,11 @@ part of couclient;
 
 class NPC extends Entity {
 	String type;
-	int speed = 0, ySpeed = 0;
+	int speed = 0,
+		ySpeed = 0;
 	bool ready = false,
-	facingRight = true,
-	firstRender = true;
+		facingRight = true,
+		firstRender = true;
 	Animation animation;
 	ChatBubble chatBubble = null;
 	StreamController _animationLoaded = new StreamController.broadcast();
@@ -43,7 +44,7 @@ class NPC extends Entity {
 				left = num.parse(map['x'].toString());
 				width = map['width'];
 				height = map['height'];
-			} catch(e) {
+			} catch (e) {
 				logmessage("Error animating NPC $id: $e");
 				top = left = width = height = 0;
 			}
@@ -63,8 +64,39 @@ class NPC extends Entity {
 			canvas.attributes['height'] = canvas.height.toString();
 			view.playerHolder.append(canvas);
 			ready = true;
+			addingLocks[id] = false;
 			_animationLoaded.add(true);
 		});
+	}
+
+	void set x(num newX) {
+		if (!ready || (left == newX && !firstRender)) {
+			return;
+		} else {
+			left = newX;
+		}
+
+		_setTranslate();
+	}
+
+	void set y(num newY) {
+		if (!ready || (top == newY && !firstRender)) {
+			return;
+		} else if(ready) {
+			top = newY - (animation.height ?? 0);
+		}
+
+		_setTranslate();
+	}
+
+	_setTranslate() {
+		canvas.attributes['translatex'] = left.toString();
+		canvas.attributes['translatey'] = top.toString();
+		if(facingRight) {
+			canvas.style.transform = "translateX(${left}px) translateY(${top}px) scale3d(1,1,1)";
+		} else {
+			canvas.style.transform = "translateX(${left}px) translateY(${top}px) scale3d(-1,1,1)";
+		}
 	}
 
 	update(double dt) {
@@ -73,6 +105,10 @@ class NPC extends Entity {
 		}
 
 		super.update(dt);
+
+//		if(firstRender) {
+//			_setTranslate();
+//		}
 
 		RegExp movementWords = new RegExp(r'(walk|fly|move|swim)');
 		if (firstRender || animation.url.contains(movementWords)) {
@@ -94,6 +130,8 @@ class NPC extends Entity {
 			canvas.attributes['translatey'] = top.toString();
 
 			if (facingRight) {
+				if(canvas.attributes['type'] == 'piggy')
+					print('translate string: ' + "translateX(${left}px) translateY(${top}px) scale3d(1,1,1)");
 				canvas.style.transform = "translateX(${left}px) translateY(${top}px) scale3d(1,1,1)";
 			} else {
 				canvas.style.transform = "translateX(${left}px) translateY(${top}px) scale3d(-1,1,1)";
@@ -134,7 +172,7 @@ class NPC extends Entity {
 			}
 
 			canvas.context2D.drawImageToRect(animation.spritesheet, destRect,
-			                                 sourceRect: animation.sourceRect);
+				                                 sourceRect: animation.sourceRect);
 			animation.dirty = false;
 			dirty = false;
 		}

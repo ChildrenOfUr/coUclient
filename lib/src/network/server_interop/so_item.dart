@@ -82,7 +82,7 @@ Future findNewSlot(Slot slot, int index, {bool update: false}) async {
 				if (containerButton.classes.contains("item-container-closed")) {
 					// Container is closed, open it
 					// Open the bag window
-					new BagWindow(index, item, id:bagWindowId).id;
+					new BagWindow(index, item, id:bagWindowId);
 					// Update the slot display
 					BagWindow.updateTriggerBtn(false, itemDiv);
 				} else {
@@ -112,7 +112,7 @@ Future sizeItem(ImageElement img, Element itemDiv, Element slot, ItemDef item, i
 		cssClass = 'item-${item.itemType} inventoryItem';
 	}
 	String url = item.spriteUrl;
-	int used = item.metadata['durabilityUsed'] ?? 0;
+	int used = int.parse(item.metadata['durabilityUsed'] ?? '0');
 	if(item.durability != null && used >= item.durability) {
 		url = item.brokenUrl;
 	}
@@ -142,7 +142,7 @@ Future sizeItem(ImageElement img, Element itemDiv, Element slot, ItemDef item, i
 	}
 
 	if(item.durability != null) {
-		int durabilityUsed = item.metadata['durabilityUsed'] ?? 0;
+		int durabilityUsed = int.parse(item.metadata['durabilityUsed'] ?? '0');
 		int durabilityPercent = (((item.durability - durabilityUsed) / item.durability) * 100).round().clamp(0, 100);
 
 		DivElement durabilityBackground = new DivElement()
@@ -171,7 +171,7 @@ Future sizeItem(ImageElement img, Element itemDiv, Element slot, ItemDef item, i
 				}
 
 				ItemDef item = indexToItem['item'];
-				int durabilityUsed = item.metadata['durabilityUsed'] ?? 0;
+				int durabilityUsed = int.parse(item.metadata['durabilityUsed'] ?? '0');
 				num percent = ((item.durability-durabilityUsed)/item.durability)*100;
 				durabilityBar..style.width = '$percent%';
 				if(percent == 0) {

@@ -11,6 +11,7 @@ bool reconnect = true,
 Map<String, Player> otherPlayers = new Map();
 Map<String, Quoin> quoins = new Map();
 Map<String, Entity> entities = new Map();
+Map<String, bool> addingLocks = {};
 
 multiplayerInit() {
 	_setupPlayerSocket();
@@ -18,31 +19,66 @@ multiplayerInit() {
 }
 
 void addQuoin(Map map) {
+	String id = map['id'];
+	if(addingLocks[id] ?? false) {
+		return;
+	}
+
+	addingLocks[id] = true;
+
 	if (currentStreet != null) {
-		quoins[map['id']] = new Quoin(map);
+		quoins[id] = new Quoin(map);
 	}
 }
 
 void addNPC(Map map) {
+	String id = map['id'];
+	if(addingLocks[id] ?? false) {
+		return;
+	}
+
+	addingLocks[id] = true;
+
 	if (currentStreet != null) {
-		entities[map['id']] = new NPC(map);
+		entities[id] = new NPC(map);
 	}
 }
 
 void addPlant(Map map) {
+	String id = map['id'];
+	if(addingLocks[id] ?? false) {
+		return;
+	}
+
+	addingLocks[id] = true;
+
 	if (currentStreet != null) {
-		entities[map['id']] = new Plant(map);
+		entities[id] = new Plant(map);
 	}
 }
 
 void addDoor(Map map) {
+	String id = map['id'];
+	if(addingLocks[id] ?? false) {
+		return;
+	}
+
+	addingLocks[id] = true;
+
 	if (currentStreet != null) {
-		entities[map['id']] = new Door(map);
+		entities[id] = new Door(map);
 	}
 }
 
 void addItem(Map map) {
+	String id = map['id'];
+	if(addingLocks[id] ?? false) {
+		return;
+	}
+
+	addingLocks[id] = true;
+
 	if (currentStreet != null) {
-		entities[map['id']] = new GroundItem(map);
+		entities[id] = new GroundItem(map);
 	}
 }

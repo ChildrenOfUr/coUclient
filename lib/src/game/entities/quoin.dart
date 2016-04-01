@@ -90,6 +90,7 @@ class Quoin {
 			..append(parent);
 
 		ready = true;
+		addingLocks[id] = false;
 	}
 
 	update(double dt) {
