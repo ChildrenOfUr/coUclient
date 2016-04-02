@@ -63,6 +63,7 @@ class NoteWindow extends Modal {
 
 			// Show the window
 			displayElement.hidden = false;
+			focus();
 		}
 
 		if (editing != null) {

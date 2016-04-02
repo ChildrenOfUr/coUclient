@@ -289,6 +289,7 @@ sendAction(String methodName, String entityId, [Map arguments]) {
 	map['tsid'] = currentStreet.streetData['tsid'];
 	map['arguments'] = arguments;
 	streetSocket.send(JSON.encode(map));
+	print("SEND: $map");
 }
 
 /**

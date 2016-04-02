@@ -283,6 +283,9 @@ class RightClickMenu {
 									sendAction(functionName, option[1], arguments);
 								}
 							} else {
+								if (item != null) {
+									arguments["itemdata"] = item.metadata;
+								}
 								sendAction(functionName, option[1], arguments);
 							}
 						}

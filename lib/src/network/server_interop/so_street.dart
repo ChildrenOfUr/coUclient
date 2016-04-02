@@ -122,7 +122,7 @@ _setupStreetSocket(String streetName) {
 		}
 
 		if (map["note_read"] != null) {
-			new NoteWindow(map["note_read"]);
+			new NoteWindow(int.parse(map["note_read"]));
 			return;
 		}
 
