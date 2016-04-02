@@ -121,6 +121,11 @@ _setupStreetSocket(String streetName) {
 			return;
 		}
 
+		if (map["note_read"] != null) {
+			new NoteWindow(map["note_read"]);
+			return;
+		}
+
 		(map["quoins"] as List).forEach((Map quoinMap) {
 			if (quoinMap["remove"] == "true") {
 				Element objectToRemove = querySelector("#${quoinMap["id"]}");

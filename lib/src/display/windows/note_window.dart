@@ -87,11 +87,16 @@ class NoteWindow extends Modal {
 
 			// Listen for the server's response to edits
 			new Service("note_response", (Map response) {
-				note["id"] = response["id"];
-				note["title"] = response["title"];
-				note["body"] = response["body"];
-				note["timestamp"] = response["timestamp"];
-				EditMode_Exit();
+				if (response["error"] == null) {
+					note["id"] = response["id"];
+					note["title"] = response["title"];
+					note["body"] = response["body"];
+					note["timestamp"] = response["timestamp"];
+					EditMode_Exit();
+				} else {
+					close();
+					new Toast(response["error"]);
+				}
 			});
 		}
 	}
