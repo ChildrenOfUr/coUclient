@@ -13,7 +13,7 @@ class Buff {
 	}
 
 	/// Download existing buffs from server
-	static void _loadExisting() {
+	static void loadExisting() {
 		HttpRequest.getString(
 			"http://${Configs.utilServerAddress}/buffs/get/${game.email}"
 		).then((String json) {
