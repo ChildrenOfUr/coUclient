@@ -111,7 +111,10 @@ class Game {
 		}
 
 		// Load buffs
-		Buff._loadExisting();
+		Buff.loadExisting();
+
+		// Load skills
+		Skills.loadData();
 	}
 
 	// GAME LOOP //

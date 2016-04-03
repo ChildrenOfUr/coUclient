@@ -95,8 +95,10 @@ class NoteWindow extends Modal {
 					note["timestamp"] = response["timestamp"];
 					EditMode_Exit();
 				} else {
-					close();
-					new Toast(response["error"]);
+					if (elementOpen) {
+						close();
+						new Toast(response["error"]);
+					}
 				}
 			});
 		}
@@ -132,7 +134,10 @@ class NoteWindow extends Modal {
 
 		// Handle user-specific content
 		if (isWriter) {
-			readEditBtn.hidden = false;
+			// You can only edit skills with Perpersonship
+			Map penSkill = Skills.getSkill("penpersonship");
+			readEditBtn.hidden = !(penSkill != null && penSkill["player_level"] == 1);
+
 			readUser.text = "You";
 			readEditBtn.onClick.first.then((_) => EditMode_Enter());
 		} else {
