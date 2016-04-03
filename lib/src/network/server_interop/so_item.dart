@@ -40,7 +40,7 @@ void itemContextMenu(ItemDef i, String slot, MouseEvent event) {
 			            ]);
 		});
 	}
-	Element menu = RightClickMenu.create(event, i.name, i.description, actions, item: i);
+	Element menu = RightClickMenu.create(event, i.metadata["title"] ?? i.name, i.description, actions, item: i);
 	document.body.append(menu);
 }
 
@@ -50,7 +50,7 @@ Future findNewSlot(Slot slot, int index, {bool update: false}) async {
 
 	//decide what image to used based on durability state
 	String url = item.spriteUrl;
-	int used = item.metadata['durabilityUsed'] ?? 0;
+	int used = int.parse(item.metadata['durabilityUsed'] ?? "0");
 	if(item.durability != null && used >= item.durability) {
 		print('item.brokenUrl: ${item.brokenUrl}');
 		url = item.brokenUrl;

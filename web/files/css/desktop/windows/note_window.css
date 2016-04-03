@@ -11,7 +11,7 @@
 
 .notewindow-read-editbtn {
     position: absolute;
-    top: 0;
+    bottom: 8px;
     right: 5px;
 }
 
@@ -25,7 +25,8 @@
 }
 
 .notewindow-read-footer {
-    padding-top: 10px;
+    padding-top: 5px;
+    padding-left: 2px;
 }
 
 .notewindow-read-footer a {
@@ -40,7 +41,7 @@
 /* Write Mode */
 
 .notewindow-write-title {
-    width: calc(100% - 20px);
+    width: calc(100% - 25px);
     height: 30px;
     padding: 0 10px;
     font-weight: bold;
@@ -57,8 +58,8 @@
     height: 205px;
     font-size: 16px;
     line-height: 24px;
-    margin: 10px 0;
-    width: calc(100% - 20px);
+    margin: 8px 0;
+    width: calc(100% - 25px);
     resize: none;
     cursor: text;
     border: 2px solid rgba(0, 0, 0, 0.1);
