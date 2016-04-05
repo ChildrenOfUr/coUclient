@@ -21,6 +21,16 @@ class Buff {
 		});
 	}
 
+	/// Un-display a buff
+	static bool removeBuff(String buffId) {
+		if (!isRunning(buffId)) {
+			return false;
+		} else {
+			_running[buffId].remove();
+			return true;
+		}
+	}
+
 	/// Display a buff
 	Buff(this.id, this.name, this.description, this.length, this.remaining) {
 		_running.addAll({id: this});
@@ -38,6 +48,9 @@ class Buff {
 			new Duration(seconds: map["player_remaining"])
 		);
 	}
+
+	/// Whether it has already been removed
+	bool exists = true;
 
 	/// Add to panel
 	void _display() {
@@ -72,9 +85,22 @@ class Buff {
 		_buffContainer.append(buffElement);
 
 		// Animate closing
-		new Timer(new Duration(milliseconds: length.inMilliseconds - 500), () => buffElement.style.opacity = "0");
-		new Timer(new Duration(milliseconds: length.inMilliseconds), () => buffElement.remove());
+		new Timer(new Duration(milliseconds: length.inMilliseconds - 500), () {
+			if (exists) {
+				_elementHide();
+				exists = false;
+			}
+		});
+		new Timer(new Duration(milliseconds: length.inMilliseconds), () {
+			if (exists) {
+				_elementRemove();
+				exists = false;
+			}
+		});
 	}
+
+	String _elementHide() => buffElement.style.opacity = "0";
+	void _elementRemove() => buffElement.remove();
 
 	/// Start the decreasing progress bar
 	void _animate() {
@@ -88,10 +114,17 @@ class Buff {
 					.style.width = "calc($width% - 6px)";
 			} else {
 				stopwatch.stop();
-				timer.cancel();
-				_running.remove(id);
+				remove();
 			}
 		});
+	}
+
+	/// Remove from panel and memory
+	void remove() {
+		_elementHide();
+		_elementRemove();
+		timer.cancel();
+		_running.remove(id);
 	}
 
 	String id, name, description;

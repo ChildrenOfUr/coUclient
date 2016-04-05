@@ -111,6 +111,11 @@ _setupStreetSocket(String streetName) {
 			return;
 		}
 
+		if (map["buff_remove"] != null) {
+			Buff.removeBuff(map["buff_remove"]);
+			return;
+		}
+
 		if (map["note_write"] != null) {
 			new NoteWindow(-1, true);
 			return;

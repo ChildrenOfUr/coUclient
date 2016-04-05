@@ -471,7 +471,12 @@ class Player {
 				playerCanvas.height = currentAnimation.height;
 				int x = -((currentAnimation.width - width) ~/ 2);
 				int y = -((currentAnimation.height - height));
-				playerCanvas.style.transform = "translateX(${x}px) translateY(${y}px)";
+				playerCanvas.style.transform = "translateX(${x}px) translateY(${(Buff.isRunning("grow") ? y - 30 : y)}px)";
+				if (Buff.isRunning("grow")) {
+					playerCanvas.style.transform += " scale(1.5)";
+				} else if (Buff.isRunning("shrink")) {
+					playerCanvas.style.transform += " scale(0.75)";
+				}
 			}
 			else
 				playerCanvas.context2D.clearRect(0, 0, currentAnimation.width, currentAnimation.height);
