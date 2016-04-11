@@ -33,8 +33,6 @@ class ItemChooser {
 
 	_addItems(List<Slot> slots, filter, Element itemHolder) {
 		List<String> addedTypes = [];
-		List<String> filterData = filter.split('=');
-		RegExp filterMatch = new RegExp(filterData[1], caseSensitive: false);
 
 		for(Slot slot in slots) {
 			ItemDef item = slot.item;
@@ -42,11 +40,21 @@ class ItemChooser {
 				continue;
 			}
 			if(item.isContainer) {
-				String slotsString = JSON.encode(item.metadata['slots']);
+				String slotsString = item.metadata['slots'];
 				List<Slot> bagSlots = decode(slotsString, type: new TypeHelper<List<Slot>>().type);
 				_addItems(bagSlots, filter, itemHolder);
 			}
-			if(!filterMatch.hasMatch(JSON.decode(encode(item))[filterData[0]])) {
+
+			bool noMatch = false;
+			for (String filter in filter.split('|||')) {
+				List<String> filterData = filter.split('=');
+				RegExp filterMatch = new RegExp(filterData[1], caseSensitive: false);
+				if(!filterMatch.hasMatch(JSON.decode(encode(item))[filterData[0]].toString())) {
+					noMatch = true;
+					break;
+				}
+			}
+			if(noMatch) {
 				continue;
 			}
 

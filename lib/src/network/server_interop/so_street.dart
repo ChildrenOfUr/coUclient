@@ -26,7 +26,7 @@ bool _metadataEqual(Map metaA, Map metaB) {
 
 _setupStreetSocket(String streetName) {
 	//start a timer for a few seconds and then show the server down message if not canceled
-	Timer serverDownTimer = new Timer(new Duration(seconds:10), () {
+	Timer serverDownTimer = new Timer(new Duration(seconds: 10), () {
 		querySelector('#server-down').hidden = false;
 		serverDown = true;
 	});
@@ -128,6 +128,40 @@ _setupStreetSocket(String streetName) {
 
 		if (map["note_read"] != null) {
 			new NoteWindow(int.parse(map["note_read"]));
+
+			return;
+		}
+
+		if (map['npcMove'] != null) {
+			for (Map npcMap in map['npcs'] as List<Map>) {
+				NPC npc = entities[npcMap["id"]];
+				if (npc == null) {
+					return;
+				}
+
+				npc.facingRight = npcMap["facingRight"];
+				npc.ySpeed = npcMap['ySpeed'];
+				npc.speed = npcMap['speed'];
+
+				npc.x = npcMap['x'];
+				npc.y = npcMap['y'];
+
+				//new animation
+				if (npc.ready && npc.animation.animationName != npcMap["animation_name"]) {
+					npc.ready = false;
+
+					List<int> frameList = [];
+					for (int i = 0; i < npcMap['numFrames']; i++) {
+						frameList.add(i);
+					}
+
+					npc.animation = new Animation(npcMap['url'], npcMap['animation_name'],
+						                              npcMap['numRows'], npcMap['numColumns'], frameList,
+						                              loops: npcMap['loops']);
+					npc.animation.load().then((_) => npc.ready = true);
+				}
+			}
+
 			return;
 		}
 
@@ -188,24 +222,6 @@ _setupStreetSocket(String streetName) {
 			else {
 				element.attributes['actions'] = JSON.encode(npcMap['actions']);
 				if (npc != null) {
-					//new animation
-					if (npc.animation.animationName != npcMap["animation_name"]) {
-						npc.ready = false;
-
-						List<int> frameList = [];
-						for (int i = 0; i < npcMap['numFrames']; i++) {
-							frameList.add(i);
-						}
-
-						npc.animation = new Animation(npcMap['url'], npcMap['animation_name'],
-						                              npcMap['numRows'], npcMap['numColumns'], frameList,
-						                              loops: npcMap['loops']);
-						npc.animation.load().then((_) => npc.ready = true);
-					}
-
-					npc.facingRight = npcMap["facingRight"];
-					npc.ySpeed = npcMap['ySpeed'];
-					npc.speed = npcMap['speed'];
 					_updateChatBubble(npcMap, npc);
 				}
 			}

@@ -135,8 +135,6 @@ class VendorWindow extends Modal {
 		buyListener?.cancel();
 		buyNumListener?.cancel();
 
-		print('blankSlots: ${util.getBlankSlots(item)}');
-
 		// toggle the tabs
 		buy.hidden = true;
 		this.displayElement.querySelector('#buy-qty').hidden = false;

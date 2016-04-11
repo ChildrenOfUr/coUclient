@@ -13,18 +13,9 @@ class NPC extends Entity {
 
 	Stream get onAnimationLoaded => _animationLoaded.stream;
 
-	factory NPC(Map map) {
-		if (map['type'].contains('Street Spirit')) {
-			return new StreetSpirit(map);
-		}
-		return new NPC._NPC(map);
-	}
-
-	NPC._NPC(Map map) {
+	NPC(Map map) {
 		speed = map['speed'];
-
 		ySpeed = map['ySpeed'] ?? 0;
-
 		type = map['type'];
 
 		List<int> frameList = [];
@@ -40,8 +31,8 @@ class NPC extends Entity {
 			id = map['id'];
 
 			try {
-				top = num.parse(map['y'].toString()) - animation.height;
-				left = num.parse(map['x'].toString());
+				top = map['y'] - animation.height;
+				left = map['x'];
 				width = map['width'];
 				height = map['height'];
 			} catch (e) {
@@ -75,8 +66,6 @@ class NPC extends Entity {
 		} else {
 			left = newX;
 		}
-
-		_setTranslate();
 	}
 
 	void set y(num newY) {
@@ -85,8 +74,6 @@ class NPC extends Entity {
 		} else if(ready) {
 			top = newY - (animation.height ?? 0);
 		}
-
-		_setTranslate();
 	}
 
 	_setTranslate() {
@@ -100,43 +87,13 @@ class NPC extends Entity {
 	}
 
 	update(double dt) {
-		if (!ready || currentStreet == null) {
+		if (currentStreet == null || canvas == null) {
 			return;
 		}
 
 		super.update(dt);
 
-//		if(firstRender) {
-//			_setTranslate();
-//		}
-
-		RegExp movementWords = new RegExp(r'(walk|fly|move|swim)');
-		if (firstRender || animation.url.contains(movementWords)) {
-			if(facingRight) {
-				left += speed * dt;
-			} else {
-				left -= speed * dt;
-			}
-			top += ySpeed * dt;
-
-			if (left < 0) {
-				left = 0.0;
-			}
-			if (left > currentStreet.bounds.width - canvas.width) {
-				left = (currentStreet.bounds.width - canvas.width).toDouble();
-			}
-
-			canvas.attributes['translatex'] = left.toString();
-			canvas.attributes['translatey'] = top.toString();
-
-			if (facingRight) {
-				if(canvas.attributes['type'] == 'piggy')
-					print('translate string: ' + "translateX(${left}px) translateY(${top}px) scale3d(1,1,1)");
-				canvas.style.transform = "translateX(${left}px) translateY(${top}px) scale3d(1,1,1)";
-			} else {
-				canvas.style.transform = "translateX(${left}px) translateY(${top}px) scale3d(-1,1,1)";
-			}
-		}
+		_setTranslate();
 
 		if (intersect(camera.visibleRect, entityRect)) {
 			animation.updateSourceRect(dt);

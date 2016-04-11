@@ -14,32 +14,27 @@ class Animation
 
 	Animation(this.url,this.animationName,this.numRows,this.numColumns,this.frameList,{this.fps : 30, this.loopDelay : null, this.delayInitially : false, this.loops : true});
 
-	Future<Animation> load()
-	{
-		if(loopDelay == null)
-			loopDelay = new Duration(milliseconds:0);
+	Future load() async {
+		if(loopDelay == null) {
+			loopDelay = new Duration(milliseconds: 0);
+		}
 
-		if(!delayInitially)
+		if(!delayInitially) {
 			delayConsumed = loopDelay.inMilliseconds.toDouble();
-
-		Completer c = new Completer();
+		}
 
 		//need to get the avatar background image size dynamically
 		//because we cannot guarentee that every glitchen has the same dimensions
 		//additionally each animation sprite has different dimensions even for the same glitchen
 		spritesheet = new ImageElement(src: url.replaceAll("\"", ""));
-		spritesheet.onLoad.listen((_)
-		{
-			width = spritesheet.width~/numColumns;
-			height = spritesheet.height~/numRows;
+		await spritesheet.onLoad.first;
 
-			sourceRect = new Rectangle(0,0,width,height);
+		width = spritesheet.naturalWidth~/numColumns;
+		height = spritesheet.naturalHeight~/numRows;
 
-			loaded = true;
-			c.complete(this);
-		});
+		sourceRect = new Rectangle(0,0,width,height);
 
-		return c.future;
+		loaded = true;
 	}
 
 	reset()

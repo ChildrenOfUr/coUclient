@@ -553,7 +553,7 @@ class InputManager {
 			if(element.classes.contains(className)) {
 				//click the hard way so that we have coordinates to go with it
 				Rectangle rect = element.getBoundingClientRect();
-				element.dispatchEvent(new MouseEvent('click', clientX: rect.left+rect.width~/2, clientY: rect.top));
+				element.dispatchEvent(new MouseEvent('click', clientX: (rect.left+rect.width~/2)~/1, clientY: rect.top~/1));
 				break;
 			}
 		}

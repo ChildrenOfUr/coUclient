@@ -87,7 +87,7 @@ class Util {
 			}
 
 			if (s.item.isContainer) {
-				String slotsString = JSON.encode(s.item.metadata['slots']);
+				String slotsString = s.item.metadata['slots'];
 				List<Slot> bagSlots = decode(slotsString, type: new TypeHelper<List<Slot>>().type);
 				if (bagSlots != null) {
 					for(Slot s in bagSlots) {
@@ -121,7 +121,7 @@ class Util {
 			if (!itemMap["isContainer"] && s.item.isContainer) {
 				if(s.item.subSlotFilter.contains(itemMap['itemType']) ||
 				   s.item.subSlotFilter.length == 0) {
-					String slotsString = JSON.encode(s.item.metadata['slots']);
+					String slotsString = s.item.metadata['slots'];
 					List<Slot> bagSlots = decode(slotsString, type: new TypeHelper<List<Slot>>().type);
 					if (bagSlots != null) {
 						for(Slot s in bagSlots) {
