@@ -134,7 +134,7 @@ class NoteWindow extends Modal {
 
 		// Handle user-specific content
 		if (isWriter) {
-			// You can only edit skills with Perpersonship
+			// You can only edit notes with Perpersonship
 			Map penSkill = Skills.getSkill("penpersonship");
 			readEditBtn.hidden = !(penSkill != null && penSkill["player_level"] == 1);
 
@@ -143,7 +143,7 @@ class NoteWindow extends Modal {
 		} else {
 			readEditBtn.hidden = true;
 			readUser.setInnerHtml(
-				'<a title="Open Profile" href="http://childrenofur.com/profile/?username=${note["writer"]}" target="_blank">${note["writer"]}</a>',
+				'<a title="Open Profile" href="http://childrenofur.com/profile/?username=${note["username"]}" target="_blank">${note["username"]}</a>',
 				validator: Chat.VALIDATOR);
 		}
 
