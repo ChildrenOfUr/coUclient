@@ -182,7 +182,6 @@ class Player {
 
 		if (inputManager.windowFocused && lostFocus) {
 			lostFocus = false;
-			new Toast("Push 'stuck' keys to fix them.");
 		}
 
 		if (doPhysicsApply && inputManager.downKey == false && inputManager.upKey == false) {
