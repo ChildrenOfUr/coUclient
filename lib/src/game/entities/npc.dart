@@ -14,6 +14,7 @@ class NPC extends Entity {
 	Stream get onAnimationLoaded => _animationLoaded.stream;
 
 	NPC(Map map) {
+		canvas = new CanvasElement();
 		speed = map['speed'];
 		ySpeed = map['ySpeed'] ?? 0;
 		type = map['type'];
@@ -28,6 +29,10 @@ class NPC extends Entity {
 			loopDelay: new Duration(milliseconds: map['loopDelay']),
 			loops: map['loops']);
 		animation.load().then((_) {
+			HttpRequest.request('http://${Configs.utilServerAddress}/getActualImageHeight?url=${map['url']}&numRows=${map['numRows']}&numColumns=${map['numColumns']}').then((HttpRequest request) {
+				canvas.attributes['actualHeight'] = request.responseText;
+			});
+
 			id = map['id'];
 
 			try {
@@ -40,7 +45,6 @@ class NPC extends Entity {
 				top = left = width = height = 0;
 			}
 
-			canvas = new CanvasElement();
 			canvas.id = map["id"];
 			canvas.attributes['actions'] = JSON.encode(map['actions']);
 			canvas.attributes['type'] = map['type'];
