@@ -20,6 +20,13 @@ class ImgOverlay extends Overlay {
 
 	ImgOverlay(String id):super(id) {
 		setupKeyBinding("ImgMenu");
+
+		// Repeatedly update
+		new Service(["metabolicsUpdated"], (_) {
+			if (elementOpen) {
+				update();
+			}
+		});
 	}
 
 	Future update() async {
@@ -42,15 +49,6 @@ class ImgOverlay extends Overlay {
 
 		// Open
 		super.open();
-
-		// Repeatedly update
-		new Timer.periodic(update_frequency, (Timer timer) {
-			if (elementOpen) {
-				update();
-			} else {
-				timer.cancel();
-			}
-		});
 	}
 
 	@override
