@@ -173,16 +173,15 @@ class Player {
 
 		if (!inputManager.windowFocused && (moving || jumping || activeClimb) && !lostFocus) {
 			lostFocus = true;
-			new Notification(
-				"You've lost control!",
-				body: "You left the game window, but you're still moving.",
-				icon: Toast.notifIconUrl
-			);
+			
+			// reset all input controls.
+			for (Map control in inputManager.controlCounts.values) {
+				control['keyBool'].value = false;
+			}			
 		}
 
 		if (inputManager.windowFocused && lostFocus) {
 			lostFocus = false;
-			new Toast("Push 'stuck' keys to fix them.");
 		}
 
 		if (doPhysicsApply && inputManager.downKey == false && inputManager.upKey == false) {
