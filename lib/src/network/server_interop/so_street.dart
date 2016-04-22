@@ -67,12 +67,11 @@ _setupStreetSocket(String streetName) {
 			if (map['openWindow'] == 'vendorSell') new VendorWindow().call(map, sellMode: true);
 			if (map['openWindow'] == 'mailbox') new MailboxWindow().open();
 			if (map['openWindow'] == 'itemChooser') {
-				Function feedPig = ({String itemType, int count}) {
+				Function callback = ({String itemType, int count}) {
 					Map arguments = {'itemType':itemType, 'count': count};
-					sendAction('feedItem', map['id'], arguments);
+					sendAction(map["action"], map['id'], arguments);
 				};
-				//feedPig will be called when the itemChooser window (and how many picker) is finished
-				new ItemChooser(map['windowTitle'], feedPig, filter: map['filter']);
+				new ItemChooser(map['windowTitle'], callback, filter: map['filter']);
 			}
 			return;
 		}
