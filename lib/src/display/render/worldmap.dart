@@ -65,7 +65,9 @@ class WorldMap {
 
 		// prepare ui elements
 		view.mapTitle.text = hubInfo['name'];
-		view.mapImg.style.backgroundImage = 'url(' + hubInfo['bg'] + ')';
+		view.mapImg
+			..style.backgroundImage = 'url(' + hubInfo['bg'] + ')'
+			..title = hubInfo["name"];
 		//HubMapFG.style.backgroundImage = "url(" + hubInfo['fg'] + ")";
 		HubMabDiv.children.clear();
 

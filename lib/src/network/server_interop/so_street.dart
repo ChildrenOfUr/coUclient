@@ -67,9 +67,13 @@ _setupStreetSocket(String streetName) {
 			if (map['openWindow'] == 'vendorSell') new VendorWindow().call(map, sellMode: true);
 			if (map['openWindow'] == 'mailbox') new MailboxWindow().open();
 			if (map['openWindow'] == 'itemChooser') {
-				Function callback = ({String itemType, int count}) {
-					Map arguments = {'itemType':itemType, 'count': count};
-					sendAction(map["action"], map['id'], arguments);
+				Function callback = ({String itemType, int count: 1, int slot: -1, int subSlot: -1}) {
+					sendAction(map["action"], map['id'], {
+						'itemType': itemType,
+						'count': count,
+						'slot': slot,
+						'subSlot': subSlot
+					});
 				};
 				new ItemChooser(map['windowTitle'], callback, filter: map['filter']);
 			}
