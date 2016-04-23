@@ -9,15 +9,27 @@ class Toast {
 
 	/// Predefined click functions (pass as onClick)
 	static final Map<String, Function> _clickActions = {
-		"imgmenu": (_) => imgMenu.open()
+		"imgmenu": ({MouseEvent event, String argument}) => imgMenu.open(),
+		"iteminfo": ({MouseEvent event, String argument}) => new ItemWindow(argument)
 	};
+
+	String message;
+	bool skipChat;
+	bool notify;
+	Function clickHandler;
+	String clickArgument;
+	Element toastElement;
+	Element chatElement;
+
+	@override
+	String toString() => message;
 
 	/**
 	 * Creates and displays a Toast.
 	 * [message]: What to say in the toast, chat message, and notification.
 	 * [skipChat]: `true` to disable display in local chat, `false` (default) to act normally and display.
 	 * [notify]: `true` to send a browser notification, `false` (default) to keep inside the client window.
-	 * [onClick]: A clickActions identifier or function, which will be passed the click MouseEvent.
+	 * [onClick]: A clickActions identifier ("name|optional_arg") or function, which will be passed the click MouseEvent.
 	 */
 	Toast(this.message, {this.skipChat, this.notify, dynamic onClick}) {
 		if (skipChat == null) skipChat = false;
@@ -43,14 +55,18 @@ class Toast {
 			if (onClick is Function) {
 				clickHandler = onClick;
 			} else if (onClick is String) {
-				clickHandler = _clickActions[onClick];
+				List<String> parts = onClick.split("|");
+				clickHandler = _clickActions[parts.first];
+				clickArgument = (parts.length > 1 ? parts[1] : "");
 			} else {
-				throw new ArgumentError("onClick must be a string identifier or function, but it is of type ${onClick.runtimeType}");
+				throw new ArgumentError(
+					"onClick must be a string identifier or function, but it is of type ${onClick.runtimeType}"
+				);
 			}
 
 			toastElement
-				..onClick.listen((MouseEvent event) => clickHandler(event))
-				..style.cursor = "pointer";
+				..style.cursor = "pointer"
+				..onClick.listen((MouseEvent event) => click(event));
 		}
 	}
 
@@ -74,6 +90,15 @@ class Toast {
 		_toastContainer.append(toastElement);
 	}
 
+	/// Run click event
+	void click(MouseEvent event) {
+		try {
+			clickHandler(event: event, argument: clickArgument);
+		} catch(e) {
+			logmessage("Could not trigger toast click event ${clickHandler}: $e");
+		}
+	}
+
 	/// Display in chat, if not disabled
 	void _sendToChat() {
 		if (Chat.localChat != null && skipChat != null && !skipChat) {
@@ -93,14 +118,4 @@ class Toast {
 			);
 		}
 	}
-
-	String message;
-	bool skipChat;
-	bool notify;
-	Function clickHandler;
-	Element toastElement;
-	Element chatElement;
-
-	@override
-	String toString() => message;
 }

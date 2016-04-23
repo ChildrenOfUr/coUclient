@@ -312,7 +312,7 @@ class Chat {
 
 		if (alert is Toast && alert.clickHandler != null) {
 			newMessage
-				..onClick.listen((MouseEvent event) => alert.clickHandler(event))
+				..onClick.listen((MouseEvent event) => alert.click(event))
 				..style.cursor = "pointer";
 		}
 
