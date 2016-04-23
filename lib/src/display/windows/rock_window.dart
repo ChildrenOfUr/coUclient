@@ -96,7 +96,13 @@ class RockWindow extends Modal {
 				open();
 				rescueButton.hidden = false;
 				rescueClick = rescueButton.onClick.listen((_) {
-					streetService.requestStreet(/*Ilmenskie*/ "LIF102FDNU11314");
+					if (currentStreet.hub_id == "40" /* Naraka */) {
+						// Dead => Hell One
+						streetService.requestStreet("LA5PPFP86NF2FOS");
+					} else {
+						// Not dead => Ilmenskie
+						streetService.requestStreet("LIF102FDNU11314");
+					}
 					close();
 				});
 			} else {
