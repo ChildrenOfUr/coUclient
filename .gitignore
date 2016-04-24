@@ -10,3 +10,4 @@ build/
 *.orig
 .pub/
 .packages
+.atom/
