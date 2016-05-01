@@ -41,6 +41,7 @@ class Minimap {
 //				toggleE.hidden = true;
 //				expand();
 //			}
+			collapse();
 		});
 	}
 
