@@ -10,10 +10,6 @@ dependencies:
   intl: "0.12.4+2"
   jsonx: "2.0.0"
   xml: "^2.4.0"
-  libld:
-    git:
-      ref: master
-      url: git://github.com/ChildrenOfUr/libld.git
   paper_elements: ">=0.7.0 <0.8.0"
   polymer: '>=0.16.1 < 0.17.0'
   transmit:

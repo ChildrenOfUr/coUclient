@@ -2,6 +2,7 @@ library configs;
 
 import 'dart:html';
 import 'dart:async';
+import 'package:stagexl/stagexl.dart' as xl;
 
 class Configs {
 	static String baseAddress, utilServerAddress, websocketServerAddress, authAddress, authWebsocket;
@@ -10,6 +11,11 @@ class Configs {
 
 	static Future init() async
 	{
+		// StageXL configuration settings.
+		xl.StageXL.bitmapDataLoadOptions.corsEnabled = true;
+		xl.StageXL.soundLoadOptions.corsEnabled = true;
+
+
 		baseAddress = (await HttpRequest.getString('server_domain.txt')).trim();
 		utilServerAddress = '$baseAddress:8181';
 		websocketServerAddress = '$baseAddress:8282';

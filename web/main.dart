@@ -33,16 +33,13 @@ import 'package:scproxy/scproxy.dart';
 
 // Audio and Graphics
 import 'package:gorgon/gorgon.dart';
+import 'package:stagexl/stagexl.dart' as xl;
 
 // for Webaudio api
 import 'package:dnd/dnd.dart';
 
-//for dragging items into vendor interface
-// Asset Loading
-import 'package:libld/libld.dart';
-
 // Nice and simple asset loading.
-// Event Bus and Pumps // for more infomation see '/doc/pumps.md'
+// Event Bus and Pumps
 import 'package:transmit/transmit.dart';
 
 //converting JSON to Dart objects and back
@@ -79,6 +76,8 @@ part 'package:couclient/src/systems/util.dart';
 part 'package:couclient/src/display/gps_display.dart';
 
 // NETWORKING MODULES //
+part 'package:couclient/src/network/resources.dart';
+
 part 'package:couclient/src/network/chat.dart';
 
 part 'package:couclient/src/network/streetservice.dart';

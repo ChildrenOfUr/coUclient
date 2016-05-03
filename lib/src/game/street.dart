@@ -108,18 +108,18 @@ class Street {
 		}
 
 		// Collect the url's of each deco to load.
-		List decosToLoad = [];
+		List layersToLoad = [];
 		for (Map layer in streetData['dynamic']['layers'].values) {
 			String layerName = layer['name'].replaceAll(' ', '_');
 			String url = 'http://childrenofur.com/assets/streetLayers/$tsid/$layerName.png';
-			if (!decosToLoad.contains(url)) {
-				decosToLoad.add(url);
+			if (!layersToLoad.contains(url)) {
+				layersToLoad.add(url);
 			}
 		}
 
 		// turn them into assets
 		List assetsToLoad = [];
-		for (String deco in decosToLoad) {
+		for (String deco in layersToLoad) {
 			assetsToLoad.add(new Asset(deco));
 		}
 
@@ -175,7 +175,7 @@ class Street {
 				layerImage.style.transform = 'translateY(${groundY}px)';
 				decoCanvas.append(layerImage);
 			} catch (e) {
-				logmessage("Could not load layer image ${layer["name"]}");
+				logmessage("Could not load layer image ${layer["name"]}, $e");
 			}
 
 			for (Map platformLine in layer['platformLines']) {

@@ -14,6 +14,7 @@ class EmoticonPicker extends Modal {
 
     prepare();
 
+
     new Asset("packages/coUemoticons/emoticons.json").load().then((Asset asset) {
       EMOTICONS = asset.get()["names"];
 
@@ -45,6 +46,7 @@ class EmoticonPicker extends Modal {
         });
       });
     });
+
 
     new Service(["insertEmoji"], (Map<String, dynamic> args) {
       target = args["input"];
