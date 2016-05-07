@@ -262,7 +262,15 @@ class RightClickMenu {
 
 						bool completed = true;
 						if (timeRequired > 0) {
-							ActionBubble actionBubble = new ActionBubble((option[0] as String).split("|")[1], timeRequired, (option[2] as String).split("|")[1]);
+							String actionName = (option[0] as String).split("|")[1];
+							ActionBubble actionBubble;
+							if ((option[2] as String).split("|").length > 1) {
+								// skill
+								actionBubble = new ActionBubble(actionName, timeRequired, (option[2] as String).split("|")[1]);
+							} else {
+								// no skill
+								actionBubble = new ActionBubble(actionName, timeRequired);
+							}
 							completed = await actionBubble.wait;
 						}
 
