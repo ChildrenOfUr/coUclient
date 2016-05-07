@@ -140,20 +140,17 @@ class HowManyMenu {
 	}
 
 	static void _setValue(int newVal) {
-		value = newVal;
-		if(newVal < 0) {
-			value = 0;
-		}
-		if(newVal > maxVal) {
-			value = maxVal;
-		}
+		value = newVal.clamp(0, maxVal);
 		number.value = value.toString();
 		enter.text = '$actionString $value';
 	}
 
 	static void _doVerb(int count, Function callback) {
 		destroy();
-		callback(howMany: count);
+		count = count.clamp(0, maxVal);
+		if (count > 0) {
+			callback(howMany: count);
+		}
 	}
 
 	static void destroy() {

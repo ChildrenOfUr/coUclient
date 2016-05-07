@@ -433,17 +433,13 @@ class Chat {
 				return;
 			}
 
-			if (input.value
-				.trim()
-				.length == 0) {
+			if (input.value.trim().length == 0) {
 				new Toast("You can't send a blank message");
 				return;
 			}
 
 			RegExp formatChars = new RegExp(r'<b>|</b>|<i>|</i>|<u>|</u>|<del>|</del>');
-			if (input.value
-				.replaceAll(formatChars, '')
-				.length == 0) {
+			if (input.value.replaceAll(formatChars, '').length == 0) {
 				new Toast("You must have non-formatting content in your message");
 				return;
 			}
