@@ -223,21 +223,33 @@ class WorldMap {
 				Map goPlacement = {
 					"x": object["x"],
 					"y": object["y"],
+					"arrow": object["arrow"],
+					"label": object["label"],
 					"id": object["hub_id"],
 					"name": map.data_maps_hubs[object["hub_id"]]()["name"],
 					"color": map.data_maps_hubs[object["hub_id"]]()["color"]
 				};
 
-				DivElement go = new DivElement()
-					..classes.add('hm-go')
+				DivElement goCircle = new DivElement()
+					..classes.add('hm-go-circle')
 					..text = 'GO'
-					..title = 'Go to ' + goPlacement["name"]
-					..style.left = (goPlacement["x"] - 20).toString() + 'px'
-					..style.top = (goPlacement["y"] - 20).toString() + 'px'
 					..style.backgroundColor = goPlacement["color"]
+					..style.left = (goPlacement["x"] - 20).toString() + 'px'
+					..style.top = (goPlacement["y"] - 20).toString() + 'px';
+
+				DivElement goText = new DivElement()
+					..classes.add("hm-go-text")
+					..attributes["placement"] = goPlacement["label"].toString()
+					..style.color = goPlacement["color"]
+					..text = "To: ${goPlacement["name"]}";
+
+				DivElement goParent = new DivElement()
+					..append(goCircle)
+					// ..append(goText) // @paul
+					..classes.add("hm-go-parent")
 					..onClick.listen((_) => loadhubdiv(goPlacement["id"]));
 
-				HubMabDiv.append(go);
+				HubMabDiv.append(goParent);
 
 				// END GO CIRCLES
 			}
