@@ -3,7 +3,18 @@ part of couclient;
 Player CurrentPlayer;
 
 class Player {
-	int width = 116, height = 137, speed = 300;
+	static final String DEFAULT_PHYSICS = "normal";
+	static final int NORMAL_YVEL = 1000;
+	static final int WATER_YVEL = NORMAL_YVEL ~/ 2;
+	static final int JUMP_YVEL = 1000;
+	static final int TRIPLE_JUMP_YVEL = 1560;
+	static final int SPEED = 300;
+
+	int get speed => physics == "normal" ? SPEED : SPEED ~/ 2;
+
+	bool get canTripleJump => physics != "water";
+
+	int width = 116, height = 137;
 	num posX, posY;
 	num yVel = 0, yAccel = -2400;
 	bool jumping = false, moving = false, climbingUp = false, climbingDown = false;
@@ -15,7 +26,7 @@ class Player {
 			return currentAnimation.animationName == "climb";
 		}
 	}
-	bool canTripleJump = true;
+	String physics;
 	bool isGuide = false;
 	Map<String, Animation> animations = new Map();
 	Animation currentAnimation;
@@ -82,27 +93,19 @@ class Player {
 		playerParentElement.append(playerCanvas);
 		view.worldElement.append(superParentElement);
 
-		// TODO: the first load won't trigger it for some reason
+		updatePhysics();
 		new Service(["streetLoaded"], (_) => updatePhysics());
 	}
 
-	void updatePhysics() {
-		window.console.info("Physics updated!");
-		canTripleJump = !(
-			// If disabled, the below will return true
-			// Otherwise, it will return false
-			(
-				// Disabled at hub level?
-				mapData.hubData[currentStreet.hub_id] != null &&
-				mapData.hubData[currentStreet.hub_id]["triple_jumping"] == false
-			)
-				||  // ...or maybe...
-			(
-				// Disabled at street level?
-				mapData.streetData[currentStreet.label] != null &&
-				mapData.streetData[currentStreet.label]["triple_jumping"] == false
-			)
-		);
+	void updatePhysics([Map street = const {}]) {
+		if (
+			mapData.hubData[street["hub_id"] ?? currentStreet.hub_id] != null &&
+			mapData.hubData[street["hub_id"] ?? currentStreet.hub_id]["physics"] != null
+		) {
+			physics = mapData.hubData[street["hub_id"] ?? currentStreet.hub_id]["physics"];
+		} else {
+			physics = DEFAULT_PHYSICS;
+		}
 	}
 
 	Future<List<Animation>> loadAnimations() {
@@ -224,14 +227,16 @@ class Player {
 		}
 
 		//primitive jumping
-		if (inputManager.jumpKey == true && !jumping && !climbingUp && !climbingDown) {
+		if (inputManager.jumpKey == true && (!jumping || physics == "water") && !climbingUp && !climbingDown) {
 			num jumpMultiplier;
-			bool pieBuff = Buff.isRunning("full_of_pie");
 			bool spinachBuff = Buff.isRunning("spinach");
-			if (pieBuff) {
-				jumpMultiplier = 0.65;
+			bool pieBuff = Buff.isRunning("full_of_pie");
+			if (physics == "water") {
+				jumpMultiplier = 0.5;
 			} else if (spinachBuff) {
 				jumpMultiplier = 1.65;
+			} else if (pieBuff) {
+				jumpMultiplier = 0.65;
 			} else {
 				jumpMultiplier = 1;
 			}
@@ -247,24 +252,24 @@ class Player {
 						jumpTimer = null;
 					});
 				}
+
 				if (jumpcount == 2) {
 					// triple jump
-					yVel = -1560 * jumpMultiplier;
+					yVel = -(TRIPLE_JUMP_YVEL * jumpMultiplier);
 					jumpcount = 0;
 					jumpTimer.cancel();
 					jumpTimer = null;
 					if (!activeClimb) {
 						audio.playSound('tripleJump');
 					}
-				}
-				else {
+				} else {
 					// normal jump
 					jumpcount++;
-					yVel = -1000 * jumpMultiplier;
+					yVel = -(JUMP_YVEL * jumpMultiplier);
 				}
 			} else {
 				// triple jumping disabled
-				yVel = -1000 * jumpMultiplier;
+				yVel = -(JUMP_YVEL * jumpMultiplier);
 			}
 		}
 
@@ -273,6 +278,9 @@ class Player {
 		if (doPhysicsApply && !climbingUp && !climbingDown) {
 			// walking
 			yVel -= yAccel * dt;
+			if (physics == "water") {
+				yVel /= 2;
+			}
 			posY += yVel * dt;
 		} else {
 			// climbing
