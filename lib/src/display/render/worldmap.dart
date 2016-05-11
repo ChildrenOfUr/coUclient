@@ -3,6 +3,8 @@ part of couclient;
 WorldMap worldMap;
 
 class WorldMap {
+	static final num DEG_TO_RAD = PI / 180;
+
 	Map<String, String> hubInfo;
 	Map<String, Map> hubMaps;
 	Map<String, String> moteInfo;
@@ -137,11 +139,7 @@ class WorldMap {
 					if (mapData.streetData[streetName]["vendor"] != null) {
 						String ref;
 						String text = mapData.streetData[streetName]["vendor"];
-						if (text.toLowerCase().startsWith("a") ||
-							text.toLowerCase().startsWith("e") ||
-							text.toLowerCase().startsWith("i") ||
-							text.toLowerCase().startsWith("o") ||
-							text.toLowerCase().startsWith("u")) {
+						if (["a", "e", "i", "o", "u"].contains(text.substring(0, 1).toLowerCase())) {
 							ref = "an";
 						} else {
 							ref = "a";
@@ -221,31 +219,43 @@ class WorldMap {
 				// GO CIRCLES
 
 				Map goPlacement = {
-					"x": object["x"],
-					"y": object["y"],
-					"arrow": object["arrow"],
-					"label": object["label"],
+					"x": object["x"], // int pos
+					"y": object["y"], // int pos
+					"arrow": object["arrow"], // int deg
+					"label": object["label"], // int deg
 					"id": object["hub_id"],
 					"name": map.data_maps_hubs[object["hub_id"]]()["name"],
 					"color": map.data_maps_hubs[object["hub_id"]]()["color"]
 				};
+
+				DivElement goArrow = new DivElement()
+					..classes.add("hm-go-arrow")
+					..style.backgroundColor = goPlacement["color"]
+					..style.transform =
+						"translateX(${cos(goPlacement["arrow"] - 90 * DEG_TO_RAD) * 20}px) "
+						"translateY(${sin(goPlacement["arrow"] - 90 * DEG_TO_RAD) * 20}px) "
+						"rotateZ(${goPlacement["arrow"] + 45}deg)";
+
+				print(goPlacement["arrow"]);
 
 				DivElement goCircle = new DivElement()
 					..classes.add('hm-go-circle')
 					..text = 'GO'
 					..style.backgroundColor = goPlacement["color"]
 					..style.left = (goPlacement["x"] - 20).toString() + 'px'
-					..style.top = (goPlacement["y"] - 20).toString() + 'px';
+					..style.top = (goPlacement["y"] - 20).toString() + 'px'
+					..title = goPlacement["name"]
+					..append(goArrow);
 
-				DivElement goText = new DivElement()
-					..classes.add("hm-go-text")
-					..attributes["placement"] = goPlacement["label"].toString()
-					..style.color = goPlacement["color"]
-					..text = "To: ${goPlacement["name"]}";
+//				DivElement goText = new DivElement()
+//					..classes.add("hm-go-text")
+//					..attributes["placement"] = goPlacement["label"].toString()
+//					..style.color = goPlacement["color"]
+//					..text = "To: ${goPlacement["name"]}";
 
 				DivElement goParent = new DivElement()
 					..append(goCircle)
-					// ..append(goText) // @paul
+//					..append(goText)
 					..classes.add("hm-go-parent")
 					..onClick.listen((_) => loadhubdiv(goPlacement["id"]));
 

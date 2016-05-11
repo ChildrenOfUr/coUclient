@@ -112,6 +112,18 @@
     background-color: #aaa;
 }
 
+.hm-go-arrow {
+    position: absolute;
+    top: calc(50% - 14px);
+    left: calc(50% - 14px);
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    background-color: #aaa;
+    border: 3px solid white;
+    z-index: -1;
+}
+
 #HubMapLayerFG {
     content: '';
     width: 100%;
