@@ -228,13 +228,18 @@ class WorldMap {
 					"color": map.data_maps_hubs[object["hub_id"]]()["color"]
 				};
 
+				num arrowX = (cos((goPlacement["arrow"] - 90) * DEG_TO_RAD) * 16);
+				num arrowY = (sin((goPlacement["arrow"] - 90) * DEG_TO_RAD) * 16);
+				num arrowZ = goPlacement["arrow"] + 45;
+
+				String arrowC = goPlacement["color"];
+				String arrowFill =
+					"linear-gradient(135deg, $arrowC 0%, $arrowC 49%, rgba(255,255,255,0) 50%, rgba(255,255,255,0) 100%)";
+
 				DivElement goArrow = new DivElement()
 					..classes.add("hm-go-arrow")
-					..style.backgroundColor = goPlacement["color"]
-					..style.transform =
-						"translateX(${cos(goPlacement["arrow"] - 90 * DEG_TO_RAD) * 20}px) "
-						"translateY(${sin(goPlacement["arrow"] - 90 * DEG_TO_RAD) * 20}px) "
-						"rotateZ(${goPlacement["arrow"] + 45}deg)";
+					..style.background = arrowFill
+					..style.transform = "translateX(${arrowX}px) translateY(${arrowY}px) rotateZ(${arrowZ}deg)";
 
 				DivElement goCircle = new DivElement()
 					..classes.add('hm-go-circle')

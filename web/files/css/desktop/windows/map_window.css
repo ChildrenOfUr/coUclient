@@ -114,14 +114,14 @@
 
 .hm-go-arrow {
     position: absolute;
-    top: calc(50% - 14px);
-    left: calc(50% - 14px);
-    width: 20px;
-    height: 20px;
+    top: 9px;
+    left: 9px;
+    width: 16px;
+    height: 16px;
     display: inline-block;
-    background-color: #aaa;
-    border: 3px solid white;
-    z-index: -1;
+    background: linear-gradient(135deg, #aaa 0%, #aaa 49%, rgba(255,255,255,0) 50%, rgba(255,255,255,0) 100%);
+    border: solid white;
+    border-width: 3px 0 0 3px;
 }
 
 #HubMapLayerFG {
