@@ -236,8 +236,6 @@ class WorldMap {
 						"translateY(${sin(goPlacement["arrow"] - 90 * DEG_TO_RAD) * 20}px) "
 						"rotateZ(${goPlacement["arrow"] + 45}deg)";
 
-				print(goPlacement["arrow"]);
-
 				DivElement goCircle = new DivElement()
 					..classes.add('hm-go-circle')
 					..text = 'GO'
