@@ -66,7 +66,7 @@ class Chat {
 			// start a timer for the first global chat created that refreshes the sidebar player list
 			if (title == "Global Chat") {
 				refreshOnlinePlayers();
-				new Timer.periodic(new Duration(seconds: 5), (_) => refreshOnlinePlayers());
+				new Service(["clock_tick"], (_) => refreshOnlinePlayers());
 			}
 
 			// clone the template

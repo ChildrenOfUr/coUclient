@@ -85,6 +85,8 @@ class Clock {
 		if(time == '6:00am') {
 			_newdayController.add('new day!');
 		}
+
+		transmit("clock_tick", data);
 	}
 
 	Future updateHolidays() async {
