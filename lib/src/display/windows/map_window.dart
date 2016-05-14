@@ -399,37 +399,79 @@ class WorldMap {
 					"color": map.data_maps_hubs[object["hub_id"]]()["color"]
 				};
 
+				// Position pointer arrow x/y
+
 				num arrowX = (cos((goPlacement["arrow"] - 90) * DEG_TO_RAD) * 16);
 				num arrowY = (sin((goPlacement["arrow"] - 90) * DEG_TO_RAD) * 16);
 				num arrowZ = goPlacement["arrow"] + 45;
 
-				String arrowC = goPlacement["color"];
-				String arrowFill =
-					"linear-gradient(135deg, $arrowC 0%, $arrowC 49%, rgba(255,255,255,0) 50%, rgba(255,255,255,0) 100%)";
+				// Position "Go to" text
 
-				DivElement goArrow = new DivElement()
-					..classes.add("hm-go-arrow")
-					..style.background = arrowFill
-					..style.transform = "translateX(${arrowX}px) translateY(${arrowY}px) rotateZ(${arrowZ}deg)";
+				// Round off degrees to 45deg increments
+				int labelR = 0;
+				for (int theta in [360, 315, 270, 225, 180, 135, 90, 45]) {
+					if ((goPlacement["label"] - theta).abs() < 30) {
+						labelR = theta;
+					}
+				}
+
+				// Position text x/y
+				num labelX = (cos((labelR - 90) * DEG_TO_RAD) * 50);
+				num labelY = (sin((labelR - 90) * DEG_TO_RAD) * 50);
+
+				// Shift text to prevent overlap
+				int labelT = 0;
+				if ((labelR - 270).abs() < 90 || (labelR - 90).abs() < 90) {
+					// Bottom or top
+					labelT = -50;
+				} else if ((labelR - 180).abs() < 90) {
+					// Left
+					labelT = -75;
+				} else if ((labelR < 90)) {
+					// Right
+					labelT = 50;
+				}
 
 				DivElement goCircle = new DivElement()
 					..classes.add('hm-go-circle')
 					..text = 'GO'
 					..style.backgroundColor = goPlacement["color"]
 					..style.left = (goPlacement["x"] - 20).toString() + 'px'
-					..style.top = (goPlacement["y"] - 20).toString() + 'px'
-					..title = goPlacement["name"]
-					..append(goArrow);
+					..style.top = (goPlacement["y"] - 20).toString() + 'px';
 
-//				DivElement goText = new DivElement()
-//					..classes.add("hm-go-text")
-//					..attributes["placement"] = goPlacement["label"].toString()
-//					..style.color = goPlacement["color"]
-//					..text = "To: ${goPlacement["name"]}";
+				DivElement goArrow = new DivElement()
+					..classes.add("hm-go-arrow")
+					..style.backgroundColor = goPlacement["color"]
+					..style.transform = "translateX(${arrowX}px) translateY(${arrowY}px) rotateZ(${arrowZ}deg)"
+					..style.left = (goPlacement["x"] - 8).toString() + 'px'
+					..style.top = (goPlacement["y"] - 8).toString() + 'px';
+
+				DivElement goArrowOutline = new DivElement()
+					..classes.add("hm-go-arrow-outline")
+					..style.transform = goArrow.style.transform
+					..style.left = (goPlacement["x"] - 11).toString() + 'px'
+					..style.top = (goPlacement["y"] - 11).toString() + 'px';
+
+				DivElement goCircleOutline = new DivElement()
+					..classes.add("hm-go-circle-outline")
+					..style.left = goCircle.style.left
+					..style.top = goCircle.style.top;
+
+				DivElement goText = new DivElement()
+					..classes.add("hm-go-text")
+					..style.color = goPlacement["color"]
+					..text = "To: ${goPlacement["name"]}"
+//					..style.transform = "translateX(${labelT}%)"
+					..style.left = ((goPlacement["x"] - 20) + labelX).toString() + 'px'
+					..style.top = ((goPlacement["y"] - 20) + labelY).toString() + 'px';
 
 				DivElement goParent = new DivElement()
+					..title = goPlacement["name"]
+					..append(goArrowOutline)
+					..append(goCircleOutline)
+					..append(goArrow)
 					..append(goCircle)
-//					..append(goText)
+					..append(goText)
 					..classes.add("hm-go-parent")
 					..onClick.listen((_) => loadhubdiv(goPlacement["id"]));
 
