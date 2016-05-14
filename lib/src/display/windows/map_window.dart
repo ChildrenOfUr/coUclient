@@ -399,6 +399,10 @@ class WorldMap {
 					"color": map.data_maps_hubs[object["hub_id"]]()["color"]
 				};
 
+				if (!goPlacement["color"].startsWith("#")) {
+					goPlacement["color"] = "#" + goPlacement["color"];
+				}
+
 				// Position pointer arrow x/y
 
 				num arrowX = (cos((goPlacement["arrow"] - 90) * DEG_TO_RAD) * 16);
@@ -414,37 +418,28 @@ class WorldMap {
 						labelR = theta;
 					}
 				}
+				labelR -= 90;
 
 				// Position text x/y
-				num labelX = (cos((labelR - 90) * DEG_TO_RAD) * 50);
-				num labelY = (sin((labelR - 90) * DEG_TO_RAD) * 50);
-
-				// Shift text to prevent overlap
-				int labelT = 0;
-				if ((labelR - 270).abs() < 90 || (labelR - 90).abs() < 90) {
-					// Bottom or top
-					labelT = -50;
-				} else if ((labelR - 180).abs() < 90) {
-					// Left
-					labelT = -75;
-				} else if ((labelR < 90)) {
-					// Right
-					labelT = 50;
-				}
+				num labelX = (cos((labelR) * DEG_TO_RAD) * 40);
+				num labelY = (sin((labelR) * DEG_TO_RAD) * 40);
 
 				DivElement goCircle = new DivElement()
 					..classes.add('hm-go-circle')
 					..text = 'GO'
 					..style.backgroundColor = goPlacement["color"]
 					..style.left = (goPlacement["x"] - 20).toString() + 'px'
-					..style.top = (goPlacement["y"] - 20).toString() + 'px';
+					..style.top = (goPlacement["y"] - 20).toString() + 'px'
+					..dataset["x"] = goPlacement["x"].toString()
+					..dataset["y"] = goPlacement["y"].toString();
 
 				DivElement goArrow = new DivElement()
 					..classes.add("hm-go-arrow")
 					..style.backgroundColor = goPlacement["color"]
 					..style.transform = "translateX(${arrowX}px) translateY(${arrowY}px) rotateZ(${arrowZ}deg)"
 					..style.left = (goPlacement["x"] - 8).toString() + 'px'
-					..style.top = (goPlacement["y"] - 8).toString() + 'px';
+					..style.top = (goPlacement["y"] - 8).toString() + 'px'
+					..dataset["r"] = goPlacement["arrow"].toString();
 
 				DivElement goArrowOutline = new DivElement()
 					..classes.add("hm-go-arrow-outline")
@@ -461,12 +456,11 @@ class WorldMap {
 					..classes.add("hm-go-text")
 					..style.color = goPlacement["color"]
 					..text = "To: ${goPlacement["name"]}"
-//					..style.transform = "translateX(${labelT}%)"
-					..style.left = ((goPlacement["x"] - 20) + labelX).toString() + 'px'
-					..style.top = ((goPlacement["y"] - 20) + labelY).toString() + 'px';
+					..style.left = ((goPlacement["x"]) + labelX).toString() + 'px'
+					..style.top = ((goPlacement["y"]) + labelY).toString() + 'px'
+					..dataset["r"] = goPlacement["label"].toString();
 
 				DivElement goParent = new DivElement()
-					..title = goPlacement["name"]
 					..append(goArrowOutline)
 					..append(goCircleOutline)
 					..append(goArrow)

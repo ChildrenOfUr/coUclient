@@ -137,12 +137,17 @@
 
 .hm-go-text {
     position: absolute;
-    font-weight: bold;
-    font-size: 16px;
+    font-weight: 600;
+    font-size: 15px;
     width: auto;
     text-align: center;
     white-space: nowrap;
-    transform: translateX(-82%);
+    transform: translateX(-50%);
+    text-shadow:
+            -2px -2px 0 #fff,
+            -2px 02px 0 #fff,
+            02px -2px 0 #fff,
+            02px 02px 0 #fff;
 }
 
 #HubMapLayerFG {
@@ -233,7 +238,7 @@
     width: 100%;
     height: 15px;
     position: absolute;
-    bottom: 12px;
+    top: 13px;
     text-align: center;
 }
 
