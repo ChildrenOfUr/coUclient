@@ -1,5 +1,11 @@
 part of couclient;
 
+enum NotifyRule {
+	YES, // Send notification
+	NO, // Do not send notification
+	UNFOCUSED // Send only if the window is not focused
+}
+
 class Toast {
 	/// In-game toasts panel
 	static final Element _toastContainer = querySelector("#toastHolder");
@@ -15,7 +21,7 @@ class Toast {
 
 	String message;
 	bool skipChat;
-	bool notify;
+	NotifyRule notify;
 	Function clickHandler;
 	String clickArgument;
 	Element toastElement;
@@ -33,7 +39,7 @@ class Toast {
 	 */
 	Toast(this.message, {this.skipChat, this.notify, dynamic onClick}) {
 		if (skipChat == null) skipChat = false;
-		if (notify == null) notify = false;
+		if (notify == null) notify = NotifyRule.NO;
 
 		// Display in toasts panel
 		_sendToPanel();
@@ -110,7 +116,10 @@ class Toast {
 
 	/// Send system notification, if enabled
 	void _sendNotification() {
-		if (notify) {
+		if (
+			notify == NotifyRule.YES ||
+			(notify == NotifyRule.UNFOCUSED && !inputManager.windowFocused)
+		) {
 			new Notification(
 				"Game Alert",
 				body: message,

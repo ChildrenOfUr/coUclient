@@ -349,8 +349,16 @@ class UseWindow extends Modal {
 					"&username=${game.username}"
 				);
 
-				if (current >= qty && serverResponse == "true") {
-					// Server says no, or we're done
+				if (current >= qty && serverResponse != "OK") {
+					// Server says no
+					if (serverResponse != "OK") {
+						new Toast(
+							"You had to stop using your ${itemName} because $serverResponse.",
+							notify: NotifyRule.UNFOCUSED
+						);
+					}
+
+					// We're done
 					await _stopMakingRecipes(timer);
 				} else {
 					// Server says yes
