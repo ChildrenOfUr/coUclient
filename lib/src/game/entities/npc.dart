@@ -80,6 +80,23 @@ class NPC extends Entity {
 		}
 	}
 
+	void updateAnimation(Map npcMap) {
+		//new animation
+		if (ready && animation.animationName != npcMap["animation_name"]) {
+			ready = false;
+
+			List<int> frameList = [];
+			for (int i = 0; i < npcMap['numFrames']; i++) {
+				frameList.add(i);
+			}
+
+			animation = new Animation(npcMap['url'], npcMap['animation_name'],
+											  npcMap['numRows'], npcMap['numColumns'], frameList,
+											  loops: npcMap['loops']);
+			animation.load().then((_) => ready = true);
+		}
+	}
+
 	_setTranslate() {
 		canvas.attributes['translatex'] = left.toString();
 		canvas.attributes['translatey'] = top.toString();
