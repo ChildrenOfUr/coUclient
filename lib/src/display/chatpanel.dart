@@ -66,7 +66,7 @@ class Chat {
 			// start a timer for the first global chat created that refreshes the sidebar player list
 			if (title == "Global Chat") {
 				refreshOnlinePlayers();
-				new Timer.periodic(new Duration(seconds: 5), (_) => refreshOnlinePlayers());
+				new Service(["clock_tick"], (_) => refreshOnlinePlayers());
 			}
 
 			// clone the template
@@ -312,7 +312,7 @@ class Chat {
 
 		if (alert is Toast && alert.clickHandler != null) {
 			newMessage
-				..onClick.listen((MouseEvent event) => alert.clickHandler(event))
+				..onClick.listen((MouseEvent event) => alert.click(event))
 				..style.cursor = "pointer";
 		}
 
@@ -433,17 +433,13 @@ class Chat {
 				return;
 			}
 
-			if (input.value
-				.trim()
-				.length == 0) {
+			if (input.value.trim().length == 0) {
 				new Toast("You can't send a blank message");
 				return;
 			}
 
 			RegExp formatChars = new RegExp(r'<b>|</b>|<i>|</i>|<u>|</u>|<del>|</del>');
-			if (input.value
-				.replaceAll(formatChars, '')
-				.length == 0) {
+			if (input.value.replaceAll(formatChars, '').length == 0) {
 				new Toast("You must have non-formatting content in your message");
 				return;
 			}

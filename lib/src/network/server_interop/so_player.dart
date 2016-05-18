@@ -51,23 +51,27 @@ _setupPlayerSocket() {
 			return;
 		}
 
-		if (map["changeStreet"] != null) {
-			//someone left this street
-			if (map["changeStreet"] != currentStreet.label &&
-			    map['previousStreet'] == currentStreet.label) {
+		try {
+			if (map["changeStreet"] != null) {
+				//someone left this street
+				if (map["changeStreet"] != currentStreet.label &&
+					map['previousStreet'] == currentStreet.label) {
+					removeOtherPlayer(map["username"]);
+					new Toast('${map['username']} has left for ${map['changeStreet']}');
+				} else if (map['changeStreet'] == currentStreet.label) {
+					createOtherPlayer(map);
+					new Toast('${map['username']} has arrived');
+				}
+			} else if (map["disconnect"] != null) {
 				removeOtherPlayer(map["username"]);
-				new Toast('${map['username']} has left for ${map['changeStreet']}');
-			} else if (map['changeStreet'] == currentStreet.label){
+			} else if (otherPlayers[map["username"]] == null) {
 				createOtherPlayer(map);
-				new Toast('${map['username']} has arrived');
+			} else {
+				//update a current otherPlayer
+				updateOtherPlayer(map, otherPlayers[map["username"]]);
 			}
-		} else if (map["disconnect"] != null) {
-			removeOtherPlayer(map["username"]);
-		} else if (otherPlayers[map["username"]] == null) {
-			createOtherPlayer(map);
-		} else {
-			//update a current otherPlayer
-			updateOtherPlayer(map, otherPlayers[map["username"]]);
+		} catch (e) {
+			logmessage("Could not update other player ${map["username"]}: $e");
 		}
 	});
 	playerSocket.onClose.listen((_) {

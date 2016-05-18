@@ -31,10 +31,11 @@ class ItemChooser {
 		querySelector('#game').append(dialog);
 	}
 
-	_addItems(List<Slot> slots, filter, Element itemHolder) {
+	_addItems(List<Slot> slots, filter, Element itemHolder, [int superSlotIndex]) {
 		List<String> addedTypes = [];
 
-		for(Slot slot in slots) {
+		for(int slotIndex = 0; slotIndex < slots.length; slotIndex++) {
+			Slot slot = slots[slotIndex];
 			ItemDef item = slot.item;
 			if(item == null) {
 				continue;
@@ -42,7 +43,7 @@ class ItemChooser {
 			if(item.isContainer) {
 				String slotsString = item.metadata['slots'];
 				List<Slot> bagSlots = decode(slotsString, type: new TypeHelper<List<Slot>>().type);
-				_addItems(bagSlots, filter, itemHolder);
+				_addItems(bagSlots, filter, itemHolder, slotIndex);
 			}
 
 			bool noMatch = false;
@@ -62,11 +63,14 @@ class ItemChooser {
 
 			DivElement itemE = new DivElement()
 				..className = 'itemChoice'
-				..style.backgroundImage = "url('${item.iconUrl}')";
+				..style.backgroundImage = "url('${item.iconUrl}')"
+				..title = item.metadata["title"] ?? item.name;
 
 			itemE.onClick.listen((MouseEvent e) {
 				Function action = ({int howMany: 1}) {
-					_doAction(item.itemType, howMany: howMany);
+					int realSlotIndex = superSlotIndex ?? slotIndex;
+					int realSubSlotIndex = (superSlotIndex != null ? slotIndex : -1);
+					_doAction(item.itemType, realSlotIndex, realSubSlotIndex, howMany: howMany);
 				};
 				HowManyMenu.create(e,'',_getNumItems(item.itemType), action, itemName: item.name);
 			});
@@ -75,9 +79,10 @@ class ItemChooser {
 		}
 	}
 
-	_doAction(String itemType, {int howMany: 1}) {
+	_doAction(String itemType, int slot, int subSlot, {int howMany: 1}) {
 		destroy();
-		callback(itemType: itemType, count: howMany);
+		print("slot $slot, subslot $subSlot");
+		callback(itemType: itemType, count: howMany, slot: slot, subSlot: subSlot);
 	}
 
 	destroy() {

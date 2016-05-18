@@ -1,6 +1,8 @@
 part of couclient;
 
 class ImgOverlay extends Overlay {
+	static final Duration update_frequency = new Duration(seconds: 5);
+	String lastSkillsJson;
 
 	// Level indicator bar
 	Element bar = querySelector("#pm-level-bar"),
@@ -18,13 +20,24 @@ class ImgOverlay extends Overlay {
 
 	ImgOverlay(String id):super(id) {
 		setupKeyBinding("ImgMenu");
+
+		// Repeatedly update
+		new Service(["metabolicsUpdated"], (_) {
+			if (elementOpen) {
+				update();
+			}
+		});
+	}
+
+	Future update() async {
+		await _setupImgBar();
+		await _setupSkillsList();
 	}
 
 	@override
 	open() async {
 		// Prepare contents
-		await _setupImgBar();
-		await _setupSkillsList();
+		await update();
 
 		// Update button states
 		exitButton.onClick.first.then((_) => close());
@@ -86,7 +99,14 @@ class ImgOverlay extends Overlay {
 
 	Future _setupSkillsList() async {
 		// Refresh from server
-		await Skills.loadData();
+		String newJson = await Skills.loadData();
+
+		if (lastSkillsJson != null && lastSkillsJson == newJson) {
+			// Don't re-render the skills elements if the data hasn't changed
+			return;
+		} else {
+			lastSkillsJson = newJson;
+		}
 
 		skillsList.children.clear();
 		Element parent;

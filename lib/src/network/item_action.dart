@@ -19,7 +19,6 @@ class Item {
 			localStorage["item_cache"] = newJSON;
 			localStorage["item_cache_date"] = today;
 			// Return item data
-			print(localStorage["item_cache_date"]);
 			return JSON.decode(newJSON);
 		}
 	}

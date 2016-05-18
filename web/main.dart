@@ -200,8 +200,6 @@ part 'package:couclient/src/display/render/collision_lines_debug.dart';
 
 part 'package:couclient/src/network/mapdata.dart';
 
-part 'package:couclient/src/display/render/worldmap.dart';
-
 part 'package:couclient/src/display/render/maps_data.dart';
 
 // GAME MODULES //

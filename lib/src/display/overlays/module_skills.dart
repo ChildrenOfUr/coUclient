@@ -3,10 +3,12 @@ part of couclient;
 abstract class Skills {
 	static List<Map<String, dynamic>> data;
 
-	static Future loadData() async {
-		data = JSON.decode(await HttpRequest.getString(
+	static Future<String> loadData() async {
+		String json = await HttpRequest.getString(
 			"http://${Configs.utilServerAddress}/skills/get/${game.email}"
-		));
+		);
+		data = JSON.decode(json);
+		return json;
 	}
 
 	static Map<String, dynamic> getSkill(String id) {

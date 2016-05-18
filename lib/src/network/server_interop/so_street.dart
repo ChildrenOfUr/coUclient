@@ -67,12 +67,15 @@ _setupStreetSocket(String streetName) {
 			if (map['openWindow'] == 'vendorSell') new VendorWindow().call(map, sellMode: true);
 			if (map['openWindow'] == 'mailbox') new MailboxWindow().open();
 			if (map['openWindow'] == 'itemChooser') {
-				Function feedPig = ({String itemType, int count}) {
-					Map arguments = {'itemType':itemType, 'count': count};
-					sendAction('feedItem', map['id'], arguments);
+				Function callback = ({String itemType, int count: 1, int slot: -1, int subSlot: -1}) {
+					sendAction(map["action"], map['id'], {
+						'itemType': itemType,
+						'count': count,
+						'slot': slot,
+						'subSlot': subSlot
+					});
 				};
-				//feedPig will be called when the itemChooser window (and how many picker) is finished
-				new ItemChooser(map['windowTitle'], feedPig, filter: map['filter']);
+				new ItemChooser(map['windowTitle'], callback, filter: map['filter']);
 			}
 			return;
 		}
@@ -146,20 +149,7 @@ _setupStreetSocket(String streetName) {
 				npc.x = npcMap['x'];
 				npc.y = npcMap['y'];
 
-				//new animation
-				if (npc.ready && npc.animation.animationName != npcMap["animation_name"]) {
-					npc.ready = false;
-
-					List<int> frameList = [];
-					for (int i = 0; i < npcMap['numFrames']; i++) {
-						frameList.add(i);
-					}
-
-					npc.animation = new Animation(npcMap['url'], npcMap['animation_name'],
-						                              npcMap['numRows'], npcMap['numColumns'], frameList,
-						                              loops: npcMap['loops']);
-					npc.animation.load().then((_) => npc.ready = true);
-				}
+				npc.updateAnimation(npcMap);
 			}
 
 			return;
@@ -222,6 +212,7 @@ _setupStreetSocket(String streetName) {
 			else {
 				element.attributes['actions'] = JSON.encode(npcMap['actions']);
 				if (npc != null) {
+					npc.updateAnimation(npcMap);
 					_updateChatBubble(npcMap, npc);
 				}
 			}

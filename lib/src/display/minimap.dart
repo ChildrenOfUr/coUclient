@@ -25,22 +25,21 @@ class Minimap {
 
 		new Service(['streetLoaded'], (street) {
 			// enable/disable expanding
-			num collapsedHeight =
-			street['loading_image']['h'] / currentStreet.bounds.height;
-			num expandedHeight =
-			street['main_image']['h'] / currentStreet.bounds.height;
-			if((collapsedHeight < expandedHeight) || mapData.getMinimapExpandOverride(street["label"])) {
-				// street is taller than it is wide
-				// (or overridden)
-				// allow expansion
-				toggleE.hidden = false;
-				collapse();
-			} else if(collapsedHeight > expandedHeight) {
-				// street is wider than it is tall
-				// disallow expansion
-				toggleE.hidden = true;
-				expand();
-			}
+//			num collapsedHeight = street['loading_image']['h'] / currentStreet.bounds.height;
+//			num expandedHeight = street['main_image']['h'] / currentStreet.bounds.height;
+//			if((collapsedHeight < expandedHeight) || mapData.getMinimapExpandOverride(street["label"])) {
+//				// street is taller than it is wide
+//				// (or overridden)
+//				// allow expansion
+//				toggleE.hidden = false;
+//				collapse();
+//			} else if(collapsedHeight > expandedHeight) {
+//				// street is wider than it is tall
+//				// disallow expansion
+//				toggleE.hidden = true;
+//				expand();
+//			}
+			collapse();
 		});
 	}
 
