@@ -128,6 +128,8 @@ part "package:couclient/src/display/blog_notifier.dart";
 
 part "package:couclient/src/display/darkui.dart";
 
+part "package:couclient/src/display/overlays/text_anim.dart";
+
 //  WINDOW MODULES //
 part 'package:couclient/src/display/windows/windows.dart';
 

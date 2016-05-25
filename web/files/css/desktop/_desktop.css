@@ -51,6 +51,7 @@
 @import url(windows/quest_maker_window.css);
 
 /* Overlays */
+@import url(overlays/text-anim.css);
 @import url(overlays/overlay.css);
 @import url(overlays/newday.css);
 @import url(overlays/imgmenu.css);
