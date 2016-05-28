@@ -157,5 +157,6 @@ class HowManyMenu {
 		inputManager.ignoreKeys = false;
 		keyListener?.cancel();
 		querySelector('#HowManyMenu')?.remove();
+		value = 1;
 	}
 }
