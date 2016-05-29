@@ -13,6 +13,7 @@ class WindowManager {
 	QuestLogWindow questLog;
 	AchievementsWindow achievements;
 	QuestMakerWindow questMaker;
+	ChangeUsernameWindow changeUsernameWindow;
 
 	WindowManager() {
 		new Service('gameLoaded', (_) {
@@ -31,6 +32,7 @@ class WindowManager {
 		emoticonPicker = new EmoticonPicker();
 		questLog = new QuestLogWindow();
 		achievements = new AchievementsWindow();
+		changeUsernameWindow = new ChangeUsernameWindow();
 	}
 
 	static int get randomId => random.nextInt(9999999);

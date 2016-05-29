@@ -1,0 +1,37 @@
+#chgUsernameInfo {
+	text-align: center;
+	font-size: 18px;
+	margin-top: 20px;
+}
+
+#chgUsernameInfo span {
+	font-weight: bold;
+}
+
+#chgUsernameEntry {
+    font-size: 24px;
+    padding: 12px;
+    display: inline-block;
+    text-align: center;
+}
+
+#chgUsernameForm {
+    margin: 20px;
+    text-align: center;
+}
+
+#chgUsernameForm[disabled="true"] {
+	pointer-events: none;
+	opacity: 0.8;
+	cursor: not-allowed;
+}
+
+#chgUsernameBtn {
+    display: block;
+    margin: 20px;
+}
+
+#chgUsernameStatus {
+	font-size: 18px;
+	text-align: center;
+}

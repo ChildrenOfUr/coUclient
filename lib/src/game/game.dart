@@ -30,6 +30,11 @@ class Game {
 				querySelector("ur-meters /deep/ #leftDisk").classes.add("guideDisk");
 			}
 		});
+
+		// Change username button
+		querySelector("#changeUsernameFromChatPanel").onClick.listen((_) {
+			windowManager.changeUsernameWindow.open();
+		});
 	}
 
 	Future<String> getElevation(String username) async {

@@ -49,6 +49,7 @@
 @import url(windows/questlog_window.css);
 @import url(windows/achievements_window.css);
 @import url(windows/quest_maker_window.css);
+@import url(windows/changeusernamewindow.css);
 
 /* Overlays */
 @import url(overlays/text-anim.css);
