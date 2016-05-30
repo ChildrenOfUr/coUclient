@@ -43,7 +43,9 @@ class Game {
 		} else {
 			String elevation = await HttpRequest.getString(
 				"http://${Configs.utilServerAddress}/elevation/get/$username"
-			);
+			).timeout(new Duration(seconds: 5), onTimeout: () {
+				return '';
+			});
 			elevationCache[username] = elevation;
 			return elevation;
 		}
