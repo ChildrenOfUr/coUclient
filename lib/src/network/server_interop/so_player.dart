@@ -11,6 +11,18 @@ _setupPlayerSocket() {
 			reconnect = false;
 			logmessage('[Multiplayer (Player)] Error ${map['error']}');
 			playerSocket.close();
+
+			if (map['error'] == 'version too low') {
+				window.alert(
+					"Your game is outdated. Click OK and we'll"
+					" try to fix that for you so you can play."
+					"\n\n"
+					"If you see this message after reloading,"
+					" please contact Children of Ur for help."
+				);
+				hardReload();
+			}
+
 			return;
 		}
 
