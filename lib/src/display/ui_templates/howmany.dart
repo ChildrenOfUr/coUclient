@@ -65,9 +65,7 @@ class HowManyMenu {
 
 		//wait a little so that an [enter] used to prompt this window doesn't count for it too
 		new Timer(new Duration(milliseconds: 100), () {
-			keyListener = document.onKeyUp.listen((KeyboardEvent e) {
-				e.preventDefault();
-
+			keyListener = document.onKeyDown.listen((KeyboardEvent e) {
 				//27 == esc key
 				if (e.keyCode == 27) {
 					e.stopPropagation();
@@ -96,10 +94,10 @@ class HowManyMenu {
 				}
 				//backspace
 				if (e.keyCode == 8) {
+					e.stopPropagation();
 					if(boxFocused) {
 						return;
 					}
-					e.stopPropagation();
 					typedString = '$typedString'.substring(0,'$typedString'.length-1);
 					if(typedString.length == 0) {
 						_setValue(1);
@@ -157,5 +155,6 @@ class HowManyMenu {
 		inputManager.ignoreKeys = false;
 		keyListener?.cancel();
 		querySelector('#HowManyMenu')?.remove();
+		value = 1;
 	}
 }

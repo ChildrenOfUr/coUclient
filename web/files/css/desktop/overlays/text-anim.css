@@ -1,0 +1,74 @@
+@-webkit-keyframes text-anim {
+    from {
+        opacity: 1;
+        top: 0;
+    }
+
+    to {
+        opacity: 0;
+        top: 1em;
+    }
+}
+
+@-moz-keyframes text-anim {
+    from {
+        opacity: 1;
+        top: 0;
+    }
+
+    to {
+        opacity: 0;
+        top: 1em;
+    }
+}
+
+@-o-keyframes text-anim {
+    from {
+        opacity: 1;
+        top: 0;
+    }
+
+    to {
+        opacity: 0;
+        top: 1em;
+    }
+}
+
+@keyframes text-anim {
+    from {
+        opacity: 1;
+        top: 0;
+    }
+
+    to {
+        opacity: 0;
+        top: 1em;
+    }
+}
+
+.text-anim {
+	position: relative;
+    color: white !important;
+	z-index: 999 !important;
+	font-weight: bold !important;
+
+    -webkit-animation-name: text-anim;
+    -webkit-animation-duration: 2s;
+    -webkit-animation-iteration-count: 1;
+    -webkit-animation-timing-function: ease-out;
+
+	-moz-animation-name: text-anim;
+	-moz-animation-duration: 2s;
+	-moz-animation-iteration-count: 1;
+	-moz-animation-timing-function: ease-out;
+
+	-o-animation-name: text-anim;
+	-o-animation-duration: 2s;
+	-o-animation-iteration-count: 1;
+	-o-animation-timing-function: ease-out;
+
+	animation-name: text-anim;
+	animation-duration: 2s;
+	animation-iteration-count: 1;
+	animation-timing-function: ease-out;
+}

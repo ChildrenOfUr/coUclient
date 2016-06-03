@@ -120,7 +120,9 @@ Future<String> getColorFromUsername(String username) async {
 		// Download color from server
 		String color = await HttpRequest.getString(
 		  "http://${Configs.utilServerAddress}/usernamecolors/get/$username"
-		);
+	  	).timeout(new Duration(seconds: 5), onTimeout: () {
+			return '#';
+	  	});
 		// Cache for later use
 		cachedUsernameColors[username] = color;
 		// Return for display

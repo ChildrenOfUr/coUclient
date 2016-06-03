@@ -135,6 +135,11 @@ _setupStreetSocket(String streetName) {
 			return;
 		}
 
+		if (map['username_changed'] != null) {
+			ChangeUsernameWindow.response?.complete(map['username_changed']);
+			return;
+		}
+
 		if (map['npcMove'] != null) {
 			for (Map npcMap in map['npcs'] as List<Map>) {
 				NPC npc = entities[npcMap["id"]];

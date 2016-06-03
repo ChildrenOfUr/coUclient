@@ -191,6 +191,7 @@ class VendorWindow extends Modal {
 		buyListener = buyButton.onClick.listen((_) {
 			int newValue;
 			Map actionMap = {"itemType": item['itemType'], "num": numToBuy};
+			String diffSign;
 
 			if(sellMode) {
 				if(numToBuy > util.getNumItems(item['itemType'])) {
@@ -199,17 +200,24 @@ class VendorWindow extends Modal {
 
 				newValue = metabolics.currants + (item['price'] * numToBuy * .7) ~/ 1;
 				sendAction("sellItem", vendorId, actionMap);
-			}
-			else {
+				diffSign = "+";
+			} else {
 				if(metabolics.currants < item["discount"] * item["price"] * numToBuy) {
 					return;
 				}
 
 				newValue = metabolics.currants - (item['price'] * item["discount"] * numToBuy).toInt();
 				sendAction("buyItem", vendorId, actionMap);
+				diffSign = "-";
 			}
 
 			currants.text = " ${commaFormatter.format(newValue)} currant${(newValue != 1 ? "s" : "")}";
+
+			// Animate currant change at bottom
+			int currantDiff = (metabolics.currants - newValue).abs();
+			String diffStr = diffSign + currantDiff.toString();
+			animateText(currants.parent, diffStr, "currant-vendor-anim");
+
 			backToBuy.click();
 		});
 

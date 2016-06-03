@@ -128,6 +128,8 @@ part "package:couclient/src/display/blog_notifier.dart";
 
 part "package:couclient/src/display/darkui.dart";
 
+part "package:couclient/src/display/overlays/text_anim.dart";
+
 //  WINDOW MODULES //
 part 'package:couclient/src/display/windows/windows.dart';
 
@@ -164,6 +166,8 @@ part 'package:couclient/src/display/windows/questlog_window.dart';
 part 'package:couclient/src/display/windows/achievements_window.dart';
 
 part 'package:couclient/src/display/windows/quest_maker_window.dart';
+
+part 'package:couclient/src/display/windows/change_username_window.dart';
 
 // OVERLAYS //
 part 'package:couclient/src/display/overlays/overlay.dart';
@@ -282,26 +286,8 @@ afterPolymer() async {
 	handleAppCache();
 
 	try {
-		//read configs
 		await Configs.init();
-		startTime = new DateTime.now();
-		view = new UserInterface();
-		audio = new SoundManager();
-		windowManager = new WindowManager();
-		auth = new AuthManager();
-		minimap = new Minimap();
-		GPS.initWorldGraph();
-		InvDragging.init();
-	} catch(e) {
-		logmessage("Error reading configs: $e");
-		new Toast(
-			"OH NO! There was an error, so you should click here to reload."
-			" If you see this several times, please file a bug report.",
-			onClick: (_) => hardReload()
-		);
-	}
 
-	try {
 		// Download the latest map data
 		mapData = await new MapData()
 			..init();
@@ -311,9 +297,28 @@ afterPolymer() async {
 
 		// Download constants
 		constants = JSON.decode(await HttpRequest.getString("http://${Configs.utilServerAddress}/constants/json"));
-	} catch(e) {
+	} catch (e) {
 		logmessage("Error loading server data: $e");
 		serverDown = true;
+	}
+
+	try {
+		// init ui
+		startTime = new DateTime.now();
+		view = new UserInterface();
+		audio = new SoundManager();
+		windowManager = new WindowManager();
+		auth = new AuthManager();
+		minimap = new Minimap();
+		GPS.initWorldGraph();
+		InvDragging.init();
+	} catch (e) {
+		logmessage("Error initializing interface: $e");
+		new Toast(
+			"OH NO! There was an error, so you should click here to reload."
+			" If you see this several times, please file a bug report.",
+			onClick: (_) => hardReload()
+		);
 	}
 
 	// System

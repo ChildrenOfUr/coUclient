@@ -30,6 +30,11 @@ class Game {
 				querySelector("ur-meters /deep/ #leftDisk").classes.add("guideDisk");
 			}
 		});
+
+		// Change username button
+		querySelector("#changeUsernameFromChatPanel").onClick.listen((_) {
+			windowManager.changeUsernameWindow.open();
+		});
 	}
 
 	Future<String> getElevation(String username) async {
@@ -38,7 +43,9 @@ class Game {
 		} else {
 			String elevation = await HttpRequest.getString(
 				"http://${Configs.utilServerAddress}/elevation/get/$username"
-			);
+			).timeout(new Duration(seconds: 5), onTimeout: () {
+				return '';
+			});
 			elevationCache[username] = elevation;
 			return elevation;
 		}

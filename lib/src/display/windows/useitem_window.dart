@@ -349,9 +349,10 @@ class UseWindow extends Modal {
 					"&username=${game.username}"
 				);
 
-				if (current >= qty && serverResponse != "OK") {
-					// Server says no
+				if (current >= qty || serverResponse != "OK") {
+					// Stop
 					if (serverResponse != "OK") {
+						// Server says no
 						new Toast(
 							"You had to stop using your ${itemName} because $serverResponse.",
 							notify: NotifyRule.UNFOCUSED
@@ -361,9 +362,9 @@ class UseWindow extends Modal {
 					// We're done
 					await _stopMakingRecipes(timer);
 				} else {
-					// Server says yes
 					// Increase the number we've made
 					current++;
+
 					// Update the progress bar
 					progBar
 						..attributes["percent"] = ((100 / qty) * current).toString()
