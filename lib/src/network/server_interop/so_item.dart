@@ -218,7 +218,7 @@ Map getDropMap(int count, int slotNum, int subSlotNum) {
 		..['slot'] = slotNum
 		..['subSlot'] = subSlotNum
 		..['count'] = count
-		..['x'] = CurrentPlayer.posX
+		..['x'] = CurrentPlayer.posX + CurrentPlayer.width / 2
 		..['y'] = CurrentPlayer.posY + CurrentPlayer.height / 2
 		..['streetName'] = currentStreet.label
 		..['tsid'] = currentStreet.streetData['tsid'];
