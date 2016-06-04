@@ -1,0 +1,80 @@
+#invSearchWindow #invSearchInput {
+	width: calc(100% - 8px);
+	padding: 2px;
+}
+
+#invSearchWindow #invSearchOutput {
+	display: block;
+	width: 500px;
+	position: relative;
+	left: 50%;
+	top: 20px;
+	transform: translateX(-50%);
+}
+
+#invSearchWindow #invSearchOutput .inv-search-result {
+	display: block;
+	margin-top: 10px;
+	height: 40px;
+}
+
+#invSearchWindow #invSearchOutput .inv-search-result,
+#invSearchWindow #invSearchOutput .inv-search-result * {
+	cursor: pointer;
+}
+
+#invSearchWindow #invSearchOutput .inv-search-result:hover {
+	opacity: 0.9;
+}
+
+#invSearchWindow #invSearchOutput .inv-search-result-icon {
+	display: inline-block;
+	vertical-align: middle;
+	width: 40px;
+	max-height: 40px;
+	margin-right: 10px;
+}
+
+#invSearchWindow #invSearchOutput .inv-search-result-label {
+	display: inline-block;
+	font-size: 18px;
+	vertical-align: middle;
+}
+
+#invSearchWindow #invSearchOutput .inv-search-result-qty {
+	display: inline-block;
+	float: right;
+	font-size: 18px;
+	padding-top: 5px;
+	opacity: 0.5;
+}
+
+/* Box highlighting */
+
+@-webkit-keyframes inv-hl-anim {
+	from {
+		box-shadow: inset 0 0 1px #555;
+	}
+
+	to {
+		box-shadow: inset 0 0 10px #555;
+	}
+}
+
+@-webkit-keyframes inv-hl-anim-darkui {
+	from {
+		box-shadow: inset 0 0 1px #fff;
+	}
+
+	to {
+		box-shadow: inset 0 0 10px #fff;
+	}
+}
+
+.box.inv-highlight {
+	-webkit-animation: inv-hl-anim 1s ease-in-out infinite alternate;
+}
+
+.darkui .box.inv-highlight {
+	-webkit-animation: inv-hl-anim-darkui 1s ease-in-out infinite alternate;
+}
