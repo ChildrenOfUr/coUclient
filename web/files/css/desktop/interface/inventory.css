@@ -23,7 +23,7 @@
   border-radius:8px;
   position:absolute;
   bottom:75px;
-  left:10px;
+  right: 250px;
   cursor:pointer;
   z-index:0;
 }
@@ -31,10 +31,20 @@
   height:30px;
   color:#bbb;
   position:absolute;
-  top:calc(40% - 0.9em);
-  right:calc(40% - 0.5em);
+  top: calc(40% - 0.7em);
+  left:calc(40% - 0.5em);
   cursor:pointer;
 }
+
+.darkui #inventorySearch {
+	background-color: #282828;
+}
+
+.darkui #inventorySearch * {
+	color: #aaa;
+}
+
+i.fa.fa-search {}
 
 #inventorySearch:hover, #inventorySearch *:hover {
   color:#999;

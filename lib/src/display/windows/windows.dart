@@ -1,38 +1,39 @@
 part of couclient;
 
 class WindowManager {
-	SettingsWindow settings;
-	BugWindow bugs;
-	VendorWindow vendor;
-	MotdWindow motdWindow;
-
-	//GoWindow goWindow;
-	CalendarWindow calendarWindow;
-	RockWindow rockWindow;
-	EmoticonPicker emoticonPicker;
-	QuestLogWindow questLog;
+	// Declaring all the possible popup windows
 	AchievementsWindow achievements;
-	QuestMakerWindow questMaker;
+	BugWindow bugs;
+	CalendarWindow calendarWindow;
 	ChangeUsernameWindow changeUsernameWindow;
+	EmoticonPicker emoticonPicker;
+	InventorySearchWindow inventorySearchWindow;
+	MotdWindow motdWindow;
+	QuestLogWindow questLog;
+	QuestMakerWindow questMaker;
+	RockWindow rockWindow;
+	SettingsWindow settings;
+	VendorWindow vendor;
 
 	WindowManager() {
 		new Service('gameLoaded', (_) {
 			//needs to have game.username defined first
 			questMaker = new QuestMakerWindow();
 		});
-		// Declaring all the possible popup windows
-		settings = new SettingsWindow();
-		mapWindow = new MapWindow();
-		bugs = new BugWindow();
-		vendor = new VendorWindow();
-		motdWindow = new MotdWindow();
-		//goWindow = new GoWindow();
-		calendarWindow = new CalendarWindow();
-		rockWindow = new RockWindow();
-		emoticonPicker = new EmoticonPicker();
-		questLog = new QuestLogWindow();
+
+		// Defining all the possible popup windows
 		achievements = new AchievementsWindow();
+		bugs = new BugWindow();
+		calendarWindow = new CalendarWindow();
 		changeUsernameWindow = new ChangeUsernameWindow();
+		emoticonPicker = new EmoticonPicker();
+		inventorySearchWindow = new InventorySearchWindow();
+		mapWindow = new MapWindow();
+		motdWindow = new MotdWindow();
+		questLog = new QuestLogWindow();
+		rockWindow = new RockWindow();
+		settings = new SettingsWindow();
+		vendor = new VendorWindow();
 	}
 
 	static int get randomId => random.nextInt(9999999);

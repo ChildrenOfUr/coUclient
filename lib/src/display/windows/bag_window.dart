@@ -36,6 +36,8 @@ class BagWindow extends Modal {
 
 	Dropzone acceptors;
 
+	Completer loadUpdate;
+
 	factory BagWindow(int sourceSlotNum, ItemDef sourceItem, {String id : null, bool open : true}) {
 		if (id == null) {
 			return new BagWindow._(sourceSlotNum, sourceItem, openWindow:open);
@@ -58,6 +60,7 @@ class BagWindow extends Modal {
 		bagWindows.add(this);
 
 		//load the ui of the window and open it when ready
+		loadUpdate = new Completer();
 		load(sourceItem).then((DivElement windowElement) {
 			displayElement = windowElement;
 			// Handle drag and drop
@@ -108,6 +111,7 @@ class BagWindow extends Modal {
 		Element newWell = await load(sourceItem, false);
 		displayElement.querySelector("ur-well").replaceWith(newWell);
 		transmit('metadataUpdated', true);
+		loadUpdate.complete();
 	}
 
 	Future<Element> load(ItemDef sourceItem, [bool full = true]) async {
@@ -210,6 +214,7 @@ class BagWindow extends Modal {
 		super.open();
 		openWindows.add(this);
 
+		loadUpdate = new Completer();
 		updateWell(sourceItem);
 	}
 
