@@ -103,8 +103,6 @@ part 'package:couclient/src/display/windows/item_window.dart';
 part 'package:couclient/src/display/windows/map_window.dart';
 part 'package:couclient/src/display/windows/motd_window.dart';
 part 'package:couclient/src/display/windows/note_window.dart';
-part 'package:couclient/src/display/windows/preferences/preference.dart';
-part 'package:couclient/src/display/windows/preferences/preferences_window.dart';
 part 'package:couclient/src/display/windows/quest_maker_window.dart';
 part 'package:couclient/src/display/windows/questlog_window.dart';
 part 'package:couclient/src/display/windows/rock_window.dart';
