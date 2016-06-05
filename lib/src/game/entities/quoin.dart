@@ -6,7 +6,11 @@ class Quoin {
 	Map <String, int> quoins = {"img":0, "mood":1, "energy":2, "currant":3, "mystery":4, "favor":5, "time":6, "quarazy":7};
 	String typeString;
 	Animation animation;
-	bool ready = false, firstRender = true, collected = false, checking = false, hit = false;
+	bool ready = false;
+	bool firstRender = true;
+	bool collected = false; // Whether the quoin is waiting to respawn
+	bool checking = false; // Whether the client is waiting for the server to verify/award the quoin
+	bool hit = false; // Whether the client is sending the intersection to the server
 	CanvasElement canvas;
 	DivElement circle, parent;
 	Rectangle quoinRect;
@@ -94,24 +98,25 @@ class Quoin {
 	}
 
 	update(double dt) {
-		if(!ready) {
+		if (!ready) {
 			return;
 		}
 
 		quoinRect = new Rectangle(left, top, canvas.width, canvas.height);
 
 		//if a player collides with us, tell the server
-		if(!hit) {
-			if(_checkPlayerCollision()) {
-				if (_canCollect()) {
-					_sendToServer();
-				}
+		if (!hit && (_checkPlayerCollision() && _canCollect())) {
+			// Intersecting and able to collect
+			_sendToServer();
 
-				hit = true;
-			}
+			// Don't check again
+			hit = true;
+		} else if (!collected) {
+			hit = false;
 		}
 
-		if(intersect(camera.visibleRect, quoinRect)) {
+		if (intersect(camera.visibleRect, quoinRect)) {
+			// In view
 			animation.updateSourceRect(dt);
 			greyedOut = statIsMaxed;
 		}
@@ -150,12 +155,15 @@ class Quoin {
 		}
 
 		if (metabolics.playerMetabolics.quoins_collected >= constants["quoinLimit"]) {
-			return _toastIfNotNotified("You've reached your daily limit of ${constants["quoinLimit"].toString()} quoins");
+			return _toastIfNotNotified(
+				"You've reached your daily limit of ${constants["quoinLimit"].toString()} quoins");
 		} else if (typeString == 'mood' && metabolics.playerMetabolics.mood >= metabolics.playerMetabolics.max_mood) {
-			return _toastIfNotNotified("You tried to collect a mood quoin, but your mood was already full.");
+			return _toastIfNotNotified(
+				"You tried to collect a mood quoin, but your mood was already full.");
 		} else if (typeString == 'energy' && metabolics.playerMetabolics.energy >= metabolics.playerMetabolics.max_energy) {
-			return _toastIfNotNotified("You tried to collect an energy quoin, but your energy tank was already full.");
-		}  else {
+			return _toastIfNotNotified(
+				"You tried to collect an energy quoin, but your energy tank was already full.");
+		} else {
 			return true;
 		}
 	}

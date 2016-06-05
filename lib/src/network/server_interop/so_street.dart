@@ -63,6 +63,7 @@ _setupStreetSocket(String streetName) {
 			new AuctionWindow().open();
 			return;
 		}
+
 		if (map['openWindow'] != null) {
 			if (map['openWindow'] == 'vendorSell') new VendorWindow().call(map, sellMode: true);
 			if (map['openWindow'] == 'mailbox') new MailboxWindow().open();
@@ -79,26 +80,32 @@ _setupStreetSocket(String streetName) {
 			}
 			return;
 		}
+
 		if (map['itemsForSale'] != null) {
 			new VendorWindow().call(map);
 			return;
 		}
+
 		if (map['giantName'] != null) {
 			new ShrineWindow(map['giantName'], map['favor'], map['maxFavor'], map['id']).open();
 			return;
 		}
+
 		if (map['favorUpdate'] != null) {
 			transmit('favorUpdate', map);
 			return;
 		}
+
 		if (map['gotoStreet'] != null) {
 			streetService.requestStreet(map['tsid']);
 			return;
 		}
+
 		if (map['toast'] != null) {
 			new Toast(map['message'], skipChat: map["skipChat"], onClick: map["onClick"]);
 			return;
 		}
+
 		if (map["useItem"] != null) {
 			new UseWindow(map["useItem"], map["useItemName"]);
 			return;
@@ -162,20 +169,27 @@ _setupStreetSocket(String streetName) {
 
 		(map["quoins"] as List).forEach((Map quoinMap) {
 			if (quoinMap["remove"] == "true") {
+				// Server OKed collection of a quoin
 				Element objectToRemove = querySelector("#${quoinMap["id"]}");
-				if (objectToRemove != null) objectToRemove.style.display =
-				"none";
-				//.remove() is very slow
+				if (objectToRemove != null) {
+					//.remove() is very slow
+					objectToRemove.style.display = "none";
+				}
 			} else {
+				// Respawn quoins
 				String id = quoinMap["id"];
 				Element element = querySelector("#$id");
-				if (element == null) addQuoin(quoinMap);
-				else if (element.style.display == "none") {
+				if (element == null) {
+					// Add new quoin
+					addQuoin(quoinMap);
+				} else if (element.style.display == "none") {
+					// Update existing quoin
 					element.style.display = "block";
 					quoins[id].collected = false;
 				}
 			}
 		});
+
 		(map["doors"] as List).forEach((Map doorMap) {
 			String id = doorMap["id"];
 			Element element = querySelector("#$id");
@@ -190,6 +204,7 @@ _setupStreetSocket(String streetName) {
 				}
 			}
 		});
+
 		(map["plants"] as List).forEach((Map plantMap) {
 			String id = plantMap["id"];
 			Element element = querySelector("#$id");
@@ -207,6 +222,7 @@ _setupStreetSocket(String streetName) {
 				}
 			}
 		});
+
 		(map["npcs"] as List).forEach((Map npcMap) {
 			String id = npcMap["id"];
 			Element element = querySelector("#$id");
@@ -222,6 +238,7 @@ _setupStreetSocket(String streetName) {
 				}
 			}
 		});
+
 		(map['groundItems'] as List).forEach((Map itemMap) {
 			String id = itemMap['id'];
 			Element element = querySelector("#$id");
@@ -238,6 +255,7 @@ _setupStreetSocket(String streetName) {
 			}
 		});
 	});
+
 	streetSocket.onClose.listen((CloseEvent e) {
 		logmessage('[Multiplayer (Street)] Socket closed');
 		if (!reconnect) {
@@ -253,6 +271,7 @@ _setupStreetSocket(String streetName) {
 			_setupStreetSocket(currentStreet.label);
 		});
 	});
+
 	streetSocket.onError.listen((Event e) {
 		logmessage('[Multiplayer (Street)] Error ${e}');
 	});
