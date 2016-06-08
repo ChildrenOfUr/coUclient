@@ -276,7 +276,7 @@ class RightClickMenu {
 
 						if(completed) {
 							// Action completed
-							Map arguments = null;
+							Map arguments = {};
 							if (option.length > 3) {
 								arguments = option[3];
 								arguments['count'] = howMany;
@@ -286,10 +286,8 @@ class RightClickMenu {
 								//try to pick up howMany items that we're touching
 								List<String> objectIds = CurrentPlayer.intersectingObjects.keys.toList();
 								objectIds.removeWhere((String id) => querySelector('#$id').attributes['type'] != itemName);
-								for(int i=0; i<howMany; i++) {
-									option[1] = objectIds[i];
-									sendAction(functionName, option[1], arguments);
-								}
+								arguments['pickupIds'] = objectIds;
+								sendGlobalAction(functionName, arguments);
 							} else {
 								if (item != null) {
 									arguments["itemdata"] = item.metadata;

@@ -5,15 +5,15 @@ class GroundItem extends Entity {
 		ImageElement item = new ImageElement(src:map['iconUrl']);
 		item.onLoad.first.then((_) {
 			left = map['x'];
-			top = map['y'];
+			top = map['y'] - item.height;
 			width = item.width;
 			height = item.height;
 			id = map['id'];
 
-			item.style.transform = "translateX(${map['x']}px) translateY(${map['y']}px)";
+			item.style.transform = "translateX(${left}px) translateY(${top}px)";
 			item.style.position = "absolute";
-			item.attributes['translatex'] = map['x'].toString();
-			item.attributes['translatey'] = map['y'].toString();
+			item.attributes['translatex'] = left.toString();
+			item.attributes['translatey'] = top.toString();
 			item.attributes['width'] = item.width.toString();
 			item.attributes['height'] = item.height.toString();
 			item.attributes['type'] = map['name'];
@@ -21,7 +21,7 @@ class GroundItem extends Entity {
 			item.attributes['actions'] = JSON.encode(map['actions']);
 			item.classes.add('groundItem');
 			item.classes.add('entity');
-			item.id = map['id'];
+			item.id = id;
 			view.playerHolder.append(item);
 			addingLocks[id] = false;
 		});
