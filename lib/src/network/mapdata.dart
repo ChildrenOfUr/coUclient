@@ -1,34 +1,42 @@
 part of couclient;
 
 class MapData {
-	Map<String, Map<String, dynamic>> hubData, streetData;
-	bool loaded;
+	Map<String, Map<String, dynamic>>
+		hubData = {},
+		streetData = {};
+
+	Completer<bool> load = new Completer();
 
 	MapData() {
-		loaded = false;
 		hubData = {};
 		streetData = {};
-	}
 
-	// Downloads the map data
-	init() async {
+		// Download the map data from the server
 		try {
-			String json = await HttpRequest.requestCrossOrigin("http://${Configs.utilServerAddress}/getMapData?token=$rsToken")
-			.timeout(new Duration(seconds: 5), onTimeout: () => _serverIsDown("Connection timed out."));
-
-			Map data = JSON.decode(json);
-			logmessage("[Server Communication] Map data loaded.");
-			hubData = data["hubs"];
-			streetData = data["streets"];
-			loaded = true;
+			HttpRequest.requestCrossOrigin(
+				'http://${Configs.utilServerAddress}/getMapData?token=$rsToken')
+			.timeout(new Duration(seconds: 5),
+				onTimeout: () => _serverIsDown('Connection timed out.'))
+			.then((String json) {
+				try {
+					Map<String, Map<String, dynamic>> data = JSON.decode(json);
+					logmessage('[Server Communication] Map data loaded.');
+					hubData = data['hubs'];
+					streetData = data['streets'];
+					load.complete(true);
+				} catch (e) {
+					load.complete(false);
+					_serverIsDown('$e');
+				}
+			});
 		} catch (e) {
-			loaded = false;
-			_serverIsDown("$e");
+			load.complete(false);
+			_serverIsDown('$e');
 		}
 	}
 
 	// Shows the "server down" screen
-	_serverIsDown([String errorText = ""]) {
+	void _serverIsDown([String errorText = ""]) {
 		logmessage("[Server Communication] Server down thrown: Could not load map data. $errorText");
 		querySelector('#server-down').hidden = false;
 		serverDown = true;
@@ -79,7 +87,7 @@ class MapData {
 	// Returns the value of a setting in the map data
 	dynamic checkSetting(String setting, {String streetName, var defaultValue}) {
 		// Check to make sure we have data
-		if (!loaded) {
+		if (!load.isCompleted) {
 			return defaultValue;
 		}
 

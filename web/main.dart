@@ -197,18 +197,22 @@ afterPolymer() async {
 	//make sure the application cache is up to date
 	handleAppCache();
 
+	// Start uptime counter
+	startTime = new DateTime.now();
+
 	try {
+		// Load server connection configuration
 		await Configs.init();
 
 		// Download the latest map data
-		mapData = await new MapData()
-			..init();
+		mapData = await new MapData()..load.future;
 
 		// Make sure we have an up-to-date (1 day expiration) item cache
 		await Item.loadItems();
 
 		// Download constants
-		constants = JSON.decode(await HttpRequest.getString("http://${Configs.utilServerAddress}/constants/json"));
+		constants = JSON.decode(
+			await HttpRequest.getString("http://${Configs.utilServerAddress}/constants/json"));
 	} catch (e) {
 		logmessage("Error loading server data: $e");
 		serverDown = true;
@@ -216,7 +220,6 @@ afterPolymer() async {
 
 	try {
 		// init ui
-		startTime = new DateTime.now();
 		view = new UserInterface();
 		audio = new SoundManager();
 		windowManager = new WindowManager();
