@@ -142,18 +142,13 @@ class MapWindow extends Modal {
 class WorldMap {
 	static final num DEG_TO_RAD = PI / 180;
 
-	Map<String, String> hubInfo;
-	Map<String, Map> hubMaps;
-	Map<String, String> moteInfo;
 	String showingHub;
-
-	DataMaps map = new DataMaps();
+	Map<String, String> hubInfo;
 
 	bool worldMapVisible = false;
 	Element WorldMapDiv = querySelector("#WorldMapLayer");
 	Element HubMabDiv = querySelector("#HubMapLayer");
-
-	//Element HubMapFG = querySelector("#HubMapLayerFG");
+	Element HubMapFG = querySelector("#HubMapLayerFG");
 
 	WorldMap(String hub_id) {
 		loadhubdiv(hub_id);
@@ -195,35 +190,34 @@ class WorldMap {
 	loadhubdiv(String hub_id, [String highlightStreet]) {
 		showingHub = hub_id;
 
-		// read in street data
-		hubInfo = map.data_maps_hubs[hub_id]();
-		hubMaps = map.data_maps_maps[hub_id]();
-		moteInfo = map.data_maps_streets['9']();
+		Map<String, dynamic> hubInfo = mapData.hubData[hub_id];
 
-		// check visited streets with server
+		if (hubInfo == null) {
+			logmessage('[MapWindow] Missing hub $hub_id');
+		}
 
 		// prepare ui elements
 		view.mapTitle.text = hubInfo['name'];
 		view.mapImg
-			..style.backgroundImage = 'url(' + hubInfo['bg'] + ')'
+			..style.backgroundImage = 'url(' + hubInfo['img_bg'] + ')'
 			..title = hubInfo["name"];
-		//HubMapFG.style.backgroundImage = "url(" + hubInfo['fg'] + ")";
+		HubMapFG.style.backgroundImage = 'url(' + (hubInfo['img_fg'] ?? '') + ')';
 		HubMabDiv.children.clear();
 
 		// render
-		for (Map object in hubMaps['objs'].values) {
+		for (Map object in mapData.renderData[hub_id].values) {
 			if (object['type'] == 'S') {
 				// STREETS
 
-				String streetName = moteInfo[hub_id][object['tsid']];
+				String streetName = mapData.getLabel(object['tsid']);
 
 				Map streetPlacement = {
-					"x1": object["x1"],
-					"x2": object["x2"],
-					"y1": object["y1"],
-					"y2": object["y2"],
-					"deg": 0,
-					"length": 0,
+					'x1': object['x1'],
+					'x2': object['x2'],
+					'y1': object['y1'],
+					'y2': object['y2'],
+					'deg': 0,
+					'length': 0,
 				};
 				streetPlacement['deg'] = getStreetAngle(streetPlacement);
 				streetPlacement['length'] = getStreetLength(streetPlacement);
@@ -361,8 +355,8 @@ class WorldMap {
 					"arrow": object["arrow"], // int deg
 					"label": object["label"], // int deg
 					"id": object["hub_id"],
-					"name": map.data_maps_hubs[object["hub_id"]]()["name"],
-					"color": map.data_maps_hubs[object["hub_id"]]()["color"]
+					"name": mapData.hubData[object['hub_id']]['name'],
+					"color": mapData.hubData[object['hub_id']]['color']
 				};
 
 				if (!goPlacement["color"].startsWith("#")) {
@@ -528,7 +522,7 @@ class WorldMap {
 		WorldMapDiv.children.clear();
 
 		mapData.hubData.forEach((key, value) {
-			if (value["hidden"] == null || value["hidden"] != true) {
+			if (value["map_hidden"] != true) {
 				DivElement hub = new DivElement();
 				hub
 					..className = "wml-hub"
@@ -536,8 +530,9 @@ class WorldMap {
 					..style.left = value['x'].toString() + 'px'
 					..style.top = value['y'].toString() + 'px'
 					..append(new SpanElement()..text = value['name'])
-					..onMouseEnter.listen((_) => hub.style.backgroundImage = 'url(' + map.data_maps_hubs[key]()['bg'] + ')')
-					..onMouseLeave.listen((_) => hub.style.backgroundImage = "");
+					..onMouseEnter.listen((_) =>
+						hub.style.backgroundImage = 'url(' + value['img_bg'] + ')')
+					..onMouseLeave.listen((_) => hub.style.backgroundImage = '');
 				if (currentStreet.hub_id == key) {
 					hub.classes.add('currentlocationhub');
 				}
@@ -565,9 +560,8 @@ class WorldMap {
 			loadhubdiv(hub_id);
 		}
 		view.mapTitle.text = hub_name;
-		view.mapImg.style.backgroundImage =
-			'url(' + map.data_maps_hubs[hub_id]()['bg'] + ')';
-		view.mapTitle.text = map.data_maps_hubs[hub_id]()['name'];
+		view.mapImg.style.backgroundImage = 'url(' + mapData.hubData[hub_id]['img_bg'] + ')';
+		view.mapTitle.text = mapData.hubData[hub_id]['name'];
 		worldMapVisible = false;
 		HubMabDiv.hidden = false;
 		//HubMapFG.hidden = false;

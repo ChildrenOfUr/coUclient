@@ -18,8 +18,6 @@ class Street {
 	int groundY;
 	bool loaded = false;
 
-	DataMaps map = new DataMaps();
-
 	// Return the TSID, starting with an L
 	String get tsid {
 		if (_tsid.startsWith('G')) {
@@ -34,14 +32,7 @@ class Street {
 		return _tsid;
 	}
 
-	String get label {
-		String hub_id = currentStreet.hub_id;
-		String currentStreetName;
-		Map<int, Map<String, String>> moteInfo = map.data_maps_streets['9']();
-		currentStreetName = moteInfo[hub_id][tsid];
-
-		return currentStreetName;
-	}
+	String get label => mapData.getLabel(tsid);
 
 	bool get useLetters {
 		return (

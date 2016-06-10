@@ -133,7 +133,6 @@ part 'package:couclient/src/display/render/camera.dart';
 part 'package:couclient/src/display/render/collision_lines_debug.dart';
 part 'package:couclient/src/display/render/deco.dart';
 part 'package:couclient/src/display/render/ladder.dart';
-part 'package:couclient/src/display/render/maps_data.dart';
 part 'package:couclient/src/display/render/platform.dart';
 part 'package:couclient/src/display/render/signpost.dart';
 part 'package:couclient/src/display/render/wall.dart';

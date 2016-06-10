@@ -4,13 +4,12 @@ class MapData {
 	Map<String, Map<String, dynamic>>
 		hubData = {},
 		streetData = {};
+	 Map<String, Map<String, Map<String, dynamic>>>
+	 	renderData = {};
 
 	Completer<bool> load = new Completer();
 
 	MapData() {
-		hubData = {};
-		streetData = {};
-
 		// Download the map data from the server
 		try {
 			HttpRequest.requestCrossOrigin(
@@ -23,6 +22,7 @@ class MapData {
 					logmessage('[Server Communication] Map data loaded.');
 					hubData = data['hubs'];
 					streetData = data['streets'];
+					renderData = data['render'];
 					load.complete(true);
 				} catch (e) {
 					load.complete(false);
