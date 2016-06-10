@@ -32,10 +32,10 @@ void itemContextMenu(ItemDef i, String slot, MouseEvent event) {
 			}
 
 			actions.add([
-				            capitalizeFirstLetter(action.name) + '|' +
-				            action.name + '|${action.timeRequired}|$enabled|$error|${action.multiEnabled}',
+				            capitalizeFirstLetter(action.action) + '|' +
+				            action.action + '|${action.timeRequired}|$enabled|$error|${action.multiEnabled}',
 				            i.itemType,
-				            "sendAction ${action.name} ${i.item_id}",
+				            "sendAction ${action.action} ${i.item_id}",
 				            getDropMap(1, barSlot, bagSlot)
 			            ]);
 		});

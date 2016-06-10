@@ -7,6 +7,7 @@ abstract class Entity {
 	num left = 0, top = 0, width = 0, height = 0;
 	String id;
 	MutableRectangle _entityRect, _destRect;
+	List<Action> actions = [];
 
 	void update(double dt) {
 		if(intersect(CurrentPlayer.avatarRect, entityRect)) {
@@ -58,46 +59,38 @@ abstract class Entity {
 	 * "alldisabled" (bool) -> true if every action is disabled, false otherwise
 	 * "actions" (List<List>) -> terrible and ready for a right click menu
 	 */
-	static Map<String, dynamic> getActions(String id, [Element element]) {
-		List<List> actions = [];
+	Map<String, dynamic> getActions(String id) {
+		List<List> menuActions = [];
 		bool allDisabled = true;
 
-		if (element == null) {
-			element = querySelector("#$id");
-		}
+		actions.forEach((Action action) {
+			bool enabled = action.enabled;
+			if(enabled) {
+				allDisabled = false;
+			}
 
-		if(element.attributes['actions'] != null) {
-			List<Map> actionsList = JSON.decode(element.attributes['actions']);
-			actionsList.forEach((Map actionMap) {
-				bool enabled = actionMap['enabled'];
+			String error = "";
+			List<Map> requires = [];
+			action.itemRequirements.all.forEach((String item, int num) => requires.add({'num':num, 'of':[item]}));
+			if(action.itemRequirements.any.length > 0) {
+				requires.add({'num':1, 'of':action.itemRequirements.any});
+			}
+			enabled = hasRequirements(requires);
+			if(enabled) {
+				error = action.description;
+			} else {
+				error = getRequirementString(requires);
+			}
 
-				if(enabled) {
-					allDisabled = false;
-				}
+			menuActions.add([capitalizeFirstLetter(action.action) + "|" + action.actionWord + "|${action.timeRequired}|$enabled|$error|${action.multiEnabled}", id, "sendAction ${action.action} $id|${action.associatedSkill}"]);
+		});
 
-				String error = "";
-				if(actionMap['requires'] != null) {
-					enabled = hasRequirements(actionMap['requires']);
-					if(enabled) {
-						if(actionMap.containsKey('description')) {
-							error = actionMap['description'];
-						} else {
-							error = '';
-						}
-					} else {
-						error = getRequirementString(actionMap['requires']);
-					}
-				}
-				actions.add([capitalizeFirstLetter(actionMap['action']) + "|" + actionMap['actionWord'] + "|${actionMap['timeRequired']}|$enabled|$error|${actionMap['multiEnabled']}", element.id, "sendAction ${actionMap['action']} ${element.id}|${actionMap["associatedSkill"]}"]);
-			});
-		}
-
-		return {"actions": actions, "alldisabled": allDisabled};
+		return {"actions": menuActions, "alldisabled": allDisabled};
 	}
 
 	void interact(String id) {
 		Element element = querySelector("#$id");
-		Map<String, dynamic> actions = getActions(id, element);
+		Map<String, dynamic> actions = getActions(id);
 
 		if(!actions["alldisabled"]) {
 			inputManager.showClickMenu(null, element.attributes['type'], "Desc", actions["actions"]);

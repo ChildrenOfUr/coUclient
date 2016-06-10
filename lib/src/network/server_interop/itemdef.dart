@@ -18,20 +18,20 @@ class ItemDef {
 }
 
 class Action {
-	String name;
-	bool multiEnabled;
-	String description;
+	String action;
+	bool enabled, multiEnabled;
+	String description, associatedSkill, actionWord;
 	int timeRequired;
 	ItemRequirements itemRequirements = new ItemRequirements();
 	SkillRequirements skillRequirements = new SkillRequirements();
 
 	Action();
 
-	Action.withName(this.name);
+	Action.withName(this.action);
 
 	@override
 	String toString() {
-		String returnString = "$name requires any of ${itemRequirements.any}, all of ${itemRequirements
+		String returnString = "$action requires any of ${itemRequirements.any}, all of ${itemRequirements
 			.all} and at least ";
 		skillRequirements.requiredSkillLevels.forEach((String skill, int level) {
 			returnString += "$level level of $skill, ";

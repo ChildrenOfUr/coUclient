@@ -2,6 +2,10 @@ part of couclient;
 
 class GroundItem extends Entity {
 	GroundItem(Map map) {
+		if (map.containsKey('actions')) {
+			actions = decode(JSON.encode(map['actions']), type: const TypeHelper<List<Action>>().type);
+		}
+
 		ImageElement item = new ImageElement(src:map['iconUrl']);
 		item.onLoad.first.then((_) {
 			left = map['x'];
@@ -33,33 +37,30 @@ class GroundItem extends Entity {
 	@override
 	void interact(String id) {
 		Element element = querySelector("#$id");
-		List<List> actions = [];
+		List<List> menuActions = [];
 
-		if(element.attributes['actions'] != null) {
-			List<Action> actionsList = decode(element.attributes['actions'], type: const TypeHelper<List<Action>>().type);
-			bool enabled = false;
-			actionsList.forEach((Action action) {
-				String error = "";
-				List<Map> requires = [];
-				action.itemRequirements.all.forEach((String item, int num) => requires.add({'num':num, 'of':[item]}));
-				if(action.itemRequirements.any.length > 0) {
-					requires.add({'num':1, 'of':action.itemRequirements.any});
-				}
-				enabled = hasRequirements(requires);
-				if(enabled) {
-					error = action.description;
-				} else {
-					error = getRequirementString(requires);
-				}
-				actions.add([
-					            capitalizeFirstLetter(action.name) + '|' +
-					            '|0|$enabled|$error|${action.multiEnabled}',
-					            id,
-					            "sendAction ${action.name} $id",
-				            ]);
-			});
-		}
+		bool enabled = false;
+		actions.forEach((Action action) {
+			String error = "";
+			List<Map> requires = [];
+			action.itemRequirements.all.forEach((String item, int num) => requires.add({'num':num, 'of':[item]}));
+			if(action.itemRequirements.any.length > 0) {
+				requires.add({'num':1, 'of':action.itemRequirements.any});
+			}
+			enabled = hasRequirements(requires);
+			if(enabled) {
+				error = action.description;
+			} else {
+				error = getRequirementString(requires);
+			}
+			menuActions.add([
+							capitalizeFirstLetter(action.action) + '|' +
+							'|0|$enabled|$error|${action.multiEnabled}',
+							id,
+							"sendAction ${action.action} $id",
+						]);
+		});
 
-		inputManager.showClickMenu(null, element.attributes['type'], element.attributes['description'], actions, itemName:element.attributes['type']);
+		inputManager.showClickMenu(null, element.attributes['type'], element.attributes['description'], menuActions, itemName:element.attributes['type']);
 	}
 }

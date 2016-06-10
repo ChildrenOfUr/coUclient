@@ -14,6 +14,10 @@ class NPC extends Entity {
 	Stream get onAnimationLoaded => _animationLoaded.stream;
 
 	NPC(Map map) {
+		if (map.containsKey('actions')) {
+			actions = decode(JSON.encode(map['actions']), type: const TypeHelper<List<Action>>().type);
+		}
+
 		canvas = new CanvasElement();
 		speed = map['speed'];
 		ySpeed = map['ySpeed'] ?? 0;

@@ -201,7 +201,7 @@ String capitalizeFirstLetter(String string) {
  *
  * For example, if the user is trying to mine a rock, this will take in a List<Map> which looks like
  *
- * [{"num":1,"of":["Pick","Fancy Pick"]}]
+ * [{"num":1,"of":["pick","fancy_pick"]}]
  *
  * ...meaning that the player must have 1 of either a Pick or Fancy Pick in their bags in order
  * to perform the action.

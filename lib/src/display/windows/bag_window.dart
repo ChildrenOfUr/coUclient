@@ -111,7 +111,9 @@ class BagWindow extends Modal {
 		Element newWell = await load(sourceItem, false);
 		displayElement.querySelector("ur-well").replaceWith(newWell);
 		transmit('metadataUpdated', true);
-		loadUpdate.complete();
+		if (!loadUpdate.isCompleted) {
+			loadUpdate.complete();
+		}
 	}
 
 	Future<Element> load(ItemDef sourceItem, [bool full = true]) async {

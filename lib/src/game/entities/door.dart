@@ -6,6 +6,10 @@ class Door extends Entity {
 	bool ready = false, firstRender = true;
 
 	Door(Map map) {
+		if (map.containsKey('actions')) {
+			actions = decode(JSON.encode(map['actions']), type: const TypeHelper<List<Action>>().type);
+		}
+
 		canvas = new CanvasElement();
 		canvas.id = map["id"];
 		id = map['id'];

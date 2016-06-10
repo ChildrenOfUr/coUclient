@@ -9,6 +9,10 @@ class Plant extends Entity {
 	String url;
 
 	Plant(Map map) {
+		if (map.containsKey('actions')) {
+			actions = decode(JSON.encode(map['actions']), type: const TypeHelper<List<Action>>().type);
+		}
+
 		canvas = new CanvasElement();
 		canvas.id = map["id"];
 		id = map['id'];
