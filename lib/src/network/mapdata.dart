@@ -84,6 +84,11 @@ class MapData {
 		return result;
 	}
 
+	// Returns the hub ID for the street with the given name
+	String getHubIdForLabel(String streetName) {
+		return streetData[streetName]['hub_id'];
+	}
+
 	// Returns the value of a setting in the map data
 	dynamic checkSetting(String setting, {String streetName, var defaultValue}) {
 		// Check to make sure we have data

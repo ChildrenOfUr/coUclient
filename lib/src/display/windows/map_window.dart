@@ -121,11 +121,24 @@ class MapWindow extends Modal {
 
 	bool checkVisibility(String streetname) {
 		// Allowed to be shown on map?
-		if (mapData.streetData[streetname] == null) {
-			return true;
+
+		bool hubVisible, streetVisible;
+		// Hub level
+		Map hub = mapData.hubData[mapData.getHubIdForLabel(streetname)];
+		if (hub == null) {
+			hubVisible = true;
 		} else {
-			return !(mapData.streetData[streetname]["map_hidden"] ?? false);
+			hubVisible = !(hub['map_hidden'] ?? false);
 		}
+
+		// Street level
+		if (mapData.streetData[streetname] == null) {
+			streetVisible = true;
+		} else {
+			streetVisible = !(mapData.streetData[streetname]["map_hidden"] ?? false);
+		}
+
+		return (hubVisible && streetVisible);
 	}
 
 	bool checkName(String streetname, String entry) {
