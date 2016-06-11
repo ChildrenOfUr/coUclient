@@ -1,7 +1,25 @@
 part of couclient;
 
+void sortEntities() {
+	List<Element> elements = [];
+	entities.values.forEach((Entity entity) {
+		if(entity.canvas != null) {
+			elements.add(entity.canvas);
+		}
+	});
+	elements.sort((Element a, Element b) {
+		if (entities[a.id] == null || entities[b.id] == null) {
+			return 0;
+		}
+		return entities[a.id].top.compareTo(entities[b.id].top);
+	});
+	for (Element e in elements) {
+		view.playerHolder.append(e);
+	}
+}
+
 abstract class Entity {
-	bool glow = false, dirty = true;
+	bool glow = false, dirty = true, multiUnselect = false;
 	ChatBubble chatBubble = null;
 	CanvasElement canvas;
 	num left = 0, top = 0, width = 0, height = 0;
@@ -48,6 +66,12 @@ abstract class Entity {
 	void render();
 
 	void updateGlow(bool newGlow) {
+		if (multiUnselect) {
+			glow = false;
+			dirty = true;
+			return;
+		}
+
 		if(glow != newGlow) {
 			dirty = true;
 		}

@@ -62,6 +62,8 @@ class InteractionWindow {
 
 			// Use the same id
 			entityInBubble.attributes['id'] = id;
+			entityInBubble.classes.add('entityInBubble');
+			entities[id].multiUnselect = true;
 
 			// Insert entity into bubble
 			container.append(entityInBubble);
@@ -70,9 +72,11 @@ class InteractionWindow {
 			container.onMouseOver.listen((_) {
 				content.children.forEach((Element child) {
 					if(child != container) {
+						entities[child.children.first.id].multiUnselect = true;
 						child.classes.remove("entitySelected");
 					}
 				});
+				entities[id].multiUnselect = false;
 				container.classes.add("entitySelected");
 			});
 
@@ -96,6 +100,7 @@ class InteractionWindow {
 			content.append(container);
 		}
 
+		entities[content.children.first.children.first.id].multiUnselect = false;
 		content.children.first.classes.add("entitySelected");
 
 		inputManager.menuKeyListener = document.onKeyDown.listen((KeyboardEvent k) {
@@ -112,10 +117,18 @@ class InteractionWindow {
 			//left arrow or a and not typing
 			if((k.keyCode == keys["LeftBindingPrimary"] || k.keyCode == keys["LeftBindingAlt"]) && !ignoreKeys) {
 				inputManager.selectUp(content.querySelectorAll('.entityContainer'), "entitySelected");
+				querySelectorAll('.entityInBubble:not(.entitySelected)').forEach((Element entity) {
+					entities[entity.id].multiUnselect = true;
+				});
+				entities[querySelector('.entitySelected').children.first.id].multiUnselect = false;
 			}
 			//right arrow or d and not typing
 			if((k.keyCode == keys["RightBindingPrimary"] || k.keyCode == keys["RightBindingAlt"]) && !ignoreKeys) {
 				inputManager.selectDown(content.querySelectorAll('.entityContainer'), "entitySelected");
+				querySelectorAll('.entityInBubble:not(.entitySelected)').forEach((Element entity) {
+					entities[entity.id].multiUnselect = true;
+				});
+				entities[querySelector('.entitySelected').children.first.id].multiUnselect = false;
 			}
 			//spacebar and not typing
 			if((k.keyCode == keys["JumpBindingPrimary"] || k.keyCode == keys["JumpBindingAlt"]) && !ignoreKeys) {
@@ -134,6 +147,11 @@ class InteractionWindow {
 			}
 		});
 		document.onClick.listen((_) => inputManager.stopMenu(interactionWindow));
+
+		//when the menu is closed, let's allow all entities to glow like normal again
+		new Service('menuStopping', (_) {
+			entities.values.forEach((Entity entity) => entity.multiUnselect = false);
+		});
 
 		return interactionWindow;
 	}

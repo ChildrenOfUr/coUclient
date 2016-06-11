@@ -540,6 +540,8 @@ class InputManager {
 	}
 
 	void stopMenu(Element window) {
+		transmit('menuStopping', window);
+
 		if(menuKeyListener != null) {
 			menuKeyListener.cancel();
 			menuKeyListener = null;

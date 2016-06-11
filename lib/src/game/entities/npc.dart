@@ -62,6 +62,7 @@ class NPC extends Entity {
 			canvas.attributes['width'] = canvas.width.toString();
 			canvas.attributes['height'] = canvas.height.toString();
 			view.playerHolder.append(canvas);
+			sortEntities();
 			ready = true;
 			addingLocks[id] = false;
 			_animationLoaded.add(true);

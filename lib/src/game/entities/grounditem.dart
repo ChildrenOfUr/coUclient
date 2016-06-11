@@ -27,6 +27,7 @@ class GroundItem extends Entity {
 			item.classes.add('entity');
 			item.id = id;
 			view.playerHolder.append(item);
+			sortEntities();
 			addingLocks[id] = false;
 		});
 	}

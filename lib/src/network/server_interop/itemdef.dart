@@ -18,7 +18,7 @@ class ItemDef {
 }
 
 class Action {
-	String action;
+	String _name, _action;
 	bool enabled, multiEnabled;
 	String description, associatedSkill, actionWord;
 	int timeRequired;
@@ -27,7 +27,20 @@ class Action {
 
 	Action();
 
-	Action.withName(this.action);
+	Action.withName(this._name);
+
+	///we did a stupid on the server. The items' actions are defined to have a 'name'
+	///but the entities' actions have an 'action' parameter which means the same thing.
+	///this kludge solves that problem. Better would be to go through all the server files
+	///and rename one to the other though.
+	void set name(String newName) {
+		_name = newName;
+	}
+	void set action(String newAction) {
+		_action = newAction;
+	}
+	String get name => _name ?? _action;
+	String get action => _action ?? _name;
 
 	@override
 	String toString() {

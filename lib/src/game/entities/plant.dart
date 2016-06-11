@@ -53,6 +53,7 @@ class Plant extends Entity {
 			canvas.attributes['height'] = height.toString();
 			state = map['state'];
 			view.playerHolder.append(canvas);
+			sortEntities();
 			sourceRect = new Rectangle(0, 0, width, height);
 			ready = true;
 			addingLocks[id] = false;
