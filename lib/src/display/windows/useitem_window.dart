@@ -337,17 +337,18 @@ class UseWindow extends Modal {
 			..children.clear()
 			..append(animationParent)..append(progBar)..append(cancelBtn);
 
-		await new Timer.periodic(new Duration(seconds: recipe["time"]), (Timer timer) async {
+		await Future.doWhile(() async {
 			if (makingCancelled) {
-				await _stopMakingRecipes(timer);
+				await _stopMakingRecipes();
+				return false;
 			} else {
 				String serverResponse = await HttpRequest.requestCrossOrigin(
 					"http://${Configs.utilServerAddress}/recipes/make"
-					"?token=$rsToken"
-					"&id=${recipe["id"]}"
-					"&email=${game.email}"
-					"&username=${game.username}"
-				);
+						"?token=$rsToken"
+						"&id=${recipe["id"]}"
+						"&email=${game.email}"
+						"&username=${game.username}"
+					);
 
 				if (current >= qty || serverResponse != "OK") {
 					// Stop
@@ -356,11 +357,12 @@ class UseWindow extends Modal {
 						new Toast(
 							"You had to stop using your ${itemName} because $serverResponse.",
 							notify: NotifyRule.UNFOCUSED
-						);
+							);
 					}
 
 					// We're done
-					await _stopMakingRecipes(timer);
+					await _stopMakingRecipes();
+					return false;
 				} else {
 					// Increase the number we've made
 					current++;
@@ -372,12 +374,12 @@ class UseWindow extends Modal {
 							.toString()}";
 				}
 			}
+
+			return true;
 		});
 	}
 
-	Future _stopMakingRecipes(Timer timer) async {
-		// Stop the timer
-		timer.cancel();
+	Future _stopMakingRecipes() async {
 		// Update recipe data
 		await updateRecipes(false);
 		// Reset the UI
