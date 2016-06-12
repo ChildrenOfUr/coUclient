@@ -2,7 +2,7 @@ part of couclient;
 
 class NPC extends Entity {
 	String type;
-	int speed = 0,
+	num speed = 0,
 		ySpeed = 0;
 	bool ready = false,
 		facingRight = true,
