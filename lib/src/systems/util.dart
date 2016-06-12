@@ -219,9 +219,10 @@ bool hasEnergyRequirements(Action action) {
 
 bool hasItemRequirements(Action action, {bool includeBroken: false}) {
 	//check that the player has the necessary item(s)
+	bool haveAtLeastOne = action.itemRequirements.any.length == 0;
 	for (String itemType in action.itemRequirements.any) {
-		if (util.getNumItems(itemType, includeBroken: includeBroken) < 1) {
-			return false;
+		if (util.getNumItems(itemType, includeBroken: includeBroken) > 0) {
+			haveAtLeastOne = true;
 		}
 	}
 
@@ -232,7 +233,7 @@ bool hasItemRequirements(Action action, {bool includeBroken: false}) {
 		}
 	});
 
-	return hasEnough;
+	return hasEnough && haveAtLeastOne;
 }
 
 /**
