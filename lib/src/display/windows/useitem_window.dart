@@ -303,6 +303,10 @@ class UseWindow extends Modal {
 			..children.clear()
 			..append(leftCol)..append(centerCol)..append(rightCol)
 			..classes.add("col3");
+
+		//need to call prepare again so that it is listening for our
+		//input to get focus to ignore keys
+		prepare();
 	}
 
 	makeRecipe(String id, [int qty = 1]) async {
