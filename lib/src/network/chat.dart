@@ -81,8 +81,8 @@ class NetChatManager {
       //wait 5 seconds and try to reconnect
       new Timer(new Duration(seconds: 5), () => setupWebsocket(url));
     })
-      ..onError.listen((message) {
-      logmessage('[Chat] Socket error "${message.error}"');
+      ..onError.listen((Event e) {
+      logmessage('[Chat] Socket error "$e"');
     });
   }
 

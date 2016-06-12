@@ -105,7 +105,13 @@ class NPC extends Entity {
 			animation = new Animation(npcMap['url'], npcMap['animation_name'],
 											  npcMap['numRows'], npcMap['numColumns'], frameList,
 											  loops: npcMap['loops']);
-			animation.load().then((_) => ready = true);
+			animation.load().then((_) {
+				canvas.width = animation.width;
+				canvas.height = animation.height;
+				width = animation.width;
+				height = animation.height;
+				ready = true;
+			});
 		}
 	}
 

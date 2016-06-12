@@ -153,7 +153,7 @@ _setupStreetSocket(String streetName) {
 				if (npc == null) {
 					return;
 				}
-
+				
 				npc.facingRight = npcMap["facingRight"];
 				npc.ySpeed = npcMap['ySpeed'];
 				npc.speed = npcMap['speed'];

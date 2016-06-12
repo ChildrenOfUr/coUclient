@@ -293,8 +293,8 @@ class WeatherManager {
 			//wait 5 seconds and try to reconnect
 			new Timer(new Duration(seconds: 5), () => _setupWebsocket());
 		});
-		socket.onError.listen((ErrorEvent e) {
-			logmessage('[Weather] Error ${e.error}');
+		socket.onError.listen((Event e) {
+			logmessage('[Weather] Error $e');
 		});
 	}
 
