@@ -86,7 +86,7 @@ class MapData {
 
 	// Returns the hub ID for the street with the given name
 	String getHubIdForLabel(String streetName) {
-		return streetData[streetName]['hub_id'];
+		return streetData[streetName]['hub_id'].toString();
 	}
 
 	// Returns the value of a setting in the map data
