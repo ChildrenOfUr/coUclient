@@ -56,6 +56,7 @@ class InventorySearchWindow extends Modal {
 
 	@override
 	void open({bool ignoreKeys: false}) {
+		input.value = '';
 		_update();
 		super.open(ignoreKeys: ignoreKeys);
 		input.focus();
