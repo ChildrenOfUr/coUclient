@@ -318,7 +318,9 @@ sendGlobalAction(String methodName, [Map arguments]) {
  * Get a name that will work as a css selector by replacing all invalid characters with an underscore
  **/
 String sanitizeName(String name) {
-	List<String> badChars = "! @ \$ % ^ & * ( ) + = , . / ' ; : \" ? > < [ ] \\ { } | ` #".split(" ");
+	List<String> badChars =
+		"! @ \$ % ^ & * ( ) + = , . / ' ; : \" ? > < [ ] \\ { } | ` # ~"
+		.split(" ");
 	for(String char in badChars)
 		name = name.replaceAll(char, '_');
 
