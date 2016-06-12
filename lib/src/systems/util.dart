@@ -209,26 +209,30 @@ String capitalizeFirstLetter(String string) {
  * By default, this will not match items which have a remaining durability of 0
  *
  **/
-bool hasRequirements(List<Map> requires, {bool includeBroken: false}) {
-	//there may be one or more requirements
-	//each requirement has a number associated with it and a list of 1 or more items that fullfill it
-	//if the list is more than one, it is taken to mean that either one or the other is appropriate or a combination
-	for(Map requirement in requires) {
-		int have = 0;
-		int num = requirement['num'];
-		List<String> items = requirement['of'];
-		items.forEach((String item) {
-			if(item == 'energy') {
-				have = metabolics.energy;
-			} else {
-				have += util.getNumItems(item, includeBroken: includeBroken);
-			}
-		});
+bool hasRequirements(Action action, {bool includeBroken: false}) {
+	return hasEnergyRequirements(action) && hasItemRequirements(action, includeBroken: includeBroken);
+}
 
-		if(have < num)
+bool hasEnergyRequirements(Action action) {
+	return metabolics.energy >= action.energyRequirements.energyAmount;
+}
+
+bool hasItemRequirements(Action action, {bool includeBroken: false}) {
+	//check that the player has the necessary item(s)
+	for (String itemType in action.itemRequirements.any) {
+		if (util.getNumItems(itemType, includeBroken: includeBroken) < 1) {
 			return false;
+		}
 	}
-	return true;
+
+	bool hasEnough = true;
+	action.itemRequirements.all.forEach((String itemType, int count) {
+		if (util.getNumItems(itemType, includeBroken: includeBroken) < count) {
+			hasEnough = false;
+		}
+	});
+
+	return hasEnough;
 }
 
 /**
@@ -236,21 +240,19 @@ bool hasRequirements(List<Map> requires, {bool includeBroken: false}) {
  * This function will generate a string that shows what the requirements are for a certain action.
  *
  **/
-String getRequirementString(List<Map> requires) {
+String getRequirementString(Action action, {bool includeBroken: false}) {
 	String error = '';
 
-	requires.forEach((Map requirement) {
-		if (requirement["error"] == null) {
-			requirement["error"] = "You can't do this right now";
-		}
-		if (requirement["of"].contains("energy")) {
-			if (metabolics.energy < requirement["num"]) {
-				error += "\n" + requirement["error"];
-			}
-		} else {
-			error += "\n" + requirement["error"];
-		}
-	});
+	if (!hasEnergyRequirements(action)) {
+		error += action.energyRequirements.error + '\n';
+	}
+
+	if (!hasItemRequirements(action, includeBroken: includeBroken)) {
+		error += action.itemRequirements.error + '\n';
+	}
+
+	//chop off the last newline
+	error = error.trimRight();
 
 	return error;
 }

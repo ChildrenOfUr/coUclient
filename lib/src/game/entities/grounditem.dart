@@ -42,23 +42,23 @@ class GroundItem extends Entity {
 
 		bool enabled = false;
 		actions.forEach((Action action) {
+			enabled = action.enabled;
 			String error = "";
-			List<Map> requires = [];
-			action.itemRequirements.all.forEach((String item, int num) => requires.add({'num':num, 'of':[item]}));
-			if(action.itemRequirements.any.length > 0) {
-				requires.add({'num':1, 'of':action.itemRequirements.any});
-			}
-			enabled = hasRequirements(requires);
 			if(enabled) {
-				error = action.description;
+				enabled = hasRequirements(action);
+				if(enabled) {
+					error = action.description;
+				} else {
+					error = getRequirementString(action);
+				}
 			} else {
-				error = getRequirementString(requires);
+				error = action.error;
 			}
 			menuActions.add([
-							capitalizeFirstLetter(action.action) + '|' +
+							capitalizeFirstLetter(action.actionName) + '|' +
 							'|0|$enabled|$error|${action.multiEnabled}',
 							id,
-							"sendAction ${action.action} $id",
+							"sendAction ${action.actionName} $id",
 						]);
 		});
 

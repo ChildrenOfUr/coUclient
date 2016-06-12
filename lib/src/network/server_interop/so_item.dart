@@ -18,24 +18,24 @@ void itemContextMenu(ItemDef i, String slot, MouseEvent event) {
 		List<Action> actionsList = i.actions;
 		bool enabled = false;
 		actionsList.forEach((Action action) {
+			enabled = action.enabled;
 			String error = "";
-			List<Map> requires = [];
-			action.itemRequirements.all.forEach((String item, int num) => requires.add({'num':num, 'of':[item]}));
-			if (action.itemRequirements.any.length > 0) {
-				requires.add({'num':1, 'of':action.itemRequirements.any});
-			}
-			enabled = hasRequirements(requires);
-			if (enabled) {
-				error = action.description;
+			if(enabled) {
+				enabled = hasRequirements(action);
+				if(enabled) {
+					error = action.description;
+				} else {
+					error = getRequirementString(action);
+				}
 			} else {
-				error = getRequirementString(requires);
+				error = action.error;
 			}
 
 			actions.add([
-				            capitalizeFirstLetter(action.action) + '|' +
-				            action.action + '|${action.timeRequired}|$enabled|$error|${action.multiEnabled}',
+				            capitalizeFirstLetter(action.actionName) + '|' +
+				            action.actionName + '|${action.timeRequired}|$enabled|$error|${action.multiEnabled}',
 				            i.itemType,
-				            "sendAction ${action.action} ${i.item_id}",
+				            "sendAction ${action.actionName} ${i.item_id}",
 				            getDropMap(1, barSlot, bagSlot)
 			            ]);
 		});
