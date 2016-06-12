@@ -32,27 +32,33 @@ class InventorySearchWindow extends Modal {
 	InventorySearchWindow() {
 		prepare();
 
-		trigger = querySelector('#inventorySearch');
+		setupUiButton(querySelector('#inventorySearch'));
+		document.onKeyDown.listen((KeyboardEvent k) {
+			if(inputManager == null || ignoreShortcuts)
+				return;
+
+			//if F3 is pressed or ctrl+f is pressed
+			if (k.keyCode == 114 || (k.ctrlKey && k.keyCode == 70)) {
+				k.preventDefault();
+				if(displayElement.hidden) {
+					open();
+				}
+			}
+		});
+
 		input = displayElement.querySelector('#invSearchInput');
 		output = displayElement.querySelector('#invSearchOutput');
 
 		input
-			..onKeyDown.listen((_) => _update())
+			..onInput.listen((_) => _update())
 			..onClick.listen((_) => input.value = '');
-
-		trigger.onClick.listen((_) {
-			if (elementOpen) {
-				close();
-			} else {
-				open();
-			}
-		});
 	}
 
 	@override
 	void open({bool ignoreKeys: false}) {
 		_update();
 		super.open(ignoreKeys: ignoreKeys);
+		input.focus();
 	}
 
 	void _update() {
@@ -61,13 +67,13 @@ class InventorySearchWindow extends Modal {
 		_displayResults(matches);
 	}
 
-	List<InventorySearchMatch> _findResults(String query) {
-		bool _contained(String a, String b) {
-			a = a.toLowerCase();
-			b = b.toLowerCase();
-			return (a.contains(b) || b.contains(a));
-		}
+	bool _contained(String a, String b) {
+		a = a.toLowerCase();
+		b = b.toLowerCase();
+		return (a.contains(b) || b.contains(a));
+	}
 
+	List<InventorySearchMatch> _findResults(String query) {
 		List<InventorySearchMatch> matches = new List();
 
 		for (int si = 0; si < playerInventory.slots.length; si++) {
@@ -91,15 +97,17 @@ class InventorySearchWindow extends Modal {
 					String iconUrl = subSlots[ssi]['item']['iconUrl'];
 					int qty = subSlots[ssi]['count'];
 					bool contains = _contained(query, itemName);
-					int dist = levenshtein(itemName, query);
-					matches.add(new InventorySearchMatch(
-						name: itemName,
-						iconUrl: iconUrl,
-						qty: qty,
-						slot: si,
-						subSlot: ssi,
-						relevance: (contains ? 0 : dist)
-					));
+					if (contains) {
+						int dist = levenshtein(itemName, query);
+						matches.add(new InventorySearchMatch(
+							name: itemName,
+							iconUrl: iconUrl,
+							qty: qty,
+							slot: si,
+							subSlot: ssi,
+							relevance: (contains ? 0 : dist)
+							));
+					}
 				}
 			} else {
 				bool contains = _contained(slot.item.name, query);
@@ -115,7 +123,7 @@ class InventorySearchWindow extends Modal {
 		}
 
 		matches.sort((InventorySearchMatch a, InventorySearchMatch b) {
-			return (a.relevance - b.relevance);
+			return a.relevance.compareTo(b.relevance);
 		});
 
 		return (matches.length > 5 ? matches.sublist(0, 5) : matches);
