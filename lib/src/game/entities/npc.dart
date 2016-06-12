@@ -13,6 +13,9 @@ class NPC extends Entity {
 
 	Stream get onAnimationLoaded => _animationLoaded.stream;
 
+	bool isHiddenSpritesheet(String url) =>
+		url == 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
+
 	NPC(Map map) {
 		if (map.containsKey('actions')) {
 			actions = decode(JSON.encode(map['actions']), type: const TypeHelper<List<Action>>().type);
@@ -33,9 +36,13 @@ class NPC extends Entity {
 			loopDelay: new Duration(milliseconds: map['loopDelay']),
 			loops: map['loops']);
 		animation.load().then((_) {
-			HttpRequest.request('http://${Configs.utilServerAddress}/getActualImageHeight?url=${map['url']}&numRows=${map['numRows']}&numColumns=${map['numColumns']}').then((HttpRequest request) {
-				canvas.attributes['actualHeight'] = request.responseText;
-			});
+			if (!isHiddenSpritesheet(map['url'])) {
+				HttpRequest.request('http://${Configs.utilServerAddress}/getActualImageHeight?url=${map['url']}&numRows=${map['numRows']}&numColumns=${map['numColumns']}').then((HttpRequest request) {
+					canvas.attributes['actualHeight'] = request.responseText;
+				});
+			} else {
+				canvas.attributes['actualHeight'] = '1';
+			}
 
 			id = map['id'];
 
@@ -121,7 +128,7 @@ class NPC extends Entity {
 
 		_setTranslate();
 
-		if (intersect(camera.visibleRect, entityRect)) {
+		if (intersect(camera.visibleRect, entityRect) && !isHiddenSpritesheet(animation.url)) {
 			animation.updateSourceRect(dt);
 		}
 	}
