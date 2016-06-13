@@ -109,6 +109,24 @@ class SettingsWindow extends Modal {
 			DarkUI.darkMode = darkUi.checked;
 		});
 
+		// set dark ui auto mode
+		PaperToggleButton darkUiAuto = querySelector("#DarkModeAuto") as PaperToggleButton;
+		if(localStorage["DarkModeAuto"] != null) {
+			DarkUI.autoMode = darkUiAuto.checked = (localStorage["DarkModeAuto"] == "true");
+			darkUi.disabled = darkUiAuto.checked;
+			DarkUI.update();
+		}
+
+		darkUiAuto.onChange.listen((_) {
+			localStorage["DarkModeAuto"] = darkUiAuto.checked.toString();
+			DarkUI.autoMode = darkUiAuto.checked;
+			darkUi.disabled = darkUiAuto.checked;
+			if (!darkUiAuto.checked) {
+				DarkUI.darkMode = darkUi.checked;
+			}
+			DarkUI.update();
+		});
+
 		//setup volume controls
 		UrSlider musicSlider = querySelector("#MusicSlider") as UrSlider;
 		UrSlider effectSlider = querySelector("#EffectSlider") as UrSlider;
