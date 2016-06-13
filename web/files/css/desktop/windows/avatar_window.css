@@ -1,0 +1,71 @@
+#avatarWindow .preload,
+#avatarWindow .postload {
+	display: block;
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	height: 100%;
+}
+
+#avatarWindow .preload img {
+	transform: scale(-1, 1);
+	position: absolute;
+	top: calc(50% - 75px);
+	left: calc(50% - 75px);
+	width: 150px;
+	height: 150px;
+}
+
+#avatarWindow #avatarSelector {
+	width: 100%;
+	display: block;
+	overflow-x: auto;
+	overflow-y: hidden;
+	background-color: white;
+	border-radius: 5px;
+	padding: 10px 0 20px 0;
+	white-space: nowrap;
+}
+
+.darkui #avatarWindow #avatarSelector {
+	background-color: black;
+}
+
+#avatarWindow  .avatar-option {
+	height: 100%;
+	width: 100px;
+	display: inline-block;
+	text-align: center;
+}
+
+#avatarWindow .avatar-option:first-child {
+	border-right: 1px solid grey;
+}
+
+#avatarWindow .avatar-option span {
+	padding-top: 10px;
+	display: block;
+}
+
+#avatarWindow .avatar-option:hover,
+#avatarWindow .avatar-option:hover * {
+	opacity: 0.8;
+	cursor: pointer;
+}
+
+#avatarWindow .avatar-option.selected span {
+	color: #236EC4;
+}
+
+#chgAvatarBtn {
+	display: inline-block;
+	position: relative;
+	left: 50%;
+	transform: translateX(-50%);
+	margin: 20px 0;
+}
+
+#chgAvatarStatus {
+	font-size: 18px;
+	text-align: center;
+}
