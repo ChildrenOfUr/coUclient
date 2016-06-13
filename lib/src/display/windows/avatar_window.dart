@@ -15,8 +15,12 @@ class AvatarWindow extends Modal {
 		prepare();
 
 		_choiceSelector = displayElement.querySelector('#avatarSelector');
-		_buttonInput = displayElement.querySelector('#chgAvatarBtn');
-		_statusDisplay = displayElement.querySelector('#chgAvatarStatus');
+
+		_buttonInput = displayElement.querySelector('#chgAvatarBtn')
+			..hidden = true;
+
+		_statusDisplay = displayElement.querySelector('#chgAvatarStatus')
+			..text = 'Choose a new avatar';
 
 		new Service(['avatarChoice'], (String username) {
 			selectedAvatarUsername = username;
@@ -28,6 +32,9 @@ class AvatarWindow extends Modal {
 					element.classes.remove('selected');
 				}
 			});
+
+			_buttonInput.hidden = false;
+			_statusDisplay.text = '';
 		});
 
 		_buttonInput.onClick.first.then((_) {
