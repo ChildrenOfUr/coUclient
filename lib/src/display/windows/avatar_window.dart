@@ -1,15 +1,8 @@
 part of couclient;
 
 class AvatarWindow extends Modal {
-	static final List<String> CHOICES = [
-		'Faranae',
-		'Hectaku',
-		'Jennyanydots',
-		'Katyroo',
-		'Klikini',
-		'Piranhica',
-		'Thaderator'
-	];
+	static final String USERNAME_FILE_URL =
+		'http://childrenofur.com/assets/custom_avatar_options.txt';
 
 	Element _choiceSelector, _buttonInput, _statusDisplay;
 
@@ -59,18 +52,22 @@ class AvatarWindow extends Modal {
 	@override
 	void open({bool ignoreKeys: false}) {
 		super.open(ignoreKeys: ignoreKeys);
+		_open();
+	}
 
+	Future _open() async {
 		if (!_loaded) {
-			List<String> choiceUsernames = new List.from(CHOICES)
+			String usernameFile = await HttpRequest.getString(USERNAME_FILE_URL);
+			List<String> choiceUsernames = usernameFile.trim().split('\n')
 				..remove(game.username)
 				..insert(0, game.username);
 
-			Future.forEach(choiceUsernames, (String username) async {
+			await Future.forEach(choiceUsernames, (String username) async {
 				DivElement choice = await _makeAvatarChoice(username);
 				_choiceSelector.append(choice);
-			}).then((_) {
-				_completeLoad();
 			});
+
+			_completeLoad();
 		}
 	}
 
