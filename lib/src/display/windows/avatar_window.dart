@@ -6,7 +6,8 @@ class AvatarWindow extends Modal {
 		'Katyroo',
 		'Klikini',
 		'Hectaku',
-		'Piranhica'
+		'Piranhica',
+		'Thaderator'
 	];
 
 	Element _choiceSelector, _buttonInput, _statusDisplay;
