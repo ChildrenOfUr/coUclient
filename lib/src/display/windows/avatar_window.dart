@@ -3,9 +3,10 @@ part of couclient;
 class AvatarWindow extends Modal {
 	static final List<String> CHOICES = [
 		'Faranae',
+		'Hectaku',
+		'Jennyanydots',
 		'Katyroo',
 		'Klikini',
-		'Hectaku',
 		'Piranhica',
 		'Thaderator'
 	];
