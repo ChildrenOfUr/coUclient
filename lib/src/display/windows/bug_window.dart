@@ -17,6 +17,12 @@ class BugWindow extends Modal {
 	  setupUiButton(view.bugButton, openCallback: _prepareReport);
   }
 
+  @override
+  void open({bool ignoreKeys: false}) {
+	  super.open(ignoreKeys: ignoreKeys);
+	  screenshot();
+  }
+
   void _prepareReport() {
 	  Element w = this.displayElement;
 	  TextAreaElement input = w.querySelector("textarea");
@@ -45,6 +51,42 @@ class BugWindow extends Modal {
 			  sending = false;
 		  }
 	  });
+  }
+
+	Future<String> screenshot() async {
+		Completer<CanvasElement> render = new Completer();
+
+		// Get this window out of the way
+		displayElement.hidden = true;
+
+		// Call html2canvas
+		CanvasElement canvas;
+		try {
+			JsObject args = new JsObject.jsify({
+				'allowTaint': false, // Whether to allow cross-origin images to taint the canvas
+				'taintTest': true, // Whether to test each image if it taints the canvas before drawing them
+				'useCORS': true, // Whether to attempt to load cross-origin images as CORS served, before reverting back to proxy
+				'logging': true, // Whether to log events in the console.
+				'onrendered': (CanvasElement canvas) {
+					render.complete(canvas);
+				}
+			});
+			context.callMethod('html2canvas', [document.body, args]);
+
+			// Convert to base64
+			canvas = await render.future;
+			window.open(canvas.toDataUrl(), '_blank');
+
+			view.bugScreenshot.disabled = false;
+		} catch (e) {
+			logMessage('Could not take bug report screenshot');
+			view.bugScreenshot.disabled = true;
+		} finally {
+			// Re-show the bug window
+			displayElement.hidden = false;
+
+			return canvas?.toDataUrl();
+		}
   }
 
   void logMessage(var message) {
