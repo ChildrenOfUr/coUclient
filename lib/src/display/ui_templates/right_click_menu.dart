@@ -8,6 +8,287 @@ class MenuOption {
 }
 
 class RightClickMenu {
+	static final String
+		ACTION_LIST_PARENT_ID = 'RCActionList',
+		MENU_CLASS = 'RightClickMenu',
+		MENU_INFO_CLASSES = 'InfoButton fa fa-info-circle',
+		MENU_TITLE_ID = 'ClickTitle',
+		MENU_VISIBLE_OPACITY = '1.0',
+		OPTION_BUTTON_CLASS = 'RCItem',
+		OPTION_DISABLED_CLASS = 'RCItemDisabled',
+		OPTION_SELECTED_CLASS = 'RCItemSelected',
+		OPTION_TOOLTIP_CLASS = 'action_error_tooltip',
+		OPTION_WRAPPER_CLASS = 'action_wrapper';
+
+	static Element create3(
+		MouseEvent click, String title,
+		{String description, List<Action> actions, Function onInfo, ItemDef item, String itemName}
+	) {
+		Point<int> _positionMenu(DivElement menu) {
+			int x, y;
+
+			if (click != null) {
+				// Position at cursor
+
+				x = click.client.x - (menu.clientWidth ~/ 2);
+				y = click.client.y - (40 + (actions.length * 30));
+			} else {
+				// Position at player
+
+				num playerX = CurrentPlayer.left,
+					playerY = CurrentPlayer.top;
+
+				int playerWidth = CurrentPlayer.width,
+					playerHeight = CurrentPlayer.height;
+
+				num translateX = playerX,
+					translateY = view.worldElement.clientHeight - playerHeight;
+
+				int streetWidth = currentStreet.bounds.width,
+					streetHeight = currentStreet.bounds.height;
+
+				int worldHeight = view.worldElement.clientHeight,
+					worldWidth = view.worldElement.clientWidth;
+
+				if (playerX > streetWidth - playerWidth / 2 - worldWidth / 2) {
+					translateX = playerX - streetWidth + worldWidth;
+				} else if (playerX + playerWidth / 2 > worldWidth / 2) {
+					translateX = worldWidth / 2 - playerWidth / 2;
+				}
+
+				if (playerY + playerHeight / 2 < worldHeight / 2) {
+					translateY = playerY;
+				} else if (playerY < streetHeight - playerHeight / 2 - worldHeight / 2) {
+					translateY = worldHeight / 2 - playerHeight / 2;
+				} else {
+					translateY = worldHeight - (streetHeight - playerY);
+				}
+
+				x = (translateX + menu.clientWidth + 10) ~/ 1;
+				y = (translateY + playerHeight / 2) ~/ 1;
+			}
+
+			return new Point(x, y);
+		}
+
+		List<Element> _makeOptions(DivElement menu) {
+			List<Element> options = [];
+
+			// Sort actions alphabetically
+			actions.sort((Action a, Action b) => a.actionName.compareTo(b.actionName));
+
+			// Keyboard selection
+			bool useKeys = (actions.length <= 10);
+			int keyIndex = 1;
+
+			// Create option elements
+			for (Action action in actions) {
+				// Option tooltip
+				DivElement optionTooltip = new DivElement()
+					..classes = [OPTION_TOOLTIP_CLASS];
+
+				// Option button
+				DivElement option = new DivElement()
+					..classes = [OPTION_BUTTON_CLASS]
+					..text = (useKeys ? '$keyIndex: ' : '') + action.actionName;
+
+				// Option element wrapper (option + tooltip)
+				DivElement optionWrapper = new DivElement()
+					..classes = [OPTION_WRAPPER_CLASS]
+					..append(option)
+					..append(optionTooltip);
+
+				// Register keyboard shortcut listener
+				if (useKeys) {
+					MenuKeys.addListener(keyIndex, () {
+						// When this option's number key pressed
+						if (click != null) {
+							// Recreate mouse click
+							option.dispatchEvent(new MouseEvent(
+								'click', clientX: click.client.x, clientY: click.client.y));
+						} else {
+							// Simulate mouse click
+							option.click();
+						}
+					});
+				}
+
+				if (action.enabled) {
+					// Attach click listeners to enabled actions
+					option.onClick.listen((MouseEvent event) async {
+						String functionName; // TODO actions: (option[0] as String).split("|")[0].toLowerCase()
+
+						Function doClick = ({int howMany: 1}) async {
+							bool completed = true;
+
+							// Wait for actions to complete
+							if (action.timeRequired > 0) {
+								ActionBubble actionBubble = new ActionBubble.withAction(action);
+								completed = await actionBubble.wait;
+							}
+
+							// Action completed
+							Map<String, dynamic> arguments = {};
+
+							// Accepts multiple items
+							if (action.multiEnabled) {
+								arguments; // TODO actions: option[3]
+								arguments['count'] = howMany;
+							}
+
+							if (functionName == 'pickup' && howMany > 1) {
+								// Picking up multiple items
+								List<String> objects = CurrentPlayer.intersectingObjects.keys.toList();
+								objects.removeWhere((String id) {
+									return (querySelector('#$id').attributes['type'] != itemName);
+								});
+								arguments['pickupIds'] = objects;
+								sendGlobalAction(functionName, arguments);
+							} else {
+								// Other action
+								if (item != null) {
+									arguments['itemdata'] = item.metadata;
+								}
+
+								sendAction(functionName, null /* TODO actions: option[1] */, arguments);
+							}
+						};
+
+						bool multiEnabled = false;
+						if (/* TODO actions: (option[0] as String).split('|').length > 5 */ null) {
+							multiEnabled; /* TODO actions: (option[0] as String).split('|')[5] == 'true' */
+						}
+
+						if (multiEnabled) {
+							int max = 0,
+								slot = -1,
+								subSlot = -1;
+
+							if (/* TODO actions: option.length > 3 */ null) {
+								slot; /* TODO actions: option[3]['slot'] */
+								subSlot; /* TODO actions: option[3]['subSlot'] */
+							}
+
+							// Picking up an item
+							if (functionName == 'pickup') {
+								// Count on ground
+								max = CurrentPlayer.intersectingObjects.keys.where((String id) {
+									return (querySelector('#$id').attributes['type'] == itemName);
+								}).toList().length;
+							} else {
+								// Count in inventory
+								max = _getNumItems(item.itemType, slot: slot, subSlot: subSlot);
+							}
+
+							if (max == 1) {
+								// Don't show the how many menu if there is only one item
+								doClick();
+							} else {
+								// Open the how many menu
+								HowManyMenu.create(event, functionName, max, doClick, itemName: itemName);
+							}
+						}
+					});
+
+					// Select option with mouse
+					option.onMouseOver.listen((MouseEvent event) {
+						(event.target as Element).classes.add(OPTION_SELECTED_CLASS);
+					});
+
+					// Deselect option with mouse
+					option.onMouseOut.listen((MouseEvent event) {
+						(event.target as Element).classes.remove(OPTION_SELECTED_CLASS);
+					});
+				} else {
+					// Mark disabled options
+					option.classes.add(OPTION_DISABLED_CLASS);
+				}
+
+				// Initialize tooltip
+				showActionError(optionTooltip, /* error or description? */ null);
+
+				// Add element to menu
+				options.add(optionWrapper);
+
+				// Increment keyboard shortcut number
+				keyIndex++;
+			}
+
+			if (options.length == 1) {
+				// Pre-select only option
+				options.single.classes.toggle(OPTION_SELECTED_CLASS);
+			} else if (options.length > 1) {
+				// Pre-select option, and wrap around controls
+				menu.onKeyPress.listen((KeyboardEvent event) {
+					if (event.keyCode == 40) {
+						// Down arrow
+						options.first.children.first
+							.classes.toggle(OPTION_SELECTED_CLASS);
+					} else if (event.keyCode == 38) {
+						// Up arrow
+						options.first.children[actions.length]
+							.classes.toggle(OPTION_SELECTED_CLASS);
+					}
+				});
+			}
+
+			return options;
+		}
+
+		// Close any other menu
+		destroy();
+
+		// Title display
+		SpanElement titleText = new SpanElement()
+			..id = MENU_TITLE_ID
+			..text = title;
+
+		// Info button
+		DivElement infoBtn = new DivElement()
+			..className = MENU_INFO_CLASSES
+			..hidden = (onInfo == null)
+			..onClick.listen((MouseEvent event) => onInfo(event));
+
+		// Action button list parent
+		DivElement optionParent = new DivElement()
+			..id = ACTION_LIST_PARENT_ID;
+
+		// Assemble menu parent element
+		DivElement menuParent = new DivElement()
+			..id = MENU_CLASS
+			..append(titleText)
+			..append(infoBtn)
+			..append(optionParent);
+
+		// Add options to list
+		for (Element option in _makeOptions(menuParent)) {
+			optionParent.append(option);
+		}
+
+		// Hide menu when clicking away from it
+		document.onClick.first.then((_) => destroy());
+
+		// Hide menu when escape key pressed
+		document.onKeyUp.listen((KeyboardEvent event) {
+			if (event.keyCode == 27) {
+				destroy();
+			}
+		});
+
+		// Render menu to begin positioning
+		document.body.append(menuParent);
+
+		// Position menu at call location
+		Point<int> menuPos = _positionMenu(menuParent);
+		menuParent.style.transform = 'translateX(${menuPos.x}px) translateY(${menuPos.y}px)';
+
+		// Show menu
+		menuParent.style.opacity = MENU_VISIBLE_OPACITY;
+
+		// Return reference to menu element
+		return menuParent;
+	}
+
 	static Element create2(MouseEvent click, String title, List<Map> options,
 		{String description: '', String itemName: ''}) {
 		/**

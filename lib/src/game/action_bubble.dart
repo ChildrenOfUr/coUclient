@@ -9,7 +9,15 @@ class ActionBubble {
 
 	SkillIndicator assocSkillIndicator;
 
-	ActionBubble(String actionName, this.duration, [String assocSkill]) {
+	factory ActionBubble(String actionName, int duration, [String assocSkill]) {
+		return new ActionBubble._(actionName, duration, assocSkill);
+	}
+
+	factory ActionBubble.withAction(Action action) {
+		return new ActionBubble._(action.actionName, action.timeRequired, action.associatedSkill);
+	}
+
+	ActionBubble._(String actionName, this.duration, [String assocSkill]) {
 		// Only the first word, ignore anything after the first space
 		String text = actionName.split(" ")[0];
 
