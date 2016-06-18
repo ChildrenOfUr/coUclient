@@ -21,7 +21,7 @@ class RightClickMenu {
 		OPTION_WRAPPER_CLASS = 'action_wrapper';
 
 	static Element create3(
-		MouseEvent click, String title,
+		MouseEvent click, String title, String entityId,
 		{String description, List<Action> actions, Function onInfo, ItemDef item, String itemName}
 	) {
 		Point<int> _positionMenu(DivElement menu) {
@@ -116,7 +116,7 @@ class RightClickMenu {
 				if (action.enabled) {
 					// Attach click listeners to enabled actions
 					option.onClick.listen((MouseEvent event) async {
-						String functionName; // TODO actions: (option[0] as String).split("|")[0].toLowerCase()
+						String functionName = action.actionName.toLowerCase();
 
 						Function doClick = ({int howMany: 1}) async {
 							bool completed = true;
@@ -131,8 +131,8 @@ class RightClickMenu {
 							Map<String, dynamic> arguments = {};
 
 							// Accepts multiple items
-							if (action.multiEnabled) {
-								arguments; // TODO actions: option[3]
+							if (action.multiEnabled && action.dropMap != null) {
+								arguments = action.dropMap;
 								arguments['count'] = howMany;
 							}
 
@@ -140,7 +140,7 @@ class RightClickMenu {
 								// Picking up multiple items
 								List<String> objects = CurrentPlayer.intersectingObjects.keys.toList();
 								objects.removeWhere((String id) {
-									return (querySelector('#$id').attributes['type'] != itemName);
+									return (querySelector('#$id').attributes['type'] != (itemName ?? item.name));
 								});
 								arguments['pickupIds'] = objects;
 								sendGlobalAction(functionName, arguments);
@@ -150,30 +150,25 @@ class RightClickMenu {
 									arguments['itemdata'] = item.metadata;
 								}
 
-								sendAction(functionName, null /* TODO actions: option[1] */, arguments);
+								sendAction(functionName, entityId, arguments);
 							}
 						};
 
-						bool multiEnabled = false;
-						if (/* TODO actions: (option[0] as String).split('|').length > 5 */ null) {
-							multiEnabled; /* TODO actions: (option[0] as String).split('|')[5] == 'true' */
-						}
-
-						if (multiEnabled) {
+						if (action.multiEnabled && action.dropMap != null) {
 							int max = 0,
 								slot = -1,
 								subSlot = -1;
 
-							if (/* TODO actions: option.length > 3 */ null) {
-								slot; /* TODO actions: option[3]['slot'] */
-								subSlot; /* TODO actions: option[3]['subSlot'] */
+							if (action.dropMap != null) {
+								slot = action.dropMap['slot'];
+								subSlot = action.dropMap['subSlot'];
 							}
 
 							// Picking up an item
 							if (functionName == 'pickup') {
 								// Count on ground
 								max = CurrentPlayer.intersectingObjects.keys.where((String id) {
-									return (querySelector('#$id').attributes['type'] == itemName);
+									return (querySelector('#$id').attributes['type'] == (itemName ?? item.name));
 								}).toList().length;
 							} else {
 								// Count in inventory
@@ -185,7 +180,7 @@ class RightClickMenu {
 								doClick();
 							} else {
 								// Open the how many menu
-								HowManyMenu.create(event, functionName, max, doClick, itemName: itemName);
+								HowManyMenu.create(event, functionName, max, doClick, itemName: itemName ?? item.name);
 							}
 						}
 					});
@@ -205,7 +200,7 @@ class RightClickMenu {
 				}
 
 				// Initialize tooltip
-				showActionError(optionTooltip, /* error or description? */ null);
+				showActionError(optionTooltip, action.error);
 
 				// Add element to menu
 				options.add(optionWrapper);

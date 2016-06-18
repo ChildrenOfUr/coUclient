@@ -12,7 +12,7 @@ void itemContextMenu(ItemDef i, String slot, MouseEvent event) {
 
 	int barSlot = int.parse(slot.split('.').elementAt(0));
 	int bagSlot = int.parse(slot.split('.').elementAt(1));
-	List<List> actions = [];
+	List<Action> actions = [];
 
 	if (i.actions != null) {
 		List<Action> actionsList = i.actions;
@@ -30,17 +30,14 @@ void itemContextMenu(ItemDef i, String slot, MouseEvent event) {
 			} else {
 				error = action.error;
 			}
-
-			actions.add([
-				            capitalizeFirstLetter(action.actionName) + '|' +
-				            action.actionName + '|${action.timeRequired}|$enabled|$error|${action.multiEnabled}',
-				            i.itemType,
-				            "sendAction ${action.actionName} ${i.item_id}",
-				            getDropMap(1, barSlot, bagSlot)
-			            ]);
+			Action menuAction = new Action.clone(action)
+				..enabled = enabled
+				..error = error;
+			menuAction.dropMap = getDropMap(1, barSlot, bagSlot);
+			actions.add(menuAction);
 		});
 	}
-	Element menu = RightClickMenu.create(event, i.metadata["title"] ?? i.name, i.description, actions, item: i);
+	Element menu = RightClickMenu.create3(event, i.metadata['title'] ?? i.name, i.itemType, description: i.description, actions: actions, item: i);
 	document.body.append(menu);
 }
 

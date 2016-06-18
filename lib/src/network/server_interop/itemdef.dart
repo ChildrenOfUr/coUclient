@@ -26,6 +26,7 @@ class Action {
 	SkillRequirements skillRequirements = new SkillRequirements();
 	EnergyRequirements energyRequirements = new EnergyRequirements();
 	String associatedSkill;
+	Map dropMap;
 
 	Action();
 
