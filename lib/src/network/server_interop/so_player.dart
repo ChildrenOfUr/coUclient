@@ -106,10 +106,10 @@ _setupPlayerSocket() {
 
 sendPlayerInfo() {
 	String xy =
-		CurrentPlayer.posX.toString() + "," + CurrentPlayer.posY.toString();
+		CurrentPlayer.left.toString() + "," + CurrentPlayer.top.toString();
 	Map map = new Map();
 	map['email'] = game.email;
-	map["username"] = CurrentPlayer.username;
+	map["username"] = CurrentPlayer.id;
 	map["xy"] = xy;
 	map["street"] = currentStreet.label;
 	map['tsid'] = currentStreet.streetData['tsid'];
@@ -167,14 +167,14 @@ updateOtherPlayer(Map map, Player otherPlayer) {
 
 	otherPlayer.playerParentElement.id = "player-" + sanitizeName(map["username"].replaceAll(' ', '_'));
 	otherPlayer.playerParentElement.style.position = "absolute";
-	if (map['username'] != otherPlayer.username) {
-		otherPlayer.username = map['username'];
+	if (map['username'] != otherPlayer.id) {
+		otherPlayer.id = map['username'];
 		otherPlayer.loadAnimations();
 	}
 
 	//set player position
-	otherPlayer.posX = double.parse(map["xy"].split(',')[0]);
-	otherPlayer.posY = double.parse(map["xy"].split(',')[1]);
+	otherPlayer.left = double.parse(map["xy"].split(',')[0]);
+	otherPlayer.top = double.parse(map["xy"].split(',')[1]);
 
 	if (map["bubbleText"] != null) {
 		if (otherPlayer.chatBubble == null) {

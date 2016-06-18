@@ -16,8 +16,8 @@ update(double dt) {
 			otherPlayer.currentAnimation.updateSourceRect(dt);
 		}
 
-		double x = otherPlayer.posX;
-		double y = otherPlayer.posY;
+		double x = otherPlayer.left;
+		double y = otherPlayer.top;
 		String transform = "translateY(${y}px) translateX(${x}px) translateZ(0)";
 
 		if (!otherPlayer.facingRight) {
@@ -45,13 +45,14 @@ update(double dt) {
 		otherPlayer.playerParentElement.style.transform = transform;
 	});
 
-	quoins.forEach((String id, Quoin quoin) => quoin.update(dt));
-	entities.forEach((String id, Entity entity) => entity.update(dt));
+	quoins.values.forEach((Quoin quoin) => quoin.update(dt));
+	entities.values.forEach((Entity entity) => entity.update(dt));
+	otherPlayers.values.forEach((Player player) => player.update(dt, true));
 
 	//update the other clients with our position & street
 	timeLast += dt;
 	if (timeLast > .03 && playerSocket != null && playerSocket.readyState == WebSocket.OPEN) {
-		String xy = CurrentPlayer.posX.toString() + "," + CurrentPlayer.posY.toString();
+		String xy = CurrentPlayer.left.toString() + "," + CurrentPlayer.top.toString();
 
 		if (xy == lastXY && timeLast < 5) {
 			// Don't send updates when the player doesn't move - except once every 5 seconds

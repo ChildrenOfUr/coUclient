@@ -63,8 +63,8 @@ class GpsIndicator {
 
 	num calculateArrowDirection() {
 		num exitX, exitY;
-		num playerX = CurrentPlayer.posX;
-		num playerY = CurrentPlayer.posY + CurrentPlayer.height/2;
+		num playerX = CurrentPlayer.left;
+		num playerY = CurrentPlayer.top + CurrentPlayer.height / 2;
 
 		for(Map exit in minimap.currentStreetExits) {
 			if(exit["streets"].contains(GPS.nextStreetName)) {

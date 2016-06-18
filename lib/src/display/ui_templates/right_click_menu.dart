@@ -167,8 +167,8 @@ class RightClickMenu {
 			x = click.page.x - (menu.clientWidth ~/ 2);
 			y = click.page.y - (40 + (options.length * 30));
 		} else {
-			num posX = CurrentPlayer.posX,
-				posY = CurrentPlayer.posY;
+			num posX = CurrentPlayer.left,
+				posY = CurrentPlayer.top;
 			int width = CurrentPlayer.width,
 				height = CurrentPlayer.height;
 			num translateX = posX,
@@ -375,8 +375,8 @@ class RightClickMenu {
 			x = Click.client.x - (menu.clientWidth ~/ 2);
 			y = Click.client.y - (40 + (options.length * 30));
 		} else {
-			num posX = CurrentPlayer.posX,
-				posY = CurrentPlayer.posY;
+			num posX = CurrentPlayer.left,
+				posY = CurrentPlayer.top;
 			int width = CurrentPlayer.width,
 				height = CurrentPlayer.height;
 			num translateX = posX,

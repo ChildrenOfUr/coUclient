@@ -48,8 +48,8 @@ class Signpost extends Entity {
 		List signposts = signpost['connects'] as List;
 		for(Map<String, String> exit in signposts) {
 			if(exit['label'] == playerTeleFrom || playerTeleFrom == "console") {
-				CurrentPlayer.posX = x;
-				CurrentPlayer.posY = y;
+				CurrentPlayer.left = x;
+				CurrentPlayer.top = y;
 			}
 
 			String tsid = exit['tsid'].replaceFirst("L", "G");

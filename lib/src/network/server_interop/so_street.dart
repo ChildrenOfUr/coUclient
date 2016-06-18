@@ -116,6 +116,17 @@ _setupStreetSocket(String streetName) {
 			return;
 		}
 
+		if (map['open_profile'] != null) {
+			window.open(
+				'http://childrenofur.com/profile?username=${map['open_profile']}', '_blank');
+			return;
+		}
+
+		if (map['follow'] != null) {
+			new Toast(CurrentPlayer.followPlayer(map['follow']));
+			return;
+		}
+
 		if (map["buff"] != null) {
 			new Buff.fromMap(map["buff"]);
 			return;
@@ -153,7 +164,7 @@ _setupStreetSocket(String streetName) {
 				if (npc == null) {
 					return;
 				}
-				
+
 				npc.facingRight = npcMap["facingRight"];
 				npc.ySpeed = npcMap['ySpeed'];
 				npc.speed = npcMap['speed'];

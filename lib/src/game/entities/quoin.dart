@@ -173,7 +173,7 @@ class Quoin {
 			return false;
 		}
 
-		return intersect(CurrentPlayer.avatarRect, quoinRect);
+		return intersect(CurrentPlayer.entityRect, quoinRect);
 	}
 
 	void _sendToServer() {
