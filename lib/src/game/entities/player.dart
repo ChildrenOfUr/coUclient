@@ -2,7 +2,7 @@ part of couclient;
 
 Player CurrentPlayer;
 
-class Player extends Entity {
+class Player extends Entity implements xl.Animatable {
 	static final List<Action> PLAYER_ACTIONS = [
 		new Action.withName('follow'),
 		new Action.withName('profile')
@@ -20,7 +20,9 @@ class Player extends Entity {
 
 	num
 		yVel = 0,
-		yAccel = -2400;
+		yAccel = -2400,
+		translateX,
+		translateY;
 
 	bool
 		activeClimb = false,
@@ -35,8 +37,23 @@ class Player extends Entity {
 
 	String physics;
 
-	Map<String, Animation> animations = new Map();
-	Animation currentAnimation;
+	spine.SkeletonAnimation animation;
+	String _currentAnimation = 'idle';
+	String get currentAnimation => _currentAnimation ?? 'idle';
+	void setCurrentAnimation(String newAnimation, {bool loop: true, restart: false}) {
+		if (animation == null) {
+			return;
+		}
+
+		if (!restart && newAnimation == _currentAnimation) {
+			return;
+		}
+
+		_currentAnimation = newAnimation;
+		animation.state.setAnimationByName(0, newAnimation, loop);
+		width = animation.skeleton.data.width * animation.scaleX.abs();
+		height = animation.skeleton.data.width * animation.scaleY.abs();
+	}
 
 	Map<String, Rectangle> intersectingObjects = {};
 
@@ -62,7 +79,7 @@ class Player extends Entity {
 		if (id == game.username) {
 			return climbingUp || climbingDown;
 		} else {
-			return currentAnimation.animationName == 'climb';
+			return currentAnimation == 'climb';
 		}
 	}
 
@@ -135,54 +152,28 @@ class Player extends Entity {
 		}
 	}
 
-	Future<List<Animation>> loadAnimations() {
-		//need to get background images from some server for each player based on name
-		List<int> idleFrames = [], baseFrames = [], jumpUpFrames = [], fallDownFrames, landFrames, climbFrames = [];
-		for (int i = 0; i < 57; i++) {
-			idleFrames.add(i);
-		}
-		for (int i = 0; i < 12; i++) {
-			baseFrames.add(i);
-		}
-		for (int i = 0; i < 16; i++) {
-			jumpUpFrames.add(i);
-		}
-		for (int i = 0; i < 19; i++) {
-			climbFrames.add(i);
-		}
-		fallDownFrames = [16, 17, 18, 19, 20, 21, 22, 23];
-		landFrames = [24, 25, 26, 27, 28, 29, 30, 31, 32];
+	Future loadAnimations() async {
+		resourceManager.addTextFile("glitchenSkeleton", 'http://${Configs.utilServerAddress}/getSpine?email=${game.email}&filename=skeleton.json');
+		resourceManager.addTextureAtlas("glitchenAtlas", 'http://${Configs.utilServerAddress}/getSpine?email=${game.email}&filename=export_texture.atlas', xl.TextureAtlasFormat.LIBGDX);
+		try {
+			await resourceManager.load();
+			// load Spine skeleton
+			String spineJson = resourceManager.getTextFile("glitchenSkeleton");
+			xl.TextureAtlas textureAtlas = resourceManager.getTextureAtlas("glitchenAtlas");
+			spine.AttachmentLoader attachmentLoader = new spine.TextureAtlasAttachmentLoader(textureAtlas);
+			spine.SkeletonLoader skeletonLoader = new spine.SkeletonLoader(attachmentLoader);
+			spine.SkeletonData skeletonData = skeletonLoader.readSkeletonData(spineJson);
 
-		List<Future> futures = new List();
-
-		futures.add(HttpRequest.requestCrossOrigin('http://${Configs.utilServerAddress}/getSpritesheets?username=$id')
-		.then((String response) {
-			Map spritesheets = JSON.decode(response);
-			String idle, base, jump, climb;
-			if (spritesheets['base'] == null) {
-				idle = 'files/sprites/idle.png';
-				base = 'files/sprites/base.png';
-				jump = 'files/sprites/jump.png';
-				climb = 'files/sprites/climb.png';
-			}
-			else {
-				idle = spritesheets['idle2'];
-				base = spritesheets['base'];
-				jump = spritesheets['jump'];
-				climb = spritesheets['climb'];
-			}
-			animations['idle'] = new Animation(idle, 'idle', 2, 29, idleFrames, loopDelay:new Duration(seconds:10), delayInitially:true);
-			animations['base'] = new Animation(base, 'base', 1, 15, baseFrames);
-			animations['die'] = new Animation(base, 'die', 1, 15, [12, 13], loops:false);
-			animations['jumpup'] = new Animation(jump, 'jumpup', 1, 33, jumpUpFrames);
-			animations['falldown'] = new Animation(jump, 'falldown', 1, 33, fallDownFrames);
-			animations['land'] = new Animation(jump, 'land', 1, 33, landFrames);
-			animations['climb'] = new Animation(climb, 'climb', 1, 19, climbFrames);
-
-			animations.forEach((String name, Animation animation) => futures.add(animation.load()));
-		}));
-
-		return Future.wait(futures);
+			animation = new spine.SkeletonAnimation(skeletonData);
+			animation.scaleX = animation.scaleY = 0.7;
+			setCurrentAnimation('idle');
+			view.playerStage.addChild(animation);
+			view.playerStage.juggler.add(animation);
+			view.playerStage.juggler.add(this);
+		} catch (e) {
+			print("couldn't load up the player skeleton: $e");
+			print(resourceManager.failedResources);
+		}
 	}
 
 	bool lostFocus = false;
@@ -416,7 +407,7 @@ class Player extends Entity {
 				facingRight = followingPlayer.facingRight;
 
 				// Copy their animation state
-				updateAnimation(dt, followingPlayer.currentAnimation.animationName);
+				updateAnimation(dt, followingPlayer.currentAnimation);
 
 				// Go to their X coordinate (+/- a body width or so if on a platform)
 				num xOffset = (followingPlayer.climbing ? 0 : (facingRight ? -1 : 1) * _entityRect.width);
@@ -506,75 +497,37 @@ class Player extends Entity {
 		}
 	}
 
-	void render() {
-		if (currentAnimation != null && currentAnimation.loaded && currentAnimation.dirty) {
-			if (!firstRender) {
-				Rectangle _entityRect = new Rectangle(left, top, currentAnimation.width, currentAnimation.height);
-				if (!intersect(camera.visibleRect, _entityRect))
-					return;
-			}
-
-			firstRender = false;
-
-			if (canvas.width != currentAnimation.width || canvas.height != currentAnimation.height) {
-				canvas.style.width = currentAnimation.width.toString() + 'px';
-				canvas.style.height = currentAnimation.height.toString() + 'px';
-				canvas.width = currentAnimation.width;
-				canvas.height = currentAnimation.height;
-				int x = -((currentAnimation.width - width) ~/ 2);
-				int y = -((currentAnimation.height - height));
-				canvas.style.transform = 'translateX(${x}px) translateY(${(Buff.isRunning('grow') ? y - 30 : y)}px)';
-				if (Buff.isRunning('grow')) {
-					canvas.style.transform += ' scale(1.5)';
-				} else if (Buff.isRunning('shrink')) {
-					canvas.style.transform += ' scale(0.75)';
-				}
-			}
-			else
-				canvas.context2D.clearRect(0, 0, currentAnimation.width, currentAnimation.height);
-
-			Rectangle destRect = new Rectangle(0, 0, currentAnimation.width, currentAnimation.height);
-			canvas.context2D.drawImageToRect(currentAnimation.spritesheet, destRect, sourceRect: currentAnimation.sourceRect);
-			currentAnimation.dirty = false;
-		}
-	}
+	void render() {}
 
 	void updateAnimation(double dt, [String override]) {
-		Animation previous = currentAnimation;
+		String previous = currentAnimation;
 
 		if (override != null) {
-			currentAnimation = animations[override];
+			setCurrentAnimation(override);
 		} else {
 			bool climbing = climbingUp || climbingDown;
-			if (!moving && !jumping && !climbing)
-				currentAnimation = animations['idle'];
-			else {
-				//reset idle so that the 10 second delay starts over
-				animations['idle'].reset();
-
+			if (!moving && !jumping && !climbing) {
+				setCurrentAnimation('idle');
+			} else {
 				if (climbing) {
 					if (activeClimb != lastClimbStatus) {
 						lastClimbStatus = activeClimb;
 					}
-					currentAnimation = animations['climb'];
-					currentAnimation.paused = !activeClimb;
+					setCurrentAnimation('climb');
+//					currentAnimation.paused = !activeClimb;
 				}
 				else {
 					if (moving && !jumping)
-						currentAnimation = animations['base'];
+						setCurrentAnimation('walk');
 					else if (jumping && yVel < 0) {
-						currentAnimation = animations['jumpup'];
-						animations['falldown'].reset();
+						setCurrentAnimation('jumpup');
 					}
 					else if (jumping && yVel >= 0) {
-						currentAnimation = animations['falldown'];
-						animations['jumpup'].reset();
+						setCurrentAnimation('falldown');
 					}
 				}
 			}
 		}
-
-		currentAnimation.updateSourceRect(dt, holdAtLastFrame:jumping);
 
 		if (previous != currentAnimation) {
 			//force a player update to be sent right now
@@ -583,10 +536,11 @@ class Player extends Entity {
 	}
 
 	void updateTransform() {
-		num translateX = left, translateY = view.worldElementWidth - height;
+		translateX = left;
+		translateY = view.worldElementHeight - height;
 
 		num camX = camera.getX(), camY = camera.getY();
-		if (left > currentStreet.bounds.width - width / 2 - view.worldElementWidth / 2) {
+		if (left + width / 2 > currentStreet.bounds.width - view.worldElementWidth / 2) {
 			camX = currentStreet.bounds.width - view.worldElementWidth;
 			translateX = left - currentStreet.bounds.width + view.worldElementWidth;
 			//allow character to move to screen right
@@ -596,8 +550,9 @@ class Player extends Entity {
 			translateX = view.worldElementWidth / 2 - width / 2;
 			//keep character in center of screen
 		}
-		else
+		else {
 			camX = 0;
+		}
 
 		if (top + height / 2 < view.worldElementHeight / 2) {
 			camY = 0;
@@ -614,31 +569,6 @@ class Player extends Entity {
 		}
 
 		camera.setCameraPosition(camX ~/ 1, camY ~/ 1);
-
-		//translateZ forces the whole operation to be gpu accelerated
-		String transform = 'translateX(' + translateX.toString() + 'px) translateY(' + translateY.toString() + 'px) translateZ(0)';
-		if (!facingRight) {
-			transform += ' scale3d(-1,1,1)';
-			playerParentElement.classes
-				..add('facing-left')
-				..remove('facing-right');
-			playerName.style.transform = 'translateY(-100%) translateY(-34px) scale3d(-1,1,1)';
-
-			if (chatBubble != null)
-				chatBubble.textElement.style.transform = 'scale3d(-1,1,1)';
-		}
-		else {
-			playerName.style.transform = 'translateY(-100%) translateY(-34px) scale3d(1,1,1)';
-			playerParentElement.classes
-				..add('facing-right')
-				..remove('facing-left');
-			if (chatBubble != null)
-				chatBubble.textElement.style.transform = 'scale3d(1,1,1)';
-		}
-
-		playerParentElement.style.transform = transform;
-		playerParentElement.attributes['translateX'] = translateX.toString();
-		playerParentElement.attributes['translateY'] = translateY.toString();
 	}
 
 	String followPlayer([String toFollow]) {
@@ -701,5 +631,26 @@ class Player extends Entity {
 		}
 
 		return bestPlatform;
+	}
+	@override
+	bool advanceTime(num time) {
+		if (Buff.isRunning("grow")) {
+			animation.scaleX = animation.scaleY = .7 * 1.5;
+		} else if (Buff.isRunning("shrink")) {
+			animation.scaleX = animation.scaleY = .7 * .75;
+		} else {
+			animation.scaleX = animation.scaleY = .7;
+		}
+
+		if (!facingRight && animation.scaleX > 0) {
+			animation.scaleX *= -1;
+		} else if (facingRight && animation.scaleX < 0) {
+			animation.scaleX *= -1;
+		}
+
+		animation.x = translateX;
+		animation.y = translateY + height;
+
+		return true;
 	}
 }

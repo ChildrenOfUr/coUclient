@@ -36,6 +36,8 @@ import 'package:libld/libld.dart'; // Asset loading
 import 'package:scproxy/scproxy.dart'; // SoundCloud helper
 import 'package:transmit/transmit.dart'; // Event bus
 import "package:xml/xml.dart" as XML; // Blog post checking
+import 'package:stagexl/stagexl.dart' as xl; // drawing players
+import 'package:stagexl_spine/stagexl_spine.dart' as spine;
 
 // Start Polymer
 

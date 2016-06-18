@@ -41,7 +41,7 @@ dependencies:
       git:
         ref: userfeedback
         url: git://github.com/ChildrenOfUr/cou-issues.git
-  stagexl: "^0.12.0"
+  stagexl_spine: "^0.6.0"
   browser_detect: "^1.0.3"
   coUemoticons:
       git: git://github.com/ChildrenOfUr/emoticons.git

@@ -60,6 +60,11 @@ class UserInterface {
 	Element playerHolder = querySelector("#playerHolder");
 	Element layers = querySelector("#layers");
 
+	//stagexl
+	xl.Stage playerStage;
+	xl.RenderLoop renderLoop;
+	CanvasElement stageCanvas;
+
 	//Location/Map Variables
 	Element mapWindow = querySelector('#mapWindow');
 	Element mapImg = querySelector('#mapImage');
@@ -210,6 +215,11 @@ class UserInterface {
 	resize() {
 		worldElementWidth = worldElement.clientWidth;
 		worldElementHeight = worldElement.clientHeight;
+		if (stageCanvas != null) {
+			stageCanvas
+				..style.width = '${view.worldElementWidth}px'
+				..style.height = '${view.worldElementHeight}px';
+		}
 		transmit('windowResized',null);
 	}
 }

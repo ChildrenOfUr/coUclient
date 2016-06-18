@@ -117,7 +117,7 @@ sendPlayerInfo() {
 	map['jumping'] = CurrentPlayer.jumping;
 	map['climbing'] = CurrentPlayer.climbingDown || CurrentPlayer.climbingUp;
 	map['activeClimb'] = CurrentPlayer.activeClimb;
-	map["animation"] = CurrentPlayer.currentAnimation.animationName;
+	map["animation"] = CurrentPlayer.currentAnimation;
 	if (CurrentPlayer.chatBubble != null) map["bubbleText"] =
 		CurrentPlayer.chatBubble.text;
 	playerSocket.send(JSON.encode(map));
@@ -145,25 +145,25 @@ updateOtherPlayer(Map map, Player otherPlayer) {
 		return;
 	}
 
-	if (otherPlayer.currentAnimation == null) {
-		otherPlayer.currentAnimation = otherPlayer.animations[map["animation"]];
-	}
+//	if (otherPlayer.currentAnimation == null) {
+//		otherPlayer.currentAnimation = otherPlayer.animations[map["animation"]];
+//	}
 
 	//set movement bools
 	if (map['jumping'] != null) {
 		otherPlayer.jumping = map['jumping'];
 	}
-	if (map['climbing'] == true) {
-		otherPlayer.currentAnimation.paused = !map['activeClimb'];
-	} else {
-		otherPlayer.currentAnimation.paused = false;
-	}
+//	if (map['climbing'] == true) {
+//		otherPlayer.currentAnimation.paused = !map['activeClimb'];
+//	} else {
+//		otherPlayer.currentAnimation.paused = false;
+//	}
 
 	//set animation state
-	if (map["animation"] != otherPlayer.currentAnimation.animationName) {
-		otherPlayer.currentAnimation.reset();
-		otherPlayer.currentAnimation = otherPlayer.animations[map["animation"]];
-	}
+//	if (map["animation"] != otherPlayer.currentAnimation.animationName) {
+//		otherPlayer.currentAnimation.reset();
+//		otherPlayer.currentAnimation = otherPlayer.animations[map["animation"]];
+//	}
 
 	otherPlayer.playerParentElement.id = "player-" + sanitizeName(map["username"].replaceAll(' ', '_'));
 	otherPlayer.playerParentElement.style.position = "absolute";

@@ -15,8 +15,8 @@ render() {
 	if (currentStreet is Street)
 		currentStreet.render();
 	//Draw Player
-	if (CurrentPlayer is Player)
-		CurrentPlayer.render();
+//	if (CurrentPlayer is Player)
+//		CurrentPlayer.render();
 
 	//draw quoins
 	quoins.forEach((String id, Quoin quoin) => quoin.render());
@@ -25,7 +25,7 @@ render() {
 	entities.forEach((String id, Entity entity) => entity.render());
 
 	//draw other players
-	otherPlayers.forEach((String name, Player player) => player.render());
+//	otherPlayers.forEach((String name, Player player) => player.render());
 
 	//update minimap
 	minimap.updateObjects();

@@ -1,6 +1,7 @@
 part of couclient;
 
 StreetService streetService = new StreetService();
+xl.ResourceManager resourceManager = new xl.ResourceManager();
 
 // GAME ENTRY AND MANAGEMENT //
 class Game {
@@ -52,6 +53,26 @@ class Game {
 	}
 
 	_init(Metabolics m) async {
+		//set some stagexl global vars
+		xl.StageXL.stageOptions.renderEngine = xl.RenderEngine.WebGL;
+		xl.StageXL.stageOptions.transparent = true;
+		xl.StageXL.stageOptions.backgroundColor = xl.Color.Transparent;
+		xl.StageXL.stageOptions.stageScaleMode = xl.StageScaleMode.NO_SCALE;
+		xl.StageXL.stageOptions.stageAlign = xl.StageAlign.TOP_LEFT;
+		xl.StageXL.bitmapDataLoadOptions.corsEnabled = true;
+
+		view.stageCanvas = new CanvasElement()
+			..style.position = 'absolute'
+			..style.top = '0'
+			..style.left = '0'
+			..style.width = '${view.worldElementWidth}px'
+			..style.height = '${view.worldElementHeight}px';
+		view.worldElement.append(view.stageCanvas);
+
+		view.playerStage = new xl.Stage(view.stageCanvas, width: view.worldElementWidth, height: view.worldElementHeight);
+		view.renderLoop = new xl.RenderLoop();
+		view.renderLoop.addStage(view.playerStage);
+
 		//load the player's street from the server
 		await streetService.requestStreet(location);
 
@@ -75,7 +96,7 @@ class Game {
 
 		//load the player's animation spritesheets then set them to idle
 		await CurrentPlayer.loadAnimations();
-		CurrentPlayer.currentAnimation = CurrentPlayer.animations['idle'];
+//		CurrentPlayer.currentAnimation = CurrentPlayer.animations['idle'];
 		transmit('playerLoaded', null);
 
 		// HACK: toggling fixes mute issues

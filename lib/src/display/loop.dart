@@ -12,9 +12,9 @@ update(double dt) {
 	CurrentPlayer.update(dt);
 
 	otherPlayers.forEach((String username, Player otherPlayer) {
-		if (otherPlayer.currentAnimation != null) {
-			otherPlayer.currentAnimation.updateSourceRect(dt);
-		}
+//		if (otherPlayer.currentAnimation != null) {
+//			otherPlayer.currentAnimation.updateSourceRect(dt);
+//		}
 
 		double x = otherPlayer.left;
 		double y = otherPlayer.top;
