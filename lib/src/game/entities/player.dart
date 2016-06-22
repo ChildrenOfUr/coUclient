@@ -166,7 +166,7 @@ class Player extends Entity implements xl.Animatable {
 
 			animation = new spine.SkeletonAnimation(skeletonData);
 			animation.scaleX = animation.scaleY = 0.7;
-			setCurrentAnimation('idle');
+			setCurrentAnimation('idle', restart: true);
 			view.playerStage.addChild(animation);
 			view.playerStage.juggler.add(animation);
 			view.playerStage.juggler.add(this);
@@ -335,7 +335,7 @@ class Player extends Entity implements xl.Animatable {
 
 			Rectangle collisionsRect;
 			if (facingRight) {
-				collisionsRect = new Rectangle(left+width/2, top + currentStreet.groundY + height/4, width/2, height*3/4 - 35);
+				collisionsRect = new Rectangle(left, top + currentStreet.groundY + height/4, width/2, height*3/4 - 35);
 			} else {
 				collisionsRect = new Rectangle(left, top + currentStreet.groundY + height/4, width/2, height*3/4 - 35);
 			}
@@ -369,6 +369,9 @@ class Player extends Entity implements xl.Animatable {
 					if (goingTo >= lineY) {
 						top = lineY - height - currentStreet.groundY;
 						yVel = 0;
+						if(jumping) {
+							setCurrentAnimation('land', loop: false);
+						}
 						jumping = false;
 					}
 				}
@@ -520,10 +523,13 @@ class Player extends Entity implements xl.Animatable {
 					if (moving && !jumping)
 						setCurrentAnimation('walk');
 					else if (jumping && yVel < 0) {
-						setCurrentAnimation('jumpup');
+						setCurrentAnimation('jumpup', loop: false);
 					}
 					else if (jumping && yVel >= 0) {
-						setCurrentAnimation('falldown');
+						setCurrentAnimation('startfall', loop: false);
+						animation.state.onTrackComplete.first.then((_) {
+							setCurrentAnimation('falldown');
+						});
 					}
 				}
 			}
@@ -542,16 +548,17 @@ class Player extends Entity implements xl.Animatable {
 		num camX = camera.getX(), camY = camera.getY();
 		if (left + width / 2 > currentStreet.bounds.width - view.worldElementWidth / 2) {
 			camX = currentStreet.bounds.width - view.worldElementWidth;
-			translateX = left - currentStreet.bounds.width + view.worldElementWidth;
+			translateX = left - currentStreet.bounds.width + view.worldElementWidth + width / 2;
 			//allow character to move to screen right
 		}
 		else if (left + width / 2 > view.worldElementWidth / 2) {
 			camX = left + width / 2 - view.worldElementWidth / 2;
-			translateX = view.worldElementWidth / 2 - width / 2;
+			translateX = view.worldElementWidth / 2;
 			//keep character in center of screen
 		}
 		else {
 			camX = 0;
+			translateX = left + width / 2;
 		}
 
 		if (top + height / 2 < view.worldElementHeight / 2) {

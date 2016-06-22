@@ -235,18 +235,14 @@ _setupStreetSocket(String streetName) {
 			}
 		});
 
+		List<Map> newNpcs = [];
 		(map["npcs"] as List).forEach((Map npcMap) {
-			String id = npcMap["id"];
-			Element element = querySelector("#$id");
 			NPC npc = entities[npcMap["id"]];
-			if (element == null) {
+			if (npc == null) {
 				addNPC(npcMap);
-			}
-			else {
-				if (npc != null) {
-					npc.updateAnimation(npcMap);
-					_updateChatBubble(npcMap, npc);
-				}
+			} else {
+				npc.updateAnimation(npcMap);
+				_updateChatBubble(npcMap, npc);
 			}
 		});
 

@@ -653,7 +653,7 @@ class RightClickMenu {
 		} else {
 			num posX = CurrentPlayer.left,
 				posY = CurrentPlayer.top;
-			int width = CurrentPlayer.width,
+			num width = CurrentPlayer.width,
 				height = CurrentPlayer.height;
 			num translateX = posX,
 				translateY = view.worldElement.clientHeight - height;

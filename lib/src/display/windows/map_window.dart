@@ -269,6 +269,9 @@ class WorldMap {
 				}
 
 				for (String streetNameOnRoute in GPS.currentRoute) {
+					if(streetName == '') {
+						continue;
+					}
 					if (streetNameOnRoute.substring(1) == streetName.substring(1)) {
 						street.classes.add('hm-street-route');
 						break;
