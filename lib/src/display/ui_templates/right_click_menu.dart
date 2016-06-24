@@ -140,7 +140,7 @@ class RightClickMenu {
 								// Picking up multiple items
 								List<String> objects = CurrentPlayer.intersectingObjects.keys.toList();
 								objects.removeWhere((String id) {
-									return (querySelector('#$id').attributes['type'] != (itemName ?? item.name));
+									return (querySelector('#$id').attributes['name'] != (itemName ?? item.name));
 								});
 								arguments['pickupIds'] = objects;
 								sendGlobalAction(functionName, arguments);
@@ -154,7 +154,7 @@ class RightClickMenu {
 							}
 						};
 
-						if (action.multiEnabled && action.dropMap != null) {
+						if (action.multiEnabled) {
 							int max = 0,
 								slot = -1,
 								subSlot = -1;
@@ -168,7 +168,7 @@ class RightClickMenu {
 							if (functionName == 'pickup') {
 								// Count on ground
 								max = CurrentPlayer.intersectingObjects.keys.where((String id) {
-									return (querySelector('#$id').attributes['type'] == (itemName ?? item.name));
+									return (querySelector('#$id').attributes['name'] == (itemName ?? item.name));
 								}).toList().length;
 							} else {
 								// Count in inventory

@@ -477,10 +477,9 @@ class InputManager {
 	// Right-click menu functions
 	hideClickMenu(Element window) => window?.remove();
 
-	showClickMenu(MouseEvent Click, String title, String description, String id, List<Action> actions) {
+	showClickMenu(MouseEvent Click, String title, String description, String id, List<Action> actions, {String itemName}) {
 		hideClickMenu(querySelector('#RightClickMenu'));
-		RightClickMenu.create3(Click, title, id, description: description, actions: actions);
-//		document.body.append(RightClickMenu.create(Click, title, description, options, itemName:itemName));
+		RightClickMenu.create3(Click, title, id, description: description, actions: actions, itemName: itemName);
 
 		Element clickMenu = querySelector('#RightClickMenu');
 		Element list = querySelector('#RCActionList');
