@@ -104,22 +104,18 @@ abstract class Entity {
 	}
 
 	/**
-	 * Returns a map of data for the entity
-	 * 'alldisabled' (bool) -> true if every action is disabled, false otherwise
-	 * 'actions' (List<List>) -> terrible and ready for a right click menu
+	 * Returns a list of actions which currently applies to the player and the entity
 	 */
-	Map<String, dynamic> getActions() {
-		List<List> menuActions = [];
-		bool allDisabled = true;
-		String actionEntity = (this is Player ? 'global_action_monster' : this.id);
-
+	List<Action> getActions() {
+		bool enabled = false;
+		List<Action> actionList = [];
 		actions.forEach((Action action) {
-			bool enabled = action.enabled;
-			String error = '';
-			if (enabled) {
-				allDisabled = false;
+			enabled = action.enabled;
+			action.actionName = capitalizeFirstLetter(action.actionName);
+			String error = "";
+			if(enabled) {
 				enabled = hasRequirements(action);
-				if (enabled) {
+				if(enabled) {
 					error = action.description;
 				} else {
 					error = getRequirementString(action);
@@ -127,23 +123,28 @@ abstract class Entity {
 			} else {
 				error = action.error;
 			}
-
-			menuActions.add([
-				capitalizeFirstLetter(action.actionName) + '|' + action.actionWord + '|${action.timeRequired}|$enabled|$error|${action.multiEnabled}',
-				actionEntity,
-				'sendAction ${action.actionName} $actionEntity|${action.associatedSkill}'
-			]);
+			Action menuAction = new Action.clone(action)
+				..enabled = enabled
+				..error = error;
+			actionList.add(menuAction);
 		});
 
-		return {'actions': menuActions, 'alldisabled': allDisabled};
+		return actionList;
 	}
 
 	void interact(String id) {
 		Element element = querySelector('#$id') ?? querySelector('#player-$id');
-		Map<String, dynamic> actions = getActions();
 
-		if (!actions['alldisabled']) {
-			inputManager.showClickMenu(null, element.attributes['type'] ?? id, 'Desc', actions['actions']);
+		List<Action> actions = getActions();
+		bool allDisabled = true;
+		for (Action action in actions) {
+			if (action.enabled) {
+				allDisabled = false;
+				break;
+			}
+		}
+		if (!allDisabled) {
+			inputManager.showClickMenu(null, element.attributes['type'] ?? id, 'Desc', id, actions);
 		}
 	}
 

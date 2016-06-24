@@ -522,7 +522,11 @@ class WorldMap {
 		];
 		if (metabolics.energy >= 50 || (inputManager.konamiDone && !inputManager.freeTeleportUsed)) {
 			options[1]["enabled"] = true;
-			options[1]["description"] = "Spend 50 energy to get here right now";
+			if (inputManager.konamiDone && !inputManager.freeTeleportUsed) {
+				options[1]['description'] = "This one's on me kid";
+			} else {
+				options[1]["description"] = "Spend 50 energy to get here right now";
+			}
 		}
 		document.body.append(RightClickMenu.create2(e, streetName, options));
 	}

@@ -20,7 +20,8 @@ class GroundItem extends Entity {
 			item.attributes['translatey'] = top.toString();
 			item.attributes['width'] = item.width.toString();
 			item.attributes['height'] = item.height.toString();
-			item.attributes['type'] = map['name'];
+			item.attributes['itemType'] = map['itemType'];
+			item.attributes['name'] = map['name'];
 			item.attributes['description'] = map['description'];
 			item.attributes['actions'] = JSON.encode(map['actions']);
 			item.classes.add('groundItem');
@@ -38,11 +39,12 @@ class GroundItem extends Entity {
 	@override
 	void interact(String id) {
 		Element element = querySelector("#$id");
-		List<List> menuActions = [];
+		List<Action> actionList = [];
 
 		bool enabled = false;
 		actions.forEach((Action action) {
 			enabled = action.enabled;
+			action.actionName = capitalizeFirstLetter(action.actionName);
 			String error = "";
 			if(enabled) {
 				enabled = hasRequirements(action);
@@ -54,14 +56,12 @@ class GroundItem extends Entity {
 			} else {
 				error = action.error;
 			}
-			menuActions.add([
-							capitalizeFirstLetter(action.actionName) + '|' +
-							'|0|$enabled|$error|${action.multiEnabled}',
-							id,
-							"sendAction ${action.actionName} $id",
-						]);
+			Action menuAction = new Action.clone(action)
+				..enabled = enabled
+				..error = error;
+			actionList.add(menuAction);
 		});
 
-		inputManager.showClickMenu(null, element.attributes['type'], element.attributes['description'], menuActions, itemName:element.attributes['type']);
+		inputManager.showClickMenu(null, element.attributes['name'], element.attributes['description'], id, actionList);
 	}
 }

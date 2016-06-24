@@ -19,6 +19,7 @@ void itemContextMenu(ItemDef i, String slot, MouseEvent event) {
 		bool enabled = false;
 		actionsList.forEach((Action action) {
 			enabled = action.enabled;
+			action.actionName = capitalizeFirstLetter(action.actionName);
 			String error = "";
 			if(enabled) {
 				enabled = hasRequirements(action);

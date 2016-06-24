@@ -85,7 +85,16 @@ class InteractionWindow {
 
 			// Entity has no available actions
 			try {
-				if (getEntity(id).getActions()['alldisabled']) {
+				bool allDisabled = true;
+				for (Action action in getEntity(id).getActions()) {
+					if (action.enabled) {
+						allDisabled = false;
+						break;
+					}
+				}
+
+				//street signs are (probably) never disabled
+				if (allDisabled && !entityOnStreet.id.contains('pole')) {
 					container.classes.add('disabled');
 				}
 			} catch (_) {
