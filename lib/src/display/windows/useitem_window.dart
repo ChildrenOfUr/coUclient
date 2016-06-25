@@ -104,7 +104,7 @@ class UseWindow extends Modal {
 
 				DivElement info = new DivElement()
 					..classes.add("useitem-recipe-text")
-					..text = recipe["output_map"]["name"];
+					..text = recipe["output_map"]["recipeName"] ?? recipe['output_map']['name'];
 
 				DivElement recipeBtn = new DivElement()
 					..classes.addAll(["useitem-recipe", "white-btn"])
@@ -146,30 +146,31 @@ class UseWindow extends Modal {
 			..style.backgroundImage = "url(${recipe["output_map"]["iconUrl"]})"
 			..onClick.listen((_) => new ItemWindow(recipe["output_map"]["name"]));
 
+		String recipeName = recipe['output_map']['recipeName'] ?? recipe['output_map']['name'];
 		DivElement itemName = new DivElement()
 			..classes.add("recipeview-text")
-			..text = recipe["output_map"]["name"];
+			..text = recipeName;
 
 		DivElement outputQty = new DivElement()
 			..classes.add("recipeview-outputqty");
 
 		if (recipe["output_amt"] == 1) {
 			outputQty.setInnerHtml(
-				"This recipe makes <br><b>one</b> ${recipe["output_map"]["name"]}"
+				"This recipe makes <br><b>one</b> $recipeName"
 				);
 		} else {
-			if ((recipe["output_map"]["name"] as String).endsWith("y")) {
+			if (recipeName.endsWith("y")) {
 				outputQty.setInnerHtml(
-					"This recipe makes <br><b>${recipe["output_amt"]}</b> ${(recipe["output_map"]["name"] as String)
-						.substring(0, recipe["output_map"]["name"].length - 1)}ies"
+					"This recipe makes <br><b>${recipe["output_amt"]}</b> ${recipeName
+						.substring(0, recipeName.length - 1)}ies"
 					);
-			} else if ((recipe["output_map"]["name"] as String).endsWith("s")) {
+			} else if (recipeName.endsWith("s")) {
 				outputQty.setInnerHtml(
-					"This recipe makes <br><b>${recipe["output_amt"]}</b> ${recipe["output_map"]["name"]}es"
+					"This recipe makes <br><b>${recipe["output_amt"]}</b> ${recipeName}es"
 					);
 			} else {
 				outputQty.setInnerHtml(
-					"This recipe makes <br><b>${recipe["output_amt"]}</b> ${recipe["output_map"]["name"]}s"
+					"This recipe makes <br><b>${recipe["output_amt"]}</b> ${recipeName}s"
 					);
 			}
 		}

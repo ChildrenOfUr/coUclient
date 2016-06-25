@@ -38,7 +38,8 @@ void itemContextMenu(ItemDef i, String slot, MouseEvent event) {
 			actions.add(menuAction);
 		});
 	}
-	Element menu = RightClickMenu.create3(event, i.metadata['title'] ?? i.name, i.itemType, description: i.description, actions: actions, item: i);
+	Function onInfo = (_){new ItemWindow(i.name).displayItem();};
+	Element menu = RightClickMenu.create3(event, i.metadata['title'] ?? i.name, i.itemType, description: i.description, actions: actions, item: i, onInfo: onInfo);
 	document.body.append(menu);
 }
 

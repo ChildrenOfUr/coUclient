@@ -872,6 +872,7 @@
 .darkui .RCItem:hover,
 .darkui .RCItemSelected {
     background-color: #181818;
+    border: 1px solid #d79035;
 }
 
 .RCItemDisabled,
@@ -924,7 +925,7 @@
 
 .action_hover a,
 .action_wrapper:hover .action_error_tooltip,
-.RCItemDisabled.RCItemSelected + .action_error_tooltip {
+.RCItemSelected + .action_error_tooltip {
     opacity: 1;
     pointer-events: auto;
     left: 50%;

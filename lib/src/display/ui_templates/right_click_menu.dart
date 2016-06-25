@@ -213,10 +213,11 @@ class RightClickMenu {
 
 			if (options.length == 1) {
 				// Pre-select only option
-				options.single.classes.toggle(OPTION_SELECTED_CLASS);
+				options.single.children.first.classes.add(OPTION_SELECTED_CLASS);
 			} else if (options.length > 1) {
 				// Pre-select option, and wrap around controls
 				menu.onKeyPress.listen((KeyboardEvent event) {
+					print('pressed ${event.keyCode}');
 					if (event.keyCode == 40) {
 						// Down arrow
 						options.first.children.first

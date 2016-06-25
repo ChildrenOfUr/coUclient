@@ -1,12 +1,14 @@
 part of couclient;
 
 class GroundItem extends Entity {
+	ImageElement item;
+
 	GroundItem(Map map) {
 		if (map.containsKey('actions')) {
 			actions = decode(JSON.encode(map['actions']), type: const TypeHelper<List<Action>>().type);
 		}
 
-		ImageElement item = new ImageElement(src:map['iconUrl']);
+		item = new ImageElement(src:map['iconUrl']);
 		item.onLoad.first.then((_) {
 			left = map['x'];
 			top = map['y'] - item.height;
@@ -33,7 +35,19 @@ class GroundItem extends Entity {
 		});
 	}
 
+	@override
 	render() {
+		if (!dirty) {
+			return;
+		}
+
+		if(glow) {
+			item.classes.add('groundItemGlow');
+		} else {
+			item.classes.remove('groundItemGlow');
+		}
+
+		dirty = false;
 	}
 
 	@override

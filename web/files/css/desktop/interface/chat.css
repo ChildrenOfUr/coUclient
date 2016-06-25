@@ -148,7 +148,6 @@ p.me {
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
     min-width: 250px;
     left: 50%;
-    bottom: 50px;
     transform: translate(-50%, -100%);
     -webkit-transform-origin: bottom center;
     -moz-transform-origin: bottom center;

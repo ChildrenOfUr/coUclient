@@ -5,7 +5,8 @@ Player CurrentPlayer;
 class Player extends Entity {
 	static final List<Action> PLAYER_ACTIONS = [
 		new Action.withName('follow'),
-		new Action.withName('profile')
+		new Action.withName('profile'),
+		new Action.withName('give item')
 	];
 
 	static final String
@@ -95,6 +96,7 @@ class Player extends Entity {
 
 		canvas = new CanvasElement()
 			..className = 'canvas'
+			..style.position = 'absolute'
 			..style.overflow = 'auto'
 			..style.margin = 'auto';
 
@@ -521,9 +523,12 @@ class Player extends Entity {
 				canvas.style.height = currentAnimation.height.toString() + 'px';
 				canvas.width = currentAnimation.width;
 				canvas.height = currentAnimation.height;
-				int x = -((currentAnimation.width - width) ~/ 2);
+				int x = -(currentAnimation.width ~/ 2);
 				int y = -((currentAnimation.height - height));
-				canvas.style.transform = 'translateX(${x}px) translateY(${(Buff.isRunning('grow') ? y - 30 : y)}px)';
+				if (Buff.isRunning('grow')) {
+					y -= 30;
+				}
+				canvas.style.transform = 'translateX(${x}px) translateY(${y}px)';
 				if (Buff.isRunning('grow')) {
 					canvas.style.transform += ' scale(1.5)';
 				} else if (Buff.isRunning('shrink')) {
