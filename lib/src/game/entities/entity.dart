@@ -144,7 +144,13 @@ abstract class Entity {
 			}
 		}
 		if (!allDisabled) {
-			inputManager.showClickMenu(null, element.attributes['type'] ?? id, 'Desc', id, actions);
+			String receiverId = element.attributes['type'] ?? id;
+			if (this is Player) {
+				receiverId = 'global_action_monster';
+			}
+
+			inputManager.showClickMenu(
+				title: id, id: id, serverEntityId: receiverId, actions: actions);
 		}
 	}
 

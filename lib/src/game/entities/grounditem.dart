@@ -76,6 +76,11 @@ class GroundItem extends Entity {
 			actionList.add(menuAction);
 		});
 
-		inputManager.showClickMenu(null, element.attributes['name'], element.attributes['description'], id, actionList, itemName: element.attributes['name']);
+		inputManager.showClickMenu(
+			title: element.attributes['name'],
+			description: element.attributes['description'],
+			id: id,
+			actions: actionList,
+			itemName: element.attributes['name']);
 	}
 }

@@ -22,7 +22,7 @@ class RightClickMenu {
 
 	static Element create3(
 		MouseEvent click, String title, String entityId,
-		{String description, List<Action> actions, Function onInfo, ItemDef item, String itemName}
+		{String serverEntityId, String description, List<Action> actions, Function onInfo, ItemDef item, String itemName}
 	) {
 		Point<int> _positionMenu(DivElement menu) {
 			int x, y;
@@ -144,6 +144,8 @@ class RightClickMenu {
 								});
 								arguments['pickupIds'] = objects;
 								sendGlobalAction(functionName, arguments);
+							} else if (serverEntityId == "global_action_monster") {
+								sendGlobalAction(functionName, {"player": entityId});
 							} else {
 								// Other action
 								if (item != null) {

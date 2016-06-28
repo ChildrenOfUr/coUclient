@@ -42,6 +42,7 @@ _setupStreetSocket(String streetName) {
 	});
 	streetSocket.onMessage.listen((MessageEvent event) {
 		Map map = JSON.decode(event.data);
+
 		if (map['error'] != null) {
 			reconnect = false;
 			logmessage('[Multiplayer (Street)] Error ${map['error']}');
@@ -117,8 +118,7 @@ _setupStreetSocket(String streetName) {
 		}
 
 		if (map['open_profile'] != null) {
-			window.open(
-				'http://childrenofur.com/profile?username=${map['open_profile']}', '_blank');
+			window.open('http://childrenofur.com/profile?username=${map['open_profile']}', '_blank');
 			return;
 		}
 
@@ -149,7 +149,6 @@ _setupStreetSocket(String streetName) {
 
 		if (map["note_read"] != null) {
 			new NoteWindow(int.parse(map["note_read"]));
-
 			return;
 		}
 
@@ -179,92 +178,102 @@ _setupStreetSocket(String streetName) {
 			return;
 		}
 
-		(map["quoins"] as List).forEach((Map quoinMap) {
-			if (quoinMap["remove"] == "true") {
-				// Server OKed collection of a quoin
-				Element objectToRemove = querySelector("#${quoinMap["id"]}");
-				if (objectToRemove != null) {
-					//.remove() is very slow
-					objectToRemove.style.display = "none";
+		if (map["quoins"] != null) {
+			(map["quoins"] as List).forEach((Map quoinMap) {
+				if (quoinMap["remove"] == "true") {
+					// Server OKed collection of a quoin
+					Element objectToRemove = querySelector("#${quoinMap["id"]}");
+					if (objectToRemove != null) {
+						//.remove() is very slow
+						objectToRemove.style.display = "none";
+					}
+				} else {
+					// Respawn quoins
+					String id = quoinMap["id"];
+					Element element = querySelector("#$id");
+					if (element == null) {
+						// Add new quoin
+						addQuoin(quoinMap);
+					} else if (element.style.display == "none") {
+						// Update existing quoin
+						element.style.display = "block";
+						quoins[id].collected = false;
+					}
 				}
-			} else {
-				// Respawn quoins
-				String id = quoinMap["id"];
+			});
+		}
+
+		if (map["doors"] != null) {
+			(map["doors"] as List).forEach((Map doorMap) {
+				String id = doorMap["id"];
+				Element element = querySelector("#$id");
+				Door door = entities[doorMap["id"]];
+				if (element == null) {
+					addDoor(doorMap);
+				}
+				else {
+					if (door != null) {
+						door.actions = decode(JSON.encode(doorMap['actions']), type: const TypeHelper<List<Action>>().type);
+						_updateChatBubble(doorMap, door);
+					}
+				}
+			});
+		}
+
+		if (map["plants"] != null) {
+			(map["plants"] as List).forEach((Map plantMap) {
+				String id = plantMap["id"];
+				Element element = querySelector("#$id");
+				Plant plant = entities[plantMap["id"]];
+				if (element == null) {
+					addPlant(plantMap);
+				}
+				else {
+					if (plant != null) {
+						plant.actions = decode(JSON.encode(plantMap['actions']), type: const TypeHelper<List<Action>>().type);
+						if (plant.state != plantMap['state']) {
+							plant.updateState(plantMap['state']);
+						}
+						_updateChatBubble(plantMap, plant);
+					}
+				}
+			});
+		}
+
+		if (map["npcs"] != null) {
+			(map["npcs"] as List).forEach((Map npcMap) {
+				String id = npcMap["id"];
+				Element element = querySelector("#$id");
+				NPC npc = entities[npcMap["id"]];
+				if (element == null) {
+					addNPC(npcMap);
+				}
+				else {
+					if (npc != null) {
+						npc.updateAnimation(npcMap);
+						_updateChatBubble(npcMap, npc);
+					}
+				}
+			});
+		}
+
+		if (map["groundItems"] != null) {
+			(map['groundItems'] as List).forEach((Map itemMap) {
+				String id = itemMap['id'];
 				Element element = querySelector("#$id");
 				if (element == null) {
-					// Add new quoin
-					addQuoin(quoinMap);
-				} else if (element.style.display == "none") {
-					// Update existing quoin
-					element.style.display = "block";
-					quoins[id].collected = false;
-				}
-			}
-		});
-
-		(map["doors"] as List).forEach((Map doorMap) {
-			String id = doorMap["id"];
-			Element element = querySelector("#$id");
-			Door door = entities[doorMap["id"]];
-			if (element == null) {
-				addDoor(doorMap);
-			}
-			else {
-				if (door != null) {
-					door.actions = decode(JSON.encode(doorMap['actions']), type: const TypeHelper<List<Action>>().type);
-					_updateChatBubble(doorMap, door);
-				}
-			}
-		});
-
-		(map["plants"] as List).forEach((Map plantMap) {
-			String id = plantMap["id"];
-			Element element = querySelector("#$id");
-			Plant plant = entities[plantMap["id"]];
-			if (element == null) {
-				addPlant(plantMap);
-			}
-			else {
-				if (plant != null) {
-					plant.actions = decode(JSON.encode(plantMap['actions']), type: const TypeHelper<List<Action>>().type);
-					if (plant.state != plantMap['state']) {
-						plant.updateState(plantMap['state']);
-					}
-					_updateChatBubble(plantMap, plant);
-				}
-			}
-		});
-
-		(map["npcs"] as List).forEach((Map npcMap) {
-			String id = npcMap["id"];
-			Element element = querySelector("#$id");
-			NPC npc = entities[npcMap["id"]];
-			if (element == null) {
-				addNPC(npcMap);
-			}
-			else {
-				if (npc != null) {
-					npc.updateAnimation(npcMap);
-					_updateChatBubble(npcMap, npc);
-				}
-			}
-		});
-
-		(map['groundItems'] as List).forEach((Map itemMap) {
-			String id = itemMap['id'];
-			Element element = querySelector("#$id");
-			if (element == null) {
-				addItem(itemMap);
-			} else {
-				if (itemMap['onGround'] == false) {
-					element.remove();
-					entities.remove(id);
-					CurrentPlayer.intersectingObjects.clear();
+					addItem(itemMap);
 				} else {
-					entities[id].actions = decode(JSON.encode(itemMap['actions']), type: const TypeHelper<List<Action>>().type);
+					if (itemMap['onGround'] == false) {
+						element.remove();
+						entities.remove(id);
+						CurrentPlayer.intersectingObjects.clear();
+					} else {
+						entities[id].actions = decode(JSON.encode(itemMap['actions']), type: const TypeHelper<List<Action>>().type);
+					}
 				}
-			}
-		});
+			});
+		}
 	});
 
 	streetSocket.onClose.listen((CloseEvent e) {

@@ -315,6 +315,8 @@ sendGlobalAction(String methodName, [Map arguments]) {
 	map['tsid'] = currentStreet.streetData['tsid'];
 	map['arguments'] = arguments;
 	streetSocket.send(JSON.encode(map));
+
+	logmessage("[Server Communication] Sending global $methodName with arguments: $arguments");
 }
 
 /**
