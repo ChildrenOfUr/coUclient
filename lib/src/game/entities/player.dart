@@ -4,7 +4,8 @@ Player CurrentPlayer;
 
 class Player extends Entity {
 	static final List<Action> PLAYER_ACTIONS = [
-		new Action.withName('follow'),
+		new Action.withName('follow')
+			..description = "We already know it's buggy, but we thought you'd have fun with it.",
 		new Action.withName('profile')
 	];
 
