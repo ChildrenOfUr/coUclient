@@ -10,8 +10,6 @@ Map<String, Function> COMMANDS = {};
 
 class CommandManager {
   CommandManager() {
-
-    COMMANDS['follow'] = (noun) => new Toast(CurrentPlayer.followPlayer(noun.trim()));
     COMMANDS["help"] = (_) => new Toast(
         "Available commands: " +
             COMMANDS.keys.toList().toString().replaceAll("[", "").replaceAll("]", "")
@@ -23,14 +21,13 @@ class CommandManager {
 
     if (Configs.testing) {
       COMMANDS
-        ..['music'] = setMusic
-        ..['tp'] = go
         ..['collisions'] = toggleCollisionLines
-        ..['physics'] = togglePhysics
         ..['log'] = log
+        ..['music'] = setMusic
+        ..['physics'] = togglePhysics
         ..['time'] = setTime
-        ..['weather'] = setWeather
-        ..['note'] = note;
+        ..['tp'] = go
+        ..['weather'] = setWeather;
     }
   }
 }
@@ -121,5 +118,3 @@ setMusic(String song) {
   new Toast("Music set to $song");
   audio.setSong(song);
 }
-
-note(_) => new NoteWindow(null);

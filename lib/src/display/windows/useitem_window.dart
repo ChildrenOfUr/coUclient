@@ -104,7 +104,7 @@ class UseWindow extends Modal {
 
 				DivElement info = new DivElement()
 					..classes.add("useitem-recipe-text")
-					..text = recipe["output_map"]["name"];
+					..text = recipe["output_map"]["recipeName"] ?? recipe['output_map']['name'];
 
 				DivElement recipeBtn = new DivElement()
 					..classes.addAll(["useitem-recipe", "white-btn"])
@@ -146,30 +146,31 @@ class UseWindow extends Modal {
 			..style.backgroundImage = "url(${recipe["output_map"]["iconUrl"]})"
 			..onClick.listen((_) => new ItemWindow(recipe["output_map"]["name"]));
 
+		String recipeName = recipe['output_map']['recipeName'] ?? recipe['output_map']['name'];
 		DivElement itemName = new DivElement()
 			..classes.add("recipeview-text")
-			..text = recipe["output_map"]["name"];
+			..text = recipeName;
 
 		DivElement outputQty = new DivElement()
 			..classes.add("recipeview-outputqty");
 
 		if (recipe["output_amt"] == 1) {
 			outputQty.setInnerHtml(
-				"This recipe makes <br><b>one</b> ${recipe["output_map"]["name"]}"
+				"This recipe makes <br><b>one</b> $recipeName"
 				);
 		} else {
-			if ((recipe["output_map"]["name"] as String).endsWith("y")) {
+			if (recipeName.endsWith("y")) {
 				outputQty.setInnerHtml(
-					"This recipe makes <br><b>${recipe["output_amt"]}</b> ${(recipe["output_map"]["name"] as String)
-						.substring(0, recipe["output_map"]["name"].length - 1)}ies"
+					"This recipe makes <br><b>${recipe["output_amt"]}</b> ${recipeName
+						.substring(0, recipeName.length - 1)}ies"
 					);
-			} else if ((recipe["output_map"]["name"] as String).endsWith("s")) {
+			} else if (recipeName.endsWith("s")) {
 				outputQty.setInnerHtml(
-					"This recipe makes <br><b>${recipe["output_amt"]}</b> ${recipe["output_map"]["name"]}es"
+					"This recipe makes <br><b>${recipe["output_amt"]}</b> ${recipeName}es"
 					);
 			} else {
 				outputQty.setInnerHtml(
-					"This recipe makes <br><b>${recipe["output_amt"]}</b> ${recipe["output_map"]["name"]}s"
+					"This recipe makes <br><b>${recipe["output_amt"]}</b> ${recipeName}s"
 					);
 			}
 		}
@@ -303,6 +304,10 @@ class UseWindow extends Modal {
 			..children.clear()
 			..append(leftCol)..append(centerCol)..append(rightCol)
 			..classes.add("col3");
+
+		//need to call prepare again so that it is listening for our
+		//input to get focus to ignore keys
+		prepare();
 	}
 
 	makeRecipe(String id, [int qty = 1]) async {
@@ -337,17 +342,18 @@ class UseWindow extends Modal {
 			..children.clear()
 			..append(animationParent)..append(progBar)..append(cancelBtn);
 
-		await new Timer.periodic(new Duration(seconds: recipe["time"]), (Timer timer) async {
+		await Future.doWhile(() async {
 			if (makingCancelled) {
-				await _stopMakingRecipes(timer);
+				await _stopMakingRecipes();
+				return false;
 			} else {
 				String serverResponse = await HttpRequest.requestCrossOrigin(
 					"http://${Configs.utilServerAddress}/recipes/make"
-					"?token=$rsToken"
-					"&id=${recipe["id"]}"
-					"&email=${game.email}"
-					"&username=${game.username}"
-				);
+						"?token=$rsToken"
+						"&id=${recipe["id"]}"
+						"&email=${game.email}"
+						"&username=${game.username}"
+					);
 
 				if (current >= qty || serverResponse != "OK") {
 					// Stop
@@ -356,11 +362,12 @@ class UseWindow extends Modal {
 						new Toast(
 							"You had to stop using your ${itemName} because $serverResponse.",
 							notify: NotifyRule.UNFOCUSED
-						);
+							);
 					}
 
 					// We're done
-					await _stopMakingRecipes(timer);
+					await _stopMakingRecipes();
+					return false;
 				} else {
 					// Increase the number we've made
 					current++;
@@ -372,12 +379,12 @@ class UseWindow extends Modal {
 							.toString()}";
 				}
 			}
+
+			return true;
 		});
 	}
 
-	Future _stopMakingRecipes(Timer timer) async {
-		// Stop the timer
-		timer.cancel();
+	Future _stopMakingRecipes() async {
 		// Update recipe data
 		await updateRecipes(false);
 		// Reset the UI

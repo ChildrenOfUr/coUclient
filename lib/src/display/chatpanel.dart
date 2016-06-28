@@ -167,7 +167,7 @@ class Chat {
 				//although this message is broadcast to everyone, only change usernames
 				//if we were the one to type /setname
 				if (data["newUsername"] == game.username) {
-					CurrentPlayer.username = data['newUsername'];
+					CurrentPlayer.id = data['newUsername'];
 					CurrentPlayer.loadAnimations();
 
 					//clear our inventory so we can get the new one

@@ -363,6 +363,80 @@
     }
 }
 
+/* HOEING ANIMATION */
+
+@-webkit-keyframes hoeingAnimation {
+    from {
+        background-position-x: 2580px;
+    }
+    to {
+        background-position-x: 0;
+    }
+}
+
+@-moz-keyframes hoeingAnimation {
+    from {
+        background-position-x: 2580px;
+    }
+    to {
+        background-position-x: 0;
+    }
+}
+
+@-o-keyframes hoeingAnimation {
+    from {
+        background-position-x: 2580px;
+    }
+    to {
+        background-position-x: 0;
+    }
+}
+
+@keyframes hoeingAnimation {
+    from {
+        background-position-x: 4180px;
+    }
+    to {
+        background-position-x: 0;
+    }
+}
+
+@-webkit-keyframes hoeingAnimationFancy {
+    from {
+        background-position-x: 2670px;
+    }
+    to {
+        background-position-x: 0;
+    }
+}
+
+@-moz-keyframes hoeingAnimationFancy {
+    from {
+        background-position-x: 2670px;
+    }
+    to {
+        background-position-x: 0;
+    }
+}
+
+@-o-keyframes hoeingAnimationFancy {
+    from {
+        background-position-x: 2670px;
+    }
+    to {
+        background-position-x: 0;
+    }
+}
+
+@keyframes hoeingAnimationFancy {
+    from {
+        background-position-x: 2670px;
+    }
+    to {
+        background-position-x: 0;
+    }
+}
+
 /* ASSIGN ANIMATIONS */
 
 .border.mining::after {
@@ -468,6 +542,36 @@
     -moz-animation: choppingAnimationFancy 1.5s steps(38, end) infinite;
     -o-animation: choppingAnimationFancy 1.5s steps(38, end) infinite;
     animation: choppingAnimationFancy 1.5s steps(38, end) infinite;
+}
+
+.border.hoeing::after {
+    content: '';
+    left: 50%;
+    transform: translateX(-50%);
+    top: -90px;
+    display: inline-block;
+    width: 86px;
+    height: 58px;
+    background-image: url(../../system/actions/using_hoe.png);
+    -webkit-animation: hoeingAnimation 1.5s steps(30, end) infinite;
+    -moz-animation: hoeingAnimation 1.5s steps(30, end) infinite;
+    -o-animation: hoeingAnimation 1.5s steps(30, end) infinite;
+    animation: hoeingAnimation 1.5s steps(30, end) infinite;
+}
+
+.border.hoeing-fancy::after {
+    content: '';
+    left: 50%;
+    transform: translateX(-50%);
+    top: -90px;
+    display: inline-block;
+    width: 89px;
+    height: 55px;
+    background-image: url(../../system/actions/using_hoe_fancy.png);
+    -webkit-animation: hoeingAnimationFancy 1.5s steps(30, end) infinite;
+    -moz-animation: hoeingAnimationFancy 1.5s steps(30, end) infinite;
+    -o-animation: hoeingAnimationFancy 1.5s steps(30, end) infinite;
+    animation: hoeingAnimationFancy 1.5s steps(30, end) infinite;
 }
 
 .item {
@@ -605,7 +709,7 @@
     z-index: 2;
     padding: 21px;
     position: absolute;
-    top: 50%;
+    top: 30%;
     left: 50%;
     -webkit-transform: translateX(-50%) translateY(-50%);
     transform: translateX(-50%) translateY(-50%);
@@ -768,6 +872,7 @@
 .darkui .RCItem:hover,
 .darkui .RCItemSelected {
     background-color: #181818;
+    border: 1px solid #d79035;
 }
 
 .RCItemDisabled,
@@ -820,7 +925,7 @@
 
 .action_hover a,
 .action_wrapper:hover .action_error_tooltip,
-.RCItemDisabled.RCItemSelected + .action_error_tooltip {
+.RCItemSelected + .action_error_tooltip {
     opacity: 1;
     pointer-events: auto;
     left: 50%;

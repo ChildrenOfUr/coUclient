@@ -2,55 +2,81 @@ part of couclient;
 
 Player CurrentPlayer;
 
-class Player {
-	static final String DEFAULT_PHYSICS = "normal";
-	static final int NORMAL_YVEL = 1000;
-	static final int WATER_YVEL = NORMAL_YVEL ~/ 2;
-	static final int JUMP_YVEL = 1000;
-	static final int TRIPLE_JUMP_YVEL = 1560;
-	static final int SPEED = 300;
+class Player extends Entity {
+	static final List<Action> PLAYER_ACTIONS = [
+		new Action.withName('follow')
+			..description = "We already know it's buggy, but we thought you'd have fun with it.",
+		new Action.withName('profile')
+	];
 
-	int get speed => physics == "normal" ? SPEED : SPEED ~/ 2;
+	static final String
+		DEFAULT_PHYSICS = 'normal';
 
-	bool get canTripleJump => physics != "water";
+	static final int
+		NORMAL_YVEL = 1000,
+		WATER_YVEL = NORMAL_YVEL ~/ 2,
+		JUMP_YVEL = 1000,
+		TRIPLE_JUMP_YVEL = 1560,
+		SPEED = 300;
 
-	int width = 116, height = 137;
-	num posX, posY;
-	num yVel = 0, yAccel = -2400;
-	bool jumping = false, moving = false, climbingUp = false, climbingDown = false;
-	bool activeClimb = false, lastClimbStatus = false, facingRight = true, firstRender = true;
-	bool get climbing {
-		if (username == game.username) {
-			return climbingUp || climbingDown;
-		} else {
-			return currentAnimation.animationName == "climb";
-		}
-	}
+	num
+		yVel = 0,
+		yAccel = -2400;
+
+	bool
+		activeClimb = false,
+		climbingDown = false,
+		climbingUp = false,
+		facingRight = true,
+		firstRender = true,
+		isGuide = false,
+		jumping = false,
+		lastClimbStatus = false,
+		moving = false;
+
 	String physics;
-	bool isGuide = false;
+
 	Map<String, Animation> animations = new Map();
 	Animation currentAnimation;
-	ChatBubble chatBubble = null;
-	Random rand = new Random();
+
 	Map<String, Rectangle> intersectingObjects = {};
-	String username;
+
 	int jumpcount = 0;
 	Timer jumpTimer;
-	MutableRectangle avatarRect = new MutableRectangle(0, 0, 0, 0);
+
 	Player followingPlayer = null;
 
 	//for testing purposes
 	//if false, player can move around with wasd and arrows, no falling
 	bool doPhysicsApply = true;
 
-	DivElement playerName, playerParentElement, superParentElement;
-	CanvasElement playerCanvas;
+	DivElement
+		playerName,
+		playerParentElement,
+		superParentElement;
 
-	Player(this.username) {
-		posX = metabolics.currentStreetX;
-		posY = metabolics.currentStreetY;
+	int get speed => physics == 'normal' ? SPEED : SPEED ~/ 2;
 
-		if (posX == 1.0 && posY == 0.0) {
+	bool get canTripleJump => physics != 'water';
+
+	bool get climbing {
+		if (id == game.username) {
+			return climbingUp || climbingDown;
+		} else {
+			return currentAnimation.animationName == 'climb';
+		}
+	}
+
+	Player(String username) {
+		id = username;
+
+		left = metabolics.currentStreetX;
+		top = metabolics.currentStreetY;
+
+		width = 116;
+		height = 137;
+
+		if (left == 1.0 && top == 0.0) {
 			bool found = false;
 			Platform leftmost = null;
 
@@ -60,49 +86,52 @@ class Player {
 
 				if (platform.start.x == 1) {
 					found = true;
-					posY = platform.start.y - height;
+					top = platform.start.y - height;
 				}
 			}
 
 			if (!found)
-				posY = 0.0;
+				top = 0.0;
 		}
 
-		playerCanvas = new CanvasElement()
-			..className = "playerCanvas"
-			..style.overflow = "auto"
-			..style.margin = "auto";
+		canvas = new CanvasElement()
+			..className = 'canvas'
+			..style.position = 'absolute'
+			..style.overflow = 'auto'
+			..style.margin = 'auto';
 
 		playerName = new DivElement()
-			..classes.add("playerName")
-			..text = username;
+			..classes.add('playerName')
+			..text = id;
 
 		playerParentElement = new DivElement()
-			..classes.add("playerParent")
-			..id = "pc-player-$username"
-			..style.width = width.toString() + "px"
-			..style.height = height.toString() + "px";
+			..classes.add('playerParent')
+			..id = 'pc-player-$id'
+			..style.width = width.toString() + 'px'
+			..style.height = height.toString() + 'px';
 
 		superParentElement = new DivElement()
 			..classes.add('playerParent');
 		superParentElement.append(playerParentElement);
 
-		if (username != game.username) {
+		if (id != game.username) {
 			playerParentElement.append(playerName);
+
+			actions = PLAYER_ACTIONS;
 		}
-		playerParentElement.append(playerCanvas);
+		playerParentElement.append(canvas);
 		view.worldElement.append(superParentElement);
 
 		updatePhysics();
-		new Service(["streetLoaded"], (_) => updatePhysics());
+		new Service(['streetLoaded'], (_) => updatePhysics());
 	}
 
 	void updatePhysics([Map street = const {}]) {
 		if (
-			mapData.hubData[street["hub_id"] ?? currentStreet.hub_id] != null &&
-			mapData.hubData[street["hub_id"] ?? currentStreet.hub_id]["physics"] != null
+			mapData.hubData[street['hub_id'] ?? currentStreet.hub_id] != null &&
+			mapData.hubData[street['hub_id'] ?? currentStreet.hub_id]['physics'] != null
 		) {
-			physics = mapData.hubData[street["hub_id"] ?? currentStreet.hub_id]["physics"];
+			physics = mapData.hubData[street['hub_id'] ?? currentStreet.hub_id]['physics'];
 		} else {
 			physics = DEFAULT_PHYSICS;
 		}
@@ -128,7 +157,7 @@ class Player {
 
 		List<Future> futures = new List();
 
-		futures.add(HttpRequest.requestCrossOrigin('http://${Configs.utilServerAddress}/getSpritesheets?username=$username')
+		futures.add(HttpRequest.requestCrossOrigin('http://${Configs.utilServerAddress}/getSpritesheets?username=$id')
 		.then((String response) {
 			Map spritesheets = JSON.decode(response);
 			String idle, base, jump, climb;
@@ -144,13 +173,13 @@ class Player {
 				jump = spritesheets['jump'];
 				climb = spritesheets['climb'];
 			}
-			animations['idle'] = new Animation(idle, "idle", 2, 29, idleFrames, loopDelay:new Duration(seconds:10), delayInitially:true);
-			animations['base'] = new Animation(base, "base", 1, 15, baseFrames);
-			animations['die'] = new Animation(base, "die", 1, 15, [12, 13], loops:false);
-			animations['jumpup'] = new Animation(jump, "jumpup", 1, 33, jumpUpFrames);
-			animations['falldown'] = new Animation(jump, "falldown", 1, 33, fallDownFrames);
-			animations['land'] = new Animation(jump, "land", 1, 33, landFrames);
-			animations['climb'] = new Animation(climb, "climb", 1, 19, climbFrames);
+			animations['idle'] = new Animation(idle, 'idle', 2, 29, idleFrames, loopDelay:new Duration(seconds:10), delayInitially:true);
+			animations['base'] = new Animation(base, 'base', 1, 15, baseFrames);
+			animations['die'] = new Animation(base, 'die', 1, 15, [12, 13], loops:false);
+			animations['jumpup'] = new Animation(jump, 'jumpup', 1, 33, jumpUpFrames);
+			animations['falldown'] = new Animation(jump, 'falldown', 1, 33, fallDownFrames);
+			animations['land'] = new Animation(jump, 'land', 1, 33, landFrames);
+			animations['climb'] = new Animation(climb, 'climb', 1, 19, climbFrames);
 
 			animations.forEach((String name, Animation animation) => futures.add(animation.load()));
 		}));
@@ -160,231 +189,249 @@ class Player {
 
 	bool lostFocus = false;
 
-	update(double dt) {
-		if(!currentStreet.loaded) {
+	update(double dt, [bool partial = false]) {
+		if (!currentStreet.loaded) {
 			return;
 		}
 
-		num cameFrom = posY;
-
-		//show chat message if it exists and decrement it's timeToLive
-		if (chatBubble != null) {
-			chatBubble.update(dt);
+		if (glow) {
+			canvas.context2D
+				..shadowBlur = 2
+				..shadowColor = 'cyan'
+				..shadowOffsetX = 0
+				..shadowOffsetY = 1;
+		} else {
+			canvas.context2D
+				..shadowColor = '0'
+				..shadowBlur = 0
+				..shadowOffsetX = 0
+				..shadowOffsetY = 0;
 		}
 
-		updateLadderStatus(dt);
+		if (!partial) {
+			num cameFrom = top;
 
-		if (!inputManager.windowFocused && (moving || jumping || activeClimb) && !lostFocus) {
-			lostFocus = true;
-			
-			// reset all input controls.
-			for (Map control in inputManager.controlCounts.values) {
-				control['keyBool'].value = false;
-			}			
-		}
+			//show chat message if it exists and decrement it's timeToLive
+			if (chatBubble != null) {
+				chatBubble.update(dt);
+			}
 
-		if (inputManager.windowFocused && lostFocus) {
-			lostFocus = false;
-		}
+			updateLadderStatus(dt);
 
-		if (doPhysicsApply && inputManager.downKey == false && inputManager.upKey == false) {
-			// not moving up or down
+			if (!inputManager.windowFocused && (moving || jumping || activeClimb) && !lostFocus) {
+				lostFocus = true;
 
-			bool found = false;
-			Rectangle playerRect = new Rectangle(posX, posY + currentStreet.groundY, width, height);
-			for (Ladder ladder in currentStreet.ladders) {
-				if (intersect(ladder.bounds, playerRect)) {
-					// touching a ladder
-					found = true;
-					break;
+				// reset all input controls.
+				for (Map control in inputManager.controlCounts.values) {
+					control['keyBool'].value = false;
 				}
 			}
-			if (!found) {
-				// not touching a ladder
-				climbingDown = false;
-				climbingUp = false;
-			}
-			activeClimb = false;
-		}
 
-		if (inputManager.rightKey == true) {
-			// moving right
-			posX += speed * dt;
-			facingRight = true;
-			moving = true;
-			updateLadderStatus(dt);
-		}
-		else if (inputManager.leftKey == true) {
-			// moving left
-			posX -= speed * dt;
-			facingRight = false;
-			moving = true;
-			updateLadderStatus(dt);
-		}
-		else {
-			// not moving
-			moving = false;
-		}
-
-		//primitive jumping
-		if (inputManager.jumpKey == true && (!jumping || physics == "water") && !climbingUp && !climbingDown) {
-			num jumpMultiplier;
-			bool spinachBuff = Buff.isRunning("spinach");
-			bool pieBuff = Buff.isRunning("full_of_pie");
-			if (physics == "water") {
-				jumpMultiplier = 0.5;
-			} else if (spinachBuff) {
-				jumpMultiplier = 1.65;
-			} else if (pieBuff) {
-				jumpMultiplier = 0.65;
-			} else {
-				jumpMultiplier = 1;
+			if (inputManager.windowFocused && lostFocus) {
+				lostFocus = false;
 			}
 
-			jumping = true;
-			if (canTripleJump && !(pieBuff || spinachBuff)) {
-				if (jumpTimer == null) {
-					// start timer
-					jumpTimer = new Timer(new Duration(seconds:3), () {
-						// normal jump
+			if (doPhysicsApply && inputManager.downKey == false && inputManager.upKey == false) {
+				// not moving up or down
+
+				bool found = false;
+				Rectangle playerRect = new Rectangle(left, top + currentStreet.groundY, width, height);
+				for (Ladder ladder in currentStreet.ladders) {
+					if (intersect(ladder.bounds, playerRect)) {
+						// touching a ladder
+						found = true;
+						break;
+					}
+				}
+				if (!found) {
+					// not touching a ladder
+					climbingDown = false;
+					climbingUp = false;
+				}
+				activeClimb = false;
+			}
+
+			if (inputManager.rightKey == true) {
+				// moving right
+				left += speed * dt;
+				facingRight = true;
+				moving = true;
+				updateLadderStatus(dt);
+			}
+			else if (inputManager.leftKey == true) {
+				// moving left
+				left -= speed * dt;
+				facingRight = false;
+				moving = true;
+				updateLadderStatus(dt);
+			}
+			else {
+				// not moving
+				moving = false;
+			}
+
+			//primitive jumping
+			if (inputManager.jumpKey == true && (!jumping || physics == 'water') && !climbingUp && !climbingDown) {
+				num jumpMultiplier;
+				bool spinachBuff = Buff.isRunning('spinach');
+				bool pieBuff = Buff.isRunning('full_of_pie');
+				if (physics == 'water') {
+					jumpMultiplier = 0.5;
+				} else if (spinachBuff) {
+					jumpMultiplier = 1.65;
+				} else if (pieBuff) {
+					jumpMultiplier = 0.65;
+				} else {
+					jumpMultiplier = 1;
+				}
+
+				jumping = true;
+				if (canTripleJump && !(pieBuff || spinachBuff)) {
+					if (jumpTimer == null) {
+						// start timer
+						jumpTimer = new Timer(new Duration(seconds:3), () {
+							// normal jump
+							jumpcount = 0;
+							jumpTimer.cancel();
+							jumpTimer = null;
+						});
+					}
+
+					if (jumpcount == 2) {
+						// triple jump
+						yVel = -(TRIPLE_JUMP_YVEL * jumpMultiplier);
 						jumpcount = 0;
 						jumpTimer.cancel();
 						jumpTimer = null;
-					});
-				}
-
-				if (jumpcount == 2) {
-					// triple jump
-					yVel = -(TRIPLE_JUMP_YVEL * jumpMultiplier);
-					jumpcount = 0;
-					jumpTimer.cancel();
-					jumpTimer = null;
-					if (!activeClimb) {
-						audio.playSound('tripleJump');
-					}
-				} else {
-					// normal jump
-					jumpcount++;
-					yVel = -(JUMP_YVEL * jumpMultiplier);
-				}
-			} else {
-				// triple jumping disabled
-				yVel = -(JUMP_YVEL * jumpMultiplier);
-			}
-		}
-
-		//needs acceleration, some gravity const somewhere
-		//for jumps/falling
-		if (doPhysicsApply && !climbingUp && !climbingDown) {
-			// walking
-			yVel -= yAccel * dt;
-			if (physics == "water") {
-				yVel /= 2;
-			}
-			posY += yVel * dt;
-		} else {
-			// climbing
-			if (inputManager.downKey == true)
-				posY += speed * dt;
-			if (inputManager.upKey == true)
-				posY -= speed * dt;
-		}
-
-		if (posX < 0) {
-			posX = 0.0;
-			moving = false;
-		} else if (posX > currentStreet.bounds.width - width) {
-			posX = currentStreet.bounds.width - width;
-			moving = false;
-		} else if (inputManager.leftKey == true || inputManager.rightKey == true) {
-			moving = true;
-		}
-
-		Rectangle collisionsRect;
-		if(facingRight) {
-			collisionsRect = new Rectangle(posX+width/2, posY + currentStreet.groundY + height/4, width/2, height*3/4 - 35);
-		} else {
-			collisionsRect = new Rectangle(posX, posY + currentStreet.groundY + height/4, width/2, height*3/4 - 35);
-		}
-		//check for collisions with walls
-		if(doPhysicsApply && (inputManager.leftKey == true || inputManager.rightKey == true)) {
-			for(Wall wall in currentStreet.walls) {
-				if(collisionsRect.intersects(wall.bounds)) {
-					if(facingRight) {
-						if(collisionsRect.right >= wall.bounds.left) {
-							posX = wall.bounds.left - width - 1;
+						if (!activeClimb) {
+							audio.playSound('tripleJump');
 						}
 					} else {
-						if(collisionsRect.left < wall.bounds.left) {
-							posX = wall.bounds.right + 1;
+						// normal jump
+						jumpcount++;
+						yVel = -(JUMP_YVEL * jumpMultiplier);
+					}
+				} else {
+					// triple jumping disabled
+					yVel = -(JUMP_YVEL * jumpMultiplier);
+				}
+			}
+
+			//needs acceleration, some gravity const somewhere
+			//for jumps/falling
+			if (doPhysicsApply && !climbingUp && !climbingDown) {
+				// walking
+				yVel -= yAccel * dt;
+				if (physics == 'water') {
+					yVel /= 2;
+				}
+				top += yVel * dt;
+			} else {
+				// climbing
+				if (inputManager.downKey == true)
+					top += speed * dt;
+				if (inputManager.upKey == true)
+					top -= speed * dt;
+			}
+
+			if (left < 0) {
+				left = 0.0;
+				moving = false;
+			} else if (left > currentStreet.bounds.width - width) {
+				left = currentStreet.bounds.width - width;
+				moving = false;
+			} else if (inputManager.leftKey == true || inputManager.rightKey == true) {
+				moving = true;
+			}
+
+			Rectangle collisionsRect;
+			if (facingRight) {
+				collisionsRect = new Rectangle(left+width/2, top + currentStreet.groundY + height/4, width/2, height*3/4 - 35);
+			} else {
+				collisionsRect = new Rectangle(left, top + currentStreet.groundY + height/4, width/2, height*3/4 - 35);
+			}
+			//check for collisions with walls
+			if (doPhysicsApply && (inputManager.leftKey == true || inputManager.rightKey == true)) {
+				for(Wall wall in currentStreet.walls) {
+					if (collisionsRect.intersects(wall.bounds)) {
+						if (facingRight) {
+							if (collisionsRect.right >= wall.bounds.left) {
+								left = wall.bounds.left - width - 1;
+							}
+						} else {
+							if (collisionsRect.left < wall.bounds.left) {
+								left = wall.bounds.right + 1;
+							}
 						}
 					}
 				}
 			}
-		}
 
-		//check for collisions with platforms
-		if (doPhysicsApply && !climbingDown && !climbingUp && yVel >= 0) {
-			num x = posX + width / 2;
-			Platform bestPlatform = _getBestPlatform(cameFrom);
-			if (bestPlatform != null) {
-				num goingTo = posY + height + currentStreet.groundY;
-				num slope = (bestPlatform.end.y - bestPlatform.start.y) / (bestPlatform.end.x - bestPlatform.start.x);
-				num yInt = bestPlatform.start.y - slope * bestPlatform.start.x;
-				num lineY = slope * x + yInt;
-
-				if (goingTo >= lineY) {
-					posY = lineY - height - currentStreet.groundY;
-					yVel = 0;
-					jumping = false;
-				}
-			}
-		}
-
-		//check for collisions with ceilings
-		if (doPhysicsApply && !climbingDown && !climbingUp && yVel < 0) {
-			for(Platform platform in currentStreet.platforms) {
-				if(platform.ceiling && intersect(platform.bounds,collisionsRect)) {
-					num x = posX + width / 2;
-					num slope = (platform.end.y - platform.start.y) / (platform.end.x - platform.start.x);
-					num yInt = platform.start.y - slope * platform.start.x;
+			//check for collisions with platforms
+			if (doPhysicsApply && !climbingDown && !climbingUp && yVel >= 0) {
+				num x = left + width / 2;
+				Platform bestPlatform = _getBestPlatform(cameFrom);
+				if (bestPlatform != null) {
+					num goingTo = top + height + currentStreet.groundY;
+					num slope = (bestPlatform.end.y - bestPlatform.start.y) / (bestPlatform.end.x - bestPlatform.start.x);
+					num yInt = bestPlatform.start.y - slope * bestPlatform.start.x;
 					num lineY = slope * x + yInt;
 
-					posY = lineY - currentStreet.groundY;
-					yVel = 0;
+					if (goingTo >= lineY) {
+						top = lineY - height - currentStreet.groundY;
+						yVel = 0;
+						jumping = false;
+					}
+				}
+			}
 
-					break;
+			//check for collisions with ceilings
+			if (doPhysicsApply && !climbingDown && !climbingUp && yVel < 0) {
+				for(Platform platform in currentStreet.platforms) {
+					if (platform.ceiling && intersect(platform.bounds,collisionsRect)) {
+						num x = left + width / 2;
+						num slope = (platform.end.y - platform.start.y) / (platform.end.x - platform.start.x);
+						num yInt = platform.start.y - slope * platform.start.x;
+						num lineY = slope * x + yInt;
+
+						top = lineY - currentStreet.groundY;
+						yVel = 0;
+
+						break;
+					}
+				}
+			}
+
+			updateAnimation(dt);
+			updateTransform();
+
+			//update the _entityRect so that other entities know if the player is colliding with them
+			_entityRect
+				..left = left
+				..top = top
+				..width = width
+				..height = height;
+
+			// If following a player, go to them
+			if (id == CurrentPlayer.id && followingPlayer != null) {
+				// Turn to face the same direction
+				facingRight = followingPlayer.facingRight;
+
+				// Copy their animation state
+				updateAnimation(dt, followingPlayer.currentAnimation.animationName);
+
+				// Go to their X coordinate (+/- a body width or so if on a platform)
+				num xOffset = (followingPlayer.climbing ? 0 : (facingRight ? -1 : 1) * _entityRect.width);
+				left = followingPlayer.left + xOffset;
+
+				// Go to their Y coordinate (if not on a platform)
+				if (followingPlayer.jumping || followingPlayer.climbing) {
+					top = followingPlayer.top;
 				}
 			}
 		}
 
-		updateAnimation(dt);
-		updateTransform();
-
-		//update the avatarRect so that other entities know if the player is colliding with them
-		avatarRect
-			..left = posX
-			..top = posY
-			..width = width
-			..height = height;
-
-		// If following a player, go to them
-		if (username == CurrentPlayer.username && followingPlayer != null) {
-			// Turn to face the same direction
-			facingRight = followingPlayer.facingRight;
-
-			// Copy their animation state
-			updateAnimation(dt, followingPlayer.currentAnimation.animationName);
-
-			// Go to their X coordinate (+/- a body width or so if on a platform)
-			num xOffset = (followingPlayer.climbing ? 0 : (facingRight ? -1 : 1) * avatarRect.width);
-			posX = followingPlayer.posX + xOffset;
-
-			// Go to their Y coordinate (if not on a platform)
-			if (followingPlayer.jumping || followingPlayer.climbing) {
-				posY = followingPlayer.posY;
-			}
-		}
+		super.update(dt);
 	}
 
 	updateLadderStatus(double dt) {
@@ -392,7 +439,7 @@ class Player {
 			// moving up
 
 			bool found = false;
-			Rectangle playerRect = new Rectangle(posX, posY + currentStreet.groundY, width, height - 15);
+			Rectangle playerRect = new Rectangle(left, top + currentStreet.groundY, width, height - 15);
 			for (Ladder ladder in currentStreet.ladders) {
 				if (intersect(ladder.bounds, playerRect)) {
 					// touching a ladder
@@ -402,7 +449,7 @@ class Player {
 						break;
 					}
 
-					posY -= speed / 4 * dt;
+					top -= speed / 4 * dt;
 					climbingUp = true;
 					activeClimb = true;
 					jumping = false;
@@ -422,7 +469,7 @@ class Player {
 			// moving down
 
 			bool found = false;
-			Rectangle playerRect = new Rectangle(posX, posY + currentStreet.groundY, width, height);
+			Rectangle playerRect = new Rectangle(left, top + currentStreet.groundY, width, height);
 			for (Ladder ladder in currentStreet.ladders) {
 				if (intersect(ladder.bounds, playerRect)) {
 					// touching a ladder
@@ -432,7 +479,7 @@ class Player {
 						break;
 					}
 
-					posY += speed / 4 * dt;
+					top += speed / 4 * dt;
 					climbingDown = true;
 					activeClimb = true;
 					jumping = false;
@@ -450,7 +497,7 @@ class Player {
 
 		if (inputManager.rightKey == true || inputManager.leftKey == true) {
 			// left or right on a ladder
-			Rectangle playerRect = new Rectangle(posX, posY + currentStreet.groundY, width + 20, height + 20);
+			Rectangle playerRect = new Rectangle(left, top + currentStreet.groundY, width + 20, height + 20);
 			for (Ladder ladder in currentStreet.ladders) {
 				if (!intersect(ladder.bounds, playerRect)) {
 					climbingDown = false;
@@ -464,32 +511,35 @@ class Player {
 	void render() {
 		if (currentAnimation != null && currentAnimation.loaded && currentAnimation.dirty) {
 			if (!firstRender) {
-				Rectangle avatarRect = new Rectangle(posX, posY, currentAnimation.width, currentAnimation.height);
-				if (!intersect(camera.visibleRect, avatarRect))
+				Rectangle _entityRect = new Rectangle(left, top, currentAnimation.width, currentAnimation.height);
+				if (!intersect(camera.visibleRect, _entityRect))
 					return;
 			}
 
 			firstRender = false;
 
-			if (playerCanvas.width != currentAnimation.width || playerCanvas.height != currentAnimation.height) {
-				playerCanvas.style.width = currentAnimation.width.toString() + "px";
-				playerCanvas.style.height = currentAnimation.height.toString() + "px";
-				playerCanvas.width = currentAnimation.width;
-				playerCanvas.height = currentAnimation.height;
-				int x = -((currentAnimation.width - width) ~/ 2);
+			if (canvas.width != currentAnimation.width || canvas.height != currentAnimation.height) {
+				canvas.style.width = currentAnimation.width.toString() + 'px';
+				canvas.style.height = currentAnimation.height.toString() + 'px';
+				canvas.width = currentAnimation.width;
+				canvas.height = currentAnimation.height;
+				int x = -(currentAnimation.width ~/ 2);
 				int y = -((currentAnimation.height - height));
-				playerCanvas.style.transform = "translateX(${x}px) translateY(${(Buff.isRunning("grow") ? y - 30 : y)}px)";
-				if (Buff.isRunning("grow")) {
-					playerCanvas.style.transform += " scale(1.5)";
-				} else if (Buff.isRunning("shrink")) {
-					playerCanvas.style.transform += " scale(0.75)";
+				if (Buff.isRunning('grow')) {
+					y -= 30;
+				}
+				canvas.style.transform = 'translateX(${x}px) translateY(${y}px)';
+				if (Buff.isRunning('grow')) {
+					canvas.style.transform += ' scale(1.5)';
+				} else if (Buff.isRunning('shrink')) {
+					canvas.style.transform += ' scale(0.75)';
 				}
 			}
 			else
-				playerCanvas.context2D.clearRect(0, 0, currentAnimation.width, currentAnimation.height);
+				canvas.context2D.clearRect(0, 0, currentAnimation.width, currentAnimation.height);
 
 			Rectangle destRect = new Rectangle(0, 0, currentAnimation.width, currentAnimation.height);
-			playerCanvas.context2D.drawImageToRect(currentAnimation.spritesheet, destRect, sourceRect: currentAnimation.sourceRect);
+			canvas.context2D.drawImageToRect(currentAnimation.spritesheet, destRect, sourceRect: currentAnimation.sourceRect);
 			currentAnimation.dirty = false;
 		}
 	}
@@ -538,34 +588,34 @@ class Player {
 	}
 
 	void updateTransform() {
-		num translateX = posX, translateY = view.worldElementWidth - height;
+		num translateX = left, translateY = view.worldElementWidth - height;
 
 		num camX = camera.getX(), camY = camera.getY();
-		if (posX > currentStreet.bounds.width - width / 2 - view.worldElementWidth / 2) {
+		if (left > currentStreet.bounds.width - width / 2 - view.worldElementWidth / 2) {
 			camX = currentStreet.bounds.width - view.worldElementWidth;
-			translateX = posX - currentStreet.bounds.width + view.worldElementWidth;
+			translateX = left - currentStreet.bounds.width + view.worldElementWidth;
 			//allow character to move to screen right
 		}
-		else if (posX + width / 2 > view.worldElementWidth / 2) {
-			camX = posX + width / 2 - view.worldElementWidth / 2;
+		else if (left + width / 2 > view.worldElementWidth / 2) {
+			camX = left + width / 2 - view.worldElementWidth / 2;
 			translateX = view.worldElementWidth / 2 - width / 2;
 			//keep character in center of screen
 		}
 		else
 			camX = 0;
 
-		if (posY + height / 2 < view.worldElementHeight / 2) {
+		if (top + height / 2 < view.worldElementHeight / 2) {
 			camY = 0;
-			translateY = posY;
+			translateY = top;
 		}
-		else if (posY < currentStreet.bounds.height - height / 2 - view.worldElementHeight / 2) {
-			num yDistanceFromBottom = currentStreet.bounds.height - posY - height / 2;
+		else if (top < currentStreet.bounds.height - height / 2 - view.worldElementHeight / 2) {
+			num yDistanceFromBottom = currentStreet.bounds.height - top - height / 2;
 			camY = currentStreet.bounds.height - (yDistanceFromBottom + view.worldElementHeight / 2);
 			translateY = view.worldElementHeight / 2 - height / 2;
 		}
 		else {
 			camY = currentStreet.bounds.height - view.worldElementHeight;
-			translateY = view.worldElementHeight - (currentStreet.bounds.height - posY);
+			translateY = view.worldElementHeight - (currentStreet.bounds.height - top);
 		}
 
 		camera.setCameraPosition(camX ~/ 1, camY ~/ 1);
@@ -575,8 +625,8 @@ class Player {
 		if (!facingRight) {
 			transform += ' scale3d(-1,1,1)';
 			playerParentElement.classes
-				..add("facing-left")
-				..remove("facing-right");
+				..add('facing-left')
+				..remove('facing-right');
 			playerName.style.transform = 'translateY(-100%) translateY(-34px) scale3d(-1,1,1)';
 
 			if (chatBubble != null)
@@ -585,8 +635,8 @@ class Player {
 		else {
 			playerName.style.transform = 'translateY(-100%) translateY(-34px) scale3d(1,1,1)';
 			playerParentElement.classes
-				..add("facing-right")
-				..remove("facing-left");
+				..add('facing-right')
+				..remove('facing-left');
 			if (chatBubble != null)
 				chatBubble.textElement.style.transform = 'scale3d(1,1,1)';
 		}
@@ -598,18 +648,18 @@ class Player {
 
 	String followPlayer([String toFollow]) {
 		// Running follow() on yourself?
-		if (username != game.username) {
-			return "You cannot make people follow each other!";
+		if (id != game.username) {
+			return 'You cannot make people follow each other!';
 		}
 
-		if (toFollow == null || toFollow == "" || toFollow == CurrentPlayer.username) {
+		if (toFollow == null || toFollow == '' || toFollow == CurrentPlayer.id) {
 			// Unset or follow yourself to cancel following
 			followingPlayer = null;
-			return "You no longer follow anyone.";
+			return 'You no longer follow anyone.';
 		} else {
 			// Player exsits/is loaded?
 			if (otherPlayers[toFollow] == null) {
-				return "You can only follow players on the same street as you!";
+				return 'You can only follow players on the same street as you!';
 			}
 
 			// Unfollow the current one first
@@ -619,7 +669,7 @@ class Player {
 
 			// Follow another player
 			followingPlayer = otherPlayers[toFollow];
-			return "You now follow $toFollow. Walk to stop.";
+			return 'You now follow $toFollow. Move to stop.';
 		}
 	}
 
@@ -627,12 +677,12 @@ class Player {
 	//THE HIGHEST (SMALLEST Y VALUE) FIRST IN THE LIST
 	Platform _getBestPlatform(num cameFrom) {
 		Platform bestPlatform;
-		num x = posX + width / 2;
+		num x = left + width / 2;
 		num feetY = cameFrom + height + currentStreet.groundY;
 		num bestDiffY = double.INFINITY;
 
 		for (Platform platform in currentStreet.platforms) {
-			if(platform.ceiling) {
+			if (platform.ceiling) {
 				continue;
 			}
 

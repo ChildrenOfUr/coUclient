@@ -1,6 +1,6 @@
 #windowHolder .bagWindow {
-    height: 153px;
-    width: 494px;
+    height: 153px !important;
+    width: 494px !important;
     transform: translate(-50%, 0%); /* Create bag windows closer to the bag */
 }
 

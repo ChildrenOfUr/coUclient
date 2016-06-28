@@ -1,7 +1,5 @@
 library mail;
 
-import 'package:couclient/src/network/server_interop/itemdef.dart';
-
 class Mail {
 	int id, currants;
 	String to_user, from_user, subject, body;

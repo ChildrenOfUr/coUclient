@@ -49,6 +49,7 @@ class UserInterface {
 	Element bugReportMeta = querySelector('#bugWindow ur-well #reportMeta');
 	InputElement bugReportTitle = querySelector('#bugWindow /deep/ #reportTitle');
 	SelectElement bugReportType = querySelector('#bugWindow /deep/ #reportCategory');
+	CheckboxInputElement bugScreenshot = querySelector('#bugWindow /deep/ #reportScreenshot');
 
 	// main Element
 	Element mainElement = querySelector('main');

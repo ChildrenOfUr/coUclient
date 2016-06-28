@@ -37,7 +37,6 @@ class QuestManager {
 		_setupWebsocket();
 
 		new Service('questChoice', (Map map) {
-			print('sending choice: $map');
 			socket.send(JSON.encode(map));
 		});
 	}

@@ -30,40 +30,6 @@ class MapWindow extends Modal {
 			});
 	}
 
-	int levenshtein(String s, String t, {bool caseSensitive: true}) {
-		if (!caseSensitive) {
-			s = s.toLowerCase();
-			t = t.toLowerCase();
-		}
-		if (s == t)
-			return 0;
-		if (s.length == 0)
-			return t.length;
-		if (t.length == 0)
-			return s.length;
-
-		List<int> v0 = new List<int>.filled(t.length + 1, 0);
-		List<int> v1 = new List<int>.filled(t.length + 1, 0);
-
-		for (int i = 0; i < t.length + 1; i < i++)
-			v0[i] = i;
-
-		for (int i = 0; i < s.length; i++) {
-			v1[0] = i + 1;
-
-			for (int j = 0; j < t.length; j++) {
-				int cost = (s[i] == t[j]) ? 0 : 1;
-				v1[j + 1] = min(v1[j] + 1, min(v0[j + 1] + 1, v0[j] + cost));
-			}
-
-			for (int j = 0; j < t.length + 1; j++) {
-				v0[j] = v1[j];
-			}
-		}
-
-		return v1[t.length];
-	}
-
 	_drawWorldMap() {
 		worldMap = new WorldMap(currentStreet.hub_id);
 	}
@@ -155,11 +121,24 @@ class MapWindow extends Modal {
 
 	bool checkVisibility(String streetname) {
 		// Allowed to be shown on map?
-		if (mapData.streetData[streetname] == null) {
-			return true;
+
+		bool hubVisible, streetVisible;
+		// Hub level
+		Map hub = mapData.hubData[mapData.getHubIdForLabel(streetname)];
+		if (hub == null) {
+			hubVisible = true;
 		} else {
-			return !(mapData.streetData[streetname]["map_hidden"] ?? false);
+			hubVisible = !(hub['map_hidden'] ?? false);
 		}
+
+		// Street level
+		if (mapData.streetData[streetname] == null) {
+			streetVisible = true;
+		} else {
+			streetVisible = !(mapData.streetData[streetname]["map_hidden"] ?? false);
+		}
+
+		return (hubVisible && streetVisible);
 	}
 
 	bool checkName(String streetname, String entry) {
@@ -176,18 +155,13 @@ class MapWindow extends Modal {
 class WorldMap {
 	static final num DEG_TO_RAD = PI / 180;
 
-	Map<String, String> hubInfo;
-	Map<String, Map> hubMaps;
-	Map<String, String> moteInfo;
 	String showingHub;
-
-	DataMaps map = new DataMaps();
+	Map<String, String> hubInfo;
 
 	bool worldMapVisible = false;
 	Element WorldMapDiv = querySelector("#WorldMapLayer");
 	Element HubMabDiv = querySelector("#HubMapLayer");
-
-	//Element HubMapFG = querySelector("#HubMapLayerFG");
+	Element HubMapFG = querySelector("#HubMapLayerFG");
 
 	WorldMap(String hub_id) {
 		loadhubdiv(hub_id);
@@ -229,35 +203,34 @@ class WorldMap {
 	loadhubdiv(String hub_id, [String highlightStreet]) {
 		showingHub = hub_id;
 
-		// read in street data
-		hubInfo = map.data_maps_hubs[hub_id]();
-		hubMaps = map.data_maps_maps[hub_id]();
-		moteInfo = map.data_maps_streets['9']();
+		Map<String, dynamic> hubInfo = mapData.hubData[hub_id];
 
-		// check visited streets with server
+		if (hubInfo == null) {
+			logmessage('[MapWindow] Missing hub $hub_id');
+		}
 
 		// prepare ui elements
 		view.mapTitle.text = hubInfo['name'];
 		view.mapImg
-			..style.backgroundImage = 'url(' + hubInfo['bg'] + ')'
+			..style.backgroundImage = 'url(' + hubInfo['img_bg'] + ')'
 			..title = hubInfo["name"];
-		//HubMapFG.style.backgroundImage = "url(" + hubInfo['fg'] + ")";
+		HubMapFG.style.backgroundImage = 'url(' + (hubInfo['img_fg'] ?? '') + ')';
 		HubMabDiv.children.clear();
 
 		// render
-		for (Map object in hubMaps['objs'].values) {
+		for (Map object in mapData.renderData[hub_id].values) {
 			if (object['type'] == 'S') {
 				// STREETS
 
-				String streetName = moteInfo[hub_id][object['tsid']];
+				String streetName = mapData.getLabel(object['tsid']);
 
 				Map streetPlacement = {
-					"x1": object["x1"],
-					"x2": object["x2"],
-					"y1": object["y1"],
-					"y2": object["y2"],
-					"deg": 0,
-					"length": 0,
+					'x1': object['x1'],
+					'x2': object['x2'],
+					'y1': object['y1'],
+					'y2': object['y2'],
+					'deg': 0,
+					'length': 0,
 				};
 				streetPlacement['deg'] = getStreetAngle(streetPlacement);
 				streetPlacement['length'] = getStreetLength(streetPlacement);
@@ -395,8 +368,8 @@ class WorldMap {
 					"arrow": object["arrow"], // int deg
 					"label": object["label"], // int deg
 					"id": object["hub_id"],
-					"name": map.data_maps_hubs[object["hub_id"]]()["name"],
-					"color": map.data_maps_hubs[object["hub_id"]]()["color"]
+					"name": mapData.hubData[object['hub_id']]['name'],
+					"color": mapData.hubData[object['hub_id']]['color']
 				};
 
 				if (!goPlacement["color"].startsWith("#")) {
@@ -549,7 +522,11 @@ class WorldMap {
 		];
 		if (metabolics.energy >= 50 || (inputManager.konamiDone && !inputManager.freeTeleportUsed)) {
 			options[1]["enabled"] = true;
-			options[1]["description"] = "Spend 50 energy to get here right now";
+			if (inputManager.konamiDone && !inputManager.freeTeleportUsed) {
+				options[1]['description'] = "This one's on me kid";
+			} else {
+				options[1]["description"] = "Spend 50 energy to get here right now";
+			}
 		}
 		document.body.append(RightClickMenu.create2(e, streetName, options));
 	}
@@ -562,7 +539,7 @@ class WorldMap {
 		WorldMapDiv.children.clear();
 
 		mapData.hubData.forEach((key, value) {
-			if (value["hidden"] == null || value["hidden"] != true) {
+			if (value["map_hidden"] != true) {
 				DivElement hub = new DivElement();
 				hub
 					..className = "wml-hub"
@@ -570,8 +547,9 @@ class WorldMap {
 					..style.left = value['x'].toString() + 'px'
 					..style.top = value['y'].toString() + 'px'
 					..append(new SpanElement()..text = value['name'])
-					..onMouseEnter.listen((_) => hub.style.backgroundImage = 'url(' + map.data_maps_hubs[key]()['bg'] + ')')
-					..onMouseLeave.listen((_) => hub.style.backgroundImage = "");
+					..onMouseEnter.listen((_) =>
+						hub.style.backgroundImage = 'url(' + value['img_bg'] + ')')
+					..onMouseLeave.listen((_) => hub.style.backgroundImage = '');
 				if (currentStreet.hub_id == key) {
 					hub.classes.add('currentlocationhub');
 				}
@@ -599,11 +577,44 @@ class WorldMap {
 			loadhubdiv(hub_id);
 		}
 		view.mapTitle.text = hub_name;
-		view.mapImg.style.backgroundImage =
-			'url(' + map.data_maps_hubs[hub_id]()['bg'] + ')';
-		view.mapTitle.text = map.data_maps_hubs[hub_id]()['name'];
+		view.mapImg.style.backgroundImage = 'url(' + mapData.hubData[hub_id]['img_bg'] + ')';
+		view.mapTitle.text = mapData.hubData[hub_id]['name'];
 		worldMapVisible = false;
 		HubMabDiv.hidden = false;
 		//HubMapFG.hidden = false;
 	}
+}
+
+int levenshtein(String s, String t, {bool caseSensitive: true}) {
+	if (!caseSensitive) {
+		s = s.toLowerCase();
+		t = t.toLowerCase();
+	}
+	if (s == t)
+		return 0;
+	if (s.length == 0)
+		return t.length;
+	if (t.length == 0)
+		return s.length;
+
+	List<int> v0 = new List<int>.filled(t.length + 1, 0);
+	List<int> v1 = new List<int>.filled(t.length + 1, 0);
+
+	for (int i = 0; i < t.length + 1; i < i++)
+		v0[i] = i;
+
+	for (int i = 0; i < s.length; i++) {
+		v1[0] = i + 1;
+
+		for (int j = 0; j < t.length; j++) {
+			int cost = (s[i] == t[j]) ? 0 : 1;
+			v1[j + 1] = min(v1[j] + 1, min(v0[j + 1] + 1, v0[j] + cost));
+		}
+
+		for (int j = 0; j < t.length + 1; j++) {
+			v0[j] = v1[j];
+		}
+	}
+
+	return v1[t.length];
 }

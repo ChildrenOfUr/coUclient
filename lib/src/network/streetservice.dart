@@ -121,14 +121,12 @@ class StreetService {
 
 		view.streetLoadingImage.src = streetAsMap['loading_image']['url'];
 		await view.streetLoadingImage.onLoad.first;
-		DataMaps maps = new DataMaps();
-		String hubName = maps.data_maps_hubs[streetAsMap['hub_id']]()['name'];
-		Map<int, Map<String, String>> moteInfo = maps.data_maps_streets['9']();
+		String hubName = mapData.hubData[streetAsMap['hub_id']]['name'];
 		String lsid = tsid;
 		if (lsid.startsWith('G')) {
 			lsid = lsid.replaceFirst('G', 'L');
 		}
-		String currentStreetName = moteInfo[streetAsMap['hub_id']][lsid];
+		String currentStreetName = mapData.getLabel(lsid);
 		view.mapLoadingContent.style.opacity = "1.0";
 		view.nowEntering.setInnerHtml('<h2>Entering</h2><h1>' + currentStreetName + '</h1><h2>in ' +
 			hubName /* + '</h2><h3>Home to: <ul><li>A <strong>Generic Goods Vendor</strong></li></ul>'*/);

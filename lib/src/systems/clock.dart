@@ -63,6 +63,36 @@ class Clock {
 		return currentHolidays;
 	}
 
+	bool get isNight {
+		bool am = clock.time.contains('am');
+		List<String> hourmin = clock.time.substring(0, clock.time.length - 2).split(':');
+		int hour = int.parse(hourmin[0]);
+
+		if (am) {
+			if (hour < 5 || hour == 12) {
+				return true;
+			} else if (hour >= 5 && hour < 6) {
+				// night to sunrise
+				return true;
+			} else if (hour >= 6 && hour < 9) {
+				// sunrise to daylight
+				return false;
+			} else {
+				return false;
+			}
+		} else {
+			if (hour >= 5 && hour < 6) {
+				// daylight to sunset
+				return false;
+			} else if (hour >= 6 && hour < 12) {
+				// sunset to night
+				return true;
+			} else {
+				return false;
+			}
+		}
+	}
+
 	// timer has updated, send out required events and update interfaces.
 	void _sendEvents() {
 
@@ -82,11 +112,13 @@ class Clock {
 		_timeupdateController.add([time, day, dayofweek, month, year, dayInt, monthInt]);
 
 		// New Day update stream
-		if(time == '6:00am') {
+		if (time == '6:00am') {
 			_newdayController.add('new day!');
 		}
 
 		transmit("clock_tick", data);
+
+		DarkUI.update();
 	}
 
 	Future updateHolidays() async {

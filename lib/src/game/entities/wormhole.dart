@@ -50,7 +50,7 @@ class Wormhole {
   }
 
   void update() {
-    if (intersect(hitBox, CurrentPlayer.avatarRect)) {
+    if (intersect(hitBox, CurrentPlayer.entityRect)) {
       tp();
     }
   }

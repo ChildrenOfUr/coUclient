@@ -25,6 +25,16 @@ abstract class DarkUI {
 			..addAll(querySelectorAll("ur-button"));
 	}
 
+	/// Whether to toggle automatically with day cycles
+	static bool autoMode = false;
+
+	/// Toggle if in auto mode
+	static void update() {
+		if (autoMode) {
+			darkMode = clock.isNight;
+		}
+	}
+
 	/// Returns true if in dark mode, false if not
 	static bool get darkMode {
 		return document.body.classes.contains(DARK_CLASS);

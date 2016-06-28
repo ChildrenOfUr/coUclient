@@ -56,9 +56,9 @@ input[type="file"] {
 #bugWindow ur-well ur-button+p {
   width: 500px;
   position: absolute;
-  right: 24px;
+  right: 10px;
   text-align: right;
-  bottom: 12px;
+  bottom: 0px;
 }
 
 #bugWindow ur-well ur-button+p a {
@@ -67,4 +67,10 @@ input[type="file"] {
 
 #bugWindow #reportTitle {
   width: 455px;
+}
+
+#bugWindow #reportScreenshot {
+	position: relative;
+	top: 5px;
+	left: -5px;
 }

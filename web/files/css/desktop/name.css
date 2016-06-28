@@ -2,9 +2,9 @@
   pointer-events: none;
 }
 .playerParent {
-  text-align: center;
   display: inline-block;
   pointer-events: none;
+  text-align: center;
 }
 .playerName {
   text-shadow: rgba(0,0,0,0.5) 0 1px 3px;
@@ -24,6 +24,11 @@
   position: absolute;
   left: 0;
   top: 0;
+}
+
+.groundItemGlow {
+  -webkit-filter: drop-shadow(0 1px 2px cyan);
+  filter: drop-shadow(0 1px 2px cyan);
 }
 
 .entity, .playerCanvas, .playerParent {

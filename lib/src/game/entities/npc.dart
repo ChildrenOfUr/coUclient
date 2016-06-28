@@ -2,7 +2,7 @@ part of couclient;
 
 class NPC extends Entity {
 	String type;
-	int speed = 0,
+	num speed = 0,
 		ySpeed = 0;
 	bool ready = false,
 		facingRight = true,
@@ -13,7 +13,14 @@ class NPC extends Entity {
 
 	Stream get onAnimationLoaded => _animationLoaded.stream;
 
+	bool isHiddenSpritesheet(String url) =>
+		url == 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
+
 	NPC(Map map) {
+		if (map.containsKey('actions')) {
+			actions = decode(JSON.encode(map['actions']), type: const TypeHelper<List<Action>>().type);
+		}
+
 		canvas = new CanvasElement();
 		speed = map['speed'];
 		ySpeed = map['ySpeed'] ?? 0;
@@ -29,9 +36,13 @@ class NPC extends Entity {
 			loopDelay: new Duration(milliseconds: map['loopDelay']),
 			loops: map['loops']);
 		animation.load().then((_) {
-			HttpRequest.request('http://${Configs.utilServerAddress}/getActualImageHeight?url=${map['url']}&numRows=${map['numRows']}&numColumns=${map['numColumns']}').then((HttpRequest request) {
-				canvas.attributes['actualHeight'] = request.responseText;
-			});
+			if (!isHiddenSpritesheet(map['url'])) {
+				HttpRequest.request('http://${Configs.utilServerAddress}/getActualImageHeight?url=${map['url']}&numRows=${map['numRows']}&numColumns=${map['numColumns']}').then((HttpRequest request) {
+					canvas.attributes['actualHeight'] = request.responseText;
+				});
+			} else {
+				canvas.attributes['actualHeight'] = '1';
+			}
 
 			id = map['id'];
 
@@ -58,6 +69,7 @@ class NPC extends Entity {
 			canvas.attributes['width'] = canvas.width.toString();
 			canvas.attributes['height'] = canvas.height.toString();
 			view.playerHolder.append(canvas);
+			sortEntities();
 			ready = true;
 			addingLocks[id] = false;
 			_animationLoaded.add(true);
@@ -93,7 +105,13 @@ class NPC extends Entity {
 			animation = new Animation(npcMap['url'], npcMap['animation_name'],
 											  npcMap['numRows'], npcMap['numColumns'], frameList,
 											  loops: npcMap['loops']);
-			animation.load().then((_) => ready = true);
+			animation.load().then((_) {
+				canvas.width = animation.width;
+				canvas.height = animation.height;
+				width = animation.width;
+				height = animation.height;
+				ready = true;
+			});
 		}
 	}
 
@@ -116,7 +134,7 @@ class NPC extends Entity {
 
 		_setTranslate();
 
-		if (intersect(camera.visibleRect, entityRect)) {
+		if (intersect(camera.visibleRect, entityRect) && !isHiddenSpritesheet(animation.url)) {
 			animation.updateSourceRect(dt);
 		}
 	}

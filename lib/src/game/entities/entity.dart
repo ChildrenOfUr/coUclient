@@ -1,17 +1,61 @@
 part of couclient;
 
+Entity getEntity(String id) {
+	return entities[id] ?? otherPlayers[id];
+}
+
+Element getEntityElement(String id) {
+	return querySelector('#$id') ?? querySelector('#player-$id');
+}
+
+void sortEntities() {
+	List<Element> elements = [];
+	entities.values.forEach((Entity entity) {
+		if (entity.canvas != null) {
+			elements.add(entity.canvas);
+		}
+	});
+	elements.sort((Element a, Element b) {
+		if (entities[a.id] == null || entities[b.id] == null) {
+			return 0;
+		}
+		return entities[a.id].top.compareTo(entities[b.id].top);
+	});
+	for (Element e in elements) {
+		view.playerHolder.append(e);
+	}
+}
+
 abstract class Entity {
-	bool glow = false, dirty = true;
+	Random rand = new Random();
+
+	bool
+		glow = false,
+		dirty = true,
+		multiUnselect = false;
+
 	ChatBubble chatBubble = null;
+
 	CanvasElement canvas;
-	num left = 0, top = 0, width = 0, height = 0;
+
+	num
+		left = 0,
+		top = 0,
+		width = 0,
+		height = 0;
+
 	String id;
-	MutableRectangle _entityRect, _destRect;
+
+	MutableRectangle
+		_entityRect = new MutableRectangle(0, 0, 0, 0),
+		_destRect;
+
+	List<Action> actions = [];
 
 	void update(double dt) {
-		if(intersect(CurrentPlayer.avatarRect, entityRect)) {
+		if (this != CurrentPlayer && CurrentPlayer.entityRect.intersects(this.entityRect)) {
 			updateGlow(true);
-			CurrentPlayer.intersectingObjects[id] = entityRect;
+			CurrentPlayer.intersectingObjects[id] = this.entityRect;
 		} else {
 			CurrentPlayer.intersectingObjects.remove(id);
 			updateGlow(false);
@@ -19,7 +63,7 @@ abstract class Entity {
 	}
 
 	Rectangle get destRect {
-		if(_destRect == null) {
+		if (_destRect == null) {
 			_destRect = new MutableRectangle(0, 0, width, height);
 		} else {
 			_destRect.left = 0;
@@ -32,7 +76,7 @@ abstract class Entity {
 	}
 
 	Rectangle get entityRect {
-		if(_entityRect == null) {
+		if (_entityRect == null) {
 			_entityRect = new MutableRectangle(left, top, width, height);
 		} else {
 			_entityRect.left = left;
@@ -47,60 +91,74 @@ abstract class Entity {
 	void render();
 
 	void updateGlow(bool newGlow) {
-		if(glow != newGlow) {
+		if (multiUnselect) {
+			glow = false;
+			dirty = true;
+			return;
+		}
+
+		if (glow != newGlow) {
 			dirty = true;
 		}
 		glow = newGlow;
 	}
 
 	/**
-	 * Returns a map of data for the entity with the id provided (in element provided, or found if not)
-	 * "alldisabled" (bool) -> true if every action is disabled, false otherwise
-	 * "actions" (List<List>) -> terrible and ready for a right click menu
+	 * Returns a list of actions which currently applies to the player and the entity
 	 */
-	static Map<String, dynamic> getActions(String id, [Element element]) {
-		List<List> actions = [];
-		bool allDisabled = true;
-
-		if (element == null) {
-			element = querySelector("#$id");
-		}
-
-		if(element.attributes['actions'] != null) {
-			List<Map> actionsList = JSON.decode(element.attributes['actions']);
-			actionsList.forEach((Map actionMap) {
-				bool enabled = actionMap['enabled'];
-
+	List<Action> getActions() {
+		bool enabled = false;
+		List<Action> actionList = [];
+		actions.forEach((Action action) {
+			enabled = action.enabled;
+			action.actionName = capitalizeFirstLetter(action.actionName);
+			String error = "";
+			if(enabled) {
+				enabled = hasRequirements(action);
 				if(enabled) {
-					allDisabled = false;
+					error = action.description;
+				} else {
+					error = getRequirementString(action);
 				}
+			} else {
+				error = action.error;
+			}
+			Action menuAction = new Action.clone(action)
+				..enabled = enabled
+				..error = error;
+			actionList.add(menuAction);
+		});
 
-				String error = "";
-				if(actionMap['requires'] != null) {
-					enabled = hasRequirements(actionMap['requires']);
-					if(enabled) {
-						if(actionMap.containsKey('description')) {
-							error = actionMap['description'];
-						} else {
-							error = '';
-						}
-					} else {
-						error = getRequirementString(actionMap['requires']);
-					}
-				}
-				actions.add([capitalizeFirstLetter(actionMap['action']) + "|" + actionMap['actionWord'] + "|${actionMap['timeRequired']}|$enabled|$error|${actionMap['multiEnabled']}", element.id, "sendAction ${actionMap['action']} ${element.id}|${actionMap["associatedSkill"]}"]);
-			});
-		}
-
-		return {"actions": actions, "alldisabled": allDisabled};
+		return actionList;
 	}
 
 	void interact(String id) {
-		Element element = querySelector("#$id");
-		Map<String, dynamic> actions = getActions(id, element);
+		Element element = querySelector('#$id') ?? querySelector('#player-$id');
 
-		if(!actions["alldisabled"]) {
-			inputManager.showClickMenu(null, element.attributes['type'], "Desc", actions["actions"]);
+		List<Action> actions = getActions();
+		bool allDisabled = true;
+		for (Action action in actions) {
+			if (action.enabled) {
+				allDisabled = false;
+				break;
+			}
 		}
+		if (!allDisabled) {
+			String receiverId = element.attributes['type'] ?? id;
+			if (this is Player) {
+				receiverId = 'global_action_monster';
+			}
+
+			inputManager.showClickMenu(
+				title: id, id: id, serverEntityId: receiverId, actions: actions);
+		}
+	}
+
+	@override
+	int get hashCode => id.hashCode;
+
+	@override
+	operator ==(Entity other) {
+		return (other.id == this.id);
 	}
 }

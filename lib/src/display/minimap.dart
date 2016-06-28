@@ -96,8 +96,8 @@ class Minimap {
 		int minimapHeight = imageE.height;
 		int streetWidth = streetSize.width;
 		int streetHeight = streetSize.height;
-		num meX = CurrentPlayer.posX;
-		num meY = CurrentPlayer.posY;
+		num meX = CurrentPlayer.left;
+		num meY = CurrentPlayer.top;
 		num factorWidth = minimapWidth / streetWidth;
 		num factorHeight = minimapHeight / streetHeight;
 
@@ -129,8 +129,8 @@ class Minimap {
 		await otherPlayers.forEach((String name, Player thisPlayer) async {
 			DivElement player = new DivElement()
 				..classes.add('minimap-player')
-				..style.top = ((thisPlayer.posY * factorHeight) - 6).toString() + 'px'
-				..style.left = (thisPlayer.posX * factorWidth).toString() + 'px'
+				..style.top = ((thisPlayer.top * factorHeight) - 6).toString() + 'px'
+				..style.left = (thisPlayer.left * factorWidth).toString() + 'px'
 				..title = name
 				..style.backgroundColor = await getColorFromUsername(name);
 

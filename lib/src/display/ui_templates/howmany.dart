@@ -135,6 +135,13 @@ class HowManyMenu {
 			..top = '${y}px'
 			..left = '${x}px'
 			..transform = 'translate(-50%, -100%)';
+
+		if (x == 0 && y == 0) {
+			//the click was probably fake so let's just center it
+			menu.style
+				..top = '50%'
+				..left = '50%';
+		}
 	}
 
 	static void _setValue(int newVal) {

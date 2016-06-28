@@ -12,35 +12,34 @@ void itemContextMenu(ItemDef i, String slot, MouseEvent event) {
 
 	int barSlot = int.parse(slot.split('.').elementAt(0));
 	int bagSlot = int.parse(slot.split('.').elementAt(1));
-	List<List> actions = [];
+	List<Action> actions = [];
 
 	if (i.actions != null) {
 		List<Action> actionsList = i.actions;
 		bool enabled = false;
 		actionsList.forEach((Action action) {
+			enabled = action.enabled;
+			action.actionName = capitalizeFirstLetter(action.actionName);
 			String error = "";
-			List<Map> requires = [];
-			action.itemRequirements.all.forEach((String item, int num) => requires.add({'num':num, 'of':[item]}));
-			if (action.itemRequirements.any.length > 0) {
-				requires.add({'num':1, 'of':action.itemRequirements.any});
-			}
-			enabled = hasRequirements(requires);
-			if (enabled) {
-				error = action.description;
+			if(enabled) {
+				enabled = hasRequirements(action);
+				if(enabled) {
+					error = action.description;
+				} else {
+					error = getRequirementString(action);
+				}
 			} else {
-				error = getRequirementString(requires);
+				error = action.error;
 			}
-
-			actions.add([
-				            capitalizeFirstLetter(action.name) + '|' +
-				            action.name + '|${action.timeRequired}|$enabled|$error|${action.multiEnabled}',
-				            i.itemType,
-				            "sendAction ${action.name} ${i.item_id}",
-				            getDropMap(1, barSlot, bagSlot)
-			            ]);
+			Action menuAction = new Action.clone(action)
+				..enabled = enabled
+				..error = error;
+			menuAction.dropMap = getDropMap(1, barSlot, bagSlot);
+			actions.add(menuAction);
 		});
 	}
-	Element menu = RightClickMenu.create(event, i.metadata["title"] ?? i.name, i.description, actions, item: i);
+	Function onInfo = (_){new ItemWindow(i.name).displayItem();};
+	Element menu = RightClickMenu.create3(event, i.metadata['title'] ?? i.name, i.itemType, description: i.description, actions: actions, item: i, onInfo: onInfo);
 	document.body.append(menu);
 }
 
@@ -218,8 +217,6 @@ Map getDropMap(int count, int slotNum, int subSlotNum) {
 		..['slot'] = slotNum
 		..['subSlot'] = subSlotNum
 		..['count'] = count
-		..['x'] = CurrentPlayer.posX + CurrentPlayer.width / 2
-		..['y'] = CurrentPlayer.posY + CurrentPlayer.height / 2
 		..['streetName'] = currentStreet.label
 		..['tsid'] = currentStreet.streetData['tsid'];
 
