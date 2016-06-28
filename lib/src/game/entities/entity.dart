@@ -144,13 +144,10 @@ abstract class Entity {
 			}
 		}
 		if (!allDisabled) {
-			String receiverId = element.attributes['type'] ?? id;
-			if (this is Player) {
-				receiverId = 'global_action_monster';
-			}
-
+			String name = element.attributes['type'] ?? id;
+			String serverClass = (this is Player ? 'global_action_monster' : name);
 			inputManager.showClickMenu(
-				title: id, id: id, serverEntityId: receiverId, actions: actions);
+				title: id, id: id, serverEntityId: serverClass, actions: actions);
 		}
 	}
 
