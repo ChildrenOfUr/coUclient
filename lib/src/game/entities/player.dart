@@ -669,7 +669,7 @@ class Player extends Entity {
 
 			// Follow another player
 			followingPlayer = otherPlayers[toFollow];
-			return 'You now follow $toFollow. Walk to stop.';
+			return 'You now follow $toFollow. Move to stop.';
 		}
 	}
 

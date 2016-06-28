@@ -108,6 +108,9 @@ class InputManager {
 			controlCounts[control]['keyBool'].value = true;
 		}
 
+		//stop following any player that you might be following
+		CurrentPlayer.followPlayer();
+
 		new Service(["worldFocus"], (bool focused) {
 			if (!focused) {
 				controlCounts.forEach((String control, Map data) {
