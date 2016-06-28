@@ -487,12 +487,12 @@ class InputManager {
 		String id,
 		List<Action> actions: const [],
 		String itemName,
-		String serverEntityId
+		String serverClass
 	}) {
 		assert (id != null);
 
 		hideClickMenu(querySelector('#RightClickMenu'));
-		RightClickMenu.create3(click, title, id, description: description, actions: actions, itemName: itemName, serverEntityId: serverEntityId);
+		RightClickMenu.create3(click, title, id, description: description, actions: actions, itemName: itemName, serverClass: serverClass);
 
 		Element clickMenu = querySelector('#RightClickMenu');
 		Element list = querySelector('#RCActionList');

@@ -147,7 +147,7 @@ abstract class Entity {
 			String name = element.attributes['type'] ?? id;
 			String serverClass = (this is Player ? 'global_action_monster' : name);
 			inputManager.showClickMenu(
-				title: id, id: id, serverEntityId: serverClass, actions: actions);
+				title: name, id: id, serverClass: serverClass, actions: actions);
 		}
 	}
 
