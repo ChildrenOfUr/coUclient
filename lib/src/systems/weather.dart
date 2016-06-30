@@ -16,6 +16,7 @@ class WeatherManager {
 	static bool _enabled = true, _gradientEnabled = true;
 	static var rainSound;
 	static String url = 'ws://${Configs.websocketServerAddress}/weather';
+	static Map<String, Map<String, dynamic>> weatherData;
 
 	WeatherManager.getInstance() {
 		_weatherLayer = querySelector("#weatherLayer");
@@ -280,7 +281,7 @@ class WeatherManager {
 	}
 
 	static void _setupWebsocket() {
-		//establish a websocket connection to listen for metabolics objects coming in
+		//establish a websocket connection to listen for weather data coming in
 		WebSocket socket = new WebSocket(url);
 		socket.onOpen.listen((_) => socket.send(JSON.encode({'username':game.username})));
 		socket.onMessage.listen((MessageEvent event) {
@@ -299,13 +300,27 @@ class WeatherManager {
 	}
 
 	static void _processMessage(Map map) {
-		WeatherState previousState = currentState;
-		_currentState = WeatherState.values[map['state']];
+		weatherData = map;
 
-		if (currentState != previousState) {
+		WeatherState previousState = _currentState;
+
+		String weatherMain = weatherData['current']['weatherMain'].toLowerCase();
+		if (weatherMain.contains('clear')) {
+			_currentState = WeatherState.CLEAR;
+		} else if (weatherMain.contains('rain')) {
+			_currentState = WeatherState.RAINING;
+		} else if (weatherMain.contains('snow')) {
+			_currentState = WeatherState.SNOWING;
+		} else if (weatherMain.contains('wind')) {
+			_currentState = WeatherState.WINDY;
+		} else {
+			_currentState = previousState;
+		}
+
+		if (_currentState != previousState) {
 			_clearWeather();
-			if(currentState != WeatherState.CLEAR) {
-				_createWeather(currentState);
+			if (_currentState != WeatherState.CLEAR) {
+				_createWeather(_currentState);
 			}
 		}
 	}
