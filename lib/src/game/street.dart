@@ -49,6 +49,7 @@ class Street {
 	Street(this.streetData) {
 		_tsid = streetData['tsid'];
 		hub_id = streetData['hub_id'];
+		hub_name = mapData.hubData[hub_id]['name'];
 
 		if (game.username != null && currentStreet != null)
 			sendLeftMessage(currentStreet.label);

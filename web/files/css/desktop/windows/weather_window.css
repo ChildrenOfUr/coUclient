@@ -1,0 +1,76 @@
+#weatherWindow ur-well {
+	display: flex;
+	flex-direction: row;
+}
+
+#weatherWindow .day {
+    flex: 1;
+    text-align: center;
+    font-size: 18px;
+    margin: 0 2px;
+	border-bottom: 22px solid #D9C5DF;
+}
+
+body:not(.darkui) #weatherWindow .day {
+	background: linear-gradient(45deg, rgba(217, 197, 223, 1) 0%, rgba(246, 241, 247, 1) 75%, rgba(255, 255, 255, 0) 100%);
+	border-bottom-color: #6F5876;
+}
+
+#weatherWindow .day:first-child::after {
+	content: '';
+	width: 30px;
+	height: 30px;
+	display: block;
+	background-color: #6F5876;
+	transform: rotate(45deg);
+	margin: 0;
+	padding: 0;
+	position: relative;
+	left: calc(50% - 15px);
+	bottom: 0px;
+}
+
+.darkui #weatherWindow .day:first-child::after {
+	background-color: #D9C5DF;
+}
+
+#weatherWindow .title {
+    background-color: #D9C5DF;
+    padding: 4px 0;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.darkui #weatherWindow .title {
+	background-color: #6F5876;
+}
+
+#weatherWindow .icon {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 20px;
+}
+
+#weatherWindow .description {
+    margin-bottom: 20px;
+}
+
+#weatherWindow .temp {
+    margin-bottom: 20px;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+#weatherWindow .temp sup {
+	font-weight: normal;
+}
+
+#weatherWindow .humidity {
+    margin-bottom: 20px;
+    cursor: help;
+}
+
+#weatherWindow .humidity .fa {
+	color: #236EC4 !important;
+	cursor: help;
+}

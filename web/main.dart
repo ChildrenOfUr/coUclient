@@ -112,6 +112,7 @@ part 'package:couclient/src/display/windows/settings_window.dart';
 part 'package:couclient/src/display/windows/shrine_window.dart';
 part 'package:couclient/src/display/windows/useitem_window.dart';
 part 'package:couclient/src/display/windows/vendor_window.dart';
+part 'package:couclient/src/display/windows/weather_window.dart';
 part 'package:couclient/src/display/windows/windows.dart';
 
 // Overlays

@@ -1,10 +1,10 @@
-#calendarwindow * {
+#calendarWindow * {
     font-family: "Lato", sans-serif;
 }
 
 /* Current Time Display */
 
-#calendar-time {
+#calendarWindow #calendar-time {
     color: #8f7590;
     font-size: 20px;
     font-weight: bold;
@@ -12,25 +12,25 @@
     text-align: center;
 }
 
-#calendar-time > span {
+#calendarWindow #calendar-time > span {
     color: #4b2e4c;
 }
 
 /* Calendar Display */
 
-#calendar-view {
+#calendarWindow #calendar-view {
     margin-top: 10px;
     width: 100%;
     height: 275px;
     overflow-y: scroll;
 }
 
-.month {
+#calendarWindow .month {
     display: flex;
     flex-direction: column;
 }
 
-.month-name {
+#calendarWindow .month-name {
     margin: 3px;
     font-size: 20px;
     font-weight: bold;
@@ -38,17 +38,17 @@
     padding: 3px;
 }
 
-.week {
+#calendarWindow .week {
     flex: 1;
     display: flex;
     flex-direction: row;
 }
 
-.day:empty {
+#calendarWindow .day:empty {
     border: 1px solid rgba(0, 0, 0, 0);
 }
 
-.day {
+#calendarWindow .day {
     flex: 1;
     padding: 5px;
     margin: 3px;
@@ -56,12 +56,12 @@
     min-height: 50px;
 }
 
-.day.today {
+#calendarWindow .day.today {
     background: rgba(75, 46, 76, 0.2);
     border: 1px solid #4b2e4c;
 }
 
-.day div {
+#calendarWindow .day div {
     border: 1px solid #8f7590;
     position: relative;
     top: -6px;
@@ -72,28 +72,28 @@
     text-align: center;
 }
 
-.day:empty div {
+#calendarWindow .day:empty div {
     display: none;
     width: 0;
     height: 0;
 }
 
-#cal-nothing {
+#calendarWindow #cal-nothing {
     padding-top: 15px;
     font-size: 40px;
     text-align: center;
 }
 
-#cal-nothing p {
+#calendarWindow #cal-nothing p {
     color: inherit;
     font-size: inherit;
 }
 
-p.italic {
+#calendarWindow p.italic {
     font-style: italic;
 }
 
-#cal-nothing img {
+#calendarWindow #cal-nothing img {
     width: 125px;
     height: 125px;
     margin-top: 15px;

@@ -16,7 +16,8 @@ class WeatherManager {
 	static bool _enabled = true, _gradientEnabled = true;
 	static var rainSound;
 	static String url = 'ws://${Configs.websocketServerAddress}/weather';
-	static Map<String, Map<String, dynamic>> weatherData;
+	static Map<String, dynamic> weatherData;
+	static WebSocket socket;
 
 	WeatherManager.getInstance() {
 		_weatherLayer = querySelector("#weatherLayer");
@@ -65,6 +66,14 @@ class WeatherManager {
 			}
 
 			resizeTimer = new Timer(new Duration(milliseconds:200), _recalculateRain);
+		});
+
+		new Service(['streetLoaded'], (_) {
+			socket.send(JSON.encode({
+				'update': 'location',
+				'username': game.username,
+				'tsid': currentStreet.tsid
+			}));
 		});
 	}
 
@@ -282,8 +291,11 @@ class WeatherManager {
 
 	static void _setupWebsocket() {
 		//establish a websocket connection to listen for weather data coming in
-		WebSocket socket = new WebSocket(url);
-		socket.onOpen.listen((_) => socket.send(JSON.encode({'username':game.username})));
+		socket = new WebSocket(url);
+		socket.onOpen.listen((_) => socket.send(JSON.encode({
+			'username': game.username,
+			'tsid': currentStreet.tsid.toString()
+		})));
 		socket.onMessage.listen((MessageEvent event) {
 			Map map = JSON.decode(event.data);
 
@@ -291,8 +303,8 @@ class WeatherManager {
 		});
 		socket.onClose.listen((CloseEvent e) {
 			logmessage('[Weather] Socket closed: ${e.reason}');
-			//wait 5 seconds and try to reconnect
-			new Timer(new Duration(seconds: 5), () => _setupWebsocket());
+			// wait and then try to reconnect
+			new Timer(new Duration(seconds: 2), () => _setupWebsocket());
 		});
 		socket.onError.listen((Event e) {
 			logmessage('[Weather] Error $e');
@@ -301,6 +313,10 @@ class WeatherManager {
 
 	static void _processMessage(Map map) {
 		weatherData = map;
+
+		if (windowManager.weather.elementOpen) {
+			windowManager.weather.refresh();
+		}
 
 		WeatherState previousState = _currentState;
 

@@ -14,10 +14,11 @@
 
 #time {
     text-align: center;
-    position: relative;
-    width: 145px;
+    position: absolute;
+    width: 170px;
     top: 2px;
     border-radius: 8px;
+    right: 269px;
 }
 
 #time:hover {

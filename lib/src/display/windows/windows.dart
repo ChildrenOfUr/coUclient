@@ -15,6 +15,7 @@ class WindowManager {
 	RockWindow rockWindow;
 	SettingsWindow settings;
 	VendorWindow vendor;
+	WeatherWindow weather;
 
 	WindowManager() {
 		new Service('gameLoaded', (_) {
@@ -35,6 +36,7 @@ class WindowManager {
 		questLog = new QuestLogWindow();
 		rockWindow = new RockWindow();
 		settings = new SettingsWindow();
+		weather = new WeatherWindow();
 		vendor = new VendorWindow();
 	}
 
