@@ -341,7 +341,7 @@ class WorldMap {
 						if (tsid.startsWith("L")) {
 							tsid = tsid.replaceFirst("L", "G");
 						}
-						if (metabolics.playerMetabolics.location_history.contains(tsid)) {
+						if (metabolics.playerMetabolics.location_history.contains(tsidL(tsid))) {
 							street.classes.add("visited");
 						}
 					} catch (e) {

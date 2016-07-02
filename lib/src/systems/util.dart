@@ -6,6 +6,26 @@ part of couclient;
 //in the code, then consider putting it here, especially if you think it could be used
 //in more than one place
 
+/// Get a TSID in 'G...' (CAT422) form
+String tsidG(String tsid) {
+	return tsidL(tsid).replaceFirst("L", "G");
+}
+
+/// Get a TSID in 'L...' (TS) form
+String tsidL(String tsid) {
+	if (tsid == null) {
+		return tsid;
+	}
+
+	if (tsid.startsWith("G")) {
+		// In CAT422 form
+		return tsid.replaceFirst("G", "L");
+	} else {
+		// Assume in TS form
+		return tsid;
+	}
+}
+
 /**
  * Determine if Rectangle [a] intersects with [b]
  */
