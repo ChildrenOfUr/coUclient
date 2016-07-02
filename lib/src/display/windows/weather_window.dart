@@ -43,6 +43,13 @@ class WeatherWindow extends Modal {
 	bool refresh() {
 		if (WeatherManager.weatherData == null) {
 			new Toast('Weather data is still loading...');
+			close();
+			return false;
+		}
+
+		if (WeatherManager.weatherData['error'] == 'no_weather') {
+			new Toast("There's no weather here");
+			close();
 			return false;
 		}
 

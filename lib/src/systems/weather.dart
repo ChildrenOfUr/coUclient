@@ -320,17 +320,21 @@ class WeatherManager {
 
 		WeatherState previousState = _currentState;
 
-		String weatherMain = weatherData['current']['weatherMain'].toLowerCase();
-		if (weatherMain.contains('clear')) {
+		if (weatherData['error'] != null) {
 			_currentState = WeatherState.CLEAR;
-		} else if (weatherMain.contains('rain')) {
-			_currentState = WeatherState.RAINING;
-		} else if (weatherMain.contains('snow')) {
-			_currentState = WeatherState.SNOWING;
-		} else if (weatherMain.contains('wind')) {
-			_currentState = WeatherState.WINDY;
 		} else {
-			_currentState = previousState;
+			String weatherMain = weatherData['current']['weatherMain'].toLowerCase();
+			if (weatherMain.contains('clear')) {
+				_currentState = WeatherState.CLEAR;
+			} else if (weatherMain.contains('rain')) {
+				_currentState = WeatherState.RAINING;
+			} else if (weatherMain.contains('snow')) {
+				_currentState = WeatherState.SNOWING;
+			} else if (weatherMain.contains('wind')) {
+				_currentState = WeatherState.WINDY;
+			} else {
+				_currentState = previousState;
+			}
 		}
 
 		if (_currentState != previousState) {
