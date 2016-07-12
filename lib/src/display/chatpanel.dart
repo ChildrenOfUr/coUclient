@@ -221,7 +221,7 @@ class Chat {
 			// Parse styles, links, and emoji
 			html = html.replaceAll("&lt;", "<");
 			html = html.replaceAll("&gt;", ">");
-			html = parseUrl(html);
+			// urls already parsed in toHtml
 			html = parseEmoji(html);
 			html = parseLocationLinks(html);
 			html = parseItemLinks(html);

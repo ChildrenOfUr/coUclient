@@ -96,7 +96,7 @@ class ChatMessage {
 				..appendHtml("&#8194;") // en space
 				..append(new SpanElement()
 					..classes = ["message"]
-					..text = message)
+					..text = parseUrl(message))
 			).outerHtml;
 		}
 	}
@@ -147,28 +147,27 @@ String parseEmoji(String message) {
 
 String parseUrl(String message) {
 	/*
-    (https?:\/\/)?                    : the http or https schemes (optional)
-    [\w-]+(\.[\w-]+)+\.?              : domain name with at least two components;
-                                        allows a trailing dot
-    (:\d+)?                           : the port (optional)
-    (\/\S*)?                          : the path (optional)
-    */
-	String regexString = r"((https?:\/\/)?[\w-]+(\.[\w-]+)+\.?(:\d+)?(\/\S*)?)";
-	//the r before the string makes dart interpret it as a raw string so that you don't have to escape characters like \
+	    (https?:\/\/)?                    : the http or https schemes (optional)
+	    [\w-]+(\.[\w-]+)+\.?              : domain name with at least two components;
+	                                        allows a trailing dot
+	    (:\d+)?                           : the port (optional)
+	    (\/\S*)?                          : the path (optional)
 
-	String returnString = "";
+		The r before the string makes dart interpret it as a raw string so that you don't have to escape characters like \
+    */
+	String regexString = r'((https?:\/\/)?[\w-]+(\.[\w-]+)+\.?(:\d+)?(\/\S*)?)';
+
+	String returnString = '';
 	RegExp regex = new RegExp(regexString);
 	message.splitMapJoin(regex, onMatch: (Match m) {
 		String url = m[0];
-		if (url.contains('"')) {
-			// Don't match URLs already in <a> tags
-			returnString += url;
-		} else {
-			if (!url.contains("http")) {
-				url = "http://" + url;
-			}
-			returnString += '<a href="${url}" target="_blank" class="MessageLink">${m[0]}</a>';
+
+		// Add protocol if missing
+		if (!url.contains('http')) {
+			url = 'http://' + url;
 		}
+
+		returnString += '<a href="${url}" target="_blank" class="MessageLink">${m[0]}</a>';
 	}, onNonMatch: (String s) => returnString += s);
 
 	return returnString;
