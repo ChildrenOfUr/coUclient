@@ -119,6 +119,10 @@ class StreetService {
 		map["oldStreetLabel"] = oldLabel;
 		transmit('outgoingChatEvent', map);
 
+		if (!mapData.load.isCompleted) {
+			await mapData.load.future;
+		}
+
 		view.streetLoadingImage.src = streetAsMap['loading_image']['url'];
 		await view.streetLoadingImage.onLoad.first;
 		String hubName = mapData.hubData[streetAsMap['hub_id']]['name'];
