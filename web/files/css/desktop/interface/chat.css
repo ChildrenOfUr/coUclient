@@ -34,6 +34,15 @@
     opacity: 0.9;
 }
 
+.conversation header .chat-scroll-toggle {
+	left: calc(100% - 25px);
+	cursor: pointer;
+}
+
+.chat-resize {
+	cursor: ns-resize;
+}
+
 .conversation .dialog {
     position: absolute;
     padding: 2px;

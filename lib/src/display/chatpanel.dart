@@ -11,7 +11,7 @@ class Chat {
 	bool online,
 		focused = false,
 		tabInserted = false;
-	Element conversationElement, trigger;
+	Element conversationElement, trigger, scrollToggle;
 	int unreadMessages = 0,
 		tabSearchIndex = 0,
 		numMessages = 0,
@@ -23,6 +23,7 @@ class Chat {
 		inputHistory = new List();
 	static StreamSubscription itemWindowLinks, mapWindowLinks;
 	static InputElement lastFocusedInput;
+	bool localResizeFocus = false; // whether the mouse is down on the resize button
 
 	static final NodeValidatorBuilder VALIDATOR = new NodeValidatorBuilder.common()
 		..allowElement('span', attributes: ['style']) // Item icons
@@ -97,7 +98,13 @@ class Chat {
 
 			//handle chat input getting focused/unfocused so that the character doesn't move while typing
 			InputElement chatInput = conversationElement.querySelector('input');
-			chatInput.onFocus.listen((_) {
+			chatInput.onFocus.listen((FocusEvent event) {
+				if (localResizeFocus) {
+					// Don't drag to resize into text fields
+					event.preventDefault();
+					return;
+				}
+
 				inputManager.ignoreKeys = true;
 				//need to set the focused variable to true and false for all the others
 				openConversations.forEach((Chat c) => c.blur());
@@ -129,13 +136,61 @@ class Chat {
 			}
 
 			otherChat = this;
-		}
-		//don't ever have 2 local chats
-		else if (localChat == null) {
+		} else if (localChat == null) {
+			//don't ever have 2 local chats
 			localChat = this;
 			view.panel.append(conversationElement);
 			//can't remove the local chat
 			conversationElement.querySelector('.fa-chevron-down').remove();
+		}
+
+		if (title == 'Local Chat') {
+			// Add resize control to the top of local chat
+			Element resizeHandle = new Element.tag('i')
+				..classes = ['chat-resize', 'fa-li', 'fa', 'fa-hand-grab-o']
+				..title = 'Drag to resize'
+				..tabIndex = -1;
+
+			resizeHandle.onMouseDown.listen((_) {
+				localResizeFocus = true;
+				resizeHandle.focus();
+			});
+
+			document.onMouseUp.listen((_) {
+				localResizeFocus = false;
+				resizeHandle.blur();
+			});
+
+			resizeHandle.onMouseMove.listen((MouseEvent event) {
+				if (!localResizeFocus) {
+					// Mouse not down
+					return;
+				}
+
+				Element local = this.conversationElement;
+				Element other = otherChat.conversationElement;
+
+				if (local.clientHeight <= 100 && event.movement.y > 0) {
+					// Minimum size of local chat met, don't go smaller
+					return;
+				}
+
+				if (other.clientHeight <= 100 && event.movement.y < 0) {
+					// Minimum size of other chat met, don't go smaller
+					return;
+				}
+
+				local.style.height = '${local.clientHeight - event.movement.y}px';
+				other.style.height = '${other.clientHeight + event.movement.y}px';
+			});
+
+			// Clear custom sizing if the window size changes
+			window.onResize.listen((_) {
+				this.conversationElement.style.height = '50%';
+				otherChat.conversationElement.style.height = '50%';
+			});
+
+			conversationElement.querySelector('header').children.insert(0, resizeHandle);
 		}
 
 		computePanelSize();
@@ -146,6 +201,20 @@ class Chat {
 		}
 
 		processInput(conversationElement.querySelector('input'));
+
+		// Toggle auto-scrolling
+		scrollToggle = conversationElement.querySelector('.chat-scroll-toggle');
+		scrollToggle.onClick.listen((_) {
+			if (scrollToggle.classes.contains('fa-toggle-on')) {
+				scrollToggle.classes
+					..remove('fa-toggle-on')
+					..add('fa-toggle-off');
+			} else {
+				scrollToggle.classes
+					..remove('fa-toggle-off')
+					..add('fa-toggle-on');
+			}
+		});
 	}
 
 	void processEvent(Map data) {
@@ -230,8 +299,10 @@ class Chat {
 			dialog.appendHtml(html, validator: Chat.VALIDATOR);
 		}
 
-		//scroll to the bottom
-		dialog.scrollTop = dialog.scrollHeight;
+		// Scroll to the bottom, if enabled
+		if (scrollToggle.classes.contains('fa-toggle-on')) {
+			dialog.scrollTop = dialog.scrollHeight;
+		}
 
 		// check for and activate any item links
 		if (itemWindowLinks != null) {
