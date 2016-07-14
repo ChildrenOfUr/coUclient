@@ -34,13 +34,14 @@ class InventorySearchWindow extends Modal {
 
 		setupUiButton(querySelector('#inventorySearch'));
 		document.onKeyDown.listen((KeyboardEvent k) {
-			if(inputManager == null || ignoreShortcuts)
+			if (inputManager == null || ignoreShortcuts) {
 				return;
+			}
 
 			//if F3 is pressed or ctrl+f is pressed
 			if (k.keyCode == 114 || (k.ctrlKey && k.keyCode == 70)) {
 				k.preventDefault();
-				if(displayElement.hidden) {
+				if (displayElement.hidden) {
 					open();
 				}
 			}
@@ -56,7 +57,7 @@ class InventorySearchWindow extends Modal {
 
 	@override
 	void open({bool ignoreKeys: false}) {
-		input.value = '';
+		input.value = localStorage['inv_search_query'] ?? '';
 		_update();
 		super.open(ignoreKeys: ignoreKeys);
 		input.focus();
@@ -64,6 +65,7 @@ class InventorySearchWindow extends Modal {
 
 	void _update() {
 		String query = input.value.trim().toLowerCase();
+		localStorage['inv_search_query'] = query;
 		List<InventorySearchMatch> matches =  _findResults(query);
 		_displayResults(matches);
 	}

@@ -19,16 +19,17 @@ class ActionBubble {
 
 	ActionBubble._(String actionName, this.duration, [String assocSkill]) {
 		// Only the first word, ignore anything after the first space
-		String text = actionName.split(" ")[0];
+		String text = actionName.split(' ')[0].toLowerCase();
+		String cssName = actionName.toLowerCase().replaceAll(' ', '_');
 
 		outline
 			..text = text
-			..className = "border" + " " + actionName.toLowerCase().replaceAll(' ', '_')
+			..className = 'border $cssName'
 			..style.zIndex = '99';
 		fill
 			..text = text
-			..className = "fill" + " " + actionName.toLowerCase().replaceAll(' ', '_')
-			..style.transition = "width ${duration / 1000}s linear"
+			..className = 'fill $cssName'
+			..style.transition = 'width ${duration / 1000}s linear'
 			..style.zIndex = '99'
 			..style.whiteSpace = 'nowrap';
 
