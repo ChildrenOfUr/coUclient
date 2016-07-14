@@ -81,7 +81,7 @@ class ItemChooser {
 
 	_doAction(String itemType, int slot, int subSlot, {int howMany: 1}) {
 		destroy();
-		print("slot $slot, subslot $subSlot");
+		//print("slot $slot, subslot $subSlot");
 		callback(itemType: itemType, count: howMany, slot: slot, subSlot: subSlot);
 	}
 

@@ -24,7 +24,7 @@ Future updateInventory([Map map]) async {
 	if (map != null) {
 		dataSlots = map["slots"];
 	} else {
-		print("Attempted inventory update: failed.");
+		logmessage("Attempted inventory update: failed.");
 		return;
 	}
 

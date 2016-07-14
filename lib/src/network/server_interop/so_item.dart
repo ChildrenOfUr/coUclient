@@ -51,7 +51,7 @@ Future findNewSlot(Slot slot, int index, {bool update: false}) async {
 	String url = item.spriteUrl;
 	int used = int.parse(item.metadata['durabilityUsed'] ?? "0");
 	if(item.durability != null && used >= item.durability) {
-		print('item.brokenUrl: ${item.brokenUrl}');
+		//print('item.brokenUrl: ${item.brokenUrl}');
 		url = item.brokenUrl;
 	}
 	//create an image for this item and wait for it to load before sizing/positioning it

@@ -337,7 +337,7 @@ void setStyle(ViewportMedia style) {
 	if (style == ViewportMedia.TABLET || style == ViewportMedia.MOBILE) {
 		querySelectorAll("html, body").onScroll.listen((Event e) {
 			(e.target as Element).scrollLeft = 0;
-			print(e.target);
+			//print(e.target);
 		});
 	}
 }
