@@ -137,7 +137,8 @@ class ImgOverlay extends Overlay {
 
 				Element skillLevel = new SpanElement()
 					..classes = ["pm-skill-level"]
-					..text = '$levelText (${levelPercent.toInt()}%)';
+					..text = levelText + (levelPercent != 100 ? ' (${levelPercent.toInt()}%)' : '');
+					// ^ display percent of level if not complete ^
 
 				Element text = new DivElement()
 					..append(skillTitle)
