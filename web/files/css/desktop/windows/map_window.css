@@ -201,9 +201,9 @@
 }
 
 .wml-hub:hover {
-    width: 100px;
-    height: 50px;
-    font-size: 1.5em;
+    width: 66px;
+    height: 33px;
+    font-size: 1.2em;
     transform: translate(-25%, -25%);
     border: 4px solid rgba(255, 255, 255, 0.6);
     border-radius: 2px;
