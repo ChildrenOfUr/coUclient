@@ -15,38 +15,49 @@
 
 .fill.harvesting,
 .fill.chopping,
-.fill.chopping-fancy {
+.fill.harvest,
+.fill.chop {
     color: #ed7e00;
 }
 
 .fill.watering,
-.fill.milking {
+.fill.milking,
+.fill.water,
+.fill.milk {
     color: #5f8ddd;
 }
 
 .fill.petting,
-.fill.massaging {
+.fill.massaging,
+.fill.pet,
+.fill.massage {
     color: #f98686;
 }
 
-.fill.nibbling {
+.fill.nibbling,
+.fill.nibble {
     color: #c42323;
 }
 
-.fill.mining {
+.fill.mining,
+.fill.mine {
     color: #5e5e5e;
 }
 
 .fill.digging,
-.fill.squeezing {
+.fill.squeezing,
+.fill.dig,
+.fill.squeeze {
     color: #823917;
 }
 
-.fill.scraping {
+.fill.scraping,
+.fill.scrape {
     color: #938f80;
 }
 
-.fill.squishing {
+.fill.squishing,
+.fill.squish {
     color: #567238;
 }
 
