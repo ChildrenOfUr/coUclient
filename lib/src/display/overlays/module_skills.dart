@@ -21,10 +21,15 @@ abstract class Skills {
 }
 
 class SkillIndicator {
+	static List<SkillIndicator> INSTANCES = [];
+
 	Map skill;
 	Element parent, fill;
 
 	SkillIndicator(String skillId) {
+		// Remove old indicators (if any)
+		INSTANCES.forEach((SkillIndicator si) => si.close());
+
 		Skills.loadData().then((_) {
 			skill = Skills.getSkill(skillId);
 
@@ -59,6 +64,8 @@ class SkillIndicator {
 					..top = "${y}px";
 			}
 		});
+
+		INSTANCES.add(this);
 	}
 
 	void close() {
