@@ -201,6 +201,9 @@ afterPolymer() async {
 	// Start uptime counter
 	startTime = new DateTime.now();
 
+	// Gotta catch 'em all!
+	startConsoleErrorLogging();
+
 	try {
 		// Load server connection configuration
 		await Configs.init();

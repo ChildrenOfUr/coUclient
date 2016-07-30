@@ -39,10 +39,22 @@ bool intersect(Rectangle a, Rectangle b) {
 /**
  * Log an event to the bug report window.
  **/
-logmessage(String message) {
+String logmessage(String message) {
 	String text = message + ' ' + getUptime();
 	transmit('debug', text);
 	print('$text');
+	return text;
+}
+
+/**
+ * Log console errors to the bug report window.
+ **/
+void startConsoleErrorLogging() {
+	window.onError.listen((ErrorEvent error) {
+		BugWindow.messagesLogged +=
+			'[Console Error @ ${error.filename}:${error.lineno}:${error.colno}] ${error.message}'
+			'\n';
+	});
 }
 
 /**

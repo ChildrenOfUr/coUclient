@@ -2,25 +2,29 @@ part of couclient;
 
 class BugWindow extends Modal {
   String id = 'bugWindow';
-  String messagesLogged = "";
+  static String messagesLogged = "";
+  String metaHeader = '';
   Service debugService;
   bool sending = false;
   Element component = querySelector("user-feedback");
 
   BugWindow() {
-	  debugService = new Service(['debug'], logMessage);
+		debugService = new Service(['debug'], logMessage);
 
-	  prepare();
-	  String headerDeco = "/////////////"; // prime number of forward slashes
-	  view.bugReportMeta.text = headerDeco + ' USER AGENT ' + headerDeco + '\n' + window.navigator.userAgent + '\n' + headerDeco + ' CLIENT LOG ' + headerDeco;
+		prepare();
 
-	  setupUiButton(view.bugButton, openCallback: _prepareReport);
+		metaHeader = '/////////////' + ' USER AGENT ' + '/////////////' + '\n'
+			+ window.navigator.userAgent + '\n'
+			+ '/////////////' + ' CLIENT LOG ' + '/////////////' + '\n';
+
+		setupUiButton(view.bugButton, openCallback: _prepareReport);
   }
 
   @override
   void open({bool ignoreKeys: false}) {
 	  super.open(ignoreKeys: ignoreKeys);
-	  screenshot();
+	  view.bugReportMeta.text = metaHeader + messagesLogged;
+	  //screenshot();
   }
 
   void _prepareReport() {
@@ -91,6 +95,5 @@ class BugWindow extends Modal {
 
   void logMessage(var message) {
 	  messagesLogged += message + "\n";
-	  view.bugReportMeta.text += message + "\n";
   }
 }
