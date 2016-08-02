@@ -539,7 +539,7 @@ class WorldMap {
 		WorldMapDiv.children.clear();
 
 		mapData.hubData.forEach((key, value) {
-			if (value["map_hidden"] != true) {
+			if (value["map_hidden"] != true && value['x'] != null && value['y'] != null) {
 				DivElement hub = new DivElement();
 				hub
 					..className = "wml-hub"
