@@ -2191,12 +2191,12 @@
             "weight": 1
         },
         {
-            "start": "cloner",
+            "start": "Zalaib Labra",
             "end": "Balleet Berm",
             "weight": 1
         },
         {
-            "start": "cloner",
+            "start": "Zalaib Labra",
             "end": "Qaado Barrus",
             "weight": 1
         },
