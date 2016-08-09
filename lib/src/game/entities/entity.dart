@@ -106,9 +106,13 @@ abstract class Entity {
 	/**
 	 * Returns a list of actions which currently applies to the player and the entity
 	 */
-	List<Action> getActions() {
+	Future<List<Action>> getActions() async {
 		bool enabled = false;
+		String url = 'http://${Configs.utilServerAddress}/getActions';
+		url += '?email=${game.email}&id=$id&label=${currentStreet.label}';
 		List<Action> actionList = [];
+		actions = decode(await HttpRequest.requestCrossOrigin(url),
+											 type: const TypeHelper<List<Action>>().type);
 		actions.forEach((Action action) {
 			enabled = action.enabled;
 			action.actionName = capitalizeFirstLetter(action.actionName);
@@ -135,20 +139,21 @@ abstract class Entity {
 	void interact(String id) {
 		Element element = querySelector('#$id') ?? querySelector('#player-$id');
 
-		List<Action> actions = getActions();
-		bool allDisabled = true;
-		for (Action action in actions) {
-			if (action.enabled) {
-				allDisabled = false;
-				break;
+		getActions().then((List<Action> actions) {
+			bool allDisabled = true;
+			for (Action action in actions) {
+				if (action.enabled) {
+					allDisabled = false;
+					break;
+				}
 			}
-		}
-		if (!allDisabled) {
-			String name = element.attributes['type'] ?? id;
-			String serverClass = (this is Player ? 'global_action_monster' : name);
-			inputManager.showClickMenu(
-				title: name, id: id, serverClass: serverClass, actions: actions);
-		}
+			if (!allDisabled) {
+				String name = element.attributes['type'] ?? id;
+				String serverClass = (this is Player ? 'global_action_monster' : name);
+				inputManager.showClickMenu(
+					title: name, id: id, serverClass: serverClass, actions: actions);
+			}
+		});
 	}
 
 	@override

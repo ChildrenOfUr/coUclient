@@ -86,27 +86,29 @@ class InteractionWindow {
 			// Entity has no available actions
 			try {
 				bool allDisabled = true;
-				for (Action action in getEntity(id).getActions()) {
-					if (action.enabled) {
-						allDisabled = false;
-						break;
+				getEntity(id).getActions().then((List<Action> actions) {
+					for (Action action in actions) {
+						if (action.enabled) {
+							allDisabled = false;
+							break;
+						}
 					}
-				}
 
-				//street signs are (probably) never disabled
-				if (allDisabled && !entityOnStreet.id.contains('pole')) {
-					container.classes.add('disabled');
-				}
+					// Display
+					content.append(container);
+
+					getEntity(content.children.first.children.first.id).multiUnselect = false;
+					content.children.first.classes.add('entitySelected');
+
+					//street signs are (probably) never disabled
+					if (allDisabled && !entityOnStreet.id.contains('pole')) {
+						container.classes.add('disabled');
+					}
+				});
 			} catch (_) {
 				// Item was not an entity, so it doesn't matter
 			}
-
-			// Display
-			content.append(container);
 		}
-
-		getEntity(content.children.first.children.first.id).multiUnselect = false;
-		content.children.first.classes.add('entitySelected');
 
 		inputManager.menuKeyListener = document.onKeyDown.listen((KeyboardEvent k) {
 			Map keys = inputManager.keys;
