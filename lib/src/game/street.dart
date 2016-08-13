@@ -104,6 +104,14 @@ class Street {
 		for (Map layer in streetData['dynamic']['layers'].values) {
 			String layerName = layer['name'].replaceAll(' ', '_');
 			String url = 'http://childrenofur.com/assets/streetLayers/$tsid/$layerName.png';
+			if (Configs.testing) {
+				try {
+					HttpRequest request = await HttpRequest.request('http://childrenofur.com/assets/streetLayers/dev/$tsid/$layerName.png');
+					if (request.status == 200) {
+						url = 'http://childrenofur.com/assets/streetLayers/$tsid/$layerName.png';
+					}
+				} catch (_) {}
+			}
 			if (!decosToLoad.contains(url)) {
 				decosToLoad.add(url);
 			}
