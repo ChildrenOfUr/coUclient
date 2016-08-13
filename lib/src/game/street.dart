@@ -108,7 +108,7 @@ class Street {
 				try {
 					HttpRequest request = await HttpRequest.request('http://childrenofur.com/assets/streetLayers/dev/$tsid/$layerName.png');
 					if (request.status == 200) {
-						url = 'http://childrenofur.com/assets/streetLayers/$tsid/$layerName.png';
+						url = 'http://childrenofur.com/assets/streetLayers/dev/$tsid/$layerName.png';
 					}
 				} catch (_) {}
 			}
