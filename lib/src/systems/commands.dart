@@ -121,5 +121,5 @@ setMusic(String song) {
 }
 
 follow(String player) {
-	CurrentPlayer.followPlayer(player);
+	new Toast(CurrentPlayer.followPlayer(player));
 }
