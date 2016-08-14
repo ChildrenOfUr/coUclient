@@ -22,7 +22,7 @@ class CommandManager {
     if (Configs.testing) {
       COMMANDS
         ..['collisions'] = toggleCollisionLines
-		..['follow'] = CurrentPlayer.followPlayer
+		..['follow'] = follow
         ..['log'] = log
         ..['music'] = setMusic
         ..['physics'] = togglePhysics
@@ -118,4 +118,8 @@ togglePhysics(_) {
 setMusic(String song) {
   new Toast("Music set to $song");
   audio.setSong(song);
+}
+
+follow(String player) {
+	CurrentPlayer.followPlayer(player);
 }
