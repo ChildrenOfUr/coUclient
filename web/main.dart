@@ -292,7 +292,7 @@ void checkMedia() {
 		setStyle(ViewportMedia.MOBILE);
 		logmessage(
 			"[Loader] Device has touch support, using mobile layout. "
-				"Run /desktop in Global Chat to use the desktop view."
+				"Run /interface desktop in chat to use the desktop view."
 			);
 	} else if (!hasTouchSupport) {
 		// no preference, no touch support, use desktop view
