@@ -22,6 +22,7 @@ class CommandManager {
     if (Configs.testing) {
       COMMANDS
         ..['collisions'] = toggleCollisionLines
+		..['follow'] = CurrentPlayer.followPlayer
         ..['log'] = log
         ..['music'] = setMusic
         ..['physics'] = togglePhysics
