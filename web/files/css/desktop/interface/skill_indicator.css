@@ -16,10 +16,6 @@
     border-radius: 15px;
     background-size: 4px;
     background-position: center center;
-    -webkit-filter: blur(2px);
-    -moz-filter: blur(2px);
-    -o-filter: blur(2px);
-    filter: blur(2px);
 }
 
 .skillindicator-fill::before {
