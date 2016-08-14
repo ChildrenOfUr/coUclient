@@ -224,10 +224,20 @@ class SoundManager {
 			if(ASSET['music'].get()[name] == null) {
 				logmessage('Song "$name" does not exist.');
 			} else {
+				print('song $name does exist');
 				Scound s = await sc.load(ASSET['music'].get()[name]['scid']);
+				print("I'm here");
 				songs[name] = s;
 			}
 		} catch(e) {
+			print('this is where the error is');
+			if(ASSET['music'] == null) {
+				print('Asset[music] is null');
+			} else if (ASSET['music'].get() == null) {
+				print('the get came back null');
+			} else if (ASSET['music'].get()[name] == null) {
+				print("couldn't get $name");
+			}
 			logmessage('[SoundManager] $e');
 		}
 	}
@@ -239,8 +249,8 @@ class SoundManager {
 	 * If [value] is already playing, this method has no effect.
 	 */
 	setSong(String value) async {
-		if(currentSong != null &&
-		   value.toLowerCase() == currentSong.meta['title'].toLowerCase()) {
+		if(currentSong != null && songs[value] != null &&
+			songs[value].meta['title'] == currentSong.meta['title']) {
 			return;
 		}
 
@@ -279,9 +289,9 @@ class SoundManager {
 		currentSong = songs[name];
 		if(useWebAudio) {
 			if (currentAudioInstance != null) {
-				stopSound(currentAudioInstance);
+				stopSound(currentAudioInstance, fadeOut: true, fadeOutDuration: new Duration(seconds: 5));
 			}
-			playSound(currentSong.streamingUrl, asset: false, looping: true);
+			playSound(currentSong.streamingUrl, asset: false, looping: true, fadeIn: true, fadeInDuration: new Duration(seconds: 5));
 		} else {
 			currentSong.play();
 			currentSong.loop(true);
