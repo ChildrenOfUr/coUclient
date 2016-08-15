@@ -92,8 +92,8 @@ class SettingsWindow extends Modal {
 			try {
 				int index = int.parse(localStorage["WeatherEffectsIntensity"]);
 				intensityGroup.selected = intensities[index];
-			} catch(err) {
-				print("Error setting intensity selection: $err");
+			} catch (err) {
+				logmessage("Error setting intensity selection: $err");
 			}
 		}
 		intensityGroup.on['core-activate'].listen((_) => WeatherManager.intensity = WeatherIntensity.values[intensityGroup.selectedIndex]);
