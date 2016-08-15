@@ -40,8 +40,8 @@ _updateChatBubble(Map map, Entity entity) {
 
 			if (entity.canvas.attributes['actualHeight'] != null) {
 				heightString = entity.canvas.attributes['actualHeight'];
-				int diff = entity.canvas.height - int.parse(heightString);
-				translateY = (int.parse(translateY) + diff).toString();
+				num diff = entity.canvas.height - num.parse(heightString);
+				translateY = (num.parse(translateY) + diff).toString();
 			}
 
 			DivElement bubbleParent = new DivElement()

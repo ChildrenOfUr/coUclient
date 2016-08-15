@@ -201,6 +201,9 @@ class RightClickMenu {
 				} else {
 					// Mark disabled options
 					option.classes.add(OPTION_DISABLED_CLASS);
+					option.onClick.listen((_) {
+						new Toast(action.error);
+					});
 				}
 
 				// Initialize tooltip

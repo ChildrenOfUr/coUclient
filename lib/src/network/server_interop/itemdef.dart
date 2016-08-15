@@ -91,7 +91,7 @@ class EnergyRequirements {
 	String error;
 
 	EnergyRequirements({this.energyAmount: 0}) {
-		error = 'You need at least $energyAmount to perform this action';
+		error = 'You need at least $energyAmount energy to perform this action';
 	}
 	EnergyRequirements.clone(EnergyRequirements req) {
 		energyAmount = req.energyAmount;

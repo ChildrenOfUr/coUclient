@@ -101,7 +101,7 @@ class MapWindow extends Modal {
 			// Link to hub
 			if (mapData.streetData[streetname] != null) {
 				String hub_id = mapData.streetData[streetname]["hub_id"].toString();
-				result.onClick.listen((Event e) {
+				result.onMouseDown.listen((Event e) {
 					e.preventDefault();
 					worldMap.loadhubdiv(hub_id, streetname);
 					searchBox.value = "";

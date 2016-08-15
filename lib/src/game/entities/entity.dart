@@ -140,19 +140,9 @@ abstract class Entity {
 		Element element = querySelector('#$id') ?? querySelector('#player-$id');
 
 		getActions().then((List<Action> actions) {
-			bool allDisabled = true;
-			for (Action action in actions) {
-				if (action.enabled) {
-					allDisabled = false;
-					break;
-				}
-			}
-			if (!allDisabled) {
-				String name = element.attributes['type'] ?? id;
-				String serverClass = (this is Player ? 'global_action_monster' : name);
-				inputManager.showClickMenu(
-					title: name, id: id, serverClass: serverClass, actions: actions);
-			}
+			String name = element.attributes['type'] ?? id;
+			String serverClass = (this is Player ? 'global_action_monster' : name);
+			inputManager.showClickMenu(title: name, id: id, serverClass: serverClass, actions: actions);
 		});
 	}
 
