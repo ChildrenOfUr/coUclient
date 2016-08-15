@@ -69,7 +69,7 @@ class Buff {
 
 		DivElement progress = new DivElement()
 			..classes.add("buff-progress")
-			..style.width = "calc(100% - 6px)"
+			..style.width = "calc(0% - 6px)"
 			..id = "buff-" + id + "-progress";
 
 		buffElement = new DivElement()
@@ -108,7 +108,7 @@ class Buff {
 		Stopwatch stopwatch = new Stopwatch()
 			..start();
 		timer = new Timer.periodic(new Duration(seconds: 1), (_) {
-			int elapsed = stopwatch.elapsed.inSeconds;
+			int elapsed = ((length - remaining) + stopwatch.elapsed).inSeconds;
 			if (elapsed < length.inSeconds) {
 				num width = 100 - ((100 / length.inSeconds) * elapsed);
 				buffElement.querySelector(".buff-progress")
