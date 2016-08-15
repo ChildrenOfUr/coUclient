@@ -224,20 +224,10 @@ class SoundManager {
 			if(ASSET['music'].get()[name] == null) {
 				logmessage('Song "$name" does not exist.');
 			} else {
-				print('song $name does exist');
 				Scound s = await sc.load(ASSET['music'].get()[name]['scid']);
-				print("I'm here");
 				songs[name] = s;
 			}
 		} catch(e) {
-			print('this is where the error is');
-			if(ASSET['music'] == null) {
-				print('Asset[music] is null');
-			} else if (ASSET['music'].get() == null) {
-				print('the get came back null');
-			} else if (ASSET['music'].get()[name] == null) {
-				print("couldn't get $name");
-			}
 			logmessage('[SoundManager] $e');
 		}
 	}
