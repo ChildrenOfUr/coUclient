@@ -16,8 +16,13 @@
     border-radius: 15px;
     background-size: 4px;
     background-position: center center;
+    -webkit-filter: blur(2px);
+    -moz-filter: blur(2px);
+    -o-filter: blur(2px);
+    filter: blur(2px);
 }
 
+/* TODO: move to own element that isn't blurred */
 .skillindicator-fill::before {
     content: '';
     background-image: url(../../../system/imgmenu/imgbubbles.svg);
