@@ -286,7 +286,7 @@ class Player extends Entity {
 				}
 
 				jumping = true;
-				if (canTripleJump && !(pieBuff || spinachBuff)) {
+				if (canTripleJump && !pieBuff) {
 					if (jumpTimer == null) {
 						// start timer
 						jumpTimer = new Timer(new Duration(seconds:3), () {
