@@ -44,13 +44,16 @@ class Buff {
 			map["id"],
 			map["name"],
 			map["description"],
-			new Duration(seconds: map["length"]),
+			map["length"],
 			new Duration(seconds: map["player_remaining"])
 		);
 	}
 
 	/// Whether it has already been removed
 	bool exists = true;
+
+	/// Whether the buff has no timer
+	bool get indefinite => length == -1;
 
 	/// Add to panel
 	void _display() {
@@ -85,18 +88,20 @@ class Buff {
 		_buffContainer.append(buffElement);
 
 		// Animate closing
-		new Timer(new Duration(milliseconds: length.inMilliseconds - 500), () {
-			if (exists) {
-				_elementHide();
-				exists = false;
-			}
-		});
-		new Timer(new Duration(milliseconds: length.inMilliseconds), () {
-			if (exists) {
-				_elementRemove();
-				exists = false;
-			}
-		});
+		if (!indefinite) {
+			new Timer(new Duration(milliseconds: (length * 100) - 500), () {
+				if (exists) {
+					_elementHide();
+					exists = false;
+				}
+			});
+			new Timer(new Duration(seconds: length), () {
+				if (exists) {
+					_elementRemove();
+					exists = false;
+				}
+			});
+		}
 	}
 
 	String _elementHide() => buffElement.style.opacity = "0";
@@ -104,19 +109,21 @@ class Buff {
 
 	/// Start the decreasing progress bar
 	void _animate() {
-		Stopwatch stopwatch = new Stopwatch()
-			..start();
-		timer = new Timer.periodic(new Duration(seconds: 1), (_) {
-			int elapsed = ((length - remaining) + stopwatch.elapsed).inSeconds;
-			if (elapsed < length.inSeconds) {
-				num width = 100 - ((100 / length.inSeconds) * elapsed);
-				buffElement.querySelector(".buff-progress")
-					.style.width = "calc($width% - 6px)";
-			} else {
-				stopwatch.stop();
-				remove();
-			}
-		});
+		if (!indefinite) {
+			Stopwatch stopwatch = new Stopwatch()
+				..start();
+			timer = new Timer.periodic(new Duration(seconds: 1), (_) {
+				int elapsed = ((length - remaining.inSeconds) + stopwatch.elapsed.inSeconds);
+				if (elapsed < length) {
+					num width = 100 - ((100 / length) * elapsed);
+					buffElement.querySelector(".buff-progress")
+						.style.width = "calc($width% - 6px)";
+				} else {
+					stopwatch.stop();
+					remove();
+				}
+			});
+		}
 	}
 
 	/// Remove from panel and memory
@@ -128,7 +135,8 @@ class Buff {
 	}
 
 	String id, name, description;
-	Duration length, remaining;
+	Duration remaining;
+	int length;
 	Element buffElement;
 	Timer timer;
 }
