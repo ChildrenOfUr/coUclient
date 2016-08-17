@@ -31,6 +31,7 @@
 
 /* Windows */
 @import url(windows/achievements_window.css);
+@import url(windows/addfriendwindow.css);
 @import url(windows/avatar_window.css);
 @import url(windows/auction_window.css);
 @import url(windows/bag_window.css);

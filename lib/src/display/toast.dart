@@ -8,15 +8,16 @@ enum NotifyRule {
 
 class Toast {
 	/// In-game toasts panel
-	static final Element _toastContainer = querySelector("#toastHolder");
+	static final Element _toastContainer = querySelector('#toastHolder');
 
 	/// Icon URL for system notifications
-	static const notifIconUrl = "http://childrenofur.com/assets/icon_72.png";
+	static const notifIconUrl = 'http://childrenofur.com/assets/icon_72.png';
 
 	/// Predefined click functions (pass as onClick)
 	static final Map<String, Function> _clickActions = {
-		"imgmenu": ({MouseEvent event, String argument}) => imgMenu.open(),
-		"iteminfo": ({MouseEvent event, String argument}) => new ItemWindow(argument)
+		'imgmenu': ({MouseEvent event, String argument}) => imgMenu.open(),
+		'iteminfo': ({MouseEvent event, String argument}) => new ItemWindow(argument),
+		'addFriend': ({MouseEvent event, String argument}) => windowManager.addFriendWindow.openWith(argument)
 	};
 
 	String message;
@@ -34,8 +35,8 @@ class Toast {
 	 * Creates and displays a Toast.
 	 * [message]: What to say in the toast, chat message, and notification.
 	 * [skipChat]: `true` to disable display in local chat, `false` (default) to act normally and display.
-	 * [notify]: `true` to send a browser notification, `false` (default) to keep inside the client window.
-	 * [onClick]: A clickActions identifier ("name|optional_arg") or function, which will be passed the click MouseEvent.
+	 * [notify]: `YES` to send a browser notification, `NO` (default) to keep inside the client window, 'UNFOCUSED` to send only if the window is not focused
+	 * [onClick]: A clickActions identifier ('name|optional_arg') or function, which will be passed the click MouseEvent.
 	 */
 	Toast(this.message, {this.skipChat, this.notify, dynamic onClick}) {
 		if (skipChat == null) skipChat = false;
@@ -61,17 +62,17 @@ class Toast {
 			if (onClick is Function) {
 				clickHandler = onClick;
 			} else if (onClick is String) {
-				List<String> parts = onClick.split("|");
+				List<String> parts = onClick.split('|');
 				clickHandler = _clickActions[parts.first];
-				clickArgument = (parts.length > 1 ? parts[1] : "");
+				clickArgument = (parts.length > 1 ? parts.sublist(1).join('|') : '');
 			} else {
 				throw new ArgumentError(
-					"onClick must be a string identifier or function, but it is of type ${onClick.runtimeType}"
+					'onClick must be a string identifier or function, but it is of type ${onClick.runtimeType}'
 				);
 			}
 
 			toastElement
-				..style.cursor = "pointer"
+				..style.cursor = 'pointer'
 				..onClick.listen((MouseEvent event) => click(event));
 		}
 	}
@@ -101,7 +102,7 @@ class Toast {
 		try {
 			clickHandler(event: event, argument: clickArgument);
 		} catch(e) {
-			logmessage("Could not trigger toast click event ${clickHandler}: $e");
+			logmessage('Could not trigger toast click event ${clickHandler}: $e');
 		}
 	}
 
@@ -121,7 +122,7 @@ class Toast {
 			(notify == NotifyRule.UNFOCUSED && !inputManager.windowFocused)
 		) {
 			new Notification(
-				"Game Alert",
+				'Game Alert',
 				body: message,
 				icon: notifIconUrl
 			);

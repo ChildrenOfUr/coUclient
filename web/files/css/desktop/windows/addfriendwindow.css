@@ -1,0 +1,27 @@
+#addFriendWindow {
+    width: 338px !important;
+    height: 220px !important;
+}
+
+#addFriendEntry {
+    font-size: 24px;
+    padding: 12px;
+    display: inline-block;
+    text-align: center;
+    height: 28px;
+}
+
+#addFriendForm {
+    margin: 20px;
+    text-align: center;
+}
+
+#addFriendBtn {
+    display: block;
+    margin: 20px;
+}
+
+#addFriendStatus {
+    font-size: 18px;
+    text-align: center;
+}

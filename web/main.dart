@@ -93,6 +93,7 @@ part "package:couclient/src/display/overlays/text_anim.dart";
 // Windows
 
 part 'package:couclient/src/display/windows/achievements_window.dart';
+part 'package:couclient/src/display/windows/add_friend_window.dart';
 part 'package:couclient/src/display/windows/avatar_window.dart';
 part 'package:couclient/src/display/windows/bag_window.dart';
 part 'package:couclient/src/display/windows/bug_window.dart';

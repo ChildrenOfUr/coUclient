@@ -3,6 +3,7 @@ part of couclient;
 class WindowManager {
 	// Declaring all the possible popup windows
 	AchievementsWindow achievements;
+	AddFriendWindow addFriendWindow;
 	AvatarWindow avatarWindow;
 	BugWindow bugs;
 	CalendarWindow calendarWindow;
@@ -25,6 +26,7 @@ class WindowManager {
 
 		// Defining all the possible popup windows
 		achievements = new AchievementsWindow();
+		addFriendWindow = new AddFriendWindow();
 		avatarWindow = new AvatarWindow();
 		bugs = new BugWindow();
 		calendarWindow = new CalendarWindow();

@@ -30,6 +30,11 @@ class ChangeUsernameWindow extends Modal {
 			..onInput.listen((_) => _updateFormWithEntry());
 
 		_updateFormWithEntry();
+
+		// Change username button
+		querySelector("#changeUsernameFromChatPanel").onClick.listen((_) {
+			open();
+		});
 	}
 
 	void _updateFormWithEntry() {

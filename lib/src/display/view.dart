@@ -118,19 +118,16 @@ class UserInterface {
 		currTime.text = clock.time;
 		currDate.text = clock.day + ' of ' + clock.month;
 
-
 		// Listens for the logout button
 		logoutButton.onClick.listen((_) {
 			auth.logout();
 		});
-
 
 		// The 'you won' splash
 		window.onBeforeUnload.listen((_) {
 			youWon.hidden = false;
 			transmit("gameUnloading");
 		});
-
 
 		// Listens for the pause button
 		Element pauseMenu = querySelector("#pauseMenu");

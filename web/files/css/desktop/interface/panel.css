@@ -84,15 +84,22 @@ h3 {
   cursor: default;
 }
 
-.offline .fa {
+#rightSide .fa-user-times {
+  cursor: pointer;
+}
+
+.offline .fa,
+.fa.offline {
   color:#ba381a;
 }
 
-.online .fa {
+.online .fa,
+.fa.offline {
   color:#57AA4B;
 }
 
-.busy .fa {
+.busy .fa,
+.fa.busy {
   color:#f0ad4e;
 }
 
@@ -129,4 +136,12 @@ h3 {
     position: absolute;
     bottom: 0;
     width: 100%;
+}
+
+#add-friend {
+  cursor: pointer;
+}
+
+#add-friend:hover {
+  opacity: 0.75;
 }
