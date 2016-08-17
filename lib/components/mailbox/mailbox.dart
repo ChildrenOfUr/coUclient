@@ -31,6 +31,7 @@ class Mailbox extends PolymerElement {
 		fromCurrants;
 	@published String serverAddress;
 	@observable bool userHasMessages, currants_taken;
+	String username;
 	Element currantDisplay, datalistTo;
 	NumberFormat commaFormatter = new NumberFormat("#,###");
 	List<Map<ItemDef, int>> itemsList = [];
@@ -90,6 +91,8 @@ class Mailbox extends PolymerElement {
 			transmit('disableChatFocus', false);
 			transmit('disableInputKeys', false);
 		});
+
+		username = window.localStorage['username'];
 	}
 
 	ItemDef _decodeItemFromElement(Element element) {
@@ -124,16 +127,16 @@ class Mailbox extends PolymerElement {
 
 	Future toChanged(Event event, var detail, Element target) async {
 		String sofar = (target as InputElement).value;
-		if(sofar.length > 2) {
-			String url = '$serverAddress/searchUsers?query=$sofar';
-			String response = await HttpRequest.getString(url);
+		if(sofar.length > 2 && username != null) {
+			String response = await HttpRequest.getString('$serverAddress/friends/list/$username');
 			datalistTo.children.clear();
-			List<String> matchingPlayers = JSON.decode(response);
-			for(String matching in matchingPlayers) {
-				OptionElement option = new OptionElement()..value = matching;
+			JSON.decode(response).forEach((String username, bool online) {
+				OptionElement option = new OptionElement()
+					..value = username
+					..text = (online ? 'Online' : 'Offline');
 				datalistTo.append(option);
-			}
-		} else if (sofar.length == 0){
+			});
+		} else if (sofar.length == 0) {
 			datalistTo.children.clear();
 		}
 	}

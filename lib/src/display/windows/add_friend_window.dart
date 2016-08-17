@@ -48,7 +48,6 @@ class AddFriendWindow extends Modal {
 
 		if (!invalid) {
 			// Update typeahead
-			userList.children = [new OptionElement()..value = 'Loading...'];
 			String json = await HttpRequest.getString(
 				'http://${Configs.utilServerAddress}/searchUsers?query=$friendUsername');
 			List<String> users = JSON.decode(json);
