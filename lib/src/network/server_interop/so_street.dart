@@ -137,6 +137,11 @@ _setupStreetSocket(String streetName) {
 			return;
 		}
 
+		if (map['buff_extend'] != null) {
+			Buff.extendBuff(map['buff_extend'], map['buff_extend_secs']);
+			return;
+		}
+
 		if (map["note_write"] != null) {
 			new NoteWindow(-1, true);
 			return;

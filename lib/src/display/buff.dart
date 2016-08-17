@@ -31,6 +31,16 @@ class Buff {
 		}
 	}
 
+	/// Add time to a buff
+	static void extendBuff(String buffId, int seconds) {
+		// Player does not have the buff
+		if (!isRunning(buffId)) {
+			return;
+		}
+
+		_running[buffId].remaining += new Duration(seconds: seconds);
+	}
+
 	/// Display a buff
 	Buff(this.id, this.name, this.description, this.length, this.remaining) {
 		_running.addAll({id: this});
