@@ -128,6 +128,24 @@ class VendorWindow extends Modal {
 	}
 
 	spawnBuyDetails(Map item, String vendorId, {bool sellMode: false}) {
+		// Check for non-empty bags
+		if (
+			(item['isContainer'] != null && item['isContainer'])
+			&& (item['metadata'] != null && item['metadata']['slots'] != null)
+		) {
+			List<Map<String, dynamic>> slots = JSON.decode(item['metadata']['slots']);
+			bool itemFound = false;
+			for (Map<String, dynamic> slot in slots) {
+				if (slot['itemType'].trim() || slot['item'] != null || slot['count'] > 0) {
+					itemFound = true;
+				}
+			}
+			if (itemFound) {
+				new Toast('Empty this and try again!');
+				return;
+			}
+		}
+
 		//cancel the previous button listeners (if applicable)
 		maxListener?.cancel();
 		minusListener?.cancel();
