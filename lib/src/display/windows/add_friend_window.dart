@@ -36,7 +36,7 @@ class AddFriendWindow extends Modal {
 
 	String get friendUsername => textInput.value.trim();
 
-	Future _updateFormWithEntry() async {
+	void _updateFormWithEntry() {
 		String input = textInput.value.trim();
 
 		bool empty = (input.length == 0); // Only whitespace
@@ -48,13 +48,20 @@ class AddFriendWindow extends Modal {
 
 		if (!invalid) {
 			// Update typeahead
-			String json = await HttpRequest.getString(
-				'http://${Configs.utilServerAddress}/searchUsers?query=$friendUsername');
-			List<String> users = JSON.decode(json);
-			userList.children.clear();
-			for (String username in users) {
-				userList.append(new OptionElement()..value = username);
-			}
+			// DISABLED, BECAUSE HOLY HELL, IT IS SLOW
+//			HttpRequest.getString(
+//				'http://${Configs.utilServerAddress}/searchUsers?query=$friendUsername')
+//			.then((String json) {
+//				List<String> users = JSON.decode(json);
+//				users.sort((String a, String b) => levenshtein(a, b, caseSensitive: false));
+//				if (users.length > 5) {
+//					users = users.sublist(0, 5);
+//				}
+//				userList.children.clear();
+//				for (String username in users) {
+//					userList.append(new OptionElement()..value = username);
+//				}
+//			});
 		}
 
 		if (empty) {
