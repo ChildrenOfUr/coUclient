@@ -148,7 +148,7 @@ class BagWindow extends Modal {
 
 		Element well = new Element.tag("ur-well");
 
-		int numSlots = sourceItem.subSlots;
+		numSlots = sourceItem.subSlots;
 		List<Map> subSlots;
 
 		if (sourceItem.metadata["slots"] == null) {
@@ -213,11 +213,12 @@ class BagWindow extends Modal {
 
 	@override
 	open({bool ignoreKeys: false}) {
-		super.open();
-		openWindows.add(this);
-
 		loadUpdate = new Completer();
 		updateWell(sourceItem);
+		_fitToSlots();
+
+		super.open();
+		openWindows.add(this);
 	}
 
 	@override
@@ -247,6 +248,24 @@ class BagWindow extends Modal {
 				..remove("item-container-open")..remove("fa-times")
 				..add("item-container-closed")..add("fa-plus");
 			item.classes.remove("inv-item-disabled");
+		}
+	}
+
+	void _fitToSlots() {
+		final Map<int, int> SLOTS_WIDTH = {
+			10: 270,
+			16: 438,
+			18: 494
+		};
+
+		if (
+			numSlots != null
+			&& displayElement != null
+			&& SLOTS_WIDTH[numSlots] != null
+		) {
+			displayElement.style.width = SLOTS_WIDTH[numSlots].toString() + 'px';
+		} else {
+			displayElement.style.width = '';
 		}
 	}
 }

@@ -1,7 +1,12 @@
-#windowHolder .bagWindow {
+#windowHolder .window.bagWindow {
+    width: 494px;
     height: 153px !important;
-    width: 494px !important;
     transform: translate(-50%, 0%); /* Create bag windows closer to the bag */
+}
+
+#windowHolder .window.bagWindow .iw-title {
+    font-size: 25px;
+    line-height: 30px;
 }
 
 .bagWindow header img.fa-li {
