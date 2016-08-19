@@ -118,7 +118,8 @@ class BagWindow extends Modal {
 
 	Future<Element> load(ItemDef sourceItem, [bool full = true]) async {
 		// Header
-		Element closeButton, icon, header;
+		Element closeButton, header;
+		ImageElement icon;
 		SpanElement titleSpan;
 
 		if (full) {
@@ -130,7 +131,14 @@ class BagWindow extends Modal {
 
 			icon = new ImageElement()
 				..classes.add("fa-li")
-				..src = "files/system/icons/bag.svg";
+				..src = 'files/system/icons/bag.svg';
+
+			if (sourceItem.itemType == 'musicblock_bag') {
+				icon
+					..src = 'files/system/icons/CrabpackSilhouette.png'
+					..style.width = '50px'
+					..style.left = '-54px';
+			}
 
 			titleSpan = new SpanElement()
 				..classes.add("iw-title")
