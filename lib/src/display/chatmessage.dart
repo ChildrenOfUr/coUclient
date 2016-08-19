@@ -73,7 +73,7 @@ class ChatMessage {
 			return (new ParagraphElement()
 				..classes = ["me"]
 				..append(await getUsernameLink())
-				..appendText(message.replaceFirst("/me", ""))
+				..appendText(message.replaceFirst("/me", " "))
 			).outerHtml;
 		} else if (message == "LocationChangeEvent" && player == "invalid_user") {
 			// Switching streets

@@ -105,12 +105,10 @@ class Street {
 			String layerName = layer['name'].replaceAll(' ', '_');
 			String url = 'http://childrenofur.com/assets/streetLayers/$tsid/$layerName.png';
 			if (Configs.testing) {
-				try {
-					HttpRequest request = await HttpRequest.request('http://childrenofur.com/assets/streetLayers/dev/$tsid/$layerName.png');
-					if (request.status == 200) {
-						url = 'http://childrenofur.com/assets/streetLayers/dev/$tsid/$layerName.png';
-					}
-				} catch (_) {}
+				String status = await HttpRequest.getString('http://childrenofur.com/assets/street_layer_exists.php?tsid=$tsid&layer=$layerName');
+				if (status == 'dev') {
+					url = 'http://childrenofur.com/assets/streetLayers/dev/$tsid/$layerName.png';
+				}
 			}
 			if (!decosToLoad.contains(url)) {
 				decosToLoad.add(url);
