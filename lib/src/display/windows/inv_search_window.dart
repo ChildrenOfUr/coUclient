@@ -51,6 +51,7 @@ class InventorySearchWindow extends Modal {
 		output = displayElement.querySelector('#invSearchOutput');
 
 		input
+			..onKeyDown.listen((KeyboardEvent e) { if (e.keyCode == 27) close(); })
 			..onInput.listen((_) => _update())
 			..onClick.listen((_) => input.value = '');
 	}
