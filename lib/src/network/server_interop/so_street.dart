@@ -162,27 +162,6 @@ _setupStreetSocket(String streetName) {
 			return;
 		}
 
-		if (map['npcMove'] != null) {
-			for (Map npcMap in map['npcs'] as List<Map>) {
-				NPC npc = entities[npcMap["id"]];
-				if (npc == null) {
-					return;
-				}
-
-				npc.facingRight = npcMap["facingRight"];
-				npc.ySpeed = npcMap['ySpeed'];
-				npc.speed = npcMap['speed'];
-
-				npc.x = npcMap['x'];
-				npc.y = npcMap['y'];
-
-				npc.updateAnimation(npcMap);
-				npc.actions = decode(JSON.encode(npcMap['actions']), type: const TypeHelper<List<Action>>().type);
-			}
-
-			return;
-		}
-
 		if (map["quoins"] != null) {
 			(map["quoins"] as List).forEach((Map quoinMap) {
 				if (quoinMap["remove"] == "true") {
@@ -252,13 +231,19 @@ _setupStreetSocket(String streetName) {
 				NPC npc = entities[npcMap["id"]];
 				if (element == null) {
 					addNPC(npcMap);
-				}
-				else {
+				} else {
 					if (npc != null) {
 						npc.updateAnimation(npcMap);
 						_updateChatBubble(npcMap, npc);
 					}
 				}
+			});
+		}
+
+		if (map["removeNpcs"] != null) {
+			(map["removeNpcs"] as List).forEach((String id) {
+				entities[id]?.canvas?.remove();
+				entities.remove(id);
 			});
 		}
 
@@ -278,6 +263,27 @@ _setupStreetSocket(String streetName) {
 					}
 				}
 			});
+		}
+
+		if (map['npcMove'] != null) {
+			for (Map npcMap in map['npcs'] as List<Map>) {
+				NPC npc = entities[npcMap["id"]];
+				if (npc == null) {
+					return;
+				}
+
+				npc.facingRight = npcMap["facingRight"];
+				npc.ySpeed = npcMap['ySpeed'];
+				npc.speed = npcMap['speed'];
+
+				npc.x = npcMap['x'];
+				npc.y = npcMap['y'];
+
+				npc.updateAnimation(npcMap);
+				npc.actions = decode(JSON.encode(npcMap['actions']), type: const TypeHelper<List<Action>>().type);
+			}
+
+			return;
 		}
 	});
 
