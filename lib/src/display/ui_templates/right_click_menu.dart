@@ -74,9 +74,6 @@ class RightClickMenu {
 		List<Element> _makeOptions(DivElement menu) {
 			List<Element> options = [];
 
-			// Sort actions alphabetically
-			actions.sort((Action a, Action b) => a.actionName.compareTo(b.actionName));
-
 			// Keyboard selection
 			bool useKeys = (actions.length <= 10);
 			int keyIndex = 1;
