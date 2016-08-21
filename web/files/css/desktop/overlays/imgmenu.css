@@ -69,51 +69,67 @@ p.italic {
     margin-top: 20px;
 }
 
-/* Level/iMG Bar */
+/* Level/iMG Bar (level) */
+/* Quoin Limit Meter (quoinlimit) */
 
-#pm-level-info {
-    height: calc(100% - 215px);
-    position: absolute;
-    top: 90px;
-    background-color: #eee;
-    border-radius: 0 8px 8px 0;
-    border: 2px solid #eee;
-    border-left: none;
-    width: 200px;
-    left: -150px;
-    transition: left 0.5s ease-in-out, box-shadow 0.2s linear;
-}
+/*#pm-level-info {*/
+    /*height: calc(100% - 215px);*/
+    /*position: absolute;*/
+    /*top: 90px;*/
+    /*background-color: #eee;*/
+    /*border-radius: 0 8px 8px 0;*/
+    /*border: 2px solid #eee;*/
+    /*border-left: none;*/
+    /*width: 200px;*/
+    /*left: -150px;*/
+    /*transition: left 0.5s ease-in-out, box-shadow 0.2s linear;*/
+/*}*/
 
-#pm-level-info:hover {
-    left: 0;
-    box-shadow: 0 0 10px 0 #eee;
-}
+/*#pm-level-info:hover {*/
+    /*left: 0;*/
+    /*box-shadow: 0 0 10px 0 #eee;*/
+/*}*/
 
-#pm-level-text {
-    width: 134px;
-    padding: 8px;
-    text-align: center;
-}
+/*#pm-level-text {*/
+    /*width: 134px;*/
+    /*padding: 8px;*/
+    /*text-align: center;*/
+/*}*/
 
-#pm-level-container {
+#pm-level-container,
+#pm-quoinlimit-container {
     width: 50px;
     box-shadow: 0 0 9px 5px #aaa inset;
     height: calc(100% - 145px);
     position: absolute;
-    left: 15px;
     top: 80px;
     background-color: #eee;
     border-radius: 30px;
     border: 4px solid #eee;
 }
 
-#pm-level-bar {
+#pm-level-container {
+    left: 15px;
+    z-index: 2048;
+}
+
+#pm-quoinlimit-container {
+    left: 90px;
+    z-index: 1024;
+}
+
+#pm-level-bar,
+#pm-quoinlimit-bar {
     width: 100%;
     position: absolute;
     bottom: 0;
     border-radius: 25px;
     background-color: #4b2e4c;
     z-index: 10;
+}
+
+#pm-quoinlimit-bar {
+    background-color: #22804b;
 }
 
 #pm-level-bar.done {
@@ -157,7 +173,8 @@ p.italic {
     }
 }
 
-#pm-level-bar::before {
+#pm-level-bar::before,
+#pm-quoinlimit-bar::before {
     content: '';
     background-image: url(../../../system/imgmenu/imgbubbles.svg);
     background-repeat: repeat-y;
@@ -191,7 +208,8 @@ p.italic {
     opacity: 0.1;
 }
 
-#pm-level-bar-info {
+#pm-level-bar-info,
+#pm-quoinlimit-bar-info {
     top: 50%;
     transform: translateY(-50%);
     z-index: 12;
@@ -205,7 +223,12 @@ p.italic {
     bottom: -5px;
 }
 
-#pm-level-num {
+#pm-quoinlimit-bar-unit-label {
+    font-size: 12px;
+}
+
+#pm-level-num,
+#pm-quoinlimit-num {
     font-size: 35px;
 }
 
@@ -214,13 +237,17 @@ p.italic {
 }
 
 #pm-img-req,
-#pm-lt-img {
+#pm-lt-img,
+#pm-quoins-collected,
+#pm-quoins-remaining,
+#pm-quoins-limit {
     font-weight: bold;
     font-size: 24px;
     margin-top: 20px;
 }
 
-#pm-level-tooltip {
+#pm-level-tooltip,
+#pm-quoinlimit-tooltip {
     background-color: rgba(75, 46, 76, 0.8);
     border-radius: 8px;
     display: block;
@@ -237,6 +264,12 @@ p.italic {
     transition: all .25s ease-out;
     box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.28);
     text-align: center;
+    z-index: 1024;
+}
+
+#pm-quoinlimit-tooltip {
+    background-color: rgba(34, 128, 75, 0.8);
+    height: 170px;
 }
 
 #pm-level-tooltip.done {
@@ -246,16 +279,19 @@ p.italic {
     width: 200px;
 }
 
-#pm-level-tooltip p {
+#pm-level-tooltip p,
+#pm-quoinlimit-tooltip p {
     color: white;
     font-family: "Lato", sans-serif;
 }
 
-#pm-level-tooltip p:not(:last-child) {
+#pm-level-tooltip p:not(:last-child),
+#pm-quoinlimit-tooltip p:not(:last-child) {
     margin-bottom: 10px;
 }
 
-#pm-level-tooltip::before {
+#pm-level-tooltip::before,
+#pm-quoinlimit-tooltip::before {
     right: 100%;
     top: 50%;
     border: solid transparent;
@@ -269,7 +305,12 @@ p.italic {
     margin-top: -14px;
 }
 
-#pm-level-container:hover #pm-level-tooltip {
+#pm-quoinlimit-tooltip::before {
+    border-right-color: rgba(34, 128, 75, 0.8);
+}
+
+#pm-level-container:hover #pm-level-tooltip,
+#pm-quoinlimit-container:hover #pm-quoinlimit-tooltip {
     opacity: 1;
 }
 

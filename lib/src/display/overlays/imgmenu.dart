@@ -2,27 +2,48 @@ part of couclient;
 
 class ImgOverlay extends Overlay {
 	static final Duration update_frequency = new Duration(seconds: 5);
+
 	String lastSkillsJson;
 
 	// Level indicator bar
-	Element bar = querySelector("#pm-level-bar"),
-		levelNum = querySelector("#pm-level-num"),
-		imgtonextE = querySelector("#pm-img-req"),
-		nextlvlE = querySelector("#pm-next-lvlnum"),
-		lifetimeImgE = querySelector("#pm-lt-img"),
-		tooltip = querySelector("#pm-level-tooltip");
+	Element levelContainer = querySelector('#pm-level-container');
+	Element levelBar = querySelector('#pm-level-bar');
+	Element levelNum = querySelector('#pm-level-num');
+	Element nextlvlE = querySelector('#pm-next-lvlnum');
+	Element levelTooltip = querySelector('#pm-level-tooltip');
+	Element imgtonextE = querySelector('#pm-img-req');
+	Element lifetimeImgE = querySelector('#pm-lt-img');
+
+	// Quoin limit meter
+	Element quoinContainer = querySelector('#pm-quoinlimit-container');
+	Element quoinBar = querySelector('#pm-quoinlimit-bar');
+	Element quoinPercentE = querySelector('#pm-quoinlimit-num');
+	Element quoinTooltip = querySelector('#pm-quoinlimit-tooltip');
+	Element quoinLimitE = querySelector('#pm-quoins-limit');
+	Element quoinsCollectedE = querySelector('#pm-quoins-collected');
+	Element quoinsRemainingE = querySelector('#pm-quoins-remaining');
 
 	// Skill container
-	Element skillsList = querySelector("#pm-skills-list");
+	Element skillsList = querySelector('#pm-skills-list');
 
 	// Exit button
-	Element exitButton = querySelector("#pm-exit-button");
+	Element exitButton = querySelector('#pm-exit-button');
 
-	ImgOverlay(String id):super(id) {
-		setupKeyBinding("ImgMenu");
+	ImgOverlay(String id) : super(id) {
+		setupKeyBinding('ImgMenu');
+
+		// Show level tooltip on hover
+		levelContainer
+			..onMouseEnter.listen((_) => levelTooltip.style.opacity = '1')
+			..onMouseLeave.listen((_) => levelTooltip.style.opacity = '0');
+
+		// Show quoin tooltip on hover
+		quoinContainer
+			..onMouseEnter.listen((_) => quoinTooltip.style.opacity = '1')
+			..onMouseLeave.listen((_) => quoinTooltip.style.opacity = '0');
 
 		// Repeatedly update
-		new Service(["metabolicsUpdated"], (_) {
+		new Service(['metabolicsUpdated'], (_) {
 			if (elementOpen) {
 				update();
 			}
@@ -30,8 +51,11 @@ class ImgOverlay extends Overlay {
 	}
 
 	Future update() async {
-		await _setupImgBar();
-		await _setupSkillsList();
+		await Future.wait([
+			_setupImgBar(),
+			_setupQuoinLimitMeter(),
+			_setupSkillsList()
+		]);
 	}
 
 	@override
@@ -41,11 +65,11 @@ class ImgOverlay extends Overlay {
 
 		// Update button states
 		exitButton.onClick.first.then((_) => close());
-		querySelector("#thinkButton").classes.add("pressed");
+		querySelector('#thinkButton').classes.add('pressed');
 
 		// Update outside UI
 		minimap.containerE.hidden = true;
-		transmit("worldFocus", false);
+		transmit('worldFocus', false);
 
 		// Open
 		super.open();
@@ -54,7 +78,7 @@ class ImgOverlay extends Overlay {
 	@override
 	close() {
 		// Update button states
-		querySelector("#thinkButton").classes.remove("pressed");
+		querySelector('#thinkButton').classes.remove('pressed');
 
 		// Close
 		super.close();
@@ -80,21 +104,34 @@ class ImgOverlay extends Overlay {
 			if (percentOfNext < 25) percentOfNext = 25;
 
 			// Display img bar
-			bar.style.height = percentOfNext.toString() + '%';
+			levelBar.style.height = percentOfNext.toString() + '%';
 			levelNum.text = l_curr.toString();
 			imgtonextE.text = commaFormatter.format(imgNeeded);
 			nextlvlE.text = (l_curr + 1).toString();
 			lifetimeImgE.text = commaFormatter.format(metabolics.lifetime_img);
-			bar.classes.remove("done");
-			tooltip.querySelector("#pm-tt-top").hidden = false;
-			tooltip.classes.remove("done");
+			levelBar.classes.remove('done');
+			levelTooltip.querySelector('.pm-tt-top').hidden = false;
+			levelTooltip.classes.remove('done');
 		} else {
-			bar.classes.add("done");
-			levelNum.text = "60";
+			levelBar.classes.add('done');
+			levelNum.text = '60';
 			lifetimeImgE.text = commaFormatter.format(metabolics.lifetime_img);
-			tooltip.querySelector("#pm-tt-top").hidden = true;
-			tooltip.classes.add("done");
+			levelTooltip.querySelector('.pm-tt-top').hidden = true;
+			levelTooltip.classes.add('done');
 		}
+	}
+
+	Future _setupQuoinLimitMeter() async {
+		int quoinsCollected = metabolics.playerMetabolics.quoins_collected;
+		int quoinLimit = constants['quoinLimit'];
+		int remaining = quoinLimit - quoinsCollected;
+		int percentCollected = ((quoinsCollected / quoinLimit) * 100).ceil();
+
+		quoinsCollectedE.text = quoinsCollected.toString() + ' quoin${quoinsCollected == 1 ? '' : 's'}';
+		quoinLimitE.text = quoinLimit.toString() + ' quoin${quoinLimit == 1 ? '' : 's'}';
+		quoinsRemainingE.text = remaining.toString() + ' quoin${remaining == 1 ? '' : 's'}';
+		quoinPercentE.text = percentCollected.toString();
+		quoinBar.style.height = percentCollected.clamp(25, 100).toString() + '%';
 	}
 
 	Future _setupSkillsList() async {
@@ -113,30 +150,30 @@ class ImgOverlay extends Overlay {
 
 		if (Skills.data.length > 0) {
 			Skills.data.forEach((Map<String, dynamic> skill) {
-				num levelPercent = ((skill["player_points"] / skill["player_nextPoints"]) * 100).clamp(0, 100);
+				num levelPercent = ((skill['player_points'] / skill['player_nextPoints']) * 100).clamp(0, 100);
 
 				Element progress = new DivElement()
-					..classes = ["pm-skill-progress"]
-					..style.width = "calc($levelPercent% - 20px)"
-					..style.backgroundImage = "url(${skill["player_iconUrl"]})";
+					..classes = ['pm-skill-progress']
+					..style.width = 'calc($levelPercent% - 20px)'
+					..style.backgroundImage = 'url(${skill['player_iconUrl']})';
 
-				String levelText = skill["player_level"].toString();
-				if (skill["player_level"] == 0) {
-					levelText = "Learning";
-				} else if (skill["player_level"] == skill["num_levels"]) {
-					levelText = "Complete!";
-					progress.classes.add("pm-skill-progress-complete");
+				String levelText = skill['player_level'].toString();
+				if (skill['player_level'] == 0) {
+					levelText = 'Learning';
+				} else if (skill['player_level'] == skill['num_levels']) {
+					levelText = 'Complete!';
+					progress.classes.add('pm-skill-progress-complete');
 				}
 
-				Element icon = new ImageElement(src: skill["player_iconUrl"])
-					..classes = ["pm-skill-icon"];
+				Element icon = new ImageElement(src: skill['player_iconUrl'])
+					..classes = ['pm-skill-icon'];
 
 				Element skillTitle = new SpanElement()
-					..classes = ["pm-skill-title"]
-					..text = skill["name"];
+					..classes = ['pm-skill-title']
+					..text = skill['name'];
 
 				Element skillLevel = new SpanElement()
-					..classes = ["pm-skill-level"]
+					..classes = ['pm-skill-level']
 					..text = levelText + (levelPercent != 100 ? ' (${levelPercent.toInt()}%)' : '');
 					// ^ display percent of level if not complete ^
 
@@ -145,9 +182,9 @@ class ImgOverlay extends Overlay {
 					..append(skillLevel);
 
 				parent = new DivElement()
-					..classes = ["pm-skill"]
-					..dataset["skill"] = skill["id"]
-					..title = skill["player_description"]
+					..classes = ['pm-skill']
+					..dataset['skill'] = skill['id']
+					..title = skill['player_description']
 					..append(progress)
 					..append(icon)
 					..append(text);
@@ -156,8 +193,8 @@ class ImgOverlay extends Overlay {
 			});
 		} else {
 			parent = new DivElement()
-				..classes = ["pm-noskills"]
-				..text = "No skills :(";
+				..classes = ['pm-noskills']
+				..text = 'No skills :(';
 
 			skillsList.append(parent);
 		}
