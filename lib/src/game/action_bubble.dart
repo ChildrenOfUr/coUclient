@@ -74,6 +74,7 @@ class ActionBubble {
 			escListener.cancel();
 			completer.complete(true);
 			assocSkillIndicator?.close();
+			occuring = false;
 		});
 
 		escListener = document.onKeyUp.listen((KeyboardEvent k) {
@@ -84,6 +85,7 @@ class ActionBubble {
 				miningTimer.cancel();
 				completer.complete(false);
 				assocSkillIndicator?.close();
+				occuring = false;
 			}
 		});
 		return completer.future;

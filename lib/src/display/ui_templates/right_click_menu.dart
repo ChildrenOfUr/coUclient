@@ -124,32 +124,34 @@ class RightClickMenu {
 								completed = await actionBubble.wait;
 							}
 
-							// Action completed
-							Map<String, dynamic> arguments = {};
+							if (completed) {
+								// Action completed
+								Map<String, dynamic> arguments = {};
 
-							// Accepts multiple items
-							if (action.dropMap != null) {
-								arguments = action.dropMap;
-								arguments['count'] = howMany;
-							}
-
-							if (functionName == 'pickup' && howMany > 1) {
-								// Picking up multiple items
-								List<String> objects = CurrentPlayer.intersectingObjects.keys.toList();
-								objects.removeWhere((String id) {
-									return (querySelector('#$id').attributes['name'] != (itemName ?? item.name));
-								});
-								arguments['pickupIds'] = objects;
-								sendGlobalAction(functionName, arguments);
-							} else if (serverClass == "global_action_monster") {
-								sendGlobalAction(functionName, {"player": entityId});
-							} else {
-								// Other action
-								if (item != null) {
-									arguments['itemdata'] = item.metadata;
+								// Accepts multiple items
+								if (action.dropMap != null) {
+									arguments = action.dropMap;
+									arguments['count'] = howMany;
 								}
 
-								sendAction(functionName, entityId, arguments);
+								if (functionName == 'pickup' && howMany > 1) {
+									// Picking up multiple items
+									List<String> objects = CurrentPlayer.intersectingObjects.keys.toList();
+									objects.removeWhere((String id) {
+										return (querySelector('#$id').attributes['name'] != (itemName ?? item.name));
+									});
+									arguments['pickupIds'] = objects;
+									sendGlobalAction(functionName, arguments);
+								} else if (serverClass == "global_action_monster") {
+									sendGlobalAction(functionName, {"player": entityId});
+								} else {
+									// Other action
+									if (item != null) {
+										arguments['itemdata'] = item.metadata;
+									}
+
+									sendAction(functionName, entityId, arguments);
+								}
 							}
 						};
 
