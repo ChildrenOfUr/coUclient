@@ -10,9 +10,9 @@ abstract class InformationDisplay {
 			if(inputManager == null || ignoreShortcuts)
 				return;
 
-			if((k.keyCode == inputManager.keys["${keyName}BindingPrimary"]
-			    || k.keyCode == inputManager.keys["${keyName}BindingAlt"])
-			   && (elementOpen || !inputManager.ignoreKeys)) {
+			if((k.keyCode == inputManager.keys["${keyName}BindingPrimary"] ||
+			    k.keyCode == inputManager.keys["${keyName}BindingAlt"]) &&
+			   (elementOpen || !inputManager.ignoreKeys) && !(k.shiftKey && k.ctrlKey)) {
 				if(displayElement.hidden) {
 					open();
 					if(openCallback != null) {
