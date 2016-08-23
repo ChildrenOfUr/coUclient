@@ -31,7 +31,8 @@ class ConfigsTransformer extends Transformer
 		if(newContent.contains('<ur-login>')) {
 			//set the ur-login components addresses
 			String prefix = baseAddress.contains('localhost')?'http://':'https://';
-			newContent = newContent.replaceAll('<ur-login>','<ur-login server="${prefix+authAddress}" websocket="ws://$authWebsocket" base="blinding-fire-920">');
+			String wsPrefix = baseAddress.contains('localhost')?'ws://':'wss://';
+			newContent = newContent.replaceAll('<ur-login>','<ur-login server="${prefix+authAddress}" websocket="$wsPrefix$authWebsocket" base="blinding-fire-920">');
 		}
 		if(newContent.contains('<auction-house>')) {
 			//same for auction-house

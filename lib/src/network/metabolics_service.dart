@@ -12,7 +12,8 @@ MetabolicsService metabolics = new MetabolicsService();
 class MetabolicsService {
 	Metabolics playerMetabolics;
 	DateTime lastUpdate, nextUpdate;
-	String url = 'ws://${Configs.websocketServerAddress}/metabolics';
+	static String wsPrefix = Configs.baseAddress.contains('localhost')?'ws://':'wss://';
+	String url = '$wsPrefix${Configs.websocketServerAddress}/metabolics';
 	int webSocketMessages = 0;
 	bool loaded = false;
 	Completer load = new Completer();

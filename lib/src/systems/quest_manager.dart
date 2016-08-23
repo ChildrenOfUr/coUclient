@@ -50,7 +50,8 @@ class QuestManager {
 	}
 
 	Future _setupWebsocket() async {
-		String url = 'ws://${Configs.websocketServerAddress}/quest';
+		String prefix = Configs.baseAddress.contains('localhost')?'ws://':'wss://';
+		String url = '$prefix${Configs.websocketServerAddress}/quest';
 		socket = new WebSocket(url);
 
 		socket.onOpen.listen((_) => socket.send(JSON.encode({'connect':true, 'email':game.email})));

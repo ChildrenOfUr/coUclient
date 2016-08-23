@@ -24,9 +24,10 @@ class Configs {
 
 		//set the ur-login components addresses
 		String prefix = baseAddress.contains('localhost')?'http://':'https://';
+		String wsPrefix = baseAddress.contains('localhost')?'ws://':'wss://';
 		Element urLogin = querySelector('ur-login');
 		urLogin.attributes['server'] = prefix+authAddress;
-		urLogin.attributes['websocket'] = 'ws://'+authWebsocket;
+		urLogin.attributes['websocket'] = wsPrefix+authWebsocket;
 		urLogin.attributes['base'] = 'blinding-fire-920'; //TODO have the server provide this
 
 		//same for auction-house

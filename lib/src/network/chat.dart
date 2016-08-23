@@ -2,7 +2,8 @@ part of couclient;
 
 class NetChatManager {
 	WebSocket _connection;
-	String _chatServerUrl = 'ws://${Configs.websocketServerAddress}/chat';
+	static String prefix = Configs.baseAddress.contains('localhost')?'ws://':'wss://';
+	String _chatServerUrl = '$prefix${Configs.websocketServerAddress}/chat';
 
 	NetChatManager() {
 		setupWebsocket(_chatServerUrl);
