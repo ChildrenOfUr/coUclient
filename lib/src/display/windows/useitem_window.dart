@@ -77,8 +77,12 @@ class UseWindow extends Modal {
 			recipeList.forEach((Map recipe) {
 				List<int> itemMax = [];
 
+				List<String> inputTypes = [];
+
 				//decide if we can make this recipe
 				recipe['input'].forEach((Map itemMap) {
+					inputTypes.add(itemMap['itemType']);
+
 					int userHas = util.getNumItems(itemMap['itemType']);
 					itemMap['userHas'] = userHas;
 
@@ -102,9 +106,15 @@ class UseWindow extends Modal {
 					..classes.add("useitem-recipe-image")
 					..style.backgroundImage = "url(${recipe["output_map"]["iconUrl"]})";
 
+				String displayName = recipe["output_map"]["recipeName"] ?? recipe['output_map']['name'];
+				if (inputTypes.contains(recipe['output_map']['itemType'])) {
+					// Consumes itself
+					displayName += ' (Repair)';
+				}
+
 				DivElement info = new DivElement()
 					..classes.add("useitem-recipe-text")
-					..text = recipe["output_map"]["recipeName"] ?? recipe['output_map']['name'];
+					..text = displayName;
 
 				DivElement recipeBtn = new DivElement()
 					..classes.addAll(["useitem-recipe", "white-btn"])
