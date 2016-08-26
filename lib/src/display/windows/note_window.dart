@@ -1,6 +1,8 @@
 part of couclient;
 
 class NoteWindow extends Modal {
+	static final DateFormat DATEFORMAT = new DateFormat("'at' h:mm a 'on' EEE, MMM d, yyyy '(local time)'");
+
 	static NoteWindow editing;
 
 	String id;
@@ -174,7 +176,7 @@ class NoteWindow extends Modal {
 
 	String getDateString(String standardFormat) {
 		DateTime date = DateTime.parse(standardFormat).toLocal();
-		return "${date.hour}:${date.minute}, ${date.day}/${date.month}/${date.year}";
+		return DATEFORMAT.format(date);
 	}
 
 	@override
