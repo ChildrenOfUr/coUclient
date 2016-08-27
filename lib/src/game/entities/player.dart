@@ -127,14 +127,7 @@ class Player extends Entity {
 	}
 
 	void updatePhysics([Map street = const {}]) {
-		if (
-			mapData.hubData[street['hub_id'] ?? currentStreet.hub_id] != null &&
-			mapData.hubData[street['hub_id'] ?? currentStreet.hub_id]['physics'] != null
-		) {
-			physics = mapData.hubData[street['hub_id'] ?? currentStreet.hub_id]['physics'];
-		} else {
-			physics = DEFAULT_PHYSICS;
-		}
+		physics = mapData.getStreetPhysics(street['label']);
 	}
 
 	Future<List<Animation>> loadAnimations() {

@@ -89,6 +89,11 @@ class MapData {
 		return streetData[streetName]['hub_id'].toString();
 	}
 
+	// Returns the physics on a given street name
+	String getStreetPhysics(String streetName) {
+		return checkStringSetting('physics', streetName: streetName, defaultValue: Player.DEFAULT_PHYSICS);
+	}
+
 	// Returns the value of a setting in the map data
 	dynamic checkSetting(String setting, {String streetName, var defaultValue}) {
 		// Check to make sure we have data
