@@ -176,6 +176,23 @@ class Street {
 				logmessage("Could not load layer image ${layer["name"]}");
 			}
 
+			// Bottom edge of street
+			platforms.add(new Platform({
+				'id': '_',
+				'endpoints': [
+					{
+						'name': 'start',
+						'x': 0,
+						'y': groundY
+					},
+					{
+						'name': 'end',
+						'x': this.bounds.right,
+						'y': groundY
+					}
+				]
+			}, layer, groundY));
+
 			for (Map platformLine in layer['platformLines']) {
 				platforms.add(new Platform(platformLine, layer, groundY));
 			}
