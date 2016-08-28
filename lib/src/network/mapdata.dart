@@ -46,10 +46,7 @@ class MapData {
 	String getLabel(String tsid) {
 		int i = 0;
 		for (Map data in streetData.values) {
-			if (
-			data["tsid"] != null &&
-			data["tsid"].substring(1) == tsid.substring(1)
-			) {
+			if (data["tsid"] != null && tsidL(data["tsid"]) == tsidL(tsid)) {
 				return streetData.keys.toList()[i];
 			}
 			i++;
