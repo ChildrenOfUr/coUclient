@@ -177,6 +177,7 @@ class Street {
 			}
 
 			// Bottom edge of street
+			/*
 			platforms.add(new Platform({
 				'id': '_',
 				'endpoints': [
@@ -192,6 +193,7 @@ class Street {
 					}
 				]
 			}, layer, groundY));
+			*/
 
 			for (Map platformLine in layer['platformLines']) {
 				platforms.add(new Platform(platformLine, layer, groundY));
