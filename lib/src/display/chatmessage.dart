@@ -195,24 +195,41 @@ String parseItemLinks(String message) {
 
 String parseLocationLinks(String message) {
 	String _parseHubLinks(String _message) {
-		mapData.hubNames.forEach((String hubName) {
-			_message = _message.replaceAll(
-			  hubName,
-			  '<a class="location-chat-link hub-chat-link" title="View Hub" href="#">'
-				'$hubName</a>'
-			);
+		mapData.hubData.values.forEach((Map<String, dynamic> hubData) {
+			if (hubData['name'] == null) {
+				// Missing info
+				return;
+			}
+
+			if (hubData['map_hidden'] ?? false) {
+				// Hidden
+				return;
+			}
+
+			_message = _message.replaceAll(hubData['name'],
+				'<a class="location-chat-link hub-chat-link" title="View Hub" href="#">${hubData['name']}</a>');
 		});
 
 		return _message;
 	}
 
 	String _parseStreetLinks(String _message) {
-		mapData.streetNames.forEach((String streetName) {
-			_message = _message.replaceAll(
-			  streetName,
-			  '<a class="location-chat-link street-chat-link" title="View Street" href="#">'
-				'$streetName</a>'
-			);
+		mapData.streetData.forEach((String streetName, Map<String, dynamic> streetData) {
+			if (streetData['label'] == null) {
+				// Missing info
+				return;
+			}
+
+			if (
+				(streetData['map_hidden'] ?? false)
+				|| (mapData.hubData[mapData.getHubIdForLabel(streetName)]['map_hidden'] ?? false)
+			) {
+				// Hidden or hub hidden
+				return;
+			}
+
+			_message = _message.replaceAll(streetData['label'],
+				'<a class="location-chat-link street-chat-link" title="View Street" href="#">${streetData['label']}</a>');
 		});
 
 		return _message;
