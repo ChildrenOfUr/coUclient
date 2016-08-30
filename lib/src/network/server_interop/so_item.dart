@@ -115,8 +115,15 @@ Future sizeItem(ImageElement img, Element itemDiv, Element slot, ItemDef item, i
 	if(item.durability != null && used >= item.durability) {
 		url = item.brokenUrl;
 	}
-	itemDiv.style.width = (slot.contentEdge.width - 10).toString() + "px";
-	itemDiv.style.height = (slot.contentEdge.height - 10).toString() + "px";
+
+	if (url.endsWith('.svg')) {
+		itemDiv.style.width = '${img.width * scale}px';
+		itemDiv.style.height = '${img.height * scale}px';
+	} else {
+		itemDiv.style.width = (slot.contentEdge.width - 10).toString() + "px";
+		itemDiv.style.height = (slot.contentEdge.height - 10).toString() + "px";
+	}
+
 	itemDiv.style.backgroundImage = 'url($url)';
 	itemDiv.style.backgroundRepeat = 'no-repeat';
 	itemDiv.style.backgroundSize = "${img.width * scale}px ${img.height * scale}px";
