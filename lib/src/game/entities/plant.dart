@@ -35,6 +35,7 @@ class Plant extends Entity {
 			height = spritesheet.height ~/ map['numRows'];
 			x = num.parse(map['x'].toString());
 			y = num.parse(map['y'].toString()) - height;
+			z = num.parse(map['z'].toString());
 			left = x;
 			top = y;
 
@@ -42,7 +43,7 @@ class Plant extends Entity {
 			canvas.attributes['type'] = map['type'];
 			canvas.classes.add("plant");
 			canvas.classes.add('entity');
-			canvas.style.zIndex = (-1).toString(); //make sure plants are behind animals
+			canvas.style.zIndex = z.toString();
 			canvas.width = width;
 			canvas.height = height;
 			canvas.style.position = "absolute";
@@ -53,7 +54,6 @@ class Plant extends Entity {
 			canvas.attributes['height'] = height.toString();
 			state = map['state'];
 			view.playerHolder.append(canvas);
-			sortEntities();
 			sourceRect = new Rectangle(0, 0, width, height);
 			ready = true;
 			addingLocks[id] = false;

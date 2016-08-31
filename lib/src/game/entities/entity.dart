@@ -8,24 +8,6 @@ Element getEntityElement(String id) {
 	return querySelector('#$id') ?? querySelector('#player-$id');
 }
 
-void sortEntities() {
-	List<Element> elements = [];
-	entities.values.forEach((Entity entity) {
-		if (entity.canvas != null) {
-			elements.add(entity.canvas);
-		}
-	});
-	elements.sort((Element a, Element b) {
-		if (entities[a.id] == null || entities[b.id] == null) {
-			return 0;
-		}
-		return entities[a.id].top.compareTo(entities[b.id].top);
-	});
-	for (Element e in elements) {
-		view.playerHolder.append(e);
-	}
-}
-
 abstract class Entity {
 	Random rand = new Random();
 
@@ -41,6 +23,7 @@ abstract class Entity {
 	num
 		left = 0,
 		top = 0,
+		z = 0,
 		width = 0,
 		height = 0;
 
