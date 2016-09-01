@@ -12,12 +12,14 @@ class GroundItem extends Entity {
 		item.onLoad.first.then((_) {
 			left = map['x'];
 			top = map['y'] - item.height;
+			z = map['z'];
 			width = item.width;
 			height = item.height;
 			id = map['id'];
 
 			item.style.transform = "translateX(${left}px) translateY(${top}px)";
 			item.style.position = "absolute";
+			item.style.zIndex = z.toString();
 			item.attributes['translatex'] = left.toString();
 			item.attributes['translatey'] = top.toString();
 			item.attributes['width'] = item.width.toString();
@@ -30,7 +32,6 @@ class GroundItem extends Entity {
 			item.classes.add('entity');
 			item.id = id;
 			view.playerHolder.append(item);
-			sortEntities();
 			addingLocks[id] = false;
 		});
 	}

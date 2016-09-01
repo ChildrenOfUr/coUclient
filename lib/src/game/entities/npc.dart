@@ -49,6 +49,7 @@ class NPC extends Entity {
 			try {
 				top = map['y'] - animation.height;
 				left = map['x'];
+				z = map['z'];
 				width = map['width'];
 				height = map['height'];
 			} catch (e) {
@@ -64,12 +65,12 @@ class NPC extends Entity {
 			canvas.width = map["width"];
 			canvas.height = map["height"];
 			canvas.style.position = "absolute";
+			canvas.style.zIndex = z.toString();
 			canvas.attributes['translatex'] = left.toString();
 			canvas.attributes['translatey'] = top.toString();
 			canvas.attributes['width'] = canvas.width.toString();
 			canvas.attributes['height'] = canvas.height.toString();
 			view.playerHolder.append(canvas);
-			sortEntities();
 			ready = true;
 			addingLocks[id] = false;
 			_animationLoaded.add(true);
