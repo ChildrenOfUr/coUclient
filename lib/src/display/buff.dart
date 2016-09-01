@@ -99,7 +99,7 @@ class Buff {
 
 		// Animate closing
 		if (!indefinite) {
-			new Timer(new Duration(milliseconds: (length * 100) - 500), () {
+			new Timer(new Duration(milliseconds: (length * 1000) - 500), () {
 				if (exists) {
 					_elementHide();
 					exists = false;
