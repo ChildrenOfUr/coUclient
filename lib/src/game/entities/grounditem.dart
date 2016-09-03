@@ -3,7 +3,7 @@ part of couclient;
 class GroundItem extends Entity {
 	ImageElement item;
 
-	GroundItem(Map map) : super(map['id']) {
+	GroundItem(Map map) {
 		if (map.containsKey('actions')) {
 			actions = decode(JSON.encode(map['actions']), type: const TypeHelper<List<Action>>().type);
 		}
@@ -57,7 +57,7 @@ class GroundItem extends Entity {
 		List<Action> actionList = [];
 
 		bool enabled = false;
-		actionLoader.actions.forEach((Action action) {
+		actions.forEach((Action action) {
 			enabled = action.enabled;
 			action.actionName = capitalizeFirstLetter(action.actionName);
 			String error = "";

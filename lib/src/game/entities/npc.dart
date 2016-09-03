@@ -16,7 +16,7 @@ class NPC extends Entity {
 	bool isHiddenSpritesheet(String url) =>
 		url == 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
 
-	NPC(Map map) : super(map['id']) {
+	NPC(Map map) {
 		if (map.containsKey('actions')) {
 			actions = decode(JSON.encode(map['actions']), type: const TypeHelper<List<Action>>().type);
 		}

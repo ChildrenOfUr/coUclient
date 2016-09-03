@@ -67,7 +67,7 @@ class Player extends Entity {
 		}
 	}
 
-	Player(String username) : super(username) {
+	Player(String username) {
 		id = username;
 
 		left = metabolics.currentStreetX;
