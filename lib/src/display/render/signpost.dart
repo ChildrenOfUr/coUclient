@@ -6,7 +6,7 @@ class Signpost extends Entity {
 	bool interacting = false, letGo = false;
 	StreamSubscription clickListener;
 
-	Signpost(Map signpost, int x, int y) {
+	Signpost(Map signpost, int x, int y) : super(null) {
 		int h = 200, w = 100;
 		if(signpost['h'] != null) {
 			h = signpost['h'];

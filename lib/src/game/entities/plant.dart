@@ -8,7 +8,7 @@ class Plant extends Entity {
 	Rectangle sourceRect;
 	String url;
 
-	Plant(Map map) {
+	Plant(Map map) : super(map['id']) {
 		if (map.containsKey('actions')) {
 			actions = decode(JSON.encode(map['actions']), type: const TypeHelper<List<Action>>().type);
 		}

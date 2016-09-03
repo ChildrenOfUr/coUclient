@@ -5,7 +5,7 @@ class Door extends Entity {
 	Rectangle sourceRect;
 	bool ready = false, firstRender = true;
 
-	Door(Map map) {
+	Door(Map map) : super(map['id']) {
 		if (map.containsKey('actions')) {
 			actions = decode(JSON.encode(map['actions']), type: const TypeHelper<List<Action>>().type);
 		}

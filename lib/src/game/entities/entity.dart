@@ -11,34 +11,42 @@ Element getEntityElement(String id) {
 abstract class Entity {
 	Random rand = new Random();
 
-	bool
-		glow = false,
-		dirty = true,
-		multiUnselect = false;
+	bool glow = false;
+	bool dirty = true;
+	bool multiUnselect = false;
 
 	ChatBubble chatBubble = null;
 
 	CanvasElement canvas;
 
-	num
-		left = 0,
-		top = 0,
-		z = 0,
-		width = 0,
-		height = 0;
+	num left = 0;
+	num top = 0;
+	num z = 0;
+	num width = 0;
+	num height = 0;
 
 	String id;
 
-	MutableRectangle
-		_entityRect = new MutableRectangle(0, 0, 0, 0),
-		_destRect;
+	MutableRectangle _entityRect = new MutableRectangle(0, 0, 0, 0);
+	MutableRectangle _destRect;
 
-	List<Action> actions = [];
+	EntityActionLoader actionLoader;
+
+	Entity(String id) {
+		if (id != null) {
+			actionLoader = new EntityActionLoader(id);
+		}
+	}
+
+	set actions(List<Action> value) {
+		actionLoader.actions = value;
+	}
 
 	void update(double dt) {
 		if (this != CurrentPlayer && CurrentPlayer.entityRect.intersects(this.entityRect)) {
 			updateGlow(true);
 			CurrentPlayer.intersectingObjects[id] = this.entityRect;
+			actionLoader?.download();
 		} else {
 			CurrentPlayer.intersectingObjects.remove(id);
 			updateGlow(false);
@@ -90,33 +98,7 @@ abstract class Entity {
 	 * Returns a list of actions which currently applies to the player and the entity
 	 */
 	Future<List<Action>> getActions() async {
-		bool enabled = false;
-		String url = 'http://${Configs.utilServerAddress}/getActions';
-		url += '?email=${game.email}&id=$id&label=${currentStreet.label}';
-		List<Action> actionList = [];
-		actions = decode(await HttpRequest.requestCrossOrigin(url),
-											 type: const TypeHelper<List<Action>>().type);
-		actions.forEach((Action action) {
-			enabled = action.enabled;
-			action.actionName = capitalizeFirstLetter(action.actionName);
-			String error = "";
-			if(enabled) {
-				enabled = hasRequirements(action);
-				if(enabled) {
-					error = action.description;
-				} else {
-					error = getRequirementString(action);
-				}
-			} else {
-				error = action.error;
-			}
-			Action menuAction = new Action.clone(action)
-				..enabled = enabled
-				..error = error;
-			actionList.add(menuAction);
-		});
-
-		return actionList;
+		return await actionLoader.download();
 	}
 
 	void interact(String id) {
@@ -136,4 +118,90 @@ abstract class Entity {
 	operator ==(Entity other) {
 		return (other.id == this.id);
 	}
+}
+
+class EntityActionLoader {
+	String entity;
+
+	Completer<List<Action>> _load;
+	DateTime _age;
+	List<Action> _actions = [];
+
+	set actions(List<Action> value) {
+		_actions = _parseActions(value);
+		_age = new DateTime.now();
+	}
+
+	List<Action> get actions => _actions;
+
+	EntityActionLoader(this.entity);
+
+	Future<List<Action>> download() async {
+		if (_actionsExist && !_expired) {
+			// Use preloaded actions
+			return actions;
+		} else {
+			// Download actions from server
+			_load = new Completer();
+			List<Action> actionList = decode(await HttpRequest.requestCrossOrigin(_url),
+				type: const TypeHelper<List<Action>>().type);
+
+			// Remove old actions
+			actions.clear();
+
+			// Create new menu actions
+			actions = _parseActions(actionList);
+
+			// Mark as downloaded
+			_age = new DateTime.now();
+			_load.complete(actions);
+			return actions;
+		}
+	}
+
+	List<Action> _parseActions(List<Action> actionList) {
+		List<Action> actions = [];
+
+		for (Action action in actionList) {
+			bool enabled = action.enabled;
+			String error = '';
+			action.actionName = capitalizeFirstLetter(action.actionName);
+
+			if (enabled) {
+				enabled = hasRequirements(action);
+
+				if (enabled) {
+					error = action.description;
+				} else {
+					error = getRequirementString(action);
+				}
+			} else {
+				error = action.error;
+			}
+
+			actions.add(new Action.clone(action)
+				..enabled = enabled
+				..error = error);
+		}
+
+		return actions;
+	}
+
+	bool get _actionsExist => actions.length > 0;
+
+	bool get _expired {
+		if (_age == null) {
+			return true;
+		} else {
+			return new DateTime.now()
+				.difference(_age)
+				.abs()
+				.inSeconds > 30;
+		}
+	}
+
+	String get _url => 'http://${Configs.utilServerAddress}/getActions'
+		'?email=${game.email}'
+		'&id=$entity'
+		'&label=${currentStreet.label}';
 }
