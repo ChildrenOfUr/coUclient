@@ -472,7 +472,7 @@ class Chat {
 				}
 			}
 			//tab key, try to complete a user's name or an emoticon
-			if (input.value != "" && key.keyCode == 9) {
+			if (input.value != "" && key.shiftKey && key.keyCode == 9) {
 				key.preventDefault();
 
 				//look for an emoticon instead of a username
