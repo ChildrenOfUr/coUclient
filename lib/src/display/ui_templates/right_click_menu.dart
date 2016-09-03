@@ -155,7 +155,7 @@ class RightClickMenu {
 							}
 						};
 
-						if (action.multiEnabled) {
+						if (item != null && action.multiEnabled) {
 							int max = 0,
 								slot = -1,
 								subSlot = -1;
