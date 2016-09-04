@@ -161,6 +161,7 @@ class HowManyMenu {
 	static void destroy() {
 		inputManager.ignoreKeys = false;
 		keyListener?.cancel();
+		typedString = '';
 		querySelector('#HowManyMenu')?.remove();
 		value = 1;
 	}
