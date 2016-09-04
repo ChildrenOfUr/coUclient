@@ -128,9 +128,12 @@ class RightClickMenu {
 								// Action completed
 								Map<String, dynamic> arguments = {};
 
-								// Accepts multiple items
 								if (action.dropMap != null) {
 									arguments = action.dropMap;
+								}
+
+								// Accepts multiple items
+								if (action.multiEnabled) {
 									arguments['count'] = howMany;
 								}
 
@@ -141,6 +144,7 @@ class RightClickMenu {
 										return (querySelector('#$id').attributes['name'] != (itemName ?? item.name));
 									});
 									arguments['pickupIds'] = objects;
+									arguments.remove('count');
 									sendGlobalAction(functionName, arguments);
 								} else if (serverClass == "global_action_monster") {
 									sendGlobalAction(functionName, {"player": entityId});
@@ -155,25 +159,35 @@ class RightClickMenu {
 							}
 						};
 
-						if (item != null && action.multiEnabled) {
-							int max = 0,
-								slot = -1,
-								subSlot = -1;
+						if (action.multiEnabled) {
+							int max = 0;
+							String itemToCount = '';
+							try {
+								itemToCount = action?.itemRequirements?.all?.keys?.first;
+							} catch (_) {}
+							if (itemToCount != '') {
+								max = _getNumItems(itemToCount);
+								itemName = itemToCount;
+							}
 
-							if (action.dropMap != null) {
-								slot = action.dropMap['slot'];
-								subSlot = action.dropMap['subSlot'];
+							if (item != null) {
+								int slot = -1, subSlot = -1;
+
+								if (action.dropMap != null) {
+									slot = action.dropMap['slot'];
+									subSlot = action.dropMap['subSlot'];
+								}
+
+								// Count in inventory
+								max = _getNumItems(item.itemType, slot: slot, subSlot: subSlot);
 							}
 
 							// Picking up an item
 							if (functionName == 'pickup') {
 								// Count on ground
 								max = CurrentPlayer.intersectingObjects.keys.where((String id) {
-									return (querySelector('#$id').attributes['name'] == (itemName ?? item.name));
+									return (querySelector('#$id').attributes['name'] == itemName);
 								}).toList().length;
-							} else {
-								// Count in inventory
-								max = _getNumItems(item.itemType, slot: slot, subSlot: subSlot);
 							}
 
 							if (max == 1) {
@@ -183,7 +197,7 @@ class RightClickMenu {
 								// Open the how many menu
 								HowManyMenu.create(event, functionName, max, doClick, itemName: itemName ?? item.name);
 							}
-						} else {
+						}else {
 							doClick();
 						}
 					});

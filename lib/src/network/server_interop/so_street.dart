@@ -244,6 +244,7 @@ _setupStreetSocket(String streetName) {
 			(map["removeNpcs"] as List).forEach((String id) {
 				entities[id]?.canvas?.remove();
 				entities.remove(id);
+				CurrentPlayer.intersectingObjects.remove(id);
 			});
 		}
 
