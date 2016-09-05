@@ -21,7 +21,7 @@ class ChatMessage {
 		}
 	}
 
-	Future<String> toHtml() async {
+	Future<String> toHtml({String overrideUsernameLink}) async {
 		// Verify data
 		if (message is! String || player is! String) {
 			return '';
@@ -41,22 +41,34 @@ class ChatMessage {
 			}
 
 			// Dev/Guide
-			String elevation = await game.getElevation(player);
-			if (elevation != "") {
-				nameClasses.add(elevation);
+			if (overrideUsernameLink == null) {
+				String elevation = await game.getElevation(player);
+				if (elevation != "") {
+					nameClasses.add(elevation);
+				}
 			}
 		}
 
 		// Get link to username
-		Future<AnchorElement> getUsernameLink() async {
-			return new AnchorElement()
+		Future<AnchorElement> _getUsernameLink() async {
+			AnchorElement link = new AnchorElement()
 				..classes = (new List.from(nameClasses)
 					..add("noUnderline"))
-				..href = "http://childrenofur.com/profile?username=${Uri.encodeComponent(player)}"
 				..target = "_blank"
-				..title = "Open Profile Page"
-				..text = displayName
-				..style.color = (await getColorFromUsername(player));
+				..text = displayName;
+
+			if (overrideUsernameLink != null) {
+				link
+					..href = overrideUsernameLink
+					..style.color = 'black';
+			} else {
+				link
+					..href = "http://childrenofur.com/profile?username=${Uri.encodeComponent(player)}"
+					..title = "Open Profile Page"
+					..style.color = (await getColorFromUsername(player));
+			}
+
+			return link;
 		}
 
 		// Notify of any mentions
@@ -72,7 +84,7 @@ class ChatMessage {
 			// /me message
 			return (new ParagraphElement()
 				..classes = ["me"]
-				..append(await getUsernameLink())
+				..append(await _getUsernameLink())
 				..appendText(message.replaceFirst("/me", " "))
 			).outerHtml;
 		} else if (message == "LocationChangeEvent" && player == "invalid_user") {
@@ -92,7 +104,7 @@ class ChatMessage {
 		} else {
 			// Normal message
 			return (new ParagraphElement()
-				..append(await getUsernameLink())
+				..append(await _getUsernameLink())
 				..appendHtml("&#8194;") // en space
 				..append(new SpanElement()
 					..classes = ["message"]

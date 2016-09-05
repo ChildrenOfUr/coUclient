@@ -260,7 +260,7 @@ class Chat {
 		}
 	}
 
-	Future addMessage(String player, String message) async {
+	Future addMessage(String player, String message, {String overrideUsernameLink}) async {
 		ChatMessage chat = new ChatMessage(player, message);
 		Element dialog = conversationElement.querySelector('.dialog');
 
@@ -279,7 +279,7 @@ class Chat {
 			}
 		} else {
 			// Assemble chat message elements
-			String html = await chat.toHtml();
+			String html = await chat.toHtml(overrideUsernameLink: overrideUsernameLink);
 
 			// Parse styles, links, and emoji
 			html = html.replaceAll("&lt;", "<");

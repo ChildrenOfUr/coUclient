@@ -54,6 +54,10 @@ _updateChatBubble(Map map, Entity entity) {
 			entity.chatBubble = new ChatBubble(
 				map["bubbleText"], entity, bubbleParent,
 				autoDismiss: false, removeParent: true, gains: map['gains']);
+
+			String type = entity.canvas.attributes['type'];
+			Chat.localChat.addMessage('($type)', map['bubbleText'],
+				overrideUsernameLink: 'http://childrenofur.com/encyclopedia/#/entity/${type.replaceAll(' ', '')}');
 		}
 
 		entity.chatBubble.update(1.0);
