@@ -133,7 +133,7 @@ class StreetLoadingScreen extends Overlay {
 		String entityString = '';
 
 		if (entityList.keys.length == 1) {
-			entityString = entityList.keys.single;
+			entityString = '${entityList.values.single} ${entityList.keys.single}';
 		} else {
 			for (int i = 0; i < entityList.keys.length; i++) {
 				String entityType = entityList.keys.toList()[i];

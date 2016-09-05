@@ -1,7 +1,7 @@
 part of couclient;
 
 class NPC extends Entity {
-	String type;
+	String type, nameOverride;
 	num speed = 0,
 		ySpeed = 0;
 	bool ready = false,
@@ -25,6 +25,8 @@ class NPC extends Entity {
 		speed = map['speed'];
 		ySpeed = map['ySpeed'] ?? 0;
 		type = map['type'];
+
+		nameOverride = map['nameOverride'];
 
 		List<int> frameList = [];
 		for (int i = 0; i < map['numFrames']; i++) {
@@ -137,6 +139,10 @@ class NPC extends Entity {
 
 		if (intersect(camera.visibleRect, entityRect) && !isHiddenSpritesheet(animation.url)) {
 			animation.updateSourceRect(dt);
+		}
+
+		if (nameOverride != null) {
+			canvas.dataset['name-override'] = nameOverride;
 		}
 	}
 

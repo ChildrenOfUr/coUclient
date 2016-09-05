@@ -233,12 +233,10 @@ String parseLocationLinks(String message) {
 			}
 
 			if (mapData.checkBoolSetting('map_hidden', streetName: streetName)) {
-				print('HIDDEN<$streetName>');
 				// Hidden or hub hidden
 				return;
 			}
 
-			print('MATCH<$streetName>');
 			_message = _message.replaceAll(streetName,
 				'<a class="location-chat-link street-chat-link" title="View Street" href="#">$streetName</a>');
 		});

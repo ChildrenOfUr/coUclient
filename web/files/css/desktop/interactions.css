@@ -1070,3 +1070,36 @@
     display: flex;
     flex-wrap: wrap;
 }
+
+/* String input box */
+
+.prompt-str-window {
+    position: absolute;
+    width: 280px;
+    height: auto;
+    background-color: #eee;
+    padding: 10px;
+    left: calc(50% - 300px);
+    top: 50%;
+    border-radius: 5px;
+    border: 4px solid white;
+}
+
+.prompt-str-window input[type="text"] {
+    display: block;
+    width: calc(100% - 4px);
+    margin-bottom: 6px;
+}
+
+.prompt-str-window button {
+    border: 2px solid rgba(0,0,0,0.1);
+    border-radius: 5px;
+    font-family: "Lato", sans-serif;
+    cursor: pointer;
+    color: #333;
+    width: calc(50% - 3px);
+}
+
+.prompt-str-window button:not(:last-child) {
+    margin-right: 6px;
+}

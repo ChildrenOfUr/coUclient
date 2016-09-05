@@ -167,6 +167,11 @@ _setupStreetSocket(String streetName) {
 			return;
 		}
 
+		if (map['promptString'] != null) {
+			new PromptStringWindow(map['promptText'], map['promptRef']);
+			return;
+		}
+
 		if (map["quoins"] != null) {
 			(map["quoins"] as List).forEach((Map quoinMap) {
 				if (quoinMap["remove"] == "true") {

@@ -123,7 +123,7 @@ abstract class Entity {
 		Element element = querySelector('#$id') ?? querySelector('#player-$id');
 
 		getActions().then((List<Action> actions) {
-			String name = element.attributes['type'] ?? id;
+			String name = element.dataset['name-override'] ?? element.attributes['type'] ?? id;
 			String serverClass = (this is Player ? 'global_action_monster' : name);
 			inputManager.showClickMenu(title: name, id: id, serverClass: serverClass, actions: actions);
 		});

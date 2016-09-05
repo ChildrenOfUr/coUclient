@@ -42,7 +42,7 @@ class InteractionWindow {
 				} else if (shrineTypes.contains(entityName)) {
 					entityInBubble = new ImageElement(src: 'files/system/icons/shrine.svg');
 				} else {
-					entityInBubble = new ImageElement(src:  'http://childrenofur.com/assets/staticEntityImages/$entityName.png');
+					entityInBubble = new ImageElement(src: 'http://childrenofur.com/assets/staticEntityImages/$entityName.png');
 				}
 			} else if (entityOnStreet is ImageElement) {
 				// Dropped item, use its image
@@ -54,6 +54,10 @@ class InteractionWindow {
 			// Find a title
 			if (entityOnStreet.attributes['type'] != null) {
 				container.title = entityOnStreet.attributes['type'] ?? entityOnStreet.id;
+
+				if (entityOnStreet.dataset['name-override'] != null) {
+					container.title += ' named ' + entityOnStreet.dataset['name-override'];
+				}
 			}
 
 			// Use the same id
