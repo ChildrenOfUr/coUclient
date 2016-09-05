@@ -148,7 +148,7 @@ class StreetService {
 			entityString += '$count $entityType, ';
 		});
 		if (entityString.endsWith(', ')) {
-			entityString = entityString.substring(0, entityString.length - 1);
+			entityString = entityString.substring(0, entityString.length - 2);
 		}
 
 		entityListElement.text = entityString;
