@@ -25,9 +25,8 @@ void addQuoin(Map map) {
 		return;
 	}
 
-	addingLocks[id] = true;
-
-	if (currentStreet != null) {
+	if (currentStreet != null && currentStreet.loaded) {
+		addingLocks[id] = true;
 		quoins[id] = new Quoin(map);
 	}
 }
@@ -38,9 +37,8 @@ void addNPC(Map map) {
 		return;
 	}
 
-	addingLocks[id] = true;
-
-	if (currentStreet != null) {
+	if (currentStreet != null && currentStreet.loaded) {
+		addingLocks[id] = true;
 		entities[id] = new NPC(map);
 	}
 }
@@ -51,9 +49,8 @@ void addPlant(Map map) {
 		return;
 	}
 
-	addingLocks[id] = true;
-
-	if (currentStreet != null) {
+	if (currentStreet != null && currentStreet.loaded) {
+		addingLocks[id] = true;
 		entities[id] = new Plant(map);
 	}
 }
@@ -64,9 +61,8 @@ void addDoor(Map map) {
 		return;
 	}
 
-	addingLocks[id] = true;
-
-	if (currentStreet != null) {
+	if (currentStreet != null && currentStreet.loaded) {
+		addingLocks[id] = true;
 		entities[id] = new Door(map);
 	}
 }
@@ -77,9 +73,8 @@ void addItem(Map map) {
 		return;
 	}
 
-	addingLocks[id] = true;
-
-	if (currentStreet != null) {
+	if (currentStreet != null && currentStreet.loaded) {
+		addingLocks[id] = true;
 		entities[id] = new GroundItem(map);
 	}
 }
