@@ -226,22 +226,21 @@ String parseLocationLinks(String message) {
 	}
 
 	String _parseStreetLinks(String _message) {
-		mapData.streetData.forEach((String streetName, Map<String, dynamic> streetData) {
-			if (streetData['label'] == null) {
-				// Missing info
+		mapData.streetData.keys.forEach((String streetName) {
+			if (!_message.contains(streetName)) {
+				// Not a relevant street
 				return;
 			}
 
-			if (
-				(streetData['map_hidden'] ?? false)
-				|| (mapData.hubData[mapData.getHubIdForLabel(streetName)]['map_hidden'] ?? false)
-			) {
+			if (mapData.checkBoolSetting('map_hidden', streetName: streetName)) {
+				print('HIDDEN<$streetName>');
 				// Hidden or hub hidden
 				return;
 			}
 
-			_message = _message.replaceAll(streetData['label'],
-				'<a class="location-chat-link street-chat-link" title="View Street" href="#">${streetData['label']}</a>');
+			print('MATCH<$streetName>');
+			_message = _message.replaceAll(streetName,
+				'<a class="location-chat-link street-chat-link" title="View Street" href="#">$streetName</a>');
 		});
 
 		return _message;

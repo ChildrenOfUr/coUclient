@@ -111,7 +111,7 @@ class StreetLoadingScreen extends Overlay {
 				..text = 'Home to: ';
 
 			ParagraphElement entitiesList = new ParagraphElement();
-			_listEntities(street).then((String list) => entitiesList.text = list);
+			_listEntities(street).then((String list) => entitiesList.setInnerHtml(list));
 
 			section
 				..append(entitiesTitle)
@@ -132,15 +132,19 @@ class StreetLoadingScreen extends Overlay {
 		Map<String, int> entityList = JSON.decode(await HttpRequest.getString(url));
 		String entityString = '';
 
-		for (int i = 0; i < entityList.keys.length; i++) {
-			String entityType = entityList.keys.toList()[i];
-			int count = entityList[entityType];
+		if (entityList.keys.length == 1) {
+			entityString = entityList.keys.single;
+		} else {
+			for (int i = 0; i < entityList.keys.length; i++) {
+				String entityType = entityList.keys.toList()[i];
+				int count = entityList[entityType];
 
-			if (i == entityList.keys.length - 1) {
-				// Last entity
-				entityString += 'and $count $entityType';
-			} else {
-				entityString += '$count $entityType, ';
+				if (i == entityList.keys.length - 1) {
+					// Last entity
+					entityString += 'and $count $entityType';
+				} else {
+					entityString += '$count $entityType,<wbr>';
+				}
 			}
 		}
 

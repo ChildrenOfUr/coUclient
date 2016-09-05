@@ -103,11 +103,13 @@ class MapData {
 			streetName = currentStreet.label;
 		}
 
+		String hubId = streetData[streetName]['hub_id'].toString();
+
 		// Find the actual value
 		if (streetData[streetName] != null && streetData[streetName][setting] != null) {
 			// Check #1: Street
 			return streetData[streetName][setting];
-		} else if (hubData[currentStreet.hub_id] != null && hubData[currentStreet.hub_id][setting] != null) {
+		} else if (hubData[hubId] != null && hubData[hubId][setting] != null) {
 			// Check #2: Hub
 			return hubData[currentStreet.hub_id][setting];
 		} else {
