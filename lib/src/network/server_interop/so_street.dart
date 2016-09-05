@@ -107,6 +107,11 @@ _setupStreetSocket(String streetName) {
 			return;
 		}
 
+		if (map['playSound'] != null) {
+			audio.playSound(map['sound']);
+			return;
+		}
+
 		if (map["useItem"] != null) {
 			new UseWindow(map["useItem"], map["useItemName"]);
 			return;

@@ -67,22 +67,22 @@ class SoundManager {
 				//load the sound effects
 
 				gameSounds['quoinSound'] = new Sound(channel: audioChannels['soundEffects']);
-				await gameSounds['quoinSound'].load("files/audio/quoinSound.$extension");
-
 				gameSounds['mention'] = new Sound(channel: audioChannels['soundEffects']);
-				await gameSounds['mention'].load("files/audio/mention.$extension");
-
 				gameSounds['game_loaded'] = new Sound(channel: audioChannels['soundEffects']);
-				await gameSounds['game_loaded'].load("files/audio/game_loaded.$extension");
-
 				gameSounds['tripleJump'] = new Sound(channel: audioChannels['soundEffects']);
-				await gameSounds['tripleJump'].load("files/audio/tripleJump.$extension");
-
 				gameSounds['levelUp'] = new Sound(channel: audioChannels['soundEffects']);
-				await gameSounds['levelUp'].load("files/audio/levelUp.$extension");
-
 				gameSounds['newDay'] = new Sound(channel: audioChannels['soundEffects']);
-				await gameSounds['newDay'].load("files/audio/newday_rooster.$extension");
+				gameSounds['purr'] = new Sound(channel: audioChannels['soundEffects']);
+
+				await Future.wait([
+					gameSounds['quoinSound'].load('files/audio/quoinSound.$extension'),
+					gameSounds['mention'].load('files/audio/mention.$extension'),
+					gameSounds['game_loaded'].load('files/audio/game_loaded.$extension'),
+					gameSounds['tripleJump'].load('files/audio/tripleJump.$extension'),
+					gameSounds['levelUp'].load('files/audio/levelUp.$extension'),
+					gameSounds['newDay'].load('files/audio/newday_rooster.$extension'),
+					gameSounds['purr'].load('files/audio/purr.$extension')
+				]);
 
 				Asset soundCloudSongs = new Asset('./files/json/music.json');
 				await soundCloudSongs.load(statusElement: querySelector("#LoadStatus2"));
