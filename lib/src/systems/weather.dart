@@ -98,6 +98,10 @@ class WeatherManager {
 	}
 
 	static void _changeAmbientColor(m) {
+		if (!enabled) {
+			return;
+		}
+
 		List<dynamic> timePieces = m;
 		String time = timePieces[0];
 		bool am = time.contains('am');

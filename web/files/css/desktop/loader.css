@@ -204,6 +204,17 @@
     font-size: 30px;
 }
 
+#NowEntering h3 {
+    color: #fff;
+    text-shadow: 0 4px rgba(0, 0, 0, 0.3);
+    font-size: 15px;
+}
+
+#NowEntering p {
+    color: #fff;
+    width: 80%;
+}
+
 #streetLoadingBar {
     position: absolute;
     left: 10%;

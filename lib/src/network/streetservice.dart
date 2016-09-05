@@ -131,9 +131,30 @@ class StreetService {
 			lsid = lsid.replaceFirst('G', 'L');
 		}
 		String currentStreetName = mapData.getLabel(lsid);
+
 		view.mapLoadingContent.style.opacity = "1.0";
-		view.nowEntering.setInnerHtml('<h2>Entering</h2><h1>' + currentStreetName + '</h1><h2>in ' +
-			hubName /* + '</h2><h3>Home to: <ul><li>A <strong>Generic Goods Vendor</strong></li></ul>'*/);
+		view.nowEntering.children.clear();
+
+		HeadingElement enteringHeader = new HeadingElement.h2()..text = 'Entering';
+		HeadingElement streetHeader = new HeadingElement.h1()..text = currentStreetName;
+		HeadingElement hubHeader = new HeadingElement.h2()..text = 'in $hubName';
+		HeadingElement homeHeader = new HeadingElement.h3()..text = 'Home to: ';
+		ParagraphElement entityListElement = new ParagraphElement();
+
+		String url = 'http://${Configs.utilServerAddress}/previewStreetEntities?tsid=$tsid';
+		Map<String, int> entityList = JSON.decode(await HttpRequest.getString(url));
+		String entityString = '';
+		entityList.forEach((String entityType, num count) {
+			entityString += '$count $entityType, ';
+		});
+		if (entityString.endsWith(', ')) {
+			entityString = entityString.substring(0, entityString.length - 1);
+		}
+
+		entityListElement.text = entityString;
+
+		view.nowEntering..append(enteringHeader)..append(streetHeader)..append(hubHeader)
+			..append(homeHeader)..append(entityListElement);
 
 		//wait for 1 second before loading the street (so that the preview text can be read)
 		await new Future.delayed(new Duration(seconds: 1));
