@@ -12,12 +12,6 @@ class UserInterface {
 	Element loadStatus2 = querySelector("#loading #loadstatus2");
 	Element loadingScreen = querySelector('#loading');
 	Element loadingSpinner = querySelector('#loading .fa-spin');
-	ImageElement streetLoadingImage = querySelector('#StreetLoadingImage');
-	Element streetLoadingBar = querySelector('#streetLoadingBar');
-	Element nowEntering = querySelector('#NowEntering');
-	Element mapLoadingBar = querySelector('#MapLoadingBar');
-	Element mapLoadingScreen = querySelector('#MapLoadingScreen');
-	Element mapLoadingContent = querySelector('#MapLoadingContent');
 
 	// Time Meter Variables
 	Element currDay = querySelector('#currDay');

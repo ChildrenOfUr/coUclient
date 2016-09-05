@@ -124,6 +124,7 @@ part 'package:couclient/src/display/overlays/levelup.dart';
 part 'package:couclient/src/display/overlays/module_skills.dart';
 part 'package:couclient/src/display/overlays/newdayscreen.dart';
 part 'package:couclient/src/display/overlays/overlay.dart';
+part 'package:couclient/src/display/overlays/streetloadingscreen.dart';
 
 // Widgets
 

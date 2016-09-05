@@ -24,6 +24,8 @@ class Minimap {
 		});
 
 		new Service(['streetLoaded'], (street) {
+			_changeStreet(street);
+
 			// enable/disable expanding
 //			num collapsedHeight = street['loading_image']['h'] / currentStreet.bounds.height;
 //			num expandedHeight = street['main_image']['h'] / currentStreet.bounds.height;
@@ -39,6 +41,7 @@ class Minimap {
 //				toggleE.hidden = true;
 //				expand();
 //			}
+
 			collapse();
 		});
 	}
@@ -64,7 +67,7 @@ class Minimap {
 		});
 	}
 
-	void changeStreet(Map street) {
+	void _changeStreet(Map street) {
 		currentStreetExits.clear();
 		mainImgUrl = street['main_image']['url'];
 		loadingImgUrl = street['loading_image']['url'];

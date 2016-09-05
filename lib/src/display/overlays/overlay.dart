@@ -1,20 +1,22 @@
 part of couclient;
 
 class Overlay extends InformationDisplay {
-	Overlay(String id) {
+	Overlay(String id, [bool modal = false]) {
 		displayElement = querySelector("#" + id);
 
-		// closing
-		if (displayElement.querySelector(".close") != null) {
-			displayElement.querySelector(".close").onClick.listen((_) {
+		if (!modal) {
+			// Close button
+			displayElement.querySelector(".close")?.onClick?.listen((_) {
 				this.close();
 			});
+
+			// Escape key
+			document.onKeyUp.listen((KeyboardEvent e) {
+				if (!displayElement.hidden && e.keyCode == 27) {
+					this.close();
+				}
+			});
 		}
-		document.onKeyUp.listen((KeyboardEvent e) {
-			if (!displayElement.hidden && e.keyCode == 27) {
-				this.close();
-			}
-		});
 	}
 
 	open() {

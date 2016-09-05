@@ -295,72 +295,19 @@ class Street {
 	}
 }
 
-// Initialization, loads all the streets in our master file into memory.
-Future load_street() {
-	view.loadStatus.text = "Loading Streets";
-	// allows us to load street files as though they are json files.
-	jsonExtensions.add('street');
-
-	Completer c = new Completer();
-
-	// loads the master street json.
-	new Asset('packages/couclient/json/streets.json').load().then((Asset streetList) {
-		// Load each street file into memory. If this gets too expensive we'll move this elsewhere.
-		List toLoad = [];
-		for (String url in streetList
-			.get()
-			.values)
-			toLoad.add(new Asset(url).load(statusElement: view.loadStatus2));
-
-		c.complete(Future.wait(toLoad));
-	});
-
-	return c.future;
-}
-
-setStreetLoading() {
-	view.mapLoadingScreen.style.background =
-		'-webkit-gradient(linear,left top,left bottom,color-stop(0, ' + currentStreet.street_load_color_top +
-		'),color-stop(1, ' + currentStreet.street_load_color_btm + '))';
-	view.mapLoadingScreen.style.background =
-		'-o-linear-gradient(bottom, ' + currentStreet.street_load_color_top + ' 0%, ' +
-		currentStreet.street_load_color_btm + ' 100%)';
-	view.mapLoadingScreen.style.background =
-		'-moz-linear-gradient(bottom, ' + currentStreet.street_load_color_top + ' 0%, ' +
-		currentStreet.street_load_color_btm + ' 100%)';
-	view.mapLoadingScreen.style.background =
-		'-webkit-linear-gradient(bottom, ' + currentStreet.street_load_color_top + ' 0%, ' +
-		currentStreet.street_load_color_btm + ' 100%)';
-	view.mapLoadingScreen.style.background =
-		'-ms-linear-gradient(bottom, ' + currentStreet.street_load_color_top + ' 0%, ' +
-		currentStreet.street_load_color_btm + ' 100%)';
-	view.mapLoadingScreen.style.background =
-		'linear-gradient(to bottom, ' + currentStreet.street_load_color_top + ' 0%, ' +
-		currentStreet.street_load_color_btm + ' 100%)';
-}
-
 // the callback function for our deco loading 'Batch'
 setLoadingPercent(int percent) {
-	view.streetLoadingBar.attributes['percent'] = percent.toString();
 	currentStreet.loadTime = new Stopwatch();
 	currentStreet.loadTime.start();
+
+	streetService.streetLoadingScreen.loadingPercent = percent;
 
 	if (percent >= 99) {
 		//TODO: Whatever '1000' is changed to, that's how long it takes to display street image
 		new KeepingTime().delayMilliseconds(1000 - currentStreet.loadTime.elapsedMilliseconds);
-		view.streetLoadingBar.attributes['status'] = '    done! ... 100%';
-		view.streetLoadingBar.attributes['percent'] = '100';
-		view.mapLoadingScreen.className = "MapLoadingScreen";
-		view.mapLoadingScreen.style.opacity = '0.0';
-		minimap.containerE.hidden = false;
 		gpsIndicator.loadingNew = false;
-		new Timer(new Duration(seconds: 1), () => view.mapLoadingContent.style.opacity = '0.0');
 		currentStreet.loadTime.stop();
 		currentStreet.loadTime.reset();
-	}
-	else {
-		view.streetLoadingBar.attributes['status'] = 'reticulating splines ... ' + (percent).toString() + '%';
-		view.streetLoadingBar.attributes['percent'] = percent.toString();
 	}
 }
 

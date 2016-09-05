@@ -1,6 +1,8 @@
 part of couclient;
 
 class StreetService {
+	StreetLoadingScreen streetLoadingScreen;
+
 	List<String> _loading = [];
 
 	void addToQueue(String tsid) {
@@ -31,13 +33,7 @@ class StreetService {
 		// Load this one
 		addToQueue(StreetID);
 
-		//hide the minimap if it's showing
-		minimap.containerE.hidden = true;
 		gpsIndicator.loadingNew = true;
-
-		//make sure loading screen is visible during load
-		view.mapLoadingScreen.className = "MapLoadingScreenIn";
-		view.mapLoadingScreen.style.opacity = "1.0";
 
 		logmessage('[StreetService] Requesting street "$StreetID"...');
 
@@ -84,9 +80,9 @@ class StreetService {
 		return true;
 	}
 
-	Future<bool> _prepareStreet(Map streetJSON) async
-	{
+	Future<bool> _prepareStreet(Map streetJSON) async {
 		logmessage('[StreetService] Assembling Street...');
+		transmit('streetLoadStarted', streetJSON);
 
 		if (streetJSON['tsid'] == null) {
 			return false;
@@ -96,8 +92,9 @@ class StreetService {
 
 		String label = streetAsMap['label'];
 		String tsid = streetAsMap['tsid'];
-		String oldLabel = "";
-		String oldTsid = "";
+		String oldLabel = '';
+		String oldTsid = '';
+
 		if (currentStreet != null) {
 			oldLabel = currentStreet.label;
 			oldTsid = currentStreet.tsid;
@@ -109,7 +106,7 @@ class StreetService {
 		}
 
 		// TODO, this should happen automatically on the Server, since it'll know which street we're on.
-		//send changeStreet to chat server
+		// Send changeStreet to chat server
 		Map map = new Map();
 		map["statusMessage"] = "changeStreet";
 		map["username"] = game.username;
@@ -123,62 +120,32 @@ class StreetService {
 			await mapData.load.future;
 		}
 
-		view.streetLoadingImage.src = streetAsMap['loading_image']['url'];
-		await view.streetLoadingImage.onLoad.first;
-		String hubName = mapData.hubData[streetAsMap['hub_id']]['name'];
-		String lsid = tsid;
-		if (lsid.startsWith('G')) {
-			lsid = lsid.replaceFirst('G', 'L');
-		}
-		String currentStreetName = mapData.getLabel(lsid);
+		// Display the loading screen
+		streetLoadingScreen = new StreetLoadingScreen(currentStreet?.streetData, streetAsMap);
 
-		view.mapLoadingContent.style.opacity = "1.0";
-		view.nowEntering.children.clear();
-
-		HeadingElement enteringHeader = new HeadingElement.h2()..text = 'Entering';
-		HeadingElement streetHeader = new HeadingElement.h1()..text = currentStreetName;
-		HeadingElement hubHeader = new HeadingElement.h2()..text = 'in $hubName';
-		HeadingElement homeHeader = new HeadingElement.h3()..text = 'Home to: ';
-		ParagraphElement entityListElement = new ParagraphElement();
-
-		String url = 'http://${Configs.utilServerAddress}/previewStreetEntities?tsid=$tsid';
-		Map<String, int> entityList = JSON.decode(await HttpRequest.getString(url));
-		String entityString = '';
-		entityList.forEach((String entityType, num count) {
-			entityString += '$count $entityType, ';
-		});
-		if (entityString.endsWith(', ')) {
-			entityString = entityString.substring(0, entityString.length - 2);
-		}
-
-		entityListElement.text = entityString;
-
-		view.nowEntering..append(enteringHeader)..append(streetHeader)..append(hubHeader)
-			..append(homeHeader)..append(entityListElement);
-
-		//wait for 1 second before loading the street (so that the preview text can be read)
-		await new Future.delayed(new Duration(seconds: 1));
+		// Load the street
 
 		Street street = new Street(streetAsMap);
-
-		// send data to minimap
-		minimap.changeStreet(streetAsMap);
-
-		new Asset.fromMap(streetAsMap, label);
 
 		if (loadingCancelled(tsid)) {
 			logmessage('[StreetService] Loading of "$tsid" was cancelled during preparation.');
 			return false;
 		}
 
-		await street.load();
+		// Make street loading take at least 1 second so that the text can be read
+		await Future.wait([
+			new Future.delayed(new Duration(seconds: 1)),
+			street.load()
+		]);
+
+		new Asset.fromMap(streetAsMap, label);
+
 		logmessage('[StreetService] Street assembled.');
 
-		// notify displays to update
+		// Notify displays to update
 		transmit('streetLoaded', streetAsMap);
 
 		removeFromQueue(tsid);
-
 		return true;
 	}
 }
