@@ -5,11 +5,19 @@ class NPC extends Entity {
 	num speed = 0,
 		ySpeed = 0;
 	bool ready = false,
-		facingRight = true,
+		_facingRight = true,
 		firstRender = true;
 	Animation animation;
 	ChatBubble chatBubble = null;
 	StreamController _animationLoaded = new StreamController.broadcast();
+
+	bool get facingRight => _facingRight;
+	void set facingRight(bool newFacing) {
+		if (h_flip) {
+			newFacing = !newFacing;
+		}
+		_facingRight = newFacing;
+	}
 
 	Stream get onAnimationLoaded => _animationLoaded.stream;
 
@@ -52,6 +60,8 @@ class NPC extends Entity {
 				top = map['y'] - animation.height;
 				left = map['x'];
 				z = map['z'];
+				rotation = map['rotation'];
+				h_flip = map['h_flip'];
 				width = map['width'];
 				height = map['height'];
 			} catch (e) {
@@ -122,9 +132,9 @@ class NPC extends Entity {
 		canvas.attributes['translatex'] = left.toString();
 		canvas.attributes['translatey'] = top.toString();
 		if(facingRight) {
-			canvas.style.transform = "translateX(${left}px) translateY(${top}px) scale3d(1,1,1)";
+			canvas.style.transform = "translateX(${left}px) translateY(${top}px) rotate(${rotation}deg) scale3d(1,1,1)";
 		} else {
-			canvas.style.transform = "translateX(${left}px) translateY(${top}px) scale3d(-1,1,1)";
+			canvas.style.transform = "translateX(${left}px) translateY(${top}px) rotate(${rotation}deg) scale3d(-1,1,1)";
 		}
 	}
 

@@ -36,6 +36,8 @@ class Plant extends Entity {
 			x = num.parse(map['x'].toString());
 			y = num.parse(map['y'].toString()) - height;
 			z = num.parse(map['z'].toString());
+			rotation = num.parse(map['rotation'].toString());
+			h_flip = map['h_flip'].toString() == 'true';
 			left = x;
 			top = y;
 
@@ -47,7 +49,7 @@ class Plant extends Entity {
 			canvas.width = width;
 			canvas.height = height;
 			canvas.style.position = "absolute";
-			canvas.style.transform = "translateX(${x}px) translateY(${y}px)";
+			canvas.style.transform = "rotate(${rotation}deg) translateX(${x}px) translateY(${y}px)" + (h_flip ? 'scale3d(-1,1,1)' : 'scale3d(1,1,1)');
 			canvas.attributes['translatex'] = x.toString();
 			canvas.attributes['translatey'] = y.toString();
 			canvas.attributes['width'] = width.toString();

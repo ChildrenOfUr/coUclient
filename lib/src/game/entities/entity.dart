@@ -14,7 +14,8 @@ abstract class Entity {
 	bool
 		glow = false,
 		dirty = true,
-		multiUnselect = false;
+		multiUnselect = false,
+		h_flip = false;
 
 	ChatBubble chatBubble = null;
 
@@ -24,6 +25,7 @@ abstract class Entity {
 		left = 0,
 		top = 0,
 		z = 0,
+		rotation = 0,
 		width = 0,
 		height = 0;
 
