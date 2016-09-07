@@ -325,7 +325,7 @@ p.italic {
     border-radius: 16px;
     padding: 0 10px 10px 10px;
     height: calc(100% - 50px);
-    width: 175px;
+    width: 240px;
     overflow-y: auto;
 }
 
