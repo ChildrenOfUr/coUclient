@@ -243,6 +243,9 @@ _setupStreetSocket(String streetName) {
 					addNPC(npcMap);
 				} else {
 					if (npc != null) {
+						if ((npcMap['nameOverride'] ?? '').length > 0) {
+							npc.nameOverride = npcMap['nameOverride'];
+						}
 						npc.updateAnimation(npcMap);
 						_updateChatBubble(npcMap, npc);
 					}
