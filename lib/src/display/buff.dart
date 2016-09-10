@@ -23,11 +23,12 @@ class Buff {
 
 	/// Un-display a buff
 	static bool removeBuff(String buffId) {
-		if (!isRunning(buffId)) {
-			return false;
-		} else {
+		try {
 			_running[buffId].remove();
 			return true;
+		} catch (e) {
+			logmessage('Could not remove non-running buff $buffId: $e');
+			return false;
 		}
 	}
 
