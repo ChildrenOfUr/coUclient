@@ -6,7 +6,7 @@ class AddFriendWindow extends Modal {
 	TextInputElement textInput;
 	DataListElement userList;
 
-	String _lastAdded;
+	String _lastSubmit;
 
 	AddFriendWindow() {
 		id = 'addFriendWindow';
@@ -88,10 +88,12 @@ class AddFriendWindow extends Modal {
 	}
 
 	Future<bool> _addFriend() async {
-		if (_lastAdded == friendUsername) {
+		if (_lastSubmit == friendUsername) {
 			// Prevent double-clicking the button
 			return false;
 		}
+
+		_lastSubmit = friendUsername;
 
 		String result = await HttpRequest.getString(
 			'http://${Configs.utilServerAddress}/friends/add'
@@ -100,7 +102,6 @@ class AddFriendWindow extends Modal {
 			'&rstoken=$rsToken');
 
 		if (result == 'true') {
-			_lastAdded = friendUsername;
 			output.text = '$friendUsername is now your friend!';
 			NetChatManager.refreshOnlinePlayers();
 			return true;
