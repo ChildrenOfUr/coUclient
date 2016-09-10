@@ -111,7 +111,7 @@ class StreetLoadingScreen extends Overlay {
 				..text = 'Home to: ';
 
 			ParagraphElement entitiesList = new ParagraphElement();
-			_listEntities(street).then((String list) => entitiesList.setInnerHtml(list));
+			_listEntities(street, entitiesTitle).then((String list) => entitiesList.setInnerHtml(list));
 
 			section
 				..append(entitiesTitle)
@@ -127,14 +127,19 @@ class StreetLoadingScreen extends Overlay {
 			..height = street['loading_image']['h']
 			..classes = ['street-load-image'];
 
-	Future<String> _listEntities(Map<String, dynamic> street) async {
+	Future<String> _listEntities(Map<String, dynamic> street, Element titleDisplay) async {
 		String url = 'http://${Configs.utilServerAddress}/previewStreetEntities?tsid=${street['tsid']}';
 		Map<String, int> entityList = JSON.decode(await HttpRequest.getString(url));
 		String entityString = '';
 
-		if (entityList.keys.length == 1) {
+		if (entityList.keys.length == 0) {
+			// No list, no title
+			titleDisplay.hidden = true;
+		} else if (entityList.keys.length == 1) {
+			// Only one entity, just display it without commas
 			entityString = '${entityList.values.single} ${entityList.keys.single}';
 		} else {
+			// Multiple entities, format with commas and a conjunction
 			for (int i = 0; i < entityList.keys.length; i++) {
 				String entityType = entityList.keys.toList()[i];
 				int count = entityList[entityType];
@@ -143,7 +148,7 @@ class StreetLoadingScreen extends Overlay {
 					// Last entity
 					entityString += 'and $count $entityType';
 				} else {
-					entityString += '$count $entityType,<wbr>';
+					entityString += '$count $entityType, <wbr>';
 				}
 			}
 		}

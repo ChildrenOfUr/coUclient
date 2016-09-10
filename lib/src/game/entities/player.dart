@@ -9,15 +9,10 @@ class Player extends Entity {
 		new Action.withName('profile')
 	];
 
-	static final String
-		DEFAULT_PHYSICS = 'normal';
+	Physics physics = Physics.get('normal');
 
-	static final int
-		NORMAL_YVEL = 1000,
-		WATER_YVEL = NORMAL_YVEL ~/ 2,
-		JUMP_YVEL = 1000,
-		TRIPLE_JUMP_YVEL = 1560,
-		SPEED = 300;
+	Physics updatePhysics([Map street = const {}]) =>
+		physics = Physics.getStreet(street['label']);
 
 	num
 		yVel = 0,
@@ -33,8 +28,6 @@ class Player extends Entity {
 		jumping = false,
 		lastClimbStatus = false,
 		moving = false;
-
-	String physics;
 
 	Map<String, Animation> animations = new Map();
 	Animation currentAnimation;
@@ -54,10 +47,6 @@ class Player extends Entity {
 		playerName,
 		playerParentElement,
 		superParentElement;
-
-	int get speed => physics == 'normal' ? SPEED : SPEED ~/ 2;
-
-	bool get canTripleJump => physics != 'water';
 
 	bool get climbing {
 		if (id == game.username) {
@@ -124,10 +113,6 @@ class Player extends Entity {
 
 		updatePhysics();
 		new Service(['streetLoaded'], (_) => updatePhysics());
-	}
-
-	void updatePhysics([Map street = const {}]) {
-		physics = mapData.getStreetPhysics(street['label']);
 	}
 
 	Future<List<Animation>> loadAnimations() {
@@ -246,14 +231,14 @@ class Player extends Entity {
 
 			if (inputManager.rightKey == true) {
 				// moving right
-				left += speed * dt;
+				left += physics.speed * dt;
 				facingRight = true;
 				moving = true;
 				updateLadderStatus(dt);
 			}
 			else if (inputManager.leftKey == true) {
 				// moving left
-				left -= speed * dt;
+				left -= physics.speed * dt;
 				facingRight = false;
 				moving = true;
 				updateLadderStatus(dt);
@@ -264,12 +249,13 @@ class Player extends Entity {
 			}
 
 			//primitive jumping
-			if (inputManager.jumpKey == true && (!jumping || physics == 'water') && !climbingUp && !climbingDown) {
+			if (inputManager.jumpKey == true && (!jumping || physics.infiniteJump) && !climbingUp && !climbingDown) {
 				num jumpMultiplier;
 				bool spinachBuff = Buff.isRunning('spinach');
 				bool pieBuff = Buff.isRunning('full_of_pie');
-				if (physics == 'water') {
-					jumpMultiplier = 0.5;
+				if (physics.jumpMultiplier != Physics.get(Physics.DEFAULTID).jumpMultiplier) {
+					// Not normal jumping
+					jumpMultiplier = physics.jumpMultiplier;
 				} else if (spinachBuff) {
 					jumpMultiplier = 1.65;
 				} else if (pieBuff) {
@@ -279,7 +265,7 @@ class Player extends Entity {
 				}
 
 				jumping = true;
-				if (canTripleJump && !pieBuff) {
+				if (physics.canTripleJump && !pieBuff) {
 					if (jumpTimer == null) {
 						// start timer
 						jumpTimer = new Timer(new Duration(seconds:3), () {
@@ -292,7 +278,7 @@ class Player extends Entity {
 
 					if (jumpcount == 2) {
 						// triple jump
-						yVel = -(TRIPLE_JUMP_YVEL * jumpMultiplier);
+						yVel = -(physics.yVelTripleJump * jumpMultiplier);
 						jumpcount = 0;
 						jumpTimer.cancel();
 						jumpTimer = null;
@@ -302,11 +288,11 @@ class Player extends Entity {
 					} else {
 						// normal jump
 						jumpcount++;
-						yVel = -(JUMP_YVEL * jumpMultiplier);
+						yVel = -(physics.yVelJump * jumpMultiplier);
 					}
 				} else {
 					// triple jumping disabled
-					yVel = -(JUMP_YVEL * jumpMultiplier);
+					yVel = -(physics.yVelJump * jumpMultiplier);
 				}
 			}
 
@@ -322,9 +308,9 @@ class Player extends Entity {
 			} else {
 				// climbing
 				if (inputManager.downKey == true)
-					top += speed * dt;
+					top += physics.speed * dt;
 				if (inputManager.upKey == true)
-					top -= speed * dt;
+					top -= physics.speed * dt;
 			}
 
 			if (left < 0) {
@@ -442,7 +428,7 @@ class Player extends Entity {
 						break;
 					}
 
-					top -= speed / 4 * dt;
+					top -= physics.speed / 4 * dt;
 					climbingUp = true;
 					activeClimb = true;
 					jumping = false;
@@ -472,7 +458,7 @@ class Player extends Entity {
 						break;
 					}
 
-					top += speed / 4 * dt;
+					top += physics.speed / 4 * dt;
 					climbingDown = true;
 					activeClimb = true;
 					jumping = false;

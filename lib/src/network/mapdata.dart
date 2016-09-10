@@ -88,7 +88,7 @@ class MapData {
 
 	// Returns the physics on a given street name
 	String getStreetPhysics(String streetName) {
-		return checkStringSetting('physics', streetName: streetName, defaultValue: Player.DEFAULT_PHYSICS);
+		return checkStringSetting('physics', streetName: streetName, defaultValue: Physics.DEFAULTID);
 	}
 
 	// Returns the value of a setting in the map data
