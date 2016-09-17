@@ -285,7 +285,7 @@ class Chat {
 			html = html.replaceAll("&lt;", "<");
 			html = html.replaceAll("&gt;", ">");
 			// urls already parsed in toHtml
-			html = parseEmoji(html);
+			html = emoji.parseIn(html);
 			html = parseLocationLinks(html);
 			html = parseItemLinks(html);
 
@@ -670,7 +670,7 @@ class Chat {
 					CurrentPlayer.chatBubble.bubble.remove();
 				}
 				CurrentPlayer.chatBubble = new ChatBubble(
-					parseEmoji(map["message"]), CurrentPlayer, CurrentPlayer.playerParentElement);
+					emoji.parseIn(' ${map["message"]} ').trim(), CurrentPlayer, CurrentPlayer.playerParentElement);
 			}
 		}
 	}

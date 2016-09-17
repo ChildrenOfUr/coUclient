@@ -28,6 +28,7 @@ import 'package:polymer/polymer.dart'; // Polymer
 import 'package:browser_detect/browser_detect.dart'; // Special browser errors
 import 'package:couclient/configs.dart'; // Global data
 import 'package:couclient/src/network/server_interop/itemdef.dart'; // Items
+import 'package:coUemoticons/bin/main.dart' as emoji; // Emoticons
 import 'package:dnd/dnd.dart'; // Webaudio api
 import 'package:gorgon/gorgon.dart'; // Audio and graphics
 import 'package:intl/intl.dart'; // Used for NumberFormat

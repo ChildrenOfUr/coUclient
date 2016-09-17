@@ -45,6 +45,7 @@ dependencies:
   browser_detect: "^1.0.3"
   coUemoticons:
       git: git://github.com/ChildrenOfUr/emoticons.git
+      #path: ../emoticons/
 
 transformers:
 - couclient/transformers/configs_transformer

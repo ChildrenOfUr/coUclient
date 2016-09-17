@@ -142,21 +142,6 @@ Future<String> getColorFromUsername(String username) async {
 	}
 }
 
-String parseEmoji(String message) {
-	String returnString = "";
-	RegExp regex = new RegExp("::(.+?)::");
-	message.splitMapJoin(regex, onMatch: (Match m) {
-		String match = m[1];
-		if (EMOTICONS.contains(match)) {
-			returnString += '<i class="emoticon emoticon-sm $match" title="$match"></i>';
-		} else {
-			returnString += m[0];
-		}
-	}, onNonMatch: (String s) => returnString += s);
-
-	return returnString;
-}
-
 String parseUrl(String message) {
 	/*
 	    (https?:\/\/)?                    : the http or https schemes (optional)

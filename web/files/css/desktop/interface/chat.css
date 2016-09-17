@@ -308,9 +308,17 @@ a.name.guide::before {
     font-weight: normal;
 }
 
-i.emoticon {
+.conversation .emoticon,
+.cb-content .emoticon {
     vertical-align: middle;
     margin: 0 2px;
+    height: 1em;
+    width: auto;
+    transition: height 0.25s ease-in-out;
+}
+
+.conversation .emoticon:hover {
+    height: 3em;
 }
 
 #bottomList a {
