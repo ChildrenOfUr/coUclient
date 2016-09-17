@@ -44,7 +44,9 @@ dependencies:
   stagexl: "^0.12.0"
   browser_detect: "^1.0.3"
   coUemoticons:
-      git: git://github.com/ChildrenOfUr/emoticons.git
+      git:
+        url: git://github.com/ChildrenOfUr/emoticons.git
+        ref: dev
       #path: ../emoticons/
 
 transformers:
