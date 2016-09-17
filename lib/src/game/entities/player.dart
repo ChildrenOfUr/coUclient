@@ -3,6 +3,8 @@ part of couclient;
 Player CurrentPlayer;
 
 class Player extends Entity {
+	static final num MIN_SCALE = 0.2;
+
 	static final List<Action> PLAYER_ACTIONS = [
 		new Action.withName('follow')
 			..description = "We already know it's buggy, but we thought you'd have fun with it.",
@@ -262,11 +264,11 @@ class Player extends Entity {
 
 			if (!activeClimb && streetZ != 0) {
 				// Not near a ladder, and this street is 3d
-				if (inputManager.upKey == true) {
+				if (inputManager.upKey == true && getScale() > MIN_SCALE) {
 					// moving back
 					z += physics.zSpeed * getScale() * dt;
 					moving = true;
-				} else if (inputManager.downKey == true) {
+				} else if (inputManager.downKey == true && getScale() < 1) {
 					// moving foward
 					z -= physics.zSpeed * getScale() * dt;
 					moving = true;
@@ -644,7 +646,7 @@ class Player extends Entity {
 		} else {
 			num scale = streetZ / z;
 			scale = 0.01 * scale;
-			scale = scale.clamp(0, 1);
+			scale = scale.clamp(MIN_SCALE, 1);
 			return scale;
 		}
 	}
