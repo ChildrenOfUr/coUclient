@@ -159,8 +159,6 @@ table {
 }
 
 td {
-    border-bottom: 2px solid #4b2e4c;
-    padding: 5px;
     font-size: 16px;
 }
 
@@ -180,13 +178,43 @@ a:visited {
     color: #fff;
 }
 
-#thead_from {
-    min-width: 100px;
-    max-width: 200px;
+#message_list {
+    table-layout: fixed;
 }
 
-#thead_subject {
-    min-width: 200px;
+#message_list tbody,
+#message_list tr,
+#message_list td {
+    display: block;
+    box-sizing: border-box;
+}
+
+#message_list tbody {
+    width: 100%;
+}
+
+#message_list tr {
+    display: block;
+}
+
+#message_list tr.thead {
+    border-bottom: 2px solid #4b2e4c;
+}
+
+#message_list td {
+    padding: 5px 1.5%;
+    display: inline-block;
+}
+
+.messageItems tr:not(:last-child) {
+    border-bottom: 2px solid #4b2e4c;
+}
+
+.messageItems {
+    border-bottom-left-radius: 5px;
+    height: 241px;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 td.tbody_from,
@@ -194,13 +222,56 @@ td.tbody_subject {
     overflow: hidden;
 }
 
-td #thead_delete,
-td .tbody_delete {
-    width: 60px;
+td.body_subject {
+  word-break: break-word;
 }
 
-ur-button.btn_delete {
-    float: right;
+#thead_from,
+td.tbody_from {
+    width: 20%;
+}
+
+#thead_subject,
+td.tbody_subject {
+    width: 60%;
+}
+
+#thead_delete,
+td.tbody_delete {
+    width: 18%;
+    text-align: right;
+}
+
+#message_list tbody::-webkit-scrollbar {
+    width:8px;
+}
+
+#message_list tbody::-webkit-scrollbar-track {
+    background:rgb(238, 238, 238);
+    border:none;
+    box-shadow:0 0 3px #dfdfdf inset;
+}
+
+#message_list tbody::-webkit-scrollbar-thumb {
+    background-color:#4b2e4c;
+    border-radius:8px;
+}
+
+#message_list tbody::-webkit-scrollbar-thumb:hover {
+    background-color:#7b4c7c;
+}
+
+.darkui #message_list tbody::-webkit-scrollbar-track {
+    background: #282828;
+    box-shadow: 0 0 3px #181818 inset;
+}
+
+.darkui #message_list tbody::-webkit-scrollbar-thumb {
+    background-color: #eee;
+}
+
+.darkui #message_list tbody::-webkit-scrollbar-thumb:hover {
+    background-color: #fff;
 }
 
 ur-button#btn_refresh {
