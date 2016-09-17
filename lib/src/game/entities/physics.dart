@@ -8,6 +8,7 @@ class Physics {
 	bool infiniteJump;
 
 	num speed;
+	num zSpeed;
 	num jumpMultiplier;
 
 	num yVel;
@@ -19,6 +20,7 @@ class Physics {
 		this.canTripleJump: true,
 		this.infiniteJump: false,
 		this.speed: 300,
+		this.zSpeed: 30,
 		this.jumpMultiplier: 1,
 		this.yVel: 1000,
 		this.yVelJump: 1000,

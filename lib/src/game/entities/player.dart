@@ -10,24 +10,25 @@ class Player extends Entity {
 	];
 
 	Physics physics = Physics.get('normal');
+	int streetZ = 0;
 
-	Physics updatePhysics([Map street = const {}]) =>
+	void updatePhysics([Map street = const {}]) {
 		physics = Physics.getStreet(street['label']);
+		streetZ = mapData.checkIntSetting('depth', defaultValue: 0);
+	}
 
-	num
-		yVel = 0,
-		yAccel = -2400;
+	num yVel = 0;
+	num yAccel = -2400;
 
-	bool
-		activeClimb = false,
-		climbingDown = false,
-		climbingUp = false,
-		facingRight = true,
-		firstRender = true,
-		isGuide = false,
-		jumping = false,
-		lastClimbStatus = false,
-		moving = false;
+	bool activeClimb = false;
+	bool climbingDown = false;
+	bool climbingUp = false;
+	bool facingRight = true;
+	bool firstRender = true;
+	bool isGuide = false;
+	bool jumping = false;
+	bool lastClimbStatus = false;
+	bool moving = false;
 
 	Map<String, Animation> animations = new Map();
 	Animation currentAnimation;
@@ -43,10 +44,9 @@ class Player extends Entity {
 	//if false, player can move around with wasd and arrows, no falling
 	bool doPhysicsApply = true;
 
-	DivElement
-		playerName,
-		playerParentElement,
-		superParentElement;
+	DivElement playerName;
+	DivElement playerParentElement;
+	DivElement superParentElement;
 
 	bool get climbing {
 		if (id == game.username) {
@@ -70,8 +70,9 @@ class Player extends Entity {
 			Platform leftmost = null;
 
 			for (Platform platform in currentStreet.platforms) {
-				if (leftmost == null || platform.start.x < leftmost.start.x)
+				if (leftmost == null || platform.start.x < leftmost.start.x) {
 					leftmost = platform;
+				}
 
 				if (platform.start.x == 1) {
 					found = true;
@@ -79,8 +80,9 @@ class Player extends Entity {
 				}
 			}
 
-			if (!found)
+			if (!found) {
 				top = 0.0;
+			}
 		}
 
 		canvas = new CanvasElement()
@@ -117,7 +119,12 @@ class Player extends Entity {
 
 	Future<List<Animation>> loadAnimations() {
 		//need to get background images from some server for each player based on name
-		List<int> idleFrames = [], baseFrames = [], jumpUpFrames = [], fallDownFrames, landFrames, climbFrames = [];
+		List<int> idleFrames = [],
+			baseFrames = [],
+			jumpUpFrames = [],
+			fallDownFrames,
+			landFrames,
+			climbFrames = [];
 		for (int i = 0; i < 57; i++) {
 			idleFrames.add(i);
 		}
@@ -135,29 +142,33 @@ class Player extends Entity {
 
 		List<Future> futures = new List();
 
-		futures.add(HttpRequest.requestCrossOrigin('http://${Configs.utilServerAddress}/getSpritesheets?username=$id')
-		.then((String response) {
+		futures
+			.add(HttpRequest.requestCrossOrigin('http://${Configs.utilServerAddress}/getSpritesheets?username=$id')
+			.then((String response) {
+
 			Map spritesheets = JSON.decode(response);
 			String idle, base, jump, climb;
+
 			if (spritesheets['base'] == null) {
 				idle = 'files/sprites/idle.png';
 				base = 'files/sprites/base.png';
 				jump = 'files/sprites/jump.png';
 				climb = 'files/sprites/climb.png';
-			}
-			else {
+			} else {
 				idle = spritesheets['idle2'];
 				base = spritesheets['base'];
 				jump = spritesheets['jump'];
 				climb = spritesheets['climb'];
 			}
-			animations['idle'] = new Animation(idle, 'idle', 2, 29, idleFrames, loopDelay:new Duration(seconds:10), delayInitially:true);
-			animations['base'] = new Animation(base, 'base', 1, 15, baseFrames);
-			animations['die'] = new Animation(base, 'die', 1, 15, [12, 13], loops:false);
-			animations['jumpup'] = new Animation(jump, 'jumpup', 1, 33, jumpUpFrames);
-			animations['falldown'] = new Animation(jump, 'falldown', 1, 33, fallDownFrames);
-			animations['land'] = new Animation(jump, 'land', 1, 33, landFrames);
-			animations['climb'] = new Animation(climb, 'climb', 1, 19, climbFrames);
+
+			animations
+				..['idle'] = new Animation(idle, 'idle', 2, 29, idleFrames, loopDelay: new Duration(seconds: 10), delayInitially: true)
+				..['base'] = new Animation(base, 'base', 1, 15, baseFrames)
+				..['die'] = new Animation(base, 'die', 1, 15, [12, 13], loops: false)
+				..['jumpup'] = new Animation(jump, 'jumpup', 1, 33, jumpUpFrames)
+				..['falldown'] = new Animation(jump, 'falldown', 1, 33, fallDownFrames)
+				..['land'] = new Animation(jump, 'land', 1, 33, landFrames)
+				..['climb'] = new Animation(climb, 'climb', 1, 19, climbFrames);
 
 			animations.forEach((String name, Animation animation) => futures.add(animation.load()));
 		}));
@@ -189,7 +200,7 @@ class Player extends Entity {
 		if (!partial) {
 			num cameFrom = top;
 
-			//show chat message if it exists and decrement it's timeToLive
+			//show chat message if it exists and decrement its timeToLive
 			if (chatBubble != null) {
 				chatBubble.update(dt);
 			}
@@ -214,6 +225,7 @@ class Player extends Entity {
 
 				bool found = false;
 				Rectangle playerRect = new Rectangle(left, top + currentStreet.groundY, width, height);
+
 				for (Ladder ladder in currentStreet.ladders) {
 					if (intersect(ladder.bounds, playerRect)) {
 						// touching a ladder
@@ -221,11 +233,13 @@ class Player extends Entity {
 						break;
 					}
 				}
+
 				if (!found) {
 					// not touching a ladder
 					climbingDown = false;
 					climbingUp = false;
 				}
+
 				activeClimb = false;
 			}
 
@@ -235,17 +249,31 @@ class Player extends Entity {
 				facingRight = true;
 				moving = true;
 				updateLadderStatus(dt);
-			}
-			else if (inputManager.leftKey == true) {
+			} else if (inputManager.leftKey == true) {
 				// moving left
 				left -= physics.speed * dt;
 				facingRight = false;
 				moving = true;
 				updateLadderStatus(dt);
-			}
-			else {
+			} else {
 				// not moving
 				moving = false;
+			}
+
+			if (!activeClimb && streetZ != 0) {
+				// Not near a ladder, and this street is 3d
+				if (inputManager.upKey == true) {
+					// moving back
+					z += physics.zSpeed * getScale() * dt;
+					moving = true;
+				} else if (inputManager.downKey == true) {
+					// moving foward
+					z -= physics.zSpeed * getScale() * dt;
+					moving = true;
+				} else {
+					// not moving
+					moving = false;
+				}
 			}
 
 			//primitive jumping
@@ -253,7 +281,10 @@ class Player extends Entity {
 				num jumpMultiplier;
 				bool spinachBuff = Buff.isRunning('spinach');
 				bool pieBuff = Buff.isRunning('full_of_pie');
-				if (physics.jumpMultiplier != Physics.get(Physics.DEFAULTID).jumpMultiplier) {
+
+				if (physics.jumpMultiplier != Physics
+					.get(Physics.DEFAULTID)
+					.jumpMultiplier) {
 					// Not normal jumping
 					jumpMultiplier = physics.jumpMultiplier;
 				} else if (spinachBuff) {
@@ -268,7 +299,7 @@ class Player extends Entity {
 				if (physics.canTripleJump && !pieBuff) {
 					if (jumpTimer == null) {
 						// start timer
-						jumpTimer = new Timer(new Duration(seconds:3), () {
+						jumpTimer = new Timer(new Duration(seconds: 3), () {
 							// normal jump
 							jumpcount = 0;
 							jumpTimer.cancel();
@@ -282,6 +313,7 @@ class Player extends Entity {
 						jumpcount = 0;
 						jumpTimer.cancel();
 						jumpTimer = null;
+
 						if (!activeClimb) {
 							audio.playSound('tripleJump');
 						}
@@ -301,16 +333,16 @@ class Player extends Entity {
 			if (doPhysicsApply && !climbingUp && !climbingDown) {
 				// walking
 				yVel -= yAccel * dt;
-				if (physics == 'water') {
-					yVel /= 2;
-				}
 				top += yVel * dt;
 			} else {
 				// climbing
-				if (inputManager.downKey == true)
+				if (inputManager.downKey == true) {
 					top += physics.speed * dt;
-				if (inputManager.upKey == true)
+				}
+
+				if (inputManager.upKey == true) {
 					top -= physics.speed * dt;
+				}
 			}
 
 			if (left < 0) {
@@ -325,13 +357,14 @@ class Player extends Entity {
 
 			Rectangle collisionsRect;
 			if (facingRight) {
-				collisionsRect = new Rectangle(left+width/2, top + currentStreet.groundY + height/4, width/2, height*3/4 - 35);
+				collisionsRect = new Rectangle(left + width / 2, top + currentStreet.groundY + height / 4, width / 2, height * 3 / 4 - 35);
 			} else {
-				collisionsRect = new Rectangle(left, top + currentStreet.groundY + height/4, width/2, height*3/4 - 35);
+				collisionsRect = new Rectangle(left, top + currentStreet.groundY + height / 4, width / 2, height * 3 / 4 - 35);
 			}
+
 			//check for collisions with walls
 			if (doPhysicsApply && (inputManager.leftKey == true || inputManager.rightKey == true)) {
-				for(Wall wall in currentStreet.walls) {
+				for (Wall wall in currentStreet.walls) {
 					if (collisionsRect.intersects(wall.bounds)) {
 						if (facingRight) {
 							if (collisionsRect.right >= wall.bounds.left) {
@@ -366,8 +399,8 @@ class Player extends Entity {
 
 			//check for collisions with ceilings
 			if (doPhysicsApply && !climbingDown && !climbingUp && yVel < 0) {
-				for(Platform platform in currentStreet.platforms) {
-					if (platform.ceiling && intersect(platform.bounds,collisionsRect)) {
+				for (Platform platform in currentStreet.platforms) {
+					if (platform.ceiling && intersect(platform.bounds, collisionsRect)) {
 						num x = left + width / 2;
 						num slope = (platform.end.y - platform.start.y) / (platform.end.x - platform.start.x);
 						num yInt = platform.start.y - slope * platform.start.x;
@@ -380,6 +413,8 @@ class Player extends Entity {
 					}
 				}
 			}
+
+			z = z.clamp(0, streetZ);
 
 			updateAnimation(dt);
 			updateTransform();
@@ -413,7 +448,7 @@ class Player extends Entity {
 		super.update(dt);
 	}
 
-	updateLadderStatus(double dt) {
+	void updateLadderStatus(double dt) {
 		if (doPhysicsApply && inputManager.upKey == true) {
 			// moving up
 
@@ -436,6 +471,7 @@ class Player extends Entity {
 					break;
 				}
 			}
+
 			if (!found) {
 				// not touching a ladder
 				climbingUp = false;
@@ -449,6 +485,7 @@ class Player extends Entity {
 
 			bool found = false;
 			Rectangle playerRect = new Rectangle(left, top + currentStreet.groundY, width, height);
+
 			for (Ladder ladder in currentStreet.ladders) {
 				if (intersect(ladder.bounds, playerRect)) {
 					// touching a ladder
@@ -466,6 +503,7 @@ class Player extends Entity {
 					break;
 				}
 			}
+
 			if (!found) {
 				// not touching a ladder
 				climbingDown = false;
@@ -477,6 +515,7 @@ class Player extends Entity {
 		if (inputManager.rightKey == true || inputManager.leftKey == true) {
 			// left or right on a ladder
 			Rectangle playerRect = new Rectangle(left, top + currentStreet.groundY, width + 20, height + 20);
+
 			for (Ladder ladder in currentStreet.ladders) {
 				if (!intersect(ladder.bounds, playerRect)) {
 					climbingDown = false;
@@ -487,12 +526,136 @@ class Player extends Entity {
 		}
 	}
 
+	void updateAnimation(double dt, [String override]) {
+		Animation previous = currentAnimation;
+
+		if (override != null) {
+			currentAnimation = animations[override];
+		} else {
+			bool climbing = climbingUp || climbingDown;
+
+			if (!moving && !jumping && !climbing) {
+				currentAnimation = animations['idle'];
+			} else {
+				//reset idle so that the 10 second delay starts over
+				animations['idle'].reset();
+
+				if (climbing) {
+					if (activeClimb != lastClimbStatus) {
+						lastClimbStatus = activeClimb;
+					}
+
+					currentAnimation = animations['climb'];
+					currentAnimation.paused = !activeClimb;
+				} else {
+					if (moving && !jumping) {
+						currentAnimation = animations['base'];
+					} else if (jumping && yVel < 0) {
+						currentAnimation = animations['jumpup'];
+						animations['falldown'].reset();
+					} else if (jumping && yVel >= 0) {
+						currentAnimation = animations['falldown'];
+						animations['jumpup'].reset();
+					}
+				}
+			}
+		}
+
+		currentAnimation.updateSourceRect(dt, holdAtLastFrame: jumping);
+
+		if (previous != currentAnimation) {
+			//force a player update to be sent right now
+			timeLast = 5.0;
+		}
+	}
+
+	void updateTransform() {
+		num translateX = left,
+			translateY = view.worldElementWidth - height;
+
+		num camX = camera.getX(),
+			camY = camera.getY();
+
+		if (left > currentStreet.bounds.width - width / 2 - view.worldElementWidth / 2) {
+			camX = currentStreet.bounds.width - view.worldElementWidth;
+			translateX = left - currentStreet.bounds.width + view.worldElementWidth;
+			//allow character to move to screen right
+		} else if (left + width / 2 > view.worldElementWidth / 2) {
+			camX = left + width / 2 - view.worldElementWidth / 2;
+			translateX = view.worldElementWidth / 2 - width / 2;
+			//keep character in center of screen
+		} else {
+			camX = 0;
+		}
+
+		if (top + height / 2 < view.worldElementHeight / 2) {
+			camY = 0;
+			translateY = top;
+		} else if (top < currentStreet.bounds.height - height / 2 - view.worldElementHeight / 2) {
+			num yDistanceFromBottom = currentStreet.bounds.height - top - height / 2;
+			camY = currentStreet.bounds.height - (yDistanceFromBottom + view.worldElementHeight / 2);
+			translateY = view.worldElementHeight / 2 - height / 2;
+		} else {
+			camY = currentStreet.bounds.height - view.worldElementHeight;
+			translateY = view.worldElementHeight - (currentStreet.bounds.height - top);
+		}
+
+		camera.setCameraPosition(camX ~/ 1, camY ~/ 1);
+
+		//translateZ forces the whole operation to be gpu accelerated
+		String transform = 'translateX(' + translateX.toString() + 'px) translateY(' + translateY.toString() + 'px) translateZ(0)';
+		num scale = getScale();
+
+		if (!facingRight) {
+			transform += ' scale3d(-$scale, $scale, $scale)';
+
+			playerParentElement.classes
+				..add('facing-left')
+				..remove('facing-right');
+
+			playerName.style.transform = 'translateY(-100%) translateY(-34px) scale3d(-1,1,1)';
+
+			if (chatBubble != null) {
+				chatBubble.textElement.style.transform = 'scale3d(-1,1,1)';
+			}
+		} else {
+			transform += ' scale3d($scale, $scale, $scale)';
+
+			playerName.style.transform = 'translateY(-100%) translateY(-34px) scale3d(1,1,1)';
+
+			playerParentElement.classes
+				..add('facing-right')
+				..remove('facing-left');
+
+			if (chatBubble != null) {
+				chatBubble.textElement.style.transform = 'scale3d(1,1,1)';
+			}
+		}
+
+		playerParentElement
+			..style.transform = transform
+			..attributes['translateX'] = translateX.toString()
+			..attributes['translateY'] = translateY.toString();
+	}
+
+	num getScale() {
+		if (z == 0) {
+			return 1;
+		} else {
+			num scale = streetZ / z;
+			scale = 0.01 * scale;
+			scale = scale.clamp(0, 1);
+			return scale;
+		}
+	}
+
 	void render() {
 		if (currentAnimation != null && currentAnimation.loaded && currentAnimation.dirty) {
 			if (!firstRender) {
 				Rectangle _entityRect = new Rectangle(left, top, currentAnimation.width, currentAnimation.height);
-				if (!intersect(camera.visibleRect, _entityRect))
+				if (!intersect(camera.visibleRect, _entityRect)) {
 					return;
+				}
 			}
 
 			firstRender = false;
@@ -504,125 +667,26 @@ class Player extends Entity {
 				canvas.height = currentAnimation.height;
 				int x = -(currentAnimation.width ~/ 2);
 				int y = -((currentAnimation.height - height));
+
 				if (Buff.isRunning('grow')) {
 					y -= 30;
 				}
+
 				canvas.style.transform = 'translateX(${x}px) translateY(${y}px)';
+
 				if (Buff.isRunning('grow')) {
 					canvas.style.transform += ' scale(1.5)';
 				} else if (Buff.isRunning('shrink')) {
 					canvas.style.transform += ' scale(0.75)';
 				}
-			}
-			else
+			} else {
 				canvas.context2D.clearRect(0, 0, currentAnimation.width, currentAnimation.height);
+			}
 
 			Rectangle destRect = new Rectangle(0, 0, currentAnimation.width, currentAnimation.height);
 			canvas.context2D.drawImageToRect(currentAnimation.spritesheet, destRect, sourceRect: currentAnimation.sourceRect);
 			currentAnimation.dirty = false;
 		}
-	}
-
-	void updateAnimation(double dt, [String override]) {
-		Animation previous = currentAnimation;
-
-		if (override != null) {
-			currentAnimation = animations[override];
-		} else {
-			bool climbing = climbingUp || climbingDown;
-			if (!moving && !jumping && !climbing)
-				currentAnimation = animations['idle'];
-			else {
-				//reset idle so that the 10 second delay starts over
-				animations['idle'].reset();
-
-				if (climbing) {
-					if (activeClimb != lastClimbStatus) {
-						lastClimbStatus = activeClimb;
-					}
-					currentAnimation = animations['climb'];
-					currentAnimation.paused = !activeClimb;
-				}
-				else {
-					if (moving && !jumping)
-						currentAnimation = animations['base'];
-					else if (jumping && yVel < 0) {
-						currentAnimation = animations['jumpup'];
-						animations['falldown'].reset();
-					}
-					else if (jumping && yVel >= 0) {
-						currentAnimation = animations['falldown'];
-						animations['jumpup'].reset();
-					}
-				}
-			}
-		}
-
-		currentAnimation.updateSourceRect(dt, holdAtLastFrame:jumping);
-
-		if (previous != currentAnimation) {
-			//force a player update to be sent right now
-			timeLast = 5.0;
-		}
-	}
-
-	void updateTransform() {
-		num translateX = left, translateY = view.worldElementWidth - height;
-
-		num camX = camera.getX(), camY = camera.getY();
-		if (left > currentStreet.bounds.width - width / 2 - view.worldElementWidth / 2) {
-			camX = currentStreet.bounds.width - view.worldElementWidth;
-			translateX = left - currentStreet.bounds.width + view.worldElementWidth;
-			//allow character to move to screen right
-		}
-		else if (left + width / 2 > view.worldElementWidth / 2) {
-			camX = left + width / 2 - view.worldElementWidth / 2;
-			translateX = view.worldElementWidth / 2 - width / 2;
-			//keep character in center of screen
-		}
-		else
-			camX = 0;
-
-		if (top + height / 2 < view.worldElementHeight / 2) {
-			camY = 0;
-			translateY = top;
-		}
-		else if (top < currentStreet.bounds.height - height / 2 - view.worldElementHeight / 2) {
-			num yDistanceFromBottom = currentStreet.bounds.height - top - height / 2;
-			camY = currentStreet.bounds.height - (yDistanceFromBottom + view.worldElementHeight / 2);
-			translateY = view.worldElementHeight / 2 - height / 2;
-		}
-		else {
-			camY = currentStreet.bounds.height - view.worldElementHeight;
-			translateY = view.worldElementHeight - (currentStreet.bounds.height - top);
-		}
-
-		camera.setCameraPosition(camX ~/ 1, camY ~/ 1);
-
-		//translateZ forces the whole operation to be gpu accelerated
-		String transform = 'translateX(' + translateX.toString() + 'px) translateY(' + translateY.toString() + 'px) translateZ(0)';
-		if (!facingRight) {
-			transform += ' scale3d(-1,1,1)';
-			playerParentElement.classes
-				..add('facing-left')
-				..remove('facing-right');
-			playerName.style.transform = 'translateY(-100%) translateY(-34px) scale3d(-1,1,1)';
-
-			if (chatBubble != null)
-				chatBubble.textElement.style.transform = 'scale3d(-1,1,1)';
-		}
-		else {
-			playerName.style.transform = 'translateY(-100%) translateY(-34px) scale3d(1,1,1)';
-			playerParentElement.classes
-				..add('facing-right')
-				..remove('facing-left');
-			if (chatBubble != null)
-				chatBubble.textElement.style.transform = 'scale3d(1,1,1)';
-		}
-
-		playerParentElement.style.transform = transform;
-		playerParentElement.attributes['translateX'] = translateX.toString();
-		playerParentElement.attributes['translateY'] = translateY.toString();
 	}
 
 	String followPlayer([String toFollow]) {
