@@ -247,13 +247,13 @@ class Player extends Entity {
 
 			if (inputManager.rightKey == true) {
 				// moving right
-				left += physics.speed * dt;
+				left += physics.speed * dt * scale;
 				facingRight = true;
 				moving = true;
 				updateLadderStatus(dt);
 			} else if (inputManager.leftKey == true) {
 				// moving left
-				left -= physics.speed * dt;
+				left -= physics.speed * dt * scale;
 				facingRight = false;
 				moving = true;
 				updateLadderStatus(dt);
@@ -264,13 +264,13 @@ class Player extends Entity {
 
 			if (!activeClimb && streetZ != 0) {
 				// Not near a ladder, and this street is 3d
-				if (inputManager.upKey == true && getScale() > MIN_SCALE) {
+				if (inputManager.upKey == true && scale > MIN_SCALE) {
 					// moving back
-					z += physics.zSpeed * getScale() * dt;
+					z += physics.zSpeed * scale * dt;
 					moving = true;
-				} else if (inputManager.downKey == true && getScale() < 1) {
+				} else if (inputManager.downKey == true && scale < 1) {
 					// moving foward
-					z -= physics.zSpeed * getScale() * dt;
+					z -= physics.zSpeed * scale * dt;
 					moving = true;
 				} else {
 					// not moving
@@ -311,7 +311,7 @@ class Player extends Entity {
 
 					if (jumpcount == 2) {
 						// triple jump
-						yVel = -(physics.yVelTripleJump * jumpMultiplier);
+						yVel = -(physics.yVelTripleJump * jumpMultiplier) * scale;
 						jumpcount = 0;
 						jumpTimer.cancel();
 						jumpTimer = null;
@@ -322,11 +322,11 @@ class Player extends Entity {
 					} else {
 						// normal jump
 						jumpcount++;
-						yVel = -(physics.yVelJump * jumpMultiplier);
+						yVel = -(physics.yVelJump * jumpMultiplier) * scale;
 					}
 				} else {
 					// triple jumping disabled
-					yVel = -(physics.yVelJump * jumpMultiplier);
+					yVel = -(physics.yVelJump * jumpMultiplier) * scale;
 				}
 			}
 
@@ -334,16 +334,16 @@ class Player extends Entity {
 			//for jumps/falling
 			if (doPhysicsApply && !climbingUp && !climbingDown) {
 				// walking
-				yVel -= yAccel * dt;
-				top += yVel * dt;
+				yVel -= yAccel * dt * scale;
+				top += yVel * dt * scale;
 			} else {
 				// climbing
 				if (inputManager.downKey == true) {
-					top += physics.speed * dt;
+					top += physics.speed * dt * scale;
 				}
 
 				if (inputManager.upKey == true) {
-					top -= physics.speed * dt;
+					top -= physics.speed * dt * scale;
 				}
 			}
 
@@ -602,11 +602,13 @@ class Player extends Entity {
 			translateY = view.worldElementHeight - (currentStreet.bounds.height - top);
 		}
 
+		// Move up to simulate moving back
+		translateY -= z;
+
 		camera.setCameraPosition(camX ~/ 1, camY ~/ 1);
 
 		//translateZ forces the whole operation to be gpu accelerated
 		String transform = 'translateX(' + translateX.toString() + 'px) translateY(' + translateY.toString() + 'px) translateZ(0)';
-		num scale = getScale();
 
 		if (!facingRight) {
 			transform += ' scale3d(-$scale, $scale, $scale)';
@@ -640,7 +642,7 @@ class Player extends Entity {
 			..attributes['translateY'] = translateY.toString();
 	}
 
-	num getScale() {
+	num get scale {
 		if (z == 0) {
 			return 1;
 		} else {
