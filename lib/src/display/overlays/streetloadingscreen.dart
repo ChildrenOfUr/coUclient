@@ -42,6 +42,7 @@ class StreetLoadingScreen extends Overlay {
 
 		// Display progress
 		displayElement.append(progressBar);
+		loadingPercent = 0;
 
 		// Show overlay
 		super.open();
@@ -57,16 +58,27 @@ class StreetLoadingScreen extends Overlay {
 	}
 
 	set loadingPercent(int percent) {
-		// Set width of segment
-		progressBar.attributes['percent'] = percent.toString();
+		String _getLoadingMessage(int p) => {
+			0: 'Reticulating splines... $p%',
+			1: 'Snorting no-no powder... $p%',
+			2: 'Disignering graphamagicals... $p%',
+			3: 'Reassembling nibbled piggies... $p%',
+			4: 'Harvesting Giant Imagination... $p%',
+			5: 'Lighting aromatherapy candles for butterflies... $p%',
+			6: 'Choking chickens... $p%',
+			7: 'Tinkering tinker tools... $p%',
+			8: 'Refilling batterfly snarkiness levels... $p%',
+			9: 'Placing Urlings on Urth... $p%',
+			10: '$p% done!',
+		}[p ~/ 10];
 
-		if (percent <= 99) {
-			// Still loading
-			progressBar.attributes['status'] = 'Reticulating splines... $percent%';
-		} else {
+		// Set width & text of progress bar
+		progressBar.attributes
+			..['percent'] = percent.toString()
+			..['status'] = _getLoadingMessage(percent);
+
+		if (percent == 100) {
 			// Done loading
-			progressBar.attributes['status'] = '...done!';
-
 			// Hide after 3 seconds (to finish settling entities)
 			new Future.delayed(new Duration(seconds: 3)).then((_) => close());
 		}
@@ -107,15 +119,10 @@ class StreetLoadingScreen extends Overlay {
 
 			// List entities on "Entering" street
 
-			HeadingElement entitiesTitle = new HeadingElement.h3()
-				..text = 'Home to: ';
-
-			ParagraphElement entitiesList = new ParagraphElement();
-			_listEntities(street, entitiesTitle).then((String list) => entitiesList.setInnerHtml(list));
-
-			section
-				..append(entitiesTitle)
-				..append(entitiesList);
+			ParagraphElement entitiesList = new ParagraphElement()
+				..classes = ['entity-list'];
+			_listEntities(street).then((String list) => entitiesList.setInnerHtml(list));
+			section.append(entitiesList);
 		}
 
 		return section;
@@ -127,15 +134,16 @@ class StreetLoadingScreen extends Overlay {
 			..height = street['loading_image']['h']
 			..classes = ['street-load-image'];
 
-	Future<String> _listEntities(Map<String, dynamic> street, Element titleDisplay) async {
+	Future<String> _listEntities(Map<String, dynamic> street) async {
 		String url = 'http://${Configs.utilServerAddress}/previewStreetEntities?tsid=${street['tsid']}';
 		Map<String, int> entityList = JSON.decode(await HttpRequest.getString(url));
 		String entityString = '';
 
-		if (entityList.keys.length == 0) {
-			// No list, no title
-			titleDisplay.hidden = true;
-		} else if (entityList.keys.length == 1) {
+		if (entityList.keys.length > 0) {
+			entityString += '<h3>Home to:</h3> ';
+		}
+
+		if (entityList.keys.length == 1) {
 			// Only one entity, just display it without commas
 			entityString = '${entityList.values.single} ${entityList.keys.single}';
 		} else {

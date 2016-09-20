@@ -27,7 +27,7 @@ class Buff {
 			_running[buffId].remove();
 			return true;
 		} catch (e) {
-			logmessage('Could not remove non-running buff $buffId: $e');
+			//logmessage('Could not remove non-running buff $buffId: $e');
 			return false;
 		}
 	}

@@ -173,6 +173,10 @@
     line-height: 15px;
 }
 
+.street-load-section p h3 {
+    display: inline;
+}
+
 .street-load-section p {
     color: #fff;
     width: 80%;
@@ -185,6 +189,16 @@
     width: calc(100% - 132px);
     bottom: 12%;
     box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+}
+
+.street-load-section .entity-list {
+    white-space: nowrap;
+}
+
+@media(max-height: 700px) {
+    .street-load-section .entity-list {
+        display: none;
+    }
 }
 
 /* Browser Errors */
