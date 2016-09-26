@@ -97,9 +97,9 @@ class StreetLoadingScreen extends Overlay {
 			..text = 'in ${hub['name']}';
 
 		String topColor = hub['color_top'];
-		topColor = (!topColor.startsWith('#') ? '#$topColor' : topColor);
+		topColor = (topColor.startsWith('#') ? topColor : '#$topColor');
 		String bottomColor = hub['color_btm'];
-		bottomColor = (!bottomColor.startsWith('#') ? '#$bottomColor' : bottomColor);
+		bottomColor = (bottomColor.startsWith('#') ? bottomColor : '#$bottomColor');
 
 		DivElement section = new DivElement()
 			..classes = ['street-load-section']
