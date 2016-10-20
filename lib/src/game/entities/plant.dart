@@ -36,7 +36,7 @@ class Plant extends Entity {
 			x = num.parse(map['x'].toString());
 			y = num.parse(map['y'].toString()) - height;
 			z = num.parse(map['z'].toString());
-			rotation = num.parse(map['rotation'].toString());
+			rotation = num.parse((map['rotation'] ?? 0).toString());
 			h_flip = map['h_flip'].toString() == 'true';
 			left = x;
 			top = y;

@@ -98,6 +98,7 @@ Future findNewSlot(Slot slot, int index, {bool update: false}) async {
 
 Future sizeItem(ImageElement img, Element itemDiv, Element slot, ItemDef item, int count, int barSlotNum, {String cssClass, int bagSlotNum: -1}) async {
 	await img.onLoad.first;
+	Function onUpdateMetadata;
 
 	//determine what we need to scale the sprite image to in order to fit
 	num scale = 1;
@@ -140,11 +141,18 @@ Future sizeItem(ImageElement img, Element itemDiv, Element slot, ItemDef item, i
 	itemDiv.onContextMenu.listen((MouseEvent event) => itemContextMenu(item, slotNum, event));
 	slot.append(itemDiv);
 
+	if (item.metadata.containsKey('fireflies')) {
+		count = int.parse(item.metadata['fireflies']);
+		onUpdateMetadata = (Map indexToItem){
+			ItemDef item = indexToItem['item'];
+			slot.querySelector('.itemCount')..text = item.metadata['fireflies'];
+		};
+	}
 	SpanElement itemCount = new SpanElement()
 		..text = count.toString()
 		..className = "itemCount";
 	slot.append(itemCount);
-	if (count <= 1) {
+	if (count <= 1 && !item.metadata.containsKey('fireflies')) {
 		itemCount.text = "";
 	}
 
@@ -166,28 +174,25 @@ Future sizeItem(ImageElement img, Element itemDiv, Element slot, ItemDef item, i
 		durabilityBackground.append(durabilityForeground);
 		slot.append(durabilityBackground);
 
-		new Service('updateMetadata', (Map indexToItem) {
-			if(bagSlotNum != -1) {
-				//stuff in bags will update itself each time the bag is changed
+		onUpdateMetadata = (Map indexToItem) {
+			Element durabilityBar = slot.querySelector('.durabilityForeground');
+			Element durabilityBarBack = slot.querySelector('.durabilityBackground');
+			if(durabilityBar == null) {
 				return;
 			}
-			if(indexToItem['index'] == barSlotNum) {
-				Element durabilityBar = slot.querySelector('.durabilityForeground');
-				if(durabilityBar == null) {
-					return;
-				}
 
-				ItemDef item = indexToItem['item'];
-				int durabilityUsed = int.parse(item.metadata['durabilityUsed'] ?? '0');
-				num percent = ((item.durability-durabilityUsed)/item.durability)*100;
-				durabilityBar..style.width = '$percent%';
-				if(percent == 0) {
-					itemDiv.style.backgroundImage = 'url(${item.brokenUrl})';
-				} else {
-					itemDiv.style.backgroundImage = 'url(${item.spriteUrl})';
-				}
+			ItemDef item = indexToItem['item'];
+			int durabilityUsed = int.parse(item.metadata['durabilityUsed'] ?? '0');
+			num percent = ((item.durability-durabilityUsed)/item.durability)*100;
+			durabilityBar.style.width = '$percent%';
+			int durabilityPercent = percent.round();
+			durabilityBarBack.title = '$durabilityPercent% durability remaining';
+			if(percent == 0) {
+				itemDiv.style.backgroundImage = 'url(${item.brokenUrl})';
+			} else {
+				itemDiv.style.backgroundImage = 'url(${item.spriteUrl})';
 			}
-		});
+		};
 	}
 
 	int offset = count;
@@ -195,6 +200,22 @@ Future sizeItem(ImageElement img, Element itemDiv, Element slot, ItemDef item, i
 		offset = item.iconNum;
 	}
 	itemDiv.style.backgroundPosition = "calc(100% / ${item.iconNum - 1} * ${offset - 1})";
+
+	if (onUpdateMetadata != null) {
+		_onUpdateMetadata(onUpdateMetadata, barSlotNum: barSlotNum, bagSlotNum: bagSlotNum);
+	}
+}
+
+void _onUpdateMetadata(Function doAction, {int bagSlotNum: -1, int barSlotNum: -1}) {
+	new Service('updateMetadata', (Map indexToItem) {
+		if (bagSlotNum != -1) {
+			//stuff in bags will update itself each time the bag is changed
+			return;
+		}
+		if (indexToItem['index'] == barSlotNum) {
+			doAction(indexToItem);
+		}
+	});
 }
 
 void takeItemFromInventory(String itemType, {int count: 1}) {
