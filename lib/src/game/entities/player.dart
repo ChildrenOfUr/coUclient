@@ -455,7 +455,7 @@ class Player extends Entity {
 			// moving up
 
 			bool found = false;
-			Rectangle playerRect = new Rectangle(left, top + currentStreet.groundY, width, height - 15);
+			Rectangle playerRect = new Rectangle(left + width / 3, top + currentStreet.groundY, width / 3 , height - 15);
 			for (Ladder ladder in currentStreet.ladders) {
 				if (intersect(ladder.bounds, playerRect)) {
 					// touching a ladder
