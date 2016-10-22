@@ -168,7 +168,7 @@ _setupStreetSocket(String streetName) {
 		}
 
 		if (map['promptString'] != null) {
-			new PromptStringWindow(map['promptText'], map['promptRef']);
+			new PromptStringWindow(map['promptText'], map['promptRef'], map['charLimit']);
 			return;
 		}
 
