@@ -77,7 +77,7 @@ class StreetLoadingScreen extends Overlay {
 			..['percent'] = percent.toString()
 			..['status'] = _getLoadingMessage(percent);
 
-		if (percent == 100) {
+		if (percent >= 99) {
 			// Done loading
 			// Hide after 3 seconds (to finish settling entities)
 			new Future.delayed(new Duration(seconds: 3)).then((_) => close());
