@@ -43,7 +43,7 @@ class ChatMessage {
 			// Dev/Guide
 			if (overrideUsernameLink == null) {
 				String elevation = await game.getElevation(player);
-				if (elevation != "_") {
+				if (elevation != '_') {
 					nameClasses.add(elevation);
 				}
 			}
