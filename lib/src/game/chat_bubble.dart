@@ -37,7 +37,7 @@ class ChatBubble {
 		textElement.setInnerHtml(text, validator: Chat.VALIDATOR);
 
 		if (buttons != null) {
-			textElement.appendText('\n');
+			textElement.appendHtml('<br>', validator: Chat.VALIDATOR);
 
 			buttons.split('|').forEach((String button) {
 				String btnId = button.split(',')[0];
@@ -47,6 +47,7 @@ class ChatBubble {
 					..text = btnText
 					..onClick.first.then((_) {
 						// Send id to server
+						logmessage('Sending chat bubble action: $btnId');
 						streetSocket.send(JSON.encode({'bubbleButton': btnId}));
 					});
 				textElement.append(btn);

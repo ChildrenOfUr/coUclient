@@ -35,7 +35,7 @@ _updateChatBubble(Map map, Entity entity) {
 
 	if (map["bubbleText"] != null) {
 		String bubbleText = map['bubbleText'].split('|||')[0];
-		String buttons = map['bubbleText'].split('|||')[1];
+		String buttons = (map['bubbleText'].contains('|||') ? map['bubbleText'].split('|||')[1] : null);
 
 		if (entity.chatBubble == null) {
 			String heightString = entity.canvas.height.toString();
