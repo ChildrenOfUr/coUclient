@@ -34,6 +34,9 @@ _updateChatBubble(Map map, Entity entity) {
 	}
 
 	if (map["bubbleText"] != null) {
+		String bubbleText = map['bubbleText'].split('|||')[0];
+		String buttons = map['bubbleText'].split('|||')[1];
+
 		if (entity.chatBubble == null) {
 			String heightString = entity.canvas.height.toString();
 			String translateY = entity.canvas.attributes['translateY'];
@@ -52,11 +55,12 @@ _updateChatBubble(Map map, Entity entity) {
 					'translateX(${map['x']}px) translateY(${translateY}px)';
 			view.playerHolder.append(bubbleParent);
 			entity.chatBubble = new ChatBubble(
-				map["bubbleText"], entity, bubbleParent,
-				autoDismiss: false, removeParent: true, gains: map['gains']);
+				bubbleText, entity, bubbleParent,
+				autoDismiss: false, removeParent: true, gains: map['gains'],
+				buttons: buttons);
 
 			String type = entity.canvas.attributes['type'];
-			Chat.localChat.addMessage('($type)', map['bubbleText'],
+			Chat.localChat.addMessage('($type)', bubbleText,
 				overrideUsernameLink: 'http://childrenofur.com/encyclopedia/#/entity/${type.replaceAll(' ', '')}');
 		}
 

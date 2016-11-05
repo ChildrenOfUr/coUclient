@@ -5,12 +5,18 @@ class ChatBubble {
 	num timeToLive;
 	DivElement bubble, parent, textElement, arrowElement;
 	var hostObject;
-	bool autoDismiss,removeParent;
+	bool autoDismiss, removeParent;
 
-	ChatBubble(this.text,this.hostObject,this.parent,{this.autoDismiss : true, this.removeParent : false, bool addUsername : false, Map gains : null}) {
-		timeToLive = (text.length * 0.05) + 3; //minimum 3s plus 0.05 per character
-		if(timeToLive > 10) { //max 10s
-			timeToLive = 10; //messages over 10s will only display for 10s
+	ChatBubble(this.text, this.hostObject, this.parent,
+		{this.autoDismiss: true, this.removeParent: false, bool addUsername: false, Map gains: null, String buttons}) {
+		if (autoDismiss) {
+			timeToLive = (text.length * 0.05) + 3; //minimum 3s plus 0.05 per character
+
+			if (timeToLive > 10) { //max 10s
+				timeToLive = 10; //messages over 10s will only display for 10s
+			}
+		} else {
+			timeToLive = 0;
 		}
 
 		bubble = new DivElement()
@@ -30,14 +36,33 @@ class ChatBubble {
 
 		textElement.setInnerHtml(text, validator: Chat.VALIDATOR);
 
+		if (buttons != null) {
+			textElement.appendText('\n');
+
+			buttons.split('|').forEach((String button) {
+				String btnId = button.split(',')[0];
+				String btnText = button.split(',')[1];
+
+				ButtonElement btn = new ButtonElement()
+					..text = btnText
+					..onClick.first.then((_) {
+						// Send id to server
+						streetSocket.send(JSON.encode({'bubbleButton': btnId}));
+					});
+				textElement.append(btn);
+			});
+		}
+
 		arrowElement = new DivElement()
 			..classes.add("cb-arrow");
 
-		if(gains != null) {
-			DivElement awarded = new DivElement()..className = 'awarded';
+		if (gains != null) {
+			DivElement awarded = new DivElement()
+				..className = 'awarded';
 			gains.forEach((String metabolic, int value) {
-				if(value != 0) {
-					SpanElement span = new SpanElement()..className = metabolic;
+				if (value != 0) {
+					SpanElement span = new SpanElement()
+						..className = metabolic;
 					String textValue = value > 0 ? '+' + value.toString() : value.toString();
 					span.text = textValue;
 					awarded.append(span);
@@ -58,8 +83,7 @@ class ChatBubble {
 			removeBubble();
 			//force a player update to be sent right now
 			timeLast = 5.0;
-		}
-		else {
+		} else {
 			timeToLive -= dt;
 			parent.append(bubble);
 		}
@@ -67,8 +91,10 @@ class ChatBubble {
 
 	void removeBubble() {
 		bubble.remove();
-        hostObject.chatBubble = null;
-        if(removeParent)
-        	parent.remove();
+		hostObject.chatBubble = null;
+
+		if (removeParent) {
+			parent.remove();
+		}
 	}
 }

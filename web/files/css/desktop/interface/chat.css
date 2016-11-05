@@ -217,6 +217,10 @@ p.me {
     display: inline-block;
 }
 
+.cb-content button {
+    pointer-events: all;
+}
+
 /* Entity Interaction Completion */
 
 .cb-content .awarded {
