@@ -6,6 +6,7 @@ class NPC extends Entity {
 		ySpeed = 0;
 	bool ready = false,
 		_facingRight = true,
+		dontFlip = false,
 		firstRender = true;
 	Animation animation;
 	ChatBubble chatBubble = null;
@@ -33,6 +34,7 @@ class NPC extends Entity {
 		speed = map['speed'];
 		ySpeed = map['ySpeed'] ?? 0;
 		type = map['type'];
+		dontFlip = map['dontFlip'] ?? false;
 
 		nameOverride = map['nameOverride'];
 
@@ -131,7 +133,7 @@ class NPC extends Entity {
 	_setTranslate() {
 		canvas.attributes['translatex'] = left.toString();
 		canvas.attributes['translatey'] = top.toString();
-		if(facingRight) {
+		if(facingRight || dontFlip) {
 			canvas.style.transform = "translateX(${left}px) translateY(${top}px) rotate(${rotation}deg) scale3d(1,1,1)";
 		} else {
 			canvas.style.transform = "translateX(${left}px) translateY(${top}px) rotate(${rotation}deg) scale3d(-1,1,1)";
