@@ -16,8 +16,6 @@ class AuthManager {
 			//fire acknowledgement event
 			transmit('loginAcknowledged',null);
 
-			inputManager = new InputManager();
-
 			Map serverdata = e.detail;
 
 			logmessage('[AuthManager] Setting API tokens');
@@ -53,6 +51,7 @@ class AuthManager {
 	}
 
 	startGame(Map serverdata) {
+		inputManager = new InputManager();
 		view.loggedIn();
 		audio.sc = new SC(SC_TOKEN);
 
@@ -78,7 +77,6 @@ class AuthManager {
 			post('setusername', data).then((HttpRequest request) {
 				if(request.responseText == '{"ok":"yes"}') {
 					// now that the username has been set, start the game
-					inputManager = new InputManager();
 					startGame(serverdata);
 				} else {
 //					print('name change failed');
