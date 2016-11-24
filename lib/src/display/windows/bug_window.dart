@@ -48,7 +48,7 @@ class BugWindow extends Modal {
 					  ..append("category", view.bugReportType.value);
 				  await HttpRequest.request("http://${Configs.utilServerAddress}/report/add", method: "POST", sendData: data);
 				  // Complete
-				  w.hidden = true;
+				  close();
 				  view.bugReportTitle.value = "";
 				  input.value = "";
 			  }
