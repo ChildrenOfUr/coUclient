@@ -41,7 +41,7 @@ class Physics {
 			canJump: false,
 			canTripleJump: false,
 			infiniteJump: true,
-			jumpMultiplier: 1.5,
+			jumpMultiplier: 0.23,
 			speed: 250),
 	};
 
