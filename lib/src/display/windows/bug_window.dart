@@ -14,7 +14,7 @@ class BugWindow extends Modal {
 		prepare();
 
 		metaHeader = '/////////////' + ' USER AGENT ' + '/////////////' + '\n'
-			+ window.navigator.userAgent + ' | (ping time untested)' + '\n'
+			+ window.navigator.userAgent + '\n'
 			+ '/////////////' + ' CLIENT LOG ' + '/////////////' + '\n';
 
 		setupUiButton(view.bugButton, openCallback: _prepareReport);
@@ -43,7 +43,9 @@ class BugWindow extends Modal {
 					  ..append("title", view.bugReportTitle.value)
 					  ..append("description", input.value)
 					  ..append("log", messagesLogged)
-					  ..append("useragent", window.navigator.userAgent + ' | Server ping: ${await checkLag(true)} ms')
+					  ..append("useragent", window.navigator.userAgent)
+					  ..append("ping", "${await checkLag(true)} ms")
+					  ..append("screen", "${window.innerWidth} x ${window.innerHeight}")
 					  ..append("username", game.username)
 					  ..append("category", view.bugReportType.value);
 				  await HttpRequest.request("http://${Configs.utilServerAddress}/report/add", method: "POST", sendData: data);
