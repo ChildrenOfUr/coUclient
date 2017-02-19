@@ -111,7 +111,7 @@ class MapData {
 			return streetData[streetName][setting];
 		} else if (hubData[hubId] != null && hubData[hubId][setting] != null) {
 			// Check #2: Hub
-			return hubData[currentStreet.hub_id][setting];
+			return hubData[hubId][setting];
 		} else {
 			// Check #3: Default
 			return defaultValue;
