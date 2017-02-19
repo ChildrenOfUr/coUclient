@@ -500,12 +500,24 @@ class RightClickMenu {
 		tooltip.text = errorText;
 	}
 
-	static void destroy() {
-		Element menu = querySelector("#RightClickMenu");
-		if (menu != null) {
-			menu.remove();
-			MenuKeys.clearListeners();
-			transmit("right_click_menu", "destroy");
-		}
+	static int destroy() {
+		int destroyed = 0;
+		Element menu;
+
+		do {
+			menu = querySelector("#RightClickMenu");
+
+			if (menu != null) {
+				menu.remove();
+				MenuKeys.clearListeners();
+				transmit("right_click_menu", "destroy");
+				destroyed++;
+			}
+
+			menu = querySelector("#RightClickMenu");
+		} while (menu != null);
+
+		logmessage('$destroyed menu(s) destroyed');
+		return destroyed;
 	}
 }
