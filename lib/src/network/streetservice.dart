@@ -88,12 +88,14 @@ class StreetService {
 
 	Future<bool> _prepareStreet(Map streetJSON) async {
 		// Tell the server we're leaving
-		try {
-			sendGlobalAction('leaveStreet', {
-				'street': currentStreet.tsid
-			});
-		} catch (e) {
-			logmessage("Error sending last street to server: $e");
+		if (currentStreet != null && currentStreet.tsid != null) {
+			try {
+				sendGlobalAction('leaveStreet', {
+					'street': currentStreet.tsid
+				});
+			} catch (e) {
+				logmessage("Error sending last street to server: $e");
+			}
 		}
 
 		logmessage('[StreetService] Assembling Street...');
