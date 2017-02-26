@@ -580,117 +580,61 @@ class InputManager {
 		stopMenu(window);
 	}
 
-	String fromKeyCode(int keyCode) {
-		String keyPressed = "";
-		if (keyCode == 8) keyPressed = "backspace";
-		//  backspace
-		if (keyCode == 9) keyPressed = "tab";
-		//  tab
-		if (keyCode == 13) keyPressed = "enter";
-		//  enter
-		if (keyCode == 16) keyPressed = "shift";
-		//  shift
-		if (keyCode == 17) keyPressed = "ctrl";
-		//  ctrl
-		if (keyCode == 18) keyPressed = "alt";
-		//  alt
-		if (keyCode == 19) keyPressed = "pause/break";
-		//  pause/break
-		if (keyCode == 20) keyPressed = "caps lock";
-		//  caps lock
-		if (keyCode == 27) keyPressed = "escape";
-		//  escape
-		if (keyCode == 32) keyPressed = "space";
-		// space;
-		if (keyCode == 33) keyPressed = "page up";
-		// page up, to avoid displaying alternate character and confusing people
-		if (keyCode == 34) keyPressed = "page down";
-		// page down
-		if (keyCode == 35) keyPressed = "end";
-		// end
-		if (keyCode == 36) keyPressed = "home";
-		// home
-		if (keyCode == 37) keyPressed = "left arrow";
-		// left arrow
-		if (keyCode == 38) keyPressed = "up arrow";
-		// up arrow
-		if (keyCode == 39) keyPressed = "right arrow";
-		// right arrow
-		if (keyCode == 40) keyPressed = "down arrow";
-		// down arrow
-		if (keyCode == 45) keyPressed = "insert";
-		// insert
-		if (keyCode == 46) keyPressed = "delete";
-		// delete
-		if (keyCode == 91) keyPressed = "left window";
-		// left window
-		if (keyCode == 92) keyPressed = "right window";
-		// right window
-		if (keyCode == 93) keyPressed = "select key";
-		// select key
-		if (keyCode == 96) keyPressed = "numpad 0";
-		// numpad 0
-		if (keyCode == 97) keyPressed = "numpad 1";
-		// numpad 1
-		if (keyCode == 98) keyPressed = "numpad 2";
-		// numpad 2
-		if (keyCode == 99) keyPressed = "numpad 3";
-		// numpad 3
-		if (keyCode == 100) keyPressed = "numpad 4";
-		// numpad 4
-		if (keyCode == 101) keyPressed = "numpad 5";
-		// numpad 5
-		if (keyCode == 102) keyPressed = "numpad 6";
-		// numpad 6
-		if (keyCode == 103) keyPressed = "numpad 7";
-		// numpad 7
-		if (keyCode == 104) keyPressed = "numpad 8";
-		// numpad 8
-		if (keyCode == 105) keyPressed = "numpad 9";
-		// numpad 9
-		if (keyCode == 106) keyPressed = "multiply";
-		// multiply
-		if (keyCode == 107) keyPressed = "add";
-		// add
-		if (keyCode == 109) keyPressed = "subtract";
-		// subtract
-		if (keyCode == 110) keyPressed = "decimal point";
-		// decimal point
-		if (keyCode == 111) keyPressed = "divide";
-		// divide
-		if (keyCode == 112) keyPressed = "F1";
-		// F1
-		if (keyCode == 113) keyPressed = "F2";
-		// F2
-		if (keyCode == 114) keyPressed = "F3";
-		// F3
-		if (keyCode == 115) keyPressed = "F4";
-		// F4
-		if (keyCode == 116) keyPressed = "F5";
-		// F5
-		if (keyCode == 117) keyPressed = "F6";
-		// F6
-		if (keyCode == 118) keyPressed = "F7";
-		// F7
-		if (keyCode == 119) keyPressed = "F8";
-		// F8
-		if (keyCode == 120) keyPressed = "F9";
-		// F9
-		if (keyCode == 121) keyPressed = "F10";
-		// F10
-		if (keyCode == 122) keyPressed = "F11";
-		// F11
-		if (keyCode == 123) keyPressed = "F12";
-		// F12
-		if (keyCode == 144) keyPressed = "num lock";
-		// num lock
-		if (keyCode == 145) keyPressed = "scroll lock";
-		// scroll lock
-		if (keyCode == 225) keyPressed = "alt";
-		//right alt
-
-		return keyPressed;
-	}
+	String fromKeyCode(int keyCode) => const {
+		8: "backspace",
+		9: "tab",
+		13: "enter",
+		16: "shift",
+		17: "ctrl",
+		18: "left alt",
+		19: "pause/break",
+		20: "caps lock",
+		27: "escape",
+		32: "space",
+		33: "page up",
+		34: "page down",
+		35: "end",
+		36: "home",
+		37: "left arrow",
+		38: "up arrow",
+		39: "right arrow",
+		40: "down arrow",
+		45: "insert",
+		46: "delete",
+		91: "left window",
+		92: "right window",
+		93: "select key",
+		96: "numpad 0",
+		97: "numpad 1",
+		98: "numpad 2",
+		99: "numpad 3",
+		100: "numpad 4",
+		101: "numpad 5",
+		102: "numpad 6",
+		103: "numpad 7",
+		104: "numpad 8",
+		105: "numpad 9",
+		106: "multiply",
+		107: "add",
+		109: "subtract",
+		110: "decimal point",
+		111: "divide",
+		112: "F1",
+		113: "F2",
+		114: "F3",
+		115: "F4",
+		116: "F5",
+		117: "F6",
+		118: "F7",
+		119: "F8",
+		120: "F9",
+		121: "F10",
+		122: "F11",
+		123: "F12",
+		144: "num lock",
+		145: "scroll lock",
+		225: "right alt",
+	}[keyCode] ?? "";
 
 	bool konamiDone = false, freeTeleportUsed = false;
 	initKonami() {
