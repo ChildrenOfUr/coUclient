@@ -268,7 +268,7 @@ class WeatherManager {
 	}
 
 	static _playRainSound() async {
-		audio.gameSounds['rainSound'] = new Sound(channel: audio.audioChannels['soundEffects']);
+		audio.gameSounds['rainSound'] = new Sound(channel: audio.audioChannels['weather']);
 		await audio.gameSounds['rainSound'].load("files/audio/rain.${audio.extension}");
 		rainSound = await audio.playSound('rainSound', looping:true, fadeIn:true);
 	}

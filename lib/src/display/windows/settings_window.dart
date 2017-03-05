@@ -130,11 +130,14 @@ class SettingsWindow extends Modal {
 		//setup volume controls
 		UrSlider musicSlider = querySelector("#MusicSlider") as UrSlider;
 		UrSlider effectSlider = querySelector("#EffectSlider") as UrSlider;
+		UrSlider weatherSlider = querySelector("#WeatherSlider") as UrSlider;
 		try {
 			musicSlider.value = int.parse(localStorage['musicVolume']);
 			effectSlider.value = int.parse(localStorage['effectsVolume']);
+			weatherSlider.value = int.parse(localStorage['weatherVolume']);
 		} catch(e) {
 		}
+
 		musicSlider.on['immediate-value-change'].listen((Event event) {
 			num volume = musicSlider.value;
 			audio.audioChannels['music'].gain = volume / 100;
@@ -143,6 +146,7 @@ class SettingsWindow extends Modal {
 			num volume = musicSlider.value;
 			localStorage['musicVolume'] = volume.toString();
 		});
+
 		effectSlider.on['immediate-value-change'].listen((Event event) {
 			num volume = effectSlider.value;
 			audio.audioChannels['soundEffects'].gain = volume / 100;
@@ -150,6 +154,13 @@ class SettingsWindow extends Modal {
 		effectSlider.on['core-change'].listen((Event event) {
 			num volume = effectSlider.value;
 			localStorage['effectsVolume'] = volume.toString();
+		});
+
+		weatherSlider.on['immediate-value-change'].listen((Event event) {
+			audio.audioChannels['weather'].gain = weatherSlider.value / 100;
+		});
+		weatherSlider.on['core-change'].listen((Event event) {
+			localStorage['weatherVolume'] = weatherSlider.value.toString();
 		});
 
 		setupUiButton(view.settingsButton);
