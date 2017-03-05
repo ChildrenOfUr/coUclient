@@ -12,6 +12,15 @@ html, body {
     padding:0;
 }
 
+body.wait {
+    opacity: 0.5;
+}
+
+body.wait,
+body.wait * {
+    cursor: progress !important;
+}
+
 body.darkui {
     background-color: #282828;
 }

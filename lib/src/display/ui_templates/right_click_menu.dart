@@ -20,6 +20,23 @@ class RightClickMenu {
 		OPTION_TOOLTIP_CLASS = 'action_error_tooltip',
 		OPTION_WRAPPER_CLASS = 'action_wrapper';
 
+	static bool _waiting = false;
+
+	static void opening([int delay = 0]) {
+		_waiting = true;
+
+		new Future.delayed(new Duration(seconds: delay)).then((_) {
+			if (_waiting) {
+				document.body.classes.add('wait');
+			}
+		});
+	}
+
+	static void opened() {
+		_waiting = false;
+		document.body.classes.remove('wait');
+	}
+
 	static Element create3(
 		MouseEvent click, String title, String entityId,
 		{String serverClass, String description, List<Action> actions, Function onInfo, ItemDef item, String itemName}
@@ -251,6 +268,8 @@ class RightClickMenu {
 			return options;
 		}
 
+		opening();
+
 		// Close any other menu
 		destroy();
 
@@ -301,6 +320,8 @@ class RightClickMenu {
 		// Show menu
 		menuParent.style.opacity = MENU_VISIBLE_OPACITY;
 
+		opened();
+
 		// Return reference to menu element
 		return menuParent;
 	}
@@ -329,6 +350,8 @@ class RightClickMenu {
 		 *
 		 * itemName: string of the item selected, will show the (i) button if not null and will open the item info window when the (i) is clicked
 		 */
+
+		opening();
 
 		// allow only one open at a time
 
@@ -492,6 +515,7 @@ class RightClickMenu {
 			..transform = 'translateX(' + x.toString() + 'px) translateY(' + y.toString() + 'px)';
 
 		document.onClick.first.then((_) => destroy());
+		opened();
 		return menu;
 	}
 
