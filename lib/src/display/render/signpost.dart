@@ -100,10 +100,13 @@ class Signpost extends Entity {
 
 	@override
 	void interact(String id) {
-		//if there's only one exit, go to that one immediately
-		if(signs.length == 1) {
-			signs[0].click();
+		if (signs.length == 1) {
+			// Only one exit -> Go to that one immediately
+			signs.single.click();
 			return;
+		} else if (GPS.active) {
+			// Multiple exits -> Go to the one matching the next street along the GPS path
+			signs.singleWhere((Element sign) => sign.text == GPS.nextStreetName).click();
 		}
 
 		if(!interacting) {
