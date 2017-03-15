@@ -59,9 +59,11 @@ _updateChatBubble(Map map, Entity entity) {
 				autoDismiss: false, removeParent: true, gains: map['gains'],
 				buttons: buttons);
 
-			String type = entity.canvas.attributes['type'];
-			Chat.localChat.addMessage('($type)', bubbleText,
-				overrideUsernameLink: 'http://childrenofur.com/encyclopedia/#/entity/${type.replaceAll(' ', '')}');
+			if (windowManager.settings.logNpcMessages && bubbleText.trim().length > 0) {
+				String type = entity.canvas.attributes['type'];
+				Chat.localChat.addMessage('($type)', bubbleText,
+					overrideUsernameLink: 'http://childrenofur.com/encyclopedia/#/entity/${type.replaceAll(' ', '')}');
+			}
 		}
 
 		entity.chatBubble.update(1.0);
