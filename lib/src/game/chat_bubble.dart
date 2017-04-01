@@ -58,18 +58,28 @@ class ChatBubble {
 			..classes.add("cb-arrow");
 
 		if (gains != null) {
+			int gainsTotal = 0;
 			DivElement awarded = new DivElement()
 				..className = 'awarded';
 			gains.forEach((String metabolic, int value) {
 				if (value != 0) {
+					gainsTotal += value;
 					SpanElement span = new SpanElement()
 						..className = metabolic;
-					String textValue = value > 0 ? '+' + value.toString() : value.toString();
+					String textValue = value > 0
+						? '+' + value.toString()
+						: value.toString();
 					span.text = textValue;
 					awarded.append(span);
 				}
 			});
+
 			textElement.append(awarded);
+
+			if (gainsTotal == 0 && text == '') {
+				//if you can't say anything nice...
+				removeBubble();
+			}
 		}
 
 		bubble.append(textElement);

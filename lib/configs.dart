@@ -5,7 +5,7 @@ import 'dart:async';
 
 class Configs {
 	static String baseAddress, utilServerAddress, websocketServerAddress, authAddress, authWebsocket;
-	static final int clientVersion = 146;
+	static final int clientVersion = 147;
 	static bool testing;
 
 	static Future init() async
