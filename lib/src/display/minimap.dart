@@ -68,7 +68,6 @@ class Minimap {
 	}
 
 	void _changeStreet(Map street) {
-		currentStreetExits.clear();
 		mainImgUrl = street['main_image']['url'];
 		loadingImgUrl = street['loading_image']['url'];
 		imageE.src = mainImgUrl;

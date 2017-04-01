@@ -45,6 +45,12 @@ class StreetService {
 
 		if (serverdata['ok'] == 'no') {
 			logmessage('[StreetService] Server refused');
+
+			if (metabolics.lastStreet != null) {
+				// Revert to last load success
+				requestStreet(metabolics.lastStreet);
+			}
+
 			return false;
 		}
 
@@ -81,6 +87,17 @@ class StreetService {
 	}
 
 	Future<bool> _prepareStreet(Map streetJSON) async {
+		// Tell the server we're leaving
+		if (currentStreet != null && currentStreet.tsid != null) {
+			try {
+				sendGlobalAction('leaveStreet', {
+					'street': currentStreet.tsid
+				});
+			} catch (e) {
+				logmessage("Error sending last street to server: $e");
+			}
+		}
+
 		logmessage('[StreetService] Assembling Street...');
 		transmit('streetLoadStarted', streetJSON);
 

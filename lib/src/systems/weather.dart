@@ -17,8 +17,10 @@ class WeatherManager {
 	static var rainSound;
 	static String wsPrefix = Configs.baseAddress.contains('localhost')?'ws://':'wss://';
 	static String url = '$wsPrefix${Configs.websocketServerAddress}/weather';
-	static Map<String, dynamic> weatherData;
+	static Map<String, dynamic> _weatherData;
+	static Map<String, dynamic> get weatherData => new Map.from(_weatherData);
 	static WebSocket socket;
+	static Map<String, Completer<Map<String, dynamic>>> requests = {};
 
 	WeatherManager.getInstance() {
 		_weatherLayer = querySelector("#weatherLayer");
@@ -84,6 +86,18 @@ class WeatherManager {
 		}
 
 		return _weatherManager;
+	}
+
+	static Future<Map<String, dynamic>> requestHubWeather(String hubId) {
+		requests[hubId] = new Completer();
+
+		socket.send(JSON.encode({
+			'update': 'request',
+			'username': game.username,
+			'hub_id': hubId
+		}));
+
+		return requests[hubId].future;
 	}
 
 	static bool get enabled => _enabled;
@@ -254,7 +268,7 @@ class WeatherManager {
 	}
 
 	static _playRainSound() async {
-		audio.gameSounds['rainSound'] = new Sound(channel: audio.audioChannels['soundEffects']);
+		audio.gameSounds['rainSound'] = new Sound(channel: audio.audioChannels['weather']);
 		await audio.gameSounds['rainSound'].load("files/audio/rain.${audio.extension}");
 		rainSound = await audio.playSound('rainSound', looping:true, fadeIn:true);
 	}
@@ -317,18 +331,20 @@ class WeatherManager {
 	}
 
 	static void _processMessage(Map map) {
-		weatherData = map;
-
-		if (windowManager.weather.elementOpen) {
+		if (windowManager.weather.elementOpen && !windowManager.weather.remoteViewing) {
 			windowManager.weather.refresh();
 		}
 
 		WeatherState previousState = _currentState;
 
-		if (weatherData['error'] != null) {
+		if (map['error'] != null) {
+			_weatherData = map;
 			_currentState = WeatherState.CLEAR;
+		} else if (map['hub_id'] != null) {
+			requests[map['hub_id']].complete(map);
 		} else {
-			String weatherMain = weatherData['current']['weatherMain'].toLowerCase();
+			_weatherData = map;
+			String weatherMain = _weatherData['current']['weatherMain'].toLowerCase();
 			if (weatherMain.contains('clear')) {
 				_currentState = WeatherState.CLEAR;
 			} else if (weatherMain.contains('rain')) {

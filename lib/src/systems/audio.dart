@@ -32,16 +32,19 @@ class SoundManager {
 		});
 	}
 
-	init() async {
+	Future init() async {
 		try {
-			num effectsVolume = 50, musicVolume = 50;
+			num effectsVolume = 50, musicVolume = 50, weatherVolume = 50;
 			if(localStorage.containsKey('effectsVolume')) effectsVolume = num.parse(localStorage['effectsVolume']);
 			if(localStorage.containsKey('musicVolume')) musicVolume = num.parse(localStorage['musicVolume']);
+			if(localStorage.containsKey('weatherVolume')) weatherVolume = num.parse(localStorage['weatherVolume']);
 
 			audioChannels['soundEffects'] = new AudioChannel("soundEffects")
 				..gain = effectsVolume / 100;
 			audioChannels['music'] = new AudioChannel("music")
 				..gain = musicVolume / 100;
+			audioChannels['weather'] = new AudioChannel("weather")
+				..gain = weatherVolume / 100;
 		} catch(e) {
 			logmessage("[SoundManager] Browser does not support web audio: $e");
 			useWebAudio = false;

@@ -4,6 +4,7 @@ class WeatherWindow extends Modal {
 	String id = 'weatherWindow';
 	Element well, title;
 	List<String> weekStartingToday;
+	bool remoteViewing = false;
 
 	WeatherWindow() {
 		{
@@ -40,27 +41,33 @@ class WeatherWindow extends Modal {
 		new Service(['newDay'], (_) => refresh());
 	}
 
-	bool refresh() {
-		if (WeatherManager.weatherData == null) {
+	bool refresh([Map<String, dynamic> weatherData]) {
+		weatherData = weatherData ?? WeatherManager.weatherData;
+
+		if (weatherData == null) {
 			new Toast('Weather data is still loading...');
 			close();
 			return false;
 		}
 
-		if (WeatherManager.weatherData['error'] == 'no_weather') {
+		if (weatherData['error'] == 'no_weather') {
 			new Toast("There's no weather here");
 			close();
 			return false;
 		}
 
 		// Update location name
-		title.text = 'Weather in ' + (currentStreet.hub_name ?? 'Ur');
+		title.text = 'Weather in ' + (weatherData['hub_label'] ?? currentStreet.hub_name ?? 'Ur');
 
 		// Remove old data
 		well.children.clear();
 
+		if (weatherData.containsKey('conditions')) {
+			weatherData = weatherData['conditions'];
+		}
+
 		// Current conditions
-		well.append(_makeDayElement(WeatherManager.weatherData['current'], 0));
+		well.append(_makeDayElement(weatherData['current'], 0));
 
 		// List days starting with today
 		int today = clock._Days_of_Week.indexOf(clock._dayofweek);
@@ -68,8 +75,8 @@ class WeatherWindow extends Modal {
 			..addAll(clock._Days_of_Week.sublist(0, today));
 
 		// Forecast conditions
-		for (int i = 0; i < WeatherManager.weatherData['forecast'].length;) {
-			well.append(_makeDayElement(WeatherManager.weatherData['forecast'][i], ++i));
+		for (int i = 0; i < weatherData['forecast'].length;) {
+			well.append(_makeDayElement(weatherData['forecast'][i], ++i));
 		}
 
 		return true;
@@ -130,8 +137,14 @@ class WeatherWindow extends Modal {
 	}
 
 	@override
-	void open({bool ignoreKeys: false}) {
-		if (refresh()) {
+	Future open({bool ignoreKeys: false}) async {
+		Map<String, dynamic> weatherData = null;
+
+		if (remoteViewing = /* <- not a typo */ mapWindow.elementOpen) {
+			weatherData = await WeatherManager.requestHubWeather(mapWindow.worldMap.showingHub);
+		}
+
+		if (refresh(weatherData)) {
 			super.open();
 		}
 	}

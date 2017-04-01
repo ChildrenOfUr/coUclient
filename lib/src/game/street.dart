@@ -153,6 +153,10 @@ class Street {
 
 		/* //// Scenery Canvases //// */
 		//For each layer on the street . . .
+
+		// Clear old signposts before loading new ones from layers
+		minimap.currentStreetExits.clear();
+
 		for (Map layer in new Map.from(streetData['dynamic']['layers']).values) {
 			DivElement decoCanvas = new DivElement()
 				..classes.add('streetcanvas');
@@ -249,13 +253,12 @@ class Street {
 				}
 
 				minimap.currentStreetExits.add({
-					                               "streets": streets,
-					                               "x": x,
-					                               "y": y
-				                               });
+					"streets": streets,
+					"x": x,
+					"y": y
+				});
 
 				// } end minimap code
-
 			}
 
 			// Append the canvas to the screen

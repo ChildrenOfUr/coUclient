@@ -54,11 +54,10 @@ input[type="file"] {
 }
 
 #bugWindow ur-well ur-button+p {
-  width: 500px;
   position: absolute;
   right: 10px;
   text-align: right;
-  bottom: 0px;
+  bottom: 0;
 }
 
 #bugWindow ur-well ur-button+p a {

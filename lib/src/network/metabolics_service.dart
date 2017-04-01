@@ -138,6 +138,8 @@ class MetabolicsService {
 
 	String get currentStreet => playerMetabolics.current_street;
 
+	String get lastStreet => playerMetabolics.last_street;
+
 	num get currentStreetX => playerMetabolics.current_street_x;
 
 	num get currentStreetY => playerMetabolics.current_street_y;

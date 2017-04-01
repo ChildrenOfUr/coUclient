@@ -39,5 +39,6 @@ class Metabolics {
   num quoin_multiplier = 1;
 
   String current_street = 'LA58KK7B9O522PC';
+  String last_street = null;
   String location_history = '[]';
 }
