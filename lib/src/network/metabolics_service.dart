@@ -25,7 +25,7 @@ class MetabolicsService {
 		await setupWebsocket();
 	}
 
-	setupWebsocket() async {
+	Future setupWebsocket() async {
 		//establish a websocket connection to listen for metabolics objects coming in
 		WebSocket socket = new WebSocket(url);
 		socket.onOpen.listen((_) => socket.send(JSON.encode({'username': game.username})));
@@ -56,7 +56,7 @@ class MetabolicsService {
 		});
 	}
 
-	update() => view.meters.updateAll();
+	void update() => view.meters.updateAll();
 
 	void collectQuoin(Map map) {
 		Element element = querySelector('#${map['id']}');
@@ -70,12 +70,12 @@ class MetabolicsService {
 		}
 		String quoinType = map['quoinType'];
 
-		if (quoinType == "energy" && playerMetabolics.energy + amt > playerMetabolics.max_energy) {
-			amt = playerMetabolics.max_energy - playerMetabolics.energy;
+		if (quoinType == "energy" && playerMetabolics.energy + amt > playerMetabolics.maxEnergy) {
+			amt = playerMetabolics.maxEnergy - playerMetabolics.energy;
 		}
 
-		if (quoinType == "mood" && playerMetabolics.mood + amt > playerMetabolics.max_mood) {
-			amt = playerMetabolics.max_mood - playerMetabolics.mood;
+		if (quoinType == "mood" && playerMetabolics.mood + amt > playerMetabolics.maxMood) {
+			amt = playerMetabolics.maxMood - playerMetabolics.mood;
 		}
 		quoins[map['id']].collected = true;
 
@@ -126,25 +126,25 @@ class MetabolicsService {
 
 	int get energy => playerMetabolics.energy;
 
-	int get maxEnergy => playerMetabolics.max_energy;
+	int get maxEnergy => playerMetabolics.maxEnergy;
 
 	int get mood => playerMetabolics.mood;
 
-	int get maxMood => playerMetabolics.max_mood;
+	int get maxMood => playerMetabolics.maxMood;
 
 	int get img => playerMetabolics.img;
 
-	int get lifetime_img => playerMetabolics.lifetime_img;
+	int get lifetime_img => playerMetabolics.lifetimeImg;
 
-	String get currentStreet => playerMetabolics.current_street;
+	String get currentStreet => playerMetabolics.currentStreet;
 
-	String get lastStreet => playerMetabolics.last_street;
+	String get lastStreet => playerMetabolics.lastStreet;
 
-	num get currentStreetX => playerMetabolics.current_street_x;
+	num get currentStreetX => playerMetabolics.currentStreetX;
 
-	num get currentStreetY => playerMetabolics.current_street_y;
+	num get currentStreetY => playerMetabolics.currentStreetY;
 
-	List<String> get location_history => JSON.decode(playerMetabolics.location_history);
+	List<String> get location_history => JSON.decode(playerMetabolics.locationHistory);
 
 	Future<int> get level async {
 		String lvlStr = await HttpRequest.getString("http://${Configs.utilServerAddress}/getLevel?img=${lifetime_img.toString()}");
