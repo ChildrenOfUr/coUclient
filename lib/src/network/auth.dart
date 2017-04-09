@@ -25,7 +25,7 @@ class AuthManager {
 
 			sessionStorage['playerName'] = serverdata['playerName'];
 			sessionStorage['playerEmail'] = serverdata['playerEmail'];
-			sessionStorage['playerStreet'] = decode(serverdata['metabolics'], type:Metabolics).current_street;
+			sessionStorage['playerStreet'] = decode(serverdata['metabolics'], type:Metabolics).currentStreet;
 
 			if(serverdata['playerName'].trim() == '') {
 				setupNewUser(serverdata);

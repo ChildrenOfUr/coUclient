@@ -122,7 +122,7 @@ class ImgOverlay extends Overlay {
 	}
 
 	Future _setupQuoinLimitMeter() async {
-		int quoinsCollected = metabolics.playerMetabolics.quoins_collected;
+		int quoinsCollected = metabolics.playerMetabolics.quoinsCollected;
 		int quoinLimit = constants['quoinLimit'];
 		int remaining = quoinLimit - quoinsCollected;
 		int percentCollected = ((quoinsCollected / quoinLimit) * 100).ceil();

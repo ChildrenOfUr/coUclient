@@ -154,15 +154,15 @@ class Quoin {
 			return false;
 		}
 
-		if (metabolics.playerMetabolics.quoins_collected >= constants["quoinLimit"]) {
+		if (metabolics.playerMetabolics.quoinsCollected >= constants["quoinLimit"]) {
 			return _toastIfNotNotified(
 				"You've reached your daily limit of ${constants["quoinLimit"].toString()} quoins",
 				"daily_limit");
-		} else if (typeString == 'mood' && metabolics.playerMetabolics.mood >= metabolics.playerMetabolics.max_mood) {
+		} else if (typeString == 'mood' && metabolics.playerMetabolics.mood >= metabolics.playerMetabolics.maxMood) {
 			return _toastIfNotNotified(
 				"You tried to collect a mood quoin, but your mood was already full.",
 				"full_mood");
-		} else if (typeString == 'energy' && metabolics.playerMetabolics.energy >= metabolics.playerMetabolics.max_energy) {
+		} else if (typeString == 'energy' && metabolics.playerMetabolics.energy >= metabolics.playerMetabolics.maxEnergy) {
 			return _toastIfNotNotified(
 				"You tried to collect an energy quoin, but your energy tank was already full.",
 				"full_energy");
@@ -227,15 +227,15 @@ class Quoin {
 	}
 
 	bool get statIsMaxed {
-		if (metabolics.playerMetabolics.quoins_collected >= constants["quoinLimit"]) {
+		if (metabolics.playerMetabolics.quoinsCollected >= constants["quoinLimit"]) {
 			return true;
 		}
 
 		switch (typeString) {
 			case "mood":
-				return metabolics.playerMetabolics.mood >= metabolics.playerMetabolics.max_mood;
+				return metabolics.playerMetabolics.mood >= metabolics.playerMetabolics.maxMood;
 			case "energy":
-				return metabolics.playerMetabolics.energy >= metabolics.playerMetabolics.max_energy;
+				return metabolics.playerMetabolics.energy >= metabolics.playerMetabolics.maxEnergy;
 			default:
 				return false;
 		}
