@@ -39,7 +39,11 @@ class StreetService {
 
 		HttpRequest data = await HttpRequest.request(_dataUrl + "/street", method: "POST",
 			requestHeaders: {"content-type": "application/json"},
-			sendData: JSON.encode({'street': StreetID, 'sessionToken': SESSION_TOKEN}));
+			sendData: JSON.encode({
+				'street': StreetID,
+				'sessionToken': SESSION_TOKEN,
+				'branch': Configs.testing ? 'dev' : 'master'
+			}));
 
 		Map serverdata = JSON.decode(data.response);
 
