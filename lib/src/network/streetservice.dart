@@ -17,7 +17,7 @@ class StreetService {
 		return !_loading.contains(tsid.substring(1));
 	}
 
-	String _dataUrl = '${Configs.authAddress}/data';
+	String _dataUrl = Configs.utilServerAddress;
 
 	StreetService() {
 		String prefix = Configs.authAddress.contains('localhost') ? 'http://' : 'https://';
@@ -37,26 +37,13 @@ class StreetService {
 
 		logmessage('[StreetService] Requesting street "$StreetID"...');
 
-		HttpRequest data = await HttpRequest.request(_dataUrl + "/street", method: "POST",
-			requestHeaders: {"content-type": "application/json"},
-			sendData: JSON.encode({
-				'street': StreetID,
-				'sessionToken': SESSION_TOKEN,
-				'branch': Configs.testing ? 'dev' : 'master'
-			}));
+    var tsid = Uri.encodeQueryComponent(StreetID);
 
-		Map serverdata = JSON.decode(data.response);
+		HttpRequest data = await HttpRequest.request(_dataUrl + "/getStreet?tsid=$tsid",
+			requestHeaders: {"content-type": "application/json"}
+    );
 
-		if (serverdata['ok'] == 'no') {
-			logmessage('[StreetService] Server refused');
-
-			if (metabolics.lastStreet != null) {
-				// Revert to last load success
-				requestStreet(metabolics.lastStreet);
-			}
-
-			return false;
-		}
+		Map streetJSON = JSON.decode(data.response);
 
 		if (loadingCancelled(StreetID)) {
 			logmessage('[StreetService] Loading of "$StreetID" was cancelled during download.');
@@ -64,7 +51,7 @@ class StreetService {
 		}
 
 		logmessage('[StreetService] "$StreetID" loaded.');
-		await _prepareStreet(serverdata['streetJSON']);
+		await _prepareStreet(streetJSON);
 
 		String playerList = '';
 		List<String> players = JSON.decode(await HttpRequest.getString(
