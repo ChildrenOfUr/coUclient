@@ -103,11 +103,11 @@ class Street {
 		List decosToLoad = [];
 		for (Map layer in streetData['dynamic']['layers'].values) {
 			String layerName = layer['name'].replaceAll(' ', '_');
-			String url = 'http://childrenofur.com/assets/streetLayers/$tsid/$layerName.png';
+			String url = 'https://childrenofur.com/assets/streetLayers/$tsid/$layerName.png';
 			if (Configs.testing) {
-				String status = await HttpRequest.getString('http://childrenofur.com/assets/street_layer_exists.php?tsid=$tsid&layer=$layerName');
+				String status = await HttpRequest.getString('https://childrenofur.com/assets/street_layer_exists.php?tsid=$tsid&layer=$layerName');
 				if (status == 'dev') {
-					url = 'http://childrenofur.com/assets/streetLayers/dev/$tsid/$layerName.png';
+					url = 'https://childrenofur.com/assets/streetLayers/dev/$tsid/$layerName.png';
 				}
 			}
 			if (!decosToLoad.contains(url)) {

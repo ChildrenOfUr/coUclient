@@ -12,8 +12,7 @@ MetabolicsService metabolics = new MetabolicsService();
 class MetabolicsService {
 	Metabolics playerMetabolics;
 	DateTime lastUpdate, nextUpdate;
-	static String wsPrefix = Configs.baseAddress.contains('localhost')?'ws://':'wss://';
-	String url = '$wsPrefix${Configs.websocketServerAddress}/metabolics';
+	String url = '${Configs.ws}//${Configs.websocketServerAddress}/metabolics';
 	int webSocketMessages = 0;
 	bool loaded = false;
 	Completer load = new Completer();
@@ -147,17 +146,17 @@ class MetabolicsService {
 	List<String> get location_history => JSON.decode(playerMetabolics.locationHistory);
 
 	Future<int> get level async {
-		String lvlStr = await HttpRequest.getString("http://${Configs.utilServerAddress}/getLevel?img=${lifetime_img.toString()}");
+		String lvlStr = await HttpRequest.getString("${Configs.http}//${Configs.utilServerAddress}/getLevel?img=${lifetime_img.toString()}");
 		return int.parse(lvlStr);
 	}
 
 	Future<int> get img_req_for_curr_lvl async {
-		String imgStr = await HttpRequest.getString("http://${Configs.utilServerAddress}/getImgForLevel?level=${(await level).toString()}");
+		String imgStr = await HttpRequest.getString("${Configs.http}//${Configs.utilServerAddress}/getImgForLevel?level=${(await level).toString()}");
 		return int.parse(imgStr);
 	}
 
 	Future<int> get img_req_for_next_lvl async {
-		String imgStr = await HttpRequest.getString("http://${Configs.utilServerAddress}/getImgForLevel?level=${((await level) + 1).toString()}");
+		String imgStr = await HttpRequest.getString("${Configs.http}//${Configs.utilServerAddress}/getImgForLevel?level=${((await level) + 1).toString()}");
 		return int.parse(imgStr);
 	}
 }

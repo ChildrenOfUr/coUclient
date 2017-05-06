@@ -42,13 +42,13 @@ class InteractionWindow {
 				} else if (shrineTypes.contains(entityName)) {
 					entityInBubble = new ImageElement(src: 'files/system/icons/shrine.svg');
 				} else {
-					entityInBubble = new ImageElement(src: 'http://childrenofur.com/assets/staticEntityImages/$entityName.png');
+					entityInBubble = new ImageElement(src: 'https://childrenofur.com/assets/staticEntityImages/$entityName.png');
 				}
 			} else if (entityOnStreet is ImageElement) {
 				// Dropped item, use its image
 				entityInBubble = new ImageElement(src: entityOnStreet.src);
 			} else if (entityOnStreet.classes.contains('playerParent')) {
-				entityInBubble = new ImageElement(src: 'http://childrenofur.com/assets/staticEntityImages/Player.png');
+				entityInBubble = new ImageElement(src: 'https://childrenofur.com/assets/staticEntityImages/Player.png');
 			}
 
 			// Find a title

@@ -37,7 +37,7 @@ class Game {
 			return elevationCache[username];
 		} else {
 			String elevation = await HttpRequest.getString(
-				'http://${Configs.utilServerAddress}/elevation/get/$username'
+				'${Configs.http}//${Configs.utilServerAddress}/elevation/get/$username'
 			).timeout(new Duration(seconds: 1), onTimeout: () {
 				return '_';
 			});
@@ -103,7 +103,7 @@ class Game {
 		// Tell the server when we have changed streets, and to assign us a new letter
 		new Service(["streetLoaded", "gameUnloading"], (_) {
 			if (currentStreet.useLetters) {
-				HttpRequest.getString("http://${Configs.utilServerAddress}/letters/newPlayerLetter?username=${game.username}");
+				HttpRequest.getString("${Configs.http}//${Configs.utilServerAddress}/letters/newPlayerLetter?username=${game.username}");
 			}
 		});
 

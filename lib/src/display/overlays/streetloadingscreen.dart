@@ -129,13 +129,13 @@ class StreetLoadingScreen extends Overlay {
 	}
 
 	ImageElement _createLoadingImage(Map<String, dynamic> street) =>
-		new ImageElement(src: street['loading_image']['url'])
+		new ImageElement(src: Configs.proxyStreetImage(street['loading_image']['url']))
 			..width = street['loading_image']['w']
 			..height = street['loading_image']['h']
 			..classes = ['street-load-image'];
 
 	Future<String> _listEntities(Map<String, dynamic> street) async {
-		String url = 'http://${Configs.utilServerAddress}/previewStreetEntities?tsid=${street['tsid']}';
+		String url = '${Configs.http}//${Configs.utilServerAddress}/previewStreetEntities?tsid=${street['tsid']}';
 		Map<String, int> entityList = JSON.decode(await HttpRequest.getString(url));
 		String entityString = '';
 

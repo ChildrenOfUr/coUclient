@@ -2,7 +2,7 @@ part of couclient;
 
 class BlogNotifier {
 	static const _LS_KEY = "cou_blog_post";
-	static const _RSS_URL = "http://childrenofur.com/feed/";
+	static const _RSS_URL = "https://childrenofur.com/feed/";
 
 	static dynamic get _lastSaved {
 		if (localStorage[_LS_KEY] != null) {

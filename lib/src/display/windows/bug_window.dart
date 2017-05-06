@@ -48,7 +48,7 @@ class BugWindow extends Modal {
 					  ..append("screen", "${window.innerWidth} x ${window.innerHeight}")
 					  ..append("username", game.username)
 					  ..append("category", view.bugReportType.value);
-				  await HttpRequest.request("http://${Configs.utilServerAddress}/report/add", method: "POST", sendData: data);
+				  await HttpRequest.request("${Configs.http}//${Configs.utilServerAddress}/report/add", method: "POST", sendData: data);
 				  // Complete
 				  close();
 				  view.bugReportTitle.value = "";

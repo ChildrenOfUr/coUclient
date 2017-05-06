@@ -13,7 +13,7 @@ class MapData {
 		// Download the map data from the server
 		try {
 			HttpRequest.requestCrossOrigin(
-				'http://${Configs.utilServerAddress}/getMapData?token=$rsToken')
+				'${Configs.http}//${Configs.utilServerAddress}/getMapData?token=$rsToken')
 			.timeout(new Duration(seconds: 5),
 				onTimeout: () => _serverIsDown('Connection timed out.'))
 			.then((String json) {

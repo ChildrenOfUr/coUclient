@@ -26,7 +26,7 @@ class Plant extends Entity {
 		}
 
 		url = map['url'].replaceAll("\"", "");
-		HttpRequest.request('http://${Configs.utilServerAddress}/getActualImageHeight?url=$url&numRows=$numRows&numColumns=$numColumns').then((HttpRequest request) {
+		HttpRequest.request('${Configs.http}//${Configs.utilServerAddress}/getActualImageHeight?url=$url&numRows=$numRows&numColumns=$numColumns').then((HttpRequest request) {
 			canvas.attributes['actualHeight'] = request.responseText;
 		});
 		spritesheet = new ImageElement(src:url);

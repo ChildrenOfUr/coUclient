@@ -221,7 +221,7 @@ afterPolymer() async {
 
 		// Download constants
 		constants = JSON.decode(
-			await HttpRequest.getString("http://${Configs.utilServerAddress}/constants/json"));
+			await HttpRequest.getString("${Configs.http}//${Configs.utilServerAddress}/constants/json"));
 	} catch (e) {
 		logmessage("Error loading server data: $e");
 		serverDown = true;

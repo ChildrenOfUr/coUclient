@@ -2,8 +2,7 @@ part of couclient;
 
 class NetChatManager {
 	WebSocket _connection;
-	static String prefix = Configs.baseAddress.contains('localhost')?'ws://':'wss://';
-	String _chatServerUrl = '$prefix${Configs.websocketServerAddress}/chat';
+	String _chatServerUrl = '${Configs.ws}//${Configs.websocketServerAddress}/chat';
 
 	NetChatManager() {
 		setupWebsocket(_chatServerUrl);
@@ -113,7 +112,7 @@ class NetChatManager {
 		// Download list of friends with online status
 		Map<String, bool> users = JSON.decode(await HttpRequest
 			.requestCrossOrigin(
-			'http://${Configs.utilServerAddress}/friends/list/${game.username}'));
+			'${Configs.http}//${Configs.utilServerAddress}/friends/list/${game.username}'));
 
 		// Reset the list
 		Element list = querySelector("#playerList");
@@ -130,7 +129,7 @@ class NetChatManager {
 				Element user = new LIElement()
 					..title = (online ? 'Online' : 'Offline')
 					..classes.add(online ? 'online' : 'offline')
-					..onClick.listen((_) => window.open('http://childrenofur.com/profile?username=$username', '_blank'))
+					..onClick.listen((_) => window.open('https://childrenofur.com/profile?username=$username', '_blank'))
 				//..classes.addAll(["online", "chatSpawn"])
 				//..dataset["chat"] = username
 					..setInnerHtml(

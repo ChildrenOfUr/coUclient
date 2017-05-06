@@ -11,7 +11,7 @@ class Toast {
 	static final Element _toastContainer = querySelector('#toastHolder');
 
 	/// Icon URL for system notifications
-	static const notifIconUrl = 'http://childrenofur.com/assets/icon_72.png';
+	static const notifIconUrl = 'https://childrenofur.com/assets/icon_72.png';
 
 	/// Predefined click functions (pass as onClick)
 	static final Map<String, Function> _clickActions = {

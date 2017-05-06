@@ -12,7 +12,13 @@ class Animation
 	Rectangle sourceRect;
 	bool dirty = true, delayInitially = false, paused = false, loaded = false, loops;
 
-	Animation(this.url,this.animationName,this.numRows,this.numColumns,this.frameList,{this.fps : 30, this.loopDelay : null, this.delayInitially : false, this.loops : true});
+	Animation(String url,this.animationName,this.numRows,this.numColumns,this.frameList,{this.fps : 30, this.loopDelay : null, this.delayInitially : false, this.loops : true}) {
+		this.url = url.replaceAll("\"", "");
+
+		if (this.url.contains('http://')) {
+			this.url = Configs.proxyAvatarImage(url);
+		}
+	}
 
 	Future load() async {
 		if(loopDelay == null) {
@@ -26,7 +32,7 @@ class Animation
 		//need to get the avatar background image size dynamically
 		//because we cannot guarentee that every glitchen has the same dimensions
 		//additionally each animation sprite has different dimensions even for the same glitchen
-		spritesheet = new ImageElement(src: url.replaceAll("\"", ""));
+		spritesheet = new ImageElement(src: url);
 		await spritesheet.onLoad.first;
 
 		width = spritesheet.naturalWidth~/numColumns;

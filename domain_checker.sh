@@ -5,7 +5,7 @@ then
     echo "branch=$branch"
     echo "server domain will be server.childrenofur.com"
 else
-    echo "robertmcdermot.com" > web/server_domain.txt
+    echo "robiotic.net" > web/server_domain.txt
     echo "branch=$branch"
-    echo "server domain will be robertmcdermot.com"
+    echo "server domain will be robiotic.net"
 fi
