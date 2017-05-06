@@ -212,9 +212,9 @@ class WorldMap {
 		// prepare ui elements
 		view.mapTitle.text = hubInfo['name'];
 		view.mapImg
-			..style.backgroundImage = 'url(' + hubInfo['img_bg'] + ')'
+			..style.backgroundImage = 'url(' + Configs.proxyMapImage(hubInfo['img_bg']) + ')'
 			..title = hubInfo["name"];
-		HubMapFG.style.backgroundImage = 'url(' + (hubInfo['img_fg'] ?? '') + ')';
+		HubMapFG.style.backgroundImage = 'url(' + (Configs.proxyMapImage(hubInfo['img_fg']) ?? '') + ')';
 		HubMabDiv.children.clear();
 
 		// render
@@ -548,7 +548,7 @@ class WorldMap {
 					..style.top = value['y'].toString() + 'px'
 					..append(new SpanElement()..text = value['name'])
 					..onMouseEnter.listen((_) =>
-						hub.style.backgroundImage = 'url(' + value['img_bg'] + ')')
+						hub.style.backgroundImage = 'url(' + Configs.proxyMapImage(value['img_bg']) + ')')
 					..onMouseLeave.listen((_) => hub.style.backgroundImage = '');
 				if (currentStreet.hub_id == key) {
 					hub.classes.add('currentlocationhub');
@@ -577,7 +577,7 @@ class WorldMap {
 			loadhubdiv(hub_id);
 		}
 		view.mapTitle.text = hub_name;
-		view.mapImg.style.backgroundImage = 'url(' + mapData.hubData[hub_id]['img_bg'] + ')';
+		view.mapImg.style.backgroundImage = 'url(' + Configs.proxyMapImage(mapData.hubData[hub_id]['img_bg']) + ')';
 		view.mapTitle.text = mapData.hubData[hub_id]['name'];
 		worldMapVisible = false;
 		HubMabDiv.hidden = false;

@@ -34,7 +34,23 @@ class Configs {
 		auctionHouse.attributes['serverAddress'] = '$http//$utilServerAddress';
 	}
 
-	static String proxyImage(String imageUrl) {
-		return 'https://childrenofur.com/assets/streets/?url=$imageUrl';
+	static String proxyStreetImage(String url) {
+		return _proxyImage('streets', url);
+	}
+
+	static String proxyAvatarImage(String url) {
+		return _proxyImage('avatars', url);
+	}
+
+	static String proxyMapImage(String url) {
+		return _proxyImage('maps', url);
+	}
+
+	static String _proxyImage(String type, String url) {
+		if (type == null || url == null) {
+			return null;
+		}
+
+		return 'https://childrenofur.com/assets/$type/?url=$url';
 	}
 }
