@@ -48,7 +48,11 @@ If you want to run it locally or on your own server, you'll need to have an envi
 1. `pub get`
 2. `pub build`
 
-### Running local
+### Running locally
+
+The client uses the contents of `web/server_domain.txt` to find the server. If you're running the server locally,
+it should contain `localhost`. For the values to use if you want to connect to the dev or live servers, please
+contact someone on the development team.
 
 1. `pub serve`
 
