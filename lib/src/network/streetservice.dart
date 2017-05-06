@@ -20,7 +20,7 @@ class StreetService {
 	String _dataUrl = Configs.utilServerAddress;
 
 	StreetService() {
-		_dataUrl = '${Configs.http}${_dataUrl}';
+		_dataUrl = '${Configs.http}//${_dataUrl}';
 	}
 
 	Future<bool> requestStreet(String StreetID) async {
