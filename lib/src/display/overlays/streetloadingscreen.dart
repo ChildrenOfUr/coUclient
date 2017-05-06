@@ -129,7 +129,7 @@ class StreetLoadingScreen extends Overlay {
 	}
 
 	ImageElement _createLoadingImage(Map<String, dynamic> street) =>
-		new ImageElement(src: street['loading_image']['url'])
+		new ImageElement(src: Configs.proxyImage(street['loading_image']['url']))
 			..width = street['loading_image']['w']
 			..height = street['loading_image']['h']
 			..classes = ['street-load-image'];

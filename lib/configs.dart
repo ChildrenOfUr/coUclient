@@ -10,8 +10,7 @@ class Configs {
 	static final int clientVersion = 147;
 	static bool testing;
 
-	static Future init() async
-	{
+	static Future init() async {
 		baseAddress = (await HttpRequest.getString('server_domain.txt')).trim();
 		utilServerAddress = '$baseAddress:8181';
 		websocketServerAddress = '$baseAddress:8282';
@@ -33,5 +32,9 @@ class Configs {
 		//same for auction-house
 		Element auctionHouse = querySelector('auction-house');
 		auctionHouse.attributes['serverAddress'] = '$http//$utilServerAddress';
+	}
+
+	static String proxyImage(String imageUrl) {
+		return 'https://childrenofur.com/assets/streets/?url=$imageUrl';
 	}
 }

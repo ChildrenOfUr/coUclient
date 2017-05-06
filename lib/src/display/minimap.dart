@@ -68,8 +68,8 @@ class Minimap {
 	}
 
 	void _changeStreet(Map street) {
-		mainImgUrl = street['main_image']['url'];
-		loadingImgUrl = street['loading_image']['url'];
+		mainImgUrl = Configs.proxyImage(street['main_image']['url']);
+		loadingImgUrl = Configs.proxyImage(street['loading_image']['url']);
 		imageE.src = mainImgUrl;
 		labelE.text = currentStreet.label;
 		imageE.onLoad.listen((_) {
