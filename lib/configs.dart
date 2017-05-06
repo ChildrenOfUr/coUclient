@@ -7,7 +7,7 @@ class Configs {
 	static String baseAddress, utilServerAddress, websocketServerAddress, authAddress, authWebsocket;
 	static String http = baseAddress.contains('localhost') ? 'http:' : 'https:';
 	static String ws = baseAddress.contains('localhost') ? 'ws:' : 'wss:';
-	static final int clientVersion = 147;
+	static final int clientVersion = 1471;
 	static bool testing;
 
 	static Future init() async {
