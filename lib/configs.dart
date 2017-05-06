@@ -26,7 +26,7 @@ class Configs {
 		//set the ur-login components addresses
 		Element urLogin = querySelector('ur-login');
 		urLogin.attributes['server'] = '$http//$authAddress';
-		urLogin.attributes['websocket'] = '$ws//authWebsocket';
+		urLogin.attributes['websocket'] = '$ws//$authWebsocket';
 		urLogin.attributes['base'] = 'blinding-fire-920'; //TODO have the server provide this
 
 		//same for auction-house
