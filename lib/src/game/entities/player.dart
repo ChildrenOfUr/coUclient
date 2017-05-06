@@ -145,7 +145,7 @@ class Player extends Entity {
 		List<Future> futures = new List();
 
 		futures
-			.add(HttpRequest.requestCrossOrigin('http://${Configs.utilServerAddress}/getSpritesheets?username=$id')
+			.add(HttpRequest.requestCrossOrigin('${Configs.http}//${Configs.utilServerAddress}/getSpritesheets?username=$id')
 			.then((String response) {
 
 			Map spritesheets = JSON.decode(response);

@@ -30,7 +30,7 @@ class Signpost extends Entity {
 			..['height'] = h.toString();
 
 		pole.style
-			..backgroundImage = "url('http://childrenofur.com/locodarto/scenery/sign_pole.png')"
+			..backgroundImage = "url('https://childrenofur.com/locodarto/scenery/sign_pole.png')"
 			..backgroundRepeat = "no-repeat"
 			..backgroundPosition = "center bottom"
 			..pointerEvents = "auto"
@@ -57,7 +57,7 @@ class Signpost extends Entity {
 				..style.top = (i * 25 + 10).toString() + "px"
 				..text = exit["label"]
 				..className = "ExitLabel"
-				..attributes['url'] = 'http://RobertMcDermot.github.io/CAT422-glitch-location-viewer/locations/$tsid.callback.json'
+				..attributes['url'] = 'https://RobertMcDermot.github.io/CAT422-glitch-location-viewer/locations/$tsid.callback.json'
 				..attributes['tsid'] = tsid
 				..attributes['from'] = currentStreet.label;
 

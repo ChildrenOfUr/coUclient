@@ -5,7 +5,7 @@ abstract class Skills {
 
 	static Future<String> loadData() async {
 		String json = await HttpRequest.getString(
-			"http://${Configs.utilServerAddress}/skills/get/${game.email}"
+			"${Configs.http}//${Configs.utilServerAddress}/skills/get/${game.email}"
 		);
 		data = JSON.decode(json);
 		return json;

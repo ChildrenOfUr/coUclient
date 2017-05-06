@@ -388,7 +388,7 @@ class Chat {
 		String alert = "Players in this channel:";
 
 		for (int i = 0; i != users.length; i++) {
-			users[i] = '<a href="http://childrenofur.com/profile?username=' +
+			users[i] = '<a href="https://childrenofur.com/profile?username=' +
 				users[i] +
 				'" target="_blank">' +
 				users[i] +
@@ -593,7 +593,7 @@ class Chat {
 		if (title != channel) {
 			channel = currentStreet.label;
 		}
-		String url = 'http://' + Configs.utilServerAddress + "/listUsers?channel=$channel";
+		String url = '${Configs.http}//Configs.utilServerAddress/listUsers?channel=$channel';
 		connectedUsers = JSON.decode(await HttpRequest.requestCrossOrigin(url));
 
 		int startIndex = input.value.lastIndexOf(" ") == -1 ? 0 : input.value.lastIndexOf(" ") + 1;

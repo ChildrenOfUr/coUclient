@@ -55,7 +55,7 @@ class Meters extends PolymerElement {
 		deadDisk.style.opacity = (mood <= 0 ? 1 : 0).toString();
 
 		// update username links
-		(querySelector("#openProfilePageFromChatPanel") as AnchorElement).href = "http://childrenofur.com/profile?username=" + playername;
+		(querySelector("#openProfilePageFromChatPanel") as AnchorElement).href = "https://childrenofur.com/profile?username=" + playername;
 		// updates portrait
 		updateAvatarDisplay();
 		runCount++;

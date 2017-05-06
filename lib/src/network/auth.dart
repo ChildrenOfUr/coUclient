@@ -3,8 +3,7 @@ part of couclient;
 String SLACK_WEBHOOK, SC_TOKEN, SESSION_TOKEN, FORUM_TOKEN;
 
 class AuthManager {
-	static String prefix = Configs.baseAddress.contains('localhost')?'http://':'https://';
-	String _authUrl = '$prefix${Configs.authAddress}/auth';
+	String _authUrl = '${Configs.http}//${Configs.authAddress}/auth';
 	UrLogin _loginPanel;
 
 	AuthManager() {

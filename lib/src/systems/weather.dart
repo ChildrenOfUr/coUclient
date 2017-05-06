@@ -15,8 +15,7 @@ class WeatherManager {
 	static WeatherState _currentState = WeatherState.CLEAR;
 	static bool _enabled = true, _gradientEnabled = true;
 	static var rainSound;
-	static String wsPrefix = Configs.baseAddress.contains('localhost')?'ws://':'wss://';
-	static String url = '$wsPrefix${Configs.websocketServerAddress}/weather';
+	static String url = '${Configs.ws}//${Configs.websocketServerAddress}/weather';
 	static Map<String, dynamic> _weatherData;
 	static Map<String, dynamic> get weatherData => new Map.from(_weatherData);
 	static WebSocket socket;

@@ -13,7 +13,7 @@ class ChatMessage {
 			new Notification(
 			  player,
 			  body: message,
-			  icon: "http://childrenofur.com/assets/icon_72.png"
+			  icon: "https://childrenofur.com/assets/icon_72.png"
 			);
 
 			// Sound effect
@@ -63,7 +63,7 @@ class ChatMessage {
 					..style.color = 'black';
 			} else {
 				link
-					..href = "http://childrenofur.com/profile?username=${Uri.encodeComponent(player)}"
+					..href = "https://childrenofur.com/profile?username=${Uri.encodeComponent(player)}"
 					..title = "Open Profile Page"
 					..style.color = (await getColorFromUsername(player));
 			}
@@ -131,7 +131,7 @@ Future<String> getColorFromUsername(String username) async {
 	} else {
 		// Download color from server
 		String color = await HttpRequest.getString(
-		  "http://${Configs.utilServerAddress}/usernamecolors/get/$username"
+		  "${Configs.http}//${Configs.utilServerAddress}/usernamecolors/get/$username"
 	  	).timeout(new Duration(seconds: 5), onTimeout: () {
 			return '#';
 	  	});
@@ -160,7 +160,7 @@ String parseUrl(String message) {
 		String url = m[0];
 
 		// Add protocol if missing
-		if (!url.contains('http')) {
+		if (!url.contains('//')) {
 			url = 'http://' + url;
 		}
 

@@ -5,6 +5,8 @@ import 'dart:async';
 
 class Configs {
 	static String baseAddress, utilServerAddress, websocketServerAddress, authAddress, authWebsocket;
+	static String http = baseAddress.contains('localhost') ? 'http:' : 'https:';
+	static String ws = baseAddress.contains('localhost') ? 'ws:' : 'wss:';
 	static final int clientVersion = 147;
 	static bool testing;
 
@@ -23,15 +25,13 @@ class Configs {
 		}
 
 		//set the ur-login components addresses
-		String prefix = baseAddress.contains('localhost')?'http://':'https://';
-		String wsPrefix = baseAddress.contains('localhost')?'ws://':'wss://';
 		Element urLogin = querySelector('ur-login');
-		urLogin.attributes['server'] = prefix+authAddress;
-		urLogin.attributes['websocket'] = wsPrefix+authWebsocket;
+		urLogin.attributes['server'] = '$http//$authAddress';
+		urLogin.attributes['websocket'] = '$ws//authWebsocket';
 		urLogin.attributes['base'] = 'blinding-fire-920'; //TODO have the server provide this
 
 		//same for auction-house
 		Element auctionHouse = querySelector('auction-house');
-		auctionHouse.attributes['serverAddress'] = 'http://$utilServerAddress';
+		auctionHouse.attributes['serverAddress'] = '$http//$utilServerAddress';
 	}
 }

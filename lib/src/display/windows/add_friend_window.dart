@@ -96,7 +96,7 @@ class AddFriendWindow extends Modal {
 		_lastSubmit = friendUsername;
 
 		String result = await HttpRequest.getString(
-			'http://${Configs.utilServerAddress}/friends/add'
+			'${Configs.http}//${Configs.utilServerAddress}/friends/add'
 			'?username=${game.username}'
 			'&friendUsername=$friendUsername'
 			'&rstoken=$rsToken');
@@ -113,7 +113,7 @@ class AddFriendWindow extends Modal {
 
 	static Future<bool> removeFriend(String friendUsername) async {
 		String result = await HttpRequest.getString(
-			'http://${Configs.utilServerAddress}/friends/remove'
+			'${Configs.http}//${Configs.utilServerAddress}/friends/remove'
 			'?username=${game.username}'
 			'&friendUsername=$friendUsername'
 			'&rstoken=$rsToken');

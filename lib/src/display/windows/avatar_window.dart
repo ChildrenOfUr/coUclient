@@ -2,7 +2,7 @@ part of couclient;
 
 class AvatarWindow extends Modal {
 	static final String USERNAME_FILE_URL =
-		'http://childrenofur.com/assets/custom_avatar_options.txt';
+		'https://childrenofur.com/assets/custom_avatar_options.txt';
 
 	Element _choiceSelector, _buttonInput, _statusDisplay;
 
@@ -41,7 +41,7 @@ class AvatarWindow extends Modal {
 			_statusDisplay.text = 'Applying changes...';
 
 			HttpRequest.request(
-				'http://${Configs.utilServerAddress}/setCustomAvatar'
+				'${Configs.http}//${Configs.utilServerAddress}/setCustomAvatar'
 				'?username=${game.username}&avatar=$selectedAvatarUsername')
 			.then((HttpRequest req) {
 				if (req.responseText == 'true') {
@@ -89,7 +89,7 @@ class AvatarWindow extends Modal {
 
 		// Preview image
 		String base64 = await HttpRequest.getString(
-			'http://${Configs.utilServerAddress}/trimImage'
+			'${Configs.http}//${Configs.utilServerAddress}/trimImage'
 			'?username=$username&noCustomAvatars=true&fullHeight=true');
 		choice.append(new ImageElement(src: 'data:image/png;base64,$base64'));
 

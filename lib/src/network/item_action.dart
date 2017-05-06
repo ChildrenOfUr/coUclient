@@ -14,7 +14,7 @@ class Item {
 			return JSON.decode(localStorage["item_cache"]);
 		} else {
 			// Download item data
-			String newJSON = await HttpRequest.getString("http://${Configs.utilServerAddress}/getItems");
+			String newJSON = await HttpRequest.getString("${Configs.http}//${Configs.utilServerAddress}/getItems");
 			// Store item data
 			localStorage["item_cache"] = newJSON;
 			localStorage["item_cache_date"] = today;

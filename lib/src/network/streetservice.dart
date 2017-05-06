@@ -20,8 +20,7 @@ class StreetService {
 	String _dataUrl = Configs.utilServerAddress;
 
 	StreetService() {
-		String prefix = Configs.authAddress.contains('localhost') ? 'http://' : 'https://';
-		_dataUrl = prefix + _dataUrl;
+		_dataUrl = '${Configs.http}${_dataUrl}';
 	}
 
 	Future<bool> requestStreet(String StreetID) async {
@@ -55,8 +54,7 @@ class StreetService {
 
 		String playerList = '';
 		List<String> players = JSON.decode(await HttpRequest.getString(
-			'http://' + Configs.utilServerAddress + '/listUsers?channel=' +
-				currentStreet.label));
+			'${Configs.http}//${Configs.utilServerAddress}/listUsers?channel=${currentStreet.label}'));
 		if (!players.contains(game.username)) {
 			players.add(game.username);
 		}

@@ -326,7 +326,7 @@ class UseWindow extends Modal {
 		int current = 1;
 
 		ImageElement animation = new ImageElement()
-			..src = "http://childrenofur.com/game-assets/tool_animations/${recipe["tool"]}.gif";
+			..src = "https://childrenofur.com/game-assets/tool_animations/${recipe["tool"]}.gif";
 
 		DivElement animationParent = new DivElement()
 			..classes.add("makerecipe-anim")
@@ -358,7 +358,7 @@ class UseWindow extends Modal {
 				return false;
 			} else {
 				String serverResponse = await HttpRequest.requestCrossOrigin(
-					"http://${Configs.utilServerAddress}/recipes/make"
+					"${Configs.http}//${Configs.utilServerAddress}/recipes/make"
 						"?token=$rsToken"
 						"&id=${recipe["id"]}"
 						"&email=${game.email}"
@@ -432,7 +432,7 @@ class UseWindow extends Modal {
 			new Toast("Reading recipe book...");
 		}
 		recipeList = await JSON.decode(await HttpRequest.requestCrossOrigin(
-			"http://${Configs.utilServerAddress}/recipes/list?token=$rsToken&tool=$itemType&email=${game.email}"));
+			"${Configs.http}//${Configs.utilServerAddress}/recipes/list?token=$rsToken&tool=$itemType&email=${game.email}"));
 		return;
 	}
 

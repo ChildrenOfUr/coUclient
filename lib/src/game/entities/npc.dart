@@ -49,7 +49,7 @@ class NPC extends Entity {
 			loops: map['loops']);
 		animation.load().then((_) {
 			if (!isHiddenSpritesheet(map['url'])) {
-				HttpRequest.request('http://${Configs.utilServerAddress}/getActualImageHeight?url=${map['url']}&numRows=${map['numRows']}&numColumns=${map['numColumns']}').then((HttpRequest request) {
+				HttpRequest.request('${Configs.http}//${Configs.utilServerAddress}/getActualImageHeight?url=${map['url']}&numRows=${map['numRows']}&numColumns=${map['numColumns']}').then((HttpRequest request) {
 					canvas.attributes['actualHeight'] = request.responseText;
 				});
 			} else {

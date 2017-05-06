@@ -58,7 +58,7 @@ class Clock {
 	}
 
 	Future <List <String>> getHolidays(int month, int day) async {
-		String url = 'http://' + Configs.utilServerAddress + '/getHolidays?month=${month}&day=${day}';
+		String url = '${Configs.http}//${Configs.utilServerAddress}/getHolidays?month=${month}&day=${day}';
 		List<String> currentHolidays = JSON.decode(await HttpRequest.requestCrossOrigin(url));
 		return currentHolidays;
 	}

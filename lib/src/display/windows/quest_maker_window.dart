@@ -107,7 +107,7 @@ class QuestMakerWindow extends Modal {
 		quest.conversation_end = conversationEnd;
 		quest.title = 'A favor for ${game.username}';
 
-		String url = 'http://${Configs.utilServerAddress}/quest/createQuestItem';
+		String url = '${Configs.http}//${Configs.utilServerAddress}/quest/createQuestItem';
 		await HttpRequest.request(url, method: 'POST',
 			                    requestHeaders: {'Content-Type':'application/json'},
 			                    sendData: encode(quest)
@@ -133,7 +133,7 @@ class QuestMakerWindow extends Modal {
 	}
 
 	Future _populatePieces() async {
-		String url = 'http://${Configs.utilServerAddress}/quest/pieces';
+		String url = '${Configs.http}//${Configs.utilServerAddress}/quest/pieces';
 		Map<String,String> piecesMap = JSON.decode(await HttpRequest.getString(url));
 
 		pieces.children.clear();

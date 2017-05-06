@@ -93,7 +93,7 @@ abstract class Entity {
 	 */
 	Future<List<Action>> getActions() async {
 		bool enabled = false;
-		String url = 'http://${Configs.utilServerAddress}/getActions';
+		String url = '${Configs.http}//${Configs.utilServerAddress}/getActions';
 		url += '?email=${game.email}&id=$id&label=${currentStreet.label}';
 		List<Action> actionList = [];
 		actions = decode(await HttpRequest.requestCrossOrigin(url),

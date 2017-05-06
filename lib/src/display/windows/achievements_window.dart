@@ -30,7 +30,7 @@ class AchievementsWindow extends Modal {
 			categoryList.children.clear();
 			Element target = event.target;
 			String category = target.text;
-			String url = "http://${Configs.utilServerAddress}/listAchievements?email=${game
+			String url = "${Configs.http}//${Configs.utilServerAddress}/listAchievements?email=${game
 				.email}&excludeNonMatches=false&category=$category";
 			Map map = JSON.decode(await HttpRequest.getString(url));
 			List<Achievement> achievements = decode(

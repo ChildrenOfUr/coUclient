@@ -127,7 +127,7 @@ Future checkLag([bool silent]) async {
 
 	try {
 		String response = await HttpRequest.getString(
-			'http://${Configs.utilServerAddress}/time/utc')
+			'${Configs.http}//${Configs.utilServerAddress}/time/utc')
 			.timeout(new Duration(seconds: 1));
 		serverTest = DateTime.parse(response);
 	} catch (e) {

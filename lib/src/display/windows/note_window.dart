@@ -145,7 +145,7 @@ class NoteWindow extends Modal {
 		} else {
 			readEditBtn.hidden = true;
 			readUser.setInnerHtml(
-				'<a title="Open Profile" href="http://childrenofur.com/profile/?username=${note["username"]}" target="_blank">${note["username"]}</a>',
+				'<a title="Open Profile" href="https://childrenofur.com/profile/?username=${note["username"]}" target="_blank">${note["username"]}</a>',
 				validator: Chat.VALIDATOR);
 		}
 
@@ -154,7 +154,7 @@ class NoteWindow extends Modal {
 
 	Future<Map> getNote() async {
 		// Download from server
-		String json = await HttpRequest.getString("http://${Configs.utilServerAddress}/note/find/${noteId}");
+		String json = await HttpRequest.getString("${Configs.http}//${Configs.utilServerAddress}/note/find/${noteId}");
 		try {
 			return JSON.decode(json);
 		} catch (_) {

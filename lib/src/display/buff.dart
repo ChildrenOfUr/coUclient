@@ -15,7 +15,7 @@ class Buff {
 	/// Download existing buffs from server
 	static void loadExisting() {
 		HttpRequest.getString(
-			"http://${Configs.utilServerAddress}/buffs/get/${game.email}"
+			"${Configs.http}//${Configs.utilServerAddress}/buffs/get/${game.email}"
 		).then((String json) {
 			JSON.decode(json).forEach((Map buff) => new Buff.fromMap(buff));
 		});

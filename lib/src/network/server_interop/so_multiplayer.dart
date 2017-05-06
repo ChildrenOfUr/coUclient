@@ -1,8 +1,7 @@
 part of couclient;
 
-String wsPrefix = Configs.baseAddress.contains('localhost')?'ws://':'wss://';
-String multiplayerServer = "$wsPrefix${Configs.websocketServerAddress}/playerUpdate";
-String streetEventServer = "$wsPrefix${Configs.websocketServerAddress}/streetUpdate";
+String multiplayerServer = "${Configs.ws}//${Configs.websocketServerAddress}/playerUpdate";
+String streetEventServer = "${Configs.ws}//${Configs.websocketServerAddress}/streetUpdate";
 String joined = "",
 	creatingPlayer = "";
 WebSocket streetSocket, playerSocket;

@@ -32,7 +32,7 @@ class LevelUpOverlay extends Overlay {
 					"Level Up!", icon: Toast.notifIconUrl,
 					body: "You've unlocked new username color options! Click here to visit your profile page, then log in to check them out."
 				).onClick.listen((_) {
-					window.open("http://childrenofur.com/profile?username=${game.username}", "_blank");
+					window.open("https://childrenofur.com/profile?username=${game.username}", "_blank");
 				});
 			}
 		});

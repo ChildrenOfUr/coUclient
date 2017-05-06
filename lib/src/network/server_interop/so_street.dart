@@ -123,7 +123,7 @@ _setupStreetSocket(String streetName) {
 		}
 
 		if (map['open_profile'] != null) {
-			window.open('http://childrenofur.com/profile?username=${map['open_profile']}', '_blank');
+			window.open('https://childrenofur.com/profile?username=${map['open_profile']}', '_blank');
 			return;
 		}
 
