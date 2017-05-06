@@ -22,7 +22,7 @@ dependencies:
           url: git://github.com/ChildrenOfUr/transmit.git
   scproxy:
     git:
-      ref: master
+      ref: dev
       url: git://github.com/ChildrenOfUr/scproxy.git
   slack: "1.2.1+1"
   cou_auction_house:
