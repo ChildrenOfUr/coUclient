@@ -31,17 +31,24 @@ If you want to run it locally or on your own server, you'll need to have an envi
 2. `brew tap dart-lang/dart`
 3. `brew install dart --with-content-shell --with-dartium`
 
-#### Windows
+#### Windows via `chocolatey`
 
-1. Download the <a href="https://www.dartlang.org/">Dart Editor</a>.
+1. `choco install dart-sdk -version 1.23.0`
+2. `choco install dartium -version 1.23.0`
+
+#### Windows via installer
+
+See http://www.gekorm.com/dart-windows/ for links and instructions.
+
+#### If you'd prefer an IDE
+
+See https://www.dartlang.org/tools .
+
+#### Other platforms and/or manual installation
+
+For instructions on manually installing Dart as well as links to other platforms, see https://www.dartlang.org/install .
 
 ### Building
-
-#### In Dart Editor
-
-1. Go to File -> "Open Existing Folder" and open this project folder.
-2. Make sure you have the required dependencies specified in pubspec.yaml. If you're missing
-   any of these, try selecting a file in the project, and then running Tools -> Pub Get.
 
 #### Command line
 
@@ -62,15 +69,15 @@ For best results, we recommend running the client in [Dartium](https://webdev.da
 > easily find it. Assuming that your `homebrew` prefix is `/usr/local` and the version of Dart you have installed is 1.23.0, try looking in
 > `/usr/local/Cellar/dart/1.23.0` for a bundle named `Chromium.app`.
 
-## General Roadmap ##
+## General Roadmap
 
 The project is built in <a href="https://www.dartlang.org" target="_blank">Dart</a>,
 which is then compiled and minified into javascript and can run in most browsers. See our team collaboration
 site on Trello for the current roadmap.
 
-## Project Layout ##
+## Project Layout
 
-`main.dart` serves as the main game loop. This class controls all functions within the game.
-Dart classes and functions are in the `lib/src` folder.
-Images, CSS and other web resources are in `web/assets`.
-More development documentation is in the `doc` folder.
+* `main.dart` serves as the main game loop. This class controls all functions within the game.
+* Dart classes and functions are in the `lib/src` folder.
+* Images, CSS and other web resources are in `web/assets`.
+* More development documentation is in the `doc` folder.
