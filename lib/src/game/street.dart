@@ -107,7 +107,8 @@ class Street {
 			if (Configs.testing) {
 				String status = await HttpRequest.getString('https://childrenofur.com/assets/street_layer_exists.php?tsid=$tsid&layer=$layerName');
 				if (status == 'dev') {
-					url = 'https://childrenofur.com/assets/streetLayers/dev/$tsid/$layerName.png';
+					int time = new DateTime.now().millisecondsSinceEpoch;
+					url = 'https://childrenofur.com/assets/streetLayers/dev/$tsid/$layerName.png?time=$time';
 				}
 			}
 			if (!decosToLoad.contains(url)) {
