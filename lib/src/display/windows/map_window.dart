@@ -63,7 +63,7 @@ class MapWindow extends Modal {
 		// Clear previous results
 		searchResults.children.clear();
 
-		List<String> results = [];
+		SplayTreeSet<String> results = new SplayTreeSet<String>((String a, String b) => levenshtein(a, b, caseSensitive: false));
 
 		for (String streetname in mapData.streetData.keys) {
 			Map data = mapData.streetData[streetname];
@@ -79,11 +79,9 @@ class MapWindow extends Modal {
 			// Check if street matches search
 			if (checkVisibility(streetname) &&
 			    (checkName(streetname, entry) || checkTsid(tsid, entry))) {
-				results.add(streetname);
+				results.add(streetname.trim());
 			}
 		}
-
-		results.sort((String a, String b) => levenshtein(a, b, caseSensitive: false));
 
 		for(String streetname in results) {
 			// Mark if current street
