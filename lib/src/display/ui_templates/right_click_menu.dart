@@ -541,7 +541,6 @@ class RightClickMenu {
 			menu = querySelector("#RightClickMenu");
 		} while (menu != null);
 
-		logmessage('$destroyed menu(s) destroyed');
 		return destroyed;
 	}
 }
