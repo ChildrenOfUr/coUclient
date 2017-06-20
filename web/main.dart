@@ -50,6 +50,7 @@ part 'package:couclient/src/game/joystick.dart';
 part 'package:couclient/src/systems/clock.dart';
 part 'package:couclient/src/systems/commands.dart';
 part 'package:couclient/src/systems/gps.dart';
+part 'package:couclient/src/systems/homestreet.dart';
 part 'package:couclient/src/systems/quest_manager.dart';
 part 'package:couclient/src/systems/util.dart';
 part 'package:couclient/src/systems/weather.dart';

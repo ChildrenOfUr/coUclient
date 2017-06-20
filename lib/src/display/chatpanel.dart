@@ -49,6 +49,10 @@ class Chat {
 		this.focused = false;
 	}
 
+	TextInputElement get chatInput {
+		return conversationElement.querySelector('input');
+	}
+
 	Chat(this.title) {
 		title = title.trim();
 
@@ -91,7 +95,6 @@ class Chat {
 			}
 
 			//handle chat input getting focused/unfocused so that the character doesn't move while typing
-			InputElement chatInput = conversationElement.querySelector('input');
 			chatInput.onFocus.listen((FocusEvent event) {
 				if (localResizeFocus) {
 					// Don't drag to resize into text fields

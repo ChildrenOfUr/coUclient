@@ -22,6 +22,8 @@ class CommandManager {
 
 		if (Configs.testing) {
 			COMMANDS
+				..['makehome'] = makeHome
+				..['gohome'] = goHome
 				..['collisions'] = toggleCollisionLines
 				..['follow'] = follow
 				..['log'] = log
@@ -49,8 +51,50 @@ bool parseCommand(String command) {
 	}
 }
 
+// Makes the current street the player's home street
+Future makeHome(var options) async {
+	options = options.trim();
+
+	String existingHome = await HomeStreet.getForPlayer();
+	if (existingHome != null && options != 'replace') {
+		new Toast(
+			'You already have a home street ($existingHome). '
+			'Run "/makehome replace" to delete it and use this street instead. '
+			'Any items and entities on your existing street will be deleted!',
+			notify: NotifyRule.NO,
+			onClick: ({MouseEvent event, String argument}) {
+				Chat.localChat.chatInput.value = '/makehome replace';
+			}
+		);
+	} else if (await HomeStreet.setForSelf(currentStreet.tsid)) {
+		new Toast(
+			'Home street set successfully. Click here or run "/gohome" to visit it.',
+			notify: NotifyRule.NO,
+			onClick: ({MouseEvent event, String argument}) => goHome()
+		);
+	} else {
+		new Toast('Error setting home street', notify: NotifyRule.NO);
+	}
+}
+
+// Teleports the player to their home street
+Future goHome(var ignored) async {
+	String tsid = await HomeStreet.getForPlayer();
+	if (tsid == null) {
+		new Toast(
+			'You don\'t have a home street yet! Run "/makeHome" to get one like this street.',
+			notify: NotifyRule.NO,
+			onClick: ({MouseEvent event, String argument}) {
+				Chat.localChat.chatInput.value = '/makehome';
+			}
+		);
+	} else {
+		streetService.requestStreet(tsid);
+	}
+}
+
 // Allows switching to desktop view on touchscreen laptops
-changeInterface(var type) {
+void changeInterface(var type) {
 	if (type == 'desktop') {
 		(querySelector('#MobileStyle') as StyleElement).disabled = true;
 		localStorage['interface'] = 'desktop';
@@ -64,21 +108,21 @@ changeInterface(var type) {
 	}
 }
 
-go(String tsid) {
+void go(String tsid) {
 	tsid = tsid.trim();
 	//changes first letter to match revdancatt's code - only if it starts with an L
 	if (tsid.startsWith('L')) tsid = tsid.replaceFirst('L', 'G');
 	streetService.requestStreet(tsid);
 }
 
-setTime(String noun) {
+void setTime(String noun) {
 	transmit('timeUpdateFake', [noun]);
 	if (noun == '6:00am') {
 		transmit('newDayFake', null);
 	}
 }
 
-setWeather(String noun) {
+void setWeather(String noun) {
 	if (noun == 'snow') {
 		transmit('setWeatherFake', {'state':WeatherState.SNOWING.index});
 	} else if (noun == 'rain') {
@@ -88,20 +132,19 @@ setWeather(String noun) {
 	}
 }
 
-toggleCollisionLines(_) {
+void toggleCollisionLines(_) {
 	if (showCollisionLines) {
 		showCollisionLines = false;
 		hideLineCanvas();
 		new Toast('Collision lines hidden');
-	}
-	else {
+	} else {
 		showCollisionLines = true;
 		showLineCanvas();
 		new Toast('Collision lines shown');
 	}
 }
 
-togglePhysics(_) {
+void togglePhysics(_) {
 	if (CurrentPlayer.doPhysicsApply) {
 		CurrentPlayer.doPhysicsApply = false;
 		new Toast('Physics no longer apply to you');
@@ -111,12 +154,12 @@ togglePhysics(_) {
 	}
 }
 
-setMusic(String song) {
+void setMusic(String song) {
 	new Toast('Music set to $song');
 	audio.setSong(song);
 }
 
-follow(String player) {
+void follow(String player) {
 	new Toast(CurrentPlayer.followPlayer(player));
 }
 
