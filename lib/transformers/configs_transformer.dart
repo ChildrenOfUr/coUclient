@@ -34,7 +34,7 @@ class ConfigsTransformer extends Transformer
 
 		if(newContent.contains('<ur-login>')) {
 			//set the ur-login components addresses
-			newContent = newContent.replaceAll('<ur-login>','<ur-login server="$prefix$authAddress}" websocket="$wsPrefix$authWebsocket" base="blinding-fire-920">');
+			newContent = newContent.replaceAll('<ur-login>','<ur-login server="$prefix$authAddress" websocket="$wsPrefix$authWebsocket" base="blinding-fire-920">');
 		}
 		if(newContent.contains('<auction-house>')) {
 			//same for auction-house
