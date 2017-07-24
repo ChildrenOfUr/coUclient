@@ -516,6 +516,15 @@ class WorldMap {
 						});
 					}
 				}
+			},
+			{
+				"name": "Encyclopedia",
+				"description": "Get more information",
+				"enabled": true,
+				"timeRequired": 0,
+				"clientCallback": () {
+					window.open("https://childrenofur.com/encyclopedia/#/street/$tsid", "_blank");
+				}
 			}
 		];
 		if (metabolics.energy >= 50 || (inputManager.konamiDone && !inputManager.freeTeleportUsed)) {
