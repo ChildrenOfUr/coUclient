@@ -23,6 +23,7 @@ class Chat {
 		inputHistory = new List();
 	static StreamSubscription itemWindowLinks, mapWindowLinks;
 	static InputElement lastFocusedInput;
+	Element resizeHandle;
 	bool localResizeFocus = false; // whether the mouse is down on the resize button
 
 	static final NodeValidatorBuilder VALIDATOR = new NodeValidatorBuilder.common()
@@ -143,7 +144,7 @@ class Chat {
 
 		if (title == 'Local Chat') {
 			// Add resize control to the top of local chat
-			Element resizeHandle = new Element.tag('i')
+			resizeHandle = new Element.tag('i')
 				..classes = ['chat-resize', 'fa-li', 'fa', 'fa-hand-grab-o']
 				..title = 'Drag to resize'
 				..tabIndex = -1;
@@ -188,13 +189,18 @@ class Chat {
 			});
 
 			conversationElement.querySelector('header').children.insert(0, resizeHandle);
+		} else {
+			localChat?.resizeHandle?.hidden = false;
 		}
 
 		computePanelSize();
 
 		Element minimize = conversationElement.querySelector('.fa-chevron-down');
 		if (minimize != null) {
-			minimize.onClick.listen((_) => this.archiveConversation());
+			minimize.onClick.listen((_) {
+				localChat.resizeHandle.hidden = true;
+				this.archiveConversation();
+			});
 		}
 
 		processInput(conversationElement.querySelector('input'));
