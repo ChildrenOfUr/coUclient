@@ -45,20 +45,20 @@ class SettingsWindow extends Modal {
 			}
 		} else {
 			localStorage["playMentionSound"] = "true";
-			joinMessagesVisibility = true;
+			playMentionSound = true;
 		}
 
 		(querySelector("#PlayMentionSound") as PaperToggleButton).checked = playMentionSound;
 
 		if(localStorage["logNpcMessages"] != null) {
 			if(localStorage["logNpcMessages"] == "true") {
-				playMentionSound = true;
+				logNpcMessages = true;
 			} else {
-				playMentionSound = false;
+				logNpcMessages = false;
 			}
 		} else {
 			localStorage["logNpcMessages"] = "true";
-			joinMessagesVisibility = true;
+			logNpcMessages = true;
 		}
 
 		(querySelector("#LogNPCMessages") as PaperToggleButton).checked = playMentionSound;
