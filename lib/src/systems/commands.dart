@@ -124,11 +124,17 @@ void setTime(String noun) {
 
 void setWeather(String noun) {
 	if (noun == 'snow') {
-		transmit('setWeatherFake', {'state':WeatherState.SNOWING.index});
+		transmit('setWeatherFake', {'state': WeatherState.SNOWING});
+		new Toast('Overridden to snowy weather', notify: NotifyRule.NO);
 	} else if (noun == 'rain') {
-		transmit('setWeatherFake', {'state':WeatherState.RAINING.index});
+		transmit('setWeatherFake', {'state': WeatherState.RAINING});
+		new Toast('Overridden to rainy weather', notify: NotifyRule.NO);
 	} else if (noun == 'clear') {
-		transmit('setWeatherFake', {'state':WeatherState.CLEAR.index});
+		transmit('setWeatherFake', {'state': WeatherState.CLEAR});
+		new Toast('Overridden to clear weather', notify: NotifyRule.NO);
+	} else {
+		transmit('setWeatherFake', {'reset': true});
+		new Toast('Returned to server weather', notify: NotifyRule.NO);
 	}
 }
 
