@@ -13,7 +13,7 @@ class SettingsWindow extends Modal {
 
 		//listen for onChange events so that clicking the label or the checkbox will call this method
 		querySelectorAll('.ChatSettingsCheckbox').onChange.listen((Event event) {
-			PaperToggleButton checkbox = event.target as PaperToggleButton;
+			CheckboxInputElement checkbox = event.target as CheckboxInputElement;
 			if(checkbox.id == "ShowJoinMessages") {
 				joinMessagesVisibility = checkbox.checked;
 			}
@@ -35,7 +35,7 @@ class SettingsWindow extends Modal {
 			joinMessagesVisibility = false;
 		}
 
-		(querySelector("#ShowJoinMessages") as PaperToggleButton).checked = joinMessagesVisibility;
+		(querySelector("#ShowJoinMessages") as CheckboxInputElement).checked = joinMessagesVisibility;
 
 		if(localStorage["playMentionSound"] != null) {
 			if(localStorage["playMentionSound"] == "true") {
@@ -48,7 +48,7 @@ class SettingsWindow extends Modal {
 			playMentionSound = true;
 		}
 
-		(querySelector("#PlayMentionSound") as PaperToggleButton).checked = playMentionSound;
+		(querySelector("#PlayMentionSound") as CheckboxInputElement).checked = playMentionSound;
 
 		if(localStorage["logNpcMessages"] != null) {
 			if(localStorage["logNpcMessages"] == "true") {
@@ -61,10 +61,10 @@ class SettingsWindow extends Modal {
 			logNpcMessages = true;
 		}
 
-		(querySelector("#LogNPCMessages") as PaperToggleButton).checked = playMentionSound;
+		(querySelector("#LogNPCMessages") as CheckboxInputElement).checked = playMentionSound;
 
 		// set graphicsblur
-		PaperToggleButton graphicsBlur = querySelector("#GraphicsBlur") as PaperToggleButton;
+		CheckboxInputElement graphicsBlur = querySelector("#GraphicsBlur") as CheckboxInputElement;
 		if(localStorage["GraphicsBlur"] != null) {
 			if(localStorage["GraphicsBlur"] == "true") {
 				graphicsBlur.checked = true;
@@ -76,7 +76,7 @@ class SettingsWindow extends Modal {
 		graphicsBlur.onChange.listen((_) => localStorage["GraphicsBlur"] = graphicsBlur.checked.toString());
 
 		// set weather effects
-		PaperToggleButton weatherEffects = querySelector("#WeatherEffectsEnabled") as PaperToggleButton;
+		CheckboxInputElement weatherEffects = querySelector("#WeatherEffectsEnabled") as CheckboxInputElement;
 		if(localStorage["WeatherEffectsEnabled"] != null) {
 			if(localStorage["WeatherEffectsEnabled"] == "true") {
 				weatherEffects.checked = true;
@@ -99,20 +99,21 @@ class SettingsWindow extends Modal {
 			}
 		});
 
-		PaperRadioGroup intensityGroup = querySelector("#WeatherEffectsIntensityGroup") as PaperRadioGroup;
-		if(localStorage["WeatherEffectsIntensity"] != null) {
-			List<String> intensities = ["light", "normal"];
+		CheckboxInputElement lightWeatherEffects = querySelector("#WeatherEffectsIntensity");
+		if (localStorage["LightWeatherEffects"] != null) {
 			try {
-				int index = int.parse(localStorage["WeatherEffectsIntensity"]);
-				intensityGroup.selected = intensities[index];
+				lightWeatherEffects.checked = localStorage["LightWeatherEffects"] == "true";
 			} catch (err) {
-				logmessage("Error setting intensity selection: $err");
+				logmessage("Error setting weather effects intensity intensity: $err");
 			}
 		}
-		intensityGroup.on['core-activate'].listen((_) => WeatherManager.intensity = WeatherIntensity.values[intensityGroup.selectedIndex]);
+		lightWeatherEffects.onChange.listen((_) {
+			WeatherManager.intensity = lightWeatherEffects.checked ? WeatherIntensity.LIGHT : WeatherIntensity.NORMAL;
+			localStorage["LightWeatherEffects"] = lightWeatherEffects.checked.toString();
+		});
 
 		// set dark ui
-		PaperToggleButton darkUi = querySelector("#DarkMode") as PaperToggleButton;
+		CheckboxInputElement darkUi = querySelector("#DarkMode") as CheckboxInputElement;
 		if(localStorage["DarkMode"] != null) {
 			DarkUI.darkMode = darkUi.checked = (localStorage["DarkMode"] == "true");
 		}
@@ -123,7 +124,7 @@ class SettingsWindow extends Modal {
 		});
 
 		// set dark ui auto mode
-		PaperToggleButton darkUiAuto = querySelector("#DarkModeAuto") as PaperToggleButton;
+		CheckboxInputElement darkUiAuto = querySelector("#DarkModeAuto") as CheckboxInputElement;
 		if(localStorage["DarkModeAuto"] != null) {
 			DarkUI.autoMode = darkUiAuto.checked = (localStorage["DarkModeAuto"] == "true");
 			darkUi.disabled = darkUiAuto.checked;
@@ -141,36 +142,36 @@ class SettingsWindow extends Modal {
 		});
 
 		//setup volume controls
-		UrSlider musicSlider = querySelector("#MusicSlider") as UrSlider;
-		UrSlider effectSlider = querySelector("#EffectSlider") as UrSlider;
-		UrSlider weatherSlider = querySelector("#WeatherSlider") as UrSlider;
+		RangeInputElement musicSlider = querySelector("#MusicSlider") as RangeInputElement;
+		RangeInputElement effectSlider = querySelector("#EffectSlider") as RangeInputElement;
+		RangeInputElement weatherSlider = querySelector("#WeatherSlider") as RangeInputElement;
 		try {
-			musicSlider.value = int.parse(localStorage['musicVolume']);
-			effectSlider.value = int.parse(localStorage['effectsVolume']);
-			weatherSlider.value = int.parse(localStorage['weatherVolume']);
+			musicSlider.value = localStorage['musicVolume'];
+			effectSlider.value = localStorage['effectsVolume'];
+			weatherSlider.value = localStorage['weatherVolume'];
 		} catch(e) {
 		}
 
 		musicSlider.on['immediate-value-change'].listen((Event event) {
-			num volume = musicSlider.value;
+			num volume = num.parse(musicSlider.value);
 			audio.audioChannels['music'].gain = volume / 100;
 		});
 		musicSlider.on['core-change'].listen((Event event) {
-			num volume = musicSlider.value;
+			num volume = num.parse(musicSlider.value);
 			localStorage['musicVolume'] = volume.toString();
 		});
 
 		effectSlider.on['immediate-value-change'].listen((Event event) {
-			num volume = effectSlider.value;
+			num volume = num.parse(effectSlider.value);
 			audio.audioChannels['soundEffects'].gain = volume / 100;
 		});
 		effectSlider.on['core-change'].listen((Event event) {
-			num volume = effectSlider.value;
+			num volume = num.parse(effectSlider.value);
 			localStorage['effectsVolume'] = volume.toString();
 		});
 
 		weatherSlider.on['immediate-value-change'].listen((Event event) {
-			audio.audioChannels['weather'].gain = weatherSlider.value / 100;
+			audio.audioChannels['weather'].gain = num.parse(weatherSlider.value) / 100;
 		});
 		weatherSlider.on['core-change'].listen((Event event) {
 			localStorage['weatherVolume'] = weatherSlider.value.toString();

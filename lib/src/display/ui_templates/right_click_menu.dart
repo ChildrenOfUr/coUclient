@@ -437,12 +437,12 @@ class RightClickMenu {
 					}
 				});
 
-				menuitem.onMouseOver.listen((e) {
-					e.target.classes.add("RCItemSelected");
+				menuitem.onMouseOver.listen((Event e) {
+					(e.target as Element).classes.add("RCItemSelected");
 				});
 
-				menuitem.onMouseOut.listen((e) {
-					e.target.classes.remove("RCItemSelected");
+				menuitem.onMouseOut.listen((Event e) {
+					(e.target as Element).classes.remove("RCItemSelected");
 				});
 
 				document.onKeyUp.listen((KeyboardEvent k) {

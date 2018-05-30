@@ -61,7 +61,7 @@ class BagWindow extends Modal {
 
 		//load the ui of the window and open it when ready
 		loadUpdate = new Completer();
-		load(sourceItem).then((DivElement windowElement) {
+		load(sourceItem).then((Element windowElement) {
 			displayElement = windowElement;
 			// Handle drag and drop
 			new Service(["inventoryUpdated", 'metadataUpdated'], (_) {

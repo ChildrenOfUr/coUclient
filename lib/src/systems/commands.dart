@@ -78,7 +78,7 @@ Future makeHome(var options) async {
 }
 
 // Teleports the player to their home street
-Future goHome(var ignored) async {
+Future goHome() async {
 	String tsid = await HomeStreet.getForPlayer();
 	if (tsid == null) {
 		new Toast(

@@ -96,7 +96,7 @@ class Chat {
 			}
 
 			//handle chat input getting focused/unfocused so that the character doesn't move while typing
-			chatInput.onFocus.listen((FocusEvent event) {
+			chatInput.onFocus.listen((Event event) {
 				if (localResizeFocus) {
 					// Don't drag to resize into text fields
 					event.preventDefault();

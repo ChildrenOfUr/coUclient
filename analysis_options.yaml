@@ -1,0 +1,7 @@
+analyzer:
+  exclude:
+    - lib/src/display/windows/details_window.dart
+
+linter:
+  exclude:
+    - lib/src/display/windows/details_window.dart

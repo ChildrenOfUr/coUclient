@@ -1,4 +1,4 @@
-library metabolics;
+part of couclient;
 
 class Metabolics {
 	int id = -1;

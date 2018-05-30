@@ -53,27 +53,6 @@ class AuctionWindow extends Modal {
 	}
 }
 
-class MailboxWindow extends Modal {
-	String id = 'mailboxWindow';
-
-	MailboxWindow() {
-		prepare();
-	}
-
-	@override
-	open({bool ignoreKeys: false}) {
-		(querySelector("ur-mailbox") as Mailbox).refresh();
-		inputManager.ignoreKeys = true;
-		super.open();
-	}
-
-	@override
-	close() {
-		inputManager.ignoreKeys = false;
-		super.close();
-	}
-}
-
 Map<String, Modal> modals = {};
 
 /// A Dart interface to an html Modal

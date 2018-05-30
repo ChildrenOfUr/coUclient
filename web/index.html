@@ -1,76 +1,83 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <meta name="apple-mobile-web-app-capable" content="yes">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
 
-    <!--iOS-->
-    <meta name="mobile-web-app-capable" content="yes">
+	<!--iOS-->
+	<meta name="mobile-web-app-capable" content="yes">
 
-    <!--Chrome for android-->
-    <link rel="icon" type="image/png" href="files/system/favicon.ico">
+	<!--Chrome for android-->
+	<link rel="icon" type="image/png" href="files/system/favicon.ico">
 
-    <!-- Display Page Title -->
-    <title>CoU - children of Ur</title>
+	<!-- Display Page Title -->
+	<title>CoU - children of Ur</title>
 
-    <!--Import game css-->
-    <link rel="stylesheet" href="files/css/desktop/_desktop.css">
-    <link id="TabletStyle" rel="stylesheet" href="files/css/tablet/_tablet.css" disabled>
-    <link id="MobileStyle" rel="stylesheet" href="files/css/mobile/_mobile.css" disabled>
+	<!-- Input styles -->
+	<link rel="stylesheet" href="packages/cou_toolkit/styles/button.css"/>
+	<link rel="stylesheet" href="packages/cou_toolkit/styles/panel.css"/>
+	<link rel="stylesheet" href="packages/cou_toolkit/styles/progress.css"/>
+	<link rel="stylesheet" href="packages/cou_toolkit/styles/slider.css"/>
+	<link rel="stylesheet" href="packages/cou_toolkit/styles/well.css"/>
 
-    <!--Firebase Login-->
-    <script src="https://cdn.firebase.com/js/client/2.2.2/firebase.js"></script>
+	<!--Import game css-->
+	<link rel="stylesheet" href="files/css/desktop/_desktop.css">
+	<link id="TabletStyle" rel="stylesheet" href="files/css/tablet/_tablet.css" disabled>
+	<link id="MobileStyle" rel="stylesheet" href="files/css/mobile/_mobile.css" disabled>
 
-    <!--Polymer components-->
-    <link rel="import" href="packages/couclient/components/components_import.html">
+	<!--Firebase Login-->
+	<script src="https://cdn.firebase.com/js/client/2.2.2/firebase.js"></script>
 
-    <!-- Google Analytics -->
-    <script>
-        if (
-                navigator.doNotTrack == "yes" ||
-                navigator.doNotTrack == "1" ||
-                navigator.msDoNotTrack == "1" ||
-                window.doNotTrack == "yes" ||
-                window.doNotTrack == "1" ||
-                window.msDoNotTrack == "1") {
-            console.info("Respecting Do-Not-Track request, disabling Google Analytics.");
-        }
-        else {
-            (function (i, s, o, g, r, a, m) {
-                i['GoogleAnalyticsObject'] = r;
-                i[r] = i[r] || function () {
-                            (i[r].q = i[r].q || []).push(arguments)
-                        }, i[r].l = 1 * new Date();
-                a = s.createElement(o),
-                        m = s.getElementsByTagName(o)[0];
-                a.async = 1;
-                a.src = g;
-                m.parentNode.insertBefore(a, m)
-            })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+	<!-- Google Analytics -->
+	<script>
+		if (
+			navigator.doNotTrack == "yes" ||
+			navigator.doNotTrack == "1" ||
+			navigator.msDoNotTrack == "1" ||
+			window.doNotTrack == "yes" ||
+			window.doNotTrack == "1" ||
+			window.msDoNotTrack == "1") {
+			console.info("Respecting Do-Not-Track request, disabling Google Analytics.");
+		}
+		else {
+			(function (i, s, o, g, r, a, m) {
+				i['GoogleAnalyticsObject'] = r;
+				i[r] = i[r] || function () {
+					(i[r].q = i[r].q || []).push(arguments)
+				}, i[r].l = 1 * new Date();
+				a = s.createElement(o),
+					m = s.getElementsByTagName(o)[0];
+				a.async = 1;
+				a.src = g;
+				m.parentNode.insertBefore(a, m)
+			})(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
 
-            ga('create', 'UA-54732442-4', 'auto');
-            ga('send', 'pageview');
-        }
-    </script>
+			ga('create', 'UA-54732442-4', 'auto');
+			ga('send', 'pageview');
+		}
+	</script>
 </head>
-<body unresolved>
+<body>
 
 <!-- Error -->
 <div id="browser-error">
-    <h1>The game page is loading...</h1>
-    <p>If you see this message for more than 10 seconds after your browser's loading indicator has stopped, your browser will probably not support the game.</p>
-    <p>Browsers <strong>not</strong> currently supported:</p>
-    <ul>
-        <li>Internet Explorer</li>
-        <li>Microsoft Edge</li>
-        <li>Apple Safari</li>
-        <li>Any browser with JavaScript disabled</li>
-    </ul>
-    <noscript><p><strong>You do not have JavaScript enabled, or your browser doesn't support it!</strong> Fix it <a href="http://www.enable-javascript.com/">here</a>.</p></noscript>
-    <p>Please see our <a href="https://childrenofur.com/about/#compatibility">compatibility page</a> for more information.</p>
-    <p>You can also <a href="http://status.childrenofur.com">check the status</a> of our services.</p>
-    <p>Thanks and we hope you can play soon,<br>&emsp;&mdash; Children of Ur Dev Team</p>
+	<h1>The game page is loading...</h1>
+	<p>If you see this message for more than 10 seconds after your browser's loading indicator has stopped, your browser
+		will probably not support the game.</p>
+	<p>Browsers <strong>not</strong> currently supported:</p>
+	<ul>
+		<li>Internet Explorer</li>
+		<li>Microsoft Edge</li>
+		<li>Apple Safari</li>
+		<li>Any browser with JavaScript disabled</li>
+	</ul>
+	<noscript><p><strong>You do not have JavaScript enabled, or your browser doesn't support it!</strong> Fix it <a
+			href="http://www.enable-javascript.com/">here</a>.</p></noscript>
+	<p>Please see our <a href="https://childrenofur.com/about/#compatibility">compatibility page</a> for more
+		information.</p>
+	<p>You can also <a href="http://status.childrenofur.com">check the status</a> of our services.</p>
+	<p>Thanks and we hope you can play soon,<br>&emsp;&mdash; Children of Ur Dev Team</p>
 </div>
 
 <!-- Preload resources to prevent delay when displaying -->
@@ -78,105 +85,1225 @@
 
 <!-- Loading Screen -->
 <div id="loading" hidden>
-    <img src="files/system/earf.png" id="spinny-ur">
-    <ur-login></ur-login>
-    <div id="loadstatus">Loading</div>
-    <br>
-    <div id="loadstatus2">Chatting with server...</div>
+	<img src="files/system/earf.png" id="spinny-ur">
+	<ur-login></ur-login>
+	<div id="loadstatus">Loading</div>
+	<br>
+	<div id="loadstatus2">Chatting with server...</div>
 </div>
 
 <main onContextMenu="return false">
 
-    <!-- THE VARIOUS METERS AT THE TOP LEFT OF THE SCREEN -->
-    <ur-meters></ur-meters>
+	<!-- THE VARIOUS METERS AT THE TOP LEFT OF THE SCREEN -->
+	<div id="meters">
+		<a id="playerName" title="Open Profile Page" href="#" target="_blank"></a>
 
-    <!-- iMG Button -->
-    <div id="thinkButton"></div>
+		<div id="imaginationText">
+			<span id="currImagination"></span><span class="smi">i</span>
+		</div>
+		<div id="energyDisks">
+			<img class="green" src="files/system/meters/energymeter.svg">
+			<img class="red" src="files/system/meters/energymeterred.svg">
+		</div>
+		<div id="topLeftMask"></div>
+		<img id="enbolt" src="files/system/meters/energybolt.svg">
 
-    <!-- Option Buttons -->
-    <link rel="import" href="files/html/interface/topright.html">
+		<div id="leftDisk">
+			<div class="hurt"></div>
+			<img id="rays" src="files/system/meters/rays.svg">
 
-    <!-- Magic Rock -->
-    <div id="petrock"></div>
+			<div class="dead">
+				<div id="rain"></div>
+			</div>
+			<div id="portrait">
+				<div id="moodAvatar"></div>
+			</div>
+			<div id="moodMeter">
+	        <span class="percent">
+	          <span class="number"></span>%
+	        </span>
+				<span class="fraction">
+	          <span class="curr"></span>
+					<span>/</span>
+	          <span class="max"></span>
+	        </span>
+			</div>
+		</div>
 
-    <!-- Game Container -->
-    <link rel="import" href="files/html/game.html">
+		<div id="energyText">
+			<span id="currEnergy"></span>
+			<span>/</span>
+			<span id="maxEnergy"></span>
 
-    <!-- Inventory slots, search, and currants -->
-    <link rel="import" href="files/html/interface/inventory.html">
+			<div>Energy</div>
+		</div>
+	</div>
 
-    <div id="game-column-right">
+	<!-- iMG Button -->
+	<div id="thinkButton"></div>
 
-        <!-- Minimap -->
-        <div id="minimap-container" hidden>
-            <div id="minimap">
-                <img id="minimap-img" src="">
+	<!-- Option Buttons -->
+	<div id="topRight">
+		<nav>
+			<a id="weatherGlyph" title="Weather">
+				<i class="fa fa-cloud"></i>
+			</a>
+			<a id="bugGlyph" title="Send Feedback">
+				<i class="fa fa-bug"> </i>
+			</a>
+			<a id="volumeGlyph" title="Sound" class="always">
+				<i class="fa fa-volume-up"></i>
+			</a>
+			<a id="settingsGlyph" title="Preferences">
+				<i class="fa fa-cog"></i>
+			</a>
+		</nav>
+		<div id="time" title="Click to open calendar">
+			<div id="currDay">N</div>
+			<div id="currTime">N:NN</div>
+			<div id="currDate">Nth of N</div>
+		</div>
+	</div>
 
-                <div id="minimap-objects"></div>
-                <div id="minimap-label"></div>
-            </div>
-            <div id="minimap-toggle"><i class="fa fa-chevron-up"></i></div>
-            <div id="mapButton" class="closed" title="Full Map"></div>
-        </div>
+	<!-- Magic Rock -->
+	<div id="petrock"></div>
 
-        <!-- GPS -->
-        <div id="gps-container" hidden>
-            <div id="gps-cancel" title="Cancel Directions"><i class="fa fa-times fa-fw"></i></div>
-            <div id="gps-direction"><i class="fa fa-arrow-up fa-fw fa-2x"></i></div>
-            <div id="gps-text">
-                <div id="gps-title"><span id="gps-next">Gregarious Grange</span></div>
-                <div id="gps-bottom">Going to: <span id="gps-destination">Cebarkul</span></div>
-            </div>
-        </div>
+	<!-- Game Container -->
+	<div id="game">
 
-        <!-- Toasts -->
-        <div id="toastPanel">
-            <div id="toastHolder"></div>
-            <div id="buffHolder"></div>
-        </div>
+		<!-- Allow tabbing to game -->
+		<div id="gameselector" tabindex="-1"></div>
 
-    </div>
+		<!-- Game Elements -->
+		<div id="world">
+			<div id="street">
+				<div id="layers"></div>
+				<div id="playerHolder"></div>
+			</div>
+		</div>
 
-    <!-- Right chat pane -->
-    <link rel="import" href="files/html/interface/chat.html">
+		<!-- Weather layer -->
+		<div id="weatherLayer">
+			<div class="weather-type" id="weather-raindrops" style="opacity: 0;"></div>
+			<div class="weather-type" id="weather-snowflakes" style="opacity: 0;"></div>
+		</div>
+		<div id="cloudLayer"></div>
 
-    <!-- SoundCloud -->
-    <ur-musicplayer id="SCwidget" artist="" song=""></ur-musicplayer>
+		<div id="overlayHolder">
+			<!-- iMG Menu -->
+			<div id="pauseMenu" class="overlay" hidden>
 
-    <!-- Windows -->
-    <div id="windowHolder">
-		<link rel="import" href="files/html/windows/avatar_window.html">
-		<link rel="import" href="files/html/windows/changeusernamewindow.html">
-		<link rel="import" href="files/html/windows/invsearchwindow.html">
-        <link rel="import" href="files/html/windows/achievements.html">
-        <link rel="import" href="files/html/windows/addfriendwindow.html">
-        <link rel="import" href="files/html/windows/auctionwindow.html">
-        <link rel="import" href="files/html/windows/bagwindow.html">
-        <link rel="import" href="files/html/windows/bugwindow.html">
-        <link rel="import" href="files/html/windows/calendarwindow.html">
-        <link rel="import" href="files/html/windows/emoticon_picker.html">
-        <link rel="import" href="files/html/windows/mailboxwindow.html">
-        <link rel="import" href="files/html/windows/mapwindow.html">
-        <link rel="import" href="files/html/windows/motdwindow.html">
-        <link rel="import" href="files/html/windows/notewindow_template.html">
-        <link rel="import" href="files/html/windows/quest_maker.html">
-        <link rel="import" href="files/html/windows/questlog.html">
-        <link rel="import" href="files/html/windows/rockwindow.html">
-        <link rel="import" href="files/html/windows/settingswindow.html">
-        <link rel="import" href="files/html/windows/shopwindow.html">
-        <link rel="import" href="files/html/windows/shrinewindow.html">
-    </div>
+				<!-- Exit button -->
 
-    <!-- Mobile Control -->
-    <div id="JoystickParent">
-        <div id="Joystick">
-            <div id="Knob"></div>
-        </div>
-    </div>
-    <div id="MobileButtonContainer">
-        <div id="AButton">A</div>
-        <div id="BButton">B</div>
-    </div>
+				<a id="pm-exit-button" title="Close"></a>
+
+				<!-- Level Indicator -->
+
+				<div id="pm-level-container">
+					<div id="pm-level-bar">
+						<div id="pm-level-bar-info">
+							<span id="pm-level-label">Level</span>
+							<span id="pm-level-num"></span>
+						</div>
+						<div id="pm-level-tooltip">
+							<p class="pm-tt-top"><span id="pm-img-req"></span><br>iMG to level <span
+									id="pm-next-lvlnum"></span></p>
+							<p class="im-tt-bottom"><span id="pm-lt-img"></span><br>Lifetime iMG</p>
+						</div>
+					</div>
+				</div>
+
+				<!-- Quoin Limit Meter -->
+
+				<div id="pm-quoinlimit-container">
+					<div id="pm-quoinlimit-bar">
+						<div id="pm-quoinlimit-bar-info">
+							<span id="pm-quoinlimit-num"></span>%<br><span
+								id="pm-quoinlimit-bar-unit-label">quoins</span>
+						</div>
+						<div id="pm-quoinlimit-tooltip">
+							<p><span id="pm-quoins-remaining"></span><br>remaining</p>
+							<p><span id="pm-quoins-collected"></span><br>collected</p>
+							<p><span id="pm-quoins-limit"></span><br>limit</p>
+						</div>
+					</div>
+				</div>
+
+				<!-- Skill Manager -->
+
+				<div id="pm-skills">
+					<h2>Skills</h2>
+					<div id="pm-skills-list"></div>
+				</div>
+
+			</div>
+
+			<!-- New day screen -->
+			<div id="newday" class="overlay" hidden>
+				<div id="newday-sun"></div>
+				<div id="newday-mountain"></div>
+				<h2 id="newday-date"></h2>
+				<h1 id="newday-title">
+					A New Day
+				</h1>
+				<h3 id="newday-refill">
+					<span id="newday-refill-label">Complete energy refill</span>
+					<div id="newday-refill-container">
+						<div id="newday-refill-image">
+							<img src="files/system/newday/newdayenergydisc.svg" id="newday-refill-disc">
+							<img src="files/system/newday/newdayenergyholder.svg" id="newday-refill-holder">
+						</div>
+						<div id="newday-refill-text">
+							<span id="newday-refill-1"></span><br>
+							<span id="newday-refill-2"></span>
+						</div>
+					</div>
+				</h3>
+				<h4 id="newday-yesterday">
+					Yesterday, you gained
+					<span class="teal"><span id="newday-img"></span> imagination</span> and spent <span
+						class="red"><span id="newday-energy"></span> energy</span>.
+				</h4>
+				<button id="newday-button" class="closeButton btn-success btn-big">Onwards and upwards!</button>
+			</div>
+
+			<!-- Level Up screen -->
+			<div id="levelup" class="overlay" hidden>
+				<div id="lu-dropper"></div>
+				<div id="lu-desc">Level up!</div>
+				<button id="lu-button" class="closeButton btn-success btn-big">Aww yeah!</button>
+			</div>
+
+			<!-- Achievement screen (template) -->
+			<div id="achv-template" class="overlay achv-overlay" hidden>
+				<div class="achv-name"></div>
+				<div class="achv-icon"></div>
+				<div class="achv-desc"></div>
+				<button class="closeButton btn-success btn-big">Awwww yeah!</button>
+			</div>
+		</div>
+
+		<!-- Street Loading Screen -->
+		<div id="MapLoadingScreen"></div>
+
+	</div>
+
+	<!-- Inventory slots, search, and currants -->
+	<div id="inventorySearch">
+		<i class="fa fa-search"></i>
+	</div>
+
+	<div class="well" id="inventory">
+		<div class="box" data-slot-num="0"></div>
+		<div class="box" data-slot-num="1"></div>
+		<div class="box" data-slot-num="2"></div>
+		<div class="box" data-slot-num="3"></div>
+		<div class="box" data-slot-num="4"></div>
+		<div class="box" data-slot-num="5"></div>
+		<div class="box" data-slot-num="6"></div>
+		<div class="box" data-slot-num="7"></div>
+		<div class="box" data-slot-num="8"></div>
+		<div class="box" data-slot-num="9"></div>
+		<div id="disableinventory" hidden>You're dead! That sucks.</div>
+	</div>
+
+	<div id="currantBack">
+		<img src="files/system/icons/currant.svg" id="currantEmblem">
+		<div id="currantText">
+			<div id="currCurrants">n</div>
+			<div id="currantLabel">Currants</div>
+		</div>
+	</div>
+
+
+	<div id="game-column-right">
+
+		<!-- Minimap -->
+		<div id="minimap-container" hidden>
+			<div id="minimap">
+				<img id="minimap-img" src="">
+
+				<div id="minimap-objects"></div>
+				<div id="minimap-label"></div>
+			</div>
+			<div id="minimap-toggle"><i class="fa fa-chevron-up"></i></div>
+			<div id="mapButton" class="closed" title="Full Map"></div>
+		</div>
+
+		<!-- GPS -->
+		<div id="gps-container" hidden>
+			<div id="gps-cancel" title="Cancel Directions"><i class="fa fa-times fa-fw"></i></div>
+			<div id="gps-direction"><i class="fa fa-arrow-up fa-fw fa-2x"></i></div>
+			<div id="gps-text">
+				<div id="gps-title"><span id="gps-next">Gregarious Grange</span></div>
+				<div id="gps-bottom">Going to: <span id="gps-destination">Cebarkul</span></div>
+			</div>
+		</div>
+
+		<!-- Toasts -->
+		<div id="toastPanel">
+			<div id="toastHolder"></div>
+			<div id="buffHolder"></div>
+		</div>
+
+	</div>
+
+	<!-- Right chat pane -->
+	<div id="rightSide">
+		<div class="toggleSide">
+			<i class="fa fa-chevron-left"></i>
+		</div>
+
+		<ul id="miscList" class="fa-ul">
+			<li class="chatSpawn" data-chat="Live Help"><i class="fa-li fa fa-question"></i>
+				Live Help
+			</li>
+			<li class="chatSpawn" data-chat="Global Chat"><i class="fa-li fa fa-asterisk"></i>
+				Global Chat
+			</li>
+		</ul>
+
+		<h3><i id="add-friend" class="fa fa-user-plus"></i> Friends</h3>
+		<ul id="playerList" class="fa-ul"></ul>
+
+		<div id="bottomList">
+			<ul class="fa-ul">
+				<li id="changeAvatarFromChatPanel">
+					<i class="fa-li fa fa-user"></i>
+					Choose avatar
+				</li>
+				<li id="changeUsernameFromChatPanel">
+					<i class="fa-li fa fa-pencil"></i>
+					Change username
+				</li>
+				<li id="signoutGlyph">
+					<i class="fa-li fa fa-sign-out"></i>
+					Log out
+				</li>
+				<li id="becomeGuideFromChatPanel" hidden>
+					<i class="fa-li fa fa-star"></i>
+					<a href="https://childrenofur.com/guide/" target="_blank">Become a guide</a>
+				</li>
+				<li>
+					<i class="fa-li fa fa-user"></i>
+					<a id="openProfilePageFromChatPanel" target="_blank">My profile</a>
+				</li>
+				<li>
+					<i class="fa-li fa fa-book"></i>
+					<a href="https://childrenofur.com/encyclopedia" target="_blank">Encyclopedia</a>
+				</li>
+				<li>
+					<i class="fa-li fa fa-list-alt"></i>
+					<a href="https://childrenofur.com/forums" target="_blank">Forums</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+
+	<div id="panel">
+		<div id="conversationTemplate" hidden>
+			<div class="conversation">
+				<header>
+					<i class="fa-li fa fa-chevron-down" title="Minimize (reopen from pullout panel)"></i>
+					<span class="title"></span>
+					<i class="chat-scroll-toggle fa-li fa fa-toggle-on" title="Scroll down to new messages"></i>
+				</header>
+				<div class="dialog">
+				</div>
+				<input class="Typing" type="text" maxlength="140" title="Type a chat message">
+				<a class="insertemoji" title="Insert Emoticons"><i class="fa fa-fw fa-smile-o"></i></a>
+			</div>
+		</div>
+
+		<div id="conversationArchive" hidden></div>
+	</div>
+
+
+	<!-- SoundCloud -->
+	<div id="SCwidget" class="panel">
+		<div>
+			<a id="SCLink" href="#" target="_blank" tabindex="-1">
+				<span class="song"></span>
+				<br>
+				By
+				<span class="artist"></span>
+			</a>
+		</div>
+		<a href="https://www.soundcloud.com" target="_blank" tabindex="-1">
+			<img src="files/system/soundcloud.png" alt="powered by soundcloud">
+		</a>
+	</div>
+
+	<!-- Windows -->
+	<div id="windowHolder">
+		<!-- Achievements window -->
+		<div id="achievementsWindow" class="window" hidden>
+			<i class="fa-li fa fa-times close"></i>
+			<header>
+				<i class="fa-li fa fa-certificate"></i><span id="achievementsTitle">Achievements</span>
+			</header>
+			<article>
+				<ul id="categories" class="sidebarlist">
+					<li>Alchemy</li>
+					<li>Animals</li>
+					<li>Cooking</li>
+					<li>Exploring</li>
+					<li>Giants</li>
+					<li>Harvesting</li>
+					<li>Industrial</li>
+					<li>Player</li>
+					<li>Trees</li>
+					<li>Trophies</li>
+				</ul>
+				<div id="categoryList"></div>
+			</article>
+		</div>
+
+		<!-- Add friend window -->
+		<div id="addFriendWindow" class="window" hidden>
+			<i class="fa-li fa fa-times close"></i>
+			<header>
+				<i class="fa-li fa fa-user-plus"></i>
+				Add Friend
+			</header>
+			<div class="well">
+				<div id="addFriendForm">
+					<input type="text" id="addFriendEntry" placeholder="New username" list="addFriendUsers">
+					<button id="addFriendBtn">Add Friend</button>
+				</div>
+
+				<p id="addFriendStatus"></p>
+
+				<datalist id="addFriendUsers"></datalist>
+			</div>
+		</div>
+
+		<!-- Auction window -->
+		<div id="auctionWindow" class="window" hidden>
+			<i class="fa-li fa fa-times close"></i>
+			<header>
+				<i class="fa-li fa fa-gavel"></i>
+				<span id="auctionsTitle">Auctions</span>
+			</header>
+			<article>
+				<auction-house></auction-house>
+			</article>
+		</div>
+
+		<!-- Avatar edit window -->
+		<div id="avatarWindow" class="window" hidden>
+			<i class="fa-li fa fa-times close"></i>
+			<header>
+				<i class="fa-li fa fa-user"></i>
+				Choose Avatar
+			</header>
+			<div class="well">
+				<div class="preload">
+					<img src="files/system/windows/loading.svg">
+				</div>
+				<div class="postload" hidden>
+					<div id="avatarSelector"></div>
+
+					<button id="chgAvatarBtn">Get that look!</button>
+
+					<p id="chgAvatarStatus"></p>
+				</div>
+			</div>
+		</div>
+
+		<!-- Bag window template -->
+		<div id="bagWindow" class="window" hidden>
+			<i class="fa-li fa fa-times close"></i>
+			<img src="files/system/icons/bag.svg" id="bagWindowIcon">
+			<header>
+				Bag
+			</header>
+			<article>
+				<div id="broken">Ignore me,<br>I'm broken.</div>
+				<div class="well storage">
+					<div class="box"></div>
+					<div class="box"></div>
+					<div class="box"></div>
+					<div class="box"></div>
+					<div class="box"></div>
+					<br>
+					<div class="box"></div>
+					<div class="box"></div>
+					<div class="box"></div>
+					<div class="box"></div>
+					<div class="box"></div>
+					<br>
+					<div class="box"></div>
+					<div class="box"></div>
+					<div class="box"></div>
+					<div class="box"></div>
+					<div class="box"></div>
+					<br>
+					<div class="box"></div>
+					<div class="box"></div>
+					<div class="box"></div>
+					<div class="box"></div>
+					<div class="box"></div>
+				</div>
+				<input type="text" placeholder="Search Inventory..." id="invsearch">
+			</article>
+		</div>
+
+		<!-- Bug report window -->
+		<div id="bugWindow" class="window" hidden>
+			<i class="fa-li fa fa-times close"></i>
+			<header>
+				<i class="fa-li fa fa-bug"></i>
+				Bugs/Suggestions
+			</header>
+			<div class="well">
+				<!--<user-feedback
+						username=""
+						useragent=""
+						log=""
+						></user-feedback>-->
+
+				<p>
+					If you would like to report a bug or make a feature request, please fill this out. Your browser
+					information is included automatically for debugging purposes, and your username is included in case we need
+					to contact you.
+				</p>
+				<select id="reportCategory" title="Report category">
+					<option value="bug">Bug</option>
+					<option value="suggestion">Suggestion</option>
+					<option value="art & assets">Art</option>
+				</select>
+				<input type="text" id="reportTitle" placeholder="Short title (required)" maxlength="1000">
+				<textarea id="reportMain"
+				          placeholder="Please provide a detailed description of the problem you are experiencing or of the feature you would like us to add.
+If you are reporting a bug, please reload then repeat the steps to cause the bug, and only submit a report if you are able to reproduce it."></textarea>
+				<textarea id="reportMeta" disabled title="Report metadata"></textarea>
+				<button>Submit Report</button>
+				<p>
+					Keep in mind that this data will be public on the <a href="https://github.com/ChildrenOfUr/cou-issues/issues" target="_blank">cou-issues</a> page!
+					<br>
+					<!-- TODO: fix screenshots and show this option -->
+					<label style="visibility: hidden;"><input type="checkbox" id="reportScreenshot"> Include screenshot</label>
+				</p>
+			</div>
+		</div>
+
+		<!-- Calendar window -->
+		<div id="calendarWindow" class="window" hidden>
+			<i class="fa-li fa fa-times close"></i>
+			<header>
+				<i class="fa-li fa fa-calendar"></i>
+				Calendar
+			</header>
+			<div class="well">
+				<div id="calendar">
+					<!--
+						CALENDAR TEMPLATE
+
+						Day Structure:
+							<div class="day"><div>{{Day Number}}</div></div>
+							<div class="day today"><div>{{Day Number}}</div></div>
+						Week Structure:
+							<div class="week"><div class="day"><div>{{Day Number}}</div></div></div>
+						Or, if you have a holiday:
+							<div class="day"><div>{{Day Number}}</div><p>{{Holiday Name}}</p></div>
+						Month Structure:
+							<div class="month"><div class="month-name">{{Month Name}}</div></div>
+					-->
+					<div id="calendar-view"><!-- Output goes here --></div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Change username window -->
+		<div id="changeUsernameWindow" class="window" hidden>
+			<i class="fa-li fa fa-times close"></i>
+			<header>
+				<i class="fa-li fa fa-pencil"></i>
+				Change Username
+			</header>
+			<div class="well">
+				<p id="chgUsernameInfo">
+					Changing your username costs <span id="chgUsernameCost"></span> &#8353;.
+					<br>
+					You have <span id="chgUsernameCurrants"></span> &#8353;.
+				</p>
+
+				<div id="chgUsernameForm">
+					<input type="text" id="chgUsernameEntry" placeholder="New username">
+					<button id="chgUsernameBtn">Change Username</button>
+				</div>
+
+				<p id="chgUsernameStatus"></p>
+			</div>
+		</div>
+
+		<!-- Emotion picker window -->
+		<div id="emoticonPicker" class="window" hidden>
+			<i class="fa-li fa fa-times close"></i>
+			<header>
+				<i class="fa-li fa fa-smile-o"></i>
+				Insert Emoticons
+			</header>
+			<div class="well">
+				<input id="ep-search" placeholder="Search emoticons...">
+				<div id="ep-help">Drag into a chat textbox, or click to insert into <span id="ep-channelname"></span>.</div>
+				<div id="ep-grid"></div>
+				<div id="ep-grid-shadow"></div>
+			</div>
+		</div>
+
+		<!-- Inventory search window -->
+		<div id="invSearchWindow" class="window" hidden>
+			<i class="fa-li fa fa-times close"></i>
+			<header>
+				<i class="fa-li fa fa-search"></i>
+				Search Inventory
+			</header>
+			<div class="well">
+				<input id="invSearchInput" type="text" placeholder="Item name...">
+				<div id="invSearchOutput"></div>
+			</div>
+		</div>
+
+		<!-- Item window template -->
+		<div id="itemWindow" class="window" hidden>
+			<i class="fa-li fa fa-times close"></i>
+			<header>
+				<i class="fa-li fa fa-info-circle"></i>
+				<span class="iw-title"></span>
+			</header>
+			<div class="well">
+				<div class="iw-left">
+					<div class="iw-image-container">
+						<img class="iw-image" src="">
+					</div>
+					<p class="iw-newItem">
+						You discovered a new useful item!
+						<span class="img"><span class="iw-imgnum">+10</span> <img src="files/system/icons/interaction_img.svg"></span>
+					</p>
+				</div>
+				<div class="iw-info">
+					<p class="iw-desc"></p>
+					<div class="iw-meta">
+						<!-- Currants -->
+						<img class="iw-icon-currants" src="files/system/icons/currant.svg">
+						<span class="iw-currants"></span>
+
+						<div class="gap"></div>
+
+						<!-- Slot -->
+						<div class="iw-icon-css iw-icon-slot"></div>
+						<span class="iw-slot"></span>
+
+						<!-- Wear -->
+						<div class="iw-wear-container" hidden>
+							<div class="gap"></div>
+							<div class="iw-icon-css iw-icon-wear"></div>
+							<span class="iw-wear"></span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Mailbox window -->
+		<div id="mailboxWindow" class="window" hidden>
+			<i class="fa-li fa fa-times close"></i>
+			<header>
+				<i class="fa-li fa fa-envelope"></i><span id="mailboxTitle">Mailbox</span>
+			</header>
+			<article>
+				<ur-mailbox dnd-retarget></ur-mailbox>
+			</article>
+		</div>
+
+		<!-- Map window -->
+		<div id="mapWindow" class="window" hidden>
+			<i class="fa-li fa fa-times close"></i>
+			<header>
+				<button class="fa-li btn-light" id="map-window-world"><i class="fa fa-fw fa-globe"></i></button>
+				<span id="mapTitle">Map</span>
+				<input type="text" id="mapwindow-search" placeholder="Search all streets...">
+				<div id="map-window-search-results">
+					<ul></ul>
+				</div>
+			</header>
+			<div class="well" id="mapImage">
+				<canvas id="MapCanvas" width="760" height="460" hidden></canvas>
+				<div id="WorldMapLayer" class="maplayer" hidden></div>
+				<div id="HubMapLayer" class="maplayer" hidden></div>
+				<div id="HubMapLayerFG" class="maplayer" hidden></div>
+			</div>
+		</div>
+
+		<!-- MOTD window -->
+		<div id="motdWindow" class="window" hidden>
+			<i class="fa-li fa fa-times close"></i>
+			<header>
+				<i class="fa-li fa fa-info-circle"></i>
+				Message
+			</header>
+			<div class="window-container">
+				<h1 class="text-red text-center"><i class="fa fa-exclamation-triangle"></i> Attention</h1>
+				<p>This 'game' is very much in pre-alpha, as such everything you see or collect is temporary. Keep in mind that commands may change without warning, and things will break.</p>
+				<p>Report bugs at the project's page on <a href="https://github.com/ChildrenOfUr/coUclient/issues" target="_blank">Github</a>, and send us suggestions by clicking the little <i class="fa fa-bug"></i> icon in the top right.</p>
+				<p>That being said, we want you to know that we care about you loads and hope you'll have fun in our little world.</p>
+				<p>&mdash; CoU Dev Team</p>
+			</div>
+		</div>
+
+		<!-- Note window template -->
+		<div class="window notewindow notewindow-template" hidden>
+			<i class="fa-li fa fa-times close"></i>
+			<header>
+				<i class="fa-li fa fa-sticky-note"></i>
+				Note
+			</header>
+			<article>
+				<!-- Read Mode -->
+				<div class="notewindow-read" hidden>
+
+					<h1 class="notewindow-read-title"></h1>
+					<button class="notewindow-read-editbtn btn-light">Edit</button>
+					<hr>
+					<p class="notewindow-read-body"></p>
+					<hr>
+					<p class="notewindow-read-footer">
+						Written by <strong class="notewindow-read-footer-username"></strong><br>
+						<span class="notewindow-read-footer-date"></span>
+					</p>
+
+				</div>
+
+				<!-- Write Mode -->
+				<div class="notewindow-write" hidden>
+					<input type="text" class="notewindow-write-title" maxlength="30" title="Note title" />
+					<textarea class="notewindow-write-body" title="Note text"></textarea>
+					<button class="notewindow-write-btn">Done</button>
+				</div>
+
+			</article>
+		</div>
+
+		<!-- Quest maker window -->
+		<div id="questMakerWindow" class="window" hidden>
+			<i class="fa-li fa fa-times close"></i>
+			<header>
+				<i class="fa-li fa fa-gear"></i><span id="questMakerTitle">Quest Maker</span>
+			</header>
+			<article>
+				<div id="manageScreen">
+					<div id="premades" hidden>
+						<div id="premade1"></div>
+						<div id="premade2"></div>
+						<div id="premade3 disabled"></div>
+					</div>
+					<div id="createNewButton"></div>
+				</div>
+				<div id="makeScreen">
+					<div id="makeTop">
+						<ul id="pieces"></ul>
+						<div id="makeTopRight">
+							<div>Quest Description</div>
+							<div id="questDescription" contenteditable="true"></div>
+							<div id="stepsSection">Quest Requirements (max 5)</div>
+							<div id="questSteps">
+								<div class="pieceSlot"></div>
+							</div>
+							<div id="rewardsSection">
+								<div>Quest Rewards</div>
+								<div id="questRewards">
+									<div id="currantsReward" class="questReward" contenteditable="true">0</div>
+									<div id="imgReward" class="questReward" contenteditable="true">0</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div id="makeBottom">
+						<button id="makeItButton" class="cb-content btn-light">
+                    <span class="awarded">
+                        <span>Make it for</span>
+                        <span class="currants"></span>
+                        <span class="img"></span>
+                    </span>
+						</button>
+					</div>
+				</div>
+			</article>
+		</div>
+
+		<!-- Quest log window -->
+		<div id="questLogWindow" class="window noquests" hidden>
+			<i class="fa-li fa fa-times close"></i>
+			<header>
+				<i class="fa-li fa fa-book"></i><span id="questLogTitle">Quest Log</span>
+			</header>
+			<article>
+				<div id="noquests">You don't have any quests right now.</div>
+				<ul id="listOfQuests" class="sidebarlist"></ul>
+				<div id="questDetails"></div>
+			</article>
+		</div>
+
+		<!-- Rock window -->
+		<div id="rockWindow" class="window noDrag" hidden>
+			<!-- Hidden, but needed for Window class: --><i class="fa-li fa fa-times close"></i>
+			<div id="rwc-holder">
+
+				<!-- ///////////// Conversations ///////////// -->
+
+				<!-- Main Menu -->
+
+				<div class="rockWindowContent" id="rwc">
+					<h2 class="text-center">Magic Rock</h2>
+					<p class="text-center"><em>What can I help you with?</em></p>
+					<div class="flex-row">
+						<a class="rwc-button" id="go-motd">Alpha Notice</a>
+						<a class="rwc-button" id="go-start">Getting Started</a>
+					</div>
+					<div class="flex-row">
+						<a class="rwc-button" id="open-quests">Quests</a>
+						<a class="rwc-button" id="open-achievements">Achievements</a>
+					</div>
+					<div class="flex-row">
+						<a class="rwc-button" id="rock-rescue" hidden>Rescue Me!</a>
+					</div>
+				</div>
+
+				<!-- Alpha Notice -->
+
+				<div class="rockWindowContent convo" id="rwc-motd" data-endphrase="5" hidden>
+					<div id="rwc-motd-1">
+						<p>See this game here?</p>
+						<div class="flex-row rwc-exit"><a class="rwc-button" data-goto="3">Yeah.</a>&nbsp;<a class="rwc-button" data-goto="2">No...</a></div>
+					</div>
+					<div id="rwc-motd-2">
+						<p>I want you to get your eyes checked.</p>
+						<div class="flex-row rwc-exit"><a class="rwc-button" data-goto="3">Will do.</a></div>
+					</div>
+					<div id="rwc-motd-3">
+						<p>This 'game' is very much in alpha. Bugs may cause things to get deleted without notice.</p>
+						<p>Keep in mind that commands may change without warning, and things will break.</p>
+						<div class="flex-row rwc-exit"><a class="rwc-button" data-goto="4">Gotcha.</a></div>
+					</div>
+					<div id="rwc-motd-4">
+						<p>That being said, the CoU dev team wants you to know that they care about you loads and hope you'll have fun in this little world.</p>
+						<div class="flex-row rwc-exit"><a class="rwc-button" data-goto="5">Thanks for passing on their message.</a></div>
+					</div>
+				</div>
+
+				<!-- Getting Started -->
+
+				<div class="rockWindowContent convo" id="rwc-start" data-endphrase="6" hidden>
+					<div id="rwc-start-1">
+						<p>Children of Ur is a game about exploring, imagination, having fun with friends, imagination (did I already say that one?)...</p>
+						<p>When you first start out in the world, you have no money, items, or imagination. Your goal is to <del>get as much of these as you can</del> have fun.</p>
+						<div class="flex-row rwc-exit"><a class="rwc-button" data-goto="2">Alrighty then...</a></div>
+					</div>
+					<div id="rwc-start-2">
+						<p>To get more money (shown at the bottom left of your screen), you can collect currant quoins (the brown floaty-spinny things) to get enough to buy a pick, then mine rocks. Or dig dirt. Or harvest something. But whatever you collect, you can sell it to vendors (the floating brown things that follow you creepily) for money.</p>
+						<p>You can get imagination points (shown at the top left of your screen) the same way, but with the purple quoins.</p>
+						<div class="flex-row rwc-exit"><a class="rwc-button" data-goto="3">Sounds easy enough.</a></div>
+					</div>
+					<div id="rwc-start-3">
+						<p>But there's a catch! While you're doing this, you need to watch your energy and mood meters. They are the things at the top left, next to your face.</p>
+						<p>Having zero energy is a good way to die, though having a low mood won't affect the amount of imagination you get (yet), but it's good to get in the habit of watching them.</p>
+						<div class="flex-row rwc-exit"><a class="rwc-button" data-goto="4">I'll watch them, I guess.</a></div>
+					</div>
+					<div id="rwc-start-4">
+						<p>You <em>guess</em>? Well, I suppose that's good enough for me.</p>
+						<p>If your energy ever gets really low and you can't find any energy quoins, just wait until that clock at the top right says 6:00am. I'm generous enough to give everyone a full energy tank each morning.</p>
+						<div class="flex-row rwc-exit"><a class="rwc-button" data-goto="5">Uh... thanks in advance.</a></div>
+					</div>
+					<div id="rwc-start-5">
+						<p>No problem. If you ever need anything, I'm here for you.</p>
+						<div class="flex-row rwc-exit"><a class="rwc-button" data-goto="6">Okay, talk to you later.</a></div>
+					</div>
+				</div>
+
+				<!-- Death -->
+
+				<div class="rockWindowContent convo" id="rwc-dead" data-endphrase="5" hidden>
+					<div id="rwc-dead-1">
+						<p>Hey kid, no offense, but you look a little... <em>dead</em> lately.</p>
+						<div class="flex-row rwc-exit"><a class="rwc-button" data-goto="2">Uhh... none taken?</a></div>
+					</div>
+					<div id="rwc-dead-2">
+						<p>Good! I was afraid of being too mean. Well, not really... but whatever.</p>
+						<p>My point is, you ran out of energy and died. You probably should've eaten more.</p>
+						<div class="flex-row rwc-exit"><a class="rwc-button" data-goto="3">Probably? Well it's too late now.</a></div>
+					</div>
+					<div id="rwc-dead-3">
+						<p>Not completely! Just squish a few grapes and you'll be home in no time!</p>
+						<p>Well not really <em>no</em> time. But the short-ish amount of time squishing grapes takes.</p>
+						<div class="flex-row rwc-exit"><a class="rwc-button" data-goto="4">And how much time is that?</a></div>
+						<div class="flex-row rwc-exit"><a class="rwc-button" data-goto="5">I'll start now.</a></div>
+					</div>
+					<div id="rwc-dead-4">
+						<p>As long as it takes. Now get started!</p>
+						<div class="flex-row rwc-exit"><a class="rwc-button" data-goto="5">I'll start now.</a></div>
+					</div>
+				</div>
+
+				<!-- Revival -->
+
+				<div class="rockWindowContent convo" id="rwc-revive" data-endphrase="4" hidden>
+					<div id="rwc-revive-1">
+						<p>Whew! You made it. I was starting to wonder for a bit.</p>
+						<div class="flex-row rwc-exit"><a class="rwc-button" data-goto="2">Excuse me?</a></div>
+					</div>
+					<div id="rwc-revive-2">
+						<p>I mean, um, glad you're alive again?</p>
+						<div class="flex-row rwc-exit">
+							<a class="rwc-button" data-goto="3">And?</a>
+							<a class="rwc-button" data-goto="4">Go away.</a>
+						</div>
+					</div>
+					<div id="rwc-revive-3">
+						<p>Now that you're back, you have a bit of starting energy. You should get that back up.</p>
+						<p>Try not to die again, okay? I kinda missed you, kid.</p>
+						<div class="flex-row rwc-exit"><a class="rwc-button" data-goto="4">No you didn't.</a></div>
+					</div>
+				</div>
+
+				<!-- Broken Streets -->
+
+				<div class="rockWindowContent convo" id="rwc-badstreet" data-endphrase="2" hidden>
+					<div id="rwc-badstreet-1">
+						<p>Ugh. This street. It's broken in some places.</p>
+						<p>If you're stuck and can't get out, click on me, then the <b>rescue</b> button.</p>
+						<div class="flex-row rwc-exit"><a class="rwc-button" data-goto="2">Consider me warned.</a></div>
+					</div>
+				</div>
+
+				<!-- ///////////// End Conversations ///////////// -->
+
+			</div>
+		</div>
+
+		<!-- Settings window -->
+		<div id="settingsWindow" class="window" hidden>
+			<i class="fa-li fa fa-times close"></i>
+			<header>
+				<i class="fa-li fa fa-gears"></i>
+				Preferences
+			</header>
+			<article>
+
+				<div class="tab-holder">
+					<span class="tab" id="keyboard-settings-tab">Keyboard</span>
+					<span class="tab active" id="general-settings-tab">General</span>
+				</div>
+
+				<div id="keyboard" class="tab-content">
+					<div id="heading">
+						<span>Primary</span>
+						<span>Secondary</span>
+					</div>
+					<div class="keyboardRow">
+						<span>Move Left</span>
+						<kbd class="KeyBindingOption" id="LeftBindingPrimary">A</kbd>
+						<kbd class="KeyBindingOption" id="LeftBindingAlt">left_arrow</kbd>
+					</div>
+
+					<div class="keyboardRow">
+						<span>Move Right</span>
+						<kbd class="KeyBindingOption" id="RightBindingPrimary">D</kbd>
+						<kbd class="KeyBindingOption" id="RightBindingAlt">right_arrow</kbd>
+					</div>
+
+					<div class="keyboardRow">
+						<span>Move Up</span>
+						<kbd class="KeyBindingOption" id="UpBindingPrimary">W</kbd>
+						<kbd class="KeyBindingOption" id="UpBindingAlt">up_arrow</kbd>
+					</div>
+
+					<div class="keyboardRow">
+						<span>Move Down</span>
+						<kbd class="KeyBindingOption" id="DownBindingPrimary">S</kbd>
+						<kbd class="KeyBindingOption" id="DownBindingAlt">down_arrow</kbd>
+					</div>
+
+					<div class="keyboardRow">
+						<span>Jump</span>
+						<kbd class="KeyBindingOption" id="JumpBindingPrimary">S</kbd>
+						<kbd class="KeyBindingOption" id="JumpBindingAlt">down_arrow</kbd>
+					</div>
+
+					<div class="keyboardRow">
+						<span>Action</span>
+						<kbd class="KeyBindingOption" id="ActionBindingPrimary">enter</kbd>
+						<kbd class="KeyBindingOption" id="ActionBindingAlt">E</kbd>
+					</div>
+
+					<div class="keyboardRow">
+						<span>Open Map</span>
+						<kbd class="KeyBindingOption" id="MapBindingPrimary">M</kbd>
+						<kbd class="KeyBindingOption" id="MapBindingAlt">M</kbd>
+					</div>
+
+					<div class="keyboardRow">
+						<span>Open Calendar</span>
+						<kbd class="KeyBindingOption" id="CalendarBindingPrimary">C</kbd>
+						<kbd class="KeyBindingOption" id="CalendarBindingAlt">C</kbd>
+					</div>
+
+					<div class="keyboardRow">
+						<span>Open Preferences</span>
+						<kbd class="KeyBindingOption" id="SettingsBindingPrimary">P</kbd>
+						<kbd class="KeyBindingOption" id="SettingsBindingAlt">P</kbd>
+					</div>
+
+					<div class="keyboardRow">
+						<span>Open iMG Menu</span>
+						<kbd class="KeyBindingOption" id="ImgMenuBindingPrimary">I</kbd>
+						<kbd class="KeyBindingOption" id="ImgMenuBindingAlt">I</kbd>
+					</div>
+
+					<div class="keyboardRow">
+						<span>Open Quest Log</span>
+						<kbd class="KeyBindingOption" id="QuestLogBindingPrimary">Q</kbd>
+						<kbd class="KeyBindingOption" id="QuestLogBindingAlt">Q</kbd>
+					</div>
+
+					<div class="keyboardRow">
+						<span>Open Achievements</span>
+						<kbd class="KeyBindingOption" id="AchievementsBindingPrimary">Y</kbd>
+						<kbd class="KeyBindingOption" id="AchievementsBindingAlt">Y</kbd>
+					</div>
+
+					<div class="keyboardRow">
+						<span>Change Focus</span>
+						<kbd class="KeyBindingOption" id="ChatFocusBindingPrimary">tab</kbd>
+						<kbd class="KeyBindingOption" id="ChatFocusBindingAlt">tab</kbd>
+					</div>
+
+					<div id="keyboard-presets">
+						<span>Movement Presets: </span>
+						<button id="keyboard-preset-qwerty" class="btn-light">Qwerty</button>
+						<button id="keyboard-preset-dvorak" class="btn-light" title="There are dozens of us! DOZENS!">Dvorak</button>
+					</div>
+
+				</div>
+
+				<div id="general" class="tab-content">
+					<div class="pane-2-container">
+
+						<div class="pane-2-left">
+
+							<!-- Graphics -->
+							<h1 class="pane-title">Graphics</h1>
+							<label class="ChatSettingsOption">
+								<input type="checkbox" id="GraphicsBlur" class="ChatSettingsCheckbox" />
+								Enable Scenery Blur
+							</label>
+							<br>
+							<label class="ChatSettingsOption">
+								<input type="checkbox" id="WeatherEffectsEnabled" checked />
+								Enable Weather Effects
+							</label>
+							<br>
+							<label id="weatherIntensity">
+								<input type="checkbox" id="WeatherEffectsIntensity" />
+								Light Weather Intensity
+							</label>
+
+							<!-- Interface -->
+							<h1 class="pane-title">Interface</h1>
+							<label class="ChatSettingsOption">
+								<input type="checkbox" id="DarkMode" class="ChatSettingsCheckbox" />
+								Dark UI
+							</label>
+							&emsp;
+							<label class="ChatSettingsOption">
+								<input type="checkbox" id="DarkModeAuto" class="ChatSettingsCheckbox" />
+								Set by day/night
+							</label>
+
+						</div>
+
+						<div class="pane-2-right">
+
+							<!-- Sound -->
+							<h1 class="pane-title">Sound</h1>
+							<label>Music:<br>
+								<input type="range" id="MusicSlider" />
+							</label><br>
+							<label>Sound Effects:<br>
+								<input type="range" id="EffectSlider" />
+							</label>
+							<label>Weather:<br>
+								<input type="range" id="WeatherSlider" />
+							</label>
+
+							<!-- Chat -->
+							<h1 class="pane-title">Chat</h1>
+							<label class="ChatSettingsOption">
+								<input type="checkbox" id="ShowJoinMessages" class="ChatSettingsCheckbox" />
+								Show Join Messages
+							</label>
+							<br>
+							<label class="ChatSettingsOption">
+								<input type="checkbox" id="PlayMentionSound" class="ChatSettingsCheckbox" />
+								Mention Notifications
+							</label>
+							<br>
+							<label class="ChatSettingsOption">
+								<input type="checkbox" id="LogNPCMessages" class="ChatSettingsCheckbox" />
+								Log NPC Messages
+							</label>
+
+						</div>
+
+					</div>
+				</div>
+
+			</article>
+		</div>
+
+		<!-- Shop window -->
+		<div id="shopWindow" class="window" hidden>
+			<i class="fa-li fa fa-times close"></i>
+			<header>
+				<i class="fa-li fa fa-shopping-cart"></i>
+				Vendor
+			</header>
+			<article>
+				<div class="tab-holder">
+					<span id="SellTab" class="tab">Sell</span>
+					<span id="BuyTab" class="tab active">Buy</span>
+				</div>
+
+				<div id="sell" class="tab-content">
+					<div id="SellDropTarget"></div>
+					<img src="files/system/windows/callout_dropitem.png" id="SellCallout">
+				</div>
+
+				<div id="buy" class="tab-content">
+				</div>
+
+				<div id="buy-qty" class="tab-content" hidden>
+					<div class="back">
+						<i class="fa fa-chevron-left"></i>
+						Back
+					</div>
+					<div class="LeftColumn">
+						<div class="ItemImageParent">
+							<img src="" class="ItemImage">
+							<span class="ItemPrice">ADB</span>
+						</div>
+						<div class="ItemCount">
+							<span style="color:gray;vertical-align:middle">You have </span>
+							<span class="ItemNum itemDetailNum">0</span>
+							<span style="color:gray;vertical-align:middle"> of these</span>
+						</div>
+						<div class="ItemStack">
+							<span class="BlankSlot"></span>
+							<span style="color:gray;vertical-align:middle">Fits up to </span>
+							<span class="StackNum itemDetailNum"></span>
+							<span style="color:gray;vertical-align:middle"> in an inventory slot</span>
+						</div>
+					</div>
+					<div class="RightColumn">
+						<div class="metainfo">
+							<div class="QuantityParent">
+								<i class="minus fa fa-minus"></i>
+								<input class="NumToBuy" type="number" min="1" max="99" title="Buy how many?">
+								<i class="plus fa fa-plus"></i>
+								<button class="max btn-light">Max</button>
+							</div>
+							<div class="ItemName"></div>
+							<button class="BuyButton btn-light">Buy 1 for 1000₡</button>
+						</div>
+						<div class="Description"></div>
+					</div>
+
+				</div>
+
+				<div id="sell-qty" class="tab-content" hidden>
+					<div class="back">
+						<i class="fa fa-chevron-left"></i>
+						Back
+					</div>
+					<div id="LeftColumn">
+						<div id="ItemImageParent">
+							<img src="" id="ItemImage">
+							<span id="ItemPrice">Price 1₡</span>
+						</div>
+						<div id="ItemCount">
+
+						</div>
+					</div>
+					<div id="RightColumn">
+						<div id="ItemName"></div>
+						<div id="QuantityParent">
+							<span id="MinusButton">-</span>
+							<input id="NumToBuy" type="number" min="1" title="Sell how many?">
+							<span id="PlusButton">+</span>
+							<button id="MaxButton" class="btn-light">Max</button>
+						</div>
+						<button id="BuyButton" class="btn-light" style="margin-left:10px;">Sell 1 for 0₡</button>
+						<div id="Description"></div>
+						<div id="ItemStack">
+							<span id="BlankSlot"></span>
+							<span style="color:gray;vertical-align:middle">Fits up to </span>
+							<span id="StackNum" class="itemDetailNum"></span>
+							<span style="color:gray;vertical-align:middle"> in an inventory slot</span>
+						</div>
+					</div>
+				</div>
+
+				<div class="footer">
+					<span class="qty">???</span>
+					<img src="files/system/icons/currant.svg">
+					<span>You have </span>
+				</div>
+			</article>
+		</div>
+
+		<!-- Shrine window -->
+		<div id="shrineWindow" class="window" hidden>
+			<i class="fa-li fa fa-times close"></i>
+			<header>
+				<img src="files/system/icons/shrine.svg" class="fa-li" id="shrine-window-icon">
+				Shrine to <span class="insert-giantname"></span>
+			</header>
+			<div class="well">
+				<div id="shrine-window-top">
+					<div id="donate-drop">
+						<div id="DonateDropTarget"></div>
+						<div id="shrine-window-buttons" style="visibility: hidden;">
+							<button id="shrine-window-confirm" class="btn-light">Donate</button>
+							<br>
+							<button id="shrine-window-cancel" class="btn-warn">Cancel</button>
+						</div>
+					</div>
+					<h2 id="DonateHelp"></h2>
+					<div id="shrine-window-qty" class="QuantityParent" hidden>
+						<i class="minus fa fa-minus"></i>
+						<input class="NumToDonate" type="number" min="1" max="99" title="Donate how many?">
+						<i class="plus fa fa-plus"></i>
+						<button class="max btn-light">Max</button>
+					</div>
+				</div>
+				<div id="shrine-window-bottom">
+					<ur-progress id="shrine-window-favor" percent="0" status=""></ur-progress>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Mobile Control -->
+	<div id="JoystickParent">
+		<div id="Joystick">
+			<div id="Knob"></div>
+		</div>
+	</div>
+	<div id="MobileButtonContainer">
+		<div id="AButton">A</div>
+		<div id="BButton">B</div>
+	</div>
 
 </main>
 
@@ -185,14 +1312,14 @@
 
 <!-- Explain why it won't load sometimes -->
 <div id="server-down" hidden><br><br><br><br><br><br><br>Oh dear! Looks like the server is down.<br>Please try again
-    later.
+	later.
 </div>
 
 <!-- Check for touch capability -->
 <script type="application/javascript">
-    function hasTouchSupport() {
-        return 'ontouchstart' in window;
-    }
+	function hasTouchSupport() {
+		return 'ontouchstart' in window;
+	}
 </script>
 
 <!-- Bug Report Screenshots -->

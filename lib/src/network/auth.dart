@@ -8,9 +8,9 @@ class AuthManager {
 
 	AuthManager() {
 		// Starts the game
-		_loginPanel = querySelector('ur-login');
+		_loginPanel = querySelector('ur-login') as UrLogin;
 
-		_loginPanel.on['loginSuccess'].first.then((e) {
+		_loginPanel.host.on['loginSuccess'].first.then((e) {
 //			print('got success, firing back');
 			//fire acknowledgement event
 			transmit('loginAcknowledged',null);
@@ -61,7 +61,7 @@ class AuthManager {
 	setupNewUser(Map serverdata) {
 //		print('setupNewUser');
 		_loginPanel.newUser = true;
-		_loginPanel.on['setUsername'].listen((e) {
+		(_loginPanel as Element).on['setUsername'].listen((e) {
 //			print('setUsername event');
 			String username = e.detail;
 //			print('setting name to ${e.detail}');

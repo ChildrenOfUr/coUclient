@@ -21,7 +21,7 @@ class AchievementsWindow extends Modal {
 
 		categories.querySelectorAll("li").onClick.listen((MouseEvent event) async {
 			// Update sidebar selection
-			categories.children.forEach((LIElement li) {
+			categories.children.forEach((Element li) {
 				li.classes.remove("selected");
 			});
 			(event.target as LIElement).classes.add("selected");

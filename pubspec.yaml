@@ -4,18 +4,16 @@ environment:
   sdk: ">=1.12.0" # we need null-aware operators
 dependencies:
   browser: any
-  dnd: '^0.3.0'
+  dnd: '^0.4.0'
   firebase: '>=0.5.0 <0.6.0'
   gorgon: any
-  intl: "0.12.4+2"
+  intl: ">=0.13.0 <0.16.0"
   jsonx: "2.0.0"
   xml: "^2.4.0"
   libld:
     git:
       ref: master
       url: git://github.com/ChildrenOfUr/libld.git
-  paper_elements: ">=0.7.0 <0.8.0"
-  polymer: '>=0.16.1 < 0.17.0'
   transmit:
         git:
           ref: master
@@ -25,32 +23,32 @@ dependencies:
       ref: master
       url: git://github.com/ChildrenOfUr/scproxy.git
   slack: "1.2.1+1"
-  cou_auction_house:
-    git:
-      ref: master
-      url: git://github.com/ChildrenOfUr/auction_house.git
+# TODO: remove polymer from cou_auction_house
+#  cou_auction_house:
+#    git:
+#      ref: master
+#      url: git://github.com/ChildrenOfUr/auction_house.git
   cou_toolkit:
-      git:
-        ref: master
-        url: git://github.com/ChildrenOfUr/cou_toolkit.git
+#    git:
+#      ref: dev
+#      url: https://github.com/ChildrenOfUr/cou_toolkit.git
+    path: ../cou_toolkit
   cou_login:
-      git:
-        ref: dev
-        url: https://github.com/ChildrenOfUr/cou_login.git
-  coufeedback:
-      git:
-        ref: userfeedback
-        url: git://github.com/ChildrenOfUr/cou-issues.git
+#      git:
+#        ref: dev
+#        url: https://github.com/ChildrenOfUr/cou_login.git
+    path: ../cou_login
+# TODO: remove polymer from coufeedback
+#  coufeedback:
+#      git:
+#        ref: userfeedback
+#        url: git://github.com/ChildrenOfUr/cou-issues.git
   stagexl: "^0.12.0"
   browser_detect: "^1.0.3"
   coUemoticons:
       git:
         url: git://github.com/ChildrenOfUr/emoticons.git
         ref: dev
-      #path: ../emoticons/
 
 transformers:
 - couclient/transformers/configs_transformer
-- polymer:
-    entry_points:
-    - web/index.html

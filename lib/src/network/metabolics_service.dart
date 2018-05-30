@@ -55,7 +55,7 @@ class MetabolicsService {
 		});
 	}
 
-	void update() => view.meters.updateAll();
+	void update() => view.meters.update();
 
 	void collectQuoin(Map map) {
 		Element element = querySelector('#${map['id']}');

@@ -1,5 +1,9 @@
 part of couclient;
 
+class InventoryDisplay {
+	List <UrItemBox> boxes;
+}
+
 class InvDragging {
 	/// Track inventory updating
 	static Service _refresh;

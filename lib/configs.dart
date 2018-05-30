@@ -29,9 +29,9 @@ class Configs {
 		urLogin.attributes['websocket'] = '$ws//$authWebsocket';
 		urLogin.attributes['base'] = 'blinding-fire-920'; //TODO have the server provide this
 
-		//same for auction-house
-		Element auctionHouse = querySelector('auction-house');
-		auctionHouse.attributes['serverAddress'] = '$http//$utilServerAddress';
+		// TODO same for auction-house
+//		Element auctionHouse = querySelector('auction-house');
+//		auctionHouse.attributes['serverAddress'] = '$http//$utilServerAddress';
 	}
 
 	static String proxyStreetImage(String url) {

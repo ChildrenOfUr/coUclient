@@ -10,7 +10,9 @@ class Platform implements Comparable {
 		id = platformLine['id'];
 		ceiling = platformLine['platform_pc_perm'] == 1;
 
-		(platformLine['endpoints'] as List).forEach((Map endpoint) {
+		(platformLine['endpoints'] as List).forEach((dynamic endpoint) {
+			assert(endpoint is Map);
+
 			if(endpoint["name"] == "start") {
 				start = new Point(endpoint["x"], endpoint["y"] + groundY);
 				if(layer['name'] == 'middleground')
@@ -34,7 +36,8 @@ class Platform implements Comparable {
 	}
 
 	@override
-	int compareTo(Platform other) {
+	int compareTo(dynamic other) {
+		assert(other is Platform);
 		return other.start.y - start.y;
 	}
 }

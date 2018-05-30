@@ -1,5 +1,32 @@
 #SCwidget {
-  position:absolute;
-  bottom:17px;
-  right:13px;
+	position: absolute;
+	bottom: 17px;
+	right: 13px;
+	width: 220px;
+	height: 42px;
+	font-size: 12px;
+	line-height: 15px;
+	text-align: center;
+	display: inline-block;
+}
+
+#SCwidget * {
+	color: #777;
+}
+
+#SCLink span,
+#SCLink img {
+	cursor: pointer;
+}
+
+#SCwidget a,
+#SCwidget a:hover,
+#SCwidget a:active,
+#SCwidget a:focus {
+	outline: none;
+	text-decoration: none;
+}
+
+#SCwidget a:hover {
+	opacity: 0.8;
 }
