@@ -29,15 +29,13 @@ dependencies:
 #      ref: master
 #      url: git://github.com/ChildrenOfUr/auction_house.git
   cou_toolkit:
-#    git:
-#      ref: dev
-#      url: https://github.com/ChildrenOfUr/cou_toolkit.git
-    path: ../cou_toolkit
+    git:
+      ref: dart-2
+      url: https://github.com/ChildrenOfUr/cou_toolkit.git
   cou_login:
-#      git:
-#        ref: dev
-#        url: https://github.com/ChildrenOfUr/cou_login.git
-    path: ../cou_login
+      git:
+        ref: dart-2
+        url: https://github.com/ChildrenOfUr/cou_login.git
 # TODO: remove polymer from coufeedback
 #  coufeedback:
 #      git:
