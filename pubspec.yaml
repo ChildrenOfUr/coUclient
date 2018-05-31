@@ -32,10 +32,6 @@ dependencies:
     git:
       ref: dart-2
       url: git://github.com/ChildrenOfUr/cou_toolkit.git
-  cou_login:
-      git:
-        ref: dart-2
-        url: git://github.com/ChildrenOfUr/cou_login.git
 # TODO: remove polymer from coufeedback
 #  coufeedback:
 #      git:

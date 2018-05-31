@@ -4,36 +4,42 @@ String SLACK_WEBHOOK, SC_TOKEN, SESSION_TOKEN, FORUM_TOKEN;
 
 class AuthManager {
 	String _authUrl = '${Configs.http}//${Configs.authAddress}/auth';
-	UrLogin _loginPanel;
+
+	Element _loginPanel = querySelector('#login');
+	Element _loginGreeting = querySelector('#login_greeting');
+	Element _loginMain = querySelector('#login_loggingin');
+	Element _loginTimeout = querySelector('#login_timedout');
+	Element _loginNewUser = querySelector('#login_new_user');
+	InputElement _loginNewUserUsername = querySelector('#login_new_username');
+	Element _loginForgotPassword = querySelector('#login_password_reset');
 
 	AuthManager() {
 		// Starts the game
-		_loginPanel = querySelector('ur-login') as UrLogin;
 
-		_loginPanel.host.on['loginSuccess'].first.then((e) {
-//			print('got success, firing back');
-			//fire acknowledgement event
-			transmit('loginAcknowledged',null);
-
-			Map serverdata = e.detail;
-
-			logmessage('[AuthManager] Setting API tokens');
-			SESSION_TOKEN = serverdata['sessionToken'];
-			SLACK_WEBHOOK = serverdata['slack-webhook'];
-			SC_TOKEN = serverdata['sc-token'];
-
-			sessionStorage['playerName'] = serverdata['playerName'];
-			sessionStorage['playerEmail'] = serverdata['playerEmail'];
-			sessionStorage['playerStreet'] = decode(serverdata['metabolics'], type:Metabolics).currentStreet;
-
-			if(serverdata['playerName'].trim() == '') {
-				setupNewUser(serverdata);
-			} else {
-				// Get our username and location from the server.
-				logmessage('[AuthManager] Logged in');
-				startGame(serverdata);
-			}
-		});
+//		_loginPanel.host.on['loginSuccess'].first.then((e) {
+////			print('got success, firing back');
+//			//fire acknowledgement event
+//			transmit('loginAcknowledged',null);
+//
+//			Map serverdata = e.detail;
+//
+//			logmessage('[AuthManager] Setting API tokens');
+//			SESSION_TOKEN = serverdata['sessionToken'];
+//			SLACK_WEBHOOK = serverdata['slack-webhook'];
+//			SC_TOKEN = serverdata['sc-token'];
+//
+//			sessionStorage['playerName'] = serverdata['playerName'];
+//			sessionStorage['playerEmail'] = serverdata['playerEmail'];
+//			sessionStorage['playerStreet'] = decode(serverdata['metabolics'], type:Metabolics).currentStreet;
+//
+//			if(serverdata['playerName'].trim() == '') {
+//				setupNewUser(serverdata);
+//			} else {
+//				// Get our username and location from the server.
+//				logmessage('[AuthManager] Logged in');
+//				startGame(serverdata);
+//			}
+//		});
 	}
 
 	Future<HttpRequest> post(String type, Map data) {
@@ -45,11 +51,11 @@ class AuthManager {
 	void logout() {
 		logmessage('[AuthManager] Attempting logout');
 		localStorage.remove('username');
-		_loginPanel.firebase.unauth();
+		// TODO _loginPanel.firebase.unauth();
 		window.location.reload();
 	}
 
-	startGame(Map serverdata) {
+	void startGame(Map serverdata) {
 		inputManager = new InputManager();
 		view.loggedIn();
 		audio.sc = new SC(SC_TOKEN);
@@ -58,13 +64,11 @@ class AuthManager {
 		game = new Game(decode(serverdata['metabolics'], type:Metabolics));
 	}
 
-	setupNewUser(Map serverdata) {
-//		print('setupNewUser');
-		_loginPanel.newUser = true;
-		(_loginPanel as Element).on['setUsername'].listen((e) {
-//			print('setUsername event');
-			String username = e.detail;
-//			print('setting name to ${e.detail}');
+	void setupNewUser(Map serverdata) {
+		hideAllSections();
+		_loginNewUser.hidden = false;
+		querySelector('#login_new_user_btn').onClick.listen((e) {
+			String username = _loginNewUserUsername.value;
 
 			localStorage['username'] = username;
 			sessionStorage['playerName'] = username;
@@ -74,13 +78,15 @@ class AuthManager {
 				'username' : username
 			};
 			post('setusername', data).then((HttpRequest request) {
-				if(request.responseText == '{"ok":"yes"}') {
+				if (request.responseText == '{"ok":"yes"}') {
 					// now that the username has been set, start the game
 					startGame(serverdata);
-				} else {
-//					print('name change failed');
 				}
 			});
 		});
+	}
+
+	void hideAllSections() {
+		_loginPanel.children.forEach((Element child) => child.hidden = true);
 	}
 }

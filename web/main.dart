@@ -15,7 +15,6 @@ import 'dart:collection';
 
 // Angular components
 
-import 'package:cou_login/login/login.dart'; // Login widget
 import 'package:cou_toolkit/toolkit/itembox/itembox.dart';
 
 // Libraries
