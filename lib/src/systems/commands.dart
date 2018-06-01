@@ -104,7 +104,7 @@ void changeInterface(var type) {
 		localStorage['interface'] = 'mobile';
 		new Toast('Switched to mobile view');
 	} else {
-		new Toast('Interface type must be either desktop or mobile, ' + type + ' is invalid');
+		new Toast('Interface type must be either "desktop" or "mobile", "$type" is invalid');
 	}
 }
 

@@ -109,7 +109,7 @@ class BagWindow extends Modal {
 
 	Future updateWell(ItemDef sourceItem) async {
 		Element newWell = await load(sourceItem, false);
-		displayElement.querySelector("ur-well").replaceWith(newWell);
+		displayElement.querySelector(".well").replaceWith(newWell);
 		transmit('metadataUpdated', true);
 		if (!loadUpdate.isCompleted) {
 			loadUpdate.complete();
@@ -154,7 +154,8 @@ class BagWindow extends Modal {
 
 		// Content
 
-		Element well = new Element.tag("ur-well");
+		Element well = new DivElement()
+			..classes = ['well'];
 
 		numSlots = sourceItem.subSlots;
 		List<Map> subSlots;

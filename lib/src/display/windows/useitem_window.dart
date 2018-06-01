@@ -50,8 +50,8 @@ class UseWindow extends Modal {
 
 		// Container
 
-		well = new Element.tag("ur-well")
-			..classes.add("useitem-well");
+		well = new DivElement()
+			..classes = ["well", "useitem-well"];
 
 		DivElement window = new DivElement()
 			..id = id
@@ -332,9 +332,17 @@ class UseWindow extends Modal {
 			..classes.add("makerecipe-anim")
 			..append(animation);
 
-		Element progBar = new Element.tag("ur-progress")
-			..attributes["percent"] = "1"
-			..attributes["status"] = "Making ${current.toString()} of ${qty.toString()}...";
+		ProgressElement progBar = new ProgressElement()
+			..max = qty
+			..value = 0;
+
+		Element progLabel = new LabelElement()
+			..text = "Making ${current.toString()} of ${qty.toString()}...";
+
+		Element progContainer = new DivElement()
+			..classes = ["progress"]
+			..append(progBar)
+			..append(progLabel);
 
 		Element cancelBtn;
 		cancelBtn = new DivElement()
@@ -350,7 +358,9 @@ class UseWindow extends Modal {
 		// display
 		well
 			..children.clear()
-			..append(animationParent)..append(progBar)..append(cancelBtn);
+			..append(animationParent)
+			..append(progContainer)
+			..append(cancelBtn);
 
 		await Future.doWhile(() async {
 			if (makingCancelled) {
@@ -383,10 +393,8 @@ class UseWindow extends Modal {
 					current++;
 
 					// Update the progress bar
-					progBar
-						..attributes["percent"] = ((100 / qty) * current).toString()
-						..attributes["status"] = "Making ${current.toString()} of ${qty
-							.toString()}";
+					progBar.value = current;
+					progLabel.text = "Making $current of $qty";
 				}
 			}
 

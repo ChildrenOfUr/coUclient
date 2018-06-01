@@ -194,14 +194,18 @@ class ItemWindow extends Modal {
 
 		// Container
 
-		Element well = new Element.tag("ur-well")
-			..append(left)..append(right);
+		Element well = new DivElement()
+			..classes = ['well']
+			..append(left)
+			..append(right);
 
 		DivElement window = new DivElement()
 			..id = id
 			..classes.add("window")
 			..classes.add("itemWindow")
-			..append(closeButton)..append(header)..append(well);
+			..append(closeButton)
+			..append(header)
+			..append(well);
 
 		return (window);
 	}

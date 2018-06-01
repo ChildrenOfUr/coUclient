@@ -17,6 +17,7 @@
 	<!-- Fonts -->
 	<link href="https://fonts.googleapis.com/css?family=Lato:400,400i,700,700i" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Sniglet:800" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Fredoka+One" rel="stylesheet">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
 
 	<!-- Input styles -->
@@ -466,11 +467,11 @@
 					Choose avatar
 				</li>
 				<li id="changeUsernameFromChatPanel">
-					<i class="fa-li fa fa-pencil"></i>
+					<i class="fa-li fas fa-pencil-alt"></i>
 					Change username
 				</li>
 				<li id="signoutGlyph">
-					<i class="fa-li fa fa-sign-out"></i>
+					<i class="fa-li fas fa-sign-out-alt"></i>
 					Log out
 				</li>
 				<li id="becomeGuideFromChatPanel" hidden>
@@ -504,7 +505,7 @@
 				<div class="dialog">
 				</div>
 				<input class="Typing" type="text" maxlength="140" title="Type a chat message">
-				<a class="insertemoji" title="Insert Emoticons"><i class="fa fa-fw fa-smile-o"></i></a>
+				<a class="insertemoji" title="Insert Emoticons"><i class="far fa-fw fa-smile"></i></a>
 			</div>
 		</div>
 
@@ -592,7 +593,7 @@
 			</header>
 			<div class="well">
 				<div class="preload">
-					<img src="files/system/windows/loading.svg">
+					<div class="loader"></div>
 				</div>
 				<div class="postload" hidden>
 					<div id="avatarSelector"></div>
@@ -671,13 +672,13 @@
 				          placeholder="Please provide a detailed description of the problem you are experiencing or of the feature you would like us to add.
 If you are reporting a bug, please reload then repeat the steps to cause the bug, and only submit a report if you are able to reproduce it."></textarea>
 				<textarea id="reportMeta" disabled title="Report metadata"></textarea>
-				<button>Submit Report</button>
-				<p>
+				<button id="reportSubmitBtn">Submit Report</button>
+				<span>
 					Keep in mind that this data will be public on the <a href="https://github.com/ChildrenOfUr/cou-issues/issues" target="_blank">cou-issues</a> page!
 					<br>
 					<!-- TODO: fix screenshots and show this option -->
 					<label style="visibility: hidden;"><input type="checkbox" id="reportScreenshot"> Include screenshot</label>
-				</p>
+				</span>
 			</div>
 		</div>
 
@@ -685,7 +686,7 @@ If you are reporting a bug, please reload then repeat the steps to cause the bug
 		<div id="calendarWindow" class="window" hidden>
 			<i class="fa-li fa fa-times close"></i>
 			<header>
-				<i class="fa-li fa fa-calendar"></i>
+				<i class="fa-li far fa-calendar"></i>
 				Calendar
 			</header>
 			<div class="well">
@@ -755,7 +756,7 @@ If you are reporting a bug, please reload then repeat the steps to cause the bug
 			</header>
 			<div class="well">
 				<input id="invSearchInput" type="text" placeholder="Item name...">
-				<div id="invSearchOutput"></div>
+				<table id="invSearchOutput"></table>
 			</div>
 		</div>
 
@@ -1079,7 +1080,7 @@ If you are reporting a bug, please reload then repeat the steps to cause the bug
 		<div id="settingsWindow" class="window" hidden>
 			<i class="fa-li fa fa-times close"></i>
 			<header>
-				<i class="fa-li fa fa-gears"></i>
+				<i class="fa-li fa fa-cogs"></i>
 				Preferences
 			</header>
 			<article>

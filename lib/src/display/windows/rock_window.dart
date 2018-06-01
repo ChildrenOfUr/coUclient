@@ -121,7 +121,7 @@ class RockWindow extends Modal {
 	}
 
 	void _setInventoryEnabled(bool enabled) {
-		querySelector("#inventory /deep/ #disableinventory").hidden = enabled;
+		querySelector("#inventory #disableinventory").hidden = enabled;
 		if(!enabled) {
 			//close all bag windows
 			List<String> openIds = [];

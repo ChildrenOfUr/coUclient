@@ -29,24 +29,24 @@
     margin-top: 5px;
 }
 
-#shrine-window-buttons > * /deep/ button {
+#shrine-window-buttons > * button {
     width: 78px;
 }
 
-#shrineWindow .well /deep/ .NumToDonate {
+#shrineWindow .well .NumToDonate {
     margin: 0 5px;
     width: 40px;
     text-align: center;
 }
 
-#shrineWindow .well /deep/ .NumToDonate::-webkit-inner-spin-button,
-#shrineWindow .well /deep/ .NumToDonate::-webkit-outer-spin-button {
+#shrineWindow .well .NumToDonate::-webkit-inner-spin-button,
+#shrineWindow .well .NumToDonate::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
 
-#shrineWindow .well /deep/ .plus,
-#shrineWindow .well /deep/ .minus {
+#shrineWindow .well .plus,
+#shrineWindow .well .minus {
     cursor: pointer;
 }
 

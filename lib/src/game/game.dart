@@ -27,7 +27,7 @@ class Game {
 			// Display border on avatar image
 			// (Devs shouldn't see it, our blog post screenshots would be different)
 			if (role == "guide") {
-				querySelector("ur-meters /deep/ #leftDisk").classes.add("guideDisk");
+				querySelector("#meters #leftDisk").classes.add("guideDisk");
 			}
 		});
 	}

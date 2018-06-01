@@ -4,7 +4,6 @@
 }
 
 #invSearchWindow #invSearchOutput {
-	display: block;
 	width: 500px;
 	position: relative;
 	left: 50%;
@@ -13,9 +12,8 @@
 }
 
 #invSearchWindow #invSearchOutput .inv-search-result {
-	display: block;
-	margin-top: 10px;
-	height: 40px;
+	max-height: 40px;
+	height: 50px;
 }
 
 #invSearchWindow #invSearchOutput .inv-search-result,
@@ -28,25 +26,24 @@
 }
 
 #invSearchWindow #invSearchOutput .inv-search-result-icon {
-	display: inline-block;
-	vertical-align: middle;
-	width: 40px;
-	max-height: 40px;
-	margin-right: 10px;
+	text-align: center;
+	width: 60px;
+}
+
+#invSearchWindow #invSearchOutput .inv-search-result-icon img {
+    max-height: 40px;
+    max-width: 40px;
 }
 
 #invSearchWindow #invSearchOutput .inv-search-result-label {
-	display: inline-block;
 	font-size: 18px;
-	vertical-align: middle;
+	padding-left: 15px;
 }
 
 #invSearchWindow #invSearchOutput .inv-search-result-qty {
-	display: inline-block;
-	float: right;
 	font-size: 18px;
-	padding-top: 5px;
 	opacity: 0.5;
+	text-align: right;
 }
 
 /* Box highlighting */
