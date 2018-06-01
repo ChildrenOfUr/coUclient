@@ -1202,34 +1202,6 @@ If you are reporting a bug, please reload then repeat the steps to cause the bug
 								Light Weather Intensity
 							</label>
 
-							<!-- Interface -->
-							<h1 class="pane-title">Interface</h1>
-							<label class="ChatSettingsOption">
-								<input type="checkbox" id="DarkMode" class="ChatSettingsCheckbox" />
-								Dark UI
-							</label>
-							&emsp;
-							<label class="ChatSettingsOption">
-								<input type="checkbox" id="DarkModeAuto" class="ChatSettingsCheckbox" />
-								Set by day/night
-							</label>
-
-						</div>
-
-						<div class="pane-2-right">
-
-							<!-- Sound -->
-							<h1 class="pane-title">Sound</h1>
-							<label>Music:<br>
-								<input type="range" id="MusicSlider" />
-							</label><br>
-							<label>Sound Effects:<br>
-								<input type="range" id="EffectSlider" />
-							</label>
-							<label>Weather:<br>
-								<input type="range" id="WeatherSlider" />
-							</label>
-
 							<!-- Chat -->
 							<h1 class="pane-title">Chat</h1>
 							<label class="ChatSettingsOption">
@@ -1245,6 +1217,38 @@ If you are reporting a bug, please reload then repeat the steps to cause the bug
 							<label class="ChatSettingsOption">
 								<input type="checkbox" id="LogNPCMessages" class="ChatSettingsCheckbox" />
 								Log NPC Messages
+							</label>
+
+						</div>
+
+						<div class="pane-2-right">
+
+							<!-- Sound -->
+							<h1 class="pane-title">Sound</h1>
+							<table>
+								<tr>
+									<td>Music:</td>
+									<td><input type="range" id="MusicSlider" /></td>
+								</tr>
+								<tr>
+									<td>SFX:</td>
+									<td><input type="range" id="EffectSlider" /></td>
+								</tr>
+								<tr>
+									<td>Weather:</td>
+									<td><input type="range" id="WeatherSlider" /></td>
+								</tr>
+							</table>
+
+							<!-- Interface -->
+							<h1 class="pane-title">Interface</h1>
+							<label class="ChatSettingsOption">
+								<input type="checkbox" id="DarkMode" class="ChatSettingsCheckbox" />
+								Dark UI
+							</label>
+							<label class="ChatSettingsOption">
+								<input type="checkbox" id="DarkModeAuto" class="ChatSettingsCheckbox" />
+								Set by day/night
 							</label>
 
 						</div>
@@ -1420,7 +1424,7 @@ If you are reporting a bug, please reload then repeat the steps to cause the bug
 
 <!-- Start the Game up. -->
 <!--<script type="application/dart">export 'package:polymer/init.dart';</script>-->
-<script type="application/dart">export 'main.dart';</script>
-<!--<script src="packages/browser/dart.js"></script>-->
+<script type="application/dart" src="main.dart"></script>
+<script src="packages/browser/dart.js"></script>
 </body>
 </html>

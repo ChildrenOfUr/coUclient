@@ -1,4 +1,4 @@
-#weatherWindow ur-well {
+#weatherWindow .well {
 	display: flex;
 	flex-direction: row;
 }

@@ -11,15 +11,22 @@ class StreetLoadingScreen extends Overlay {
 
 	bool splitScreen;
 
-	Element progressBar;
+	DivElement progressContainer;
+	ProgressElement progressBar;
+	LabelElement progressText;
 
 	StreetLoadingScreen(this.oldStreet, this.newStreet) : super('MapLoadingScreen', true) {
 		splitScreen = (oldStreet != null) && (oldStreet['hub_id'] != newStreet['hub_id']);
 
-		progressBar = new Element.tag('ur-progress')
-			..classes = ['street-load-progress']
-			..attributes['percent'] = '0'
-			..attributes['status'] = '';
+		progressBar = new ProgressElement()
+			..max = 100;
+
+		progressText = new LabelElement();
+
+		progressContainer = new DivElement()
+			..classes = ['street-load-progress', 'progress']
+			..append(progressBar)
+			..append(progressText);
 
 		open();
 	}
@@ -41,7 +48,7 @@ class StreetLoadingScreen extends Overlay {
 		displayElement.append(_createSection(newStreet));
 
 		// Display progress
-		displayElement.append(progressBar);
+		displayElement.append(progressContainer);
 		loadingPercent = 0;
 
 		// Show overlay
@@ -73,9 +80,8 @@ class StreetLoadingScreen extends Overlay {
 		}[p ~/ 10];
 
 		// Set width & text of progress bar
-		progressBar.attributes
-			..['percent'] = percent.toString()
-			..['status'] = _getLoadingMessage(percent);
+		progressBar.value = percent;
+		progressText.text = _getLoadingMessage(percent);
 
 		if (percent >= 99) {
 			// Done loading

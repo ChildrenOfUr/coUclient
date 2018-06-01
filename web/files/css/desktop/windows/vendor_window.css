@@ -231,7 +231,7 @@
   box-shadow: none;
 }
 
-ur-button.max {
+button.max {
     position: relative;
     left: 50%;
     transform: translateX(-50%);

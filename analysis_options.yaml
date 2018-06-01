@@ -1,7 +1,9 @@
 analyzer:
   exclude:
     - lib/src/display/windows/details_window.dart
+    - lib/components
 
 linter:
   exclude:
     - lib/src/display/windows/details_window.dart
+    - lib/components

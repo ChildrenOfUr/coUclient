@@ -53,14 +53,14 @@ input[type="file"] {
   height: initial;
 }
 
-#bugWindow ur-well ur-button+p {
+#bugWindow .well .button+p {
   position: absolute;
   right: 10px;
   text-align: right;
   bottom: 0;
 }
 
-#bugWindow ur-well ur-button+p a {
+#bugWindow .well button+p a {
     cursor: pointer;
 }
 

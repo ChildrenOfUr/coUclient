@@ -163,6 +163,7 @@ class AuthManager {
 		server = '${Configs.http}//${Configs.authAddress}';
 		websocket = '${Configs.ws}//${Configs.authWebsocket}';
 		firebase = new fb.Firebase('https://$base.firebaseio.com');
+		_loginMain.hidden = true;
 
 		if (window.localStorage.containsKey('username')) {
 			// Let's see if our firebase auth is current
@@ -200,8 +201,11 @@ class AuthManager {
 	}
 
 	Future loginAttempt(Event event) async {
-		if (!_enterKey(event))
+		_loginWarning.text = '';
+
+		if (!_enterKey(event)) {
 			return;
+		}
 
 		if (passwordConfirmation) {
 			verifyEmail(event);

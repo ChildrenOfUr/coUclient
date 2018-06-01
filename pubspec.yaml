@@ -32,11 +32,6 @@ dependencies:
     git:
       ref: dart-2
       url: git://github.com/ChildrenOfUr/cou_toolkit.git
-# TODO: remove polymer from coufeedback
-#  coufeedback:
-#      git:
-#        ref: userfeedback
-#        url: git://github.com/ChildrenOfUr/cou-issues.git
   stagexl: "^0.12.0"
   browser_detect: "^1.0.3"
   coUemoticons:

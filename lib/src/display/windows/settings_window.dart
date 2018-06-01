@@ -149,31 +149,23 @@ class SettingsWindow extends Modal {
 			musicSlider.value = localStorage['musicVolume'];
 			effectSlider.value = localStorage['effectsVolume'];
 			weatherSlider.value = localStorage['weatherVolume'];
-		} catch(e) {
-		}
+		} catch(_) { }
 
-		musicSlider.on['immediate-value-change'].listen((Event event) {
+		musicSlider.onChange.listen((Event event) {
 			num volume = num.parse(musicSlider.value);
 			audio.audioChannels['music'].gain = volume / 100;
-		});
-		musicSlider.on['core-change'].listen((Event event) {
-			num volume = num.parse(musicSlider.value);
 			localStorage['musicVolume'] = volume.toString();
 		});
 
-		effectSlider.on['immediate-value-change'].listen((Event event) {
+		effectSlider.onChange.listen((Event event) {
 			num volume = num.parse(effectSlider.value);
 			audio.audioChannels['soundEffects'].gain = volume / 100;
-		});
-		effectSlider.on['core-change'].listen((Event event) {
-			num volume = num.parse(effectSlider.value);
 			localStorage['effectsVolume'] = volume.toString();
 		});
 
-		weatherSlider.on['immediate-value-change'].listen((Event event) {
-			audio.audioChannels['weather'].gain = num.parse(weatherSlider.value) / 100;
-		});
-		weatherSlider.on['core-change'].listen((Event event) {
+		weatherSlider.onChange.listen((Event event) {
+			num volume = num.parse(weatherSlider.value);
+			audio.audioChannels['weather'].gain = volume / 100;
 			localStorage['weatherVolume'] = weatherSlider.value.toString();
 		});
 
