@@ -31,6 +31,7 @@ import 'package:libld/libld.dart'; // Asset loading
 import 'package:scproxy/scproxy.dart'; // SoundCloud helper
 import 'package:transmit/transmit.dart'; // Event bus
 import "package:xml/xml.dart" as XML; // Blog post checking
+import 'package:firebase/firebase.dart' as fb; // Login
 
 // Start Polymer
 
