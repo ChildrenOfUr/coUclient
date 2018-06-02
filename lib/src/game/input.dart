@@ -146,9 +146,9 @@ class InputManager {
 			}
 
 			//interact with the menu
-			Element clickMenu = querySelector("#RightClickMenu");
+			Element clickMenu = querySelector(".RightClickMenu");
 			if (clickMenu != null) {
-				Element list = querySelector('#RCActionList');
+				Element list = clickMenu.querySelector('.RCActionList');
 				//only select a new option once every 300ms
 				bool selectAgain = lastSelect.add(new Duration(milliseconds:300)).isBefore(new DateTime.now());
 				if (controlCounts['upKey']['keyBool'] == true && selectAgain) {
@@ -385,9 +385,9 @@ class InputManager {
 				activateControl('rightKey', joystick.RIGHT, 'joystick');
 			}
 
-			Element clickMenu = querySelector("#RightClickMenu");
+			Element clickMenu = querySelector(".RightClickMenu");
 			if (clickMenu != null) {
-				Element list = querySelector('#RCActionList');
+				Element list = clickMenu.querySelector('.RCActionList');
 				//only select a new option once every 300ms
 				if (lastSelect.add(new Duration(milliseconds: 300)).isBefore(new DateTime.now())) {
 					if (joystick.UP) {
@@ -462,13 +462,13 @@ class InputManager {
 	}
 
 	void doObjectInteraction([MouseEvent e, List<String> ids]) {
-		if (querySelector("#RightClickMenu") != null) {
-			doAction(querySelector('#RCActionList'), querySelector("#RightClickMenu"), "RCItemSelected");
+		if (querySelector(".RightClickMenu") != null) {
+			doAction(querySelector('.RCActionList'), querySelector(".RightClickMenu"), "RCItemSelected");
 			return;
 		}
 
 		if (CurrentPlayer.intersectingObjects.length > 0
-			&& querySelector('#RightClickMenu') == null
+			&& querySelector('.RightClickMenu') == null
 			&& !ActionBubble.occuring
 		) {
 			if (CurrentPlayer.intersectingObjects.length == 1) {
@@ -486,7 +486,6 @@ class InputManager {
 	}
 
 	// Right-click menu functions
-	void hideClickMenu(Element window) => window?.remove();
 
 	void showClickMenu({
 		MouseEvent click,
@@ -499,11 +498,11 @@ class InputManager {
 	}) {
 		assert (id != null);
 
-		hideClickMenu(querySelector('#RightClickMenu'));
+		RightClickMenu.destroyAll();
 		RightClickMenu.create3(click, title, id, description: description, actions: actions, itemName: itemName, serverClass: serverClass);
 
-		Element clickMenu = querySelector('#RightClickMenu');
-		Element list = querySelector('#RCActionList');
+		Element clickMenu = querySelector('.RightClickMenu');
+		Element list = clickMenu.querySelector('.RCActionList');
 
 		menuKeyListener = document.onKeyDown.listen((KeyboardEvent k) {
 			if ((k.keyCode == keys["UpBindingPrimary"] || k.keyCode == keys["UpBindingAlt"]) && !ignoreKeys) //up arrow or w and not typing
@@ -566,11 +565,23 @@ class InputManager {
 	}
 
 	void stopMenu(Element window) {
+		if (window.classes.contains(RightClickMenu.MENU_CLASS)) {
+			RightClickMenu.destroyAll();
+		}
+
 		transmit('menuStopping', window);
+
 		menuKeyListener?.cancel();
 		menuKeyListener = null;
+
+		keyPressSub?.cancel();
+		keyPressSub = null;
+
+		keyDownSub?.cancel();
+		keyDownSub = null;
+
 		MenuKeys.clearListeners();
-		hideClickMenu(window);
+		window?.remove();
 	}
 
 	void doAction(Element list, Element window, String className) {

@@ -9,8 +9,6 @@ Element getEntityElement(String id) {
 }
 
 abstract class Entity {
-	Random rand = new Random();
-
 	bool
 		glow = false,
 		dirty = true,

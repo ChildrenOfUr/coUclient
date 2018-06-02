@@ -89,7 +89,7 @@ class ChatBubble {
 		timeLast = 5.0;
 	}
 
-	update(double dt) {
+	void update(double dt) {
 		if(timeToLive <= 0 && autoDismiss) {
 			removeBubble();
 			//force a player update to be sent right now
