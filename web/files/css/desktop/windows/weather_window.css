@@ -27,7 +27,7 @@ body:not(.darkui) #weatherWindow .day {
 	padding: 0;
 	position: relative;
 	left: calc(50% - 15px);
-	bottom: 0px;
+	bottom: 0;
 }
 
 .darkui #weatherWindow .day:first-child::after {

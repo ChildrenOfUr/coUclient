@@ -133,8 +133,7 @@
 #login_warning,
 #login_password_reset_warning,
 #login_waiting_email {
-	margin: 0;
-	margin-top: -0.5em;
+	margin: -0.5em 0 0;
 	padding-bottom: 0.5em;
 	vertical-align: middle;
 	text-align: center;
@@ -158,8 +157,7 @@
 
 #login_avatar_preview_left {
 	height: 160px;
-	background-position: top;
-	background-repeat: no-repeat;
+	background: no-repeat top;
 	background-size: cover;
 	position: relative;
 	left: -40px;

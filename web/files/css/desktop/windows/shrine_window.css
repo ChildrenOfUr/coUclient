@@ -12,13 +12,11 @@
 }
 
 #DonateDropTarget {
-    background: white;
-    border: 2px dashed #999;
+	border: 2px dashed #999;
     width: 75px;
     height: 75px;
     border-radius: 5px;
-    background-repeat: no-repeat;
-    background-position: center center;
+	background: white no-repeat center center;
 }
 
 .darkui #DonateDropTarget {

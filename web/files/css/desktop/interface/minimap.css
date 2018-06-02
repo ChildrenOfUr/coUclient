@@ -58,8 +58,7 @@
     width: 20px;
     height: 20px;
     position: absolute;
-    background-image: url(../../../system/icons/signpost.svg);
-    background-repeat: no-repeat;
+    background: url(../../../system/icons/signpost.svg) no-repeat;
     background-size: 20px 20px;
     cursor: help;
 }

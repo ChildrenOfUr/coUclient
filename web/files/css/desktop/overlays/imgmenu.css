@@ -176,8 +176,7 @@ p.italic {
 #pm-level-bar::before,
 #pm-quoinlimit-bar::before {
     content: '';
-    background-image: url(../../../system/imgmenu/imgbubbles.svg);
-    background-repeat: repeat-y;
+    background: url(../../../system/imgmenu/imgbubbles.svg) repeat-y;
     width: 50px;
     height: 100%;
     position: absolute;
@@ -193,8 +192,7 @@ p.italic {
 
 #pm-level-bar.done::before {
     content: '';
-    background-image: url(../../../system/imgmenu/imgbubbles.svg);
-    background-repeat: repeat-y;
+    background: url(../../../system/imgmenu/imgbubbles.svg) repeat-y;
     width: 50px;
     height: 100%;
     position: absolute;
@@ -294,14 +292,13 @@ p.italic {
 #pm-quoinlimit-tooltip::before {
     right: 100%;
     top: 50%;
-    border: solid transparent;
     content: " ";
     height: 0;
     width: 0;
     position: absolute;
     pointer-events: none;
+    border: 14px solid transparent;
     border-right-color: rgba(75, 46, 76, 0.9);
-    border-width: 14px;
     margin-top: -14px;
 }
 

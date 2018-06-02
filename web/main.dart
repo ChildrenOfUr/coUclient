@@ -93,7 +93,6 @@ part 'package:couclient/src/display/windows/bag_window.dart';
 part 'package:couclient/src/display/windows/bug_window.dart';
 part 'package:couclient/src/display/windows/calendar_window.dart';
 part 'package:couclient/src/display/windows/change_username_window.dart';
-part 'package:couclient/src/display/windows/details_window.dart';
 part 'package:couclient/src/display/windows/emoticon_picker.dart';
 part 'package:couclient/src/display/windows/go_window.dart';
 part 'package:couclient/src/display/windows/inv_search_window.dart';
