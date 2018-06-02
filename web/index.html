@@ -808,7 +808,78 @@ If you are reporting a bug, please reload then repeat the steps to cause the bug
 				<i class="fa-li fa fa-envelope"></i><span id="mailboxTitle">Mailbox</span>
 			</header>
 			<article>
-				<ur-mailbox dnd-retarget></ur-mailbox>
+				<!--Compose a new message-->
+				<div id="mb_compose">
+					<input type="text" placeholder="Send to a friend" list="mb_toList" id="mb_input_to" class="input_text input_line">
+					<datalist id="mb_toList"></datalist>
+					<br>
+					<input type="text" placeholder="Subject" id="mb_input_subject" class="input_text input_line">
+					<br>
+					<textarea placeholder="Message" id="mb_input_message" class="input_text input_box"></textarea>
+					<div id="mb_sendItems">
+						<div id="mb_to_item1" class="itemBox panel toItem"></div>
+						<div id="mb_to_item2" class="itemBox panel toItem"></div>
+						<div id="mb_to_item3" class="itemBox panel toItem"></div>
+						<div id="mb_to_item4" class="itemBox panel toItem"></div>
+						<div id="mb_to_item5" class="itemBox panel toItem"></div>
+					</div>
+					<div id="send_actions">
+						<button id="mb_action_send">&emsp;<i class="fa fa-paper-plane"></i> Send Message&emsp;</button>
+						<button id="mb_action_discard">&emsp;<i class="fa fa-trash"></i> Cancel&emsp;</button>
+						<img class="currant-img" src="files/system/icons/currant.svg">
+						<input id="mb_sendCurrants" class="input_text input_line" placeholder="Send currants?" type="number" min="0">
+					</div>
+				</div>
+
+				<!--Read a message-->
+				<div id="mb_read">
+					<h1 id="mb_from">A message from</h1>
+					<h2 id="mb_subject"></h2>
+					<p id="mb_message"></p>
+					<p id="mb_fromCurrants" hidden><span id="mb_fromCurrantsNum"></span></p>
+					<div id="mb_fromItems">
+						<div id="mb_from_item1" class="itemBox panel fromItem" hidden></div>
+						<div id="mb_from_item2" class="itemBox panel fromItem" hidden></div>
+						<div id="mb_from_item3" class="itemBox panel fromItem" hidden></div>
+						<div id="mb_from_item4" class="itemBox panel fromItem" hidden></div>
+						<div id="mb_from_item5" class="itemBox panel fromItem" hidden></div>
+					</div>
+					<div id="read_actions">
+						<button id="mb_btn_reply">&emsp;Reply&emsp;</button>
+						<button id="mb_btn_close">&emsp;Close&emsp;</button>
+					</div>
+				</div>
+
+				<!--View the inbox-->
+				<div id="mb_inbox">
+					<button id="mb_refresh_btn">&emsp;Refresh&emsp;</button>
+					<button id="mb_compose_btn">&emsp;Compose&emsp;</button>
+					<div id="mb_inbox_list">
+						<table id="message_list" cellpadding="0" cellspacing="0">
+							<thead>
+								<tr>
+									<td id="thead_from">From</td>
+									<td id="thead_subject">Subject</td>
+									<td id="thead_delete">Actions</td>
+								</tr>
+							</thead>
+							<tbody class="messageItems"></tbody>
+						</table>
+					</div>
+					<div id="mb_emptyinbox">
+						<p><b>You have no messages.</b><br /></p>
+						<p>Why don't you be a nice friend and <a href="#" id="mb_compose_link">write one</a>?</p>
+					</div>
+				</div>
+
+				<div class="actionDialog" hidden>
+					<h2 class="dialogTitle"></h2>
+					<p class="dialogBody"></p>
+					<div class="buttons">
+						<button class="btn-light">Go Back</button>
+						<button class="btn-light">Delete Anyway</button>
+					</div>
+				</div>
 			</article>
 		</div>
 

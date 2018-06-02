@@ -103,6 +103,7 @@ class SettingsWindow extends Modal {
 		if (localStorage["LightWeatherEffects"] != null) {
 			try {
 				lightWeatherEffects.checked = localStorage["LightWeatherEffects"] == "true";
+				WeatherManager.intensity = lightWeatherEffects.checked ? WeatherIntensity.LIGHT : WeatherIntensity.NORMAL;
 			} catch (err) {
 				logmessage("Error setting weather effects intensity intensity: $err");
 			}

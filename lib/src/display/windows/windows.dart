@@ -10,6 +10,7 @@ class WindowManager {
 	ChangeUsernameWindow changeUsernameWindow;
 	EmoticonPicker emoticonPicker;
 	InventorySearchWindow inventorySearchWindow;
+	MailboxWindow mailboxWindow;
 	MotdWindow motdWindow;
 	QuestLogWindow questLog;
 	QuestMakerWindow questMaker;
@@ -33,6 +34,7 @@ class WindowManager {
 		changeUsernameWindow = new ChangeUsernameWindow();
 		emoticonPicker = new EmoticonPicker();
 		inventorySearchWindow = new InventorySearchWindow();
+		mailboxWindow = new MailboxWindow();
 		mapWindow = new MapWindow();
 		motdWindow = new MotdWindow();
 		questLog = new QuestLogWindow();
