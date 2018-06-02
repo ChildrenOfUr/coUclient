@@ -1,7 +1,7 @@
 part of couclient;
 
 class InventoryDisplay {
-	List <UrItemBox> boxes;
+	List <Element> boxes;
 }
 
 class InvDragging {

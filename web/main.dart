@@ -13,10 +13,6 @@ import 'dart:js';
 import 'dart:collection';
 // (unused) // import 'dart:profiler';
 
-// Angular components
-
-import 'package:cou_toolkit/toolkit/itembox/itembox.dart';
-
 // Libraries
 
 import 'package:browser_detect/browser_detect.dart'; // Special browser errors
