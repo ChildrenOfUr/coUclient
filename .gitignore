@@ -11,3 +11,4 @@ build/
 .pub/
 .packages
 .atom/
+.dart_tool/

@@ -565,7 +565,7 @@ class InputManager {
 	}
 
 	void stopMenu(Element window) {
-		if (window.classes.contains(RightClickMenu.MENU_CLASS)) {
+		if (window?.classes?.contains(RightClickMenu.MENU_CLASS) ?? true) {
 			RightClickMenu.destroyAll();
 		}
 
