@@ -67,7 +67,7 @@ class Meters {
 	void updateMoodDisplay() {
 		moodDisplay.text = metabolics.mood.toString();
 		maxMoodDisplay.text = metabolics.maxMood.toString();
-		moodPercentDisplay.text = (metabolics.mood ~/ metabolics.maxMood * 100).toInt().toString();
+		moodPercentDisplay.text = ((metabolics.mood * 100) ~/ metabolics.maxMood).toInt().toString();
 	}
 
 	void updateCurrantsDisplay() {
