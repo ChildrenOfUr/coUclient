@@ -4,7 +4,7 @@
     overflow-y: scroll;
 }
 
-.useitem-well * {
+.useitem-well *:not(.fa, .fas) {
     font-family: "Lato", sans-serif;
 }
 
@@ -107,7 +107,7 @@
     border-radius: 8px;
     width: calc(100% - 20px);
     height: 30px;
-    padding: 5px 10px 10px 10px;
+    padding: 10px 10px 5px 10px;
     box-shadow: 0 0 2px lightgrey;
     transition: all 0.1s ease-in-out;
     font-size: 16px;
