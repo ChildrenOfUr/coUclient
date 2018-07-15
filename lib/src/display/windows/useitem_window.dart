@@ -148,7 +148,7 @@ class UseWindow extends Modal {
 
 		DivElement backToList = new DivElement()
 			..classes.addAll(["recipeview-backtolist", "white-btn"])
-			..setInnerHtml('<i class="fa fa-chevron-left"></i>&emsp;Cancel')
+			..setInnerHtml('<i class="fas fa-chevron-left"></i>&emsp;Cancel')
 			..onClick.listen((_) async => well.append(await listRecipes()));
 
 		DivElement itemImage = new DivElement()
@@ -219,7 +219,7 @@ class UseWindow extends Modal {
 				checkReqEnergy(recipe, makeBtn, qtyDisplay);
 				qtyDisplay.value = qty.toString();
 			})
-			..setInnerHtml('<i class="fa fa-fw fa-minus rv-red"></i>');
+			..setInnerHtml('<i class="fas fa-fw fa-minus rv-red"></i>');
 
 		DivElement qtyPlus = new DivElement()
 			..classes.add("rv-qty-plus")
@@ -230,7 +230,7 @@ class UseWindow extends Modal {
 				checkReqEnergy(recipe, makeBtn, qtyDisplay);
 				qtyDisplay.value = qty.toString();
 			})
-			..setInnerHtml('<i class="fa fa-fw fa-plus rv-green"></i>');
+			..setInnerHtml('<i class="fas fa-fw fa-plus rv-green"></i>');
 
 		DivElement qtyParent = new DivElement()
 			..classes.add("recipeview-qtyparent")
@@ -286,11 +286,11 @@ class UseWindow extends Modal {
 			Element status = new Element.tag("i");
 			if (ingmap["userHas"] >= ingmap["qtyReq"]) {
 				status
-					..classes.addAll(["fa", "fa-check", "fa-fw", "rv-green"])
+					..classes.addAll(["fas", "fa-check", "fa-fw", "rv-green"])
 					..title = "You have enough";
 			} else {
 				status
-					..classes.addAll(["fa", "fa-times", "fa-fw", "rv-red"])
+					..classes.addAll(["fas", "fa-times", "fa-fw", "rv-red"])
 					..title = "You don't have enough";
 			}
 
@@ -347,11 +347,11 @@ class UseWindow extends Modal {
 		Element cancelBtn;
 		cancelBtn = new DivElement()
 			..classes = ["white-btn", "rmake-cancel", "rv-red"]
-			..setInnerHtml('<i class="fa fa-chevron-left"></i>&emsp;Cancel')
+			..setInnerHtml('<i class="fas fa-chevron-left"></i>&emsp;Cancel')
 			..onClick.first.then((_) {
 				makingCancelled = true;
 				cancelBtn
-					..setInnerHtml('<i class="fa fa-spin fa-spinner"></i>&emsp;Finishing up...')
+					..setInnerHtml('<i class="fas fa-spin fa-spinner"></i>&emsp;Finishing up...')
 					..classes.add("disabled");
 			});
 
