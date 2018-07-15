@@ -47,7 +47,7 @@ class Meters {
 		redDisk.style.transform = 'rotate(${120 - (metabolics.energy / metabolics.maxEnergy) * 120}deg)';
 		redDisk.style.opacity = (1 - metabolics.energy / metabolics.maxEnergy).toString();
 		hurtDisk.style.backfaceVisibility = 'visible';
-		hurtDisk.style.opacity = '${0.7 - (metabolics.mood / metabolics.maxMood)}';
+		hurtDisk.style.opacity = (0.7 - (metabolics.mood / metabolics.maxMood)).toString();
 		deadDisk.style.opacity = (metabolics.mood <= 0 ? 1 : 0).toString();
 
 		// updates portrait
@@ -67,7 +67,7 @@ class Meters {
 	void updateMoodDisplay() {
 		moodDisplay.text = metabolics.mood.toString();
 		maxMoodDisplay.text = metabolics.maxMood.toString();
-		moodPercentDisplay.text = (metabolics.mood ~/ metabolics.maxMood * 100).toInt().toString();
+		moodPercentDisplay.text = (metabolics.mood / metabolics.maxMood * 100).toInt().toString();
 	}
 
 	void updateCurrantsDisplay() {
