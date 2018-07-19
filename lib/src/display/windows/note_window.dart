@@ -156,7 +156,7 @@ class NoteWindow extends Modal {
 		// Download from server
 		String json = await HttpRequest.getString("${Configs.http}//${Configs.utilServerAddress}/note/find/${noteId}");
 		try {
-			return JSON.decode(json);
+			return jsonDecode(json);
 		} catch (_) {
 			return null;
 		}

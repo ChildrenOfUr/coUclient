@@ -48,7 +48,7 @@ class ChatBubble {
 					..onClick.first.then((_) {
 						// Send id to server
 						logmessage('Sending chat bubble action: $btnId');
-						streetSocket.send(JSON.encode({'bubbleButton': btnId}));
+						streetSocket.send(jsonEncode({'bubbleButton': btnId}));
 					});
 				textElement.append(btn);
 			});
@@ -61,7 +61,7 @@ class ChatBubble {
 			int gainsTotal = 0;
 			DivElement awarded = new DivElement()
 				..className = 'awarded';
-			gains.forEach((String metabolic, int value) {
+			(gains as Map<String, int>).forEach((String metabolic, int value) {
 				if (value != 0) {
 					gainsTotal += value;
 					SpanElement span = new SpanElement()

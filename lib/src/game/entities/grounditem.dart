@@ -5,7 +5,7 @@ class GroundItem extends Entity {
 
 	GroundItem(Map map) {
 		if (map.containsKey('actions')) {
-			actions = decode(JSON.encode(map['actions']), type: const TypeHelper<List<Action>>().type);
+			actions = decode(jsonEncode(map['actions']), type: const TypeHelper<List<Action>>().type);
 		}
 
 		item = new ImageElement(src:map['iconUrl']);
@@ -27,7 +27,7 @@ class GroundItem extends Entity {
 			item.attributes['itemType'] = map['itemType'];
 			item.attributes['name'] = map['name'];
 			item.attributes['description'] = map['description'];
-			item.attributes['actions'] = JSON.encode(map['actions']);
+			item.attributes['actions'] = jsonEncode(map['actions']);
 			item.classes.add('groundItem');
 			item.classes.add('entity');
 			item.id = id;

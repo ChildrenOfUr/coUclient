@@ -191,7 +191,7 @@ class AuthManager {
 		}
 
 		_loginSubmit.onClick.listen((Event event) => loginAttempt(event));
-		_loginServicesContainer.children.forEach((ButtonElement element) {
+		_loginServicesContainer.children.forEach((Element element) {
 			element.onClick.listen((Event event) => oauthLogin(event));
 		});
 		_loginResetPassword.onClick.listen((_) => resetPassword());
@@ -228,8 +228,8 @@ class AuthManager {
 					server + '/auth/isEmailVerified',
 					method: 'POST',
 					requestHeaders: {'content-type': 'application/json'},
-					sendData: JSON.encode({'email': _loginEmail.value}));
-				Map map = JSON.decode(request.response);
+					sendData: jsonEncode({'email': _loginEmail.value}));
+				Map map = jsonDecode(request.response);
 				if (map['result'] == 'success') {
 					await _createNewUser(map);
 				} else {
@@ -259,10 +259,10 @@ class AuthManager {
 				server + '/auth/getSession',
 				method: 'POST',
 				requestHeaders: {'content-type': 'application/json'},
-				sendData: JSON.encode({'email': email})
+				sendData: jsonEncode({'email': email})
 			);
 
-			onLoggedIn(JSON.decode(request.response));
+			onLoggedIn(jsonDecode(request.response));
 		} catch (err) {
 			logmessage('Error relogin: $err');
 
@@ -294,7 +294,7 @@ class AuthManager {
 	Future<HttpRequest> post(String type, Map data) {
 		return HttpRequest.request(_authUrl + "/$type", method: "POST", requestHeaders: {
 			"content-type": "application/json"
-		}, sendData: JSON.encode(data));
+		}, sendData: jsonEncode(data));
 	}
 
 	void logout() {
@@ -392,10 +392,10 @@ class AuthManager {
 			server + '/auth/verifyEmail',
 			method: 'POST',
 			requestHeaders: {'content-type': 'application/json'},
-			sendData: JSON.encode({'email': _loginEmail.value}));
+			sendData: jsonEncode({'email': _loginEmail.value}));
 		// tooLongTimer.cancel();
 
-		Map result = JSON.decode(request.response);
+		Map result = jsonDecode(request.response);
 		if (result['result'] != 'OK') {
 			waiting = false;
 			return;
@@ -405,11 +405,11 @@ class AuthManager {
 
 		ws.onOpen.first.then((_) {
 			Map map = {'email': _loginEmail.value};
-			ws.send(JSON.encode(map));
+			ws.send(jsonEncode(map));
 		});
 
 		ws.onMessage.first.then((MessageEvent event) async {
-			Map map = JSON.decode(event.data);
+			Map map = jsonDecode(event.data);
 			if (map['result'] == 'success') {
 				await _createNewUser(map);
 			} else {
@@ -449,12 +449,12 @@ class AuthManager {
 			server + '/auth/getSession',
 			method: 'POST',
 			requestHeaders: {'content-type': 'application/json'},
-			sendData: JSON.encode({'email':email}));
+			sendData: jsonEncode({'email':email}));
 
 		window.localStorage['authToken'] = firebase.getAuth()['token'];
 		window.localStorage['authEmail'] = email;
 
-		Map sessionMap = JSON.decode(request.response);
+		Map sessionMap = jsonDecode(request.response);
 		if (sessionMap['playerName'] != '') {
 			window.localStorage['username'] = sessionMap['playerName'];
 		}
@@ -528,7 +528,7 @@ class AuthManager {
 		// $server = http|//hostname|8383 (| = split point)
 		//           ^  +     ^    (-  ^)
 		HttpRequest.getString('${Configs.http}//${Configs.utilServerAddress}/getSpritesheets?username=$getUsername').then((String json) {
-			avatarUrl = JSON.decode(json)['base'];
+			avatarUrl = jsonDecode(json)['base'];
 
 			// Used for sizing
 			ImageElement avatarData = new ImageElement()

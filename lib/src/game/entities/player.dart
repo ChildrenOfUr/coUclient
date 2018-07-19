@@ -142,13 +142,13 @@ class Player extends Entity {
 		fallDownFrames = [16, 17, 18, 19, 20, 21, 22, 23];
 		landFrames = [24, 25, 26, 27, 28, 29, 30, 31, 32];
 
-		List<Future> futures = new List();
+		List<Future<Animation>> futures = new List();
 
 		futures
 			.add(HttpRequest.requestCrossOrigin('${Configs.http}//${Configs.utilServerAddress}/getSpritesheets?username=$id')
 			.then((String response) {
 
-			Map spritesheets = JSON.decode(response);
+			Map spritesheets = jsonDecode(response);
 			String idle, base, jump, climb;
 
 			if (spritesheets['base'] == null) {
@@ -726,7 +726,7 @@ class Player extends Entity {
 		Platform bestPlatform;
 		num x = left + width / 2;
 		num feetY = cameFrom + height + currentStreet.groundY;
-		num bestDiffY = double.INFINITY;
+		num bestDiffY = double.infinity;
 
 		for (Platform platform in currentStreet.platforms) {
 			if (platform.ceiling) {

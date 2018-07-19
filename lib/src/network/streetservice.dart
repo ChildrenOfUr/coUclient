@@ -42,7 +42,7 @@ class StreetService {
 			requestHeaders: {"content-type": "application/json"}
     );
 
-		Map streetJSON = JSON.decode(data.response);
+		Map streetJSON = jsonDecode(data.response);
 
 		if (loadingCancelled(StreetID)) {
 			logmessage('[StreetService] Loading of "$StreetID" was cancelled during download.');
@@ -53,7 +53,7 @@ class StreetService {
 		await _prepareStreet(streetJSON);
 
 		String playerList = '';
-		List<String> players = JSON.decode(await HttpRequest.getString(
+		List<String> players = jsonDecode(await HttpRequest.getString(
 			'${Configs.http}//${Configs.utilServerAddress}/listUsers?channel=${currentStreet.label}'));
 		if (!players.contains(game.username)) {
 			players.add(game.username);

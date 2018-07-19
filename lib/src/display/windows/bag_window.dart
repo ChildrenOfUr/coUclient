@@ -172,7 +172,7 @@ class BagWindow extends Modal {
 			}
 		} else {
 			// Bag has contents
-			subSlots = JSON.decode(sourceItem.metadata["slots"]);
+			subSlots = jsonDecode(sourceItem.metadata["slots"]);
 		}
 
 		if (subSlots.length != sourceItem.subSlots) {
@@ -192,7 +192,7 @@ class BagWindow extends Modal {
 				DivElement itemInSlot = new DivElement();
 				slot.append(itemInSlot);
 				if (!bagSlot["itemType"].isEmpty) {
-					ItemDef item = decode(JSON.encode(bagSlot['item']), type: ItemDef);
+					ItemDef item = decode(jsonEncode(bagSlot['item']), type: ItemDef);
 					slot.title = item.name;
 					ImageElement img = new ImageElement(src: item.spriteUrl);
 					String className = 'item-${item.itemType} inventoryItem bagInventoryItem';

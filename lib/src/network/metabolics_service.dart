@@ -27,9 +27,9 @@ class MetabolicsService {
 	Future setupWebsocket() async {
 		//establish a websocket connection to listen for metabolics objects coming in
 		WebSocket socket = new WebSocket(url);
-		socket.onOpen.listen((_) => socket.send(JSON.encode({'username': game.username})));
+		socket.onOpen.listen((_) => socket.send(jsonEncode({'username': game.username})));
 		socket.onMessage.listen((MessageEvent event) async {
-			Map map = JSON.decode(event.data);
+			Map map = jsonDecode(event.data);
 			if (map['collectQuoin'] != null && map['collectQuoin'] == "true") {
 				collectQuoin(map);
 			} else if (map["levelUp"] != null) {
@@ -143,7 +143,7 @@ class MetabolicsService {
 
 	num get currentStreetY => playerMetabolics.currentStreetY;
 
-	List<String> get location_history => JSON.decode(playerMetabolics.locationHistory);
+	List<String> get location_history => jsonDecode(playerMetabolics.locationHistory);
 
 	Future<int> get level async {
 		String lvlStr = await HttpRequest.getString("${Configs.http}//${Configs.utilServerAddress}/getLevel?img=${lifetime_img.toString()}");

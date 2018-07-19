@@ -7,7 +7,7 @@ class Door extends Entity {
 
 	Door(Map map) {
 		if (map.containsKey('actions')) {
-			actions = decode(JSON.encode(map['actions']), type: const TypeHelper<List<Action>>().type);
+			actions = decode(jsonEncode(map['actions']), type: const TypeHelper<List<Action>>().type);
 		}
 
 		canvas = new CanvasElement();
@@ -25,7 +25,7 @@ class Door extends Entity {
 			left = x;
 			top = y;
 
-			canvas.attributes['actions'] = JSON.encode(map['actions']);
+			canvas.attributes['actions'] = jsonEncode(map['actions']);
 			canvas.attributes['type'] = map['type'];
 			canvas.classes.add("door");
 			canvas.classes.add('entity');

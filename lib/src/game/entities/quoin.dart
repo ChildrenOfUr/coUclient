@@ -197,7 +197,7 @@ class Quoin {
 			map["type"] = "quoin";
 			map['username'] = game.username;
 			map["streetName"] = currentStreet.label;
-			streetSocket.send(JSON.encode(map));
+			streetSocket.send(jsonEncode(map));
 		}
 	}
 

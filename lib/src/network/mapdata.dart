@@ -18,7 +18,7 @@ class MapData {
 				onTimeout: () => _serverIsDown('Connection timed out.'))
 			.then((String json) {
 				try {
-					Map<String, Map<String, dynamic>> data = JSON.decode(json);
+					Map<String, Map<String, dynamic>> data = jsonDecode(json);
 					logmessage('[Server Communication] Map data loaded.');
 					hubData = data['hubs'];
 					streetData = data['streets'];
@@ -36,7 +36,7 @@ class MapData {
 	}
 
 	// Shows the "server down" screen
-	void _serverIsDown([String errorText = ""]) {
+	Future<Null> _serverIsDown([String errorText = ""]) async {
 		logmessage("[Server Communication] Server down thrown: Could not load map data. $errorText");
 		querySelector('#server-down').hidden = false;
 		serverDown = true;

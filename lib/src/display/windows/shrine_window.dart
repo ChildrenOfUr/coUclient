@@ -69,7 +69,7 @@ class ShrineWindow extends Modal {
 			}
 
 			buttonHolder.style.visibility = 'visible';
-			item = JSON.decode(dropEvent.draggableElement.attributes['itemMap']);
+			item = jsonDecode(dropEvent.draggableElement.attributes['itemMap']);
 			dropTarget.style.backgroundImage = 'url(' + item['iconUrl'] + ')';
 			helpText.innerHtml = 'Donate how many?';
 

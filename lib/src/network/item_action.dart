@@ -11,7 +11,7 @@ class Item {
 		localStorage["item_cache"] != null // Items set
 		) {
 			// If the cache is fresh
-			return JSON.decode(localStorage["item_cache"]);
+			return jsonDecode(localStorage["item_cache"]);
 		} else {
 			// Download item data
 			String newJSON = await HttpRequest.getString("${Configs.http}//${Configs.utilServerAddress}/getItems");
@@ -19,18 +19,18 @@ class Item {
 			localStorage["item_cache"] = newJSON;
 			localStorage["item_cache_date"] = today;
 			// Return item data
-			return JSON.decode(newJSON);
+			return jsonDecode(newJSON);
 		}
 	}
 
 	static bool isItem({String itemType, String itemName}) {
 		if (itemType != null) {
-			List<Map> items = JSON.decode(localStorage["item_cache"]);
+			List<Map> items = jsonDecode(localStorage["item_cache"]);
 			return (items.where((Map item) => item["itemType"] == itemType).toList().length > 0);
 		}
 
 		if (itemName != null) {
-			List<Map> items = JSON.decode(localStorage["item_cache"]);
+			List<Map> items = jsonDecode(localStorage["item_cache"]);
 			return (items.where((Map item) => item["name"] == itemName).toList().length > 0);
 		}
 
@@ -38,13 +38,13 @@ class Item {
 	}
 
 	static String getName(String itemType) {
-		List<Map> items = JSON.decode(localStorage["item_cache"]);
+		List<Map> items = jsonDecode(localStorage["item_cache"]);
 		return items.where((Map item) => item["itemType"] == itemType).toList().first["name"];
 	}
 
 	static String getIcon({String itemType, String itemName}) {
 		if (itemType != null) {
-			List<Map> items = JSON.decode(localStorage["item_cache"]);
+			List<Map> items = jsonDecode(localStorage["item_cache"]);
 			try {
 				return items.where((Map item) => item["itemType"] == itemType).toList().first["iconUrl"];
 			} catch(e) {
@@ -54,7 +54,7 @@ class Item {
 		}
 
 		if (itemName != null) {
-			List<Map> items = JSON.decode(localStorage["item_cache"]);
+			List<Map> items = jsonDecode(localStorage["item_cache"]);
 			try {
 				return items.where((Map item) => item["name"] == itemName).toList().first["iconUrl"];
 			} catch(e) {

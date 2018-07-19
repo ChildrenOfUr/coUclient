@@ -25,7 +25,7 @@ class RockWindow extends Modal {
 
 		// Handle screen navigation
 		querySelectorAll("#rwc-" + convo + " .rwc-button").onClick.listen((e) {
-			String id = e.target.dataset["goto"];
+			String id = (e.target as Element).dataset["goto"];
 			if (id == querySelector("#rwc-" + convo).dataset["endphrase"]) {
 				// Last screen, close and return to the menu
 				super.close();

@@ -92,7 +92,7 @@ class GpsIndicator {
 
 		num dy = exitY - playerY;
 		num dx = exitX - playerX;
-		num theta = atan2(dy, dx) - 3 * PI / 2;
+		num theta = atan2(dy, dx) - 3 * pi / 2;
 		return theta;
 	}
 }

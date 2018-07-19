@@ -15,7 +15,6 @@ import 'dart:collection';
 
 // Libraries
 
-import 'package:browser_detect/browser_detect.dart'; // Special browser errors
 import 'package:couclient/configs.dart'; // Global data
 import 'package:couclient/src/network/server_interop/itemdef.dart'; // Items
 import 'package:coUemoticons/bin/main.dart' as emoji; // Emoticons
@@ -184,7 +183,7 @@ bool get hasTouchSupport => context.callMethod("hasTouchSupport");
 Future main() async {
 	// Don't try to load the game in an unsupported browser
 	// They will continue to see the error message
-	if (browser.isIe || browser.isSafari) return;
+	if (knownUnsupportedBrowser()) return;
 
 	// Show the loading screen
 	querySelector("#browser-error").hidden = true;
@@ -213,7 +212,7 @@ Future main() async {
 		await Item.loadItems();
 
 		// Download constants
-		constants = JSON.decode(await HttpRequest.getString("${Configs.http}//${Configs.utilServerAddress}/constants/json"));
+		constants = jsonDecode(await HttpRequest.getString("${Configs.http}//${Configs.utilServerAddress}/constants/json"));
 	} catch (e, st) {
 		logmessage("Error loading server data: $e\n$st");
 		serverDown = true;
@@ -274,6 +273,12 @@ enum ViewportMedia {
 	TABLET,
 	MOBILE
 }
+
+bool knownUnsupportedBrowser() =>
+	window.navigator.appName.contains("Microsoft") ||
+	window.navigator.appVersion.contains("Trident") ||
+	window.navigator.appVersion.contains("Edge") ||
+	window.navigator.vendor.contains('Apple');
 
 void checkMedia() {
 	// If the device is capable of touch events, assume the touch ui

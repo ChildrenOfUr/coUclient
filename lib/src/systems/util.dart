@@ -50,9 +50,9 @@ String logmessage(String message) {
  * Log console errors to the bug report window.
  **/
 void startConsoleErrorLogging() {
-	window.onError.listen((ErrorEvent error) {
+	window.onError.listen((Event error) {
 		BugWindow.messagesLogged +=
-			'[Console Error @ ${error.filename}:${error.lineno}:${error.colno}] ${error.message}'
+			'[Console Error @ ${(error as ErrorEvent).filename}:${(error as ErrorEvent).lineno}:${(error as ErrorEvent).colno}] ${(error as ErrorEvent).message}'
 			'\n';
 	});
 }
@@ -323,7 +323,7 @@ sendAction(String methodName, String entityId, [Map arguments]) {
 	map['email'] = game.email;
 	map['tsid'] = currentStreet.streetData['tsid'];
 	map['arguments'] = arguments;
-	streetSocket.send(JSON.encode(map));
+	streetSocket.send(jsonEncode(map));
 }
 
 /**
@@ -346,7 +346,7 @@ sendGlobalAction(String methodName, [Map arguments]) {
 	map['email'] = game.email;
 	map['tsid'] = currentStreet.streetData['tsid'];
 	map['arguments'] = arguments;
-	streetSocket.send(JSON.encode(map));
+	streetSocket.send(jsonEncode(map));
 
 	logmessage("[Server Communication] Sending global $methodName with arguments: $arguments");
 }

@@ -133,7 +133,11 @@ abstract class Entity {
 	int get hashCode => id.hashCode;
 
 	@override
-	operator ==(Entity other) {
+	operator ==(other) {
+		if (other is! Entity) {
+			return false;
+		}
+
 		return (other.id == this.id);
 	}
 }

@@ -87,11 +87,8 @@ class InventorySearchWindow extends Modal {
 				continue;
 			}
 
-			if (
-				(slot.item.isContainer ?? false) &&
-				slot.item.metadata?.containsKey('slots') ?? false
-			) {
-				List<Map> subSlots = JSON.decode(slot.item.metadata['slots']);
+			if ((slot.item.isContainer ?? false) && (slot.item.metadata?.containsKey('slots') ?? false)) {
+				List<Map> subSlots = jsonDecode(slot.item.metadata['slots']);
 				for (int ssi = 0; ssi < slot.item.subSlots; ssi++) {
 					if (subSlots[ssi]['item'] == null) {
 						continue;
@@ -183,7 +180,7 @@ class InventorySearchWindow extends Modal {
 			});
 
 			// Wait for it to refresh
-			if (!(bagWindow.loadUpdate?.isCompleted) ?? false) {
+			if (!(bagWindow.loadUpdate?.isCompleted ?? true)) {
 				await bagWindow.loadUpdate.future;
 			}
 

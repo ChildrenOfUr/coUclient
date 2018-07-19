@@ -71,7 +71,7 @@ class WeatherManager {
 		});
 
 		new Service(['streetLoaded'], (_) {
-			socket.send(JSON.encode({
+			socket.send(jsonEncode({
 				'update': 'location',
 				'username': game.username,
 				'tsid': currentStreet.tsid
@@ -90,7 +90,7 @@ class WeatherManager {
 	static Future<Map<String, dynamic>> requestHubWeather(String hubId) {
 		requests[hubId] = new Completer();
 
-		socket.send(JSON.encode({
+		socket.send(jsonEncode({
 			'update': 'request',
 			'username': game.username,
 			'hub_id': hubId
@@ -310,12 +310,12 @@ class WeatherManager {
 	static void _setupWebsocket() {
 		//establish a websocket connection to listen for weather data coming in
 		socket = new WebSocket(url);
-		socket.onOpen.listen((_) => socket.send(JSON.encode({
+		socket.onOpen.listen((_) => socket.send(jsonEncode({
 			'username': game.username,
 			'tsid': currentStreet.tsid.toString()
 		})));
 		socket.onMessage.listen((MessageEvent event) {
-			Map map = JSON.decode(event.data);
+			Map map = jsonDecode(event.data);
 
 			_processMessage(map);
 		});
@@ -329,7 +329,7 @@ class WeatherManager {
 		});
 	}
 
-	static void _processMessage(Map map) {
+	static void _processMessage(Map<String, dynamic> map) {
 		if (windowManager.weather.elementOpen && !windowManager.weather.remoteViewing) {
 			windowManager.weather.refresh();
 		}

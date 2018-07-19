@@ -37,7 +37,7 @@ class QuestManager {
 		_setupWebsocket();
 
 		new Service('questChoice', (Map map) {
-			socket.send(JSON.encode(map));
+			socket.send(jsonEncode(map));
 		});
 	}
 
@@ -53,7 +53,7 @@ class QuestManager {
 		String url = '${Configs.ws}//${Configs.websocketServerAddress}/quest';
 		socket = new WebSocket(url);
 
-		socket.onOpen.listen((_) => socket.send(JSON.encode({'connect':true, 'email':game.email})));
+		socket.onOpen.listen((_) => socket.send(jsonEncode({'connect':true, 'email':game.email})));
 		socket.onClose.listen((CloseEvent e) {
 			logmessage('[Quest] Websocket closed: ${e.reason}');
 			//wait 5 seconds and try to reconnect
@@ -64,36 +64,36 @@ class QuestManager {
 		});
 
 		socket.onMessage.listen((MessageEvent event) {
-			Map map = JSON.decode(event.data);
+			Map map = jsonDecode(event.data);
 			if (map['questComplete'] != null) {
-				Quest quest = decode(JSON.encode(map['quest']), type: Quest);
+				Quest quest = decode(jsonEncode(map['quest']), type: Quest);
 				transmit('questComplete', quest);
 				windowManager.rockWindow.createConvo(quest.conversation_end, rewards: quest.rewards);
 				windowManager.rockWindow.switchContent('rwc-' + quest.conversation_end.id);
 				windowManager.rockWindow.open();
 			}
 			if (map['questFail'] != null) {
-				Quest quest = decode(JSON.encode(map['quest']), type: Quest);
+				Quest quest = decode(jsonEncode(map['quest']), type: Quest);
 				windowManager.rockWindow.createConvo(quest.conversation_fail);
 				windowManager.rockWindow.switchContent('rwc-' + quest.conversation_fail.id);
 				windowManager.rockWindow.open();
 			}
 			if (map['questOffer'] != null) {
-				Quest quest = decode(JSON.encode(map['quest']), type: Quest);
+				Quest quest = decode(jsonEncode(map['quest']), type: Quest);
 				windowManager.rockWindow.createConvo(quest.conversation_start);
 				windowManager.rockWindow.switchContent('rwc-' + quest.conversation_start.id);
 				windowManager.rockWindow.open();
 			}
 			if (map['questInProgress'] != null) {
-				Quest quest = decode(JSON.encode(map['quest']), type: Quest);
+				Quest quest = decode(jsonEncode(map['quest']), type: Quest);
 				transmit('questInProgress', quest);
 			}
 			if (map['questBegin'] != null) {
-				Quest quest = decode(JSON.encode(map['quest']), type: Quest);
+				Quest quest = decode(jsonEncode(map['quest']), type: Quest);
 				transmit('questBegin', quest);
 			}
 			if (map['questUpdate'] != null) {
-				Quest quest = decode(JSON.encode(map['quest']), type: Quest);
+				Quest quest = decode(jsonEncode(map['quest']), type: Quest);
 				transmit('questUpdate', quest);
 			}
 		});

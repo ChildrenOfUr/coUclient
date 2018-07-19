@@ -182,7 +182,7 @@ class UserInterface {
 					return;
 				}
 
-				String itemType = JSON.decode(target.attributes["itemmap"])["itemType"];
+				String itemType = jsonDecode(target.attributes["itemmap"])["itemType"];
 
 				if (Chat.lastFocusedInput.value == "" || Chat.lastFocusedInput.value.endsWith(" ")) {
 					Chat.lastFocusedInput.value += "#$itemType#";

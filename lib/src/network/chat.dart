@@ -51,7 +51,7 @@ class NetChatManager {
 	}
 
 	post(Map data) {
-		_connection.sendString(JSON.encoder.convert(data));
+		_connection.sendString(jsonEncode(data));
 	}
 
 	void setupWebsocket(String url) {
@@ -72,7 +72,7 @@ class NetChatManager {
 					..['channel'] = 'Global Chat');
 			})
 			..onMessage.listen((MessageEvent event) {
-				Map data = JSON.decoder.convert(event.data);
+				Map data = jsonDecode(event.data);
 				if (data['statusMessage'] == 'list') {
 					transmit('chatListEvent', data);
 				} else {
@@ -110,7 +110,7 @@ class NetChatManager {
 	// Update the list of friends in the sidebar
 	static Future<int> refreshOnlinePlayers() async {
 		// Download list of friends with online status
-		Map<String, bool> users = JSON.decode(await HttpRequest
+		Map<String, bool> users = jsonDecode(await HttpRequest
 			.requestCrossOrigin(
 			'${Configs.http}//${Configs.utilServerAddress}/friends/list/${game.username}'));
 

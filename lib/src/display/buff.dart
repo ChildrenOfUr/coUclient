@@ -17,7 +17,7 @@ class Buff {
 		HttpRequest.getString(
 			"${Configs.http}//${Configs.utilServerAddress}/buffs/get/${game.email}"
 		).then((String json) {
-			JSON.decode(json).forEach((Map buff) => new Buff.fromMap(buff));
+			jsonDecode(json).forEach((Map buff) => new Buff.fromMap(buff));
 		});
 	}
 

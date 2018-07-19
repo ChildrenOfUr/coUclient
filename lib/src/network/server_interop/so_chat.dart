@@ -6,7 +6,7 @@ void sendLeftMessage(String streetName) {
 		map["username"] = game.username;
 		map["streetName"] = streetName;
 		map["message"] = "left";
-		streetSocket.send(JSON.encode(map));
+		streetSocket.send(jsonEncode(map));
 	}
 }
 
@@ -20,7 +20,7 @@ void sendJoinedMessage(String streetName, [String tsid]) {
 		map["tsid"] = tsid == null ? currentStreet.streetData['tsid'] : tsid;
 		map["message"] = "joined";
 		map['firstConnect'] = firstConnect;
-		streetSocket.send(JSON.encode(map));
+		streetSocket.send(jsonEncode(map));
 		joined = streetName;
 		if (firstConnect) {
 			firstConnect = false;

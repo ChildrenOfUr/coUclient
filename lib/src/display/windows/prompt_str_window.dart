@@ -50,7 +50,7 @@ class PromptStringWindow extends Modal {
 			value = value.substring(0, charLimit);
 		}
 
-		streetSocket.send(JSON.encode({
+		streetSocket.send(jsonEncode({
 			'promptRef': reference,
 			'promptResponse': value
 		}));

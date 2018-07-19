@@ -77,7 +77,7 @@ class MailboxWindow extends Modal {
 
 			// Only allow bags if they are empty
 			if (item.isContainer) {
-				for (Map slot in JSON.decode(item.metadata['slots'])) {
+				for (Map slot in jsonDecode(item.metadata['slots'])) {
 					if (slot['itemType'] != '') {
 						return;
 					}
@@ -136,7 +136,7 @@ class MailboxWindow extends Modal {
 		}
 
 		if (encode) {
-			data = JSON.encode(data);
+			data = jsonEncode(data);
 		}
 
 		return HttpRequest.request(
@@ -296,7 +296,7 @@ class MailboxWindow extends Modal {
 		if (sofar.length > 2) {
 			String response = await HttpRequest.getString('${Configs.http}//${Configs.utilServerAddress}/friends/list/${game.username}');
 			_toList.children.clear();
-			JSON.decode(response).forEach((String username, bool online) {
+			jsonDecode(response).forEach((String username, bool online) {
 				OptionElement option = new OptionElement()
 					..value = username
 					..text = (online ? 'Online' : 'Offline');
@@ -313,11 +313,11 @@ class MailboxWindow extends Modal {
 			return null;
 		}
 
-		Map itemMap = JSON.decode(element.attributes['itemMap']);
+		Map itemMap = jsonDecode(element.attributes['itemMap']);
 		Map metadata = itemMap['metadata'];
 		itemMap['metadata'] = {};
 
-		ItemDef item = decode(JSON.encode(itemMap), type: ItemDef);
+		ItemDef item = decode(jsonEncode(itemMap), type: ItemDef);
 		item.metadata = metadata;
 
 		return item;

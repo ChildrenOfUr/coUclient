@@ -116,7 +116,7 @@ class VendorWindow extends Modal {
 			if(dropEvent.draggableElement.attributes['itemMap'] == null) {
 				return;
 			}
-			spawnBuyDetails(JSON.decode(dropEvent.draggableElement.attributes['itemMap']), vendorMap['id'], sellMode:true);
+			spawnBuyDetails(jsonDecode(dropEvent.draggableElement.attributes['itemMap']), vendorMap['id'], sellMode:true);
 		});
 
 		if(sellMode) {
@@ -133,7 +133,7 @@ class VendorWindow extends Modal {
 			(item['isContainer'] != null && item['isContainer'])
 			&& (item['metadata'] != null && item['metadata']['slots'] != null)
 		) {
-			List<Map<String, dynamic>> slots = JSON.decode(item['metadata']['slots']);
+			List<Map<String, dynamic>> slots = jsonDecode(item['metadata']['slots']);
 			bool itemFound = false;
 			for (Map<String, dynamic> slot in slots) {
 				if (slot['itemType'].trim() || slot['item'] != null || slot['count'] > 0) {

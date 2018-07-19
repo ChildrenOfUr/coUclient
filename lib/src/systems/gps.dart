@@ -87,7 +87,7 @@ class GPS {
 		Map<String,num> dist = {};
 		Map<String,String> previous = {};
 		vertices.forEach((String vertex) {
-			dist[vertex] = double.INFINITY;
+			dist[vertex] = double.infinity;
 		});
 		dist[source] = 0;
 
@@ -95,7 +95,7 @@ class GPS {
 		String u;
 		int lastLength = Q.length;
 		while(Q.length > 0) {
-			num min = double.INFINITY;
+			num min = double.infinity;
 			Q.forEach((String vertex) {
 				if(dist[vertex] < min) {
 					min = dist[vertex];
@@ -110,7 +110,7 @@ class GPS {
 			} else {
 				lastLength = Q.length;
 			}
-			if(dist[u] == double.INFINITY || u == target) {
+			if(dist[u] == double.infinity || u == target) {
 				break;
 			}
 

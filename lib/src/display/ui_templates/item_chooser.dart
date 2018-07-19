@@ -50,7 +50,7 @@ class ItemChooser {
 			for (String filter in filter.split('|||')) {
 				List<String> filterData = filter.split('=');
 				RegExp filterMatch = new RegExp(filterData[1], caseSensitive: false);
-				if(!filterMatch.hasMatch(JSON.decode(encode(item))[filterData[0]].toString())) {
+				if(!filterMatch.hasMatch(jsonDecode(encode(item))[filterData[0]].toString())) {
 					noMatch = true;
 					break;
 				}

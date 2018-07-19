@@ -3,7 +3,7 @@ part of couclient;
 class ClockManager {
 	ClockManager() {
 		// Take each of the 'clock's streams, and when there is an event, broadcast this to the manager's subscribers.
-		clock.onUpdate.listen((List timedata) {
+		clock.onUpdate.listen((timedata) {
 			transmit('timeUpdate', timedata);
 		});
 		clock.onNewDay.listen((_) {
@@ -59,7 +59,7 @@ class Clock {
 
 	Future <List <String>> getHolidays(int month, int day) async {
 		String url = '${Configs.http}//${Configs.utilServerAddress}/getHolidays?month=${month}&day=${day}';
-		List<String> currentHolidays = JSON.decode(await HttpRequest.requestCrossOrigin(url));
+		List<String> currentHolidays = jsonDecode(await HttpRequest.requestCrossOrigin(url));
 		return currentHolidays;
 	}
 

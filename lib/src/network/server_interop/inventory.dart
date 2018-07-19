@@ -38,10 +38,10 @@ Future updateInventory([Map map]) async {
 		if (!m['itemType'].isEmpty) {
 			ItemDef item;
 			if (m['item']['metadata']['slots'] == null) {
-				item = decode(JSON.encode(m['item']), type: ItemDef);
+				item = decode(jsonEncode(m['item']), type: ItemDef);
 			} else {
 				Map metadata = (m['item'] as Map).remove('metadata');
-				item = decode(JSON.encode(m['item']), type: ItemDef);
+				item = decode(jsonEncode(m['item']), type: ItemDef);
 				item.metadata = metadata;
 			}
 			slot.item = item;

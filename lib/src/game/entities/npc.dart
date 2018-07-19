@@ -27,7 +27,7 @@ class NPC extends Entity {
 
 	NPC(Map map) {
 		if (map.containsKey('actions')) {
-			actions = decode(JSON.encode(map['actions']), type: const TypeHelper<List<Action>>().type);
+			actions = decode(jsonEncode(map['actions']), type: const TypeHelper<List<Action>>().type);
 		}
 
 		canvas = new CanvasElement();
@@ -72,7 +72,7 @@ class NPC extends Entity {
 			}
 
 			canvas.id = map["id"];
-			canvas.attributes['actions'] = JSON.encode(map['actions']);
+			canvas.attributes['actions'] = jsonEncode(map['actions']);
 			canvas.attributes['type'] = map['type'];
 			canvas.classes.add("npc");
 			canvas.classes.add('entity');

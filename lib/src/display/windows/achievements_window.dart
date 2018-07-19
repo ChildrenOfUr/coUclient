@@ -32,9 +32,9 @@ class AchievementsWindow extends Modal {
 			String category = target.text;
 			String url = "${Configs.http}//${Configs.utilServerAddress}/listAchievements?email=${game
 				.email}&excludeNonMatches=false&category=$category";
-			Map map = JSON.decode(await HttpRequest.getString(url));
+			Map map = jsonDecode(await HttpRequest.getString(url));
 			List<Achievement> achievements = decode(
-				JSON.encode(map.values.toList()), type: const TypeHelper<List<Achievement>>().type);
+				jsonEncode(map.values.toList()), type: const TypeHelper<List<Achievement>>().type);
 
 			DivElement earned = new DivElement()..classes = ['earned-achvments'];
 			DivElement unearned = new DivElement()..classes = ['unearned-achvments'];

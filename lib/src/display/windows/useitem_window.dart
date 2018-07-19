@@ -439,7 +439,7 @@ class UseWindow extends Modal {
 		if (notify) {
 			new Toast("Reading recipe book...");
 		}
-		recipeList = await JSON.decode(await HttpRequest.requestCrossOrigin(
+		recipeList = await jsonDecode(await HttpRequest.requestCrossOrigin(
 			"${Configs.http}//${Configs.utilServerAddress}/recipes/list?token=$rsToken&tool=$itemType&email=${game.email}"));
 		return;
 	}

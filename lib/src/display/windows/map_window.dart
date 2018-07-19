@@ -151,7 +151,7 @@ class MapWindow extends Modal {
 }
 
 class WorldMap {
-	static final num DEG_TO_RAD = PI / 180;
+	static final num DEG_TO_RAD = pi / 180;
 
 	String showingHub;
 	Map<String, String> hubInfo;
@@ -460,13 +460,13 @@ class WorldMap {
 		if (street['y1'] < street['y2']) {
 			Rectangle streetBox = new Rectangle(street['x1'], street['y1'],
 				street['x2'] - street['x1'], street['y2'] - street['y1']);
-			radians = (PI / 2) - atan2(streetBox.width, streetBox.height);
+			radians = (pi / 2) - atan2(streetBox.width, streetBox.height);
 		} else if (street['y1'] > street['y2']) {
 			Rectangle streetBox = new Rectangle(street['x1'], street['y1'],
 				street['x2'] - street['x1'], street['y1'] - street['y2']);
 			radians = atan2(streetBox.width, streetBox.height);
 			if (streetBox.width > streetBox.height) {
-				radians -= (PI / 2);
+				radians -= (pi / 2);
 			}
 			radians = -atan2(streetBox.height, streetBox.width);
 		}
@@ -568,7 +568,7 @@ class WorldMap {
 		worldMapVisible = true;
 
 		WorldMapDiv.onClick.listen((e) {
-			Element target = (e.target is SpanElement ? e.target.parent : e.target);
+			Element target = (e.target is SpanElement ? (e.target as SpanElement).parent : e.target as Element);
 			loadhubdiv(target.dataset["hub"]);
 			querySelector("#map-window-world").setInnerHtml('<i class="fa fa-fw fa-globe"></i>');
 		});
