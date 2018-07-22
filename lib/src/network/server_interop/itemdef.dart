@@ -26,7 +26,7 @@ class ItemDef {
 	List<String> subSlotFilter;
 	List<Action> actions = [];
 	Map<String, int> consumeValues = {};
-	Map<String, String> metadata = {};
+	Map<String, dynamic> metadata = {};
 
 	ItemDef();
 	factory ItemDef.fromJson(Map<String, dynamic> json) => _$ItemDefFromJson(json);
@@ -43,7 +43,7 @@ class Action {
 	SkillRequirements skillRequirements = new SkillRequirements();
 	EnergyRequirements energyRequirements = new EnergyRequirements();
 	String associatedSkill;
-	Map dropMap;
+	Map<String, dynamic> dropMap;
 
 	Action();
 	factory Action.fromJson(Map<String, dynamic> json) => _$ActionFromJson(json);
@@ -134,5 +134,7 @@ class EnergyRequirements {
 
 /// Support for decoding arrays of objects that were stored as JSON
 typedef T JsonArrayDecoder<T>(Map<String, dynamic> json);
-List<T> decodeJsonArray<T>(List<Map<String, dynamic>> array, JsonArrayDecoder<T> decoder) =>
-	array.map((Map<String, dynamic> json) => decoder(json)).toList();
+List<T> decodeJsonArray<T>(List array, JsonArrayDecoder<T> decoder) =>
+	array
+		.cast<Map<String, dynamic>>()
+		.map((Map<String, dynamic> json) => decoder(json)).toList();

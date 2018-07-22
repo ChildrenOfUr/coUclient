@@ -18,7 +18,7 @@ multiplayerInit() {
 	_setupStreetSocket(currentStreet.label);
 }
 
-void addQuoin(Map map) {
+void addQuoin(Map<String, dynamic> map) {
 	String id = map['id'];
 	if(addingLocks[id] ?? false) {
 		return;
@@ -54,7 +54,7 @@ void addPlant(Map map) {
 	}
 }
 
-void addDoor(Map map) {
+void addDoor(Map<String, dynamic> map) {
 	String id = map['id'];
 	if(addingLocks[id] ?? false) {
 		return;

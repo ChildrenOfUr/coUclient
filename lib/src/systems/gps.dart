@@ -9,6 +9,7 @@ class Edge {
 	Edge.fromValues(this.start, this.end, {weight: 1});
 
 	factory Edge.fromJson(Map<String, dynamic> json) => _$EdgeFromJson(json);
+	Map<String, dynamic> toJson() => _$EdgeToJson(this);
 }
 
 @JsonSerializable()
@@ -26,6 +27,7 @@ class Graph {
 
 	Graph();
 	factory Graph.fromJson(Map<String, dynamic> json) => _$GraphFromJson(json);
+	Map<String, dynamic> toJson() => _$GraphToJson(this);
 }
 
 class GPS {

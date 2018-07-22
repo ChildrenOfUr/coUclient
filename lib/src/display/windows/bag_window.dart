@@ -172,7 +172,7 @@ class BagWindow extends Modal {
 			}
 		} else {
 			// Bag has contents
-			subSlots = jsonDecode(sourceItem.metadata["slots"]);
+			subSlots = (jsonDecode(sourceItem.metadata["slots"]) as List).cast<Map>();
 		}
 
 		if (subSlots.length != sourceItem.subSlots) {

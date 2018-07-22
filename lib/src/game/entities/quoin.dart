@@ -17,11 +17,11 @@ class Quoin {
 	num left, top;
 	String id;
 
-	Quoin(Map map) {
+	Quoin(Map<String, dynamic> map) {
 		init(map);
 	}
 
-	init(Map map) async
+	init(Map<String, dynamic> map) async
 	{
 		typeString = map['type'];
 
@@ -48,7 +48,12 @@ class Quoin {
 		}
 
 		animation = new Animation(map['url'], typeString.toLowerCase(), 8, 24, frameList, fps:22);
+		try {
 		await animation.load();
+		} catch (e, st) {
+			print("$e\n$st");
+			return;
+		}
 
 		canvas = new CanvasElement();
 		canvas.width = animation.width;

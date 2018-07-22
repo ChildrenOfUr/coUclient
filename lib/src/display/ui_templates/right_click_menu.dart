@@ -232,7 +232,9 @@ class RightClickMenu {
 					// Mark disabled options
 					option.classes.add(OPTION_DISABLED_CLASS);
 					option.onClick.listen((_) {
-						new Toast(action.error);
+						if (action.error != null) {
+							new Toast(action.error);
+						}
 					});
 				}
 
@@ -523,8 +525,8 @@ class RightClickMenu {
 	}
 
 	static void showActionError(Element tooltip, String errorText) {
-		tooltip.hidden = errorText == '';
-		tooltip.text = errorText;
+		tooltip.hidden = (errorText ?? '') == '';
+		tooltip.text = errorText ?? '';
 	}
 
 	static int destroyAll() {

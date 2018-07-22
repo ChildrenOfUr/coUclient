@@ -8,7 +8,8 @@ class ChatBubble {
 	bool autoDismiss, removeParent;
 
 	ChatBubble(this.text, this.hostObject, this.parent,
-		{this.autoDismiss: true, this.removeParent: false, bool addUsername: false, Map gains: null, String buttons}) {
+		{this.autoDismiss: true, this.removeParent: false, bool addUsername: false,
+			Map<String, dynamic> gains: null, String buttons}) {
 		if (autoDismiss) {
 			timeToLive = (text.length * 0.05) + 3; //minimum 3s plus 0.05 per character
 
@@ -61,9 +62,9 @@ class ChatBubble {
 			int gainsTotal = 0;
 			DivElement awarded = new DivElement()
 				..className = 'awarded';
-			(gains as Map<String, int>).forEach((String metabolic, int value) {
-				if (value != 0) {
-					gainsTotal += value;
+			gains.forEach((String metabolic, dynamic value) {
+				if (value as int != 0) {
+					gainsTotal += value as int;
 					SpanElement span = new SpanElement()
 						..className = metabolic;
 					String textValue = value > 0

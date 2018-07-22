@@ -5,7 +5,7 @@ class UseWindow extends Modal {
 	String id = 'useWindow' + WindowManager.randomId.toString();
 	String itemType, itemName;
 	String listUrl;
-	List<Map> recipeList;
+	List<Map<String, dynamic>> recipeList;
 	Element well;
 	bool makingCancelled;
 
@@ -46,7 +46,8 @@ class UseWindow extends Modal {
 			..text = "Using a $itemName";
 
 		Element header = new Element.header()
-			..append(icon)..append(titleSpan);
+			..append(icon)
+			..append(titleSpan);
 
 		// Container
 
@@ -57,7 +58,9 @@ class UseWindow extends Modal {
 			..id = id
 			..classes.add("window")
 			..classes.add("useWindow")
-			..append(closeButton)..append(header)..append(well);
+			..append(closeButton)
+			..append(header)
+			..append(well);
 
 		return (window);
 	}
@@ -74,13 +77,13 @@ class UseWindow extends Modal {
 			..hidden = false;
 
 		if (recipeList.length > 0) {
-			recipeList.forEach((Map recipe) {
+			recipeList.forEach((Map<String, dynamic> recipe) {
 				List<int> itemMax = [];
 
 				List<String> inputTypes = [];
 
 				//decide if we can make this recipe
-				recipe['input'].forEach((Map itemMap) {
+				(recipe['input'] as List).cast<Map<String, dynamic>>().forEach((Map<String, dynamic> itemMap) {
 					inputTypes.add(itemMap['itemType']);
 
 					int userHas = util.getNumItems(itemMap['itemType']);
@@ -118,7 +121,8 @@ class UseWindow extends Modal {
 
 				DivElement recipeBtn = new DivElement()
 					..classes.addAll(["useitem-recipe", "white-btn"])
-					..append(image)..append(info)
+					..append(image)
+					..append(info)
 					..onClick.listen((_) => openRecipe(recipe["id"]));
 
 				if (recipe["canMake"] == 0) {
@@ -140,7 +144,7 @@ class UseWindow extends Modal {
 		return recipeContainer;
 	}
 
-	openRecipe(String id) {
+	void openRecipe(String id) {
 		int qty = 1;
 		Map recipe = getRecipe(id);
 
@@ -262,7 +266,12 @@ class UseWindow extends Modal {
 			..append(hmTitle);
 
 		if (recipe["canMake"] > 0) {
-			centerCol..append(qtyParent)..append(maxDisp)..append(maxBtn)..append(new HRElement())..append(makeBtn);
+			centerCol
+				..append(qtyParent)
+				..append(maxDisp)
+				..append(maxBtn)
+				..append(new HRElement())
+				..append(makeBtn);
 		}
 
 		// ingredients
@@ -274,7 +283,7 @@ class UseWindow extends Modal {
 		TableElement ingList = new TableElement()
 			..classes.add("recipeview-ing-list");
 
-		(recipe["input"] as List<Map>).forEach((Map ingmap) {
+		(recipe["input"] as List).cast<Map<String, dynamic>>().forEach((Map<String, dynamic> ingmap) {
 			TableCellElement img = new TableCellElement()
 				..style.backgroundImage = "url(${ingmap["iconUrl"]})"
 				..classes.add("rv-ing-list-img");
@@ -298,7 +307,9 @@ class UseWindow extends Modal {
 				..append(status);
 
 			TableRowElement item = new TableRowElement()
-				..append(img)..append(text)..append(statusCol)
+				..append(img)
+				..append(text)
+				..append(statusCol)
 				..onClick.listen((_) => new ItemWindow(ingmap["name"]))
 				..title = "Click to open item information";
 
@@ -312,7 +323,9 @@ class UseWindow extends Modal {
 		// display
 		well
 			..children.clear()
-			..append(leftCol)..append(centerCol)..append(rightCol)
+			..append(leftCol)
+			..append(centerCol)
+			..append(rightCol)
 			..classes.add("col3");
 
 		//need to call prepare again so that it is listening for our
@@ -320,7 +333,7 @@ class UseWindow extends Modal {
 		prepare();
 	}
 
-	makeRecipe(String id, [int qty = 1]) async {
+	Future<bool> makeRecipe(String id, [int qty = 1]) async {
 		Map recipe = getRecipe(id);
 
 		int current = 1;
@@ -400,6 +413,8 @@ class UseWindow extends Modal {
 
 			return true;
 		});
+
+		return null;
 	}
 
 	Future _stopMakingRecipes() async {
@@ -409,7 +424,7 @@ class UseWindow extends Modal {
 		well.append(await listRecipes());
 	}
 
-	Map getRecipe(String id) {
+	Map<String, dynamic> getRecipe(String id) {
 		return recipeList
 			.where((Map r) => r["id"] == id)
 			.first;
@@ -420,6 +435,7 @@ class UseWindow extends Modal {
 		if (refresh) {
 			await updateRecipes();
 		}
+
 		well.append(await listRecipes(true));
 		makingCancelled = false;
 		displayElement.hidden = false;
@@ -435,13 +451,15 @@ class UseWindow extends Modal {
 		}
 	}
 
-	updateRecipes([bool notify = true]) async {
+	Future updateRecipes([bool notify = true]) async {
 		if (notify) {
 			new Toast("Reading recipe book...");
 		}
-		recipeList = await jsonDecode(await HttpRequest.requestCrossOrigin(
-			"${Configs.http}//${Configs.utilServerAddress}/recipes/list?token=$rsToken&tool=$itemType&email=${game.email}"));
-		return;
+
+		String json = await HttpRequest.requestCrossOrigin(
+			"${Configs.http}//${Configs.utilServerAddress}/recipes/list"
+			"?token=$rsToken&tool=$itemType&email=${game.email}");
+		recipeList = (jsonDecode(json) as List).cast<Map<String, dynamic>>();
 	}
 
 	bool checkReqEnergy(Map recipe, Element makeBtn, NumberInputElement qtyDisplay) {

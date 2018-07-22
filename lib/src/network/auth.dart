@@ -33,7 +33,7 @@ class AuthManager {
 
 	ButtonElement _loginSubmit = querySelector('#login_submit_btn');
 	ButtonElement _loginSignup = querySelector('#login_signup_btn');
-	ButtonElement _loginResetPassword = querySelector('#login_trigger_forgot_pw');
+	DivElement _loginResetPassword = querySelector('#login_trigger_forgot_pw');
 	ButtonElement _loginNewUserBtn = querySelector('#login_new_user_btn');
 
 	bool invalidEmail = false;
@@ -310,7 +310,7 @@ class AuthManager {
 		audio.sc = new SC(SC_TOKEN);
 
 		// Begin Game//
-		game = new Game(Metabolics.fromJson(serverdata['metabolics']));
+		game = new Game(Metabolics.fromJson(jsonDecode(serverdata['metabolics'])));
 	}
 
 	void setupNewUser(Map serverdata) {
@@ -527,7 +527,8 @@ class AuthManager {
 
 		// $server = http|//hostname|8383 (| = split point)
 		//           ^  +     ^    (-  ^)
-		HttpRequest.getString('${Configs.http}//${Configs.utilServerAddress}/getSpritesheets?username=$getUsername').then((String json) {
+		HttpRequest.getString(
+			'${Configs.http}//${Configs.utilServerAddress}/getSpritesheets?username=$getUsername').then((String json) {
 			avatarUrl = jsonDecode(json)['base'];
 
 			// Used for sizing

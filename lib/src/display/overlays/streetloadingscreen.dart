@@ -142,7 +142,7 @@ class StreetLoadingScreen extends Overlay {
 
 	Future<String> _listEntities(Map<String, dynamic> street) async {
 		String url = '${Configs.http}//${Configs.utilServerAddress}/previewStreetEntities?tsid=${street['tsid']}';
-		Map<String, int> entityList = jsonDecode(await HttpRequest.getString(url));
+		Map entityList = jsonDecode(await HttpRequest.getString(url));
 		String entityString = '';
 
 		if (entityList.keys.length > 0) {
@@ -154,8 +154,9 @@ class StreetLoadingScreen extends Overlay {
 			entityString = '${entityList.values.single} ${entityList.keys.single}';
 		} else {
 			// Multiple entities, format with commas and a conjunction
+			List<String> entityKeys = entityList.keys.toList().cast<String>();
 			for (int i = 0; i < entityList.keys.length; i++) {
-				String entityType = entityList.keys.toList()[i];
+				String entityType = entityKeys[i];
 				int count = entityList[entityType];
 
 				if (i == entityList.keys.length - 1) {

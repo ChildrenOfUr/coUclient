@@ -241,13 +241,10 @@ void takeItemFromInventory(String itemType, {int count: 1}) {
 	transmit("inventoryUpdated");
 }
 
-Map getDropMap(int count, int slotNum, int subSlotNum) {
-	Map dropMap = new Map()
-		..['slot'] = slotNum
-		..['subSlot'] = subSlotNum
-		..['count'] = count
-		..['streetName'] = currentStreet.label
-		..['tsid'] = currentStreet.streetData['tsid'];
-
-	return dropMap;
-}
+Map<String, dynamic> getDropMap(int count, int slotNum, int subSlotNum) => {
+	'slot': slotNum,
+	'subSlot': subSlotNum,
+	'count': count,
+	'streetName': currentStreet.label,
+	'tsid': currentStreet.streetData['tsid']
+};

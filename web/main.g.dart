@@ -352,3 +352,22 @@ Map<String, dynamic> _$ConvoChoiceToJson(ConvoChoice instance) =>
       'isQuestAccept': instance.isQuestAccept,
       'isQuestReject': instance.isQuestReject
     };
+
+MapData _$MapDataFromJson(Map<String, dynamic> json) {
+  return new MapData()
+    ..hubData = (json['hubs'] as Map<String, dynamic>)
+        ?.map((k, e) => new MapEntry(k, e as Map<String, dynamic>))
+    ..streetData = (json['streets'] as Map<String, dynamic>)
+        ?.map((k, e) => new MapEntry(k, e as Map<String, dynamic>))
+    ..renderData = (json['render'] as Map<String, dynamic>)?.map((k, e) =>
+        new MapEntry(
+            k,
+            (e as Map<String, dynamic>)
+                ?.map((k, e) => new MapEntry(k, e as Map<String, dynamic>))));
+}
+
+Map<String, dynamic> _$MapDataToJson(MapData instance) => <String, dynamic>{
+      'hubs': instance.hubData,
+      'streets': instance.streetData,
+      'render': instance.renderData
+    };

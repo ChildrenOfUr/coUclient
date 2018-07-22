@@ -100,12 +100,13 @@ class Street {
 		}
 
 		// Collect the url's of each deco to load.
-		List decosToLoad = [];
+		List<String> decosToLoad = [];
 		for (Map layer in streetData['dynamic']['layers'].values) {
 			String layerName = layer['name'].replaceAll(' ', '_');
 			String url = 'https://childrenofur.com/assets/streetLayers/$tsid/$layerName.png';
 			if (Configs.testing) {
-				String status = await HttpRequest.getString('https://childrenofur.com/assets/street_layer_exists.php?tsid=$tsid&layer=$layerName');
+				String status = await HttpRequest.getString(
+					'https://childrenofur.com/assets/street_layer_exists.php?tsid=$tsid&layer=$layerName');
 				if (status == 'dev') {
 					int time = new DateTime.now().millisecondsSinceEpoch;
 					url = 'https://childrenofur.com/assets/streetLayers/dev/$tsid/$layerName.png?time=$time';
@@ -117,14 +118,14 @@ class Street {
 		}
 
 		// turn them into assets
-		List assetsToLoad = [];
+		List<Asset> assetsToLoad = [];
 		for (String deco in decosToLoad) {
 			assetsToLoad.add(new Asset(deco));
 		}
 
 		// Load each of them, and then continue.
 		Batch decos = new Batch(assetsToLoad);
-		await decos.load(setLoadingPercent);
+		await decos.load(callback: setLoadingPercent);
 		//Decos should all be loaded at this point//
 
 		groundY = -(streetData['dynamic']['ground_y'] as num).abs();
@@ -221,7 +222,7 @@ class Street {
 				showLineCanvas();
 			}
 
-			for (Map signpost in layer['signposts']) {
+			for (Map<String, dynamic> signpost in layer['signposts']) {
 				int h = 200,
 					w = 100;
 
@@ -246,11 +247,11 @@ class Street {
 
 				// show signpost in minimap {
 
-				List<Map<String, String>> connects = signpost['connects'];
-				List<String> streets = new List();
+				List<Map<String, dynamic>> connects = (signpost['connects'] as List).cast<Map<String, dynamic>>();
+				List<String> streets = [];
 
-				for (Map exit in connects) {
-					streets.add(exit['label']);
+				for (Map<String, dynamic> exit in connects) {
+					streets.add(exit['label'] as String);
 				}
 
 				minimap.currentStreetExits.add({
@@ -274,7 +275,7 @@ class Street {
 
 	//Parallaxing: Adjust the position of each canvas in #GameScreen
 	//based on the camera position and relative size of canvas to Street
-	render() {
+	void render() {
 		//only update if camera x,y have changed since last render cycle
 		if (camera.dirty) {
 			num currentPercentX = camera.getX() / (bounds.width - view.worldElementWidth);
@@ -300,7 +301,7 @@ class Street {
 }
 
 // the callback function for our deco loading 'Batch'
-setLoadingPercent(int percent) {
+void setLoadingPercent(int percent) {
 	currentStreet.loadTime = new Stopwatch();
 	currentStreet.loadTime.start();
 

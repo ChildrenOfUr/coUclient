@@ -43,7 +43,7 @@ class MailboxWindow extends Modal {
 	DataListElement _toList = querySelector('#mb_toList');
 	InputElement _inputTo = querySelector('#mb_input_to');
 	InputElement _inputSubject = querySelector('#mb_input_subject');
-	InputElement _inputMessage = querySelector('#mb_input_message');
+	TextAreaElement _inputMessage = querySelector('#mb_input_message');
 	NumberInputElement _inputCurrants = querySelector('#mb_sendCurrants');
 
 	bool busy = false;
@@ -294,7 +294,8 @@ class MailboxWindow extends Modal {
 	Future updateFriendsTypeahead() async {
 		String sofar = _inputTo.value;
 		if (sofar.length > 2) {
-			String response = await HttpRequest.getString('${Configs.http}//${Configs.utilServerAddress}/friends/list/${game.username}');
+			String response = await HttpRequest.getString(
+				'${Configs.http}//${Configs.utilServerAddress}/friends/list/${game.username}');
 			_toList.children.clear();
 			jsonDecode(response).forEach((String username, bool online) {
 				OptionElement option = new OptionElement()

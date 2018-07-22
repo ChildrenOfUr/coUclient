@@ -34,8 +34,7 @@ ItemDef _$ItemDefFromJson(Map<String, dynamic> json) {
         ?.toList()
     ..consumeValues = (json['consumeValues'] as Map<String, dynamic>)
         ?.map((k, e) => new MapEntry(k, e as int))
-    ..metadata = (json['metadata'] as Map<String, dynamic>)
-        ?.map((k, e) => new MapEntry(k, e as String));
+    ..metadata = json['metadata'] as Map<String, dynamic>;
 }
 
 Map<String, dynamic> _$ItemDefToJson(ItemDef instance) => <String, dynamic>{

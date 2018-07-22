@@ -205,7 +205,7 @@ Future main() async {
 		await Configs.init();
 
 		// Download the latest map data
-		mapData = await new MapData()..load.future;
+		mapData = await MapData.download();
 
 		// Make sure we have an up-to-date (1 day expiration) item cache
 		await Item.loadItems();

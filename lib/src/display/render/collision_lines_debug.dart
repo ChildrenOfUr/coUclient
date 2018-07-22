@@ -87,7 +87,7 @@ void repaint(CanvasElement lineCanvas) {
 //	});
 }
 
-showPlayerRect() {
+void showPlayerRect() {
 	if (lineCanvasContext == null || CurrentPlayer == null || currentStreet == null) {
 		return;
 	}

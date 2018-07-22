@@ -303,6 +303,7 @@ class Conversation {
 
 	Conversation();
 	factory Conversation.fromJson(Map<String, dynamic> json) => _$ConversationFromJson(json);
+	Map<String, dynamic> toJson() => _$ConversationToJson(this);
 }
 
 @JsonSerializable()
@@ -312,6 +313,7 @@ class ConvoScreen {
 
 	ConvoScreen();
 	factory ConvoScreen.fromJson(Map<String, dynamic> json) => _$ConvoScreenFromJson(json);
+	Map<String, dynamic> toJson() => _$ConvoScreenToJson(this);
 }
 
 @JsonSerializable()
@@ -323,4 +325,5 @@ class ConvoChoice {
 
 	ConvoChoice();
 	factory ConvoChoice.fromJson(Map<String, dynamic> json) => _$ConvoChoiceFromJson(json);
+	Map<String, dynamic> toJson() => _$ConvoChoiceToJson(this);
 }

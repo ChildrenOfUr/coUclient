@@ -7,7 +7,7 @@ class NoteWindow extends Modal {
 
 	String id;
 	int noteId;
-	Map<String, String> note = new Map();
+	Map<String, String> note = {};
 	bool writeMode, isWriter, sendingData;
 
 	Element displayElement;

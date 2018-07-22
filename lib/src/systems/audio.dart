@@ -12,7 +12,7 @@ class SoundManager {
 	Batch ui_sounds;
 
 	SC sc = new SC(SC_TOKEN);
-	Map songs = new Map();
+	Map<String, Scound> songs = {};
 	Scound currentSong;
 	AudioInstance currentAudioInstance, loadingSound;
 
@@ -32,7 +32,7 @@ class SoundManager {
 		});
 	}
 
-	Future init() async {
+	Future<void> init() async {
 		try {
 			num effectsVolume = 50, musicVolume = 50, weatherVolume = 50;
 			if(localStorage.containsKey('effectsVolume')) effectsVolume = num.parse(localStorage['effectsVolume']);
@@ -101,7 +101,7 @@ class SoundManager {
 
 	// Sound Effects ////////////////////////////////////////////////////////////////////////////////
 
-	Future loadNonWebAudio() async {
+	Future<void> loadNonWebAudio() async {
 		logmessage("[SoundManager] Loading non-WebAudio");
 		// Load all our user interface sounds.
 
@@ -119,8 +119,7 @@ class SoundManager {
 				new Asset('files/audio/levelUp.mp3'),
 				new Asset('files/audio/newday_rooster.mp3')
 			]);
-			await ui_sounds.load(() {
-			});
+			await ui_sounds.load();
 			// Load the names and track id's of the music.json file but save actually loading the media file
 			// until it is requested (whether by street load or by setsong command)
 			Asset soundCloudSongs = new Asset('files/json/music.json');
@@ -130,7 +129,9 @@ class SoundManager {
 		}
 	}
 
-	Future playSound(String name, {bool asset: true, bool looping: false, bool fadeIn: false, Duration fadeInDuration, Element parentElement: null}) async {
+	Future<dynamic> playSound(String name, {bool asset: true, bool looping: false,
+		bool fadeIn: false, Duration fadeInDuration, Element parentElement: null}) async {
+
 		try {
 			if(useWebAudio) {
 				if(asset) {
@@ -163,7 +164,11 @@ class SoundManager {
 			} else {
 				AudioElement loading = ASSET[name].get();
 				loading.loop = looping;
-				if(asset) loading.volume = int.parse(localStorage['effectsVolume']) / 100; else loading.volume = int.parse(localStorage['musicVolume']) / 100;
+				if(asset) {
+					loading.volume = int.parse(localStorage['effectsVolume']) / 100;
+				} else {
+					loading.volume = int.parse(localStorage['musicVolume']) / 100;
+				}
 
 				if(parentElement != null) {
 					parentElement.append(loading);
@@ -222,7 +227,7 @@ class SoundManager {
 		}
 	}
 
-	Future loadSong(String name) async {
+	Future<void> loadSong(String name) async {
 		try{
 			if(ASSET['music'].get()[name] == null) {
 				logmessage('Song "$name" does not exist.');
@@ -241,7 +246,7 @@ class SoundManager {
 	 * Sets the SoundCloud widget's song to [value].  Must be one of the available songs.
 	 * If [value] is already playing, this method has no effect.
 	 */
-	setSong(String value) async {
+	Future<void> setSong(String value) async {
 		if(currentSong != null && songs[value] != null &&
 			songs[value].meta['title'] == currentSong.meta['title']) {
 			return;
@@ -256,7 +261,7 @@ class SoundManager {
 		}
 	}
 
-	_playSong(String name) {
+	Future<Null> _playSong(String name) {
 		/*
 		 * canPlayType should return:
 		 * probably: if the specified type appears to be playable.
@@ -266,7 +271,7 @@ class SoundManager {
 		String testResult = new AudioElement().canPlayType('audio/mp3');
 		if(testResult == '') {
 			logmessage('[SoundManager] SoundCloud: Your browser doesnt like mp3s :(');
-			return;
+			return null;
 		} else if(testResult == 'maybe') {
 			//give warning message but proceed anyway
 			logmessage('[SoundManager] SoundCloud: Your browser may or may not fully support mp3s');
@@ -282,9 +287,15 @@ class SoundManager {
 		currentSong = songs[name];
 		if(useWebAudio) {
 			if (currentAudioInstance != null) {
-				stopSound(currentAudioInstance, fadeOut: true, fadeOutDuration: new Duration(seconds: 5));
+				stopSound(currentAudioInstance,
+					fadeOut: true,
+					fadeOutDuration: new Duration(seconds: 5));
 			}
-			playSound(currentSong.streamingUrl, asset: false, looping: true, fadeIn: true, fadeInDuration: new Duration(seconds: 5));
+			playSound(currentSong.streamingUrl,
+				asset: false,
+				looping: true,
+				fadeIn: true,
+				fadeInDuration: new Duration(seconds: 5));
 		} else {
 			currentSong.play();
 			currentSong.loop(true);
@@ -294,5 +305,6 @@ class SoundManager {
 		view.soundcloud.SCsong = currentSong.meta['title'];
 		view.soundcloud.SCartist = currentSong.meta['user']['username'];
 		view.soundcloud.SClink = currentSong.meta['permalink_url'];
+		return null;
 	}
 }

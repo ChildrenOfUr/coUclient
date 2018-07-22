@@ -134,14 +134,14 @@ class QuestMakerWindow extends Modal {
 
 	Future _populatePieces() async {
 		String url = '${Configs.http}//${Configs.utilServerAddress}/quest/pieces';
-		Map<String,String> piecesMap = jsonDecode(await HttpRequest.getString(url));
+		Map<String, dynamic> piecesMap = jsonDecode(await HttpRequest.getString(url)) as Map;
 
 		pieces.children.clear();
 
-		for (String text in piecesMap.values) {
+		for (dynamic text in piecesMap.values) {
 			LIElement piece = new LIElement()
 				..className = 'questPiece'
-				..text = text;
+				..text = text as String;
 
 			pieces.append(piece);
 		}

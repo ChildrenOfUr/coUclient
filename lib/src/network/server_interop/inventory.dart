@@ -11,6 +11,7 @@ class Slot {
 
 	Slot();
 	factory Slot.fromJson(Map<String, dynamic> json) => _$SlotFromJson(json);
+	Map<String, dynamic> toJson() => _$SlotToJson(this);
 
 	@override
 	String toString() => 'Slot: $itemType, $count';
@@ -22,11 +23,11 @@ class Inventory {
 	List<Slot> slots = [];
 }
 
-Future updateInventory([Map map]) async {
-	List<Map> dataSlots = [];
+Future updateInventory([Map<String, dynamic> map]) async {
+	List<Map<String, dynamic>> dataSlots = [];
 
 	if (map != null) {
-		dataSlots = map["slots"];
+		dataSlots = (map["slots"] as List).cast<Map<String, dynamic>>();
 	} else {
 		logmessage("Attempted inventory update: failed.");
 		return;
@@ -37,14 +38,14 @@ Future updateInventory([Map map]) async {
 
 	//couldn't get the structure to decode correctly so I hacked together this
 	//it produces the right result, but looks terrible
-	dataSlots.forEach((Map m) {
+	dataSlots.forEach((Map<String, dynamic> m) {
 		Slot slot = new Slot();
-		if (!m['itemType'].isEmpty) {
+		if (!(m['itemType'] as String).isEmpty) {
 			ItemDef item;
 			if (m['item']['metadata']['slots'] == null) {
 				item = ItemDef.fromJson(m['item']);
 			} else {
-				Map metadata = (m['item'] as Map).remove('metadata');
+				Map<String, dynamic> metadata = (m['item']).remove('metadata');
 				item = ItemDef.fromJson(m['item']);
 				item.metadata = metadata;
 			}
@@ -80,7 +81,10 @@ Future updateInventory([Map map]) async {
 				update = true;
 			} else if (currentSlot.item != null && newSlot.item != null &&
 			           !_metadataEqual(currentSlot.item.metadata, newSlot.item.metadata)) {
-				Map indexToItem = {'index':i,'item':newSlot.item};
+				Map<String, dynamic> indexToItem = {
+					'index': i,
+					'item': newSlot.item
+				};
 				transmit('updateMetadata', indexToItem);
 			}
 		}

@@ -11,6 +11,7 @@ class Achievement {
 
 	Achievement();
 	factory Achievement.fromJson(Map<String, dynamic> json) => _$AchievementFromJson(json);
+	Map<String, dynamic> toJson() => _$AchievementToJson(this);
 }
 
 class AchievementsWindow extends Modal {
