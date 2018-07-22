@@ -18,7 +18,7 @@ class MapData {
 				onTimeout: () => _serverIsDown('Connection timed out.'))
 			.then((String json) {
 				try {
-					Map<String, Map<String, dynamic>> data = jsonDecode(json);
+					Map<String, Map<String, dynamic>> data = jsonDecode(json) as Map<String, Map<String, dynamic>>;
 					logmessage('[Server Communication] Map data loaded.');
 					hubData = data['hubs'];
 					streetData = data['streets'];

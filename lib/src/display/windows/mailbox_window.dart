@@ -154,7 +154,7 @@ class MailboxWindow extends Modal {
 		busy = true;
 		HttpRequest request = await postRequest('getMail', {'user': game.username});
 
-		messages = decode(request.responseText, type: const TypeHelper<List<Mail>>().type);
+		messages = jsonDecode(request.responseText).map((Map<String, dynamic> json) => Mail.fromJson(json)).toList();
 		_inboxListBody.children.clear();
 
 		messages.forEach((Mail m) {
@@ -191,7 +191,7 @@ class MailboxWindow extends Modal {
 
 				// Take currants on click
 				_currantDisplay.onClick.first.then((_) async {
-					HttpRequest request = await postRequest('collectCurrants', encode(lastMessage), encode: false);
+					HttpRequest request = await postRequest('collectCurrants', lastMessage.toJson(), encode: false);
 					_currantDisplay.classes.add('taken');
 					if (request.responseText.trim() == 'Success') {
 						_currantDisplay.title = 'Already taken';
@@ -215,7 +215,7 @@ class MailboxWindow extends Modal {
 			Element itemBox = _fromItemBoxes[i];
 
 			if (itemStr != null) {
-				ItemDef item = decode(itemStr , type: ItemDef);
+				ItemDef item = ItemDef.fromJson(jsonDecode(itemStr));
 				itemBox.style.backgroundImage = 'url(${item.iconUrl})';
 				itemBox.hidden = false;
 
@@ -242,7 +242,7 @@ class MailboxWindow extends Modal {
 
 		// Mark message read
 		switchToTab('read');
-		await postRequest('readMail', encode(lastMessage), encode: false);
+		await postRequest('readMail', lastMessage.toJson(), encode: false);
 	}
 
 	Future send() async {
@@ -269,7 +269,7 @@ class MailboxWindow extends Modal {
 		message.item4_slot = itemSlots[3];
 		message.item5_slot = itemSlots[4];
 
-		HttpRequest request = await postRequest('sendMail', encode(message), encode: false);
+		HttpRequest request = await postRequest('sendMail', message.toJson(), encode: false);
 
 		if (request.responseText == "OK") {
 			// Clear sending fields (for next message)
@@ -317,7 +317,7 @@ class MailboxWindow extends Modal {
 		Map metadata = itemMap['metadata'];
 		itemMap['metadata'] = {};
 
-		ItemDef item = decode(jsonEncode(itemMap), type: ItemDef);
+		ItemDef item = ItemDef.fromJson(itemMap);
 		item.metadata = metadata;
 
 		return item;
@@ -331,7 +331,12 @@ class MailboxWindow extends Modal {
 	}
 }
 
+@JsonSerializable()
 class Mail {
+	Mail();
+	factory Mail.fromJson(Map<String, dynamic> json) => _$MailFromJson(json);
+	Map<String, dynamic> toJson() => _$MailToJson(this);
+
 	int id, currants;
 	String to_user, from_user, subject, body;
 	bool read, currants_taken, item1_taken, item2_taken, item3_taken, item4_taken, item5_taken;

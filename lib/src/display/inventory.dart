@@ -134,7 +134,8 @@ class BagFilterAcceptor extends Acceptor {
 
 	@override
 	bool accepts(Element itemE, int draggable_id, Element box) {
-		ItemDef item = decode(itemE.attributes['itemmap'], type: ItemDef);
+		ItemDef item = ItemDef.fromJson(jsonDecode(itemE.attributes['itemmap']));
+
 		if (allowedItemTypes.length == 0) {
 			// Those that accept nothing learn to accept everything (except other containers)
 			return !item.isContainer;

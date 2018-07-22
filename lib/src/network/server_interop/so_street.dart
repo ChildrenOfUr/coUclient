@@ -207,7 +207,7 @@ _setupStreetSocket(String streetName) {
 				}
 				else {
 					if (door != null) {
-						door.actions = decode(jsonEncode(doorMap['actions']), type: const TypeHelper<List<Action>>().type);
+						door.actions = decodeJsonArray(doorMap['actions'], (json) => Action.fromJson(json));
 						_updateChatBubble(doorMap, door);
 					}
 				}
@@ -224,7 +224,7 @@ _setupStreetSocket(String streetName) {
 				}
 				else {
 					if (plant != null) {
-						plant.actions = decode(jsonEncode(plantMap['actions']), type: const TypeHelper<List<Action>>().type);
+						plant.actions = decodeJsonArray(plantMap['actions'], (json) => Action.fromJson(json));
 						if (plant.state != plantMap['state']) {
 							plant.updateState(plantMap['state']);
 						}
@@ -273,7 +273,7 @@ _setupStreetSocket(String streetName) {
 						entities.remove(id);
 						CurrentPlayer.intersectingObjects.clear();
 					} else {
-						entities[id].actions = decode(jsonEncode(itemMap['actions']), type: const TypeHelper<List<Action>>().type);
+						entities[id].actions = decodeJsonArray(itemMap['actions'], (json) => Action.fromJson(json));
 					}
 				}
 			});
@@ -294,7 +294,7 @@ _setupStreetSocket(String streetName) {
 				npc.y = npcMap['y'];
 
 				npc.updateAnimation(npcMap);
-				npc.actions = decode(jsonEncode(npcMap['actions']), type: const TypeHelper<List<Action>>().type);
+				npc.actions = decodeJsonArray(npcMap['actions'], (json) => Action.fromJson(json));
 			}
 
 			return;

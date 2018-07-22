@@ -110,7 +110,7 @@ class QuestMakerWindow extends Modal {
 		String url = '${Configs.http}//${Configs.utilServerAddress}/quest/createQuestItem';
 		await HttpRequest.request(url, method: 'POST',
 			                    requestHeaders: {'Content-Type':'application/json'},
-			                    sendData: encode(quest)
+			                    sendData: quest.toJson()
 		                    );
 	}
 

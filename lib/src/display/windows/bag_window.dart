@@ -192,7 +192,7 @@ class BagWindow extends Modal {
 				DivElement itemInSlot = new DivElement();
 				slot.append(itemInSlot);
 				if (!bagSlot["itemType"].isEmpty) {
-					ItemDef item = decode(jsonEncode(bagSlot['item']), type: ItemDef);
+					ItemDef item = ItemDef.fromJson(bagSlot['item']);
 					slot.title = item.name;
 					ImageElement img = new ImageElement(src: item.spriteUrl);
 					String className = 'item-${item.itemType} inventoryItem bagInventoryItem';

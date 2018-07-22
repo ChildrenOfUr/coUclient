@@ -120,7 +120,7 @@ class Util {
 
 			if (s.item.isContainer) {
 				String slotsString = s.item.metadata['slots'];
-				List<Slot> bagSlots = decode(slotsString, type: new TypeHelper<List<Slot>>().type);
+				List<Slot> bagSlots = decodeJsonArray(jsonDecode(slotsString), (json) => Slot.fromJson(json));
 				if (bagSlots != null) {
 					for(Slot s in bagSlots) {
 						if (s.item == null) {
@@ -154,7 +154,7 @@ class Util {
 				if(s.item.subSlotFilter.contains(itemMap['itemType']) ||
 				   s.item.subSlotFilter.length == 0) {
 					String slotsString = s.item.metadata['slots'];
-					List<Slot> bagSlots = decode(slotsString, type: new TypeHelper<List<Slot>>().type);
+					List<Slot> bagSlots = decodeJsonArray(jsonDecode(slotsString), (json) => Slot.fromJson(json));
 					if (bagSlots != null) {
 						for(Slot s in bagSlots) {
 							if(s.item == null || s.itemType == null || s.itemType == '') {
@@ -195,7 +195,7 @@ int _getNumItems(String item, {int slot: -1, int subSlot: -1, bool includeBroken
 	//add the bag contents
 	playerInventory.slots.where((Slot s) => !s.itemType.isEmpty && s.item.isContainer && s.item.subSlots != null).forEach((Slot s) {
 		String slotsString = s.item.metadata['slots'];
-		List<Slot> bagSlots = decode(slotsString, type: new TypeHelper<List<Slot>>().type);
+		List<Slot> bagSlots = decodeJsonArray(jsonDecode(slotsString), (json) => Slot.fromJson(json));
 		if (bagSlots != null) {
 			i=0;
 			for(Slot bagSlot in bagSlots) {

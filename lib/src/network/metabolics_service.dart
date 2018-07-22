@@ -35,7 +35,7 @@ class MetabolicsService {
 			} else if (map["levelUp"] != null) {
 				levelUp.open(map["levelUp"]);
 			} else {
-				playerMetabolics = decode(event.data, type: Metabolics);
+				playerMetabolics = Metabolics.fromJson(event.data);
 				if (!load.isCompleted) {
 					load.complete();
 					transmit("metabolicsLoaded", playerMetabolics);

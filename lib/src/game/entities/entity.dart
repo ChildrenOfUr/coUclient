@@ -94,8 +94,7 @@ abstract class Entity {
 		String url = '${Configs.http}//${Configs.utilServerAddress}/getActions';
 		url += '?email=${game.email}&id=$id&label=${currentStreet.label}';
 		List<Action> actionList = [];
-		actions = decode(await HttpRequest.requestCrossOrigin(url),
-											 type: const TypeHelper<List<Action>>().type);
+		actions = decodeJsonArray(jsonDecode(await HttpRequest.requestCrossOrigin(url)), (json) => Action.fromJson(json));
 		actions.forEach((Action action) {
 			enabled = action.enabled;
 			action.actionName = capitalizeFirstLetter(action.actionName);

@@ -134,7 +134,7 @@ Future sizeItem(ImageElement img, Element itemDiv, Element slot, ItemDef item, i
 
 	itemDiv.attributes['name'] = item.name.replaceAll(' ', '');
 	itemDiv.attributes['count'] = "1";
-	itemDiv.attributes['itemMap'] = encode(item);
+	itemDiv.attributes['itemMap'] = jsonEncode(item.toJson());
 	slot.title = item.name;
 
 	String slotNum = '$barSlotNum.$bagSlotNum';

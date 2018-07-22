@@ -27,7 +27,7 @@ class ItemWindow extends Modal {
 	Future<Element> displayItem() async {
 		String response = await HttpRequest.requestCrossOrigin(
 			'${Configs.http}//${Configs.utilServerAddress}/getItems?name=${Uri.encodeComponent(itemName)}');
-		ItemDef item = decode(response, type: const TypeHelper<List<ItemDef>>().type).first;
+		ItemDef item = ItemDef.fromJson(jsonDecode(response));
 
 		int newImg = 0;
 

@@ -2,11 +2,15 @@ part of couclient;
 
 Inventory playerInventory = new Inventory();
 
+@JsonSerializable()
 class Slot {
 	//a new instance of a Slot is empty by default
 	String itemType = "";
 	ItemDef item = null;
 	int count = 0;
+
+	Slot();
+	factory Slot.fromJson(Map<String, dynamic> json) => _$SlotFromJson(json);
 
 	@override
 	String toString() => 'Slot: $itemType, $count';
@@ -38,10 +42,10 @@ Future updateInventory([Map map]) async {
 		if (!m['itemType'].isEmpty) {
 			ItemDef item;
 			if (m['item']['metadata']['slots'] == null) {
-				item = decode(jsonEncode(m['item']), type: ItemDef);
+				item = ItemDef.fromJson(m['item']);
 			} else {
 				Map metadata = (m['item'] as Map).remove('metadata');
-				item = decode(jsonEncode(m['item']), type: ItemDef);
+				item = ItemDef.fromJson(m['item']);
 				item.metadata = metadata;
 			}
 			slot.item = item;

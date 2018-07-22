@@ -296,19 +296,31 @@ class RockWindow extends Modal {
 	}
 }
 
+@JsonSerializable()
 class Conversation {
 	String id;
 	List<ConvoScreen> screens;
+
+	Conversation();
+	factory Conversation.fromJson(Map<String, dynamic> json) => _$ConversationFromJson(json);
 }
 
+@JsonSerializable()
 class ConvoScreen {
 	List<String> paragraphs;
 	List<ConvoChoice> choices;
+
+	ConvoScreen();
+	factory ConvoScreen.fromJson(Map<String, dynamic> json) => _$ConvoScreenFromJson(json);
 }
 
+@JsonSerializable()
 class ConvoChoice {
 	String text;
 	int gotoScreen;
 	bool isQuestAccept = false,
 		isQuestReject = false;
+
+	ConvoChoice();
+	factory ConvoChoice.fromJson(Map<String, dynamic> json) => _$ConvoChoiceFromJson(json);
 }

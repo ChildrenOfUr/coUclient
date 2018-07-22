@@ -280,7 +280,7 @@ class AuthManager {
 
 		sessionStorage['playerName'] = serverdata['playerName'];
 		sessionStorage['playerEmail'] = serverdata['playerEmail'];
-		sessionStorage['playerStreet'] = decode(serverdata['metabolics'], type: Metabolics).currentStreet;
+		sessionStorage['playerStreet'] = Metabolics.fromJson(jsonDecode(serverdata['metabolics'])).currentStreet;
 
 		if (serverdata['playerName'].trim() == '') {
 			setupNewUser(serverdata);
@@ -310,7 +310,7 @@ class AuthManager {
 		audio.sc = new SC(SC_TOKEN);
 
 		// Begin Game//
-		game = new Game(decode(serverdata['metabolics'], type: Metabolics));
+		game = new Game(Metabolics.fromJson(serverdata['metabolics']));
 	}
 
 	void setupNewUser(Map serverdata) {

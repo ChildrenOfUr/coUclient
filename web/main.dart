@@ -21,16 +21,12 @@ import 'package:coUemoticons/bin/main.dart' as emoji; // Emoticons
 import 'package:dnd/dnd.dart'; // Webaudio api
 import 'package:gorgon/gorgon.dart'; // Audio and graphics
 import 'package:intl/intl.dart'; // Used for NumberFormat
-import 'package:jsonx/jsonx.dart'; // Dart object <-> JSON conversions
+import 'package:json_annotation/json_annotation.dart'; // Dart object <-> JSON conversions
 import 'package:libld/libld.dart'; // Asset loading
 import 'package:scproxy/scproxy.dart'; // SoundCloud helper
 import 'package:transmit/transmit.dart'; // Event bus
 import "package:xml/xml.dart" as XML; // Blog post checking
 import 'package:firebase/firebase.dart' as fb; // Login
-
-// Start Polymer
-
-//export 'package:polymer/init.dart';
 
 // Systems
 
@@ -153,6 +149,9 @@ part 'package:couclient/src/game/entities/quoin.dart';
 part 'package:couclient/src/game/entities/wormhole.dart';
 part 'package:couclient/src/game/game.dart';
 part 'package:couclient/src/game/street.dart';
+
+// Built classes
+part 'main.g.dart';
 
 // Globals
 
@@ -319,8 +318,8 @@ void setStyle(ViewportMedia style) {
 	 * for a very small viewport.
 	 */
 
-	StyleElement mobile = querySelector("#MobileStyle");
-	StyleElement tablet = querySelector("#TabletStyle");
+	LinkElement mobile = querySelector("#MobileStyle");
+	LinkElement tablet = querySelector("#TabletStyle");
 
 	switch (style) {
 		case ViewportMedia.DESKTOP:

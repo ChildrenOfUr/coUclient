@@ -1,5 +1,6 @@
 part of couclient;
 
+@JsonSerializable()
 class Achievement {
 	String id;
 	String name;
@@ -7,6 +8,9 @@ class Achievement {
 	String category;
 	String imageUrl;
 	String awarded = "false";
+
+	Achievement();
+	factory Achievement.fromJson(Map<String, dynamic> json) => _$AchievementFromJson(json);
 }
 
 class AchievementsWindow extends Modal {
@@ -33,8 +37,8 @@ class AchievementsWindow extends Modal {
 			String url = "${Configs.http}//${Configs.utilServerAddress}/listAchievements?email=${game
 				.email}&excludeNonMatches=false&category=$category";
 			Map map = jsonDecode(await HttpRequest.getString(url));
-			List<Achievement> achievements = decode(
-				jsonEncode(map.values.toList()), type: const TypeHelper<List<Achievement>>().type);
+			List<Achievement> achievements = (map.values as List<Map<String, dynamic>>)
+				.map((Map<String, dynamic> json) => Achievement.fromJson(json)).toList();
 
 			DivElement earned = new DivElement()..classes = ['earned-achvments'];
 			DivElement unearned = new DivElement()..classes = ['unearned-achvments'];

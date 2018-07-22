@@ -1,5 +1,6 @@
 part of couclient;
 
+@JsonSerializable()
 class Metabolics {
 	int id = -1;
 	int userId = -1;
@@ -43,4 +44,10 @@ class Metabolics {
 	String currentStreet = 'LA58KK7B9O522PC';
 	String lastStreet = null;
 	String locationHistory = '[]';
+
+	Metabolics();
+
+	factory Metabolics.fromJson(Map<String, dynamic> json) => _$MetabolicsFromJson(json);
+
+	Map<String, dynamic> toJson() => _$MetabolicsToJson(this);
 }
