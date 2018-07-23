@@ -12,3 +12,4 @@ build/
 .packages
 .atom/
 .dart_tool/
+*.g.dart
