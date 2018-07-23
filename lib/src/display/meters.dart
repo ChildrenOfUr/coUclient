@@ -29,12 +29,12 @@ class Meters {
 	void updateAvatarDisplay() {
 		if (runCount < 5 || runCount % 5 == 0) {
 			// run on load, and once every 5 refreshes afterward to avoid overloading the server
-			HttpRequest.requestCrossOrigin('${Configs.http}${Configs.utilServerAddress}/trimImage?username=${game.username}').then((String response) {
-				avatarDisplay.style.backgroundImage = "url(data:image/png;base64,$response)";
-			});
+			HttpRequest.requestCrossOrigin('${Configs.http}//${Configs.utilServerAddress}/trimImage?username=${game.username}')
+				.then((String response) => avatarDisplay.style.backgroundImage = "url(data:image/png;base64,$response)");
 
 			// update username links
-			(querySelector("#openProfilePageFromChatPanel") as AnchorElement).href = "https://childrenofur.com/profile?username=" + game.username;
+			(querySelector("#openProfilePageFromChatPanel") as AnchorElement).href =
+				"https://childrenofur.com/profile?username=${game.username}";
 		}
 	}
 
