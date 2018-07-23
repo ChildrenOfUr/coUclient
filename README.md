@@ -28,7 +28,7 @@ If you want to run it locally or on your own server, you'll need to have an envi
 1. [Install the Dart SDK](https://webdev.dartlang.org/tools/sdk#install) for your platform. Make sure you have at least version 2.0.0.
 1. Make sure the SDK and your pub cache are on your path. On Linux, add this line to the end of your `~/.bashrc`: `export PATH=$PATH:"/usr/lib/dart/bin":"$HOME/.pub-cache/bin"
 1. Install `webdev`: `pub global activate webdev`
-1. Update the .g.dart files: `webdev build` (yes, commit these)
+1. Generate precompiled files: `webdev build`
 
 #### If you'd prefer an IDE
 
