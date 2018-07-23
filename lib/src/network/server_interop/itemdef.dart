@@ -51,17 +51,12 @@ class Action {
 
 	Action.withName(this.actionName);
 
-	Action.clone(Action action) {
-		actionName = action.actionName;
-		_actionWord = action._actionWord;
-		enabled = action.enabled;
-		multiEnabled = action.multiEnabled;
-		description = action.description;
-		timeRequired = action.timeRequired;
-		itemRequirements = new ItemRequirements.clone(action.itemRequirements);
-		skillRequirements = new SkillRequirements.clone(action.skillRequirements);
-		energyRequirements = new EnergyRequirements.clone(action.energyRequirements);
-		associatedSkill = action.associatedSkill;
+	factory Action.clone(Action action) {
+		if (action == null) {
+			return null;
+		}
+
+		return Action.fromJson(action.toJson());
 	}
 
 	String get actionWord => _actionWord ?? actionName.toLowerCase();
@@ -90,11 +85,6 @@ class SkillRequirements {
 	SkillRequirements();
 	factory SkillRequirements.fromJson(Map<String, dynamic> json) => _$SkillRequirementsFromJson(json);
 	Map<String, dynamic> toJson() => _$SkillRequirementsToJson(this);
-
-	SkillRequirements.clone(SkillRequirements req) {
-		requiredSkillLevels = new Map.from(req.requiredSkillLevels);
-		error = req.error;
-	}
 }
 
 @JsonSerializable()
@@ -106,12 +96,6 @@ class ItemRequirements {
 	ItemRequirements();
 	factory ItemRequirements.fromJson(Map<String, dynamic> json) => _$ItemRequirementsFromJson(json);
 	Map<String, dynamic> toJson() => _$ItemRequirementsToJson(this);
-
-	ItemRequirements.clone(ItemRequirements req) {
-		any = new List.from(req.any ?? <String>[]);
-		all = new Map.from(req.all ?? <String, int>{});
-		error = req.error;
-	}
 }
 
 @JsonSerializable()
@@ -121,11 +105,6 @@ class EnergyRequirements {
 
 	EnergyRequirements({this.energyAmount: 0}) {
 		error = 'You need at least $energyAmount energy to perform this action';
-	}
-
-	EnergyRequirements.clone(EnergyRequirements req) {
-		energyAmount = req.energyAmount;
-		error = req.error;
 	}
 
 	factory EnergyRequirements.fromJson(Map<String, dynamic> json) => _$EnergyRequirementsFromJson(json);

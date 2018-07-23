@@ -248,10 +248,18 @@ bool hasRequirements(Action action, {bool includeBroken: false}) {
 }
 
 bool hasEnergyRequirements(Action action) {
+	if (action.energyRequirements == null) {
+		return true;
+	}
+
 	return metabolics.energy >= action.energyRequirements.energyAmount;
 }
 
 bool hasItemRequirements(Action action, {bool includeBroken: false}) {
+	if (action.itemRequirements == null) {
+		return true;
+	}
+
 	//check that the player has the necessary item(s)
 	bool haveAtLeastOne = action.itemRequirements.any.length == 0;
 	for (String itemType in action.itemRequirements.any ?? <String>[]) {

@@ -150,7 +150,7 @@ class RightClickMenu {
 								}
 
 								// Accepts multiple items
-								if (action.multiEnabled) {
+								if (action.multiEnabled ?? false) {
 									arguments['count'] = howMany;
 								}
 
@@ -176,7 +176,7 @@ class RightClickMenu {
 							}
 						}
 
-						if (action.multiEnabled) {
+						if (action.multiEnabled ?? false) {
 							int max = 0;
 							String itemToCount = '';
 							try {
