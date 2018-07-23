@@ -1,5 +1,7 @@
 library itemdef;
 
+import 'dart:convert';
+
 import 'package:json_annotation/json_annotation.dart';
 
 part 'itemdef.g.dart';
@@ -56,7 +58,7 @@ class Action {
 			return null;
 		}
 
-		return Action.fromJson(action.toJson());
+		return Action.fromJson(jsonDecode(jsonEncode(action.toJson())));
 	}
 
 	String get actionWord => _actionWord ?? actionName.toLowerCase();
