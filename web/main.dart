@@ -46,6 +46,7 @@ part 'package:couclient/src/systems/weather.dart';
 
 part 'package:couclient/src/network/auth.dart';
 part 'package:couclient/src/network/chat.dart';
+part 'package:couclient/src/network/constants.dart';
 part 'package:couclient/src/network/item_action.dart';
 part 'package:couclient/src/network/metabolics_service.dart';
 part 'package:couclient/src/network/server_interop/inventory.dart';
@@ -162,7 +163,7 @@ final Storage localStorage = window.localStorage; // Local storage
 final Storage sessionStorage = window.sessionStorage; // Session storage
 final String rsToken = "ud6He9TXcpyOEByE944g"; // Token for redstone
 
-Map<String, dynamic> constants; // Server-defined constants
+Constants constants; // Server-defined constants
 MapData mapData; // Map, street, and hub metadata
 
 AuthManager auth; // Auth server interop
@@ -211,7 +212,7 @@ Future main() async {
 		await Item.loadItems();
 
 		// Download constants
-		constants = jsonDecode(await HttpRequest.getString("${Configs.http}//${Configs.utilServerAddress}/constants/json"));
+		constants = await Constants.download();
 	} catch (e, st) {
 		logmessage("Error loading server data: $e\n$st");
 		serverDown = true;

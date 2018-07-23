@@ -37,8 +37,8 @@ class AchievementsWindow extends Modal {
 			String category = target.text;
 			String url = "${Configs.http}//${Configs.utilServerAddress}/listAchievements?email=${game
 				.email}&excludeNonMatches=false&category=$category";
-			Map map = jsonDecode(await HttpRequest.getString(url));
-			List<Achievement> achievements = (map.values as List<Map<String, dynamic>>)
+			Map<String, dynamic> map = jsonDecode(await HttpRequest.getString(url)) as Map;
+			List<Achievement> achievements = map.values.cast<Map<String, dynamic>>()
 				.map((Map<String, dynamic> json) => Achievement.fromJson(json)).toList();
 
 			DivElement earned = new DivElement()..classes = ['earned-achvments'];

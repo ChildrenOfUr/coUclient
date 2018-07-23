@@ -66,7 +66,7 @@ class ActionBubble {
 	}
 
 	Future<bool> get wait {
-		Completer completer = new Completer();
+		Completer<bool> completer = new Completer<bool>();
 		StreamSubscription escListener;
 		Timer miningTimer = new Timer(new Duration(milliseconds:duration + 300), () {
 			outline.remove();

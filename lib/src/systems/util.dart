@@ -52,8 +52,8 @@ String logmessage(String message) {
 void startConsoleErrorLogging() {
 	window.onError.listen((Event error) {
 		BugWindow.messagesLogged +=
-			'[Console Error @ ${(error as ErrorEvent).filename}:${(error as ErrorEvent).lineno}:${(error as ErrorEvent).colno}] ${(error as ErrorEvent).message}'
-			'\n';
+			'[Console Error @ ${(error as ErrorEvent).filename}:${(error as ErrorEvent).lineno}:' +
+				'${(error as ErrorEvent).colno}] ' + (error as ErrorEvent).message + '\n';
 	});
 }
 
@@ -193,27 +193,29 @@ int _getNumItems(String item, {int slot: -1, int subSlot: -1, bool includeBroken
 	}
 
 	//add the bag contents
-	playerInventory.slots.where((Slot s) => !s.itemType.isEmpty && s.item.isContainer && s.item.subSlots != null).forEach((Slot s) {
-		String slotsString = s.item.metadata['slots'];
-		List<Slot> bagSlots = decodeJsonArray(jsonDecode(slotsString), (json) => Slot.fromJson(json));
-		if (bagSlots != null) {
-			i=0;
-			for(Slot bagSlot in bagSlots) {
-				i++;
-				if(subSlot > -1 && (i-1) != subSlot) {
-					continue;
-				}
-				if (bagSlot.itemType == item) {
-					int durabilityUsed = int.parse(s.item.metadata['durabilityUsed'] ?? '0');
-					if(s.item.durability != null && durabilityUsed >= s.item.durability && !includeBroken) {
+	playerInventory.slots
+		.where((Slot s) => !s.itemType.isEmpty && s.item.isContainer && s.item.subSlots != null)
+		.forEach((Slot s) {
+			String slotsString = s.item.metadata['slots'];
+			List<Slot> bagSlots = decodeJsonArray(jsonDecode(slotsString), (json) => Slot.fromJson(json));
+			if (bagSlots != null) {
+				i=0;
+				for(Slot bagSlot in bagSlots) {
+					i++;
+					if(subSlot > -1 && (i-1) != subSlot) {
 						continue;
 					}
+					if (bagSlot.itemType == item) {
+						int durabilityUsed = int.parse(s.item.metadata['durabilityUsed'] ?? '0');
+						if(s.item.durability != null && durabilityUsed >= s.item.durability && !includeBroken) {
+							continue;
+						}
 
-					count += bagSlot.count;
+						count += bagSlot.count;
+					}
 				}
 			}
-		}
-	});
+		});
 
 	return count;
 }
@@ -252,14 +254,14 @@ bool hasEnergyRequirements(Action action) {
 bool hasItemRequirements(Action action, {bool includeBroken: false}) {
 	//check that the player has the necessary item(s)
 	bool haveAtLeastOne = action.itemRequirements.any.length == 0;
-	for (String itemType in action.itemRequirements.any) {
+	for (String itemType in action.itemRequirements.any ?? <String>[]) {
 		if (util.getNumItems(itemType, includeBroken: includeBroken) > 0) {
 			haveAtLeastOne = true;
 		}
 	}
 
 	bool hasEnough = true;
-	action.itemRequirements.all.forEach((String itemType, int count) {
+	(action.itemRequirements.all ?? <String, int>{}).forEach((String itemType, int count) {
 		if (util.getNumItems(itemType, includeBroken: includeBroken) < count) {
 			hasEnough = false;
 		}
@@ -306,7 +308,9 @@ sendAction(String methodName, String entityId, [Map arguments]) {
 		return;
 	}
 
-	logmessage("[Server Communication] Sending $methodName to entity: $entityId (${entities[entityId].runtimeType}) with arguments: $arguments");
+	logmessage(
+		"[Server Communication] Sending $methodName to entity: "
+		"$entityId (${entities[entityId].runtimeType}) with arguments: $arguments");
 	Element entity = querySelector("#$entityId");
 	Map map = {};
 	map['callMethod'] = methodName;

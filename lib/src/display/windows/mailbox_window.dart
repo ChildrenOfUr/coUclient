@@ -77,7 +77,9 @@ class MailboxWindow extends Modal {
 
 			// Only allow bags if they are empty
 			if (item.isContainer) {
-				for (Map slot in jsonDecode(item.metadata['slots'])) {
+				List<Map<String, dynamic>> slots = (jsonDecode(item.metadata['slots']) as List)
+					.cast<Map<String, dynamic>>();
+				for (Map<String, dynamic> slot in slots) {
 					if (slot['itemType'] != '') {
 						return;
 					}
@@ -154,7 +156,11 @@ class MailboxWindow extends Modal {
 		busy = true;
 		HttpRequest request = await postRequest('getMail', {'user': game.username});
 
-		messages = jsonDecode(request.responseText).map((Map<String, dynamic> json) => Mail.fromJson(json)).toList();
+		messages = (jsonDecode(request.responseText) as List)
+			.cast<Map<String, dynamic>>()
+			.map((Map<String, dynamic> json) => Mail.fromJson(json))
+			.toList();
+
 		_inboxListBody.children.clear();
 
 		messages.forEach((Mail m) {
@@ -297,10 +303,11 @@ class MailboxWindow extends Modal {
 			String response = await HttpRequest.getString(
 				'${Configs.http}//${Configs.utilServerAddress}/friends/list/${game.username}');
 			_toList.children.clear();
-			jsonDecode(response).forEach((String username, bool online) {
+			Map<String, dynamic> responseMap = jsonDecode(response) as Map;
+			responseMap.forEach((String username, dynamic online) {
 				OptionElement option = new OptionElement()
 					..value = username
-					..text = (online ? 'Online' : 'Offline');
+					..text = (online as bool ? 'Online' : 'Offline');
 				_toList.append(option);
 			});
 		} else if (sofar.length == 0) {
@@ -314,8 +321,8 @@ class MailboxWindow extends Modal {
 			return null;
 		}
 
-		Map itemMap = jsonDecode(element.attributes['itemMap']);
-		Map metadata = itemMap['metadata'];
+		Map<String, dynamic> itemMap = jsonDecode(element.attributes['itemMap']) as Map;
+		Map<String, dynamic> metadata = itemMap['metadata'] as Map;
 		itemMap['metadata'] = {};
 
 		ItemDef item = ItemDef.fromJson(itemMap);

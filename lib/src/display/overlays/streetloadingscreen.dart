@@ -142,7 +142,7 @@ class StreetLoadingScreen extends Overlay {
 
 	Future<String> _listEntities(Map<String, dynamic> street) async {
 		String url = '${Configs.http}//${Configs.utilServerAddress}/previewStreetEntities?tsid=${street['tsid']}';
-		Map entityList = jsonDecode(await HttpRequest.getString(url));
+		Map<String, dynamic> entityList = jsonDecode(await HttpRequest.getString(url)) as Map;
 		String entityString = '';
 
 		if (entityList.keys.length > 0) {

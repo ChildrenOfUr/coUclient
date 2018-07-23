@@ -7,7 +7,7 @@ class NoteWindow extends Modal {
 
 	String id;
 	int noteId;
-	Map<String, String> note = {};
+	Map<String, dynamic> note = {};
 	bool writeMode, isWriter, sendingData;
 
 	Element displayElement;
@@ -77,7 +77,7 @@ class NoteWindow extends Modal {
 				_setUpWindow(true);
 			} else {
 				// Reading an existing (we hope) note
-				getNote().then((Map note) {
+				getNote().then((Map<String, dynamic> note) {
 					if (note == null) {
 						// Exit
 						new Toast("That note doesn't exist");
@@ -130,9 +130,9 @@ class NoteWindow extends Modal {
 
 		// Display values
 
-		readTitle.text = note["title"];
-		readBody.setInnerHtml(note["body"].replaceAll("\n", "<br>"), validator: Chat.VALIDATOR);
-		readDate.text = getDateString(note["timestamp"]);
+		readTitle.text = note["title"] as String;
+		readBody.setInnerHtml((note["body"] as String).replaceAll("\n", "<br>"), validator: Chat.VALIDATOR);
+		readDate.text = getDateString(note["timestamp"] as String);
 
 		// Handle user-specific content
 		if (isWriter) {
@@ -145,18 +145,20 @@ class NoteWindow extends Modal {
 		} else {
 			readEditBtn.hidden = true;
 			readUser.setInnerHtml(
-				'<a title="Open Profile" href="https://childrenofur.com/profile/?username=${note["username"]}" target="_blank">${note["username"]}</a>',
+				'<a title="Open Profile" '
+					'href="https://childrenofur.com/profile/?username=${note["username"]}" '
+					'target="_blank">${note["username"]}</a>',
 				validator: Chat.VALIDATOR);
 		}
 
 		editing = null;
 	}
 
-	Future<Map> getNote() async {
+	Future<Map<String, dynamic>> getNote() async {
 		// Download from server
 		String json = await HttpRequest.getString("${Configs.http}//${Configs.utilServerAddress}/note/find/${noteId}");
 		try {
-			return jsonDecode(json);
+			return jsonDecode(json) as Map;
 		} catch (_) {
 			return null;
 		}
@@ -165,7 +167,7 @@ class NoteWindow extends Modal {
 	void setNote() {
 		// Send the message to the server
 		sendAction("writeNote", "global_action_monster", {"noteData": {
-			"id": note["id"] ?? -1, // the server knows that -1 means a new note
+			"id": note["id"] as int ?? -1, // the server knows that -1 means a new note
 			"username": game.username,
 			"title": writeTitle.value,
 			"body": writeBody.value

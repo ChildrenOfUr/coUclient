@@ -603,7 +603,7 @@ class Chat {
 			channel = currentStreet.label;
 		}
 		String url = '${Configs.http}//Configs.utilServerAddress/listUsers?channel=$channel';
-		connectedUsers = jsonDecode(await HttpRequest.requestCrossOrigin(url));
+		connectedUsers = (jsonDecode(await HttpRequest.requestCrossOrigin(url)) as List).cast<String>();
 
 		int startIndex = input.value.lastIndexOf(" ") == -1 ? 0 : input.value.lastIndexOf(" ") + 1;
 		String localLastWord = input.value.substring(startIndex);

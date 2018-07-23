@@ -108,8 +108,8 @@ class ItemRequirements {
 	Map<String, dynamic> toJson() => _$ItemRequirementsToJson(this);
 
 	ItemRequirements.clone(ItemRequirements req) {
-		any = new List.from(req.any);
-		all = new Map.from(req.all);
+		any = new List.from(req.any ?? <String>[]);
+		all = new Map.from(req.all ?? <String, int>{});
 		error = req.error;
 	}
 }

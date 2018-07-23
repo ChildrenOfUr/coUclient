@@ -21,8 +21,7 @@ class Quoin {
 		init(map);
 	}
 
-	init(Map<String, dynamic> map) async
-	{
+	Future<Null> init(Map<String, dynamic> map) async {
 		typeString = map['type'];
 
 		// Don't show Quarazy Quoins more than once for a street
@@ -102,7 +101,7 @@ class Quoin {
 		addingLocks[id] = false;
 	}
 
-	update(double dt) {
+	void update(double dt) {
 		if (!ready) {
 			return;
 		}
@@ -159,9 +158,9 @@ class Quoin {
 			return false;
 		}
 
-		if (metabolics.playerMetabolics.quoinsCollected >= constants["quoinLimit"]) {
+		if (metabolics.playerMetabolics.quoinsCollected >= constants.quoinLimit) {
 			return _toastIfNotNotified(
-				"You've reached your daily limit of ${constants["quoinLimit"].toString()} quoins",
+				"You've reached your daily limit of ${constants.quoinLimit} quoins",
 				"daily_limit");
 		} else if (typeString == 'mood' && metabolics.playerMetabolics.mood >= metabolics.playerMetabolics.maxMood) {
 			return _toastIfNotNotified(
@@ -232,7 +231,7 @@ class Quoin {
 	}
 
 	bool get statIsMaxed {
-		if (metabolics.playerMetabolics.quoinsCollected >= constants["quoinLimit"]) {
+		if ((metabolics.playerMetabolics.quoinsCollected ?? 0) >= constants.quoinLimit) {
 			return true;
 		}
 

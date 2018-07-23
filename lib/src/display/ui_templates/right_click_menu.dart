@@ -132,7 +132,7 @@ class RightClickMenu {
 					option.onClick.listen((MouseEvent event) async {
 						String functionName = action.actionName.toLowerCase();
 
-						Function doClick = ({int howMany: 1}) async {
+						Future<Null> doClick({int howMany: 1}) async {
 							bool completed = true;
 
 							// Wait for actions to complete
@@ -174,7 +174,7 @@ class RightClickMenu {
 									sendAction(functionName, entityId, arguments);
 								}
 							}
-						};
+						}
 
 						if (action.multiEnabled) {
 							int max = 0;
@@ -214,7 +214,7 @@ class RightClickMenu {
 								// Open the how many menu
 								HowManyMenu.create(event, functionName, max, doClick, itemName: itemName ?? item.name);
 							}
-						}else {
+						} else {
 							doClick();
 						}
 					});
@@ -352,7 +352,8 @@ class RightClickMenu {
 		 *   ...
 		 * ]
 		 *
-		 * itemName: string of the item selected, will show the (i) button if not null and will open the item info window when the (i) is clicked
+		 * itemName: string of the item selected, will show the (i) button if not
+		 *           null and will open the item info window when the (i) is clicked
 		 */
 
 		opening();

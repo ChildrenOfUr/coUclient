@@ -219,6 +219,19 @@ Map<String, dynamic> _$RequirementToJson(Requirement instance) =>
       'typeDone': instance.typeDone
     };
 
+Constants _$ConstantsFromJson(Map<String, dynamic> json) {
+  return new Constants()
+    ..changeUsernameCost = json['changeUsernameCost'] as int
+    ..quoinLimit = json['quoinLimit'] as int
+    ..quoinMultiplierLimit = json['quoinMultiplierLimit'] as num;
+}
+
+Map<String, dynamic> _$ConstantsToJson(Constants instance) => <String, dynamic>{
+      'changeUsernameCost': instance.changeUsernameCost,
+      'quoinLimit': instance.quoinLimit,
+      'quoinMultiplierLimit': instance.quoinMultiplierLimit
+    };
+
 Slot _$SlotFromJson(Map<String, dynamic> json) {
   return new Slot()
     ..itemType = json['itemType'] as String

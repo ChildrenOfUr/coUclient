@@ -11,6 +11,8 @@ class Metabolics {
 	int mood = 50;
 	int maxMood = 100;
 	int img = 0;
+
+	@JsonKey()
 	int quoinsCollected = 0;
 
 	int alphFavor = 0;

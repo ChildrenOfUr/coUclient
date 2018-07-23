@@ -88,7 +88,8 @@ class InventorySearchWindow extends Modal {
 			}
 
 			if ((slot.item.isContainer ?? false) && (slot.item.metadata?.containsKey('slots') ?? false)) {
-				List<Map> subSlots = jsonDecode(slot.item.metadata['slots']);
+				List<Map<String, dynamic>> subSlots = (jsonDecode(slot.item.metadata['slots']) as List)
+					.cast<Map<String, dynamic>>();
 				for (int ssi = 0; ssi < slot.item.subSlots; ssi++) {
 					if (subSlots[ssi]['item'] == null) {
 						continue;
