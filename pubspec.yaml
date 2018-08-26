@@ -2,14 +2,13 @@ name: couclient
 description: 'Children of Ur :: Webclient'
 
 environment:
-  sdk: '>=2.0.0-dev.68.0 <3.0.0'
+  sdk: '>=2.0.0 <3.0.0'
 
 dependencies:
   dnd: ^1.2.0
-  firebase: ^0.5.0
+  firebase: ^5.0.0
   intl: ^0.15.6
   json_annotation: "^0.2.9"
-  slack: ^1.2.2
   stagexl: ^1.3.1+4
   xml: ^3.0.0
   cou_toolkit:
@@ -31,6 +30,10 @@ dependencies:
   scproxy:
     git:
       url: git://github.com/ChildrenOfUr/scproxy.git
+      ref: dart-2
+  slack:
+    git:
+      url: git://github.com/ChildrenOfUr/dart-slack.git
       ref: dart-2
   transmit:
     git:
