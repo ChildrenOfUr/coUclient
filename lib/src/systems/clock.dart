@@ -214,7 +214,7 @@ class Clock {
 		//
 		String suffix;
 		String _num = MonthAndDay[1].toString();
-		switch (_num.substring(_num.length - 2)) {
+		switch (_num.substring(_num.length - 1)) {
 			case '1':
 				suffix = 'st';
 				break;

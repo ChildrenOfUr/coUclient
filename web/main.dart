@@ -26,7 +26,9 @@ import 'package:libld/libld.dart'; // Asset loading
 import 'package:scproxy/scproxy.dart'; // SoundCloud helper
 import 'package:transmit/transmit.dart'; // Event bus
 import "package:xml/xml.dart" as XML; // Blog post checking
-import 'package:firebase/firebase.dart' as fb; // Login
+import 'package:firebase/firebase.dart' as firebase; // Login
+import 'package:angular/angular.dart';
+import 'package:cou_login/cou_login/cou_login.template.dart' as loginComponent; // ignore: uri_has_not_been_generated
 
 // Systems
 
@@ -202,6 +204,13 @@ Future main() async {
 	startConsoleErrorLogging();
 
 	try {
+    // initialize firebase and the login component
+    firebase.initializeApp(
+        apiKey: 'AIzaSyCTXgszjO2AJNLTZUMYp2ZtFAmVLS2G6J4',
+        authDomain: 'blinding-fire-920.firebaseapp.com',
+    );
+    runApp(loginComponent.CouLoginNgFactory);
+
 		// Load server connection configuration
 		await Configs.init();
 

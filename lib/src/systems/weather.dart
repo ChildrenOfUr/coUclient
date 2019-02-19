@@ -198,7 +198,7 @@ class WeatherManager {
 	}
 
 	static List<int> hex2rgb(String hex) {
-		List result = new List(4);
+		List<int> result = new List<int>(4);
 		result[0] = int.parse(hex.substring(1, 3), radix: 16);
 		result[1] = int.parse(hex.substring(3, 5), radix: 16);
 		result[2] = int.parse(hex.substring(5, 7), radix: 16);
