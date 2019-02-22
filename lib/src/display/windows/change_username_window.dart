@@ -19,7 +19,7 @@ class ChangeUsernameWindow extends Modal {
 		output = displayElement.querySelector('#chgUsernameStatus');
 
 		currantCost = displayElement.querySelector('#chgUsernameCost')
-			..text = commaFormatter.format(constants['changeUsernameCost']) + ' ';
+			..text = commaFormatter.format(constants.changeUsernameCost) + ' ';
 
 		inputForm = displayElement.querySelector('#chgUsernameForm');
 
@@ -60,7 +60,7 @@ class ChangeUsernameWindow extends Modal {
 	void open({bool ignoreKeys: false}) {
 		super.open(ignoreKeys: ignoreKeys);
 		currantDisplay.text = commaFormatter.format(metabolics.currants) + ' ';
-		setFormDisabled(metabolics.currants < constants['changeUsernameCost']);
+		setFormDisabled(metabolics.currants < constants.changeUsernameCost);
 		buttonInput.onClick.first.then((_) {
 			_changeUsername();
 		});

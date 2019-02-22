@@ -78,7 +78,7 @@ Future makeHome(var options) async {
 }
 
 // Teleports the player to their home street
-Future goHome(var ignored) async {
+Future goHome() async {
 	String tsid = await HomeStreet.getForPlayer();
 	if (tsid == null) {
 		new Toast(
@@ -104,7 +104,7 @@ void changeInterface(var type) {
 		localStorage['interface'] = 'mobile';
 		new Toast('Switched to mobile view');
 	} else {
-		new Toast('Interface type must be either desktop or mobile, ' + type + ' is invalid');
+		new Toast('Interface type must be either "desktop" or "mobile", "$type" is invalid');
 	}
 }
 

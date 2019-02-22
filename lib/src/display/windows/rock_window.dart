@@ -25,7 +25,7 @@ class RockWindow extends Modal {
 
 		// Handle screen navigation
 		querySelectorAll("#rwc-" + convo + " .rwc-button").onClick.listen((e) {
-			String id = e.target.dataset["goto"];
+			String id = (e.target as Element).dataset["goto"];
 			if (id == querySelector("#rwc-" + convo).dataset["endphrase"]) {
 				// Last screen, close and return to the menu
 				super.close();
@@ -121,7 +121,7 @@ class RockWindow extends Modal {
 	}
 
 	void _setInventoryEnabled(bool enabled) {
-		querySelector("#inventory /deep/ #disableinventory").hidden = enabled;
+		querySelector("#inventory #disableinventory").hidden = enabled;
 		if(!enabled) {
 			//close all bag windows
 			List<String> openIds = [];
@@ -296,19 +296,34 @@ class RockWindow extends Modal {
 	}
 }
 
+@JsonSerializable()
 class Conversation {
 	String id;
 	List<ConvoScreen> screens;
+
+	Conversation();
+	factory Conversation.fromJson(Map<String, dynamic> json) => _$ConversationFromJson(json);
+	Map<String, dynamic> toJson() => _$ConversationToJson(this);
 }
 
+@JsonSerializable()
 class ConvoScreen {
 	List<String> paragraphs;
 	List<ConvoChoice> choices;
+
+	ConvoScreen();
+	factory ConvoScreen.fromJson(Map<String, dynamic> json) => _$ConvoScreenFromJson(json);
+	Map<String, dynamic> toJson() => _$ConvoScreenToJson(this);
 }
 
+@JsonSerializable()
 class ConvoChoice {
 	String text;
 	int gotoScreen;
 	bool isQuestAccept = false,
 		isQuestReject = false;
+
+	ConvoChoice();
+	factory ConvoChoice.fromJson(Map<String, dynamic> json) => _$ConvoChoiceFromJson(json);
+	Map<String, dynamic> toJson() => _$ConvoChoiceToJson(this);
 }

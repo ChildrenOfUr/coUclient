@@ -34,6 +34,10 @@
   border-radius: 5px;
 }
 
+#windowHolder .window header .fa {
+    margin-top: -6px;
+}
+
 #windowHolder .window header,
 #windowHolder .window header > span,
 #windowHolder .window header > i {
@@ -48,7 +52,8 @@
   cursor: -webkit-grabbing;
 }
 
-#windowHolder .window .fa {
+#windowHolder .window > .fa,
+#windowHolder .window header .fa {
   padding: 10px 0;
   color: #444;
 }
@@ -66,7 +71,7 @@
   opacity: 0.5;
 }
 
-.window ur-well,
+.window .well,
 .window article {
   font-family: "Lato", sans-serif;
   color: #000;
@@ -81,7 +86,7 @@
   background-color: #eee;
 }
 
-.darkui .window ur-well,
+.darkui .window .well,
 .darkui .window article {
   background-color: #282828;
   color: #fff;

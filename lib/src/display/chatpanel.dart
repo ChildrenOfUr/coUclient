@@ -96,7 +96,7 @@ class Chat {
 			}
 
 			//handle chat input getting focused/unfocused so that the character doesn't move while typing
-			chatInput.onFocus.listen((FocusEvent event) {
+			chatInput.onFocus.listen((Event event) {
 				if (localResizeFocus) {
 					// Don't drag to resize into text fields
 					event.preventDefault();
@@ -252,7 +252,7 @@ class Chat {
 					//warn multiplayer server that it will receive messages
 					//from a new name but it should be the same person
 					data['street'] = currentStreet.label;
-					playerSocket.send(JSON.encode(data));
+					playerSocket.send(jsonEncode(data));
 
 					timeLast = 5.0;
 				}
@@ -603,7 +603,7 @@ class Chat {
 			channel = currentStreet.label;
 		}
 		String url = '${Configs.http}//Configs.utilServerAddress/listUsers?channel=$channel';
-		connectedUsers = JSON.decode(await HttpRequest.requestCrossOrigin(url));
+		connectedUsers = (jsonDecode(await HttpRequest.requestCrossOrigin(url)) as List).cast<String>();
 
 		int startIndex = input.value.lastIndexOf(" ") == -1 ? 0 : input.value.lastIndexOf(" ") + 1;
 		String localLastWord = input.value.substring(startIndex);

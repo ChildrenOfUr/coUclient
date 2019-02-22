@@ -7,7 +7,7 @@ abstract class Skills {
 		String json = await HttpRequest.getString(
 			"${Configs.http}//${Configs.utilServerAddress}/skills/get/${game.email}"
 		);
-		data = JSON.decode(json);
+		data = (jsonDecode(json) as List).cast<Map<String, dynamic>>();
 		return json;
 	}
 

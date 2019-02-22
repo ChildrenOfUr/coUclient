@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="140"
+   height="60"
+   viewBox="0 0 140 60"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.91 r"
+   sodipodi:docname="youlabel.svg">
+  <defs
+     id="defs4" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="3.959798"
+     inkscape:cx="68.136342"
+     inkscape:cy="36.881043"
+     inkscape:document-units="px"
+     inkscape:current-layer="text3336"
+     showgrid="false"
+     units="px"
+     inkscape:window-width="1920"
+     inkscape:window-height="1026"
+     inkscape:window-x="1440"
+     inkscape:window-y="27"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-992.36218)">
+    <g
+       style="font-style:normal;font-weight:normal;font-size:31.86772346px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#4b2e4c;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="text3336">
+      <path
+         d="m 77.222183,1013.347 c -0.860428,-0.5418 -1.497783,-0.7967 -2.007666,-0.7967 -0.924164,0 -1.40218,0.733 -1.943931,1.5615 l -4.939498,7.9032 -4.939497,-7.9032 c -0.541751,-0.8285 -1.019767,-1.5615 -1.912063,-1.5615 -0.509884,0 -1.147238,0.2231 -2.007667,0.7967 -1.179105,0.7967 -1.593386,1.4659 -1.593386,2.1033 0,0.5736 0.350545,1.1153 0.732958,1.689 l 6.883428,10.2932 0,6.023 c 0,1.5615 0,2.8681 2.836227,2.8681 2.836228,0 2.836228,-1.2747 2.836228,-2.8043 l 0,-6.0868 6.883428,-10.2932 c 0.382413,-0.5737 0.732958,-1.1154 0.732958,-1.689 0,-0.6374 -0.414281,-1.3066 -1.561519,-2.1033 z"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Fredoka One';-inkscape-font-specification:'Fredoka One';fill:#4b2e4c;fill-opacity:1"
+         id="path4229" />
+      <path
+         d="m 84.978986,1019.0832 c -4.238407,0 -8.731756,3.4736 -8.731756,8.7955 0,5.3219 4.652687,8.668 8.795491,8.668 4.015334,0 8.731757,-3.123 8.731757,-8.6999 0,-5.29 -4.334011,-8.7636 -8.795492,-8.7636 z m 0,11.8548 c -1.083503,0 -3.091169,-0.7967 -3.091169,-3.1231 0,-2.2626 1.912063,-3.123 3.059301,-3.123 1.338445,0 3.186773,0.7967 3.186773,3.0912 0,2.3582 -2.071402,3.1549 -3.154905,3.1549 z"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Fredoka One';-inkscape-font-specification:'Fredoka One';fill:#4b2e4c;fill-opacity:1"
+         id="path4231" />
+      <path
+         d="m 103.29048,1036.1962 c 2.39008,0 3.79226,-2.0396 3.79226,-2.0396 0,0.7648 0,2.0714 2.70876,2.0714 2.77249,0 2.80435,-1.211 2.80435,-2.7087 l 0,-11.2812 c 0,-1.4978 0,-2.8044 -2.77249,-2.8044 -2.80436,0 -2.80436,1.2429 -2.80436,2.7725 l 0,5.6406 c 0,1.689 -1.14723,2.7725 -2.80436,2.7725 -1.65712,0 -2.77249,-0.9879 -2.77249,-2.7725 l 0,-5.5768 c 0,-1.5297 0,-2.8363 -2.804358,-2.8363 -2.80436,0 -2.80436,1.2747 -2.80436,2.8044 l 0,5.5768 c 0,4.6209 3.123037,8.3813 7.457048,8.3813 z"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Fredoka One';-inkscape-font-specification:'Fredoka One';fill:#4b2e4c;fill-opacity:1"
+         id="path4233" />
+    </g>
+    <path
+       style="fill:#4b2e4c;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 35.08259,1014.8228 c -1.738896,-5.1699 -3.519603,-13.134 -5.509228,-14.5355 -1.702754,-1.19915 -16.006727,5.2746 -12.647345,5.3951 0,0 6.987821,-0.3325 7.904017,1.1185 -1.486822,4.0883 -18.9662454,34.0046 33.047366,27.1571 -50.3048536,0.8424 -30.313438,-25.6962 -30.313438,-25.6962 2.049947,0.7466 9.257526,11.7308 7.518628,6.561 z"
+       id="path3421"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="zsscccz" />
+  </g>
+</svg>

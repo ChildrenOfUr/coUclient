@@ -110,7 +110,7 @@ class QuestMakerWindow extends Modal {
 		String url = '${Configs.http}//${Configs.utilServerAddress}/quest/createQuestItem';
 		await HttpRequest.request(url, method: 'POST',
 			                    requestHeaders: {'Content-Type':'application/json'},
-			                    sendData: encode(quest)
+			                    sendData: quest.toJson()
 		                    );
 	}
 
@@ -134,14 +134,14 @@ class QuestMakerWindow extends Modal {
 
 	Future _populatePieces() async {
 		String url = '${Configs.http}//${Configs.utilServerAddress}/quest/pieces';
-		Map<String,String> piecesMap = JSON.decode(await HttpRequest.getString(url));
+		Map<String, dynamic> piecesMap = jsonDecode(await HttpRequest.getString(url)) as Map;
 
 		pieces.children.clear();
 
-		for (String text in piecesMap.values) {
+		for (dynamic text in piecesMap.values) {
 			LIElement piece = new LIElement()
 				..className = 'questPiece'
-				..text = text;
+				..text = text as String;
 
 			pieces.append(piece);
 		}

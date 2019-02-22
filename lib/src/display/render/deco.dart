@@ -46,5 +46,8 @@ class Deco implements Comparable
 	int get w => _w;
 	int get h => _h;
 
-	int compareTo(Deco other) => zIndex.compareTo(other.zIndex);
+	int compareTo(dynamic other) {
+		assert(other is Deco);
+		return zIndex.compareTo(other.zIndex);
+	}
 }

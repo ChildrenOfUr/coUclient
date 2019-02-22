@@ -56,28 +56,17 @@
     position: relative;
     top: 5px;
     margin-right: 10px;
-    margin-bottom: 20px;
     margin-left: 15px;
     cursor: pointer;
 }
 
 .ChatSettingsOption {
     display: inline-block;
-    margin-bottom: 15px;
     vertical-align: top;
 }
 
-.ChatSettingsOption paper-toggle-button {
+.ChatSettingsOption input[type="checkbox"] {
     margin-right: 10px;
-}
-
-.ChatSettingsOption paper-toggle-button::shadow [checked] .toggle {
-    background-color: #4b2e4c;
-}
-
-.ChatSettingsOption paper-toggle-button::shadow .toggle-ink,
-.ChatSettingsOption paper-toggle-button::shadow [checked] .toggle-ink {
-    color: transparent;
 }
 
 .pane-2-container {
@@ -102,7 +91,7 @@
     opacity: 0;
     transition: opacity 0.25s ease-in-out;
     display: inline-block;
-    margin-left: 50px;
+    margin-left: 25px;
 }
 
 #weatherIntensity.visible {
@@ -112,14 +101,4 @@
 #WeatherEffectsIntensityGroup {
     position: relative;
     left: -12px;
-}
-
-#WeatherEffectsIntensityGroup paper-radio-button::shadow #ink,
-#WeatherEffectsIntensityGroup paper-radio-button::shadow [checked] #ink{
-    color: transparent;
-}
-
-#WeatherEffectsIntensityGroup paper-radio-button::shadow #radioContainer,
-#WeatherEffectsIntensityGroup paper-radio-button::shadow [checked] #radioContainer {
-    cursor: default;
 }

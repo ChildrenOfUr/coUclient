@@ -3,7 +3,7 @@ part of couclient;
 class ClockManager {
 	ClockManager() {
 		// Take each of the 'clock's streams, and when there is an event, broadcast this to the manager's subscribers.
-		clock.onUpdate.listen((List timedata) {
+		clock.onUpdate.listen((timedata) {
 			transmit('timeUpdate', timedata);
 		});
 		clock.onNewDay.listen((_) {
@@ -23,7 +23,7 @@ class Clock {
 	Stream onUpdate, onNewDay, onHoliday;
 	String _dayofweek, _year, _day, _month, _time;
 	int _dayInt, _monthInt;
-	List _dPM = [29, 3, 53, 17, 73, 19, 13, 37, 5, 47, 11, 1];
+	List<int> _dPM = [29, 3, 53, 17, 73, 19, 13, 37, 5, 47, 11, 1];
 	List<String> _currentHolidays = [];
 
 	// Getters, so they can only be written by the Clock
@@ -57,9 +57,9 @@ class Clock {
 		new Timer.periodic(new Duration(seconds: 10), (_) => _sendEvents());
 	}
 
-	Future <List <String>> getHolidays(int month, int day) async {
+	Future <List<String>> getHolidays(int month, int day) async {
 		String url = '${Configs.http}//${Configs.utilServerAddress}/getHolidays?month=${month}&day=${day}';
-		List<String> currentHolidays = JSON.decode(await HttpRequest.requestCrossOrigin(url));
+		List<String> currentHolidays = jsonDecode(await HttpRequest.requestCrossOrigin(url));
 		return currentHolidays;
 	}
 
@@ -140,8 +140,31 @@ class Clock {
 		_currentHolidays = updatedHolidays;
 	}
 
-	List _Months = const ['Primuary', 'Spork', 'Bruise', 'Candy', 'Fever', 'Junuary', 'Septa', 'Remember', 'Doom', 'Widdershins', 'Eleventy', 'Recurse'];
-	List _Days_of_Week = const ['Hairday', 'Moonday', 'Twoday', 'Weddingday', 'Theday', 'Fryday', 'Standday', 'Fabday'];
+	List<String> _Months = const <String>[
+		'Primuary',
+		'Spork',
+		'Bruise',
+		'Candy',
+		'Fever',
+		'Junuary',
+		'Septa',
+		'Remember',
+		'Doom',
+		'Widdershins',
+		'Eleventy',
+		'Recurse'
+	];
+
+	List<String> _Days_of_Week = const <String>[
+		'Hairday',
+		'Moonday',
+		'Twoday',
+		'Weddingday',
+		'Theday',
+		'Fryday',
+		'Standday',
+		'Fabday'
+	];
 
 	List _getDate() {
 		//
@@ -174,7 +197,7 @@ class Clock {
 		// turn the 0-based day-of-year into a day & month
 		//
 
-		List MonthAndDay = _day_to_md(day_of_year);
+		List<int> MonthAndDay = _day_to_md(day_of_year);
 
 
 		//
@@ -190,7 +213,21 @@ class Clock {
 		// Append to our day_of_month
 		//
 		String suffix;
-		if(MonthAndDay[1].toString().endsWith('1')) suffix = 'st'; else if(MonthAndDay[1].toString().endsWith('2')) suffix = 'nd'; else if(MonthAndDay[1].toString().endsWith('3')) suffix = 'rd'; else suffix = 'th';
+		String _num = MonthAndDay[1].toString();
+		switch (_num.substring(_num.length - 1)) {
+			case '1':
+				suffix = 'st';
+				break;
+			case '2':
+				suffix = 'nd';
+				break;
+			case '3':
+				suffix = 'rd';
+				break;
+			default:
+				suffix = 'th';
+				break;
+		}
 
 		//
 		// Fix am pm times
@@ -207,14 +244,24 @@ class Clock {
 		if(h == '0') h = (12).toString();
 		String CurrentTime = (h + ':' + m + ampm);
 
-		return ['Year ' + year.toString(), _Months[MonthAndDay[0] - 1], MonthAndDay[1].toString() + suffix, _Days_of_Week[day_of_week], CurrentTime, MonthAndDay[1], MonthAndDay[0]];
+		return [
+			'Year ' + year.toString(),
+			_Months[MonthAndDay[0] - 1],
+			MonthAndDay[1].toString() + suffix,
+			_Days_of_Week[day_of_week],
+			CurrentTime,
+			MonthAndDay[1],
+			MonthAndDay[0]
+		];
 	}
 
-	List _day_to_md(id) {
+	List<int> _day_to_md(id) {
 
 		int cd = 0;
 
-		int daysinMonths = daysPerMonth[0] + daysPerMonth[1] + daysPerMonth[2] + daysPerMonth[3] + daysPerMonth[4] + daysPerMonth[5] + daysPerMonth[6] + daysPerMonth[7] + daysPerMonth[8] + daysPerMonth[9] + daysPerMonth[10] + daysPerMonth[11];
+		int daysinMonths = daysPerMonth[0] + daysPerMonth[1] + daysPerMonth[2] + daysPerMonth[3] +
+			daysPerMonth[4] + daysPerMonth[5] + daysPerMonth[6] + daysPerMonth[7] +
+			daysPerMonth[8] + daysPerMonth[9] + daysPerMonth[10] + daysPerMonth[11];
 
 		for(int i = 0; i < (daysinMonths); i++) {
 			cd += daysPerMonth[i];

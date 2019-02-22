@@ -27,7 +27,7 @@ class ItemWindow extends Modal {
 	Future<Element> displayItem() async {
 		String response = await HttpRequest.requestCrossOrigin(
 			'${Configs.http}//${Configs.utilServerAddress}/getItems?name=${Uri.encodeComponent(itemName)}');
-		ItemDef item = decode(response, type: const TypeHelper<List<ItemDef>>().type).first;
+		ItemDef item = ItemDef.fromJson((jsonDecode(response) as List).cast<Map<String, dynamic>>().single);
 
 		int newImg = 0;
 
@@ -194,14 +194,18 @@ class ItemWindow extends Modal {
 
 		// Container
 
-		Element well = new Element.tag("ur-well")
-			..append(left)..append(right);
+		Element well = new DivElement()
+			..classes = ['well']
+			..append(left)
+			..append(right);
 
 		DivElement window = new DivElement()
 			..id = id
 			..classes.add("window")
 			..classes.add("itemWindow")
-			..append(closeButton)..append(header)..append(well);
+			..append(closeButton)
+			..append(header)
+			..append(well);
 
 		return (window);
 	}

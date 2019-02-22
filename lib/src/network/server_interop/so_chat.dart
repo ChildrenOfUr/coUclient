@@ -6,7 +6,7 @@ void sendLeftMessage(String streetName) {
 		map["username"] = game.username;
 		map["streetName"] = streetName;
 		map["message"] = "left";
-		streetSocket.send(JSON.encode(map));
+		streetSocket.send(jsonEncode(map));
 	}
 }
 
@@ -20,7 +20,7 @@ void sendJoinedMessage(String streetName, [String tsid]) {
 		map["tsid"] = tsid == null ? currentStreet.streetData['tsid'] : tsid;
 		map["message"] = "joined";
 		map['firstConnect'] = firstConnect;
-		streetSocket.send(JSON.encode(map));
+		streetSocket.send(jsonEncode(map));
 		joined = streetName;
 		if (firstConnect) {
 			firstConnect = false;
@@ -28,14 +28,16 @@ void sendJoinedMessage(String streetName, [String tsid]) {
 	}
 }
 
-_updateChatBubble(Map map, Entity entity) {
+void _updateChatBubble(Map<String, dynamic> map, Entity entity) {
 	if (entity == null) {
 		return;
 	}
 
 	if (map["bubbleText"] != null) {
-		String bubbleText = map['bubbleText'].split('|||')[0];
-		String buttons = (map['bubbleText'].contains('|||') ? map['bubbleText'].split('|||')[1] : null);
+		String bubbleText = (map['bubbleText'] as String).split('|||')[0];
+		String buttons = ((map['bubbleText'] as String).contains('|||')
+			? (map['bubbleText'] as String).split('|||')[1]
+			: null);
 
 		if (entity.chatBubble == null) {
 			String heightString = entity.canvas.height.toString();

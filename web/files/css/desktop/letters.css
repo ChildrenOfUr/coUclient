@@ -8,8 +8,7 @@
     left: 50%;
     transform: translateX(-50%);
     background-size: contain;
-    background-repeat: no-repeat;
-    background-position: bottom center;
+    background: no-repeat bottom center;
 }
 
 .playerParent.facing-left .letter {

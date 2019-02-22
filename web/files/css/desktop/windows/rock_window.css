@@ -46,10 +46,9 @@
 }
 
 #petrock.questlog {
-    background-image: url(../../../system/icons/quest_log.png);
-    background-size: contain;
-    background-repeat: no-repeat;
-    -webkit-animation: none;
+	background-size: contain;
+	background: url(../../../system/icons/quest_log.png) no-repeat;
+	-webkit-animation: none;
     -moz-animation: none;
     -o-animation: none;
     animation: none;

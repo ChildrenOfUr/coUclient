@@ -147,9 +147,8 @@
     width: 1em;
     height: 1em;
     display: inline-block;
-    background-repeat: no-repeat;
     background-size: contain;
-    background-position: center center;
+    background: no-repeat center center;
     margin-right: 5px;
     vertical-align: bottom;
 }

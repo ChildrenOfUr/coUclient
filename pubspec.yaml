@@ -1,56 +1,50 @@
 name: couclient
 description: 'Children of Ur :: Webclient'
+
 environment:
-  sdk: ">=1.12.0" # we need null-aware operators
+  sdk: '>=2.1.0 <3.0.0'
+
 dependencies:
-  browser: any
-  dnd: '^0.3.0'
-  firebase: '>=0.5.0 <0.6.0'
-  gorgon: any
-  intl: "0.12.4+2"
-  jsonx: "2.0.0"
-  xml: "^2.4.0"
+  dnd: ^1.2.0
+  firebase: ^5.0.0
+  intl: ^0.15.6
+  json_annotation: "^0.2.9"
+  stagexl: ^1.3.1+4
+  xml: ^3.0.0
+  cou_login:
+    git:
+      url: https://github.com/ChildrenOfUr/cou_login.git
+      ref: master
+  cou_toolkit:
+    git:
+      url: git://github.com/ChildrenOfUr/cou_toolkit.git
+      ref: dart-2
+  coUemoticons:
+    git:
+      url: git://github.com/ChildrenOfUr/emoticons.git
+      ref: dart-2
+  gorgon:
+    git:
+      url: git://github.com/ChildrenOfUr/gorgonDart.git
+      ref: dart-2
   libld:
     git:
-      ref: master
       url: git://github.com/ChildrenOfUr/libld.git
-  paper_elements: ">=0.7.0 <0.8.0"
-  polymer: '>=0.16.1 < 0.17.0'
-  transmit:
-        git:
-          ref: master
-          url: git://github.com/ChildrenOfUr/transmit.git
+      ref: dart-2
   scproxy:
     git:
-      ref: master
       url: git://github.com/ChildrenOfUr/scproxy.git
-  slack: "1.2.1+1"
-  cou_auction_house:
+      ref: dart-2
+  slack:
     git:
+      url: git://github.com/ChildrenOfUr/dart-slack.git
       ref: master
-      url: git://github.com/ChildrenOfUr/auction_house.git
-  cou_toolkit:
-      git:
-        ref: master
-        url: git://github.com/ChildrenOfUr/cou_toolkit.git
-  cou_login:
-      git:
-        ref: dev
-        url: https://github.com/ChildrenOfUr/cou_login.git
-  coufeedback:
-      git:
-        ref: userfeedback
-        url: git://github.com/ChildrenOfUr/cou-issues.git
-  stagexl: "^0.12.0"
-  browser_detect: "^1.0.3"
-  coUemoticons:
-      git:
-        url: git://github.com/ChildrenOfUr/emoticons.git
-        ref: dev
-      #path: ../emoticons/
+  transmit:
+    git:
+      url: git://github.com/ChildrenOfUr/transmit.git
+      ref: master
 
-transformers:
-- couclient/transformers/configs_transformer
-- polymer:
-    entry_points:
-    - web/index.html
+dev_dependencies:
+  build_runner: '>=0.8.10 <0.10.0'
+  build_web_compilers: '>=0.3.6 <0.5.0'
+  json_serializable: "^0.5.8"

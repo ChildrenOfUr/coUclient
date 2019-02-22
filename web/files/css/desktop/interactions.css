@@ -803,7 +803,7 @@
 
 /* RIGHT CLICK MENU */
 
-#RightClickMenu {
+.RightClickMenu {
     overflow: visible;
     background-color: #eee;
     width: 120px;
@@ -822,7 +822,7 @@
     transform-origin: bottom center;
 }
 
-.darkui #RightClickMenu {
+.darkui .RightClickMenu {
     background-color: #282828;
     color: #eee;
 }

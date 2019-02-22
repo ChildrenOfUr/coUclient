@@ -25,9 +25,8 @@
 /* TODO: move to own element that isn't blurred */
 .skillindicator-fill::before {
     content: '';
-    background-image: url(../../../system/imgmenu/imgbubbles.svg);
-    background-repeat: repeat-y;
-    background-size: 30px 696px;
+	background: url(../../../system/imgmenu/imgbubbles.svg) repeat-y;
+	background-size: 30px 696px;
     width: 30px;
     height: 100%;
     position: absolute;

@@ -4,18 +4,15 @@ String SLACK_WEBHOOK, SC_TOKEN, SESSION_TOKEN, FORUM_TOKEN;
 
 class AuthManager {
 	String _authUrl = '${Configs.http}//${Configs.authAddress}/auth';
-	UrLogin _loginPanel;
 
 	AuthManager() {
 		// Starts the game
-		_loginPanel = querySelector('ur-login');
-
-		_loginPanel.on['loginSuccess'].first.then((e) {
+		document.on['loginSuccess'].first.then((Event e) {
 //			print('got success, firing back');
 			//fire acknowledgement event
 			transmit('loginAcknowledged',null);
 
-			Map serverdata = e.detail;
+			Map<String, dynamic> serverdata = (e as CustomEvent).detail;
 
 			logmessage('[AuthManager] Setting API tokens');
 			SESSION_TOKEN = serverdata['sessionToken'];
@@ -24,7 +21,7 @@ class AuthManager {
 
 			sessionStorage['playerName'] = serverdata['playerName'];
 			sessionStorage['playerEmail'] = serverdata['playerEmail'];
-			sessionStorage['playerStreet'] = decode(serverdata['metabolics'], type:Metabolics).currentStreet;
+			sessionStorage['playerStreet'] = Metabolics.fromJson(jsonDecode(serverdata['metabolics'])).currentStreet;
 
 			if(serverdata['playerName'].trim() == '') {
 				setupNewUser(serverdata);
@@ -39,31 +36,31 @@ class AuthManager {
 	Future<HttpRequest> post(String type, Map data) {
 		return HttpRequest.request(_authUrl + "/$type", method: "POST", requestHeaders: {
 			"content-type": "application/json"
-		}, sendData: JSON.encode(data));
+		}, sendData: jsonEncode(data));
 	}
 
-	void logout() {
+	void logout() async {
 		logmessage('[AuthManager] Attempting logout');
 		localStorage.remove('username');
-		_loginPanel.firebase.unauth();
+		await firebase.auth().signOut();
 		window.location.reload();
 	}
 
-	startGame(Map serverdata) {
+	startGame(Map<String, dynamic> serverdata) {
 		inputManager = new InputManager();
 		view.loggedIn();
 		audio.sc = new SC(SC_TOKEN);
 
 		// Begin Game//
-		game = new Game(decode(serverdata['metabolics'], type:Metabolics));
+		game = new Game(Metabolics.fromJson(jsonDecode(serverdata['metabolics'])));
 	}
 
 	setupNewUser(Map serverdata) {
 //		print('setupNewUser');
-		_loginPanel.newUser = true;
-		_loginPanel.on['setUsername'].listen((e) {
+		// _loginPanel.newUser = true;
+		document.on['setUsername'].listen((Event e) {
 //			print('setUsername event');
-			String username = e.detail;
+			String username = (e as CustomEvent).detail;
 //			print('setting name to ${e.detail}');
 
 			localStorage['username'] = username;

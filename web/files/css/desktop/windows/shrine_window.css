@@ -1,4 +1,4 @@
-#shrineWindow ur-well *:not(.fa) {
+#shrineWindow .well *:not(.fa) {
     font-family: "Lato", sans-serif;
 }
 
@@ -12,13 +12,11 @@
 }
 
 #DonateDropTarget {
-    background: white;
-    border: 2px dashed #999;
+	border: 2px dashed #999;
     width: 75px;
     height: 75px;
     border-radius: 5px;
-    background-repeat: no-repeat;
-    background-position: center center;
+	background: white no-repeat center center;
 }
 
 .darkui #DonateDropTarget {
@@ -29,24 +27,24 @@
     margin-top: 5px;
 }
 
-#shrine-window-buttons > * /deep/ button {
+#shrine-window-buttons > * button {
     width: 78px;
 }
 
-#shrineWindow ur-well /deep/ .NumToDonate {
+#shrineWindow .well .NumToDonate {
     margin: 0 5px;
     width: 40px;
     text-align: center;
 }
 
-#shrineWindow ur-well /deep/ .NumToDonate::-webkit-inner-spin-button,
-#shrineWindow ur-well /deep/ .NumToDonate::-webkit-outer-spin-button {
+#shrineWindow .well .NumToDonate::-webkit-inner-spin-button,
+#shrineWindow .well .NumToDonate::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
 
-#shrineWindow ur-well /deep/ .plus,
-#shrineWindow ur-well /deep/ .minus {
+#shrineWindow .well .plus,
+#shrineWindow .well .minus {
     cursor: pointer;
 }
 
@@ -57,19 +55,19 @@
     left: 200px;
 }
 
-#shrine-window-bottom ur-progress {
+#shrine-window-bottom .progress {
     position: absolute;
     bottom: 5px;
     width: calc(100% - 14px);
     height: 30px;
 }
 
-#shrine-window-bottom ur-progress /deep/ #bar {
+#shrine-window-bottom .progress progress {
     height: 28px;
     left: -1px;
 }
 
-#shrine-window-bottom ur-progress /deep/ #label {
+#shrine-window-bottom .progress label {
     top: -26px;
 }
 

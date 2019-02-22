@@ -27,13 +27,11 @@
     display: inline-block;
     border: 1px solid #eee;
     border-radius: 50%;
-    background-color: #eee;
     cursor: help;
     box-shadow: 0 0 10px #444;
     margin: 0 5px 5px 5px;
-    background-repeat: no-repeat;
     background-size: 30px;
-    background-position: center center;
+    background: #eee no-repeat center center;
 }
 
 .bagify-menu-item:hover {

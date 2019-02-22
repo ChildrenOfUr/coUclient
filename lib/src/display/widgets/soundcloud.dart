@@ -1,34 +1,39 @@
 part of couclient;
 
 class SoundCloudWidget {
-  bool muted = false;
+	bool muted = false;
 
-  Element musicPlayerElement = querySelector('ur-musicplayer');
+	Element musicPlayerElement, songElement, artistElement;
+	AnchorElement linkElement;
 
+	String SCsong = '-';
+	String SCartist = '-';
+	String SClink = '';
 
-  String SCsong = '-';
-  String SCartist = '-';
-  String SClink = '';
+	SoundCloudWidget() {
+		musicPlayerElement = querySelector('#SCwidget');
+		songElement = musicPlayerElement.querySelector('.song');
+		artistElement = musicPlayerElement.querySelector('.artist');
+		linkElement = musicPlayerElement.querySelector('#SCLink');
 
-  SoundCloudWidget() {
-    update();
-	  if (new AudioElement().canPlayType('audio/mp3') == "") {
-		  musicPlayerElement.hidden = true;
-	  } else {
-		  musicPlayerElement.hidden = false;
-	  }
-  }
-  update() {
+		update();
+		musicPlayerElement.hidden = new AudioElement().canPlayType('audio/mp3') == "";
+	}
 
-    // Update the soundcloud widget
-    if (SCsong != musicPlayerElement.attributes['song'])
-      musicPlayerElement.attributes['song'] = SCsong;
-    if (SCartist != musicPlayerElement.attributes['artist'])
-      musicPlayerElement.attributes['artist'] = SCartist;
-    if (SClink != musicPlayerElement.attributes['link'])
-      musicPlayerElement.attributes['link'] = SClink;
+	void update() {
+		// Update the soundcloud widget
+		if (SCsong != songElement.text) {
+			songElement.text = SCsong;
+		}
 
-    window.requestAnimationFrame((_) => this.update());
-  }
+		if (SCartist != artistElement.text) {
+			artistElement.text = SCartist;
+		}
 
+		if (SClink != linkElement.href) {
+			linkElement.href = SClink;
+		}
+
+		window.requestAnimationFrame((_) => this.update());
+	}
 }

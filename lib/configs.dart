@@ -4,11 +4,17 @@ import 'dart:html';
 import 'dart:async';
 
 class Configs {
-	static String baseAddress, utilServerAddress, websocketServerAddress, authAddress, authWebsocket;
+	static String baseAddress;
+	static String utilServerAddress;
+	static String websocketServerAddress;
+	static String authAddress;
+	static String authWebsocket;
+
 	static String http = baseAddress.contains('localhost') ? 'http:' : 'https:';
 	static String ws = baseAddress.contains('localhost') ? 'ws:' : 'wss:';
-	static final int clientVersion = 1471;
 	static bool testing;
+
+	static final int clientVersion = 1471;
 
 	static Future init() async {
 		baseAddress = (await HttpRequest.getString('server_domain.txt')).trim();
@@ -23,15 +29,9 @@ class Configs {
 			testing = false;
 		}
 
-		//set the ur-login components addresses
-		Element urLogin = querySelector('ur-login');
-		urLogin.attributes['server'] = '$http//$authAddress';
-		urLogin.attributes['websocket'] = '$ws//$authWebsocket';
-		urLogin.attributes['base'] = 'blinding-fire-920'; //TODO have the server provide this
-
-		//same for auction-house
-		Element auctionHouse = querySelector('auction-house');
-		auctionHouse.attributes['serverAddress'] = '$http//$utilServerAddress';
+		// TODO auction-house
+//		Element auctionHouse = querySelector('auction-house');
+//		auctionHouse.attributes['serverAddress'] = '$http//$utilServerAddress';
 	}
 
 	static String proxyStreetImage(String url) {

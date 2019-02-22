@@ -7,13 +7,49 @@
 	height: 100%;
 }
 
-#avatarWindow .preload img {
-	transform: scale(-1, 1);
-	position: absolute;
-	top: calc(50% - 75px);
-	left: calc(50% - 75px);
-	width: 150px;
-	height: 150px;
+#avatarWindow .preload .loader {
+	top: calc(50% - 120px);
+}
+
+.loader,
+.loader::after {
+	border-radius: 50%;
+	width: 100px;
+	height: 100px;
+}
+
+.loader {
+	margin: 60px auto;
+	font-size: 10px;
+	position: relative;
+	text-indent: -9999em;
+	border: 1.1em solid rgba(75, 46, 76, 0.2);
+	border-left-color: #4b2e4c;
+	-webkit-transform: translateZ(0);
+	-ms-transform: translateZ(0);
+	transform: translateZ(0);
+	-webkit-animation: load8 1.1s infinite linear;
+	animation: load8 1.1s infinite linear;
+}
+
+@-webkit-keyframes load8 {
+	0% {
+		-webkit-transform: rotate(0deg);
+	}
+
+	100% {
+		-webkit-transform: rotate(360deg);
+	}
+}
+
+@keyframes load8 {
+	0% {
+		transform: rotate(0deg);
+	}
+
+	100% {
+		transform: rotate(360deg);
+	}
 }
 
 #avatarWindow #avatarSelector {

@@ -105,9 +105,8 @@
 
 .ItemImage {
   display: block;
-  margin: auto;
   width:100px;
-  margin-bottom: 10px;
+  margin: auto auto 10px;
   /* Maintain aspect ratio */
   max-height: 100%;
   max-width: 100%;
@@ -218,20 +217,18 @@
 
 .ItemImage {
   display: block;
-  margin: auto;
-  margin-bottom: 10px;
+	margin: auto auto 10px;
 }
 .ItemCount {
   margin-top: 10px;
 }
 .MaxButton {
   display: inline-block;
-  margin: 0;
-  margin-left: 5px;
+  margin: 0 0 0 5px;
   box-shadow: none;
 }
 
-ur-button.max {
+button.max {
     position: relative;
     left: 50%;
     transform: translateX(-50%);
@@ -240,9 +237,8 @@ ur-button.max {
 
 .BuyButton {
   display: block;
-  margin: 0;
   box-shadow: none;
-    margin-top: 10px;
+  margin: 10px 0 0;
 }
 .Description {
   text-align: justify;

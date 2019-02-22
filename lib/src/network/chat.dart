@@ -30,7 +30,7 @@ class NetChatManager {
 		new Service(['chatListEvent'], (event) {
 			for (Chat convo in openConversations) {
 				if (convo.title == event['channel']) {
-					convo.displayList(event['users']);
+					convo.displayList((event['users'] as List).cast<String>());
 				}
 			}
 		});
@@ -50,8 +50,8 @@ class NetChatManager {
 		new Service(["clock_tick"], (_) => refreshOnlinePlayers());
 	}
 
-	post(Map data) {
-		_connection.sendString(JSON.encoder.convert(data));
+	void post(Map data) {
+		_connection.sendString(jsonEncode(data));
 	}
 
 	void setupWebsocket(String url) {
@@ -72,7 +72,7 @@ class NetChatManager {
 					..['channel'] = 'Global Chat');
 			})
 			..onMessage.listen((MessageEvent event) {
-				Map data = JSON.decoder.convert(event.data);
+				Map data = jsonDecode(event.data);
 				if (data['statusMessage'] == 'list') {
 					transmit('chatListEvent', data);
 				} else {
@@ -105,14 +105,13 @@ class NetChatManager {
 		}
 	}
 
-	static Map<String, bool> _lastPlayerList;
+	static Map<String, dynamic> _lastPlayerList;
 
 	// Update the list of friends in the sidebar
 	static Future<int> refreshOnlinePlayers() async {
 		// Download list of friends with online status
-		Map<String, bool> users = JSON.decode(await HttpRequest
-			.requestCrossOrigin(
-			'${Configs.http}//${Configs.utilServerAddress}/friends/list/${game.username}'));
+		Map<String, dynamic> users = jsonDecode(await HttpRequest.requestCrossOrigin(
+			'${Configs.http}//${Configs.utilServerAddress}/friends/list/${game.username}')) as Map;
 
 		// Reset the list
 		Element list = querySelector("#playerList");
@@ -125,10 +124,10 @@ class NetChatManager {
 				..setInnerHtml('<i class="fa-li fa fa-square-o"></i> Nobody, yet :(');
 			list.append(message);
 		} else {
-			users.forEach((String username, bool online) {
+			users.forEach((String username, dynamic online) {
 				Element user = new LIElement()
-					..title = (online ? 'Online' : 'Offline')
-					..classes.add(online ? 'online' : 'offline')
+					..title = (online as bool ? 'Online' : 'Offline')
+					..classes.add(online as bool ? 'online' : 'offline')
 					..onClick.listen((_) => window.open('https://childrenofur.com/profile?username=$username', '_blank'))
 				//..classes.addAll(["online", "chatSpawn"])
 				//..dataset["chat"] = username
@@ -162,14 +161,16 @@ class NetChatManager {
 		if (_lastPlayerList != null) {
 			// Friends who just came online
 			users.keys.where((String username) {
-				return (users[username] == true && _lastPlayerList[username] != null && _lastPlayerList[username] == false);
+				return (users[username] as bool == true &&
+					_lastPlayerList[username] != null && _lastPlayerList[username] as bool == false);
 			}).forEach((String username) {
 				new Toast('$username is online', notify: NotifyRule.UNFOCUSED);
 			});
 
 			// Friends who just went offline
 			users.keys.where((String username) {
-				return (users[username] == false && _lastPlayerList[username] != null && _lastPlayerList[username] == true);
+				return (users[username] as bool == false &&
+					_lastPlayerList[username] != null && _lastPlayerList[username] as bool == true);
 			}).forEach((String username) {
 				new Toast('$username went offline');
 			});

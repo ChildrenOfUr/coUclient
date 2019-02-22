@@ -123,12 +123,11 @@ class ImgOverlay extends Overlay {
 
 	Future _setupQuoinLimitMeter() async {
 		int quoinsCollected = metabolics.playerMetabolics.quoinsCollected;
-		int quoinLimit = constants['quoinLimit'];
-		int remaining = quoinLimit - quoinsCollected;
-		int percentCollected = ((quoinsCollected / quoinLimit) * 100).ceil();
+		int remaining = constants.quoinLimit - quoinsCollected;
+		int percentCollected = ((quoinsCollected / constants.quoinLimit) * 100).ceil();
 
 		quoinsCollectedE.text = quoinsCollected.toString() + ' quoin${quoinsCollected == 1 ? '' : 's'}';
-		quoinLimitE.text = quoinLimit.toString() + ' quoin${quoinLimit == 1 ? '' : 's'}';
+		quoinLimitE.text = constants.quoinLimit.toString() + ' quoin${constants.quoinLimit == 1 ? '' : 's'}';
 		quoinsRemainingE.text = remaining.toString() + ' quoin${remaining == 1 ? '' : 's'}';
 		quoinPercentE.text = percentCollected.toString();
 		quoinBar.style.height = percentCollected.clamp(25, 100).toString() + '%';

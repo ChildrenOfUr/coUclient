@@ -17,10 +17,10 @@ class StreetService {
 		return !_loading.contains(tsid.substring(1));
 	}
 
-	String _dataUrl = Configs.utilServerAddress;
+	String _dataUrl;
 
 	StreetService() {
-		_dataUrl = '${Configs.http}//${_dataUrl}';
+		_dataUrl = '${Configs.http}//${Configs.utilServerAddress}';
 	}
 
 	Future<bool> requestStreet(String StreetID) async {
@@ -36,13 +36,12 @@ class StreetService {
 
 		logmessage('[StreetService] Requesting street "$StreetID"...');
 
-    var tsid = Uri.encodeQueryComponent(StreetID);
+		var tsid = Uri.encodeQueryComponent(StreetID);
 
 		HttpRequest data = await HttpRequest.request(_dataUrl + "/getStreet?tsid=$tsid",
-			requestHeaders: {"content-type": "application/json"}
-    );
+			requestHeaders: {"content-type": "application/json"});
 
-		Map streetJSON = JSON.decode(data.response);
+		Map streetJSON = jsonDecode(data.response);
 
 		if (loadingCancelled(StreetID)) {
 			logmessage('[StreetService] Loading of "$StreetID" was cancelled during download.');
@@ -53,8 +52,9 @@ class StreetService {
 		await _prepareStreet(streetJSON);
 
 		String playerList = '';
-		List<String> players = JSON.decode(await HttpRequest.getString(
-			'${Configs.http}//${Configs.utilServerAddress}/listUsers?channel=${currentStreet.label}'));
+		String playerListJson = await HttpRequest.getString(
+			'${Configs.http}//${Configs.utilServerAddress}/listUsers?channel=${currentStreet.label}');
+		List<String> players = (jsonDecode(playerListJson) as List).cast<String>();
 		if (!players.contains(game.username)) {
 			players.add(game.username);
 		}
@@ -113,7 +113,7 @@ class StreetService {
 
 		// TODO, this should happen automatically on the Server, since it'll know which street we're on.
 		// Send changeStreet to chat server
-		Map map = new Map();
+		Map<String, dynamic> map = {};
 		map["statusMessage"] = "changeStreet";
 		map["username"] = game.username;
 		map["newStreetLabel"] = label;
@@ -122,8 +122,8 @@ class StreetService {
 		map["oldStreetLabel"] = oldLabel;
 		transmit('outgoingChatEvent', map);
 
-		if (!mapData.load.isCompleted) {
-			await mapData.load.future;
+		if (!MapData.load.isCompleted) {
+			await MapData.load.future;
 		}
 
 		// Display the loading screen
@@ -139,10 +139,7 @@ class StreetService {
 		}
 
 		// Make street loading take at least 1 second so that the text can be read
-		await Future.wait([
-			new Future.delayed(new Duration(seconds: 1)),
-			street.load()
-		]);
+		await Future.delayed(new Duration(seconds: 1), street.load);
 
 		new Asset.fromMap(streetAsMap, label);
 

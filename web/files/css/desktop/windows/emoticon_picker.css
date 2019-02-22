@@ -2,7 +2,7 @@
     width: 380px !important;
 }
 
-#emoticonPicker ur-well /deep/ * {
+#emoticonPicker .well * {
     font-family: "Lato", sans-serif;
 }
 
@@ -59,7 +59,7 @@
     transform: translateY(-50%);
 }
 
-#emoticonPicker ur-well /deep/ [draggable=true] {
+#emoticonPicker .well [draggable=true] {
     -khtml-user-drag: element;
     -webkit-user-drag: element;
     -moz-user-drag: element;

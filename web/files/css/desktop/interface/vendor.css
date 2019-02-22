@@ -151,8 +151,7 @@
 }
 #ItemImage {
 	display: block;
-	margin: auto;
-	margin-bottom: 10px;
+	margin: auto auto 10px;
 }
 #ItemPrice {
 	color: gray;
@@ -162,8 +161,7 @@
 }
 #MaxButton {
 	display: inline-block;
-	margin: 0;
-	margin-left: 5px;
+	margin: 0 0 0 5px;
 	box-shadow: none;
 }
 #BuyButton {

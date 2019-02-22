@@ -6,7 +6,7 @@ class Signpost extends Entity {
 	bool interacting = false, letGo = false;
 	StreamSubscription clickListener;
 
-	Signpost(Map signpost, int x, int y) {
+	Signpost(Map<String, dynamic> signpost, int x, int y) {
 		int h = 200, w = 100;
 		if(signpost['h'] != null) {
 			h = signpost['h'];
@@ -45,17 +45,17 @@ class Signpost extends Entity {
 		entities[id] = this;
 
 		int i = 0;
-		List signposts = signpost['connects'] as List;
-		for(Map<String, String> exit in signposts) {
-			if(exit['label'] == playerTeleFrom || playerTeleFrom == "console") {
+		List<Map<String, dynamic>> signposts = (signpost['connects'] as List).cast<Map<String, dynamic>>();
+		for(Map<String, dynamic> exit in signposts) {
+			if(exit['label'] as String == playerTeleFrom || playerTeleFrom == "console") {
 				CurrentPlayer.left = x;
 				CurrentPlayer.top = y;
 			}
 
-			String tsid = exit['tsid'].replaceFirst("L", "G");
+			String tsid = tsidG(exit['tsid'] as String);
 			SpanElement span = new SpanElement()
 				..style.top = (i * 25 + 10).toString() + "px"
-				..text = exit["label"]
+				..text = exit["label"] as String
 				..className = "ExitLabel"
 				..attributes['url'] = 'https://RobertMcDermot.github.io/CAT422-glitch-location-viewer/locations/$tsid.callback.json'
 				..attributes['tsid'] = tsid
@@ -161,20 +161,24 @@ class Signpost extends Entity {
 	void gamepadLoop(num) {
 		//only select a new option once every 300ms
 		bool selectAgain = inputManager.lastSelect.add(new Duration(milliseconds:300)).isBefore(new DateTime.now());
-		if(inputManager.controlCounts['upKey']['keyBool'] == true && selectAgain)
+		if (inputManager.upKey.active && selectAgain) {
 			selectUp();
-		if(inputManager.controlCounts['downKey']['keyBool'] == true && selectAgain)
+		}
+
+		if (inputManager.downKey.active && selectAgain) {
 			selectDown();
-		if(inputManager.controlCounts['leftKey']['keyBool'] == true ||
-		   inputManager.controlCounts['rightKey']['keyBool'] == true ||
-		   inputManager.controlCounts['jumpKey']['keyBool'] == true) {
+		}
+
+		if (inputManager.leftKey.active || inputManager.rightKey.active || inputManager.jumpKey.active) {
 			stop();
 		}
-		if(inputManager.controlCounts['actionKey']['keyBool'] == true && letGo) {
+
+		if (inputManager.actionKey.active && letGo) {
 			clickSelected();
 			stop();
 		}
-		if(!letGo && inputManager.controlCounts['actionKey']['keyBool'] == false) {
+
+		if (!letGo && !inputManager.actionKey.active) {
 			letGo = true;
 		}
 

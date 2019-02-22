@@ -1,33 +1,28 @@
 part of couclient;
 
-/// Needed for passing objects by reference
-class Bool {
-	bool value = false;
+class ControlCount {
+	Map<String, ControlSignal> signals;
 
-	Bool([this.value]);
+	bool get active => signals.values.where((ControlSignal signal) => signal.active).toList().length > 0;
 
-	bool operator ==(other) {
-		if (other is bool) {
-			return this.value == other;
-		} else if (other is Bool) {
-			return this.value == other.value;
-		} else {
-			return this == other;
-		}
-	}
+	ControlCount() : this.signals = {};
+}
 
-	@override
-	int get hashCode => value.hashCode;
+class ControlSignal {
+	String sourceName;
+	bool active;
+
+	ControlSignal(this.sourceName, this.active);
 }
 
 class InputManager {
 	bool windowFocused = true;
-	Bool rightKey = new Bool(false);
-	Bool leftKey = new Bool(false);
-	Bool upKey = new Bool(false);
-	Bool downKey = new Bool(false);
-	Bool jumpKey = new Bool(false);
-	Bool actionKey = new Bool(false);
+	ControlCount rightKey = ControlCount();
+	ControlCount leftKey = ControlCount();
+	ControlCount upKey = ControlCount();
+	ControlCount downKey = ControlCount();
+	ControlCount jumpKey = ControlCount();
+	ControlCount actionKey = ControlCount();
 
 	Map<String, int> keys = {
 		"LeftBindingPrimary": 65,
@@ -77,16 +72,16 @@ class InputManager {
 	StreamSubscription keyDownSub;
 	StreamSubscription menuKeyListener;
 	DateTime lastSelect = new DateTime.now();
-	Map<String, Map<String, dynamic>> controlCounts = {};
+	Map<String, ControlCount> controlCounts = {};
 
 	InputManager() {
 		controlCounts = {
-			'leftKey': {'signals': {}, 'keyBool': leftKey},
-			'rightKey': {'signals': {}, 'keyBool': rightKey},
-			'upKey': {'signals': {}, 'keyBool': upKey},
-			'downKey': {'signals': {}, 'keyBool': downKey},
-			'jumpKey': {'signals': {}, 'keyBool': jumpKey},
-			'actionKey': {'signals': {}, 'keyBool': actionKey},
+			'leftKey': leftKey,
+			'rightKey': rightKey,
+			'upKey': upKey,
+			'downKey': downKey,
+			'jumpKey': jumpKey,
+			'actionKey': actionKey,
 		};
 
 		setupKeyBindings();
@@ -105,17 +100,10 @@ class InputManager {
 	}
 
 	void activateControl(String control, bool active, String sourceName) {
-		Map<String, Map> signalsList = controlCounts[control]['signals'];
-		if (active && !signalsList.containsKey(sourceName + '-' + control)) {
-			signalsList[sourceName + '-' + control] = {'sourceName': sourceName, 'active': active};
+		if (active && !controlCounts[control].signals.containsKey(sourceName + '-' + control)) {
+			controlCounts[control].signals[sourceName + '-' + control] = ControlSignal(sourceName, active);
 		} else if (!active) {
-			signalsList.remove(sourceName + '-' + control);
-		}
-
-		if (signalsList.length <= 0) {
-			controlCounts[control]['keyBool'].value = false;
-		} else {
-			controlCounts[control]['keyBool'].value = true;
+			controlCounts[control].signals.remove(sourceName + '-' + control);
 		}
 
 		//stop following any player that you might be following
@@ -123,8 +111,8 @@ class InputManager {
 
 		new Service(["worldFocus"], (bool focused) {
 			if (!focused) {
-				controlCounts.forEach((String control, Map data) {
-					data["keyBool"].value = false;
+				controlCounts.values.forEach((ControlCount control) {
+					control.signals.clear();
 				});
 			}
 		});
@@ -146,21 +134,20 @@ class InputManager {
 			}
 
 			//interact with the menu
-			Element clickMenu = querySelector("#RightClickMenu");
+			Element clickMenu = querySelector(".RightClickMenu");
 			if (clickMenu != null) {
-				Element list = querySelector('#RCActionList');
+				Element list = clickMenu.querySelector('.RCActionList');
 				//only select a new option once every 300ms
 				bool selectAgain = lastSelect.add(new Duration(milliseconds:300)).isBefore(new DateTime.now());
-				if (controlCounts['upKey']['keyBool'] == true && selectAgain) {
+				if (upKey.active && selectAgain) {
 					selectUp(list.querySelectorAll('.RCItem'), "RCItemSelected");
 				}
 
-				if (controlCounts['downKey']['keyBool'] == true && selectAgain) {
+				if (downKey.active && selectAgain) {
 					selectDown(list.querySelectorAll('.RCItem'), "RCItemSelected");
 				}
-				if (controlCounts['leftKey']['keyBool'] == true ||
-					controlCounts['rightKey']['keyBool'] == true ||
-					controlCounts['jumpKey']['keyBool'] == true) {
+
+				if (leftKey.active || rightKey.active || jumpKey.active) {
 					stopMenu(clickMenu);
 				}
 			}
@@ -199,7 +186,7 @@ class InputManager {
 			}
 
 			if (button1) {
-				if (controlCounts['actionKey']['keyBool'] == false) {
+				if (!actionKey.active) {
 					activateControl('actionKey', true, 'gamepad');
 					doObjectInteraction();
 				}
@@ -335,7 +322,7 @@ class InputManager {
 			}
 		});
 
-		PaperToggleButton graphicsBlur = querySelector("#GraphicsBlur") as PaperToggleButton;
+		CheckboxInputElement graphicsBlur = querySelector("#GraphicsBlur") as CheckboxInputElement;
 		graphicsBlur.onChange.listen((_) {
 			localStorage["GraphicsBlur"] = graphicsBlur.checked.toString();
 		});
@@ -385,9 +372,9 @@ class InputManager {
 				activateControl('rightKey', joystick.RIGHT, 'joystick');
 			}
 
-			Element clickMenu = querySelector("#RightClickMenu");
+			Element clickMenu = querySelector(".RightClickMenu");
 			if (clickMenu != null) {
-				Element list = querySelector('#RCActionList');
+				Element list = clickMenu.querySelector('.RCActionList');
 				//only select a new option once every 300ms
 				if (lastSelect.add(new Duration(milliseconds: 300)).isBefore(new DateTime.now())) {
 					if (joystick.UP) {
@@ -462,13 +449,13 @@ class InputManager {
 	}
 
 	void doObjectInteraction([MouseEvent e, List<String> ids]) {
-		if (querySelector("#RightClickMenu") != null) {
-			doAction(querySelector('#RCActionList'), querySelector("#RightClickMenu"), "RCItemSelected");
+		if (querySelector(".RightClickMenu") != null) {
+			doAction(querySelector('.RCActionList'), querySelector(".RightClickMenu"), "RCItemSelected");
 			return;
 		}
 
 		if (CurrentPlayer.intersectingObjects.length > 0
-			&& querySelector('#RightClickMenu') == null
+			&& querySelector('.RightClickMenu') == null
 			&& !ActionBubble.occuring
 		) {
 			if (CurrentPlayer.intersectingObjects.length == 1) {
@@ -486,7 +473,6 @@ class InputManager {
 	}
 
 	// Right-click menu functions
-	void hideClickMenu(Element window) => window?.remove();
 
 	void showClickMenu({
 		MouseEvent click,
@@ -499,27 +485,49 @@ class InputManager {
 	}) {
 		assert (id != null);
 
-		hideClickMenu(querySelector('#RightClickMenu'));
-		RightClickMenu.create3(click, title, id, description: description, actions: actions, itemName: itemName, serverClass: serverClass);
+		RightClickMenu.destroyAll();
+		RightClickMenu.create3(click, title, id,
+			description: description,
+			actions: actions,
+			itemName: itemName,
+			serverClass: serverClass);
 
-		Element clickMenu = querySelector('#RightClickMenu');
-		Element list = querySelector('#RCActionList');
+		Element clickMenu = querySelector('.RightClickMenu');
+		Element list = clickMenu.querySelector('.RCActionList');
 
 		menuKeyListener = document.onKeyDown.listen((KeyboardEvent k) {
-			if ((k.keyCode == keys["UpBindingPrimary"] || k.keyCode == keys["UpBindingAlt"]) && !ignoreKeys) //up arrow or w and not typing
+			if ((k.keyCode == keys["UpBindingPrimary"] || k.keyCode == keys["UpBindingAlt"]) && !ignoreKeys) {
+				// up arrow or w and not typing
 				selectUp(list.querySelectorAll('.RCItem'), "RCItemSelected");
-			if ((k.keyCode == keys["DownBindingPrimary"] || k.keyCode == keys["DownBindingAlt"]) && !ignoreKeys) //down arrow or s and not typing
+			}
+
+			if ((k.keyCode == keys["DownBindingPrimary"] || k.keyCode == keys["DownBindingAlt"]) && !ignoreKeys) {
+				// down arrow or s and not typing
 				selectDown(list.querySelectorAll('.RCItem'), "RCItemSelected");
-			if ((k.keyCode == keys["LeftBindingPrimary"] || k.keyCode == keys["LeftBindingAlt"]) && !ignoreKeys) //left arrow or a and not typing
+			}
+
+			if ((k.keyCode == keys["LeftBindingPrimary"] || k.keyCode == keys["LeftBindingAlt"]) && !ignoreKeys) {
+				// left arrow or a and not typing
 				stopMenu(clickMenu);
-			if ((k.keyCode == keys["RightBindingPrimary"] || k.keyCode == keys["RightBindingAlt"]) && !ignoreKeys) //right arrow or d and not typing
+			}
+
+			if ((k.keyCode == keys["RightBindingPrimary"] || k.keyCode == keys["RightBindingAlt"]) && !ignoreKeys) {
+				// right arrow or d and not typing
 				stopMenu(clickMenu);
-			if ((k.keyCode == keys["JumpBindingPrimary"] || k.keyCode == keys["JumpBindingAlt"]) && !ignoreKeys) //spacebar and not typing
+			}
+
+			if ((k.keyCode == keys["JumpBindingPrimary"] || k.keyCode == keys["JumpBindingAlt"]) && !ignoreKeys) {
+				// spacebar and not typing
 				stopMenu(clickMenu);
-			if ((k.keyCode == keys["ActionBindingPrimary"] || k.keyCode == keys["ActionBindingAlt"]) && !ignoreKeys) //spacebar and not typing
+			}
+
+			if ((k.keyCode == keys["ActionBindingPrimary"] || k.keyCode == keys["ActionBindingAlt"]) && !ignoreKeys) {
+				// spacebar and not typing
 				doAction(list, clickMenu, "RCItemSelected");
-			//esc key
+			}
+
 			if (k.keyCode == 27) {
+				// esc key
 				stopMenu(clickMenu);
 			}
 		});
@@ -566,11 +574,23 @@ class InputManager {
 	}
 
 	void stopMenu(Element window) {
+		if (window?.classes?.contains(RightClickMenu.MENU_CLASS) ?? true) {
+			RightClickMenu.destroyAll();
+		}
+
 		transmit('menuStopping', window);
+
 		menuKeyListener?.cancel();
 		menuKeyListener = null;
+
+		keyPressSub?.cancel();
+		keyPressSub = null;
+
+		keyDownSub?.cancel();
+		keyDownSub = null;
+
 		MenuKeys.clearListeners();
-		hideClickMenu(window);
+		window?.remove();
 	}
 
 	void doAction(Element list, Element window, String className) {

@@ -1,0 +1,290 @@
+/* Composing */
+
+#mailboxWindow .input_text {
+	width: calc(100% - 15px);
+	font-size: 15px;
+	background-color: #eee;
+	border: 2px solid rgba(0, 0, 0, 0.1);
+	border-radius: 5px;
+	padding: 5px;
+	margin-bottom: 5px;
+}
+
+#mailboxWindow .darkui .input_text {
+	background-color: #181818;
+	color: #eee;
+}
+
+#mailboxWindow .darkui .input_text:focus {
+	background-color: #474747;
+	color: #fff;
+}
+
+#mailboxWindow .input_box {
+	resize: none;
+	height: 120px;
+}
+
+#mailboxWindow #mb_sendItems {
+	margin-bottom: 12px;
+	margin-top: -3px;
+	height: 55px;
+	display: flex;
+	justify-content: center;
+}
+
+#mailboxWindow .itemBox {
+	background-color: #fff;
+	border-radius: 8px;
+	width: 40px;
+	height: 40px;
+	border: 1px solid #bbb;
+	border-bottom: 2px solid #bbb;
+	display: inline-block;
+	padding: 5px;
+	position: relative;
+}
+
+#mailboxWindow .itemBox:not(:last-child) {
+	margin-right: 5px;
+}
+
+#mailboxWindow .darkui .itemBox {
+	background-color: #282828;
+	border-color: #181818;
+}
+
+#mailboxWindow .itemBox .itemCount {
+	bottom: 2px;
+	right: 2px;
+	position: absolute;
+	font-family: 'Fredoka One', cursive;
+	color: #4b2e4c;
+}
+
+#mailboxWindow #mb_sendCurrants {
+	display: inline;
+	width: 150px;
+	position: absolute;
+	right: 12px;
+	margin-bottom: 0;
+}
+
+#mailboxWindow .currant-img {
+	position: absolute;
+	right: 180px;
+	width: 32px;
+	height: 32px;
+}
+
+/* Reading */
+
+#mailboxWindow #mb_btn_close {
+	float: right;
+}
+
+#mailboxWindow #read_actions {
+	margin-top: 10px;
+	border-top: 2px solid #4b2e4c;
+	padding-top: 10px;
+}
+
+#mailboxWindow #mb_from {
+	border-bottom: 2px solid #4b2e4c;
+	padding-bottom: 10px;
+}
+
+#mailboxWindow #mb_fromCurrants {
+	border: 2px solid grey;
+	display: inline-block;
+	padding: 5px;
+	background-color: #eee;
+	border-radius: 5px;
+	font-size: 15px;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+#mailboxWindow .darkui #mb_fromCurrants {
+	background-color: #282828;
+	border-color: #181818;
+}
+
+#mailboxWindow .taken {
+	opacity: 0.5;
+	cursor: not-allowed;
+}
+
+#mailboxWindow #mb_fromCurrants::before {
+	content: '';
+	width: 20px;
+	height: 20px;
+	background-image: url(../../../system/icons/currant.svg);
+	display: inline-block;
+	background-size: 20px 20px;
+	position: relative;
+	top: 2px;
+	margin-right: 4px;
+}
+
+#mailboxWindow #mb_fromCurrantsNum {
+	position: relative;
+	top: -3px;
+}
+
+#mailboxWindow #mb_fromItems {
+	margin-top: 10px;
+}
+
+#mailboxWindow .fromItem {
+	background-size: auto;
+	background: no-repeat center center;
+	border: 2px solid grey;
+	cursor: pointer;
+}
+
+#mailboxWindow .darkui .fromItem {
+	background-color: #282828;
+	border-color: #181818;
+}
+
+/* Listing */
+
+#mailboxWindow table {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	width: 100%;
+	font-size: 14px;
+}
+
+#mailboxWindow td {
+	font-size: 16px;
+}
+
+#mailboxWindow thead {
+	font-weight: bold;
+}
+
+#mailboxWindow #message_list {
+	table-layout: fixed;
+}
+
+#mailboxWindow #message_list tbody,
+#mailboxWindow #message_list tr,
+#mailboxWindow #message_list td {
+	display: block;
+	box-sizing: border-box;
+}
+
+#mailboxWindow #message_list tbody {
+	width: 100%;
+}
+
+#mailboxWindow #message_list tr {
+	display: block;
+}
+
+#mailboxWindow #message_list thead tr {
+	border-bottom: 2px solid #4b2e4c;
+}
+
+#mailboxWindow #message_list td {
+	padding: 5px 1.5%;
+	display: inline-block;
+}
+
+#mailboxWindow .messageItems tr:not(:last-child) {
+	border-bottom: 2px solid #4b2e4c;
+}
+
+#mailboxWindow .messageItems {
+	border-bottom-left-radius: 5px;
+	height: 241px;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+
+#mailboxWindow td.tbody_from,
+#mailboxWindow td.tbody_subject {
+	overflow: hidden;
+}
+
+#mailboxWindow td.tbody_subject {
+	word-break: break-word;
+	cursor: pointer;
+	color: #4b2e4c;
+}
+
+#mailboxWindow td.tbody_subject:hover {
+	text-decoration: underline;
+}
+
+#mailboxWindow #thead_from,
+#mailboxWindow td.tbody_from {
+	width: 20%;
+}
+
+#mailboxWindow #thead_subject,
+#mailboxWindow td.tbody_subject {
+	width: 60%;
+}
+
+#mailboxWindow #thead_delete,
+#mailboxWindow td.tbody_delete {
+	width: 18%;
+	text-align: right;
+}
+
+#mailboxWindow button#mb_compose_btn {
+	float: right;
+}
+
+#mailboxWindow .unread {
+	background: rgba(75, 46, 76, 0.2);
+	font-weight: bold;
+}
+
+#mailboxWindow #mb_emptyinbox {
+	font-size: 20px;
+	margin-top: 80px;
+	text-align: center;
+}
+
+#mailboxWindow #mb_emptyinbox a {
+	cursor: pointer;
+}
+
+#mailboxWindow #mb_emptyinbox a:hover {
+	text-decoration: underline;
+}
+
+/*Confirmation dialog*/
+#mailboxWindow #actionDialog {
+	font-size: medium;
+	padding: 10px;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	border-radius: 8px;
+	background-color: #fff;
+	box-shadow: 0 0 0 8px rgba(0, 0, 0, 0.1), 0 0 0 2px rgba(0, 0, 0, 0.3);
+}
+
+#mailboxWindow .darkui + #actionDialog {
+	background-color: #282828;
+	color: #eee;
+}
+
+#mailboxWindow #actionDialog .buttons {
+	display: flex;
+	justify-content: flex-end;
+}
+
+#mailboxWindow #actionDialog button {
+	margin-left: 10px;
+}
+
+#mailboxWindow button i {
+	color: inherit;
+}

@@ -2,6 +2,10 @@
     outline: none;
 }
 
+[hidden] {
+    display: none !important;
+}
+
 html, body {
     font-family: 'Fredoka One', cursive;
     background-color:#eee;

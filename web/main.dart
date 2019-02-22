@@ -13,37 +13,26 @@ import 'dart:js';
 import 'dart:collection';
 // (unused) // import 'dart:profiler';
 
-// Polymer components
-
-import 'package:cou_login/login/login.dart'; // Login widget
-import 'package:cou_toolkit/toolkit/slider/slider.dart'; // Volume sliders
-import 'package:couclient/components/mailbox/mailbox.dart'; // Mailbox UI
-import 'package:couclient/src/network/metabolics.dart'; // Metabolics display
-import 'package:paper_elements/paper_radio_group.dart'; // Radio buttons
-import 'package:paper_elements/paper_toggle_button.dart'; // Checkboxes
-import 'package:polymer/polymer.dart'; // Polymer
-
 // Libraries
 
-import 'package:browser_detect/browser_detect.dart'; // Special browser errors
 import 'package:couclient/configs.dart'; // Global data
 import 'package:couclient/src/network/server_interop/itemdef.dart'; // Items
 import 'package:coUemoticons/bin/main.dart' as emoji; // Emoticons
 import 'package:dnd/dnd.dart'; // Webaudio api
 import 'package:gorgon/gorgon.dart'; // Audio and graphics
 import 'package:intl/intl.dart'; // Used for NumberFormat
-import 'package:jsonx/jsonx.dart'; // Dart object <-> JSON conversions
+import 'package:json_annotation/json_annotation.dart'; // Dart object <-> JSON conversions
 import 'package:libld/libld.dart'; // Asset loading
 import 'package:scproxy/scproxy.dart'; // SoundCloud helper
 import 'package:transmit/transmit.dart'; // Event bus
 import "package:xml/xml.dart" as XML; // Blog post checking
-
-// Start Polymer
-
-export 'package:polymer/init.dart';
+import 'package:firebase/firebase.dart' as firebase; // Login
+import 'package:angular/angular.dart';
+import 'package:cou_login/cou_login/cou_login.template.dart' as loginComponent; // ignore: uri_has_not_been_generated
 
 // Systems
 
+part 'package:couclient/src/network/metabolics.dart'; // Metabolics display
 part 'package:couclient/src/display/gps_display.dart';
 part 'package:couclient/src/game/input.dart';
 part 'package:couclient/src/game/joystick.dart';
@@ -59,6 +48,7 @@ part 'package:couclient/src/systems/weather.dart';
 
 part 'package:couclient/src/network/auth.dart';
 part 'package:couclient/src/network/chat.dart';
+part 'package:couclient/src/network/constants.dart';
 part 'package:couclient/src/network/item_action.dart';
 part 'package:couclient/src/network/metabolics_service.dart';
 part 'package:couclient/src/network/server_interop/inventory.dart';
@@ -75,7 +65,7 @@ part 'package:couclient/src/display/buff.dart';
 part 'package:couclient/src/display/chatmessage.dart';
 part 'package:couclient/src/display/chatpanel.dart';
 part 'package:couclient/src/display/information_display.dart';
-part 'package:couclient/src/display/inv_dragging.dart';
+part 'package:couclient/src/display/inventory.dart';
 part 'package:couclient/src/display/loop.dart';
 part 'package:couclient/src/display/meters.dart';
 part 'package:couclient/src/display/minimap.dart';
@@ -105,6 +95,7 @@ part 'package:couclient/src/display/windows/emoticon_picker.dart';
 part 'package:couclient/src/display/windows/go_window.dart';
 part 'package:couclient/src/display/windows/inv_search_window.dart';
 part 'package:couclient/src/display/windows/item_window.dart';
+part 'package:couclient/src/display/windows/mailbox_window.dart';
 part 'package:couclient/src/display/windows/map_window.dart';
 part 'package:couclient/src/display/windows/motd_window.dart';
 part 'package:couclient/src/display/windows/note_window.dart';
@@ -162,6 +153,9 @@ part 'package:couclient/src/game/entities/wormhole.dart';
 part 'package:couclient/src/game/game.dart';
 part 'package:couclient/src/game/street.dart';
 
+// Built classes
+part 'main.g.dart';
+
 // Globals
 
 final GpsIndicator gpsIndicator = new GpsIndicator(); // GPS status display
@@ -171,7 +165,7 @@ final Storage localStorage = window.localStorage; // Local storage
 final Storage sessionStorage = window.sessionStorage; // Session storage
 final String rsToken = "ud6He9TXcpyOEByE944g"; // Token for redstone
 
-Map<String, dynamic> constants; // Server-defined constants
+Constants constants; // Server-defined constants
 MapData mapData; // Map, street, and hub metadata
 
 AuthManager auth; // Auth server interop
@@ -188,11 +182,10 @@ WindowManager windowManager; // Window manager
 
 bool get hasTouchSupport => context.callMethod("hasTouchSupport");
 
-@whenPolymerReady
-afterPolymer() async {
+Future main() async {
 	// Don't try to load the game in an unsupported browser
 	// They will continue to see the error message
-	if (browser.isIe || browser.isSafari) return;
+	if (knownUnsupportedBrowser()) return;
 
 	// Show the loading screen
 	querySelector("#browser-error").hidden = true;
@@ -211,20 +204,26 @@ afterPolymer() async {
 	startConsoleErrorLogging();
 
 	try {
+    // initialize firebase and the login component
+    firebase.initializeApp(
+        apiKey: 'AIzaSyCTXgszjO2AJNLTZUMYp2ZtFAmVLS2G6J4',
+        authDomain: 'blinding-fire-920.firebaseapp.com',
+    );
+    runApp(loginComponent.CouLoginNgFactory);
+
 		// Load server connection configuration
 		await Configs.init();
 
 		// Download the latest map data
-		mapData = await new MapData()..load.future;
+		mapData = await MapData.download();
 
 		// Make sure we have an up-to-date (1 day expiration) item cache
 		await Item.loadItems();
 
 		// Download constants
-		constants = JSON.decode(
-			await HttpRequest.getString("${Configs.http}//${Configs.utilServerAddress}/constants/json"));
-	} catch (e) {
-		logmessage("Error loading server data: $e");
+		constants = await Constants.download();
+	} catch (e, st) {
+		logmessage("Error loading server data: $e\n$st");
 		serverDown = true;
 	}
 
@@ -237,8 +236,8 @@ afterPolymer() async {
 		minimap = new Minimap();
 		GPS.initWorldGraph();
 		InvDragging.init();
-	} catch (e) {
-		logmessage("Error initializing interface: $e");
+	} catch (e, st) {
+		logmessage("Error initializing interface: $e\n$st");
 		new Toast(
 			"OH NO! There was an error, so you should click here to reload."
 			" If you see this several times, please file a bug report.",
@@ -284,6 +283,12 @@ enum ViewportMedia {
 	MOBILE
 }
 
+bool knownUnsupportedBrowser() =>
+	window.navigator.appName.contains("Microsoft") ||
+	window.navigator.appVersion.contains("Trident") ||
+	window.navigator.appVersion.contains("Edge") ||
+	window.navigator.vendor.contains('Apple');
+
 void checkMedia() {
 	// If the device is capable of touch events, assume the touch ui
 	// unless the user has explicitly turned it off in the options.
@@ -323,8 +328,8 @@ void setStyle(ViewportMedia style) {
 	 * for a very small viewport.
 	 */
 
-	StyleElement mobile = querySelector("#MobileStyle");
-	StyleElement tablet = querySelector("#TabletStyle");
+	LinkElement mobile = querySelector("#MobileStyle");
+	LinkElement tablet = querySelector("#TabletStyle");
 
 	switch (style) {
 		case ViewportMedia.DESKTOP:

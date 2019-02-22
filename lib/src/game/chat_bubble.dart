@@ -8,7 +8,8 @@ class ChatBubble {
 	bool autoDismiss, removeParent;
 
 	ChatBubble(this.text, this.hostObject, this.parent,
-		{this.autoDismiss: true, this.removeParent: false, bool addUsername: false, Map gains: null, String buttons}) {
+		{this.autoDismiss: true, this.removeParent: false, bool addUsername: false,
+			Map<String, dynamic> gains: null, String buttons}) {
 		if (autoDismiss) {
 			timeToLive = (text.length * 0.05) + 3; //minimum 3s plus 0.05 per character
 
@@ -48,7 +49,7 @@ class ChatBubble {
 					..onClick.first.then((_) {
 						// Send id to server
 						logmessage('Sending chat bubble action: $btnId');
-						streetSocket.send(JSON.encode({'bubbleButton': btnId}));
+						streetSocket.send(jsonEncode({'bubbleButton': btnId}));
 					});
 				textElement.append(btn);
 			});
@@ -61,9 +62,9 @@ class ChatBubble {
 			int gainsTotal = 0;
 			DivElement awarded = new DivElement()
 				..className = 'awarded';
-			gains.forEach((String metabolic, int value) {
-				if (value != 0) {
-					gainsTotal += value;
+			gains.forEach((String metabolic, dynamic value) {
+				if (value as int != 0) {
+					gainsTotal += value as int;
 					SpanElement span = new SpanElement()
 						..className = metabolic;
 					String textValue = value > 0
@@ -89,7 +90,7 @@ class ChatBubble {
 		timeLast = 5.0;
 	}
 
-	update(double dt) {
+	void update(double dt) {
 		if(timeToLive <= 0 && autoDismiss) {
 			removeBubble();
 			//force a player update to be sent right now

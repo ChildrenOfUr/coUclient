@@ -1,5 +1,6 @@
 part of couclient;
 
+@JsonSerializable()
 class Achievement {
 	String id;
 	String name;
@@ -7,6 +8,10 @@ class Achievement {
 	String category;
 	String imageUrl;
 	String awarded = "false";
+
+	Achievement();
+	factory Achievement.fromJson(Map<String, dynamic> json) => _$AchievementFromJson(json);
+	Map<String, dynamic> toJson() => _$AchievementToJson(this);
 }
 
 class AchievementsWindow extends Modal {
@@ -21,7 +26,7 @@ class AchievementsWindow extends Modal {
 
 		categories.querySelectorAll("li").onClick.listen((MouseEvent event) async {
 			// Update sidebar selection
-			categories.children.forEach((LIElement li) {
+			categories.children.forEach((Element li) {
 				li.classes.remove("selected");
 			});
 			(event.target as LIElement).classes.add("selected");
@@ -32,9 +37,9 @@ class AchievementsWindow extends Modal {
 			String category = target.text;
 			String url = "${Configs.http}//${Configs.utilServerAddress}/listAchievements?email=${game
 				.email}&excludeNonMatches=false&category=$category";
-			Map map = JSON.decode(await HttpRequest.getString(url));
-			List<Achievement> achievements = decode(
-				JSON.encode(map.values.toList()), type: const TypeHelper<List<Achievement>>().type);
+			Map<String, dynamic> map = jsonDecode(await HttpRequest.getString(url)) as Map;
+			List<Achievement> achievements = map.values.cast<Map<String, dynamic>>()
+				.map((Map<String, dynamic> json) => Achievement.fromJson(json)).toList();
 
 			DivElement earned = new DivElement()..classes = ['earned-achvments'];
 			DivElement unearned = new DivElement()..classes = ['unearned-achvments'];

@@ -61,7 +61,7 @@ class BagWindow extends Modal {
 
 		//load the ui of the window and open it when ready
 		loadUpdate = new Completer();
-		load(sourceItem).then((DivElement windowElement) {
+		load(sourceItem).then((Element windowElement) {
 			displayElement = windowElement;
 			// Handle drag and drop
 			new Service(["inventoryUpdated", 'metadataUpdated'], (_) {
@@ -109,7 +109,7 @@ class BagWindow extends Modal {
 
 	Future updateWell(ItemDef sourceItem) async {
 		Element newWell = await load(sourceItem, false);
-		displayElement.querySelector("ur-well").replaceWith(newWell);
+		displayElement.querySelector(".well").replaceWith(newWell);
 		transmit('metadataUpdated', true);
 		if (!loadUpdate.isCompleted) {
 			loadUpdate.complete();
@@ -154,7 +154,8 @@ class BagWindow extends Modal {
 
 		// Content
 
-		Element well = new Element.tag("ur-well");
+		Element well = new DivElement()
+			..classes = ['well'];
 
 		numSlots = sourceItem.subSlots;
 		List<Map> subSlots;
@@ -171,7 +172,7 @@ class BagWindow extends Modal {
 			}
 		} else {
 			// Bag has contents
-			subSlots = JSON.decode(sourceItem.metadata["slots"]);
+			subSlots = (jsonDecode(sourceItem.metadata["slots"]) as List).cast<Map>();
 		}
 
 		if (subSlots.length != sourceItem.subSlots) {
@@ -191,7 +192,7 @@ class BagWindow extends Modal {
 				DivElement itemInSlot = new DivElement();
 				slot.append(itemInSlot);
 				if (!bagSlot["itemType"].isEmpty) {
-					ItemDef item = decode(JSON.encode(bagSlot['item']), type: ItemDef);
+					ItemDef item = ItemDef.fromJson(bagSlot['item']);
 					slot.title = item.name;
 					ImageElement img = new ImageElement(src: item.spriteUrl);
 					String className = 'item-${item.itemType} inventoryItem bagInventoryItem';

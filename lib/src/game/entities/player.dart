@@ -119,7 +119,7 @@ class Player extends Entity {
 		new Service(['streetLoaded'], (_) => updatePhysics());
 	}
 
-	Future<List<Animation>> loadAnimations() {
+	Future<List> loadAnimations() {
 		//need to get background images from some server for each player based on name
 		List<int> idleFrames = [],
 			baseFrames = [],
@@ -142,13 +142,13 @@ class Player extends Entity {
 		fallDownFrames = [16, 17, 18, 19, 20, 21, 22, 23];
 		landFrames = [24, 25, 26, 27, 28, 29, 30, 31, 32];
 
-		List<Future> futures = new List();
+		List<Future> futures = [];
 
 		futures
 			.add(HttpRequest.requestCrossOrigin('${Configs.http}//${Configs.utilServerAddress}/getSpritesheets?username=$id')
 			.then((String response) {
 
-			Map spritesheets = JSON.decode(response);
+			Map<String, dynamic> spritesheets = jsonDecode(response) as Map;
 			String idle, base, jump, climb;
 
 			if (spritesheets['base'] == null) {
@@ -157,14 +157,15 @@ class Player extends Entity {
 				jump = 'files/sprites/jump.png';
 				climb = 'files/sprites/climb.png';
 			} else {
-				idle = spritesheets['idle2'];
-				base = spritesheets['base'];
-				jump = spritesheets['jump'];
-				climb = spritesheets['climb'];
+				idle = spritesheets['idle2'] as String;
+				base = spritesheets['base'] as String;
+				jump = spritesheets['jump'] as String;
+				climb = spritesheets['climb'] as String;
 			}
 
 			animations
-				..['idle'] = new Animation(idle, 'idle', 2, 29, idleFrames, loopDelay: new Duration(seconds: 10), delayInitially: true)
+				..['idle'] = new Animation(idle, 'idle', 2, 29, idleFrames,
+					loopDelay: new Duration(seconds: 10), delayInitially: true)
 				..['base'] = new Animation(base, 'base', 1, 15, baseFrames)
 				..['die'] = new Animation(base, 'die', 1, 15, [12, 13], loops: false)
 				..['jumpup'] = new Animation(jump, 'jumpup', 1, 33, jumpUpFrames)
@@ -213,8 +214,8 @@ class Player extends Entity {
 				lostFocus = true;
 
 				// reset all input controls.
-				for (Map control in inputManager.controlCounts.values) {
-					control['keyBool'].value = false;
+				for (ControlCount control in inputManager.controlCounts.values) {
+					control.signals.clear();
 				}
 			}
 
@@ -222,7 +223,7 @@ class Player extends Entity {
 				lostFocus = false;
 			}
 
-			if (doPhysicsApply && inputManager.downKey == false && inputManager.upKey == false) {
+			if (doPhysicsApply && !inputManager.downKey.active && !inputManager.upKey.active) {
 				// not moving up or down
 
 				bool found = false;
@@ -245,13 +246,13 @@ class Player extends Entity {
 				activeClimb = false;
 			}
 
-			if (inputManager.rightKey == true) {
+			if (inputManager.rightKey.active) {
 				// moving right
 				left += physics.speed * dt * scale;
 				facingRight = true;
 				moving = true;
 				updateLadderStatus(dt);
-			} else if (inputManager.leftKey == true) {
+			} else if (inputManager.leftKey.active) {
 				// moving left
 				left -= physics.speed * dt * scale;
 				facingRight = false;
@@ -264,11 +265,11 @@ class Player extends Entity {
 
 			if (!activeClimb && streetZ != 0) {
 				// Not near a ladder, and this street is 3d
-				if (inputManager.upKey == true && scale > MIN_SCALE) {
+				if (inputManager.upKey.active && scale > MIN_SCALE) {
 					// moving back
 					z += physics.zSpeed * scale * dt;
 					moving = true;
-				} else if (inputManager.downKey == true && scale < 1) {
+				} else if (inputManager.downKey.active && scale < 1) {
 					// moving foward
 					z -= physics.zSpeed * scale * dt;
 					moving = true;
@@ -279,7 +280,7 @@ class Player extends Entity {
 			}
 
 			//primitive jumping
-			if (inputManager.jumpKey == true && (!jumping || physics.infiniteJump) && !climbingUp && !climbingDown) {
+			if (inputManager.jumpKey.active && (!jumping || physics.infiniteJump) && !climbingUp && !climbingDown) {
 				num jumpMultiplier;
 				bool spinachBuff = Buff.isRunning('spinach');
 				bool pieBuff = Buff.isRunning('full_of_pie');
@@ -338,11 +339,11 @@ class Player extends Entity {
 				top += yVel * dt * scale;
 			} else {
 				// climbing
-				if (inputManager.downKey == true) {
+				if (inputManager.downKey.active) {
 					top += physics.speed * dt * scale;
 				}
 
-				if (inputManager.upKey == true) {
+				if (inputManager.upKey.active) {
 					top -= physics.speed * dt * scale;
 				}
 			}
@@ -353,19 +354,27 @@ class Player extends Entity {
 			} else if (left > currentStreet.bounds.width - width) {
 				left = currentStreet.bounds.width - width;
 				moving = false;
-			} else if (inputManager.leftKey == true || inputManager.rightKey == true) {
+			} else if (inputManager.leftKey.active || inputManager.rightKey.active) {
 				moving = true;
 			}
 
 			Rectangle collisionsRect;
 			if (facingRight) {
-				collisionsRect = new Rectangle(left + width / 2, top + currentStreet.groundY + height / 4, width / 2, height * 3 / 4 - 35);
+				collisionsRect = new Rectangle(
+					left + width / 2,
+					top + currentStreet.groundY + height / 4,
+					width / 2,
+					height * 3 / 4 - 35);
 			} else {
-				collisionsRect = new Rectangle(left, top + currentStreet.groundY + height / 4, width / 2, height * 3 / 4 - 35);
+				collisionsRect = new Rectangle(
+					left,
+					top + currentStreet.groundY + height / 4,
+					width / 2,
+					height * 3 / 4 - 35);
 			}
 
 			//check for collisions with walls
-			if (doPhysicsApply && (inputManager.leftKey == true || inputManager.rightKey == true)) {
+			if (doPhysicsApply && (inputManager.leftKey.active || inputManager.rightKey.active)) {
 				for (Wall wall in currentStreet.walls) {
 					if (collisionsRect.intersects(wall.bounds)) {
 						if (facingRight) {
@@ -451,7 +460,7 @@ class Player extends Entity {
 	}
 
 	void updateLadderStatus(double dt) {
-		if (doPhysicsApply && inputManager.upKey == true) {
+		if (doPhysicsApply && inputManager.upKey.active) {
 			// moving up
 
 			bool found = false;
@@ -482,7 +491,7 @@ class Player extends Entity {
 			}
 		}
 
-		if (doPhysicsApply && inputManager.downKey == true) {
+		if (doPhysicsApply && inputManager.downKey.active) {
 			// moving down
 
 			bool found = false;
@@ -514,7 +523,7 @@ class Player extends Entity {
 			}
 		}
 
-		if (inputManager.rightKey == true || inputManager.leftKey == true) {
+		if (inputManager.rightKey.active || inputManager.leftKey.active) {
 			// left or right on a ladder
 			Rectangle playerRect = new Rectangle(left, top + currentStreet.groundY, width + 20, height + 20);
 
@@ -608,7 +617,7 @@ class Player extends Entity {
 		camera.setCameraPosition(camX ~/ 1, camY ~/ 1);
 
 		//translateZ forces the whole operation to be gpu accelerated
-		String transform = 'translateX(' + translateX.toString() + 'px) translateY(' + translateY.toString() + 'px) translateZ(0)';
+		String transform = 'translateX(${translateX}px) translateY(${translateY}px) translateZ(0)';
 
 		if (!facingRight) {
 			transform += ' scale3d(-$scale, $scale, $scale)';
@@ -726,7 +735,7 @@ class Player extends Entity {
 		Platform bestPlatform;
 		num x = left + width / 2;
 		num feetY = cameFrom + height + currentStreet.groundY;
-		num bestDiffY = double.INFINITY;
+		num bestDiffY = double.infinity;
 
 		for (Platform platform in currentStreet.platforms) {
 			if (platform.ceiling) {

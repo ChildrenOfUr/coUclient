@@ -1,5 +1,6 @@
-library metabolics;
+part of couclient;
 
+@JsonSerializable()
 class Metabolics {
 	int id = -1;
 	int userId = -1;
@@ -10,6 +11,8 @@ class Metabolics {
 	int mood = 50;
 	int maxMood = 100;
 	int img = 0;
+
+	@JsonKey()
 	int quoinsCollected = 0;
 
 	int alphFavor = 0;
@@ -43,4 +46,10 @@ class Metabolics {
 	String currentStreet = 'LA58KK7B9O522PC';
 	String lastStreet = null;
 	String locationHistory = '[]';
+
+	Metabolics();
+
+	factory Metabolics.fromJson(Map<String, dynamic> json) => _$MetabolicsFromJson(json);
+
+	Map<String, dynamic> toJson() => _$MetabolicsToJson(this);
 }

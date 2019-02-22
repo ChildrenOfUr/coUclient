@@ -4,6 +4,7 @@ class InteractionWindow {
 	static List<String> shrineTypes = [
 		'Alph', 'Cosma', 'Friendly', 'Grendaline', 'Humbaba', 'Lem', 'Mab', 'Pot', 'Spriggan', 'Tii', 'Zille'
 	];
+
 	static Element create() {
 		DivElement interactionWindow = new DivElement()
 			..id = 'InteractionWindow'
@@ -23,7 +24,7 @@ class InteractionWindow {
 			..append(header)
 			..append(content);
 
-		for(String id in CurrentPlayer.intersectingObjects.keys) {
+		for (String id in CurrentPlayer.intersectingObjects.keys) {
 			DivElement container = new DivElement()
 				..style.display = 'inline-block'
 				..style.textAlign = 'center'
@@ -117,46 +118,54 @@ class InteractionWindow {
 		inputManager.menuKeyListener = document.onKeyDown.listen((KeyboardEvent k) {
 			Map keys = inputManager.keys;
 			bool ignoreKeys = inputManager.ignoreKeys;
+
 			//up arrow or w and not typing
-			if((k.keyCode == keys['UpBindingPrimary'] || k.keyCode == keys['UpBindingAlt']) && !ignoreKeys) {
+			if ((k.keyCode == keys['UpBindingPrimary'] || k.keyCode == keys['UpBindingAlt']) && !ignoreKeys) {
 				inputManager.stopMenu(interactionWindow);
 			}
+
 			//down arrow or s and not typing
-			if((k.keyCode == keys['DownBindingPrimary'] || k.keyCode == keys['DownBindingAlt']) && !ignoreKeys) {
+			if ((k.keyCode == keys['DownBindingPrimary'] || k.keyCode == keys['DownBindingAlt']) && !ignoreKeys) {
 				inputManager.stopMenu(interactionWindow);
 			}
+
 			//left arrow or a and not typing
-			if((k.keyCode == keys['LeftBindingPrimary'] || k.keyCode == keys['LeftBindingAlt']) && !ignoreKeys) {
+			if ((k.keyCode == keys['LeftBindingPrimary'] || k.keyCode == keys['LeftBindingAlt']) && !ignoreKeys) {
 				inputManager.selectUp(content.querySelectorAll('.entityContainer'), 'entitySelected');
 				querySelectorAll('.entityInBubble:not(.entitySelected)').forEach((Element entity) {
 					getEntity(entity.id).multiUnselect = true;
 				});
 				getEntity(querySelector('.entitySelected').children.first.id).multiUnselect = false;
 			}
+
 			//right arrow or d and not typing
-			if((k.keyCode == keys['RightBindingPrimary'] || k.keyCode == keys['RightBindingAlt']) && !ignoreKeys) {
+			if ((k.keyCode == keys['RightBindingPrimary'] || k.keyCode == keys['RightBindingAlt']) && !ignoreKeys) {
 				inputManager.selectDown(content.querySelectorAll('.entityContainer'), 'entitySelected');
 				querySelectorAll('.entityInBubble:not(.entitySelected)').forEach((Element entity) {
 					getEntity(entity.id).multiUnselect = true;
 				});
 				getEntity(querySelector('.entitySelected').children.first.id).multiUnselect = false;
 			}
+
 			//spacebar and not typing
-			if((k.keyCode == keys['JumpBindingPrimary'] || k.keyCode == keys['JumpBindingAlt']) && !ignoreKeys) {
+			if ((k.keyCode == keys['JumpBindingPrimary'] || k.keyCode == keys['JumpBindingAlt']) && !ignoreKeys) {
 				inputManager.stopMenu(interactionWindow);
 			}
+
 			//enter and not typing
-			if((k.keyCode == keys['ActionBindingPrimary'] || k.keyCode == keys['ActionBindingAlt']) && !ignoreKeys) {
+			if ((k.keyCode == keys['ActionBindingPrimary'] || k.keyCode == keys['ActionBindingAlt']) && !ignoreKeys) {
 				inputManager.stopMenu(interactionWindow);
 				String id = content.querySelector('.entitySelected').children.first.attributes['id'];
 				getEntity(id).interact(id);
 			}
 		});
+
 		document.onKeyUp.listen((KeyboardEvent k) {
-			if(k.keyCode == 27) {
+			if (k.keyCode == 27) {
 				inputManager.stopMenu(interactionWindow);
 			}
 		});
+
 		document.onClick.listen((_) => inputManager.stopMenu(interactionWindow));
 
 		//when the menu is closed, let's allow all entities to glow like normal again

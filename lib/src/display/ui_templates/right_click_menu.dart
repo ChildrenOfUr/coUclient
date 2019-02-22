@@ -9,10 +9,10 @@ class MenuOption {
 
 class RightClickMenu {
 	static final String
-		ACTION_LIST_PARENT_ID = 'RCActionList',
+		ACTION_LIST_PARENT_CLASS = 'RCActionList',
 		MENU_CLASS = 'RightClickMenu',
 		MENU_INFO_CLASSES = 'InfoButton fa fa-info-circle',
-		MENU_TITLE_ID = 'ClickTitle',
+		MENU_TITLE_CLASS = 'ClickTitle',
 		MENU_VISIBLE_OPACITY = '1.0',
 		OPTION_BUTTON_CLASS = 'RCItem',
 		OPTION_DISABLED_CLASS = 'RCItemDisabled',
@@ -132,7 +132,7 @@ class RightClickMenu {
 					option.onClick.listen((MouseEvent event) async {
 						String functionName = action.actionName.toLowerCase();
 
-						Function doClick = ({int howMany: 1}) async {
+						Future<Null> doClick({int howMany: 1}) async {
 							bool completed = true;
 
 							// Wait for actions to complete
@@ -150,7 +150,7 @@ class RightClickMenu {
 								}
 
 								// Accepts multiple items
-								if (action.multiEnabled) {
+								if (action.multiEnabled ?? false) {
 									arguments['count'] = howMany;
 								}
 
@@ -174,9 +174,9 @@ class RightClickMenu {
 									sendAction(functionName, entityId, arguments);
 								}
 							}
-						};
+						}
 
-						if (action.multiEnabled) {
+						if (action.multiEnabled ?? false) {
 							int max = 0;
 							String itemToCount = '';
 							try {
@@ -214,7 +214,7 @@ class RightClickMenu {
 								// Open the how many menu
 								HowManyMenu.create(event, functionName, max, doClick, itemName: itemName ?? item.name);
 							}
-						}else {
+						} else {
 							doClick();
 						}
 					});
@@ -232,7 +232,9 @@ class RightClickMenu {
 					// Mark disabled options
 					option.classes.add(OPTION_DISABLED_CLASS);
 					option.onClick.listen((_) {
-						new Toast(action.error);
+						if (action.error != null) {
+							new Toast(action.error);
+						}
 					});
 				}
 
@@ -271,11 +273,11 @@ class RightClickMenu {
 		opening();
 
 		// Close any other menu
-		destroy();
+		destroyAll();
 
 		// Title display
 		SpanElement titleText = new SpanElement()
-			..id = MENU_TITLE_ID
+			..className = MENU_TITLE_CLASS
 			..text = title;
 
 		// Info button
@@ -286,14 +288,16 @@ class RightClickMenu {
 
 		// Action button list parent
 		DivElement optionParent = new DivElement()
-			..id = ACTION_LIST_PARENT_ID;
+			..className = ACTION_LIST_PARENT_CLASS;
 
 		// Assemble menu parent element
 		DivElement menuParent = new DivElement()
-			..id = MENU_CLASS
+			..className = MENU_CLASS
 			..append(titleText)
 			..append(infoBtn)
-			..append(optionParent);
+			..append(optionParent)
+			..dataset['menu-version'] = '3'
+			..dataset['menu-id'] = random.nextInt(9999).toString();
 
 		// Add options to list
 		for (Element option in _makeOptions(menuParent)) {
@@ -301,12 +305,12 @@ class RightClickMenu {
 		}
 
 		// Hide menu when clicking away from it
-		document.onClick.first.then((_) => destroy());
+		document.onClick.first.then((_) => destroyAll());
 
 		// Hide menu when escape key pressed
 		document.onKeyUp.listen((KeyboardEvent event) {
 			if (event.keyCode == 27) {
-				destroy();
+				destroyAll();
 			}
 		});
 
@@ -348,14 +352,15 @@ class RightClickMenu {
 		 *   ...
 		 * ]
 		 *
-		 * itemName: string of the item selected, will show the (i) button if not null and will open the item info window when the (i) is clicked
+		 * itemName: string of the item selected, will show the (i) button if not
+		 *           null and will open the item info window when the (i) is clicked
 		 */
 
 		opening();
 
 		// allow only one open at a time
 
-		destroy();
+		destroyAll();
 
 		// define parts
 
@@ -365,12 +370,14 @@ class RightClickMenu {
 		// menu base
 
 		menu = new DivElement()
-			..id = "RightClickMenu";
+			..classes = [MENU_CLASS]
+			..dataset['menu-id'] = random.nextInt(9999).toString()
+			..dataset['menu-version'] = '2';
 
 		// main title
 
 		titleElement = new SpanElement()
-			..id = "ClickTitle"
+			..className = MENU_TITLE_CLASS
 			..text = title;
 
 		menu.append(titleElement);
@@ -379,8 +386,7 @@ class RightClickMenu {
 
 		if (itemName != '') {
 			infoButton = new DivElement()
-				..id = "openItemWindow"
-				..className = "InfoButton fa fa-info-circle"
+				..className = "openItemWindow InfoButton fa fa-info-circle"
 				..setAttribute('item-name', itemName)
 				..onClick.listen((_) {
 					new ItemWindow(itemName).displayItem();
@@ -391,7 +397,7 @@ class RightClickMenu {
 		// actions
 
 		actionList = new DivElement()
-			..id = "RCActionList";
+			..className = ACTION_LIST_PARENT_CLASS;
 
 		menu.append(actionList);
 
@@ -437,17 +443,17 @@ class RightClickMenu {
 					}
 				});
 
-				menuitem.onMouseOver.listen((e) {
-					e.target.classes.add("RCItemSelected");
+				menuitem.onMouseOver.listen((Event e) {
+					(e.target as Element).classes.add("RCItemSelected");
 				});
 
-				menuitem.onMouseOut.listen((e) {
-					e.target.classes.remove("RCItemSelected");
+				menuitem.onMouseOut.listen((Event e) {
+					(e.target as Element).classes.remove("RCItemSelected");
 				});
 
 				document.onKeyUp.listen((KeyboardEvent k) {
 					if (k.keyCode == 27) {
-						destroy();
+						destroyAll();
 					}
 				});
 			} else {
@@ -514,32 +520,26 @@ class RightClickMenu {
 			..opacity = '1.0'
 			..transform = 'translateX(' + x.toString() + 'px) translateY(' + y.toString() + 'px)';
 
-		document.onClick.first.then((_) => destroy());
+		document.onClick.first.then((_) => destroyAll());
 		opened();
 		return menu;
 	}
 
 	static void showActionError(Element tooltip, String errorText) {
-		tooltip.hidden = errorText == '';
-		tooltip.text = errorText;
+		tooltip.hidden = (errorText ?? '') == '';
+		tooltip.text = errorText ?? '';
 	}
 
-	static int destroy() {
+	static int destroyAll() {
 		int destroyed = 0;
 		Element menu;
 
-		do {
-			menu = querySelector("#RightClickMenu");
-
-			if (menu != null) {
-				menu.remove();
-				MenuKeys.clearListeners();
-				transmit("right_click_menu", "destroy");
-				destroyed++;
-			}
-
-			menu = querySelector("#RightClickMenu");
-		} while (menu != null);
+		while ((menu = querySelector('.' + MENU_CLASS)) != null) {
+			transmit('menuStopping', menu);
+			menu.remove();
+			MenuKeys.clearListeners();
+			destroyed++;
+		}
 
 		return destroyed;
 	}

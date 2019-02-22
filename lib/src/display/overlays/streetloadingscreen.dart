@@ -11,15 +11,22 @@ class StreetLoadingScreen extends Overlay {
 
 	bool splitScreen;
 
-	Element progressBar;
+	DivElement progressContainer;
+	ProgressElement progressBar;
+	LabelElement progressText;
 
 	StreetLoadingScreen(this.oldStreet, this.newStreet) : super('MapLoadingScreen', true) {
 		splitScreen = (oldStreet != null) && (oldStreet['hub_id'] != newStreet['hub_id']);
 
-		progressBar = new Element.tag('ur-progress')
-			..classes = ['street-load-progress']
-			..attributes['percent'] = '0'
-			..attributes['status'] = '';
+		progressBar = new ProgressElement()
+			..max = 100;
+
+		progressText = new LabelElement();
+
+		progressContainer = new DivElement()
+			..classes = ['street-load-progress', 'progress']
+			..append(progressBar)
+			..append(progressText);
 
 		open();
 	}
@@ -41,7 +48,7 @@ class StreetLoadingScreen extends Overlay {
 		displayElement.append(_createSection(newStreet));
 
 		// Display progress
-		displayElement.append(progressBar);
+		displayElement.append(progressContainer);
 		loadingPercent = 0;
 
 		// Show overlay
@@ -73,9 +80,8 @@ class StreetLoadingScreen extends Overlay {
 		}[p ~/ 10];
 
 		// Set width & text of progress bar
-		progressBar.attributes
-			..['percent'] = percent.toString()
-			..['status'] = _getLoadingMessage(percent);
+		progressBar.value = percent;
+		progressText.text = _getLoadingMessage(percent);
 
 		if (percent >= 99) {
 			// Done loading
@@ -136,7 +142,7 @@ class StreetLoadingScreen extends Overlay {
 
 	Future<String> _listEntities(Map<String, dynamic> street) async {
 		String url = '${Configs.http}//${Configs.utilServerAddress}/previewStreetEntities?tsid=${street['tsid']}';
-		Map<String, int> entityList = JSON.decode(await HttpRequest.getString(url));
+		Map<String, dynamic> entityList = jsonDecode(await HttpRequest.getString(url)) as Map;
 		String entityString = '';
 
 		if (entityList.keys.length > 0) {
@@ -148,8 +154,9 @@ class StreetLoadingScreen extends Overlay {
 			entityString = '${entityList.values.single} ${entityList.keys.single}';
 		} else {
 			// Multiple entities, format with commas and a conjunction
+			List<String> entityKeys = entityList.keys.toList().cast<String>();
 			for (int i = 0; i < entityList.keys.length; i++) {
-				String entityType = entityList.keys.toList()[i];
+				String entityType = entityKeys[i];
 				int count = entityList[entityType];
 
 				if (i == entityList.keys.length - 1) {

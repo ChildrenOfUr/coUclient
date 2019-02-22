@@ -194,7 +194,7 @@ i.fa.fa-search {}
     cursor: pointer;
     line-height: 15px;
     text-align: center;
-    font-size: 25px;
+    font-size: 12px;
 }
 
 .darkui .item-container-toggle {
@@ -227,7 +227,7 @@ i.fa.fa-search {}
 
 /* Dead */
 
-#inventory /deep/ #disableinventory {
+#inventory #disableinventory {
     width: 100%;
     height: 100%;
     position: absolute;

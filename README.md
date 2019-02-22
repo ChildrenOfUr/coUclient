@@ -25,24 +25,14 @@ If you want to run it locally or on your own server, you'll need to have an envi
 
 ### Setting up a development environment
 
-#### Mac OS X / macOS via `homebrew`
-
-1. `brew update`
-2. `brew tap dart-lang/dart`
-3. `brew install dart --with-content-shell --with-dartium`
-
-#### Windows via `chocolatey`
-
-1. `choco install dart-sdk -version 1.23.0`
-2. `choco install dartium -version 1.23.0`
-
-#### Windows via installer
-
-See http://www.gekorm.com/dart-windows/ for links and instructions.
+1. [Install the Dart SDK](https://webdev.dartlang.org/tools/sdk#install) for your platform. Make sure you have at least version 2.0.0.
+1. Make sure the SDK and your pub cache are on your path. On Linux, add this line to the end of your `~/.bashrc`: `export PATH=$PATH:"/usr/lib/dart/bin":"$HOME/.pub-cache/bin"
+1. Install `webdev`: `pub global activate webdev`
+1. Generate precompiled files: `webdev build`
 
 #### If you'd prefer an IDE
 
-See https://www.dartlang.org/tools .
+See https://www.dartlang.org/tools.
 
 #### Other platforms and/or manual installation
 
@@ -53,7 +43,7 @@ For instructions on manually installing Dart as well as links to other platforms
 #### Command line
 
 1. `pub get`
-2. `pub build`
+2. `webdev build`
 
 ### Running locally
 
@@ -61,17 +51,11 @@ The client uses the contents of `web/server_domain.txt` to find the server. If y
 it should contain `localhost`. For the values to use if you want to connect to the dev or live servers, please
 contact someone on the development team.
 
-1. `pub serve`
-
-For best results, we recommend running the client in [Dartium](https://webdev.dartlang.org/tools/dartium).
-
-> Note that if you installed dart via `homebrew` with the `--with-dartium` flag, Dartium is installed but possibly in a folder where you can't
-> easily find it. Assuming that your `homebrew` prefix is `/usr/local` and the version of Dart you have installed is 1.23.0, try looking in
-> `/usr/local/Cellar/dart/1.23.0` for a bundle named `Chromium.app`.
+1. `webdev serve`
 
 ## General Roadmap
 
-The project is built in <a href="https://www.dartlang.org" target="_blank">Dart</a>,
+The project is built in [Dart](https://www.dartlang.org),
 which is then compiled and minified into javascript and can run in most browsers. See our team collaboration
 site on Trello for the current roadmap.
 

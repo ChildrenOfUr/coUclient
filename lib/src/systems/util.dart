@@ -50,10 +50,10 @@ String logmessage(String message) {
  * Log console errors to the bug report window.
  **/
 void startConsoleErrorLogging() {
-	window.onError.listen((ErrorEvent error) {
+	window.onError.listen((Event error) {
 		BugWindow.messagesLogged +=
-			'[Console Error @ ${error.filename}:${error.lineno}:${error.colno}] ${error.message}'
-			'\n';
+			'[Console Error @ ${(error as ErrorEvent).filename}:${(error as ErrorEvent).lineno}:' +
+				'${(error as ErrorEvent).colno}] ' + (error as ErrorEvent).message + '\n';
 	});
 }
 
@@ -120,7 +120,7 @@ class Util {
 
 			if (s.item.isContainer) {
 				String slotsString = s.item.metadata['slots'];
-				List<Slot> bagSlots = decode(slotsString, type: new TypeHelper<List<Slot>>().type);
+				List<Slot> bagSlots = decodeJsonArray(jsonDecode(slotsString), (json) => Slot.fromJson(json));
 				if (bagSlots != null) {
 					for(Slot s in bagSlots) {
 						if (s.item == null) {
@@ -154,7 +154,7 @@ class Util {
 				if(s.item.subSlotFilter.contains(itemMap['itemType']) ||
 				   s.item.subSlotFilter.length == 0) {
 					String slotsString = s.item.metadata['slots'];
-					List<Slot> bagSlots = decode(slotsString, type: new TypeHelper<List<Slot>>().type);
+					List<Slot> bagSlots = decodeJsonArray(jsonDecode(slotsString), (json) => Slot.fromJson(json));
 					if (bagSlots != null) {
 						for(Slot s in bagSlots) {
 							if(s.item == null || s.itemType == null || s.itemType == '') {
@@ -193,27 +193,29 @@ int _getNumItems(String item, {int slot: -1, int subSlot: -1, bool includeBroken
 	}
 
 	//add the bag contents
-	playerInventory.slots.where((Slot s) => !s.itemType.isEmpty && s.item.isContainer && s.item.subSlots != null).forEach((Slot s) {
-		String slotsString = s.item.metadata['slots'];
-		List<Slot> bagSlots = decode(slotsString, type: new TypeHelper<List<Slot>>().type);
-		if (bagSlots != null) {
-			i=0;
-			for(Slot bagSlot in bagSlots) {
-				i++;
-				if(subSlot > -1 && (i-1) != subSlot) {
-					continue;
-				}
-				if (bagSlot.itemType == item) {
-					int durabilityUsed = int.parse(s.item.metadata['durabilityUsed'] ?? '0');
-					if(s.item.durability != null && durabilityUsed >= s.item.durability && !includeBroken) {
+	playerInventory.slots
+		.where((Slot s) => !s.itemType.isEmpty && s.item.isContainer && s.item.subSlots != null)
+		.forEach((Slot s) {
+			String slotsString = s.item.metadata['slots'];
+			List<Slot> bagSlots = decodeJsonArray(jsonDecode(slotsString), (json) => Slot.fromJson(json));
+			if (bagSlots != null) {
+				i=0;
+				for(Slot bagSlot in bagSlots) {
+					i++;
+					if(subSlot > -1 && (i-1) != subSlot) {
 						continue;
 					}
+					if (bagSlot.itemType == item) {
+						int durabilityUsed = int.parse(s.item.metadata['durabilityUsed'] ?? '0');
+						if(s.item.durability != null && durabilityUsed >= s.item.durability && !includeBroken) {
+							continue;
+						}
 
-					count += bagSlot.count;
+						count += bagSlot.count;
+					}
 				}
 			}
-		}
-	});
+		});
 
 	return count;
 }
@@ -246,20 +248,28 @@ bool hasRequirements(Action action, {bool includeBroken: false}) {
 }
 
 bool hasEnergyRequirements(Action action) {
+	if (action.energyRequirements == null) {
+		return true;
+	}
+
 	return metabolics.energy >= action.energyRequirements.energyAmount;
 }
 
 bool hasItemRequirements(Action action, {bool includeBroken: false}) {
+	if (action.itemRequirements == null) {
+		return true;
+	}
+
 	//check that the player has the necessary item(s)
 	bool haveAtLeastOne = action.itemRequirements.any.length == 0;
-	for (String itemType in action.itemRequirements.any) {
+	for (String itemType in action.itemRequirements.any ?? <String>[]) {
 		if (util.getNumItems(itemType, includeBroken: includeBroken) > 0) {
 			haveAtLeastOne = true;
 		}
 	}
 
 	bool hasEnough = true;
-	action.itemRequirements.all.forEach((String itemType, int count) {
+	(action.itemRequirements.all ?? <String, int>{}).forEach((String itemType, int count) {
 		if (util.getNumItems(itemType, includeBroken: includeBroken) < count) {
 			hasEnough = false;
 		}
@@ -306,7 +316,9 @@ sendAction(String methodName, String entityId, [Map arguments]) {
 		return;
 	}
 
-	logmessage("[Server Communication] Sending $methodName to entity: $entityId (${entities[entityId].runtimeType}) with arguments: $arguments");
+	logmessage(
+		"[Server Communication] Sending $methodName to entity: "
+		"$entityId (${entities[entityId].runtimeType}) with arguments: $arguments");
 	Element entity = querySelector("#$entityId");
 	Map map = {};
 	map['callMethod'] = methodName;
@@ -323,7 +335,7 @@ sendAction(String methodName, String entityId, [Map arguments]) {
 	map['email'] = game.email;
 	map['tsid'] = currentStreet.streetData['tsid'];
 	map['arguments'] = arguments;
-	streetSocket.send(JSON.encode(map));
+	streetSocket.send(jsonEncode(map));
 }
 
 /**
@@ -346,7 +358,7 @@ sendGlobalAction(String methodName, [Map arguments]) {
 	map['email'] = game.email;
 	map['tsid'] = currentStreet.streetData['tsid'];
 	map['arguments'] = arguments;
-	streetSocket.send(JSON.encode(map));
+	streetSocket.send(jsonEncode(map));
 
 	logmessage("[Server Communication] Sending global $methodName with arguments: $arguments");
 }

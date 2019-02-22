@@ -5,9 +5,9 @@ class Door extends Entity {
 	Rectangle sourceRect;
 	bool ready = false, firstRender = true;
 
-	Door(Map map) {
+	Door(Map<String, dynamic> map) {
 		if (map.containsKey('actions')) {
-			actions = decode(JSON.encode(map['actions']), type: const TypeHelper<List<Action>>().type);
+			actions = decodeJsonArray(map['actions'], (json) => Action.fromJson(json));
 		}
 
 		canvas = new CanvasElement();
@@ -18,14 +18,14 @@ class Door extends Entity {
 
 		spritesheet = new ImageElement(src:url);
 		spritesheet.onLoad.listen((_) {
-			width = spritesheet.width ~/ map['numColumns'];
-			height = spritesheet.height ~/ map['numRows'];
+			width = spritesheet.width ~/ (map['numColumns'] as int);
+			height = spritesheet.height ~/ (map['numRows'] as int);
 			x = num.parse(map['x'].toString());
 			y = num.parse(map['y'].toString()) - height;
 			left = x;
 			top = y;
 
-			canvas.attributes['actions'] = JSON.encode(map['actions']);
+			canvas.attributes['actions'] = jsonEncode(map['actions']);
 			canvas.attributes['type'] = map['type'];
 			canvas.classes.add("door");
 			canvas.classes.add('entity');
