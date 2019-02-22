@@ -2,7 +2,7 @@ name: couclient
 description: 'Children of Ur :: Webclient'
 
 environment:
-  sdk: '>=2.0.0 <3.0.0'
+  sdk: '>=2.1.0 <3.0.0'
 
 dependencies:
   dnd: ^1.2.0
