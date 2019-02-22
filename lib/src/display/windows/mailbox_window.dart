@@ -132,7 +132,7 @@ class MailboxWindow extends Modal {
 		_sendItems.children.forEach((Element box) => box.children.clear());
 	}
 
-	static Future<HttpRequest> postRequest(String endpoint, var data, {Map requestHeaders: null, bool encode: true}) {
+	static Future<HttpRequest> postRequest(String endpoint, dynamic data, {Map<String, String> requestHeaders: null, bool encode: true}) {
 		if (requestHeaders == null) {
 			requestHeaders = {"content-type": "application/json"};
 		}
@@ -275,7 +275,7 @@ class MailboxWindow extends Modal {
 		message.item4_slot = itemSlots[3];
 		message.item5_slot = itemSlots[4];
 
-		HttpRequest request = await postRequest('sendMail', message.toJson(), encode: false);
+		HttpRequest request = await postRequest('sendMail', message.toJson());
 
 		if (request.responseText == "OK") {
 			// Clear sending fields (for next message)

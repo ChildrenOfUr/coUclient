@@ -158,15 +158,15 @@ class Quoin {
 			return false;
 		}
 
-		if (metabolics.playerMetabolics.quoinsCollected >= constants.quoinLimit) {
+		if ((metabolics?.playerMetabolics?.quoinsCollected ?? 0) >= constants.quoinLimit) {
 			return _toastIfNotNotified(
 				"You've reached your daily limit of ${constants.quoinLimit} quoins",
 				"daily_limit");
-		} else if (typeString == 'mood' && metabolics.playerMetabolics.mood >= metabolics.playerMetabolics.maxMood) {
+		} else if (typeString == 'mood' && (metabolics?.playerMetabolics?.mood ?? 0) >= (metabolics?.playerMetabolics?.maxMood ?? 1)) {
 			return _toastIfNotNotified(
 				"You tried to collect a mood quoin, but your mood was already full.",
 				"full_mood");
-		} else if (typeString == 'energy' && metabolics.playerMetabolics.energy >= metabolics.playerMetabolics.maxEnergy) {
+		} else if (typeString == 'energy' && (metabolics?.playerMetabolics?.energy ?? 0) >= (metabolics?.playerMetabolics?.maxEnergy ?? 1)) {
 			return _toastIfNotNotified(
 				"You tried to collect an energy quoin, but your energy tank was already full.",
 				"full_energy");
