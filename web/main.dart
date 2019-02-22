@@ -194,9 +194,6 @@ Future main() async {
 	// Decide which UI to use
 	checkMedia();
 
-	//make sure the application cache is up to date
-	handleAppCache();
-
 	// Start uptime counter
 	startTime = new DateTime.now();
 
@@ -260,19 +257,6 @@ Future main() async {
 
 void hardReload() {
 	context["location"].callMethod("reload", [true]);
-}
-
-// Set up resource/asset caching
-
-void handleAppCache() {
-	if (window.applicationCache.status == ApplicationCache.UPDATEREADY) {
-		logmessage('[Loader] Application cache updated, swapping and reloading page');
-		window.applicationCache.swapCache();
-		window.location.reload();
-		return;
-	}
-
-	window.applicationCache.onUpdateReady.first.then((_) => handleAppCache());
 }
 
 // Manage different device types
