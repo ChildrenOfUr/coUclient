@@ -8,7 +8,7 @@ class EmoticonPicker extends Modal {
 
 	EmoticonPicker() {
 		window = querySelector("#$id");
-		well = window.querySelector("#emoticonPicker ur-well");
+		well = window.querySelector("#emoticonPicker .well");
 		search = well.querySelector("#ep-search");
 		grid = well.querySelector("#ep-grid");
 

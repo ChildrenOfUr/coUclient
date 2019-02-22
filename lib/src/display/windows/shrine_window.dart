@@ -7,7 +7,7 @@ class ShrineWindow extends Modal {
 	int favor, maxFavor;
 	String shrineId;
 	Element buttonHolder, confirmButton, cancelButton, dropTarget, favorProgress, numSelectorContainer, helpText;
-	Map item;
+	Map<String, dynamic> item;
 	NumberInputElement numBox;
 	Element QtyContainer, plusBtn, minusBtn, maxBtn;
 
@@ -69,8 +69,8 @@ class ShrineWindow extends Modal {
 			}
 
 			buttonHolder.style.visibility = 'visible';
-			item = JSON.decode(dropEvent.draggableElement.attributes['itemMap']);
-			dropTarget.style.backgroundImage = 'url(' + item['iconUrl'] + ')';
+			item = jsonDecode(dropEvent.draggableElement.attributes['itemMap']) as Map;
+			dropTarget.style.backgroundImage = 'url(${item['iconUrl']})';
 			helpText.innerHtml = 'Donate how many?';
 
 			numSelectorContainer.hidden = false;
@@ -98,7 +98,7 @@ class ShrineWindow extends Modal {
 		favorProgress = querySelector("#shrine-window-favor");
 		numSelectorContainer = querySelector("#shrine-window-qty");
 		helpText = querySelector("#DonateHelp");
-		item = new Map();
+		item = {};
 
 		populateShrineWindow();
 
@@ -110,7 +110,10 @@ class ShrineWindow extends Modal {
 		});
 
 		confirmButton.onClick.listen((_) {
-			Map actionMap = {"itemType": item['itemType'], "qty": numBox.valueAsNumber.toInt()};
+			Map<String, dynamic> actionMap = {
+				"itemType": item['itemType'] as String,
+				"qty": numBox.valueAsNumber.toInt()
+			};
 			sendAction("donate", shrineId, actionMap);
 			resetShrineWindow();
 		});

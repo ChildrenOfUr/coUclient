@@ -8,7 +8,8 @@ class WeatherWindow extends Modal {
 
 	WeatherWindow() {
 		{
-			well = new Element.tag('ur-well');
+			well = new DivElement()
+				..classes = ['well'];
 
 			Element closeButton = new Element.tag('i')
 				..classes = ['fa-li', 'fa', 'fa-times', 'close'];

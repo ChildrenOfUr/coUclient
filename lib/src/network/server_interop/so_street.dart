@@ -20,7 +20,7 @@ bool _metadataEqual(Map metaA, Map metaB) {
 //			}
 //		}
 //	}
-	return JSON.encode(metaA) == JSON.encode(metaB);
+	return jsonEncode(metaA) == jsonEncode(metaB);
 //	return true;
 }
 
@@ -41,7 +41,7 @@ _setupStreetSocket(String streetName) {
 		sendJoinedMessage(streetName);
 	});
 	streetSocket.onMessage.listen((MessageEvent event) {
-		Map map = JSON.decode(event.data);
+		Map<String, dynamic> map = jsonDecode(event.data) as Map;
 
 		if (map['error'] != null) {
 			reconnect = false;
@@ -60,17 +60,17 @@ _setupStreetSocket(String streetName) {
 			return;
 		}
 
-		if (map['vendorName'] == 'Auctioneer') {
+		if (map['vendorName'] as String == 'Auctioneer') {
 			new AuctionWindow().open();
 			return;
 		}
 
 		if (map['openWindow'] != null) {
-			if (map['openWindow'] == 'vendorSell') new VendorWindow().call(map, sellMode: true);
-			if (map['openWindow'] == 'mailbox') new MailboxWindow().open();
-			if (map['openWindow'] == 'itemChooser') {
+			if (map['openWindow'] as String == 'vendorSell') new VendorWindow().call(map, sellMode: true);
+			if (map['openWindow'] as String == 'mailbox') new MailboxWindow().open();
+			if (map['openWindow'] as String == 'itemChooser') {
 				Function callback = ({String itemType, int count: 1, int slot: -1, int subSlot: -1}) {
-					sendAction(map["action"], map['id'], {
+					sendAction(map["action"] as String, map['id'] as String, {
 						'itemType': itemType,
 						'count': count,
 						'slot': slot,
@@ -173,8 +173,8 @@ _setupStreetSocket(String streetName) {
 		}
 
 		if (map["quoins"] != null) {
-			(map["quoins"] as List).forEach((Map quoinMap) {
-				if (quoinMap["remove"] == "true") {
+			(map["quoins"] as List).cast<Map<String, dynamic>>().forEach((Map<String, dynamic> quoinMap) {
+				if (quoinMap["remove"].toString() == "true") {
 					// Server OKed collection of a quoin
 					Element objectToRemove = querySelector("#${quoinMap["id"]}");
 					if (objectToRemove != null) {
@@ -198,7 +198,7 @@ _setupStreetSocket(String streetName) {
 		}
 
 		if (map["doors"] != null) {
-			(map["doors"] as List).forEach((Map doorMap) {
+			(map["doors"] as List).cast<Map<String, dynamic>>().forEach((Map<String, dynamic> doorMap) {
 				String id = doorMap["id"];
 				Element element = querySelector("#$id");
 				Door door = entities[doorMap["id"]];
@@ -207,7 +207,7 @@ _setupStreetSocket(String streetName) {
 				}
 				else {
 					if (door != null) {
-						door.actions = decode(JSON.encode(doorMap['actions']), type: const TypeHelper<List<Action>>().type);
+						door.actions = decodeJsonArray(doorMap['actions'], (json) => Action.fromJson(json));
 						_updateChatBubble(doorMap, door);
 					}
 				}
@@ -215,7 +215,7 @@ _setupStreetSocket(String streetName) {
 		}
 
 		if (map["plants"] != null) {
-			(map["plants"] as List).forEach((Map plantMap) {
+			(map["plants"] as List).cast<Map<String, dynamic>>().forEach((Map<String, dynamic> plantMap) {
 				String id = plantMap["id"];
 				Element element = querySelector("#$id");
 				Plant plant = entities[plantMap["id"]];
@@ -224,7 +224,7 @@ _setupStreetSocket(String streetName) {
 				}
 				else {
 					if (plant != null) {
-						plant.actions = decode(JSON.encode(plantMap['actions']), type: const TypeHelper<List<Action>>().type);
+						plant.actions = decodeJsonArray(plantMap['actions'], (json) => Action.fromJson(json));
 						if (plant.state != plantMap['state']) {
 							plant.updateState(plantMap['state']);
 						}
@@ -235,10 +235,10 @@ _setupStreetSocket(String streetName) {
 		}
 
 		if (map["npcs"] != null) {
-			(map["npcs"] as List).forEach((Map npcMap) {
+			((map["npcs"] as List).cast<Map<String, dynamic>>()).forEach((Map<String, dynamic> npcMap) {
 				String id = npcMap["id"];
 				Element element = querySelector("#$id");
-				NPC npc = entities[npcMap["id"]];
+				NPC npc = entities[npcMap["id"] as String];
 				if (element == null) {
 					addNPC(npcMap);
 				} else {
@@ -254,7 +254,7 @@ _setupStreetSocket(String streetName) {
 		}
 
 		if (map["removeNpcs"] != null) {
-			(map["removeNpcs"] as List).forEach((String id) {
+			(map["removeNpcs"] as List).cast<String>().forEach((String id) {
 				entities[id]?.canvas?.remove();
 				entities.remove(id);
 				CurrentPlayer.intersectingObjects.remove(id);
@@ -262,7 +262,7 @@ _setupStreetSocket(String streetName) {
 		}
 
 		if (map["groundItems"] != null) {
-			(map['groundItems'] as List).forEach((Map itemMap) {
+			(map['groundItems'] as List).cast<Map<String, dynamic>>().forEach((Map<String, dynamic> itemMap) {
 				String id = itemMap['id'];
 				Element element = querySelector("#$id");
 				if (element == null) {
@@ -273,14 +273,14 @@ _setupStreetSocket(String streetName) {
 						entities.remove(id);
 						CurrentPlayer.intersectingObjects.clear();
 					} else {
-						entities[id].actions = decode(JSON.encode(itemMap['actions']), type: const TypeHelper<List<Action>>().type);
+						entities[id].actions = decodeJsonArray(itemMap['actions'], (json) => Action.fromJson(json));
 					}
 				}
 			});
 		}
 
 		if (map['npcMove'] != null) {
-			for (Map npcMap in map['npcs'] as List<Map>) {
+			for (Map<String, dynamic> npcMap in (map['npcs'] as List).cast<Map<String, dynamic>>()) {
 				NPC npc = entities[npcMap["id"]];
 				if (npc == null) {
 					return;
@@ -294,7 +294,7 @@ _setupStreetSocket(String streetName) {
 				npc.y = npcMap['y'];
 
 				npc.updateAnimation(npcMap);
-				npc.actions = decode(JSON.encode(npcMap['actions']), type: const TypeHelper<List<Action>>().type);
+				npc.actions = decodeJsonArray(npcMap['actions'], (json) => Action.fromJson(json));
 			}
 
 			return;

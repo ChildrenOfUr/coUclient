@@ -1,42 +1,48 @@
 part of couclient;
 
+@JsonSerializable()
 class MapData {
-	Map<String, Map<String, dynamic>>
-		hubData = {},
-		streetData = {};
-	 Map<String, Map<String, Map<String, dynamic>>>
-	 	renderData = {};
+	@JsonKey(name: "hubs")
+	Map<String, Map<String, dynamic>> hubData = {};
 
-	Completer<bool> load = new Completer();
+	@JsonKey(name: "streets")
+	Map<String, Map<String, dynamic>> streetData = {};
 
-	MapData() {
+	@JsonKey(name: "render")
+	Map<String, Map<String, Map<String, dynamic>>> renderData = {};
+
+	static Completer<bool> load = new Completer();
+
+	MapData();
+	factory MapData.fromJson(Map<String, dynamic> json) => _$MapDataFromJson(json);
+	Map<String, dynamic> toJson() => _$MapDataToJson(this);
+
+	static Future<MapData> download() async {
 		// Download the map data from the server
 		try {
-			HttpRequest.requestCrossOrigin(
+			String json = await HttpRequest.requestCrossOrigin(
 				'${Configs.http}//${Configs.utilServerAddress}/getMapData?token=$rsToken')
-			.timeout(new Duration(seconds: 5),
-				onTimeout: () => _serverIsDown('Connection timed out.'))
-			.then((String json) {
-				try {
-					Map<String, Map<String, dynamic>> data = JSON.decode(json);
-					logmessage('[Server Communication] Map data loaded.');
-					hubData = data['hubs'];
-					streetData = data['streets'];
-					renderData = data['render'];
-					load.complete(true);
-				} catch (e) {
-					load.complete(false);
-					_serverIsDown('$e');
-				}
-			});
+				.timeout(new Duration(seconds: 5), onTimeout: () => _serverIsDown('Connection timed out.'));
+
+			try {
+				MapData md = MapData.fromJson(jsonDecode(json));
+				logmessage('[Server Communication] Map data loaded.');
+				load.complete(true);
+				return md;
+			} catch (e) {
+				load.complete(false);
+				_serverIsDown('$e');
+				return null;
+			}
 		} catch (e) {
 			load.complete(false);
 			_serverIsDown('$e');
+			return null;
 		}
 	}
 
 	// Shows the "server down" screen
-	void _serverIsDown([String errorText = ""]) {
+	static Future<Null> _serverIsDown([String errorText = ""]) async {
 		logmessage("[Server Communication] Server down thrown: Could not load map data. $errorText");
 		querySelector('#server-down').hidden = false;
 		serverDown = true;

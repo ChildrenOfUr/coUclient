@@ -23,6 +23,7 @@ class Chat {
 		inputHistory = new List();
 	static StreamSubscription itemWindowLinks, mapWindowLinks;
 	static InputElement lastFocusedInput;
+	Element resizeHandle;
 	bool localResizeFocus = false; // whether the mouse is down on the resize button
 
 	static final NodeValidatorBuilder VALIDATOR = new NodeValidatorBuilder.common()
@@ -47,6 +48,10 @@ class Chat {
 
 	void blur() {
 		this.focused = false;
+	}
+
+	TextInputElement get chatInput {
+		return conversationElement.querySelector('input');
 	}
 
 	Chat(this.title) {
@@ -91,8 +96,7 @@ class Chat {
 			}
 
 			//handle chat input getting focused/unfocused so that the character doesn't move while typing
-			InputElement chatInput = conversationElement.querySelector('input');
-			chatInput.onFocus.listen((FocusEvent event) {
+			chatInput.onFocus.listen((Event event) {
 				if (localResizeFocus) {
 					// Don't drag to resize into text fields
 					event.preventDefault();
@@ -140,7 +144,7 @@ class Chat {
 
 		if (title == 'Local Chat') {
 			// Add resize control to the top of local chat
-			Element resizeHandle = new Element.tag('i')
+			resizeHandle = new Element.tag('i')
 				..classes = ['chat-resize', 'fa-li', 'fa', 'fa-hand-grab-o']
 				..title = 'Drag to resize'
 				..tabIndex = -1;
@@ -185,13 +189,18 @@ class Chat {
 			});
 
 			conversationElement.querySelector('header').children.insert(0, resizeHandle);
+		} else {
+			localChat?.resizeHandle?.hidden = false;
 		}
 
 		computePanelSize();
 
 		Element minimize = conversationElement.querySelector('.fa-chevron-down');
 		if (minimize != null) {
-			minimize.onClick.listen((_) => this.archiveConversation());
+			minimize.onClick.listen((_) {
+				localChat.resizeHandle.hidden = true;
+				this.archiveConversation();
+			});
 		}
 
 		processInput(conversationElement.querySelector('input'));
@@ -243,7 +252,7 @@ class Chat {
 					//warn multiplayer server that it will receive messages
 					//from a new name but it should be the same person
 					data['street'] = currentStreet.label;
-					playerSocket.send(JSON.encode(data));
+					playerSocket.send(jsonEncode(data));
 
 					timeLast = 5.0;
 				}
@@ -594,7 +603,7 @@ class Chat {
 			channel = currentStreet.label;
 		}
 		String url = '${Configs.http}//Configs.utilServerAddress/listUsers?channel=$channel';
-		connectedUsers = JSON.decode(await HttpRequest.requestCrossOrigin(url));
+		connectedUsers = (jsonDecode(await HttpRequest.requestCrossOrigin(url)) as List).cast<String>();
 
 		int startIndex = input.value.lastIndexOf(" ") == -1 ? 0 : input.value.lastIndexOf(" ") + 1;
 		String localLastWord = input.value.substring(startIndex);

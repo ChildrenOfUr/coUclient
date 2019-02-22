@@ -63,7 +63,7 @@ class MapWindow extends Modal {
 		// Clear previous results
 		searchResults.children.clear();
 
-		List<String> results = [];
+		SplayTreeSet<String> results = new SplayTreeSet<String>((String a, String b) => levenshtein(a, b, caseSensitive: false));
 
 		for (String streetname in mapData.streetData.keys) {
 			Map data = mapData.streetData[streetname];
@@ -79,11 +79,9 @@ class MapWindow extends Modal {
 			// Check if street matches search
 			if (checkVisibility(streetname) &&
 			    (checkName(streetname, entry) || checkTsid(tsid, entry))) {
-				results.add(streetname);
+				results.add(streetname.trim());
 			}
 		}
-
-		results.sort((String a, String b) => levenshtein(a, b, caseSensitive: false));
 
 		for(String streetname in results) {
 			// Mark if current street
@@ -153,7 +151,7 @@ class MapWindow extends Modal {
 }
 
 class WorldMap {
-	static final num DEG_TO_RAD = PI / 180;
+	static final num DEG_TO_RAD = pi / 180;
 
 	String showingHub;
 	Map<String, String> hubInfo;
@@ -195,12 +193,12 @@ class WorldMap {
 		});
 	}
 
-	navigate(String toStreetName) {
+	void navigate(String toStreetName) {
 		GPS.getRoute(currentStreet.label, toStreetName);
 		loadhubdiv(showingHub);
 	}
 
-	loadhubdiv(String hub_id, [String highlightStreet]) {
+	void loadhubdiv(String hub_id, [String highlightStreet]) {
 		showingHub = hub_id;
 
 		Map<String, dynamic> hubInfo = mapData.hubData[hub_id];
@@ -218,13 +216,13 @@ class WorldMap {
 		HubMabDiv.children.clear();
 
 		// render
-		for (Map object in mapData.renderData[hub_id].values) {
+		for (Map<String, dynamic> object in mapData.renderData[hub_id].values) {
 			if (object['type'] == 'S') {
 				// STREETS
 
 				String streetName = mapData.getLabel(object['tsid']);
 
-				Map streetPlacement = {
+				Map<String, num> streetPlacement = {
 					'x1': object['x1'],
 					'x2': object['x2'],
 					'y1': object['y1'],
@@ -234,7 +232,7 @@ class WorldMap {
 				};
 				streetPlacement['deg'] = getStreetAngle(streetPlacement);
 				streetPlacement['length'] = getStreetLength(streetPlacement);
-				Map customAttributes = {"tsid": object['tsid']};
+				Map<String, String> customAttributes = {"tsid": object['tsid']};
 
 				DivElement street = new DivElement()
 					..classes.add('hm-street')
@@ -281,21 +279,12 @@ class WorldMap {
 
 					// show vendor symbol if vendor is on street
 					if (mapData.streetData[streetName]["vendor"] != null) {
-						String ref;
 						String text = mapData.streetData[streetName]["vendor"];
-						if (["a", "e", "i", "o", "u"].contains(text.substring(0, 1).toLowerCase())) {
-							ref = "an";
-						} else {
-							ref = "a";
-						}
+						String ref = ["a", "e", "i", "o", "u"].contains(text.substring(0, 1).toLowerCase()) ? "an" : "a";
+
 						DivElement vendorIndicator = new DivElement()
 							..classes.add("sci-vendor")
-							..title = streetName +
-								" has " +
-								ref +
-								" " +
-								mapData.streetData[streetName]["vendor"] +
-								" Vendor";
+							..title = "$streetName has $ref ${mapData.streetData[streetName]["vendor"]} Vendor";
 						indicators.append(vendorIndicator);
 					}
 
@@ -303,9 +292,7 @@ class WorldMap {
 					if (mapData.streetData[streetName]["shrine"] != null) {
 						DivElement shrineIndicator = new DivElement()
 							..classes.add("sci-shrine")
-							..title = streetName +
-								" has a shrine to " +
-								mapData.streetData[streetName]["shrine"];
+							..title = "$streetName has a shrine to ${mapData.streetData[streetName]["shrine"]}";
 						indicators.append(shrineIndicator);
 					}
 
@@ -313,7 +300,7 @@ class WorldMap {
 					if (mapData.streetData[streetName]["machine_room"] == true) {
 						DivElement machinesIndicator = new DivElement()
 							..classes.add("sci-machines")
-							..title = streetName + " has a machine room";
+							..title = "$streetName has a machine room";
 						indicators.append(machinesIndicator);
 					}
 
@@ -321,7 +308,7 @@ class WorldMap {
 					if (mapData.streetData[streetName]["bureaucratic_hall"] == true) {
 						DivElement bureauIndicator = new DivElement()
 							..classes.add("sci-bureau")
-							..title = streetName + " has a bureaucratic hall";
+							..title = "$streetName has a bureaucratic hall";
 						indicators.append(bureauIndicator);
 					}
 
@@ -329,7 +316,7 @@ class WorldMap {
 					if (mapData.streetData[streetName]["mailbox"] == true) {
 						DivElement mailboxIndicator = new DivElement()
 							..classes.add("sci-mailbox")
-							..title = streetName + " has a mailbox";
+							..title = "$streetName has a mailbox";
 						indicators.append(mailboxIndicator);
 					}
 
@@ -338,9 +325,6 @@ class WorldMap {
 					try {
 						// Visited streets
 						String tsid = mapData.streetData[streetName]["tsid"];
-						if (tsid.startsWith("L")) {
-							tsid = tsid.replaceFirst("L", "G");
-						}
 						if (metabolics.playerMetabolics.locationHistory.contains(tsidL(tsid))) {
 							street.classes.add("visited");
 						}
@@ -462,13 +446,13 @@ class WorldMap {
 		if (street['y1'] < street['y2']) {
 			Rectangle streetBox = new Rectangle(street['x1'], street['y1'],
 				street['x2'] - street['x1'], street['y2'] - street['y1']);
-			radians = (PI / 2) - atan2(streetBox.width, streetBox.height);
+			radians = (pi / 2) - atan2(streetBox.width, streetBox.height);
 		} else if (street['y1'] > street['y2']) {
 			Rectangle streetBox = new Rectangle(street['x1'], street['y1'],
 				street['x2'] - street['x1'], street['y1'] - street['y2']);
 			radians = atan2(streetBox.width, streetBox.height);
 			if (streetBox.width > streetBox.height) {
-				radians -= (PI / 2);
+				radians -= (pi / 2);
 			}
 			radians = -atan2(streetBox.height, streetBox.width);
 		}
@@ -518,6 +502,15 @@ class WorldMap {
 						});
 					}
 				}
+			},
+			{
+				"name": "Encyclopedia",
+				"description": "Get more information",
+				"enabled": true,
+				"timeRequired": 0,
+				"clientCallback": () {
+					window.open("https://childrenofur.com/encyclopedia/#/street/$tsid", "_blank");
+				}
 			}
 		];
 		if (metabolics.energy >= 50 || (inputManager.konamiDone && !inputManager.freeTeleportUsed)) {
@@ -561,7 +554,7 @@ class WorldMap {
 		worldMapVisible = true;
 
 		WorldMapDiv.onClick.listen((e) {
-			Element target = (e.target is SpanElement ? e.target.parent : e.target);
+			Element target = (e.target is SpanElement ? (e.target as SpanElement).parent : e.target as Element);
 			loadhubdiv(target.dataset["hub"]);
 			querySelector("#map-window-world").setInnerHtml('<i class="fa fa-fw fa-globe"></i>');
 		});

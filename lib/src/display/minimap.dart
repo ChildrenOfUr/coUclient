@@ -128,7 +128,9 @@ class Minimap {
 
 		// other players
 
-		await otherPlayers.forEach((String name, Player thisPlayer) async {
+		await Future.forEach(otherPlayers.keys.toList(), (String name) async {
+			Player thisPlayer = otherPlayers[name];
+
 			DivElement player = new DivElement()
 				..classes.add('minimap-player')
 				..style.top = ((thisPlayer.top * factorHeight) - 6).toString() + 'px'

@@ -59,7 +59,7 @@ class Joystick
 				double slope = (y-_neutralY)/(x-_neutralX);
 				double angle = atan(slope);
 				if((x-_neutralX) < 0) //if left side of circle
-					angle += PI;
+					angle += pi;
 				int yOnCircle = _neutralY+(sin(angle)*radius).floor();
 				int xOnCircle = _neutralX+(cos(angle)*radius).floor();
 

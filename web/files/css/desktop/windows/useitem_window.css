@@ -4,7 +4,7 @@
     overflow-y: scroll;
 }
 
-.useitem-well * {
+.useitem-well *:not(.fa, .fas) {
     font-family: "Lato", sans-serif;
 }
 
@@ -62,9 +62,8 @@
 .useitem-recipe-image {
     height: 50px;
     width: 40px;
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-size: contain;
+	background: no-repeat center center;
+	background-size: contain;
     float: left;
     position: relative;
     top: 5px;
@@ -108,7 +107,7 @@
     border-radius: 8px;
     width: calc(100% - 20px);
     height: 30px;
-    padding: 5px 10px 10px 10px;
+    padding: 10px 10px 5px 10px;
     box-shadow: 0 0 2px lightgrey;
     transition: all 0.1s ease-in-out;
     font-size: 16px;
@@ -130,12 +129,10 @@
 .recipeview-image {
     width: calc(100% - 20px);
     height: 100px;
-    background-color: white;
     border: 1px solid darkgray;
     border-radius: 8px;
     padding: 10px;
-    background-repeat: no-repeat;
-    background-position: center center;
+    background: white no-repeat center center;
 }
 
 .recipeview-text {
@@ -245,8 +242,7 @@
     width: 30px;
     height: 30px;
     background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center center;
+    background: no-repeat center center;
 }
 
 .recipeview-ing-list .fa {
@@ -287,7 +283,7 @@
     transform: translateY(-50%);
 }
 
-.useitem-well ur-progress {
+.useitem-well .progress {
     position: absolute;
     bottom: 45px;
     left: 25px;

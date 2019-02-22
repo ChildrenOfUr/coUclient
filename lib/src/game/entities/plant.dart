@@ -10,7 +10,7 @@ class Plant extends Entity {
 
 	Plant(Map map) {
 		if (map.containsKey('actions')) {
-			actions = decode(JSON.encode(map['actions']), type: const TypeHelper<List<Action>>().type);
+			actions = decodeJsonArray(map['actions'], (json) => Action.fromJson(json));
 		}
 
 		canvas = new CanvasElement();
@@ -41,7 +41,7 @@ class Plant extends Entity {
 			left = x;
 			top = y;
 
-			canvas.attributes['actions'] = JSON.encode(map['actions']);
+			canvas.attributes['actions'] = jsonEncode(map['actions']);
 			canvas.attributes['type'] = map['type'];
 			canvas.classes.add("plant");
 			canvas.classes.add('entity');

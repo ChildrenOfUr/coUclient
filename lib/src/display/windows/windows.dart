@@ -10,6 +10,7 @@ class WindowManager {
 	ChangeUsernameWindow changeUsernameWindow;
 	EmoticonPicker emoticonPicker;
 	InventorySearchWindow inventorySearchWindow;
+	MailboxWindow mailboxWindow;
 	MotdWindow motdWindow;
 	QuestLogWindow questLog;
 	QuestMakerWindow questMaker;
@@ -33,6 +34,7 @@ class WindowManager {
 		changeUsernameWindow = new ChangeUsernameWindow();
 		emoticonPicker = new EmoticonPicker();
 		inventorySearchWindow = new InventorySearchWindow();
+		mailboxWindow = new MailboxWindow();
 		mapWindow = new MapWindow();
 		motdWindow = new MotdWindow();
 		questLog = new QuestLogWindow();
@@ -50,27 +52,6 @@ class AuctionWindow extends Modal {
 
 	AuctionWindow() {
 		prepare();
-	}
-}
-
-class MailboxWindow extends Modal {
-	String id = 'mailboxWindow';
-
-	MailboxWindow() {
-		prepare();
-	}
-
-	@override
-	open({bool ignoreKeys: false}) {
-		(querySelector("ur-mailbox") as Mailbox).refresh();
-		inputManager.ignoreKeys = true;
-		super.open();
-	}
-
-	@override
-	close() {
-		inputManager.ignoreKeys = false;
-		super.close();
 	}
 }
 

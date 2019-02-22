@@ -33,7 +33,7 @@ class BugWindow extends Modal {
 	  input.value = "";
 
 	  // Submits the bug
-	  w.querySelector("ur-button").onClick.listen((_) async {
+	  w.querySelector("#reportSubmitBtn").onClick.listen((_) async {
 		  if (!sending) {
 			  sending = true;
 			  if (view.bugReportTitle.value.trim() != "") {

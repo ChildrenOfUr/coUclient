@@ -17,12 +17,12 @@ abstract class DarkUI {
 	static List<Element> get appliedElements {
 		return new List()
 			..add(document.body)
-			..add(querySelector("ur-meters /deep/ #topLeftMask"))
-			..add(querySelector("ur-meters /deep/ #playerName"))
-			..add(querySelector("ur-meters /deep/ #imaginationText"))
-			..add(querySelector("ur-mailbox /deep/ core-pages"))
-			..add(querySelector("ur-musicplayer"))
-			..addAll(querySelectorAll("ur-button"));
+			..add(querySelector("#meters #topLeftMask"))
+			..add(querySelector("#meters #playerName"))
+			..add(querySelector("#meters #imaginationText"))
+//			..add(querySelector("ur-mailbox /deep/ core-pages")) // TODO
+			..addAll(querySelectorAll(".panel"))
+			..addAll(querySelectorAll("button"));
 	}
 
 	/// Whether to toggle automatically with day cycles

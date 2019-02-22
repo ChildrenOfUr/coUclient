@@ -11,7 +11,7 @@ class GoWindow extends Modal {
     prepare();
 
     container.onClick.listen((e) {
-      go(e.target.attributes['tsid']);
+      go((e.target as Element).attributes['tsid']);
     });
 
     search.onInput.listen((e) {

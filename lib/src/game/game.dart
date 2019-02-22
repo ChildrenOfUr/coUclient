@@ -8,7 +8,7 @@ class Game {
 	num lastTime = 0.0;
 	DateTime startTime = new DateTime.now();
 	bool ignoreGamepads = false;
-	Map<String, String> elevationCache = new Map();
+	Map<String, String> elevationCache = {};
 	bool loaded = false;
 
 	// INITIALIZATION //
@@ -27,7 +27,7 @@ class Game {
 			// Display border on avatar image
 			// (Devs shouldn't see it, our blog post screenshots would be different)
 			if (role == "guide") {
-				querySelector("ur-meters /deep/ #leftDisk").classes.add("guideDisk");
+				querySelector("#meters #leftDisk").classes.add("guideDisk");
 			}
 		});
 	}
@@ -46,7 +46,7 @@ class Game {
 		}
 	}
 
-	_init(Metabolics m) async {
+	Future<Null> _init(Metabolics m) async {
 		//load the player's street from the server
 		await streetService.requestStreet(location);
 
@@ -120,7 +120,7 @@ class Game {
 	}
 
 	// GAME LOOP //
-	loop(num delta) {
+	void loop(num delta) {
 		//UserTag loopTag = new UserTag('gameloop');
 		//UserTag previousTag = loopTag.makeCurrent();
 

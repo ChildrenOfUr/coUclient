@@ -116,7 +116,8 @@ class VendorWindow extends Modal {
 			if(dropEvent.draggableElement.attributes['itemMap'] == null) {
 				return;
 			}
-			spawnBuyDetails(JSON.decode(dropEvent.draggableElement.attributes['itemMap']), vendorMap['id'], sellMode:true);
+			spawnBuyDetails(jsonDecode(dropEvent.draggableElement.attributes['itemMap']) as Map,
+				vendorMap['id'], sellMode:true);
 		});
 
 		if(sellMode) {
@@ -127,16 +128,18 @@ class VendorWindow extends Modal {
 		this.open(ignoreKeys: true);
 	}
 
-	spawnBuyDetails(Map item, String vendorId, {bool sellMode: false}) {
+	void spawnBuyDetails(Map<String, dynamic> item, String vendorId, {bool sellMode: false}) {
 		// Check for non-empty bags
 		if (
-			(item['isContainer'] != null && item['isContainer'])
+			(item['isContainer'] != null && item['isContainer'] as bool)
 			&& (item['metadata'] != null && item['metadata']['slots'] != null)
 		) {
-			List<Map<String, dynamic>> slots = JSON.decode(item['metadata']['slots']);
+			List<Map<String, dynamic>> slots = (jsonDecode(item['metadata']['slots']) as List)
+				.cast<Map<String, dynamic>>();
 			bool itemFound = false;
 			for (Map<String, dynamic> slot in slots) {
-				if (slot['itemType'].trim() || slot['item'] != null || slot['count'] > 0) {
+				if ((slot['itemType'] as String).trim().length > 0 ||
+					slot['item'] != null || (slot['count'] as int) > 0) {
 					itemFound = true;
 				}
 			}
@@ -169,7 +172,7 @@ class VendorWindow extends Modal {
 			amtSelector.style.pointerEvents = 'initial';
 			buyButton.style.opacity = 'initial';
 			buyButton.style.pointerEvents = 'initial';
-			buyButton.text = "Sell 1 for ${(item['price'] * .7) ~/ 1}\u20a1";
+			buyButton.text = "Sell 1 for ${((item['price'] as int) * .7) ~/ 1}\u20a1";
 		} else {
 			if(util.getBlankSlots(item) == 0) {
 				amtSelector.style.opacity = '0.5';
@@ -185,14 +188,15 @@ class VendorWindow extends Modal {
 				if (item["discount"] == 1) {
 					buyButton.text = "Buy 1 for ${item['price']}\u20a1";
 				} else {
-					buyButton.text = "On sale! Buy 1 for ${(item['price'] * item["discount"]).toInt().toString()}\u20a1";
+					buyButton.text = "On sale! Buy 1 for "
+						"${((item['price'] as int) * (item["discount"] as num)).toInt().toString()}\u20a1";
 				}
 			}
 		}
 
 		buyItemCount.text = util.getNumItems(item['itemType']).toString();
-		buyItemImage.src = '${item['iconUrl']}';
-		buyDescription.text = item['description'];
+		buyItemImage.src = item['iconUrl'] as String;
+		buyDescription.text = item['description'] as String;
 		buyPriceTag.text = "${item['price']}\u20a1";
 		name.text = item['name'];
 
@@ -224,7 +228,7 @@ class VendorWindow extends Modal {
 					return;
 				}
 
-				newValue = metabolics.currants - (item['price'] * item["discount"] * numToBuy).toInt();
+				newValue = metabolics.currants - ((item['price'] as int) * (item["discount"] as num) * numToBuy).toInt();
 				sendAction("buyItem", vendorId, actionMap);
 				diffSign = "-";
 			}
@@ -318,7 +322,7 @@ class VendorWindow extends Modal {
 		return count;
 	}
 
-	int _updateNumToBuy(Map item, int newNum, {bool sellMode: false}) {
+	int _updateNumToBuy(Map<String, dynamic> item, int newNum, {bool sellMode: false}) {
 		if(newNum < 1) {
 			newNum = 1;
 		}
@@ -328,7 +332,7 @@ class VendorWindow extends Modal {
 		}
 
 		buyNum.valueAsNumber = newNum;
-		int value = item['price'] * newNum;
+		int value = (item['price'] as int) * newNum;
 		if(sellMode) {
 			value = (value * .7) ~/ 1;
 		}

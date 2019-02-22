@@ -27,7 +27,7 @@ class InventorySearchWindow extends Modal {
 
 	Element trigger;
 	TextInputElement input;
-	DivElement output;
+	TableElement output;
 
 	InventorySearchWindow() {
 		prepare();
@@ -87,11 +87,9 @@ class InventorySearchWindow extends Modal {
 				continue;
 			}
 
-			if (
-				(slot.item.isContainer ?? false) &&
-				slot.item.metadata?.containsKey('slots') ?? false
-			) {
-				List<Map> subSlots = JSON.decode(slot.item.metadata['slots']);
+			if ((slot.item.isContainer ?? false) && (slot.item.metadata?.containsKey('slots') ?? false)) {
+				List<Map<String, dynamic>> subSlots = (jsonDecode(slot.item.metadata['slots']) as List)
+					.cast<Map<String, dynamic>>();
 				for (int ssi = 0; ssi < slot.item.subSlots; ssi++) {
 					if (subSlots[ssi]['item'] == null) {
 						continue;
@@ -137,19 +135,20 @@ class InventorySearchWindow extends Modal {
 		output.children.clear();
 
 		items.forEach((InventorySearchMatch item) {
-			ImageElement icon = new ImageElement()
+			TableCellElement icon = new TableCellElement()
 				..classes = ['inv-search-result-icon']
-				..src = item.iconUrl;
+				..append(new ImageElement()
+					..src = item.iconUrl);
 
-			SpanElement label = new SpanElement()
+			TableCellElement label = new TableCellElement()
 				..classes = ['inv-search-result-label']
 				..text = item.name;
 
-			SpanElement qty = new SpanElement()
+			TableCellElement qty = new TableCellElement()
 				..classes = ['inv-search-result-qty']
 				..text = item.qty.toString() + 'x';
 
-			DivElement result = new DivElement()
+			TableRowElement result = new TableRowElement()
 				..classes = ['inv-search-result']
 				..append(icon)
 				..append(label)
@@ -182,7 +181,7 @@ class InventorySearchWindow extends Modal {
 			});
 
 			// Wait for it to refresh
-			if (!(bagWindow.loadUpdate?.isCompleted) ?? false) {
+			if (!(bagWindow.loadUpdate?.isCompleted ?? true)) {
 				await bagWindow.loadUpdate.future;
 			}
 

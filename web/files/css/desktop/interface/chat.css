@@ -185,8 +185,7 @@ p.me {
     display: block;
     width: 0;
     height: 0;
-    border-color: transparent;
-    border-style: solid;
+    border: solid transparent;
 }
 
 .chat-bubble > .cb-arrow {
@@ -387,8 +386,7 @@ a.name.guide::before {
     display: inline-block;
     background-size: contain;
     margin-right: 0.1em;
-    background-repeat: no-repeat;
-    background-position: center center;
+    background: no-repeat center center;
     cursor: pointer;
 }
 
@@ -399,9 +397,7 @@ a.name.guide::before {
     content: "";
     background-size: contain;
     margin-right: 0.1em;
-    background-image: url(../../../system/icons/signpost.svg);
-    background-repeat: no-repeat;
-    background-position: center center;
+    background: url(../../../system/icons/signpost.svg) no-repeat center center;
     cursor: pointer;
 }
 

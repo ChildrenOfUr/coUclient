@@ -17,12 +17,11 @@ class Quoin {
 	num left, top;
 	String id;
 
-	Quoin(Map map) {
+	Quoin(Map<String, dynamic> map) {
 		init(map);
 	}
 
-	init(Map map) async
-	{
+	Future<Null> init(Map<String, dynamic> map) async {
 		typeString = map['type'];
 
 		// Don't show Quarazy Quoins more than once for a street
@@ -48,7 +47,12 @@ class Quoin {
 		}
 
 		animation = new Animation(map['url'], typeString.toLowerCase(), 8, 24, frameList, fps:22);
+		try {
 		await animation.load();
+		} catch (e, st) {
+			print("$e\n$st");
+			return;
+		}
 
 		canvas = new CanvasElement();
 		canvas.width = animation.width;
@@ -97,7 +101,7 @@ class Quoin {
 		addingLocks[id] = false;
 	}
 
-	update(double dt) {
+	void update(double dt) {
 		if (!ready) {
 			return;
 		}
@@ -154,15 +158,15 @@ class Quoin {
 			return false;
 		}
 
-		if (metabolics.playerMetabolics.quoinsCollected >= constants["quoinLimit"]) {
+		if ((metabolics?.playerMetabolics?.quoinsCollected ?? 0) >= constants.quoinLimit) {
 			return _toastIfNotNotified(
-				"You've reached your daily limit of ${constants["quoinLimit"].toString()} quoins",
+				"You've reached your daily limit of ${constants.quoinLimit} quoins",
 				"daily_limit");
-		} else if (typeString == 'mood' && metabolics.playerMetabolics.mood >= metabolics.playerMetabolics.maxMood) {
+		} else if (typeString == 'mood' && (metabolics?.playerMetabolics?.mood ?? 0) >= (metabolics?.playerMetabolics?.maxMood ?? 1)) {
 			return _toastIfNotNotified(
 				"You tried to collect a mood quoin, but your mood was already full.",
 				"full_mood");
-		} else if (typeString == 'energy' && metabolics.playerMetabolics.energy >= metabolics.playerMetabolics.maxEnergy) {
+		} else if (typeString == 'energy' && (metabolics?.playerMetabolics?.energy ?? 0) >= (metabolics?.playerMetabolics?.maxEnergy ?? 1)) {
 			return _toastIfNotNotified(
 				"You tried to collect an energy quoin, but your energy tank was already full.",
 				"full_energy");
@@ -197,7 +201,7 @@ class Quoin {
 			map["type"] = "quoin";
 			map['username'] = game.username;
 			map["streetName"] = currentStreet.label;
-			streetSocket.send(JSON.encode(map));
+			streetSocket.send(jsonEncode(map));
 		}
 	}
 
@@ -227,7 +231,7 @@ class Quoin {
 	}
 
 	bool get statIsMaxed {
-		if (metabolics.playerMetabolics.quoinsCollected >= constants["quoinLimit"]) {
+		if ((metabolics.playerMetabolics.quoinsCollected ?? 0) >= constants.quoinLimit) {
 			return true;
 		}
 

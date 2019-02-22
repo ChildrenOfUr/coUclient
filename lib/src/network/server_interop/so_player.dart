@@ -3,10 +3,10 @@ part of couclient;
 _setupPlayerSocket() {
 	playerSocket = new WebSocket(multiplayerServer);
 	playerSocket.onOpen.listen((_) {
-		playerSocket.send(JSON.encode({'clientVersion': Configs.clientVersion}));
+		playerSocket.send(jsonEncode({'clientVersion': Configs.clientVersion}));
 	});
 	playerSocket.onMessage.listen((MessageEvent event) {
-		Map map = JSON.decode(event.data);
+		Map map = jsonDecode(event.data);
 		if (map['error'] != null) {
 			reconnect = false;
 			logmessage('[Multiplayer (Player)] Error ${map['error']}');
@@ -120,7 +120,7 @@ sendPlayerInfo() {
 	map["animation"] = CurrentPlayer.currentAnimation.animationName;
 	if (CurrentPlayer.chatBubble != null) map["bubbleText"] =
 		CurrentPlayer.chatBubble.text;
-	playerSocket.send(JSON.encode(map));
+	playerSocket.send(jsonEncode(map));
 }
 
 void createOtherPlayer(Map map) {

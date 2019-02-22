@@ -5,12 +5,12 @@
 }
 
 #windowHolder .window.bagWindow .iw-title {
-    font-size: 25px;
-    line-height: 30px;
+    font-size: 20px;
+    line-height: 20px;
 }
 
 .bagWindow header img.fa-li {
-    height: 40px;
+    height: 32px;
     margin-top: 4px;
 }
 
@@ -22,7 +22,7 @@
     position: absolute;
     bottom: 0;
     right: 3px;
-    font-family: "Fredoka One" !important;
+    font-family: "Fredoka One", sans-serif !important;
     color: #4b2e4c;
     font-size: 16px !important;
 }

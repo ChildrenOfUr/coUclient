@@ -134,7 +134,7 @@ Future sizeItem(ImageElement img, Element itemDiv, Element slot, ItemDef item, i
 
 	itemDiv.attributes['name'] = item.name.replaceAll(' ', '');
 	itemDiv.attributes['count'] = "1";
-	itemDiv.attributes['itemMap'] = encode(item);
+	itemDiv.attributes['itemMap'] = jsonEncode(item.toJson());
 	slot.title = item.name;
 
 	String slotNum = '$barSlotNum.$bagSlotNum';
@@ -241,13 +241,10 @@ void takeItemFromInventory(String itemType, {int count: 1}) {
 	transmit("inventoryUpdated");
 }
 
-Map getDropMap(int count, int slotNum, int subSlotNum) {
-	Map dropMap = new Map()
-		..['slot'] = slotNum
-		..['subSlot'] = subSlotNum
-		..['count'] = count
-		..['streetName'] = currentStreet.label
-		..['tsid'] = currentStreet.streetData['tsid'];
-
-	return dropMap;
-}
+Map<String, dynamic> getDropMap(int count, int slotNum, int subSlotNum) => {
+	'slot': slotNum,
+	'subSlot': subSlotNum,
+	'count': count,
+	'streetName': currentStreet.label,
+	'tsid': currentStreet.streetData['tsid']
+};

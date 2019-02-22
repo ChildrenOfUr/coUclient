@@ -27,15 +27,15 @@ class MetabolicsService {
 	Future setupWebsocket() async {
 		//establish a websocket connection to listen for metabolics objects coming in
 		WebSocket socket = new WebSocket(url);
-		socket.onOpen.listen((_) => socket.send(JSON.encode({'username': game.username})));
+		socket.onOpen.listen((_) => socket.send(jsonEncode({'username': game.username})));
 		socket.onMessage.listen((MessageEvent event) async {
-			Map map = JSON.decode(event.data);
-			if (map['collectQuoin'] != null && map['collectQuoin'] == "true") {
+			Map<String, dynamic> map = jsonDecode(event.data) as Map;
+			if (map['collectQuoin'] != null && map['collectQuoin'] as String == "true") {
 				collectQuoin(map);
 			} else if (map["levelUp"] != null) {
 				levelUp.open(map["levelUp"]);
 			} else {
-				playerMetabolics = decode(event.data, type: Metabolics);
+				playerMetabolics = Metabolics.fromJson(map);
 				if (!load.isCompleted) {
 					load.complete();
 					transmit("metabolicsLoaded", playerMetabolics);
@@ -55,13 +55,13 @@ class MetabolicsService {
 		});
 	}
 
-	void update() => view.meters.updateAll();
+	void update() => view.meters.update();
 
-	void collectQuoin(Map map) {
+	void collectQuoin(Map<String, dynamic> map) {
 		Element element = querySelector('#${map['id']}');
-		quoins[map['id']].checking = false;
+		quoins[map['id'] as String].checking = false;
 
-		if (map['success'] == 'false') return;
+		if (map['success'].toString() == 'false') return;
 
 		num amt = map['amt'];
 		if (querySelector("#buff-quoin") != null) {
@@ -76,7 +76,7 @@ class MetabolicsService {
 		if (quoinType == "mood" && playerMetabolics.mood + amt > playerMetabolics.maxMood) {
 			amt = playerMetabolics.maxMood - playerMetabolics.mood;
 		}
-		quoins[map['id']].collected = true;
+		quoins[map['id'] as String].collected = true;
 
 		Element quoinText = querySelector("#qq" + element.id + " .quoinString");
 
@@ -143,20 +143,23 @@ class MetabolicsService {
 
 	num get currentStreetY => playerMetabolics.currentStreetY;
 
-	List<String> get location_history => JSON.decode(playerMetabolics.locationHistory);
+	List<String> get location_history => (jsonDecode(playerMetabolics.locationHistory) as List).cast<String>();
 
 	Future<int> get level async {
-		String lvlStr = await HttpRequest.getString("${Configs.http}//${Configs.utilServerAddress}/getLevel?img=${lifetime_img.toString()}");
+		String lvlStr = await HttpRequest.getString(
+			"${Configs.http}//${Configs.utilServerAddress}/getLevel?img=${lifetime_img.toString()}");
 		return int.parse(lvlStr);
 	}
 
 	Future<int> get img_req_for_curr_lvl async {
-		String imgStr = await HttpRequest.getString("${Configs.http}//${Configs.utilServerAddress}/getImgForLevel?level=${(await level).toString()}");
+		String imgStr = await HttpRequest.getString(
+			"${Configs.http}//${Configs.utilServerAddress}/getImgForLevel?level=${(await level).toString()}");
 		return int.parse(imgStr);
 	}
 
 	Future<int> get img_req_for_next_lvl async {
-		String imgStr = await HttpRequest.getString("${Configs.http}//${Configs.utilServerAddress}/getImgForLevel?level=${((await level) + 1).toString()}");
+		String imgStr = await HttpRequest.getString(
+			"${Configs.http}//${Configs.utilServerAddress}/getImgForLevel?level=${((await level) + 1).toString()}");
 		return int.parse(imgStr);
 	}
 }

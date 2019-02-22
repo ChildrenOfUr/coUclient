@@ -2,11 +2,16 @@ part of couclient;
 
 Inventory playerInventory = new Inventory();
 
+@JsonSerializable()
 class Slot {
 	//a new instance of a Slot is empty by default
 	String itemType = "";
 	ItemDef item = null;
 	int count = 0;
+
+	Slot();
+	factory Slot.fromJson(Map<String, dynamic> json) => _$SlotFromJson(json);
+	Map<String, dynamic> toJson() => _$SlotToJson(this);
 
 	@override
 	String toString() => 'Slot: $itemType, $count';
@@ -18,11 +23,11 @@ class Inventory {
 	List<Slot> slots = [];
 }
 
-Future updateInventory([Map map]) async {
-	List<Map> dataSlots = [];
+Future updateInventory([Map<String, dynamic> map]) async {
+	List<Map<String, dynamic>> dataSlots = [];
 
 	if (map != null) {
-		dataSlots = map["slots"];
+		dataSlots = (map["slots"] as List).cast<Map<String, dynamic>>();
 	} else {
 		logmessage("Attempted inventory update: failed.");
 		return;
@@ -33,15 +38,15 @@ Future updateInventory([Map map]) async {
 
 	//couldn't get the structure to decode correctly so I hacked together this
 	//it produces the right result, but looks terrible
-	dataSlots.forEach((Map m) {
+	dataSlots.forEach((Map<String, dynamic> m) {
 		Slot slot = new Slot();
-		if (!m['itemType'].isEmpty) {
+		if (!(m['itemType'] as String).isEmpty) {
 			ItemDef item;
 			if (m['item']['metadata']['slots'] == null) {
-				item = decode(JSON.encode(m['item']), type: ItemDef);
+				item = ItemDef.fromJson(m['item']);
 			} else {
-				Map metadata = (m['item'] as Map).remove('metadata');
-				item = decode(JSON.encode(m['item']), type: ItemDef);
+				Map<String, dynamic> metadata = (m['item']).remove('metadata');
+				item = ItemDef.fromJson(m['item']);
 				item.metadata = metadata;
 			}
 			slot.item = item;
@@ -76,7 +81,10 @@ Future updateInventory([Map map]) async {
 				update = true;
 			} else if (currentSlot.item != null && newSlot.item != null &&
 			           !_metadataEqual(currentSlot.item.metadata, newSlot.item.metadata)) {
-				Map indexToItem = {'index':i,'item':newSlot.item};
+				Map<String, dynamic> indexToItem = {
+					'index': i,
+					'item': newSlot.item
+				};
 				transmit('updateMetadata', indexToItem);
 			}
 		}

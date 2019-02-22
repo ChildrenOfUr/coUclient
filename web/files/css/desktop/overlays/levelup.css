@@ -35,8 +35,7 @@
 }
 
 #lu-dropper {
-    background-image: url(../../../system/imgmenu/levelupdropper.svg);
-    background-repeat: no-repeat;
+    background: url(../../../system/imgmenu/levelupdropper.svg) no-repeat;
     width: 1024px;
     height: 768px;
     position: absolute;

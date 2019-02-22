@@ -9,8 +9,6 @@ Element getEntityElement(String id) {
 }
 
 abstract class Entity {
-	Random rand = new Random();
-
 	bool
 		glow = false,
 		dirty = true,
@@ -96,8 +94,7 @@ abstract class Entity {
 		String url = '${Configs.http}//${Configs.utilServerAddress}/getActions';
 		url += '?email=${game.email}&id=$id&label=${currentStreet.label}';
 		List<Action> actionList = [];
-		actions = decode(await HttpRequest.requestCrossOrigin(url),
-											 type: const TypeHelper<List<Action>>().type);
+		actions = decodeJsonArray(jsonDecode(await HttpRequest.requestCrossOrigin(url)), (json) => Action.fromJson(json));
 		actions.forEach((Action action) {
 			enabled = action.enabled;
 			action.actionName = capitalizeFirstLetter(action.actionName);
@@ -135,7 +132,11 @@ abstract class Entity {
 	int get hashCode => id.hashCode;
 
 	@override
-	operator ==(Entity other) {
+	operator ==(other) {
+		if (other is! Entity) {
+			return false;
+		}
+
 		return (other.id == this.id);
 	}
 }
