@@ -39,10 +39,10 @@ class AuthManager {
 		}, sendData: jsonEncode(data));
 	}
 
-	void logout() {
+	void logout() async {
 		logmessage('[AuthManager] Attempting logout');
 		localStorage.remove('username');
-		firebase.auth().signOut();
+		await firebase.auth().signOut();
 		window.location.reload();
 	}
 
